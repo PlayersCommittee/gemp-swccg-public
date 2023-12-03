@@ -1,6 +1,13 @@
 package com.gempukku.swccgo.logic.modifiers;
 
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Variable;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PlayCardOption;
@@ -687,6 +694,9 @@ public interface Modifier {
      */
     boolean isProhibitedFromSearchingCardPile(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId,
                                               Zone cardPile, String cardPileOwner, GameTextActionId gameTextActionId);
+
+    boolean isProhibitedFromSearchingCardPile(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId,
+                                              Zone cardPile, String cardPileOwner);
 
     int getNumDevicesAllowedToUse(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard);
     int getNumWeaponsAllowedToUse(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard);

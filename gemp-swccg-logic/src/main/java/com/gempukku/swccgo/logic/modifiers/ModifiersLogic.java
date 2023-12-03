@@ -12815,6 +12815,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.CANT_SEARCH_CARD_PILE, card))
             if (modifier.isProhibitedFromSearchingCardPile(gameState, this, playerId, cardPile, cardPileOwner, gameTextActionId))
                 return true;
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_SEARCH_CARD_PILE, card))
+            if (modifier.isProhibitedFromSearchingCardPile(gameState, this, playerId, cardPile, cardPileOwner))
+                return true;
         return false;
     }
 

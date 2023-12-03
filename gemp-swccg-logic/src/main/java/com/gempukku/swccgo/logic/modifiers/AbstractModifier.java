@@ -1,6 +1,14 @@
 package com.gempukku.swccgo.logic.modifiers;
 
-import com.gempukku.swccgo.common.*;
+import com.gempukku.swccgo.common.Agenda;
+import com.gempukku.swccgo.common.Filterable;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Variable;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -1184,6 +1192,12 @@ public abstract class AbstractModifier implements Modifier {
     @Override
     public boolean isProhibitedFromSearchingCardPile(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId,
                                                      Zone cardPile, String cardPileOwner, GameTextActionId gameTextActionId) {
+        return false;
+    }
+
+    @Override
+    public boolean isProhibitedFromSearchingCardPile(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId,
+                                                     Zone cardPile, String cardPileOwner) {
         return false;
     }
 

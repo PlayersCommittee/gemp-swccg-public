@@ -41,7 +41,8 @@ public class Card1_100 extends AbstractLostInterrupt {
         // Check condition(s)
         if (TriggerConditions.justForfeitedToLostPileFromLocation(game, effectResult, Filters.and(Filters.your(self),
                 Filters.character, Filters.except(Filters.ObiWan), Filters.canBeTargetedBy(self)), Filters.Tatooine_site)
-                && GameConditions.canUseForceToPlayInterrupt(game, playerId, self, 1)) {
+                && GameConditions.canUseForceToPlayInterrupt(game, playerId, self, 1)
+                && GameConditions.canReviveCharacters(game)) {
             LostFromTableResult lostFromTableResult = (LostFromTableResult) effectResult;
             final PhysicalCard cardLost = lostFromTableResult.getCard();
             final PhysicalCard location = lostFromTableResult.getFromLocation();

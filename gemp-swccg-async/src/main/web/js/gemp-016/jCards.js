@@ -3614,6 +3614,10 @@ var fixedImages = {
 "301_8":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/red12.gif",
 
 //playtesting
+"501_1":"https://res.starwarsccg.org/cards/Virtual5-Light/large/hanchewieandthefalcon.gif",
+"501_2":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/icantbelievehesgone.png",
+"501_3":"https://res.starwarsccg.org/cards/Virtual16-Light/hires/communing.png",
+"501_4":"https://res.starwarsccg.org/cards/Virtual12-Dark/hires/slipslidingaway.png",
 "501_12":"https://res.starwarsccg.org/cards/legacy/VirtualBlock2-Dark/large/imageofthedarklord.gif",
 "501_19": "https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Dark/large/separatistuprising.gif",
 "501_19_BACK": "https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Dark/large/atwarwithitself.gif",

@@ -94,7 +94,7 @@ public class Card221_005 extends AbstractNormalEffect {
             actions.add(action);
         }
 
-        gameTextActionId = GameTextActionId.I_CANT_BELIEVE_HES_GONE__RETURN_A_REBEL;
+        gameTextActionId = GameTextActionId.I_CANT_BELIEVE_HES_GONE__UPLOAD_OR_RETRIEVE_OLD_BEN;
         // Check condition(s)
         if (TriggerConditions.battleEndedAt(game, effectResult, Filters.Tatooine_site)
                 && GameConditions.isOncePerGame(game, self, gameTextActionId)
