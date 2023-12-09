@@ -19112,6 +19112,7 @@ public class Filters {
     public static final Filter Vaders_Obsession = Filters.title(Title.Vaders_Obsession);
     public static final Filter Val = Filters.persona(Persona.VAL);
     public static final Filter Valorum = Filters.title(Title.Valorum);
+    public static final Filter Vanto = Filters.persona(Persona.VANTO);
     public static final Filter Vaporator = Filters.title(Title.Vaporator);
     public static final Filter Veers = Filters.persona(Persona.VEERS);
     public static final Filter vehicle = Filters.type(CardType.VEHICLE);

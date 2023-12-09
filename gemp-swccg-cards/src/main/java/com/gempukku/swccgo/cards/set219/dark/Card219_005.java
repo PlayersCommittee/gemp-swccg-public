@@ -7,6 +7,7 @@ import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -39,6 +40,7 @@ public class Card219_005 extends AbstractImperial {
         setGameText("[Pilot] 2: any capital starship. " +
                     "While with Thrawn, your starships here are power and hyperspeed +1. " +
                     "During your control phase, may use 1 Force to [upload] a card with 'artwork' or 'studied' in game text.");
+        addPersona(Persona.VANTO);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_19);
     }
 
