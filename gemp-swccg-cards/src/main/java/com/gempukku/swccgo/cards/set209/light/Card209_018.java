@@ -91,16 +91,17 @@ public class Card209_018 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
-            int NUM_FORCE = 1;
+            int num_force = 1;
+
             if (damageConditionsSatisfied(game, self, playerId)) {
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-                action.setText("Make opponent lose " + NUM_FORCE + " Force");
+                action.setText("Make opponent lose " + num_force + " Force");
                 // Update usage limit(s)
                 action.appendUsage(
                         new OncePerPhaseEffect(action));
                 // Perform result(s)
                 action.appendEffect(
-                        new LoseForceEffect(action, game.getOpponent(playerId), NUM_FORCE));
+                        new LoseForceEffect(action, game.getOpponent(playerId), num_force));
                 actions.add(action);
             }
         }
@@ -119,14 +120,15 @@ public class Card209_018 extends AbstractNormalEffect {
         // Check if reached end of each control phase and action was not performed yet.
         if (TriggerConditions.isEndOfYourPhase(game, effectResult, Phase.CONTROL, playerId)
                 && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
-            int NUM_FORCE = 1;
+            int num_force = 1;
+
             if (damageConditionsSatisfied(game, self, playerId)) {
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setPerformingPlayer(playerId);
-                action.setText("Make opponent lose " + NUM_FORCE + " Force");
+                action.setText("Make opponent lose " + num_force + " Force");
                 // Perform result(s)
                 action.appendEffect(
-                        new LoseForceEffect(action, opponent, NUM_FORCE));
+                        new LoseForceEffect(action, opponent, num_force));
                 actions.add(action);
             }
         }
