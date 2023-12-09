@@ -876,6 +876,7 @@ public enum GameTextActionId {
     YOU_TRULY_BELONG_HERE_WITH_US__DOWNLOAD_CLOUD_CITY_CELEBRATION(true, true),
     YOUNG_SKYWALKER__RETRIEVE_CARD_INTO_HAND(false, true),
     YOUVE_GOT_A_LOT_OF_GUTS_COMING_HERE__RELOCATE(false, true),
+    ZUCKUSS_WITH_SNARE_RIFLE__PEEK_AT_TOP_CARD_OF_RESERVE_DECK(false, true),
 
     // Per captive
     DUNGEON__RETRIEVE_FORCE(false, false, true, false),

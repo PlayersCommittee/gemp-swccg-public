@@ -6203,6 +6203,75 @@ public class FireWeaponActionBuilder {
     }
 
     /**
+     * Builds a fire weapon action for the permanent weapon Zuckuss' Snare Rifle
+     *
+     * @return the action
+     */
+    public FireSingleWeaponAction buildFirePermanentWeaponZuckussSnareRifleAction() {
+        final FireSingleWeaponAction action = new FireSingleWeaponAction(_sourceCard, _weaponOrCardWithPermanentWeapon, _permanentWeapon, _repeatedFiring, _targetedAsCharacter, _defenseValueAsCharacter, _fireAtTargetFilter, _ignorePerAttackOrBattleLimit);
+        action.setText("Fire " + action.getWeaponTitle(_game));
+
+        // Choose target(s)
+        action.appendTargeting(
+                new TargetCardOnTableEffect(action, _playerId, "Choose target", getTargetFiltersMap(action.getCardFiringWeapon())) {
+                    @Override
+                    protected boolean isIncludeStackedCardsTargetedByWeaponsAsIfPresent() {
+                        return true;
+                    }
+
+                    @Override
+                    protected void cardTargeted(final int targetGroupId, PhysicalCard cardTargeted) {
+                        action.addAnimationGroup(cardTargeted);
+                        _game.getGameState().getWeaponFiringState().setTarget(cardTargeted);
+
+                        // Pay cost(s)
+                        float forceToUse = getUseForceCost(action.getCardFiringWeapon(), cardTargeted);
+                        if (forceToUse > 0) {
+                            action.appendCost(
+                                    new UseForceEffect(action, _playerId, forceToUse));
+                        }
+
+                        // Allow response(s)
+                        action.allowResponses("Fire " + GameUtils.getCardLink(action.getWeaponToFire()) + " at " + GameUtils.getCardLink(cardTargeted),
+                                new RespondableWeaponFiringEffect(action) {
+                                    @Override
+                                    protected void performActionResults(Action targetingAction) {
+                                        // Get the targeted card(s) from the action using the targetGroupId.
+                                        // This needs to be done in case the target(s) were changed during the responses.
+                                        final PhysicalCard cardFiredAt = targetingAction.getPrimaryTargetCard(targetGroupId);
+                                        _game.getGameState().getWeaponFiringState().setTarget(cardFiredAt);
+
+                                        action.appendEffect(
+                                                new DrawDestinyEffect(action, _playerId, 1, DestinyType.WEAPON_DESTINY) {
+                                                    @Override
+                                                    protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
+                                                        GameState gameState = game.getGameState();
+
+                                                        gameState.sendMessage("Total destiny: " + (totalDestiny != null ? GuiUtils.formatAsString(totalDestiny) : "Failed destiny draw"));
+                                                        float targetsPower = game.getModifiersQuerying().getPower(game.getGameState(), cardFiredAt);
+
+                                                        gameState.sendMessage("Target's power: " + GuiUtils.formatAsString(targetsPower));
+                                                        if (totalDestiny != null && totalDestiny + 1 > targetsPower) {
+                                                            gameState.sendMessage("Result: Succeeded");
+                                                            action.appendEffect(
+                                                                    new ExcludeFromBattleEffect(action, cardFiredAt, _permanentWeapon, action.getCardFiringWeapon()));
+                                                        } else {
+                                                            gameState.sendMessage("Result: Failed");
+                                                        }
+                                                    }
+                                                }
+                                        );
+                                    }
+                                }
+                        );
+                    }
+                }
+        );
+
+        return action;
+    }
+
+    /**
      * Builds a fire weapon action for Ezra's Blaster Lightsaber.
      * @return the action
      */

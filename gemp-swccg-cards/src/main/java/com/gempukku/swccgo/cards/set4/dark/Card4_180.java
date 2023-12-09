@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -33,6 +34,7 @@ public class Card4_180 extends AbstractCharacterWeapon {
         super(Side.DARK, 1, "Zuckuss' Snare Rifle", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("Merr-Sonn Munitions, Inc. GRS-1 Snare Rifle. Shoots liquefied shockstun mist up to 150 meters. Liquid spraynet Hardens into a translucent web, confining the stunned target.");
         setGameText("Deploy on Zuckuss, or use 1 Force to deploy on any other bounty hunter. May target a character or creature using 2 Force. Draw destiny. Character captured if destiny -1 > defense value. Creature lost if destiny +1 > defense value.");
+        addPersona(Persona.ZUCKUSS_SNARE_RIFLE);
         addIcons(Icon.DAGOBAH);
         addKeywords(Keyword.RIFLE);
         setMatchingCharacterFilter(Filters.Zuckuss);
