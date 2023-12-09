@@ -182,6 +182,7 @@ public enum Persona implements Filterable {
     IG2000("IG-2000"),
     INVISIBLE_HAND("Invisible Hand"),
     LIBERTINE("Libertine"),
+    MAULS_SITH_INFILTRATOR("Maul's Sith Infiltrator"),
     MIST_HUNTER("Mist Hunter"),
     ONYX_1("Onyx 1"),
     PULSAR_SKATE("Pulsar Skate"),

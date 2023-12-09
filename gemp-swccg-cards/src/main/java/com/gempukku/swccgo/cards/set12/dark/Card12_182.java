@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.conditions.HasPilotingCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -37,6 +38,7 @@ public class Card12_182 extends AbstractStarfighter {
         super(Side.DARK, 6, 3, 4, null, 5, 6, 6, "Maul's Sith Infiltrator", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("One of Sienar Advanced Projects Laboratories' prototype designs. Equipped with advanced weaponry and a full-effect stygium-based cloaking device for invisibility on command.");
         setGameText("May add 2 pilots. Maul deploys -3 aboard. While Maul piloting, immune to attrition and during your move phase, may lose 2 Force to 'cloak' (does not participate in battles) until end of next turn.");
+        addPersona(Persona.MAULS_SITH_INFILTRATOR);
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.INDEPENDENT, Icon.NAV_COMPUTER);
         addModelType(ModelType.SITH_INFILTRATOR);
         setPilotCapacity(2);
