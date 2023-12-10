@@ -11,6 +11,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Variable;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -31,6 +32,7 @@ import com.gempukku.swccgo.logic.effects.ShuffleUsedPileEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeCoveredByHothEnergyShieldModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeUsedToSatisfyAttritionModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
@@ -90,6 +92,7 @@ public class Card222_027_BACK extends AbstractObjective {
         // Front Side Modifiers
         modifiers.add(new MayNotBeCoveredByHothEnergyShieldModifier(self, Filters.or(Filters.Second_Marker, Filters.Third_Marker)));
         modifiers.add(new MayNotPlayModifier(self, Filters.or(Filters.Ice_Storm, Filters.system, Filters.and(Icon.SPECIAL_EDITION, Filters.Leia), Filters.and(Filters.character, Filters.abilityMoreThan(4))), self.getOwner()));
+        modifiers.add(new ImmuneToTitleModifier(self, Filters.title("Echo Base Garrison"), Title.Alter));
 
         // Back Side Modifiers
         Filter characterFilter = Filters.and(Filters.unique, Filters.character, Filters.not(Filters.or(Filters.trooper, Filters.gunner, Filters.pilot)));
