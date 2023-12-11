@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card221_029 extends AbstractNormalEffect {
     public Card221_029() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Send A Detachment Down", Uniqueness.UNIQUE, ExpansionSet.SET_21, Rarity.V);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Send_A_Detachment_Down, Uniqueness.UNIQUE, ExpansionSet.SET_21, Rarity.V);
         setVirtualSuffix(true);
         setLore("Vader sent Imperial stormtroopers to the surface of Tatooine in search of the stolen Death Star plans. 'There'll be no one to stop us this time.'");
         setGameText("Deploy on table. While you occupy Tatooine system, your Force generation is +1 at Tatooine sites you occupy with a trooper and, during your deploy phase, may exchange a non-[Maintenance] Imperial trooper in hand with one in Reserve Deck; reshuffle. [Immune to Alter.]");

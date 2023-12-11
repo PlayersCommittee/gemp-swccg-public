@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card1_229 extends AbstractUtinniEffect {
     public Card1_229() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Send A Detachment Down", Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Send_A_Detachment_Down, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.R1);
         setLore("Vader sent Imperial stormtroopers to the surface of Tatooine in search of the stolen Death Star plans. 'There'll be no one to stop us this time.'");
         setGameText("Use 2 Force to deploy on any Tatooine site (except docking bay). Target any trooper on Death Star. When target reaches Utinni Effect, attrition +1 against opponent in all Tatooine battles as long as target remains at same site as Utinni Effect.");
     }
