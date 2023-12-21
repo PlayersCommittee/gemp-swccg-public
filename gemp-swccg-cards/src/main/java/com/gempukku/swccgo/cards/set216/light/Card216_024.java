@@ -31,6 +31,7 @@ import com.gempukku.swccgo.logic.effects.StackCardFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.CommuningModifier;
 import com.gempukku.swccgo.logic.modifiers.ConsideredOutOfPlayModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotSearchCardPileModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.TotalForceGenerationModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -51,10 +52,11 @@ import java.util.List;
 public class Card216_024 extends AbstractEpicEventDeployable {
     public Card216_024() {
         super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Communing, Uniqueness.UNIQUE, ExpansionSet.SET_16, Rarity.V);
-        setGameText("Deploy on table (only at start of game). You may not deploy Jedi with 'communing' in game text. " +
+        setGameText("Deploy on table (only at start of game). You may not deploy Jedi with 'communing' in game text or search your Used Pile. " +
                 "One With The Force: If a Jedi is about to be lost (or placed out of play) from table, may stack that card here. " +
                 "The Living Force: Jedi stacked here are 'communing' and are considered out of play. Your total Force generation is +1 for each Jedi 'communing.' " +
-                "The Cosmic Force: Once per turn, may peek at the top X cards of your Force Pile or Lost Pile, where X = the number of Jedi 'communing'; may move one of those cards to the bottom of that pile.");
+                "The Cosmic Force: Once per turn, may peek at the top X cards of your Force Pile or Lost Pile, where X = the number of Jedi 'communing'; " +
+                "may move one of those cards to the bottom of that pile.");
         addIcons(Icon.VIRTUAL_SET_16, Icon.EPISODE_I);
     }
 
@@ -69,6 +71,7 @@ public class Card216_024 extends AbstractEpicEventDeployable {
 
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.Jedi, Filters.or(Filters.gameTextContains("communing"), Filters.gameTextContains("communings"))), playerId));
+        modifiers.add(new MayNotSearchCardPileModifier(Filters.your(playerId), playerId, Zone.USED_PILE, playerId));
         modifiers.add(new CommuningModifier(self, Filters.and(Filters.stackedOn(self), Filters.Jedi)));
         modifiers.add(new ConsideredOutOfPlayModifier(self, Filters.stackedOn(self)));
         modifiers.add(new TotalForceGenerationModifier(self, new StackedEvaluator(self, self, Filters.Jedi), playerId));
@@ -126,7 +129,7 @@ public class Card216_024 extends AbstractEpicEventDeployable {
             }
 
             if (jedi != null
-                && game.getModifiersQuerying().canBeTargetedBy(game.getGameState(), jedi, self, Collections.singleton(TargetingReason.TO_BE_PLACED_OUT_OF_PLAY))) {
+                    && game.getModifiersQuerying().canBeTargetedBy(game.getGameState(), jedi, self, Collections.singleton(TargetingReason.TO_BE_PLACED_OUT_OF_PLAY))) {
 
                 final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setText("Stack " + GameUtils.getFullName(jedi) + " here");
@@ -156,7 +159,7 @@ public class Card216_024 extends AbstractEpicEventDeployable {
         // track which Jedi was initially stacked
         if (!GameConditions.cardHasWhileInPlayDataSet(self)
                 && TriggerConditions.justStackedCardOn(game, effectResult, Filters.Jedi, self)) {
-            PhysicalCard stacked = ((StackedCardResult)effectResult).getCard();
+            PhysicalCard stacked = ((StackedCardResult) effectResult).getCard();
             if (stacked != null) {
                 self.setWhileInPlayData(new WhileInPlayData());
                 String communer = stacked.getBlueprint().getTitle();

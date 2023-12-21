@@ -163,7 +163,7 @@
   {
     "name":"Premiere - Endor",
     "code":"premiere_endor",
-    "set":[1, 2, 3, 4, 5, 6, 7, 8, 101, 102, 103, 104, 105, 106, 107, 108]
+    "set":[1, 2, 3, 4, 5, 6, 7, 8, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110]
   },
   {
     "name":"Premiere - Special Edition",
@@ -179,6 +179,12 @@
     "name":"Premiere - Cloud City",
     "code":"premiere_cc",
     "set":[1, 2, 3, 4, 5, 101, 102, 103, 104, 105]
+  },
+  {
+    "name":"Premiere - Cloud City (Modified)",
+    "code":"premiere_cc_m",
+    "set":[1, 2, 3, 4, 5, 101, 102, 103, 104, 105],
+    "banned": ["4_14", "4_16", "4_17", "4_27", "5_85"]
   },
   {
     "name":"Premiere - Dagobah",

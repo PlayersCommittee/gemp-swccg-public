@@ -21,9 +21,9 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
 import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
-import com.gempukku.swccgo.logic.effects.PlaceAtLocationFromLostPileEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
+import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.results.BattleEndedResult;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -40,7 +40,8 @@ public class Card221_005 extends AbstractNormalEffect {
         super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.I_Cant_Believe_Hes_Gone, Uniqueness.UNIQUE, ExpansionSet.SET_21, Rarity.V);
         setVirtualSuffix(true);
         setLore("Even though Luke felt the pain of losing his mentor, Obi-Wan continued to give him strength and guidance through the Force.");
-        setGameText("If Obi-Wan 'communing,' deploy on table. Once per battle, may activate 1 Force or add 1 to a just drawn battle destiny. Once per game, if a battle at a Tatooine site just ended, may 'revive' (return to that site from Lost Pile) a Rebel forfeited from that site this turn. [Immune to Alter.]");
+        setGameText("If Obi-Wan 'communing,' deploy on table. If a Rebel in battle, may activate 1 Force or add 1 to a just drawn battle destiny. " +
+                "Once per game, may either take Old Ben into hand from Reserve Deck (reshuffle) OR retrieve Old Ben from Lost Pile. [Immune to Alter.]");
         addIcons(Icon.TATOOINE, Icon.VIRTUAL_SET_21);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -58,7 +59,7 @@ public class Card221_005 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.isDuringBattle(game)
+                && GameConditions.isDuringBattleWithParticipant(game, Filters.Rebel)
                 && GameConditions.canActivateForce(game, playerId)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Activate 1 Force");
@@ -68,6 +69,41 @@ public class Card221_005 extends AbstractNormalEffect {
             // Perform result(s)
             action.appendEffect(
                     new ActivateForceEffect(action, playerId, 1));
+            actions.add(action);
+        }
+
+        gameTextActionId = GameTextActionId.I_CANT_BELIEVE_HES_GONE__UPLOAD_OR_RETRIEVE_OLD_BEN;
+        // Check condition(s)
+        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
+                && GameConditions.canSearchReserveDeck(game, playerId, self, gameTextActionId)) {
+
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Upload Old Ben");
+            // Update usage limit(s)
+            action.appendUsage(
+                    new OncePerGameEffect(action));
+            // Perform result(s)
+            action.appendEffect(
+                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.Old_Ben, true)
+            );
+
+            actions.add(action);
+        }
+
+        // Check condition(s)
+        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
+                && GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)) {
+
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Retrieve Old Ben");
+            // Update usage limit(s)
+            action.appendUsage(
+                    new OncePerGameEffect(action));
+            // Perform result(s)
+            action.appendEffect(
+                    new RetrieveCardEffect(action, playerId, Filters.Old_Ben)
+            );
+
             actions.add(action);
         }
         return actions;
@@ -82,7 +118,7 @@ public class Card221_005 extends AbstractNormalEffect {
         // Check condition(s)
         if (TriggerConditions.isBattleDestinyJustDrawn(game, effectResult)
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.isDuringBattle(game)) {
+                && GameConditions.isDuringBattleWithParticipant(game, Filters.Rebel)) {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Add 1 to destiny");
             // Update usage limit(s)
@@ -94,30 +130,7 @@ public class Card221_005 extends AbstractNormalEffect {
             actions.add(action);
         }
 
-        gameTextActionId = GameTextActionId.I_CANT_BELIEVE_HES_GONE__UPLOAD_OR_RETRIEVE_OLD_BEN;
-        // Check condition(s)
-        if (TriggerConditions.battleEndedAt(game, effectResult, Filters.Tatooine_site)
-                && GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)
-                && GameConditions.canReviveCharacters(game)) {
 
-            PhysicalCard location = ((BattleEndedResult)effectResult).getLocation();
-
-            if (location != null) {
-
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-                action.setText("'Revive' a forfeited Rebel");
-                // Update usage limit(s)
-                action.appendUsage(
-                        new OncePerGameEffect(action));
-                // Perform result(s)
-                action.appendEffect(
-                        new PlaceAtLocationFromLostPileEffect(action, playerId, Filters.and(Filters.your(self), Filters.Rebel,
-                                Filters.forfeitedFromLocationThisTurn(Filters.and(location))), location, false, false));
-
-                actions.add(action);
-            }
-        }
         return actions;
     }
 }

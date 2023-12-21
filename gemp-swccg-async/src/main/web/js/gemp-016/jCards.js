@@ -3602,6 +3602,13 @@ var fixedImages = {
 "222_30":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/theshieldwillbedowninmoments_ai.png",
 "222_30_BACK":"https://res.starwarsccg.org/cards/Virtual22-Dark/hires/imperialtroopshaveenteredthebase_ai.png",
 
+"223_1":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/notwithinsightorreach.png",
+"223_2":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/wuher.png",
+"223_3":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/zuckusswithsnarerifle.png",
+"223_4":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/ahsokafriendofthefamily.png",
+"223_5":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/jynersoheroicrebel.png",
+"223_6":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/transmissionterminated.png",
+
 "301_1":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/ahsokatanowithlightsabers.gif",
 "301_2":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/cityintheclouds.gif",
 "301_2_BACK":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/youtrulybelongherewithus.gif",
