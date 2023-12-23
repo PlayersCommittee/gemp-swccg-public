@@ -92,14 +92,14 @@ public class Card223_004 extends AbstractAlien {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        if (TriggerConditions.justHit(game, effectResult, Filters.character)) {
+        if (TriggerConditions.justHitBy(game, effectResult, Filters.character, self)) {
             final PhysicalCard card = ((HitResult) effectResult).getCardHit();
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Make " + GameUtils.getCardLink(card) + " forfeit = 0");
             action.setActionMsg("Make " + GameUtils.getCardLink(card) + " forfeit = 0");
             action.appendEffect(
-                    new ResetForfeitUntilEndOfTurnEffect(action, self, 0)
+                    new ResetForfeitUntilEndOfTurnEffect(action, card, 0)
             );
             return Collections.singletonList(action);
         }

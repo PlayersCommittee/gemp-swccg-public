@@ -12,6 +12,7 @@ import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
@@ -45,6 +46,7 @@ public class Card215_011 extends AbstractRebel {
         setLore("Leader. Scout.");
         setGameText("[Pilot] 3. Cancels Kylo's game text here. When deployed, may reveal the top two cards of your Reserve Deck; take one into hand. During battle with Chewie or [Endor] Leia, may add one destiny to total power.");
         addPersona(Persona.HAN);
+        setSpecies(Species.CORELLIAN);
         addIcons(Icon.WARRIOR, Icon.PILOT, Icon.ENDOR, Icon.VIRTUAL_SET_15);
         addKeywords(Keyword.LEADER, Keyword.SCOUT, Keyword.GENERAL);
     }
