@@ -7,6 +7,7 @@ import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
@@ -35,6 +36,7 @@ public class Card222_025 extends AbstractAlienRebel {
         setGameText("Adds 2 to power of anything he pilots. While piloting a freighter, " +
                 "it is defense value +2 and opponent’s immunity to attrition is limited to < 7 here (< 5 if Lando piloting here).");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_22);
+        addPersona(Persona.NIEN_NUNB);
         addKeyword(Keyword.SMUGGLER);
         setSpecies(Species.SULLUSTAN);
     }

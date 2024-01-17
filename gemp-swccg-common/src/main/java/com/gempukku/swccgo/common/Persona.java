@@ -104,6 +104,7 @@ public enum Persona implements Filterable {
     MOTTI("Motti"),
     NALAN_CHEEL("Nalan Cheel"),
     NARTHAX("Narthax"),
+    NIEN_NUNB("Nien Nunb"),
     OBIWAN("Obi-Wan"),
     OCHI("Ochi"),
     ODD_BALL("Odd ball"),

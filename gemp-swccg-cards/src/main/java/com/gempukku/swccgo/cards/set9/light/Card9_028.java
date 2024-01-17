@@ -7,6 +7,7 @@ import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfReserveDeckEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
@@ -39,6 +40,7 @@ public class Card9_028 extends AbstractRebel {
         super(Side.LIGHT, 2, 2, 2, 2, 4, "Nien Nunb", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("Brilliant navigator. Former SoroSuub employee. Turned to pirating when that corporation backed the Empire. Tall for a Sullustan.");
         setGameText("Adds 2 to the power of anything he pilots. When at a mobile sector, once per turn you may peek at the top card of your Reserve Deck; you may place that card on top of your Used Pile. When with General Calrissian may add one battle destiny.");
+        addPersona(Persona.NIEN_NUNB);
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.WARRIOR);
         setSpecies(Species.SULLUSTAN);
     }
