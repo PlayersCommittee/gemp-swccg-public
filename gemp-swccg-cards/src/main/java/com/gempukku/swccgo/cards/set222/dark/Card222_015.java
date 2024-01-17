@@ -93,12 +93,12 @@ public class Card222_015 extends AbstractAlien {
 
         // Check condition(s)
         if (GameConditions.isTwicePerGame(game, self, gameTextActionId)
-                && game.getGameState().getForcePile(playerId).size() >= 2
+                && game.getGameState().getReserveDeck(playerId).size() >= 2
                 && game.getGameState().getHand(playerId).size() == 2) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Draw two cards from Force Pile");
-            action.setActionMsg("Draw two cards from Force Pile");
+            action.setText("Draw two cards from Reserve Deck");
+            action.setActionMsg("Draw two cards from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new TwicePerGameEffect(action));
