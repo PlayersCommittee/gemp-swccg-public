@@ -10,7 +10,15 @@ import com.gempukku.swccgo.logic.timing.SnapshotData;
 import com.gempukku.swccgo.logic.timing.Snapshotable;
 import com.gempukku.swccgo.logic.timing.actions.battle.BattleDamageSegmentAction;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 // This class contains the state information for a
 // battle within a game of Gemp-Swccg.
@@ -619,6 +627,9 @@ public class BattleState implements Snapshotable<BattleState> {
 
         // Add total battle destiny to power
         totalPower += getTotalBattleDestiny(game, playerId);
+
+        // Apply any modifiers after destinies are drawn
+        totalPower += game.getModifiersQuerying().getTotalPowerDuringBattle(game.getGameState(), playerId, getBattleLocation());
 
         return Math.max(0, totalPower);
     }

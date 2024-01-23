@@ -1919,6 +1919,8 @@ public interface ModifiersQuerying {
     // Total at location
     float getTotalPowerAtLocation(GameState gameState, PhysicalCard location, String playerId, boolean inBattle, boolean onlyPresent);
 
+    float getTotalPowerDuringBattle(GameState gameState, String playerId, PhysicalCard battleLocation);
+
     /**
      * Gets the total power (or ferocity) in the attack.
      * @param gameState the game state

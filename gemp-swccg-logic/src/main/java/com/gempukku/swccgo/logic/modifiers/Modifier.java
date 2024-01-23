@@ -294,6 +294,9 @@ public interface Modifier {
     float getAttritionModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard location);
 
     float getTotalPowerModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard location);
+
+    float getTotalPowerDuringBattleModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard location);
+
     float getTotalAbilityModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard location);
 
     float getAbilityModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);

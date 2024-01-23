@@ -3,7 +3,12 @@ package com.gempukku.swccgo.logic.timing;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.*;
+import com.gempukku.swccgo.game.state.AttackState;
+import com.gempukku.swccgo.game.state.BattleState;
+import com.gempukku.swccgo.game.state.DuelState;
+import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.LightsaberCombatState;
+import com.gempukku.swccgo.game.state.SabaccState;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 
 import java.math.RoundingMode;
@@ -55,6 +60,9 @@ public class GuiUtils {
 
         // Add total battle destiny to power
         totalPower += battleState.getTotalBattleDestiny(game, playerId);
+
+        // Apply any modifiers after destinies are drawn
+        totalPower += game.getModifiersQuerying().getTotalPowerDuringBattle(game.getGameState(), playerId, battleState.getBattleLocation());
 
         return Math.max(0, totalPower);
     }

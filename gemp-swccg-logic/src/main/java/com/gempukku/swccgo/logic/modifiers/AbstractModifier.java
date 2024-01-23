@@ -565,6 +565,12 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public float getTotalPowerDuringBattleModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard location) {
+        return 0;
+    }
+
+
+    @Override
     public float getTotalAbilityModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard location) {
         return 0;
     }

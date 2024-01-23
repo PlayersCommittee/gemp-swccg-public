@@ -12283,6 +12283,17 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         return result;
     }
 
+    @Override
+    public float getTotalPowerDuringBattle(GameState gameState, String playerId, PhysicalCard battleLocation) {
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.TOTAL_POWER_DURING_BATTLE, battleLocation)) {
+            if (modifier.isForPlayer(playerId)) {
+                return modifier.getTotalPowerDuringBattleModifier(playerId, gameState, this, battleLocation);
+            }
+        }
+
+        return 0;
+    }
+
     /**
      * Gets the total power (or ferocity) in the attack.
      * @param gameState the game state

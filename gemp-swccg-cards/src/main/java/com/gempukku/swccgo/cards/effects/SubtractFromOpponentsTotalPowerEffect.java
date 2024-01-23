@@ -1,12 +1,11 @@
 package com.gempukku.swccgo.cards.effects;
 
-import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.BattleState;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.modifiers.ModifiersEnvironment;
-import com.gempukku.swccgo.logic.modifiers.TotalPowerModifier;
+import com.gempukku.swccgo.logic.modifiers.TotalPowerDuringBattleModifier;
 import com.gempukku.swccgo.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -37,7 +36,7 @@ public class SubtractFromOpponentsTotalPowerEffect extends AbstractSuccessfulEff
             ModifiersEnvironment modifiersEnvironment = game.getModifiersEnvironment();
 
             modifiersEnvironment.addUntilEndOfBattleModifier(
-                    new TotalPowerModifier(_action.getActionSource(), Filters.battleLocation, -_amount, opponent));
+                    new TotalPowerDuringBattleModifier(_action.getActionSource(), -_amount, opponent));
 
             String msg = playerId + " reduces opponent's total power by " + GuiUtils.formatAsString(_amount) + " using " + GameUtils.getCardLink(_action.getActionSource());
             game.getGameState().sendMessage(msg);
