@@ -45,3 +45,5 @@ gemp-swccg-server/target/
 */.project
 */.settings/*
 .settings/org.eclipse.core.resources.prefs
+
+swccgFormats-utinni.json

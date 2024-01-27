@@ -375,19 +375,52 @@ with open(swccgFormats_json_file) as fh:
 ##
 ## Set the Utinni banned card list in the existing swccgFormats.json data
 ##
+utinni_updated = None
 if type(swccgFormats_json) != None:
   i = 0
   for f in swccgFormats_json:
     if "utinni" in f['name'].lower():
-      print(f)
+      print(Fore.CYAN, f, Style.RESET_ALL)
+      utinni_updated = f
+
+      utinni_updated['banned'] = verboten_for_gemp
+      utinni_updated['set'] = set_ids_for_gemp
+
       swccgFormats_json[i]['banned'] = verboten_for_gemp
       swccgFormats_json[i]['set'] = set_ids_for_gemp
+
     i = i + 1
 
 ##
 ## Update the swccgFormats.json file
 ##
-with open("gemp-swccg-server/src/main/resources/swccgFormats.json", "w") as fh:
-  fh.write(json.dumps(swccgFormats_json, indent=4, sort_keys=True))
+#with open("gemp-swccg-server/src/main/resources/swccgFormats.json", "w") as fh:
+#  fh.write(json.dumps(swccgFormats_json, indent=2, sort_keys=True))
+print()
+print(Fore.YELLOW, "Writing", Fore.WHITE, "swccgFormats-utinni.json", Fore.YELLOW, "for you to manually add to", Fore.WHITE, "swccgFormats.json", Style.RESET_ALL)
+with open("swccgFormats-utinni.json", "w") as fh:
+  u_keys = list(utinni_updated.keys())
+  print(Fore.WHITE, " *", Fore.RED, "Keys:", Fore.YELLOW, u_keys, Style.RESET_ALL)
+  print(Fore.WHITE, " *", Fore.RED, "Parsing keys", Style.RESET_ALL)
+  l = len(u_keys)
+  i = 1
+  fh.write("\n  {\n")
+  for k in u_keys:
+    eol = ","
+    if i >= l:
+      eol = ""
+    print("    {}[{}{}{}/{}{}{}][{}{}{}]{}:{}{}{}{}".format(Fore.WHITE,Fore.GREEN,i,Fore.WHITE,Fore.CYAN,l,Fore.WHITE,Fore.YELLOW,k,Fore.WHITE,Fore.RED,json.dumps(k), json.dumps(utinni_updated[k]), Fore.GREEN, eol, Style.RESET_ALL))
+    if k == "bannedIcons":
+      val = json.dumps(utinni_updated[k], indent=6, sort_keys=True)
+    else:
+      val = json.dumps(utinni_updated[k])
+    fh.write("    {}:{}{}\n".format(json.dumps(k), val, eol))
+    i = i + 1
+  fh.write("  }\n")
 
+print("Take the contents of swccgFormats-utinni.json and manually add them to gemp-swccg-server/src/main/resources/swccgFormats.json")
+print()
+print("Test the JSON file using jq:")
+print("cat gemp-swccg-server/src/main/resources/swccgFormats.json | jq '.'")
+print()
 print("\ndone.\n")
