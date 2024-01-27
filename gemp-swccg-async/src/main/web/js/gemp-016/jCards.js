@@ -856,7 +856,7 @@ var fixedImages = {
 "5_23":"https://res.starwarsccg.org/cards/CloudCity-Light/large/frozenassets.gif",
 "5_24":"https://res.starwarsccg.org/cards/CloudCity-Light/large/haven.gif",
 "5_25":"https://res.starwarsccg.org/cards/CloudCity-Light/large/heroofathousanddevices.gif",
-"5_26":"https://res.starwarsccg.org/cards/CloudCity-Light/large/hindsight.gif",
+"5_26":"https://res.starwarsccg.org/cards/CloudCity-Light/large/hindsight_readable.gif",
 "5_27":"https://res.starwarsccg.org/cards/CloudCity-Light/large/hoppingmad.gif",
 "5_28":"https://res.starwarsccg.org/cards/CloudCity-Light/large/leiaofalderaan.gif",
 "5_29":"https://res.starwarsccg.org/cards/CloudCity-Light/large/uncontrollablefury.gif",
