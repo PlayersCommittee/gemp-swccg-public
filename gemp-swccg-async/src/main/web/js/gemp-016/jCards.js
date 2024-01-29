@@ -3629,6 +3629,33 @@ var fixedImages = {
 "302_50":"https://i.imgur.com/wUdapSB.png",
 "302_50_BACK":"https://i.imgur.com/XgD7Gpl.png",
 "302_51":"https://i.imgur.com/z9YkY1Q.png",
+"303_1":"https://i.imgur.com/Z0iQ6oC.png",
+"303_2":"https://i.imgur.com/emuM6k9.png",
+"303_3":"https://i.imgur.com/1HKs9Bv.png",
+"303_4":"https://i.imgur.com/p4tgdw4.png",
+"303_5":"https://i.imgur.com/gsgxj6P.png",
+"303_6":"https://i.imgur.com/Gdr98oB.png",
+"303_7":"https://i.imgur.com/CZNXErp.png",
+"303_7_BACK":"https://i.imgur.com/cSKqjFn.png",
+"303_8":"https://i.imgur.com/1EqJmTs.png",
+"303_9":"https://i.imgur.com/myo5LbE.png",
+"303_10":"https://i.imgur.com/691oGmT.png",
+"303_11":"https://i.imgur.com/ONDgwyA.png",
+"303_12":"https://i.imgur.com/fhOF43q.png",
+"303_13":"https://i.imgur.com/thATtji.png",
+"303_14":"https://i.imgur.com/hPMNmG5.png",
+"303_15":"https://i.imgur.com/8Gpehfy.png",
+"303_16":"https://i.imgur.com/4XQkLpx.png",
+"303_17":"https://i.imgur.com/OT9mS3P.png",
+"303_18":"https://i.imgur.com/E7VyIOy.png",
+"303_19":"https://i.imgur.com/ts7UXKk.png",
+"303_20":"https://i.imgur.com/EvAxm26.png",
+"303_21":"https://i.imgur.com/4T0qaxm.png",
+"303_22":"https://i.imgur.com/ElJSuNX.png",
+"303_23":"https://i.imgur.com/jAsIiKm.png",
+"303_24":"https://i.imgur.com/iZjkb83.png",
+"303_25":"https://i.imgur.com/D0B6Amb.png",
+"303_26":"https://i.imgur.com/75HbEA5.png",
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/CloudCity-Dark/large/shatteredhope.gif",
@@ -4710,6 +4737,10 @@ var Card = Class.extend({
 				   (cardNo == 28) ||
 				   (cardNo >= 45 && cardNo <=49) ||
 				   (cardNo == 51);
+		}if (setNo == 303) {
+			return (cardNo >= 2 && cardNo <= 4) ||
+			       (cardNo == 13) ||
+				   (cardNo == 15);
         }if (setNo == 501) {
             return (cardNo == 6)  ||
                    (cardNo == 10) ||

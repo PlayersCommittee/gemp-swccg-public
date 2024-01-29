@@ -40,7 +40,7 @@ import java.util.List;
  */
 public class Card6_079 extends AbstractUsedOrLostInterrupt {
     public Card6_079() {
-        super(Side.LIGHT, 4, "Weapon Levitation", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
+        super(Side.LIGHT, 4, Title.Weapon_Levitation, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("A Jedi is taught to use the anger of his opponents (and their weapons) against them.");
         setGameText("USED: Search your Used Pile, take one weapon into hand and reshuffle. LOST: Cancel You Are Beaten. OR If a battle was just initiated, one of your characters of ability > 3 present may steal one character weapon present.");
         addIcons(Icon.JABBAS_PALACE);

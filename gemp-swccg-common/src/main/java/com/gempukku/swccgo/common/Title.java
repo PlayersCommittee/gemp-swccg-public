@@ -1270,5 +1270,20 @@ public interface Title {
 	String Dandoran_Imperial_Outpost = "Dandoran: Imperial Outpost";
 	String Dandoran_Docking_Bay = "Dandoran: Docking Bay";
 	String A_Gathering_Storm = "A Gathering Storm";
+	String Marick_Tyris_Arconae_Exarch = "Marick Tyris Arconae, Exarch";
+	String Jedi_Levitation = "Jedi Levitation";
+	String Weapon_Levitation = "Weapon Levitation";
+	String Shadow_Academy = "The Shadow Academy";
+	String Through_Passion_I_Gain_Strength = "Through Passion, I Gain Strength";
+	String Peace_Is_A_Lie_There_Is_Only_Passion = "Peace Is A Lie, There Is Only Passion";
+	String Through_Power_I_Gain_Victory = "Through Power, I Gain Victory";
+	String Shadow_Academy_Training_Grounds = "Shadow Academy: Training Grounds";
+	String Alethia_Archenksova_Headmistress = "Alethia Archenksova, Headmistress";
+	String Hence_Forth_You_Shall_Be_Known_As = "Hence Forth You Shall Be Known As...";
+	String Shadow_Academy_Holocron = "Shadow Academy Holocron";
+	String Instructor_Aleema = "Instructor Aleema";
+	String Shadow_Academy_Dueling_Platform = "Shadow Academy: Dueling Platform";
+	String Shadow_Academy_Study_Room = "Shadow Academy: Study Room";
+	
 
 }

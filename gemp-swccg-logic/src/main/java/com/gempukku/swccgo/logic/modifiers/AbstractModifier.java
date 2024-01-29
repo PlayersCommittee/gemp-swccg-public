@@ -1218,6 +1218,11 @@ public abstract class AbstractModifier implements Modifier {
     public boolean grantedToDeployToDagobahTarget(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target) {
         return false;
     }
+	
+	@Override
+    public boolean grantedToDeployToShadowAcademyTarget(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target) {
+        return false;
+    }
 
     @Override
     public boolean grantedToDeployToAhchToTarget(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target) {

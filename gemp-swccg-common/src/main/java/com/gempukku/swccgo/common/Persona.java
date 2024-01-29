@@ -159,6 +159,10 @@ public enum Persona implements Filterable {
 	EVANT("Evant"),
 	JAMES("James"),
 	IDRIS("Idris"),
+	ALETHIA("Alethia"),
+	KAMJIN("Kamjin"),
+	MARICK("Marick"),
+	ATRA("Atra"),
 
     // Starships
     BESTOON_LEGACY("Bestoon Legacy"),
@@ -221,6 +225,7 @@ public enum Persona implements Filterable {
     SIDIOUS_LIGHTSABER("Sidious' Lightsaber"),
     SON_OF_VADERS_LIGHTSABER("Son Of Vader's Lightsaber"),
     VADERS_LIGHTSABER("Vader's Lightsaber"),
+	KAMJINS_LIGHTSABER("Kamjin's Lightsaber"),
 
     ;
 

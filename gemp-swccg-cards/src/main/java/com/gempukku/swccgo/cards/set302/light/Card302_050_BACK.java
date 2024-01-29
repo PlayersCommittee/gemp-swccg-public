@@ -54,7 +54,7 @@ public class Card302_050_BACK extends AbstractObjective {
         String opponent = game.getOpponent(playerId);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new ForceDrainModifier(self, Filters.any, -1, opponent));
+        modifiers.add(new ForceDrainModifier(self, Filters.Dandoran_site, -1, opponent));
         modifiers.add(new DeployCostToLocationModifier(self, Filters.Dark_Councilor, 3, Filters.Dandoran_site));
         modifiers.add(new TotalBattleDestinyModifier(self, new OccupiesWithEvaluator(self, playerId, Filters.Dandoran_site, Filters.CHILDREN_OF_MORTIS), playerId));
         return modifiers;

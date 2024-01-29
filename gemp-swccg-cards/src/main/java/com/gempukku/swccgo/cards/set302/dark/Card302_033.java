@@ -27,6 +27,7 @@ import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.HitResult;
+import com.gempukku.swccgo.common.Persona;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -45,6 +46,7 @@ public class Card302_033 extends AbstractDarkJediMaster {
         setGameText("May use two weapons. May 'pass judgement' on a single character deployed to his location or any character that was just 'hit'; character is lost. ");
         addIcon(Icon.WARRIOR, 2);
         addKeywords(Keyword.LEADER, Keyword.DARK_COUNCILOR);
+		addPersona(Persona.ATRA);
     }
 
 

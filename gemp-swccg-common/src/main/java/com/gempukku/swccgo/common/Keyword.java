@@ -200,7 +200,15 @@ public enum Keyword implements Filterable {
     COUNCILOR("Councilor", true, true),
 	HAND("Hand", true, true),
 	CRYSTAL_CREATURE("Crystal Creature", true, true),
-	CHILDREN_OF_MORTIS("Children of Mortis", true, true);
+	CHILDREN_OF_MORTIS("Children of Mortis", true, true),
+	SHADOW_ACADEMY_LOCATION("Shadow Academy Location", true, true),
+	HEADMASTER("Headmaster", true, true),
+	INSTRUCTOR("Instructor", true, true),
+	SITH_TEST_1("Sith Test 1", true, true),
+	SITH_TEST_2("Sith Test 2", true, true),
+	SITH_TEST_3("Sith Test 3", true, true),
+	SITH_TEST_4("Sith Test 4", true, true),
+	SITH_TEST_5("Sith Test 5", true, true);
 
 
 

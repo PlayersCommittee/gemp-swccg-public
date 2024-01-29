@@ -2798,6 +2798,8 @@ public interface ModifiersQuerying {
     boolean isSquadronAllowedToDeploy(GameState gameState, PhysicalCard card);
 
     boolean grantedToDeployToDagobahTarget(GameState gameState, PhysicalCard playedCard, PhysicalCard target);
+	
+	boolean grantedToDeployToShadowAcademyTarget(GameState gameState, PhysicalCard playedCard, PhysicalCard target);
 
     boolean grantedToDeployToAhchToTarget(GameState gameState, PhysicalCard playedCard, PhysicalCard target);
 

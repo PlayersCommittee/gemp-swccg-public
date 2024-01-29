@@ -18854,7 +18854,7 @@ public class Filters {
     public static final Filter starship_cannon = Filters.and(CardType.WEAPON, CardSubtype.STARSHIP, Filters.or(Keyword.CANNON, Keyword.ION_CANNON, Keyword.LASER_CANNON));
     public static final Filter Super_class_Star_Destroyer = Filters.modelType(ModelType.SUPER_CLASS_STAR_DESTROYER);
     public static final Filter Taking_Control_Of_The_Weapon = Filters.title(Title.Taking_Control_Of_The_Weapon);
-
+	
     /**
      * Wrapper method to allow other static filters to access the wrapped filter.
      */
@@ -19219,6 +19219,28 @@ public class Filters {
 	public static final Filter Dandoran_Docking_Bay = Filters.title(Title.Dandoran_Docking_Bay);
 	public static final Filter Dandoran_site = Filters.and(Filters.partOfSystem(Title.Dandoran), CardSubtype.SITE);
 	public static final Filter TIE_WI = Filters.modelType(ModelType.TIE_WI);
+	public static final Filter Jedi_Levitation = Filters.title(Title.Jedi_Levitation);
+	public static final Filter Weapon_Levitation = Filters.title(Title.Weapon_Levitation);
+	public static final Filter Shadow_Academy = Filters.title(Title.Shadow_Academy);
+	public static final Filter ALETHIA = Filters.persona(Persona.ALETHIA);
+	public static final Filter Through_Passion_I_Gain_Strength = Filters.title(Title.Through_Passion_I_Gain_Strength);
+	public static final Filter Peace_Is_A_Lie_There_Is_Only_Passion = Filters.title(Title.Peace_Is_A_Lie_There_Is_Only_Passion);
+	public static final Filter Shadow_Academy_Training_Grounds = Filters.title(Title.Shadow_Academy_Training_Grounds);
+	public static final Filter Through_Power_I_Gain_Victory = Filters.title(Title.Through_Power_I_Gain_Victory);
+	public static final Filter HEADMASTER = Filters.keyword(Keyword.HEADMASTER);
+	public static final Filter Shadow_Academy_location = Filters.and(Keyword.SHADOW_ACADEMY_LOCATION, CardSubtype.SITE);
+	public static final Filter Shadow_Academy_Holocron = Filters.title(Title.Shadow_Academy_Holocron);
+	public static final Filter INSTRUCTOR = Filters.keyword(Keyword.INSTRUCTOR);
+	public static final Filter Shadow_Academy_Dueling_Platform = Filters.title(Title.Shadow_Academy_Dueling_Platform);
+	public static final Filter Shadow_Academy_Study_Room = Filters.title(Title.Shadow_Academy_Study_Room);
+	public static final Filter SITH_TEST_1 = Filters.keyword(Keyword.SITH_TEST_1);
+	public static final Filter SITH_TEST_2 = Filters.keyword(Keyword.SITH_TEST_2);
+	public static final Filter SITH_TEST_3 = Filters.keyword(Keyword.SITH_TEST_3);
+	public static final Filter SITH_TEST_4 = Filters.keyword(Keyword.SITH_TEST_4);
+	public static final Filter SITH_TEST_5 = Filters.keyword(Keyword.SITH_TEST_5);
+	public static final Filter Kamjin = Filters.persona(Persona.KAMJIN);
+	public static final Filter Marick = Filters.persona(Persona.MARICK);
+	public static final Filter Atra = Filters.persona(Persona.ATRA);
 
 
 
