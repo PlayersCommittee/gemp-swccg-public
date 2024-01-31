@@ -3656,6 +3656,7 @@ var fixedImages = {
 "303_24":"https://i.imgur.com/iZjkb83.png",
 "303_25":"https://i.imgur.com/D0B6Amb.png",
 "303_26":"https://i.imgur.com/75HbEA5.png",
+"303_27":"https://i.imgur.com/0mqdEFD.png",
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/CloudCity-Dark/large/shatteredhope.gif",

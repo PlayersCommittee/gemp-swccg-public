@@ -226,6 +226,7 @@ public enum Persona implements Filterable {
     SON_OF_VADERS_LIGHTSABER("Son Of Vader's Lightsaber"),
     VADERS_LIGHTSABER("Vader's Lightsaber"),
 	KAMJINS_LIGHTSABER("Kamjin's Lightsaber"),
+	KAIS_LIGHTSABER("Kai's Lightsaber"),
 
     ;
 
