@@ -16,11 +16,32 @@ import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.modifiers.*;
-import com.gempukku.swccgo.logic.timing.*;
-import com.gempukku.swccgo.logic.timing.results.*;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifierFlag;
+import com.gempukku.swccgo.logic.modifiers.ModifiersEnvironment;
+import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.TotalBattleDestinyModifier;
+import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
+import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.GuiUtils;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.results.AboutToCompleteDrawingDestinyResult;
+import com.gempukku.swccgo.logic.timing.results.AboutToDrawDestinyCardResult;
+import com.gempukku.swccgo.logic.timing.results.CostToDrawDestinyCardResult;
+import com.gempukku.swccgo.logic.timing.results.DestinyDrawCompleteResult;
+import com.gempukku.swccgo.logic.timing.results.DestinyDrawnResult;
+import com.gempukku.swccgo.logic.timing.results.RaceDestinyStackedResult;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * An effect that causes the specified player to draw destiny.
@@ -627,6 +648,12 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                         // Check if training destinies are draw 2 and choose 1
                         if (_destinyType == DestinyType.TRAINING_DESTINY
                                 && game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.DRAW_TWO_AND_CHOOSE_ONE_FOR_TRAINING_DESTINY, _performingPlayerId)) {
+                            setDrawXAndChooseY(2, 1);
+                        }
+
+                        // Check if Epic Event Weapon destinies are draw 2 and choose 1
+                        if (_destinyType == DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY
+                                && game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.DRAW_TWO_AND_CHOOSE_ONE_FOR_EPIC_EVENT_AND_WEAPON_DESTINY, _performingPlayerId)) {
                             setDrawXAndChooseY(2, 1);
                         }
                     }
