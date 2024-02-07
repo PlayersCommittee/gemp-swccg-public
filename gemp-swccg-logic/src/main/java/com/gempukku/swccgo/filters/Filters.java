@@ -17527,6 +17527,7 @@ public class Filters {
     public static final Filter Any_Methods_Necessary = Filters.title(Title.Any_Methods_Necessary);
     public static final Filter Ardon_Crell = Filters.title(Title.Ardon_Crell);
     public static final Filter Arleil = Filters.title(Title.Arleil);
+    public static final Filter Armorer = Filters.persona(Persona.ARMORER);
     public static final Filter Arnet = Filters.title(Title.Arnet);
     public static final Filter artillery_weapon = Filters.and(CardType.WEAPON, CardSubtype.ARTILLERY);
     public static final Filter Arven = Filters.title(Title.Arven);
@@ -17672,6 +17673,7 @@ public class Filters {
     public static final Filter Captain_Tarpals = Filters.title(Title.Captain_Tarpals);
     public static final Filter Captive_Fury = Filters.title(Title.Captive_Fury);
     public static final Filter Captive_Pursuit = Filters.title(Title.Captive_Pursuit);
+    public static final Filter Cara_Dune = Filters.persona(Persona.CARA_DUNE);
     public static final Filter Carbon_Chamber_Testing = Filters.title(Title.Carbon_Chamber_Testing);
     public static final Filter Carbon_Freezing = Filters.title(Title.Carbon_Freezing);
     public static final Filter Carbonite_Chamber = Filters.title(Title.Carbonite_Chamber);
@@ -18091,6 +18093,7 @@ public class Filters {
     public static final Filter Great_Pit_Of_Carkoon = Filters.title(Title.Great_Pit_Of_Carkoon);
     public static final Filter Great_Warrior = Filters.title(Title.Great_Warrior);
     public static final Filter Greedo = Filters.title(Title.Greedo);
+    public static final Filter Greef = Filters.persona(Persona.GREEF);
     public static final Filter Green_Leader = Filters.persona(Persona.GREEN_LEADER);
     public static final Filter Green_Squadron_1 = Filters.persona(Persona.GREEN_SQUADRON_1);
     public static final Filter Green_Squadron_3 = Filters.persona(Persona.GREEN_SQUADRON_3);
@@ -18178,6 +18181,7 @@ public class Filters {
     public static final Filter Ice_Storm = Filters.title(Title.Ice_Storm);
     public static final Filter Id_Just_As_Soon_Kiss_A_Wookiee = Filters.title(Title.Id_Just_As_Soon_Kiss_A_Wookiee);
     public static final Filter If_The_Trace_Was_Correct = Filters.title(Title.If_The_Trace_Was_Correct);
+    public static final Filter IG11 = Filters.persona(Persona.IG11);
     public static final Filter IG88 = Filters.persona(Persona.IG88);
     public static final Filter Igar = Filters.title(Title.Igar);
     public static final Filter I_Had_No_Choice = Filters.title(Title.I_Had_No_Choice);

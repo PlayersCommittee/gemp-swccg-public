@@ -3625,6 +3625,10 @@ var fixedImages = {
 "501_2":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/icantbelievehesgone.png",
 "501_3":"https://res.starwarsccg.org/cards/Virtual16-Light/hires/communing.png",
 "501_4":"https://res.starwarsccg.org/cards/Virtual12-Dark/hires/slipslidingaway.png",
+"501_5":"https://res.starwarsccg.org/cards/ANewHope-Light/large/corellia.gif",
+"501_6":"https://res.starwarsccg.org/cards/Coruscant-Light/large/naboobattleplains.gif",
+"501_7":"https://res.starwarsccg.org/cards/Hoth-Light/large/hothechodockingbay.gif",
+"501_8":"https://res.starwarsccg.org/cards/Hoth-Light/large/hothechocommandcenterwarroom.gif",
 "501_12":"https://res.starwarsccg.org/cards/legacy/VirtualBlock2-Dark/large/imageofthedarklord.gif",
 "501_19": "https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Dark/large/separatistuprising.gif",
 "501_19_BACK": "https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Dark/large/atwarwithitself.gif",
@@ -4597,7 +4601,10 @@ var Card = Class.extend({
                      return (cardNo == 9) ||
                             (cardNo == 22);
         }if (setNo == 501) {
-            return (cardNo == 21) ||
+            return (cardNo == 6) ||
+                   (cardNo == 7) ||
+                   (cardNo == 8) ||
+                   (cardNo == 21) ||
                    (cardNo == 24) ||
                    (cardNo == 27) ||
                    (cardNo == 29) ||

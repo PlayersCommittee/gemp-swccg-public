@@ -115,6 +115,7 @@ public enum Icon implements Filterable {
     GRABBER("Grabber"),
     INDEPENDENT("Independent"),
     MAINTENANCE("Maintenance"),
+    MUDHORN("Mudhorn"),
     SCOMP_LINK("Scomp Link"),
     SEPARATIST("Separatist"),
     SETUP("Setup"),

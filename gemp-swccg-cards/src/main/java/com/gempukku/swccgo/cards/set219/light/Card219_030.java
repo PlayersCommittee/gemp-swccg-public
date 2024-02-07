@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
@@ -42,6 +43,7 @@ public class Card219_030 extends AbstractAlien {
                 "Permanent weapon is •Cara's Heavy Blaster Rifle (twice per battle, may target a character or vehicle; " +
                 "draw destiny; target hit, and its forfeit is cumulatively -3, if destiny +1 > defense value).");
         addKeywords(Keyword.FEMALE, Keyword.GAMBLER, Keyword.TROOPER);
+        addPersona(Persona.CARA_DUNE);
         setSpecies(Species.ALDERAANIAN);
         addIcons(Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.VIRTUAL_SET_19);
     }

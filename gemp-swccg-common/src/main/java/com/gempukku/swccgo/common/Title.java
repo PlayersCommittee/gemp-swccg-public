@@ -745,6 +745,7 @@ public interface Title {
     String Neck_And_Neck = "Neck And Neck";
     String Needa = "Captain Needa";
     String Nevar_Yalnal = "Nevar Yalnal";
+    String Nevarro = "Nevarro";
     String Never_Tell_Me_The_Odds = "Never Tell Me The Odds";
     String Nien_Nunb = "Nien Nunb";
     String Nightclub = "Coruscant: Night Club";
