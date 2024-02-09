@@ -44,6 +44,10 @@ services:
     tty: true
     depends_on:
       - gempdb
+    volumes:
+       - type: bind
+         source: ./gemp-swccg-async/src/main/web/
+         target: /opt/gemp-swccg/web
     environment:
       - "db_hostname=gempdb"
     command: ["/usr/bin/wait-for-it.sh", "gempdb:3306", "--",

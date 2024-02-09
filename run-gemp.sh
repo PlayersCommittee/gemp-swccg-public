@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 rm -rf /env/gemp-swccg/web/Build
-unzip -o gemp-swccg-async/target/web.zip -d /env/gemp-swccg/web/
 if [ -f gemp-swccg-async/target/web.jar ]; then
   cp gemp-swccg-async/target/web.jar /env/gemp-swccg/
 else

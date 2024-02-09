@@ -23,10 +23,6 @@ RUN mkdir -p /opt/gemp-swccg/web && \
 ## a small quality of life addition for those times when entering the container
 RUN echo 'export PS1="\u@\h:\w\$ "' > /etc/profile.d/ps1.sh && chmod +x /etc/profile.d/ps1.sh
 
-## copy artifacts in to the container
-COPY gemp-swccg-async/src/main/web \
-     /opt/gemp-swccg/web
-
 COPY gemp-swccg-async/target/web.jar \
      /opt/gemp-swccg/
 
@@ -46,6 +42,7 @@ USER gemp
 WORKDIR /opt/gemp-swccg
 
 ## default parameters representing a test, non-prod, setup
+ENV "environment" "test"
 ENV "application_root" "/opt/gemp-swccg"
 ENV "db_hostname"      "gempdb"
 ENV "db_dbname"        "gemp-swccg"
