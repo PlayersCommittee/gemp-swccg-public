@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.AboardCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -26,9 +27,10 @@ import java.util.List;
 public class Card3_021 extends AbstractRebel {
     public Card3_021() {
         super(Side.LIGHT, 2, 2, 1, 1, 3, "Tauntaun Handler", Uniqueness.RESTRICTED_3, ExpansionSet.HOTH, Rarity.C2);
-        setLore("Corman Quien is a typical scout at Echo Base. Captured, tanned and trained the native tauntauns.");
+        setLore("Corman Quien is a typical scout at Echo Base. Captured, tamed and trained the native tauntauns.");
         setGameText("Adds 2 to power of any creature vehicle he rides. When riding a tauntaun, also draws one battle destiny if not able to otherwise.");
         addIcons(Icon.HOTH, Icon.WARRIOR);
+        addKeywords(Keyword.SCOUT);
     }
 
     @Override
