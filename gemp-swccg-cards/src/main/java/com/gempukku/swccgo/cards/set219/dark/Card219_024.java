@@ -79,7 +79,7 @@ public class Card219_024 extends AbstractUsedOrLostInterrupt {
                                 }
                             }
 
-                            Collection<PhysicalCard> characters = Filters.filterActive(game, self, Filters.and(Filters.or(finalTarget, Filters.opponents(playerId)), Filters.canBeTargetedBy(self), Filters.character, Filters.participatingInBattle, toReduce));
+                            Collection<PhysicalCard> characters = Filters.filterActive(game, self, Filters.or(finalTarget, Filters.and(Filters.opponents(playerId), Filters.canBeTargetedBy(self), Filters.character, Filters.participatingInBattle, toReduce)));
                             action.appendEffect(
                                     new AddUntilEndOfBattleModifierEffect(action, new PowerModifier(self, Filters.in(characters), -1), "Makes " + GameUtils.getAppendedNames(characters) + " power -1"));
                             action.appendEffect(
