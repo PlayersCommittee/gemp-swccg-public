@@ -1181,6 +1181,7 @@ public interface Title {
     String We_Have_A_Prisoner = "We Have A Prisoner";
     String We_Need_Luke_Skywalker = "We Need Luke Skywalker";
     String We_Need_Your_Help = "We Need Your Help";
+    String Weapons_Are_Part_Of_My_Religion = "Weapons Are Part Of My Religion";
     String Weather_Vane = "Weather Vane";
     String Weequay_Guard = "Weequay Guard";
     String Weequay_Marksman = "Weequay Marksman";
