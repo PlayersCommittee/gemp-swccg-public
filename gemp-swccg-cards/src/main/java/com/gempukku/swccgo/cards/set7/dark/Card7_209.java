@@ -44,7 +44,7 @@ public class Card7_209 extends AbstractAlien {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new PowerModifier(self, new AtCondition(self, Filters.Jabbas_Palace_site), 2));
         modifiers.add(new PowerModifier(self, otherMusiciansFilter, 2));
-        modifiers.add(new ImmuneToAttritionLessThanModifier(self, otherMusiciansFilter, 2));
+        modifiers.add(new ImmuneToAttritionLessThanModifier(self, otherMusiciansFilter, 3));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 4));
         return modifiers;
     }
