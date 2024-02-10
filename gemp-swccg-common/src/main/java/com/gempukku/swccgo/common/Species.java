@@ -24,6 +24,7 @@ public enum Species implements Filterable {
     CHADRAFAN("Chadra-Fan", true),
     CHAGRIAN("Chagrian", true),
     CHEVIN("Chevin", true),
+    CHISS("Chiss", true),
     CHORINIAN("Chorinian", true),
     CLAWDITE("Clawdite", true),
     CORELLIAN("Corellian", true),

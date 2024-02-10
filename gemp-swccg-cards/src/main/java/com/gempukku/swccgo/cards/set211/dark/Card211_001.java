@@ -11,6 +11,7 @@ import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
@@ -52,6 +53,7 @@ public class Card211_001 extends AbstractAlienImperial {
         addIcons(Icon.REFLECTIONS_II, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_11);
         addPersona(Persona.THRAWN);
         addKeywords(Keyword.LEADER, Keyword.COMMANDER);
+        setSpecies(Species.CHISS);
     }
 
     @Override
