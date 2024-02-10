@@ -96,6 +96,8 @@ public interface Title {
     String Beru_Lars = "Beru Lars";
     String Beru_Stew = "Beru Stew";
     String Besieged = "Besieged";
+    String Beskar_Armor = "Beskar Armor";
+    String Beskar_Deflection = "Beskar Deflection";
     String Bespin = "Bespin";
     String Bespin_Cloud_City = "Bespin: Cloud City";
     String Bib = "Bib Fortuna";

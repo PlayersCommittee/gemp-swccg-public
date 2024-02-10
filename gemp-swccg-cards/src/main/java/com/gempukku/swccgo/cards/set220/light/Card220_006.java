@@ -10,6 +10,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -38,7 +39,7 @@ import java.util.List;
  */
 public class Card220_006 extends AbstractUsedOrLostInterrupt {
     public Card220_006() {
-        super(Side.LIGHT, 4, "Beskar Deflection", Uniqueness.UNRESTRICTED, ExpansionSet.SET_20, Rarity.V);
+        super(Side.LIGHT, 4, Title.Beskar_Deflection, Uniqueness.UNRESTRICTED, ExpansionSet.SET_20, Rarity.V);
         setLore("");
         setGameText("USED: Target your Mandalorian that was just 'hit' by a character weapon. Opponent chooses: Restore target to normal or the character that fired the weapon is also 'hit.' " +
                 "LOST: Once per game, if your Mandalorian is in battle, add 2 to a just drawn destiny.");

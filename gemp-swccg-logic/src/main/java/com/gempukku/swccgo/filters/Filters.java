@@ -17586,6 +17586,7 @@ public class Filters {
     public static final Filter Beru = Filters.title(Title.Beru_Lars);
     public static final Filter Beru_Stew = Filters.title(Title.Beru_Stew);
     public static final Filter Besieged = Filters.title(Title.Besieged);
+    public static final Filter Beskar_Deflection = Filters.title(Title.Beskar_Deflection);
     public static final Filter Bespin_Cloud_City = Filters.title(Title.Bespin_Cloud_City);
     public static final Filter Bespin_cloud_sector = Filters.and(Filters.partOfSystem(Title.Bespin), Keyword.CLOUD_SECTOR);
     public static final Filter Bespin_location = Filters.partOfSystem(Title.Bespin);

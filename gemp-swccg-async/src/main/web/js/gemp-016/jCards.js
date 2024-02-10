@@ -3630,6 +3630,7 @@ var fixedImages = {
 "501_7":"https://res.starwarsccg.org/cards/Hoth-Light/large/hothechodockingbay.gif",
 "501_8":"https://res.starwarsccg.org/cards/Hoth-Light/large/hothechocommandcenterwarroom.gif",
 "501_9":"https://res.starwarsccg.org/cards/Premiere-Light/large/plastoidarmor.gif",
+"501_10":"https://res.starwarsccg.org/cards/ReflectionsII-Light/large/mercenaryarmor.gif",
 "501_12":"https://res.starwarsccg.org/cards/legacy/VirtualBlock2-Dark/large/imageofthedarklord.gif",
 "501_19": "https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Dark/large/separatistuprising.gif",
 "501_19_BACK": "https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Dark/large/atwarwithitself.gif",
