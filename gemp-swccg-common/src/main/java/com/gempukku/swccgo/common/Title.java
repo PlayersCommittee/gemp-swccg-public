@@ -1284,6 +1284,7 @@ public interface Title {
 	String Instructor_Aleema = "Instructor Aleema";
 	String Shadow_Academy_Dueling_Platform = "Shadow Academy: Dueling Platform";
 	String Shadow_Academy_Study_Room = "Shadow Academy: Study Room";
+	String Dark_Side_Corruption = "Dark Side Corruption";
 	
 
 }

@@ -3657,6 +3657,9 @@ var fixedImages = {
 "303_25":"https://i.imgur.com/D0B6Amb.png",
 "303_26":"https://i.imgur.com/75HbEA5.png",
 "303_27":"https://i.imgur.com/0mqdEFD.png",
+"303_28":"https://i.imgur.com/DYbQNbu.png",
+"303_29":"https://i.imgur.com/L3Wc0dj.png",
+"303_30":"https://i.imgur.com/Xu7kfjJ.png",
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/CloudCity-Dark/large/shatteredhope.gif",
@@ -4230,6 +4233,7 @@ var fixedImages = {
 "208_17ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/restorefreedomtothegalaxy_ai.png",
 "216_43ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/tatooineobiwanshut_ai.png",
 "302_25ai":"https://i.imgur.com/3BD62vH.png",
+"302_29ai":"https://i.imgur.com/olRnWpk.png",
 
 };
 

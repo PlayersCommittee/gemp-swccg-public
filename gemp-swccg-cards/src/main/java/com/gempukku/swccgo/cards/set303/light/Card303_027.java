@@ -91,7 +91,7 @@ public class Card303_027 extends AbstractRebel {
                     new OncePerBattleEffect(action));
             // Pay cost(s)
             action.appendCost(
-                    new UseForceEffect(action, playerId, 2));
+                    new UseForceEffect(action, playerId, 3));
             // Perform result(s)
             action.appendEffect(
                     new CancelDestinyEffect(action));

@@ -128,7 +128,8 @@ public enum ModelType implements Filterable {
     ZETA_CLASS_TRANSPORT("Zeta-Class Transport"),
 	E_WING("E-wing"),
 	TIE_WI("TIE/wi"),
-	CRYSTAL("Crystal");
+	CRYSTAL("Crystal"),
+	XTR711("XTR-711 Attack Ship");
 
     private String _humanReadable;
     private boolean _infoDisplayable;

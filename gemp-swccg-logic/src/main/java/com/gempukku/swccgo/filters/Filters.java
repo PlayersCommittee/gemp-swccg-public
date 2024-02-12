@@ -19241,6 +19241,7 @@ public class Filters {
 	public static final Filter Kamjin = Filters.persona(Persona.KAMJIN);
 	public static final Filter Marick = Filters.persona(Persona.MARICK);
 	public static final Filter Atra = Filters.persona(Persona.ATRA);
+	public static final Filter Dark_Side_Corruption = Filters.title(Title.Dark_Side_Corruption);
 
 
 
