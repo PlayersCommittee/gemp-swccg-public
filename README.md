@@ -30,14 +30,11 @@ GEMP-SWCCG - server/client for playing Star Wars CCG using a web browser. The pr
 
 
 ### Docker-Compose
-
-* `docker-compose.yml` can be used, _instead of the utility scripts below,_ to create a development/test environment.
-* Docker compose will build the container images.
-* Before bringing up the test environment using `docker-compose`, compile gemp.
+_Instead of the utility scripts below,_ to create a development/test environment you can run the following commands. The first command will compile the Java Server, and the second command will build and then apply the local developer settings from `docker-compose.dev.yml` on top on the base Docker image.
 
 ```bash
 mvn clean install
-docker-compose up
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 ```
 
 
@@ -52,7 +49,7 @@ docker-compose up
 ### Connecting to the local dev/test gemp server
 
 
-* After starting the server, point your browser of choice to: http://0.0.0.0:8080/gemp-swccg/
+* After starting the server, point your browser of choice to: http://0.0.0.0:8080/gemp-swccg/ (or localhost:8080/gemp-swccg depending on your system)
 
 
 
