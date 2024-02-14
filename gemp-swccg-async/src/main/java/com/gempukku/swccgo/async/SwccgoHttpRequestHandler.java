@@ -139,11 +139,9 @@ public class SwccgoHttpRequestHandler extends SimpleChannelUpstreamHandler {
                 } finally {
                     IOUtils.closeQuietly(fis);
                 }
-            } else {
-                _log.debug("File " + canonicalPath + " served from cache");
             }
 
-                writeHttpByteResponse(request, fileBytes, getHeadersForFile(headers, file), e);
+            writeHttpByteResponse(request, fileBytes, getHeadersForFile(headers, file), e);
         } catch (IOException exp) {
             writeHttpErrorResponse(request, 500, null, e);
         }

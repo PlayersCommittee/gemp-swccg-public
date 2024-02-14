@@ -8,5 +8,8 @@ services:
        - type: bind
          source: ./gemp-swccg-async/src/main/web/
          target: /opt/gemp-swccg/web
+       - type: bind
+         source: ./gemp-swccg-async/target/web.jar
+         target: /opt/gemp-swccg/web.jar
     environment:
       - "environment=test"

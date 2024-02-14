@@ -23,6 +23,9 @@ RUN mkdir -p /opt/gemp-swccg/web && \
 ## a small quality of life addition for those times when entering the container
 RUN echo 'export PS1="\u@\h:\w\$ "' > /etc/profile.d/ps1.sh && chmod +x /etc/profile.d/ps1.sh
 
+COPY gemp-swccg-async/src/main/web \
+     /opt/gemp-swccg/web
+
 COPY gemp-swccg-async/target/web.jar \
      /opt/gemp-swccg/
 
