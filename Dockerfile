@@ -42,7 +42,6 @@ USER gemp
 WORKDIR /opt/gemp-swccg
 
 ## default parameters representing a test, non-prod, setup
-ENV "environment" "test"
 ENV "application_root" "/opt/gemp-swccg"
 ENV "db_hostname"      "gempdb"
 ENV "db_dbname"        "gemp-swccg"
