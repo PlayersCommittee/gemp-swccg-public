@@ -4234,6 +4234,7 @@ var fixedImages = {
 "216_43ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/tatooineobiwanshut_ai.png",
 "302_25ai":"https://i.imgur.com/3BD62vH.png",
 "302_29ai":"https://i.imgur.com/olRnWpk.png",
+"303_27ai":"https://i.imgur.com/B1pYIkt.png",
 
 };
 
