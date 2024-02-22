@@ -183,6 +183,7 @@ public enum Keyword implements Filterable {
     SWOOP("Swoop", true),
     TAUNTAUN("Tauntaun", true),
     TAX_COLLECTOR("Tax Collector", true, true),
+    THE_ASSET("The Asset", true),
     THEED_PALACE_SITE("Theed Palace Site", false),
     THIEF("Thief", true, true),
     TRACTOR_BEAM("Tractor Beam", true),

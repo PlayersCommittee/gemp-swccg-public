@@ -3631,7 +3631,12 @@ var fixedImages = {
 "501_8":"https://res.starwarsccg.org/cards/Hoth-Light/large/hothechocommandcenterwarroom.gif",
 "501_9":"https://res.starwarsccg.org/cards/Premiere-Light/large/plastoidarmor.gif",
 "501_10":"https://res.starwarsccg.org/cards/ReflectionsII-Light/large/mercenaryarmor.gif",
+"501_11":"https://res.starwarsccg.org/cards/ReflectionsIII-Light/large/innerstrength.gif",
 "501_12":"https://res.starwarsccg.org/cards/legacy/VirtualBlock2-Dark/large/imageofthedarklord.gif",
+"501_13":"https://res.starwarsccg.org/cards/Coruscant-Light/large/nabootheedpalacecourtyard.gif",
+"501_14":"https://res.starwarsccg.org/cards/EnhancedJabbasPalace-Light/large/youcaneitherprofitbythis.gif",
+"501_14_BACK":"https://res.starwarsccg.org/cards/EnhancedJabbasPalace-Light/large/orbedestroyed.gif",
+"501_15":"https://res.starwarsccg.org/cards/Hoth-Light/large/artilleryremote.gif",
 "501_19": "https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Dark/large/separatistuprising.gif",
 "501_19_BACK": "https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Dark/large/atwarwithitself.gif",
 "501_20": "https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Dark/large/muunilinst.gif",
@@ -4606,6 +4611,7 @@ var Card = Class.extend({
             return (cardNo == 6) ||
                    (cardNo == 7) ||
                    (cardNo == 8) ||
+                   (cardNo == 13) ||
                    (cardNo == 21) ||
                    (cardNo == 24) ||
                    (cardNo == 27) ||

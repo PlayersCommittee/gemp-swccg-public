@@ -124,6 +124,7 @@ public interface Title {
     String Blue_Milk = "Blue Milk";
     String Blue_Squadron_5 = "Blue Squadron 5";
     String Bluffs = "Tatooine: Bluffs";
+    String Bo_Katan = "Bo-Katan";
     String Bo_Shuda = "Bo Shuda";
     String Boba_Fetts_Blaster_Rifle = "Boba Fett's Blaster Rifle";
     String Bodhi = "Bodhi Rook";
@@ -138,6 +139,9 @@ public interface Title {
     String Bossks_Mortar_Gun =  "Bossk's Mortar Gun";
     String Bothawui = "Bothawui";
     String Bounty = "Bounty";
+    String Bounty_Hunters_Guild = "Navarro City: Bounty Hunter's Guild";
+    String Bounty_Hunting_Is_A_Dangerous_Profession = "Bounty Hunting Is A Dangerous Profession";
+    String Bounty_Puck = "Bounty Puck";
     String Bow_To_The_First_Order = "Bow To The First Order";
     String Bowcaster = "Bowcaster";
     String Brangus_Glee = "Brangus Glee";
@@ -506,6 +510,7 @@ public interface Title {
     String I_Am_Your_Father = "I Am Your Father";
     String I_Can_Save_Him = "I Can Save Him";
     String I_Cant_Believe_Hes_Gone = "I Can't Believe He's Gone";
+    String I_Can_Bring_You_In_Warm = "I Can Bring You In Warm";
     String I_Did_It = "I Did It!";
     String I_Feel_The_Conflict = "I Feel The Conflict";
     String I_Have_You_Now = "I Have You Now";
@@ -686,6 +691,7 @@ public interface Title {
     String Malastare = "Malastare";
     String Mandalore = "Mandalore";
     String Mandalorian_Armor = "Mandalorian Armor";
+    String Mandalorian_Covert = "Nevarro City: Mandalorian Covert";
     String Maneuvering_Flaps = "Maneuvering Flaps";
     String Mantellian_Savrip = "Mantellian Savrip";
     String Marketplace = "Tatooine: Marketplace";
@@ -787,6 +793,7 @@ public interface Title {
     String Operational_As_Planned = "Operational As Planned";
     String Oppressive_Enforcement = "Oppressive Enforcement";
     String Or_Be_Destroyed = "Or Be Destroyed";
+    String Or_I_Can_Bring_You_In_Cold = "Or I Can Bring You In Cold";
     String Orbital_Mine = "Orbital Mine";
     String Ord_Mantell = "Ord Mantell";
     String Order_To_Engage = "Order To Engage";
