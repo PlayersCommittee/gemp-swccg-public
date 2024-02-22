@@ -192,6 +192,7 @@ public enum Persona implements Filterable {
     PULSAR_SKATE("Pulsar Skate"),
     PUNISHING_ONE("Punishing One"),
     RADIANT_VII("Radiant VII"),
+    RAZOR_CREST("Razor Crest"),
     RED_1("Red 1"),
     RED_2("Red 2"),
     RED_5("Red 5"),

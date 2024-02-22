@@ -18670,6 +18670,7 @@ public class Filters {
     public static final Filter Ralltiir_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Ralltiir));
     public static final Filter Rancor_Pit = Filters.title(Title.Rancor_Pit);
     public static final Filter Ravager_Crash_Site = Filters.title(Title.Ravager_Crash_Site);
+    public static final Filter Razor_Crest = Filters.persona(Persona.RAZOR_CREST);
     public static final Filter Reactor_Core = Filters.title(Title.Reactor_Core);
     public static final Filter Rebel = Filters.icon(Icon.REBEL);
     public static final Filter Rebel_Ambush = Filters.title(Title.Rebel_Ambush);
