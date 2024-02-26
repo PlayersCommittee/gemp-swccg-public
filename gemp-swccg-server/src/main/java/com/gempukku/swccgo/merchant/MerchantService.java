@@ -154,6 +154,11 @@ public class MerchantService {
         // Add promotional card sets
         addFixedItem(ProductName.JEDI_PACK, ProductPrice.JEDI_PACK);
         addFixedItem(ProductName.REBEL_LEADER_PACK, ProductPrice.REBEL_LEADER_PACK);
+
+        // Virtual Alternate Image Booster Packs
+        addFixedItem(ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_1, ProductPrice.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK);
+        addFixedItem(ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_2, ProductPrice.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK);
+        addFixedItem(ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_3, ProductPrice.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK);
     }
 
     /**

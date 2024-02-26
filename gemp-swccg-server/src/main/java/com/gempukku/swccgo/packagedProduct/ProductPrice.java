@@ -55,7 +55,7 @@ public interface ProductPrice {
     // Promotional Cards
     int JEDI_PACK = 1100;
     int REBEL_LEADER_PACK = 200;
-    int VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK = 5000;
+    int VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK = 2000;
 
     // Anthology Boxes
     int FIRST_ANTHOLOGY_BOX = 3000;
