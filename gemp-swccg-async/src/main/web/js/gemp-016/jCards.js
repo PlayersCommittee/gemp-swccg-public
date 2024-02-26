@@ -4106,6 +4106,34 @@ var fixedImages = {
 "216_43ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/tatooineobiwanshut_ai.png",
 "217_52ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/yourthoughtsdwellonyourmother_ai.png",
 "204_46ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/zamwesell_ai.png",
+"213_23ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/dathomirmaulschambers_ai.png",
+"211_23ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/invisiblehand_ai.png",
+"212_6ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/allegiantgeneralpryde_ai.png",
+"211_12ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/alwaystwothereare_ai.png",
+"203_24ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/cadbane_ai.png",
+"221_19ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/firstlight_ai.png",
+"213_31ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/huntdownanddestroythejedi_ai.png",
+"213_31ai_BACK":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/theirfirehasgoneoutoftheuniverse_ai.png",
+"222_10ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/kylomasteroftheknightsofren_ai.png",
+"221_33ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/tatooinecantina_ai.png",
+"219_26ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/vader_ai.png",
+"219_31ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/coruscantjeditemple_ai.png",
+"217_34ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/endoranakinsfuneralpyre_ai.png",
+"209_4ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/galenerso_ai.png",
+"210_20ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/lukeskywalkerthelastjedi_ai.png",
+"205_6ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/tatooinelarsmoisturefarm_ai.png",
+"218_31ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/tydirium_ai.png",
+"217_26ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/admiralkilian_ai.png",
+"209_1ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/admiralraddus_ai.png",
+"221_47ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/anakinsdestiny_ai.png",
+"201_8ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/anewsecretbase_ai.png",
+"221_54ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/clonecommandcenter_ai.png",
+"213_55ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/corellia_ai.png",
+"211_29ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/maketenmenfeellikeahundred_ai.png",
+"222_25ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/niennunbsullustansmuggler_ai.png",
+"221_71ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/resolute_ai.png",
+"203_15ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/theshieldisdown_ai.png",
+"206_6ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/whatchancedowehave_ai.png",
 
 };
 
@@ -4399,7 +4427,8 @@ var Card = Class.extend({
         if (this.alternateImage) {
             // AIs that are horizontal and the non-AI is not
             if (blueprintId == "204_47ai"
-                    || blueprintId == "200_41ai") {
+                    || blueprintId == "200_41ai"
+                    || blueprintId == "206_6ai") {
                 return true;
             }
         }
