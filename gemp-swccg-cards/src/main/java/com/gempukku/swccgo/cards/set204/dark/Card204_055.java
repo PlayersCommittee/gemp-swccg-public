@@ -18,7 +18,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardAboardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.LandsForFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.MayDeployAsLandedToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -75,7 +75,7 @@ public class Card204_055 extends AbstractStarfighter {
             action.setActionMsg("Deploy Kylo aboard " + GameUtils.getCardLink(self) + " from Reserve Deck");
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardToTargetFromReserveDeckEffect(action, Filters.Kylo, Filters.sameCardId(self), -2, true));
+                    new DeployCardAboardFromReserveDeckEffect(action, Filters.Kylo, Filters.sameCardId(self), -2, true));
             return Collections.singletonList(action);
         }
         return null;

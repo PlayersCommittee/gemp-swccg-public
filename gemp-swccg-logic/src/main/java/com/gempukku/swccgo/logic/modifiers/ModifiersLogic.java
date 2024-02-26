@@ -10276,20 +10276,28 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         float totalReduceCostModifiers = 0;
 
         // Check for change in cost
-        if (!deployCostMayNotBeModifiedByOwner) {
-            if (reactActionOption != null) {
-                if (reactActionOption.getChangeInCost() < 0 || !deployCostMayNotBeIncreasedByOwner) {
-                    result += reactActionOption.getChangeInCost();
-                    if (reactActionOption.getChangeInCost() < 0) {
-                        totalReduceCostModifiers -= reactActionOption.getChangeInCost();
+        if (!deployCostMayNotBeModified) {
+            boolean modifiedByOwner = sourceCard == null || sourceCard.getOwner().equals(owner);
+
+            if ((modifiedByOwner && !deployCostMayNotBeModifiedByOwner)
+                    || (!modifiedByOwner && !deployCostMayNotBeModifiedByOpponent)) {
+                if (reactActionOption != null) {
+                    if (reactActionOption.getChangeInCost() < 0
+                            || (modifiedByOwner && !deployCostMayNotBeIncreasedByOwner)
+                            || (!modifiedByOwner && !deployCostMayNotBeIncreasedByOpponent)) {
+                        result += reactActionOption.getChangeInCost();
+                        if (reactActionOption.getChangeInCost() < 0) {
+                            totalReduceCostModifiers -= reactActionOption.getChangeInCost();
+                        }
                     }
-                }
-            }
-            else {
-                if (changeInCost < 0 || !deployCostMayNotBeIncreasedByOwner) {
-                    result += changeInCost;
-                    if (changeInCost < 0) {
-                        totalReduceCostModifiers -= changeInCost;
+                } else {
+                    if (changeInCost < 0
+                            || (modifiedByOwner && !deployCostMayNotBeIncreasedByOwner)
+                            || (!modifiedByOwner && !deployCostMayNotBeIncreasedByOpponent)) {
+                        result += changeInCost;
+                        if (changeInCost < 0) {
+                            totalReduceCostModifiers -= changeInCost;
+                        }
                     }
                 }
             }
