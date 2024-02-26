@@ -120,4 +120,18 @@ public class DeployCardFromReserveDeckEffect extends DeployCardFromPileEffect {
     public DeployCardFromReserveDeckEffect(Action action, Filter cardFilter, float changeInCost, Filter changeInCostCardFilter, boolean reshuffle) {
         super(action, Zone.RESERVE_DECK, cardFilter, null, null, false, changeInCost, changeInCostCardFilter, null, false, reshuffle);
     }
+
+    /**
+     * Creates an effect that causes the player performing the action to choose and deploy a card accepted by the card filter
+     * to the location accepted by the target filter from Reserve Deck.
+     * @param action the action performing this effect
+     * @param cardFilter the card filter
+     * @param targetFilter the location to deploy to
+     * @param changeInCost change in amount of Force (can be positive or negative) required
+     * @param reshuffle true if pile is reshuffled, otherwise false
+     */
+
+    public DeployCardFromReserveDeckEffect(Action action, Filter cardFilter, Filter targetFilter, float changeInCost, boolean reshuffle) {
+        super(action, action.getPerformingPlayer(), Zone.RESERVE_DECK, cardFilter, targetFilter, null, null, false, changeInCost, null, null, null, false, reshuffle);
+    }
 }
