@@ -11,6 +11,7 @@ import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -34,9 +35,8 @@ import java.util.List;
 public class Card222_021 extends AbstractResistance {
     public Card222_021() {
         super(Side.LIGHT, 1, 4, 3, 3, 6, "General Poe Dameron", Uniqueness.UNIQUE, ExpansionSet.SET_22, Rarity.V);
-        setLore("Leader.");
         setGameText("Adds 3 to anything he pilots. Draws battle destiny if unable to otherwise. " +
-                "In battle, if opponent has more starships or characters here than you, may add a destiny to attrition. " +
+                "During battle, if opponent has a greater total number of characters and piloted starships here than you, may add one destiny to attrition. " +
                 "Immune to attrition < 3.");
         addIcons(Icon.EPISODE_VII, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_22);
         addKeywords(Keyword.GENERAL);
@@ -59,12 +59,11 @@ public class Card222_021 extends AbstractResistance {
                 && GameConditions.isDuringBattleWithParticipant(game, self)
                 && GameConditions.canAddDestinyDrawsToAttrition(game, playerId)) {
 
-            int numOpponentsStarships = Filters.countActive(game, self, Filters.and(Filters.starship, Filters.opponents(playerId), Filters.participatingInBattle));
-            int numYourStarships = Filters.countActive(game, self, Filters.and(Filters.starship, Filters.your(playerId), Filters.participatingInBattle));
-            int numOpponentsCharacters = Filters.countActive(game, self, Filters.and(Filters.character, Filters.opponents(playerId), Filters.participatingInBattle));
-            int numYourCharacters = Filters.countActive(game, self, Filters.and(Filters.character, Filters.your(playerId), Filters.participatingInBattle));
+            Filter filter = Filters.or(Filters.character, Filters.and(Filters.piloted, Filters.starship));
+            int numOpponentsCharactersStarships = Filters.countActive(game, self, Filters.and(filter, Filters.opponents(playerId), Filters.participatingInBattle));
+            int numYourCharactersStarships = Filters.countActive(game, self, Filters.and(filter, Filters.your(playerId), Filters.participatingInBattle));
 
-            if (numOpponentsStarships > numYourStarships || numOpponentsCharacters > numYourCharacters) {
+            if (numOpponentsCharactersStarships > numYourCharactersStarships) {
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
                 action.setText("Add one destiny to attrition");
                 // Update usage limit(s)
