@@ -108,8 +108,8 @@ public class Card213_032_BACK extends AbstractObjective {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(playerId), Filters.and(Filters.leader, Filters.gangster, Filters.at(Filters.site))))
-                && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.non_unique, Filters.blaster))
+        if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(playerId), Filters.leader, Filters.gangster, Filters.at(Filters.site)))
+                && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(playerId), Filters.non_unique, Filters.blaster))
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canAddDestinyDrawsToPower(game, playerId)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
