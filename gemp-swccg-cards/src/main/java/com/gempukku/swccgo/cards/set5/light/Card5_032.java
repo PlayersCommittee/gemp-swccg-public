@@ -53,10 +53,10 @@ public class Card5_032 extends AbstractLostInterrupt {
         final Filter weaponFilter = Filters.in(matchingWeapons);
 
         // Check condition(s)
-        if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.site)
-                || TriggerConditions.duelInitiatedAt(game, effectResult, Filters.site)
-                && GameConditions.isDuringBattleWithParticipant(game, targetFilter)
-                || GameConditions.isDuringDuelWithParticipant(game, targetFilter)) {
+        if ((TriggerConditions.battleInitiatedAt(game, effectResult, Filters.site)
+                && GameConditions.isDuringBattleWithParticipant(game, targetFilter))
+                || (TriggerConditions.duelInitiatedAt(game, effectResult, Filters.site)
+                && GameConditions.isDuringDuelWithParticipant(game, targetFilter))) {
 
             if (GameConditions.hasInHand(game, playerId, Filters.and(weaponFilter, Filters.deployableToTarget(self, targetFilter, true, 0)))) {
 
