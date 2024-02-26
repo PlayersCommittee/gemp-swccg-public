@@ -3623,7 +3623,7 @@ var fixedImages = {
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
 "501_2":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/icantbelievehesgone.png",
-"501_3":"https://res.starwarsccg.org/cards/Virtual16-Light/hires/communing.png",
+"501_3":"https://res.starwarsccg.org/cards/Virtual17-Light/hires/bokatan.png",
 "501_4":"https://res.starwarsccg.org/cards/Virtual12-Dark/hires/slipslidingaway.png",
 "501_5":"https://res.starwarsccg.org/cards/ANewHope-Light/large/corellia.gif",
 "501_6":"https://res.starwarsccg.org/cards/Coruscant-Light/large/naboobattleplains.gif",
