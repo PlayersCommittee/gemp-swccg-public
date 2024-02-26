@@ -27,4 +27,6 @@ public interface GameHistoryDAO {
     public List<PlayerStatistic> getCasualPlayerStatistics(Player player);
 
     public List<PlayerStatistic> getCompetitivePlayerStatistics(Player player);
+
+    List<LeagueDecklistEntry> getLeagueDecklists(String leagueId);
 }

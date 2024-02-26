@@ -6,10 +6,12 @@ import com.gempukku.swccgo.async.ResponseWriter;
 import com.gempukku.swccgo.cache.CacheManager;
 import com.gempukku.swccgo.collection.CollectionsManager;
 import com.gempukku.swccgo.db.LeagueDAO;
+import com.gempukku.swccgo.db.LeagueDecklistEntry;
 import com.gempukku.swccgo.db.PlayerDAO;
 import com.gempukku.swccgo.db.vo.CollectionType;
 import com.gempukku.swccgo.db.vo.League;
 import com.gempukku.swccgo.game.CardCollection;
+import com.gempukku.swccgo.game.GameHistoryService;
 import com.gempukku.swccgo.game.Player;
 import com.gempukku.swccgo.game.SwccgCardBlueprintLibrary;
 import com.gempukku.swccgo.game.formats.SwccgoFormatLibrary;
@@ -45,6 +47,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
     private CollectionsManager _collectionManager;
     private PlayerDAO _playerDAO;
     private AdminService _adminService;
+    private GameHistoryService _gameHistoryService;
 
     public AdminRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -58,6 +61,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         _playerDAO = extractObject(context, PlayerDAO.class);
         _collectionManager = extractObject(context, CollectionsManager.class);
         _adminService = extractObject(context, AdminService.class);
+        _gameHistoryService = extractObject(context, GameHistoryService.class);
     }
 
     @Override
@@ -122,6 +126,8 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             toggleNewAccountRegistration(request, responseWriter);
         } else if (uri.equals("/removeInGameStatisticsListeners") && request.getMethod() == HttpMethod.POST) {
             removeInGameStatisticListeners(request, responseWriter);
+        } else if (uri.equals("/getDeckCheck") && request.getMethod() == HttpMethod.POST) {
+            deckCheck(request, responseWriter);
         } else {
             responseWriter.writeError(404);
         }
@@ -926,6 +932,39 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         int count = _hallServer.removeInGameStatisticsListeners();
 
         responseWriter.writeHtmlResponse("In game statistics tracking removed from "+count+" active games<br>In game statistics tracking enabled: "+String.valueOf(_hallServer.inGameStatisticsEnabled()));
+    }
+
+    private void deckCheck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+        validateAdmin(request);
+
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String leagueId = getFormParameterSafely(postDecoder, "leagueId");
+
+        if (leagueId==null || leagueId.length()==0)
+            throw new HttpProcessingException(404);
+
+        List<LeagueDecklistEntry> decklistEntries = _gameHistoryService.getDeckCheck(leagueId);
+        if (decklistEntries == null)
+            throw new HttpProcessingException(404);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+        Element deckCheckEntries = doc.createElement("deckCheckEntries");
+
+        for(LeagueDecklistEntry entry:decklistEntries) {
+            Element entryElement = doc.createElement("entry");
+            entryElement.setAttribute("leagueName", entry.getLeagueName());
+            entryElement.setAttribute("startTime", String.valueOf(entry.getStartTime().getTime()));
+            entryElement.setAttribute("player", entry.getPlayer());
+            entryElement.setAttribute("side", entry.getSide());
+            entryElement.setAttribute("deck", entry.getDeck());
+            deckCheckEntries.appendChild(entryElement);
+        }
+        doc.appendChild(deckCheckEntries);
+
+        responseWriter.writeXmlResponse(doc);
     }
 
     /**

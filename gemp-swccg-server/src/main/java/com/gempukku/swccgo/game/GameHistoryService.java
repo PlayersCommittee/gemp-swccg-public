@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.game;
 
 import com.gempukku.swccgo.db.GameHistoryDAO;
+import com.gempukku.swccgo.db.LeagueDecklistEntry;
 import com.gempukku.swccgo.db.PlayerStatistic;
 import com.gempukku.swccgo.db.vo.GameHistoryEntry;
 
@@ -68,5 +69,9 @@ public class GameHistoryService {
 
     public List<PlayerStatistic> getCompetitivePlayerStatistics(Player player) {
         return _gameHistoryDAO.getCompetitivePlayerStatistics(player);
+    }
+
+    public List<LeagueDecklistEntry> getDeckCheck(String leagueId) {
+        return _gameHistoryDAO.getLeagueDecklists(leagueId);
     }
 }
