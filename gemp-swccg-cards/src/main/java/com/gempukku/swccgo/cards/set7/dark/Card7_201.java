@@ -40,7 +40,7 @@ public class Card7_201 extends AbstractImperial {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.or(Filters.Deploys_on_Tatooine, Filters.locationAndCardsAtLocation(Filters.desert));
+        return Filters.or(Filters.Deploys_at_Tatooine, Filters.locationAndCardsAtLocation(Filters.desert));
     }
 
     @Override

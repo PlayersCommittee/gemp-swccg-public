@@ -43,7 +43,7 @@ public class Card10_051 extends AbstractDarkJediMasterImperial {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.or(Filters.Deploys_on_Coruscant, Filters.Deploys_on_Death_Star_II);
+        return Filters.or(Filters.Deploys_at_Coruscant, Filters.Deploys_at_Death_Star_II);
     }
 
     @Override

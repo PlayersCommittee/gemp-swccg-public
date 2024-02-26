@@ -40,7 +40,7 @@ public class Card6_105 extends AbstractAlien {
     public Card6_105() {
         super(Side.DARK, 2, 4, 4, 1, 1, Title.Gamorrean_Guard, Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Big. Strong. Dumb.");
-        setGameText("Deploys only to Tatooine. Power -1 when not at a Tatooine site. May be sacrificed (lost) to cancel an attack just initiated by a creature present.");
+        setGameText("Deploys only on Tatooine. Power -1 when not at a Tatooine site. May be sacrificed (lost) to cancel an attack just initiated by a creature present.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);
         setSpecies(Species.GAMORREAN);
         addKeyword(Keyword.GUARD);
@@ -48,7 +48,7 @@ public class Card6_105 extends AbstractAlien {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.Deploys_at_Tatooine;
+        return Filters.Deploys_on_Tatooine;
     }
 
     @Override
