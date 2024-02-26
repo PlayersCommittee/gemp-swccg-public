@@ -60,28 +60,29 @@ public class Card204_022 extends AbstractLostInterrupt {
                             new OncePerGameEffect(action));
                     // Pay cost(s)
                     action.appendCost(
+                            new PlaceCardOutOfPlayFromOffTableEffect(action, topCardOfLostPile));
+                    action.appendCost(
                             new RefreshPrintedDestinyValuesEffect(action, topCardOfLostPile) {
                                 @Override
                                 protected void refreshedPrintedDestinyValues() {
                                     float destinyValue = modifiersQuerying.getDestiny(gameState, topCardOfLostPile);
                                     action.setActionMsg("Add " + GuiUtils.formatAsString(destinyValue) + " to total power");
+
+                                    // Allow response(s)
+                                    action.allowResponses(
+                                            new RespondablePlayCardEffect(action) {
+                                                @Override
+                                                protected void performActionResults(Action targetingAction) {
+                                                    float destinyValue = modifiersQuerying.getDestiny(gameState, topCardOfLostPile);
+                                                    // Perform result(s)
+                                                    action.appendEffect(
+                                                            new ModifyTotalPowerUntilEndOfBattleEffect(action, destinyValue, playerId,
+                                                                    "Adds " + GuiUtils.formatAsString(destinyValue) + " to total power"));
+                                                }
+                                            }
+                                    );
                                 }
                             });
-                    action.appendCost(
-                            new PlaceCardOutOfPlayFromOffTableEffect(action, topCardOfLostPile));
-                    // Allow response(s)
-                    action.allowResponses(
-                            new RespondablePlayCardEffect(action) {
-                                @Override
-                                protected void performActionResults(Action targetingAction) {
-                                    float destinyValue = modifiersQuerying.getDestiny(gameState, topCardOfLostPile);
-                                    // Perform result(s)
-                                    action.appendEffect(
-                                            new ModifyTotalPowerUntilEndOfBattleEffect(action, destinyValue, playerId,
-                                                    "Adds " + GuiUtils.formatAsString(destinyValue) + " to total power"));
-                                }
-                            }
-                    );
                     actions.add(action);
                 }
             }
