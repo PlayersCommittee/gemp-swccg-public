@@ -692,6 +692,7 @@ public interface Title {
     String Mandalore = "Mandalore";
     String Mandalorian_Armor = "Mandalorian Armor";
     String Mandalorian_Covert = "Nevarro City: Mandalorian Covert";
+    String Mandalorian_Forge = "Nevarro City: Mandalorian Forge";
     String Maneuvering_Flaps = "Maneuvering Flaps";
     String Mantellian_Savrip = "Mantellian Savrip";
     String Marketplace = "Tatooine: Marketplace";

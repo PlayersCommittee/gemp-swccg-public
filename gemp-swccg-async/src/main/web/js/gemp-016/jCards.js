@@ -3621,7 +3621,7 @@ var fixedImages = {
 "301_8":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/red12.gif",
 
 //playtesting
-"501_1":"https://res.starwarsccg.org/cards/Virtual5-Light/large/hanchewieandthefalcon.gif",
+"501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
 "501_2":"https://res.starwarsccg.org/cards/Virtual21-Light/hires/icantbelievehesgone.png",
 "501_3":"https://res.starwarsccg.org/cards/Virtual16-Light/hires/communing.png",
 "501_4":"https://res.starwarsccg.org/cards/Virtual12-Dark/hires/slipslidingaway.png",
@@ -3688,6 +3688,7 @@ var fixedImages = {
 "501_112":"https://res.starwarsccg.org/cards/OfficialTournamentSealedDeck-Dark/large/dreadnaughtclassheavycruiser.gif",
 "501_113":"https://res.starwarsccg.org/cards/Dagobah-Dark/large/executor.gif",
 "501_114":"https://res.starwarsccg.org/cards/EmpireStrikesBackIntroductoryTwoPlayerGame-Dark/large/imperialwalker.gif",
+"501_116":"https://res.starwarsccg.org/cards/Virtual3-Light/large/wildkarrde.gif",
 "501_117":"https://res.starwarsccg.org/cards/Coruscant-Dark/large/nocivilityonlypolitics.gif",
 "501_120":"https://res.starwarsccg.org/cards/PremiereIntroductoryTwoPlayerGame-Dark/large/deathstardockingcontrolroom327.gif",
 "501_121":"https://res.starwarsccg.org/cards/Dagobah-Light/large/transmissionterminated.gif",
