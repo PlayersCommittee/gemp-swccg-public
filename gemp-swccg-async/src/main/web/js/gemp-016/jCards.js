@@ -3709,6 +3709,7 @@ var fixedImages = {
 "501_140":"https://res.starwarsccg.org/cards/SpecialEdition-Dark/large/sandtrooper.gif",
 "501_141":"https://res.starwarsccg.org/cards/Virtual12-Dark/large/moffgideon.gif",
 "501_164":"https://res.starwarsccg.org/cards/Premiere-Light/large/scomplinkaccess.gif",
+"501_170":"https://res.starwarsccg.org/cards/JabbasPalace-Light/large/pucumirthryss.gif",
 
 
 //legacy
