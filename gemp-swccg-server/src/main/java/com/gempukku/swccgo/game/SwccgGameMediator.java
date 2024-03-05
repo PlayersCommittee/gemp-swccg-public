@@ -1445,6 +1445,9 @@ public class SwccgGameMediator {
                 // The Galaxy May Need A Legend
                 objectiveLabel = "Legend";
             }
+            if (Filters.or(Filters.title(Title.I_Can_Bring_You_In_Warm), Filters.title(Title.Or_I_Can_Bring_You_In_Cold)).accepts(_swccgoGame, objective)) {
+                objectiveLabel = "Mando";
+            }
             if (Filters.or(Filters.Massassi_Base_Operations, Filters.One_In_A_Million).accepts(_swccgoGame, objective)) {
                 // Massassi Base Operations
                 objectiveLabel = "MBO";

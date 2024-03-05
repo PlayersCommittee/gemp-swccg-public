@@ -17647,7 +17647,7 @@ public class Filters {
     public static final Filter bounty_hunter = Filters.keyword(Keyword.BOUNTY_HUNTER);
     public static final Filter Bounty_Hunters_Guild = Filters.title(Title.Bounty_Hunters_Guild);
     public static final Filter Bounty_Hunting_Is_A_Dangerous_Profession = Filters.title(Title.Bounty_Hunting_Is_A_Dangerous_Profession);
-    public static final Filter Bounty_Puck = Filters.title(Title.Bounty_Puck);
+    public static final Filter Holopuck = Filters.title(Title.Holopuck);
     public static final Filter Bow_To_The_First_Order = Filters.title(Title.Bow_To_The_First_Order);
     public static final Filter bowcaster = Filters.keyword(Keyword.BOWCASTER);
     public static final Filter Bowcaster = Filters.title(Title.Bowcaster);

@@ -4,6 +4,7 @@ import com.gempukku.swccgo.common.Filterable;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.evaluators.ConstantEvaluator;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
 
 /**
@@ -19,6 +20,18 @@ public class ExtraForceCostToDeployCardToLocationModifier extends ExtraForceCost
      */
     public ExtraForceCostToDeployCardToLocationModifier(PhysicalCard source, Filterable affectFilter, Evaluator evaluator) {
         this(source, affectFilter, null, evaluator, Filters.location);
+    }
+
+    /**
+     * Creates a modifier that requires extra Force cost to deploy cards accepted by the filter to locations accepted by the location filter.
+     *
+     * @param source         the source of the modifier
+     * @param affectFilter   the filter
+     * @param value          the value of the modifier
+     * @param locationFilter the location Filter
+     */
+    public ExtraForceCostToDeployCardToLocationModifier(PhysicalCard source, Filterable affectFilter, int value, Filterable locationFilter) {
+        super(source, affectFilter, null, new ConstantEvaluator(value), Filters.locationAndCardsAtLocation(Filters.and(locationFilter)));
     }
 
     /**
