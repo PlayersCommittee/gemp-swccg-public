@@ -3690,6 +3690,7 @@ var fixedImages = {
 "501_114":"https://res.starwarsccg.org/cards/EmpireStrikesBackIntroductoryTwoPlayerGame-Dark/large/imperialwalker.gif",
 "501_116":"https://res.starwarsccg.org/cards/Virtual3-Light/large/wildkarrde.gif",
 "501_117":"https://res.starwarsccg.org/cards/Coruscant-Dark/large/nocivilityonlypolitics.gif",
+"501_118":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/jakkuniimamarketplace.png",
 "501_120":"https://res.starwarsccg.org/cards/PremiereIntroductoryTwoPlayerGame-Dark/large/deathstardockingcontrolroom327.gif",
 "501_121":"https://res.starwarsccg.org/cards/Dagobah-Light/large/transmissionterminated.gif",
 "501_122":"https://res.starwarsccg.org/cards/Endor-Light/large/endorcelebration.gif",
@@ -4650,6 +4651,7 @@ var Card = Class.extend({
                    (cardNo == 108) ||
                    (cardNo == 109) ||
                    (cardNo == 113) ||
+                   (cardNo == 118) ||
                    (cardNo == 120)
                    ;
         }
