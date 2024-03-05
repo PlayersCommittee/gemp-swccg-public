@@ -1,6 +1,8 @@
 package com.gempukku.swccgo.async;
 
 import com.gempukku.swccgo.async.handler.UriRequestHandler;
+import com.gempukku.swccgo.common.ApplicationConfiguration;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.jboss.netty.buffer.ChannelBuffers;
@@ -36,8 +38,10 @@ public class SwccgoHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
     private Map<Type, Object> _objects;
     private UriRequestHandler _uriRequestHandler;
+    private boolean _isLocalHost = false;
 
     public SwccgoHttpRequestHandler(Map<Type, Object> objects, UriRequestHandler uriRequestHandler) {
+        _isLocalHost = ApplicationConfiguration.getProperty("environment").equals("test");
         _objects = objects;
         _uriRequestHandler = uriRequestHandler;
     }
@@ -120,7 +124,7 @@ public class SwccgoHttpRequestHandler extends SimpleChannelUpstreamHandler {
         try {
             String canonicalPath = file.getCanonicalPath();
             byte[] fileBytes = _fileCache.get(canonicalPath);
-            if (fileBytes == null) {
+            if (fileBytes == null || _isLocalHost) {
                 if (!file.exists() || !file.isFile()) {
                     writeHttpErrorResponse(request, 404, null, e);
                     return;
@@ -137,7 +141,7 @@ public class SwccgoHttpRequestHandler extends SimpleChannelUpstreamHandler {
                 }
             }
 
-                writeHttpByteResponse(request, fileBytes, getHeadersForFile(headers, file), e);
+            writeHttpByteResponse(request, fileBytes, getHeadersForFile(headers, file), e);
         } catch (IOException exp) {
             writeHttpErrorResponse(request, 500, null, e);
         }

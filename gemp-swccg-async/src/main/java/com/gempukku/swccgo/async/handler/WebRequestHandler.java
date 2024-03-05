@@ -1,6 +1,8 @@
 package com.gempukku.swccgo.async.handler;
 
 import com.gempukku.swccgo.async.ResponseWriter;
+import com.gempukku.swccgo.common.ApplicationConfiguration;
+
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.HttpHeaders;
 import org.jboss.netty.handler.codec.http.HttpRequest;
@@ -15,15 +17,17 @@ import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.IF_NONE_MATCH
 public class WebRequestHandler implements UriRequestHandler {
     private String _root;
     private String _uniqueEtag;
+    private boolean _isLocalHost = false;
 
     public WebRequestHandler(String root) {
+        _isLocalHost = ApplicationConfiguration.getProperty("environment").equals("test");
         _root = root;
         _uniqueEtag = "\"" + String.valueOf(System.currentTimeMillis()) + "\"";
     }
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
-        if (clientHasCurrentVersion(request)) {
+        if (clientHasCurrentVersion(request) && !_isLocalHost) {
             responseWriter.writeError(304);
             return;
         }

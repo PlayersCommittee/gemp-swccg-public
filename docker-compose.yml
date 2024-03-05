@@ -46,6 +46,7 @@ services:
       - gempdb
     environment:
       - "db_hostname=gempdb"
+      - "environment=production"
     command: ["/usr/bin/wait-for-it.sh", "gempdb:3306", "--",
               "/usr/bin/java",
               "-Xmx4g",

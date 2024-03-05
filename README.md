@@ -37,7 +37,7 @@ GEMP-SWCCG - server/client for playing Star Wars CCG using a web browser. The pr
 
 ```bash
 mvn clean install
-docker-compose up
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 ```
 
 
