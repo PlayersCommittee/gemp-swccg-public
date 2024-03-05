@@ -139,7 +139,7 @@ public interface Title {
     String Bossks_Mortar_Gun =  "Bossk's Mortar Gun";
     String Bothawui = "Bothawui";
     String Bounty = "Bounty";
-    String Bounty_Hunters_Guild = "Navarro City: Bounty Hunter's Guild";
+    String Bounty_Hunters_Guild = "Nevarro City: Bounty Hunter's Guild";
     String Bounty_Hunting_Is_A_Dangerous_Profession = "Bounty Hunting Is A Dangerous Profession";
     String Bounty_Puck = "Bounty Puck";
     String Bow_To_The_First_Order = "Bow To The First Order";
