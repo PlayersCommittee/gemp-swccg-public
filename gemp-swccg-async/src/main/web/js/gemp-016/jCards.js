@@ -3700,7 +3700,7 @@ var fixedImages = {
 "501_130":"https://res.starwarsccg.org/cards/Virtual4-Dark/large/forcefreeze.gif",
 "501_131":"https://res.starwarsccg.org/cards/Dagobah-Dark/large/ig88spulsecannon.gif",
 "501_132":"https://res.starwarsccg.org/cards/Dagobah-Dark/large/zuckuss.gif",
-"501_133":"https://res.starwarsccg.org/cards/Hoth-Dark/large/toocoldforspeeders.gif",
+"501_133":"https://res.starwarsccg.org/cards/SpecialEdition-Dark/large/imperialpropaganda.gif",
 "501_134":"https://res.starwarsccg.org/cards/Hoth-Dark/large/electrorangefinder.gif",
 "501_135":"https://res.starwarsccg.org/cards/Coruscant-Dark/large/maulssithinfiltrator.gif",
 "501_136":"https://res.starwarsccg.org/cards/Virtual19-Dark/large/thrawnsartcollection.gif",
