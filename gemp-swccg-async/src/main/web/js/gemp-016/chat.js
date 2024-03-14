@@ -25,9 +25,13 @@ var ChatBoxUI = Class.extend({
     stopUpdates: false,
 
     allPlayerIds: [],
+    isHallMuteActive: false,
+    mutedHallUserNames: [],
 
-    init:function (name, div, url, showList, playerListener, showHideSystemButton, showLockButton, allPlayerIds) {
+    init:function (name, div, url, showList, playerListener, showHideSystemButton, showLockButton, allPlayerIds, showMuteButton) {
         var that = this;
+        this.isHallMuteActive = showMuteButton;
+        this.mutedHallUserNames = getMutedUsers();
         this.hiddenClasses = new Array();
         this.playerListener = playerListener;
         this.name = name;
@@ -76,6 +80,17 @@ var ChatBoxUI = Class.extend({
                                 $('#lockChatButton').button("option", "icons", {primary:'ui-icon-unlocked'});
                                 that.lockChat = true;
                             }
+                        });
+            }
+            if (showMuteButton) {
+                buildMutedUsersDialog();
+                this.hideSystemButton = $("<button id='showSystemMessages'>Show Muted Users</button>").button(
+                {icons:{
+                    primary:"ui-icon-circle-minus"
+                }, text:false});
+                this.hideSystemButton.click(
+                        function () {
+                            showMutedUsersDialog();
                         });
             }
 
@@ -157,6 +172,9 @@ var ChatBoxUI = Class.extend({
     },
 
     appendMessage:function (message, msgClass) {
+        if(checkIfMessageShouldBeMuted(message)) {
+            return;
+        }
         if (msgClass == undefined)
             msgClass = "chatMessage";
         var messageDiv = $("<div class='message " + msgClass + "'>" + message + "</div>");

@@ -1,0 +1,22 @@
+#muted-users {
+    display: flex;
+    flex-direction: column;
+}
+
+#add-muted-user {
+    justify-self: flex-end;
+}
+
+#muted-user-table-container {
+    max-height: 500px;
+}
+
+#add-muted-user {
+    padding: 4px;
+}
+
+#add-muted-user:disabled {
+    background-color: #f2f2f2;
+    color: #b3b3b3;
+    cursor: not-allowed;
+}
