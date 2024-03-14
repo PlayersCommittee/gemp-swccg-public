@@ -201,6 +201,7 @@ public interface Title {
     String Cloud_City_Sabacc = "Cloud City Sabacc";
     String Close_Call = "Close Call";
     String Cold_Feet = "Cold Feet";
+    String Cold_Storage = "Razor Crest: Cold Storage";
     String Collateral_Damage = "Collateral Damage";
     String Collision = "Collision!";
     String Colo_Claw_Fish = "Colo Claw Fish";
@@ -691,8 +692,7 @@ public interface Title {
     String Malastare = "Malastare";
     String Mandalore = "Mandalore";
     String Mandalorian_Armor = "Mandalorian Armor";
-    String Mandalorian_Covert = "Nevarro City: Mandalorian Covert";
-    String Mandalorian_Forge = "Nevarro City: Mandalorian Forge";
+    String Mandalorian_Covert = "Mandalorian Covert";
     String Maneuvering_Flaps = "Maneuvering Flaps";
     String Mantellian_Savrip = "Mantellian Savrip";
     String Marketplace = "Tatooine: Marketplace";
@@ -972,6 +972,7 @@ public interface Title {
     String Set_Your_Course_For_Alderaan = "Set Your Course For Alderaan";
     String Starship_Levitation = "Starship Levitation";
     String Sewer = "Xizor's Palace: Sewer";
+    String Sewers = "Nevarro City: Sewers";
     String S_foils = "S-foils";
     String SFS_Lx93_Laser_Cannons = "SFS L-s9.3 Laser Cannons";
     String Shadow_Collective = "Shadow Collective";

@@ -18513,6 +18513,7 @@ public class Filters {
     public static final Filter Needa = Filters.title(Title.Needa);
     public static final Filter Neimoidian = Filters.species(Species.NEIMOIDIAN);
     public static final Filter Nevar_Yalnal = Filters.title(Title.Nevar_Yalnal);
+    public static final Filter Nevarro_City_site = Filters.keyword(Keyword.NEVARRO_CITY_SITE);
     public static final Filter Never_Tell_Me_The_Odds = Filters.title(Title.Never_Tell_Me_The_Odds);
     public static final Filter Nien_Nunb = Filters.persona(Persona.NIEN_NUNB);
     public static final Filter Nightclub = Filters.title(Title.Nightclub);

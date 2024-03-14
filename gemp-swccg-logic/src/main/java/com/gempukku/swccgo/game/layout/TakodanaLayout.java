@@ -1,6 +1,5 @@
 package com.gempukku.swccgo.game.layout;
 
-import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 
 /**
@@ -40,7 +39,7 @@ public class TakodanaLayout extends AbstractSystemLayout {
                         // A) Exterior sites:
                         new LocationGroup("Exterior Sites", Filters.and(Filters.exterior_site, Filters.not(Filters.or(Filters.interior_site, Filters.Mazs_Castle_Location)))),
                         new LocationGroup("Maz's Castle", Filters.Mazs_Castle),
-                        new LocationGroup("Interior sites", Filters.and(Filters.interior_site, Filters.Mazs_Castle_Location))));
+                        new LocationGroup("Interior sites", Filters.and(Filters.interior_site))));
         _groupOrders.add(
                 new LocationFixedGroupOrder(getPlanetSystemAndSectorsLocationGroups(systemName)));
     }

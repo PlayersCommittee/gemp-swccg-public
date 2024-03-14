@@ -128,6 +128,7 @@ public enum Keyword implements Filterable {
     MUSICIAN("Musician", true, true),
     MUST_BE_FORFEITED_IN_BATTLE("Must be forfeited in battle", false),
     MUST_BE_FORFEITED_BEFORE_OTHER_CHARACTERS("Must be forfeited before other characters", false),
+    NEVARRO_CITY_SITE("Nevarro City Site", false),
     NIGHTTIME_CONDITIONS("Nighttime Conditions", true),
     NO_HYPERDRIVE("No Hyperdrive", false),
     OBSIDIAN_SQUADRON("Obsidian Squadron", true),
