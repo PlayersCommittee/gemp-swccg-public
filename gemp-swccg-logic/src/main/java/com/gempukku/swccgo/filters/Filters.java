@@ -17773,6 +17773,7 @@ public class Filters {
     public static final Filter Courage_Of_A_Skywalker = Filters.title(Title.Courage_Of_A_Skywalker);
     public static final Filter Court_Of_The_Vile_Gangster = Filters.title(Title.Court_Of_The_Vile_Gangster);
     public static final Filter Cracken = Filters.persona(Persona.CRACKEN);
+    public static final Filter Crait_location = Filters.partOfSystem(Title.Crait);
     public static final Filter Crait_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Crait));
     public static final Filter Crait_Salt_Plateau = Filters.and(CardSubtype.SITE, Filters.title(Title.Crait_Salt_Plateau));
     public static final Filter Crash_Landing = Filters.title(Title.Crash_Landing);
