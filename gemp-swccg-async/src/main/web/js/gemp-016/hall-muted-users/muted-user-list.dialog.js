@@ -2,11 +2,13 @@ const MUTED_USER_LIST_DIALOG = 'mutedUserListDialog';
 const MUTED_USER_NAME_INPUT = 'muted-username';
 const MUTED_REASON_INPUT = 'muted-reason';
 const ADD_MUTED_USER_BUTTON = 'add-muted-user';
+const UNMUTE_USER_BUTTON = 'unmute-action';
 
 const MUTED_USER_LIST_DIALOG_SELECTOR = `#${MUTED_USER_LIST_DIALOG}`;
 const MUTED_USER_NAME_INPUT_SELECTOR = `#${MUTED_USER_NAME_INPUT}`;
 const MUTED_REASON_INPUT_SELECTOR = `#${MUTED_REASON_INPUT}`;
 const ADD_MUTED_USER_BUTTON_SELECTOR = `#${ADD_MUTED_USER_BUTTON}`;
+const UNMUTE_USER_BUTTON_SELECTOR = `.${UNMUTE_USER_BUTTON}`;
 
 const mutedUsersDialog = `
 <div id="muted-users" title="Muted Users">
@@ -17,20 +19,26 @@ const mutedUsersDialog = `
         <input type="text" id="${MUTED_REASON_INPUT}"
             placeholder="Reason"
             autocomplete="off" />
-        <button disabled class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="${ADD_MUTED_USER_BUTTON}">Mute User</button>
+        <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
+            id="${ADD_MUTED_USER_BUTTON}"
+            disabled
+            role="button">Mute User</button>
     </div>
     <h3>Muted Users</h3>
     <div id="muted-user-table-container">
-        <table>
-            <th>Username</th>
-            <th>Reason</th>
+        <table id="muted-user-table">
+            <thead>
+                <th>Username</th>
+                <th>Reason</th>
+                <th>Actions</th>
+            </thead>
             <tbody id="muted-users-table-body"></tbody>
         </table>
     </div>
 </div>
 `;
 
-const mutedUserRow = (user) => `<tr><td>${user.name}</td><td>${user.reason}</td></tr>`;
+const mutedUserRow = (user) => `<tr><td>${user.name}</td><td>${user.reason}</td><td><button class="${UNMUTE_USER_BUTTON} ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" data-attr-user-name="${user.name}" role="button">Unmute User</button></td></tr>`;
 
 function buildMutedUsersDialog() {
     $(MUTED_USER_LIST_DIALOG_SELECTOR).html(mutedUsersDialog);
@@ -57,10 +65,16 @@ function resetMutedDialogInput() {
 
 function showMutedUsersDialog() {
     var mutedUsers = getMutedUsers();
+    $('#muted-users-table-body').html('');
     for (var i = 0; i < mutedUsers.length; i++) {
         var user = mutedUsers[i];
         $('#muted-users-table-body').append(mutedUserRow(user));
     }
+    $(UNMUTE_USER_BUTTON_SELECTOR).click(function () {
+        const userName = $(this).data('attr-user-name');
+        removeMutedUser(userName);
+        $(this).closest('tr').remove();
+    });
     resetMutedDialogInput();
     $(MUTED_USER_LIST_DIALOG_SELECTOR).dialog("open");
 

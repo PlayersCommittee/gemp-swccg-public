@@ -34,6 +34,12 @@ function addMutedUser({name, reason = ''}) {
     return true;
 }
 
+function removeMutedUser(userName) {
+    const mutedUsers = getMutedUsers();
+    setMutedUsers(mutedUsers.filter(user => user.name !== userName));
+}
+
+
 function getUserNameFromMessage(message) {
     const matches = USER_NAME_REGEX.exec(message);
     if (matches === null) {
