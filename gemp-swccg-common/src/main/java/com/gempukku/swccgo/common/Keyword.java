@@ -81,6 +81,7 @@ public enum Keyword implements Filterable {
     HOLOGRAM("Hologram", true),
     HOLOSITE("Holosite", true),
     IMPERIAL_COUNCIL_MEMBER("Imperial Council member", true, true),
+    IMPERIAL_REMNANT("Imperial Remnant", true),
     IMPERIAL_TROOPER_GUARD("Imperial Trooper Guard", true),
     INFANTRY_BATTLE_DROID("Infantry Battle Droid", true, true),
     INFORMATION_BROKER("Information Broker", true, true),
