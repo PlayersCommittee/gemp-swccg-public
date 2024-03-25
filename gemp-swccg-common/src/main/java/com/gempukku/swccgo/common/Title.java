@@ -1285,6 +1285,9 @@ public interface Title {
 	String Shadow_Academy_Dueling_Platform = "Shadow Academy: Dueling Platform";
 	String Shadow_Academy_Study_Room = "Shadow Academy: Study Room";
 	String Dark_Side_Corruption = "Dark Side Corruption";
+	String ISN_Palpatine = "I.S.N. Palpatine";
+	String Komilia = "Komilia Lap'lamiz";
+	String Seraph = "Seraph";
 	
 
 }

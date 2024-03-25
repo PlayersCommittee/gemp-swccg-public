@@ -19242,7 +19242,19 @@ public class Filters {
 	public static final Filter Marick = Filters.persona(Persona.MARICK);
 	public static final Filter Atra = Filters.persona(Persona.ATRA);
 	public static final Filter Dark_Side_Corruption = Filters.title(Title.Dark_Side_Corruption);
-
+	public static final Filter CSP = Filters.icon(Icon.CSP);
+	public static final Filter CSP_EMPEROR = Filters.keyword(Keyword.CSP_EMPEROR);
+	public static final Filter ISN_Palpatine = Filters.title(Title.ISN_Palpatine);
+	public static final Filter Ellac = Filters.persona(Persona.ELLAC);
+	public static final Filter Komilia = Filters.persona(Persona.KOMILIA);
+	public static final Filter Rohan = Filters.persona(Persona.ROHAN);
+	public static final Filter Sykes = Filters.persona(Persona.SYKES);
+	public static final Filter Thran = Filters.persona(Persona.THRAN);
+	public static final Filter THRAN_GUARD = Filters.keyword(Keyword.THRAN_GUARD);
+	public static final Filter Seraph_site = Filters.and(Filters.partOfSystem(Title.Seraph), CardSubtype.SITE);
+	public static final Filter Laplamiz = Filters.or(Persona.KAMJIN, Persona.KOMILIA, Persona.ROHAN, Persona.HIKARU);
+	public static final Filter Deploys_on_Seraph = Filters.placeToBePresentOnPlanet(Title.Seraph);
+	public static final Filter CSP_ROYAL_GUARD = Filters.keyword(Keyword.CSP_ROYAL_GUARD);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

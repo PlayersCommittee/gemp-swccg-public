@@ -3576,39 +3576,39 @@ var fixedImages = {
 "301_6":"https://res.starwarsccg.org/cards/VirtualPremium-Dark/large/captainkhurgee.gif",
 "301_7":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/puck.gif",
 "301_8":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/red12.gif",
-"302_1":"https://i.imgur.com/QWCRSUx.png",
-"302_2":"https://i.imgur.com/DRS9vYr.png",
-"302_3":"https://i.imgur.com/q1bhxfe.png",
-"302_4":"https://i.imgur.com/FMsmAHh.png",
-"302_5":"https://i.imgur.com/ImekOe4.png",
-"302_6":"https://i.imgur.com/Odikyjc.png",
-"302_7":"https://i.imgur.com/DdOmsL7.png",
-"302_8":"https://i.imgur.com/tIFaByr.png",
+"302_1":"https://i.imgur.com/QWCRSUx.png", //A-9 Vigilance Interceptor
+"302_2":"https://i.imgur.com/DRS9vYr.png", //Arx
+"302_3":"https://i.imgur.com/q1bhxfe.png", //Brotherhood Lightsaber
+"302_4":"https://i.imgur.com/FMsmAHh.png", //Brotherhood Trooper
+"302_5":"https://i.imgur.com/ImekOe4.png", //TIE/wi Modified Interceptor
+"302_6":"https://i.imgur.com/Odikyjc.png", 
+"302_7":"https://i.imgur.com/DdOmsL7.png", 
+"302_8":"https://i.imgur.com/tIFaByr.png", 
 "302_9":"https://i.imgur.com/Dra4YzX.png",
-"302_10":"https://i.imgur.com/l00m4A3.png",
-"302_11":"https://i.imgur.com/oFkZfTc.png",
-"302_12":"https://i.imgur.com/3qjTn3i.png",
+"302_10":"https://i.imgur.com/l00m4A3.png", //Lightsaber Combat Training
+"302_11":"https://i.imgur.com/oFkZfTc.png", //Valencia Sintarin
+"302_12":"https://i.imgur.com/3qjTn3i.png", //Howlader Taldrya
 "302_13":"https://i.imgur.com/Vtm0FQV.png",
 "302_14":"https://i.imgur.com/p7hmzax.png",
 "302_15":"https://i.imgur.com/3Ln6rCj.png",
-"302_16":"https://i.imgur.com/glDKLXk.png",
+"302_16":"https://i.imgur.com/glDKLXk.png", //Arx: Eos City
 "302_17":"https://i.imgur.com/n7ZoDxW.png",
-"302_18":"https://i.imgur.com/xfjmU8C.png",
+"302_18":"https://i.imgur.com/xfjmU8C.png", //Arx: The Iron Garage
 "302_19":"https://i.imgur.com/8BXf9pU.png",
-"302_20":"https://i.imgur.com/8KxoJG9.png",
-"302_21":"https://i.imgur.com/Q4mcmIM.png",
-"302_22":"https://i.imgur.com/QUW5Zmd.png",
-"302_23":"https://i.imgur.com/fACCKHR.png",
-"302_24":"https://i.imgur.com/GuDiQq3.png",
-"302_25":"https://i.imgur.com/515YP6C.png",
-"302_26":"https://i.imgur.com/ZwWCs66.png",
-"302_27":"https://i.imgur.com/yUhcQVa.png",
-"302_28":"https://i.imgur.com/DHW3JSO.png",
-"302_29":"https://i.imgur.com/v4Ws6ZB.png",
+"302_20":"https://i.imgur.com/8KxoJG9.png", //Arx: Dark Ascent
+"302_21":"https://i.imgur.com/Q4mcmIM.png", //Darth Nehalem
+"302_22":"https://i.imgur.com/QUW5Zmd.png", 
+"302_23":"https://i.imgur.com/fACCKHR.png", //Arx: The Iron Legion
+"302_24":"https://i.imgur.com/GuDiQq3.png", //Zxyl Bes'uliik, Regent
+"302_25":"https://i.imgur.com/515YP6C.png", //Dacien Victae, Deputy Grand Master
+"302_26":"https://i.imgur.com/ZwWCs66.png", //James Lucius Entar
+"302_27":"https://i.imgur.com/yUhcQVa.png", //Dbbot
+"302_28":"https://i.imgur.com/DHW3JSO.png", //Arx: Eos City Space Port 'Docking Bay'
+"302_29":"https://i.imgur.com/v4Ws6ZB.png", //Lord Idris Adenn, Voice
 "302_30":"https://i.imgur.com/7qByZdq.png",
-"302_31":"https://i.imgur.com/lGgChYP.png",
+"302_31":"https://i.imgur.com/lGgChYP.png", //Control the Brotherhood
 "302_32":"https://i.imgur.com/oc3yUQX.png",
-"302_33":"https://i.imgur.com/veQnKis.png",
+"302_33":"https://i.imgur.com/veQnKis.png", //Darth Renatus, Justicar
 "302_34":"https://i.imgur.com/4Hnbcdd.png",
 "302_35":"https://i.imgur.com/M4MFi8T.png",
 "302_35_BACK":"https://i.imgur.com/wIfByES.png",
@@ -3629,8 +3629,8 @@ var fixedImages = {
 "302_50":"https://i.imgur.com/wUdapSB.png",
 "302_50_BACK":"https://i.imgur.com/XgD7Gpl.png",
 "302_51":"https://i.imgur.com/z9YkY1Q.png",
-"303_1":"https://i.imgur.com/Z0iQ6oC.png",
-"303_2":"https://i.imgur.com/emuM6k9.png",
+"303_1":"https://i.imgur.com/Z0iQ6oC.png", //Marick Tyris Arconae, Exarch
+"303_2":"https://i.imgur.com/emuM6k9.png", //Arx: The Shadow Academy
 "303_3":"https://i.imgur.com/1HKs9Bv.png",
 "303_4":"https://i.imgur.com/p4tgdw4.png",
 "303_5":"https://i.imgur.com/gsgxj6P.png",
@@ -3648,18 +3648,43 @@ var fixedImages = {
 "303_16":"https://i.imgur.com/4XQkLpx.png",
 "303_17":"https://i.imgur.com/OT9mS3P.png",
 "303_18":"https://i.imgur.com/E7VyIOy.png",
-"303_19":"https://i.imgur.com/ts7UXKk.png",
+"303_19":"https://i.imgur.com/ts7UXKk.png", //Malfearak Asvraal, Herald
 "303_20":"https://i.imgur.com/EvAxm26.png",
 "303_21":"https://i.imgur.com/4T0qaxm.png",
 "303_22":"https://i.imgur.com/ElJSuNX.png",
-"303_23":"https://i.imgur.com/jAsIiKm.png",
-"303_24":"https://i.imgur.com/iZjkb83.png",
-"303_25":"https://i.imgur.com/D0B6Amb.png",
+"303_23":"https://i.imgur.com/jAsIiKm.png", //Self Doubt
+"303_24":"https://i.imgur.com/iZjkb83.png", //Dark Side Corruption
+"303_25":"https://i.imgur.com/D0B6Amb.png", //Marick Tyris Arconae's Lightsaber
 "303_26":"https://i.imgur.com/75HbEA5.png",
-"303_27":"https://i.imgur.com/0mqdEFD.png",
+"303_27":"https://i.imgur.com/0mqdEFD.png", //Kai Lap'lamiz With Lightsaber
 "303_28":"https://i.imgur.com/DYbQNbu.png",
 "303_29":"https://i.imgur.com/L3Wc0dj.png",
-"303_30":"https://i.imgur.com/Xu7kfjJ.png",
+"303_30":"https://i.imgur.com/Xu7kfjJ.png", //Crystal Armor
+"304_1":"https://i.imgur.com/gsPrpyT.png", //I.S.N. Palpatine (Front)
+"304_1_BACK":"https://i.imgur.com/EDNAoiW.png", //I.S.N. Palpatine (Back)
+"304_2":"https://i.imgur.com/FerFUPA.png", //Scholae Palatinae Occupation
+"304_3":"https://i.imgur.com/pTebLvV.png", //Dukwtape
+"304_4":"https://i.imgur.com/sSYtj5P.png", //Elaine Conrat
+"304_5":"https://i.imgur.com/He3GGTU.png", //Ellac Conrat
+"304_6":"https://i.imgur.com/i50XrOX.png", //Kadrol Hauen
+"304_7":"https://i.imgur.com/YEefz9R.png", //Kah'ri Marru
+"304_8":"https://i.imgur.com/qJ9eiOe.png", //Komilia Lap'lamiz
+"304_9":"https://i.imgur.com/5hNjEsZ.png", //Komilia Lap'lamiz, Exile
+"304_10":"https://i.imgur.com/fn491Q7.png", //Rayne Palpatine
+"304_11":"https://i.imgur.com/aznyTrN.png", //Reiden Karr
+"304_12":"https://i.imgur.com/CwNF02Y.png", //Rohan Lap'lamiz With Lightsaber
+"304_13":"https://i.imgur.com/JyrDxuI.png", //Sykes Jade
+"304_14":"https://i.imgur.com/jc4tQLj.png", //Cap
+"304_15":"https://i.imgur.com/SAQycmT.png", //Doc
+"304_16":"https://i.imgur.com/o5pH4z4.png", //Hammer
+"304_17":"https://i.imgur.com/sR6uUhk.png", //Pogo with Blaster Rifle
+"304_18":"https://i.imgur.com/BgbJzbz.png", //Whiz
+"304_19":"https://i.imgur.com/SqMk3vc.png", //Thran Occasus, Usurper
+"304_20":"https://i.imgur.com/VXEMyMW.png", //Tenjin Lap'lamiz's Lightsaber
+"304_21":"https://i.imgur.com/ptlrZ3o.png", //Darth Renatus, Deputy Grandmaster
+"304_22":"https://i.imgur.com/TPm25Zu.png", //Vincent Brujah
+"304_23":"https://i.imgur.com/zIVJBJm.png", //Scholae Palatinae, Royal Guard
+"304_24":"https://i.imgur.com/jh9RCHE.png", //Jexon Supringer
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/CloudCity-Dark/large/shatteredhope.gif",
@@ -4232,9 +4257,11 @@ var fixedImages = {
 "210_23ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/plokoon_ai.png",
 "208_17ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/restorefreedomtothegalaxy_ai.png",
 "216_43ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/tatooineobiwanshut_ai.png",
+"302_12ai":"https://i.imgur.com/geP8b55.png",
 "302_25ai":"https://i.imgur.com/3BD62vH.png",
 "302_29ai":"https://i.imgur.com/olRnWpk.png",
 "303_27ai":"https://i.imgur.com/B1pYIkt.png",
+"304_13ai":"https://i.imgur.com/KtBWlJ1.png", //Sykes Jade
 
 };
 

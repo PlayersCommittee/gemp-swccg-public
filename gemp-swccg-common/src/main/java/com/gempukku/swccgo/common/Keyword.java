@@ -208,7 +208,10 @@ public enum Keyword implements Filterable {
 	SITH_TEST_2("Sith Test 2", true, true),
 	SITH_TEST_3("Sith Test 3", true, true),
 	SITH_TEST_4("Sith Test 4", true, true),
-	SITH_TEST_5("Sith Test 5", true, true);
+	SITH_TEST_5("Sith Test 5", true, true),
+	CSP_EMPEROR("CSP Emperor", true, true),
+	THRAN_GUARD("Thran's Personal Guard", true, true),
+	CSP_ROYAL_GUARD("Scholae Palatinae, Royal Guard", true, true);
 
 
 

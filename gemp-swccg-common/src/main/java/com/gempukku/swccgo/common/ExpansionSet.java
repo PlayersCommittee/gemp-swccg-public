@@ -59,6 +59,7 @@ public enum ExpansionSet {
     DEMO_DECK("Virtual Premium Set", 301),
 	DJB_CORE("Dark Jedi Brotherhood", 302),
 	SA("Shadow Academy", 303),
+	GREAT_HUTT_EXPANSION("The Great Hutt Expansion", 304),
 
     DREAM_CARDS("Dream Cards", 401),
 
