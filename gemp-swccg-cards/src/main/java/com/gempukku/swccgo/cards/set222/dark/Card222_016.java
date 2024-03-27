@@ -2,7 +2,6 @@ package com.gempukku.swccgo.cards.set222.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
@@ -101,9 +100,9 @@ public class Card222_016 extends AbstractNormalEffect {
                 Filter siteToRelocateTo;
 
                 if (GameConditions.canSpot(game, self, Filters.and(Filters.Vader, Filters.at(chasmWalkWayCard)))) {
-                    siteToRelocateTo = Filters.and(opponentsBattlegroundSite, Filters.locationCanBeRelocatedTo(vaderCard, 0));
+                    siteToRelocateTo = Filters.and(opponentsBattlegroundSite, Filters.locationCanBeRelocatedTo(vaderCard, true, 0));
                 } else {
-                    siteToRelocateTo = Filters.and(chasmWalkWayCard, Filters.locationCanBeRelocatedTo(vaderCard, 0));
+                    siteToRelocateTo = Filters.and(chasmWalkWayCard, Filters.locationCanBeRelocatedTo(vaderCard, true, 0));
                 }
 
                 if (GameConditions.canSpotLocation(game, siteToRelocateTo)) {
@@ -118,9 +117,6 @@ public class Card222_016 extends AbstractNormalEffect {
                                 @Override
                                 protected void cardSelected(final PhysicalCard selectedCard) {
                                     action.addAnimationGroup(selectedCard);
-                                    // Pay cost(s)
-                                    action.appendCost(
-                                            new PayRelocateBetweenLocationsCostEffect(action, playerId, vaderCard, selectedCard, 0));
                                     // Allow response(s)
                                     action.allowResponses("Relocate Vader to " + GameUtils.getCardLink(selectedCard),
                                             new UnrespondableEffect(action) {
