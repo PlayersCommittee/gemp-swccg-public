@@ -747,6 +747,7 @@ public enum GameTextActionId {
     JABBAS_PRIZE_V__REVEAL(false, true),
     JABBAS_TWERPS__RETRIEVE_FORCE(false, true),
     JEDI_LEVITATION_V__TAKE_CHARACTER_INTO_HAND_FROM_LOST_PILE(true, true),
+    JS_1975__UPLOAD_GIDEON(true, true),
     KETWOL__EXCHANGE_DOCKING_BAY(true, true),
     KIR_KANOS__CANCEL_INTERRUPT(false, true),
     KYLO_MASTER_OF_THE_KNIGHTS_OF_REN__UPLOAD_INTERRUPT(true, true),
