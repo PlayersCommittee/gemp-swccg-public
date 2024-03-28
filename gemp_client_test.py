@@ -94,6 +94,9 @@ finished = False
 session = Session()
 
 gemp_base_url = 'http://0.0.0.0:8080/'
+# If doing local testing, instead use the below line and
+# provide the appropriate port:
+#gemp_base_url = 'http://localhost:17010/'
 
 # HEAD requests ask for *just* the headers, which is all you need to grab the
 # session cookie
@@ -127,17 +130,19 @@ print("")
 ## Start Game Server
 ##
 print("Starting Game Server")
-response = session.get(
-    url=gemp_base_url+'gemp-swccg-server/admin/startup',
-    headers={'Referer': gemp_base_url+'gemp-swccg/admin.html'}
+response = session.post(
+    url=gemp_base_url+'gemp-swccg-server/admin/shutdown',
+    headers={'Referer': gemp_base_url+'gemp-swccg/hall.html'},
+    data={'enabled:false'}
 )
 print("Game Server Start Response Headers:")
 for h in response.headers:
   print("  * "+h+dots[30-len(h)]+": "+response.headers[h])
-if "OK" in response.text:
+if response.ok:
   print("Game Server Started")
 else:
   print("Game Server NOT started!... Bailing out.")
+  print(response.status_code)
   exit(1)
 print("")
 

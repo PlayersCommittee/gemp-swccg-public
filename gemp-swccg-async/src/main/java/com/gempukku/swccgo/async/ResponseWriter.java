@@ -12,6 +12,7 @@ public interface ResponseWriter {
     void writeFile(File file, Map<String, String> headers);
 
     void writeHtmlResponse(String html);
+    public void writeJsonResponse(String json);
 
     void writeByteResponse(String contentType, byte[] bytes);
 

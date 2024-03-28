@@ -29,15 +29,37 @@ GEMP-SWCCG - server/client for playing Star Wars CCG using a web browser. The pr
   - The database name must be `gemp-swccg` to maintain compatibility with `database_script.sql`.
 
 
-### Docker-Compose
+### Docker Compose
 
 * `docker-compose.yml` can be used, _instead of the utility scripts below,_ to create a development/test environment.
-* Docker compose will build the container images.
-* Before bringing up the test environment using `docker-compose`, compile gemp.
+* `docker compose` will build the container images, referring to the configuration file for what settings to use.
+* Before bringing up the test environment using `docker compose`, compile gemp.
 
 ```bash
 mvn clean install
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+docker compose up -d
+```
+
+* The Docker container is configured to run the Gemp jar file automatically upon start.  Thus, whenever you have recompiled Gemp with `maven` and overwritten the jar file, you will need to recycle the containers, either with your container manager of choice or using docker compose like so:
+
+```bash
+docker compose restart
+```
+
+* Or, if you have made changes to the docker configuration itself, you can refresh those changes with a rebuild:
+
+```bash
+docker compose down
+docker compose build
+docker compose up -d
+```
+
+* If instead of the development configuration you wish to test the settings that are used by the production Gemp, you may optionally specify that you want to use the production version of the script in any docker compose command by including the `-f` flag:
+
+```bash
+docker compose down
+docker compose -f docker-compose.prod.yml build
+docker compose -f docker-compose.prod.yml up -d
 ```
 
 
@@ -52,7 +74,7 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 ### Connecting to the local dev/test gemp server
 
 
-* After starting the server, point your browser of choice to: http://0.0.0.0:8080/gemp-swccg/
+* After starting the server, point your browser of choice to: http://localhost:8080/gemp-swccg/
 
 
 
@@ -119,11 +141,11 @@ The bootstrap script automatically creates 2 test admin accounts, `test1` and `t
 * The formats are defined in:
   * `gemp-swccg-server/src/main/resources/swccgFormats.json`
   * `gemp-swccg-async/src/main/web/js/gemp-016/cardFilter.js`
-  * `gemp-swccg-async/src/main/web/leagueAdmin.html`
-* The `cardFilder.js` and `leagueAdmin.html` files are just admin pages, so the lists there are used for interacting with the content in `swccgFormats.json`.
+  * `gemp-swccg-async/src/main/webincludes/admin/leagueAdmin.html`
+* The `cardFilter.js` and `leagueAdmin.html` files are just admin pages, so the lists there are used for interacting with the content in `swccgFormats.json`.
 * `swccgFormats.json` contains a list of formats in the order they will appear within the gemp system.
   * The first entry within the list will be the default format used by gemp.
-  * The The display name _("name" field)_ is used within the database. Once a single game has been played for a format, the name can not be changed without manually updating the database.
+  * The display name _("name" field)_ is used within the database. Once a single game has been played for a format, the name cannot be changed without manually updating the database.
   * The format of the json records is not unmarshaled is a static typed way, so you can optionally add _"comment"_ fields.
 
 ### Disabling Formats
@@ -145,7 +167,7 @@ The bootstrap script automatically creates 2 test admin accounts, `test1` and `t
 
 * Tenets are the guidelines behind the format.
 * The tenet guides any person to be able to update the format with consistency.
-* Tenets are sometimes displayed to suplement the list of format settings available in Gemp and provide additional 
+* Tenets are sometimes displayed to supplement the list of format settings available in Gemp and provide additional 
 
 ```javascript
   {

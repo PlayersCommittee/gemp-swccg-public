@@ -7,6 +7,7 @@ import com.gempukku.swccgo.builder.DaoBuilder;
 import com.gempukku.swccgo.builder.PackagedProductStorageBuilder;
 import com.gempukku.swccgo.builder.ServerBuilder;
 import com.gempukku.swccgo.service.LoggedUserHolder;
+import org.apache.log4j.Logger;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
 import org.jboss.netty.channel.Channels;
@@ -25,6 +26,8 @@ public class SwccgoServerPipelineFactory implements ChannelPipelineFactory {
 
     public SwccgoServerPipelineFactory() {
         Map<Type, Object> objects = new HashMap<Type, Object>();
+
+        Logger logger = Logger.getLogger(SwccgoServerPipelineFactory.class);
 
         LoggedUserHolder loggedUserHolder = new LoggedUserHolder();
         loggedUserHolder.start();

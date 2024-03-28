@@ -533,7 +533,7 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
         // Only show playtesting formats if player is a playtester or admin
         if (!swccgFormat.isPlaytesting()
                 || resourceOwner.hasType(Player.Type.ADMIN)
-                || resourceOwner.hasType(Player.Type.PLAY_TESTER)) {
+                || resourceOwner.hasType(Player.Type.PLAYTESTER)) {
 
             /*
              * Only one format is displayed, so just set result to that value.
@@ -562,7 +562,7 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
             // Only show playtesting formats if player is a playtester or admin
             if (swccgFormat.isPlaytesting()
                     && !(resourceOwner.hasType(Player.Type.ADMIN)
-                    || resourceOwner.hasType(Player.Type.PLAY_TESTER))) {
+                    || resourceOwner.hasType(Player.Type.PLAYTESTER))) {
                 continue;
             }
             /*
@@ -596,7 +596,7 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
                 // Only show playtesting formats if player is a playtester or admin
                 if (format.getValue().isPlaytesting()
                         && !(resourceOwner.hasType(Player.Type.ADMIN)
-                        || resourceOwner.hasType(Player.Type.PLAY_TESTER))) {
+                        || resourceOwner.hasType(Player.Type.PLAYTESTER))) {
                     continue;
                 }
                 Element formatElem = doc.createElement("format");

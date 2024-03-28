@@ -100,7 +100,7 @@ public class CollectionsManager {
                 return createSumCollection(player, collectionType.split("\\+"));
 
             if ("default".equals(collectionType)) {
-                boolean withPlaytesting = player.hasType(Player.Type.ADMIN) || player.hasType(Player.Type.PLAY_TESTER);
+                boolean withPlaytesting = player.hasType(Player.Type.ADMIN) || player.hasType(Player.Type.PLAYTESTER);
                 return getDefaultCollection(withPlaytesting);
             }
 

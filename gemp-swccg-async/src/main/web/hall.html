@@ -60,9 +60,6 @@
 
         $(document).ready(
             function () {
-                $("#latestNews").append("<div class='serverTime' style='float: right'></div>");
-                $("#latestNews").append('<a href="https://forum.starwarsccg.org/viewtopic.php?f=964&t=75666">GEMP Operational Guide & FAQ</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="merchant.html">Merchant</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/PlayersCommittee/gemp-swccg-public/issues" target="_blank">Report Bugs</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://forum.starwarsccg.org/viewtopic.php?f=964&t=78855" target="_blank">Report Behavior</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://gemp.starwarsccg.org/gemp-swccg/newgui.html" target="_blank">Public Beta: New UI</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://forum.starwarsccg.org/viewtopic.php?f=964&t=64301">Missing Card List</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://forum.starwarsccg.org/viewtopic.php?f=964&t=64186">Card Requests</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.starwarsccg.org/rules/">SWCCG Game Rules</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://forum.starwarsccg.org/viewtopic.php?f=964&t=68091">Sealed Format Tutorial</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://forum.starwarsccg.org/viewforum.php?f=1503">2024 OCS</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://forum.starwarsccg.org/viewtopic.php?f=964&t=70203">Changelog</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://forum.starwarsccg.org/viewforum.php?f=964">Other GEMP Info</a><br/>');
-
                 chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-swccg-server", true, null, false, true, [], true);
                 chat.setBounds(2, 2, 780 - 4, 200 - 4);
                 chat.showTimestamps = true;
@@ -75,19 +72,19 @@
                  * jquery tabs is aggressive and will remove the links in an ahref.
                  * These hacks override the click and target it to the desired url in a new tab
                  */
-                $("#social-link-slack a").click(function (e) { e.preventDefault(); window.open("https://join.slack.com/t/starwarsccg/shared_invite/zt-2977epob7-eOwx3mgN0w14gxiwcXGU1w", "_blank"); });
+                $("#social-link-slack a"  ).click(function (e) { e.preventDefault(); window.open("https://join.slack.com/t/starwarsccg/shared_invite/zt-2977epob7-eOwx3mgN0w14gxiwcXGU1w", "_blank"); });
                 $("#social-link-discord a").click(function (e) { e.preventDefault(); window.open("https://discord.gg/nEEnXCZ", "_blank"); });
                 $("#social-link-youtube a").click(function (e) { e.preventDefault(); window.open("https://www.youtube.com/channel/UCwzN9PSUyCvxzbvCRfScS6Q", "_blank"); });
-                $("#social-link-twitch a").click(function (e) { e.preventDefault(); window.open("https://www.twitch.tv/swccgpc", "_blank"); });
+                $("#social-link-twitch a" ).click(function (e) { e.preventDefault(); window.open("https://www.twitch.tv/swccgpc", "_blank"); });
                 /*
-                 * These hacks change the links in th ahref back to the intended destination,
+                 * These hacks change the links in the ahref back to the intended destination,
                  * instead of using the tabs system.
                  * This enables support for right-click open-in-new-tab ability.
                  */
-                $("#social-link-slack a").attr("href", "https://join.slack.com/t/starwarsccg/shared_invite/zt-2977epob7-eOwx3mgN0w14gxiwcXGU1w");
+                $("#social-link-slack a"  ).attr("href", "https://join.slack.com/t/starwarsccg/shared_invite/zt-2977epob7-eOwx3mgN0w14gxiwcXGU1w");
                 $("#social-link-discord a").attr("href", "https://discord.gg/nEEnXCZ");
                 $("#social-link-youtube a").attr("href", "https://www.youtube.com/channel/UCwzN9PSUyCvxzbvCRfScS6Q");
-                $("#social-link-twitch a").attr("href", "https://www.twitch.tv/swccgpc");
+                $("#social-link-twitch a" ).attr("href", "https://www.twitch.tv/swccgpc");
 
                 $(window).resize(function () {
                     resizeHall();
@@ -221,6 +218,7 @@
             <li><a href="includes/yourStats.html">Your stats</a></li>
             <li><a href="includes/stats.html">Server stats</a></li>
             <li><a href="includes/yourCollectionStats.html">Your collection stats</a></li>
+            <li id="admin-tab"><a href="includes/admin.html">Admin</a></li>
             <!-- social links -->
             <li id="social-link-slack" class="social-link"><a
                     href="https://join.slack.com/t/starwarsccg/shared_invite/zt-2977epob7-eOwx3mgN0w14gxiwcXGU1w"
@@ -255,8 +253,28 @@
                 </script>   -->
         </ul>
         <div id="gameHall">
-            <div id="latestNews" style="width:780px;height:30px;"></div>
-            <div id="motd" style="width:780px;height:30px;"></div>
+            <div id="latestNews">
+                <div class="linkMenu">
+                    <a href="https://forum.starwarsccg.org/viewtopic.php?f=964&t=75666">GEMP Operational Guide & FAQ</a>
+                    <a href="merchant.html">Merchant</a>
+                    <a href="https://github.com/PlayersCommittee/gemp-swccg-public/issues" target="_blank">Report Bugs</a>
+                    <a href="https://forum.starwarsccg.org/viewtopic.php?f=964&t=78855" target="_blank">Report Behavior</a>
+                    <a href="https://gemp.starwarsccg.org/gemp-swccg/newgui.html" target="_blank">Public Beta: New UI</a>
+                    <a href="https://forum.starwarsccg.org/viewtopic.php?f=964&t=64301">Missing Card List</a>
+                    <a href="https://forum.starwarsccg.org/viewtopic.php?f=964&t=64186">Card Requests</a>
+                    <a href="https://www.starwarsccg.org/rules/">SWCCG Game Rules</a>
+                    <a href="https://forum.starwarsccg.org/viewtopic.php?f=964&t=68091">Sealed Format Tutorial</a>
+                    <a href="https://forum.starwarsccg.org/viewforum.php?f=1503">2024 OCS</a>
+                    <a href="https://forum.starwarsccg.org/viewtopic.php?f=964&t=70203">Changelog</a>
+                    <a href="https://forum.starwarsccg.org/viewforum.php?f=964">Other GEMP Info</a>
+                </div>
+                <div class="flexPadding"></div>
+                <div class="timeDiv">
+                    <div class="serverTime"></div>
+                    <div class="flexPadding"></div>
+                </div>
+            </div>
+            <div id="motd" class="motd"></div>
             <div id="hall" class="ui-widget-content" style="width:780px;height:260px;"></div>
             <div id="chat" class="ui-widget-content" style="position:relative;width:780px;height:200px;"></div>
         </div>

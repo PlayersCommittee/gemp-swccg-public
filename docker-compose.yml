@@ -2,7 +2,6 @@
 
 version: "3"
 
-
 services:
 
   gempdb:
@@ -20,11 +19,14 @@ services:
     expose:
       - "3306/tcp"
     ports:
-      - "3306:3306"
+      # Change this to any convenient ports on your host system.
+      # Change the published port to any convenient port on your host system.
+      - target: 3306
+        published: 3306
     restart: unless-stopped
     labels:
       - "app=gempdb"
-      - "traefik.enable=false"
+      - "traefik.enable=false"      
 
   gemp:
     container_name: gemp
@@ -37,7 +39,27 @@ services:
       - "8080/tcp"
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      # Change these to any convenient ports on your host system.
+      # Change the published ports to any convenient ports on your host system.
+      # Gemp ports
+      - target: 8080
+        published: 8080
+      # Debugger ports
+      - target: 8000
+        published: 8000
+    volumes:
+      - type: bind
+        source: ./gemp-swccg-async/src/main/web/
+        target: /opt/gemp-swccg/web
+      - type: bind
+        source: ./gemp-swccg-async/target/web.jar
+        target: /opt/gemp-swccg/web.jar
+      - type: bind
+        source: ./logs
+        target: /logs
+      - type: bind
+        source: ./replay
+        target: /replay
     labels:
       - "app=gemp"
       - "traefik.enable=true"
@@ -46,11 +68,11 @@ services:
       - gempdb
     environment:
       - "db_hostname=gempdb"
-      - "environment=production"
+      - "environment=test"
     command: ["/usr/bin/wait-for-it.sh", "gempdb:3306", "--",
               "/usr/bin/java",
               "-Xmx4g",
               "-Dlog4j.debug",
-              "-Dlog4j.configuration=prod-log4j.xml",
+              "-Dlog4j.configuration=test-log4j.xml",
               "-cp", "web.jar",
               "com.gempukku.swccgo.async.SwccgoAsyncServer"]

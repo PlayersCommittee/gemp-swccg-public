@@ -1,7 +1,7 @@
 package com.gempukku.swccgo.db;
 
-
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -9,8 +9,12 @@ import java.sql.SQLException;
  * A server setting database access object that accesses the database.
  */
 public class DbGempSettingDAO implements GempSettingDAO {
-    private DbAccess _dbAccess;
-    private boolean _newAccountRegistrationEnabled = true;
+    private final DbAccess _dbAccess;
+
+    public static String PrivateGamesEnabledFlag = "privateGamesEnabled";
+    public static String InGameStatisticsFlag = "inGameStatistics";
+    public static String BonusAbilitiesEnabledFlag = "bonusAbilitiesEnabled";
+    public static String NewAccountRegistrationEnabled = "newAccountRegistrationEnabled";
 
     /**
      * Creates a gemp_setting data access object that access the database.
@@ -22,123 +26,92 @@ public class DbGempSettingDAO implements GempSettingDAO {
 
     @Override
     public boolean privateGamesEnabled() {
-        boolean toReturn = false;
-        try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                ResultSet result = connection.createStatement().executeQuery("select settingValue from gemp_settings where settingName = 'privateGamesEnabled'");
-                try {
-                    while(result.next()) {
-                        toReturn = result.getBoolean(1);
-                    }
-                } finally {
-                    result.close();
-                }
-            } finally {
-                connection.close();
-            }
-        } catch (SQLException exp) {
-            throw new RuntimeException("Unable to get server setting", exp);
-        }
-        return toReturn;
+        return getFlag(PrivateGamesEnabledFlag);
     }
 
     @Override
-    public void togglePrivateGamesEnabled() {
-        try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                connection.createStatement().executeUpdate("update gemp_settings set settingValue = 1-settingValue where settingName = 'privateGamesEnabled'");
-            } finally {
-                connection.close();
-            }
-        } catch (SQLException exp) {
-            throw new RuntimeException("Unable to edit privateGamesEnabled setting", exp);
-        }
+    public void setPrivateGamesEnabled(boolean enabled) {
+        setFlag(PrivateGamesEnabledFlag, enabled);
     }
 
     @Override
     public boolean inGameStatisticsEnabled() {
-        boolean toReturn = false;
-        try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                ResultSet result = connection.createStatement().executeQuery("select settingValue from gemp_settings where settingName = 'inGameStatistics'");
-                try {
-                    while(result.next()) {
-                        toReturn = result.getBoolean(1);
-                    }
-                } finally {
-                    result.close();
-                }
-            } finally {
-                connection.close();
-            }
-        } catch (SQLException exp) {
-            throw new RuntimeException("Unable to get server setting", exp);
-        }
-        return toReturn;
+        return getFlag(InGameStatisticsFlag);
     }
 
     @Override
-    public void toggleInGameStatisticsEnabled() {
-        try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                connection.createStatement().executeUpdate("update gemp_settings set settingValue = 1-settingValue where settingName = 'inGameStatistics'");
-            } finally {
-                connection.close();
-            }
-        } catch (SQLException exp) {
-            throw new RuntimeException("Unable to edit inGameStatistics setting", exp);
-        }
+    public void setInGameStatisticsEnabled(boolean enabled) {
+        setFlag(InGameStatisticsFlag, enabled);
     }
-
 
     @Override
     public boolean bonusAbilitiesEnabled() {
-        boolean toReturn = false;
-        try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                ResultSet result = connection.createStatement().executeQuery("select settingValue from gemp_settings where settingName = 'bonusAbilitiesEnabled'");
-                try {
-                    while(result.next()) {
-                        toReturn = result.getBoolean(1);
-                    }
-                } finally {
-                    result.close();
-                }
-            } finally {
-                connection.close();
-            }
-        } catch (SQLException exp) {
-            throw new RuntimeException("Unable to get server setting", exp);
-        }
-        return toReturn;
+        return getFlag(BonusAbilitiesEnabledFlag);
     }
 
     @Override
-    public void toggleBonusAbilitiesEnabled() {
-        try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                connection.createStatement().executeUpdate("update gemp_settings set settingValue = 1-settingValue where settingName = 'bonusAbilitiesEnabled'");
-            } finally {
-                connection.close();
-            }
-        } catch (SQLException exp) {
-            throw new RuntimeException("Unable to edit bonusAbilitiesEnabled setting", exp);
-        }
+    public void setBonusAbilitiesEnabled(boolean enabled) {
+        setFlag(BonusAbilitiesEnabledFlag, enabled);
     }
 
     @Override
     public boolean newAccountRegistrationEnabled() {
-        return _newAccountRegistrationEnabled;
+        return getFlag(NewAccountRegistrationEnabled);
     }
 
     @Override
-    public void toggleNewAccountRegitrationEnabled() {
-        _newAccountRegistrationEnabled = !_newAccountRegistrationEnabled;
+    public void setNewAccountRegistrationEnabled(boolean enabled) {
+        setFlag(NewAccountRegistrationEnabled, enabled);
+    }
+
+    @Override
+    public void setFlag(String name, boolean enabled) {
+        try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement(
+                        "INSERT INTO gemp_settings (settingName, settingValue) VALUES(?, ?) " +
+                            "ON DUPLICATE KEY UPDATE settingValue = ?")) {
+                    statement.setString(1, name);
+                    statement.setBoolean(2, enabled);
+                    statement.setBoolean(3, enabled);
+
+                    statement.executeUpdate();
+                }
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to set '" + name + "' setting", exp);
+        }
+    }
+
+    @Override
+    public boolean toggleFlag(String name) {
+        try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                connection.createStatement().executeUpdate(
+                        "UPDATE gemp_settings SET settingValue = 1-settingValue WHERE settingName = '" + name + "'");
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to toggle '" + name + "' setting", exp);
+        }
+
+        return getFlag(name);
+    }
+
+    @Override
+    public boolean getFlag(String name) {
+        boolean enabled = false;
+        try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (ResultSet result = connection.createStatement().executeQuery(
+                        "SELECT settingValue FROM gemp_settings WHERE settingName = '" + name + "'")) {
+                    while (result.next()) {
+                        enabled = result.getBoolean(1);
+                    }
+                }
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to get setting '" + name + "': ", exp);
+        }
+        return enabled;
     }
 }

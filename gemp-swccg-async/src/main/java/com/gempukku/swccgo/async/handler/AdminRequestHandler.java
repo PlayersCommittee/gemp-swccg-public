@@ -20,6 +20,8 @@ import com.gempukku.swccgo.hall.HallServer;
 import com.gempukku.swccgo.league.*;
 import com.gempukku.swccgo.service.AdminService;
 import com.gempukku.swccgo.tournament.TournamentService;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.HttpMethod;
 import org.jboss.netty.handler.codec.http.HttpRequest;
@@ -33,21 +35,24 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class AdminRequestHandler extends SwccgoServerRequestHandler implements UriRequestHandler {
-    private LeagueService _leagueService;
-    private TournamentService _tournamentService;
-    private CacheManager _cacheManager;
-    private HallServer _hallServer;
-    private SwccgCardBlueprintLibrary _cardLibrary;
-    private SwccgoFormatLibrary _formatLibrary;
-    private LeagueDAO _leagueDao;
-    private CollectionsManager _collectionManager;
-    private PlayerDAO _playerDAO;
-    private AdminService _adminService;
-    private GameHistoryService _gameHistoryService;
+    private final LeagueService _leagueService;
+    private final TournamentService _tournamentService;
+    private final CacheManager _cacheManager;
+    private final HallServer _hallServer;
+    private final SwccgCardBlueprintLibrary _cardLibrary;
+    private final SwccgoFormatLibrary _formatLibrary;
+    private final LeagueDAO _leagueDao;
+    private final CollectionsManager _collectionManager;
+    private final PlayerDAO _playerDAO;
+    private final AdminService _adminService;
+    private final GameHistoryService _gameHistoryService;
+
+    private static final Logger _log = Logger.getLogger(AdminRequestHandler.class);
 
     public AdminRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -66,123 +71,65 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
-        if (uri.equals("/clearCache") && request.getMethod() == HttpMethod.GET) {
-            clearCache(request, responseWriter);
-        } else if (uri.equals("/startup") && request.getMethod() == HttpMethod.GET) {
-            startup(request, responseWriter);
-        } else if (uri.equals("/shutdown") && request.getMethod() == HttpMethod.GET) {
+        if (uri.equals("/clearcache") && request.getMethod() == HttpMethod.POST) {
+            clearCacheRequest(request, responseWriter);
+        } else if (uri.equals("/shutdown") && request.getMethod() == HttpMethod.POST) {
             shutdown(request, responseWriter);
-        } else if (uri.equals("/setMotd") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/motd/get") && request.getMethod() == HttpMethod.GET) {
+            getMotd(request, responseWriter);
+        } else if (uri.equals("/motd/update") && request.getMethod() == HttpMethod.POST) {
             setMotd(request, responseWriter);
-        } else if (uri.equals("/previewSealedLeague") && request.getMethod() == HttpMethod.POST) {
-            previewSealedLeague(request, responseWriter);
-        } else if (uri.equals("/addSealedLeague") && request.getMethod() == HttpMethod.POST) {
-            addSealedLeague(request, responseWriter);
-        } else if (uri.equals("/previewConstructedLeague") && request.getMethod() == HttpMethod.POST) {
-            previewConstructedLeague(request, responseWriter);
-        } else if (uri.equals("/addConstructedLeague") && request.getMethod() == HttpMethod.POST) {
-            addConstructedLeague(request, responseWriter);
-        } else if (uri.equals("/addPlayersToLeague") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/league/sealed/preview") && request.getMethod() == HttpMethod.POST) {
+            processSealedLeague(request, responseWriter, true);
+        } else if (uri.equals("/league/sealed/create") && request.getMethod() == HttpMethod.POST) {
+            processSealedLeague(request, responseWriter, false);
+        } else if (uri.equals("/league/constructed/preview") && request.getMethod() == HttpMethod.POST) {
+            processConstructedLeague(request, responseWriter, true);
+        } else if (uri.equals("/league/constructed/create") && request.getMethod() == HttpMethod.POST) {
+            processConstructedLeague(request, responseWriter, false);
+        } else if (uri.equals("/league/addplayers") && request.getMethod() == HttpMethod.POST) {
             addPlayersToLeague(request, responseWriter, e);
-        } else if (uri.equals("/addItems") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/collections/additems") && request.getMethod() == HttpMethod.POST) {
             addItems(request, responseWriter);
-        } else if (uri.equals("/addCurrency") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/collections/addcurrency") && request.getMethod() == HttpMethod.POST) {
             addCurrency(request, responseWriter);
-        } else if (uri.equals("/addItemsToCollection") && request.getMethod() == HttpMethod.POST) {
-            addItemsToCollection(request, responseWriter);
-        } else if (uri.equals("/addPlaytester") && request.getMethod() == HttpMethod.POST) {
-            addPlaytester(request, responseWriter);
-        } else if (uri.equals("/removePlaytesters") && request.getMethod() == HttpMethod.POST) {
-            removePlaytesters(request, responseWriter);
-        } else if (uri.equals("/showPlaytesters") && request.getMethod() == HttpMethod.POST) {
-            showPlaytesters(request, responseWriter);
-        } else if (uri.equals("/addCommentator") && request.getMethod() == HttpMethod.POST) {
-            addCommentator(request, responseWriter);
-        } else if (uri.equals("/removeCommentators") && request.getMethod() == HttpMethod.POST) {
-            removeCommentators(request, responseWriter);
-        } else if (uri.equals("/showCommentators") && request.getMethod() == HttpMethod.POST) {
-            showCommentators(request, responseWriter);
-        } else if (uri.equals("/resetUserPassword") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/collections/additemstoall") && request.getMethod() == HttpMethod.POST) {
+            addItemsToAllPlayers(request, responseWriter);
+        } else if (uri.equals("/user/addflag") && request.getMethod() == HttpMethod.POST) {
+            addFlagToUser(request, responseWriter);
+        } else if (uri.equals("/users/removeflag") && request.getMethod() == HttpMethod.POST) {
+            removeFlagFromUsers(request, responseWriter);
+        } else if (uri.equals("/users/findwithflag") && request.getMethod() == HttpMethod.POST) {
+            showUsersWithFlag(request, responseWriter);
+        } else if (uri.equals("/user/passwordreset") && request.getMethod() == HttpMethod.POST) {
             resetUserPassword(request, responseWriter);
-        } else if (uri.equals("/deactivateMultiple") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/users/deactivate") && request.getMethod() == HttpMethod.POST) {
             deactivateMultiple(request, responseWriter);
-        } else if (uri.equals("/banUser") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/user/ban/permanent") && request.getMethod() == HttpMethod.POST) {
             banUser(request, responseWriter);
-        } else if (uri.equals("/banMultiple") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/users/ban/permanent") && request.getMethod() == HttpMethod.POST) {
             banMultiple(request, responseWriter);
-        } else if (uri.equals("/banUserTemp") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/user/ban/temporary") && request.getMethod() == HttpMethod.POST) {
             banUserTemp(request, responseWriter);
-        } else if (uri.equals("/unBanUser") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/user/ban/acquit") && request.getMethod() == HttpMethod.POST) {
             unBanUser(request, responseWriter);
-        } else if (uri.equals("/findMultipleAccounts") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/users/detailedsearch") && request.getMethod() == HttpMethod.POST) {
             findMultipleAccounts(request, responseWriter);
-        } else if (uri.equals("/togglePrivateGames") && request.getMethod() == HttpMethod.POST) {
-            togglePrivateGames(request, responseWriter);
-        } else if (uri.equals("/toggleBonusAbilities") && request.getMethod() == HttpMethod.POST) {
-            toggleBonusAbilities(request, responseWriter);
-        } else if (uri.equals("/toggleInGameStatistics") && request.getMethod() == HttpMethod.POST) {
-            toggleInGameStatistics(request, responseWriter);
-        } else if (uri.equals("/toggleNewAccountRegistration") && request.getMethod() == HttpMethod.POST) {
-            toggleNewAccountRegistration(request, responseWriter);
-        } else if (uri.equals("/removeInGameStatisticsListeners") && request.getMethod() == HttpMethod.POST) {
-            removeInGameStatisticListeners(request, responseWriter);
-        } else if (uri.equals("/getDeckCheck") && request.getMethod() == HttpMethod.POST) {
+        } else if (uri.equals("/settings/privategames") && request.getMethod() == HttpMethod.POST) {
+            setPrivateGames(request, responseWriter);
+        } else if (uri.equals("/settings/bonusabilities") && request.getMethod() == HttpMethod.POST) {
+            setBonusAbilities(request, responseWriter);
+        } else if (uri.equals("/settings/stattracking") && request.getMethod() == HttpMethod.POST) {
+            setInGameStatTracking(request, responseWriter);
+        } else if (uri.equals("/settings/newaccounts") && request.getMethod() == HttpMethod.POST) {
+            setNewAccountRegistration(request, responseWriter);
+        } else if (uri.equals("/settings/purgestattrackers") && request.getMethod() == HttpMethod.POST) {
+            purgeInGameStatisticListeners(request, responseWriter);
+		} else if (uri.equals("/league/deckcheck") && request.getMethod() == HttpMethod.POST) {
             deckCheck(request, responseWriter);
         } else {
             responseWriter.writeError(404);
         }
-    }
-
-    private void showPlaytesters(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        validatePlaytestingAdmin(request);
-
-        List<Player> playtesters = _playerDAO.findPlaytesters();
-        if (playtesters == null)
-            throw new HttpProcessingException(404);
-
-        Collections.sort(playtesters, new SortPlayerByName());
-
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-
-        Document doc = documentBuilder.newDocument();
-        Element players = doc.createElement("players");
-
-        for (Player playtester : playtesters) {
-            Element playerElem = doc.createElement("player");
-            playerElem.setAttribute("name", playtester.getName());
-            players.appendChild(playerElem);
-        }
-
-        doc.appendChild(players);
-
-        responseWriter.writeXmlResponse(doc);
-    }
-
-    private void showCommentators(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        validateCommentatorAdmin(request);
-
-        List<Player> commentators = _playerDAO.findCommentators();
-        if (commentators == null)
-            throw new HttpProcessingException(404);
-
-        Collections.sort(commentators, new SortPlayerByName());
-
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-
-        Document doc = documentBuilder.newDocument();
-        Element players = doc.createElement("players");
-
-        for (Player commentator : commentators) {
-            Element playerElem = doc.createElement("player");
-            playerElem.setAttribute("name", commentator.getName());
-            players.appendChild(playerElem);
-        }
-
-        doc.appendChild(players);
-
-        responseWriter.writeXmlResponse(doc);
     }
 
     private void findMultipleAccounts(HttpRequest request, ResponseWriter responseWriter) throws Exception {
@@ -191,7 +138,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         String login = getFormParameterSafely(postDecoder, "login");
 
-        List<Player> similarPlayers = _playerDAO.findSimilarAccounts(new Player(0, login, null, null, null, null, login, login));
+        List<Player> similarPlayers = _playerDAO.findSimilarAccounts(login);
         if (similarPlayers == null)
             throw new HttpProcessingException(404);
 
@@ -223,8 +170,8 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
     private String getStatus(Player player) {
         if (!player.hasType(Player.Type.UNBANNED)) {
             if (player.getBannedUntil() != null) {
-                if (player.getBannedUntil().after(new Date())) {
-                    return "OK";
+                if (player.getBannedUntil().before(new Date())) {
+                    return "Unbanned (ban expired)";
                 }
                 else {
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -235,7 +182,24 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
                 return "Banned permanently";
             }
         }
-        return "OK";
+
+        String status = "Unbanned";
+        if(player.hasType(Player.Type.ADMIN))
+            status += ", Administrator";
+        if(player.hasType(Player.Type.COMMENTARY_ADMIN))
+            status += ", Commentary Admin";
+        if(player.hasType(Player.Type.COMMENTATOR))
+            status += ", Commentator";
+        if(player.hasType(Player.Type.PLAYTESTING_ADMIN))
+            status += ", Playtest Admin";
+        if(player.hasType(Player.Type.PLAYTESTER))
+            status += ", Playtester";
+        if(player.hasType(Player.Type.LEAGUE_ADMIN))
+            status += ", League Admin";
+        if(player.hasType(Player.Type.DEACTIVATED))
+            status += ", Deactivated";
+
+        return status;
     }
 
     private void resetUserPassword(HttpRequest request, ResponseWriter responseWriter) throws Exception {
@@ -244,71 +208,74 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         String login = getFormParameterSafely(postDecoder, "login");
 
-        if (login==null)
+        if (login == null)
             throw new HttpProcessingException(404);
 
         if (!_adminService.resetUserPassword(login))
             throw new HttpProcessingException(404);
 
+        clearCache();
         responseWriter.writeHtmlResponse("OK");
     }
 
-    private void addPlaytester(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        validatePlaytestingAdmin(request);
-
+    private void showUsersWithFlag(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String login = getFormParameterSafely(postDecoder, "login");
+        Player.Type flag = Player.Type.getFromName(getFormParameterSafely(postDecoder, "flag"));
 
-        if (login==null)
+        validateVariableAdmin(request, Objects.requireNonNull(flag));
+
+        List<Player> players = _playerDAO.findPlayersWithFlag(flag);
+        if (players == null)
             throw new HttpProcessingException(404);
 
-        if (!_adminService.setUserAsPlaytester(login, true))
-            throw new HttpProcessingException(404);
+        Collections.sort(players, new SortPlayerByName());
 
-        responseWriter.writeHtmlResponse("OK");
-    }
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-    private void removePlaytesters(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        validatePlaytestingAdmin(request);
+        Document doc = documentBuilder.newDocument();
+        Element playerList = doc.createElement("players");
 
-        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        List<String> logins = getFormParametersSafely(postDecoder, "login");
-        if (logins == null)
-            throw new HttpProcessingException(404);
-
-        for (String login : logins) {
-            if (!_adminService.setUserAsPlaytester(login, false))
-                throw new HttpProcessingException(404);
+        for (Player player : players) {
+            Element playerElem = doc.createElement("player");
+            playerElem.setAttribute("name", player.getName());
+            playerList.appendChild(playerElem);
         }
 
-        responseWriter.writeHtmlResponse("OK");
+        doc.appendChild(playerList);
+
+        responseWriter.writeXmlResponse(doc);
     }
 
-    private void addCommentator(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        validateCommentatorAdmin(request);
-
+    private void addFlagToUser(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        Player.Type flag = Player.Type.getFromName(getFormParameterSafely(postDecoder, "flag"));
+
+        validateVariableAdmin(request, Objects.requireNonNull(flag));
+
         String login = getFormParameterSafely(postDecoder, "login");
 
-        if (login==null)
+        if (login == null)
             throw new HttpProcessingException(404);
 
-        if (!_adminService.setUserAsCommentator(login, true))
+        if (!_adminService.setUserFlag(login, flag, true))
             throw new HttpProcessingException(404);
 
         responseWriter.writeHtmlResponse("OK");
     }
 
-    private void removeCommentators(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        validateCommentatorAdmin(request);
-
+    private void removeFlagFromUsers(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        List<String> logins = getFormParametersSafely(postDecoder, "login");
+        Player.Type flag = Player.Type.getFromName(getFormParameterSafely(postDecoder, "flag"));
+
+        validateVariableAdmin(request, Objects.requireNonNull(flag));
+
+        List<String> logins = getFormParametersSafely(postDecoder, "logins");
         if (logins == null)
             throw new HttpProcessingException(404);
 
         for (String login : logins) {
-            if (!_adminService.setUserAsCommentator(login, false))
+            if (!_adminService.setUserFlag(login, flag, false))
                 throw new HttpProcessingException(404);
         }
 
@@ -334,7 +301,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         validateAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        List<String> logins = getFormParametersSafely(postDecoder, "login");
+        List<String> logins = getFormParametersSafely(postDecoder, "logins");
         if (logins == null)
             throw new HttpProcessingException(404);
 
@@ -350,7 +317,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         validateAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        List<String> logins = getFormParametersSafely(postDecoder, "login");
+        List<String> logins = getFormParametersSafely(postDecoder, "logins");
         if (logins == null)
             throw new HttpProcessingException(404);
 
@@ -387,7 +354,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         responseWriter.writeHtmlResponse("OK");
     }
 
-    private void addItemsToCollection(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+    private void addItemsToAllPlayers(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
@@ -417,7 +384,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         }
     }
 
-    private void addItems(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, Exception {
+    private void addItems(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
@@ -454,32 +421,34 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
     private String listToString(List<String> cannotAdd) {
         StringBuilder stringBuilder = new StringBuilder("Did not add any items. Unable to add:");
         for (String s : cannotAdd) {
-            stringBuilder.append("<br>" + s);
+            stringBuilder.append("<br>").append(s);
         }
         return stringBuilder.toString();
     }
 
+    //Need to get up to Java 8, and then such functions can be replaced by one-liners like
+    // String.join(", ", invalidUsernames)
     private String invalidUsernameListToString(List<String> invalidUsernames) {
         StringBuilder stringBuilder = new StringBuilder("Invalid usernames:");
         for (String s : invalidUsernames) {
-            stringBuilder.append("<br>" + s);
+            stringBuilder.append("<br>").append(s);
         }
         return stringBuilder.toString();
     }
 
     private List<String> validateItemsToAdd(Collection<CardCollection.Item> productItems) throws IOException {
-        //check if all of the items are formatted correctly (adding the wrong product to a collection can break it)
-        List<String> cannotAdd = new ArrayList<String>();
+        //check if all the items are formatted correctly (adding the wrong product to a collection can break it)
+        List<String> cannotAdd = new ArrayList<>();
 
         //pack list
-        Set<String> packList = new HashSet<String>();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(AdminRequestHandler.class.getResourceAsStream("/packs.txt"), "UTF-8"));
-        try {
+        Set<String> packList = new HashSet<>();
+        try (BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(
+                        Objects.requireNonNull(AdminRequestHandler.class.getResourceAsStream("/packs.txt")),
+                        StandardCharsets.UTF_8))) {
             String line;
             while ((line = bufferedReader.readLine()) != null)
                 packList.add(line);
-        } finally {
-            bufferedReader.close();
         }
 
         SwccgCardBlueprintLibrary library = new SwccgCardBlueprintLibrary();
@@ -491,9 +460,6 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
                         cannotAdd.add(item.getBlueprintId());
                     break;
                 case PACK:
-                    if(!packList.contains(item.getBlueprintId()))
-                        cannotAdd.add(item.getBlueprintId());
-                    break;
                 case SELECTION:
                     if(!packList.contains(item.getBlueprintId()))
                         cannotAdd.add(item.getBlueprintId());
@@ -511,7 +477,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         for(String playerName: playerNames) {
             try {
                 Player player = _playerDao.getPlayer(playerName);
-                if (player==null)
+                if (player == null)
                     cannotAdd.add(playerName);
             } catch(Exception e) {
                 cannotAdd.add(playerName);
@@ -520,7 +486,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         return cannotAdd;
     }
 
-    private void addCurrency(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, Exception {
+    private void addCurrency(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
@@ -538,7 +504,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             List<String> invalidUsernames = getInvalidUsernameList(playerNames);
 
             if (!invalidUsernames.isEmpty()) {
-                responseWriter.writeHtmlResponse("Did not add any currency. "+invalidUsernameListToString(invalidUsernames));
+                responseWriter.writeHtmlResponse("Did not add any currency. " + invalidUsernameListToString(invalidUsernames));
             } else {
                 for (String playerName : playerNames) {
                     Player player = _playerDao.getPlayer(playerName);
@@ -551,7 +517,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
     }
 
     private List<String> getItems(String values) {
-        List<String> result = new LinkedList<String>();
+        List<String> result = new LinkedList<>();
         for (String pack : values.split("\n")) {
             String blueprint = pack.trim();
             if (blueprint.length() > 0)
@@ -561,7 +527,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
     }
 
     private Collection<CardCollection.Item> getProductItems(String values) {
-        List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
+        List<CardCollection.Item> result = new LinkedList<>();
         for (String item : values.split("\n")) {
             item = item.trim();
             if (item.length() > 0) {
@@ -582,112 +548,90 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
     }
 
     /**
-     * Adds a constructed league using the specified parameters.
+     * Processes the passed parameters for a theoretical Sealed League.  Based on the preview parameter, this will
+     * either create the league for real, or just return the parsed values to the client so the admin can preview
+     * the input.
      * @param request the request
      * @param responseWriter the response writer
+     * @param preview If true, no league will be created and the client will have an XML payload returned representing
+     *                what the league would be upon creation.  If false, the league will be created for real.
      * @throws Exception
      */
-    private void addConstructedLeague(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+    private void processSealedLeague(HttpRequest request, ResponseWriter responseWriter, boolean preview) throws Exception {
         validateLeagueAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String start = getFormParameterSafely(postDecoder, "start");
-        String collectionType = getFormParameterSafely(postDecoder, "collectionType");
-        List<String> formats = getFormMultipleParametersSafely(postDecoder, "format");
-        List<String> seriesDurations = getFormMultipleParametersSafely(postDecoder, "seriesDuration");
-        List<String> maxMatches = getFormMultipleParametersSafely(postDecoder, "maxMatches");
         String name = getFormParameterSafely(postDecoder, "name");
-        int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
+        String costStr = getFormParameterSafely(postDecoder, "cost");
+        String startStr = getFormParameterSafely(postDecoder, "start");
+        String format = getFormParameterSafely(postDecoder, "format");
+        String serieDurationStr = getFormParameterSafely(postDecoder, "serieDuration");
+        String maxMatchesStr = getFormParameterSafely(postDecoder, "maxMatches");
+        String allowTimeExtensionsStr = getFormParameterSafely(postDecoder, "allowTimeExtensions");
+        String allowSpectatorsStr = getFormParameterSafely(postDecoder, "allowSpectators");
+        String showPlayerNamesStr = getFormParameterSafely(postDecoder, "showPlayerNames");
+        String invitationOnlyStr = getFormParameterSafely(postDecoder, "invitationOnly");
+        String registrationInfo = getFormParameterSafely(postDecoder, "registrationInfo");
+        String decisionTimeoutStr = getFormParameterSafely(postDecoder, "decisionTimeoutSeconds");
+        String timePerPlayerStr = getFormParameterSafely(postDecoder, "timePerPlayerMinutes");
 
-        String allowSpectatorsOnOff = getFormParameterSafely(postDecoder, "allowSpectators");
-        boolean allowSpectators = allowSpectatorsOnOff != null && allowSpectatorsOnOff.equals("on");
+        Throw400IfStringNull("name", name);
+        int cost = Throw400IfNullOrNonInteger("cost", costStr);
+        int start = Throw400IfNullOrNonInteger("start", startStr);
+        if(startStr.length() != 8)
+            throw new HttpProcessingException(400, "Parameter 'start' must be exactly 8 digits long: YYYYMMDD");
+        Throw400IfStringNull("format", format);
+        int serieDuration = Throw400IfNullOrNonInteger("serieDuration", serieDurationStr);
+        int maxMatches = Throw400IfNullOrNonInteger("maxMatches", maxMatchesStr);
+        boolean allowTimeExtensions = Throw400IfNullOrNonBoolean("allowTimeExtensions", allowTimeExtensionsStr);
+        boolean allowSpectators = Throw400IfNullOrNonBoolean("allowSpectators", allowSpectatorsStr);
+        boolean showPlayerNames = Throw400IfNullOrNonBoolean("showPlayerNames", showPlayerNamesStr);
+        boolean invitationOnly = Throw400IfNullOrNonBoolean("invitationOnly", invitationOnlyStr);
+        //Throw400IfStringNull("registrationInfo", registrationInfo);
+        int decisionTimeoutSeconds = Throw400IfNullOrNonInteger("decisionTimeoutSeconds", decisionTimeoutStr);
+        int timePerPlayerMinutes = Throw400IfNullOrNonInteger("timePerPlayerMinutes", timePerPlayerStr);
 
-        String allowTimeExtensionsOnOff = getFormParameterSafely(postDecoder, "allowTimeExtensions");
-        boolean allowTimeExtensions = allowTimeExtensionsOnOff != null && allowTimeExtensionsOnOff.equals("on");
-
-        String showPlayerNamesOnOff = getFormParameterSafely(postDecoder, "showPlayerNames");
-        boolean showPlayerNames = showPlayerNamesOnOff != null && showPlayerNamesOnOff.equals("on");
-
-        String invitationOnlyOnOff = getFormParameterSafely(postDecoder, "invitationOnly");
-        boolean invitationOnly = invitationOnlyOnOff != null && invitationOnlyOnOff.equals("on");
-
-        String registrationInfoString = getFormParameterSafely(postDecoder, "registrationInfo");
-
-        int decisionTimeoutSeconds = Integer.parseInt(getFormParameterSafely(postDecoder, "decisionTimeoutSeconds"));
-        int timePerPlayerMinutes = Integer.parseInt(getFormParameterSafely(postDecoder, "timePerPlayerMinutes"));
+        if(registrationInfo.toLowerCase().contains("starwarsccg.org") && !registrationInfo.contains(" ")) {
+            registrationInfo = "<a href='" + registrationInfo + "' target='_blank'>" + registrationInfo + "</a>";
+        }
 
         String code = String.valueOf(System.currentTimeMillis());
 
-        StringBuilder sb = new StringBuilder();
-        sb.append(start + "," + collectionType + "," + formats.size());
-        for (int i = 0; i < formats.size(); ++i) {
-            sb.append("," + formats.get(i) + "," + seriesDurations.get(i) + "," + maxMatches.get(i));
-        }
-
-        String parameters = sb.toString();
-        LeagueData leagueData = new NewConstructedLeagueData(_cardLibrary, parameters);
+        String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
+        LeagueData leagueData = new NewSealedLeagueData(_cardLibrary, parameters);
         List<LeagueSeriesData> series = leagueData.getSeries();
         int leagueStart = series.get(0).getStart();
         int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
 
-        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd, allowSpectators, allowTimeExtensions, showPlayerNames, invitationOnly, registrationInfoString, decisionTimeoutSeconds, timePerPlayerMinutes);
+        if(!preview) {
+            _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd,
+                    allowSpectators, allowTimeExtensions, showPlayerNames, invitationOnly, registrationInfo,
+                    decisionTimeoutSeconds, timePerPlayerMinutes);
+            _leagueService.clearCache();
 
-        _leagueService.clearCache();
-
-        responseWriter.writeHtmlResponse("OK");
-    }
-
-    /**
-     * Creates a response with a preview of the sealed league using the specified parameters.
-     * @param request the request
-     * @param responseWriter the response writer
-     * @throws Exception
-     */
-    private void previewConstructedLeague(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        validateLeagueAdmin(request);
-
-        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String start = getFormParameterSafely(postDecoder, "start");
-        String collectionType = getFormParameterSafely(postDecoder, "collectionType");
-        List<String> formats = getFormMultipleParametersSafely(postDecoder, "format");
-        List<String> seriesDurations = getFormMultipleParametersSafely(postDecoder, "seriesDuration");
-        List<String> maxMatches = getFormMultipleParametersSafely(postDecoder, "maxMatches");
-        String name = getFormParameterSafely(postDecoder, "name");
-        int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(start + "," + collectionType + "," + formats.size());
-        for (int i = 0; i < formats.size(); ++i) {
-            sb.append("," + formats.get(i) + "," + seriesDurations.get(i) + "," + maxMatches.get(i));
+            responseWriter.writeHtmlResponse("OK");
+            return;
         }
-
-        String invitationOnlyOnOff = getFormParameterSafely(postDecoder, "invitationOnly");
-        boolean invitationOnly = invitationOnlyOnOff != null && invitationOnlyOnOff.equals("on");
-
-        String registrationInfoString = getFormParameterSafely(postDecoder, "registrationInfo");
-        if(registrationInfoString.toLowerCase().contains("starwarsccg.org") && !registrationInfoString.contains(" "))
-            registrationInfoString = "<a href='"+registrationInfoString+"' target='_new'>"+registrationInfoString+"</a>";
-
-        String parameters = sb.toString();
-        LeagueData leagueData = new NewConstructedLeagueData(_cardLibrary, parameters);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
         Document doc = documentBuilder.newDocument();
 
-        final List<LeagueSeriesData> series = leagueData.getSeries();
-
-        int end = series.get(series.size() - 1).getEnd();
-
         Element leagueElem = doc.createElement("league");
 
         leagueElem.setAttribute("name", name);
         leagueElem.setAttribute("cost", String.valueOf(cost));
-        leagueElem.setAttribute("invitationOnly", String.valueOf(invitationOnly));
-        leagueElem.setAttribute("registrationInfo", registrationInfoString);
         leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
-        leagueElem.setAttribute("end", String.valueOf(end));
+        leagueElem.setAttribute("allowTimeExtensions", String.valueOf(allowTimeExtensions));
+        leagueElem.setAttribute("allowSpectators", String.valueOf(allowSpectators));
+        leagueElem.setAttribute("showPlayerNames", String.valueOf(showPlayerNames));
+        leagueElem.setAttribute("invitationOnly", String.valueOf(invitationOnly));
+        leagueElem.setAttribute("registrationInfo", registrationInfo);
+        leagueElem.setAttribute("decisionTimeoutSeconds", String.valueOf(decisionTimeoutSeconds));
+        leagueElem.setAttribute("timePerPlayerMinutes", String.valueOf(timePerPlayerMinutes));
+
+        leagueElem.setAttribute("end", String.valueOf(displayEnd));
 
         for (LeagueSeriesData serie : series) {
             Element serieElem = doc.createElement("serie");
@@ -708,100 +652,101 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
     }
 
     /**
-     * Adds a sealed league using the specified parameters.
+     * Processes the passed parameters for a theoretical Constructed League.  Based on the preview parameter, this will
+     * either create the league for real, or just return the parsed values to the client so the admin can preview
+     * the input.
      * @param request the request
      * @param responseWriter the response writer
+     * @param preview If true, no league will be created and the client will have an XML payload returned representing
+     *                what the league would be upon creation.  If false, the league will be created for real.
      * @throws Exception
      */
-    private void addSealedLeague(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+    private void processConstructedLeague(HttpRequest request, ResponseWriter responseWriter, boolean preview) throws Exception {
         validateLeagueAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String format = getFormParameterSafely(postDecoder, "format");
-        String start = getFormParameterSafely(postDecoder, "start");
-        String seriesDuration = getFormParameterSafely(postDecoder, "seriesDuration");
-        String maxMatches = getFormParameterSafely(postDecoder, "maxMatches");
         String name = getFormParameterSafely(postDecoder, "name");
-        int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
+        String costStr = getFormParameterSafely(postDecoder, "cost");
+        String startStr = getFormParameterSafely(postDecoder, "start");
+        String collectionType = getFormParameterSafely(postDecoder, "collectionType");
+        //Individual serie definitions
+        List<String> formats = getFormMultipleParametersSafely(postDecoder, "formats");
+        List<String> serieDurationsStr = getFormMultipleParametersSafely(postDecoder, "serieDurations");
+        List<String> maxMatchesStr = getFormMultipleParametersSafely(postDecoder, "maxMatches");
+        String allowTimeExtensionsStr = getFormParameterSafely(postDecoder, "allowTimeExtensions");
+        String allowSpectatorsStr = getFormParameterSafely(postDecoder, "allowSpectators");
+        String showPlayerNamesStr = getFormParameterSafely(postDecoder, "showPlayerNames");
+        String invitationOnlyStr = getFormParameterSafely(postDecoder, "invitationOnly");
+        String registrationInfo = getFormParameterSafely(postDecoder, "registrationInfo");
+        String decisionTimeoutStr = getFormParameterSafely(postDecoder, "decisionTimeoutSeconds");
+        String timePerPlayerStr = getFormParameterSafely(postDecoder, "timePerPlayerMinutes");
 
-        String allowSpectatorsOnOff = getFormParameterSafely(postDecoder, "allowSpectators");
-        boolean allowSpectators = allowSpectatorsOnOff != null && allowSpectatorsOnOff.equals("on");
+        Throw400IfStringNull("name", name);
+        int cost = Throw400IfNullOrNonInteger("cost", costStr);
+        int start = Throw400IfNullOrNonInteger("start", startStr);
+        if(startStr.length() != 8)
+            throw new HttpProcessingException(400, "Parameter 'start' must be exactly 8 digits long: YYYYMMDD");
+        Throw400IfAnyStringNull("formats", formats);
+        Throw400IfStringNull("collectionType", collectionType);
+        List<Integer> serieDurations = Throw400IfAnyNullOrNonInteger("serieDurations", serieDurationsStr);
+        List<Integer> maxMatches = Throw400IfAnyNullOrNonInteger("maxMatches", maxMatchesStr);
+        boolean allowTimeExtensions = Throw400IfNullOrNonBoolean("allowTimeExtensions", allowTimeExtensionsStr);
+        boolean allowSpectators = Throw400IfNullOrNonBoolean("allowSpectators", allowSpectatorsStr);
+        boolean showPlayerNames = Throw400IfNullOrNonBoolean("showPlayerNames", showPlayerNamesStr);
+        boolean invitationOnly = Throw400IfNullOrNonBoolean("invitationOnly", invitationOnlyStr);
+        //Throw400IfStringNull("registrationInfo", registrationInfo);
+        int decisionTimeoutSeconds = Throw400IfNullOrNonInteger("decisionTimeoutSeconds", decisionTimeoutStr);
+        int timePerPlayerMinutes = Throw400IfNullOrNonInteger("timePerPlayerMinutes", timePerPlayerStr);
 
-        String allowTimeExtensionsOnOff = getFormParameterSafely(postDecoder, "allowTimeExtensions");
-        boolean allowTimeExtensions = allowTimeExtensionsOnOff != null && allowTimeExtensionsOnOff.equals("on");
-
-        String showPlayerNamesOnOff = getFormParameterSafely(postDecoder, "showPlayerNames");
-        boolean showPlayerNames = showPlayerNamesOnOff != null && showPlayerNamesOnOff.equals("on");
-
-        String invitationOnlyOnOff = getFormParameterSafely(postDecoder, "invitationOnly");
-        boolean invitationOnly = invitationOnlyOnOff != null && invitationOnlyOnOff.equals("on");
-
-        String registrationInfoString = getFormParameterSafely(postDecoder, "registrationInfo");
-
-        int decisionTimeoutSeconds = Integer.parseInt(getFormParameterSafely(postDecoder, "decisionTimeoutSeconds"));
-        int timePerPlayerMinutes = Integer.parseInt(getFormParameterSafely(postDecoder, "timePerPlayerMinutes"));
+        if(registrationInfo.toLowerCase().contains("starwarsccg.org") && !registrationInfo.contains(" ")) {
+            registrationInfo = "<a href='" + registrationInfo + "' target='_blank'>" + registrationInfo + "</a>";
+        }
 
         String code = String.valueOf(System.currentTimeMillis());
 
-        String parameters = format + "," + start + "," + seriesDuration + "," + maxMatches + "," + code + "," + name;
-        LeagueData leagueData = new NewSealedLeagueData(_cardLibrary, parameters);
+        StringBuilder sb = new StringBuilder();
+        sb.append(start).append(",").append(collectionType).append(",").append(formats.size());
+        for (int i = 0; i < formats.size(); ++i) {
+            sb.append(",").append(formats.get(i)).append(",").append(serieDurations.get(i)).append(",").append(
+                    maxMatches.get(i));
+        }
+
+        String parameters = sb.toString();
+        LeagueData leagueData = new NewConstructedLeagueData(_cardLibrary, parameters);
         List<LeagueSeriesData> series = leagueData.getSeries();
         int leagueStart = series.get(0).getStart();
         int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
 
-        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd, allowSpectators, allowTimeExtensions, showPlayerNames, invitationOnly, registrationInfoString, decisionTimeoutSeconds, timePerPlayerMinutes);
+        if(!preview) {
+            _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd,
+                    allowSpectators, allowTimeExtensions, showPlayerNames, invitationOnly, registrationInfo,
+                    decisionTimeoutSeconds, timePerPlayerMinutes);
 
-        _leagueService.clearCache();
+            _leagueService.clearCache();
 
-        responseWriter.writeHtmlResponse("OK");
-    }
-
-    /**
-     * Creates a response with a preview of the sealed league using the specified parameters.
-     * @param request the request
-     * @param responseWriter the response writer
-     * @throws Exception
-     */
-    private void previewSealedLeague(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        validateLeagueAdmin(request);
-
-        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String format = getFormParameterSafely(postDecoder, "format");
-        String start = getFormParameterSafely(postDecoder, "start");
-        String seriesDuration = getFormParameterSafely(postDecoder, "seriesDuration");
-        String maxMatches = getFormParameterSafely(postDecoder, "maxMatches");
-        String name = getFormParameterSafely(postDecoder, "name");
-        int cost = Integer.parseInt(getFormParameterSafely(postDecoder, "cost"));
-
-        String invitationOnlyOnOff = getFormParameterSafely(postDecoder, "invitationOnly");
-        boolean invitationOnly = invitationOnlyOnOff != null && invitationOnlyOnOff.equals("on");
-
-        String registrationInfoString = getFormParameterSafely(postDecoder, "registrationInfo");
-        if(registrationInfoString.toLowerCase().contains("starwarsccg.org") && !registrationInfoString.contains(" "))
-            registrationInfoString = "<a href='"+registrationInfoString+"' target='_new'>"+registrationInfoString+"</a>";
-
-        String code = String.valueOf(System.currentTimeMillis());
-
-        String parameters = format + "," + start + "," + seriesDuration + "," + maxMatches + "," + code + "," + name;
-        LeagueData leagueData = new NewSealedLeagueData(_cardLibrary, parameters);
+            responseWriter.writeHtmlResponse("OK");
+            return;
+        }
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
         Document doc = documentBuilder.newDocument();
 
-        final List<LeagueSeriesData> series = leagueData.getSeries();
-
-        int end = series.get(series.size() - 1).getEnd();
-
         Element leagueElem = doc.createElement("league");
 
         leagueElem.setAttribute("name", name);
         leagueElem.setAttribute("cost", String.valueOf(cost));
-        leagueElem.setAttribute("invitationOnly", String.valueOf(invitationOnly));
-        leagueElem.setAttribute("registrationInfo", registrationInfoString);
         leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
-        leagueElem.setAttribute("end", String.valueOf(end));
+        leagueElem.setAttribute("end", String.valueOf(displayEnd));
+        leagueElem.setAttribute("collectionType", collectionType);
+        leagueElem.setAttribute("allowTimeExtensions", String.valueOf(allowTimeExtensions));
+        leagueElem.setAttribute("allowSpectators", String.valueOf(allowSpectators));
+        leagueElem.setAttribute("showPlayerNames", String.valueOf(showPlayerNames));
+        leagueElem.setAttribute("invitationOnly", String.valueOf(invitationOnly));
+        leagueElem.setAttribute("registrationInfo", registrationInfo);
+        leagueElem.setAttribute("decisionTimeoutSeconds", String.valueOf(decisionTimeoutSeconds));
+        leagueElem.setAttribute("timePerPlayerMinutes", String.valueOf(timePerPlayerMinutes));
 
         for (LeagueSeriesData serie : series) {
             Element serieElem = doc.createElement("serie");
@@ -820,45 +765,55 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
 
         responseWriter.writeXmlResponse(doc);
     }
+
 
     private void addPlayersToLeague(HttpRequest request, ResponseWriter responseWriter, MessageEvent e) throws Exception {
         validateLeagueAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         String leagueType = getFormParameterSafely(postDecoder, "leagueType");
-        String players = getFormParameterSafely(postDecoder, "players");
+        List<String> playerNames = getFormParametersSafely(postDecoder, "players");
 
         League league = _leagueService.getLeagueByType(leagueType);
         if (league == null) {
-            throw new HttpProcessingException(409);
+            throw new HttpProcessingException(400, "League '" + leagueType + "' does not exist.");
         }
-        List<String> playerNames = getItems(players);
 
         List<String> invalidUsernames = getInvalidUsernameList(playerNames);
 
         if (!invalidUsernames.isEmpty()) {
-            responseWriter.writeHtmlResponse("Did not add any players to the league. "+invalidUsernameListToString(invalidUsernames));
-        } else {
-            for (String playerName : playerNames) {
-                Player player = _playerDao.getPlayer(playerName);
-                if (player != null) {
-                    if (!_leagueService.isPlayerInLeague(league, player)) {
-                        if (!_leagueService.playerJoinsLeague(league, player, e.getRemoteAddress().toString(), true, true)) {
-                            throw new HttpProcessingException(409);
-                        }
+            throw new HttpProcessingException(400, "Added no players to the league. " +
+                    invalidUsernameListToString(invalidUsernames) + ".");
+        }
+
+        for (String playerName : playerNames) {
+            Player player = _playerDao.getPlayer(playerName);
+            if (player != null) {
+                if (!_leagueService.isPlayerInLeague(league, player)) {
+                    if (!_leagueService.playerJoinsLeague(league, player, e.getRemoteAddress().toString(), true, true)) {
+                        throw new HttpProcessingException(500, "Failed to add player '" + player + "' to the league.  Aborting.");
                     }
                 }
             }
+        }
 
-            responseWriter.writeHtmlResponse("OK");
+        responseWriter.writeHtmlResponse("OK");
+    }
+
+    private void getMotd(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+        validateAdmin(request);
+
+        String motd = _hallServer.getMOTD();
+
+        if(motd != null) {
+            responseWriter.writeJsonResponse(motd.replace("\n", "<br>"));
         }
     }
 
-    private void setMotd(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, Exception {
+    private void setMotd(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateAdmin(request);
 
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-
         String motd = getFormParameterSafely(postDecoder, "motd");
 
         _hallServer.setMOTD(motd);
@@ -866,72 +821,95 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         responseWriter.writeHtmlResponse("OK");
     }
 
-    private void startup(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
+    private void shutdown(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateAdmin(request);
 
-        _hallServer.setOperational();
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        boolean shutdown = Boolean.parseBoolean(getFormParameterSafely(postDecoder, "enabled"));
+
+        if(shutdown) {
+            _hallServer.setShutdown();
+        }
+        else {
+            _hallServer.setOperational();
+        }
 
         responseWriter.writeHtmlResponse("OK");
     }
 
-    private void shutdown(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
+    private void clearCacheRequest(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
         validateAdmin(request);
-
-        _hallServer.setShutdown();
-
-        responseWriter.writeHtmlResponse("OK");
-    }
-
-    private void clearCache(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
-        validateAdmin(request);
-
-        _leagueService.clearCache();
-        _tournamentService.clearCache();
 
         int before = _cacheManager.getTotalCount();
 
-        _cacheManager.clearCaches();
+        clearCache();
 
         int after = _cacheManager.getTotalCount();
 
-        responseWriter.writeHtmlResponse("Before: " + before + "<br>OK<br>After: " + after);
+        responseWriter.writeHtmlResponse("OK<br><br>Before: " + before + "<br><br>After: " + after);
+    }
+
+    private void clearCache()  {
+        _leagueService.clearCache();
+        _tournamentService.clearCache();
+        _cacheManager.clearCaches();
+        _hallServer.cleanup(true);
     }
 
 
-    private void togglePrivateGames(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
+    private void setPrivateGames(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateAdmin(request);
-        _hallServer.togglePrivateGames();
 
-        responseWriter.writeHtmlResponse("Private games enabled: "+String.valueOf(_hallServer.privateGamesAllowed()));
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        boolean enabled = Boolean.parseBoolean(getFormParameterSafely(postDecoder, "enabled"));
+
+        _hallServer.setPrivateGames(enabled);
+
+        responseWriter.writeHtmlResponse("OK.  Private games enabled: " + _hallServer.privateGamesAllowed());
     }
 
-    private void toggleBonusAbilities(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
+    private void setBonusAbilities(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateAdmin(request);
-        _hallServer.toggleBonusAbilities();
 
-        responseWriter.writeHtmlResponse("Bonus abilities enabled in casual games: "+String.valueOf(_hallServer.bonusAbilitiesEnabled()));
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        boolean enabled = Boolean.parseBoolean(getFormParameterSafely(postDecoder, "enabled"));
+
+        _hallServer.setBonusAbilities(enabled);
+
+        responseWriter.writeHtmlResponse("OK.  Bonus abilities enabled in casual games: " + _hallServer.bonusAbilitiesEnabled());
+
     }
 
-    private void toggleNewAccountRegistration(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
+    private void setNewAccountRegistration(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateAdmin(request);
-        _gempSettingDAO.toggleNewAccountRegitrationEnabled();
 
-        responseWriter.writeHtmlResponse("New account registration enabled: "+String.valueOf(_gempSettingDAO.newAccountRegistrationEnabled())
-            + (_gempSettingDAO.newAccountRegistrationEnabled()?"":" (remember to turn this back on)"));
+
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        boolean enabled = Boolean.parseBoolean(getFormParameterSafely(postDecoder, "enabled"));
+
+        _gempSettingDAO.setNewAccountRegistrationEnabled(enabled);
+
+        responseWriter.writeHtmlResponse("New account registration enabled: " + enabled
+                + (enabled ? "" : " (remember to turn this back on)"));
     }
 
-    private void toggleInGameStatistics(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
+    private void setInGameStatTracking(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         validateAdmin(request);
-        _hallServer.toggleInGameStatistics();
 
-        responseWriter.writeHtmlResponse("In game statistics tracking enabled: "+String.valueOf(_hallServer.inGameStatisticsEnabled()));
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        boolean enabled = Boolean.parseBoolean(getFormParameterSafely(postDecoder, "enabled"));
+
+        _hallServer.setInGameStatisticsEnabled(enabled);
+
+        responseWriter.writeHtmlResponse("OK.  In game statistics tracking enabled: " + _hallServer.inGameStatisticsEnabled());
     }
 
-    private void removeInGameStatisticListeners(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
+    private void purgeInGameStatisticListeners(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
         validateAdmin(request);
         int count = _hallServer.removeInGameStatisticsListeners();
 
-        responseWriter.writeHtmlResponse("In game statistics tracking removed from "+count+" active games<br>In game statistics tracking enabled: "+String.valueOf(_hallServer.inGameStatisticsEnabled()));
+        responseWriter.writeHtmlResponse("In game statistics tracking removed from " + count +
+                " active games<br>In game statistics tracking enabled: " + _hallServer.inGameStatisticsEnabled());
     }
 
     private void deckCheck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
@@ -940,12 +918,12 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         String leagueId = getFormParameterSafely(postDecoder, "leagueId");
 
-        if (leagueId==null || leagueId.length()==0)
-            throw new HttpProcessingException(404);
+        Throw400IfStringNull("leagueId", leagueId);
+
+        if(_leagueService.getLeagueByType(leagueId) == null)
+            throw new HttpProcessingException(404, "No league with that type id could be found.");
 
         List<LeagueDecklistEntry> decklistEntries = _gameHistoryService.getDeckCheck(leagueId);
-        if (decklistEntries == null)
-            throw new HttpProcessingException(404);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -965,6 +943,76 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
         doc.appendChild(deckCheckEntries);
 
         responseWriter.writeXmlResponse(doc);
+    }
+
+    private void Throw400IfStringNull(String paramName, String value) throws HttpProcessingException {
+        if(StringUtils.isEmpty(value)) {
+            throw new HttpProcessingException(400, "Parameter '" + paramName + "' cannot be blank.");
+        }
+    }
+
+    private void Throw400IfAnyStringNull(String paramName, List<String> values) throws HttpProcessingException {
+        if(values == null || values.isEmpty())
+            throw new HttpProcessingException(400, "Parameter '" + paramName + "' must have values set.");
+
+        for (String value : values) {
+            if(StringUtils.isEmpty(value)) {
+                throw new HttpProcessingException(400, "Parameter '" + paramName + "' cannot be blank.");
+            }
+        }
+    }
+
+    private int Throw400IfNullOrNonInteger(String paramName, String value) throws HttpProcessingException {
+        if(StringUtils.isEmpty(value)) {
+            throw new HttpProcessingException(400, "Parameter '" + paramName + "' cannot be blank.");
+        }
+        int newValue;
+        try {
+            newValue = Integer.parseInt(value);
+        }
+        catch (NumberFormatException ex) {
+            throw new HttpProcessingException(400, "Parameter '" + paramName + "' must be a valid numeric integer.");
+        }
+
+        return newValue;
+    }
+
+    private List<Integer> Throw400IfAnyNullOrNonInteger(String paramName, List<String> values) throws HttpProcessingException {
+        List<Integer> newValues = new ArrayList<>();
+
+        if(values == null || values.isEmpty())
+            throw new HttpProcessingException(400, "Parameter '" + paramName + "' must have values set.");
+        
+        for(String value : values) {
+            if(StringUtils.isEmpty(value)) {
+                throw new HttpProcessingException(400, "Parameter '" + paramName + "' cannot be blank.");
+            }
+            int newValue;
+            try {
+                newValue = Integer.parseInt(value);
+            }
+            catch (NumberFormatException ex) {
+                throw new HttpProcessingException(400, "Parameter '" + paramName + "' must be a valid numeric integer: '" + value + "'.");
+            }
+            newValues.add(newValue);
+        }
+
+        return newValues;
+    }
+
+    private boolean Throw400IfNullOrNonBoolean(String paramName, String value) throws HttpProcessingException {
+        if(StringUtils.isEmpty(value)) {
+            throw new HttpProcessingException(400, "Parameter '" + paramName + "' cannot be blank.");
+        }
+        boolean newValue;
+        try {
+            newValue = Boolean.parseBoolean(value);
+        }
+        catch (NumberFormatException ex) {
+            throw new HttpProcessingException(400, "Parameter '" + paramName + "' must be a valid boolean value ('true' or 'false').");
+        }
+
+        return newValue;
     }
 
     /**
@@ -999,7 +1047,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
     private void validatePlaytestingAdmin(HttpRequest request) throws HttpProcessingException {
         Player player = getResourceOwnerSafely(request, null);
 
-        if (!player.hasType(Player.Type.ADMIN) && !player.hasType(Player.Type.PLAY_TESTING_ADMIN))
+        if (!player.hasType(Player.Type.ADMIN) && !player.hasType(Player.Type.PLAYTESTING_ADMIN))
             throw new HttpProcessingException(403);
     }
 
@@ -1011,7 +1059,21 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
     private void validateCommentatorAdmin(HttpRequest request) throws HttpProcessingException {
         Player player = getResourceOwnerSafely(request, null);
 
-        if (!player.hasType(Player.Type.ADMIN) && !player.hasType(Player.Type.COMMENTATOR_ADMIN))
+        if (!player.hasType(Player.Type.ADMIN) && !player.hasType(Player.Type.COMMENTARY_ADMIN))
             throw new HttpProcessingException(403);
+    }
+
+    private void validateVariableAdmin(HttpRequest request, Player.Type flag) throws Exception {
+        switch (flag) {
+            case PLAYTESTER:
+                validatePlaytestingAdmin(request);
+                break;
+            case COMMENTATOR:
+                validateCommentatorAdmin(request);
+                break;
+            default:
+                validateAdmin(request);
+                break;
+        }
     }
 }

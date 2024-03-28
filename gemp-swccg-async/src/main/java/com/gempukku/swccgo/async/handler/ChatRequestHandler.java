@@ -135,7 +135,7 @@ public class ChatRequestHandler extends SwccgoServerRequestHandler implements Ur
         if (chatRoom == null)
             throw new HttpProcessingException(404);
         try {
-            List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName(), resourceOwner.hasType(Player.Type.ADMIN), resourceOwner.hasType(Player.Type.PLAY_TESTER));
+            List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName(), resourceOwner.hasType(Player.Type.ADMIN), resourceOwner.hasType(Player.Type.PLAYTESTER));
             Collection<String> usersInRoom = chatRoom.getUsersInRoom();
 
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -201,20 +201,6 @@ public class ChatRequestHandler extends SwccgoServerRequestHandler implements Ur
             String twoWithSubstitutions = o2.replace("*","a").replace("+","b").replace("&beta;","c").replace("&#231;","d").replace(" ","z");
 
             return oneWithSubstitutions.toLowerCase().compareTo(twoWithSubstitutions.toLowerCase());
-//	  	old
-//            if (o1.startsWith("*") && !o2.startsWith("*")) {
-//                return -1;
-//            }
-//            if (o2.startsWith("*") && !o1.startsWith("*")) {
-//                return 1;
-//            }
-//            if (o1.startsWith("+") && !(o2.startsWith("*") || o2.startsWith("+"))) {
-//                return -1;
-//            }
-//            if (o2.startsWith("+") && !(o1.startsWith("*") || o1.startsWith("+"))) {
-//                return 1;
-//            }
-//            return o1.toLowerCase().compareTo(o2.toLowerCase());
         }
     }
 
@@ -228,39 +214,44 @@ public class ChatRequestHandler extends SwccgoServerRequestHandler implements Ur
                 sb.insert(0, "* ");
             }
             else {
-                if (playerTypes.contains(Player.Type.LEAGUE_ADMIN) || playerTypes.contains(Player.Type.PLAY_TESTING_ADMIN)) {
+                if (playerTypes.contains(Player.Type.LEAGUE_ADMIN) || playerTypes.contains(Player.Type.PLAYTESTING_ADMIN)) {
                     sb.insert(0, " ");
                     if (playerTypes.contains(Player.Type.COMMENTATOR)) {
                         sb.insert(0,"&#231;");
                     }
-                    if (playerTypes.contains(Player.Type.PLAY_TESTER)) {
+                    if (playerTypes.contains(Player.Type.PLAYTESTER)) {
                         sb.insert(0, "&beta;");
                     }
                     sb.insert(0, "+");
                 }
                 else {
-                    if(playerTypes.contains(Player.Type.PLAY_TESTER)||playerTypes.contains(Player.Type.COMMENTATOR)) {
+                    if(playerTypes.contains(Player.Type.PLAYTESTER)||playerTypes.contains(Player.Type.COMMENTATOR)) {
                         sb.insert(0, " ");
                         if (playerTypes.contains(Player.Type.COMMENTATOR)) {
                             sb.insert(0, "&#231;");
                         }
-                        if (playerTypes.contains(Player.Type.PLAY_TESTER)) {
+                        if (playerTypes.contains(Player.Type.PLAYTESTER)) {
                             sb.insert(0, "&beta;");
                         }
                     }
                     sb.append(" ");
 
-                    List<Player> similarPlayers = _playerDao.findSimilarAccounts(player);
-                    int count = 1;
-                    for (Player similarPlayer : similarPlayers) {
-                        if (count % 5 == 0) {
-                            sb.append("!!");
-                        }
-                        if (!similarPlayer.hasType(Player.Type.UNBANNED) && similarPlayer.getBannedUntil() == null) {
-                            sb.append("!!!!!");
-                        }
-                        count++;
-                    }
+                    //This was intended to make suspicious similar players stick out.  However, it was built while
+                    //the similar-player detection was kneecapped and not including IP address comparison.  Now that
+                    //players have been recording the server IP for 5 years instead of their actual IP, automatic detection
+                    //like this is all but unusable.
+
+//                    List<Player> similarPlayers = _playerDao.findSimilarAccounts(player);
+//                    int count = 1;
+//                    for (Player similarPlayer : similarPlayers) {
+//                        if (count % 5 == 0) {
+//                            sb.append("!!");
+//                        }
+//                        if (!similarPlayer.hasType(Player.Type.UNBANNED) && similarPlayer.getBannedUntil() == null) {
+//                            sb.append("!!!!!");
+//                        }
+//                        count++;
+//                    }
                 }
             }
         }

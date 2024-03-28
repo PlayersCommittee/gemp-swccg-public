@@ -57,10 +57,15 @@
             var password = $("#password").val();
             var password2 = $("#password2").val();
             if (password != password2) {
-                $(".error").html("Password and Password repeated are different! Try again");
+                $(".error").html("Passwords are different! Try again");
             } else {
-                comm.register(login, password, function() {
-                    location.href="/gemp-swccg/hall.html";
+                comm.register(login, password, function (_, status) {
+                    if(status == "202") {
+                        $(".error").html("Your password has successfully been reset!  Please refresh the page and log in.");
+                    }
+                    else {
+                        location.href = "/gemp-swccg/hall.html";
+                    }
                 },
                         {
                             "0": function() {
@@ -107,30 +112,38 @@
         function login() {
             var login = $("#login").val();
             var password = $("#password").val();
-            comm.login(login, password, function() {
+            comm.login(login, password, function (_, status) {
+                    if(status == "202") {
+                        registrationScreen();
+                        $("#registerButton").html("Update Password");
+                        $(".error").html("Your password has been reset.  Please enter a new password.");
+                        $("#login").val(login);
+                    }
+                    else {
                         location.href = "/gemp-swccg/hall.html";
+                    }
+                },
+                {
+                    "0": function() {
+                        alert("Unable to connect to server, either server is down or there is a problem" +
+                              " with your internet connection");
                     },
-                    {
-                        "0": function() {
-                            alert("Unable to connect to server, either server is down or there is a problem" +
-                                  " with your internet connection");
-                        },
-                        "401":function() {
-                            $(".error").html("Invalid username or password. Try again.");
-                            loginScreen();
-                        },
-                        "403": function() {
-                            $(".error").html("You have been permanently banned.");
-                            $(".interaction").html("");
-                        },
-                        "409": function() {
-                            $(".error").html("You have been temporarily banned. You can try logging in at a later time.");
-                            $(".interaction").html("");
-                        },
-                        "503": function() {
-                            $(".error").html("Server is down for maintenance. Please come at a later time.");
-                        }
-                    });
+                    "401":function() {
+                        $(".error").html("Invalid username or password. Try again.");
+                        loginScreen();
+                    },
+                    "403": function() {
+                        $(".error").html("You have been permanently banned.  If you believe this was done in error, contact the Communications Advocate at <a href='mailto:communications@starwarsccg.org?subject=Gemp%20Ban'>communications@starwarsccg.org</a>");
+                        $(".interaction").html("");
+                    },
+                    "409": function() {
+                        $(".error").html("You have been temporarily banned. You can try logging in at a later time. If you believe this was done in error, contact the Communications Advocate at <a href='mailto:communications@starwarsccg.org?subject=Gemp%20Ban'>communications@starwarsccg.org</a>");
+                        $(".interaction").html("");
+                    },
+                    "503": function() {
+                        $(".error").html("Server is down for maintenance. Please come at a later time.");
+                    }
+                });
         }
 
         function loginScreen() {
@@ -141,10 +154,15 @@
 
             $(".interaction").append(registerButton);
             $(".interaction").append("<br/>Login: <input id='login' type='text' autofocus='autofocus'><br/>Password: <input id='password' type='password'><br/>");
-
+            
             var loginButton = $("<div>Login</div>").button();
             loginButton.click(login);
-
+            
+            $(".interaction").append(loginButton);
+            $(".interaction").append("<br/><br/><a href='mailto:communications@starwarsccg.org?subject=Gemp%20Password%20Reset'>Forgot your password? Contact the <span style='color:orange'>Communications Advocate</span></a>.");
+            $(".interaction").append("<br/><br/>Watch a <a href='https://www.youtube.com/watch?v=3fccev8G7vU'>video tutorial</a> to get started.");
+            $(".interaction").append("<br/><br/>Play the LOTR-TCG on GEMP at <a href='https://play.lotrtcgpc.net'>play.lotrtcgpc.net</a>");
+            
             $("#password").keypress(function (e) {
                 if (e.which == 13) {
                     login();
@@ -152,10 +170,6 @@
                     return false;
                 }
             });
-
-            $(".interaction").append(loginButton);
-            $(".interaction").append("<br/><br/>Watch a <a href='https://www.youtube.com/watch?v=3fccev8G7vU'>video tutorial</a> to get started.");
-            $(".interaction").append("<br/><br/>Play LotR-TCG on GEMP at <a href='https://play.lotrtcgpc.net/gemp-lotr/'>play.lotrtcgpc.net/gemp-lotr/</a>");
         }
 
         $(document).keydown(function (e) {
@@ -191,7 +205,9 @@
 <div class="centerContainer">
     <div class="status"></div>
     <div class="error"></div>
-    <div class="interaction"></div>
+    <div class="interaction">
+        
+    </div>
 </div>
 <div id="signin-page-packs">
     <div style="text-align: center;">

@@ -17,7 +17,7 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
 INSERT IGNORE INTO `gemp-swccg`.`gemp_settings` (settingName,settingValue) values ('privateGamesEnabled',0),
-('inGameStatistics',1),('bonusAbilitiesEnabled',0);
+('inGameStatistics',1),('bonusAbilitiesEnabled',0),('newAccountRegistrationEnabled',1);
 
 -- -----------------------------------------------------
 -- Table `gemp-swccg`.`collection`

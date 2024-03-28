@@ -11,6 +11,8 @@ var GempSwccgHallUI = Class.extend({
     tablesDiv:null,
     buttonsDiv:null,
     isPrivateCheckbox:null,
+    adminTab:null,
+    userInfo:null,
 
     pocketDiv:null,
     pocketValue:null,
@@ -41,7 +43,7 @@ var GempSwccgHallUI = Class.extend({
 
         this.tablesDiv = $("<div></div>");
         this.tablesDiv.css({overflow:"auto", left:"0px", top:"0px", width:width + "px", height:(height - 30) + "px"});
-
+        
         var hallSettingsStr = $.cookie("hallSettings");
         if (hallSettingsStr == null)
             hallSettingsStr = "0|0|1|1|0";
@@ -107,12 +109,32 @@ var GempSwccgHallUI = Class.extend({
         this.buttonsDiv.append(this.tableDescInput);
         this.buttonsDiv.append(this.createTableButton);
         this.buttonsDiv.append(this.isPrivateCheckbox);
+        
+        this.adminTab = $("#admin-tab");
+        this.adminTab.hide();
+        
+        this.comm.getPlayerInfo(function(json)
+            { 
+                that.userInfo = json;
+                if(    that.userInfo.type.includes("a")      //admin
+                    || that.userInfo.type.includes("l")  //league admin
+                    || that.userInfo.type.includes("p")  //playtesting admin
+                    || that.userInfo.type.includes("m")) //commentator admin
+                {
+                    that.adminTab.show();
+                }
+                else
+                {
+                    that.adminTab.hide();
+                }
+            });
 
         this.div.append(this.buttonsDiv);
 
         this.getHall();
         this.updateDecks();
     },
+
 
     addQueuesTable: function(displayed) {
         var header = $("<div class='eventHeader queues'></div>");

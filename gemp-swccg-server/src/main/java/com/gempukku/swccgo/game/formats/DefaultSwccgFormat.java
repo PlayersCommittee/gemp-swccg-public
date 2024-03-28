@@ -287,6 +287,8 @@ public class DefaultSwccgFormat implements SwccgFormat {
             }
             for (String blueprintId : deck.getCardsOutsideDeck()) {
                 SwccgCardBlueprint card = _library.getSwccgoCardBlueprint(blueprintId);
+                if(card == null)
+                    throw new DeckInvalidException("Deck somehow contains a card that doesn't exist: '" + blueprintId == null ? "null" : blueprintId + "'.");
                 if (card.getSide() == Side.DARK)
                     dark++;
                 else if (card.getSide() == Side.LIGHT)

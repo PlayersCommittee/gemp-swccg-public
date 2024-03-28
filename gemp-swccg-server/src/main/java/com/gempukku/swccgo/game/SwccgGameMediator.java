@@ -1180,7 +1180,7 @@ public class SwccgGameMediator {
         // Only allow viewing of playtesting formats game if player is a playtester or admin
         if (_swccgoGame.getFormat().isPlaytesting()
                 && !(player.hasType(Player.Type.ADMIN)
-                || player.hasType(Player.Type.PLAY_TESTER))) {
+                || player.hasType(Player.Type.PLAYTESTER))) {
             throw new PrivateInformationException();
         }
 

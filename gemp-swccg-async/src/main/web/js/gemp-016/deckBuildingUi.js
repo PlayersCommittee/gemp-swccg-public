@@ -749,7 +749,9 @@ var GempSwccgDeckBuildingUI = Class.extend({
         var deckContents = this.getDeckContents();
         if (deckContents == null)
             alert("Deck must contain 60 cards");
-        else
+        else if(this.deckName.length > 45)
+            alert("Deck name cannot be longer than 45 characters.");
+        else 
             this.comm.saveDeck(this.deckName, deckContents, function (xml) {
                 that.deckModified(false);
                 alert("Deck was saved");

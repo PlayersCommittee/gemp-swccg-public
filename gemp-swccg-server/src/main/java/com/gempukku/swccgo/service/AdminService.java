@@ -7,7 +7,7 @@ import com.gempukku.swccgo.game.Player;
 import java.sql.SQLException;
 
 public class AdminService {
-    public static final int DAY_IN_MILIS = 1000 * 60 * 60 * 24;
+    public static final int DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private PlayerDAO _playerDAO;
     private LoggedUserHolder _loggedUserHolder;
     private IpBanDAO _ipBanDAO;
@@ -18,42 +18,27 @@ public class AdminService {
         _loggedUserHolder = loggedUserHolder;
     }
 
-    public boolean setUserAsPlaytester(String login, boolean playtester) {
-        try {
-            return _playerDAO.setPlayerAsPlaytester(login, playtester);
-        } catch (SQLException exp) {
-            return false;
-        }
+    public boolean setUserFlag(String login, Player.Type flag, boolean status) throws SQLException {
+        return _playerDAO.setPlayerFlag(login, flag, status);
     }
 
-    public boolean setUserAsCommentator(String login, boolean commentator) {
-        try {
-            return _playerDAO.setPlayerAsCommentator(login, commentator);
-        } catch (SQLException exp) {
+    public boolean resetUserPassword(String login) throws SQLException {
+        boolean success = _playerDAO.setPlayerFlag(login, Player.Type.DEACTIVATED, false);
+        success = success && _playerDAO.resetUserPassword(login);
+        if(!success)
             return false;
-        }
+
+        _loggedUserHolder.forceLogoutUser(login);
+        return true;
     }
 
-    public boolean resetUserPassword(String login) {
-        try {
-            final boolean success = _playerDAO.setPlayerAsDeactivated(login, false);
-            return success && _playerDAO.resetUserPassword(login);
-        } catch (SQLException exp) {
+    public boolean deactivateUser(String login) throws SQLException {
+        final boolean success = _playerDAO.setPlayerFlag(login, Player.Type.DEACTIVATED, true);
+        if (!success) {
             return false;
         }
-    }
-
-    public boolean deactivateUser(String login) {
-        try {
-            final boolean success = _playerDAO.setPlayerAsDeactivated(login, true);
-            if (!success) {
-                return false;
-            }
-            _loggedUserHolder.forceLogoutUser(login);
-            return true;
-        } catch (SQLException exp) {
-            return false;
-        }
+        _loggedUserHolder.forceLogoutUser(login);
+        return true;
     }
 
     public boolean banUser(String login) {
@@ -71,7 +56,7 @@ public class AdminService {
 
     public boolean banUserTemp(String login, int days) {
         try {
-            final boolean success = _playerDAO.banPlayerTemporarily(login, System.currentTimeMillis() + days * DAY_IN_MILIS);
+            final boolean success = _playerDAO.banPlayerTemporarily(login, System.currentTimeMillis() + days * DAY_IN_MILLIS);
             if (!success) {
                 return false;
             }
@@ -91,7 +76,7 @@ public class AdminService {
     }
 
     public boolean banIp(String login) {
-        final Player player = _playerDAO.getPlayer(login);
+        final Player player = _playerDAO.getPlayer(login, true);
         if (player == null)
             return false;
         final String lastIp = player.getLastIp();
@@ -102,7 +87,7 @@ public class AdminService {
     }
 
     public boolean banIpPrefix(String login) {
-        final Player player = _playerDAO.getPlayer(login);
+        final Player player = _playerDAO.getPlayer(login, true);
         if (player == null)
             return false;
         final String lastIp = player.getLastIp();

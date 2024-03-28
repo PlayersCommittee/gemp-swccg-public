@@ -52,6 +52,16 @@ var GempSwccgCommunication = Class.extend({
             callback(xml);
         };
     },
+    
+    deliveryCheckStatus:function (callback) {
+        var that = this;
+        return function (xml, status, request) {
+            var delivery = request.getResponseHeader("Delivery-Service-Package");
+            if (delivery == "true" && window.deliveryService != null)
+                that.getDelivery(window.deliveryService);
+            callback(xml, request.status);
+        };
+    },
 
     getGameHistory:function (start, count, callback, errorMap) {
         $.ajax({
@@ -689,6 +699,553 @@ var GempSwccgCommunication = Class.extend({
             dataType:"xml"
         });
     },
+    setShutdownMode:function (enabled, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/shutdown",
+            cache:false,
+            data:{
+                enabled:enabled
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    clearServerCache:function (callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/clearcache",
+            cache:false,
+            data:{},
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    setPrivateMode:function (enabled, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/settings/privategames",
+            cache:false,
+            data:{
+                enabled:enabled
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    setNewAccountRegistration:function (enabled, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/settings/newaccounts",
+            cache:false,
+            data:{
+                enabled:enabled
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    setInGameStatTracking:function (enabled, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/settings/stattracking",
+            cache:false,
+            data:{
+                enabled:enabled
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    purgeInGameStatisticsListeners:function (callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/settings/purgestattrackers",
+            cache:false,
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    setBonusAbilities:function (enabled, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/settings/bonusabilities",
+            cache:false,
+            data:{
+                enabled:enabled
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    getMOTD:function (callback, errorMap) {
+        $.ajax({
+            type:"GET",
+            url:this.url + "/admin/motd/get",
+            cache:false,
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"json"
+        });
+    },
+    
+    setMOTD:function (motd, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/motd/update",
+            cache:false,
+            data:{
+                motd:motd
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    addItems:function (collectionType, product, players, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/collections/additems",
+            cache:false,
+            data:{
+                collectionType:collectionType,
+                product:product,
+                players:players
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    addItemsToAllPlayers:function (collectionType, reason, product, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/collections/additemstoall",
+            cache:false,
+            data:{
+                collectionType:collectionType,
+                reason:reason,
+                product:product
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    addCurrency:function (players, currencyAmount, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/collections/addcurrency",
+            cache:false,
+            data:{
+                players:players,
+                currencyAmount:currencyAmount
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    resetUserPassword:function (login, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/user/passwordreset",
+            cache:false,
+            data:{
+                login:login
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    permabanUser:function (login, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/user/ban/permanent",
+            cache:false,
+            data:{
+                login:login
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    tempbanUser:function (login, duration, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/user/ban/temporary",
+            cache:false,
+            data:{
+                login:login,
+                duration:duration
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    unbanUser:function (login, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/user/ban/acquit",
+            cache:false,
+            data:{
+                login:login
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    susUserSearch:function (login, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/users/detailedsearch",
+            cache:false,
+            data:{
+                login:login
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+    
+    banMultiple:function (logins, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/users/ban/permanent",
+            cache:false,
+            data:{
+                logins:logins
+            },
+            traditional: true,
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    deactivateMultiple:function (logins, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/users/deactivate",
+            cache:false,
+            data:{
+                logins:logins
+            },
+            traditional: true,
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    
+    showUsersWithFlag:function (flag, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/users/findwithflag",
+            cache:false,
+            data:{
+                flag:flag
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+    
+    showPlaytesters:function (callback, errorMap) {
+      this.showUsersWithFlag("PLAYTESTER", callback, errorMap)  
+    },
+    
+    showCommentators:function (callback, errorMap) {
+      this.showUsersWithFlag("COMMENTATOR", callback, errorMap)  
+    },
+    
+    addFlagToUser:function (login, flag, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/user/addflag",
+            cache:false,
+            data:{
+                login:login,
+                flag:flag
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    addPlaytesterToUser:function (login, callback, errorMap) {
+      this.addFlagToUser(login, "PLAYTESTER", callback, errorMap)  
+    },
+    
+    addCommentatorToUser:function (login, callback, errorMap) {
+      this.addFlagToUser(login, "COMMENTATOR", callback, errorMap)  
+    },
+    
+    removeFlagFromUsers:function (logins, flag, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/users/removeflag",
+            cache:false,
+            data:{
+                logins:logins,
+                flag:flag
+            },
+            traditional:true,
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    removeFlagFromUser:function (logins, flag, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/users/removeflag",
+            cache:false,
+            data:{
+                logins:logins,
+                flag:flag
+            },
+            traditional:false,
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    removePlaytesterFromUsers:function (logins, callback, errorMap) {
+      this.removeFlagFromUsers(logins, "PLAYTESTER", callback, errorMap)  
+    },
+    
+    removeCommentatorFromUsers:function (logins, callback, errorMap) {
+      this.removeFlagFromUsers(logins, "COMMENTATOR", callback, errorMap)  
+    },
+    
+    reactivateUser:function (logins, callback, errorMap) {
+      this.removeFlagFromUser(logins, "DEACTIVATED", callback, errorMap)  
+    },
+    
+    
+    
+    previewSealedLeague:function (name, cost, start, format, serieDuration, maxMatches, 
+                              allowTimeExtensions, allowSpectators, showPlayerNames, 
+                              invitationOnly, registrationInfo, decisionTimeoutSeconds, 
+                              timePerPlayerMinutes,
+                              callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/league/sealed/preview",
+            cache:false,
+            data:{
+                name:name,
+                cost:cost,
+                start:start,
+                format:format,
+                serieDuration:serieDuration,
+                maxMatches:maxMatches,
+                allowTimeExtensions:allowTimeExtensions,
+                allowSpectators:allowSpectators,
+                showPlayerNames:showPlayerNames,
+                invitationOnly:invitationOnly,
+                registrationInfo:registrationInfo,
+                decisionTimeoutSeconds:decisionTimeoutSeconds,
+                timePerPlayerMinutes:timePerPlayerMinutes
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+    
+    addSealedLeague:function (name, cost, start, format, serieDuration, maxMatches, 
+                              allowTimeExtensions, allowSpectators, showPlayerNames, 
+                              invitationOnly, registrationInfo, decisionTimeoutSeconds, 
+                              timePerPlayerMinutes,
+                              callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/league/sealed/create",
+            cache:false,
+            data:{
+                name:name,
+                cost:cost,
+                start:start,
+                format:format,
+                serieDuration:serieDuration,
+                maxMatches:maxMatches,
+                allowTimeExtensions:allowTimeExtensions,
+                allowSpectators:allowSpectators,
+                showPlayerNames:showPlayerNames,
+                invitationOnly:invitationOnly,
+                registrationInfo:registrationInfo,
+                decisionTimeoutSeconds:decisionTimeoutSeconds,
+                timePerPlayerMinutes:timePerPlayerMinutes
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    
+    previewConstructedLeague:function (name, cost, start, collectionType,  
+                              allowTimeExtensions, allowSpectators, showPlayerNames, 
+                              invitationOnly, registrationInfo, decisionTimeoutSeconds, 
+                              timePerPlayerMinutes, formats, serieDurations, maxMatches,
+                              callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/league/constructed/preview",
+            cache:false,
+            traditional: true,
+            data:{
+                name:name,
+                cost:cost,
+                start:start,
+                collectionType:collectionType,
+                allowTimeExtensions:allowTimeExtensions,
+                allowSpectators:allowSpectators,
+                showPlayerNames:showPlayerNames,
+                invitationOnly:invitationOnly,
+                registrationInfo:registrationInfo,
+                decisionTimeoutSeconds:decisionTimeoutSeconds,
+                timePerPlayerMinutes:timePerPlayerMinutes,
+                formats:formats,
+                serieDurations:serieDurations,
+                maxMatches:maxMatches
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+    
+    addConstructedLeague:function (name, cost, start, collectionType,  
+                              allowTimeExtensions, allowSpectators, showPlayerNames, 
+                              invitationOnly, registrationInfo, decisionTimeoutSeconds, 
+                              timePerPlayerMinutes, formats, serieDurations, maxMatches,
+                              callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/league/constructed/create",
+            cache:false,
+            traditional: true,
+            data:{
+                name:name,
+                cost:cost,
+                start:start,
+                collectionType:collectionType,
+                allowTimeExtensions:allowTimeExtensions,
+                allowSpectators:allowSpectators,
+                showPlayerNames:showPlayerNames,
+                invitationOnly:invitationOnly,
+                registrationInfo:registrationInfo,
+                decisionTimeoutSeconds:decisionTimeoutSeconds,
+                timePerPlayerMinutes:timePerPlayerMinutes,
+                formats:formats,
+                serieDurations:serieDurations,
+                maxMatches:maxMatches
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    addPlayersToLeague:function (leagueType, players, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/league/addplayers",
+            cache:false,
+            traditional: true,
+            data:{
+                leagueType:leagueType,
+                players:players
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    
+    leagueDeckCheck:function (leagueId, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/league/deckcheck",
+            cache:false,
+            data:{
+                leagueId:leagueId
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+    
+    addTables:function (name, tournament, format, timer, playerones, playertwos, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/addTables",
+            cache:false,
+            data:{
+                name:name,
+                tournament:tournament,
+                format:format,
+                timer:timer,
+                playerones:playerones,
+                playertwos:playertwos
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+    //NEVER EVER EVER use this for actual authentication
+    // This is strictly to simplify things like auto-hiding
+    // of the admin panel.  If you actually need functionality
+    // gated behind authorization, it goes on the server
+    // and not in here.
+    
+    getPlayerInfo:function (callback, errorMap) {
+        $.ajax({
+            type:"GET",
+            url:this.url + "/playerStats/playerInfo",
+            cache:false,
+            data:{
+                participantId:getUrlParam("participantId")
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"json"
+        });
+    },
+    
     getFormat:function (formatCode, callback, errorMap) {
         $.ajax({
             type:"GET",
@@ -723,7 +1280,7 @@ var GempSwccgCommunication = Class.extend({
                 login:login,
                 password:password,
                 participantId:getUrlParam("participantId")},
-            success:this.deliveryCheck(callback),
+            success:this.deliveryCheckStatus(callback),
             error:this.errorCheck(errorMap),
             dataType:"html"
         });
@@ -737,7 +1294,7 @@ var GempSwccgCommunication = Class.extend({
                 login:login,
                 password:password,
                 participantId:getUrlParam("participantId")},
-            success:this.deliveryCheck(callback),
+            success:this.deliveryCheckStatus(callback),
             error:this.errorCheck(errorMap),
             dataType:"html"
         });

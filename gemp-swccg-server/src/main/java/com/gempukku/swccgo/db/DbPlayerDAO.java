@@ -1,7 +1,9 @@
 package com.gempukku.swccgo.db;
 
 import com.gempukku.swccgo.game.Player;
+import com.mysql.jdbc.StringUtils;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,8 +38,13 @@ public class DbPlayerDAO implements PlayerDAO {
 
     @Override
     public Player getPlayer(String playerName) {
+        return getPlayer(playerName, false);
+    }
+
+    @Override
+    public Player getPlayer(String playerName, boolean includeDeactivated) {
         try {
-            return getPlayerFromDBByName(playerName, false);
+            return getPlayerFromDBByName(playerName, includeDeactivated);
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to get player from DB", exp);
         }
@@ -45,103 +52,72 @@ public class DbPlayerDAO implements PlayerDAO {
 
     @Override
     public synchronized boolean registerPlayer(String playerName, String password, String remoteAddr) throws SQLException, LoginInvalidException, RegisterNotAllowedException {
-        boolean result = validateNewUser(playerName, remoteAddr);
-        if (!result) {
+
+        Player player = getPlayer(playerName);
+        if(player != null && StringUtils.isNullOrEmpty(player.getPassword())) {
+            //This player has had their password reset and just needs to get it re-defined.
+
+            try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = conn.prepareStatement(
+                        "UPDATE player SET password=? WHERE name=?")) {
+                    statement.setString(1, encodePassword(password));
+                    statement.setString(2, playerName);
+                    statement.executeUpdate();
+                    return true;
+                }
+            }
+        }
+
+        if (!validateNewUser(playerName)) {
             return false;
         }
 
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = conn.prepareStatement("insert into player (name, password, type, create_ip) values (?, ?, ?, ?)");
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement(
+                    "INSERT INTO player (name, password, type, create_ip) VALUES (?, ?, ?, ?)")) {
                 statement.setString(1, playerName);
                 statement.setString(2, encodePassword(password));
                 statement.setString(3, Player.Type.UNBANNED.getValue());
                 statement.setString(4, remoteAddr);
                 statement.execute();
                 return true;
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
     @Override
     public synchronized Player loginPlayer(String playerName, String password) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            // Check if password was reset
-            PreparedStatement statement1 = conn.prepareStatement(_selectPlayer + " where name=? and password=''" + _notDeactivated);
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement1 = conn.prepareStatement(
+                    _selectPlayer + " WHERE name=? AND (password='' OR password=?)" + _notDeactivated)) {
                 statement1.setString(1, playerName);
-                ResultSet rs = statement1.executeQuery();
-                try {
-                    if (rs.next()) {
-                        // Set the new password
-                        int id = rs.getInt(1);
-                        PreparedStatement statement2 = conn.prepareStatement("update player set password=? where id=?");
-                        try {
-                            statement2.setString(1, encodePassword(password));
-                            statement2.setInt(2, id);
-                            statement2.execute();
-                        } finally {
-                            statement2.close();
-                        }
-                    }
-                } finally {
-                    rs.close();
-                }
-            } finally {
-                statement1.close();
-            }
-
-            // Get the player
-            PreparedStatement statement3 = conn.prepareStatement(_selectPlayer + " where name=? and password=?" + _notDeactivated);
-            try {
-                statement3.setString(1, playerName);
-                statement3.setString(2, encodePassword(password));
-                ResultSet rs = statement3.executeQuery();
-                try {
+                statement1.setString(2, encodePassword(password));
+                try (ResultSet rs = statement1.executeQuery()) {
                     if (rs.next()) {
                         return getPlayerFromResultSet(rs);
                     } else
                         return null;
-                } finally {
-                    rs.close();
                 }
-            } finally {
-                statement3.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
     @Override
     public synchronized boolean updateLastLoginIp(String playerName, String remoteAddr) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = conn.prepareStatement("update player set last_ip=? where name=?");
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement("update player set last_ip=? where name=?")) {
                 statement.setString(1, remoteAddr);
                 statement.setString(2, playerName);
                 return (statement.executeUpdate() == 1);
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
     @Override
     public synchronized boolean updateLastReward(Player player, Integer previousReward, int currentReward) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = conn.prepareStatement("update player set last_login_reward=? where id=?" + (previousReward != null ? " and last_login_reward=?" : ""));
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement(
+                    "update player set last_login_reward=? where id=?" + (previousReward != null ? " and last_login_reward=?" : ""))) {
                 statement.setInt(1, currentReward);
                 statement.setInt(2, player.getId());
                 if (previousReward != null) {
@@ -152,190 +128,71 @@ public class DbPlayerDAO implements PlayerDAO {
                     return true;
                 }
                 return false;
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
     @Override
     public synchronized boolean resetUserPassword(String playerName) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = conn.prepareStatement("update player set password='' where name=?");
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement("UPDATE player SET password='' WHERE name=?")) {
                 statement.setString(1, playerName);
                 return statement.executeUpdate() == 1;
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
+
     @Override
-    public synchronized boolean setPlayerAsPlaytester(String playerName, boolean playtester) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            final Player player = getPlayerFromDBByName(playerName, false);
+    public synchronized boolean setPlayerFlag(String playerName, Player.Type flag, boolean status) throws SQLException {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            final Player player = getPlayerFromDBByName(playerName, true);
             if (player == null) {
                 return false;
             }
 
-            // Add/remove playtester type
+            // Add/remove type
             List<Player.Type> types = Player.Type.getTypes(player.getType());
-            if (playtester) {
-                if (!types.contains(Player.Type.PLAY_TESTER)) {
-                    types.add(Player.Type.PLAY_TESTER);
+            if (status) {
+                if (!types.contains(flag)) {
+                    types.add(flag);
                 }
-            }
-            else {
-                types.remove(Player.Type.PLAY_TESTER);
+            } else {
+                types.remove(flag);
             }
 
-            PreparedStatement statement = conn.prepareStatement("update player set type=? where id=?");
-            try {
+            try (PreparedStatement statement = conn.prepareStatement("UPDATE player SET type=? WHERE id=?")) {
                 statement.setString(1, Player.Type.getTypeString(types));
                 statement.setInt(2, player.getId());
                 return statement.executeUpdate() == 1;
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
     @Override
-    public List<Player> findPlaytesters() {
+    public List<Player> findPlayersWithFlag(Player.Type flag) {
         try {
-            List<Player> playtesters = new LinkedList<Player>();
-            Connection conn = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where type like '%" + Player.Type.PLAY_TESTER + "%'" + _notDeactivated);
-                try {
-                    ResultSet rs = statement.executeQuery();
-                    try {
+            List<Player> players = new LinkedList<Player>();
+            try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = conn.prepareStatement(
+                        _selectPlayer + " WHERE type LIKE '%" + flag + "%'" )) {
+                    try (ResultSet rs = statement.executeQuery()) {
                         while (rs.next()) {
-                            playtesters.add(getPlayerFromResultSet(rs));
+                            players.add(getPlayerFromResultSet(rs));
                         }
-                        return playtesters;
-                    } finally {
-                        rs.close();
+                        return players;
                     }
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                conn.close();
             }
         } catch (SQLException exp) {
-            throw new RuntimeException("Error while retrieving playtesters", exp);
-        }
-    }
-
-    @Override
-    public synchronized boolean setPlayerAsCommentator(String playerName, boolean playtester) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            final Player player = getPlayerFromDBByName(playerName, false);
-            if (player == null) {
-                return false;
-            }
-
-            // Add/remove commentator type
-            List<Player.Type> types = Player.Type.getTypes(player.getType());
-            if (playtester) {
-                if (!types.contains(Player.Type.COMMENTATOR)) {
-                    types.add(Player.Type.COMMENTATOR);
-                }
-            }
-            else {
-                types.remove(Player.Type.COMMENTATOR);
-            }
-
-            PreparedStatement statement = conn.prepareStatement("update player set type=? where id=?");
-            try {
-                statement.setString(1, Player.Type.getTypeString(types));
-                statement.setInt(2, player.getId());
-                return statement.executeUpdate() == 1;
-            } finally {
-                statement.close();
-            }
-        } finally {
-            conn.close();
-        }
-    }
-
-    @Override
-    public List<Player> findCommentators() {
-        try {
-            List<Player> commentators = new LinkedList<Player>();
-            Connection conn = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where type like '%" + Player.Type.COMMENTATOR + "%'" + _notDeactivated);
-                try {
-                    ResultSet rs = statement.executeQuery();
-                    try {
-                        while (rs.next()) {
-                            commentators.add(getPlayerFromResultSet(rs));
-                        }
-                        return commentators;
-                    } finally {
-                        rs.close();
-                    }
-                } finally {
-                    statement.close();
-                }
-            } finally {
-                conn.close();
-            }
-        } catch (SQLException exp) {
-            throw new RuntimeException("Error while retrieving commentators", exp);
-        }
-    }
-
-    @Override
-    public boolean setPlayerAsDeactivated(String playerName, boolean deactivate) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            final Player player = getPlayerFromDBByName(playerName, !deactivate);
-            if (player == null) {
-                return false;
-            }
-
-            // Add/remove playtester type
-            List<Player.Type> types = Player.Type.getTypes(player.getType());
-            if (deactivate) {
-                if (!types.contains(Player.Type.DEACTIVATED)) {
-                    types.add(Player.Type.DEACTIVATED);
-                }
-            }
-            else {
-                types.remove(Player.Type.DEACTIVATED);
-            }
-
-            PreparedStatement statement = conn.prepareStatement("update player set type=? where id=?");
-            try {
-                statement.setString(1, Player.Type.getTypeString(types));
-                statement.setInt(2, player.getId());
-                return statement.executeUpdate() == 1;
-            } finally {
-                statement.close();
-            }
-        } finally {
-            conn.close();
+            throw new RuntimeException("Error while retrieving players with flag " + flag, exp);
         }
     }
 
     @Override
     public boolean banPlayerPermanently(String playerName) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            final Player player = getPlayerFromDBByName(playerName, false);
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            final Player player = getPlayerFromDBByName(playerName, true);
             if (player == null) {
                 return false;
             }
@@ -344,24 +201,19 @@ public class DbPlayerDAO implements PlayerDAO {
             List<Player.Type> types = Player.Type.getTypes(player.getType());
             types.remove(Player.Type.UNBANNED);
 
-            PreparedStatement statement = conn.prepareStatement("update player set type=?, banned_until=null where id=?");
-            try {
+            try (PreparedStatement statement = conn.prepareStatement(
+                    "update player set type=?, banned_until=null where id=?")) {
                 statement.setString(1, Player.Type.getTypeString(types));
                 statement.setInt(2, player.getId());
                 return statement.executeUpdate() == 1;
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
     @Override
     public boolean banPlayerTemporarily(String playerName, long dateTo) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            final Player player = getPlayerFromDBByName(playerName, false);
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            final Player player = getPlayerFromDBByName(playerName, true);
             if (player == null) {
                 return false;
             }
@@ -370,17 +222,13 @@ public class DbPlayerDAO implements PlayerDAO {
             List<Player.Type> types = Player.Type.getTypes(player.getType());
             types.remove(Player.Type.UNBANNED);
 
-            PreparedStatement statement = conn.prepareStatement("update player set type=?, banned_until=? where id=?");
-            try {
+            try (PreparedStatement statement = conn.prepareStatement(
+                    "update player set type=?, banned_until=? where id=?")) {
                 statement.setString(1, Player.Type.getTypeString(types));
                 statement.setLong(2, dateTo);
                 statement.setInt(3, player.getId());
                 return statement.executeUpdate() == 1;
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
@@ -388,7 +236,7 @@ public class DbPlayerDAO implements PlayerDAO {
     public boolean unBanPlayer(String playerName) throws SQLException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            final Player player = getPlayerFromDBByName(playerName, false);
+            final Player player = getPlayerFromDBByName(playerName, true);
             if (player == null) {
                 return false;
             }
@@ -397,13 +245,11 @@ public class DbPlayerDAO implements PlayerDAO {
             List<Player.Type> types = Player.Type.getTypes(player.getType());
             types.add(Player.Type.UNBANNED);
 
-            PreparedStatement statement = conn.prepareStatement("update player set type=?, banned_until=null where id=?");
-            try {
+            try (PreparedStatement statement = conn.prepareStatement(
+                    "update player set type=?, banned_until=null where id=?")) {
                 statement.setString(1, Player.Type.getTypeString(types));
                 statement.setInt(2, player.getId());
                 return statement.executeUpdate() == 1;
-            } finally {
-                statement.close();
             }
         } finally {
             conn.close();
@@ -411,77 +257,86 @@ public class DbPlayerDAO implements PlayerDAO {
     }
 
     @Override
-    public List<Player> findSimilarAccounts(Player player) {
-        if (player == null) {
-            return Collections.emptyList();
+    public List<Player> findSimilarAccounts(String playerName) {
+        try {
+            Player player = getPlayerFromDBByName(playerName, true);
+            if (player == null) {
+                return Collections.emptyList();
+            }
+            Set<Player> players = new HashSet<>();
+            players.add(player);
+            int prevCount = 0;
+            int curCount = players.size();
+            while (curCount > prevCount) {
+                players.addAll(findSimilarAccountsInner(players));
+                prevCount = curCount;
+                curCount = players.size();
+            }
+            return Collections.unmodifiableList(new LinkedList<>(players));
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to find similar accounts from DB", exp);
         }
-        Set<Player> players = new HashSet<Player>();
-        players.add(player);
-        int prevCount = 0;
-        int curCount = players.size();
-        while (curCount > prevCount) {
-            players.addAll(findSimilarAccountsInner(players));
-            prevCount = curCount;
-            curCount = players.size();
-        }
-        return Collections.unmodifiableList(new LinkedList<Player>(players));
     }
 
     /**
-     * Find all accounts that share IP addresses with the specified accounts.
-     * @param players the player accounts
-     * @return the similar player accounts
+     * Find all accounts that share various factors with the given player.  Looks for matching passwords and matching
+     * creation/login IP addresses.
+     * This is intended to be used progressively, so that the return value is fed back into the function until no further
+     * accounts are found.  This is to find similar accounts, and accounts similar to those accounts, and so on until
+     * no further suspicious activity is found.
+     * This was temporarily (for five years) kneecapped due to IP addresses not being forwarded properly, meaning that
+     * the server's IP was used instead of the user's IP.
+     * This has likely poisoned the player db to the point that automatic signup prevention probably cannot be used with
+     * this function. See: https://github.com/PlayersCommittee/gemp-swccg/pull/87
+     * @param players the player accounts to compare against the existing player base
+     * @return the similar player accounts found
      */
-    private Set<Player> findSimilarAccountsInner(Set<Player> players) {
-        Set<Player> similarPlayers = new HashSet<Player>(players);
-        try {
-            Connection conn = _dbAccess.getDataSource().getConnection();
-            try {
-                Set<String> ipAddresses = new HashSet<String>();
+    private Set<Player> findSimilarAccountsInner(Set<Player> players) throws SQLException {
+        Set<Player> similarPlayers = new HashSet<>(players);
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            Set<String> ipAddresses = new HashSet<>();
 
-                // Determine IP addresses to compare
-                for (Player player : players) {
-                    if (player.getCreateIp() != null) {
-                        ipAddresses.add(player.getCreateIp());
-                    }
-                    if (player.getLastIp() != null) {
-                        ipAddresses.add(player.getLastIp());
-                    }
+            // Determine IP addresses to compare
+            for (Player player : players) {
+                if (player.getCreateIp() != null) {
+                    ipAddresses.add(player.getCreateIp());
                 }
-                if (ipAddresses.isEmpty()) {
+                if (player.getLastIp() != null) {
+                    ipAddresses.add(player.getLastIp());
+                }
+            }
+            if (ipAddresses.isEmpty()) {
+                return similarPlayers;
+            }
+
+            //Build the where clause fragments for ip address comparison
+            StringBuilder whereIP = new StringBuilder(" IN (");
+            for (String ipAddr : ipAddresses) {
+                whereIP.append("'").append(ipAddr).append("', ");
+            }
+            whereIP.setLength(whereIP.length() - 2);
+            whereIP.append(")");
+
+            //Build the where clause fragments for password comparison
+            StringBuilder wherePassword = new StringBuilder(" IN (");
+            for (String ipAddr : ipAddresses) {
+                wherePassword.append("'").append(ipAddr).append("', ");
+            }
+            wherePassword.setLength(wherePassword.length() - 2);
+            wherePassword.append(")");
+
+            String sql = _selectPlayer + " WHERE password" + wherePassword +
+                    " OR (create_ip" + whereIP + " or last_ip" + whereIP + ")" +
+                    " LIMIT 200";
+
+            try (PreparedStatement statement = conn.prepareStatement(sql)) {
+                try (ResultSet rs = statement.executeQuery()) {
+                    while (rs.next()) {
+                        similarPlayers.add(getPlayerFromResultSet(rs));
+                    }
                     return similarPlayers;
                 }
-
-                StringBuilder whereInSb = new StringBuilder(" IN (");
-                for (String ipAddr : ipAddresses) {
-                    whereInSb.append("'").append(ipAddr).append("', ");
-                }
-                whereInSb.setLength(whereInSb.length() - 2);
-                whereInSb.append(")");
-                
-                String sql = _selectPlayer + " where (create_ip" + whereInSb + " or last_ip" + whereInSb + ")" + _notDeactivated;
-
-                PreparedStatement statement = conn.prepareStatement(sql);
-                try {
-                    ResultSet rs = statement.executeQuery();
-                    try {
-                        //TODO: Add this back. Temporarily removed.
-                        //See: https://github.com/PlayersCommittee/gemp-swccg/pull/87
-                        //while (rs.next()) {
-                        //    similarPlayers.add(getPlayerFromResultSet(rs));
-                        //}
-                        return similarPlayers;
-                    } finally {
-                        rs.close();
-                    }
-                } finally {
-                    statement.close();
-                }
-            } finally {
-                conn.close();
             }
-        } catch (SQLException exp) {
-            throw new RuntimeException("Unable to find similar accounts from DB", exp);
         }
     }
 
@@ -513,14 +368,13 @@ public class DbPlayerDAO implements PlayerDAO {
     }
 
     /**
-     * Validates the login.
+     * Checks to see if the requested username is a valid new player name.
      * @param playerName the player name
-     * @param remoteAddr the IP address
      * @return true if valid, otherwise false
      * @throws SQLException an SQL exception
      * @throws LoginInvalidException an invalid login exception
      */
-    private boolean validateNewUser(String playerName, String remoteAddr) throws SQLException, LoginInvalidException, RegisterNotAllowedException {
+    private boolean validateNewUser(String playerName) throws SQLException, LoginInvalidException, RegisterNotAllowedException {
         final String validLoginChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
 
         if (playerName.length() < 2 || playerName.length() > 10) {
@@ -539,41 +393,27 @@ public class DbPlayerDAO implements PlayerDAO {
             return false;
         }
 
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            // Allow this to see deleted players so the name is not re-used
-            PreparedStatement statement = conn.prepareStatement("select id, name from player where LOWER(name)=?");
-            try {
-                statement.setString(1, lowerCase);
-                ResultSet rs = statement.executeQuery();
-                try {
-                    if (rs.next()) {
-                        throw new LoginInvalidException();
-                    }
-                } finally {
-                    rs.close();
-                }
-            } finally {
-                statement.close();
-            }
-        } finally {
-            conn.close();
-        }
+        if(getPlayerFromDBByName(playerName, true) != null)
+            throw new LoginInvalidException();
 
-        int tickMarks = 0;
-        for (Player similarPlayer : findSimilarAccounts(new Player(0, playerName, null, null, null, null, remoteAddr, remoteAddr))) {
-            if (similarPlayer.getId() != 0) {
-                if (!similarPlayer.hasType(Player.Type.UNBANNED) && similarPlayer.getBannedUntil() == null){
-                    tickMarks+=10;
-                }
-                else {
-                    tickMarks++;
-                }
-            }
-        }
-        if (tickMarks >= 10) {
-            throw new RegisterNotAllowedException();
-        }
+        //Deactivating the automatic rejection.  Practically everyone has the same server IP as their origin, so
+        // this comparison doesn't work.
+
+//        int tickMarks = 0;
+//        for (Player similarPlayer : findSimilarAccounts(playerName)) {
+//            if (similarPlayer.getId() != 0) {
+//                if (!similarPlayer.hasType(Player.Type.UNBANNED) && similarPlayer.getBannedUntil() == null){
+//                    tickMarks+=10;
+//                }
+//                else {
+//                    tickMarks++;
+//                }
+//            }
+//        }
+
+//        if (tickMarks >= 10) {
+//            throw new RegisterNotAllowedException();
+//        }
         return true;
     }
 
@@ -586,7 +426,7 @@ public class DbPlayerDAO implements PlayerDAO {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             digest.reset();
-            return convertToHexString(digest.digest(password.getBytes("UTF-8")));
+            return convertToHexString(digest.digest(password.getBytes(StandardCharsets.UTF_8)));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -616,26 +456,17 @@ public class DbPlayerDAO implements PlayerDAO {
      * @throws SQLException an SQL exception
      */
     private Player getPlayerFromDBById(int id) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where id=?" + _notDeactivated);
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where id=?" + _notDeactivated)) {
                 statement.setInt(1, id);
-                ResultSet rs = statement.executeQuery();
-                try {
+                try (ResultSet rs = statement.executeQuery()) {
                     if (rs.next()) {
                         return getPlayerFromResultSet(rs);
                     } else {
                         return null;
                     }
-                } finally {
-                    rs.close();
                 }
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 
@@ -647,26 +478,18 @@ public class DbPlayerDAO implements PlayerDAO {
      * @throws SQLException an SQL exception
      */
     private Player getPlayerFromDBByName(String playerName, boolean includeDeactivated) throws SQLException {
-        Connection conn = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where name=?" + (!includeDeactivated ? _notDeactivated : ""));
-            try {
+        try (Connection conn = _dbAccess.getDataSource().getConnection()) {
+            try (PreparedStatement statement = conn.prepareStatement(
+                    _selectPlayer + " where name=?" + (!includeDeactivated ? _notDeactivated : ""))) {
                 statement.setString(1, playerName);
-                ResultSet rs = statement.executeQuery();
-                try {
+                try (ResultSet rs = statement.executeQuery()) {
                     if (rs.next()) {
                         return getPlayerFromResultSet(rs);
                     } else {
                         return null;
                     }
-                } finally {
-                    rs.close();
                 }
-            } finally {
-                statement.close();
             }
-        } finally {
-            conn.close();
         }
     }
 }

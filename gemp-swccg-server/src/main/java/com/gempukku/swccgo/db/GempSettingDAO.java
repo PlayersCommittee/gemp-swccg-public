@@ -12,9 +12,9 @@ public interface GempSettingDAO {
     boolean privateGamesEnabled();
 
     /**
-     * toggles the privateGamesEnabled setting
+     * Sets the privateGamesEnabled setting to a given value
      */
-    void togglePrivateGamesEnabled();
+    void setPrivateGamesEnabled(boolean enabled);
 
     /**
      * Gets whether the inGameStatisticsEnabled setting is on or off
@@ -22,10 +22,7 @@ public interface GempSettingDAO {
      */
     boolean inGameStatisticsEnabled();
 
-    /**
-     * toggles the inGameStatisticsEnabled setting
-     */
-    void toggleInGameStatisticsEnabled();
+    void setInGameStatisticsEnabled(boolean enabled);
 
     /**
      * Gets whether the bonusAbilities setting is on or off
@@ -36,9 +33,13 @@ public interface GempSettingDAO {
     /**
      * Toggles the bonusAbilities setting
      */
-    void toggleBonusAbilitiesEnabled();
+    void setBonusAbilitiesEnabled(boolean enabled);
 
     boolean newAccountRegistrationEnabled();
 
-    void toggleNewAccountRegitrationEnabled();
+    void setNewAccountRegistrationEnabled(boolean enabled);
+
+    void setFlag(String name, boolean enabled);
+    boolean toggleFlag(String name);
+    boolean getFlag(String name);
 }

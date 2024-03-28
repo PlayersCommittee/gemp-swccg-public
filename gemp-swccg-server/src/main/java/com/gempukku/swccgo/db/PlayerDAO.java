@@ -25,6 +25,14 @@ public interface PlayerDAO {
     Player getPlayer(String playerName);
 
     /**
+     * Gets the player from the player name, optionally including deactivated users.  Defaults to false.
+     * @param playerName the player name
+     * @param includeDeactivated if false, will return null if the player is deactivated, even if the player exists.
+     * @return the player
+     */
+    Player getPlayer(String playerName, boolean includeDeactivated);
+
+    /**
      * Registers a new player.
      * @param playerName the player name
      * @param password the password
@@ -73,43 +81,22 @@ public interface PlayerDAO {
     boolean resetUserPassword(String playerName) throws SQLException;
 
     /**
-     * Sets whether a player is considered a playtester.
+     * Sets a player flag, such as "playtester" or "commentator".
      * @param playerName the player name
-     * @param playtester true if playtester, false if not playtester
+     * @param flag which flag to set
+     * @param status true to add the flag, false to remove it
      * @return true if successful, otherwise false
      * @throws SQLException an SQL exception
      */
-    boolean setPlayerAsPlaytester(String playerName, boolean playtester) throws SQLException;
+    boolean setPlayerFlag(String playerName, Player.Type flag, boolean status) throws SQLException;
 
     /**
-     * Gets a list of players that are playtesters.
+     * Gets a list of players that have a given permission flag.
+     * @param flag Which flag to search for
      * @return the list of play testers
      */
-    List<Player> findPlaytesters();
+    List<Player> findPlayersWithFlag(Player.Type flag);
 
-    /**
-     * Sets whether a player is considered a commentator.
-     * @param playerName the player name
-     * @param commentator true if commentator, false if not commentator
-     * @return true if successful, otherwise false
-     * @throws SQLException an SQL exception
-     */
-    boolean setPlayerAsCommentator(String playerName, boolean commentator) throws SQLException;
-
-    /**
-     * Gets a list of players that are commentators.
-     * @return the list of play testers
-     */
-    List<Player> findCommentators();
-
-    /**
-     * Deactivate the specified player.
-     * @param playerName the player name
-     * @param deactivate true to deactivate, false to reactivate
-     * @return true if successful, otherwise false
-     * @throws SQLException an SQL exception
-     */
-    boolean setPlayerAsDeactivated(String playerName, boolean deactivate) throws SQLException;
 
     /**
      * Permanently ban the specified player.
@@ -138,8 +125,8 @@ public interface PlayerDAO {
 
     /**
      * Gets a list of players that appear to be similar (same IP address, etc.) to the specified player.
-     * @param player the player
+     * @param playerName the player
      * @return the list of similar players
      */
-    List<Player> findSimilarAccounts(Player player);
+    List<Player> findSimilarAccounts(String playerName);
 }

@@ -14,10 +14,10 @@ import java.util.Map;
  * A cached player database access object to help avoid unnecessary data access.
  */
 public class CachedPlayerDAO implements PlayerDAO, Cached {
-    private PlayerDAO _delegate;
-    private Map<Integer, Player> _playerById = Collections.synchronizedMap(new LRUMap(500));
-    private Map<String, Player> _playerByName = Collections.synchronizedMap(new LRUMap(500));
-    private Map<String, List<String>> _similarAccountsByName = Collections.synchronizedMap(new LRUMap(500));
+    private final PlayerDAO _delegate;
+    private final Map<Integer, Player> _playerById = Collections.synchronizedMap(new LRUMap(500));
+    private final Map<String, Player> _playerByName = Collections.synchronizedMap(new LRUMap(500));
+    private final Map<String, List<String>> _similarAccountsByName = Collections.synchronizedMap(new LRUMap(500));
 
     /**
      * Creates a cached player database access object.
@@ -54,14 +54,23 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
 
     @Override
     public Player getPlayer(String playerName) {
+        return getPlayer(playerName, false);
+    }
+
+    @Override
+    public Player getPlayer(String playerName, boolean includeDeactivated) {
         Player player = _playerByName.get(playerName);
         if (player == null) {
-            player = _delegate.getPlayer(playerName);
+            player = _delegate.getPlayer(playerName, includeDeactivated);
             if (player != null) {
                 _playerById.put(player.getId(), player);
                 _playerByName.put(player.getName(), player);
             }
         }
+
+        if(player != null && !includeDeactivated && player.hasType(Player.Type.DEACTIVATED))
+            return null;
+
         return player;
     }
 
@@ -112,36 +121,13 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     }
 
     @Override
-    public boolean setPlayerAsPlaytester(String playerName, boolean playtester) throws SQLException {
-        final boolean success = _delegate.setPlayerAsPlaytester(playerName, playtester);
-        if (success) {
-            removePlayerFromCacheByName(playerName);
-        }
-        return success;
+    public List<Player> findPlayersWithFlag(Player.Type flag) {
+        return _delegate.findPlayersWithFlag(flag);
     }
 
     @Override
-    public List<Player> findPlaytesters() {
-        return _delegate.findPlaytesters();
-    }
-
-    @Override
-    public boolean setPlayerAsCommentator(String playerName, boolean commentator) throws SQLException {
-        final boolean success = _delegate.setPlayerAsCommentator(playerName, commentator);
-        if (success) {
-            removePlayerFromCacheByName(playerName);
-        }
-        return success;
-    }
-
-    @Override
-    public List<Player> findCommentators() {
-        return _delegate.findCommentators();
-    }
-
-    @Override
-    public boolean setPlayerAsDeactivated(String playerName, boolean deactivate) throws SQLException {
-        final boolean success = _delegate.setPlayerAsDeactivated(playerName, deactivate);
+    public boolean setPlayerFlag(String playerName, Player.Type flag, boolean status) throws SQLException {
+        final boolean success = _delegate.setPlayerFlag(playerName, flag, status);
         if (success) {
             removePlayerFromCacheByName(playerName);
         }
@@ -176,21 +162,21 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     }
 
     @Override
-    public List<Player> findSimilarAccounts(Player player) {
+    public List<Player> findSimilarAccounts(String playerName) {
         List<Player> similarAccounts = null;
-        List<String> similarAccountNames = _similarAccountsByName.get(player.getName());
+        List<String> similarAccountNames = _similarAccountsByName.get(playerName);
         if (similarAccountNames == null) {
-            similarAccountNames = new LinkedList<String>();
-            similarAccounts = _delegate.findSimilarAccounts(player);
+            similarAccountNames = new LinkedList<>();
+            similarAccounts = _delegate.findSimilarAccounts(playerName);
             for (Player similarAccount : similarAccounts) {
                 similarAccountNames.add(similarAccount.getName());
             }
-            _similarAccountsByName.put(player.getName(), Collections.unmodifiableList(similarAccountNames));
+            _similarAccountsByName.put(playerName, Collections.unmodifiableList(similarAccountNames));
         }
         if (similarAccounts == null) {
-            similarAccounts = new LinkedList<Player>();
+            similarAccounts = new LinkedList<>();
             for (String similarAccountName : similarAccountNames) {
-                similarAccounts.add(getPlayer(similarAccountName));
+                similarAccounts.add(getPlayer(similarAccountName, true));
             }
         }
         return Collections.unmodifiableList(similarAccounts);

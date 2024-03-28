@@ -22,16 +22,10 @@ public class WebRequestHandler implements UriRequestHandler {
     public WebRequestHandler(String root) {
         _isLocalHost = ApplicationConfiguration.getProperty("environment").equals("test");
         _root = root;
-        _uniqueEtag = "\"" + String.valueOf(System.currentTimeMillis()) + "\"";
     }
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
-        if (clientHasCurrentVersion(request) && !_isLocalHost) {
-            responseWriter.writeError(304);
-            return;
-        }
-
         if ("".equals(uri))
             uri = "index.html";
 
@@ -41,22 +35,36 @@ public class WebRequestHandler implements UriRequestHandler {
                 || uri.contains(File.separator + ".")
                 || uri.startsWith(".") || uri.endsWith(".")) {
             responseWriter.writeError(403);
-        } else {
-            File file = new File(_root + uri);
-            if (!file.getCanonicalPath().startsWith(_root))
-                responseWriter.writeError(403);
-            else {
-                responseWriter.writeFile(file, Collections.singletonMap(HttpHeaders.Names.ETAG, _uniqueEtag));
-            }
+            return;
         }
+
+        File file = new File(_root + uri);
+        if (!file.getCanonicalPath().startsWith(_root)) {
+            responseWriter.writeError(403);
+            return;
+        }
+
+        if (!file.exists()) {
+            responseWriter.writeError(404);
+            return;
+        }
+
+        final String etag = "\"" + file.lastModified() + "\"";
+
+        if (clientHasCurrentVersion(request, etag) && !_isLocalHost) {
+            responseWriter.writeError(304);
+            return;
+        }
+
+        responseWriter.writeFile(file, Collections.singletonMap(HttpHeaders.Names.ETAG, etag));
     }
 
-    private boolean clientHasCurrentVersion(HttpRequest request) {
+    private boolean clientHasCurrentVersion(HttpRequest request, String etag) {
         String ifNoneMatch = request.getHeader(IF_NONE_MATCH);
         if (ifNoneMatch != null) {
             String[] clientKnownVersions = ifNoneMatch.split(",");
             for (String clientKnownVersion : clientKnownVersions) {
-                if (clientKnownVersion.trim().equals(_uniqueEtag))
+                if (clientKnownVersion.trim().equals(etag))
                     return true;
             }
         }

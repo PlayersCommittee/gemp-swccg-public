@@ -1,16 +1,14 @@
 body {
     font-size: 12px;
     background-color: #000000;
+    position: relative;
+    margin: 8px;
 }
 
 .eventHeader {
     font-size: 120%;
     font-weight: bolder;
     background-color: #666666;
-}
-
-.serverTime {
-    border: 1px solid #ffffff;
 }
 
 .leagueName, #stats .period, .tournamentName, .playerStatHeader {
@@ -131,14 +129,128 @@ body {
     font-size: 80%;
 }
 
+#tabs {
+
+}
+
 #latestNews {
     color: #ffffff;
     font-size: 90%;
+    display: flex;
+    flex-direction: row;
 }
 
-#motd {
-    color: #ffe81f;
+.linkMenu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 1.3em;
+    min-height: 30px;
+}
+
+.timeDiv {
+    display: flex;
+    flex-direction: column;
+    flex-basis: auto;
+    width: 220px;
+}
+
+.flexPadding {
+    flex-grow: 1;
+}
+
+.serverTime {
+    border: 1px solid #ffffff;
+    width: 220px;
+}
+
+.motd, div.motd a {
     font-size: 90%;
+    height: 30px;
+    width: 100%;
+}
+
+.motd {
+    color: #ffe81f;
+}
+
+div.motd a {
+    color: #ffae00
+}
+div.motd a:active {
+    color: #FFFFFF
+}
+
+div.motd a:visited {
+    color: #d18b00;
+}
+
+#motd-preview {
+    flex-basis:50%;
+    word-wrap:break-word;
+    max-width:100%
+}
+
+#motd-text {
+    min-width:50%
+}
+
+button.admin-button .ui-button-text {
+    font-size: inherit;
+}
+
+button.admin-button, input.admin-button {
+    padding:4px;
+}
+
+#gameHall {
+    
+}
+
+#hall {
+/*   margin: 30px;*/
+}
+
+#chat {
+    position:relative;
+    width:780px;
+    height: 50%;
+}
+
+.page {
+    width:max(800px, 50%);
+    margin: 3em auto 20em auto;
+}
+
+.hall-tab {
+    height: 90%;
+    background: #00FF00;
+    overflow:hidden;
+}
+
+.hall-tab .ui-tabs-panel {
+    height: 85vh;
+    overflow-x: auto;
+    overflow-y: scroll;
+}
+
+/*#ui-tabs-12 {
+    height: 90%;
+    overflow: scroll;
+    display: block;
+}*/
+
+td button {
+    width: calc(100% - 6px);
+    margin: 3px;
+}
+
+.page td button .ui-button-text {
+    font-size: inherit;
+}
+
+.page td {
+    padding: 5px;
 }
 
 table.tables {
@@ -146,12 +258,39 @@ table.tables {
 }
 
 table.tables td, table.tables th {
-    padding: 2px;
+    padding: 5px;
     border: 1px solid white;
+}
+
+.flex-horiz {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+}
+
+.flex-vert {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+textarea, input, select {
+  color: #ffffff;
+  background-color: #222222;
+}
+
+textarea, input {
+  border-color: #666666 #888888 #888888 #666666;
+  margin: 2px;
 }
 
 .ui-tabs-nav li {
     font-size: 70%;
+}
+
+.ui-tabs-panel {
+    overflow-x:hidden;
+    overflow-y:auto;
 }
 
 .ui-button-text-only .ui-button-text {
@@ -269,7 +408,7 @@ li.social-link {
     border:1px #555555 solid;
     margin-top:5px;
     margin-bottom:5px;
-    padding:none;
+    padding:0;
 }
 .leagueDurationStart {
     color:green;

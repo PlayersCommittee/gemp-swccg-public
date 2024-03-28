@@ -54,6 +54,9 @@ ENV "db_password"      "Four_mason8pirate"
 ENV "application_port" "8080"
 ENV "web_path"         "/opt/gemp-swccg/web/"
 
+# Enables the JRE remote debugging (which contrary to the name is most useful in local development).
+# This should be commented out in a production build unless tackling a particularly awful bug.
+#ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
 
 ## run the server
 CMD ["/usr/bin/java", \

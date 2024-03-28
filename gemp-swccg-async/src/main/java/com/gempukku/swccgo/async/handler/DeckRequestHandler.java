@@ -27,8 +27,6 @@ import javax.xml.transform.stream.StreamResult;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.io.StringWriter;
-import java.lang.reflect.Type;
-import java.util.*;
 
 public class DeckRequestHandler extends SwccgoServerRequestHandler implements UriRequestHandler {
     private SortAndFilterCards _sortAndFilterCards;
@@ -126,7 +124,11 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
         int lightCount = 0;
         int darkCount = 0;
         for (String card : deck.getCards()) {
-            Side side = _library.getSwccgoCardBlueprint(card).getSide();
+            SwccgCardBlueprint bp = _library.getSwccgoCardBlueprint(card);
+            if(bp == null)
+                continue;
+
+            Side side = bp.getSide();
             if (side == Side.DARK)
                 darkCount++;
             else if (side == Side.LIGHT)
@@ -149,7 +151,7 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
         StringBuilder valid = new StringBuilder();
         StringBuilder invalid = new StringBuilder();
         for (SwccgFormat format : _formatLibrary.getAllFormats().values()) {
-            if (!format.isPlaytesting() || resourceOwner.hasType(Player.Type.ADMIN) || resourceOwner.hasType(Player.Type.PLAY_TESTER)) {
+            if (!format.isPlaytesting() || resourceOwner.hasType(Player.Type.ADMIN) || resourceOwner.hasType(Player.Type.PLAYTESTER)) {
                 String formatCssId = format.getName().replace(" ", "-").replace("(", "").replace(")", "").replace("/", "").replace("'", "");
                 try {
                     format.validateDeck(deck);
@@ -329,6 +331,9 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
         // For each deck determine if it is a Dark deck, Light deck, or other deck
         for (String deckName : deckNames) {
             SwccgDeck deck = _deckDao.getDeckForPlayer(resourceOwner, deckName);
+            if(deck == null)
+                continue;
+
             Side side = deck.getSide(_library);
             if (side == Side.DARK)
                 darkDeckNames.add(deckName);

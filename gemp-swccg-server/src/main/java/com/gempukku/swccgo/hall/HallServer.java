@@ -179,6 +179,15 @@ public class HallServer extends AbstractServer {
         }
     }
 
+    public String getMOTD() {
+        _hallDataAccessLock.readLock().lock();
+        try {
+            return _motd;
+        } finally {
+            _hallDataAccessLock.readLock().unlock();
+        }
+    }
+
     public void setMOTD(String motd) {
         _hallDataAccessLock.writeLock().lock();
         try {
@@ -283,20 +292,19 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public void togglePrivateGames() {
-        _gempSettingDAO.togglePrivateGamesEnabled();
-        _privateGamesEnabled = _gempSettingDAO.privateGamesEnabled();
+    public void setPrivateGames(boolean enabled) {
+        _gempSettingDAO.setPrivateGamesEnabled(enabled);
+        _privateGamesEnabled = enabled;
     }
 
-    public void toggleInGameStatistics() {
-        _gempSettingDAO.toggleInGameStatisticsEnabled();
-        _inGameStatisticsEnabled = _gempSettingDAO.inGameStatisticsEnabled();
+    public void setInGameStatisticsEnabled(boolean enabled) {
+        _gempSettingDAO.setInGameStatisticsEnabled(enabled);
+        _inGameStatisticsEnabled = enabled;
     }
 
-
-    public void toggleBonusAbilities() {
-        _gempSettingDAO.toggleBonusAbilitiesEnabled();
-        _bonusAbilitiesEnabled = _gempSettingDAO.bonusAbilitiesEnabled();
+    public void setBonusAbilities(boolean enabled) {
+        _gempSettingDAO.setBonusAbilitiesEnabled(enabled);
+        _bonusAbilitiesEnabled = enabled;
     }
 
     public boolean privateGamesAllowed() {
@@ -627,11 +635,12 @@ public class HallServer extends AbstractServer {
                 visitor.motd(_motd);
             }
             else {
-                visitor.motd("Follow the PC on Twitter @swccg to stay informed of Star Wars CCG news and events.");
+                _motd = "Follow the PC on Twitter @swccg to stay informed of Star Wars CCG news and events.";
+                visitor.motd(_motd);
             }
 
             // Only show playtesting table details if player is a playtester or admin
-            boolean playtestingVisible = player.hasType(Player.Type.ADMIN) || player.hasType(Player.Type.PLAY_TESTER);
+            boolean playtestingVisible = player.hasType(Player.Type.ADMIN) || player.hasType(Player.Type.PLAYTESTER);
             boolean visibleToCommentator = player.hasType(Player.Type.ADMIN) || player.hasType(Player.Type.COMMENTATOR);
 
             // First waiting
@@ -707,7 +716,7 @@ public class HallServer extends AbstractServer {
          */
         if (format.isPlaytesting()
                 && !(player.hasType(Player.Type.ADMIN)
-                || player.hasType(Player.Type.PLAY_TESTER))) {
+                || player.hasType(Player.Type.PLAYTESTER))) {
             throw new HallException("You are not allowed to participate in a playtesting format");
         }
 
@@ -745,7 +754,7 @@ public class HallServer extends AbstractServer {
          * If the playtestingNoLimitDeckLength is false:
          *   Then the deck length limit is respected.
          */
-        if (! (playtestingNoLimitDeckLength && (player.hasType(Player.Type.ADMIN) || player.hasType(Player.Type.PLAY_TESTER))) ) {
+        if (! (playtestingNoLimitDeckLength && (player.hasType(Player.Type.ADMIN) || player.hasType(Player.Type.PLAYTESTER))) ) {
 
             try {
                 swccgDeck = validateUserAndDeck(format, player, collectionType, swccgDeck);
@@ -971,8 +980,13 @@ public class HallServer extends AbstractServer {
 
     private int _tickCounter = 60;
 
+
     @Override
-    protected void cleanup() {
+    public void cleanup() {
+        cleanup(false);
+    }
+
+    public void cleanup(boolean forceRefresh) {
         _hallDataAccessLock.writeLock().lock();
         try {
             // Remove finished games
@@ -1018,7 +1032,7 @@ public class HallServer extends AbstractServer {
                     hallChanged();
             }
 
-            if (_tickCounter == 60) {
+            if (_tickCounter == 60 || forceRefresh) {
                 _tickCounter = 0;
                 List<TournamentQueueInfo> unstartedTournamentQueues = _tournamentService.getUnstartedScheduledTournamentQueues(
                         System.currentTimeMillis() + _scheduledTournamentLoadTime);

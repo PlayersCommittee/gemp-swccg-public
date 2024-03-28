@@ -337,22 +337,20 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
     @Override
     public List<LeagueDecklistEntry> getLeagueDecklists(String leagueId) {
         try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement("select tournament, start_date, case when winner_side = 'Dark' then winner when winner_side = 'Light' then loser else 'ERROR (game somehow ended without a winner)' end as Player " +
-                        ",'Dark' as Side,dark_deck_string as DeckPlayed " +
-                        "from game_history " +
-                        "where lower(win_reason) not like '%cancel%' and league_type = ? " +
-                        "union all " +
-                        "select tournament, start_date, case when winner_side = 'Light' then winner when winner_side = 'Dark' then loser else 'ERROR (game somehow ended without a winner)' end as Player " +
-                        ",'Light' as Side,light_deck_string as DeckPlayed " +
-                        "from game_history " +
-                        "where lower(win_reason) not like '%cancel%' and league_type = ? ");
-                try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement(
+                        "select tournament, start_date, case when winner_side = 'Dark' then winner when winner_side = 'Light' then loser else 'ERROR (game somehow ended without a winner)' end as Player " +
+                                ",'Dark' as Side,dark_deck_string as DeckPlayed " +
+                                "from game_history " +
+                                "where lower(win_reason) not like '%cancel%' and league_type = ? " +
+                                "union all " +
+                                "select tournament, start_date, case when winner_side = 'Light' then winner when winner_side = 'Dark' then loser else 'ERROR (game somehow ended without a winner)' end as Player " +
+                                ",'Light' as Side,light_deck_string as DeckPlayed " +
+                                "from game_history " +
+                                "where lower(win_reason) not like '%cancel%' and league_type = ? ")) {
                     statement.setString(1, leagueId);
                     statement.setString(2, leagueId);
-                    ResultSet rs = statement.executeQuery();
-                    try {
+                    try (ResultSet rs = statement.executeQuery()) {
                         List<LeagueDecklistEntry> result = new LinkedList<>();
                         while (rs.next()) {
                             String leagueName = rs.getString(1);
@@ -361,18 +359,13 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                             String side = rs.getString(4);
                             String deck = rs.getString(5);
 
-                            LeagueDecklistEntry entry = new LeagueDecklistEntry(leagueName, startDate, player, side, deck);
+                            LeagueDecklistEntry entry = new LeagueDecklistEntry(leagueName, startDate, player, side,
+                                    deck);
                             result.add(entry);
                         }
                         return result;
-                    } finally {
-                        rs.close();
                     }
-                } finally {
-                    statement.close();
                 }
-            } finally {
-                connection.close();
             }
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to get league decklists", exp);
