@@ -18019,6 +18019,7 @@ public class Filters {
     public static final Filter Fett = Filters.or(Filters.persona(Persona.BOBA_FETT), Filters.persona(Persona.JANGO_FETT));
     public static final Filter female = Filters.and(CardCategory.CHARACTER, Keyword.FEMALE);
     public static final Filter Free_Ride = Filters.title(Title.Free_Ride);
+    public static final Filter Field_Promotion = Filters.title(Title.Field_Promotion);
     public static final Filter Fifth_Marker = Filters.keyword(Keyword.MARKER_5);
     public static final Filter Fighters_Coming_In = Filters.title(Title.Fighters_Coming_In);
     public static final Filter Finalizer = Filters.title(Title.Finalizer);

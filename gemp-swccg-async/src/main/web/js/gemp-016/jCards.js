@@ -3714,6 +3714,8 @@ var fixedImages = {
 "501_164":"https://res.starwarsccg.org/cards/Premiere-Light/large/scomplinkaccess.gif",
 "501_170":"https://res.starwarsccg.org/cards/JabbasPalace-Light/large/pucumirthryss.gif",
 "501_171":"https://res.starwarsccg.org/cards/SpecialEdition-Light/large/cloudcitynorthcorridor.gif",
+"501_187":"https://res.starwarsccg.org/cards/Virtual0-Light/large/goldenrod.gif",
+"501_190":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/yourship.gif",
 
 //legacy
 "601_1":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/knowledgeanddefense.gif",
