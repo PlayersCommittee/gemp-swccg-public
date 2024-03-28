@@ -3693,7 +3693,7 @@ var fixedImages = {
 "501_116":"https://res.starwarsccg.org/cards/Virtual3-Light/large/wildkarrde.gif",
 "501_117":"https://res.starwarsccg.org/cards/Coruscant-Dark/large/nocivilityonlypolitics.gif",
 "501_118":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/jakkuniimamarketplace.png",
-"501_120":"https://res.starwarsccg.org/cards/PremiereIntroductoryTwoPlayerGame-Dark/large/deathstardockingcontrolroom327.gif",
+"501_120":"https://res.starwarsccg.org/cards/Premiere-Light/large/deathstardetentionblockcontrolroom.gif",
 "501_121":"https://res.starwarsccg.org/cards/Dagobah-Light/large/transmissionterminated.gif",
 "501_122":"https://res.starwarsccg.org/cards/Endor-Light/large/endorcelebration.gif",
 "501_123":"https://res.starwarsccg.org/cards/Virtual6-Light/large/jynerso.gif",
