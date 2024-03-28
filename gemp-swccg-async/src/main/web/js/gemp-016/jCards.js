@@ -3713,6 +3713,7 @@ var fixedImages = {
 "501_141":"https://res.starwarsccg.org/cards/Virtual12-Dark/large/moffgideon.gif",
 "501_164":"https://res.starwarsccg.org/cards/Premiere-Light/large/scomplinkaccess.gif",
 "501_170":"https://res.starwarsccg.org/cards/JabbasPalace-Light/large/pucumirthryss.gif",
+"501_180":"https://res.starwarsccg.org/cards/ReflectionsIII-Light/large/acloserace.gif",
 "501_171":"https://res.starwarsccg.org/cards/SpecialEdition-Light/large/cloudcitynorthcorridor.gif",
 "501_183":"https://res.starwarsccg.org/cards/Hoth-Light/large/hothdefensiveperimeter.gif",
 "501_187":"https://res.starwarsccg.org/cards/Virtual0-Light/large/goldenrod.gif",
