@@ -124,6 +124,16 @@ public class PlayInterruptAction extends AbstractPlayCardAction implements GameT
     }
 
     /**
+     * Determines if the action is from playing an Interrupt.
+     *
+     * @return true if from playing an Interrupt, otherwise false
+     */
+    @Override
+    public boolean isFromPlayingInterrupt() {
+        return true;
+    }
+
+    /**
      * Indicates if the player should be given the option to return the interrupt to hand after resolving
      * @param optionalReturnToHandWhenResolving true if the player should be given the option to return it to hand after resolving
      * @param usageEffect the usage effect if once per game, etc., otherwise null

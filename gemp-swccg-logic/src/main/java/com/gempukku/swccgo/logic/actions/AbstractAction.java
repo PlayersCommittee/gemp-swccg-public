@@ -185,6 +185,16 @@ public abstract class AbstractAction implements Action {
     }
 
     /**
+     * Determines if the action is from playing an Interrupt.
+     *
+     * @return true if from playing an Interrupt, otherwise false
+     */
+    @Override
+    public boolean isFromPlayingInterrupt() {
+        return false;
+    }
+
+    /**
      * Gets the card id of the card the game text is originally from
      *
      * @return the card id

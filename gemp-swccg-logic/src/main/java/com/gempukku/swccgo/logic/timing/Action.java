@@ -80,6 +80,12 @@ public interface Action extends Snapshotable<Action> {
     boolean isFromGameText();
 
     /**
+     * Determines if the action is from playing an Interrupt.
+     * @return true if from playing an Interrupt, otherwise false
+     */
+    boolean isFromPlayingInterrupt();
+
+    /**
      * Gets the card id of the card the game text is originally from
      * @return the card id
      */

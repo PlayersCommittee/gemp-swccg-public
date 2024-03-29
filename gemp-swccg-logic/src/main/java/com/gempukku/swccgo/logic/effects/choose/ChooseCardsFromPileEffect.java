@@ -161,7 +161,8 @@ public abstract class ChooseCardsFromPileEffect extends AbstractStandardEffect i
         if (!success) {
             // Game rule: Since this search failed, prohibit the same search function from being used again on any cards
             // with same title for the remainder of the turn.
-            if (_action.isFromGameText()) {
+            if (_action.isFromGameText()
+                    || _action.isFromPlayingInterrupt()) {
                 PhysicalCard sourceCard = _action.getActionSource();
                 game.getModifiersEnvironment().addUntilEndOfTurnModifier(
                         new CantSearchCardPileModifier(Filters.sameTitle(sourceCard), _playerId, _zone, _zoneOwner, _action.getGameTextActionId()));

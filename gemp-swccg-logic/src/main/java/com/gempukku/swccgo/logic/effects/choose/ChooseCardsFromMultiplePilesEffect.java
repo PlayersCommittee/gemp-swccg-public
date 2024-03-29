@@ -174,7 +174,8 @@ public abstract class ChooseCardsFromMultiplePilesEffect extends AbstractStandar
         if (!success) {
             // Game rule: Since this search failed, prohibit the same search function from being used again on any cards
             // with same title for the remainder of the turn.
-            if (_action.isFromGameText()) {
+            if (_action.isFromGameText()
+                    || _action.isFromPlayingInterrupt()) {
                 PhysicalCard sourceCard = _action.getActionSource();
                 for (Zone zone:_zones) {
                     game.getModifiersEnvironment().addUntilEndOfTurnModifier(

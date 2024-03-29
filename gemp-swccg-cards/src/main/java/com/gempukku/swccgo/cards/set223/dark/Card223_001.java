@@ -109,9 +109,9 @@ public class Card223_001 extends AbstractUsedOrLostInterrupt {
         GameTextActionId gameTextActionId1 = GameTextActionId.NOT_WITH_SIGHT_OR_REACH__DOWNLOAD_DREADNAUGHT;
 
         // Check condition(s)
-        if ((GameConditions.hasDeployedAtLeastXCardsThisGame(game, opponent, 2, Filters.system)
+        if (((GameConditions.hasDeployedAtLeastXCardsThisGame(game, opponent, 2, Filters.system)
                 && !GameConditions.hasDeployedAtLeastXCardsThisGame(game, opponent, 1, Filters.battleground_site))
-                || GameConditions.canSpot(game, self, Filters.liberated_system)
+                || GameConditions.canSpot(game, self, Filters.liberated_system))
                 && GameConditions.isOncePerGame(game, self, gameTextActionId1)
                 && GameConditions.isDuringYourPhase(game, playerId, Phase.DEPLOY)) {
 
