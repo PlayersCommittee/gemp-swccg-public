@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card223_005 extends AbstractRebel {
     public Card223_005() {
-        super(Side.LIGHT, 2, 4, 4, 3, 5, "Jyn Erso, Heroic Rebel", Uniqueness.UNIQUE, ExpansionSet.SET_23, Rarity.V);
+        super(Side.LIGHT, 1, 4, 4, 3, 5, "Jyn Erso, Heroic Rebel", Uniqueness.UNIQUE, ExpansionSet.SET_23, Rarity.V);
         setLore("Female leader and spy.");
         setGameText("While Stardust on your spy, Jyn adds one battle destiny. " +
                 "While Stardust on Jyn and present at a battleground, " +
