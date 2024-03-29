@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.db;
 
+import com.gempukku.swccgo.game.SwccgCardBlueprintLibrary;
 import com.gempukku.swccgo.logic.vo.SwccgDeck;
 import com.gempukku.swccgo.tournament.TournamentPlayerDAO;
 
@@ -14,9 +15,11 @@ import java.util.Set;
 
 public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
     private DbAccess _dbAccess;
+    private SwccgCardBlueprintLibrary _library;
 
-    public DbTournamentPlayerDAO(DbAccess dbAccess) {
+    public DbTournamentPlayerDAO(DbAccess dbAccess, SwccgCardBlueprintLibrary library) {
         _dbAccess = dbAccess;
+        _library = library;
     }
 
     @Override
@@ -132,7 +135,7 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
                             String deckName = rs.getString(2);
                             String contents = rs.getString(3);
 
-                            result.put(player, DeckSerialization.buildDeckFromContents(deckName, contents));
+                            result.put(player, DeckSerialization.buildDeckFromContents(deckName, contents, _library));
                         }
                         return result;
                     } finally {
@@ -190,7 +193,7 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
                     ResultSet rs = statement.executeQuery();
                     try {
                         if (rs.next())
-                            return DeckSerialization.buildDeckFromContents(rs.getString(1), rs.getString(2));
+                            return DeckSerialization.buildDeckFromContents(rs.getString(1), rs.getString(2), _library);
                         else
                             return null;
                     } finally {

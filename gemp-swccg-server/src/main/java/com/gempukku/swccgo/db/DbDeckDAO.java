@@ -118,7 +118,7 @@ public class DbDeckDAO implements DeckDAO {
     }
 
     public synchronized SwccgDeck buildDeckFromContents(String deckName, String contents) {
-        return DeckSerialization.buildDeckFromContents(deckName, contents);
+        return DeckSerialization.buildDeckFromContents(deckName, contents, _library);
     }
 
     private void deleteDeckFromDB(int playerId, String name) throws SQLException {

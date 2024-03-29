@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.db;
 
+import com.gempukku.swccgo.game.SwccgCardBlueprintLibrary;
 import com.gempukku.swccgo.logic.vo.SwccgDeck;
 
 public class DeckSerialization {
@@ -20,20 +21,22 @@ public class DeckSerialization {
         return sb.toString();
     }
 
-    public static SwccgDeck buildDeckFromContents(String deckName, String contents) {
+    public static SwccgDeck buildDeckFromContents(String deckName, String contents, SwccgCardBlueprintLibrary library) {
         // New format
         String[] parts = contents.split("\\|");
 
         SwccgDeck deck = new SwccgDeck(deckName);
         if (parts.length > 0 && !parts[0].isEmpty()) {
             for (String card : parts[0].split(",")) {
-                if (!card.equals(""))
+                if (!card.equals("")
+                        && library.getSwccgoCardBlueprint(card) != null)
                     deck.addCard(card);
             }
         }
         if (parts.length > 1 && !parts[1].isEmpty()) {
             for (String card : parts[1].split(",")) {
-                if (!card.equals(""))
+                if (!card.equals("")
+                        && library.getSwccgoCardBlueprint(card) != null)
                     deck.addCardOutsideDeck(card);
             }
         }

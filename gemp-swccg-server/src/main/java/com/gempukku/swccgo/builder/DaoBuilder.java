@@ -24,7 +24,7 @@ public class DaoBuilder {
         objectMap.put(LeagueParticipationDAO.class, new DbLeagueParticipationDAO(dbAccess));
         objectMap.put(LeagueMatchDAO.class, new DbLeagueMatchDAO(dbAccess));
         objectMap.put(TournamentDAO.class, new DbTournamentDAO(dbAccess));
-        objectMap.put(TournamentPlayerDAO.class, new DbTournamentPlayerDAO(dbAccess));
+        objectMap.put(TournamentPlayerDAO.class, new DbTournamentPlayerDAO(dbAccess, library));
         objectMap.put(TournamentMatchDAO.class, new DbTournamentMatchDAO(dbAccess));
         objectMap.put(GempSettingDAO.class, new DbGempSettingDAO(dbAccess));
         objectMap.put(InGameStatisticsDAO.class, new DbInGameStatisticsDAO(dbAccess));
