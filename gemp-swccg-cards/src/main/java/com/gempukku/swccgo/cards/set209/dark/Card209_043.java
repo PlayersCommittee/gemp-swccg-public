@@ -44,7 +44,7 @@ public class Card209_043 extends AbstractNormalEffect {
     }
 
     @Override
-    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
         GameTextActionId gameTextActionId;
 
@@ -84,12 +84,16 @@ public class Card209_043 extends AbstractNormalEffect {
             action.appendUsage(new OncePerTurnEffect(action));
 
             // Perform result(s)
-            action.appendEffect(new DrawCardIntoHandFromForcePileEffect(action, playerId));
-
-            if (GameConditions.occupies(game, playerId, 3, Filters.battleground) && GameConditions.isDuringYourTurn(game, self)) {
-                String opponent = game.getOpponent(playerId);
-                action.appendEffect(new LoseForceEffect(action, opponent, 1));
-            }
+            action.appendEffect(new DrawCardIntoHandFromForcePileEffect(action, playerId) {
+                @Override
+                protected void cardDrawnIntoHand(PhysicalCard card) {
+                    if (card!=null
+                            && GameConditions.occupies(game, playerId, 3, Filters.battleground) && GameConditions.isDuringYourTurn(game, self)) {
+                        String opponent = game.getOpponent(playerId);
+                        action.appendEffect(new LoseForceEffect(action, opponent, 1));
+                    }
+                }
+            });
 
             actions.add(action);
         }
