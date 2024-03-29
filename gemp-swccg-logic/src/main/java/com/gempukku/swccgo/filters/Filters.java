@@ -18128,6 +18128,7 @@ public class Filters {
     public static final Filter Harvest = Filters.title(Title.Harvest);
     public static final Filter has_Scomp_link = Filters.icon(Icon.SCOMP_LINK);
     public static final Filter Haven = Filters.title(Title.Haven);
+    public static final Filter He_Hasnt_Come_Back_Yet = Filters.title(Title.He_Hasnt_Come_Back_Yet);
     public static final Filter He_Is_The_Chosen_One = Filters.title(Title.He_Is_The_Chosen_One);
     public static final Filter He_Will_Bring_Balance = Filters.title(Title.He_Will_Bring_Balance);
     public static final Filter Heart_Of_The_Chasm = Filters.title(Title.Heart_Of_The_Chasm);
