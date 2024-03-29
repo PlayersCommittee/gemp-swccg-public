@@ -133,7 +133,7 @@ print("Starting Game Server")
 response = session.post(
     url=gemp_base_url+'gemp-swccg-server/admin/shutdown',
     headers={'Referer': gemp_base_url+'gemp-swccg/hall.html'},
-    data={'enabled:false'}
+    data={'enabled':'false'}
 )
 print("Game Server Start Response Headers:")
 for h in response.headers:
