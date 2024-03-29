@@ -3669,6 +3669,7 @@ var fixedImages = {
 "501_61":"https://res.starwarsccg.org/cards/SpecialEdition-Light/large/scurrier.gif",
 "501_66":"https://res.starwarsccg.org/cards/ResetDS-Dark/large/deathstarsentry.gif",
 "501_67":"https://res.starwarsccg.org/cards/ReflectionsIII-Dark/large/wellletfateadecidehuh.gif",
+"501_68":"https://res.starwarsccg.org/cards/ReflectionsIII-Dark/large/youveneverwonarace.gif",
 "501_71":"https://res.starwarsccg.org/cards/ResetDS-Dark/large/youcannothideforever.gif",
 "501_69":"https://res.starwarsccg.org/cards/Virtual13-Dark/large/failureatthecave.gif",
 "501_70":"https://res.starwarsccg.org/cards/ResetDS-Dark/large/voteofnoconfidence.gif",
