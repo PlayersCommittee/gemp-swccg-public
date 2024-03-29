@@ -68,7 +68,7 @@ public class Card216_021 extends AbstractRepublic {
                     new OncePerBattleEffect(action));
             // Pay Costs
             action.appendCost(
-                    new LoseForceEffect(action, playerId, 2)
+                    new LoseForceEffect(action, playerId, 2, true)
             );
             action.appendEffect(
                     new AddBattleDestinyEffect(action, 1));
