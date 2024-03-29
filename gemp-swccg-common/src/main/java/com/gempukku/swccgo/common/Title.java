@@ -313,6 +313,7 @@ public interface Title {
     String Docking_Control_Room_327 = "Death Star: Docking Control Room 327";
     String Dodge = "Dodge";
     String Dolphe = "Officer Dolphe";
+    String Domain_Of_Evil = "Domain Of Evil";
     String Dont_Get_Cocky = "Don't Get Cocky";
     String Dont_Underestimate_Our_Chances = "Don't Underestimate Our Chances";
     String Double_Agent = "Double Agent";

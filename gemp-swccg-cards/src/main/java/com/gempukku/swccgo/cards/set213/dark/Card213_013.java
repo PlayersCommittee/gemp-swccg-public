@@ -33,7 +33,7 @@ import java.util.List;
 public class Card213_013 extends AbstractDefensiveShield {
     public Card213_013() {
         super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Failure At The Cave", ExpansionSet.SET_13, Rarity.V);
-        setLore("'Lord Vader, the fleet has moved out of lightspeed and we're preparing to aah...ukh...uh...uuuuukkk!'");
+        setLore("'That place is strong with the dark side of the Force. A domain of evil it is. In you must go.'");
         setGameText("Plays on table. Opponent's Undercover spies are immune to Double Agent. While a Jedi Test on table, Projection Of A Skywalker is canceled. If Grimtaash just revealed your hand, you may place up to two cards in your Used Pile.");
         addIcons(Icon.VIRTUAL_SET_13);
     }

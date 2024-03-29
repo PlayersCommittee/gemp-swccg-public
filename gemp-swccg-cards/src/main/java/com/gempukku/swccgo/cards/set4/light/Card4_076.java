@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set4.light;
 
 import com.gempukku.swccgo.cards.AbstractJediTest;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.usage.NumTimesPerBattleEffect;
 import com.gempukku.swccgo.common.DestinyType;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
@@ -27,6 +28,7 @@ import com.gempukku.swccgo.logic.effects.CompleteJediTestEffect;
 import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
@@ -45,7 +47,7 @@ import java.util.List;
  */
 public class Card4_076 extends AbstractJediTest {
     public Card4_076() {
-        super(Side.LIGHT, 3, "Domain Of Evil", ExpansionSet.DAGOBAH, Rarity.U);
+        super(Side.LIGHT, 3, Title.Domain_Of_Evil, ExpansionSet.DAGOBAH, Rarity.U);
         setGameText("Deploy on Dagobah: Jungle or Dagobah: Cave. Target a mentor on Dagobah and an apprentice who has completed Jedi Test #2. Attempt when apprentice is present at the end of your turn and none of your cards participated in battles, Force drains or Jedi Tests during that turn. Draw training destiny. If destiny + apprentice's ability > 14, test completed. Place on apprentice. You may subtract 1 from each of opponent's destiny draws.");
         addIcons(Icon.DAGOBAH);
         addKeyword(Keyword.JEDI_TEST_3);
@@ -160,12 +162,33 @@ public class Card4_076 extends AbstractJediTest {
         if (GameConditions.isJediTestCompleted(game, self)
                 && TriggerConditions.isDestinyJustDrawnBy(game, effectResult, opponent)) {
 
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Subtract 1 from destiny");
-            // Perform result(s)
-            action.appendEffect(
-                    new ModifyDestinyEffect(action, -1));
-            return Collections.singletonList(action);
+            int perBattleLimit = Integer.MAX_VALUE;
+            if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.DOMAIN_OF_EVIL__LIMIT_USES_PER_BATTLE)) {
+                PhysicalCard apprentice = Filters.findFirstActive(game, self, Filters.apprenticeTargetedByJediTest(self));
+                if (apprentice != null) {
+                    if (Filters.Luke.accepts(game, apprentice))
+                        perBattleLimit = 2;
+                    else
+                        perBattleLimit = 1;
+                }
+            }
+
+            if (!GameConditions.isDuringBattle(game)
+                    || GameConditions.isNumTimesPerBattle(game, self, playerId, perBattleLimit, gameTextSourceCardId, gameTextActionId)) {
+
+                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setText("Subtract 1 from destiny");
+
+                if (GameConditions.isDuringBattle(game)) {
+                    action.appendUsage(
+                            new NumTimesPerBattleEffect(action, perBattleLimit));
+                }
+
+                // Perform result(s)
+                action.appendEffect(
+                        new ModifyDestinyEffect(action, -1));
+                return Collections.singletonList(action);
+            }
         }
 
         return null;

@@ -22,6 +22,7 @@ public enum ModifyGameTextType {
     DEATH_STAR_PLANS__ADD_DESTINY_TO_FORCE_RETRIEVED("Add one destiny to Force retrieved"),
     DEATH_STAR_SENTRY__APPLIES_ALL_MODIFIERS("Applies all modifiers"),
     DO_THEY_HAVE_A_CODE_CLEARANCE__DOESNT_MODIFY_FORFEIT("Does not modify Imperials' forfeit."),
+    DOMAIN_OF_EVIL__LIMIT_USES_PER_BATTLE("May not modify destiny draws more than once per battle (twice if Luke is apprentice)"),
     DONT_UNDERESTIMATE_OUR_CHANCES__TRIPLE_RESULT("Triple result"),
     EBO__ADDITIONAL_SITE_TO_CANCEL("Opponent must occupy additional Hoth site to cancel"),
     ELLORRS_MADAK__ADDITIONAL_2_TO_POWER_BONUS("Additional 2 to power bonus"),
