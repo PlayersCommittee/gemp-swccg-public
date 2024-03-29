@@ -30,6 +30,17 @@ public class MayNotRemoveCardsFromOpponentsHandModifier extends AbstractModifier
      * @param source the source of the modifier
      * @param playerId the player
      * @param condition the condition that must be fulfilled for the modifier to be in effect
+     */
+    public MayNotRemoveCardsFromOpponentsHandModifier(PhysicalCard source, String playerId, Condition condition) {
+        this(source, playerId, condition, null);
+    }
+
+    /**
+     * Creates a modifier that prevents the specified player from removing cards from opponent's hand using a card accepted
+     * by the source filter.
+     * @param source the source of the modifier
+     * @param playerId the player
+     * @param condition the condition that must be fulfilled for the modifier to be in effect
      * @param sourceFilter the source filter
      */
     public MayNotRemoveCardsFromOpponentsHandModifier(PhysicalCard source, String playerId, Condition condition, Filterable sourceFilter) {
