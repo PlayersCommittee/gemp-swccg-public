@@ -10,6 +10,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -57,16 +58,19 @@ public class Card14_078 extends AbstractDarkJediMaster {
                 && !GameConditions.canSpot(game, self, Filters.and(Filters.other(self), Filters.character, Filters.present(self)))) {
             final PhysicalCard cardLost = ((LostFromTableResult) effectResult).getCard();
 
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Place " + GameUtils.getFullName(cardLost) + " out of play");
-            action.setActionMsg("Place " + GameUtils.getCardLink(cardLost) + " out of play");
-            // Pay cost(s)
-            action.appendCost(
-                    new LoseForceEffect(action, playerId, 1, true));
-            // Perform result(s)
-            action.appendEffect(
-                    new PlaceCardOutOfPlayFromOffTableEffect(action, cardLost));
-            return Collections.singletonList(action);
+            if (GameConditions.canTarget(game, self, TargetingReason.TO_BE_PLACED_OUT_OF_PLAY, cardLost)) {
+
+                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setText("Place " + GameUtils.getFullName(cardLost) + " out of play");
+                action.setActionMsg("Place " + GameUtils.getCardLink(cardLost) + " out of play");
+                // Pay cost(s)
+                action.appendCost(
+                        new LoseForceEffect(action, playerId, 1, true));
+                // Perform result(s)
+                action.appendEffect(
+                        new PlaceCardOutOfPlayFromOffTableEffect(action, cardLost));
+                return Collections.singletonList(action);
+            }
         }
         return null;
     }

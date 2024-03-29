@@ -38,6 +38,7 @@ public enum ModifyGameTextType {
     LEIA_REFLECTIONS_III__MAY_NOT_CANCEL_FORCE_DRAINS_OR_REDUCE_ABILITY("May not cancel Force drains or reduce opponent's total ability"),
     LEIA_JABBAS_PALACE__TARGET_WARRIOR_AT_AUDIENCE_CHAMBER_INSTEAD_OF_JABBA("[Jabba's Palace] Leia may target a warrior at Audience Chamber instead of Jabba"),
     LET_THEM_MAKE_THE_FIRST_MOVE__ONLY_TARGET_UNDERCOVER_SPIES_AND_R2D2("May target only Undercover spies and R2-D2"),
+    LET_THEM_MAKE_THE_FIRST_MOVE__ONLY_TARGET_UNDERCOVER_SPIES("May target only Undercover spies"),
     LOST_IN_THE_WILDERNESS__MISSING_TREATED_AS_LANDSPEED_0("'Missing' treated as 'landspeed = 0 for remainder of turn"),
     JAWA_SIESTA__DOUBLED_BY_KALIT("Doubled And May Deploy For Free"),
     JAWA_PACK__DOUBLED_BY_WITTIN("Doubled And May Deploy For Free"),

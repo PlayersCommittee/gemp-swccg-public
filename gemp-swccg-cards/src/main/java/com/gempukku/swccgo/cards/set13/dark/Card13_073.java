@@ -98,6 +98,9 @@ public class Card13_073 extends AbstractObjective {
         if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.LET_THEM_MAKE_THE_FIRST_MOVE__ONLY_TARGET_UNDERCOVER_SPIES_AND_R2D2)) {
             targetFilter = Filters.and(targetFilter, Filters.or(Filters.undercover_spy, Filters.R2D2));
         }
+        if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.LET_THEM_MAKE_THE_FIRST_MOVE__ONLY_TARGET_UNDERCOVER_SPIES)) {
+            targetFilter = Filters.and(targetFilter, Filters.undercover_spy);
+        }
         TargetingReason targetingReason = TargetingReason.TO_BE_LOST;
 
         // Check condition(s)
