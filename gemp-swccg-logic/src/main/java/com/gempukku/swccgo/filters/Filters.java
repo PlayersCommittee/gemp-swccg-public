@@ -4220,6 +4220,18 @@ public class Filters {
     }
 
     /**
+     * Filter that accepts cards that are either:  "At" the site itself and "at" related sites to the specified site if
+     * the specified card is a site, otherwise "at" the site the specified card is "at" and "at" related sites
+     * to the location the specified card is "at".
+     *
+     * @param card a card
+     * @return Filter
+     */
+    public static Filter atRelatedSite(PhysicalCard card) {
+        return Filters.at(Filters.relatedSite(card));
+    }
+
+    /**
      * Filter that accepts cards that are either:  The specified card itself and related locations to the specified card if
      * the specified card is a location, otherwise the location the specified card is "at" and related locations to the location
      * the specified card is "at".
