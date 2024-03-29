@@ -32,7 +32,7 @@ public class MayNotRemoveCardsFromOpponentsHandModifier extends AbstractModifier
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      */
     public MayNotRemoveCardsFromOpponentsHandModifier(PhysicalCard source, String playerId, Condition condition) {
-        this(source, playerId, condition, null);
+        this(source, playerId, condition, Filters.any);
     }
 
     /**
