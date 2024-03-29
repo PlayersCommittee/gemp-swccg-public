@@ -69,7 +69,7 @@ public class Card4_069 extends AbstractUsedOrLostInterrupt {
 
         // Check condition(s)
         if (TriggerConditions.battleInitiatedAt(game, effectResult, opponent, Filters.system)
-                && GameConditions.canSpot(game, self, 2, Filters.and(Filters.opponents(self), Filters.captured_starship, Filters.participatingInBattle))
+                && GameConditions.canSpot(game, self, 2, Filters.and(Filters.opponents(self), Filters.capital_starship, Filters.participatingInBattle))
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.starfighter, Filters.alone))
                 && GameConditions.canAddBattleDestinyDraws(game, self)) {
 
