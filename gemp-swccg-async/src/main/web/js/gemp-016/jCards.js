@@ -3724,6 +3724,7 @@ var fixedImages = {
 "501_171":"https://res.starwarsccg.org/cards/SpecialEdition-Light/large/cloudcitynorthcorridor.gif",
 "501_182":"https://res.starwarsccg.org/cards/DeathStarII-Light/large/luminous.gif",
 "501_183":"https://res.starwarsccg.org/cards/Hoth-Light/large/hothdefensiveperimeter.gif",
+"501_185":"https://res.starwarsccg.org/cards/Premiere-Light/large/eyesinthedark.gif",
 "501_186":"https://res.starwarsccg.org/cards/ResetDS-Light/large/dontdothatagain.gif",
 "501_187":"https://res.starwarsccg.org/cards/Virtual0-Light/large/goldenrod.gif",
 "501_189":"https://res.starwarsccg.org/cards/ResetDS-Light/large/yourinsightservesyouwell.gif",
