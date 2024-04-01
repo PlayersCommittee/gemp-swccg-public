@@ -3696,6 +3696,7 @@ var fixedImages = {
 "501_112":"https://res.starwarsccg.org/cards/OfficialTournamentSealedDeck-Dark/large/dreadnaughtclassheavycruiser.gif",
 "501_113":"https://res.starwarsccg.org/cards/Dagobah-Dark/large/executor.gif",
 "501_114":"https://res.starwarsccg.org/cards/EmpireStrikesBackIntroductoryTwoPlayerGame-Dark/large/imperialwalker.gif",
+"501_115":"https://res.starwarsccg.org/cards/Premiere-Dark/large/youreyescandeceiveyou.gif",
 "501_116":"https://res.starwarsccg.org/cards/Virtual3-Light/large/wildkarrde.gif",
 "501_117":"https://res.starwarsccg.org/cards/Coruscant-Dark/large/nocivilityonlypolitics.gif",
 "501_118":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/jakkuniimamarketplace.png",
