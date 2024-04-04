@@ -622,6 +622,7 @@ public enum GameTextActionId {
     _3B310__UPLOAD_HALT(true, true),
     A_BRAVE_RESISTANCE__UPLOAD_RESISTANCE_CHARACTER(true, true),
     A_JEDI__TAKE_INTO_HAND(false, true),
+    A_JEDIS_FOCUS__EXCLUDE_CHARACTERS(false, true),
     A_MILLION_VOICES_CRYING_OUT__UPLOAD_CPI(true, true),
     A_SITH_LEGEND__CANCEL_GAME_TEXT(false, true),
     A_POWER_LOSS__STACK_CARDS(false, true),
