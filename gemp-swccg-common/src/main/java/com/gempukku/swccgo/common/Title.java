@@ -164,6 +164,7 @@ public interface Title {
     String Capacitors = "Death Star II: Capacitors";
     String Capital_Support = "Capital Support";
     String Captain_Lennox = "Captain Lennox";
+    String Captain_Sarkli = "Captain Sarkli";
     String Captain_Tarpals = "Captain Tarpals";
     String Captive_Fury = "Captive Fury";
     String Captive_Pursuit = "Captive Pursuit";

@@ -48,7 +48,7 @@ public class BattleDamageLimitModifier extends AbstractModifier {
      * @param limitAmount the amount of the limit
      * @param playerId the player whose side of the location is affected
      */
-    private BattleDamageLimitModifier(PhysicalCard source, Filterable locationFilter, Condition condition, int limitAmount, String playerId) {
+    public BattleDamageLimitModifier(PhysicalCard source, Filterable locationFilter, Condition condition, int limitAmount, String playerId) {
         super(source, null, Filters.and(Filters.battleLocation, locationFilter), condition, ModifierType.BATTLE_DAMAGE_LIMIT, true);
         _evaluator = new ConstantEvaluator(limitAmount);
         _playerId = playerId;
