@@ -315,6 +315,7 @@ public interface Title {
     String Dodge = "Dodge";
     String Dolphe = "Officer Dolphe";
     String Domain_Of_Evil = "Domain Of Evil";
+    String Dominator = "Dominator";
     String Dont_Get_Cocky = "Don't Get Cocky";
     String Dont_Underestimate_Our_Chances = "Don't Underestimate Our Chances";
     String Double_Agent = "Double Agent";

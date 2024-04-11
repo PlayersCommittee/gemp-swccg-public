@@ -3657,6 +3657,7 @@ var fixedImages = {
 "501_32": "https://res.starwarsccg.org/cards/TheedPalace-Dark/large/3b321.gif",
 "501_33": "https://res.starwarsccg.org/cards/Virtual4-Dark/hires/kylorenscommandshuttle.png",
 "501_34":"https://res.starwarsccg.org/cards/CloudCity-Dark/large/bounty.gif",
+"501_36":"https://res.starwarsccg.org/cards/DeathStarII-Dark/large/dominator.gif",
 "501_41":"https://res.starwarsccg.org/cards/Tatooine-Dark/large/iwillfindthemquicklymaster.gif",
 "501_42":"https://res.starwarsccg.org/cards/Coruscant-Dark/large/tc14.gif",
 "501_43":"https://res.starwarsccg.org/cards/TheedPalace-Dark/large/darthsidious.gif",
