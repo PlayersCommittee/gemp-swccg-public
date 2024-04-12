@@ -120,6 +120,7 @@ public enum Icon implements Filterable {
     SKYWALKER("Skywalker"),
     TRADE_FEDERATION("Trade Federation"),
 	CSP("Clan Scholae Palatinae"),
+	ARCONA("Clan Arcona"),
     ;
 
     private String _humanReadable;

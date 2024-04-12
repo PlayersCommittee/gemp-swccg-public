@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 public class Card304_009 extends AbstractAlien {
     public Card304_009() {
-        super(Side.LIGHT, 3, 3, 3, 2, 5, "Komilia Lap'lamiz, Exile", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
+        super(Side.LIGHT, 3, 3, 3, 2, 5, Title.Komilia_Laplamiz_Exile, Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("After having her 'soup' drank by Sykes Jade, Komilia was exiled from Scholae Palatinae territory by her father, Kamjin. Komilia struggles to survive while she seeks to restore her memory and honor.");
         setGameText("Subtracts 1 from power of anything she pilots. Where present, cancels Kamjin's game text.");
         addPersona(Persona.KOMILIA);

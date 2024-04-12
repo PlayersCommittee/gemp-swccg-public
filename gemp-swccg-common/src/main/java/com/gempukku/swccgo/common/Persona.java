@@ -170,6 +170,7 @@ public enum Persona implements Filterable {
 	SYKES("Sykes"),
 	THRAN("Thran"),
 	HIKARU("Hikaru"),
+	SIVALL("Sivall"),
 
     // Starships
     BESTOON_LEGACY("Bestoon Legacy"),
@@ -208,6 +209,7 @@ public enum Persona implements Filterable {
     TANTIVE_IV("Tantive IV"),
     VADERS_CUSTOM_TIE("Vader's Custom TIE"),
     VADERS_PERSONAL_SHUTTLE("Vader's Personal Shuttle"),
+	GUARDIAN_1("Guardian 1"),
 
     // Vehicles
     JABBAS_SAIL_BARGE("Jabba's Sail Barge"),

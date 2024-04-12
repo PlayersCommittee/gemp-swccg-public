@@ -29,6 +29,7 @@ import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.logic.modifiers.MayBeReplacedByOpponentModifier;
+import com.gempukku.swccgo.logic.modifiers.MayBeTargetedByModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -45,7 +46,7 @@ public class Card304_008 extends AbstractAlien {
         super(Side.DARK, 1, 5, 5, 3, 3, Title.Komilia, Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setArmor(5);
         setLore("The only daughter of Kamjin Lap'lamiz, Komilia has been spoiled rotten. She claims the title of Duchess, though her father is still alive, and generally believes she's better than you.");
-        setGameText("Adds 2 to anything she pilots. When deployed, may deploy a weapon on Komilia. Blasters deploy and fire for free on Komilia. Immune to attrition < 10 if with Kamjin.");
+        setGameText("Adds 2 to anything she pilots. When deployed, may deploy a weapon on Komilia. Blasters deploy and fire for free on Komilia. May be targeted by Thermal Detonator. Immune to attrition < 10 if with Kamjin.");
         addPersona(Persona.KOMILIA);
 		addKeywords(Keyword.FEMALE);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.CSP);
@@ -59,6 +60,7 @@ public class Card304_008 extends AbstractAlien {
         modifiers.add(new FiresForFreeModifier(self, Filters.and(Filters.blaster, Filters.attachedTo(Filters.persona(Persona.KOMILIA)))));
 		modifiers.add(new ImmuneToAttritionLessThanModifier(self, new ConditionEvaluator(0, 10, new WithCondition(self, Filters.Kamjin))));
 		modifiers.add(new MayBeReplacedByOpponentModifier(self, new PresentAtCondition(self, Filters.site)));
+		modifiers.add(new MayBeTargetedByModifier(self, Title.Thermal_Detonator));
         return modifiers;
     }
 	

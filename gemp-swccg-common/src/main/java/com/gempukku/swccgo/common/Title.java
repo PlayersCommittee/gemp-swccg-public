@@ -1287,7 +1287,11 @@ public interface Title {
 	String Dark_Side_Corruption = "Dark Side Corruption";
 	String ISN_Palpatine = "I.S.N. Palpatine";
 	String Komilia = "Komilia Lap'lamiz";
+	String Komilia_Laplamiz_Exile = "Komilia Lap'lamiz, Exile";
 	String Seraph = "Seraph";
+	String Ragnath = "Ragnath";
+	String Thermal_Detonator = "Thermal Detonator";
+	String Cloning_Tanks = "Cloning Tanks";
 	
 
 }

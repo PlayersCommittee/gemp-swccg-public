@@ -19254,7 +19254,10 @@ public class Filters {
 	public static final Filter Seraph_site = Filters.and(Filters.partOfSystem(Title.Seraph), CardSubtype.SITE);
 	public static final Filter Laplamiz = Filters.or(Persona.KAMJIN, Persona.KOMILIA, Persona.ROHAN, Persona.HIKARU);
 	public static final Filter Deploys_on_Seraph = Filters.placeToBePresentOnPlanet(Title.Seraph);
+	public static final Filter Deploys_on_Ragnath = Filters.placeToBePresentOnPlanet(Title.Ragnath);	
 	public static final Filter CSP_ROYAL_GUARD = Filters.keyword(Keyword.CSP_ROYAL_GUARD);
+	public static final Filter Guardian_1 = Filters.persona(Persona.GUARDIAN_1);
+	public static final Filter CSP_pilot = Filters.and(Icon.CSP, CardCategory.CHARACTER, Icon.PILOT);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

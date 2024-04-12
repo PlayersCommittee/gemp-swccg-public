@@ -26,11 +26,11 @@ import java.util.List;
  * Set: The Great Hutt Expansion
  * Type: Character
  * Subtype: Imperial
- * Title: Jexon Supringer
+ * Title: PD-209
  */
 public class Card304_024 extends AbstractImperial {
     public Card304_024() {
-        super(Side.DARK, 4, 3, 4, 3, 5, "Jexon Supringer", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
+        super(Side.DARK, 4, 3, 4, 3, 5, "PD-209", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("Scholae Palatinae Royal Guard leader, Remembers nothing of his past other than serving his Emperor. He's dedicated a lifetime to Scholae Palatinae and training other Royal Guards.");
         setGameText("Deploys only on Seraph or to CSP Emperor's site (or related site). When armed with a Force pike adds one battle destiny. Your troopers and Royal Guards may 'react' to here for free. Adds 1 to defense value of other Scholae Palatinae, Royal Guards at same and related sites.");
         addIcons(Icon.CSP, Icon.WARRIOR);

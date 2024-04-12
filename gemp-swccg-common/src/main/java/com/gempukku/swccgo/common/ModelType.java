@@ -129,7 +129,12 @@ public enum ModelType implements Filterable {
 	E_WING("E-wing"),
 	TIE_WI("TIE/wi"),
 	CRYSTAL("Crystal"),
-	XTR711("XTR-711 Attack Ship");
+	XTR711("XTR-711 Attack Ship"),
+	VINDICATOR_CLASS_HEAVY_CRUISER("Vindicator-class Heavy Cruiser"),
+	IMPERIAL_CLASS_ESCORT_CRUISER("Imperial-class Escort Cruiser"),
+	INQUISITOR_CLASS_CORVETTE("Inquisitor-class Corvette"),
+	TIE_BA("TIE/BA");
+	
 
     private String _humanReadable;
     private boolean _infoDisplayable;

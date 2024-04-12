@@ -3631,34 +3631,34 @@ var fixedImages = {
 "302_51":"https://i.imgur.com/z9YkY1Q.png",
 "303_1":"https://i.imgur.com/Z0iQ6oC.png", //Marick Tyris Arconae, Exarch
 "303_2":"https://i.imgur.com/emuM6k9.png", //Arx: The Shadow Academy
-"303_3":"https://i.imgur.com/1HKs9Bv.png",
-"303_4":"https://i.imgur.com/p4tgdw4.png",
-"303_5":"https://i.imgur.com/gsgxj6P.png",
-"303_6":"https://i.imgur.com/Gdr98oB.png",
-"303_7":"https://i.imgur.com/CZNXErp.png",
-"303_7_BACK":"https://i.imgur.com/cSKqjFn.png",
-"303_8":"https://i.imgur.com/1EqJmTs.png",
-"303_9":"https://i.imgur.com/myo5LbE.png",
-"303_10":"https://i.imgur.com/691oGmT.png",
-"303_11":"https://i.imgur.com/ONDgwyA.png",
-"303_12":"https://i.imgur.com/fhOF43q.png",
-"303_13":"https://i.imgur.com/thATtji.png",
-"303_14":"https://i.imgur.com/hPMNmG5.png",
-"303_15":"https://i.imgur.com/8Gpehfy.png",
-"303_16":"https://i.imgur.com/4XQkLpx.png",
-"303_17":"https://i.imgur.com/OT9mS3P.png",
-"303_18":"https://i.imgur.com/E7VyIOy.png",
+"303_3":"https://i.imgur.com/1HKs9Bv.png", //Arx: The Shadow Academy
+"303_4":"https://i.imgur.com/p4tgdw4.png", //Shadow Academy: Training Grounds
+"303_5":"https://i.imgur.com/gsgxj6P.png", //Through Passion, I Gain Strength
+"303_6":"https://i.imgur.com/Gdr98oB.png", //Through Power, I Gain Victory
+"303_7":"https://i.imgur.com/CZNXErp.png", //Peace Is A Lie, There Is Only Passion
+"303_7_BACK":"https://i.imgur.com/cSKqjFn.png", //The Force Shall Free Me
+"303_8":"https://i.imgur.com/1EqJmTs.png", //Alethia Archenksova, Headmistress
+"303_9":"https://i.imgur.com/myo5LbE.png", //Hence Forth You Shall Be Known As...
+"303_10":"https://i.imgur.com/691oGmT.png", //Shadow Academy Holocron
+"303_11":"https://i.imgur.com/ONDgwyA.png", //Instructor Aleema
+"303_12":"https://i.imgur.com/fhOF43q.png", //Through Strength, I Gain Power
+"303_13":"https://i.imgur.com/thATtji.png", //Shadow Academy: Training Grounds
+"303_14":"https://i.imgur.com/hPMNmG5.png", //Impatient Apprentice
+"303_15":"https://i.imgur.com/8Gpehfy.png", //Shadow Academy: Dueling Platform
+"303_16":"https://i.imgur.com/4XQkLpx.png", //Evil's Domain
+"303_17":"https://i.imgur.com/OT9mS3P.png", //Knowledge Is Taken
+"303_18":"https://i.imgur.com/E7VyIOy.png", //Through Victory, My Chains Are Broken
 "303_19":"https://i.imgur.com/ts7UXKk.png", //Malfearak Asvraal, Herald
-"303_20":"https://i.imgur.com/EvAxm26.png",
-"303_21":"https://i.imgur.com/4T0qaxm.png",
-"303_22":"https://i.imgur.com/ElJSuNX.png",
+"303_20":"https://i.imgur.com/EvAxm26.png", //Seraine Ténamao, Emissary
+"303_21":"https://i.imgur.com/4T0qaxm.png", //Master Kamjin Lap'lamiz, Justicar
+"303_22":"https://i.imgur.com/ElJSuNX.png", //Kamjin's Lightsaber
 "303_23":"https://i.imgur.com/jAsIiKm.png", //Self Doubt
 "303_24":"https://i.imgur.com/iZjkb83.png", //Dark Side Corruption
 "303_25":"https://i.imgur.com/D0B6Amb.png", //Marick Tyris Arconae's Lightsaber
-"303_26":"https://i.imgur.com/75HbEA5.png",
+"303_26":"https://i.imgur.com/75HbEA5.png", //Darth Renatus's Lightsabers
 "303_27":"https://i.imgur.com/0mqdEFD.png", //Kai Lap'lamiz With Lightsaber
-"303_28":"https://i.imgur.com/DYbQNbu.png",
-"303_29":"https://i.imgur.com/L3Wc0dj.png",
+"303_28":"https://i.imgur.com/DYbQNbu.png", //Gentle Vistage
+"303_29":"https://i.imgur.com/L3Wc0dj.png", //TXR-711 Attack Ship
 "303_30":"https://i.imgur.com/Xu7kfjJ.png", //Crystal Armor
 "304_1":"https://i.imgur.com/gsPrpyT.png", //I.S.N. Palpatine (Front)
 "304_1_BACK":"https://i.imgur.com/EDNAoiW.png", //I.S.N. Palpatine (Back)
@@ -3668,7 +3668,7 @@ var fixedImages = {
 "304_5":"https://i.imgur.com/He3GGTU.png", //Ellac Conrat
 "304_6":"https://i.imgur.com/i50XrOX.png", //Kadrol Hauen
 "304_7":"https://i.imgur.com/YEefz9R.png", //Kah'ri Marru
-"304_8":"https://i.imgur.com/qJ9eiOe.png", //Komilia Lap'lamiz
+"304_8":"https://i.imgur.com/iZjkb83.png", //Komilia Lap'lamiz
 "304_9":"https://i.imgur.com/5hNjEsZ.png", //Komilia Lap'lamiz, Exile
 "304_10":"https://i.imgur.com/fn491Q7.png", //Rayne Palpatine
 "304_11":"https://i.imgur.com/aznyTrN.png", //Reiden Karr
@@ -3684,7 +3684,29 @@ var fixedImages = {
 "304_21":"https://i.imgur.com/ptlrZ3o.png", //Darth Renatus, Deputy Grandmaster
 "304_22":"https://i.imgur.com/TPm25Zu.png", //Vincent Brujah
 "304_23":"https://i.imgur.com/zIVJBJm.png", //Scholae Palatinae, Royal Guard
-"304_24":"https://i.imgur.com/jh9RCHE.png", //Jexon Supringer
+"304_24":"https://i.imgur.com/RkX37Gj.png", //PD-209
+"304_25":"https://i.imgur.com/NkvkurT.png", //Komilia Lap'lamiz, Emperor's Guard
+"304_26":"https://i.imgur.com/H1t7EbJ.png", //K'vin J. Lawdogg, Attorney-At-Law
+"304_27":"https://i.imgur.com/WlHfJON.png", //Rohan Lap'lamiz, Stormtrooper
+"304_28":"https://i.imgur.com/DeuUvKk.png", //Master Kamjin 'Maverick' Lap'lamiz
+"304_29":"https://i.imgur.com/qmL0jf3.png", //Kamjin Lap'lamiz, The Conqueror
+"304_30":"https://i.imgur.com/YxvfF9o.png", //Kamjin Lap'lamiz, Proconsul
+"304_31":"https://i.imgur.com/FivCos6.png", //Apprentice Maverick
+"304_32":"https://i.imgur.com/apK1yqS.png", //Guardian 1
+"304_33":"https://i.imgur.com/YuWiPRM.png", //Pete From Sales
+"304_34":"https://i.imgur.com/U6OOIDF.png", //Kamjin Lap'lamiz, Sith Battlemaster
+"304_35":"https://i.imgur.com/qFjzMvq.png", //Sivall Zoria
+"304_36":"https://i.imgur.com/efMkJ76.png", //Scholae Palatinae Stormtrooper
+"304_37":"https://i.imgur.com/FUDEI80.png", //Terrence
+"304_38":"https://i.imgur.com/SWb3YkB.png", //ISN Devastator
+"304_39":"https://i.imgur.com/E9R9e8A.png", //ISN Warspite
+"304_40":"https://i.imgur.com/t1mUIIC.png", //ISN Gargoyle
+"304_41":"https://i.imgur.com/UZ1ZqDY.jpg", //ISN Vigiliant
+"304_42":"https://i.imgur.com/AyeA1oI.png", //Scholae Palatinae TIE Special Forces
+"304_43":"https://i.imgur.com/MTGgA5I.png", //TIE/BA
+"304_44":"https://i.imgur.com/37M4s8s.png", //ISN Palpatine's Turbolasers
+"304_45":"https://i.imgur.com/OKeUeYO.png", //ISN Palpatine 1120 Laser Cannon
+"304_46":"https://i.imgur.com/X9lhBIz.png", //Cloning Tanks
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/CloudCity-Dark/large/shatteredhope.gif",
@@ -4262,6 +4284,8 @@ var fixedImages = {
 "302_29ai":"https://i.imgur.com/olRnWpk.png",
 "303_27ai":"https://i.imgur.com/B1pYIkt.png",
 "304_13ai":"https://i.imgur.com/KtBWlJ1.png", //Sykes Jade
+"304_28ai":"https://i.imgur.com/RlhlDPg.png", //Master Kamjin 'Maverick' Lap'lamiz
+"304_33ai":"https://i.imgur.com/UJk50gN.png", //Pete From Sales
 
 };
 

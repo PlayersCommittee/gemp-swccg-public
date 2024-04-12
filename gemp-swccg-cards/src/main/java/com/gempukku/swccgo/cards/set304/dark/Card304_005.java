@@ -41,7 +41,7 @@ public class Card304_005 extends AbstractImperial {
     public Card304_005() {
         super(Side.DARK, 1, 4, 2, 4, 4, "Ellac Conrat", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("Born on Raxus Sencundus he and his sister grew up under an abusive father. Over the past couple years he's grown deeper in the Dark Side guided by his master, Sykes Jade.");
-        setGameText("If in a battle with Kamjin may be sacrificed to satisify all attrition. ");
+        setGameText("If in a battle with Kamjin may be sacrificed to satisify all attrition.");
         addIcons(Icon.CSP, Icon.WARRIOR);
         addPersona(Persona.ELLAC);
     }
