@@ -67,6 +67,7 @@ public enum Species implements Filterable {
     KOWAKIAN("Kowakian", true),
     KUBAZ("Kubaz", true),
     LASAT("Lasat", true),
+    LEPI("Lepi", true),
     LOBEL("Lobel", true),
     LUTRILLIAN("Lutrillian", true),
     MANDALORIAN("Mandalorian", true),

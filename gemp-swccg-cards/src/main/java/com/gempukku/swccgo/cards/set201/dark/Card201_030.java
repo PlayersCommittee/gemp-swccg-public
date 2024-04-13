@@ -37,7 +37,7 @@ import java.util.List;
  */
 public class Card201_030 extends AbstractNormalEffect {
     public Card201_030() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Imperial Enforcement", Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Imperial_Enforcement, Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
         setLore("When Vader's forces impose the New Order upon a region, Rebel resources and lifelines are quickly eliminated.");
         setGameText("Deploy on table. You may initiate battles for free. Once per turn during battle, if you just drew a character for destiny, may take that card into hand to cancel and redraw that destiny. Canceled if your non-Imperial character (or starship) on table. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_1);

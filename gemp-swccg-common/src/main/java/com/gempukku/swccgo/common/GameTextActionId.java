@@ -749,6 +749,7 @@ public enum GameTextActionId {
     JABBAS_HAVEN__RETRIEVE_CARD_INTO_HAND(false, true),
     JABBAS_PRIZE_V__REVEAL(false, true),
     JABBAS_TWERPS__RETRIEVE_FORCE(false, true),
+    JAXXON__DEPLOY_BLASTER_FROM_LOST_PILE(true, true),
     JEDI_LEVITATION_V__TAKE_CHARACTER_INTO_HAND_FROM_LOST_PILE(true, true),
     JS_1975__UPLOAD_GIDEON(true, true),
     KETWOL__EXCHANGE_DOCKING_BAY(true, true),

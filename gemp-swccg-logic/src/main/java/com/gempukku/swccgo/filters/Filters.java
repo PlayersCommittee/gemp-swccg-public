@@ -18222,6 +18222,7 @@ public class Filters {
     public static final Filter Imperial_Code_Cylinder = Filters.title(Title.Imperial_Code_Cylinder);
     public static final Filter Imperial_Control = Filters.title(Title.Imperial_Control);
     public static final Filter Imperial_Decree = Filters.title(Title.Imperial_Decree);
+    public static final Filter Imperial_Enforcement = Filters.title(Title.Imperial_Enforcement);
     public static final Filter Imperial_Entanglements = Filters.title(Title.Imperial_Entanglements);
     public static final Filter Imperial_Holotable = Filters.title(Title.Imperial_Holotable);
     public static final Filter Imperial_leader = Filters.and(Filters.icon(Icon.IMPERIAL), Filters.keyword(Keyword.LEADER));
@@ -18308,6 +18309,7 @@ public class Filters {
     public static final Filter Jawa_Pack = Filters.title(Title.Jawa_Pack);
     public static final Filter Jawa_Siesta = Filters.title(Title.Jawa_Siesta);
     public static final Filter Jawa_weapon = Filters.keyword(Keyword.JAWA_WEAPON);
+    public static final Filter Jaxxon_T_Tumperakki = Filters.title(Title.Jaxxon_T_Tumperakki);
     public static final Filter Jedha_location = Filters.partOfSystem(Title.Jedha);
     public static final Filter Jedi = Filters.and(Filters.side(Side.LIGHT), Filters.character, Filters.abilityMoreThanOrEqualTo(6));
     public static final Filter Jedi_Council_Chamber = Filters.title(Title.Jedi_Council_Chamber);

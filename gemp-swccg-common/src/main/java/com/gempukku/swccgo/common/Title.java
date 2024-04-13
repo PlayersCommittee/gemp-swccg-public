@@ -545,6 +545,7 @@ public interface Title {
     String Imperial_Code_Cylinder = "Imperial Code Cylinder";
     String Imperial_Control = "Imperial Control";
     String Imperial_Decree = "Imperial Decree";
+    String Imperial_Enforcement = "Imperial Enforcement";
     String Imperial_Holotable = "Imperial Holotable";
     String Imperial_Entanglements = "Imperial Entanglements";
     String Imperial_Occupation = "Imperial Occupation";
@@ -598,6 +599,7 @@ public interface Title {
     String Jawa_Ion_Gun = "Jawa Ion Gun";
     String Jawa_Pack = "Jawa Pack";
     String Jawa_Siesta = "Jawa Siesta";
+    String Jaxxon_T_Tumperakki = "Jaxxon T. Tumperakki";
     String Jedha = "Jedha";
     String Jedha_City = "Jedha: Jedha City";
     String Jedi_Council_Chamber = "Coruscant: Jedi Council Chamber";

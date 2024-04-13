@@ -73,6 +73,7 @@ public enum Persona implements Filterable {
     JANNAH("Jannah"),
     JANSE("Janse"),
     JAR_JAR("Jar Jar"),
+    JAXXON("Jaxxon"),
     JENDON("Jendon"),
     JERUS("Jerus"),
     JONUS("Jonus"),
