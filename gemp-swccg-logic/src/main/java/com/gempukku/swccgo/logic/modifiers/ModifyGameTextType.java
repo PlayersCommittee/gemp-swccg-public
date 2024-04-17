@@ -75,6 +75,7 @@ public enum ModifyGameTextType {
     SURPRISE_ASSAULT__ADD_DESTINY_TO_TOTAL("Add one destiny to total"),
     TALLON_ROLL__OPPONENT_ADDS_MANEUVER_AND_ABILITY("Opponent adds maneuver and ability"),
     TARKIN__CANNOT_CANCEL_DESTINY("Cannot cancel destiny"),
+    TARGET_THE_MAIN_GENERATOR__ADDS_ONE_DESTINY("Adds One Destiny to Target the Main Generator attempt"),
     TARGET_THE_MAIN_GENERATOR__MODIFY_X("X on Target The Main Generator is -2 (unless firing at or below the 3rd Marker) and maximum X = 3"),
     THE_MYTHROL__DESPAIR_V_TARGETS_THE_MYTHROL_INSTEAD_OF_JABBAS_PRIZE("Targets The Mythrol instead of Jabba's Prize"),
     THERE_IS_ANOTHER__DOES_NOT_MAKE_REFII_LUKE_LOST("Does not cause [Reflections II] Luke to be lost"),

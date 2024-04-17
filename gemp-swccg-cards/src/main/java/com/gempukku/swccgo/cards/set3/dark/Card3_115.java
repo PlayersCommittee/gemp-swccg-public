@@ -49,6 +49,8 @@ public class Card3_115 extends AbstractEpicEventPlayable {
 
     @Override
     protected List<PlayEpicEventAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
+        final int numDestiny = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.TARGET_THE_MAIN_GENERATOR__ADDS_ONE_DESTINY) ? 2 : 1;
+
         // Check condition(s)
         if (GameConditions.isDuringYourPhase(game, self, Phase.CONTROL)
                 && GameConditions.canDrawDestiny(game, playerId)) {
@@ -117,7 +119,7 @@ public class Card3_115 extends AbstractEpicEventPlayable {
                                                                     );
                                                                     // 1) Prepare To Target The Main Generator
                                                                     action.appendEffect(
-                                                                            new DrawDestinyEffect(action, playerId, 1, DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY) {
+                                                                            new DrawDestinyEffect(action, playerId, numDestiny, DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY) {
                                                                                 @Override
                                                                                 protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                                                                                     // 2) Maximum Firepower!

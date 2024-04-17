@@ -33,6 +33,7 @@ import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.RespondableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -108,6 +109,8 @@ public class Card222_013 extends AbstractEpicEventDeployable {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         List<OptionalGameTextTriggerAction> actions = new LinkedList<>();
+        final int numDestiny = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.TARGET_THE_MAIN_GENERATOR__ADDS_ONE_DESTINY) ? 2 : 1;
+
 
         List<OptionalGameTextTriggerAction> followActions = followVehicleMovingFromHere(playerId, game, effectResult, self, gameTextSourceCardId);
         if (followActions != null)
@@ -173,7 +176,7 @@ public class Card222_013 extends AbstractEpicEventDeployable {
                                                     );
                                                     // 1) Prepare To Target The Main Generator
                                                     action.appendEffect(
-                                                            new DrawDestinyEffect(action, playerId, 1, DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY) {
+                                                            new DrawDestinyEffect(action, playerId, numDestiny, DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY) {
                                                                 @Override
                                                                 protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                                                                     // 2) Maximum Firepower!

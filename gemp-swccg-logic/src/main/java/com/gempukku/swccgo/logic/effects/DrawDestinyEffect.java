@@ -650,12 +650,6 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                                 && game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.DRAW_TWO_AND_CHOOSE_ONE_FOR_TRAINING_DESTINY, _performingPlayerId)) {
                             setDrawXAndChooseY(2, 1);
                         }
-
-                        // Check if Epic Event Weapon destinies are draw 2 and choose 1
-                        if (_destinyType == DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY
-                                && game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.DRAW_TWO_AND_CHOOSE_ONE_FOR_EPIC_EVENT_AND_WEAPON_DESTINY, _performingPlayerId)) {
-                            setDrawXAndChooseY(2, 1);
-                        }
                     }
                 }
         );
