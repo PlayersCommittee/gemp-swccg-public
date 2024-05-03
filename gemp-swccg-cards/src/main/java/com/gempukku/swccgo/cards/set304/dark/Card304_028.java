@@ -43,7 +43,7 @@ public class Card304_028 extends AbstractDarkJediMasterImperial {
         setGameText("Deploys -3 at Seraph or Raganth locations. Adds +3 to anything he pilots. May be targeted by Force Lightning. Once per turn, you may take Force Lightning into hand from Reserve Deck; reshuffle. Immune to attrition.");
         addPersona(Persona.KAMJIN);
         addIcons(Icon.CSP, Icon.WARRIOR, Icon.PILOT);
-        addKeywords(Keyword.LEADER, Keyword.CSP_EMPEROR);
+        addKeywords(Keyword.LEADER, Keyword.CSP_EMPEROR, Keyword.MALE);
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.gempukku.swccgo.cards.effects.SatisfyAllAttritionEffect;
 import com.gempukku.swccgo.cards.evaluators.ForceIconsAtLocationEvaluator;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -44,6 +45,7 @@ public class Card304_005 extends AbstractImperial {
         setGameText("If in a battle with Kamjin may be sacrificed to satisify all attrition.");
         addIcons(Icon.CSP, Icon.WARRIOR);
         addPersona(Persona.ELLAC);
+		addKeywords(Keyword.MALE);
     }
 
     @Override

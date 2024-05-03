@@ -43,7 +43,7 @@ public class Card304_021 extends AbstractDarkJediMaster {
         setLore("Following Dacien's ascendent to the Iron Throne, Atra took on the role of Deputy Grandmaster. In his new leader role he is focused on ensuring the Brotherhood is protected from all threats. ");
         setGameText("May use two weapons. Force Drains by Atra at an Arx locations are +1 for each Councilor present at same site, including captives. While armed with a weapon at a site, Force drain +1 here.");
 		addIcon(Icon.WARRIOR, 2);
-        addKeywords(Keyword.LEADER, Keyword.DARK_COUNCILOR);
+        addKeywords(Keyword.LEADER, Keyword.DARK_COUNCILOR, Keyword.MALE);
 		addPersona(Persona.ATRA);
     }
 

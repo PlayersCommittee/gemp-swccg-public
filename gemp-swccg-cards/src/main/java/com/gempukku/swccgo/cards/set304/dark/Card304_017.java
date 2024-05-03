@@ -32,7 +32,7 @@ public class Card304_017 extends AbstractAlien {
         setLore("Pogo joined Thran's personal guard after it's initial formation. Pogo is extremely talkative and, once started, will not stop.");
         setGameText("Permanent weapon is Pogo's Blaster Rifle. May target a character for free, draw destiny (2 if targeting a jedi), target hit and forfeit=0, if destiny +1 > defense value.");
         addIcons(Icon.WARRIOR, Icon.PERMANENT_WEAPON);
-        addKeywords(Keyword.THRAN_GUARD);
+        addKeywords(Keyword.THRAN_GUARD, Keyword.MALE);
     }
 
     // Define "Pogo's Blaster Rifle" permanent weapon

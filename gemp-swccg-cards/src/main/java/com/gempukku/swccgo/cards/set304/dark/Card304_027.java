@@ -39,7 +39,7 @@ public class Card304_027 extends AbstractImperial {
         setLore("Kamjin, favoring his second born's love of Stormtrooper armor, had a custom suit created for him. To the dismay of his advisors he further appointed him an officer within the Imperial Legion.");
         setGameText("Adds one battle destiny with a stormtrooper. If you just won a battle at same or related location, may retrieve a trooper. Adds 3 to forfeit of each stormtrooper of ability < 3 at same site.");
         addIcons(Icon.WARRIOR, Icon.PILOT, Icon.CSP);
-        addKeywords(Keyword.STORMTROOPER);
+        addKeywords(Keyword.STORMTROOPER, Keyword.MALE);
 		addPersona(Persona.ROHAN);
     }
 

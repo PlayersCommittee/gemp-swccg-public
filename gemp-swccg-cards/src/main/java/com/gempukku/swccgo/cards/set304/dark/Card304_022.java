@@ -40,7 +40,7 @@ public class Card304_022 extends AbstractAlien {
         super(Side.DARK, 1, 5, 4, 6, 6, "Vincent Brujah", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("A long time member of Scholae Palatinae, he rose quickly through the ranks before disappearing after being a Quaestor and Left Hand of Justice. His return has raised questions of his whereabouts.");
         setGameText("Draws one battle destiny if unable to otherwise. During battle, if with your other Dark Jedi, may cancel the immunity to attrition of a Jedi here.");
-        addKeywords(Keyword.HAND);
+        addKeywords(Keyword.HAND, Keyword.MALE);
         addIcons(Icon.CSP, Icon.WARRIOR);
     }
 

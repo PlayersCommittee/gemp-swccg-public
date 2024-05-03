@@ -37,7 +37,7 @@ public class Card304_018 extends AbstractAlien {
         setLore("Whiz joined Thran's personal guard after it's initial formation. Whiz loves the look of horror on his enemies faces when he disables their weapons.");
         setGameText("While present with Thran, Rebels with blasters may not fire weapons here. If with Thran, Force drain +1 here.");
         addIcons(Icon.WARRIOR);
-		addKeywords(Keyword.THRAN_GUARD);
+		addKeywords(Keyword.THRAN_GUARD, Keyword.MALE);
     }
 
     @Override

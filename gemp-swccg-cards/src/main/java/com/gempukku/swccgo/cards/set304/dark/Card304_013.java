@@ -47,6 +47,7 @@ public class Card304_013 extends AbstractAlien {
         addIcons(Icon.CSP);
 		addIcon(Icon.WARRIOR, 2);
         setSpecies(Species.ANZATI);
+		addKeywords(Keyword.MALE);
     }
 
     @Override

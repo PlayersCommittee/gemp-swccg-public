@@ -39,7 +39,7 @@ public class Card304_034 extends AbstractImperial {
 		setGameText("Adds 3 to power and 2 to maneuver of anything he pilots. Players may initiate battles here for free. During battle, your battle destiny draws and Kamjin's weapon destiny draws are +1. Immune to attrition < 4.");
         addPersona(Persona.KAMJIN);
         addIcons(Icon.CSP, Icon.PILOT, Icon.WARRIOR);
-        addKeywords(Keyword.CSP_ROYAL_GUARD, Keyword.LEADER);
+        addKeywords(Keyword.CSP_ROYAL_GUARD, Keyword.LEADER, Keyword.MALE);
         setMatchingStarshipFilter(Filters.Guardian_1);
     }
 

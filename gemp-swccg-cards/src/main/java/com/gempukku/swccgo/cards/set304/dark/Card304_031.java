@@ -34,7 +34,7 @@ public class Card304_031 extends AbstractImperial {
         setGameText("Adds 3 to power of anything he pilots. When piloting Guardian 1, also adds 2 to maneuver and may draw one battle destiny if not able to otherwise.");
         addPersona(Persona.KAMJIN);
         addIcons(Icon.CSP, Icon.PILOT, Icon.WARRIOR);
-		addKeyword(Keyword.LEADER);
+		addKeywords(Keyword.LEADER, Keyword.MALE);
         setMatchingStarshipFilter(Filters.Guardian_1);
     }
 

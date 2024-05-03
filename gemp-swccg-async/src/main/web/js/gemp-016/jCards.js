@@ -3581,7 +3581,7 @@ var fixedImages = {
 "302_3":"https://i.imgur.com/q1bhxfe.png", //Brotherhood Lightsaber
 "302_4":"https://i.imgur.com/FMsmAHh.png", //Brotherhood Trooper
 "302_5":"https://i.imgur.com/ImekOe4.png", //TIE/wi Modified Interceptor
-"302_6":"https://i.imgur.com/Odikyjc.png", 
+"302_6":"https://i.imgur.com/Odikyjc.png", //Padawan Learner
 "302_7":"https://i.imgur.com/DdOmsL7.png", 
 "302_8":"https://i.imgur.com/tIFaByr.png", 
 "302_9":"https://i.imgur.com/Dra4YzX.png",
@@ -3669,7 +3669,7 @@ var fixedImages = {
 "304_6":"https://i.imgur.com/i50XrOX.png", //Kadrol Hauen
 "304_7":"https://i.imgur.com/YEefz9R.png", //Kah'ri Marru
 "304_8":"https://i.imgur.com/iZjkb83.png", //Komilia Lap'lamiz
-"304_9":"https://i.imgur.com/5hNjEsZ.png", //Komilia Lap'lamiz, Exile
+"304_9":"https://i.imgur.com/CGOju8r.png", //Komilia Lap'lamiz, Exile
 "304_10":"https://i.imgur.com/fn491Q7.png", //Rayne Palpatine
 "304_11":"https://i.imgur.com/aznyTrN.png", //Reiden Karr
 "304_12":"https://i.imgur.com/CwNF02Y.png", //Rohan Lap'lamiz With Lightsaber
@@ -3707,6 +3707,20 @@ var fixedImages = {
 "304_44":"https://i.imgur.com/37M4s8s.png", //ISN Palpatine's Turbolasers
 "304_45":"https://i.imgur.com/OKeUeYO.png", //ISN Palpatine 1120 Laser Cannon
 "304_46":"https://i.imgur.com/X9lhBIz.png", //Cloning Tanks
+"304_47":"https://i.imgur.com/mU2vl65.png", //Calle Tarnoc
+"304_48":"https://i.imgur.com/sM6va8o.png", //Clone Technician
+"304_49":"https://i.imgur.com/uuexEjL.png", //Allie Grosser
+"304_50":"https://i.imgur.com/mIgKuIA.png", //Brie Cunngemi
+"304_51":"https://i.imgur.com/bNQkF1I.png", //Candon Coburn with Blaster Pistols
+"304_52":"https://i.imgur.com/rQFqqmf.png", //Claudius the Hutt, Crimelord
+"304_53":"https://i.imgur.com/gl0RUb5.png", //Club Antonia Bouncer
+"304_54":"https://i.imgur.com/m2E4iO4.png", //Dia Gida
+"304_55":"https://i.imgur.com/vsXG0BP.png", //Gaius the Hutt
+"304_56":"https://i.imgur.com/HpdLgT2.png", //Gex Degrix
+"304_57":"https://i.imgur.com/aRW0LPf.png", //Ixtal Noxus
+"304_58":"https://i.imgur.com/Vz24DHC.png", //Jloc'itaome'faottas or Locita
+"304_59":"https://i.imgur.com/aNpjeOr.png", //Silri R'lobsam
+"304_60":"https://i.imgur.com/SiK93fY.png", //Sqygorn Dar
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/CloudCity-Dark/large/shatteredhope.gif",

@@ -34,7 +34,7 @@ public class Card304_024 extends AbstractImperial {
         setLore("Scholae Palatinae Royal Guard leader, Remembers nothing of his past other than serving his Emperor. He's dedicated a lifetime to Scholae Palatinae and training other Royal Guards.");
         setGameText("Deploys only on Seraph or to CSP Emperor's site (or related site). When armed with a Force pike adds one battle destiny. Your troopers and Royal Guards may 'react' to here for free. Adds 1 to defense value of other Scholae Palatinae, Royal Guards at same and related sites.");
         addIcons(Icon.CSP, Icon.WARRIOR);
-        addKeywords(Keyword.CSP_ROYAL_GUARD, Keyword.LEADER);
+        addKeywords(Keyword.CSP_ROYAL_GUARD, Keyword.LEADER, Keyword.MALE);
     }
 
     @Override

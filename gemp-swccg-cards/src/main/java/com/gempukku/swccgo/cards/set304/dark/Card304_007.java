@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractImperial;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
@@ -47,6 +48,7 @@ public class Card304_007 extends AbstractImperial {
         setLore("Kah'ri has recently developed a passion for mountaineering. Having scaled the cliffs while attacking a group of pirates his fellow Palatinaens have come to expect him hanging off things.");
         setGameText("During your control phase, may target one opponent's weapon or device at same site. Draw destiny. If destiny < target's destiny number, Kabe 'steals' device to use, or weapon to hold and transfer (for free) to a warrior at same site.");
 		addIcons(Icon.CSP, Icon.PILOT, Icon.WARRIOR);
+		addKeywords(Keyword.MALE);
     }
 
     @Override

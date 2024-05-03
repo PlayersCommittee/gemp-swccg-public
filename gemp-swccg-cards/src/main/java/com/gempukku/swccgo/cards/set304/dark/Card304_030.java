@@ -41,7 +41,7 @@ public class Card304_030 extends AbstractImperial {
 		setGameText("Adds +3 to anything he pilots. While aboard a starship, it is immune to attrition < 5. During battle at same site (twice if with [CSP Icon]), may cumulatively subtract 2 from a just drawn destiny. Immune to Komilia Lap'lamiz, Exile and attrition < 5.");
         addPersona(Persona.KAMJIN);
         addIcons(Icon.CSP, Icon.WARRIOR, Icon.PILOT);
-        addKeywords(Keyword.LEADER, Keyword.HAND);
+        addKeywords(Keyword.LEADER, Keyword.HAND, Keyword.MALE);
     }
 
     @Override

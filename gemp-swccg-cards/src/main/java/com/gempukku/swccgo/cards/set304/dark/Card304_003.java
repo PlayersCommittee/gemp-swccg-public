@@ -10,6 +10,7 @@ import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -42,6 +43,8 @@ public class Card304_003 extends AbstractImperial {
         setLore("The apprentice of Kamjin Lap'lamiz, Duk has been utilized as an assassin. People are noticely concerned with his reappearance and what Kamjin had him doing.");
         setGameText("May deploy for free if a battle has been initiated with Kamjin. Power is +2 in battle with Kamjin.");
         addIcons(Icon.WARRIOR, Icon.CSP);
+		setSpecies(Species.TOGRUTA);
+		addKeywords(Keyword.MALE);
     }
 
     @Override

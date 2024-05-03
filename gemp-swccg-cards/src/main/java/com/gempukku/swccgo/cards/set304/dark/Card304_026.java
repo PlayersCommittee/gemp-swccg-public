@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set304.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -49,6 +50,7 @@ public class Card304_026 extends AbstractAlien {
         setLore("Strange wanderer. Rumored to have sacrificed himself in battle so that his comrades could live on. Survived and now stranded on Tatooine. He misses everything he'll never be.");
         setGameText("While K'vin is in battle, your other characters present with him may not be targeted by opponent's weapons. Place K'vin in Used Pile if he was just 'hit'. If in a battle with Thran may be sacrificed to satisify all attrition.");
         addIcons(Icon.CSP);
+		addKeywords(Keyword.MALE);
     }
 
     @Override

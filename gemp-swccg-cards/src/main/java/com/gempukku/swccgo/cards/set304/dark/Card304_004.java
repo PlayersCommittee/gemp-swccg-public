@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,6 +32,8 @@ public class Card304_004 extends AbstractImperial {
         setLore("Born on Raxus Sencundus she and her brother grew up under an abusive father. She is fiercely competitive with her brother, Ellac, and strives to overtake him.");
         setGameText("Power +1 when with Ellac. May draw one battle Destiny if otherwise unable to.");
         addIcons(Icon.WARRIOR, Icon.CSP);
+		addPersona(Persona.ELAINE);
+		addKeywords(Keyword.FEMALE);
     }
 
     @Override

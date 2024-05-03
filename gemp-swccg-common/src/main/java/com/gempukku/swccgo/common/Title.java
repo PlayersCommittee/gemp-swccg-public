@@ -1292,6 +1292,11 @@ public interface Title {
 	String Ragnath = "Ragnath";
 	String Thermal_Detonator = "Thermal Detonator";
 	String Cloning_Tanks = "Cloning Tanks";
-	
+	String Candons_Blaster_Pistols = "Candon's Blaster Pistols";
+	String Koudooine = "Koudooine";
+	String Ulress = "Ulress";
+	String Claudius_Throne_Room = "Claudius's Throne Room";
+	String Hive_of_Scum_and_Villainy = "Hive of Scum and Villainy";
+	String Ixtals_Garage = "Ixtal's Garage";
 
 }

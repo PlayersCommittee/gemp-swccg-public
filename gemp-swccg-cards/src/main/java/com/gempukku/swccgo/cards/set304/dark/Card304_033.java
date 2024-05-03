@@ -42,6 +42,7 @@ public class Card304_033 extends AbstractImperial {
         setLore("Pete managed the Empire's New Dawn re-education program as a temporary assignment. In between chasing new sales leads he reminds people to be safe. Workmen's Comp is expensive.");
         setGameText("During your control phase, may 'sell' one Interrupt card from hand. Opponent must use X Force, where X = destiny of that card or entire Force Pile (opponent's choice). Place sold card on opponent's Used Pile and activate X Force.");
         addIcons(Icon.CSP);
+		addKeywords(Keyword.MALE);
     }
 
     @Override

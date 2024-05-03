@@ -57,6 +57,7 @@ public class Card304_012 extends AbstractImperial {
         setGameText("Power is +1 for each [light side icon] present at the same site; unless Kamjin is present. [Pilot] 2. Permanent weapon is nRohan's Lightsaber (may target a character or creature for free; draw two destiny; target hit, and its forfeit = 0, if total destiny > defense value).");
         addIcons(Icon.CSP, Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON);
 		addPersona(Persona.ROHAN);
+		addKeywords(Keyword.MALE);
     }
 
     @Override

@@ -171,6 +171,10 @@ public enum Persona implements Filterable {
 	THRAN("Thran"),
 	HIKARU("Hikaru"),
 	SIVALL("Sivall"),
+	ELAINE("Elaine"),
+	CANDON("Candon"),
+	CLAUDIUS("Claudius"),
+	LOCITA("Jloc'itaome'faottas"),
 
     // Starships
     BESTOON_LEGACY("Bestoon Legacy"),

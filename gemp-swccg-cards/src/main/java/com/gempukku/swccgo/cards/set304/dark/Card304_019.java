@@ -41,7 +41,7 @@ public class Card304_019 extends AbstractImperial {
         setLore("Born as Derc Kast on Bakura, Following Thran's first tenure as Emperor of Scholae Palatinae he has schemed to return to the throne. As Proconsul it is known that he will usurp Kamjin one day.");
         setGameText("Adds 3 to anything he pilots. Adds 2 to power, 3 to defense value, and 3 to forfeit of each Thran Personal Guard member at same and related locations. While with Kamjin (or while piloting I.S.N. Palpatine), opponent may not cancel or substitute battle destiny draws here.");
         addIcons(Icon.CSP, Icon.PILOT, Icon.WARRIOR);
-        addKeywords(Keyword.LEADER);
+        addKeywords(Keyword.LEADER, Keyword.MALE);
 		addPersona(Persona.THRAN);
     }
 

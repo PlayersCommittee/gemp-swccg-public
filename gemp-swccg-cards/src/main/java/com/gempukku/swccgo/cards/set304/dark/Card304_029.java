@@ -47,7 +47,7 @@ public class Card304_029 extends AbstractDarkJediMasterImperial {
 		setGameText("Adds +3 to anything he pilots. Adds 3 to power, 4 to defense value, and 4 to forfeit of each [CSP Icon] member at same and related locations. May be targeted by Force Lightning. Immune to attrition.");
         addPersona(Persona.KAMJIN);
         addIcons(Icon.CSP, Icon.WARRIOR, Icon.PILOT);
-        addKeywords(Keyword.LEADER, Keyword.CSP_EMPEROR);
+        addKeywords(Keyword.LEADER, Keyword.CSP_EMPEROR, Keyword.MALE);
     }
 
     @Override

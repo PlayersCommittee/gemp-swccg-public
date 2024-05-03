@@ -32,7 +32,7 @@ public class Card304_014 extends AbstractAlien {
         setLore("A former member of the Scholae Palatinae Legion, Cap v");
         setGameText("Thran's Personal Guard members are deploy -1 to same site. Thran's Personal Guard members may move to same Seraph site as a 'react.'");
         addIcons(Icon.WARRIOR);
-        addKeywords(Keyword.THRAN_GUARD, Keyword.LEADER);
+        addKeywords(Keyword.THRAN_GUARD, Keyword.LEADER, Keyword.MALE);
     }
 
     @Override

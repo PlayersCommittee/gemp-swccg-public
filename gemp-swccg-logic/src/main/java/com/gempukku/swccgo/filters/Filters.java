@@ -19258,6 +19258,20 @@ public class Filters {
 	public static final Filter CSP_ROYAL_GUARD = Filters.keyword(Keyword.CSP_ROYAL_GUARD);
 	public static final Filter Guardian_1 = Filters.persona(Persona.GUARDIAN_1);
 	public static final Filter CSP_pilot = Filters.and(Icon.CSP, CardCategory.CHARACTER, Icon.PILOT);
+	public static final Filter Torguta = Filters.species(Species.TOGRUTA);
+	public static final Filter Elaine = Filters.persona(Persona.ELAINE);
+	public static final Filter Cloning_Tanks = Filters.title(Title.Cloning_Tanks);
+	public static final Filter Candon = Filters.persona(Persona.CANDON);
+	public static final Filter Claudius = Filters.persona(Persona.CLAUDIUS);
+	public static final Filter Deploys_at_Koudooine = Filters.or(Filters.placeToBePresentOnPlanet(Title.Koudooine), Filters.locationAndCardsAtLocation(Filters.title(Title.Koudooine)));
+	public static final Filter Deploys_at_Ulress = Filters.or(Filters.placeToBePresentOnPlanet(Title.Ulress), Filters.locationAndCardsAtLocation(Filters.title(Title.Ulress)));
+	public static final Filter Claudius_Throne_Room = Filters.title(Title.Claudius_Throne_Room);
+	public static final Filter Clan_Tiure = Filters.keyword(Keyword.CLAN_TIURE);
+	public static final Filter Club_Antonia_site = Filters.keyword(Keyword.CLUB_ANTONIA_SITE);
+	public static final Filter Hive_of_Scum_and_Villainy = Filters.title(Title.Hive_of_Scum_and_Villainy);
+	public static final Filter Ulress_site = Filters.and(Filters.partOfSystem(Title.Ulress), CardSubtype.SITE);
+	public static final Filter Ixtals_Garage = Filters.title(Title.Ixtals_Garage);
+	public static final Filter Locita = Filters.persona(Persona.LOCITA);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

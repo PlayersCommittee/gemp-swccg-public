@@ -32,7 +32,7 @@ public class Card304_011 extends AbstractImperial {
         setLore("Reiden is currently the leader of House Acclivis Draco. Under his cautious eye the House has continued to thrive. Reiden is conflicted by Kamjin and tends to align himself with Thran, the Usurper.");
         setGameText("May not be disarmed. Immune to Clash Of Sabers. While armed with a lightsaber add 1 to each of his lightsaber weapon destiny draws. ");
         addIcons(Icon.CSP, Icon.WARRIOR);
-		addKeywords(Keyword.LEADER);
+		addKeywords(Keyword.LEADER, Keyword.MALE);
     }
 
     @Override

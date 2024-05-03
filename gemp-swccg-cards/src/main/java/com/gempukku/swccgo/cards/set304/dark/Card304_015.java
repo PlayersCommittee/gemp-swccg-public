@@ -40,7 +40,7 @@ public class Card304_015 extends AbstractAlien {
         super(Side.DARK, 3, 2, 1, 1, 2, "Doc", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("");
         setGameText("Deploys free to same site as Thran. Once per turn, may target squadmate (Thran or Thran's personal guard); target is power +1 for remainder of turn. When forfeited at same site as a squadmate, also satisfies all remaining attrition against you.");
-        addKeywords(Keyword.THRAN_GUARD);
+        addKeywords(Keyword.THRAN_GUARD, Keyword.MALE);
     }
 
     @Override

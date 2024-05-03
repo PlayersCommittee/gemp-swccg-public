@@ -34,7 +34,7 @@ public class Card304_016 extends AbstractAlien {
         setLore("A former member of the Scholae Palatinae Legion, Hammer served in the Battle of Antei and was saved by Thran. Hammer is always the last to leave the battlefield.");
         setGameText("Each of your squadmates (Thran and Thran's personal guard) present is defense value +3. Power +4 while defending a battle. Adds 2 to his total weapon destiny when firing a blaster. Your characters present may not have their forfeit value reduced.");
         addIcons(Icon.WARRIOR);
-        addKeyword(Keyword.THRAN_GUARD);
+        addKeywords(Keyword.THRAN_GUARD, Keyword.MALE);
     }
 
     @Override
