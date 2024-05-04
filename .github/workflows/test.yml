@@ -1,5 +1,6 @@
-name: test-on-push
+name: Gemp Client Basic Access Test
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
@@ -7,9 +8,9 @@ on:
 
   pull_request:
     types:
-    - opened
-    - edited
-    - synchronize
+      - opened
+      - edited
+      - synchronize    
 
 jobs:
   test:
@@ -17,27 +18,26 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - name: apt-get install OpenJDK
-        run:  |
-          which java ; true
-          java -version ; true
-          sudo apt-get update
-          sudo apt-get install -y openjdk-11-jdk-headless
-          java -version ; true
-      - name: mvn build
-        run: mvn clean install
-
-      - name: mvn test
-        run: mvn test
-
-      - name: Build the stack
+      - name: Building Gemp within the container using Maven
+        working-directory: ./src/docker
         run: |
-          docker-compose build
-          docker-compose up -d
-      - name: Test
+          docker build -f ./gemp_app.Dockerfile --tag 'gemp_build' .
+          docker run -v ${GITHUB_WORKSPACE}:/opt/gemp-swccg --detach --name 'gemp_build' -it 'gemp_build'
+          docker exec gemp_build mvn clean install
+          docker stop gemp_build
+          
+          
+      - name: Build the Gemp containers
+        working-directory: ./src/docker
         run: |
-          docker exec gemp curl -s --retry 10 --retry-connrefused http://127.0.0.1:8080/gemp-swccg/index.html
+          docker compose build
+          docker compose up -d
+
+      - name: Client Test
+        run: |
+          docker exec gemp_swccg_app_1 curl -s --retry 10 --retry-connrefused http://localhost/gemp-swccg/index.html
           echo "Python3: $(which python3)"
           echo "pip3...: $(which pip3)"
-          pip3 install -r requirements.txt
-          python3 gemp_client_test.py
+          pip3 install -r src/requirements.txt
+          python3 src/gemp_client_test.py
+
