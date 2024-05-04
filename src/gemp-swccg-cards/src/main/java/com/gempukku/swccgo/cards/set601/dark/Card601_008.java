@@ -1,0 +1,116 @@
+package com.gempukku.swccgo.cards.set601.dark;
+
+import com.gempukku.swccgo.cards.AbstractDroid;
+import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.AloneCondition;
+import com.gempukku.swccgo.cards.conditions.WithCondition;
+import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.filters.Filters;
+import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.conditions.OrCondition;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleModifierEffect;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostAboardModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionChangeModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+/**
+ * Set: Block 6
+ * Type: Character
+ * Subtype: Droid
+ * Title: IG-88, Renegade Droid
+ */
+public class Card601_008 extends AbstractDroid {
+    public Card601_008() {
+        super(Side.DARK, 1, 4, 4, 5, "IG-88, Renegade Droid", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
+        setArmor(5);
+        setLore("Bounty hunter droid equipped with proprietary stealth technology. Archived several of its enhancement subroutines in favor of sophisticated tracking and capture programming.");
+        setGameText("Adds 2 to power of anything he pilots (3 if IG-2000).  Deploys -3 aboard IG-2000.  Adds one battle destiny if alone or with a smuggler.  During battle, if piloting a starship, may draw destiny.  Starship is immune to attrition < X, or its immunity is +X (limit +2), where X = destiny.");
+        addPersona(Persona.IG88);
+        addIcons(Icon.PREMIUM, Icon.PILOT, Icon.WARRIOR, Icon.PRESENCE, Icon.LEGACY_BLOCK_6);
+        addKeywords(Keyword.BOUNTY_HUNTER);
+        addModelType(ModelType.ASSASSIN);
+        setAsLegacy(true);
+    }
+
+    @Override
+    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new DeployCostAboardModifier(self, -3, Persona.IG2000));
+        return modifiers;
+    }
+
+    @Override
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new AddsPowerToPilotedBySelfModifier(self, new CardMatchesEvaluator(2, 3, Persona.IG2000)));
+        modifiers.add(new AddsBattleDestinyModifier(self, new OrCondition(new AloneCondition(self), new WithCondition(self, Filters.smuggler)), 1));
+        return modifiers;
+    }
+
+    @Override
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+
+        // Check condition(s)
+        if (GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.isPiloting(game, self, Filters.starship)) {
+            final PhysicalCard starship = Filters.findFirstActive(game, self, Filters.hasPiloting(self));
+            if (starship != null) {
+                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+                action.setText("Draw destiny to modify immunity to attrition");
+                action.setActionMsg("Draw destiny to modify immunity to attrition");
+                // Update usage limit(s)
+                action.appendUsage(
+                        new OncePerBattleEffect(action));
+                // Perform result(s)
+                action.appendEffect(
+                        new DrawDestinyEffect(action, playerId, 1) {
+                            @Override
+                            protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
+                                if (totalDestiny != null && totalDestiny >= 0) {
+                                    if (!game.getModifiersQuerying().hasAnyImmunityToAttrition(game.getGameState(), starship)) {
+                                        action.appendEffect(new AddUntilEndOfBattleModifierEffect(action,
+                                                new ImmuneToAttritionLessThanModifier(self, starship, totalDestiny),
+                                                "Adds immunity to attrition"));
+                                    } else {
+                                        float currentImmunity = game.getModifiersQuerying().getImmunityToAttritionLessThan(game.getGameState(), starship);
+                                        float toAdd = Math.min(2, totalDestiny);
+                                        if (currentImmunity + toAdd > totalDestiny) {
+                                            action.appendEffect(new AddUntilEndOfBattleModifierEffect(action,
+                                                    new ImmunityToAttritionChangeModifier(self, starship, toAdd),
+                                                    "Adds to immunity to attrition"));
+                                        } else {
+                                            action.appendEffect(new AddUntilEndOfBattleModifierEffect(action,
+                                                    new ImmuneToAttritionLessThanModifier(self, starship, totalDestiny),
+                                                    "Adds immunity to attrition"));
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                return Collections.singletonList(action);
+            }
+        }
+        return null;
+    }
+}

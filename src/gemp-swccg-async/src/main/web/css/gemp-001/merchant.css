@@ -1,0 +1,99 @@
+body {
+    font-size: 12px;
+}
+
+.borderOverlay {
+    border: 0px solid #000000;
+}
+
+.foilOverlay {
+    opacity: 0.2;
+}
+
+.buyPrice.ui-state-disabled, .sellPrice.ui-state-disabled, .tradeFoil {
+    opacity: 0.6;
+}
+
+.owned {
+    background-color: #000000;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    font-size: 220%;
+    font-weight: bolder;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    opacity: 0.7;
+}
+
+.pocket {
+    background-color: #000000;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    font-size: 100%;
+    font-weight: bolder;
+    text-align: right;
+    opacity: 1;
+}
+
+.hideMerchant {
+    color: #ffffff;
+    text-align: right;
+}
+
+.countDiv {
+    color: #ffffff;
+    text-align: right;
+}
+
+.buyPrice, .sellPrice, .tradeFoil {
+    opacity: 0.9;
+}
+
+.ui-button-text-only .ui-button-text {
+    font-size: 70%;
+}
+
+.filterLabel {
+    color: #ffffff;
+    font-weight: bolder;
+    font-size: 110%;
+    padding-right: 5px;
+}
+
+.filterInput {
+    font-size: 80%;
+    padding-right: 5px;
+}
+
+.cardFilterText {
+    color: #ffffff;
+    padding-top: 5px;
+    text-align: center;
+    font-size: 90%;
+}
+
+.buttonHolder {
+    padding-top: 10px;
+    text-align: center;
+}
+
+#set {
+    width: 120px;
+}
+
+#cardType {
+    width: 100px;
+}
+
+#fullFiltering select {
+    font-size: 100%;
+}
+
+#fullFiltering input {
+    font-size: 100%;
+}
+
+#filtering select {
+    font-size: 100%;
+}

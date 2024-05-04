@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" name="MyApp">
+  <Appenders>
+    <Console name="stdout" target="SYSTEM_OUT">
+      <PatternLayout pattern="%m%n"/>
+    </Console>
+    <RollingFile name="mainlog" fileName="../logs/gemp-swccg.log"
+                 filePattern="../logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+        <PatternLayout>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n</Pattern>
+        </PatternLayout>
+        <Policies>
+            <TimeBasedTriggeringPolicy />
+            <SizeBasedTriggeringPolicy size="10 MB"/>
+        </Policies>
+        <DefaultRolloverStrategy max="20"/>
+    </RollingFile>
+    <RollingFile name="chat" fileName="../logs/swccg_chat.log"
+                 filePattern="../logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+        <PatternLayout>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n</Pattern>
+        </PatternLayout>
+        <Policies>
+            <TimeBasedTriggeringPolicy />
+            <SizeBasedTriggeringPolicy size="10 MB"/>
+        </Policies>
+        <DefaultRolloverStrategy max="20"/>
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Logger name="com.gempukku" level="debug" additivity="false">
+        <AppenderRef ref="mainlog"/>
+        <AppenderRef ref="stdout"/>
+    </Logger>
+    <Logger name="chat" level="ALL">
+        <AppenderRef ref="chat"/>
+    </Logger>
+    <Root level="error">
+      <AppenderRef ref="stdout"/>
+      <AppenderRef ref="mainlog"/>
+    </Root>
+  </Loggers>
+</Configuration>

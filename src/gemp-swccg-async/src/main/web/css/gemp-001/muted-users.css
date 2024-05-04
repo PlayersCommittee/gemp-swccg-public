@@ -1,0 +1,48 @@
+h3 {
+    margin-bottom: 5px;
+}
+
+#muted-users {
+    display: flex;
+    flex-direction: column;
+}
+
+#add-muted-user {
+    justify-self: flex-end;
+}
+
+
+#muted-user-table-container {
+    max-height: 500px;
+    width: 100%;
+}
+
+#muted-user-table {
+    width: 100%;
+}
+
+#add-muted-user {
+    padding: 4px;
+}
+
+#add-muted-user:disabled {
+    background-color: #f2f2f2;
+    color: #b3b3b3;
+    cursor: not-allowed;
+}
+
+#muted-user-table tbody tr:hover {
+    background-color: #444444 ;
+}
+
+#muted-user-table th:nth-child(1) {
+    width: 20%;
+}
+
+#muted-user-table th:nth-child(2) {
+    width: 50%;
+}
+  
+#muted-user-table th:nth-child(3) {
+    width: 30%;
+  }

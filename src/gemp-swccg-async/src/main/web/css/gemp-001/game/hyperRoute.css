@@ -1,0 +1,11 @@
+
+.ui-widget-content {
+    border: 1px solid #aaaaaa;
+    background: none;
+}
+
+div#main {
+    background: #000000 url(https://res.starwarsccg.org/parsecs/hyperroute_background_top.png);
+}
+
+div#bottomLeftTabs, div.ui-draggable { background: #000000; }

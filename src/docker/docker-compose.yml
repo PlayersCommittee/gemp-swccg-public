@@ -1,0 +1,83 @@
+services:
+
+  build:
+    env_file:
+      - .env
+    container_name: ${APP_CONTAINER_NAME}
+    build: 
+      context: .
+      dockerfile: gemp_app.Dockerfile
+    image: gemp_app
+    depends_on:
+      - db
+    expose:
+      - "80"
+      - "8080"
+    restart: unless-stopped
+    ports:
+        # target means in the container
+        # published is what's on the host machine
+      - target: 80
+        published: "${APP_PORT}"
+        #These are the ports used for remote debugging the JRE
+      - target: 8000
+        published: "${DEBUGGER_PORT}"
+    volumes:
+       - type: bind
+         source: ../gemp-swccg-async/src/main/web
+         target: /opt/gemp-swccg/web
+       - type: bind
+         source: ../..
+         target: /opt/gemp-swccg
+       - type: bind
+         source: ../../logs
+         target: /logs
+       - type: bind
+         source: ../../logs/nohup.out
+         target: /opt/gemp-swccg/src/nohup.out
+    networks:
+      gemp_net_1:
+        ipv4_address: ${APP_IP}
+    tty: true
+    command: >
+      nohup 
+      java -Xmx4g 
+      -Dlog4j.debug 
+      -Dlog4j.configurationFile=/opt/gemp-swccg/src/gemp-swccg-async/src/main/resources/prod-log4j.xml 
+      -jar /opt/gemp-swccg/src/gemp-swccg-async/target/web.jar 
+      com.gempukku.swccgo.async.SwccgoAsyncServer &"
+
+
+  db:
+    env_file:
+      - .env
+    container_name: ${DB_CONTAINER_NAME}
+    build: 
+      context: ..
+      dockerfile: docker/gemp_db.Dockerfile
+    image: gemp_db
+    ports:
+        # target means in the container
+        # published is what's on the host machine
+      - target: 3306
+        published: "${DB_PORT}"
+    restart: unless-stopped
+    volumes:
+      # This makes the database persistent between compilations.
+      # Shut down the container and delete the CONTENTS of the 
+      # folder if you wish to rebuild a fresh database.
+       - type: bind
+         source: ../../database
+         target: /var/lib/mysql
+    networks:
+      gemp_net_1:
+        ipv4_address: ${DB_IP}
+      
+  
+networks:
+  gemp_net_1:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.29.${SERVID}.0/24
+    attachable: true

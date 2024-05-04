@@ -1,0 +1,36 @@
+body {
+    font-size: 12px;
+    background-color:#000000;
+}
+
+.ui-button-text-only .ui-button-text {
+    font-size: 70%;
+    padding: .2em .5em;
+}
+
+a { color: gray; }
+
+
+
+div.centerContainer div.status { color:#ffa84a; }
+div.centerContainer div.error { color: #ff0000; }
+div.centerContainer div.interaction { color: #ffffff; }
+div.centerContainer div.interaction a { color: inherit; }
+
+/* Display the pack images if the page height tall enough. */
+@media screen and (min-height:470px){
+    #signin-page-packs { position:absolute; bottom:0; width:100%; }
+    #signin-page-logo { float: top; text-align: center; }
+    #signin-page-welcome-message {
+        color:#FFFFFF;
+        text-align:center;
+        /* same font used on www.starwarsccg.org */
+        font-family:"Montserrat",sans-serif;
+    }
+}
+/* Hide the pack images if the page height is too narrow. */
+@media screen and (max-height:470px){
+    #signin-page-welcome-message, #signin-page-logo, #signin-page-packs { display:none; }
+}
+
+#signin-page-packs-row { text-align: center; }

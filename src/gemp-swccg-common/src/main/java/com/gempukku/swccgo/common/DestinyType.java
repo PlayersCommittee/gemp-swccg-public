@@ -1,0 +1,39 @@
+package com.gempukku.swccgo.common;
+
+/**
+ * Represents the destiny types.
+ */
+public enum DestinyType {
+    ASTEROID_DESTINY("asteroid destiny"),
+    BATTLE_DESTINY("battle destiny"),
+    CARBON_FREEZING_DESTINY("carbon freezing destiny"),
+    CHOKE_DESTINY("choke destiny"),
+    COAXIUM_DESTINY("coaxium destiny"),
+    DARK_HOURS_DESTINY("dark hours destiny"),
+    DESTINY("destiny"),
+    DESTINY_TO_ATTRITION("destiny to attrition"),
+    DESTINY_TO_TOTAL_POWER("destiny to total power"),
+    DESTINY_TO_REDUCE_ATTRITION("destiny to reduce total attrition"),
+    DESTINY_TO_REDUCE_ATTRITION_POWER("destiny to reduce total attrition and power"),
+    DUEL_DESTINY("duel destiny"),
+    EPIC_EVENT_DESTINY("epic event destiny"),
+    EPIC_EVENT_AND_WEAPON_DESTINY("epic event and weapon destiny"),
+    LIGHTSABER_COMBAT_DESTINY("lightsaber combat destiny"),
+    MOVEMENT_DESTINY("movement destiny"),
+    RACE_DESTINY("race destiny"),
+    SEARCH_PARTY_DESTINY("search party destiny"),
+    THREATEN_DESTINY("threaten destiny"),
+    TRACTOR_BEAM_DESTINY("tractor beam destiny"),
+    TRAINING_DESTINY("training destiny"),
+    WEAPON_DESTINY("weapon destiny");
+
+    private String _humanReadable;
+
+    DestinyType(String humanReadable) {
+        _humanReadable = humanReadable;
+    }
+
+    public String getHumanReadable() {
+        return _humanReadable;
+    }
+}

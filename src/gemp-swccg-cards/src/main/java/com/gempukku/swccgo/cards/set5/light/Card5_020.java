@@ -1,0 +1,83 @@
+package com.gempukku.swccgo.cards.set5.light;
+
+import com.gempukku.swccgo.cards.AbstractNormalEffect;
+import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.filters.Filters;
+import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.WhileInPlayData;
+import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
+import com.gempukku.swccgo.logic.timing.EffectResult;
+
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Set: Cloud City
+ * Type: Effect
+ * Title: Civil Disorder
+ */
+public class Card5_020 extends AbstractNormalEffect {
+    public Card5_020() {
+        super(Side.LIGHT, 3, PlayCardZoneOption.OPPONENTS_SIDE_OF_TABLE, Title.Civil_Disorder, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.C);
+        setLore("'Attention. This is Lando Calrissian. The Empire has taken control of the city. I advise everyone to leave before more Imperial troops arrive.'");
+        setGameText("Deploy on opponent's side of table. At the end of opponent's deploy phase, if they did not deploy a card with ability, opponent loses 2 Force. Effect lost if opponent has more cards with ability on table than you. (Immune to Alter.)");
+        addIcons(Icon.CLOUD_CITY);
+        addImmuneToCardTitle(Title.Alter);
+    }
+
+    @Override
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        String opponent = game.getOpponent(self.getOwner());
+
+        // Check condition(s)
+        if (TriggerConditions.isStartOfOpponentsPhase(game, self, effectResult, Phase.DEPLOY)) {
+            self.setWhileInPlayData(null);
+        }
+        // Check condition(s)
+        else if (TriggerConditions.justDeployed(game, effectResult, opponent, Filters.hasAbilityOrHasPermanentPilotWithAbility)) {
+            self.setWhileInPlayData(new WhileInPlayData());
+        }
+        // Check condition(s)
+        else if (TriggerConditions.isEndOfOpponentsPhase(game, self, effectResult, Phase.DEPLOY)
+                && !GameConditions.cardHasWhileInPlayDataSet(self)) {
+
+            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setText("Make " + opponent + " lose 2 Force");
+            // Perform result(s)
+            action.appendEffect(
+                    new LoseForceEffect(action, opponent, 2));
+            return Collections.singletonList(action);
+        }
+
+        // Check condition(s)
+        if (TriggerConditions.isTableChanged(game, effectResult)) {
+            if (Filters.countActive(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.and(Filters.opponents(self), Filters.hasAbilityOrHasPermanentPilotWithAbility))
+                    > Filters.countActive(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.and(Filters.your(self), Filters.hasAbilityOrHasPermanentPilotWithAbility))) {
+
+                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setSingletonTrigger(true);
+                action.setText("Make lost");
+                action.setActionMsg("Make " + GameUtils.getCardLink(self) + " lost");
+                // Perform result(s)
+                action.appendEffect(
+                        new LoseCardFromTableEffect(action, self));
+                return Collections.singletonList(action);
+            }
+        }
+        return null;
+    }
+}

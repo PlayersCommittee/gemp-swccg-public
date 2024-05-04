@@ -30,11 +30,8 @@ hs_err_pid*
 .vagrant
 
 # Built file targets
-gemp-swccg-async/target/
-gemp-swccg-cards/target/
-gemp-swccg-common/target/
-gemp-swccg-logic/target/
-gemp-swccg-server/target/
+target/
+**/target/*
 
 # Mac OS filesystem
 .DS_Store
@@ -47,3 +44,20 @@ gemp-swccg-server/target/
 .settings/org.eclipse.core.resources.prefs
 
 swccgFormats-utinni.json
+
+# Mounted docker folders necessary for operation, but which we don't 
+# wish to treat as code.
+# This is the top-level web remount, not the web folder deep in the
+# structure of gemp-async
+/web
+src/logs/
+
+# Default files that we wish to exist when a new user pulls down, 
+# but not actually tracked most of the time.
+nohup.out
+replays/*
+!replays/.placeholder
+logs/*
+!logs/.placeholder
+database/*
+!database/.placeholder

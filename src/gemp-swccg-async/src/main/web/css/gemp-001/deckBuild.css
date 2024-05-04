@@ -1,0 +1,224 @@
+body {
+    font-size: 12px;
+}
+
+.borderOverlay {
+    border: 0px solid #000000;
+}
+
+.foilOverlay {
+    opacity: 0.2;
+}
+
+.testingTextOverlay {
+    width: inherit;
+    background-color: #ffff00;
+    color: #000000;
+    display: table-cell;
+    text-align: left;
+    vertical-align: top;
+    opacity: 1.0;
+    font-size: 110%;
+}
+
+.selectableCard > .borderOverlay {
+    border: 2px solid #00ff00;
+    cursor: pointer;
+}
+
+.selectedCard > .borderOverlay {
+    border: 2px solid #00cccc;
+}
+
+.cardCount {
+    width: 20px;
+    height: 18px;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 120%;
+    font-weight: bolder;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    opacity: 0.7;
+}
+
+.cardPileCount {
+    display: none;
+}
+
+#deckDiv {
+    min-width: 450px;
+}
+
+#collectionDiv {
+    min-width: 425px;
+}
+
+#manageDecks {
+    color: #ffffff;
+    font-size: 180%;
+}
+
+#deckZoneLabel {
+    color: #ffffff;
+    font-size: 100%;
+    z-index: 10;
+}
+
+#outsideDeckZoneLabel {
+    color: #ffffff;
+    font-size: 100%;
+    z-index: 10;
+}
+
+.filterLabel {
+    color: #ffffff;
+    font-weight: bolder;
+    font-size: 110%;
+    padding-right: 5px;
+}
+
+.filterInput {
+    font-size: 80%;
+    padding-right: 5px;
+}
+
+.cardFilterText {
+    color: #ffffff;
+    padding-top: 5px;
+    text-align: center;
+    font-size: 90%;
+}
+
+.buttonHolder {
+    padding-top: 10px;
+    text-align: center;
+}
+
+#editingDeck {
+    vertical-align: top;
+    padding-left: 3px;
+}
+
+
+/*
+ * Deck Stats displayed in the validation dialog box in the Deck builder
+ */
+#deckStats {
+    color: #ffffff;
+}
+
+div#bottom-bar-container div#deckStats div.deckstats-format-container {
+    display:none;
+}
+
+span#deckstats-deck-has-no-cards, span#deckstats-invalid-deck, span.deckstats-format-name {
+    font-size:12pt;
+    font-weight:bold;
+    color:#ffffff;
+}
+
+span.deckstats-format-valid { color:#66d766; font-size:12pt; }
+span.deckstats-format-invalid { color:#ff4949; font-size:12pt; }
+
+div#deckstats-light-container,
+div#deckstats-dark-container {
+    font-size:12pt;
+}
+
+div.deckstats-format-container {
+    margin-bottom:0.5em;
+    font-size:12pt;
+}
+
+div#deckZoneLabel,
+div#outsideDeckZoneLabel {
+    font-family:sans-serif;
+    font-weight:bold;
+}
+
+div#deckstats-light-container,
+div#deckstats-dark-container {
+    width:25%;
+    float:left;
+    padding:0px;
+    margin-right:25px;
+}
+
+div#deckstats-light-container { border:0.5px #7b98ff solid; }
+div#deckstats-dark-container  { border:0.5px #ff4949 solid; }
+
+span#deckstats-light { background-color:#7b98ff; }
+span#deckstats-dark  { background-color:#ff4949; }
+
+span#deckstats-light, span#deckstats-dark {
+    font-weight:bold;
+    color:#000000;
+    padding:2px;
+}
+span#deckstats-light-content, span#deckstats-dark-content {
+    font-weight:bold;
+    color:#ffffff;
+    font-family:monospace;
+    padding:2px;
+}
+
+span.validate-invalid-card,
+span.validate-invalid-card-type,
+span.validate-invalid-card-set,
+span.validate-invalid-icon,
+span.validate-invalid-rarity,
+span.validate-invalid-card,
+span.validate-deck-size,
+span.validate-required-deck-size {
+    font-weight:bold;
+    color:#ffa84a;
+    /*color:#ffe81f;*/
+    font-style: oblique;
+}
+
+span.validate-invalid-icon-cardname {
+    font-weight:bold;
+    color:#ffa84a;
+    font-style: oblique;
+}
+
+.deckstats-card-count-light-and-dark-set {
+    background-color:#f6ff76 !important;
+    color:#000000 !important;
+}
+
+div.deckstats-card-count-light-and-dark-set span#deckstats-light-content,
+div.deckstats-card-count-light-and-dark-set span#deckstats-dark-content  {
+    color:#000000 !important;
+}
+
+
+/*
+ * Common interface elements
+ */
+
+.ui-button-text-only .ui-button-text {
+    font-size: 70%;
+}
+
+#set {
+    width: 120px;
+}
+
+#cardType {
+    width: 100px;
+}
+
+#fullFiltering select {
+    font-size: 80%;
+}
+
+#fullFiltering input {
+    font-size: 80%;
+}
+
+#filtering select {
+    font-size: 80%;
+}
