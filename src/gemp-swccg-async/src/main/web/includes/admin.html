@@ -1,0 +1,65 @@
+<script type="text/javascript">
+	$("adminMain").ready(
+		function () {
+			$("#adminMain").tabs().addClass("ui-tabs-vertical ui-helper-clearfix");
+			$("#admin-tabs > ol > li").removeClass("ui-corner-top").addClass("ui-corner-left");
+			
+			$("#landingTab").parent().hide();
+			$("#landing").hide();
+			
+			if(!hall.userInfo.type.includes("a"))
+			{
+				$("#generalTab").parent().hide();
+				$("#banTab").parent().hide();
+			}
+			
+			if(!(hall.userInfo.type.includes("l") ||
+			     hall.userInfo.type.includes("a")))
+			{
+				$("#leagueTab").parent().hide();
+			}
+			
+			if(!(hall.userInfo.type.includes("p") ||
+			     hall.userInfo.type.includes("a")))
+			{
+				$("#playtestingTab").parent().hide();
+			}
+			
+			if(!(hall.userInfo.type.includes("m") ||
+			     hall.userInfo.type.includes("a")))
+			{
+				$("#commentatorTab").parent().hide();
+			}
+
+			var index = $("#admin-tabs li").index($('#admin-tabs li:visible').eq(0));
+			// "selected" was deprecated and removed from jQuery 1.10.
+			// Update this to "active" if we ever upgrade.
+			$("#adminMain").tabs({selected: index});
+		});
+	
+</script>
+
+<div id="adminMain" class="hall-tab flex-horiz">
+	<div id="admin-tabs" class="sub-tabs">
+		<ol>
+			<li><a id="landingTab" href="#landing"></a></li>
+			<li><a id="generalTab" href="includes/admin/generalAdmin.html">Admin Panel</a></li>
+			<li><a id="banTab" href="includes/admin/userAdmin.html">User Moderation</a></li>
+			<li><a id="leagueTab" href="includes/admin/leagueAdmin.html">League Admin</a></li>
+			<li><a id="playtestingTab" href="includes/admin/playtestingAdmin.html">Playtesting Admin</a></li>
+			<li><a id="commentatorTab" href="includes/admin/commentatorAdmin.html">Commentator Admin</a></li>
+		</ol>
+	</div>  
+	<div id="landing" style="">
+	</div>
+	<div id="generalAdmin">
+		
+	</div>
+	<div id="banAdmin">
+		
+	</div>
+</div>
+
+
+
+

@@ -1,0 +1,162 @@
+
+<script type="text/javascript">
+	
+	$("#playtestAdminMain").ready(
+			function () {
+				$("#playtesters-menu").hide();
+				
+				$("#add-playtester-button").button().click(
+					function () {
+						var resultdiv = $("#add-playtester-result");
+						
+						let name = $("#add-playtester-name").val();
+						if(name == null || name == "") {
+							alert("Name field is required.")
+							return;
+						}
+						
+						resultdiv.html("Processing...");
+						
+						hall.comm.addPlaytesterToUser(name, function (string) {
+							resultdiv.html(string);
+							
+							if($("#playtesters-menu").is(':visible')) {
+								hall.comm.showPlaytesters(displayPlaytesters, playtestErrorMap(resultdiv));
+							}
+						}, playtestErrorMap(resultdiv));
+					});
+				
+				
+				$("#show-playtesters-button").button().click(
+					function () {
+						$("#playtesters-menu").show();
+						var resultdiv = $("#show-playtesters-result");
+						resultdiv.html("Processing...");
+						
+						hall.comm.showPlaytesters(displayPlaytesters, playtestErrorMap(resultdiv));
+					});
+				
+				$("#remove-playtesters-button").button().click(
+				  function() {
+				  	
+				  	var data = {};
+				  	
+				  	var resultdiv = $("#show-playtesters-result");
+				  	resultdiv.html("Processing...");
+				  	
+				  	var inputs = $("input[type='text'], input[type='checkbox']:checked, option:selected", $("#playtesters").eq(0))
+				  		.each(
+				  			function () {
+				  				var input = $(this);
+				  				var name = null;
+				  				var value = null;
+				  				if (input.prop("tagName") == "INPUT") {
+				  					name = input.attr("name");
+				  					value = input.val();
+				  				} else if (input.prop("tagName") == "OPTION") {
+				  					name = input.parents("select").attr("name");
+				  					value = input.attr("value");
+				  				}
+				  				if (name != null && value != null) {
+				  					if (data[name] == null)
+				  						data[name] = new Array();
+				  					data[name].push(value);
+				  				}
+				  			});
+
+				  	if(data.login == null)
+				  	{
+				  		resultdiv.html("Please select one or more playtesters to demote.");
+				  		return;
+				  	}
+				  	
+				  	hall.comm.removePlaytesterFromUsers(data.login, function (xml) {
+				  		resultdiv.html("OK");
+				  		
+				  		hall.comm.showPlaytesters(displayPlaytesters, playtestErrorMap(resultdiv));
+				  	}, playtestErrorMap(resultdiv));
+				  });
+				
+				
+			});
+	
+	function displayPlaytesters(xml) {
+		var resultdiv = $("#show-playtesters-result");
+		var root = xml.documentElement;
+		if (root.tagName == 'players') {
+			var playersDiv = $("#playtesters");
+			playersDiv.html("");
+			playersDiv.append("Playtesters:");
+			
+			var table = $("<table class='tables'></table>");
+			table.append("<tr><th style='width:20px'></th><th>Name</th></tr>");
+
+			var players = root.getElementsByTagName("player");
+			for (var j=0; j<players.length; j++) {
+				var player = players[j];
+				var name=player.getAttribute("name");
+				table.append("<tr><td><input type='checkbox' name='login' value='"+name+"'></td><td>"+name+"</td></tr>");
+			}
+
+			playersDiv.append(table);
+			
+			resultdiv.html("OK");
+		}	
+	}
+	
+	function playtestErrorMap(outputControl, callback=null) {
+		return {
+			"0":function() {
+				outputControl.html("0: Server has been shut down or there was a problem with your internet connection.", "warningMessage");
+				if(callback!=null)
+					callback();
+			},
+			"401":function() {
+				outputControl.html("401: You are not logged in.");
+				if(callback!=null)
+					callback();
+			},
+			"403": function() {
+				outputControl.html("403: You do not have permission to perform such actions.");
+				if(callback!=null)
+					callback();
+			},
+			"404": function() {
+				outputControl.html("404: User not found.  Check that you have capitalized it correctly and removed whitespace and try again.");
+				if(callback!=null)
+					callback();
+			},
+			"410": function() {
+				outputControl.html("410: You have been inactive for too long and were logged out. Refresh the page if you wish to reestablish connection.");
+				if(callback!=null)
+					callback();
+			}
+		};
+	}
+
+	
+</script>
+
+<div class="page" id="playtestAdminMain">
+	
+	<div>
+		<h1>Add Playtester</h1>
+		Name (case-sensitive): <input id="add-playtester-name" type="text" ><br/>
+		<button id="add-playtester-button" class="admin-button">
+			Add Playtester
+		</button> <span id="add-playtester-result" style="display:inline-block;">Ready.</span>
+	</div>
+	
+	<br><br><hr><br>
+	
+	<div>
+		<h1>Show Playtesters</h1>
+		<button id="show-playtesters-button" class="admin-button">
+			Show All
+		</button> <span id="show-playtesters-result" style="display:inline-block;">Ready.</span>
+		<div id="playtesters"></div>
+		<div id="playtesters-menu">
+			<button id="remove-playtesters-button" class="admin-button">Remove Selected</button>
+		</div>
+	</div>
+</div>

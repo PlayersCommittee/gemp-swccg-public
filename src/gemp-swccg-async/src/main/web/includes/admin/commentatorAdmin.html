@@ -1,0 +1,162 @@
+
+<script type="text/javascript">
+	
+	$("#commentateAdminMain").ready(
+			function () {
+				$("#commentators-menu").hide();
+				
+				$("#add-commentator-button").button().click(
+					function () {
+						var resultdiv = $("#add-commentator-result");
+						
+						let name = $("#add-commentator-name").val();
+						if(name == null || name == "") {
+							alert("Name field is required.")
+							return;
+						}
+						
+						resultdiv.html("Processing...");
+						
+						hall.comm.addCommentatorToUser(name, function (string) {
+							resultdiv.html(string);
+							
+							if($("#commentators-menu").is(':visible')) {
+								hall.comm.showCommentators(displayCommentators, commentateErrorMap(resultdiv));
+							}
+						}, commentateErrorMap(resultdiv));
+					});
+				
+				
+				$("#show-commentators-button").button().click(
+					function () {
+						$("#commentators-menu").show();
+						var resultdiv = $("#show-commentators-result");
+						resultdiv.html("Processing...");
+						
+						hall.comm.showCommentators(displayCommentators, commentateErrorMap(resultdiv));
+					});
+				
+				$("#remove-commentators-button").button().click(
+				  function() {
+				  	
+				  	var data = {};
+				  	
+				  	var resultdiv = $("#show-commentators-result");
+				  	resultdiv.html("Processing...");
+				  	
+				  	var inputs = $("input[type='text'], input[type='checkbox']:checked, option:selected", $("#commentators").eq(0))
+				  		.each(
+				  			function () {
+				  				var input = $(this);
+				  				var name = null;
+				  				var value = null;
+				  				if (input.prop("tagName") == "INPUT") {
+				  					name = input.attr("name");
+				  					value = input.val();
+				  				} else if (input.prop("tagName") == "OPTION") {
+				  					name = input.parents("select").attr("name");
+				  					value = input.attr("value");
+				  				}
+				  				if (name != null && value != null) {
+				  					if (data[name] == null)
+				  						data[name] = new Array();
+				  					data[name].push(value);
+				  				}
+				  			});
+
+				  	if(data.login == null)
+				  	{
+				  		resultdiv.html("Please select one or more commentators to demote.");
+				  		return;
+				  	}
+				  	
+				  	hall.comm.removeCommentatorFromUsers(data.login, function (xml) {
+				  		resultdiv.html("OK");
+				  		
+				  		hall.comm.showCommentators(displayCommentators, commentateErrorMap(resultdiv));
+				  	}, commentateErrorMap(resultdiv));
+				  });
+				
+				
+			});
+	
+	function displayCommentators(xml) {
+		var resultdiv = $("#show-commentators-result");
+		var root = xml.documentElement;
+		if (root.tagName == 'players') {
+			var playersDiv = $("#commentators");
+			playersDiv.html("");
+			playersDiv.append("Commentators:");
+			
+			var table = $("<table class='tables'></table>");
+			table.append("<tr><th style='width:20px'></th><th>Name</th></tr>");
+
+			var players = root.getElementsByTagName("player");
+			for (var j=0; j<players.length; j++) {
+				var player = players[j];
+				var name=player.getAttribute("name");
+				table.append("<tr><td><input type='checkbox' name='login' value='"+name+"'></td><td>"+name+"</td></tr>");
+			}
+
+			playersDiv.append(table);
+			
+			resultdiv.html("OK");
+		}	
+	}
+	
+	function commentateErrorMap(outputControl, callback=null) {
+		return {
+			"0":function() {
+				outputControl.html("0: Server has been shut down or there was a problem with your internet connection.", "warningMessage");
+				if(callback!=null)
+					callback();
+			},
+			"401":function() {
+				outputControl.html("401: You are not logged in.");
+				if(callback!=null)
+					callback();
+			},
+			"403": function() {
+				outputControl.html("403: You do not have permission to perform such actions.");
+				if(callback!=null)
+					callback();
+			},
+			"404": function() {
+				outputControl.html("404: User not found.  Check that you have capitalized it correctly and removed whitespace and try again.");
+				if(callback!=null)
+					callback();
+			},
+			"410": function() {
+				outputControl.html("410: You have been inactive for too long and were logged out. Refresh the page if you wish to reestablish connection.");
+				if(callback!=null)
+					callback();
+			}
+		};
+	}
+
+	
+</script>
+
+<div class="page" id="commentateAdminMain">
+	
+	<div>
+		<h1>Add Commentator</h1>
+		Name (case-sensitive): <input id="add-commentator-name" type="text" ><br/>
+		<button id="add-commentator-button" class="admin-button">
+			Add Commentator
+		</button> <span id="add-commentator-result" style="display:inline-block;">Ready.</span>
+	</div>
+	
+	<br><br><hr><br>
+	
+	<div>
+		<h1>Show Commentators</h1>
+		<button id="show-commentators-button" class="admin-button">
+			Show All
+		</button> <span id="show-commentators-result" style="display:inline-block;">Ready.</span>
+		<div id="commentators"></div>
+		<div id="commentators-menu">
+			<button id="remove-commentators-button" class="admin-button">Remove Selected</button>
+		</div>
+	</div>
+</div>
