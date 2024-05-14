@@ -18794,7 +18794,7 @@ public class Filters {
     public static final Filter Saber_3 = Filters.title(Title.Saber_3);
     public static final Filter Saber_Squadron = Filters.keyword(Keyword.SABER_SQUADRON);
     public static final Filter Saber_Squadron_pilot = Filters.and(CardCategory.CHARACTER, Icon.PILOT, Filters.or(Keyword.SABER_SQUADRON, Filters.piloting(Filters.keyword(Keyword.SABER_SQUADRON))));
-    public static final Filter Sabine = Filters.title(Title.Sabine);
+    public static final Filter Sabine = Filters.persona(Persona.SABINE);
     public static final Filter Sabotage = Filters.title(Title.Sabotage);
     public static final Filter Sache = Filters.persona(Persona.SACHE);
     public static final Filter Saitorr_Kal_Fas = Filters.title(Title.Saitorr_Kal_Fas);

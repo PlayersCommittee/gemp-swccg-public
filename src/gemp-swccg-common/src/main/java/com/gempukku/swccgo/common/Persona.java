@@ -138,6 +138,7 @@ public enum Persona implements Filterable {
     REY("Rey"),
     ROSE("Rose"),
     SABE("Sabe"),
+    SABINE("Sabine"),
     SACHE("Sache"),
     SEFLA("Sefla"),
     SEVENTH_SISTER("Seventh Sister"),

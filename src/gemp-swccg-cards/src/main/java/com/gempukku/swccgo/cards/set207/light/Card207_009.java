@@ -9,6 +9,7 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
@@ -45,6 +46,7 @@ public class Card207_009 extends AbstractRebel {
         setArmor(5);
         setLore("Female Mandalorian. Scout.");
         setGameText("Once per turn, when firing a rifle or blaster, may target for free and add 2 to total weapon destiny. While with an Imperial (or two Rebels), whenever you win a battle here, opponent loses 2 Force. Immune to Hidden Weapons.");
+        addPersona(Persona.SABINE);
         addIcons(Icon.PILOT, Icon.VIRTUAL_SET_7);
         addIcon(Icon.WARRIOR, 2);
         addKeywords(Keyword.FEMALE, Keyword.SCOUT);
