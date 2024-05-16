@@ -40,7 +40,7 @@ services:
     command: >
       nohup 
       java -Xmx15g 
-      -javaagent:/opt/gemp-swccg/newrelic.jar
+      -javaagent:/opt/gemp-swccg/newrelic/newrelic.jar
       -Dlog4j.debug 
       -Dlog4j.configurationFile=/opt/gemp-swccg/src/gemp-swccg-async/src/main/resources/prod-log4j.xml 
       -jar /opt/gemp-swccg/src/gemp-swccg-async/target/web.jar 

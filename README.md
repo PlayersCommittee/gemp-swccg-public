@@ -4,8 +4,6 @@ GEMP-SWCCG - server/client for playing Star Wars CCG using a web browser. The pr
 ## TOC
 
 * <a href="#docker">Docker</a>
-* <a href="#vagrant">Vagrant</a>
-  * <a href="README_vagrant_windows.md"><em>Vagrant for Windows</em></a>
 * <a href="#formats">Formats</a>
 
 
@@ -13,7 +11,7 @@ GEMP-SWCCG - server/client for playing Star Wars CCG using a web browser. The pr
 
 ## Docker
 
-* `docker/docker-compose.yml` is used both for the production environment and local development/test environments.
+* `src/docker-compose.yml` is used for local development/test environments. `src/docker-compose-prod.yml` contains the minimal changes required to make that same composition work for the production deployment.
 * `docker compose build` will build the container images, referring to the configuration file for what settings to use.
 * Full installation instructions are in the /docker/readme.md
 
