@@ -3706,8 +3706,8 @@ var fixedImages = {
 "304_5":"https://i.imgur.com/He3GGTU.png", //Ellac Conrat
 "304_6":"https://i.imgur.com/i50XrOX.png", //Kadrol Hauen
 "304_7":"https://i.imgur.com/YEefz9R.png", //Kah'ri Marru
-"304_8":"https://i.imgur.com/iZjkb83.png", //Komilia Lap'lamiz
-"304_9":"https://i.imgur.com/CGOju8r.png", //Komilia Lap'lamiz, Exile
+"304_8":"https://i.imgur.com/CGOju8r.png", //Komilia Lap'lamiz
+"304_9":"https://i.imgur.com/5hNjEsZ.png", //Komilia Lap'lamiz, Exile
 "304_10":"https://i.imgur.com/fn491Q7.png", //Rayne Palpatine
 "304_11":"https://i.imgur.com/aznyTrN.png", //Reiden Karr
 "304_12":"https://i.imgur.com/CwNF02Y.png", //Rohan Lap'lamiz With Lightsaber
