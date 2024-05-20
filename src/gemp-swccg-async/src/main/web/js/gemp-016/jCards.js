@@ -3659,6 +3659,8 @@ var fixedImages = {
 "501_33": "https://res.starwarsccg.org/cards/Virtual4-Dark/hires/kylorenscommandshuttle.png",
 "501_34":"https://res.starwarsccg.org/cards/CloudCity-Dark/large/bounty.gif",
 "501_36":"https://res.starwarsccg.org/cards/Hoth-Dark/large/probetelemetry.gif",
+"501_38":"https://res.starwarsccg.org/cards/TheedPalace-Dark/large/takethemaway.gif",
+"501_39":"https://res.starwarsccg.org/cards/SpecialEdition-Dark/large/lobot.gif",
 "501_41":"https://res.starwarsccg.org/cards/Tatooine-Dark/large/iwillfindthemquicklymaster.gif",
 "501_42":"https://res.starwarsccg.org/cards/Coruscant-Dark/large/tc14.gif",
 "501_43":"https://res.starwarsccg.org/cards/TheedPalace-Dark/large/darthsidious.gif",
@@ -3739,6 +3741,9 @@ var fixedImages = {
 "501_189":"https://res.starwarsccg.org/cards/ResetDS-Light/large/yourinsightservesyouwell.gif",
 "501_188":"https://res.starwarsccg.org/cards/ResetDS-Light/large/therepublicnolongerfunctions.gif",
 "501_190":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/yourship.gif",
+"501_192":"https://res.starwarsccg.org/cards/Coruscant-Light/large/depabillaba.gif",
+"501_193":"https://res.starwarsccg.org/cards/JabbasPalace-Light/large/imustbeallowedtospeak.gif",
+"501_194":"https://res.starwarsccg.org/cards/JabbasPalace-Light/large/princessleiaorgana.gif",
 
 //legacy
 "601_1":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/knowledgeanddefense.gif",
