@@ -3760,6 +3760,7 @@ var fixedImages = {
 "304_59":"https://i.imgur.com/aNpjeOr.png", //Silri R'lobsam
 "304_60":"https://i.imgur.com/SiK93fY.png", //Sqygorn Dar
 "304_61":"https://i.imgur.com/Qi2plSg.png", //Tia'nah
+"304_62":"https://i.imgur.com/JwgohAF.png", //Vos Nokler
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",

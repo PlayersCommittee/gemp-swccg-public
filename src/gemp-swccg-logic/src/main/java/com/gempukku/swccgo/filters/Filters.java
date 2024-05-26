@@ -19343,6 +19343,7 @@ public class Filters {
 	public static final Filter Ulress_site = Filters.and(Filters.partOfSystem(Title.Ulress), CardSubtype.SITE);
 	public static final Filter Ixtals_Garage = Filters.title(Title.Ixtals_Garage);
 	public static final Filter Locita = Filters.persona(Persona.LOCITA);
+	public static final Filter Claudius_Palace_site = Filters.keyword(Keyword.CLAUDIUS_PALACE_SITE);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {
