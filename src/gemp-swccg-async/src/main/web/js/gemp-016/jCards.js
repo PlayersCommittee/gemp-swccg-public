@@ -3761,6 +3761,7 @@ var fixedImages = {
 "304_60":"https://i.imgur.com/SiK93fY.png", //Sqygorn Dar
 "304_61":"https://i.imgur.com/Qi2plSg.png", //Tia'nah
 "304_62":"https://i.imgur.com/JwgohAF.png", //Vos Nokler
+"304_63":"https://i.imgur.com/TA4OY8f.png", //Zax Keevo
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
