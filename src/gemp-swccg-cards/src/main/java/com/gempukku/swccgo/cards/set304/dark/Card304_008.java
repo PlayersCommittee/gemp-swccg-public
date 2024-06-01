@@ -13,6 +13,7 @@ import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -29,7 +30,8 @@ import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.logic.modifiers.MayBeReplacedByOpponentModifier;
-import com.gempukku.swccgo.logic.modifiers.MayBeTargetedByModifier;
+import com.gempukku.swccgo.logic.modifiers.MayUseWeaponModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployToTargetModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -60,7 +62,8 @@ public class Card304_008 extends AbstractAlien {
         modifiers.add(new FiresForFreeModifier(self, Filters.and(Filters.blaster, Filters.attachedTo(Filters.persona(Persona.KOMILIA)))));
 		modifiers.add(new ImmuneToAttritionLessThanModifier(self, new ConditionEvaluator(0, 10, new WithCondition(self, Filters.Kamjin))));
 		modifiers.add(new MayBeReplacedByOpponentModifier(self, new PresentAtCondition(self, Filters.site)));
-		modifiers.add(new MayBeTargetedByModifier(self, Title.Thermal_Detonator));
+		modifiers.add(new MayUseWeaponModifier(self, Filters.Thermal_Detonator));
+		modifiers.add(new MayDeployToTargetModifier(self, Filters.and(Filters.your(self), Filters.Thermal_Detonator), self));
         return modifiers;
     }
 	

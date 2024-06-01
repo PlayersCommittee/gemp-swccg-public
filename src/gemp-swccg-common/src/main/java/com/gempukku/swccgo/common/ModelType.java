@@ -136,7 +136,9 @@ public enum ModelType implements Filterable {
 	IMPERIAL_CLASS_ESCORT_CRUISER("Imperial-class Escort Cruiser"),
 	INQUISITOR_CLASS_CORVETTE("Inquisitor-class Corvette"),
 	TIE_BA("TIE/BA"),
-	PREDATOR("Predator");
+	PREDATOR("Predator"),
+	STARVIPER("StarViper"),
+	MINSTREL("Minstrel-class Star-Yacht");
 	
 
     private String _humanReadable;

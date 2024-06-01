@@ -3762,6 +3762,10 @@ var fixedImages = {
 "304_61":"https://i.imgur.com/Qi2plSg.png", //Tia'nah
 "304_62":"https://i.imgur.com/JwgohAF.png", //Vos Nokler
 "304_63":"https://i.imgur.com/TA4OY8f.png", //Zax Keevo
+"304_64":"https://i.imgur.com/czSndYV.png", //Hutt Speeder Bike
+"304_65":"https://i.imgur.com/J5CWGNm.png", //Ixtal's Speeder
+"304_66":"https://i.imgur.com/Veoict9.png", //StarViper
+"304_67":"https://i.imgur.com/JBnwg9B.png", //Ferfiek Chawa
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",

@@ -19344,6 +19344,8 @@ public class Filters {
 	public static final Filter Ixtals_Garage = Filters.title(Title.Ixtals_Garage);
 	public static final Filter Locita = Filters.persona(Persona.LOCITA);
 	public static final Filter Claudius_Palace_site = Filters.keyword(Keyword.CLAUDIUS_PALACE_SITE);
+	public static final Filter Ixtal = Filters.title(Title.Ixtal);
+	public static final Filter Thermal_Detonator = Filters.title(Title.Thermal_Detonator);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

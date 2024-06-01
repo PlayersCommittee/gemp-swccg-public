@@ -1320,5 +1320,6 @@ public interface Title {
 	String Claudius_Throne_Room = "Claudius's Throne Room";
 	String Hive_of_Scum_and_Villainy = "Hive of Scum and Villainy";
 	String Ixtals_Garage = "Ixtal's Garage";
+	String Ixtal = "Ixtal Noxus";
 
 }

@@ -12,6 +12,7 @@ import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,7 +37,7 @@ import java.util.List;
  */
 public class Card304_057 extends AbstractAlien {
     public Card304_057() {
-        super(Side.LIGHT, 3, 3, 2, 3, 4, "Ixtal Noxus", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
+        super(Side.LIGHT, 3, 3, 2, 3, 4, Title.Ixtal, Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("Ixtal has a need. A need for speed. Since he could walk he's been a racer. To pay for his legal and illegal racing habit he leads Claudius the Hutt's biker gang and became a Gangster.");
         setGameText("Adds 3 to power of any speeder bike he pilots. Forfeit +2 aboard a speeder bike. Once during each of your deploy phases, may deploy a speeder bike to same site from Reserve Deck; reshuffle.");
         addIcons(Icon.PILOT, Icon.WARRIOR);
