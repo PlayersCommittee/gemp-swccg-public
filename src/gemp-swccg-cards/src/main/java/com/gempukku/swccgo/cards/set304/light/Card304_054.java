@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.evaluators.PresentEvaluator;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -32,6 +33,7 @@ public class Card304_054 extends AbstractAlien {
         super(Side.LIGHT, 2, 4, 4, 3, 5, "Dia Gida", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("Dia made her name as a crack shot, performing trick shots other gunslingers couldn't pull off. Currently working as a sniper for the Tiure Hutt clan.");
         setGameText("When alone at a site, draws one battle destiny if not able to otherwise. Adds 2 to each of her weapon destiny draws. Immune to attrition < X, where X=number of [CSP Icon] present.");
+		addPersona(Persona.DIA_GIDA);
         addIcons(Icon.WARRIOR);
         addKeywords(Keyword.CLAN_TIURE);
     }

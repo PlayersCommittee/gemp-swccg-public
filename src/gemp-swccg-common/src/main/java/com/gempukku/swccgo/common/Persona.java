@@ -187,6 +187,7 @@ public enum Persona implements Filterable {
 	CANDON("Candon"),
 	CLAUDIUS("Claudius"),
 	LOCITA("Jloc'itaome'faottas"),
+	DIA_GIDA("Dia Gida"),
 
     // Starships
     BESTOON_LEGACY("Bestoon Legacy"),

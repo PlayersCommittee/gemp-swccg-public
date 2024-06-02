@@ -3766,6 +3766,7 @@ var fixedImages = {
 "304_65":"https://i.imgur.com/J5CWGNm.png", //Ixtal's Speeder
 "304_66":"https://i.imgur.com/Veoict9.png", //StarViper
 "304_67":"https://i.imgur.com/JBnwg9B.png", //Ferfiek Chawa
+"304_68":"https://i.imgur.com/GdvPSO1.jpg", //Dia Gida's Sniper Rifle
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
