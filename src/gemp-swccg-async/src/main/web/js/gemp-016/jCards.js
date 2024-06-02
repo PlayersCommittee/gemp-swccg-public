@@ -3745,6 +3745,7 @@ var fixedImages = {
 "501_192":"https://res.starwarsccg.org/cards/Coruscant-Light/large/depabillaba.gif",
 "501_193":"https://res.starwarsccg.org/cards/JabbasPalace-Light/large/imustbeallowedtospeak.gif",
 "501_194":"https://res.starwarsccg.org/cards/JabbasPalace-Light/large/princessleiaorgana.gif",
+"501_195":"https://res.starwarsccg.org/cards/Virtual0-Light/large/goldenrod.gif",
 
 //legacy
 "601_1":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/knowledgeanddefense.gif",

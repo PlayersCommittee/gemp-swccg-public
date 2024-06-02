@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card200_027 extends AbstractDefensiveShield {
     public Card200_027() {
-        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"Goldenrod", ExpansionSet.SET_0, Rarity.V);
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Goldenrod, ExpansionSet.SET_0, Rarity.V);
         setGameText("Plays on table. For opponent to deploy a character, starship, or vehicle for free (except by that card's own game text), opponent must first use 2 Force.");
         addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_DEFENSIVE_SHIELD);
     }

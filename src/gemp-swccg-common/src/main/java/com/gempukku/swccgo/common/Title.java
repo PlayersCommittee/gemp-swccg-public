@@ -449,6 +449,7 @@ public interface Title {
     String Gold_4 = "Gold 4";
     String Gold_5 = "Gold 5";
     String Gold_6 = "Gold 6";
+    String Goldenrod = "Goldenrod";
     String Goo_Nee_Tay = "Goo Nee Tay";
     String Graak = "Graak";
     String Gravel_Storm = "Gravel Storm";
