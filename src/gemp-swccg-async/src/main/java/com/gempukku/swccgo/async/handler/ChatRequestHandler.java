@@ -125,7 +125,7 @@ public class ChatRequestHandler extends SwccgoServerRequestHandler implements Ur
     }
 
     private void getMessages(HttpRequest request, String room, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 
         Player resourceOwner = getResourceOwnerSafely(request, participantId);

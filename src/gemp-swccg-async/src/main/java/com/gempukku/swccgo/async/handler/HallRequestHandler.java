@@ -522,7 +522,7 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
      * But only displays a SINGLE format instead of ALL the formats.
      */
     private void getFormat(HttpRequest request, String format, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
@@ -548,7 +548,7 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
      * Builds the content on the "Format Rules" page.
      */
     private void getFormats(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
@@ -575,7 +575,7 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
     }
 
     private void getHall(HttpRequest request, ResponseWriter responseWriter) {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
 
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 

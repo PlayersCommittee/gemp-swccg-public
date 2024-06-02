@@ -82,7 +82,7 @@ public class CollectionRequestHandler extends SwccgoServerRequestHandler impleme
     }
 
     private void getCollection(HttpRequest request, String collectionType, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         String filter = getQueryParameterSafely(queryDecoder, "filter");
         int start = Integer.parseInt(getQueryParameterSafely(queryDecoder, "start"));
@@ -198,7 +198,7 @@ public class CollectionRequestHandler extends SwccgoServerRequestHandler impleme
     }
 
     private void getCollectionTypes(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 
         Player resourceOwner = getResourceOwnerSafely(request, participantId);

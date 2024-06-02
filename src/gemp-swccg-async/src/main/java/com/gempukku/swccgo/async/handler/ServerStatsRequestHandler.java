@@ -33,7 +33,7 @@ public class ServerStatsRequestHandler extends SwccgoServerRequestHandler implem
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         if ("".equals(uri) && request.method() == HttpMethod.GET) {
-            QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+            QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
             String participantId = getQueryParameterSafely(queryDecoder, "participantId");
             String startDay = getQueryParameterSafely(queryDecoder, "startDay");
             String length = getQueryParameterSafely(queryDecoder, "length");

@@ -217,7 +217,7 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
     }
 
     private void getDeckInHtml(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         String deckName = getQueryParameterSafely(queryDecoder, "deckName");
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
@@ -282,7 +282,7 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
 
 
     private void getDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         String deckName = getQueryParameterSafely(queryDecoder, "deckName");
 
@@ -317,7 +317,7 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
     }
 
     private void listDecks(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
@@ -433,7 +433,7 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
     }
 
     private void getLibraryDeckInHtml(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String deckName = getQueryParameterSafely(queryDecoder, "deckName");
         Player resourceOwner = getLibrarian();
 
@@ -461,7 +461,7 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
     }
 
     private void getLibraryDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String deckName = getQueryParameterSafely(queryDecoder, "deckName");
 
         Player resourceOwner = getLibrarian();

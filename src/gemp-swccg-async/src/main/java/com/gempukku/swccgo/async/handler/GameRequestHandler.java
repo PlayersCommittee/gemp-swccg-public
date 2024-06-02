@@ -216,7 +216,7 @@ public class GameRequestHandler extends SwccgoServerRequestHandler implements Ur
     }
 
     private void getCardInfo(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         String cardIdStr = getQueryParameterSafely(queryDecoder, "cardId");
         if (cardIdStr.startsWith("extra") || cardIdStr.equals("anim")) {
@@ -235,7 +235,7 @@ public class GameRequestHandler extends SwccgoServerRequestHandler implements Ur
     }
 
     private void getGameState(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
