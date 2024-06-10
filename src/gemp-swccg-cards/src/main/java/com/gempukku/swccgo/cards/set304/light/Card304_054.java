@@ -41,8 +41,8 @@ public class Card304_054 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DrawsBattleDestinyIfUnableToOtherwiseModifier(self, new AloneAtCondition(self, Filters.site), 2));
-        modifiers.add(new EachWeaponDestinyForWeaponFiredByModifier(self, 1));
+        modifiers.add(new DrawsBattleDestinyIfUnableToOtherwiseModifier(self, new AloneAtCondition(self, Filters.site), 1));
+        modifiers.add(new EachWeaponDestinyForWeaponFiredByModifier(self, 2));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, new PresentEvaluator(self, Filters.CSP)));
         return modifiers;
     }

@@ -3767,6 +3767,10 @@ var fixedImages = {
 "304_66":"https://i.imgur.com/Veoict9.png", //StarViper
 "304_67":"https://i.imgur.com/JBnwg9B.png", //Ferfiek Chawa
 "304_68":"https://i.imgur.com/GdvPSO1.jpg", //Dia Gida's Sniper Rifle
+"304_69":"https://i.imgur.com/pdNKtsE.png", //Do A Backflip Derrin
+"304_70":"https://i.imgur.com/glzNYAo.jpg", //Locked Door
+"304_71":"https://i.imgur.com/crFFd1B.png", //Where is Jenni III
+"304_72":"https://i.imgur.com/ZBfLj4d.png", //Imperial Gambit
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
