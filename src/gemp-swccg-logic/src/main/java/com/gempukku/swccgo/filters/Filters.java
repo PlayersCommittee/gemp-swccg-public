@@ -18923,7 +18923,6 @@ public class Filters {
     public static final Filter starship_cannon = Filters.and(CardType.WEAPON, CardSubtype.STARSHIP, Filters.or(Keyword.CANNON, Keyword.ION_CANNON, Keyword.LASER_CANNON));
     public static final Filter Super_class_Star_Destroyer = Filters.modelType(ModelType.SUPER_CLASS_STAR_DESTROYER);
     public static final Filter Taking_Control_Of_The_Weapon = Filters.title(Title.Taking_Control_Of_The_Weapon);
-	public static final Filter DIA_GIDA = Filters.persona(Persona.DIA_GIDA);
 	
     /**
      * Wrapper method to allow other static filters to access the wrapped filter.
@@ -19347,6 +19346,7 @@ public class Filters {
 	public static final Filter Claudius_Palace_site = Filters.keyword(Keyword.CLAUDIUS_PALACE_SITE);
 	public static final Filter Ixtal = Filters.title(Title.Ixtal);
 	public static final Filter Thermal_Detonator = Filters.title(Title.Thermal_Detonator);
+	public static final Filter DIA_GIDA = Filters.persona(Persona.DIA_GIDA);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

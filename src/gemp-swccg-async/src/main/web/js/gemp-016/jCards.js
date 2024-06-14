@@ -3771,6 +3771,7 @@ var fixedImages = {
 "304_70":"https://i.imgur.com/glzNYAo.jpg", //Locked Door
 "304_71":"https://i.imgur.com/crFFd1B.png", //Where is Jenni III
 "304_72":"https://i.imgur.com/ZBfLj4d.png", //Imperial Gambit
+"304_73":"https://i.imgur.com/oea9AXP.png", //Hive of Scum and Villainy
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
