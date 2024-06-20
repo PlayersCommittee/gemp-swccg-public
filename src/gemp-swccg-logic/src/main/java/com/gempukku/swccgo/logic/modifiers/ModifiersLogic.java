@@ -10221,7 +10221,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
                         float modifierValue = modifier.getDeployCostModifier(gameState, this, cardToDeploy);
                         if (modifierValue < 0 || (!deployCostMayNotBeIncreased && (modifierOwner == null || !(opponent.equals(modifierOwner) ? deployCostMayNotBeIncreasedByOpponent : deployCostMayNotBeIncreasedByOwner)))) {
                             result += modifierValue;
-                        }
+                        } 
                     }
                 }
             }
