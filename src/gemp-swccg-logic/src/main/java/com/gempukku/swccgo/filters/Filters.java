@@ -18400,6 +18400,7 @@ public class Filters {
     public static final Filter Lieutenant_Blount = Filters.title(Title.Lieutenant_Blount);
     public static final Filter Lieutenant_Page = Filters.title(Title.Lieutenant_Page);
     public static final Filter Life_Debt = Filters.title(Title.Life_Debt);
+    public static final Filter Lift_Tube = Filters.title(Title.Lift_Tube);
     public static final Filter lightsaber = Filters.keyword(Keyword.LIGHTSABER);
     public static final Filter Lightsaber_Proficiency = Filters.title(Title.Lightsaber_Proficiency);
     public static final Filter Limited_Resources = Filters.title(Title.Limited_Resources);

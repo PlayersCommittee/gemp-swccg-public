@@ -3637,6 +3637,7 @@ var fixedImages = {
 "501_14":"https://res.starwarsccg.org/cards/EnhancedJabbasPalace-Light/large/youcaneitherprofitbythis.gif",
 "501_14_BACK":"https://res.starwarsccg.org/cards/EnhancedJabbasPalace-Light/large/orbedestroyed.gif",
 "501_15":"https://res.starwarsccg.org/cards/Virtual9-Light/hires/stardust.png",
+"501_16":"https://res.starwarsccg.org/cards/SpecialEdition-Dark/large/putallsectionsonalert.gif",
 "501_17": "https://res.starwarsccg.org/cards/DeathStarII-Dark/large/youngfool.gif",
 "501_19": "https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Dark/large/separatistuprising.gif",
 "501_19_BACK": "https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Dark/large/atwarwithitself.gif",
