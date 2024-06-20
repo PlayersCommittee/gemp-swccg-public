@@ -46,7 +46,7 @@ public class Card5_029 extends AbstractNormalEffect {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.Vader;
+        return Filters.and(Filters.Vader, Filters.character);
     }
 
     @Override
