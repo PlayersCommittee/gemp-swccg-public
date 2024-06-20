@@ -3744,7 +3744,7 @@ var fixedImages = {
 "501_190":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/yourship.gif",
 "501_192":"https://res.starwarsccg.org/cards/Coruscant-Light/large/depabillaba.gif",
 "501_193":"https://res.starwarsccg.org/cards/JabbasPalace-Light/large/imustbeallowedtospeak.gif",
-"501_194":"https://res.starwarsccg.org/cards/JabbasPalace-Light/large/princessleiaorgana.gif",
+"501_194":"https://res.starwarsccg.org/cards/EnhancedJabbasPalace-Light/large/boushh.gif",
 "501_195":"https://res.starwarsccg.org/cards/Virtual0-Light/large/goldenrod.gif",
 "501_196":"https://res.starwarsccg.org/cards/Tatooine-Light/large/neckandneck.gif",
 

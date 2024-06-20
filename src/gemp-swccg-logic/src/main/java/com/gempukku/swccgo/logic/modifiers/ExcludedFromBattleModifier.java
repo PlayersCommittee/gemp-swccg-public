@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.logic.modifiers;
 
 import com.gempukku.swccgo.common.Filterable;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 
 /**
@@ -14,6 +15,6 @@ public class ExcludedFromBattleModifier extends AbstractModifier {
      * @param affectFilter the filter
      */
     public ExcludedFromBattleModifier(PhysicalCard source, Filterable affectFilter) {
-        super(source, "Excluded from battle", affectFilter, ModifierType.EXCLUDED_FROM_BATTLE);
+        super(source, "Excluded from battle", Filters.and(affectFilter, Filters.not(Filters.mayNotBeExcludedFromBattle)), ModifierType.EXCLUDED_FROM_BATTLE);
     }
 }
