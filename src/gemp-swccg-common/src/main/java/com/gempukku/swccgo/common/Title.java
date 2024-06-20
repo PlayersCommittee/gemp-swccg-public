@@ -702,6 +702,7 @@ public interface Title {
     String Mandalorian_Covert = "Mandalorian Covert";
     String Maneuvering_Flaps = "Maneuvering Flaps";
     String Mantellian_Savrip = "Mantellian Savrip";
+    String Mara_Jade_The_Emperors_Hand = "Mara Jade, The Emperor's Hand";
     String Marketplace = "Tatooine: Marketplace";
     String Marmor = "Corporal Marmor";
     String Marquand = "Major Marquand";

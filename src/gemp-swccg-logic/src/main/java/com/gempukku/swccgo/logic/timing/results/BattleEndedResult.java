@@ -2,6 +2,7 @@ package com.gempukku.swccgo.logic.timing.results;
 
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.BattleState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -11,15 +12,17 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
  */
 public class BattleEndedResult extends EffectResult {
     private PhysicalCard _location;
+    private BattleState _battleState;
 
     /**
      * Creates an effect result that is triggered when a battle has just ended.
      * @param action the action performing this effect result
      * @param location the battle location
      */
-    public BattleEndedResult(Action action, PhysicalCard location) {
+    public BattleEndedResult(Action action, PhysicalCard location, BattleState battleState) {
         super(Type.BATTLE_ENDED, action.getPerformingPlayer());
         _location = location;
+        _battleState = battleState;
     }
 
     /**
@@ -28,6 +31,14 @@ public class BattleEndedResult extends EffectResult {
      */
     public PhysicalCard getLocation() {
         return _location;
+    }
+
+    /**
+     * Gets the BattleState.
+     * @return the BattleState
+     */
+    public BattleState getBattleState() {
+        return _battleState;
     }
 
     /**

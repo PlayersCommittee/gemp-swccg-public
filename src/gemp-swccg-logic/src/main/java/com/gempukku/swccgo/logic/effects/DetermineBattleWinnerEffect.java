@@ -34,6 +34,8 @@ public class DetermineBattleWinnerEffect extends AbstractSuccessfulEffect {
 
         Result result = getUpcomingResult(game);
 
+        battleState.setCardsParticipatingWhenResultDetermined();
+
         if (result == Result.TIE) {
             game.getGameState().sendMessage("Battle results in a tie");
             game.getActionsEnvironment().emitEffectResult(

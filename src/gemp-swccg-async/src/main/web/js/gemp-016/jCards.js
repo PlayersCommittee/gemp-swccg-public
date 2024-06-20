@@ -3660,7 +3660,7 @@ var fixedImages = {
 "501_34":"https://res.starwarsccg.org/cards/CloudCity-Dark/large/bounty.gif",
 "501_36":"https://res.starwarsccg.org/cards/Hoth-Dark/large/probetelemetry.gif",
 "501_36":"https://res.starwarsccg.org/cards/CloudCity-Dark/large/darkdeal.gif",
-"501_38":"https://res.starwarsccg.org/cards/TheedPalace-Dark/large/takethemaway.gif",
+"501_38":"https://res.starwarsccg.org/cards/SpecialEdition-Dark/large/arealhero.gif",
 "501_39":"https://res.starwarsccg.org/cards/SpecialEdition-Dark/large/lobot.gif",
 "501_41":"https://res.starwarsccg.org/cards/Tatooine-Dark/large/iwillfindthemquicklymaster.gif",
 "501_42":"https://res.starwarsccg.org/cards/Coruscant-Dark/large/tc14.gif",

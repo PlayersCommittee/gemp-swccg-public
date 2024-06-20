@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class Card110_010 extends AbstractAlienImperial {
     public Card110_010() {
-        super(Side.DARK, 1, 5, 4, 5, 7, "Mara Jade, The Emperor's Hand", Uniqueness.UNIQUE, ExpansionSet.ENHANCED_JABBAS_PALACE, Rarity.PM);
+        super(Side.DARK, 1, 5, 4, 5, 7, Title.Mara_Jade_The_Emperors_Hand, Uniqueness.UNIQUE, ExpansionSet.ENHANCED_JABBAS_PALACE, Rarity.PM);
         setLore("Spy. Ordered to kill Luke Skywalker. Assumed the identity of a dancer named 'Arica' in order to sneak into Jabba's Palace.");
         setGameText("Adds 2 to power of anything she pilots. Power +2 if Emperor on table. May be targeted by Vader's Obsession and Epic Duel instead of Vader. Once per game, may deploy a weapon on her from Reserve Deck; reshuffle. Immune to attrition < 4.");
         addPersona(Persona.MARA_JADE);
