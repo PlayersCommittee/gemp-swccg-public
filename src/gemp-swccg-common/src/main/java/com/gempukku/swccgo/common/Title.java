@@ -1321,5 +1321,6 @@ public interface Title {
 	String Hive_of_Scum_and_Villainy = "Hive of Scum and Villainy";
 	String Ixtals_Garage = "Ixtal's Garage";
 	String Ixtal = "Ixtal Noxus";
+	String Monolith_Detention_Block = "Monolith Detention Block";
 
 }

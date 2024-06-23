@@ -19347,6 +19347,8 @@ public class Filters {
 	public static final Filter Ixtal = Filters.title(Title.Ixtal);
 	public static final Filter Thermal_Detonator = Filters.title(Title.Thermal_Detonator);
 	public static final Filter DIA_GIDA = Filters.persona(Persona.DIA_GIDA);
+	public static final Filter Monolith_Detention_Block = Filters.title(Title.Monolith_Detention_Block);
+	public static final Filter Zax = Filters.persona(Persona.ZAX);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

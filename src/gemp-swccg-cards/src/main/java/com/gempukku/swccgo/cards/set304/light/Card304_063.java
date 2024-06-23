@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
@@ -40,6 +41,7 @@ public class Card304_063 extends AbstractAlien {
         super(Side.LIGHT, 2, 2, 4, 1, 1, "Zax Keevo", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("Ever since he ate his siblings all Zax's wanted to be is a musician. Fleeing his disapproving father he's taken his unique form of Acid Fizzz on the road. Maybe working for Claudius will be his big break.");
         setGameText("When present at the start of a battle, may cause one opponent's character of ability < X to move away for free (or that character is immediately lost) where X = the number of your musicians present.");
+		addPersona(Persona.ZAX);
         addKeyword(Keyword.MUSICIAN);
     }
 
