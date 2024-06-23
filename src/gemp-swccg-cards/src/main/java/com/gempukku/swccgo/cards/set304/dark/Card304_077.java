@@ -16,29 +16,28 @@ import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.MoveCostFromLocationModifier;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Death Star II
+ * Set: The Great Hutt Expansion
  * Type: Location
  * Subtype: System
- * Title: Death Star II
+ * Title: SARLAc
  */
 public class Card304_077 extends AbstractMobileSystem {
     public Card304_077() {
-        super(Side.DARK, Title.Death_Star_II, 8, Title.Seraph, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
-        setLocationDarkSideGameText("X = parsec of current position. Must deploy orbiting Endor. Death Star II locations are immune to revolution. Opponent's Force Drains +3 here unless That Thing's Operational on table.");
-        addIcon(Icon.DARK_FORCE, 2);
-        addIcons(Icon.DEATH_STAR_II);
+        super(Side.DARK, Title.SARLAc, 8, Title.Seraph, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
+        setLocationDarkSideGameText("X = parsec of current position. Must deploy orbiting Seraph. S.A.R.L.A.c locations are immune to Revolution. Opponent's Force drains +3 here. Opponent requires +5 Force to move from here.");
+        addIcon(Icon.DARK_FORCE, 3);
     }
 
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new ImmuneToTitleModifier(self, Filters.Death_Star_II_location, Title.Revolution));
-        modifiers.add(new ForceDrainModifier(self, new UnlessCondition(new OnTableCondition(self, Filters.That_Things_Operational)),
-                3, game.getOpponent(playerOnDarkSideOfLocation)));
+        modifiers.add(new ImmuneToTitleModifier(self, Filters.SARLAc_location, Title.Revolution));
+        modifiers.add(new ForceDrainModifier(self, 3, game.getOpponent(playerOnDarkSideOfLocation)));
 		modifiers.add(new MoveCostFromLocationModifier(self, Filters.and(Filters.opponents(self), Filters.starship), 5, Filters.here(self)));
         return modifiers;
     }

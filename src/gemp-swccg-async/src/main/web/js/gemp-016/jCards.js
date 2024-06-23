@@ -3775,7 +3775,8 @@ var fixedImages = {
 "304_74":"https://i.imgur.com/rKO96Gf.png", //Opal of Madness
 "304_75":"https://i.imgur.com/sGsn3tD.png", //Kam's Ham Sam
 "304_76":"https://i.imgur.com/YiO3et1.png", //Thran's Bounty
-"304_77":"https://i.imgur.com/lTGtlJt.png", //SARLAc
+"304_77":"https://i.imgur.com/F83Baow.png", //SARLAc
+"304_78":"https://i.imgur.com/VDfzToL.png", //Seraph
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",

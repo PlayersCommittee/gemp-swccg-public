@@ -19349,6 +19349,8 @@ public class Filters {
 	public static final Filter DIA_GIDA = Filters.persona(Persona.DIA_GIDA);
 	public static final Filter Monolith_Detention_Block = Filters.title(Title.Monolith_Detention_Block);
 	public static final Filter Zax = Filters.persona(Persona.ZAX);
+	public static final Filter SARLAc = Filters.title(Title.SARLAc);
+	public static final Filter SARLAc_location = Filters.partOfSystem(Title.SARLAc);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {
