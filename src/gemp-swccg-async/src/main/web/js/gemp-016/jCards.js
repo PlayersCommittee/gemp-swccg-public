@@ -3745,7 +3745,6 @@ var fixedImages = {
 "501_184":"https://res.starwarsccg.org/cards/Tatooine-Light/large/ajedisfocus.gif",
 "501_185":"https://res.starwarsccg.org/cards/Premiere-Light/large/eyesinthedark.gif",
 "501_186":"https://res.starwarsccg.org/cards/ResetDS-Light/large/dontdothatagain.gif",
-"501_187":"https://res.starwarsccg.org/cards/Virtual0-Light/large/goldenrod.gif",
 "501_189":"https://res.starwarsccg.org/cards/ResetDS-Light/large/yourinsightservesyouwell.gif",
 "501_188":"https://res.starwarsccg.org/cards/ResetDS-Light/large/therepublicnolongerfunctions.gif",
 "501_190":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/yourship.gif",
