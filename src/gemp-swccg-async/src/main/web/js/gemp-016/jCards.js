@@ -3777,6 +3777,7 @@ var fixedImages = {
 "304_76":"https://i.imgur.com/YiO3et1.png", //Thran's Bounty
 "304_77":"https://i.imgur.com/F83Baow.png", //SARLAc
 "304_78":"https://i.imgur.com/VDfzToL.png", //Seraph
+"304_79":"https://i.imgur.com/3mpsOHk.png", //Ulress
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
