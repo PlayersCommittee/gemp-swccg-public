@@ -804,7 +804,6 @@ public enum GameTextActionId {
     ORDER_66__AFFECT_JEDI(false, true),
     OUNEE_TA_V__PLACE_INTERRUPT_OUT_OF_PLAY(true, true),
     OUR_ONLY_HOPE_V__UPLOAD_SITE(true, false),
-    OUT_OF_COMMISSION__MOVE_OBI(false, true),
     OVERSEEING_IT_PERSONALLY__PLACE_OUT_OF_PLAY_TO_RETRIEVE_VADER(true, true),
     PADME_NABERRIE__DOWNLOAD_QUIGON_OR_OBIWAN(true, true),
     PAPLOO__RELOCATE(false, true),
