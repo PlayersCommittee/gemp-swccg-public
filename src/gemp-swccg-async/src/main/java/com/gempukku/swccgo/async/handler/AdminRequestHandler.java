@@ -917,9 +917,6 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
 
         Throw400IfStringNull("leagueId", leagueId);
 
-        if(_leagueService.getLeagueByType(leagueId) == null)
-            throw new HttpProcessingException(404, "No league with that type id could be found.");
-
         List<LeagueDecklistEntry> decklistEntries = _gameHistoryService.getDeckCheck(leagueId);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
