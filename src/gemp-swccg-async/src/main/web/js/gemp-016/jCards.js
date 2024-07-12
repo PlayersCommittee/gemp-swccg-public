@@ -3639,6 +3639,7 @@ var fixedImages = {
 "501_15":"https://res.starwarsccg.org/cards/Virtual9-Light/hires/stardust.png",
 "501_16":"https://res.starwarsccg.org/cards/SpecialEdition-Dark/large/putallsectionsonalert.gif",
 "501_17": "https://res.starwarsccg.org/cards/DeathStarII-Dark/large/youngfool.gif",
+"501_18": "https://res.starwarsccg.org/cards/CloudCity-Dark/large/bespin.gif",
 "501_19": "https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Dark/large/separatistuprising.gif",
 "501_19_BACK": "https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Dark/large/atwarwithitself.gif",
 "501_20": "https://res.starwarsccg.org/cards/legacy/VirtualBlock9-Dark/large/muunilinst.gif",
