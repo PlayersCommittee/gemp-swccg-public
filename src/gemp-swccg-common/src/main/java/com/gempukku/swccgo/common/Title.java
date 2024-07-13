@@ -1168,6 +1168,7 @@ public interface Title {
     String Unsalvageable = "Unsalvageable";
     String Until_We_Win_Or_The_Chances_Are_Spent = "Until We Win, Or The Chances Are Spent";
     String Uplink_Station = "Xizor's Palace: Uplink Station";
+    String Upper_Plaza_Corridor = "Cloud City: Upper Plaza Corridor";
     String Upper_Walkway = "Cloud City: Upper Walkway";
     String URoRRuRRR = "URoRRuR'R'R";
     String Utapau = "Utapau";

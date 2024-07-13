@@ -19132,6 +19132,7 @@ public class Filters {
     public static final Filter Unkar_Plutt = Filters.title(Title.Unkar_Plutt);
     public static final Filter Until_We_Win_Or_The_Chances_Are_Spent = Filters.title(Title.Until_We_Win_Or_The_Chances_Are_Spent);
     public static final Filter Uplink_Station = Filters.title(Title.Uplink_Station);
+    public static final Filter Upper_Plaza_Corridor = Filters.title(Title.Upper_Plaza_Corridor);
     public static final Filter Upper_Walkway = Filters.title(Title.Upper_Walkway);
     public static final Filter URoRRuRRR = Filters.title(Title.URoRRuRRR);
     public static final Filter Utapau_location = Filters.partOfSystem(Title.Utapau);

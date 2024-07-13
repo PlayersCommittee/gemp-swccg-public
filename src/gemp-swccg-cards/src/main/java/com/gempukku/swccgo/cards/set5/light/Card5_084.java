@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card5_084 extends AbstractSite {
     public Card5_084() {
-        super(Side.LIGHT, "Cloud City: Upper Plaza Corridor", Title.Bespin, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.C);
+        super(Side.LIGHT, Title.Upper_Plaza_Corridor, Title.Bespin, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLocationDarkSideGameText("If you control, Force drain +1 here.");
         setLocationLightSideGameText("During your move phase, you may move free between here and any Cloud City site.");
         addIcon(Icon.LIGHT_FORCE, 1);
