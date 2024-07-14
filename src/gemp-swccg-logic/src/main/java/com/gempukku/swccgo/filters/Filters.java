@@ -17744,6 +17744,7 @@ public class Filters {
     public static final Filter Cloud_City_trooper = Filters.keyword(Keyword.CLOUD_CITY_TROOPER);
     public static final Filter cloud_sector = Filters.keyword(Keyword.CLOUD_SECTOR);
     public static final Filter Close_Call = Filters.title(Title.Close_Call);
+    public static final Filter Cody = Filters.title(Title.Cody);
     public static final Filter Collision = Filters.title(Title.Collision);
     public static final Filter Colo_Claw_Fish = Filters.title(Title.Colo_Claw_Fish);
     public static final Filter Combat_Readiness = Filters.title(Title.Combat_Readiness);
@@ -17826,6 +17827,7 @@ public class Filters {
     public static final Filter DataVault = Filters.title(Title.DataVault);
     public static final Filter Daughter_Of_Skywalker = Filters.title(Title.Daughter_Of_Skywalker);
     public static final Filter Deactivate_The_Shield_Generator = Filters.title(Title.Deactivate_The_Shield_Generator);
+    public static final Filter Deactivated_Hyperdrive = Filters.title(Title.Deactivated_Hyperdrive);
     public static final Filter Dead_Ewok = Filters.title(Title.Dead_Ewok);
     public static final Filter Death_Mark = Filters.title(Title.Death_Mark);
     public static final Filter Death_Squadron = Filters.title(Title.Death_Squadron);

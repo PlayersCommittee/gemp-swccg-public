@@ -194,6 +194,7 @@ public interface Title {
     String Civil_Disorder = "Civil Disorder";
     String Clakdor_VII = "Clak'dor VII";
     String Clash_Of_Sabers = "Clash Of Sabers";
+    String Cody = "Commander Cody";
     String Clone_Command_Center = "Clone Command Center";
     String Clone_Trooper = "Clone Trooper";
     String Cloning_Cylinders = "Cloning Cylinders";
@@ -271,6 +272,7 @@ public interface Title {
     String Dathomir_Mauls_Chambers = "Dathomir: Maul's Chambers";
     String Daughter_Of_Skywalker = "Daughter Of Skywalker";
     String Deactivate_The_Shield_Generator = "Deactivate The Shield Generator";
+    String Deactivated_Hyperdrive = "Deactivated Hyperdrive";
     String Dead_Ewok = "Dead Ewok";
     String Death_Mark = "Death Mark";
     String Death_Squadron = "Death Squadron";

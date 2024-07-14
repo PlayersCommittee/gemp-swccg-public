@@ -8,6 +8,7 @@ import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 public class Card221_018 extends AbstractNormalEffect {
     public Card221_018() {
-        super(Side.DARK, 6, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Deactivated Hyperdrive", Uniqueness.UNIQUE, ExpansionSet.SET_21, Rarity.V);
+        super(Side.DARK, 6, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Deactivated_Hyperdrive, Uniqueness.UNIQUE, ExpansionSet.SET_21, Rarity.V);
         setGameText("Deploy on table. During opponent’s draw phase, if you occupy a battleground site and opponent does not, may place in Used Pile (if Systems Will Slip Through Your Fingers or a ‘liberated’ system on table, opponent loses 3 Force). [Reflections III] Falcon loses immunity to attrition.");
         addIcons(Icon.VIRTUAL_SET_21);
     }
