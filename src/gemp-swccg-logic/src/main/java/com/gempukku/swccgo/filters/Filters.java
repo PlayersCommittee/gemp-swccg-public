@@ -18280,6 +18280,7 @@ public class Filters {
     public static final Filter ISB_Operations = Filters.title(Title.ISB_Operations);
     public static final Filter Ishi_Tib = Filters.species(Species.ISHI_TIB);
     public static final Filter IT0 = Filters.title(Title.IT0);
+    public static final Filter It_Can_Wait = Filters.title(Title.It_Can_Wait);
     public static final Filter It_Could_Be_Worse = Filters.title(Title.It_Could_Be_Worse);
     public static final Filter Its_A_Trap = Filters.title(Title.Its_A_Trap);
     public static final Filter Its_An_Older_Code = Filters.title(Title.Its_An_Older_Code);

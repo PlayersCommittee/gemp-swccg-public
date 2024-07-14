@@ -8,6 +8,7 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -38,7 +39,7 @@ import java.util.List;
  */
 public class Card3_044 extends AbstractLostInterrupt {
     public Card3_044() {
-        super(Side.LIGHT, 2, "It Can Wait", Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.C2);
+        super(Side.LIGHT, 2, Title.It_Can_Wait, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.C2);
         setLore("'Sir, might I suggest that you - It can wait.'");
         setGameText("Use 3 Force to place an opponent's just deployed character, starship, vehicle, weapon, or device in opponent's hand. On opponent's next turn, that card (or one card of same title) may deploy for free.");
         addIcons(Icon.HOTH);

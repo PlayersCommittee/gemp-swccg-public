@@ -27,6 +27,7 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
@@ -124,6 +125,13 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
         }
 
         removeDueToMayNotBePlayedUnlessImmuneToSpecificTitleModifier(game, self, actions);
+
+        if (self.getZone() == Zone.HAND) {
+            List<TopLevelGameTextAction> actionList4 = getGameTextTopLevelInHandActions(playerId, game, self, self.getCardId());
+            if (actionList4 != null) {
+                actions.addAll(actionList4);
+            }
+        }
 
         return actions;
     }
@@ -649,6 +657,18 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
         return null;
     }
 
+    /**
+     * This method is overridden by individual cards to specify top-level actions that can be performed by the specified
+     * player when the card is in hand.
+     * @param playerId the player
+     * @param game the game
+     * @param self the card
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card) 
+     * @return the actions, or null
+     */
+    protected List<TopLevelGameTextAction> getGameTextTopLevelInHandActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
 
     /**
      * This method is overridden by individual cards to specify top-level actions during an Attack Run.
