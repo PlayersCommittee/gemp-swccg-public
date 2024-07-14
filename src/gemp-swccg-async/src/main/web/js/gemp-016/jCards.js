@@ -3755,6 +3755,7 @@ var fixedImages = {
 "501_194":"https://res.starwarsccg.org/cards/EnhancedJabbasPalace-Light/large/boushh.gif",
 "501_195":"https://res.starwarsccg.org/cards/Virtual0-Light/large/goldenrod.gif",
 "501_196":"https://res.starwarsccg.org/cards/Tatooine-Light/large/neckandneck.gif",
+"501_200":"https://res.starwarsccg.org/cards/Virtual20-Light/large/thrownback.gif",
 
 //legacy
 "601_1":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/knowledgeanddefense.gif",
