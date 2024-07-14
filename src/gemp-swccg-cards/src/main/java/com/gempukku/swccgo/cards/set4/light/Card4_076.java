@@ -163,14 +163,9 @@ public class Card4_076 extends AbstractJediTest {
                 && TriggerConditions.isDestinyJustDrawnBy(game, effectResult, opponent)) {
 
             int perBattleLimit = Integer.MAX_VALUE;
-            if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.DOMAIN_OF_EVIL__LIMIT_USES_PER_BATTLE)) {
-                PhysicalCard apprentice = Filters.findFirstActive(game, self, Filters.apprenticeTargetedByJediTest(self));
-                if (apprentice != null) {
-                    if (Filters.Luke.accepts(game, apprentice))
-                        perBattleLimit = 2;
-                    else
-                        perBattleLimit = 1;
-                }
+            if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.DOMAIN_OF_EVIL__LIMIT_USES_PER_BATTLE)
+                    && !GameConditions.hasDeployedAtLeastXCardsThisGame(game, playerId, 1, Filters.battleground)) {
+                    perBattleLimit = 1;
             }
 
             if (!GameConditions.isDuringBattle(game)

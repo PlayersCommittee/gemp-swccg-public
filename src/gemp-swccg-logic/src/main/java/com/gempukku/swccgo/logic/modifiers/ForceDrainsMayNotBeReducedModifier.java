@@ -25,6 +25,17 @@ public class ForceDrainsMayNotBeReducedModifier extends AbstractModifier {
     }
 
     /**
+     * Creates a modifier that prevents either player from reducing the specified player's Force drains.
+     * @param source the source of the modifier
+     * @param condition the condition that must be fulfilled for the modifier to be in effect
+     * @param playerReducing the player to reduce the Force drain
+     * @param playerDraining the player Force draining, or null for either player
+     */
+    public ForceDrainsMayNotBeReducedModifier(PhysicalCard source, Condition condition, String playerReducing, String playerDraining) {
+        this(source, Filters.any, condition, playerReducing, playerDraining);
+    }
+
+    /**
      * Creates a modifier that prevents either player from reducing the specified player's Force drains at locations
      * accepted by the location filter.
      * @param source the source of the modifier
