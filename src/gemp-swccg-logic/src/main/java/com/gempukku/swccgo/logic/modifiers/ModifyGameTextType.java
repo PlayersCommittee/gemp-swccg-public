@@ -96,6 +96,7 @@ public enum ModifyGameTextType {
     YOU_OVERESTIMATE_THEIR_CHANCES__TRIPLE_RESULT("Triple result"),
     YOURE_A_SLAVE__DRAW_TOP_CARD_OF_RESERVE_DECK_WHEN_PLACING_A_CARD_IN_USED_PILE("Draw top card of Reserve Deck when you place a card in Used Pile."),
     REMOVE_TWO_MORE_CARDS("Remove two more cards"),
+    REMOVE_THREE_MORE_CARDS("Remove three more cards"),
 
 
     //Legacy
