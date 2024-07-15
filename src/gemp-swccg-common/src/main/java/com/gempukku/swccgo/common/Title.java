@@ -664,6 +664,7 @@ public interface Title {
     String Liberation = "Liberation";
     String Lieutenant_Blount = "Lieutenant Blount";
     String Lieutenant_Page = "Lieutenant Page";
+    String Life_Day = "Life Day";
     String Life_Debt = "Life Debt";
     String Lift_Tube = "Lift Tube";
     String Lightsaber_Proficiency = "Lightsaber Proficiency";
@@ -829,6 +830,7 @@ public interface Title {
     String Panic = "Panic";
     String Palace_Raider = "Palace Raider";
     String Paploo = "Paploo";
+    String Part_of_the_Tribe = "Part Of The Tribe";
     String Passenger_Deck = "Jabba's Sail Barge: Passenger Deck";
     String Path_Of_Least_Resistance = "Path Of Least Resistance";
     String Patrol_Craft = "Patrol Craft";

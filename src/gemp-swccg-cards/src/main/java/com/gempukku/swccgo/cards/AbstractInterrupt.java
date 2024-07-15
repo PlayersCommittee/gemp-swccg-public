@@ -757,6 +757,36 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
         return null;
     }
 
+                /**
+     * Gets modifiers from the card that are always in effect (even if game text is canceled).
+     * @param game the game
+     * @param self the card
+     * @return the modifiers
+     */
+    @Override
+    public List<Modifier> getAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+
+        // Modifiers from game text
+        List<Modifier> modifiersFromGameText = getGameTextAlwaysOnModifiers(game, self);
+        if (modifiersFromGameText != null) {
+            modifiers.addAll(modifiersFromGameText);
+        }
+
+        return modifiers;
+    }
+
+     /**
+     * This method is overridden by individual cards to specify modifiers that are always in effect (unless game text is
+     * canceled).
+     * @param game the game
+     * @param self the card
+     * @return the modifiers, or null
+     */
+    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
+        return null;
+    }
+
     private void removeDueToMayNotBePlayedUnlessImmuneToSpecificTitleModifier(SwccgGame game, PhysicalCard self, List<Action> actions) {
         List<String> titles = new LinkedList<>();
         for(Modifier m:game.getModifiersQuerying().getModifiersAffecting(game.getGameState(), self)) {
