@@ -36,17 +36,18 @@ import java.util.List;
  */
 public class Card200_026 extends AbstractDefensiveShield {
     public Card200_026() {
-        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"Don't Do That Again", ExpansionSet.SET_0, Rarity.V);
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Don't Do That Again", ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("The Jedi won't tolerate silly behavior for very long.");
-        setGameText("Plays on table. Always Thinking With Your Stomach, Ice Storm, and Sandwhirl are canceled. Once per game, may take an Immediate Effect into hand from Reserve Deck; reshuffle. While opponent occupies no battleground systems, Mobilization Points is suspended.");
+        setGameText("Plays on table. Cancels Always Thinking With Your Stomach, He Hasn't Come Back Yet, Ice Storm, and Sandwhirl. Once per game, may take an Immediate Effect into hand from Reserve Deck; reshuffle. While opponent occupies no battleground systems, Mobilization Points is suspended.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I, Icon.VIRTUAL_DEFENSIVE_SHIELD);
     }
+
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(final SwccgGame game, Effect effect, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.isPlayingCard(game, effect, Filters.or(Filters.Ice_Storm, Filters.Sandwhirl, Filters.Always_Thinking_With_Your_Stomach))
+        if (TriggerConditions.isPlayingCard(game, effect, Filters.or(Filters.Always_Thinking_With_Your_Stomach, Filters.He_Hasnt_Come_Back_Yet, Filters.Ice_Storm, Filters.Sandwhirl))
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
@@ -68,6 +69,13 @@ public class Card200_026 extends AbstractDefensiveShield {
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 // Build action using common utility
                 CancelCardActionBuilder.buildCancelCardAction(action, Filters.Always_Thinking_With_Your_Stomach, Title.Always_Thinking_With_Your_Stomach);
+                actions.add(action);
+            }
+            if (GameConditions.canTargetToCancel(game, self, Filters.He_Hasnt_Come_Back_Yet)) {
+
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                // Build action using common utility
+                CancelCardActionBuilder.buildCancelCardAction(action, Filters.He_Hasnt_Come_Back_Yet, Title.He_Hasnt_Come_Back_Yet);
                 actions.add(action);
             }
             if (GameConditions.canTargetToCancel(game, self, Filters.Ice_Storm)) {

@@ -3608,6 +3608,50 @@ var fixedImages = {
 "223_4":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/ahsokafriendofthefamily.png",
 "223_5":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/jynersoheroicrebel.png",
 "223_6":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/transmissionterminated.png",
+"223_7":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/auselessgesturedeathstarsentry.png",
+"223_8":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/bespin.png",
+"223_9":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/darkdeal.png",
+"223_10":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/echobasedestroyed.png",
+"223_11":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/electrorangefinder.png",
+"223_12":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/elivantoindreadnaught.png",
+"223_13":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/gorkoresh.png",
+"223_14":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/imperialassault.png",
+"223_15":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/js1975.png",
+"223_16":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/lobotlandosbroker.png",
+"223_17":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/maulinscimitar.png",
+"223_18":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/moffgideonsuitedforbattle.png",
+"223_19":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/ominousrumors.png",
+"223_20":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/physicalchoke.png",
+"223_21":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/probetelemetry.png",
+"223_22":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/riteofpassage.png",
+"223_23":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/td110.png",
+"223_24":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/theemperorshand.png",
+"223_25":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/theempiresback.png",
+"223_26":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/wellletfateadecidehuh.png",
+"223_27":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/youngfool.png",
+"223_28":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/youreyescandeceiveyou.png",
+"223_29":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/youveneverwonarace.png",
+
+"223_30":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/acloserace.png",
+"223_31":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/ajedisfocus.png",
+"223_32":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/boushh.png",
+"223_33":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/cb23.png",
+"223_34":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/choke.png",
+"223_35":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/corranhornjedi.png",
+"223_36":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/deathstardockingcontrolroom327.png",
+"223_37":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/eyesinthedark.png",
+"223_38":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/hothdefensiveperimeter.png",
+"223_39":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/jabbaslastchance.png",
+"223_40":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/lifeday.png",
+"223_41":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/outofcommission.png",
+"223_42":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/passagetothealderaansystem.png",
+"223_43":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/porg.png",
+"223_44":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/quantumstorm.png",
+"223_45":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/rebelassault.png",
+"223_46":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/sabinepadawanlearner.png",
+"223_47":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/scomplinkaccess.png",
+"223_48":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/tatooinehutttraderoutedesert.png",
+"223_49":"https://res.starwarsccg.org/cards/Virtual23-Light/hires/yavinsentrygoldenrod.png",
 
 "301_1":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/ahsokatanowithlightsabers.gif",
 "301_2":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/cityintheclouds.gif",
@@ -4684,8 +4728,12 @@ var Card = Class.extend({
                    (cardNo == 74) ||
                    (cardNo == 75);
         }if(setNo == 222){
-                     return (cardNo == 9) ||
-                            (cardNo == 22);
+            return (cardNo == 9) ||
+                   (cardNo == 22);
+        }if(setNo == 223){
+            return (cardNo == 36) ||
+                   (cardNo == 38) ||
+                   (cardNo == 48);
         }if (setNo == 501) {
             return (cardNo == 6) ||
                    (cardNo == 7) ||

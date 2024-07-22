@@ -1,4 +1,4 @@
-package com.gempukku.swccgo.cards.set301.light;
+package com.gempukku.swccgo.cards.set223.dark;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
@@ -29,23 +29,22 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Virtual Premium Set
+ * Set: Set 23
  * Type: Defensive Shield
- * Title: Your Ship? (V)
+ * Title: We'll Let Fate-a Decide, Huh? (V)
  */
-public class Card301_005 extends AbstractDefensiveShield {
-    public Card301_005() {
-        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Your Ship?", ExpansionSet.DEMO_DECK, Rarity.V);
+public class Card223_026 extends AbstractDefensiveShield {
+    public Card223_026() {
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "We'll Let Fate-a Decide, Huh?", ExpansionSet.SET_23, Rarity.V);
+        setLore("Qui-Gon was not one to leave the success of an elaborate plan to chance.");
+        setGameText("Plays on table. Cancels Beggar, Colo Claw Fish, Frozen Assets, Goo Nee Tay, and Revolution. Each player may only play one card with 'sabacc' in title each turn. You may lose 1 Force to cancel a card with 'sabacc' in title.");
+        addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I, Icon.VIRTUAL_DEFENSIVE_SHIELD);
         setVirtualSuffix(true);
-        setLore("Han was not sure if Lando had forgiven him for winning the Millennium Falcon. As the old gamblers' saying about sabacc goes: 'Win the game, lose a friend.'");
-        setGameText("Plays on table. Cancels A Dangerous Time, Bad Feeling Have I, Colo Claw Fish, Field Promotion and Imperial Supply. Each player may play only one card with 'sabacc' in title each turn. You may lose 1 Force to cancel a card with 'sabacc' in title.");
-        addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_DEFENSIVE_SHIELD);
     }
-
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(final SwccgGame game, Effect effect, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.isPlayingCard(game, effect, Filters.or(Filters.A_Dangerous_Time, Filters.Bad_Feeling_Have_I, Filters.Colo_Claw_Fish, Filters.Field_Promotion, Filters.Imperial_Supply))
+        if (TriggerConditions.isPlayingCard(game, effect, Filters.or(Filters.Beggar, Filters.Colo_Claw_Fish, Filters.Frozen_Assets, Filters.Goo_Nee_Tay, Filters.Revolution))
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
@@ -58,42 +57,47 @@ public class Card301_005 extends AbstractDefensiveShield {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        List<RequiredGameTextTriggerAction> actions = new LinkedList<>();
+        List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
+
         // Check condition(s)
-        if (TriggerConditions.isTableChanged(game, effectResult)){
-            if (GameConditions.canTargetToCancel(game, self, Filters.A_Dangerous_Time)) {
+        if (TriggerConditions.isTableChanged(game, effectResult)) {
+            if (GameConditions.canTargetToCancel(game, self, Filters.Beggar)) {
+
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 // Build action using common utility
-                CancelCardActionBuilder.buildCancelCardAction(action, Filters.A_Dangerous_Time, Title.A_Dangerous_Time);
-                actions.add(action);
-            }
-            if (GameConditions.canTargetToCancel(game, self, Filters.Bad_Feeling_Have_I)) {
-                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                // Build action using common utility
-                CancelCardActionBuilder.buildCancelCardAction(action, Filters.Bad_Feeling_Have_I, Title.Bad_Feeling_Have_I);
+                CancelCardActionBuilder.buildCancelCardAction(action, Filters.Beggar, Title.Beggar);
                 actions.add(action);
             }
             if (GameConditions.canTargetToCancel(game, self, Filters.Colo_Claw_Fish)) {
+
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 // Build action using common utility
                 CancelCardActionBuilder.buildCancelCardAction(action, Filters.Colo_Claw_Fish, Title.Colo_Claw_Fish);
                 actions.add(action);
             }
-            if (GameConditions.canTargetToCancel(game, self, Filters.Field_Promotion)) {
+            if (GameConditions.canTargetToCancel(game, self, Filters.Frozen_Assets)) {
+
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 // Build action using common utility
-                CancelCardActionBuilder.buildCancelCardAction(action, Filters.Field_Promotion, Title.Field_Promotion);
+                CancelCardActionBuilder.buildCancelCardAction(action, Filters.Frozen_Assets, Title.Frozen_Assets);
                 actions.add(action);
             }
-            if (GameConditions.canTargetToCancel(game, self, Filters.Imperial_Supply)) {
+            if (GameConditions.canTargetToCancel(game, self, Filters.Goo_Nee_Tay)) {
+
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 // Build action using common utility
-                CancelCardActionBuilder.buildCancelCardAction(action, Filters.Imperial_Supply, Title.Imperial_Supply);
+                CancelCardActionBuilder.buildCancelCardAction(action, Filters.Goo_Nee_Tay, Title.Goo_Nee_Tay);
                 actions.add(action);
             }
-            return actions;
-        }
-        return null;
+            if (GameConditions.canTargetToCancel(game, self, Filters.Revolution)) {
+
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                // Build action using common utility
+                CancelCardActionBuilder.buildCancelCardAction(action, Filters.Revolution, Title.Revolution);
+                actions.add(action);
+            }
+       }
+        return actions;
     }
 
     @Override
@@ -102,7 +106,7 @@ public class Card301_005 extends AbstractDefensiveShield {
         String opponent = game.getOpponent(playerId);
         Filter cardWithSabaccInTitle = Filters.titleContains("sabacc");
 
-        List<Modifier> modifiers = new LinkedList<>();
+        List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayNotPlayModifier(self, cardWithSabaccInTitle, new CardPlayedThisTurnByPlayerCondition(playerId, cardWithSabaccInTitle), playerId));
         modifiers.add(new MayNotPlayModifier(self, cardWithSabaccInTitle, new CardPlayedThisTurnByPlayerCondition(opponent, cardWithSabaccInTitle), opponent));
         return modifiers;

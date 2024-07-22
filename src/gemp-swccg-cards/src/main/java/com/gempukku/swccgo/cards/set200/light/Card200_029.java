@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.CardsInHandEqualToOrFewerThanCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
@@ -18,12 +19,14 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.effects.PutCardFromHandOnUsedPileEffect;
 import com.gempukku.swccgo.logic.effects.SuspendCardUntilEndOfTurnEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotRemoveCardsFromOpponentsHandModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -38,8 +41,8 @@ import java.util.List;
 public class Card200_029 extends AbstractDefensiveShield {
     public Card200_029() {
         super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "The Republic No Longer Functions", ExpansionSet.SET_0, Rarity.V);
-        setGameText("Plays on table. While your have 12 or fewer cards in hand, opponent may not remove cards from your hand (except with Monnok). Once per turn (even at start of turn), may target a [Coruscant] Political Effect; it is suspended for the remainder of the turn.");
-        addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_DEFENSIVE_SHIELD);
+        setGameText("Plays on table. While you have 14 or fewer cards in hand, opponent may not remove cards from your hand. Once per turn (even at start of turn), may suspend a [Coruscant] Political Effect for remainder of turn. If Monnok just played, may place a card from hand in Used Pile.");
+        addIcons(Icon.EPISODE_I, Icon.VIRTUAL_DEFENSIVE_SHIELD);
     }
 
     @Override
@@ -48,8 +51,26 @@ public class Card200_029 extends AbstractDefensiveShield {
         String opponent = game.getOpponent(playerId);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MayNotRemoveCardsFromOpponentsHandModifier(self, opponent, new CardsInHandEqualToOrFewerThanCondition(playerId, 12), Filters.except(Filters.Monnok)));
+        modifiers.add(new MayNotRemoveCardsFromOpponentsHandModifier(self, opponent, new CardsInHandEqualToOrFewerThanCondition(playerId, 14)));
         return modifiers;
+    }
+
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalBeforeTriggers(final String playerId, SwccgGame game, Effect effect, final PhysicalCard self, int gameTextSourceCardId) {
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+
+        // Check condition(s)
+        if (TriggerConditions.isPlayingCard(game, effect, Filters.Monnok)
+                && GameConditions.hasHand(game, playerId)) {
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Place card from Hand in Used Pile");
+            action.setActionMsg("Place card from Hand in Used Pile");
+            // Perform result(s)
+            action.appendEffect(
+                    new PutCardFromHandOnUsedPileEffect(action, playerId));
+            return Collections.singletonList(action);
+        }
+        return null;
     }
 
     @Override
@@ -128,4 +149,5 @@ public class Card200_029 extends AbstractDefensiveShield {
         }
         return null;
     }
+
 }

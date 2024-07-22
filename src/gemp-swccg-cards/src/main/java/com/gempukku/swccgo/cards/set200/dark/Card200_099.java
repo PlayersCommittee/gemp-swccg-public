@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.CardsInHandEqualToOrFewerThanCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
@@ -18,12 +19,14 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.effects.PutCardFromHandOnUsedPileEffect;
 import com.gempukku.swccgo.logic.effects.SuspendCardUntilEndOfTurnEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotRemoveCardsFromOpponentsHandModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -33,13 +36,13 @@ import java.util.List;
 /**
  * Set: Set 0
  * Type: Defensive Shield
- * Title: Vote Of No Confidence
+ * Title: Vote Of No Confidence (V)
  */
 public class Card200_099 extends AbstractDefensiveShield {
     public Card200_099() {
-        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"Vote Of No Confidence", ExpansionSet.SET_0, Rarity.V);
-        setGameText("Plays on table. While your have 12 or fewer cards in hand, opponent may not remove cards from your hand (except with Grimtaash). Once per turn (even at start of turn), may target a [Coruscant] Political Effect; it is suspended for the remainder of the turn.");
-        addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_DEFENSIVE_SHIELD);
+        super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Vote Of No Confidence", ExpansionSet.SET_0, Rarity.V);
+        setGameText("Plays on table. While you have 14 or fewer cards in hand, opponent may not remove cards from your hand. Once per turn (even at start of turn), may suspend a [Coruscant] Political Effect for remainder of turn. If Grimtaash just played, may place a card from hand in Used Pile.");
+        addIcons(Icon.EPISODE_I, Icon.VIRTUAL_DEFENSIVE_SHIELD);
     }
 
     @Override
@@ -48,8 +51,26 @@ public class Card200_099 extends AbstractDefensiveShield {
         String opponent = game.getOpponent(playerId);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MayNotRemoveCardsFromOpponentsHandModifier(self, opponent, new CardsInHandEqualToOrFewerThanCondition(playerId, 12), Filters.except(Filters.Grimtaash)));
+        modifiers.add(new MayNotRemoveCardsFromOpponentsHandModifier(self, opponent, new CardsInHandEqualToOrFewerThanCondition(playerId, 14)));
         return modifiers;
+    }
+
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalBeforeTriggers(final String playerId, SwccgGame game, Effect effect, final PhysicalCard self, int gameTextSourceCardId) {
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+
+        // Check condition(s)
+        if (TriggerConditions.isPlayingCard(game, effect, Filters.Grimtaash)
+                && GameConditions.hasHand(game, playerId)) {
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Place card from Hand in Used Pile");
+            action.setActionMsg("Place card from Hand in Used Pile");
+            // Perform result(s)
+            action.appendEffect(
+                    new PutCardFromHandOnUsedPileEffect(action, playerId));
+            return Collections.singletonList(action);
+        }
+        return null;
     }
 
     @Override
