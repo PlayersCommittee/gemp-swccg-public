@@ -54,11 +54,20 @@ public class Card223_041 extends AbstractUsedInterrupt {
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText("Choose an artwork card to be lost.");
             action.setActionMsg("Choose a card stacked on Thrawn's Art Collection in owner's Lost Pile");
-            action.appendEffect(new ChooseStackedCardEffect(action, playerId, Filters.Thrawns_Art_Collection) {
-                @Override
-                protected void cardSelected(final PhysicalCard selectedCard) {
-                    action.appendEffect(
-                            new PutStackedCardInLostPileEffect(action, playerId, selectedCard, false));
+            action.appendTargeting(
+                new ChooseStackedCardEffect(action, playerId, Filters.Thrawns_Art_Collection) {
+                    @Override
+                    protected void cardSelected(final PhysicalCard selectedCard) {
+                        // Allow response(s)
+                        action.allowResponses(
+                            new RespondablePlayCardEffect(action) {
+                                @Override
+                                protected void performActionResults(Action targetingAction) {
+                                    // Perform result(s)
+                                    action.appendEffect(
+                                        new PutStackedCardInLostPileEffect(action, playerId, selectedCard, false));
+                                }
+                            });
                 }
             });
             actions.add(action);
