@@ -1,7 +1,7 @@
 package com.gempukku.swccgo.cards.set223.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
-import com.gempukku.swccgo.cards.evaluators.MinLimitEvaluator;
+import com.gempukku.swccgo.cards.evaluators.MaxLimitEvaluator;
 import com.gempukku.swccgo.cards.evaluators.OnTableEvaluator;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.ExpansionSet;
@@ -43,8 +43,8 @@ public class Card223_045 extends AbstractUsedInterrupt {
         List<Modifier> modifiers = new LinkedList<Modifier>();;
         String playerId = self.getOwner();
 
-        modifiers.add(new DestinyWhenDrawnForWeaponDestinyModifier(self, self, new MinLimitEvaluator(new OnTableEvaluator(self, Filters.and(Filters.your(playerId), Filters.battleground)), 4)));
-        modifiers.add(new DestinyWhenDrawnForBattleDestinyModifier(self, self, new MinLimitEvaluator(new OnTableEvaluator(self, Filters.and(Filters.your(playerId), Filters.battleground)), 4)));
+        modifiers.add(new DestinyWhenDrawnForWeaponDestinyModifier(self, self, new MaxLimitEvaluator(new OnTableEvaluator(self, Filters.and(Filters.your(playerId), Filters.battleground)), 4)));
+        modifiers.add(new DestinyWhenDrawnForBattleDestinyModifier(self, self, new MaxLimitEvaluator(new OnTableEvaluator(self, Filters.and(Filters.your(playerId), Filters.battleground)), 4)));
 
         return modifiers;
     }
