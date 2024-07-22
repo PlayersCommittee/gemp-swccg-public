@@ -76,12 +76,19 @@ public class Card223_041 extends AbstractUsedInterrupt {
         PlayInterruptAction action1 = new PlayInterruptAction(game, self);
         action1.setText("Modify forfeit values and prevent 'hit' cards from being lost");
         action1.setActionMsg("Prevent forfeit values from being increased and opponent from targeting your 'hit' cards to be lost.");
-        action1.appendEffect(
-            new AddUntilEndOfTurnModifierEffect(action1, 
-                new MayNotHaveForfeitValueIncreasedModifier(self, Filters.any), playerId));
-        action1.appendEffect(
-            new AddUntilEndOfTurnModifierEffect(action1, 
-            new MayNotTargetToBeLostModifier(self, Filters.and(Filters.your(self), Filters.hit, Filters.any)), playerId));
+        action1.allowResponses(
+            new RespondablePlayCardEffect(action1) {
+                @Override
+                protected void performActionResults(Action action1) {
+                    action1.appendEffect(
+                        new AddUntilEndOfTurnModifierEffect(action1, 
+                            new MayNotHaveForfeitValueIncreasedModifier(self, Filters.any), playerId));
+                    action1.appendEffect(
+                        new AddUntilEndOfTurnModifierEffect(action1, 
+                        new MayNotTargetToBeLostModifier(self, Filters.and(Filters.your(self), Filters.hit, Filters.any)), playerId));
+                }
+            }
+        );
         actions.add(action1);
 
 
