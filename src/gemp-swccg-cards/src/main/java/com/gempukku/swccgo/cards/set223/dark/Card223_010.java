@@ -34,7 +34,7 @@ public class Card223_010 extends AbstractNormalEffect {
     public Card223_010() {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Echo Base Destroyed", Uniqueness.UNIQUE, ExpansionSet.SET_23, Rarity.V);
         setGameText("Deploy on table. Once per turn, if Main Power Generators on table, may place a card from hand under Reserve Deck to activate 1 Force; reshuffle. Once per turn, if 1st Marker 'blown away,' may take any one [Hoth] card into hand from Force Pile; reshuffle. [Immune to Alter.]");
-        addIcons(Icon.VIRTUAL_SET_23);
+        addIcons(Icon.VIRTUAL_SET_23, Icon.HOTH);
         addImmuneToCardTitle(Title.Alter);
     }
 
