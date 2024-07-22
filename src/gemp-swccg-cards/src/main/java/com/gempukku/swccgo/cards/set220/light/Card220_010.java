@@ -87,7 +87,7 @@ public class Card220_010 extends AbstractDefensiveShield {
                 || TriggerConditions.isAboutToLookAtOpponentsHand(game, effect, opponent, Filters.or(Filters.Monnok, Filters.title(Title.Drop))))) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Protect two cards in hand");
+            action.setText("Protect three cards in hand");
 
             action.appendEffect(
                     new StackCardsFromHandEffect(action, playerId, 3, 3, self, false));
