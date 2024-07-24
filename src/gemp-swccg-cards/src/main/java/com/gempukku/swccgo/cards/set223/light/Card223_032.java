@@ -3,7 +3,6 @@ package com.gempukku.swccgo.cards.set223.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InPlayDataSetCondition;
-import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.AddDestinyToAttritionEffect;
 import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
@@ -28,7 +27,6 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.SendMessageEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.AddsDestinyToAttritionModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotParticipateInBattleModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -60,7 +58,6 @@ public class Card223_032 extends AbstractRebel {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
 
-        modifiers.add(new AddsDestinyToAttritionModifier(self, new WithCondition(self, Filters.Chewie), 1));
         modifiers.add(new ImmuneToTitleModifier(self, Filters.and(Filters.your(self), Filters.here(self), Filters.character), Title.Imperial_Barrier));
         modifiers.add(new MayNotParticipateInBattleModifier(self, self, new InPlayDataSetCondition(self)));
         return modifiers;
