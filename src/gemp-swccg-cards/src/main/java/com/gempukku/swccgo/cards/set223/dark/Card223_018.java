@@ -36,6 +36,7 @@ import java.util.List;
 public class Card223_018 extends AbstractImperial {
     public Card223_018() {
         super(Side.DARK, 1, 4, 4, 4, 6, "Moff Gideon, Suited For Battle", Uniqueness.UNIQUE, ExpansionSet.SET_23, Rarity.V);
+        setArmor(5);
         setLore("Imperial Remnant leader.");
         setGameText("Adds 3 power to anything he pilots. If you just deployed Darksaber here, may take a card from Used Pile into hand; reshuffle. You initiate battles here for free. Your total battle destiny here is +1. Immune to attrition < 3.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_23);
