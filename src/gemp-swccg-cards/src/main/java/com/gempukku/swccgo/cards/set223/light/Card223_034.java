@@ -95,7 +95,7 @@ public class Card223_034 extends AbstractLostInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
-        Filter characterAbilityLessThanFour = Filters.and(Filters.canBeTargetedBy(self), Filters.character, Filters.abilityLessThan(4));
+        Filter characterAbilityLessThanFour = Filters.and(Filters.canBeTargetedBy(self), Filters.character, Filters.abilityLessThan(4), Filters.participatingInBattle);
         // Check condition(s)
         if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.or(Filters.First_Light_site, Filters.Jabbas_Palace_site))
                 && GameConditions.isDuringBattleWithParticipant(game, characterAbilityLessThanFour)) {
