@@ -43,26 +43,27 @@ public class Card223_047 extends AbstractUsedInterrupt {
     public Card223_047() {
         super(Side.LIGHT, 3, Title.Scomp_Link_Access, Uniqueness.UNRESTRICTED, ExpansionSet.SET_23, Rarity.V);
         setVirtualSuffix(true);
-        setGameText("Once per game, 'BEEP-BOOP' (a [Grabber] card stacks a just played opponent's Interrupt; this does not count towards any [Grabber] card's once per game limit). OR Once per game, 'WHAAOW!' (lose your droid at a Scomp link to cancel a battle just initiated at same or related interior site).");
+        setGameText("Once per game, 'BEEP-BOOP' (your [Grabber] card stacks a just played opponent's Interrupt; this does not count towards any [Grabber] card's once per game limit). OR Once per game, 'WHAAAAOW!' (lose your droid at a Scomp link to cancel a battle just initiated at same or related interior site).");
         addIcons(Icon.VIRTUAL_SET_23);
     }
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalBeforeActions(final String playerId, SwccgGame game, Effect effect, final PhysicalCard self) {
         GameTextActionId gameTextActionId = GameTextActionId.SCOMP_LINK_ACCESS__STACK_CARD;
+        Filter grabberFilter = Filters.and(Filters.your(self), Filters.grabber);
 
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
                 && TriggerConditions.isPlayingCard(game, effect, Filters.and(Filters.opponents(self), Filters.Interrupt))
-                && GameConditions.canTarget(game, self, Filters.grabber)) {
+                && GameConditions.canTarget(game, self, grabberFilter)) {
             final PhysicalCard interrupt = ((RespondablePlayingCardEffect)effect).getCard();
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
-            action.setText("BEEP-BOOP (Stack card on a grabber)");
+            action.setText("BEEP-BOOP (Stack card on your grabber)");
 
             action.appendUsage(
                     new OncePerGameEffect(action));
 
-            action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Choose grabber to stack " + GameUtils.getFullName(interrupt) + " on", Filters.grabber) {
+            action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Choose grabber to stack " + GameUtils.getFullName(interrupt) + " on", grabberFilter) {
                 @Override
                 protected void cardTargeted(int targetGroupId, PhysicalCard targetedCard) {
                     action.allowResponses("Stack " + GameUtils.getFullName(interrupt) + " on " + GameUtils.getCardLink(targetedCard), new RespondablePlayCardEffect(action) {
@@ -96,7 +97,7 @@ public class Card223_047 extends AbstractUsedInterrupt {
                 && TriggerConditions.battleInitiatedAt(game, effectResult, Filters.and(Filters.interior_site, Filters.sameOrRelatedSiteAs(self, yourDroidAtAScompLink)))) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
-            action.setText("WHAAOW! (Cancel battle)");
+            action.setText("WHAAAAOW! (Cancel battle)");
 
             action.appendUsage(
                     new OncePerGameEffect(action));
@@ -106,7 +107,7 @@ public class Card223_047 extends AbstractUsedInterrupt {
                 protected void cardTargeted(int targetGroupId, PhysicalCard targetedCard) {
 
                     action.appendCost(
-                            new SendMessageEffect(action, GameUtils.getFullName(targetedCard) + ": WHAAOW!"));
+                            new SendMessageEffect(action, GameUtils.getFullName(targetedCard) + ": WHAAAAOW!"));
                     action.appendCost(
                             new LoseCardFromTableEffect(action, targetedCard));
 
