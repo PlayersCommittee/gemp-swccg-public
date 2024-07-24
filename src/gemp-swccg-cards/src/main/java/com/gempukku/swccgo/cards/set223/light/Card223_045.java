@@ -1,9 +1,9 @@
 package com.gempukku.swccgo.cards.set223.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
+import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.evaluators.MaxLimitEvaluator;
 import com.gempukku.swccgo.cards.evaluators.OnTableEvaluator;
-import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
@@ -75,20 +75,21 @@ public class Card223_045 extends AbstractUsedInterrupt {
             );
             actions.add(forcePileAction);
 
-            final PlayInterruptAction powerAction = new PlayInterruptAction(game, self);
-            powerAction.setText("Add 2 to total power");
+            if (GameConditions.isDuringBattle(game)) {
+                final PlayInterruptAction powerAction = new PlayInterruptAction(game, self);
+                powerAction.setText("Add 2 to total power");
 
-            powerAction.allowResponses("Add 2 to total power during battles for remainder of turn",
-                    new RespondablePlayCardEffect(powerAction) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            powerAction.appendEffect(
-                                                new ModifyTotalPowerUntilEndOfBattleEffect(powerAction, 2, playerId, "Adds 2 to total power"));
+                powerAction.allowResponses("Add 2 to total power",
+                        new RespondablePlayCardEffect(powerAction) {
+                            @Override
+                            protected void performActionResults(Action targetingAction) {
+                                powerAction.appendEffect(
+                                                    new ModifyTotalPowerUntilEndOfBattleEffect(powerAction, 2, playerId, "Adds 2 to total power"));
+                            }
                         }
-                    }
-            );
-            actions.add(powerAction);
-
+                );
+                actions.add(powerAction);
+            }
 
         }
         return actions;
