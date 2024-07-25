@@ -17,7 +17,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromUsedPileEffect;
-import com.gempukku.swccgo.logic.modifiers.EachWeaponDestinyForWeaponFiredByModifier;
+import com.gempukku.swccgo.logic.modifiers.EachWeaponDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -51,7 +51,7 @@ public class Card223_011 extends AbstractDevice {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new EachWeaponDestinyForWeaponFiredByModifier(self, 2, Filters.hasAttached(self), Filters.not(Filters.character)));
+        modifiers.add(new EachWeaponDestinyModifier(self, Filters.weapon, Filters.hasAttached(self), 2, Filters.not(Filters.character)));
         return modifiers;
     }
 
