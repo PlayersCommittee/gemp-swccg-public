@@ -35,7 +35,7 @@ public class Card223_017 extends AbstractStarfighter {
     public Card223_017() {
         super(Side.DARK, 4, 4, 4, null, 5, 6, 6, "Maul In Scimitar", Uniqueness.UNIQUE, ExpansionSet.SET_23, Rarity.V);
         setLore("Maul's Sith Infiltrator.");
-        setGameText("Permanent pilot is •Maul, who provides 6 ability. May add 1 pilot. Once per battle may lose 1 force to 'cloak' (either add one destiny to your total power or this starship is immune to attrition < 6).");
+        setGameText("May add 1 pilot. Permanent pilot is •Maul, who provides ability of 6. Once per battle, may lose 1 Force to 'cloak' (either add one destiny to total power or make this starship immune to attrition < 6).");
         addPersona(Persona.MAULS_SITH_INFILTRATOR);
         addIcons(Icon.TRADE_FEDERATION, Icon.SCOMP_LINK, Icon.NAV_COMPUTER, Icon.PILOT, Icon.VIRTUAL_SET_23);
         addModelType(ModelType.SITH_INFILTRATOR);
@@ -55,6 +55,7 @@ public class Card223_017 extends AbstractStarfighter {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
         // Check condition(s)
         if (GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
+                && GameConditions.isDuringBattleWithParticipant(game, self)
                 && GameConditions.canCloak(game, self)) {
 
             if (GameConditions.canAddDestinyDrawsToPower(game, playerId)) {
@@ -63,7 +64,7 @@ public class Card223_017 extends AbstractStarfighter {
                 action1.appendUsage(
                     new OncePerBattleEffect(action1));
                 action1.appendCost(
-                    new LoseForceEffect(action1, playerId, 1, false));
+                    new LoseForceEffect(action1, playerId, 1, true));
                 action1.appendEffect(
                     new AddDestinyToTotalPowerEffect(action1, 1));
                 actions.add(action1);
@@ -74,7 +75,7 @@ public class Card223_017 extends AbstractStarfighter {
             action2.appendUsage(
                 new OncePerBattleEffect(action2));
             action2.appendCost(
-                new LoseForceEffect(action2, playerId, 1, false));
+                new LoseForceEffect(action2, playerId, 1, true));
             action2.appendEffect(
                 new SetImmunityToAttritionUntilEndOfBattleEffect(action2, 6, GameUtils.getCardLink(self) + "immune to attrition < 6 till end of battle"));
             actions.add(action2);
