@@ -102,6 +102,7 @@ public class Card223_035 extends AbstractRebel {
 
         // Check condition(s)
         if (TriggerConditions.isWeaponDestinyJustDrawn(game, effectResult, Filters.blaster)
+                && GameConditions.isDuringBattleWithParticipant(game, self)
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
 
             // Subtract 1
