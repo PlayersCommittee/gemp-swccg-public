@@ -89,15 +89,16 @@ public class Card223_031 extends AbstractLostInterrupt {
                             // Update usage limit(s)
                             action.appendUsage(
                                     new OncePerGameEffect(action));
-                            // Pay cost(s)
-                            action.appendCost(
-                                new UseForceEffect(action, playerId, 2));
                             // Choose target(s)
                             action.appendTargeting(
                                     new TargetCardOnTableEffect(action, playerId, "Choose opponent's character", opponentsCharacterFilter) {
                                         @Override
                                         protected void cardTargeted(final int targetGroupId, final PhysicalCard opponentsCharacter) {
                                             action.addAnimationGroup(Luke, opponentsCharacter);
+
+                                            // Pay cost(s)
+                                            action.appendCost(
+                                                    new UseForceEffect(action, playerId, 2));
                                             // Allow response(s)
                                             action.allowResponses("Exclude " + GameUtils.getCardLink(Luke) + " and " + GameUtils.getCardLink(opponentsCharacter) + " from battle",
                                                     new RespondablePlayCardEffect(action) {
