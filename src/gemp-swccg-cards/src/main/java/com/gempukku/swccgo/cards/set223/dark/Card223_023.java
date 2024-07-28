@@ -36,9 +36,9 @@ import java.util.List;
 
 public class Card223_023 extends AbstractImperial {
     public Card223_023() {
-        super(Side.DARK, 3, 2, 2, 2, 3, "TD-110", Uniqueness.UNIQUE, ExpansionSet.SET_23, Rarity.V);
+        super(Side.DARK, 2, 2, 2, 2, 3, "TD-110", Uniqueness.UNIQUE, ExpansionSet.SET_23, Rarity.V);
         setArmor(4);
-        setLore("Sandtrooper. Leader.");
+        setLore("Sandtrooper leader.");
         setGameText("If Send A Detachment Down on table, destiny +2 when drawn for destiny. During battle at a Tatooine site, may place Tactical Support out of play from Lost Pile to add 2 to attrition against opponent.");
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_23);
         addKeywords(Keyword.SANDTROOPER, Keyword.LEADER);
