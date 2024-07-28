@@ -2,7 +2,6 @@ package com.gempukku.swccgo.cards.set223.dark;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
@@ -34,7 +33,7 @@ public class Card223_008 extends AbstractSystem {
     public Card223_008() {
         super(Side.DARK, Title.Bespin, 6, ExpansionSet.SET_23, Rarity.V);
         setLocationDarkSideGameText("If you occupy and Dark Deal on table, flip This Deal Is Getting Worse All The Time. Immune to Revolution.");
-        setLocationLightSideGameText("While you occupy, you lose no more than 2 Force to Cloud City Occupation. Game text of opponent's Admiral's Orders is canceled.");
+        setLocationLightSideGameText("You lose no more than 2 Force to Cloud City Occupation. Game text of opponent's Admiral's Orders is canceled.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.SPECIAL_EDITION, Icon.PLANET, Icon.VIRTUAL_SET_23);
@@ -44,7 +43,7 @@ public class Card223_008 extends AbstractSystem {
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new CancelsGameTextModifier(self, Filters.and(Filters.opponents(playerOnLightSideOfLocation), Filters.Admirals_Order)));
-        modifiers.add(new LimitForceLossFromCardModifier(self, Filters.Cloud_City_Occupation, new OccupiesCondition(playerOnLightSideOfLocation, self), 2, playerOnLightSideOfLocation));
+        modifiers.add(new LimitForceLossFromCardModifier(self, Filters.Cloud_City_Occupation, 2, playerOnLightSideOfLocation));
         modifiers.add(new ImmuneToTitleModifier(self, Title.Revolution));
         return modifiers;
     }
