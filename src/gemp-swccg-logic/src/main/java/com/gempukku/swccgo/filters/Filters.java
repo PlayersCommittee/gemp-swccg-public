@@ -18457,7 +18457,7 @@ public class Filters {
     public static final Filter marker_site = Filters.or(Keyword.MARKER_1, Keyword.MARKER_2, Keyword.MARKER_3, Keyword.MARKER_4, Keyword.MARKER_5, Keyword.MARKER_6, Keyword.MARKER_7);
     public static final Filter Marketplace = Filters.title(Title.Marketplace);
     public static final Filter Marmor = Filters.title(Title.Marmor);
-    public static final Filter Marquand = Filters.title(Title.Marquand);
+    public static final Filter Marquand = Filters.persona(Persona.MARQUAND);
     public static final Filter Mas_Amedda = Filters.title(Title.Mas_Amedda);
     public static final Filter Massassi_Base_Operations = Filters.title(Title.Massassi_Base_Operations);
     public static final Filter Massassi_Headquarters = Filters.title(Title.Massassi_Headquarters);
