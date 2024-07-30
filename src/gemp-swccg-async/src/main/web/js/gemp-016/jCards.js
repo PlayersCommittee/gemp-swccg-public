@@ -4227,6 +4227,8 @@ var fixedImages = {
 "221_71ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/resolute_ai.png",
 "203_15ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/theshieldisdown_ai.png",
 "206_6ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/whatchancedowehave_ai.png",
+"204_1ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/bb8_ai.png",
+"208_8ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/lukeskywalkertherebellionshope_ai.png",
 
 };
 
@@ -4297,6 +4299,7 @@ var packBlueprints = {
     "Virtual Alternate Image Booster Pack Series 3":"https://res.starwarsccg.org/packs/virtualalternateimageboosterpackseries3.png",
     "Virtual Alternate Image Booster Pack Series 4":"https://res.starwarsccg.org/packs/virtualalternateimageboosterpackseries4.png",
     "Virtual Alternate Image Booster Pack Series 5":"https://res.starwarsccg.org/packs/virtualalternateimageboosterpackseries5.png",
+    "Virtual Alternate Image Booster Pack Series 6":"https://res.starwarsccg.org/packs/virtualalternateimageboosterpackseries6.png",
 
     "First Anthology Box":"https://res.starwarsccg.org/packs/first_anthology_box.png",
     "Second Anthology Box":"https://res.starwarsccg.org/packs/second_anthology_box.png",
