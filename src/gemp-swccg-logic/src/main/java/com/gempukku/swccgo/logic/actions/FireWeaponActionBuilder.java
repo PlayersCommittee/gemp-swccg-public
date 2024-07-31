@@ -5931,7 +5931,7 @@ public class FireWeaponActionBuilder {
                                                                 );
                                                             } else {
                                                                 action.appendEffect(
-                                                                        new HitCardEffect(action, cardFiredAt, _weaponOrCardWithPermanentWeapon)
+                                                                        new HitCardEffect(action, cardFiredAt, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon())
                                                                 );
                                                             }
                                                         } else {
