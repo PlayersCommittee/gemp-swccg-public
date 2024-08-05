@@ -3779,6 +3779,8 @@ var fixedImages = {
 "304_78":"https://i.imgur.com/VDfzToL.png", //Seraph (Dark)
 "304_79":"https://i.imgur.com/3mpsOHk.png", //Ulress (Light)
 "304_80":"https://i.imgur.com/G4nBlkr.png", //Seraph (Light)
+"304_81":"https://i.imgur.com/kYH1szA.png", //Ulress (Dark)
+"304_82":"https://i.imgur.com/1lGUPVp.png", //Koudooine (Light)
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",

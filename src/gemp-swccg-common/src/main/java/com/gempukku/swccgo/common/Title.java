@@ -1323,5 +1323,6 @@ public interface Title {
 	String Ixtal = "Ixtal Noxus";
 	String Monolith_Detention_Block = "Monolith Detention Block";
 	String SARLAc = "S.A.R.L.A.c.";
+	String Thrans_Bounty = "Thran's Bounty";
 
 }

@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card304_076 extends AbstractNormalEffect {
     public Card304_076() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Thran's Bounty", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Thrans_Bounty, Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("For some people, it's enough to be critical of certain types of music. For Thran, he took Acid Fizz personally. To the point of issuing bounties for anyone who performed it within Palatinaen space.");
         setGameText("Deploy on an opponent's musician. If subsequently captured by a bounty hunter and then transferred to Monolith Detention Block, retrieve Force equal to character's forfeit (+6 if Zax Keevo) and lose effect. (Immune to Alter.)");
         addKeywords(Keyword.BOUNTY, Keyword.DEPLOYS_ON_CHARACTERS);

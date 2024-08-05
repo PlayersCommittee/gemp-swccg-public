@@ -19351,6 +19351,10 @@ public class Filters {
 	public static final Filter Zax = Filters.persona(Persona.ZAX);
 	public static final Filter SARLAc = Filters.title(Title.SARLAc);
 	public static final Filter SARLAc_location = Filters.partOfSystem(Title.SARLAc);
+	public static final Filter Thrans_Bounty = Filters.title(Title.Thrans_Bounty);
+	public static final Filter Ulress_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Ulress));
+	public static final Filter Koudooine_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Koudooine));
+	public static final Filter Tiure_Nonunique = Filters.and(Keyword.CLAN_TIURE, CardCategory.CHARACTER, Filters.nonUnique());
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {
