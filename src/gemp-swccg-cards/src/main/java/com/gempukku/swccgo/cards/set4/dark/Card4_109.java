@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card4_109 extends AbstractCreature {
     public Card4_109() {
-        super(Side.DARK, 3, 4, null, 3, 0, Title.Dragonsnake, Uniqueness.DIAMOND_1, ExpansionSet.DAGOBAH, Rarity.R);
+        super(Side.DARK, 3, 3, null, 3, 0, Title.Dragonsnake, Uniqueness.DIAMOND_1, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("One of Dagobah's deadliest predators. Has razor-sharp fins, powerful constrictor coils and large fangs. Feeds on almost anything. Often mistaken for a swamp slug, due to its size.");
         setGameText("* Ferocity = 3 + destiny. Habitat: swamps, jungles and Dark Waters. May attack droids. Defeated droids are relocated to an adjacent exterior site (opponent of victim chooses).");
         addModelType(ModelType.SWAMP);
