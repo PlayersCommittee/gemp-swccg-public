@@ -24,13 +24,14 @@ import java.util.List;
  * Set: The Great Hutt Expansion
  * Type: Location
  * Subtype: System
- * Title: SARLAc
+ * Title: SARLAC
  */
 public class Card304_077 extends AbstractMobileSystem {
     public Card304_077() {
-        super(Side.DARK, Title.SARLAc, 6, Title.Seraph, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
+        super(Side.DARK, Title.SARLAC, 6, Title.Seraph, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLocationDarkSideGameText("X = parsec of current position. Must deploy orbiting Seraph. S.A.R.L.A.c locations are immune to Revolution. Opponent's Force drains +3 here. Opponent requires +5 Force to move from here.");
         addIcon(Icon.DARK_FORCE, 3);
+		addIcons(Icon.DEATH_STAR_II);
     }
 
     @Override
