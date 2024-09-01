@@ -44,7 +44,7 @@ import java.util.List;
 /**
  * Set: Block 8
  * Type: Objective
- * Title: Wookiee Slaving Operations / Indentured To The Empire
+ * Title: Wookiee Slaving Operation / Indentured To The Empire
  */
 public class Card601_029_BACK extends AbstractObjective {
     public Card601_029_BACK() {

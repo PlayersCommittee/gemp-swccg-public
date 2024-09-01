@@ -37,7 +37,7 @@ import java.util.List;
 /**
  * Set: Block 4
  * Type: Objective
- * Title: Watch Your Step (V) / This Place Can Be A Little Rough (V)
+ * Title: Watch Your Step / This Place Can Be A Little Rough (V)
  */
 public class Card601_146 extends AbstractObjective {
     public Card601_146() {
