@@ -33,7 +33,7 @@ public class Card304_077 extends AbstractMobileSystem {
         addIcon(Icon.DARK_FORCE, 3);
 		addIcons(Icon.DEATH_STAR_II);
     }
-
+	
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
