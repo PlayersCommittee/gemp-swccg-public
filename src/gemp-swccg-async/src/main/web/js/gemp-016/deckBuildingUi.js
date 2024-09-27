@@ -77,7 +77,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
         collectionSelect.append("<option value='default'>All cards</option>");
         collectionSelect.append("<option value='permanent'>My cards</option>");
         this.manageDecksDiv.append(collectionSelect);
-
+        
         var newDeckBut = $("<button title='New deck'><span class='ui-icon ui-icon-document'></span></button>").button();
         this.manageDecksDiv.append(newDeckBut);
 
@@ -101,6 +101,14 @@ var GempSwccgDeckBuildingUI = Class.extend({
 
         var validateDeckBut = $("<button title='Validate Deck'><span class='ui-icon ui-icon-check'></span></button>").button();
         this.manageDecksDiv.append(validateDeckBut);
+        
+        // Charlie Code
+        var addLightShieldsBut = $("<button title='Add Light Shields'><span class='ui-icon ui-icon-squaresmall-plus'></span></button>").button();
+        this.manageDecksDiv.append(addLightShieldsBut);
+
+        // Charlie Code
+        var addDarkShieldsBut = $("<button title='Add Dark Shields'><span class='ui-icon ui-icon-circlesmall-plus'></span></button>").button();
+        this.manageDecksDiv.append(addDarkShieldsBut);
 
         // Hidden file-input field for browsing for decks on the user's computer
         var browseInputDeckInput = $("<input type=file id='browseInputDeckInput' style='display:none'>");
@@ -195,6 +203,20 @@ var GempSwccgDeckBuildingUI = Class.extend({
                 function () {
                     that.validateDeck();
                 });
+        
+        // Charlie Code
+        addLightShieldsBut.click(
+            function () {
+                that.loadShields("LIGHT");
+            });
+
+
+        // Charlie Code
+        addDarkShieldsBut.click(
+            function () {
+                that.loadShields("DARK");
+            });
+        
 
         this.collectionDiv = $("#collectionDiv");
 
@@ -781,7 +803,6 @@ var GempSwccgDeckBuildingUI = Class.extend({
 
     addCardToOutsideDeckAndLayout:function (blueprintId, testingText, backSideTestingText) {
         var that = this;
-
         var cardDiv = this.addCardToContainer(blueprintId, testingText, backSideTestingText, "outsideDeck", that.outsideDeckDiv, false);
         cardDiv.addClass("cardOutsideDeck");
         that.outsideDeckGroup.layoutCards()
@@ -789,6 +810,34 @@ var GempSwccgDeckBuildingUI = Class.extend({
         that.deckModified(true);
     },
 
+    // Charlie Code
+    loadShields: function (side) {
+        $(".cardOutsideDeck").remove();
+        var that = this;
+        var shieldUrl = "/gemp-swccg-server/collection/default?participantId=null&filter=side%3A" + side + "+format%3Aall+cardType%3ADEFENSIVE_SHIELD+sort%3Aname%2Cset%2CcardType+product%3Acard&start=0&count=100&_=1726509590294"
+        this.comm.loadShields(shieldUrl, function (xml) {
+              var $xml = $(xml);
+              var blueprintIds = $xml.find('card').map(function() {
+                  return $(this).attr('blueprintId');
+              }).get();
+              for (let blueprintId of blueprintIds) {
+                  var cardDiv = that.addCardToContainer(blueprintId, null, null, "outsideDeck", that.outsideDeckDiv, false);
+                  cardDiv.addClass("cardOutsideDeck");
+              };
+              if (side === "LIGHT") {
+                var addMythrol = that.addCardToContainer("200_16", null, null, "outsideDeck", that.outsideDeckDiv, false);
+                addMythrol.addClass("cardOutsideDeck");
+              };
+              that.outsideDeckGroup.layoutCards();
+              that.deckDirty = true;
+              that.deckModified(true);
+          }, {
+                "400":function ()
+                {
+                    alert("Could not locate shields");
+                }
+          });
+    },
     deckModified:function (value) {
         var name = (this.deckName == null) ? "New deck" : this.deckName;
         if (this.sampleDeck) {

@@ -3,7 +3,6 @@ var CardFilter = Class.extend({
     addCardFunc:null,
     finishCollectionFunc:null,
     getCollectionFunc:null,
-
     collectionType:null,
 
     filter:null,
