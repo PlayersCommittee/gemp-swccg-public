@@ -161,6 +161,7 @@ var CardFilter = Class.extend({
             //+ "<option value='limited_resources'>Limited Resources</option>"
             + "<option value='premiere_tatooine'>Premiere - Tatooine</option>"
             + "<option value='premiere_ref2'>Premiere - Reflections II</option>"
+            + "<option value='premiere_ref2_m'>Premiere - Reflections II (Modified)</option>"
             + "<option value='premiere_jpsd'>Premiere - JPSD</option>"
             + "<option value='premiere_ds2'>Premiere - Death Star II</option>"
             + "<option value='premiere_endor'>Premiere - Endor</option>"
