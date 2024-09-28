@@ -10,9 +10,11 @@ import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
@@ -20,7 +22,9 @@ import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.RearmCharacterEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 
@@ -83,9 +87,26 @@ public class Card223_027 extends AbstractUsedOrLostInterrupt {
             actions.add(action);
         }
 
-        if (GameConditions.canTargetToCancel(game, self, Filters.Disarmed)) {
+        final Filter charactersWhoAreDisarmed = Filters.Disarmed;
+        if (GameConditions.canTarget(game, self, charactersWhoAreDisarmed)) {
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
-            CancelCardActionBuilder.buildCancelCardAction(action, Filters.Disarmed, Title.Disarmed);
+            action.setText("Cancel Disarmed On This Character");
+            action.appendTargeting(
+                    new TargetCardOnTableEffect(action, playerId, "Choose Disarmed Character", charactersWhoAreDisarmed) {
+                        @Override
+                        protected void cardTargeted(final int targetGroupId, final PhysicalCard targetedCard) {
+                            action.allowResponses("Restore " + GameUtils.getCardLink(targetedCard),
+                                    new RespondablePlayCardEffect(action) {
+                                        @Override
+                                        protected void performActionResults(Action targetingAction) {
+                                            //action.appendEffect(action.getPrimaryTargetCard(targetGroupId).setDisarmed(false));
+                                            action.appendEffect(new RearmCharacterEffect(action, targetedCard));
+
+                                        }
+                                    });
+                        }
+                    }
+            );
             actions.add(action);
         }
 
@@ -121,9 +142,12 @@ public class Card223_027 extends AbstractUsedOrLostInterrupt {
     protected List<PlayInterruptAction> getGameTextOptionalBeforeActions(String playerId, SwccgGame game, Effect effect, PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<>();
 
+        Filter disarmedFilter = Filters.title(Title.Disarmed);
+        Filter jediPresenceFilter = Filters.title(Title.Jedi_Presence);
         // Check condition(s)
-        if (TriggerConditions.isPlayingCard(game, effect, Filters.or(Filters.Disarmed, Filters.Jedi_Presence))
+        if (TriggerConditions.isPlayingCard(game, effect, Filters.or(disarmedFilter, jediPresenceFilter))
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
+
             PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
             // Build action using common utility
             CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
