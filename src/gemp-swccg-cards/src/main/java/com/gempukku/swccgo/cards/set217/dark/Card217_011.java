@@ -8,6 +8,7 @@ import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
@@ -39,6 +40,7 @@ public class Card217_011 extends AbstractAlien {
         setGameText("During battle with an information broker (or during an attack), adds one destiny to total power. Once per game, may [download] a creature (or a blaster or rifle without 'lost' in game text) here.");
         setSpecies(Species.DOWUTIN);
         addIcons(Icon.WARRIOR, Icon.EPISODE_VII, Icon.VIRTUAL_SET_17);
+        addKeyword(Keyword.MERCENARY);
     }
 
     @Override

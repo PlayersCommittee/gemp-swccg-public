@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.conditions.PresentAtCondition;
 import com.gempukku.swccgo.cards.conditions.PresentWithCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -34,6 +35,7 @@ public class Card7_207 extends AbstractAlien {
         setLore("Members of swoop gangs on Tatooine often have experience piloting larger craft. Many wear tall shock-helmets.");
         setGameText("Adds 2 to power of anything he pilots or drives and, when driving a swoop, adds 3 to landspeed. When present at a site with another Swoop Mercenary, may draw one battle destiny if not able to otherwise.");
         addIcons(Icon.SPECIAL_EDITION, Icon.PILOT);
+        addKeyword(Keyword.MERCENARY);
     }
 
     @Override
