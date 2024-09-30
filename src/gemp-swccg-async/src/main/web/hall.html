@@ -29,10 +29,12 @@
     <script type="text/javascript" src="js/gemp-016/communication.js"></script>
     <script type="text/javascript" src="js/gemp-016/deliveryService.js"></script>
     <script type="text/javascript" src="js/gemp-016/commonUi.js"></script>
-    <script type="text/javascript" src="js/gemp-016/cardFilter.js"></script>
+    <script type="text/javascript" src="js/gemp-016/cards/CardFilter.js"></script>
 
-    <script type="text/javascript" src="js/gemp-016/jCardGroup.js"></script>
-    <script type="text/javascript" src="js/gemp-016/jCards.js"></script>
+    <script type="text/javascript" src="js/gemp-016/cards/CardGroup.js"></script>
+    <script type="text/javascript" src="js/gemp-016/cards/Card.js"></script>
+    <script type="text/javascript" src="js/gemp-016/cards/CardImages.js"></script>
+    <script type="text/javascript" src="js/gemp-016/cards/PackImages.js"></script>
 
     <script type="text/javascript" src="js/gemp-016/hallUi.js"></script>
     <script type="text/javascript" src="js/gemp-016/leagueResultsUi.js"></script>
@@ -113,7 +115,7 @@
                             infoDialog.html("");
                             infoDialog.html("<div style='scroll: auto'></div>");
                             var floatCardDiv = $("<div style='float: left;'></div>");
-                            floatCardDiv.append(createFullCardDiv(card.imageUrl, card.testingText, card.backSideTestingText, card.foil, card.horizontal, false));
+                            floatCardDiv.append(Card.CreateFullCardDiv(card.imageUrl, card.testingText, card.backSideTestingText, card.foil, card.horizontal, false));
                             infoDialog.append(floatCardDiv);
 
                             var windowWidth = $(window).width();

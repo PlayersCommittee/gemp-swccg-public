@@ -16,10 +16,12 @@
 <script type="text/javascript" src="js/gemp-016/communication.js"></script>
 <script type="text/javascript" src="js/gemp-016/deliveryService.js"></script>
 <script type="text/javascript" src="js/gemp-016/commonUi.js"></script>
-<script type="text/javascript" src="js/gemp-016/cardFilter.js"></script>
+<script type="text/javascript" src="js/gemp-016/cards/CardFilter.js"></script>
 
-<script type="text/javascript" src="js/gemp-016/jCardGroup.js"></script>
-<script type="text/javascript" src="js/gemp-016/jCards.js"></script>
+<script type="text/javascript" src="js/gemp-016/cards/CardGroup.js"></script>
+<script type="text/javascript" src="js/gemp-016/cards/Card.js"></script>
+<script type="text/javascript" src="js/gemp-016/cards/CardImages.js"></script>
+<script type="text/javascript" src="js/gemp-016/cards/PackImages.js"></script>
 
 <script type="text/javascript" src="js/gemp-016/hallUi.js"></script>
 <script type="text/javascript" src="js/gemp-016/leagueResultsUi.js"></script>
