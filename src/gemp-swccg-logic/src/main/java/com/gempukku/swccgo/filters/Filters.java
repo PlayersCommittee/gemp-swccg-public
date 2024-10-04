@@ -19355,6 +19355,7 @@ public class Filters {
 	public static final Filter Ulress_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Ulress));
 	public static final Filter Koudooine_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Koudooine));
 	public static final Filter Tiure_Nonunique = Filters.and(Keyword.CLAN_TIURE, CardCategory.CHARACTER, Filters.nonUnique());
+    public static final Filter SARLAC_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.SARLAC));
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

@@ -1324,5 +1324,7 @@ public interface Title {
 	String Monolith_Detention_Block = "Monolith Detention Block";
 	String SARLAC = "S.A.R.L.A.c.";
 	String Thrans_Bounty = "Thran's Bounty";
+	String Claudius_Dungeon = "Claudius's Palace: Dungeon";
+    String Claudius_Ice_Lounge = "Claudius's Palace: Ice Lounge";
 
 }

@@ -3775,12 +3775,15 @@ var fixedImages = {
 "304_74":"https://i.imgur.com/rKO96Gf.png", //Opal of Madness
 "304_75":"https://i.imgur.com/sGsn3tD.png", //Kam's Ham Sam
 "304_76":"https://i.imgur.com/YiO3et1.png", //Thran's Bounty
-"304_77":"https://i.imgur.com/F83Baow.png", //SARLAc
+"304_77":"https://i.imgur.com/YZn3Ns8.png", //SARLaC
 "304_78":"https://i.imgur.com/VDfzToL.png", //Seraph (Dark)
 "304_79":"https://i.imgur.com/3mpsOHk.png", //Ulress (Light)
 "304_80":"https://i.imgur.com/G4nBlkr.png", //Seraph (Light)
 "304_81":"https://i.imgur.com/kYH1szA.png", //Ulress (Dark)
 "304_82":"https://i.imgur.com/1lGUPVp.png", //Koudooine (Light)
+"304_83":"https://i.imgur.com/LHX8S2Z.png", //Claudius's Palace: Dungeon (Light)
+"304_84":"https://i.imgur.com/tXOrRmU.png", //Claudius's Palace: Ice Lounge (Light)
+"304_85":"https://i.imgur.com/vh9xg7G.png", //Claudius's Palace: Throne Room (Light)
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
@@ -4844,6 +4847,8 @@ var Card = Class.extend({
 			return (cardNo >= 2 && cardNo <= 4) ||
 			       (cardNo == 13) ||
 				   (cardNo == 15);
+		}if (setNo == 304) {
+			return (cardNo >= 83 && cardNo <= 85);				   
         }if (setNo == 501) {
             return (cardNo == 6) ||
                    (cardNo == 7) ||
