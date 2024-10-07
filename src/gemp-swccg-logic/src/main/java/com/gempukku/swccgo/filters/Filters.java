@@ -19356,6 +19356,8 @@ public class Filters {
 	public static final Filter Koudooine_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Koudooine));
 	public static final Filter Tiure_Nonunique = Filters.and(Keyword.CLAN_TIURE, CardCategory.CHARACTER, Filters.nonUnique());
     public static final Filter SARLAC_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.SARLAC));
+    public static final Filter Claudius_Palace = Filters.title(Title.Claudius_Palace);
+    public static final Filter Club_Antonia_Stage = Filters.title(Title.Club_Antonia_Stage);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

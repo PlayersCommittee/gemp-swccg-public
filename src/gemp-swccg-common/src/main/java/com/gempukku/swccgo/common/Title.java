@@ -1326,5 +1326,8 @@ public interface Title {
 	String Thrans_Bounty = "Thran's Bounty";
 	String Claudius_Dungeon = "Claudius's Palace: Dungeon";
     String Claudius_Ice_Lounge = "Claudius's Palace: Ice Lounge";
+    String Claudius_Palace = "Koudooine: Claudius the Hutt's Palace";
+    String Club_Antonia_Bar = "Club Antonia: Bar";
+    String Club_Antonia_Stage = "Club Antonia: Stage";
 
 }

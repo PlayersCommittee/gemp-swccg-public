@@ -3783,7 +3783,11 @@ var fixedImages = {
 "304_82":"https://i.imgur.com/1lGUPVp.png", //Koudooine (Light)
 "304_83":"https://i.imgur.com/LHX8S2Z.png", //Claudius's Palace: Dungeon (Light)
 "304_84":"https://i.imgur.com/tXOrRmU.png", //Claudius's Palace: Ice Lounge (Light)
-"304_85":"https://i.imgur.com/vh9xg7G.png", //Claudius's Palace: Throne Room (Light)
+"304_85":"https://i.imgur.com/uI2ehwi.png", //Claudius's Palace: Throne Room (Light)
+"304_86":"https://i.imgur.com/Uat8Dz3.png", //Koudooine: Claudius the Hutt's Palace (Light)
+"304_87":"https://i.imgur.com/ESKAXty.png", //Club Antonia: Bar (Light)
+"304_88":"https://i.imgur.com/DDgfttt.png", //Ulress: Club Antonia (Light)
+"304_89":"https://i.imgur.com/ubW9mPG.png", //Club Antonia: Stage (Light)
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
@@ -4848,7 +4852,7 @@ var Card = Class.extend({
 			       (cardNo == 13) ||
 				   (cardNo == 15);
 		}if (setNo == 304) {
-			return (cardNo >= 83 && cardNo <= 85);				   
+			return (cardNo >= 83 && cardNo <= 89);				   
         }if (setNo == 501) {
             return (cardNo == 6) ||
                    (cardNo == 7) ||
