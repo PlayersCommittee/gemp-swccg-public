@@ -3620,13 +3620,13 @@ var fixedImages = {
 "302_4":"https://i.imgur.com/FMsmAHh.png", //Brotherhood Trooper
 "302_5":"https://i.imgur.com/ImekOe4.png", //TIE/wi Modified Interceptor
 "302_6":"https://i.imgur.com/Odikyjc.png", //Padawan Learner
-"302_7":"https://i.imgur.com/DdOmsL7.png", 
-"302_8":"https://i.imgur.com/tIFaByr.png", 
-"302_9":"https://i.imgur.com/Dra4YzX.png",
+"302_7":"https://i.imgur.com/DdOmsL7.png", //Armory Lightsaber
+"302_8":"https://i.imgur.com/tIFaByr.png", //E-wing
+"302_9":"https://i.imgur.com/Dra4YzX.png", //Arx: Desert Space Port 'Docking Bay' (Light)
 "302_10":"https://i.imgur.com/l00m4A3.png", //Lightsaber Combat Training
 "302_11":"https://i.imgur.com/oFkZfTc.png", //Valencia Sintarin
 "302_12":"https://i.imgur.com/3qjTn3i.png", //Howlader Taldrya
-"302_13":"https://i.imgur.com/Vtm0FQV.png",
+"302_13":"https://i.imgur.com/Vtm0FQV.png", //Rajhin Cindertail
 "302_14":"https://i.imgur.com/p7hmzax.png",
 "302_15":"https://i.imgur.com/3Ln6rCj.png",
 "302_16":"https://i.imgur.com/glDKLXk.png", //Arx: Eos City
@@ -3789,6 +3789,8 @@ var fixedImages = {
 "304_88":"https://i.imgur.com/DDgfttt.png", //Ulress: Club Antonia (Light)
 "304_89":"https://i.imgur.com/ubW9mPG.png", //Club Antonia: Stage (Light)
 "304_90":"https://i.imgur.com/yIePsEt.png", //Ulress: Ixtal's Garage (Light)
+"304_91":"https://i.imgur.com/580dlGn.png", //Master Rajhin Cindertail
+"304_92":"https://i.imgur.com/EleOBlW.png", //Shut Up, Pogo!
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",

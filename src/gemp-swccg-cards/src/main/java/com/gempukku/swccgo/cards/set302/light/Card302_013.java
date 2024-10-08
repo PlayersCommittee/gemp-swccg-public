@@ -4,13 +4,7 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.PresentCondition;
 import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
-import com.gempukku.swccgo.common.ExpansionSet;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Rarity;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Title;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -39,6 +33,7 @@ public class Card302_013 extends AbstractAlien {
         setGameText("Power +1 for each opponent's character here. When with two of your aliens, adds one battle destiny. May not be targeted by weapons unless each of your other aliens present are 'hit'. Immune to You Are Beaten and attrition < 5.");
 		addIcons(Icon.WARRIOR);
         addKeywords(Keyword.LEADER, Keyword.COUNCILOR);
+        addPersona(Persona.RAJHIN);
     }
 
     @Override

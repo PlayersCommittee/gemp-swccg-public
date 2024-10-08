@@ -189,6 +189,7 @@ public enum Persona implements Filterable {
 	LOCITA("Jloc'itaome'faottas"),
 	DIA_GIDA("Dia Gida"),
 	ZAX("Zax Keevo"),
+    RAJHIN("Rajhin Cindertail"),
 
     // Starships
     BESTOON_LEGACY("Bestoon Legacy"),

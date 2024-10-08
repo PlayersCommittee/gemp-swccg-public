@@ -931,6 +931,7 @@ public enum GameTextActionId {
 	SERAINE__RELOCATE_TO_CHARACTER_LOCATION(false, true),
 	KOMILIA__CANCEL_INTERRUPT(false, true),
 	VIGILIANT_FOLLOW_STARSHIP(false, true),
+    SHUT_UP_POGO__CANCEL_GAME_TEXT(false, true),
 
     // Per captive
     DUNGEON__RETRIEVE_FORCE(false, false, true, false),
