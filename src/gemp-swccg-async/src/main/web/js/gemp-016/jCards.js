@@ -3788,6 +3788,7 @@ var fixedImages = {
 "304_87":"https://i.imgur.com/ESKAXty.png", //Club Antonia: Bar (Light)
 "304_88":"https://i.imgur.com/DDgfttt.png", //Ulress: Club Antonia (Light)
 "304_89":"https://i.imgur.com/ubW9mPG.png", //Club Antonia: Stage (Light)
+"304_90":"https://i.imgur.com/yIePsEt.png", //Ulress: Ixtal's Garage (Light)
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
@@ -4852,7 +4853,7 @@ var Card = Class.extend({
 			       (cardNo == 13) ||
 				   (cardNo == 15);
 		}if (setNo == 304) {
-			return (cardNo >= 83 && cardNo <= 89);				   
+			return (cardNo >= 83 && cardNo <= 90);				   
         }if (setNo == 501) {
             return (cardNo == 6) ||
                    (cardNo == 7) ||
