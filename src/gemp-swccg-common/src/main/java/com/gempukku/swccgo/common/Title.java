@@ -467,6 +467,7 @@ public interface Title {
     String Gungan_Energy_Shield = "Gungan Energy Shield";
     String Guri = "Guri";
     String Halt = "Halt!";
+    String Han_Solo = "Han Solo";
     String Hans_Back = "Han's Back";
     String Hans_Dice = "Han's Dice";
     String Hans_Heavy_Blaster_Pistol = "Han's Heavy Blaster Pistol";

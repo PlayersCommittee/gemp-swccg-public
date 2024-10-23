@@ -438,11 +438,16 @@ class Card {
                    (cardNo == 24) ||
                    (cardNo == 27) ||
                    (cardNo == 29) ||
+                   (cardNo == 36) ||
+                   (cardNo == 38) ||
+                   (cardNo == 39) ||
+                   (cardNo == 47) ||
                    (cardNo == 108) ||
                    (cardNo == 109) ||
                    (cardNo == 113) ||
                    (cardNo == 118) ||
-                   (cardNo == 171);
+                   (cardNo == 171) ||
+                   (cardNo == 173);
         }
         if (setNo == 601) {
              return (cardNo == 14) ||
