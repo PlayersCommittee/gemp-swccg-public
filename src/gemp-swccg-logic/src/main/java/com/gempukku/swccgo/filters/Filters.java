@@ -18928,6 +18928,7 @@ public class Filters {
     public static final Filter Starkiller_Base_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Starkiller_Base));
     public static final Filter starship = Filters.type(CardType.STARSHIP);
     public static final Filter starship_cannon = Filters.and(CardType.WEAPON, CardSubtype.STARSHIP, Filters.or(Keyword.CANNON, Keyword.ION_CANNON, Keyword.LASER_CANNON));
+    public static final Filter Strike_Planning = Filters.title(Title.Strike_Planning);
     public static final Filter Super_class_Star_Destroyer = Filters.modelType(ModelType.SUPER_CLASS_STAR_DESTROYER);
     public static final Filter Taking_Control_Of_The_Weapon = Filters.title(Title.Taking_Control_Of_The_Weapon);
 
