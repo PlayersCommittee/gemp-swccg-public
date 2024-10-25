@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.conditions.PilotingAtCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
@@ -33,6 +34,7 @@ public class Card12_001 extends AbstractRepublic {
         super(Side.LIGHT, 2, 2, 2, 2, 5, Title.Madakor, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.R);
         setLore("Captain of the Radiant VII. Has gained her rank through consistent excellent performance, and has one of the finest service records of all Republic officers.");
         setGameText("Adds 2 to power of anything she pilots. While piloting Radiant VII and you have no other starships at same system, opponent may not draw more than one battle destiny here.");
+        addPersona(Persona.MADAKOR);
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR);
         addKeywords(Keyword.FEMALE, Keyword.CAPTAIN);
         setMatchingStarshipFilter(Filters.Radiant_VII);
