@@ -18342,6 +18342,7 @@ public class Filters {
     public static final Filter Juno = Filters.persona(Persona.JUNO);
     public static final Filter Juri_Juice = Filters.title(Title.Juri_Juice);
     public static final Filter justice_agenda = Filters.agenda(Agenda.JUSTICE);
+    public static final Filter Jyn = Filters.persona(Persona.JYN);
     public static final Filter K2SO = Filters.title(Title.K2SO);
     public static final Filter Kaadu = Filters.keyword(Keyword.KAADU);
     public static final Filter Kabe = Filters.title(Title.Kabe);
