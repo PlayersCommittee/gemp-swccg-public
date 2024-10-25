@@ -17525,6 +17525,7 @@ public class Filters {
     public static final Filter ambition_agenda = Filters.agenda(Agenda.AMBITION);
     public static final Filter Ambush = Filters.title(Title.Ambush);
     public static final Filter Amidala = Filters.persona(Persona.AMIDALA);
+    public static final Filter An_Inkling_Of_Its_Destructive_Potential = Filters.title(Title.An_Inkling_Of_Its_Destructive_Potential);
     public static final Filter Anakin = Filters.persona(Persona.ANAKIN);
     public static final Filter Anakin_Skywalker = Filters.title(Title.Anakin_Skywalker);
     public static final Filter Anakins_Podracer = Filters.title(Title.Anakins_Podracer);
