@@ -3804,6 +3804,7 @@ const fixedImages = {
 "501_192":"https://res.starwarsccg.org/cards/Coruscant-Light/large/depabillaba.gif",
 "501_193": "https://res.starwarsccg.org/cards/Virtual10-Light/large/boshek.gif",
 "501_196":"https://res.starwarsccg.org/cards/Tatooine-Light/large/neckandneck.gif",
+"501_197":"https://res.starwarsccg.org/cards/Virtual9-Light/large/lightmaker.gif",
 
 //legacy
 "601_1":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/knowledgeanddefense.gif",
