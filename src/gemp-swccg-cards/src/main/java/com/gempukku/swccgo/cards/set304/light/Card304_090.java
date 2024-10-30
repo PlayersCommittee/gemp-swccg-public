@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
@@ -32,6 +33,7 @@ public class Card304_090 extends AbstractSite {
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcon(Icon.DARK_FORCE, 0);
         addIcons(Icon.SCOMP_LINK, Icon.EXTERIOR_SITE, Icon.PLANET);
+		addKeywords(Keyword.ULRESS_SITE);
     }
 
     @Override

@@ -19358,6 +19358,17 @@ public class Filters {
     public static final Filter SARLAC_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.SARLAC));
     public static final Filter Claudius_Palace = Filters.title(Title.Claudius_Palace);
     public static final Filter Club_Antonia_Stage = Filters.title(Title.Club_Antonia_Stage);
+    public static final Filter From_Here = Filters.title(Title.From_Here);
+    public static final Filter Chop_Shop_Carbon_Chamber = Filters.title(Title.Chop_Shop_Carbon_Chamber);
+    public static final Filter Ulress_location = Filters.partOfSystem(Title.Ulress);
+    public static final Filter Crime_Wave = Filters.title(Title.Crime_Wave);
+    public static final Filter Carbonite_Control_Panel = Filters.title(Title.Carbonite_Control_Panel);
+    public static final Filter Ixtal_Garage_Lockup = Filters.title(Title.Ixtal_Garage_Lockup);
+    public static final Filter Claudius_Prize = Filters.title(Title.Claudius_Prize);
+    public static final Filter Koudooine_location = Filters.partOfSystem(Title.Koudooine);
+    public static final Filter Koudooine_Docking_Bay = Filters.title(Title.Koudooine_Docking_Bay);
+    public static final Filter Ulress_Space_Port = Filters.title(Title.Ulress_Space_Port);
+	public static final Filter CSP_character = Filters.and(Icon.CSP, CardCategory.CHARACTER);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

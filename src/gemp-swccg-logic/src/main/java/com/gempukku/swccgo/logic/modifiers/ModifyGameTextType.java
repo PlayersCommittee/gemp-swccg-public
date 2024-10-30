@@ -98,6 +98,7 @@ public enum ModifyGameTextType {
     YOURE_A_SLAVE__DRAW_TOP_CARD_OF_RESERVE_DECK_WHEN_PLACING_A_CARD_IN_USED_PILE("Draw top card of Reserve Deck when you place a card in Used Pile."),
     REMOVE_TWO_MORE_CARDS("Remove two more cards"),
 	THRAN__MAY_NOT_PLAY_INTERRUPT_FROM_LOST_PILE("May not play interrupt from lost pile"),
+    CRIME_WAVE__ADDITIONAL_ULRESS_LOCATION_TO_CANCEL("Additional Ulress location required to cancel"),
 
 
     //Legacy

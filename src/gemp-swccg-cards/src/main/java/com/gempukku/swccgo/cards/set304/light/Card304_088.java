@@ -33,7 +33,7 @@ public class Card304_088 extends AbstractSite {
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.EXTERIOR_SITE);
-        addKeywords(Keyword.CLUB_ANTONIA_SITE);
+        addKeywords(Keyword.CLUB_ANTONIA_SITE, Keyword.ULRESS_SITE);
     }
 
     @Override

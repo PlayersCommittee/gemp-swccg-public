@@ -3698,7 +3698,7 @@ var fixedImages = {
 "303_28":"https://i.imgur.com/DYbQNbu.png", //Gentle Vistage
 "303_29":"https://i.imgur.com/L3Wc0dj.png", //TXR-711 Attack Ship
 "303_30":"https://i.imgur.com/Xu7kfjJ.png", //Crystal Armor
-"304_1":"https://i.imgur.com/gsPrpyT.png", //I.S.N. Palpatine (Front)
+"304_1":"https://i.imgur.com/zJgi28w.png", //I.S.N. Palpatine (Front)
 "304_1_BACK":"https://i.imgur.com/EDNAoiW.png", //I.S.N. Palpatine (Back)
 "304_2":"https://i.imgur.com/FerFUPA.png", //Scholae Palatinae Occupation
 "304_3":"https://i.imgur.com/pTebLvV.png", //Dukwtape
@@ -3791,6 +3791,12 @@ var fixedImages = {
 "304_90":"https://i.imgur.com/yIePsEt.png", //Ulress: Ixtal's Garage (Light)
 "304_91":"https://i.imgur.com/580dlGn.png", //Master Rajhin Cindertail
 "304_92":"https://i.imgur.com/EleOBlW.png", //Shut Up, Pogo!
+"304_93":"https://i.imgur.com/kaB78QZ.png", //Crime Wave
+"304_94":"https://i.imgur.com/LKwTCwY.png", //Ulress: Space Port (Docking Bay) (Light)
+"304_95":"https://i.imgur.com/y5KCdb2.jpg", //Koudooine: Docking Bay (Light)
+"304_96":"https://i.imgur.com/GTZYSU3.png", //Ulress: Space Port (Docking Bay) (Dark)
+"304_97":"https://i.imgur.com/7moJfIG.png", //Koudooine: Docking Bay (Dark)
+
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
@@ -4855,7 +4861,8 @@ var Card = Class.extend({
 			       (cardNo == 13) ||
 				   (cardNo == 15);
 		}if (setNo == 304) {
-			return (cardNo >= 83 && cardNo <= 90);				   
+			return (cardNo >= 83 && cardNo <= 90) ||
+				   (cardNo >= 94 && cardNo <= 97);
         }if (setNo == 501) {
             return (cardNo == 6) ||
                    (cardNo == 7) ||

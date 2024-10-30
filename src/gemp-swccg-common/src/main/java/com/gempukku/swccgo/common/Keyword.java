@@ -218,7 +218,9 @@ public enum Keyword implements Filterable {
 	CSP_ROYAL_GUARD("Scholae Palatinae, Royal Guard", true, true),
 	CLAN_TIURE("Clan Tiure", true, true),
 	CLUB_ANTONIA_SITE("Club Antonia Site", false),
-	CLAUDIUS_PALACE_SITE("Claudius Palace Site", false);
+	CLAUDIUS_PALACE_SITE("Claudius Palace Site", false),
+	ULRESS_SITE("Ulress Site", false),
+    KOUDOOINE_SITE("Koudooine Site", false);
 
 
     private String _humanReadable;

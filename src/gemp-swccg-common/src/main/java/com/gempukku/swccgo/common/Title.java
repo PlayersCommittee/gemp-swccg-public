@@ -1329,5 +1329,16 @@ public interface Title {
     String Claudius_Palace = "Koudooine: Claudius the Hutt's Palace";
     String Club_Antonia_Bar = "Club Antonia: Bar";
     String Club_Antonia_Stage = "Club Antonia: Stage";
+    String Chop_Shop_Carbon_Chamber = "Ulress: Chop Shop Carbon Freeze Chamber";
+    String Ixtal_Garage_Lockup = "Ulress: Ixtal's Garage Lock-up";
+    String From_Here = "I'll Take It From Here";
+    String Carbonite_Control_Panel = "Carbonite Control Panel";
+    String CarbonFreezing = "Carbon Freezing";
+    String Crime_Wave = "Crime Wave";
+    String Kidnapping_From_The_Empire = "Kidnapping From The Empire";
+    String Claudius_Prize = "Claudius's Prize";
+    String Ulress_Space_Port = "Ulress: Space Port (Docking Bay)";
+    String Koudooine_Docking_Bay = "Koudooine: Docking Bay";
+    String Criminal_Empire = "Criminal Empire";
 
 }
