@@ -16,6 +16,7 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
@@ -34,24 +35,22 @@ import java.util.List;
 /**
  * Set: The Great Hutt Expansion
  * Type: Objective
- * Title: Shadow Collective / You Know Who I Answer To
+ * Title: Organized Crime / Shoot Out
  */
 public class Card304_098 extends AbstractObjective {
     public Card304_098() {
-        super(Side.LIGHT, 0, Title.Shadow_Collective, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
+        super(Side.LIGHT, 0, Title.Organized_Crime, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Maul's Chambers. If Massassi Throne Room on table, may deploy [Set 13] Maul to Maul's Chambers. " +
-                "For remainder of game, you may not deploy cards with ability (or [Episode I] droids) except characters with 'Black Sun,' 'Crimson Dawn,' or 'Hutt' in lore, assassins, gangsters, [Episode I] bounty hunters, and [Independent] starships. Once per turn, may deploy a non-unique blaster (or a card with 'First Light' in title) from Reserve Deck; reshuffle. " +
+        setGameText("Deploy Club Antonia: Backstage." +
+                "For remainder of game, you may not deploy cards with ability except characters with 'Tiure' or 'Smuggler' in lore, assassins, gangsters, bounty hunters, musicians and      starships. Once per turn, may deploy a non-unique blaster (or a card with 'Ferfiek Chawa' in title) from Reserve Deck; reshuffle." +
                 "Flip this card if you just 'hit' a character (or during your battle phase if your gangsters control two battlegrounds).");
-        addIcons(Icon.VIRTUAL_SET_13);
     }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         Filter independentStarships = Filters.and(Icon.INDEPENDENT, Filters.starship);
-        Filter episode1BountyHunters = Filters.and(Filters.icon(Icon.EPISODE_I), Filters.bounty_hunter);
-        Filter loreCharacters = Filters.or(Filters.loreContains("Crimson Dawn"), Filters.loreContains("Black Sun"), Filters.loreContains("Hutt"));
-        Filter cardsThatMayNotDeploy = Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Filters.or(independentStarships, episode1BountyHunters, Filters.assassin, Filters.gangster, loreCharacters))));
+        Filter loreCharacters = Filters.or(Filters.loreContains("Tiure"), Filters.loreContains("Smuggler"));
+        Filter cardsThatMayNotDeploy = Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Filters.or(independentStarships, Filters.bounty_hunter, Filters.assassin, Filters.gangster, Filters.musician, loreCharacters)));
         List<Modifier> modifiers = new ArrayList<>();
         modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.your(self.getOwner()), cardsThatMayNotDeploy), self.getOwner()));
         return modifiers;
@@ -61,18 +60,9 @@ public class Card304_098 extends AbstractObjective {
     protected ObjectiveDeployedTriggerAction getGameTextWhenDeployedAction(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         ObjectiveDeployedTriggerAction action = new ObjectiveDeployedTriggerAction(self);
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.title(Title.Dathomir_Mauls_Chambers), true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.title(Title.Club_Antonia_Backstage), true, false) {
 
                 });
-        // Check condition(s)
-        if (GameConditions.canSpot(game, self, Filters.title(Title.Massassi_Throne_Room))) {
-            action.appendOptionalEffect(
-                    new DeployCardsToLocationFromReserveDeckEffect(action, Filters.Maul, 0, 1, Filters.title(Title.Dathomir_Mauls_Chambers), true, true) {
-                        public String getChoiceText(int numCardsToChoose) {
-                            return "Choose Maul to deploy";
-                        }
-                    });
-        }
         return action;
     }
 
@@ -80,19 +70,19 @@ public class Card304_098 extends AbstractObjective {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<>();
 
-        GameTextActionId gameTextActionId = GameTextActionId.SHADOW_COLLECTIVE__DOWNLOAD_BLASTER_OR_FIRST_LIGHT_CARD;
+        GameTextActionId gameTextActionId = GameTextActionId.ORGANIZED_CRIME__DOWNLOAD_BLASTER_OR_FERFIEK_CHAWA_CARD;
 
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy a card from Reserve Deck");
-            action.setActionMsg("Deploy a non-unique blaster (or a card with 'First Light' in title) from Reserve Deck");
+            action.setActionMsg("Deploy a non-unique blaster (or a card with 'Ferfiek Chawa' in title) from Reserve Deck");
             action.appendUsage(
                     new OncePerTurnEffect(action)
             );
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.and(Filters.non_unique, Filters.blaster), Filters.titleContains("First Light")), true)
+                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.and(Filters.non_unique, Filters.blaster), Filters.titleContains("Ferfiek Chawa")), true)
             );
 
             actions.add(action);

@@ -19369,6 +19369,12 @@ public class Filters {
     public static final Filter Koudooine_Docking_Bay = Filters.title(Title.Koudooine_Docking_Bay);
     public static final Filter Ulress_Space_Port = Filters.title(Title.Ulress_Space_Port);
 	public static final Filter CSP_character = Filters.and(Icon.CSP, CardCategory.CHARACTER);
+    public static final Filter Club_Antonia_Bar = Filters.title(Title.Club_Antonia_Bar);
+    public static final Filter Ulress_Club_Antonia = Filters.title(Title.Ulress_Club_Antonia);
+    public static final Filter Club_Antonia_Backstage = Filters.title(Title.Club_Antonia_Backstage);
+    public static final Filter Sqygorn = Filters.persona(Persona.SQYGORN);
+    public static final Filter Alleyway = Filters.title(Title.Alleyway);
+    public static final Filter Ulress_battleground_site = Filters.and(Keyword.ULRESS_SITE, CardSubtype.SITE, Filters.battleground());
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

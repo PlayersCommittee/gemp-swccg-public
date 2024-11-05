@@ -1340,5 +1340,14 @@ public interface Title {
     String Ulress_Space_Port = "Ulress: Space Port (Docking Bay)";
     String Koudooine_Docking_Bay = "Koudooine: Docking Bay";
     String Criminal_Empire = "Criminal Empire";
+    String Organized_Crime = "Organized Crime";
+    String Ulress_Club_Antonia = "Ulress: Club Antonia";
+    String Club_Antonia_Backstage = "Club Antonia: Backstage";
+    String Shoot_Out = "Shoot Out";
+    String Alleyway = "Ulress: Alleyway";
+    String Danktooine = "Danktooine";
+    String Clan_Tiure_Blaster = "Clan Tiure Blaster";
+    String Clan_Tiure_K16_Blaster = "Clan Tiure K-16 Blaster";
+    String Degentrification = "Degentrification";
 
 }

@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card304_088 extends AbstractSite {
     public Card304_088() {
-        super(Side.LIGHT, "Ulress: Club Antonia", Title.Ulress, Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
+        super(Side.LIGHT, Title.Ulress_Club_Antonia, Title.Ulress, Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLocationDarkSideGameText("Your non-Alien characters deploy +1 here.");
         setLocationLightSideGameText("If you control, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 1);

@@ -3796,6 +3796,22 @@ var fixedImages = {
 "304_95":"https://i.imgur.com/y5KCdb2.jpg", //Koudooine: Docking Bay (Light)
 "304_96":"https://i.imgur.com/GTZYSU3.png", //Ulress: Space Port (Docking Bay) (Dark)
 "304_97":"https://i.imgur.com/7moJfIG.png", //Koudooine: Docking Bay (Dark)
+"304_98":"https://i.imgur.com/lXCDAe1.jpg", //Organized Crime
+"304_98_BACK":"https://i.imgur.com/eYY49AW.jpg", //Shoot Out
+"304_99":"https://i.imgur.com/9lahm7D.jpg", //Club Antonia: Backstage (Light)
+"304_100":"https://i.imgur.com/NrgfMGt.png", //Mandalorian Hunter
+"304_101":"https://i.imgur.com/iMgqqXD.png", //Tiure Street Thug
+"304_102":"https://i.imgur.com/Q3DYyDT.jpg", //Selynn Valtora
+"304_103":"https://i.imgur.com/GRuWqPy.jpg", //Ferfiek Chawa: Reception Area (Light)
+"304_104":"https://i.imgur.com/TQQtC69.png", //Ferfiek Chawa: Claudius's Waiting Room (Light)
+"304_105":"https://i.imgur.com/y1HGDNJ.jpg", //Ferfiek Chawa: Bar (Light)
+"304_106":"https://i.imgur.com/bgCHhJt.png", //Ulress: Alleyway (Light)
+"304_107":"https://i.imgur.com/PyTJaYM.png", //Danktooine (Light)
+"304_108":"https://i.imgur.com/sT76aVc.jpg", //Clan Tiure Blaster
+"304_109":"https://i.imgur.com/m3gtskT.jpg", //Clan Tiure K-16 Blaster
+"304_110":"https://i.imgur.com/5Xfw5ip.jpg", //Sqygorn's Custom Westar 88 Blaster
+"304_111":"https://i.imgur.com/M2GC813.jpg", //You Wound Me
+"304_112":"https://i.imgur.com/7qs9kwM.jpg", //Degentrification
 
 
 //playtesting
@@ -4862,7 +4878,9 @@ var Card = Class.extend({
 				   (cardNo == 15);
 		}if (setNo == 304) {
 			return (cardNo >= 83 && cardNo <= 90) ||
-				   (cardNo >= 94 && cardNo <= 97);
+				   (cardNo >= 94 && cardNo <= 97) ||
+				   (cardNo == 99) ||
+				   (cardNo >= 103 && cardNo <= 106);
         }if (setNo == 501) {
             return (cardNo == 6) ||
                    (cardNo == 7) ||

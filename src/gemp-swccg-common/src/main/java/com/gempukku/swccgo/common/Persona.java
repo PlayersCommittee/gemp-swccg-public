@@ -190,6 +190,10 @@ public enum Persona implements Filterable {
 	DIA_GIDA("Dia Gida"),
 	ZAX("Zax Keevo"),
     RAJHIN("Rajhin Cindertail"),
+    SQYGORN("Sqygorn Dar"),
+    BRIE("Brie Cunngemi"),
+    GAIUS("Gaius the Hutt"),
+
 
     // Starships
     BESTOON_LEGACY("Bestoon Legacy"),
@@ -231,6 +235,7 @@ public enum Persona implements Filterable {
     VADERS_CUSTOM_TIE("Vader's Custom TIE"),
     VADERS_PERSONAL_SHUTTLE("Vader's Personal Shuttle"),
 	GUARDIAN_1("Guardian 1"),
+    FERFIEK_CHAWA("Ferfiek Chawa"),
 
     // Vehicles
     JABBAS_SAIL_BARGE("Jabba's Sail Barge"),
@@ -261,6 +266,7 @@ public enum Persona implements Filterable {
 	ROHANS_LIGHTSABER("Rohan's Lightsaber"),
 	POGOS_BLASTER_RIFLE("Pogo's Blaster Rifle"),
 	LAPLAMIZ_LIGHTSABER("Lap'lamiz's Lightsaber"),
+    SQYGORNS_BLASTER("Sqygorn Dar's Blaster"),
 
 
     ;

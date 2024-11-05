@@ -38,15 +38,14 @@ import java.util.List;
 /**
  * Set: The Great Hutt Expansion
  * Type: Objective
- * Title: Shadow Collective / You Know Who I Answer To
+ * Title: Organized Crime / Shoot Out
  */
 public class Card304_098_BACK extends AbstractObjective {
     public Card304_098_BACK() {
-        super(Side.LIGHT, 7, Title.You_Know_Who_I_Answer_To, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
+        super(Side.LIGHT, 7, Title.Shoot_Out, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setGameText("May immediately re-circulate and shuffle your Reserve Deck." +
                 "While this side up, if your gangster leader in battle at same site as your non-unique blaster, may add one destiny to total power. If Maul alone, during your draw phase may peek at the cards in your Force Pile" +
                 "Flip this card at end of turn. If you are about to flip this card and you occupy three battlegrounds, opponent loses 1 Force.");
-        addIcons(Icon.VIRTUAL_SET_13);
     }
 
     @Override
@@ -94,9 +93,8 @@ public class Card304_098_BACK extends AbstractObjective {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         Filter independentStarships = Filters.and(Icon.INDEPENDENT, Filters.starship);
-        Filter episode1BountyHunters = Filters.and(Filters.icon(Icon.EPISODE_I), Filters.bounty_hunter);
-        Filter loreCharacters = Filters.or(Filters.loreContains("Crimson Dawn"), Filters.loreContains("Black Sun"), Filters.loreContains("Hutt"));
-        Filter cardsThatMayNotDeploy = Filters.or(Filters.and(Filters.icon(Icon.EPISODE_I), Filters.droid), Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Filters.or(independentStarships, episode1BountyHunters, Filters.assassin, Filters.gangster, loreCharacters))));
+        Filter loreCharacters = Filters.or(Filters.loreContains("Tiure"), Filters.loreContains("Smuggler"));
+        Filter cardsThatMayNotDeploy = Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Filters.or(independentStarships, Filters.bounty_hunter, Filters.assassin, Filters.gangster, Filters.musician, loreCharacters)));
         List<Modifier> modifiers = new ArrayList<>();
         modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.your(self.getOwner()), cardsThatMayNotDeploy), self.getOwner()));
         return modifiers;
@@ -128,7 +126,7 @@ public class Card304_098_BACK extends AbstractObjective {
 
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId2, Phase.DRAW)
                 && GameConditions.hasForcePile(game, playerId)
-                && GameConditions.canSpot(game, self, Filters.and(Filters.Maul, Filters.alone))) {
+                && GameConditions.canSpot(game, self, Filters.and(Filters.or(Filters.Candon, Filters.Sqygorn), Filters.alone))) {
             TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId2);
             action.setText("Peek at Force Pile");
             action.appendUsage(new OncePerPhaseEffect(action));
@@ -137,18 +135,18 @@ public class Card304_098_BACK extends AbstractObjective {
             actions.add(action);
         }
 
-        GameTextActionId gameTextActionId3 = GameTextActionId.SHADOW_COLLECTIVE__DOWNLOAD_BLASTER_OR_FIRST_LIGHT_CARD;
+        GameTextActionId gameTextActionId3 = GameTextActionId.ORGANIZED_CRIME__DOWNLOAD_BLASTER_OR_FERFIEK_CHAWA_CARD;
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId3)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId3)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId3);
             action.setText("Deploy a card from Reserve Deck");
-            action.setActionMsg("Deploy a non-unique blaster (or a card with 'First Light' in title) from Reserve Deck");
+            action.setActionMsg("Deploy a non-unique blaster (or a card with 'Ferfiek Chawa' in title) from Reserve Deck");
             action.appendUsage(
                     new OncePerTurnEffect(action)
             );
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.and(Filters.non_unique, Filters.blaster), Filters.titleContains("First Light")), true)
+                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.and(Filters.non_unique, Filters.blaster), Filters.titleContains("Ferfiek Chawa")), true)
             );
             actions.add(action);
         }
