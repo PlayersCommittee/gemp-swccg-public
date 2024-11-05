@@ -36,7 +36,7 @@ public class Card6_038 extends AbstractAlien {
         setLore("Humanoid mercenary. Gambler. Blackmailed into working for Jabba. Friend of Yarna d'al' Gargan. Expert in breathing apparatus. Needs Hydron 3 cartridges to breathe.");
         setGameText("When Doallyn is on Tatooine, Tusken Breath Mask may target one of your characters on Tatooine, is immune to Alter, is not unique, doubles its power and forfeit bonuses and provides protection from Gravel Storm and Sandwhirl.");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);
-        addKeywords(Keyword.GAMBLER);
+        addKeywords(Keyword.GAMBLER, Keyword.MERCENARY);
         addPersona(Persona.DOALLYN);
     }
 

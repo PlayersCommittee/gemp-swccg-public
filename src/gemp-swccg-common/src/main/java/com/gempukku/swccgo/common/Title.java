@@ -141,6 +141,7 @@ public interface Title {
     String Bounty = "Bounty";
     String Bounty_Hunters_Guild = "Nevarro City: Bounty Hunter's Guild";
     String Bounty_Hunting_Is_A_Dangerous_Profession = "Bounty Hunting Is A Dangerous Profession";
+    String Boushh = "Boushh";
     String Holopuck = "Holopuck";
     String Bow_To_The_First_Order = "Bow To The First Order";
     String Bowcaster = "Bowcaster";
@@ -193,6 +194,7 @@ public interface Title {
     String Civil_Disorder = "Civil Disorder";
     String Clakdor_VII = "Clak'dor VII";
     String Clash_Of_Sabers = "Clash Of Sabers";
+    String Cody = "Commander Cody";
     String Clone_Command_Center = "Clone Command Center";
     String Clone_Trooper = "Clone Trooper";
     String Cloning_Cylinders = "Cloning Cylinders";
@@ -270,6 +272,7 @@ public interface Title {
     String Dathomir_Mauls_Chambers = "Dathomir: Maul's Chambers";
     String Daughter_Of_Skywalker = "Daughter Of Skywalker";
     String Deactivate_The_Shield_Generator = "Deactivate The Shield Generator";
+    String Deactivated_Hyperdrive = "Deactivated Hyperdrive";
     String Dead_Ewok = "Dead Ewok";
     String Death_Mark = "Death Mark";
     String Death_Squadron = "Death Squadron";
@@ -448,6 +451,7 @@ public interface Title {
     String Gold_4 = "Gold 4";
     String Gold_5 = "Gold 5";
     String Gold_6 = "Gold 6";
+    String Goldenrod = "Goldenrod";
     String Goo_Nee_Tay = "Goo Nee Tay";
     String Graak = "Graak";
     String Gravel_Storm = "Gravel Storm";
@@ -463,6 +467,7 @@ public interface Title {
     String Gungan_Energy_Shield = "Gungan Energy Shield";
     String Guri = "Guri";
     String Halt = "Halt!";
+    String Han_Solo = "Han Solo";
     String Hans_Back = "Han's Back";
     String Hans_Dice = "Han's Dice";
     String Hans_Heavy_Blaster_Pistol = "Han's Heavy Blaster Pistol";
@@ -580,6 +585,7 @@ public interface Title {
     String Irol = "Sergeant Irol";
     String ISB_Operations = "ISB Operations";
     String IT0 = "IT-O (Eyetee-Oh)";
+    String It_Can_Wait = "It Can Wait";
     String It_Could_Be_Worse = "It Could Be Worse";
     String Its_A_Hit = "It's A Hit!";
     String Its_A_Trap = "It's A Trap!";
@@ -659,6 +665,7 @@ public interface Title {
     String Liberation = "Liberation";
     String Lieutenant_Blount = "Lieutenant Blount";
     String Lieutenant_Page = "Lieutenant Page";
+    String Life_Day = "Life Day";
     String Life_Debt = "Life Debt";
     String Lift_Tube = "Lift Tube";
     String Lightsaber_Proficiency = "Lightsaber Proficiency";
@@ -700,6 +707,7 @@ public interface Title {
     String Mandalorian_Covert = "Mandalorian Covert";
     String Maneuvering_Flaps = "Maneuvering Flaps";
     String Mantellian_Savrip = "Mantellian Savrip";
+    String Mara_Jade_The_Emperors_Hand = "Mara Jade, The Emperor's Hand";
     String Marketplace = "Tatooine: Marketplace";
     String Marmor = "Corporal Marmor";
     String Marquand = "Major Marquand";
@@ -823,6 +831,7 @@ public interface Title {
     String Panic = "Panic";
     String Palace_Raider = "Palace Raider";
     String Paploo = "Paploo";
+    String Part_of_the_Tribe = "Part Of The Tribe";
     String Passenger_Deck = "Jabba's Sail Barge: Passenger Deck";
     String Path_Of_Least_Resistance = "Path Of Least Resistance";
     String Patrol_Craft = "Patrol Craft";
@@ -1165,6 +1174,7 @@ public interface Title {
     String Unsalvageable = "Unsalvageable";
     String Until_We_Win_Or_The_Chances_Are_Spent = "Until We Win, Or The Chances Are Spent";
     String Uplink_Station = "Xizor's Palace: Uplink Station";
+    String Upper_Plaza_Corridor = "Cloud City: Upper Plaza Corridor";
     String Upper_Walkway = "Cloud City: Upper Walkway";
     String URoRRuRRR = "URoRRuR'R'R";
     String Utapau = "Utapau";

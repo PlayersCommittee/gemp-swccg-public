@@ -27,6 +27,7 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
@@ -124,6 +125,13 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
         }
 
         removeDueToMayNotBePlayedUnlessImmuneToSpecificTitleModifier(game, self, actions);
+
+        if (self.getZone() == Zone.HAND) {
+            List<TopLevelGameTextAction> actionList4 = getGameTextTopLevelInHandActions(playerId, game, self, self.getCardId());
+            if (actionList4 != null) {
+                actions.addAll(actionList4);
+            }
+        }
 
         return actions;
     }
@@ -649,6 +657,18 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
         return null;
     }
 
+    /**
+     * This method is overridden by individual cards to specify top-level actions that can be performed by the specified
+     * player when the card is in hand.
+     * @param playerId the player
+     * @param game the game
+     * @param self the card
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card) 
+     * @return the actions, or null
+     */
+    protected List<TopLevelGameTextAction> getGameTextTopLevelInHandActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
 
     /**
      * This method is overridden by individual cards to specify top-level actions during an Attack Run.
@@ -734,6 +754,36 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
      * @return the trigger actions, or null
      */
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalDrawnAsDestinyTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        return null;
+    }
+
+                /**
+     * Gets modifiers from the card that are always in effect (even if game text is canceled).
+     * @param game the game
+     * @param self the card
+     * @return the modifiers
+     */
+    @Override
+    public List<Modifier> getAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+
+        // Modifiers from game text
+        List<Modifier> modifiersFromGameText = getGameTextAlwaysOnModifiers(game, self);
+        if (modifiersFromGameText != null) {
+            modifiers.addAll(modifiersFromGameText);
+        }
+
+        return modifiers;
+    }
+
+     /**
+     * This method is overridden by individual cards to specify modifiers that are always in effect (unless game text is
+     * canceled).
+     * @param game the game
+     * @param self the card
+     * @return the modifiers, or null
+     */
+    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
         return null;
     }
 

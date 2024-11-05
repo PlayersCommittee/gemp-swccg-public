@@ -5,7 +5,6 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
@@ -38,7 +37,6 @@ public class Card9_010 extends AbstractRebel {
         setLore("Corellian dock mechanic. Defected to the Alliance with General Madine. Manages staff of 75 starfighter and 12 star cruiser mechanics in Home One's rear quadrant.");
         setGameText("Reduces X by 3 on Docking And Repair Facilities when a Star Cruiser is held there. When he is at a docking bay where you have just deployed a starfighter, once per turn you may retrieve 1 Force.");
         addIcons(Icon.DEATH_STAR_II, Icon.WARRIOR);
-        addKeywords(Keyword.LEADER, Keyword.GRAY_SQUADRON);
         setSpecies(Species.CORELLIAN);
     }
 

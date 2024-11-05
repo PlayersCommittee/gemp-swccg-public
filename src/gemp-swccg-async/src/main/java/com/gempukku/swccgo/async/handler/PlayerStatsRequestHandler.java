@@ -42,7 +42,7 @@ public class PlayerStatsRequestHandler extends SwccgoServerRequestHandler implem
     }
 
     private void getPlayerStats(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
@@ -70,7 +70,7 @@ public class PlayerStatsRequestHandler extends SwccgoServerRequestHandler implem
     }
 
     private void getPlayerInfo(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 

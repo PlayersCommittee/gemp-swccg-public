@@ -28,20 +28,21 @@ gemp_app contains the slightly more involved environment necessary to run the ap
 	* If you're installing this on Linux, I assume you know more than I do about how to set it up properly.
 2. Install your container manager of choice.  I would HIGHLY recommend [PortainerIO](https://www.portainer.io/), which itself runs in a docker container and exposes itself as an interactable web page.  This will give you a graphical readout of all your currently running containers, registered images, networks, volumes, and just about anything else you might want, PLUS have interactive command lines for when the GUI just doesn't cut it.  The manager that comes with Docker Desktop by default is pretty much only just barely enough to run portainer with, so don't bother with it otherwise.
 3. Pull the git repository down to your host machine; you may have already done this.
-4. Open a code editor of your choice and navigate to `{repo-root}/src/docker`.  Open up [docker-compose.yml](docker-compose.yml) and change the defaults to suit your needs:
+4. Open a code editor of your choice and navigate to `{repo-root}/src`.  Open up [docker-compose.yml](docker-compose.yml) and change the defaults to suit your needs:
 	1. Note all the relative paths under each volume/source: these are all paths on your host system.  If you want e.g. the database to be in a different location than what's listed, alter these relative paths to something else on your host system.
 	2. In the Docker [.env](./.env) file note all of the username/password fields.  If you are hosting this for something other than personal development, be sure to change all of these to something else.
 	3. Note the two "published" ports: 17001 for the app, and 35001 for the db.  These are the ports that you will be accessing the site with (and the db if you connect with a database manager). If you are hosting this for something other than personal development, consider changing these to something else.  **DO NOT** change the "target" ports, these targets are the ports that are used internally by Docker networking.
-5. Open a command line and navigate to src/docker. 
+5. In `{repo-root}/src/docker-compose.yml`, comment out lines 42-48 (the Command instruction) by placing a `#` in front of each line.  This section runs Gemp, but it expects the jar file to be in place, which is not the case until you have built it.
+6. Open a command line and navigate to `src`. 
 	* Run the command `docker compose build`
 	* Run the command `docker compose up -d`
 	* You should see `Starting gemp_app....done` and `Starting gemp_db....done` at the end.  
 	* This process will take a while the first time you do it, and will be near instantaneous every time after.
-6. The database should have automatically created the gemp databases that are needed.  
+7. The database should have automatically created the gemp databases that are needed.  
 	* You can verify this by connecting to the database on your host machine with your DB manager of choice (I recommend [DBeaver](https://dbeaver.io/)).  
 	* It is exposed on localhost:35001 (unless you changed this port in step 4.2) and uses the user/pass of `gempuser`/`gemppassword` (unless you changed this in step 4.2).  
 	* If you can see the `gemp_db` database with `collection` and other tables, you're golden.  
-7. Open a terminal in the Docker container
+8. Open a terminal in the Docker container
 	* Using Portainer or Docker Desktop open a terminal in the `gemp_swccg_app_1` container
 		* if using portainer.io, 
 			* log in
@@ -53,11 +54,12 @@ gemp_app contains the slightly more involved environment necessary to run the ap
 			* Select the "Container" option in the left navbar
 			* expand the `gemp_swccg_app_1` container
 			* click the actions button and select `Open in Terminal`
-8. You should already be in the main Gemp folder at `opt/gemp-swccg`.
+9. You should already be in the main Gemp folder at `opt/gemp-swccg`.
 	* Use Maven to compile the application:	`mvn install`
 	* This process will take upwards of 5-10 minutes.  
 	* You should see a green "BUILD SUCCESS" when it is successfully done.  In portainer.io or another rich command line context, you should see lots of red text if it failed.
-9. On your host machine cycle your docker container
+10. On your host machine, open up `src/docker-compose.yml` again and uncomment lines 42-48, so that the Command instruction is restored.
+11. On your host machine, cycle your docker container
 	* You can do this in Portainer by putting a checkmark next to the gemp app container and clicking the "Restart" button.
 	* If you prefer, in a terminal navigate to `src/docker` and run `docker compose restart`
 10. If all has gone as planned, you should now be able to navigate to your own personal instance of Gemp.  

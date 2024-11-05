@@ -222,3 +222,10 @@ div.deckstats-card-count-light-and-dark-set span#deckstats-dark-content  {
 #filtering select {
     font-size: 80%;
 }
+
+#auto-zoom-toggle {
+    width: 27px;
+    height: 23px;
+    float: right;
+    margin-top: auto;
+}

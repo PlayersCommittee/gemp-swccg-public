@@ -4,8 +4,6 @@ GEMP-SWCCG - server/client for playing Star Wars CCG using a web browser. The pr
 ## TOC
 
 * <a href="#docker">Docker</a>
-* <a href="#vagrant">Vagrant</a>
-  * <a href="README_vagrant_windows.md"><em>Vagrant for Windows</em></a>
 * <a href="#formats">Formats</a>
 
 
@@ -13,7 +11,7 @@ GEMP-SWCCG - server/client for playing Star Wars CCG using a web browser. The pr
 
 ## Docker
 
-* `docker/docker-compose.yml` is used both for the production environment and local development/test environments.
+* `src/docker-compose.yml` is used for local development/test environments. `src/docker-compose-prod.yml` contains the minimal changes required to make that same composition work for the production deployment.
 * `docker compose build` will build the container images, referring to the configuration file for what settings to use.
 * Full installation instructions are in the /docker/readme.md
 
@@ -30,9 +28,9 @@ GEMP-SWCCG - server/client for playing Star Wars CCG using a web browser. The pr
 
 * The formats are defined in:
   * `gemp-swccg-server/src/main/resources/swccgFormats.json`
-  * `gemp-swccg-async/src/main/web/js/gemp-016/cardFilter.js`
+  * `gemp-swccg-async/src/main/web/js/gemp-016/cards/CardFilter.js`
   * `gemp-swccg-async/src/main/web/includes/admin/leagueAdmin.html`
-* The `cardFilter.js` file controls the display of formats in the deckbuilder and merchant, while `leagueAdmin.html` is for setting up leagues in various formats.  Neither does anything unless the content is updated in `swccgFormats.json`.
+* The `CardFilter.js` file controls the display of formats in the deckbuilder and merchant, while `leagueAdmin.html` is for setting up leagues in various formats.  Neither does anything unless the content is updated in `swccgFormats.json`.
 * `swccgFormats.json` contains a list of formats in the order they will appear within the Gemp system.
   * The first entry within the list will be the default format used by gemp.
   * The display name _("name" field)_ is used within the database. Once a single game has been played for a format, the name cannot be changed without manually updating the database.

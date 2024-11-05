@@ -49,7 +49,7 @@ public class Card3_115 extends AbstractEpicEventPlayable {
 
     @Override
     protected List<PlayEpicEventAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
-        final int numDestiny = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.TARGET_THE_MAIN_GENERATOR__ADDS_ONE_DESTINY) ? 2 : 1;
+        final int numDestiny = 1;
 
         // Check condition(s)
         if (GameConditions.isDuringYourPhase(game, self, Phase.CONTROL)

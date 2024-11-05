@@ -38,7 +38,7 @@ public class Card112_013 extends AbstractAlien {
         setLore("Smugglers. Candidates who resent authority often abandon Imperial academies to sell their piloting skills to criminals. Will work for any high paying crime syndicate.");
         setGameText("Adds 2 to power of anything he pilots or drives. When driving a transport vehicle, adds one battle destiny. When piloting at a cloud sector, once per turn adds one battle destiny during battle at a related exterior site.");
         addIcons(Icon.PREMIUM, Icon.PILOT, Icon.WARRIOR);
-        addKeywords(Keyword.SMUGGLER);
+        addKeywords(Keyword.MERCENARY, Keyword.SMUGGLER);
     }
 
     @Override

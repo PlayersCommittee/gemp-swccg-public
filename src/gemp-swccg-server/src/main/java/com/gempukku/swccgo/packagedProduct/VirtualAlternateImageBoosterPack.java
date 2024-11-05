@@ -37,6 +37,8 @@ public class VirtualAlternateImageBoosterPack extends BasePackagedCardProduct {
                 return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_4;
             case 5:
                 return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_5;
+            case 6:
+                return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_6;
         }
 
         return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_1;
@@ -171,6 +173,26 @@ public class VirtualAlternateImageBoosterPack extends BasePackagedCardProduct {
                 possibleCards.add("210_23^"); //Plo Koon (V)
                 possibleCards.add("208_17^"); //Restore Freedom To The Galaxy
                 possibleCards.add("216_43^"); //Tatooine: Obi-Wan’s Hut (V) (Borderless)
+                break;
+            case 6:
+                possibleCards.add("204_1^"); //BB-8 (Border Breaker)
+                possibleCards.add("204_47^"); //Bow To The First Order
+                possibleCards.add("219_2^"); //Chimaera (V)
+                possibleCards.add("219_31^"); //Coruscant: Jedi Temple (Borderless)
+                possibleCards.add("213_23^"); //Dathmoir: Maul's Chambers
+                possibleCards.add("217_34^"); //Endor: Anakin's Funeral Pyre (Borderless)
+                possibleCards.add("209_4^"); //Galen Erso
+                possibleCards.add("205_17^"); //I Am Your Father (V)
+                possibleCards.add("200_41^"); //I Must Be Allowed To Speak (V)
+                possibleCards.add("211_23^"); //Invisible Hand (Border Breaker)
+                possibleCards.add("202_5^"); //Like My Father Before Me
+                possibleCards.add("200_20^"); //Luke Skywalker (V)
+                possibleCards.add("210_20^"); //Luke Skywalker, The Last Jedi
+                possibleCards.add("208_8^"); //Luke Skywalker, The Rebellion's Hope
+                possibleCards.add("205_6^"); //Tatooine: Lars' Moisture Farm (V)
+                possibleCards.add("218_31^"); //Tydirum (V) (Border Breaker)
+                possibleCards.add("217_52^"); //Your Thoughts Dwell On Your Mother
+                possibleCards.add("204_46^"); //Zam Wesell (Semi Border Break)
                 break;
         }
 

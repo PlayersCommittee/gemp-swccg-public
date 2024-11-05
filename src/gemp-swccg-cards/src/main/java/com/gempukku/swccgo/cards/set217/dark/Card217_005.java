@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
@@ -42,6 +43,7 @@ public class Card217_005 extends AbstractAlien {
         setGameText("Once during battle, may use 1 Force to make Burg power +2 for remainder of turn. Once during battle, opponent may use 1 Force to make Burg power -2 for remainder of turn. At the end of each of your turns, use 1 Force or place Burg in Used Pile.");
         setSpecies(Species.DEVARONIAN);
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_17);
+        addKeyword(Keyword.MERCENARY);
     }
 
     @Override

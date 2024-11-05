@@ -43,6 +43,12 @@ target/
 */.settings/*
 .settings/org.eclipse.core.resources.prefs
 
+#Local linter stuff for VSCode
+node_modules
+package.json
+package-lock.json
+eslint.config.mjs
+
 swccgFormats-utinni.json
 
 # Mounted docker folders necessary for operation, but which we don't 
@@ -61,3 +67,5 @@ logs/*
 !logs/.placeholder
 database/*
 !database/.placeholder
+
+/.vs

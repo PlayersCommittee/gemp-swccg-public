@@ -26,12 +26,16 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceAndStackFaceDownEffect;
 import com.gempukku.swccgo.logic.effects.PutStackedCardsInUsedPileEffect;
+import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.TotalDestinyModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.results.CalculatingEpicEventTotalResult;
 import com.gempukku.swccgo.logic.timing.results.ForceDrainInitiatedResult;
 
 import java.util.Collection;
@@ -83,28 +87,37 @@ public class Card208_017 extends AbstractEpicEventDeployable {
                         @Override
                         protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                             GameState gameState = game.getGameState();
-                            //final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-                            if (totalDestiny == null) {
-                                gameState.sendMessage("Result: Failed due to failed destiny draw");
-                                return;
-                            }
+                            // Emit effect result that Restore Freedom To The Galaxy total is being calculated
+                            action.appendEffect(
+                                new TriggeringResultEffect(action, new CalculatingEpicEventTotalResult(playerId, self)));
+                            action.appendEffect(
+                                new PassthruEffect(action) {
+                                    @Override
+                                    protected void doPlayEffect(SwccgGame game) {
+                                        if (totalDestiny == null) {
+                                            gameState.sendMessage("Result: Failed due to failed destiny draw");
+                                            return;
+                                        }
+                                        final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
+                                        final float finalTotal = modifiersQuerying.getEpicEventCalculationTotal(gameState, self, (totalDestiny != null ? totalDestiny : 0));
+            
+                                        gameState.sendMessage("Destiny: " + GuiUtils.formatAsString(finalTotal));
+                                        if (finalTotal > 5) {
+                                            gameState.sendMessage("Result: Succeeded");
+                                            action.appendEffect(
+                                                    new LoseForceAndStackFaceDownEffect(action, opponent, 1, system, true) {
+                                                        @Override
+                                                        public boolean isShownIfLostFromHand() {
+                                                            return true;
+                                                        }
+                                                    });
+                                        }
+                                        else {
+                                            gameState.sendMessage("Result: Failed");
+                                        }
 
-                            gameState.sendMessage("Destiny: " + GuiUtils.formatAsString(totalDestiny));
-                            if (totalDestiny > 5) {
-                                gameState.sendMessage("Result: Succeeded");
-                                action.appendEffect(
-                                        new LoseForceAndStackFaceDownEffect(action, opponent, 1, system, true) {
-                                            @Override
-                                            public boolean isShownIfLostFromHand() {
-                                                return true;
-                                            }
-                                        });
-                            }
-                            else {
-                                gameState.sendMessage("Result: Failed");
-                            }
-
-
+                                    }
+                                });
                         }
                     }
             );

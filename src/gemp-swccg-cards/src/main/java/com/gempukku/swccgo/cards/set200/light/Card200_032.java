@@ -2,7 +2,7 @@ package com.gempukku.swccgo.cards.set200.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
+import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
@@ -15,9 +15,13 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.conditions.UnlessCondition;
+import com.gempukku.swccgo.logic.modifiers.MayNotTargetToBePlacedOutOfPlayModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.NoForceLossFromCardModifier;
-import com.gempukku.swccgo.logic.modifiers.SuspendsCardModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifierFlag;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.SpecialFlagModifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -35,15 +39,25 @@ public class Card200_032 extends AbstractDefensiveShield {
         super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Your_Insight_Serves_You_Well, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("Luke knew that while the dark side was quicker and more seductive, eventually evil would turn on itself.");
-        setGameText("Plays on table. Scanning Crew is canceled. If an 'insert' card was just inserted or revealed, it is canceled. You lose no Force to Boonta Eve Podrace. While you occupy three battlegrounds, Watto's Box is suspended.");
+        setGameText("Plays on table. Cancels Scanning Crew and 'insert' cards just revealed. Sidious may not place Skywalkers out of play. Let Them Make the First Move may target only Undercover Spies. Unless Inner Strength on table, opponent may only use one combat card per turn.");
         addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_DEFENSIVE_SHIELD);
+    }
+
+    @Override
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        String opponent = game.getOpponent(self.getOwner());
+
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new MayNotTargetToBePlacedOutOfPlayModifier(self, Filters.Skywalker, Filters.Sidious));
+        modifiers.add(new SpecialFlagModifier(self, new UnlessCondition(new OnTableCondition(self, Filters.Inner_Strength)), ModifierFlag.MAY_ONLY_USE_ONE_COMBAT_CARD_PER_TURN, opponent));
+        modifiers.add(new ModifyGameTextModifier(self, Filters.Let_Them_Make_The_First_Move, ModifyGameTextType.LET_THEM_MAKE_THE_FIRST_MOVE__ONLY_TARGET_UNDERCOVER_SPIES_AND_R2D2));
+        return modifiers;
     }
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(final SwccgGame game, Effect effect, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if ((TriggerConditions.isPlayingCard(game, effect, Filters.Scanning_Crew)
-                || TriggerConditions.isPlayingCardAsInsertCard(game, effect, Filters.any))
+        if (TriggerConditions.isPlayingCard(game, effect, Filters.Scanning_Crew)
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
@@ -77,15 +91,5 @@ public class Card200_032 extends AbstractDefensiveShield {
             actions.add(action);
         }
         return actions;
-    }
-
-    @Override
-    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        String playerId = self.getOwner();
-
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new NoForceLossFromCardModifier(self, Filters.Boonta_Eve_Podrace, playerId));
-        modifiers.add(new SuspendsCardModifier(self, Filters.Wattos_Box, new OccupiesCondition(playerId, 3, Filters.battleground)));
-        return modifiers;
     }
 }

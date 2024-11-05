@@ -32,6 +32,8 @@ public class BattleState implements Snapshotable<BattleState> {
     private Set<PhysicalCard> _localTroubleParticipants = new HashSet<PhysicalCard>();
     private Set<PhysicalCard> _darkCardsParticipants = new HashSet<PhysicalCard>();
     private Set<PhysicalCard> _lightCardsParticipants = new HashSet<PhysicalCard>();
+    private Set<PhysicalCard> _darkCardsParticipantsWhenResultDetermined = new HashSet<PhysicalCard>();
+    private Set<PhysicalCard> _lightCardsParticipantsWhenResultDetermined = new HashSet<PhysicalCard>();
     private boolean _battleStarted;
     private boolean _reachedPowerSegment;
     private boolean _baseAttritionCalculated;
@@ -88,6 +90,12 @@ public class BattleState implements Snapshotable<BattleState> {
         }
         for (PhysicalCard card : _lightCardsParticipants) {
             snapshot._lightCardsParticipants.add(snapshotData.getDataForSnapshot(card));
+        }
+        for (PhysicalCard card : _darkCardsParticipantsWhenResultDetermined) {
+            snapshot._darkCardsParticipantsWhenResultDetermined.add(snapshotData.getDataForSnapshot(card));
+        }
+        for (PhysicalCard card : _lightCardsParticipantsWhenResultDetermined) {
+            snapshot._lightCardsParticipantsWhenResultDetermined.add(snapshotData.getDataForSnapshot(card));
         }
         snapshot._battleStarted = _battleStarted;
         snapshot._reachedPowerSegment = _reachedPowerSegment;
@@ -176,6 +184,20 @@ public class BattleState implements Snapshotable<BattleState> {
         return allCards;
     }
 
+    public Collection<PhysicalCard> getCardsParticipatingWhenResultDetermined(String playerId) {
+        if (_game.getDarkPlayer().equals(playerId))
+            return _darkCardsParticipantsWhenResultDetermined;
+        else
+            return _lightCardsParticipantsWhenResultDetermined;
+    }
+
+    public Collection<PhysicalCard> getAllCardsParticipatingWhenResultDetermined() {
+        Collection<PhysicalCard> allCards = new LinkedList<PhysicalCard>();
+        allCards.addAll(_darkCardsParticipantsWhenResultDetermined);
+        allCards.addAll(_lightCardsParticipantsWhenResultDetermined);
+        return allCards;
+    }
+
     public void setLocalTroubleParticipants(Collection<PhysicalCard> cards) {
         _localTroubleParticipants.addAll(cards);
     }
@@ -215,6 +237,11 @@ public class BattleState implements Snapshotable<BattleState> {
                 return true;
 
         return false;
+    }
+
+    public void setCardsParticipatingWhenResultDetermined() {
+        _darkCardsParticipantsWhenResultDetermined.addAll(_darkCardsParticipants);
+        _lightCardsParticipantsWhenResultDetermined.addAll(_lightCardsParticipants);
     }
 
     public void updateParticipants(SwccgGame game) {

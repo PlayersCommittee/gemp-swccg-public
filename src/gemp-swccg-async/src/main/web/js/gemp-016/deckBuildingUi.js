@@ -40,6 +40,10 @@ var GempSwccgDeckBuildingUI = Class.extend({
     cardFilter:null,
 
     collectionType:null,
+    
+    autoZoom: null,
+    cardInfoDialog: null,
+
 
     init:function () {
         var that = this;
@@ -57,7 +61,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
                             alert("You don't have collection of that type.");
                         }
                     });
-                },
+                }, 
                 function () {
                     that.clearCollection();
                 },
@@ -67,6 +71,8 @@ var GempSwccgDeckBuildingUI = Class.extend({
                 function () {
                     that.finishCollection();
                 });
+        
+        this.autoZoom = new AutoZoom("autoZoomInDeckbuilder");
 
         this.deckDiv = $("#deckDiv");
 
@@ -77,7 +83,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
         collectionSelect.append("<option value='default'>All cards</option>");
         collectionSelect.append("<option value='permanent'>My cards</option>");
         this.manageDecksDiv.append(collectionSelect);
-
+        
         var newDeckBut = $("<button title='New deck'><span class='ui-icon ui-icon-document'></span></button>").button();
         this.manageDecksDiv.append(newDeckBut);
 
@@ -101,7 +107,19 @@ var GempSwccgDeckBuildingUI = Class.extend({
 
         var validateDeckBut = $("<button title='Validate Deck'><span class='ui-icon ui-icon-check'></span></button>").button();
         this.manageDecksDiv.append(validateDeckBut);
+        
+        // Charlie Code
+        var addLightShieldsBut = $("<button title='Add Light Shields'><span class='ui-icon ui-icon-squaresmall-plus'></span></button>").button();
+        this.manageDecksDiv.append(addLightShieldsBut);
 
+        // Charlie Code
+        var addDarkShieldsBut = $("<button title='Add Dark Shields'><span class='ui-icon ui-icon-circlesmall-plus'></span></button>").button();
+        this.manageDecksDiv.append(addDarkShieldsBut);
+
+        if(this.autoZoom.autoZoomToggle != null) {
+            this.autoZoom.autoZoomToggle.appendTo(this.manageDecksDiv);
+        }
+        
         // Hidden file-input field for browsing for decks on the user's computer
         var browseInputDeckInput = $("<input type=file id='browseInputDeckInput' style='display:none'>");
         this.manageDecksDiv.append(browseInputDeckInput);
@@ -195,6 +213,20 @@ var GempSwccgDeckBuildingUI = Class.extend({
                 function () {
                     that.validateDeck();
                 });
+        
+        // Charlie Code
+        addLightShieldsBut.click(
+            function () {
+                that.loadShields("LIGHT");
+            });
+
+
+        // Charlie Code
+        addDarkShieldsBut.click(
+            function () {
+                that.loadShields("DARK");
+            });
+        
 
         this.collectionDiv = $("#collectionDiv");
 
@@ -258,38 +290,44 @@ var GempSwccgDeckBuildingUI = Class.extend({
                 }
                 return true;
             });
+        $('body').unbind('mouseover');
+        $("body").mouseover(
+            function (event) {
+                return that.autoZoom.handleMouseOver(event.originalEvent, 
+                   that.dragCardId != null, that.cardInfoDialog.isOpen());
+            });
+
+        $('body').unbind('mouseout');
+        $("body").mouseout(
+            function (event) {
+                return that.autoZoom.handleMouseOut(event.originalEvent);
+            });
+        
         $("body").mousedown(
                 function (event) {
+                    that.autoZoom.handleMouseDown(event.originalEvent);
+                    
                     return that.dragStartCardFunction(event);
                 });
         $("body").mouseup(
                 function (event) {
                     return that.dragStopCardFunction(event);
                 });
+        
+        $('body').unbind('keydown');
+        $("body").keydown(
+            function (event) {
+                return that.autoZoom.handleKeyDown(event.originalEvent);
+            });
 
-        var width = $(window).width();
-        var height = $(window).height();
+        $('body').unbind('keyup');
+        $("body").keyup(
+            function (event) {
+                return that.autoZoom.handleKeyUp(event.originalEvent);
+            });
 
-        this.infoDialog = $("<div></div>")
-                .dialog({
-            autoOpen:false,
-            closeOnEscape:true,
-            resizable:false,
-            title:"Card information"
-        });
 
-        var swipeOptions = {
-            threshold:20,
-            swipeUp:function (event) {
-                that.infoDialog.prop({ scrollTop:that.infoDialog.prop("scrollHeight") });
-                return false;
-            },
-            swipeDown:function (event) {
-                that.infoDialog.prop({ scrollTop:0 });
-                return false;
-            }
-        };
-        this.infoDialog.swipe(swipeOptions);
+        this.cardInfoDialog = new CardInfoDialog(window.innerWidth, window.innerHeight);
 
         this.getCollectionTypes();
 
@@ -539,8 +577,8 @@ var GempSwccgDeckBuildingUI = Class.extend({
         if (tar.length == 1 && tar[0].tagName == "A")
             return true;
 
-        if (!this.successfulDrag && this.infoDialog.dialog("isOpen")) {
-            this.infoDialog.dialog("close");
+        if (!this.successfulDrag && this.cardInfoDialog.isOpen()) {
+            this.cardInfoDialog.mouseUp();
             event.stopPropagation();
             return false;
         }
@@ -550,7 +588,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
             if (event.which >= 1) {
                 if (!this.successfulDrag) {
                     if (event.shiftKey || event.which > 1) {
-                        this.displayCardInfo(selectedCardElem.data("card"));
+                        this.cardInfoDialog.showCard(selectedCardElem.data("card"));
                         return false;
                     } else if (selectedCardElem.hasClass("cardInCollection")) {
                         var cardData = selectedCardElem.data("card");
@@ -608,7 +646,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
                         var blueprintIds = selection.split("|");
                         for (var i = 0; i < blueprintIds.length; i++) {
                             var card = new Card(blueprintIds[i], cardData.testingText, cardData.backSideTestingText, "selection", "selection" + i, "player");
-                            var cardDiv = createCardDiv(card.imageUrl, card.testingText, null, card.isFoil(), false, card.isPack(), card.incomplete);
+                            var cardDiv = Card.CreateCardDiv(card.imageUrl, card.testingText, null, card.isFoil(), false, card.isPack(), card.incomplete);
                             cardDiv.data("card", card);
                             cardDiv.addClass("cardToSelect");
                             this.selectionDialog.append(cardDiv);
@@ -649,7 +687,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
     dragStopCardFunction:function (event) {
         if (this.dragCardData != null) {
             if (this.dragStartY - event.clientY >= 20) {
-                this.displayCardInfo(this.dragCardData);
+                this.cardInfoDialog.showCard(this.dragCardData);
                 this.successfulDrag = true;
             }
             this.dragCardData = null;
@@ -658,69 +696,6 @@ var GempSwccgDeckBuildingUI = Class.extend({
             return false;
         }
         return true;
-    },
-
-    displayCardInfo:function (card) {
-        var that = this;
-        this.infoDialog.html("");
-        this.infoDialog.html("<div style='scroll: auto'></div>");
-        var floatCardDiv = $("<div style='float: left;'></div>");
-        var cardDiv = createFullCardDiv(card.imageUrl, card.testingText, card.foil, card.horizontal, card.isPack());
-
-        // Check if card div needs to be inverted
-        this.infoDialog.cardImageRotation = 0;
-        this.infoDialog.cardImageFlipped = false;
-        $(cardDiv).click(
-                function(event) {
-                    // Check if need to show other card image if the image has two sides
-                    if (card.backSideImageUrl != null && !card.backSideImageUrl.includes("CardBack") && !card.backSideImageUrl.includes("cardback")) {
-                        that.infoDialog.cardImageFlipped = !that.infoDialog.cardImageFlipped;
-                        if (that.infoDialog.cardImageFlipped) {
-                            $(cardDiv).find("div.fullcard img").attr('src', card.backSideImageUrl);
-                            if (card.backSideTestingText != null) {
-                                $(cardDiv).find("div.testingTextOverlay").html(card.backSideTestingText.replace(/\|/g, "<br/>"));
-                                $(cardDiv).find("div.testingTextOverlay").attr('display', "block");
-                            }
-                            else {
-                                $(cardDiv).find("div.testingTextOverlay").attr('display', "none");
-                            }
-                        }
-                        else {
-                            $(cardDiv).find("div.fullcard img").attr('src', card.imageUrl);
-                            if (card.testingText != null) {
-                                $(cardDiv).find("div.testingTextOverlay").html(card.testingText.replace(/\|/g, "<br/>"));
-                                $(cardDiv).find("div.testingTextOverlay").attr('display', "block");
-                            }
-                            else {
-                                $(cardDiv).find("div.testingTextOverlay").attr('display', "none");
-                            }
-                        }
-                    }
-                    // Otherwise rotate the image
-                    else {
-                        that.infoDialog.cardImageRotation = (that.infoDialog.cardImageRotation + 180) % 360;
-                        $(cardDiv).rotate(that.infoDialog.cardImageRotation);
-                    }
-                    event.stopPropagation();
-                });
-        floatCardDiv.append(cardDiv);
-
-        this.infoDialog.append(floatCardDiv);
-
-        var windowWidth = $(window).width();
-        var windowHeight = $(window).height();
-
-        var horSpace = 30;
-        var vertSpace = 45;
-
-        if (card.horizontal) {
-            // 500x360
-            this.infoDialog.dialog({width:Math.min(500 + horSpace, windowWidth), height:Math.min(380 + vertSpace, windowHeight)});
-        } else {
-            // 360x500
-            this.infoDialog.dialog({width:Math.min(360 + horSpace, windowWidth), height:Math.min(520 + vertSpace, windowHeight)});
-        }
-        this.infoDialog.dialog("open");
     },
 
     getDeckContents:function () {
@@ -764,7 +739,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
 
     addCardToContainer:function (blueprintId, testingText, backSideTestingText, zone, container, tokens) {
         var card = new Card(blueprintId, testingText, backSideTestingText, zone, "deck", "player");
-        var cardDiv = createCardDiv(card.imageUrl, card.testingText, null, card.isFoil(), tokens, card.isPack(), card.incomplete);
+        var cardDiv = Card.CreateCardDiv(card.imageUrl, card.testingText, null, card.isFoil(), tokens, card.isPack(), card.incomplete);
         cardDiv.data("card", card);
         container.append(cardDiv);
         return cardDiv;
@@ -781,7 +756,6 @@ var GempSwccgDeckBuildingUI = Class.extend({
 
     addCardToOutsideDeckAndLayout:function (blueprintId, testingText, backSideTestingText) {
         var that = this;
-
         var cardDiv = this.addCardToContainer(blueprintId, testingText, backSideTestingText, "outsideDeck", that.outsideDeckDiv, false);
         cardDiv.addClass("cardOutsideDeck");
         that.outsideDeckGroup.layoutCards()
@@ -789,6 +763,34 @@ var GempSwccgDeckBuildingUI = Class.extend({
         that.deckModified(true);
     },
 
+    // Charlie Code
+    loadShields: function (side) {
+        $(".cardOutsideDeck").remove();
+        var that = this;
+        var shieldUrl = "/gemp-swccg-server/collection/default?participantId=null&filter=side%3A" + side + "+format%3Aall+cardType%3ADEFENSIVE_SHIELD+sort%3Aname%2Cset%2CcardType+product%3Acard&start=0&count=100&_=1726509590294"
+        this.comm.loadShields(shieldUrl, function (xml) {
+              var $xml = $(xml);
+              var blueprintIds = $xml.find('card').map(function() {
+                  return $(this).attr('blueprintId');
+              }).get();
+              for (let blueprintId of blueprintIds) {
+                  var cardDiv = that.addCardToContainer(blueprintId, null, null, "outsideDeck", that.outsideDeckDiv, false);
+                  cardDiv.addClass("cardOutsideDeck");
+              };
+              if (side === "LIGHT") {
+                var addMythrol = that.addCardToContainer("200_16", null, null, "outsideDeck", that.outsideDeckDiv, false);
+                addMythrol.addClass("cardOutsideDeck");
+              };
+              that.outsideDeckGroup.layoutCards();
+              that.deckDirty = true;
+              that.deckModified(true);
+          }, {
+                "400":function ()
+                {
+                    alert("Could not locate shields");
+                }
+          });
+    },
     deckModified:function (value) {
         var name = (this.deckName == null) ? "New deck" : this.deckName;
         if (this.sampleDeck) {
@@ -936,14 +938,14 @@ var GempSwccgDeckBuildingUI = Class.extend({
             if (blueprintId.substr(0, 3) == "(S)") {
                 var card = new Card(blueprintId, null, null, "pack", "collection", "player");
                 card.tokens = {"count":count};
-                var cardDiv = createCardDiv(card.imageUrl, card.testingText, null, false, true, true, false, card.incomplete);
+                var cardDiv = Card.CreateCardDiv(card.imageUrl, card.testingText, null, false, true, true, false, card.incomplete);
                 cardDiv.data("card", card);
                 cardDiv.data("selection", contents);
                 cardDiv.addClass("selectionInCollection");
             } else {
                 var card = new Card(blueprintId, null, null, "pack", "collection", "player");
                 card.tokens = {"count":count};
-                var cardDiv = createCardDiv(card.imageUrl, card.testingText, null, false, true, true, false, card.incomplete);
+                var cardDiv = Card.CreateCardDiv(card.imageUrl, card.testingText, null, false, true, true, false, card.incomplete);
                 cardDiv.data("card", card);
                 cardDiv.addClass("packInCollection");
             }
@@ -958,7 +960,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
                             countInDeck++;
                     });
             card.tokens = {"count":count - countInDeck};
-            var cardDiv = createCardDiv(card.imageUrl, card.testingText, null, card.isFoil(), true, false, card.incomplete);
+            var cardDiv = Card.CreateCardDiv(card.imageUrl, card.testingText, null, card.isFoil(), true, false, card.incomplete);
             cardDiv.data("card", card);
             cardDiv.addClass("cardInCollection");
             this.normalCollectionDiv.append(cardDiv);

@@ -61,7 +61,7 @@ var GameAnimations = Class.extend({
 
             // Play-out game event animation to both players
             var card = new Card(blueprintId, testingText, backSideTestingText, "ANIMATION", "anim", participantId);
-            var cardDiv = createSimpleCardDiv(card.imageUrl, card.testingText, card.foil, card.incomplete, 16);
+            var cardDiv = Card.CreateSimpleCardDiv(card.imageUrl, card.testingText, card.foil, card.incomplete, 16);
             // Overlay destiny card with text explaining destiny type
             var destinyTypeOverlayDiv = $("<div class='destinyTypeOverlay'></div>");
             destinyTypeOverlayDiv.text(destinyText);
@@ -77,7 +77,7 @@ var GameAnimations = Class.extend({
 
                     var cardHeight = (gameHeight / 2);
                     var cardWidth = card.getWidthForHeight(cardHeight);
-
+                    that.handleCardAnimatedStart(cardDiv);
                     $(cardDiv).css(
                         {
                             position:"absolute",
@@ -122,7 +122,7 @@ var GameAnimations = Class.extend({
 
             // Play-out game event animation to both players
             var card = new Card(blueprintId, testingText, backSideTestingText, "ANIMATION", "anim", participantId);
-            var cardDiv = createSimpleCardDiv(card.imageUrl, card.testingText, card.foil, card.incomplete, 16);
+            var cardDiv = Card.CreateSimpleCardDiv(card.imageUrl, card.testingText, card.foil, card.incomplete, 16);
 
             $("#main").queue(
                 function (next) {
@@ -134,7 +134,7 @@ var GameAnimations = Class.extend({
 
                     var cardHeight = (gameHeight / 2);
                     var cardWidth = card.getWidthForHeight(cardHeight);
-
+                    that.handleCardAnimatedStart(cardDiv);
                     $(cardDiv).css(
                         {
                             position:"absolute",
@@ -196,7 +196,7 @@ var GameAnimations = Class.extend({
                         var targetCardId = targetCardIds[i];
 
                         var card = new Card(blueprintId, testingText, backSideTestingText, "ANIMATION", "anim" + i, participantId);
-                        var cardDiv = createSimpleCardDiv(card.imageUrl, card.testingText, card.foil, card.incomplete, 6);
+                        var cardDiv = Card.CreateSimpleCardDiv(card.imageUrl, card.testingText, card.foil, card.incomplete, 6);
 
                         var targetCard = $(".card:cardId(" + targetCardId + ")");
                         if (targetCard.length > 0) {
@@ -222,7 +222,7 @@ var GameAnimations = Class.extend({
                                 shadowStartPosX = $(targetCard).position().left;
                                 shadowStartPosY = $(targetCard).position().top;
                             }
-
+                            that.handleCardAnimatedStart(cardDiv);
                             $(cardDiv).css(
                                 {
                                     position:"absolute",
@@ -255,6 +255,8 @@ var GameAnimations = Class.extend({
                             var cardData = $(this).data("card");
                             if (cardData.zone == "ANIMATION") {
                                 $(this).remove();
+                            } else {
+                                that.handleCardAnimatedEnd(this);
                             }
                         }
                     );
@@ -277,7 +279,6 @@ var GameAnimations = Class.extend({
         var isSuspended = element.getAttribute("suspended");
         var isCollapsed = element.getAttribute("collapsed");
         var phase = element.getAttribute("phase");
-
         var that = this;
         $("#main").queue(
             function (next) {
@@ -371,7 +372,7 @@ var GameAnimations = Class.extend({
 
                     var cardHeight = (gameHeight / 2);
                     var cardWidth = card.getWidthForHeight(cardHeight);
-
+                    that.handleCardAnimatedStart(cardDiv);
                     $(cardDiv).css(
                         {
                             position:"absolute",
@@ -431,6 +432,7 @@ var GameAnimations = Class.extend({
                 function (next) {
                     var cardDiv = $(".card:cardId(" + cardId + ")");
                     $(cardDiv).css({zIndex:oldValues["zIndex"]});
+                    that.handleCardAnimatedEnd(cardDiv);
                     next();
                 });
         }
@@ -678,7 +680,9 @@ var GameAnimations = Class.extend({
                     }
 
                     if (doAnimation) {
-                        $(".card:cardId(" + cardRemovedIds + ")")
+                        const cardDiv = $(".card:cardId(" + cardRemovedIds + ")");
+                        that.handleCardAnimatedStart(cardDiv);
+                        cardDiv
                             .animate(
                             {
                                 opacity:0},
@@ -1607,5 +1611,13 @@ var GameAnimations = Class.extend({
                 that.game.layoutUI(true);
                 next();
             });
+    },
+
+    handleCardAnimatedStart: function (cardDiv) {
+        cardDiv && cardDiv[0] && $(cardDiv[0]).addClass('card-animating')
+    },
+
+    handleCardAnimatedEnd: function (cardDiv) {
+        cardDiv && cardDiv[0] && $(cardDiv[0]).removeClass('card-animating')
     }
 });

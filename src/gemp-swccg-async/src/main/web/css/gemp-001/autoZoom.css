@@ -1,0 +1,24 @@
+.previewImage {
+    position: absolute;
+    z-index: 1099;
+    pointer-events: none;
+}
+
+.previewImage, .previewImage img,
+.card, .card img,
+.fullcard, .fullcard img,
+.foilOverlay, .foilOverlay img,
+.borderOverlay, .borderOverlay img  {
+    border-radius: 5%;
+}
+
+.incompleteOverlay img, .foilOverlay img,
+.frozenOverlay img, .suspendedOverlay img,
+.collapsedOverlay img {
+    width: 100%;
+    height: 100%;
+}
+
+#auto-zoom-message {
+    font-family: Verdana, Arial, sans-serif;
+}

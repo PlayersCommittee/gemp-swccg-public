@@ -11,7 +11,7 @@ var GempSwccgMerchantUI = Class.extend({
     hideMerchantDiv:null,
     countDiv:null,
 
-    infoDialog:null,
+    cardInfoDialog: null,
     questionDialog:null,
 
     currencyCount:null,
@@ -73,13 +73,7 @@ var GempSwccgMerchantUI = Class.extend({
                     that.cardFilter.getCollection();
                 });
 
-        this.infoDialog = $("<div></div>")
-                .dialog({
-            autoOpen:false,
-            closeOnEscape:true,
-            resizable:false,
-            title:"Card information"
-        });
+        this.cardInfoDialog = new CardInfoDialog(window.innerWidth, window.innerHeight);
 
         this.questionDialog = $("<div></div>")
                 .dialog({
@@ -89,19 +83,6 @@ var GempSwccgMerchantUI = Class.extend({
             modal:true,
             title:"Merchant operation"
         });
-
-        var swipeOptions = {
-            threshold:20,
-            swipeUp:function (event) {
-                that.infoDialog.prop({ scrollTop:that.infoDialog.prop("scrollHeight") });
-                return false;
-            },
-            swipeDown:function (event) {
-                that.infoDialog.prop({ scrollTop:0 });
-                return false;
-            }
-        };
-        this.infoDialog.swipe(swipeOptions);
 
         $("body").click(
                 function (event) {
@@ -151,7 +132,7 @@ var GempSwccgMerchantUI = Class.extend({
     dragStopCardFunction:function (event) {
         if (this.dragCardData != null) {
             if (this.dragStartY - event.clientY >= 20) {
-                this.displayCardInfo(this.dragCardData);
+                this.cardInfoDialog.showCard(this.dragCardData);
                 this.successfulDrag = true;
             }
             this.dragCardData = null;
@@ -169,8 +150,8 @@ var GempSwccgMerchantUI = Class.extend({
         if (tar.length == 1 && tar[0].tagName == "A")
             return true;
 
-        if (!this.successfulDrag && this.infoDialog.dialog("isOpen")) {
-            this.infoDialog.dialog("close");
+        if (!this.successfulDrag && this.cardInfoDialog.isOpen()) {
+            this.cardInfoDialog.mouseUp();
             event.stopPropagation();
             return false;
         }
@@ -180,7 +161,7 @@ var GempSwccgMerchantUI = Class.extend({
             if (event.which >= 1) {
                 if (!this.successfulDrag) {
                     if (event.shiftKey || event.which > 1) {
-                        this.displayCardInfo(selectedCardElem.data("card"));
+                        this.cardInfoDialog.showCard(selectedCardElem.data("card"));
                         return false;
                     }
                     event.stopPropagation();
@@ -190,55 +171,6 @@ var GempSwccgMerchantUI = Class.extend({
         }
         return true;
     },
-
-     displayCardInfo:function (card) {
-         var that = this;
-         this.infoDialog.html("");
-         this.infoDialog.html("<div style='scroll: auto'></div>");
-         var floatCardDiv = $("<div style='float: left;'></div>");
-         var cardDiv = createFullCardDiv(card.imageUrl, null, card.foil, card.horizontal, card.isPack());
-
-         // Check if card div needs to be inverted
-         this.infoDialog.cardImageRotation = 0;
-         this.infoDialog.cardImageFlipped = false;
-         $(cardDiv).click(
-                function(event) {
-                    // Check if need to show other card image if the image has two sides
-                    if (card.backSideImageUrl != null) {
-                        that.infoDialog.cardImageFlipped = !that.infoDialog.cardImageFlipped;
-                        if (that.infoDialog.cardImageFlipped) {
-                            $(cardDiv).find("div.fullcard img").attr('src', card.backSideImageUrl);
-                        }
-                        else {
-                            $(cardDiv).find("div.fullcard img").attr('src', card.imageUrl);
-                        }
-                    }
-                    // Otherwise rotate the image
-                    else {
-                        that.infoDialog.cardImageRotation = (that.infoDialog.cardImageRotation + 180) % 360;
-                        $(cardDiv).rotate(that.infoDialog.cardImageRotation);
-                    }
-                    event.stopPropagation();
-                });
-         floatCardDiv.append(cardDiv);
-
-         this.infoDialog.append(floatCardDiv);
-
-         var windowWidth = $(window).width();
-         var windowHeight = $(window).height();
-
-         var horSpace = 30;
-         var vertSpace = 45;
-
-         if (card.horizontal) {
-             // 500x360
-             this.infoDialog.dialog({width:Math.min(500 + horSpace, windowWidth), height:Math.min(380 + vertSpace, windowHeight)});
-         } else {
-             // 360x500
-             this.infoDialog.dialog({width:Math.min(360 + horSpace, windowWidth), height:Math.min(520 + vertSpace, windowHeight)});
-         }
-         this.infoDialog.dialog("open");
-     },
 
     clearList:function (rootElem) {
         $(".card", this.cardsDiv).remove();
@@ -267,13 +199,13 @@ var GempSwccgMerchantUI = Class.extend({
 
         if (type == "pack") {
             card = new Card(blueprintId, null, null, "merchant", "collection", "player");
-            cardDiv = createCardDiv(card.imageUrl, card.testingText, null, false, true, true, card.incomplete, null);
+            cardDiv = Card.CreateCardDiv(card.imageUrl, card.testingText, null, false, true, true, card.incomplete, null);
             cardDiv.data("card", card);
             cardDiv.data("sizeListeners", sizeListeners);
             this.cardsDiv.append(cardDiv);
         } else if (type == "card") {
             card = new Card(blueprintId, testingText, backSideTestingText, "merchant", "collection", "player");
-            cardDiv = createCardDiv(card.imageUrl, card.testingText, null, card.isFoil(), true, false, card.incomplete, null);
+            cardDiv = Card.CreateCardDiv(card.imageUrl, card.testingText, null, card.isFoil(), true, false, card.incomplete, null);
             cardDiv.data("card", card);
             cardDiv.data("sizeListeners", sizeListeners);
             this.cardsDiv.append(cardDiv);
@@ -353,7 +285,7 @@ var GempSwccgMerchantUI = Class.extend({
         this.questionDialog.html("");
         this.questionDialog.html("<div style='scroll: auto'></div>");
         var floatCardDiv = $("<div style='float: left;'></div>");
-        floatCardDiv.append(createFullCardDiv(card.imageUrl, null, card.foil, card.horizontal, card.isPack()));
+        floatCardDiv.append(Card.CreateFullCardDiv(card.imageUrl, null, card.foil, card.horizontal, card.isPack()));
         this.questionDialog.append(floatCardDiv);
         var questionDiv = $("<div id='cardEffects'>" + text + "</div>");
         questionDiv.append("<br/>");

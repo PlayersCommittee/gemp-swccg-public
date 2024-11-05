@@ -132,7 +132,7 @@ public class MerchantRequestHandler extends SwccgoServerRequestHandler implement
     }
 
     private void getMerchantOffers(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
         String filter = getQueryParameterSafely(queryDecoder, "filter");
         String ownedCompareSelect = getQueryParameterSafely(queryDecoder, "ownedCompareSelect");

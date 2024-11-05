@@ -43,7 +43,7 @@ import java.util.List;
  * Set: BLock 7
  * Type: Interrupt
  * Subtype: Used Or Lost
- * Title: Alter (V)
+ * Title: Alter (Coruscant) (V)
  */
 public class Card601_195 extends AbstractUsedOrLostInterrupt {
     public Card601_195() {

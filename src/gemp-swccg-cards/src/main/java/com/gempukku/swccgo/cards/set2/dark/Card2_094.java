@@ -33,7 +33,7 @@ public class Card2_094 extends AbstractAlien {
         setLore("Bith mercenary. Male back-up to Kloo Horn player in Figrin D'an's band. Only musician, besides Doikk, who has not lost ownership of his instrument to Figrin.");
         setGameText("For each other musician present, adds a 'cover charge' of 1 to the Force required to move or deploy each character to same site.");
         addIcons(Icon.A_NEW_HOPE);
-        addKeywords(Keyword.MUSICIAN);
+        addKeywords(Keyword.MERCENARY, Keyword.MUSICIAN);
         setSpecies(Species.BITH);
     }
 

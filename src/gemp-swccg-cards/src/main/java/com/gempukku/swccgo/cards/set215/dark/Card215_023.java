@@ -32,7 +32,7 @@ public class Card215_023 extends AbstractCombatVehicle {
         setLore("Enclosed. Death Squadron");
         setGameText("May add 1 pilot and 8 passengers. Permanent pilot provides ability of 2. Draws one battle destiny if unable to otherwise. Immune to attrition < 4.");
         addModelType(ModelType.AT_AT);
-        addIcons(Icon.HOTH, Icon.PILOT, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_15);
+        addIcons(Icon.PILOT, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_15);
         addKeywords(Keyword.ENCLOSED, Keyword.DEATH_SQUADRON);
         setPilotCapacity(1);
         setPassengerCapacity(8);

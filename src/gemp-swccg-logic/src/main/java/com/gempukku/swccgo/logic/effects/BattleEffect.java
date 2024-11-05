@@ -166,7 +166,7 @@ public class BattleEffect extends AbstractSubActionEffect {
                             String msgText = (_isLocalTrouble ? "Local Trouble battle" : "Battle") + " at " + GameUtils.getCardLink(_location) + " ends";
                             game.getGameState().sendMessage(msgText);
                             SubAction subAction = (SubAction) getAction();
-                            game.getActionsEnvironment().emitEffectResult(new BattleEndedResult(subAction, _location));
+                            game.getActionsEnvironment().emitEffectResult(new BattleEndedResult(subAction, _location, gameState.getBattleState()));
                         }
                         game.getGameState().endBattle();
                     }

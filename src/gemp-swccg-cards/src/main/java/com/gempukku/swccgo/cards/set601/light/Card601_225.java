@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * Set: Block 3
  * Subtype: Alien
+ * Type: Character
  * Title: Han (V)
  */
 public class Card601_225 extends AbstractAlien {

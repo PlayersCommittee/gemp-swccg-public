@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
@@ -39,6 +40,7 @@ public class Card6_091 extends AbstractAlien {
         setLore("Abyssins have an extremely violent culture. They also possess tremendous regenerative abilities. Often become mercenaries once they leave their homeworld, Byss.");
         setGameText("Power +2 and Forfeit +1 while Myo at Audience Chamber. If lost or forfeited during a battle, may use 2 Force to 'regenerate' (place Abyssin in your Used Pile).");
         addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);
+        addKeyword(Keyword.MERCENARY);
         setSpecies(Species.ABYSSIN);
     }
 

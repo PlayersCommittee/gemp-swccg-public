@@ -29,7 +29,7 @@ public class GameHistoryRequestHandler extends SwccgoServerRequestHandler implem
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         if ("".equals(uri) && request.method() == HttpMethod.GET) {
-            QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+            QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
             String participantId = getQueryParameterSafely(queryDecoder, "participantId");
             int start = Integer.parseInt(getQueryParameterSafely(queryDecoder, "start"));
             int count = Integer.parseInt(getQueryParameterSafely(queryDecoder, "count"));

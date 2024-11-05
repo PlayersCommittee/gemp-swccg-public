@@ -42,7 +42,7 @@ public class Card7_184 extends AbstractAlien {
         setLore("Mercenaries that make a profit selling materials to the troops stationed on Kessel. Help the Empire prevent escape attempts by the prisoners there.");
         setGameText("While at a Kessel site: adds 1 to your Force drains there, is power +1 (or +2 if your smuggler is on Kessel) and, once during each of your deploy phases, may deploy one site to Kessel from Reserve Deck; reshuffle.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);
-        addKeywords(Keyword.OPERATIVE);
+        addKeywords(Keyword.MERCENARY, Keyword.OPERATIVE);
         setMatchingSystem(Title.Kessel);
     }
 

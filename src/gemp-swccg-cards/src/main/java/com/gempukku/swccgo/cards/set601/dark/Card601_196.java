@@ -43,7 +43,7 @@ import java.util.List;
  * Set: Block 7
  * Type: Interrupt
  * Subtype: Used Or Lost
- * Title: Alter (V)
+ * Title: Alter (Premiere) (V)
  */
 public class Card601_196 extends AbstractUsedOrLostInterrupt {
     public Card601_196() {

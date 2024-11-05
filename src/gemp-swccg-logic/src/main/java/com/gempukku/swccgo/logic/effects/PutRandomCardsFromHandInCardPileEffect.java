@@ -30,6 +30,7 @@ class PutRandomCardsFromHandInCardPileEffect extends AbstractSubActionEffect {
     private boolean _completed;
     private PutRandomCardsFromHandInCardPileEffect _that;
     private boolean _checkedRemoveTwoMore;
+    private boolean _checkedRemoveThreeMore;
 
 
     /**
@@ -53,6 +54,7 @@ class PutRandomCardsFromHandInCardPileEffect extends AbstractSubActionEffect {
         _hidden = true;
         _that = this;
         _checkedRemoveTwoMore = false;
+        _checkedRemoveThreeMore = false;
     }
 
     @Override
@@ -99,6 +101,11 @@ class PutRandomCardsFromHandInCardPileEffect extends AbstractSubActionEffect {
                         && game.getModifiersQuerying().hasGameTextModification(game.getGameState(), _action.getActionSource(), ModifyGameTextType.REMOVE_TWO_MORE_CARDS)) {
                     _checkedRemoveTwoMore = true;
                     _downToSize -= 2;
+                }
+                if (!_checkedRemoveThreeMore
+                        && game.getModifiersQuerying().hasGameTextModification(game.getGameState(), _action.getActionSource(), ModifyGameTextType.REMOVE_THREE_MORE_CARDS)) {
+                    _checkedRemoveThreeMore = true;
+                    _downToSize -= 3;
                 }
                 if (_that.isPlayableInFull(game)) {
                     List<PhysicalCard> randomCards = GameUtils.getRandomCards(game.getGameState().getHand(_handOwner), 1);

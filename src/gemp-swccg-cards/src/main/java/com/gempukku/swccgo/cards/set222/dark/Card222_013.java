@@ -33,7 +33,6 @@ import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.RespondableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
-import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -109,7 +108,7 @@ public class Card222_013 extends AbstractEpicEventDeployable {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         List<OptionalGameTextTriggerAction> actions = new LinkedList<>();
-        final int numDestiny = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.TARGET_THE_MAIN_GENERATOR__ADDS_ONE_DESTINY) ? 2 : 1;
+        final int numDestiny = 1;
 
 
         List<OptionalGameTextTriggerAction> followActions = followVehicleMovingFromHere(playerId, game, effectResult, self, gameTextSourceCardId);

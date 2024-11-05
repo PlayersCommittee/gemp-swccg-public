@@ -182,6 +182,9 @@ public class SwccgoHttpRequestHandler extends SimpleChannelInboundHandler<FullHt
         } else if (fileName.endsWith(".wasm")) {
             cache = true;
             contentType = "application/wasm";
+        } else if (fileName.endsWith(".woff")) {
+            cache = true;
+            contentType = "font/woff";
         } else {
             contentType = "application/octet-stream";
         }

@@ -118,7 +118,6 @@ var GempSwccgCommunication = Class.extend({
             dataType:"xml"
         });
     },
-
     getLiveTournaments:function (callback, errorMap) {
         $.ajax({
             type:"GET",
@@ -536,6 +535,17 @@ var GempSwccgCommunication = Class.extend({
             error:this.errorCheck(errorMap),
             dataType:"html"
         });
+    },
+    // Charlie Code
+    loadShields:function (shieldUrl, callback, errorMap) {
+        $.ajax({
+            type:"GET",
+            url: shieldUrl,
+            cache:false,
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+       });
     },
     startChat:function (room, callback, errorMap) {
         $.ajax({

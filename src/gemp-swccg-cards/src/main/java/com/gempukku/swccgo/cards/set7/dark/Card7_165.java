@@ -42,7 +42,7 @@ public class Card7_165 extends AbstractAlien {
         setLore("Independent mercenaries operating out of Anoat work with some of the locals, such as Ugnaughts. These operatives inform the Empire of all suspected Alliance activities.");
         setGameText("While at an Anoat site: adds 1 to your Force drains there, is power +1 (or +2 if your Ugnaught is on Anoat) and, once during each of your deploy phases, may deploy one site to Anoat from Reserve Deck; reshuffle.");
         addIcons(Icon.SPECIAL_EDITION, Icon.WARRIOR);
-        addKeywords(Keyword.OPERATIVE);
+        addKeywords(Keyword.MERCENARY, Keyword.OPERATIVE);
         setMatchingSystem(Title.Anoat);
     }
 

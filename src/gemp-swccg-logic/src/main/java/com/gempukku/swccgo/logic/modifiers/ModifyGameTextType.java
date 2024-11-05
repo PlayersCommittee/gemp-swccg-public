@@ -22,7 +22,7 @@ public enum ModifyGameTextType {
     DEATH_STAR_PLANS__ADD_DESTINY_TO_FORCE_RETRIEVED("Add one destiny to Force retrieved"),
     DEATH_STAR_SENTRY__APPLIES_ALL_MODIFIERS("Applies all modifiers"),
     DO_THEY_HAVE_A_CODE_CLEARANCE__DOESNT_MODIFY_FORFEIT("Does not modify Imperials' forfeit."),
-    DOMAIN_OF_EVIL__LIMIT_USES_PER_BATTLE("May not modify destiny draws more than once per battle (twice if Luke is apprentice)"),
+    DOMAIN_OF_EVIL__LIMIT_USES_PER_BATTLE("May not modify destiny draws more than once per battle"),
     DONT_UNDERESTIMATE_OUR_CHANCES__TRIPLE_RESULT("Triple result"),
     EBO__ADDITIONAL_SITE_TO_CANCEL("Opponent must occupy additional Hoth site to cancel"),
     ELLORRS_MADAK__ADDITIONAL_2_TO_POWER_BONUS("Additional 2 to power bonus"),
@@ -75,7 +75,6 @@ public enum ModifyGameTextType {
     SURPRISE_ASSAULT__ADD_DESTINY_TO_TOTAL("Add one destiny to total"),
     TALLON_ROLL__OPPONENT_ADDS_MANEUVER_AND_ABILITY("Opponent adds maneuver and ability"),
     TARKIN__CANNOT_CANCEL_DESTINY("Cannot cancel destiny"),
-    TARGET_THE_MAIN_GENERATOR__ADDS_ONE_DESTINY("Adds One Destiny to Target the Main Generator attempt"),
     TARGET_THE_MAIN_GENERATOR__MODIFY_X("X on Target The Main Generator is -2 (unless firing at or below the 3rd Marker) and maximum X = 3"),
     THE_MYTHROL__DESPAIR_V_TARGETS_THE_MYTHROL_INSTEAD_OF_JABBAS_PRIZE("Targets The Mythrol instead of Jabba's Prize"),
     THERE_IS_ANOTHER__DOES_NOT_MAKE_REFII_LUKE_LOST("Does not cause [Reflections II] Luke to be lost"),
@@ -97,7 +96,8 @@ public enum ModifyGameTextType {
     YOU_OVERESTIMATE_THEIR_CHANCES__TRIPLE_RESULT("Triple result"),
     YOURE_A_SLAVE__DRAW_TOP_CARD_OF_RESERVE_DECK_WHEN_PLACING_A_CARD_IN_USED_PILE("Draw top card of Reserve Deck when you place a card in Used Pile."),
     REMOVE_TWO_MORE_CARDS("Remove two more cards"),
-	THRAN__MAY_NOT_PLAY_INTERRUPT_FROM_LOST_PILE("May not play interrupt from lost pile"),
+    REMOVE_THREE_MORE_CARDS("Remove three more cards"),
+	  THRAN__MAY_NOT_PLAY_INTERRUPT_FROM_LOST_PILE("May not play interrupt from lost pile"),
     CRIME_WAVE__ADDITIONAL_ULRESS_LOCATION_TO_CANCEL("Additional Ulress location required to cancel"),
 
 

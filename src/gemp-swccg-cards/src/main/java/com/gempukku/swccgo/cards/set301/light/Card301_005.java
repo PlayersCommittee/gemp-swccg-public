@@ -18,7 +18,7 @@ import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.LoseForceFromHandEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -35,17 +35,17 @@ import java.util.List;
  */
 public class Card301_005 extends AbstractDefensiveShield {
     public Card301_005() {
-        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE,"Your Ship?", ExpansionSet.DEMO_DECK, Rarity.V);
+        super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Your Ship?", ExpansionSet.DEMO_DECK, Rarity.V);
         setVirtualSuffix(true);
         setLore("Han was not sure if Lando had forgiven him for winning the Millennium Falcon. As the old gamblers' saying about sabacc goes: 'Win the game, lose a friend.'");
-        setGameText("Plays on table. Cancels A Dangerous Time and Imperial Supply. Each player may play only one card with 'sabacc' in title each turn. You may cancel an opponent's card with 'sabacc' in title by losing 1 Force from hand.");
+        setGameText("Plays on table. Cancels A Dangerous Time, Bad Feeling Have I, Colo Claw Fish, Field Promotion and Imperial Supply. Each player may play only one card with 'sabacc' in title each turn. You may lose 1 Force to cancel a card with 'sabacc' in title.");
         addIcons(Icon.REFLECTIONS_III, Icon.VIRTUAL_DEFENSIVE_SHIELD);
     }
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(final SwccgGame game, Effect effect, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.isPlayingCard(game, effect, Filters.or(Filters.A_Dangerous_Time,Filters.Imperial_Supply))
+        if (TriggerConditions.isPlayingCard(game, effect, Filters.or(Filters.A_Dangerous_Time, Filters.Bad_Feeling_Have_I, Filters.Colo_Claw_Fish, Filters.Field_Promotion, Filters.Imperial_Supply))
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
@@ -65,6 +65,24 @@ public class Card301_005 extends AbstractDefensiveShield {
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 // Build action using common utility
                 CancelCardActionBuilder.buildCancelCardAction(action, Filters.A_Dangerous_Time, Title.A_Dangerous_Time);
+                actions.add(action);
+            }
+            if (GameConditions.canTargetToCancel(game, self, Filters.Bad_Feeling_Have_I)) {
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                // Build action using common utility
+                CancelCardActionBuilder.buildCancelCardAction(action, Filters.Bad_Feeling_Have_I, Title.Bad_Feeling_Have_I);
+                actions.add(action);
+            }
+            if (GameConditions.canTargetToCancel(game, self, Filters.Colo_Claw_Fish)) {
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                // Build action using common utility
+                CancelCardActionBuilder.buildCancelCardAction(action, Filters.Colo_Claw_Fish, Title.Colo_Claw_Fish);
+                actions.add(action);
+            }
+            if (GameConditions.canTargetToCancel(game, self, Filters.Field_Promotion)) {
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                // Build action using common utility
+                CancelCardActionBuilder.buildCancelCardAction(action, Filters.Field_Promotion, Title.Field_Promotion);
                 actions.add(action);
             }
             if (GameConditions.canTargetToCancel(game, self, Filters.Imperial_Supply)) {
@@ -94,13 +112,12 @@ public class Card301_005 extends AbstractDefensiveShield {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalBeforeTriggers(final String playerId, SwccgGame game, final Effect effect, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.isPlayingCard(game, effect, Filters.and(Filters.opponents(playerId), Filters.titleContains("sabacc")))
-                && GameConditions.canCancelCardBeingPlayed(game, self, effect)
-                && GameConditions.hasHand(game, playerId)) {
+                && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             // Build action using common utility
             CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
-            action.appendCost(new LoseForceFromHandEffect(action, playerId, 1, true));
+            action.appendCost(new LoseForceEffect(action, playerId, 1, true));
             return Collections.singletonList(action);
         }
         return null;
@@ -111,13 +128,12 @@ public class Card301_005 extends AbstractDefensiveShield {
         Filter filter = Filters.and(Filters.opponents(playerId), Filters.titleContains("sabacc"));
 
         // Check condition(s)
-        if (GameConditions.canTargetToCancel(game, self, filter)
-                && GameConditions.hasHand(game, playerId)) {
+        if (GameConditions.canTargetToCancel(game, self, filter)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
             // Build action using common utility
             CancelCardActionBuilder.buildCancelCardAction(action, filter, "opponent's card with 'sabacc' in title");
-            action.appendCost(new LoseForceFromHandEffect(action, playerId, 1, true));
+            action.appendCost(new LoseForceEffect(action, playerId, 1, true));
             return Collections.singletonList(action);
         }
         return null;

@@ -30,7 +30,7 @@ import java.util.List;
  * Set: Block 7
  * Type: Character
  * Subtype: Alien
- * Title: Gardulla the Hutt (V)
+ * Title: Gardulla The Hutt (V)
  */
 public class Card601_151 extends AbstractAlien {
     public Card601_151() {
