@@ -3856,7 +3856,6 @@ var fixedImages = {
 "304_111":"https://i.imgur.com/M2GC813.jpg", //You Wound Me
 "304_112":"https://i.imgur.com/7qs9kwM.jpg", //Degentrification
 
-
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
 "501_2":"https://res.starwarsccg.org/cards/Premiere-Light/large/hansheavyblasterpistol.gif",
@@ -4887,9 +4886,7 @@ var Card = Class.extend({
         }if(setNo == 223){
             return (cardNo == 36) ||
                    (cardNo == 38) ||
-                   (cardNo == 48);
-                     return (cardNo == 9) ||
-                            (cardNo == 22);				   
+                   (cardNo == 48);			   
 		}if(setNo == 302) {
 			return (cardNo == 9) ||
 			       (cardNo == 16) ||
