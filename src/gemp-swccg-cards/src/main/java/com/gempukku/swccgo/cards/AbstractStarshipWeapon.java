@@ -38,7 +38,7 @@ public abstract class AbstractStarshipWeapon extends AbstractWeapon {
      * @return the filter
      */
     @Override
-    public final Filter getValidTargetFilterToRemainAttachedTo(final SwccgGame game, final PhysicalCard self) {
+    public Filter getValidTargetFilterToRemainAttachedTo(final SwccgGame game, final PhysicalCard self) {
         return Filters.and(super.getValidTargetFilterToRemainAttachedTo(game, self), Filters.or(Filters.starship, Filters.location));
     }
 }

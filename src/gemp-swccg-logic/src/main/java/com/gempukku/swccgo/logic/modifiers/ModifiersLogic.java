@@ -13349,6 +13349,15 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
 
         return false;
     }
+	
+	@Override
+    public boolean grantedToDeployToShadowAcademyTarget(GameState gameState, PhysicalCard playedCard, PhysicalCard target) {
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_DEPLOY_TO_SHADOW_ACADEMY_TARGET, playedCard))
+            if (modifier.grantedToDeployToShadowAcademyTarget(gameState, this, target))
+                return true;
+
+        return false;
+    }
 
     @Override
     public boolean grantedToDeployToAhchToTarget(GameState gameState, PhysicalCard playedCard, PhysicalCard target) {

@@ -127,7 +127,19 @@ public enum ModelType implements Filterable {
     Y_WING("Y-wing"),
     YV_CLASS_FREIGHTER("YV-Class Freighter"),
     Z_95_HEADHUNTER("Z-95 Headhunter"),
-    ZETA_CLASS_TRANSPORT("Zeta-Class Transport");
+    ZETA_CLASS_TRANSPORT("Zeta-Class Transport"),
+	E_WING("E-wing"),
+	TIE_WI("TIE/wi"),
+	CRYSTAL("Crystal"),
+	XTR711("XTR-711 Attack Ship"),
+	VINDICATOR_CLASS_HEAVY_CRUISER("Vindicator-class Heavy Cruiser"),
+	IMPERIAL_CLASS_ESCORT_CRUISER("Imperial-class Escort Cruiser"),
+	INQUISITOR_CLASS_CORVETTE("Inquisitor-class Corvette"),
+	TIE_BA("TIE/BA"),
+	PREDATOR("Predator"),
+	STARVIPER("StarViper"),
+	MINSTREL("Minstrel-class Star-Yacht");
+	
 
     private String _humanReadable;
     private boolean _infoDisplayable;

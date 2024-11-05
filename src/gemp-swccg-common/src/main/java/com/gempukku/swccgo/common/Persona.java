@@ -169,6 +169,33 @@ public enum Persona implements Filterable {
     YODA("Yoda"),
     YULAREN("Yularen"),
     ZUCKUSS("Zuckuss"),
+	BUBBA("Bubba"),
+	EVANT("Evant"),
+	JAMES("James"),
+	IDRIS("Idris"),
+	ALETHIA("Alethia"),
+	KAMJIN("Kamjin"),
+	MARICK("Marick"),
+	ATRA("Atra"),
+	ELLAC("Ellac"),
+	KOMILIA("Komilia"),
+	RAYNE("Rayne"),
+	ROHAN("Rohan"),
+	SYKES("Sykes"),
+	THRAN("Thran"),
+	HIKARU("Hikaru"),
+	SIVALL("Sivall"),
+	ELAINE("Elaine"),
+	CANDON("Candon"),
+	CLAUDIUS("Claudius"),
+	LOCITA("Jloc'itaome'faottas"),
+	DIA_GIDA("Dia Gida"),
+	ZAX("Zax Keevo"),
+    RAJHIN("Rajhin Cindertail"),
+    SQYGORN("Sqygorn Dar"),
+    BRIE("Brie Cunngemi"),
+    GAIUS("Gaius the Hutt"),
+
 
     // Starships
     BESTOON_LEGACY("Bestoon Legacy"),
@@ -209,6 +236,8 @@ public enum Persona implements Filterable {
     TANTIVE_IV("Tantive IV"),
     VADERS_CUSTOM_TIE("Vader's Custom TIE"),
     VADERS_PERSONAL_SHUTTLE("Vader's Personal Shuttle"),
+	GUARDIAN_1("Guardian 1"),
+    FERFIEK_CHAWA("Ferfiek Chawa"),
 
     // Vehicles
     JABBAS_SAIL_BARGE("Jabba's Sail Barge"),
@@ -233,7 +262,14 @@ public enum Persona implements Filterable {
     SIDIOUS_LIGHTSABER("Sidious' Lightsaber"),
     SON_OF_VADERS_LIGHTSABER("Son Of Vader's Lightsaber"),
     VADERS_LIGHTSABER("Vader's Lightsaber"),
-    ZUCKUSS_SNARE_RIFLE("Zuckuss' Snare Rifle"),
+	ZUCKUSS_SNARE_RIFLE("Zuckuss' Snare Rifle"),
+	KAMJINS_LIGHTSABER("Kamjin's Lightsaber"),
+	KAIS_LIGHTSABER("Kai's Lightsaber"),
+	ROHANS_LIGHTSABER("Rohan's Lightsaber"),
+	POGOS_BLASTER_RIFLE("Pogo's Blaster Rifle"),
+	LAPLAMIZ_LIGHTSABER("Lap'lamiz's Lightsaber"),
+    SQYGORNS_BLASTER("Sqygorn Dar's Blaster"),
+
 
     ;
 
