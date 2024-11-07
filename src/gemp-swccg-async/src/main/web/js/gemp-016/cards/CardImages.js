@@ -3662,6 +3662,213 @@ const fixedImages = {
 "301_7":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/puck.gif",
 "301_8":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/red12.gif",
 
+"302_1":"https://i.imgur.com/QWCRSUx.png", //A-9 Vigilance Interceptor
+"302_2":"https://i.imgur.com/DRS9vYr.png", //Arx
+"302_3":"https://i.imgur.com/q1bhxfe.png", //Brotherhood Lightsaber
+"302_4":"https://i.imgur.com/FMsmAHh.png", //Brotherhood Trooper
+"302_5":"https://i.imgur.com/ImekOe4.png", //TIE/wi Modified Interceptor
+"302_6":"https://i.imgur.com/Odikyjc.png", //Padawan Learner
+"302_7":"https://i.imgur.com/DdOmsL7.png", //Armory Lightsaber
+"302_8":"https://i.imgur.com/tIFaByr.png", //E-wing
+"302_9":"https://i.imgur.com/Dra4YzX.png", //Arx: Desert Space Port 'Docking Bay' (Light)
+"302_10":"https://i.imgur.com/l00m4A3.png", //Lightsaber Combat Training
+"302_11":"https://i.imgur.com/oFkZfTc.png", //Valencia Sintarin
+"302_12":"https://i.imgur.com/3qjTn3i.png", //Howlader Taldrya
+"302_13":"https://i.imgur.com/Vtm0FQV.png", //Rajhin Cindertail
+"302_14":"https://i.imgur.com/p7hmzax.png",
+"302_15":"https://i.imgur.com/3Ln6rCj.png",
+"302_16":"https://i.imgur.com/glDKLXk.png", //Arx: Eos City
+"302_17":"https://i.imgur.com/n7ZoDxW.png",
+"302_18":"https://i.imgur.com/xfjmU8C.png", //Arx: The Iron Garage
+"302_19":"https://i.imgur.com/8BXf9pU.png",
+"302_20":"https://i.imgur.com/8KxoJG9.png", //Arx: Dark Ascent
+"302_21":"https://i.imgur.com/Q4mcmIM.png", //Darth Nehalem
+"302_22":"https://i.imgur.com/QUW5Zmd.png", 
+"302_23":"https://i.imgur.com/fACCKHR.png", //Arx: The Iron Legion
+"302_24":"https://i.imgur.com/GuDiQq3.png", //Zxyl Bes'uliik, Regent
+"302_25":"https://i.imgur.com/515YP6C.png", //Dacien Victae, Deputy Grand Master
+"302_26":"https://i.imgur.com/ZwWCs66.png", //James Lucius Entar
+"302_27":"https://i.imgur.com/yUhcQVa.png", //Dbbot
+"302_28":"https://i.imgur.com/DHW3JSO.png", //Arx: Eos City Space Port 'Docking Bay'
+"302_29":"https://i.imgur.com/v4Ws6ZB.png", //Lord Idris Adenn, Voice
+"302_30":"https://i.imgur.com/7qByZdq.png",
+"302_31":"https://i.imgur.com/lGgChYP.png", //Control the Brotherhood
+"302_32":"https://i.imgur.com/oc3yUQX.png",
+"302_33":"https://i.imgur.com/veQnKis.png", //Darth Renatus, Justicar
+"302_34":"https://i.imgur.com/4Hnbcdd.png",
+"302_35":"https://i.imgur.com/M4MFi8T.png",
+"302_35_BACK":"https://i.imgur.com/wIfByES.png",
+"302_36":"https://i.imgur.com/k2rbevr.png",
+"302_37":"https://i.imgur.com/6KdlbXv.png",
+"302_38":"https://i.imgur.com/QjRM5dU.png",
+"302_39":"https://i.imgur.com/ldgTBva.png",
+"302_40":"https://i.imgur.com/GKxMyof.png",
+"302_41":"https://i.imgur.com/vGth5er.png",
+"302_42":"https://i.imgur.com/sVwFcK5.png",
+"302_43":"https://i.imgur.com/7PDHfeH.png",
+"302_44":"https://i.imgur.com/11PyPyo.png",
+"302_45":"https://i.imgur.com/YDi35oo.png",
+"302_46":"https://i.imgur.com/OzTbeG7.png",
+"302_47":"https://i.imgur.com/cvOnUbT.png",
+"302_48":"https://i.imgur.com/YSp5skl.png",
+"302_49":"https://i.imgur.com/p0o3B2Y.png",
+"302_50":"https://i.imgur.com/wUdapSB.png",
+"302_50_BACK":"https://i.imgur.com/XgD7Gpl.png",
+"302_51":"https://i.imgur.com/z9YkY1Q.png",
+
+"303_1":"https://i.imgur.com/Z0iQ6oC.png", //Marick Tyris Arconae, Exarch
+"303_2":"https://i.imgur.com/emuM6k9.png", //Arx: The Shadow Academy
+"303_3":"https://i.imgur.com/1HKs9Bv.png", //Arx: The Shadow Academy
+"303_4":"https://i.imgur.com/p4tgdw4.png", //Shadow Academy: Training Grounds
+"303_5":"https://i.imgur.com/gsgxj6P.png", //Through Passion, I Gain Strength
+"303_6":"https://i.imgur.com/Gdr98oB.png", //Through Power, I Gain Victory
+"303_7":"https://i.imgur.com/CZNXErp.png", //Peace Is A Lie, There Is Only Passion
+"303_7_BACK":"https://i.imgur.com/cSKqjFn.png", //The Force Shall Free Me
+"303_8":"https://i.imgur.com/1EqJmTs.png", //Alethia Archenksova, Headmistress
+"303_9":"https://i.imgur.com/myo5LbE.png", //Hence Forth You Shall Be Known As...
+"303_10":"https://i.imgur.com/691oGmT.png", //Shadow Academy Holocron
+"303_11":"https://i.imgur.com/ONDgwyA.png", //Instructor Aleema
+"303_12":"https://i.imgur.com/fhOF43q.png", //Through Strength, I Gain Power
+"303_13":"https://i.imgur.com/thATtji.png", //Shadow Academy: Training Grounds
+"303_14":"https://i.imgur.com/hPMNmG5.png", //Impatient Apprentice
+"303_15":"https://i.imgur.com/8Gpehfy.png", //Shadow Academy: Dueling Platform
+"303_16":"https://i.imgur.com/4XQkLpx.png", //Evil's Domain
+"303_17":"https://i.imgur.com/OT9mS3P.png", //Knowledge Is Taken
+"303_18":"https://i.imgur.com/E7VyIOy.png", //Through Victory, My Chains Are Broken
+"303_19":"https://i.imgur.com/ts7UXKk.png", //Malfearak Asvraal, Herald
+"303_20":"https://i.imgur.com/EvAxm26.png", //Seraine Ténamao, Emissary
+"303_21":"https://i.imgur.com/4T0qaxm.png", //Master Kamjin Lap'lamiz, Justicar
+"303_22":"https://i.imgur.com/ElJSuNX.png", //Kamjin's Lightsaber
+"303_23":"https://i.imgur.com/jAsIiKm.png", //Self Doubt
+"303_24":"https://i.imgur.com/iZjkb83.png", //Dark Side Corruption
+"303_25":"https://i.imgur.com/D0B6Amb.png", //Marick Tyris Arconae's Lightsaber
+"303_26":"https://i.imgur.com/75HbEA5.png", //Darth Renatus's Lightsabers
+"303_27":"https://i.imgur.com/0mqdEFD.png", //Kai Lap'lamiz With Lightsaber
+"303_28":"https://i.imgur.com/DYbQNbu.png", //Gentle Vistage
+"303_29":"https://i.imgur.com/L3Wc0dj.png", //TXR-711 Attack Ship
+"303_30":"https://i.imgur.com/Xu7kfjJ.png", //Crystal Armor
+
+"304_1":"https://i.imgur.com/zJgi28w.png", //I.S.N. Palpatine (Front)
+"304_1_BACK":"https://i.imgur.com/EDNAoiW.png", //I.S.N. Palpatine (Back)
+"304_2":"https://i.imgur.com/FerFUPA.png", //Scholae Palatinae Occupation
+"304_3":"https://i.imgur.com/pTebLvV.png", //Dukwtape
+"304_4":"https://i.imgur.com/sSYtj5P.png", //Elaine Conrat
+"304_5":"https://i.imgur.com/He3GGTU.png", //Ellac Conrat
+"304_6":"https://i.imgur.com/i50XrOX.png", //Kadrol Hauen
+"304_7":"https://i.imgur.com/YEefz9R.png", //Kah'ri Marru
+"304_8":"https://i.imgur.com/CGOju8r.png", //Komilia Lap'lamiz
+"304_9":"https://i.imgur.com/5hNjEsZ.png", //Komilia Lap'lamiz, Exile
+"304_10":"https://i.imgur.com/fn491Q7.png", //Rayne Palpatine
+"304_11":"https://i.imgur.com/aznyTrN.png", //Reiden Karr
+"304_12":"https://i.imgur.com/CwNF02Y.png", //Rohan Lap'lamiz With Lightsaber
+"304_13":"https://i.imgur.com/JyrDxuI.png", //Sykes Jade
+"304_14":"https://i.imgur.com/jc4tQLj.png", //Cap
+"304_15":"https://i.imgur.com/SAQycmT.png", //Doc
+"304_16":"https://i.imgur.com/o5pH4z4.png", //Hammer
+"304_17":"https://i.imgur.com/sR6uUhk.png", //Pogo with Blaster Rifle
+"304_18":"https://i.imgur.com/BgbJzbz.png", //Whiz
+"304_19":"https://i.imgur.com/SqMk3vc.png", //Thran Occasus, Usurper
+"304_20":"https://i.imgur.com/VXEMyMW.png", //Tenjin Lap'lamiz's Lightsaber
+"304_21":"https://i.imgur.com/ptlrZ3o.png", //Darth Renatus, Deputy Grandmaster
+"304_22":"https://i.imgur.com/TPm25Zu.png", //Vincent Brujah
+"304_23":"https://i.imgur.com/zIVJBJm.png", //Scholae Palatinae, Royal Guard
+"304_24":"https://i.imgur.com/RkX37Gj.png", //PD-209
+"304_25":"https://i.imgur.com/NkvkurT.png", //Komilia Lap'lamiz, Emperor's Guard
+"304_26":"https://i.imgur.com/H1t7EbJ.png", //K'vin J. Lawdogg, Attorney-At-Law
+"304_27":"https://i.imgur.com/WlHfJON.png", //Rohan Lap'lamiz, Stormtrooper
+"304_28":"https://i.imgur.com/DeuUvKk.png", //Master Kamjin 'Maverick' Lap'lamiz
+"304_29":"https://i.imgur.com/qmL0jf3.png", //Kamjin Lap'lamiz, The Conqueror
+"304_30":"https://i.imgur.com/YxvfF9o.png", //Kamjin Lap'lamiz, Proconsul
+"304_31":"https://i.imgur.com/FivCos6.png", //Apprentice Maverick
+"304_32":"https://i.imgur.com/apK1yqS.png", //Guardian 1
+"304_33":"https://i.imgur.com/YuWiPRM.png", //Pete From Sales
+"304_34":"https://i.imgur.com/U6OOIDF.png", //Kamjin Lap'lamiz, Sith Battlemaster
+"304_35":"https://i.imgur.com/qFjzMvq.png", //Sivall Zoria
+"304_36":"https://i.imgur.com/efMkJ76.png", //Scholae Palatinae Stormtrooper
+"304_37":"https://i.imgur.com/FUDEI80.png", //Terrence
+"304_38":"https://i.imgur.com/SWb3YkB.png", //ISN Devastator
+"304_39":"https://i.imgur.com/E9R9e8A.png", //ISN Warspite
+"304_40":"https://i.imgur.com/t1mUIIC.png", //ISN Gargoyle
+"304_41":"https://i.imgur.com/UZ1ZqDY.jpg", //ISN Vigiliant
+"304_42":"https://i.imgur.com/AyeA1oI.png", //Scholae Palatinae TIE Special Forces
+"304_43":"https://i.imgur.com/MTGgA5I.png", //TIE/BA
+"304_44":"https://i.imgur.com/37M4s8s.png", //ISN Palpatine's Turbolasers
+"304_45":"https://i.imgur.com/OKeUeYO.png", //ISN Palpatine 1120 Laser Cannon
+"304_46":"https://i.imgur.com/X9lhBIz.png", //Cloning Tanks
+"304_47":"https://i.imgur.com/mU2vl65.png", //Calle Tarnoc
+"304_48":"https://i.imgur.com/sM6va8o.png", //Clone Technician
+"304_49":"https://i.imgur.com/uuexEjL.png", //Allie Grosser
+"304_50":"https://i.imgur.com/mIgKuIA.png", //Brie Cunngemi
+"304_51":"https://i.imgur.com/bNQkF1I.png", //Candon Coburn with Blaster Pistols
+"304_52":"https://i.imgur.com/rQFqqmf.png", //Claudius the Hutt, Crimelord
+"304_53":"https://i.imgur.com/gl0RUb5.png", //Club Antonia Bouncer
+"304_54":"https://i.imgur.com/m2E4iO4.png", //Dia Gida
+"304_55":"https://i.imgur.com/vsXG0BP.png", //Gaius the Hutt
+"304_56":"https://i.imgur.com/HpdLgT2.png", //Gex Degrix
+"304_57":"https://i.imgur.com/aRW0LPf.png", //Ixtal Noxus
+"304_58":"https://i.imgur.com/Vz24DHC.png", //Jloc'itaome'faottas or Locita
+"304_59":"https://i.imgur.com/aNpjeOr.png", //Silri R'lobsam
+"304_60":"https://i.imgur.com/SiK93fY.png", //Sqygorn Dar
+"304_61":"https://i.imgur.com/Qi2plSg.png", //Tia'nah
+"304_62":"https://i.imgur.com/JwgohAF.png", //Vos Nokler
+"304_63":"https://i.imgur.com/TA4OY8f.png", //Zax Keevo
+"304_64":"https://i.imgur.com/czSndYV.png", //Hutt Speeder Bike
+"304_65":"https://i.imgur.com/J5CWGNm.png", //Ixtal's Speeder
+"304_66":"https://i.imgur.com/Veoict9.png", //StarViper
+"304_67":"https://i.imgur.com/JBnwg9B.png", //Ferfiek Chawa
+"304_68":"https://i.imgur.com/GdvPSO1.jpg", //Dia Gida's Sniper Rifle
+"304_69":"https://i.imgur.com/pdNKtsE.png", //Do A Backflip Derrin
+"304_70":"https://i.imgur.com/glzNYAo.jpg", //Locked Door
+"304_71":"https://i.imgur.com/crFFd1B.png", //Where is Jenni III
+"304_72":"https://i.imgur.com/ZBfLj4d.png", //Imperial Gambit
+"304_73":"https://i.imgur.com/oea9AXP.png", //Hive of Scum and Villainy
+"304_74":"https://i.imgur.com/rKO96Gf.png", //Opal of Madness
+"304_75":"https://i.imgur.com/sGsn3tD.png", //Kam's Ham Sam
+"304_76":"https://i.imgur.com/YiO3et1.png", //Thran's Bounty
+"304_77":"https://i.imgur.com/YZn3Ns8.png", //SARLaC
+"304_78":"https://i.imgur.com/VDfzToL.png", //Seraph (Dark)
+"304_79":"https://i.imgur.com/3mpsOHk.png", //Ulress (Light)
+"304_80":"https://i.imgur.com/G4nBlkr.png", //Seraph (Light)
+"304_81":"https://i.imgur.com/kYH1szA.png", //Ulress (Dark)
+"304_82":"https://i.imgur.com/1lGUPVp.png", //Koudooine (Light)
+"304_83":"https://i.imgur.com/LHX8S2Z.png", //Claudius's Palace: Dungeon (Light)
+"304_84":"https://i.imgur.com/tXOrRmU.png", //Claudius's Palace: Ice Lounge (Light)
+"304_85":"https://i.imgur.com/uI2ehwi.png", //Claudius's Palace: Throne Room (Light)
+"304_86":"https://i.imgur.com/Uat8Dz3.png", //Koudooine: Claudius the Hutt's Palace (Light)
+"304_87":"https://i.imgur.com/ESKAXty.png", //Club Antonia: Bar (Light)
+"304_88":"https://i.imgur.com/DDgfttt.png", //Ulress: Club Antonia (Light)
+"304_89":"https://i.imgur.com/ubW9mPG.png", //Club Antonia: Stage (Light)
+"304_90":"https://i.imgur.com/yIePsEt.png", //Ulress: Ixtal's Garage (Light)
+"304_91":"https://i.imgur.com/580dlGn.png", //Master Rajhin Cindertail
+"304_92":"https://i.imgur.com/EleOBlW.png", //Shut Up, Pogo!
+"304_93":"https://i.imgur.com/kaB78QZ.png", //Crime Wave
+"304_94":"https://i.imgur.com/LKwTCwY.png", //Ulress: Space Port (Docking Bay) (Light)
+"304_95":"https://i.imgur.com/y5KCdb2.jpg", //Koudooine: Docking Bay (Light)
+"304_96":"https://i.imgur.com/GTZYSU3.png", //Ulress: Space Port (Docking Bay) (Dark)
+"304_97":"https://i.imgur.com/7moJfIG.png", //Koudooine: Docking Bay (Dark)
+"304_98":"https://i.imgur.com/lXCDAe1.jpg", //Organized Crime
+"304_98_BACK":"https://i.imgur.com/eYY49AW.jpg", //Shoot Out
+"304_99":"https://i.imgur.com/9lahm7D.jpg", //Club Antonia: Backstage (Light)
+"304_100":"https://i.imgur.com/NrgfMGt.png", //Mandalorian Hunter
+"304_101":"https://i.imgur.com/iMgqqXD.png", //Tiure Street Thug
+"304_102":"https://i.imgur.com/Q3DYyDT.jpg", //Selynn Valtora
+"304_103":"https://i.imgur.com/GRuWqPy.jpg", //Ferfiek Chawa: Reception Area (Light)
+"304_104":"https://i.imgur.com/TQQtC69.png", //Ferfiek Chawa: Claudius's Waiting Room (Light)
+"304_105":"https://i.imgur.com/y1HGDNJ.jpg", //Ferfiek Chawa: Bar (Light)
+"304_106":"https://i.imgur.com/bgCHhJt.png", //Ulress: Alleyway (Light)
+"304_107":"https://i.imgur.com/PyTJaYM.png", //Danktooine (Light)
+"304_108":"https://i.imgur.com/sT76aVc.jpg", //Clan Tiure Blaster
+"304_109":"https://i.imgur.com/m3gtskT.jpg", //Clan Tiure K-16 Blaster
+"304_110":"https://i.imgur.com/5Xfw5ip.jpg", //Sqygorn's Custom Westar 88 Blaster
+"304_111":"https://i.imgur.com/M2GC813.jpg", //You Wound Me
+"304_112":"https://i.imgur.com/7qs9kwM.jpg", //Degentrification
+"304_113":"https://i.imgur.com/vVEHdum.jpg", //Lookout
+"304_114":"https://i.imgur.com/oPTe3AL.jpg", //Slithering Back
+"304_115":"https://i.imgur.com/A3BxqFJ.jpg", //Get Behind Me
+"304_116":"https://i.imgur.com/hOITmc6.jpg", //Hired Gun
+"304_117":"https://i.imgur.com/zFcQzs0.jpg", //He's Crazy
+"304_118":"https://i.imgur.com/X97wmeV.jpg", //Number One Gangster
+
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
 "501_2":"https://res.starwarsccg.org/cards/Premiere-Light/large/hansheavyblasterpistol.gif",
@@ -4231,5 +4438,8 @@ const fixedImages = {
 "206_6ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/whatchancedowehave_ai.png",
 "204_1ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/bb8_ai.png",
 "208_8ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/lukeskywalkertherebellionshope_ai.png",
+"304_13ai":"https://i.imgur.com/KtBWlJ1.png", //Sykes Jade
+"304_28ai":"https://i.imgur.com/RlhlDPg.png", //Master Kamjin 'Maverick' Lap'lamiz
+"304_33ai":"https://i.imgur.com/UJk50gN.png", //Pete From Sales
 
 };

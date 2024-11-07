@@ -19385,6 +19385,10 @@ public class Filters {
     public static final Filter Sqygorn = Filters.persona(Persona.SQYGORN);
     public static final Filter Alleyway = Filters.title(Title.Alleyway);
     public static final Filter Ulress_battleground_site = Filters.and(Keyword.ULRESS_SITE, CardSubtype.SITE, Filters.battleground());
+    public static final Filter Gaius = Filters.persona(Persona.GAIUS);
+    public static final Filter FERFIEK_CHAWA = Filters.persona(Persona.FERFIEK_CHAWA);
+    public static final Filter Selynn_Valtora = Filters.title(Title.Selynn_Valtora);
+    public static final Filter Sqygorn_Blaster = Filters.persona(Persona.SQYGORNS_BLASTER);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

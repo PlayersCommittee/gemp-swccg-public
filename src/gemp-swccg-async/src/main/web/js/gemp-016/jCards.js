@@ -3855,6 +3855,12 @@ var fixedImages = {
 "304_110":"https://i.imgur.com/5Xfw5ip.jpg", //Sqygorn's Custom Westar 88 Blaster
 "304_111":"https://i.imgur.com/M2GC813.jpg", //You Wound Me
 "304_112":"https://i.imgur.com/7qs9kwM.jpg", //Degentrification
+"304_113":"https://i.imgur.com/vVEHdum.jpg", //Lookout
+"304_114":"https://i.imgur.com/oPTe3AL.jpg", //Slithering Back
+"304_115":"https://i.imgur.com/A3BxqFJ.jpg", //Get Behind Me
+"304_116":"https://i.imgur.com/hOITmc6.jpg", //Hired Gun
+"304_117":"https://i.imgur.com/zFcQzs0.jpg", //He's Crazy
+"304_118":"https://i.imgur.com/X97wmeV.jpg", //Number One Gangster
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",

@@ -429,7 +429,25 @@ class Card {
             return (cardNo == 36) ||
                    (cardNo == 38) ||
                    (cardNo == 48);
-        }if (setNo == 501) {
+        }if(setNo == 302) {
+			return (cardNo == 9) ||
+			       (cardNo == 16) ||
+				   (cardNo >= 18 && cardNo <= 20) ||
+				   (cardNo == 22) ||
+				   (cardNo == 23) ||
+				   (cardNo == 28) ||
+				   (cardNo >= 45 && cardNo <=49) ||
+				   (cardNo == 51);
+		}if (setNo == 303) {
+			return (cardNo >= 2 && cardNo <= 4) ||
+			       (cardNo == 13) ||
+				   (cardNo == 15);
+		}if (setNo == 304) {
+			return (cardNo >= 83 && cardNo <= 90) ||
+				   (cardNo >= 94 && cardNo <= 97) ||
+				   (cardNo == 99) ||
+				   (cardNo >= 103 && cardNo <= 106);
+		}if (setNo == 501) {
             return (cardNo == 6) ||
                    (cardNo == 7) ||
                    (cardNo == 8) ||

@@ -1359,5 +1359,9 @@ public interface Title {
     String Clan_Tiure_Blaster = "Clan Tiure Blaster";
     String Clan_Tiure_K16_Blaster = "Clan Tiure K-16 Blaster";
     String Degentrification = "Degentrification";
+    String Selynn_Valtora = "Selynn Valtora";
+    String Hired_Gun = "Hired Gun";
+    String Hes_Crazy = "He's Crazy";
+    String Number_One_Gangster = "Number One Gangster";
 
 }
