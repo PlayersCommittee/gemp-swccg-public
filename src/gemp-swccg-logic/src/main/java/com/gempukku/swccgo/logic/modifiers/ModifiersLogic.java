@@ -3234,6 +3234,25 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     public float getTotalForceGeneration(GameState gameState, String playerId) {
         float total = 1; // 1 Force from player
 
+        // personal force generation
+        if (!getModifiers(gameState, ModifierType.PERSONAL_FORCE_GENERATION).isEmpty()) {
+            Float minPersonalGeneration = null;
+
+            // get the smallest value among reset personal generation modifiers
+            for(Modifier modifier: getModifiers(gameState, ModifierType.PERSONAL_FORCE_GENERATION)) {
+                if (modifier.isForPlayer(playerId)) {
+                    if (minPersonalGeneration==null)
+                        minPersonalGeneration = modifier.getTotalForceGenerationModifier(playerId, gameState, this);
+                    else
+                        minPersonalGeneration = Math.min(minPersonalGeneration, modifier.getTotalForceGenerationModifier(playerId, gameState, this));
+                }
+            }
+
+            if (minPersonalGeneration != null)
+                total = minPersonalGeneration;
+        }
+
+
         // Add Force generation from locations
         List<PhysicalCard> locations = gameState.getTopLocations();
         for (PhysicalCard location : locations) {

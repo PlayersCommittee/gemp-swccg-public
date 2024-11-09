@@ -267,6 +267,7 @@ public interface Title {
     String Darksaber = "Darksaber";
     String Darth_Vader_Dark_Lord_of_the_Sith = "Darth Vader, Dark Lord Of The Sith";
     String DataVault = "Scarif: Data Vault";
+    String OceanShallows = "Scarif: Ocean Shallows";
     String Dathcha = "Dathcha";
     String Dathomir = "Dathomir";
     String Dathomir_Mauls_Chambers = "Dathomir: Maul's Chambers";
