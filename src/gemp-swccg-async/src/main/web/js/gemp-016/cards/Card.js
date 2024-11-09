@@ -447,7 +447,10 @@ class Card {
                    (cardNo == 113) ||
                    (cardNo == 118) ||
                    (cardNo == 171) ||
-                   (cardNo == 173);
+                   (cardNo == 173) ||
+                   (cardNo == 204) ||
+                   (cardNo == 209) ||
+                   (cardNo == 216);
         }
         if (setNo == 601) {
              return (cardNo == 14) ||

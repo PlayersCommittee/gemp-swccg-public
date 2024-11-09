@@ -15,7 +15,7 @@ public interface CardCounts {
 
     int[] DREAM_CARD_SETS_CARD_COUNTS = {0};
 
-    int[] PLAYTESTING_SETS_CARD_COUNTS = {200};
+    int[] PLAYTESTING_SETS_CARD_COUNTS = {300};
 
     int[] LEGACY_SETS_CARD_COUNTS = {999};
 }
