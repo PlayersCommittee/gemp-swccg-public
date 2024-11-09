@@ -18673,6 +18673,7 @@ public class Filters {
     public static final Filter proton_bombs = Filters.title(Title.Proton_Bombs);
     public static final Filter Proton_Torpedoes = Filters.keyword(Keyword.PROTON_TORPEDOES);
     public static final Filter Proxima = Filters.title(Title.Proxima);
+    public static final Filter Pryce = Filters.persona(Persona.PRYCE);
     public static final Filter Pryde = Filters.persona(Persona.PRYDE);
     public static final Filter Puck = Filters.persona(Persona.PUCK);
     public static final Filter Pulsar_Skate = Filters.persona(Persona.PULSAR_SKATE);

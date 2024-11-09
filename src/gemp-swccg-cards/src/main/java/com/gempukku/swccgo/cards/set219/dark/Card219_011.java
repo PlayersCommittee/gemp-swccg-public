@@ -59,7 +59,7 @@ public class Card219_011 extends AbstractSite {
                     new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.or(Filters.title("TIE Defender Project"), Filters.persona(Persona.PRYCE), Filters.Thrawn), Filters.here(self),true));
+                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.or(Filters.title("TIE Defender Project"), Filters.Pryce, Filters.Thrawn), Filters.here(self),true));
             actions.add(action);
         }
 
