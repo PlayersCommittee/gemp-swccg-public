@@ -8,6 +8,7 @@ import com.gempukku.swccgo.common.ModelType;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -30,7 +31,7 @@ import java.util.List;
  */
 public class Card4_171 extends AbstractStarfighter {
     public Card4_171() {
-        super(Side.DARK, 3, 3, 2, null, 5, 3, 3, "Punishing One", Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
+        super(Side.DARK, 3, 3, 2, null, 5, 3, 3, Title.Punishing_One, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("Old Corellian Engineering Corporation starfighter. Has outdated Class Three hyperdrive, but high sublight speed capability. Easy to maintain. Owned by Dengar.");
         setGameText("May add 1 pilot (must be a smuggler or bounty hunter) and 1 passenger. Immune to attrition < 3 if Dengar piloting. Deploy -3 when deploying with Dengar. Boosted TIE Cannon may deploy aboard.");
         addIcons(Icon.DAGOBAH, Icon.INDEPENDENT, Icon.NAV_COMPUTER);

@@ -872,6 +872,7 @@ public interface Title {
     String Proton_Bombs = "Proton Bombs";
     String Proxima = "Lady Proxima";
     String Puck = "Puck";
+    String Punishing_One = "Punishing One";
     String Put_All_Sections_On_Alert = "Put All Sections On Alert";
     String Quad_Laser_Cannon = "Quad Laser Cannon";
     String Quiet_Mining_Colony = "Quiet Mining Colony";

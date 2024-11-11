@@ -18678,6 +18678,7 @@ public class Filters {
     public static final Filter Pryde = Filters.persona(Persona.PRYDE);
     public static final Filter Puck = Filters.persona(Persona.PUCK);
     public static final Filter Pulsar_Skate = Filters.persona(Persona.PULSAR_SKATE);
+    public static final Filter Punishing_One = Filters.persona(Persona.PUNISHING_ONE);
     public static final Filter Qira = Filters.persona(Persona.QIRA);
     public static final Filter Quad_Laser_Cannon = Filters.title(Title.Quad_Laser_Cannon);
     public static final Filter Queens_Royal_Starship = Filters.persona(Persona.QUEENS_ROYAL_STARSHIP);
