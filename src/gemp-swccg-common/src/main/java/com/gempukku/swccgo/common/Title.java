@@ -669,6 +669,7 @@ public interface Title {
     String Life_Day = "Life Day";
     String Life_Debt = "Life Debt";
     String Lift_Tube = "Lift Tube";
+    String Lightmaker = "Lightmaker";
     String Lightsaber_Proficiency = "Lightsaber Proficiency";
     String Like_My_Father_Before_Me = "Like My Father Before Me";
     String Limited_Resources = "Limited Resources";

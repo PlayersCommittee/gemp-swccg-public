@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card209_030 extends AbstractCapitalStarship {
     public Card209_030() {
-        super(Side.LIGHT, 2, 5, 4, 5, null, 3, 5, "Lightmaker", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
+        super(Side.LIGHT, 2, 5, 4, 5, null, 3, 5, Title.Lightmaker, Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("Phoenix Squadron.");
         setGameText("Permanent pilot provides ability of 2. Cancels opponent's immunity to attrition here. While at Scarif, adds 2 to attempts to 'blow away' Shield Gate.");
         addIcons(Icon.VIRTUAL_SET_9, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

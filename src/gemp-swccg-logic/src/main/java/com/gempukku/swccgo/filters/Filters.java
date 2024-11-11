@@ -18407,6 +18407,7 @@ public class Filters {
     public static final Filter Life_Debt = Filters.title(Title.Life_Debt);
     public static final Filter Lift_Tube = Filters.title(Title.Lift_Tube);
     public static final Filter lightsaber = Filters.keyword(Keyword.LIGHTSABER);
+    public static final Filter Lightmaker = Filters.title(Title.Lightmaker);
     public static final Filter Lightsaber_Proficiency = Filters.title(Title.Lightsaber_Proficiency);
     public static final Filter Limited_Resources = Filters.title(Title.Limited_Resources);
     public static final Filter Lirin_Carn = Filters.title(Title.Lirin_Carn);
