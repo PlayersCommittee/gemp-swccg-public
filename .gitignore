@@ -69,3 +69,4 @@ database/*
 !database/.placeholder
 
 /.vs
+.local/*
