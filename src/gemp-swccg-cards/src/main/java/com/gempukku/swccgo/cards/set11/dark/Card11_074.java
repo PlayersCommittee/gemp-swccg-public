@@ -12,6 +12,7 @@ import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -43,7 +44,7 @@ import java.util.List;
  */
 public class Card11_074 extends AbstractNormalEffect {
     public Card11_074() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Quietly Observing", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Quietly_Observing, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.U);
         setLore("On her assignment to kill Sharad Hett, Aurra used her patience and cunning to help track down the Jedi Master.");
         setGameText("Deploy on Aurra Sing. While Aurra is alone at a site, your total ability here = 0. During your move phase, may lose Effect to target an opponent's lightsaber present. Draw destiny. If destiny > 3, Aurra may 'steal' that lightsaber.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
