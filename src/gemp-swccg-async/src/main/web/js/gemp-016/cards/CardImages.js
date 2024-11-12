@@ -3724,7 +3724,7 @@ const fixedImages = {
 "501_52":"https://res.starwarsccg.org/cards/Tatooine-Light/large/ajedispatience.gif",
 "501_53": "https://res.starwarsccg.org/cards/Virtual13-Dark/large/workingmuchmoreclosely.gif",
 "501_54":"https://res.starwarsccg.org/cards/Coruscant-Light/large/naboodefensefighter.gif",
-"501_55":"https://res.starwarsccg.org/cards/Virtual11-Light/large/ahsokatano.gif",
+"501_55":"https://res.starwarsccg.org/cards/Virtual11-Dark/large/quietlyobserving.gif",
 "501_56": "https://res.starwarsccg.org/cards/Virtual1-Dark/large/jabbashaven.gif",
 "501_57": "https://res.starwarsccg.org/cards/Virtual9-Dark/large/vanee.gif",
 "501_58": "https://res.starwarsccg.org/cards/Virtual3-Dark/large/ortugg.gif",

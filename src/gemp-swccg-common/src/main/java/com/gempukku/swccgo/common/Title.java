@@ -814,6 +814,7 @@ public interface Title {
     String Ord_Mantell = "Ord Mantell";
     String Order_To_Engage = "Order To Engage";
     String Organized_Attack = "Organized Attack";
+    String Ortugg = "Ortugg";
     String Ortuggs_Ax = "Ortugg's Ax";
     String OS_72_10 = "OS-72-10";
     String Ounee_Ta = "Ounee Ta";
@@ -955,6 +956,7 @@ public interface Title {
     String Saitorr_Kal_Fas = "Sai'torr Kal Fas";
     String Salm = "Colonel Salm";
     String Saddle = "Ahch-To: Saddle";
+    String Salacious_Crumb = "Salacious Crumb";
     String Sando_Aqua_Monster = "Sando Aqua Monster";
     String Sandwhirl = "Sandwhirl";
     String Sanity_And_Compassion = "Sanity And Compassion";
