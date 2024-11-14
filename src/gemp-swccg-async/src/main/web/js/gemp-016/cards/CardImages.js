@@ -3868,6 +3868,9 @@ const fixedImages = {
 "304_116":"https://i.imgur.com/hOITmc6.jpg", //Hired Gun
 "304_117":"https://i.imgur.com/zFcQzs0.jpg", //He's Crazy
 "304_118":"https://i.imgur.com/X97wmeV.jpg", //Number One Gangster
+"304_119":"https://i.imgur.com/HkHsJrc.jpg", //Standoff
+"304_120":"https://i.imgur.com/OvDuDNC.jpg", //Training Failure & Gambling Addiction
+"304_121":"https://i.imgur.com/GyhyuuV.jpg", //That Got Him! & We've Got This
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",

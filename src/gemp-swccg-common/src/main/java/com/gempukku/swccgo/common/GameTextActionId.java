@@ -967,6 +967,7 @@ public enum GameTextActionId {
     SHUT_UP_POGO__CANCEL_GAME_TEXT(false, true),
     GARAGE_LOCKUP__UPLOAD_IXTAL(true, true),
     SLITHERING_BACK__EXCHANGE(true, true),
+    STANDOFF__EXCLUDE_CHARACTERS_OR_EXCHANGE_CARDS(false, true),
 
     // Per captive
     DUNGEON__RETRIEVE_FORCE(false, false, true, false),

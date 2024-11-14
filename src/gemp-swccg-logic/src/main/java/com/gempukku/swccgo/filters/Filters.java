@@ -19389,6 +19389,8 @@ public class Filters {
     public static final Filter FERFIEK_CHAWA = Filters.persona(Persona.FERFIEK_CHAWA);
     public static final Filter Selynn_Valtora = Filters.title(Title.Selynn_Valtora);
     public static final Filter Sqygorn_Blaster = Filters.persona(Persona.SQYGORNS_BLASTER);
+    public static final Filter Do_A_Backflip_Derrin = Filters.title(Title.Do_A_Backflip_Derrin);
+    public static final Filter After_Her = Filters.title(Title.After_Her);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

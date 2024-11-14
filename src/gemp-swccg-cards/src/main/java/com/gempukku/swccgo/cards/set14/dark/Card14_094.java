@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card14_094 extends AbstractImmediateEffect {
     public Card14_094() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "After Her!", Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.After_Her, Uniqueness.UNIQUE, ExpansionSet.THEED_PALACE, Rarity.R);
         setLore("'This one's a decoy!'");
         setGameText("If opponent just Force drained you at a location, deploy on that location. Opponent's Force drains here are +1. Your battle destiny draws here are +1. If you control this location, may place Immediate Effect in Used Pile to retrieve 4 Force. (Immune to Control.)");
         addIcons(Icon.THEED_PALACE, Icon.EPISODE_I);

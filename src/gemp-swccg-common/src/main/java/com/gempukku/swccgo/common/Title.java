@@ -1363,5 +1363,8 @@ public interface Title {
     String Hired_Gun = "Hired Gun";
     String Hes_Crazy = "He's Crazy";
     String Number_One_Gangster = "Number One Gangster";
+    String Standoff = "Standoff";
+    String Do_A_Backflip_Derrin = "Do A Backflip Derrin";
+    String After_Her = "After Her!";
 
 }
