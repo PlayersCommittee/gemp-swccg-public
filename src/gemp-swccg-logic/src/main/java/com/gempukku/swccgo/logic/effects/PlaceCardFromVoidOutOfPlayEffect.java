@@ -37,7 +37,7 @@ public class PlaceCardFromVoidOutOfPlayEffect extends AbstractSuccessfulEffect {
 
             // Emit effect result
             game.getActionsEnvironment().emitEffectResult(
-                    new PlacedCardOutOfPlayFromOffTableResult(_action, _action.getPerformingPlayer(), _card));
+                    new PlacedCardOutOfPlayFromOffTableResult(_action, _action.getPerformingPlayer(), _card, Zone.VOID));
         }
     }
 }
