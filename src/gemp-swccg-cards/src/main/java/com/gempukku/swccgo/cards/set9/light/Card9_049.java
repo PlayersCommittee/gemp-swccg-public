@@ -8,6 +8,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +34,7 @@ import java.util.List;
  */
 public class Card9_049 extends AbstractUsedInterrupt {
     public Card9_049() {
-        super(Side.LIGHT, 4, "Critical Error Revealed", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.C);
+        super(Side.LIGHT, 4, Title.Critical_Error_Revealed, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.C);
         setLore("Hologram technology allows efficient communication of complex intelligence during war room briefings.");
         setGameText("If you have a leader at your war room, peek at the top card of opponent's Reserve Deck. You may place it on bottom of that Reserve Deck.");
         addIcons(Icon.DEATH_STAR_II);

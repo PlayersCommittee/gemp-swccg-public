@@ -244,6 +244,7 @@ public interface Title {
     String Crash_Site_Memorial = "Crash Site Memorial";
     String Credits_Will_Do_Fine = "Credits Will Do Fine";
     String Crimson_Dawn_Blaster = "Crimson Dawn Blaster";
+    String Critical_Error_Revealed = "Critical Error Revealed";
     String Crossfire = "Crossfire";
     String Cyrkon = "Cyrkon";
     String Cyborg_Construct = "Cyborg Construct";

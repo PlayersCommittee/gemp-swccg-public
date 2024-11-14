@@ -17797,6 +17797,7 @@ public class Filters {
     public static final Filter creature_vehicle = Filters.and(CardType.VEHICLE, CardSubtype.CREATURE);
     public static final Filter Credits_Will_Do_Fine = Filters.title(Title.Credits_Will_Do_Fine);
     public static final Filter Crimson_Dawn = Filters.keyword(Keyword.CRIMSON_DAWN);
+    public static final Filter Critical_Error_Revealed = Filters.title(Title.Critical_Error_Revealed);
     public static final Filter cruiser = Filters.or(ModelType.CORELLIAN_REPUBLIC_CRUISER, Keyword.CRUISER, ModelType.DREADNAUGHT_CLASS_HEAVY_CRUISER, ModelType.MON_CALAMARI_STAR_CRUISER);
     public static final Filter Cyborg_Construct = Filters.title(Title.Cyborg_Construct);
     public static final Filter Dagobah_Bog_Clearing = Filters.title(Title.Dagobah_Bog_Clearing);
