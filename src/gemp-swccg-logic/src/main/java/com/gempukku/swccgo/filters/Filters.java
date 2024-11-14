@@ -19267,7 +19267,7 @@ public class Filters {
     public static final Filter Yuzzum = Filters.species(Species.YUZZUM);
     public static final Filter Z_95 = Filters.or(ModelType.MODIFIED_Z_95_HEADHUNTER, ModelType.Z_95_HEADHUNTER);
     public static final Filter Zeb = Filters.title(Title.Zeb);
-    public static final Filter Zev = Filters.title(Title.Zev);
+    public static final Filter Zev = Filters.persona(Persona.ZEV);
     public static final Filter Zuckuss = Filters.persona(Persona.ZUCKUSS);
     public static final Filter Zutton = Filters.title(Title.Zutton);
 
