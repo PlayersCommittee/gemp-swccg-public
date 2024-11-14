@@ -137,6 +137,7 @@ public enum Persona implements Filterable {
     RIC("Ric"),
     RED_LEADER("Red Leader"),
     REY("Rey"),
+    ROGUE2("Rogue 2"),
     ROSE("Rose"),
     SABE("Sabe"),
     SABINE("Sabine"),
