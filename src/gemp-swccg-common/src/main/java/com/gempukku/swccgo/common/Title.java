@@ -424,6 +424,7 @@ public interface Title {
     String Force_Projection = "Force Projection";
     String Force_Push = "Force Push";
     String Forced_Servitude = "Forced Servitude";
+    String Foundling = "Foundling";
     String Free_Ride = "Free Ride";
     String Friendly_Fire = "Friendly Fire";
     String Frostbite = "Frostbite";

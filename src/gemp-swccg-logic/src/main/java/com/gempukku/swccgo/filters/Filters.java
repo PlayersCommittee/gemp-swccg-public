@@ -18062,6 +18062,7 @@ public class Filters {
     public static final Filter Force_Projection = Filters.title(Title.Force_Projection);
     public static final Filter Force_Sensitive_character = Filters.and(CardCategory.CHARACTER, Filters.or(Filters.abilityEqualTo(4), Filters.abilityEqualTo(5)));
     public static final Filter forest = Filters.keyword(Keyword.FOREST);
+    public static final Filter Foundling = Filters.title(Title.Foundling);
     public static final Filter Fourth_Marker = Filters.keyword(Keyword.MARKER_4);
     public static final Filter freighter = Filters.or(ModelType.FREIGHTER, ModelType.HEAVILY_MODIFIED_FREIGHTER, ModelType.HEAVILY_MODIFIED_LIGHT_FREIGHTER, ModelType.MODIFIED_ACTION_VI_FREIGHTER, ModelType.MODIFIED_CORELLIAN_FREIGHTER, ModelType.MODIFIED_LIGHT_FREIGHTER, ModelType.MODIFIED_VCX_FREIGHTER, ModelType.YV_CLASS_FREIGHTER);
     public static final Filter Friendly_Fire = Filters.title(Title.Friendly_Fire);
