@@ -1962,6 +1962,7 @@ var GempSwccgGameUI = Class.extend({
         this.communication.startGameSession(
             function (xml) {
                 that.processXml(xml, false);
+                that.chatBox.beginGameChat();
             }, this.gameErrorMap());
     },
 
