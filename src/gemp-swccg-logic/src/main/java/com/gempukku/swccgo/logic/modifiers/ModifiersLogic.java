@@ -7723,6 +7723,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             return true;
         }
 
+        // Check for Death Star II Sector which neither player may relocate from/to
+        if (Filters.Death_Star_II_sector.accepts(gameState, this, fromLocation) || Filters.Death_Star_II_sector.accepts(gameState, this, toLocation)) {
+            return true;
+        }
+
         // Check if may only move using landspeed
         if (mayOnlyMoveUsingLandspeed(gameState, card)) {
             return true;
