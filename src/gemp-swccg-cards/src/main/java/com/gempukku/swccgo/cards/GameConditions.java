@@ -3352,6 +3352,25 @@ public class GameConditions {
     }
 
     /**
+     * Checks if the player can search outside of their deck to play an Interrupt with the specified game text action on the specified card.
+     * @param game the game
+     * @param playerId the player
+     * @param self the card
+     * @param effectResult the effect result
+     * @param gameTextActionId the game text action id
+     * @return true if card pile is allowed to be searched to play an Interrupt, otherwise false
+     */
+    public static boolean canPlayInterruptAsResponseFromOutsideOfDeck(SwccgGame game, String playerId, PhysicalCard self, EffectResult effectResult, GameTextActionId gameTextActionId) {
+        Collection<PhysicalCard> outsideOfDeck = game.getGameState().getOutsideOfDeck(playerId);
+        for (PhysicalCard cardOutsideOfDeck : outsideOfDeck) {
+            if (Filters.playableInterruptAsResponse(self, effectResult).accepts(game, cardOutsideOfDeck)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks if the player can search own Force Pile with the specified game text action on the specified card.
      * @param game the game
      * @param playerId the player
