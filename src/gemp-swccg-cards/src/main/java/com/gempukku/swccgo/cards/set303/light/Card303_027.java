@@ -46,6 +46,7 @@ public class Card303_027 extends AbstractRebel {
         setLore("Kai is the mirror image of his father, Kamjin. But that's where the similarities end. Kai has embraced the light side of the Force and believes his father can be redeemed.");
         setGameText("Adds 2 to any ship he pilots. May spend 3 Force to cancel a destiny draw. Permanent weapon is •Kai's Lightsaber (may target a character or creature for free; draw two destiny; target hit, and its forfeit = 0, if total destiny > defense value).");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON);
+        addPersona(Persona.KAI);
     }
 
     @Override

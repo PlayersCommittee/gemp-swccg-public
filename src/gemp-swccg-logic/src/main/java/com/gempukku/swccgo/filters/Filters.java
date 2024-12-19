@@ -19329,6 +19329,8 @@ public class Filters {
 	public static final Filter Ellac = Filters.persona(Persona.ELLAC);
 	public static final Filter Komilia = Filters.persona(Persona.KOMILIA);
 	public static final Filter Rohan = Filters.persona(Persona.ROHAN);
+    public static final Filter Kai = Filters.persona(Persona.KAI);
+    public static final Filter Hikaru = Filters.persona(Persona.HIKARU);
 	public static final Filter Sykes = Filters.persona(Persona.SYKES);
 	public static final Filter Thran = Filters.persona(Persona.THRAN);
 	public static final Filter THRAN_GUARD = Filters.keyword(Keyword.THRAN_GUARD);
@@ -19391,6 +19393,11 @@ public class Filters {
     public static final Filter Sqygorn_Blaster = Filters.persona(Persona.SQYGORNS_BLASTER);
     public static final Filter Do_A_Backflip_Derrin = Filters.title(Title.Do_A_Backflip_Derrin);
     public static final Filter After_Her = Filters.title(Title.After_Her);
+    public static final Filter Kamjins_Obsession = Filters.title(Title.Kamjins_Obsession);
+    public static final Filter Councilors_Ambition = Filters.title(Title.Councilors_Ambition);
+    public static final Filter Kamjins_Ambition = Filters.title(Title.Kamjins_Ambition);
+    public static final Filter Laplamiz_Children_Light = Filters.or(Persona.KAI, Persona.KOMILIA, Persona.HIKARU);
+    public static final Filter Deploys_aboard_Ferfiek_Chawa = Filters.or(Filters.persona(Persona.FERFIEK_CHAWA), Filters.locationAndCardsAtLocation(Filters.siteOfStarshipOrVehicle(Persona.FERFIEK_CHAWA, false)));
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

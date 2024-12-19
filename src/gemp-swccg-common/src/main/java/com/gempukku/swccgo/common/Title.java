@@ -1366,5 +1366,8 @@ public interface Title {
     String Standoff = "Standoff";
     String Do_A_Backflip_Derrin = "Do A Backflip Derrin";
     String After_Her = "After Her!";
+    String Kamjins_Obsession = "Kamjin's Obsession";
+    String Councilors_Ambition = "Councilor's Ambition";
+    String Kamjins_Ambition = "Kamjin's Ambition";
 
 }

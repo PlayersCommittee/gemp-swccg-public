@@ -195,6 +195,7 @@ public enum Persona implements Filterable {
     SQYGORN("Sqygorn Dar"),
     BRIE("Brie Cunngemi"),
     GAIUS("Gaius the Hutt"),
+    KAI("Kai"),
 
 
     // Starships

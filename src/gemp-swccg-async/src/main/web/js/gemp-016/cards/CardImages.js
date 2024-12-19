@@ -3791,7 +3791,7 @@ const fixedImages = {
 "304_40":"https://i.imgur.com/t1mUIIC.png", //ISN Gargoyle
 "304_41":"https://i.imgur.com/UZ1ZqDY.jpg", //ISN Vigiliant
 "304_42":"https://i.imgur.com/AyeA1oI.png", //Scholae Palatinae TIE Special Forces
-"304_43":"https://i.imgur.com/MTGgA5I.png", //TIE/BA
+"304_43":"https://i.imgur.com/NyBm3pE.png", //TIE/BA
 "304_44":"https://i.imgur.com/37M4s8s.png", //ISN Palpatine's Turbolasers
 "304_45":"https://i.imgur.com/OKeUeYO.png", //ISN Palpatine 1120 Laser Cannon
 "304_46":"https://i.imgur.com/X9lhBIz.png", //Cloning Tanks
@@ -3871,6 +3871,12 @@ const fixedImages = {
 "304_119":"https://i.imgur.com/HkHsJrc.jpg", //Standoff
 "304_120":"https://i.imgur.com/OvDuDNC.jpg", //Training Failure & Gambling Addiction
 "304_121":"https://i.imgur.com/GyhyuuV.jpg", //That Got Him! & We've Got This
+"304_122":"", //TBD
+"304_122_BACK":"", //TBD
+"304_123":"https://i.imgur.com/lcom6UA.png", //Kamjin's Obsession
+"304_124":"https://i.imgur.com/L6lcgp4.png", //Councilor's Ambition
+"304_125":"https://i.imgur.com/r5ZS1vg.png", //Kamjin's Ambition
+"304_126":"https://i.imgur.com/38sa2qv.png", //Jloc'itaome'faottas, Diplomat (Locita)
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
