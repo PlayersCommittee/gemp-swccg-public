@@ -3778,7 +3778,7 @@ const fixedImages = {
 "501_134":"https://res.starwarsccg.org/cards/Hoth-Dark/large/electrorangefinder.gif",
 "501_136":"https://res.starwarsccg.org/cards/Virtual19-Dark/large/thrawnsartcollection.gif",
 "501_138":"https://res.starwarsccg.org/cards/Dagobah-Dark/large/flagship.gif",
-"501_139":"https://res.starwarsccg.org/cards/Premiere-Dark/large/wuher.gif",
+"501_139": "https://res.starwarsccg.org/cards/Dagobah-Dark/large/bombingrun.gif",
 "501_160": "https://res.starwarsccg.org/cards/Virtual19-Light/large/lothal.gif",
 "501_161": "https://res.starwarsccg.org/cards/Virtual7-Light/large/thisismyship.gif",
 "501_162": "https://res.starwarsccg.org/cards/Virtual19-Light/large/zerohour.gif",
