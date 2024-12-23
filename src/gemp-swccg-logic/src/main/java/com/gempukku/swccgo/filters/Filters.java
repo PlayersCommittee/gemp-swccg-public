@@ -19113,7 +19113,7 @@ public class Filters {
     public static final Filter Trade_Federation_starfighter = Filters.and(Icon.TRADE_FEDERATION, CardSubtype.STARFIGHTER);
     public static final Filter Trample = Filters.title(Title.Trample);
     public static final Filter Trandoshan = Filters.species(Species.TRANDOSHAN);
-    public static final Filter transport = Filters.and(CardType.STARSHIP, Filters.or(Keyword.TRANSPORT_SHIP, ModelType.BYBLOS_G1A_TRANSPORT, ModelType.MODIFIED_TRANSPORT, ModelType.OUBLIETTE_CLASS_TRANSPORT, ModelType.RESISTANCE_TRANSPORT, ModelType.TRANSPORT, ModelType.WTK_85A_INTERSTELLAR_TRANSPORT, ModelType.ZETA_CLASS_TRANSPORT));
+    public static final Filter transport = Filters.and(CardType.STARSHIP, Filters.or(Keyword.TRANSPORT_SHIP, ModelType.BYBLOS_G1A_TRANSPORT, ModelType.KOMRK_CLASS_FIGHTER_TRANSPORT, ModelType.MODIFIED_TRANSPORT, ModelType.OUBLIETTE_CLASS_TRANSPORT, ModelType.RESISTANCE_TRANSPORT, ModelType.TRANSPORT, ModelType.WTK_85A_INTERSTELLAR_TRANSPORT, ModelType.ZETA_CLASS_TRANSPORT));
     public static final Filter transport_vehicle = Filters.and(CardType.VEHICLE, CardSubtype.TRANSPORT);
     public static final Filter Transmission_Terminated = Filters.title(Title.Transmission_Terminated);
     public static final Filter Trap_Door = Filters.title(Title.Trap_Door);
