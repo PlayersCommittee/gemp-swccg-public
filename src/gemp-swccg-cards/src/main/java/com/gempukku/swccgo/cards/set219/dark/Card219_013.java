@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set219.dark;
 
 import com.gempukku.swccgo.cards.AbstractSite;
 import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
+import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
@@ -17,8 +18,9 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.conditions.UnlessCondition;
 import com.gempukku.swccgo.logic.modifiers.MayDeployOtherCardsAsReactToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotDeployToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -35,8 +37,8 @@ import java.util.List;
 public class Card219_013 extends AbstractSite {
     public Card219_013() {
         super(Side.DARK, Title.Lothal_Imperial_Complex, Title.Lothal, Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
-        setLocationDarkSideGameText("If you control with a leader, once per battle at a related site, you may deploy a card as a ‘react’.");
-        setLocationLightSideGameText("Your non-Rebel characters deploy +1 here.");
+        setLocationDarkSideGameText("If you control with a leader, once per battle at a related site, you may deploy a card as a 'react'.");
+        setLocationLightSideGameText("Unless you occupy, your spies may not deploy here.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 0);
         addIcons(Icon.INTERIOR_SITE, Icon.PLANET, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_19);
@@ -44,8 +46,10 @@ public class Card219_013 extends AbstractSite {
 
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
+        Condition unlessYouOccupy = new UnlessCondition(new OccupiesCondition(playerOnLightSideOfLocation, self));
+
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.character, Filters.not(Filters.Rebel)),1, Filters.here(self)));
+        modifiers.add(new MayNotDeployToLocationModifier(self, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.spy), unlessYouOccupy, self));
         return modifiers;
     }
 

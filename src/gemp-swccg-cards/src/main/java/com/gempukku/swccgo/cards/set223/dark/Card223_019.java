@@ -21,9 +21,11 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromForcePileEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.SuspendsCardModifier;
 import com.gempukku.swccgo.logic.modifiers.TotalForceGenerationModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -42,7 +44,7 @@ public class Card223_019 extends AbstractNormalEffect {
         super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Ominous_Rumors, Uniqueness.UNIQUE, ExpansionSet.SET_23, Rarity.V);
         setVirtualSuffix(true);
         setLore("Rumors of a new 'technological terror' filled the galaxy with dread.");
-        setGameText("Deploy on Bunker; may immediately take any one [Endor] or [Death Star II] card into hand from Force Pile; reshuffle. While an Imperial leader here, your total Force generation is +1. If opponent controls Bunker, place Effect in Used Pile. [Immune to Alter]");
+        setGameText("Deploy on Bunker; may immediately take any one [Endor] or [Death Star II] card into hand from Force Pile; reshuffle. While an Imperial leader here, your total Force generation is +1. Perimeter Patrol is suspended. If opponent controls Bunker, place Effect in Used Pile. [Immune to Alter]");
         addIcons(Icon.ENDOR, Icon.VIRTUAL_SET_23);
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);
         addImmuneToCardTitle(Title.Alter);
@@ -56,9 +58,10 @@ public class Card223_019 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         String playerId = self.getOwner();
-        AtSameSiteAsCondition imperialLeaderHere = new AtSameSiteAsCondition(self, Filters.Imperial_leader);
+        Condition imperialLeaderHere = new AtSameSiteAsCondition(self, Filters.Imperial_leader);
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new TotalForceGenerationModifier(self, imperialLeaderHere, 1, playerId));
+        modifiers.add(new SuspendsCardModifier(self, Filters.Perimeter_Patrol));
         return modifiers;
     }
 

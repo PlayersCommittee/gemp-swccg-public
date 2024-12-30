@@ -18,6 +18,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionMayNotBeCanceledModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -37,7 +38,7 @@ public class Card207_017 extends AbstractStarfighter {
     public Card207_017() {
         super(Side.LIGHT, 2, 3, 4, null, 4, 5, 6, Title.Ghost, Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setLore("Phoenix Squadron.");
-        setGameText("May add 2 pilots, 3 passengers, and Phantom. Has ship-docking capability. May deploy Phantom here from Reserve deck; reshuffle. While Hera piloting, immune to attrition < 5 (may not be canceled).");
+        setGameText("Deploys -2 to Lothal. May add 2 pilots, 3 passengers, and Phantom. Has ship-docking capability. May deploy Phantom here from Reserve deck; reshuffle. While Hera piloting, immune to attrition < 5 (may not be canceled).");
         addIcons(Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_7);
         addKeywords(Keyword.PHOENIX_SQUADRON, Keyword.SHIP_DOCKING_CAPABILITY);
         addModelType(ModelType.MODIFIED_VCX_FREIGHTER);
@@ -45,6 +46,13 @@ public class Card207_017 extends AbstractStarfighter {
         setPassengerCapacity(3);
         setStarfighterCapacity(1, Filters.Phantom);
         setMatchingPilotFilter(Filters.Hera);
+    }
+
+    @Override
+    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, final PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new DeployCostToLocationModifier(self, -2, Filters.Lothal_location));        
+        return modifiers;
     }
 
     @Override

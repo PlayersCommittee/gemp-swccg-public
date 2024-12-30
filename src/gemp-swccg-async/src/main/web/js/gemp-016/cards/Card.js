@@ -423,12 +423,15 @@ class Card {
                    (cardNo == 74) ||
                    (cardNo == 75);
         }if(setNo == 222){
-                     return (cardNo == 9) ||
-                            (cardNo == 22);
+            return (cardNo == 9) ||
+                   (cardNo == 22);
         }if(setNo == 223){
             return (cardNo == 36) ||
                    (cardNo == 38) ||
                    (cardNo == 48);
+        }if(setNo == 224){
+            return (cardNo == 13) ||
+                   (cardNo == 22);        
         }if (setNo == 501) {
             return (cardNo == 6) ||
                    (cardNo == 7) ||

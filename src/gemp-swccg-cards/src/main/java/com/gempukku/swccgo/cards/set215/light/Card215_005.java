@@ -38,7 +38,7 @@ public class Card215_005 extends AbstractNormalEffect {
         super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Cell_2187, Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
         setVirtualSuffix(true);
         setLore("'Aren't you a little short for a stormtrooper?'");
-        setGameText("If [Set 20] Leia imprisoned, deploy on table. [Set 8] Luke is a spy and stormtrooper. Chewie, Leia, and stormtroopers are immune to Nevar Yalnal, Physical Choke, and Put All Sections On Alert. Once per turn, may [download] a Death Star site. Immune to This Is Some Rescue! [Immune to Alter.]");
+        setGameText("If [A New Hope] Leia imprisoned, deploy on table. [Set 8] Luke is a spy and stormtrooper. Chewie, Leia, and stormtroopers are immune to Nevar Yalnal, Physical Choke, and Put All Sections On Alert. Once per turn, may [download] a blaster or rifle. Immune to This Is Some Rescue! [Immune to Alter.]");
         addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_15);
         addImmuneToCardTitle(Title.Alter);
         addImmuneToCardTitle(Title.This_Is_Some_Rescue);
@@ -46,7 +46,7 @@ public class Card215_005 extends AbstractNormalEffect {
 
     @Override
     protected boolean checkGameTextDeployRequirements(String playerId, SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Icon.VIRTUAL_SET_20, Filters.Leia, Filters.imprisoned));
+        return Filters.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Icon.A_NEW_HOPE, Filters.Leia, Filters.imprisoned));
     }
 
     @Override
@@ -66,18 +66,18 @@ public class Card215_005 extends AbstractNormalEffect {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<>();
 
-        GameTextActionId gameTextActionId = GameTextActionId.CELL_2187__DOWNLOAD_DEATH_STAR_SITE;
+        GameTextActionId gameTextActionId = GameTextActionId.CELL_2187__DOWNLOAD_WEAPON;
 
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy a Death Star site from Reserve Deck");
+            action.setText("Deploy a blaster or rifle from Reserve Deck");
             action.appendUsage(
                     new OncePerTurnEffect(action)
             );
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.Death_Star_site, true)
+                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.blaster, Filters.rifle), true)
             );
 
             actions.add(action);

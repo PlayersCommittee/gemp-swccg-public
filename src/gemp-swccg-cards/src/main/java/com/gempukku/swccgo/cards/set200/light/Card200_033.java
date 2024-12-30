@@ -3,7 +3,7 @@ package com.gempukku.swccgo.cards.set200.light;
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
@@ -39,7 +39,7 @@ public class Card200_033 extends AbstractCharacterDevice {
     public Card200_033() {
         super(Side.LIGHT, 7, "Luke's Bionic Hand", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setLore("Uses state-of-the-art digital processors. Although Luke had lost his hand, the Alliance could rebuild it. They had the technology. They could make it better, stronger, faster.");
-        setGameText("Deploy on Luke. Luke's power and immunity to attrition are +2. During battle at a battleground, may exchange a card in hand with an Interrupt in Lost Pile. This device lost if Luke Disarmed.");
+        setGameText("Deploy on Luke. Luke's power and immunity to attrition are +2. Once per game, during battle, may exchange a card in hand with an Interrupt in Lost Pile. This device lost if Luke Disarmed.");
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_0);
     }
 
@@ -58,8 +58,8 @@ public class Card200_033 extends AbstractCharacterDevice {
         GameTextActionId gameTextActionId = GameTextActionId.LUKES_BIONIC_HAND__EXCHANGE_CARD_IN_HAND_WITH_INTERRUPT_IN_LOST_PILE;
 
         // Check condition(s)
-        if (GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.isInBattleAt(game, self, Filters.battleground)
+        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
+                && GameConditions.isInBattle(game, self)
                 && GameConditions.canUseDevice(game, self)
                 && GameConditions.hasHand(game, playerId)
                 && GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId)) {
@@ -69,7 +69,7 @@ public class Card200_033 extends AbstractCharacterDevice {
             action.setActionMsg("Exchange a card in hand for an Interrupt in Lost Pile");
             // Update usage limit(s)
             action.appendUsage(
-                    new OncePerBattleEffect(action));
+                    new OncePerGameEffect(action));
             action.appendUsage(
                     new UseDeviceEffect(action, self));
             // Perform result(s)

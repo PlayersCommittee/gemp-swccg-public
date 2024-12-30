@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set223.light;
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
+import com.gempukku.swccgo.cards.effects.usage.TwicePerGameEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
@@ -26,13 +27,13 @@ import com.gempukku.swccgo.logic.effects.DeployCardsSimultaneouslyEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardCombinationFromHandAndOrReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToDeployCostModifiersToLocationModifier;
+import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,7 +45,8 @@ import java.util.List;
 public class Card223_042 extends AbstractNormalEffect {
     public Card223_042() {
         super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Passage To The Alderaan System", Uniqueness.UNIQUE, ExpansionSet.SET_23, Rarity.V);
-        setGameText("If Stolen Data Tapes on table, deploy on table. Once per game, may simultaneously deploy non-[Episode VII] Falcon and non-[Episode VII] Han (for -1 Force each) from hand and/or Reserve Deck; reshuffle. At Tatooine system, Imperial starships may not have their deploy cost modified. [Immune to Alter.]");
+        setLore("Han's smuggling adventures in Corporate Sector and Hutt Space put him in many tight scrapes.  He's about to be in another.");
+        setGameText("If Stolen Data Tapes on table, deploy on table. Twice per game, may [upload] a general or a senator. Once per game, may simultaneously deploy [A New Hope] Falcon (deploy -1) and [A New Hope] Han from hand and/or Reserve Deck; reshuffle. Falcon is immune to Gravity Shadow. [Immune to Alter.]");
         addIcon(Icon.VIRTUAL_SET_23);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -56,24 +58,25 @@ public class Card223_042 extends AbstractNormalEffect {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.PASSAGE_TO_THE_ALDERAAN_SYSTEM__DEPLOY_FALCON_AND_HAN;
+        List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
+        GameTextActionId gameTextActionId1 = GameTextActionId.PASSAGE_TO_THE_ALDERAAN_SYSTEM__DEPLOY_FALCON_AND_HAN;
 
         // Check condition(s)
-        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
+        if (GameConditions.isOncePerGame(game, self, gameTextActionId1)
                 && GameConditions.isDuringYourPhase(game, self, Phase.DEPLOY)) {
-            boolean canDeployCardFromReserveDeck = GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.FALCON);
+            boolean canDeployCardFromReserveDeck = GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId1, Persona.FALCON);
             final List<PhysicalCard> cardsInHand = game.getGameState().getHand(playerId);
             final List<PhysicalCard> validStarfighters = new ArrayList<PhysicalCard>();
-            Collection<PhysicalCard> starfighters = Filters.filter(cardsInHand, game, Filters.and(Filters.not(Filters.icon(Icon.EPISODE_VII)), Filters.Falcon));
+            Collection<PhysicalCard> starfighters = Filters.filter(cardsInHand, game, Filters.and(Filters.icon(Icon.A_NEW_HOPE), Filters.Falcon));
             for (PhysicalCard starfighter : starfighters) {
-                if (Filters.canSpot(cardsInHand, game, Filters.and(Filters.not(Filters.icon(Icon.EPISODE_VII)), Filters.Han, Filters.deployableSimultaneouslyWith(self, starfighter, false, -1, false, -1)))) {
+                if (Filters.canSpot(cardsInHand, game, Filters.and(Filters.icon(Icon.A_NEW_HOPE), Filters.Han, Filters.deployableSimultaneouslyWith(self, starfighter, false, -1, false, 0)))) {
                     validStarfighters.add(starfighter);
                 }
             }
 
             if (!validStarfighters.isEmpty() || canDeployCardFromReserveDeck) {
 
-                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId1);
                 action.setText("Deploy a starfighter and pilot");
                 // Update usage limit(s)
                 action.appendUsage(
@@ -84,28 +87,28 @@ public class Card223_042 extends AbstractNormalEffect {
                                     new YesNoDecision("You have valid starfighter and pilot combinations in hand. Do you want to search Reserve Deck as well?") {
                                         @Override
                                         protected void yes() {
-                                            action.setActionMsg("Deploy a non-[E7] Falcon and non-[E7] Han from hand and/or Reserve Deck");
+                                            action.setActionMsg("Deploy a [ANH] Falcon and [ANH] Han from hand and/or Reserve Deck");
                                             // Perform result(s)
                                             action.appendEffect(getChooseCardsEffect(action));
                                         }
                                         @Override
                                         protected void no() {
-                                            action.setActionMsg("Deploy a non-[E7] Falcon and non-[E7] Han from hand");
+                                            action.setActionMsg("Deploy a [ANH] Falcon and [ANH] Han from hand");
                                             action.appendTargeting(
                                                     new ChooseCardFromHandEffect(action, playerId, Filters.in(validStarfighters)) {
                                                         @Override
                                                         public String getChoiceText(int numCardsToChoose) {
-                                                            return "Choose a non-[E7] Falcon";
+                                                            return "Choose a [ANH] Falcon";
                                                         }
                                                         @Override
                                                         protected void cardSelected(SwccgGame game, final PhysicalCard starfighter) {
-                                                            Collection<PhysicalCard> pilots = Filters.filter(cardsInHand, game, Filters.and(Filters.not(Filters.icon(Icon.EPISODE_VII)),
+                                                            Collection<PhysicalCard> pilots = Filters.filter(cardsInHand, game, Filters.and(Filters.icon(Icon.A_NEW_HOPE),
                                                                     Filters.Han, Filters.deployableSimultaneouslyWith(self, starfighter, false, -1, false, -1)));
                                                             action.appendTargeting(
                                                                     new ChooseCardFromHandEffect(action, playerId, Filters.in(pilots)) {
                                                                         @Override
                                                                         public String getChoiceText(int numCardsToChoose) {
-                                                                            return "Choose a non-[E7] Han";
+                                                                            return "Choose a [ANH] Han";
                                                                         }
                                                                         @Override
                                                                         protected void cardSelected(SwccgGame game, PhysicalCard pilot) {
@@ -124,21 +127,38 @@ public class Card223_042 extends AbstractNormalEffect {
                     );
                 }
                 else {
-                    action.setActionMsg("Deploy a non-[E7] Falcon and Han from hand and/or Reserve Deck");
+                    action.setActionMsg("Deploy a [ANH] Falcon and Han from hand and/or Reserve Deck");
                     // Perform result(s)
                     action.appendEffect(getChooseCardsEffect(action));
                 }
-                return Collections.singletonList(action);
+                actions.add(action);
             }
         }
-        return null;
+
+        GameTextActionId gameTextActionId2 = GameTextActionId.PASSAGE_TO_THE_ALDERAAN_SYSTEM__UPLOAD_GENERAL_OR_SENATOR;
+        // Check condition(s)
+        if (GameConditions.isTwicePerGame(game, self, gameTextActionId2)
+                && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId2)) {
+
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId2);
+            action.setText("Take card into hand from Reserve Deck");
+            action.setActionMsg("Take any general or senator into hand from Reserve Deck");
+            // Update usage limit(s)
+            action.appendUsage(
+                    new TwicePerGameEffect(action));
+            // Perform result(s)
+            action.appendEffect(
+                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.general, Filters.senator), true));
+            actions.add(action);
+        }
+        return actions;
     }
 
     private StandardEffect getChooseCardsEffect(final TopLevelGameTextAction action) {
         return new ChooseCardCombinationFromHandAndOrReserveDeckEffect(action) {
             @Override
             public String getChoiceText(SwccgGame game, Collection<PhysicalCard> cardsSelected) {
-                return "Choose a non-[E7] Falcon and Han from hand and/or Reserve Deck";
+                return "Choose a [ANH] Falcon and Han from hand and/or Reserve Deck";
             }
 
             @Override
@@ -150,16 +170,16 @@ public class Card223_042 extends AbstractNormalEffect {
 
                 if (cardsSelected.isEmpty()) {
                     final List<PhysicalCard> validStarfighters = new ArrayList<PhysicalCard>();
-                    Collection<PhysicalCard> starfighters = Filters.filter(cardsToChooseFrom, game, Filters.and(Filters.not(Filters.icon(Icon.EPISODE_VII)), Filters.Falcon));
+                    Collection<PhysicalCard> starfighters = Filters.filter(cardsToChooseFrom, game, Filters.and(Filters.icon(Icon.A_NEW_HOPE), Filters.Falcon));
                     for (PhysicalCard starfighter : starfighters) {
-                        if (Filters.canSpot(cardsToChooseFrom, game, Filters.and(Filters.Han, Filters.deployableSimultaneouslyWith(action.getActionSource(), starfighter, false, -1, false, -1)))) {
+                        if (Filters.canSpot(cardsToChooseFrom, game, Filters.and(Icon.A_NEW_HOPE, Filters.Han, Filters.deployableSimultaneouslyWith(action.getActionSource(), starfighter, false, -1, false, 0)))) {
                             validStarfighters.add(starfighter);
                         }
                     }
                     return Filters.in(validStarfighters);
                 } else if (cardsSelected.size() == 1) {
                     PhysicalCard starfighter = cardsSelected.iterator().next();
-                    return Filters.and(Filters.Han, Filters.deployableSimultaneouslyWith(action.getActionSource(), starfighter, false, -1, false, -1));
+                    return Filters.and(Filters.Han, Filters.deployableSimultaneouslyWith(action.getActionSource(), starfighter, false, -1, false, 0));
                 }
                 return Filters.none;
             }
@@ -176,7 +196,7 @@ public class Card223_042 extends AbstractNormalEffect {
 
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardsSimultaneouslyEffect(action, starfighter, false, -1, pilot, false, -1));
+                        new DeployCardsSimultaneouslyEffect(action, starfighter, false, -1, pilot, false, 0));
             }
         };
     }
@@ -184,7 +204,7 @@ public class Card223_042 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new ImmuneToDeployCostModifiersToLocationModifier(self, Filters.and(Filters.Imperial_starship), Filters.any, Filters.Tatooine_system));
+        modifiers.add(new ImmuneToTitleModifier(self, Filters.Falcon, Title.Gravity_Shadow));
         return modifiers;
     }
 }

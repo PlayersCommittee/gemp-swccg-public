@@ -30,7 +30,10 @@ public class Card214_015 extends AbstractCharacterWeapon {
     public Card214_015() {
         super(Side.LIGHT, 5, "Ahsoka's Shoto Lightsaber", Uniqueness.UNIQUE, ExpansionSet.SET_14, Rarity.V);
         setLore("");
-        setGameText("Deploy on Ahsoka or a non-[Episode I] Padawan. May target a character or creature for free. Draw two destiny. Target hit, and may not be used to satisfy attrition, if total destiny > defense value (if hit target is an Inquisitor, opponent also loses 1 Force).");
+        setGameText("Deploy on a Jedi or Padawan. " +
+                "May target a character or creature for free. " +
+                "Draw two destiny. " +
+                "Target hit, and may not be used to satisfy attrition, if total destiny > defense value (if hit by Ahsoka or a Padawan, opponent also loses 1 Force).");
         addIcon(Icon.VIRTUAL_SET_14);
         addKeyword(Keyword.LIGHTSABER);
         addPersona(Persona.AHSOKAS_SHOTO_LIGHTSABER);
@@ -39,14 +42,14 @@ public class Card214_015 extends AbstractCharacterWeapon {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        Filter ahsokaOrNonEpIPadawan = Filters.and(Filters.your(self), Filters.or(Filters.Ahsoka, Filters.and(Filters.padawan,Filters.not(Icon.EPISODE_I))));
-        return Filters.and(Filters.your(self), ahsokaOrNonEpIPadawan);
+        Filter jediOrPadawan = Filters.and(Filters.your(self), Filters.or(Filters.Jedi, Filters.padawan));
+        return Filters.and(Filters.your(self), jediOrPadawan);
     }
 
     @Override
     protected Filter getGameTextValidToUseWeaponFilter(final SwccgGame game, final PhysicalCard self) {
-        Filter ahsokaOrNonEpIPadawan = Filters.and(Filters.your(self), Filters.or(Filters.Ahsoka, Filters.and(Filters.padawan,Filters.not(Icon.EPISODE_I))));
-        return Filters.and(ahsokaOrNonEpIPadawan);
+        Filter jediOrPadawan = Filters.and(Filters.your(self), Filters.or(Filters.Jedi, Filters.padawan));
+        return Filters.and(Filters.your(self), jediOrPadawan);
     }
 
     @Override
@@ -55,7 +58,7 @@ public class Card214_015 extends AbstractCharacterWeapon {
                 .targetForFree(Filters.or(Filters.character, targetedAsCharacter, Filters.creature), TargetingReason.TO_BE_HIT).finishBuildPrep();
         if (actionBuilder != null) {
             // new builder
-            FireWeaponAction action = actionBuilder.builderAhsokasShotoLightsaber(Filters.and(Keyword.INQUISITOR),1);
+            FireWeaponAction action = actionBuilder.builderAhsokasShotoLightsaber();
             return Collections.singletonList(action);
         }
         return null;
