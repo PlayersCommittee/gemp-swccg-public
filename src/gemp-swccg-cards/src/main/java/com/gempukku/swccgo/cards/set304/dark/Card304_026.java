@@ -2,13 +2,7 @@ package com.gempukku.swccgo.cards.set304.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
-import com.gempukku.swccgo.common.ExpansionSet;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Rarity;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Title;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -24,7 +18,6 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.SatisfyAllAttritionEffect;
-import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
@@ -51,6 +44,7 @@ public class Card304_026 extends AbstractAlien {
         setGameText("While K'vin is in battle, your other characters present with him may not be targeted by opponent's weapons. Place K'vin in Used Pile if he was just 'hit'. If in a battle with Thran may be sacrificed to satisify all attrition.");
         addIcons(Icon.CSP);
 		addKeywords(Keyword.MALE);
+        addPersona(Persona.KVIN);
     }
 
     @Override

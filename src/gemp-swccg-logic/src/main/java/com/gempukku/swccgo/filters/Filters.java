@@ -19398,6 +19398,15 @@ public class Filters {
     public static final Filter Kamjins_Ambition = Filters.title(Title.Kamjins_Ambition);
     public static final Filter Laplamiz_Children_Light = Filters.or(Persona.KAI, Persona.KOMILIA, Persona.HIKARU);
     public static final Filter Deploys_aboard_Ferfiek_Chawa = Filters.or(Filters.persona(Persona.FERFIEK_CHAWA), Filters.locationAndCardsAtLocation(Filters.siteOfStarshipOrVehicle(Persona.FERFIEK_CHAWA, false)));
+    public static final Filter Hostile_Takeover = Filters.title(Title.Hostile_Takeover);
+    public static final Filter Competitive_Advantage = Filters.title(Title.Competitive_Advantage);
+    public static final Filter Complications = Filters.title(Title.Complications);
+    public static final Filter Monolith_Throne_Room = Filters.title(Title.Monolith_Throne_Room);
+    public static final Filter Scholae_Palatinaes_Power = Filters.title(Title.Scholae_Palatinaes_Power);
+    public static final Filter KYLE_WARHAWK = Filters.persona(Persona.KYLE_WARHAWK);
+    public static final Filter SARLAC_Docking_Bay = Filters.title(Title.SARLAC_Docking_Bay);
+    public static final Filter Monolith_Docking_Bay = Filters.title(Title.Monolith_Docking_Bay);
+    public static final Filter Kais_Lightsaber = Filters.persona(Persona.KAIS_LIGHTSABER);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

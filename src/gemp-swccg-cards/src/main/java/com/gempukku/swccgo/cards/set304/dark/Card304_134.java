@@ -1,9 +1,10 @@
-package com.gempukku.swccgo.cards.set303.dark;
+package com.gempukku.swccgo.cards.set304.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.PlayCardOptionId;
@@ -20,35 +21,45 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Set: Shadow Academy
+ * Set: The Great Hutt Expansion
  * Type: Weapon
  * Subtype: Character
- * Title: Kamjin's Lightsaber
+ * Title: Kyle Warhawk's Lightsaber
  */
-public class Card303_022 extends AbstractCharacterWeapon {
-    public Card303_022() {
-        super(Side.DARK, 1, "Kamjin's Lightsaber", Uniqueness.RESTRICTED_2, ExpansionSet.SA, Rarity.V);
-        setLore("Created by Kamjin Lap'lamiz following his duel with Grand Master Zoraan. Rumor has it that the blade is powered by the crystalized remains of the Grand Master.");
-        setGameText("Deploy on Kamjin Lap'lamiz. May add 1 to Force drain where present. May target a character or creature for free. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value.");
-        addPersona(Persona.KAMJINS_LIGHTSABER);
+public class Card304_134 extends AbstractCharacterWeapon {
+    public Card304_134() {
+        super(Side.DARK, 1, "Kyle Warhawk's Lightsaber", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
+        setLore("Crafted with unique runic carvings Kyle's lightsaber is a deceptive work of art. It's orange blade has confused many an individual about his true intentions.");
+        setGameText("Use 1 Force to deploy on Kyle Warhawk. May add 1 to Force Drain where present. May target a character or creature for free. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value.");
+        addPersona(Persona.KYLE_WARHAWK_LIGHTSABER);
         addKeywords(Keyword.LIGHTSABER);
-        setMatchingCharacterFilter(Filters.Kamjin);
+        setMatchingCharacterFilter(Filters.KYLE_WARHAWK);
+    }
+
+    @Override
+    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, final PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new DefinedByGameTextDeployCostModifier(self, 1));
+        return modifiers;
     }
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.and(Filters.your(self), Filters.Kamjin);
+        return Filters.and(Filters.your(self), Filters.KYLE_WARHAWK);
     }
 
     @Override
     protected Filter getGameTextValidToUseWeaponFilter(final SwccgGame game, final PhysicalCard self) {
-        return Filters.Kamjin;
+        return Filters.KYLE_WARHAWK;
     }
 
     @Override

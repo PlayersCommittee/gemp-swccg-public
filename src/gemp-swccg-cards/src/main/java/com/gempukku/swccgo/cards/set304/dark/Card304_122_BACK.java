@@ -47,20 +47,20 @@ import java.util.List;
 /**
  * Set: The Great Hutt Expansion
  * Type: Objective
- * Title: TBD
+ * Title: Hostile Takeover/Usurped
  */
 public class Card304_122_BACK extends AbstractObjective {
     public Card304_122_BACK() {
-        super(Side.DARK, 7, "TBD", ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
-        setGameText("While this side up, lose 1 Force at end of each of your turns. Once during each of your turns, when Vader, Luke (even as a non-frozen captive) and Emperor are all present at your Throne Room, you may initiate a Luke/Vader duel: Each player draws two destiny. Add ability. Highest total wins. If Vader wins, opponent loses 3 Force. If Luke wins, shuffle Reserve Deck and draw destiny; if destiny > 12, Luke crosses to Dark Side, totally depleting opponent's Life Force. Flip if Luke neither present with Vader nor a captive.");
+        super(Side.DARK, 7, Title.Usurped, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
+        setGameText("While this side up, lose 1 Force at end of each of your turns. Once during each of your turns, when Kamjin, Locita (even as a non-frozen captive) and Kamjin are all present at your Throne Room, you may initiate a Locita/Kamjin duel: Each player draws two destiny. Add ability. Highest total wins. If Kamjin wins, opponent loses 3 Force. If Locita wins, shuffle Reserve Deck and draw destiny; if destiny > 12, Locita crosses to Dark Side, totally depleting opponent's Life Force. Flip if Locita neither present with Kamjin nor a captive.");
     }
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
         String playerId = self.getOwner();
-        boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
-        boolean targetsKananInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE);
+        boolean targetsKaiInsteadOfLocita = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.HOSTILE_TAKEOVER__TARGETS_KAI_INSTEAD_OF_LOCITA);
+        boolean targetsHikaruInsteadOfLocita = GameConditions.hasGameTextModification(game, self, ModifyGameTextType. HOSTILE_TAKEOVER__TARGETS_HIKARU_INSTEAD_OF_LOCITA);
 
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
@@ -75,12 +75,12 @@ public class Card304_122_BACK extends AbstractObjective {
             actions.add(action);
         }
 
-        if (targetsLeiaInsteadOfLuke) {
+        if (targetsKaiInsteadOfLocita) {
             // Check condition(s)
             if (TriggerConditions.isTableChanged(game, effectResult)
                     && GameConditions.canBeFlipped(game, self)
                     && !GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE_AND_EXCLUDED_FROM_BATTLE,
-                    Filters.and(Filters.Leia, Filters.or(Filters.captive, Filters.presentWith(self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.Vader))))) {
+                    Filters.and(Filters.Kai, Filters.or(Filters.captive, Filters.presentWith(self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.Kamjin))))) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setSingletonTrigger(true);
@@ -93,12 +93,12 @@ public class Card304_122_BACK extends AbstractObjective {
             }
             return actions;
         }
-        else if (targetsKananInsteadOfLuke) {
+        else if (targetsHikaruInsteadOfLocita) {
             // Check condition(s)
             if (TriggerConditions.isTableChanged(game, effectResult)
                     && GameConditions.canBeFlipped(game, self)
                     && !GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE_AND_EXCLUDED_FROM_BATTLE,
-                    Filters.and(Filters.Kanan, Filters.or(Filters.captive, Filters.presentWith(self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.Vader))))) {
+                    Filters.and(Filters.Hikaru, Filters.or(Filters.captive, Filters.presentWith(self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.Kamjin))))) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setSingletonTrigger(true);
@@ -116,7 +116,7 @@ public class Card304_122_BACK extends AbstractObjective {
             if (TriggerConditions.isTableChanged(game, effectResult)
                     && GameConditions.canBeFlipped(game, self)
                     && !GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE_AND_EXCLUDED_FROM_BATTLE,
-                    Filters.and(Filters.Luke, Filters.or(Filters.captive, Filters.presentWith(self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.Vader))))) {
+                    Filters.and(Filters.Locita, Filters.or(Filters.captive, Filters.presentWith(self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.Kamjin))))) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setSingletonTrigger(true);
@@ -134,19 +134,19 @@ public class Card304_122_BACK extends AbstractObjective {
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
-        boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
-        boolean targetsKananInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE);
+        boolean targetsKaiInsteadOfLocita = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.HOSTILE_TAKEOVER__TARGETS_KAI_INSTEAD_OF_LOCITA);
+        boolean targetsHikaruInsteadOfLocita = GameConditions.hasGameTextModification(game, self, ModifyGameTextType. HOSTILE_TAKEOVER__TARGETS_HIKARU_INSTEAD_OF_LOCITA);
 
-        GameTextActionId gameTextActionId = GameTextActionId.BRING_HIM_BEFORE_ME__DOWNLOAD_EMPEROR;
+        GameTextActionId gameTextActionId = GameTextActionId.HOSTILE_TAKEOVER__DOWNLOAD_THRAN;
 
         // Check condition(s)
-        if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.SIDIOUS)) {
+        if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.THRAN)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy Emperor from Reserve Deck");
+            action.setText("Deploy Thran from Reserve Deck");
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.Emperor, -2, true));
+                    new DeployCardFromReserveDeckEffect(action, Filters.Thran, -2, true));
             actions.add(action);
         }
 
@@ -155,25 +155,25 @@ public class Card304_122_BACK extends AbstractObjective {
 
         gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
 
-        if (targetsLeiaInsteadOfLuke) {
+        if (targetsKaiInsteadOfLocita) {
             // Check condition(s)
             if (GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                    && GameConditions.canSpot(game, self, Filters.and(Filters.Emperor, presentAtThroneRoom))) {
-                PhysicalCard vader = Filters.findFirstActive(game, self, Filters.and(Filters.Vader, presentAtThroneRoom));
-                if (vader != null) {
-                    final PhysicalCard leia = Filters.findFirstActive(game, self, SpotOverride.INCLUDE_CAPTIVE,
-                            Filters.and(Filters.Leia, Filters.not(Filters.frozenCaptive), presentAtThroneRoom, Filters.canBeTargetedBy(self, TargetingReason.TO_BE_DUELED)));
-                    if (leia != null) {
+                    && GameConditions.canSpot(game, self, Filters.and(Filters.Thran, presentAtThroneRoom))) {
+                PhysicalCard kamjin = Filters.findFirstActive(game, self, Filters.and(Filters.Kamjin, presentAtThroneRoom));
+                if (kamjin != null) {
+                    final PhysicalCard kai = Filters.findFirstActive(game, self, SpotOverride.INCLUDE_CAPTIVE,
+                            Filters.and(Filters.Kai, Filters.not(Filters.frozenCaptive), presentAtThroneRoom, Filters.canBeTargetedBy(self, TargetingReason.TO_BE_DUELED)));
+                    if (kai != null) {
 
                         final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-                        action.setText("Initiate a Leia/Vader duel");
-                        action.addAnimationGroup(leia, vader);
+                        action.setText("Initiate a Kai/Kamjin duel");
+                        action.addAnimationGroup(kai, kamjin);
                         // Update usage limit(s)
                         action.appendUsage(
                                 new OncePerTurnEffect(action));
                         // Perform result(s)
                         action.appendEffect(
-                                new DuelEffect(action, vader, leia, new DuelDirections() {
+                                new DuelEffect(action, kamjin, kai, new DuelDirections() {
                                     @Override
                                     public boolean isEpicDuel() {
                                         return false;
@@ -225,13 +225,13 @@ public class Card304_122_BACK extends AbstractObjective {
                                             return;
                                         }
 
-                                        // If Vader wins, opponent loses 3 Force.
-                                        if (Filters.Vader.accepts(game, winningCharacter)) {
+                                        // If Kamjin wins, opponent loses 3 Force.
+                                        if (Filters.Kamjin.accepts(game, winningCharacter)) {
                                             action.appendEffect(
                                                     new LoseForceEffect(action, opponent, 3));
                                         }
-                                        // If Leia wins, shuffle Reserve Deck and draw destiny.
-                                        else if (Filters.Leia.accepts(game, winningCharacter)) {
+                                        // If Kai wins, shuffle Reserve Deck and draw destiny.
+                                        else if (Filters.Kai.accepts(game, winningCharacter)) {
                                             // Perform result(s)
                                             action.appendEffect(
                                                     new ShuffleReserveDeckEffect(action));
@@ -246,12 +246,12 @@ public class Card304_122_BACK extends AbstractObjective {
                                                                 gameState.sendMessage("Result: Failed due to failed destiny draw");
                                                                 return;
                                                             }
-                                                            float crossoverAttemptTotal = modifiersQuerying.getCrossoverAttemptTotal(gameState, leia, totalDestiny);
+                                                            float crossoverAttemptTotal = modifiersQuerying.getCrossoverAttemptTotal(gameState, kai, totalDestiny);
                                                             gameState.sendMessage("Total destiny: " + GuiUtils.formatAsString(crossoverAttemptTotal));
                                                             if (crossoverAttemptTotal > 12) {
                                                                 gameState.sendMessage("Result: Succeeded");
                                                                 action.appendEffect(
-                                                                        new CrossOverCharacterEffect(action, leia));
+                                                                        new CrossOverCharacterEffect(action, kai));
                                                                 action.appendEffect(
                                                                         new DepleteLifeForceEffect(action, opponent));
                                                             }
@@ -272,25 +272,25 @@ public class Card304_122_BACK extends AbstractObjective {
 
             return actions;
         }
-        else if (targetsKananInsteadOfLuke) {
+        else if (targetsHikaruInsteadOfLocita) {
             // Check condition(s)
             if (GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                    && GameConditions.canSpot(game, self, Filters.and(Filters.Emperor, presentAtThroneRoom))) {
-                PhysicalCard vader = Filters.findFirstActive(game, self, Filters.and(Filters.Vader, presentAtThroneRoom));
-                if (vader != null) {
-                    final PhysicalCard kanan = Filters.findFirstActive(game, self, SpotOverride.INCLUDE_CAPTIVE,
-                            Filters.and(Filters.Kanan, Filters.not(Filters.frozenCaptive), presentAtThroneRoom, Filters.canBeTargetedBy(self, TargetingReason.TO_BE_DUELED)));
-                    if (kanan != null) {
+                    && GameConditions.canSpot(game, self, Filters.and(Filters.Thran, presentAtThroneRoom))) {
+                PhysicalCard kamjin = Filters.findFirstActive(game, self, Filters.and(Filters.Kamjin, presentAtThroneRoom));
+                if (kamjin != null) {
+                    final PhysicalCard hikaru = Filters.findFirstActive(game, self, SpotOverride.INCLUDE_CAPTIVE,
+                            Filters.and(Filters.Hikaru, Filters.not(Filters.frozenCaptive), presentAtThroneRoom, Filters.canBeTargetedBy(self, TargetingReason.TO_BE_DUELED)));
+                    if (hikaru != null) {
 
                         final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-                        action.setText("Initiate a Kanan/Vader duel");
-                        action.addAnimationGroup(kanan, vader);
+                        action.setText("Initiate a Hikaru/Kamjin duel");
+                        action.addAnimationGroup(hikaru, kamjin);
                         // Update usage limit(s)
                         action.appendUsage(
                                 new OncePerTurnEffect(action));
                         // Perform result(s)
                         action.appendEffect(
-                                new DuelEffect(action, vader, kanan, new DuelDirections() {
+                                new DuelEffect(action, kamjin, hikaru, new DuelDirections() {
                                     @Override
                                     public boolean isEpicDuel() {
                                         return false;
@@ -342,13 +342,13 @@ public class Card304_122_BACK extends AbstractObjective {
                                             return;
                                         }
 
-                                        // If Vader wins, opponent loses 3 Force.
-                                        if (Filters.Vader.accepts(game, winningCharacter)) {
+                                        // If Kamjin wins, opponent loses 3 Force.
+                                        if (Filters.Kamjin.accepts(game, winningCharacter)) {
                                             action.appendEffect(
                                                     new LoseForceEffect(action, opponent, 3));
                                         }
-                                        // If Kanan wins, shuffle Reserve Deck and draw destiny.
-                                        else if (Filters.Kanan.accepts(game, winningCharacter)) {
+                                        // If Hikaru wins, shuffle Reserve Deck and draw destiny.
+                                        else if (Filters.Hikaru.accepts(game, winningCharacter)) {
                                             // Perform result(s)
                                             action.appendEffect(
                                                     new ShuffleReserveDeckEffect(action));
@@ -363,12 +363,12 @@ public class Card304_122_BACK extends AbstractObjective {
                                                                 gameState.sendMessage("Result: Failed due to failed destiny draw");
                                                                 return;
                                                             }
-                                                            float crossoverAttemptTotal = modifiersQuerying.getCrossoverAttemptTotal(gameState, kanan, totalDestiny);
+                                                            float crossoverAttemptTotal = modifiersQuerying.getCrossoverAttemptTotal(gameState, hikaru, totalDestiny);
                                                             gameState.sendMessage("Total destiny: " + GuiUtils.formatAsString(crossoverAttemptTotal));
                                                             if (crossoverAttemptTotal > 12) {
                                                                 gameState.sendMessage("Result: Succeeded");
                                                                 action.appendEffect(
-                                                                        new CrossOverCharacterEffect(action, kanan));
+                                                                        new CrossOverCharacterEffect(action, hikaru));
                                                                 action.appendEffect(
                                                                         new DepleteLifeForceEffect(action, opponent));
                                                             }
@@ -392,22 +392,22 @@ public class Card304_122_BACK extends AbstractObjective {
         else {
             // Check condition(s)
             if (GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                    && GameConditions.canSpot(game, self, Filters.and(Filters.Emperor, presentAtThroneRoom))) {
-                PhysicalCard vader = Filters.findFirstActive(game, self, Filters.and(Filters.Vader, presentAtThroneRoom));
-                if (vader != null) {
-                    final PhysicalCard luke = Filters.findFirstActive(game, self, SpotOverride.INCLUDE_CAPTIVE,
-                            Filters.and(Filters.Luke, Filters.not(Filters.frozenCaptive), presentAtThroneRoom, Filters.canBeTargetedBy(self, TargetingReason.TO_BE_DUELED)));
-                    if (luke != null) {
+                    && GameConditions.canSpot(game, self, Filters.and(Filters.Thran, presentAtThroneRoom))) {
+                PhysicalCard kamjin = Filters.findFirstActive(game, self, Filters.and(Filters.Kamjin, presentAtThroneRoom));
+                if (kamjin != null) {
+                    final PhysicalCard locita = Filters.findFirstActive(game, self, SpotOverride.INCLUDE_CAPTIVE,
+                            Filters.and(Filters.Locita, Filters.not(Filters.frozenCaptive), presentAtThroneRoom, Filters.canBeTargetedBy(self, TargetingReason.TO_BE_DUELED)));
+                    if (locita != null) {
 
                         final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-                        action.setText("Initiate a Luke/Vader duel");
-                        action.addAnimationGroup(luke, vader);
+                        action.setText("Initiate a Locita/Kamjin duel");
+                        action.addAnimationGroup(locita, kamjin);
                         // Update usage limit(s)
                         action.appendUsage(
                                 new OncePerTurnEffect(action));
                         // Perform result(s)
                         action.appendEffect(
-                                new DuelEffect(action, vader, luke, new DuelDirections() {
+                                new DuelEffect(action, kamjin, locita, new DuelDirections() {
                                     @Override
                                     public boolean isEpicDuel() {
                                         return false;
@@ -459,13 +459,13 @@ public class Card304_122_BACK extends AbstractObjective {
                                             return;
                                         }
 
-                                        // If Vader wins, opponent loses 3 Force.
-                                        if (Filters.Vader.accepts(game, winningCharacter)) {
+                                        // If Kamjin wins, opponent loses 3 Force.
+                                        if (Filters.Kamjin.accepts(game, winningCharacter)) {
                                             action.appendEffect(
                                                     new LoseForceEffect(action, opponent, 3));
                                         }
-                                        // If Luke wins, shuffle Reserve Deck and draw destiny.
-                                        else if (Filters.Luke.accepts(game, winningCharacter)) {
+                                        // If Locita wins, shuffle Reserve Deck and draw destiny.
+                                        else if (Filters.Locita.accepts(game, winningCharacter)) {
                                             // Perform result(s)
                                             action.appendEffect(
                                                     new ShuffleReserveDeckEffect(action));
@@ -480,12 +480,12 @@ public class Card304_122_BACK extends AbstractObjective {
                                                                 gameState.sendMessage("Result: Failed due to failed destiny draw");
                                                                 return;
                                                             }
-                                                            float crossoverAttemptTotal = modifiersQuerying.getCrossoverAttemptTotal(gameState, luke, totalDestiny);
+                                                            float crossoverAttemptTotal = modifiersQuerying.getCrossoverAttemptTotal(gameState, locita, totalDestiny);
                                                             gameState.sendMessage("Total destiny: " + GuiUtils.formatAsString(crossoverAttemptTotal));
                                                             if (crossoverAttemptTotal > 12) {
                                                                 gameState.sendMessage("Result: Succeeded");
                                                                 action.appendEffect(
-                                                                        new CrossOverCharacterEffect(action, luke));
+                                                                        new CrossOverCharacterEffect(action, locita));
                                                                 action.appendEffect(
                                                                         new DepleteLifeForceEffect(action, opponent));
                                                             }
@@ -511,59 +511,59 @@ public class Card304_122_BACK extends AbstractObjective {
     @Override
     protected List<TopLevelGameTextAction> getOpponentsCardGameTextTopLevelActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
-        boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
-        boolean targetsKananInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE);
+        boolean targetsKaiInsteadOfLocita = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.HOSTILE_TAKEOVER__TARGETS_KAI_INSTEAD_OF_LOCITA);
+        boolean targetsHikaruInsteadOfLocita = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.HOSTILE_TAKEOVER__TARGETS_HIKARU_INSTEAD_OF_LOCITA);
 
-        GameTextActionId gameTextActionId = GameTextActionId.BRING_HIM_BEFORE_ME__DOWNLOAD_LUKE;
+        GameTextActionId gameTextActionId = GameTextActionId.HOSTILE_TAKEOVER__DOWNLOAD_LOCITA;
 
-        if (targetsLeiaInsteadOfLuke) {
+        if (targetsKaiInsteadOfLocita) {
             // Check condition(s)
-            if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.LEIA)) {
+            if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.KAI)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-                action.setText("Deploy Leia from Reserve Deck");
+                action.setText("Deploy Kai from Reserve Deck");
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardFromReserveDeckEffect(action, Filters.Leia, -2, true));
+                        new DeployCardFromReserveDeckEffect(action, Filters.Kai, -2, true));
                 actions.add(action);
             }
 
-            gameTextActionId = GameTextActionId.BRING_HIM_BEFORE_ME__DOWNLOAD_LUKE_FROM_LOST_PILE;
+            gameTextActionId = GameTextActionId.HOSTILE_TAKEOVER__DOWNLOAD_LOCITA_FROM_LOST_PILE;
 
             // Check condition(s)
-            if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, Persona.LEIA)) {
+            if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, Persona.KAI)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-                action.setText("Deploy Leia from Lost Pile");
+                action.setText("Deploy Kai from Lost Pile");
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardFromLostPileEffect(action, Filters.Leia, true));
+                        new DeployCardFromLostPileEffect(action, Filters.Kai, true));
                 actions.add(action);
             }
 
             return actions;
-        } else if (targetsKananInsteadOfLuke) {
+        } else if (targetsHikaruInsteadOfLocita) {
             // Check condition(s)
-            if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.KANAN)) {
+            if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.HIKARU)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-                action.setText("Deploy Kanan from Reserve Deck");
+                action.setText("Deploy Hikaru from Reserve Deck");
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardFromReserveDeckEffect(action, Filters.Kanan, -2, true));
+                        new DeployCardFromReserveDeckEffect(action, Filters.Hikaru, -2, true));
                 actions.add(action);
             }
 
-            gameTextActionId = GameTextActionId.BRING_HIM_BEFORE_ME__DOWNLOAD_LUKE_FROM_LOST_PILE;
+            gameTextActionId = GameTextActionId.HOSTILE_TAKEOVER__DOWNLOAD_LOCITA_FROM_LOST_PILE;
 
             // Check condition(s)
-            if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, Persona.LEIA)) {
+            if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, Persona.HIKARU)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-                action.setText("Deploy Kanan from Lost Pile");
+                action.setText("Deploy Hikaru from Lost Pile");
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardFromLostPileEffect(action, Filters.Kanan, true));
+                        new DeployCardFromLostPileEffect(action, Filters.Hikaru, true));
                 actions.add(action);
             }
 
@@ -571,26 +571,26 @@ public class Card304_122_BACK extends AbstractObjective {
         }
         else {
             // Check condition(s)
-            if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.LUKE)) {
+            if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.LOCITA)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-                action.setText("Deploy Luke from Reserve Deck");
+                action.setText("Deploy Locita from Reserve Deck");
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardFromReserveDeckEffect(action, Filters.Luke, -2, true));
+                        new DeployCardFromReserveDeckEffect(action, Filters.Locita, -2, true));
                 actions.add(action);
             }
 
-            gameTextActionId = GameTextActionId.BRING_HIM_BEFORE_ME__DOWNLOAD_LUKE_FROM_LOST_PILE;
+            gameTextActionId = GameTextActionId.HOSTILE_TAKEOVER__DOWNLOAD_LOCITA_FROM_LOST_PILE;
 
             // Check condition(s)
-            if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, Persona.LUKE)) {
+            if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, Persona.LOCITA)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-                action.setText("Deploy Luke from Lost Pile");
+                action.setText("Deploy Locita from Lost Pile");
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardFromLostPileEffect(action, Filters.Luke, true));
+                        new DeployCardFromLostPileEffect(action, Filters.Locita, true));
                 actions.add(action);
             }
 

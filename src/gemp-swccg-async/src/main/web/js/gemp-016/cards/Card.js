@@ -446,7 +446,9 @@ class Card {
 			return (cardNo >= 83 && cardNo <= 90) ||
 				   (cardNo >= 94 && cardNo <= 97) ||
 				   (cardNo == 99) ||
-				   (cardNo >= 103 && cardNo <= 106);
+				   (cardNo >= 103 && cardNo <= 106) ||
+				   (cardNo == 129) ||
+				   (cardNo >= 131 && cardNo <= 132);
 		}if (setNo == 501) {
             return (cardNo == 6) ||
                    (cardNo == 7) ||

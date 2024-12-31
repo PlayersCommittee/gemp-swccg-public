@@ -3870,6 +3870,7 @@ var fixedImages = {
 "304_124":"https://i.imgur.com/L6lcgp4.png", //Councilor's Ambition
 "304_125":"https://i.imgur.com/r5ZS1vg.png", //Kamjin's Ambition
 "304_126":"https://i.imgur.com/38sa2qv.png", //Jloc'itaome'faottas, Diplomat (Locita)
+"304_127":"https://i.imgur.com/H0sTOtk.png", //Competitive Advantage
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",

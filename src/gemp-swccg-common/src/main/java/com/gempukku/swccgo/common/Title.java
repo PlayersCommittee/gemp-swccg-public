@@ -1332,7 +1332,7 @@ public interface Title {
 	String Ixtals_Garage = "Ixtal's Garage";
 	String Ixtal = "Ixtal Noxus";
 	String Monolith_Detention_Block = "Monolith Detention Block";
-	String SARLAC = "S.A.R.L.A.c.";
+	String SARLAC = "SARLaC";
 	String Thrans_Bounty = "Thran's Bounty";
 	String Claudius_Dungeon = "Claudius's Palace: Dungeon";
     String Claudius_Ice_Lounge = "Claudius's Palace: Ice Lounge";
@@ -1369,5 +1369,15 @@ public interface Title {
     String Kamjins_Obsession = "Kamjin's Obsession";
     String Councilors_Ambition = "Councilor's Ambition";
     String Kamjins_Ambition = "Kamjin's Ambition";
+    String Hostile_Takeover = "Hostile Takeover";
+    String Competitive_Advantage = "Competitive Advantage";
+    String Usurped = "Usurped";
+    String Complications = "Complications";
+    String Monolith_Throne_Room = "Seraph: Monolith Throne Room";
+    String Scholae_Palatinaes_Power = "Scholae Palatinae's Power";
+    String Monolith_Docking_Bay = "Seraph: Monolith Docking Bay";
+    String Kyle_Warhawk_Emperors_Hand = "Kyle Warhawk, Emperor's Hammer";
+    String Debilitating_Attack = "Debilitating Attack";
+    String SARLAC_Docking_Bay = "SARLaC: Docking Bay";
 
 }

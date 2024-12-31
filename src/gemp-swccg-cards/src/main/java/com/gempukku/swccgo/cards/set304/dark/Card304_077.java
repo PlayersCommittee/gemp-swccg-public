@@ -2,11 +2,7 @@ package com.gempukku.swccgo.cards.set304.dark;
 
 import com.gempukku.swccgo.cards.AbstractMobileSystem;
 import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
-import com.gempukku.swccgo.common.ExpansionSet;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Rarity;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -31,6 +27,7 @@ public class Card304_077 extends AbstractMobileSystem {
         super(Side.DARK, Title.SARLAC, 6, Title.Seraph, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLocationDarkSideGameText("X = parsec of current position. Must deploy orbiting Seraph. S.A.R.L.A.c locations are immune to Revolution. Opponent's Force drains +3 here. If you occupy, opponent's ships may not leave.");
         addIcon(Icon.DARK_FORCE, 3);
+        addPersona(Persona.SARLAC);
     }
 
     @Override

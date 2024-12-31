@@ -3738,7 +3738,7 @@ const fixedImages = {
 "303_19":"https://i.imgur.com/ts7UXKk.png", //Malfearak Asvraal, Herald
 "303_20":"https://i.imgur.com/EvAxm26.png", //Seraine Ténamao, Emissary
 "303_21":"https://i.imgur.com/4T0qaxm.png", //Master Kamjin Lap'lamiz, Justicar
-"303_22":"https://i.imgur.com/ElJSuNX.png", //Kamjin's Lightsaber
+"303_22":"https://i.imgur.com/5HJdTGm.png", //Kamjin's Lightsaber
 "303_23":"https://i.imgur.com/jAsIiKm.png", //Self Doubt
 "303_24":"https://i.imgur.com/iZjkb83.png", //Dark Side Corruption
 "303_25":"https://i.imgur.com/D0B6Amb.png", //Marick Tyris Arconae's Lightsaber
@@ -3871,12 +3871,28 @@ const fixedImages = {
 "304_119":"https://i.imgur.com/HkHsJrc.jpg", //Standoff
 "304_120":"https://i.imgur.com/OvDuDNC.jpg", //Training Failure & Gambling Addiction
 "304_121":"https://i.imgur.com/GyhyuuV.jpg", //That Got Him! & We've Got This
-"304_122":"", //TBD
-"304_122_BACK":"", //TBD
+"304_122":"https://i.imgur.com/mL966QU.png", //Hostile Takeover
+"304_122_BACK":"https://i.imgur.com/fHtBxhW.png", //Usurped
 "304_123":"https://i.imgur.com/lcom6UA.png", //Kamjin's Obsession
 "304_124":"https://i.imgur.com/L6lcgp4.png", //Councilor's Ambition
 "304_125":"https://i.imgur.com/r5ZS1vg.png", //Kamjin's Ambition
 "304_126":"https://i.imgur.com/38sa2qv.png", //Jloc'itaome'faottas, Diplomat (Locita)
+"304_127":"https://i.imgur.com/H0sTOtk.png", //Competitive Advantage
+"304_128":"https://i.imgur.com/zDLdLeC.png", //Complications
+"304_129":"https://i.imgur.com/jl2eFHy.png", //Seraph: Monolith Throne Room (Dark)
+"304_130":"https://i.imgur.com/W12bZrw.png", //Scholae Palatinae's Power
+"304_131":"https://i.imgur.com/PioapR6.png", //Seraph: Monolith Docking Bay (Dark)
+"304_132":"https://i.imgur.com/DmWPmhw.png", //SARLaC Docking Bay (Dark)
+"304_133":"https://i.imgur.com/ZstRZ9b.png", //Kyle Warhawk, Emperor's Hand
+"304_134":"https://i.imgur.com/uojelhG.png", //Kyle Warhawk's Lightsaber
+"304_135":"https://i.imgur.com/iY3IXuj.png", //Kamjin Lap'lamiz's Lightsaber
+"304_136":"https://i.imgur.com/w73RlYg.png", //Debilitating Attack
+"304_137":"https://i.imgur.com/k5NOlWi.png", //It's My Throne
+"304_138":"https://i.imgur.com/4zKfltF.png", //You Haven't Earned This
+"304_139":"https://i.imgur.com/8g6wUXL.png", //Korvyn, Hand of the Emperor
+"304_140":"https://i.imgur.com/QxWp0JG.png", //K'vin J. Lawdogg
+"304_141":"https://i.imgur.com/U5CS5KA.png", //Saris Aran
+"304_142":"https://i.imgur.com/o4xdALw.png", //Sykes Jades, Mercenary
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",

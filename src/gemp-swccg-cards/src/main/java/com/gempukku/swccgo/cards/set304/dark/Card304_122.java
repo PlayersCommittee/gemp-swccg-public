@@ -45,58 +45,51 @@ import java.util.List;
 /**
  * Set: The Great Hutt Expansion
  * Type: Objective
- * Title: TBD
+ * Title: Hostile Takeover/Usurped
  */
 public class Card304_122 extends AbstractObjective {
     public Card304_122() {
-        super(Side.DARK, 0, "TBD", ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
+        super(Side.DARK, 0, Title.Hostile_Takeover, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Throne Room, Insignificant Rebellion and Your Destiny. For remainder of game, Scanning Crew may not be played. Opponent's cards that place a character out of play may not target Luke. You may deploy Emperor (deploy -2) from Reserve Deck; reshuffle. Opponent may deploy Luke from Reserve Deck (deploy -2; reshuffle) or Lost Pile. If Luke is present with Vader and Vader is not escorting a captive, Luke is captured and seized by Vader. Vader may not transfer Luke. Flip this card if Luke captured.");
+        setGameText("Deploy Monolith Throne Room, Competitive Advantage and Complications. For remainder of game, Scanning Crew may not be played. Opponent's cards that place a character out of play may not target Locita. You may deploy Thran (deploy -2) from Reserve Deck; reshuffle. Opponent may deploy Locita from Reserve Deck (deploy -2; reshuffle) or Lost Pile. If Locita is present with Kamjin and Kamjin is not escorting a captive, Locita is captured and seized by Kamjin. Kamjin may not transfer Locita. Flip this card if Locita captured.");
     }
 
     @Override
     protected ObjectiveDeployedTriggerAction getGameTextWhenDeployedAction(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         ObjectiveDeployedTriggerAction action = new ObjectiveDeployedTriggerAction(self);
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.Throne_Room, true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.Monolith_Throne_Room, true, false) {
                     @Override
                     public String getChoiceText() {
-                        return "Choose Throne Room to deploy";
+                        return "Choose Monolith Throne Room to deploy";
                     }
                 });
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.Insignificant_Rebellion, true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.Competitive_Advantage, true, false) {
                     @Override
-                    public String getChoiceText() {
-                        return "Choose Insignificant Rebellion to deploy";
-                    }
+                    public String getChoiceText() { return "Choose Competitive Advantage to deploy"; }
                 });
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.Your_Destiny, true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.Complications, true, false) {
                     @Override
-                    public String getChoiceText() {
-                        return "Choose Your Destiny to deploy";
-                    }
+                    public String getChoiceText() { return "Choose Complications to deploy"; }
                 });
         return action;
     }
 
     @Override
     protected RequiredGameTextTriggerAction getGameTextAfterDeploymentCompletedAction(String playerId, SwccgGame game, final PhysicalCard self, final int gameTextSourceCardId) {
-        boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
-        boolean targetsKananInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE);
-        final Condition targetsLeiaInsteadOfLukeCondition = new GameTextModificationCondition(self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
-        final Condition targetsKananInsteadOfLukeCondition = new GameTextModificationCondition(self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE);
-        final Condition targetsLukeCondition = new AndCondition(new NotCondition(targetsLeiaInsteadOfLukeCondition), new NotCondition(targetsKananInsteadOfLukeCondition));
+        boolean targetsKaiInsteadOfLocita = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.HOSTILE_TAKEOVER__TARGETS_KAI_INSTEAD_OF_LOCITA);
+        boolean targetsHikaruInsteadOfLocita = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.HOSTILE_TAKEOVER__TARGETS_HIKARU_INSTEAD_OF_LOCITA);
+        final Condition targetsKaiInsteadOfLocitaCondition = new GameTextModificationCondition(self, ModifyGameTextType.HOSTILE_TAKEOVER__TARGETS_KAI_INSTEAD_OF_LOCITA);
+        final Condition targetsHikaruInsteadOfLocitaCondition = new GameTextModificationCondition(self, ModifyGameTextType.HOSTILE_TAKEOVER__TARGETS_HIKARU_INSTEAD_OF_LOCITA);
+        final Condition targetsLocitaCondition = new AndCondition(new NotCondition(targetsKaiInsteadOfLocitaCondition), new NotCondition(targetsHikaruInsteadOfLocitaCondition));
 
         RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
 
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new MayNotPlayModifier(self, Filters.Scanning_Crew), null));
-        action.appendEffect(
-                new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotTargetToBePlacedOutOfPlayModifier(self, Filters.Luke, Filters.not(Filters.title(Title.We_Need_Luke_Skywalker))), null));
         final int permCardId = self.getPermanentCardId();
         action.appendEffect(
                 new AddUntilEndOfGameActionProxyEffect(action,
@@ -105,56 +98,56 @@ public class Card304_122 extends AbstractObjective {
                             public List<TriggerAction> getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult) {
                                 List<TriggerAction> actions = new LinkedList<TriggerAction>();
                                 PhysicalCard self = game.findCardByPermanentId(permCardId);
-                                boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
-                                boolean targetsKananInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE);
+                                boolean targetsKaiInsteadOfLocita = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.HOSTILE_TAKEOVER__TARGETS_KAI_INSTEAD_OF_LOCITA);
+                                boolean targetsHikaruInsteadOfLocita = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.HOSTILE_TAKEOVER__TARGETS_HIKARU_INSTEAD_OF_LOCITA);
 
                                 GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
                                 // Check condition(s)
-                                if (targetsLeiaInsteadOfLuke) {
+                                if (targetsKaiInsteadOfLocita) {
                                     if (TriggerConditions.isTableChanged(game, effectResult)) {
-                                        final PhysicalCard leia = Filters.findFirstActive(game, self, Filters.and(Filters.Leia, Filters.not(Filters.captive)));
-                                        if (leia != null) {
-                                            PhysicalCard vader = Filters.findFirstActive(game, self, Filters.and(Filters.Vader, Filters.presentWith(leia), Filters.not(Filters.or(Filters.isLeavingTable, Filters.escorting(Filters.any)))));
-                                            if (vader != null) {
+                                        final PhysicalCard kai = Filters.findFirstActive(game, self, Filters.and(Filters.Kai, Filters.not(Filters.captive)));
+                                        if (kai != null) {
+                                            PhysicalCard kamjin = Filters.findFirstActive(game, self, Filters.and(Filters.Kamjin, Filters.presentWith(kai), Filters.not(Filters.or(Filters.isLeavingTable, Filters.escorting(Filters.any)))));
+                                            if (kamjin != null) {
 
                                                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
                                                 action.setSingletonTrigger(true);
-                                                action.setText("Capture Leia");
-                                                action.setActionMsg("Have " + GameUtils.getCardLink(vader) + " capture and seize " + GameUtils.getCardLink(leia));
+                                                action.setText("Capture Kai");
+                                                action.setActionMsg("Have " + GameUtils.getCardLink(kamjin) + " capture and seize " + GameUtils.getCardLink(kai));
                                                 // Perform result(s)
-                                                if (Filters.and(Filters.aboard(Filters.open_vehicle), Filters.not(Filters.canEscortCaptive(leia))).accepts(game, vader)) {
+                                                if (Filters.and(Filters.aboard(Filters.open_vehicle), Filters.not(Filters.canEscortCaptive(kai))).accepts(game, kamjin)) {
                                                     // Disembark first if no capacity available
                                                     action.appendEffect(
-                                                            new DisembarkEffect(action, vader, game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), vader), false, false));
+                                                            new DisembarkEffect(action, kamjin, game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), kamjin), false, false));
                                                 }
                                                 action.appendEffect(
-                                                        new CaptureWithSeizureEffect(action, leia, vader));
+                                                        new CaptureWithSeizureEffect(action, kai, kamjin));
                                                 actions.add(action);
                                             }
                                         }
                                     }
                                     return actions;
                                 }
-                                else if (targetsKananInsteadOfLuke) {
+                                else if (targetsHikaruInsteadOfLocita) {
                                     if (TriggerConditions.isTableChanged(game, effectResult)) {
-                                        final PhysicalCard kanan = Filters.findFirstActive(game, self, Filters.and(Filters.Kanan, Filters.not(Filters.captive)));
-                                        if (kanan != null) {
-                                            PhysicalCard vader = Filters.findFirstActive(game, self, Filters.and(Filters.Vader, Filters.presentWith(kanan), Filters.not(Filters.or(Filters.isLeavingTable, Filters.escorting(Filters.any)))));
-                                            if (vader != null) {
+                                        final PhysicalCard hikaru = Filters.findFirstActive(game, self, Filters.and(Filters.Hikaru, Filters.not(Filters.captive)));
+                                        if (hikaru != null) {
+                                            PhysicalCard kamjin = Filters.findFirstActive(game, self, Filters.and(Filters.Kamjin, Filters.presentWith(hikaru), Filters.not(Filters.or(Filters.isLeavingTable, Filters.escorting(Filters.any)))));
+                                            if (kamjin != null) {
 
                                                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
                                                 action.setSingletonTrigger(true);
-                                                action.setText("Capture Kanan");
-                                                action.setActionMsg("Have " + GameUtils.getCardLink(vader) + " capture and seize " + GameUtils.getCardLink(kanan));
+                                                action.setText("Capture Hikaru");
+                                                action.setActionMsg("Have " + GameUtils.getCardLink(kamjin) + " capture and seize " + GameUtils.getCardLink(hikaru));
                                                 // Perform result(s)
-                                                if (Filters.and(Filters.aboard(Filters.open_vehicle), Filters.not(Filters.canEscortCaptive(kanan))).accepts(game, vader)) {
+                                                if (Filters.and(Filters.aboard(Filters.open_vehicle), Filters.not(Filters.canEscortCaptive(hikaru))).accepts(game, kamjin)) {
                                                     // Disembark first if no capacity available
                                                     action.appendEffect(
-                                                            new DisembarkEffect(action, vader, game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), vader), false, false));
+                                                            new DisembarkEffect(action, kamjin, game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), kamjin), false, false));
                                                 }
                                                 action.appendEffect(
-                                                        new CaptureWithSeizureEffect(action, kanan, vader));
+                                                        new CaptureWithSeizureEffect(action, hikaru, kamjin));
                                                 actions.add(action);
                                             }
                                         }
@@ -163,24 +156,24 @@ public class Card304_122 extends AbstractObjective {
                                 }
                                 else {
                                     if (TriggerConditions.isTableChanged(game, effectResult)
-                                            && !GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__MAY_NOT_CAPTURE_LUKE)) {
-                                        final PhysicalCard luke = Filters.findFirstActive(game, self, Filters.and(Filters.Luke, Filters.not(Filters.captive)));
-                                        if (luke != null) {
-                                            PhysicalCard vader = Filters.findFirstActive(game, self, Filters.and(Filters.Vader, Filters.presentWith(luke), Filters.not(Filters.or(Filters.isLeavingTable, Filters.escorting(Filters.any)))));
-                                            if (vader != null) {
+                                            && !GameConditions.hasGameTextModification(game, self, ModifyGameTextType.HOSTILE_TAKEOVER__MAY_NOT_CAPTURE_LOCITA)) {
+                                        final PhysicalCard locita = Filters.findFirstActive(game, self, Filters.and(Filters.Locita, Filters.not(Filters.captive)));
+                                        if (locita != null) {
+                                            PhysicalCard kamjin = Filters.findFirstActive(game, self, Filters.and(Filters.Kamjin, Filters.presentWith(locita), Filters.not(Filters.or(Filters.isLeavingTable, Filters.escorting(Filters.any)))));
+                                            if (kamjin != null) {
 
                                                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
                                                 action.setSingletonTrigger(true);
-                                                action.setText("Capture Luke");
-                                                action.setActionMsg("Have " + GameUtils.getCardLink(vader) + " capture and seize " + GameUtils.getCardLink(luke));
+                                                action.setText("Capture Locita");
+                                                action.setActionMsg("Have " + GameUtils.getCardLink(kamjin) + " capture and seize " + GameUtils.getCardLink(locita));
                                                 // Perform result(s)
-                                                if (Filters.and(Filters.aboard(Filters.open_vehicle), Filters.not(Filters.canEscortCaptive(luke))).accepts(game, vader)) {
+                                                if (Filters.and(Filters.aboard(Filters.open_vehicle), Filters.not(Filters.canEscortCaptive(locita))).accepts(game, kamjin)) {
                                                     // Disembark first if no capacity available
                                                     action.appendEffect(
-                                                            new DisembarkEffect(action, vader, game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), vader), false, false));
+                                                            new DisembarkEffect(action, kamjin, game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), kamjin), false, false));
                                                 }
                                                 action.appendEffect(
-                                                        new CaptureWithSeizureEffect(action, luke, vader));
+                                                        new CaptureWithSeizureEffect(action, locita, kamjin));
                                                 actions.add(action);
                                             }
                                         }
@@ -193,28 +186,28 @@ public class Card304_122 extends AbstractObjective {
         );
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotBeTransferredModifier(self, Filters.and(Filters.Luke, Filters.escortedBy(self, Filters.Vader)), targetsLukeCondition), null));
+                        new MayNotBeTransferredModifier(self, Filters.and(Filters.Locita, Filters.escortedBy(self, Filters.Kamjin)), targetsLocitaCondition), null));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotBeTransferredModifier(self, Filters.and(Filters.Leia, Filters.escortedBy(self, Filters.Vader)), targetsLeiaInsteadOfLukeCondition), null));
+                        new MayNotBeTransferredModifier(self, Filters.and(Filters.Kai, Filters.escortedBy(self, Filters.Kamjin)), targetsKaiInsteadOfLocitaCondition), null));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotBeTransferredModifier(self, Filters.and(Filters.Kanan, Filters.escortedBy(self, Filters.Vader)), targetsKananInsteadOfLukeCondition), null));
+                        new MayNotBeTransferredModifier(self, Filters.and(Filters.Hikaru, Filters.escortedBy(self, Filters.Kamjin)), targetsHikaruInsteadOfLocitaCondition), null));
         return action;
     }
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.BRING_HIM_BEFORE_ME__DOWNLOAD_EMPEROR;
+        GameTextActionId gameTextActionId = GameTextActionId.HOSTILE_TAKEOVER__DOWNLOAD_THRAN;
 
         // Check condition(s)
-        if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.SIDIOUS)) {
+        if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.THRAN)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy Emperor from Reserve Deck");
+            action.setText("Deploy Thran from Reserve Deck");
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.Emperor, -2, true));
+                    new DeployCardFromReserveDeckEffect(action, Filters.Thran, -2, true));
             return Collections.singletonList(action);
         }
         return null;
@@ -223,98 +216,98 @@ public class Card304_122 extends AbstractObjective {
     @Override
     protected List<TopLevelGameTextAction> getOpponentsCardGameTextTopLevelActions(final String playerId, final SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
-        boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
-        boolean targetsKananInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE);
+        boolean targetsKaiInsteadOfLocita = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.HOSTILE_TAKEOVER__TARGETS_KAI_INSTEAD_OF_LOCITA);
+        boolean targetsHikaruInsteadOfLocita = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.HOSTILE_TAKEOVER__TARGETS_HIKARU_INSTEAD_OF_LOCITA);
 
-        GameTextActionId gameTextActionId = GameTextActionId.BRING_HIM_BEFORE_ME__DOWNLOAD_LUKE;
+        GameTextActionId gameTextActionId = GameTextActionId.HOSTILE_TAKEOVER__DOWNLOAD_LOCITA;
 
-        if (targetsLeiaInsteadOfLuke) {
+        if (targetsKaiInsteadOfLocita) {
             // Check condition(s)
-            if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.LEIA)) {
+            if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.KAI)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-                action.setText("Deploy Leia from Reserve Deck");
+                action.setText("Deploy Kai from Reserve Deck");
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardFromReserveDeckEffect(action, Filters.Leia, -2, true));
+                        new DeployCardFromReserveDeckEffect(action, Filters.Kai, -2, true));
                 actions.add(action);
             }
 
-            gameTextActionId = GameTextActionId.BRING_HIM_BEFORE_ME__DOWNLOAD_LUKE_FROM_LOST_PILE;
+            gameTextActionId = GameTextActionId.HOSTILE_TAKEOVER__DOWNLOAD_LOCITA_FROM_LOST_PILE;
 
             // Check condition(s)
-            if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, Persona.LEIA)) {
+            if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, Persona.KAI)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-                action.setText("Deploy Leia from Lost Pile");
+                action.setText("Deploy Kai from Lost Pile");
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardFromLostPileEffect(action, Filters.Leia, false));
+                        new DeployCardFromLostPileEffect(action, Filters.Kai, false));
                 actions.add(action);
             }
 
             return actions;
-        } else if (targetsKananInsteadOfLuke) {
+        } else if (targetsHikaruInsteadOfLocita) {
             // Check condition(s)
-            if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.KANAN)) {
+            if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.HIKARU)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-                action.setText("Deploy Kanan from Reserve Deck");
+                action.setText("Deploy Hikaru from Reserve Deck");
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardFromReserveDeckEffect(action, Filters.Kanan, -2, true));
+                        new DeployCardFromReserveDeckEffect(action, Filters.Hikaru, -2, true));
                 actions.add(action);
             }
 
-            gameTextActionId = GameTextActionId.BRING_HIM_BEFORE_ME__DOWNLOAD_LUKE_FROM_LOST_PILE;
+            gameTextActionId = GameTextActionId.HOSTILE_TAKEOVER__DOWNLOAD_LOCITA_FROM_LOST_PILE;
 
             // Check condition(s)
-            if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, Persona.KANAN)) {
+            if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, Persona.HIKARU)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-                action.setText("Deploy Kanan from Lost Pile");
+                action.setText("Deploy Hikaru from Lost Pile");
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardFromLostPileEffect(action, Filters.Kanan, false));
+                        new DeployCardFromLostPileEffect(action, Filters.Hikaru, false));
                 actions.add(action);
             }
 
             return actions;
         } else {
             // Check condition(s)
-            if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.LUKE)) {
+            if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.LOCITA)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-                action.setText("Deploy Luke from Reserve Deck");
+                action.setText("Deploy Locita from Reserve Deck");
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.Luke, Filters.grantedMayBeTargetedBy(self)), -2, true) {
+                        new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.Locita, Filters.grantedMayBeTargetedBy(self)), -2, true) {
                             @Override
                             protected void cardDeployed(PhysicalCard card) {
-                                if (Filters.title("Kanan, Rebel Infiltrator").accepts(game, card)) {
-                                    game.getGameState().sendMessage(playerId + " Make Insignificant Rebellion, Your Destiny, and opponent's [Death Star II] objective target Kanan instead of Luke for remainder of game using " + GameUtils.getCardLink(card));
-                                    game.getModifiersEnvironment().addUntilEndOfGameModifier(new ModifyGameTextModifier(card, Filters.or(Filters.and(Filters.opponents(card), Icon.DEATH_STAR_II, Filters.Objective), Filters.Insignificant_Rebellion, Filters.Your_Destiny), ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE));
+                                if (Filters.title("Hikaru Lap'lamiz").accepts(game, card)) {
+                                    game.getGameState().sendMessage(playerId + " Make Competitive Advantage, Your Destiny, and opponent's [Death Star II] objective target Hikaru instead of Locita for remainder of game using " + GameUtils.getCardLink(card));
+                                    game.getModifiersEnvironment().addUntilEndOfGameModifier(new ModifyGameTextModifier(card, Filters.or(Filters.and(Filters.opponents(card), Icon.DEATH_STAR_II, Filters.Objective), Filters.Competitive_Advantage, Filters.Your_Destiny), ModifyGameTextType.HOSTILE_TAKEOVER__TARGETS_HIKARU_INSTEAD_OF_LOCITA));
                                 }
                             }
                         });
                 actions.add(action);
             }
 
-            gameTextActionId = GameTextActionId.BRING_HIM_BEFORE_ME__DOWNLOAD_LUKE_FROM_LOST_PILE;
+            gameTextActionId = GameTextActionId.HOSTILE_TAKEOVER__DOWNLOAD_LOCITA_FROM_LOST_PILE;
 
             // Check condition(s)
-            if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, Persona.LUKE)) {
+            if (GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, Persona.LOCITA)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-                action.setText("Deploy Luke from Lost Pile");
+                action.setText("Deploy Locita from Lost Pile");
                 // Perform result(s)
                 action.appendEffect(
-                        new DeployCardFromLostPileEffect(action, Filters.or(Filters.Luke, Filters.grantedMayBeTargetedBy(self)), false) {
+                        new DeployCardFromLostPileEffect(action, Filters.or(Filters.Locita, Filters.grantedMayBeTargetedBy(self)), false) {
                             @Override
                             protected void cardDeployed(PhysicalCard card) {
-                                if (Filters.title("Kanan, Rebel Infiltrator").accepts(game, card)) {
-                                    game.getGameState().sendMessage(playerId + " Make Insignificant Rebellion, Your Destiny, and opponent's [Death Star II] objective target Kanan instead of Luke for remainder of game using " + GameUtils.getCardLink(card));
-                                    game.getModifiersEnvironment().addUntilEndOfGameModifier(new ModifyGameTextModifier(card, Filters.or(Filters.and(Filters.opponents(card), Icon.DEATH_STAR_II, Filters.Objective), Filters.Insignificant_Rebellion, Filters.Your_Destiny), ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE));
+                                if (Filters.title("Hikaru Lap'lamiz").accepts(game, card)) {
+                                    game.getGameState().sendMessage(playerId + " Make Competitive Advantage, Your Destiny, and opponent's [Death Star II] objective target Hikaru instead of Locita for remainder of game using " + GameUtils.getCardLink(card));
+                                    game.getModifiersEnvironment().addUntilEndOfGameModifier(new ModifyGameTextModifier(card, Filters.or(Filters.and(Filters.opponents(card), Icon.DEATH_STAR_II, Filters.Objective), Filters.Competitive_Advantage, Filters.Your_Destiny), ModifyGameTextType.HOSTILE_TAKEOVER__TARGETS_HIKARU_INSTEAD_OF_LOCITA));
                                 }
                             }
                         });
@@ -327,14 +320,14 @@ public class Card304_122 extends AbstractObjective {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        boolean targetsLeiaInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE);
-        boolean targetsKananInsteadOfLuke = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_KANAN_INSTEAD_OF_LUKE);
+        boolean targetsKaiInsteadOfLocita = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.HOSTILE_TAKEOVER__TARGETS_KAI_INSTEAD_OF_LOCITA);
+        boolean targetsHikaruInsteadOfLocita = GameConditions.hasGameTextModification(game, self, ModifyGameTextType.HOSTILE_TAKEOVER__TARGETS_HIKARU_INSTEAD_OF_LOCITA);
 
-        if (targetsLeiaInsteadOfLuke) {
+        if (targetsKaiInsteadOfLocita) {
             // Check condition(s)
             if (TriggerConditions.isTableChanged(game, effectResult)
                     && GameConditions.canBeFlipped(game, self)
-                    && GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE_AND_EXCLUDED_FROM_BATTLE, Filters.and(Filters.Leia, Filters.captive))) {
+                    && GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE_AND_EXCLUDED_FROM_BATTLE, Filters.and(Filters.Kai, Filters.captive))) {
 
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setSingletonTrigger(true);
@@ -346,11 +339,11 @@ public class Card304_122 extends AbstractObjective {
                 return Collections.singletonList(action);
             }
             return null;
-        } else if (targetsKananInsteadOfLuke) {
+        } else if (targetsHikaruInsteadOfLocita) {
             // Check condition(s)
             if (TriggerConditions.isTableChanged(game, effectResult)
                     && GameConditions.canBeFlipped(game, self)
-                    && GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE_AND_EXCLUDED_FROM_BATTLE, Filters.and(Filters.Kanan, Filters.captive))) {
+                    && GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE_AND_EXCLUDED_FROM_BATTLE, Filters.and(Filters.Hikaru, Filters.captive))) {
 
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setSingletonTrigger(true);
@@ -366,7 +359,7 @@ public class Card304_122 extends AbstractObjective {
             // Check condition(s)
             if (TriggerConditions.isTableChanged(game, effectResult)
                     && GameConditions.canBeFlipped(game, self)
-                    && GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE_AND_EXCLUDED_FROM_BATTLE, Filters.and(Filters.Luke, Filters.captive))) {
+                    && GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE_AND_EXCLUDED_FROM_BATTLE, Filters.and(Filters.Locita, Filters.captive))) {
 
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setSingletonTrigger(true);
