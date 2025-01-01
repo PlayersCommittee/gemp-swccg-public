@@ -43,7 +43,6 @@ public class Card214_007 extends AbstractSith {
         addPersona(Persona.OCHI);
         addKeywords(Keyword.ASSASSIN);
         setMatchingStarshipFilter(Filters.Bestoon_Legacy);
-        hideFromDeckBuilder();
     }
 
     @Override
