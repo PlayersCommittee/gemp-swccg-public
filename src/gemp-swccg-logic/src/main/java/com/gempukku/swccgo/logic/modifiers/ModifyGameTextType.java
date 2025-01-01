@@ -102,6 +102,7 @@ public enum ModifyGameTextType {
     HOSTILE_TAKEOVER__MAY_NOT_CAPTURE_LOCITA("May not capture Locita"),
     HOSTILE_TAKEOVER__TARGETS_HIKARU_INSTEAD_OF_LOCITA("Targets Hikaru instead of Locita"),
     HOSTILE_TAKEOVER__TARGETS_KAI_INSTEAD_OF_LOCITA("Targets Kai instead of Locita"),
+    HOSTILE_TAKEOVER__TARGETS_KOMILIA_INSTEAD_OF_LOCITA("Targets Komilia instead of Locita"),
 
 
     //Legacy

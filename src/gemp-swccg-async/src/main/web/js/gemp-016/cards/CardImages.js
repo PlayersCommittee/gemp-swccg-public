@@ -3675,7 +3675,7 @@ const fixedImages = {
 "302_11":"https://i.imgur.com/oFkZfTc.png", //Valencia Sintarin
 "302_12":"https://i.imgur.com/3qjTn3i.png", //Howlader Taldrya
 "302_13":"https://i.imgur.com/Vtm0FQV.png", //Rajhin Cindertail
-"302_14":"https://i.imgur.com/p7hmzax.png",
+"302_14":"https://i.imgur.com/p7hmzax.png", //T-85 X-Wing Fighter
 "302_15":"https://i.imgur.com/3Ln6rCj.png",
 "302_16":"https://i.imgur.com/glDKLXk.png", //Arx: Eos City
 "302_17":"https://i.imgur.com/n7ZoDxW.png",
@@ -3738,7 +3738,7 @@ const fixedImages = {
 "303_19":"https://i.imgur.com/ts7UXKk.png", //Malfearak Asvraal, Herald
 "303_20":"https://i.imgur.com/EvAxm26.png", //Seraine Ténamao, Emissary
 "303_21":"https://i.imgur.com/4T0qaxm.png", //Master Kamjin Lap'lamiz, Justicar
-"303_22":"https://i.imgur.com/5HJdTGm.png", //Kamjin's Lightsaber
+"303_22":"https://i.imgur.com/GINA6ht.png", //Kamjin's Lightsaber
 "303_23":"https://i.imgur.com/jAsIiKm.png", //Self Doubt
 "303_24":"https://i.imgur.com/iZjkb83.png", //Dark Side Corruption
 "303_25":"https://i.imgur.com/D0B6Amb.png", //Marick Tyris Arconae's Lightsaber
@@ -3885,7 +3885,7 @@ const fixedImages = {
 "304_132":"https://i.imgur.com/DmWPmhw.png", //SARLaC Docking Bay (Dark)
 "304_133":"https://i.imgur.com/ZstRZ9b.png", //Kyle Warhawk, Emperor's Hand
 "304_134":"https://i.imgur.com/uojelhG.png", //Kyle Warhawk's Lightsaber
-"304_135":"https://i.imgur.com/iY3IXuj.png", //Kamjin Lap'lamiz's Lightsaber
+"304_135":"https://i.imgur.com/IuAPxsk.png", //Kamjin Lap'lamiz's Lightsaber
 "304_136":"https://i.imgur.com/w73RlYg.png", //Debilitating Attack
 "304_137":"https://i.imgur.com/k5NOlWi.png", //It's My Throne
 "304_138":"https://i.imgur.com/4zKfltF.png", //You Haven't Earned This
@@ -3893,6 +3893,11 @@ const fixedImages = {
 "304_140":"https://i.imgur.com/QxWp0JG.png", //K'vin J. Lawdogg
 "304_141":"https://i.imgur.com/U5CS5KA.png", //Saris Aran
 "304_142":"https://i.imgur.com/o4xdALw.png", //Sykes Jades, Mercenary
+"304_143":"https://i.imgur.com/XyrjyMT.png", //There Is Another Lap'lamiz
+"304_144":"https://i.imgur.com/c1CPk9x.png", //Sibling Bait
+"304_145":"https://i.imgur.com/F0q510i.png", //Kai Lap'lamiz, Jedi Knight
+"304_146":"https://i.imgur.com/0V3ATYo.jpg", //Kai Lap'lamiz's Lightsaber
+"304_147":"https://i.imgur.com/mN3ZH9P.png", //Daughter of Lap'lamiz
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",

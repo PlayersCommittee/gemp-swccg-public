@@ -17,6 +17,7 @@ public enum GameTextActionId {
     DAUGHTER_OF_SKYWALKER_VIRTUAL_GAMETEXT_ONCE_PER_BATTLE,
     CANCEL_AND_REDRAW_A_DESTINY,
     Takodana__Draw_Top_Card_Of_Reserve_Deck,
+    DAUGHTER_OF_LAPLAMIZ_GAMETEXT_ONCE_PER_BATTLE,
 
     // Used for card action that causes other cards to deploy as a 'react'
     OTHER_CARD_ACTION_REACT_DEPLOY_OTHER_CARDS,

@@ -19407,6 +19407,8 @@ public class Filters {
     public static final Filter SARLAC_Docking_Bay = Filters.title(Title.SARLAC_Docking_Bay);
     public static final Filter Monolith_Docking_Bay = Filters.title(Title.Monolith_Docking_Bay);
     public static final Filter Kais_Lightsaber = Filters.persona(Persona.KAIS_LIGHTSABER);
+    public static final Filter Usurped = Filters.title(Title.Usurped);
+    public static final Filter Sibling_Bait = Filters.title(Title.Sibling_Bait);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

@@ -1379,5 +1379,7 @@ public interface Title {
     String Kyle_Warhawk_Emperors_Hand = "Kyle Warhawk, Emperor's Hammer";
     String Debilitating_Attack = "Debilitating Attack";
     String SARLAC_Docking_Bay = "SARLaC: Docking Bay";
+    String There_Is_Another_Laplamiz = "There Is Another Lap'lamiz";
+    String Sibling_Bait = "Sibling Bait";
 
 }
