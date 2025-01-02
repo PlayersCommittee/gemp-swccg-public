@@ -117,6 +117,9 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
             else if (system.getTitle().equals(Title.SARLAC)) {
                 systemLayout = new SARLACLayout(system.getTitle(), system.getParsec());
             }
+            else if (system.getTitle().equals(Title.Ulress)) {
+                systemLayout = new UlressLayout(system.getTitle(), system.getParsec());
+            }
             else if (system.hasIcon(Icon.PLANET)) {
                 systemLayout = new DefaultPlanetLayout(system.getTitle(), system.getParsec());
             }

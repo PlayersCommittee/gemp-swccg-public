@@ -38,7 +38,7 @@ import java.util.List;
 public class Card304_051 extends AbstractAlien {
     public Card304_051() {
         super(Side.LIGHT, 1, 5, 4, 3, 5, "Candon Coburn with Blaster Pistols", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
-        setLore("Candon grew up idolizing the gunslinger gangsters on outer rim systems. Underneath his gentle facade is a cold blooded killer. He currently is on retainer with the Tiure Hutt clan. Leader");
+        setLore("Candon grew up idolizing the gunslinger gangsters on outer rim systems. Underneath his gentle facade is a cold blooded killer. He currently is on retainer with the Tiure Hutt clan. Leader.");
         setGameText("Adds 2 to power of anything he pilots. Adds one battle destiny if with Claudius. Permanent weapon is •Candon's Blaster Pistols (may target a character or creature for free; draw destiny; target hit, and its forfeit = 0, if destiny +1 > defense value).");
         addPersona(Persona.CANDON);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON);

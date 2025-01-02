@@ -3799,16 +3799,16 @@ const fixedImages = {
 "304_48":"https://i.imgur.com/sM6va8o.png", //Clone Technician
 "304_49":"https://i.imgur.com/uuexEjL.png", //Allie Grosser
 "304_50":"https://i.imgur.com/mIgKuIA.png", //Brie Cunngemi
-"304_51":"https://i.imgur.com/bNQkF1I.png", //Candon Coburn with Blaster Pistols
+"304_51":"https://i.imgur.com/gqsIz1e.png", //Candon Coburn with Blaster Pistols
 "304_52":"https://i.imgur.com/rQFqqmf.png", //Claudius the Hutt, Crimelord
 "304_53":"https://i.imgur.com/gl0RUb5.png", //Club Antonia Bouncer
 "304_54":"https://i.imgur.com/m2E4iO4.png", //Dia Gida
-"304_55":"https://i.imgur.com/vsXG0BP.png", //Gaius the Hutt
+"304_55":"https://i.imgur.com/TlwH0fd.png", //Gaius the Hutt
 "304_56":"https://i.imgur.com/HpdLgT2.png", //Gex Degrix
 "304_57":"https://i.imgur.com/aRW0LPf.png", //Ixtal Noxus
 "304_58":"https://i.imgur.com/Vz24DHC.png", //Jloc'itaome'faottas or Locita
 "304_59":"https://i.imgur.com/aNpjeOr.png", //Silri R'lobsam
-"304_60":"https://i.imgur.com/SiK93fY.png", //Sqygorn Dar
+"304_60":"https://i.imgur.com/jRhCXO9.png", //Sqygorn Dar
 "304_61":"https://i.imgur.com/Qi2plSg.png", //Tia'nah
 "304_62":"https://i.imgur.com/JwgohAF.png", //Vos Nokler
 "304_63":"https://i.imgur.com/TA4OY8f.png", //Zax Keevo
@@ -3898,6 +3898,7 @@ const fixedImages = {
 "304_145":"https://i.imgur.com/F0q510i.png", //Kai Lap'lamiz, Jedi Knight
 "304_146":"https://i.imgur.com/0V3ATYo.jpg", //Kai Lap'lamiz's Lightsaber
 "304_147":"https://i.imgur.com/mN3ZH9P.png", //Daughter of Lap'lamiz
+"304_148":"https://i.imgur.com/webwMkT.png", //Pocket Salt
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
