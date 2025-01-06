@@ -47,9 +47,11 @@ public class Card209_030 extends AbstractCapitalStarship {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        String opponent = game.getOpponent(self.getOwner());
+
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AttritionModifier(self, new InBattleCondition(self), new PresentEvaluator(self,
-                Filters.and(Filters.opponents(self), Filters.starship)), self.getOwner()));
+                Filters.and(Filters.opponents(self), Filters.starship)), opponent));
         modifiers.add(new CancelImmunityToAttritionModifier(self, Filters.and(Filters.opponents(self), Filters.atSameLocation(self))));
         return modifiers;
     }
