@@ -104,7 +104,7 @@ class Card {
         }
 
 
-        this.horizontal = Card.isHorizontal(this.bareBlueprint, this.zone);
+        this.horizontal = Card.isHorizontal(this.bareBlueprint, this.zone, this.alternateImage);
 
         if (this.bareBlueprint != "-1_1" && this.bareBlueprint != "-1_2" && Card.CardCache[this.bareBlueprint] != null) {
             var cardFromCache = Card.CardCache[this.bareBlueprint];
@@ -128,7 +128,7 @@ class Card {
 
     flipOverCard() {
         this.bareBlueprint = Card.getBackSideBlueprintId(this.bareBlueprint);
-        this.horizontal = Card.isHorizontal(this.bareBlueprint, this.zone);
+        this.horizontal = Card.isHorizontal(this.bareBlueprint, this.zone, this.alternateImage);
         var tempText = this.testingText;
         this.testingText = this.backSideTestingText;
         this.backSideTestingText = tempText;
@@ -156,7 +156,7 @@ class Card {
 
     turnCardOver(tempBlueprintId) {
         this.bareBlueprint = tempBlueprintId;
-        this.horizontal = Card.isHorizontal(this.bareBlueprint, this.zone);
+        this.horizontal = Card.isHorizontal(this.bareBlueprint, this.zone, this.alternateImage);
         var tempText = this.testingText;
         this.testingText = this.backSideTestingText;
         this.backSideTestingText = tempText;
@@ -482,14 +482,14 @@ class Card {
         return false;
     }
 
-    static isHorizontal(blueprintId, zone) {
+    static isHorizontal(blueprintId, zone, alternateImage) {
 
         // For some zones, never show the card as horizontal
         if (Card.isZoneNeverHorizontal(zone)) {
             return false;
         }
 
-        return Card.isBlueprintHorizontal(blueprintId);
+        return Card.isBlueprintHorizontal(blueprintId, alternateImage);
     }
 
     static isIncomplete(blueprintId) {
