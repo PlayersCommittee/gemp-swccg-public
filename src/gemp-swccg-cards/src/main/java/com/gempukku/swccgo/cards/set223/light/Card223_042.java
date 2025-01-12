@@ -60,6 +60,7 @@ public class Card223_042 extends AbstractNormalEffect {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
         GameTextActionId gameTextActionId1 = GameTextActionId.PASSAGE_TO_THE_ALDERAAN_SYSTEM__DEPLOY_FALCON_AND_HAN;
+        Filter filterHan = Filters.and(Icon.A_NEW_HOPE, Filters.Han);
 
         // Check condition(s)
         if (GameConditions.isOncePerGame(game, self, gameTextActionId1)
@@ -67,9 +68,9 @@ public class Card223_042 extends AbstractNormalEffect {
             boolean canDeployCardFromReserveDeck = GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId1, Persona.FALCON);
             final List<PhysicalCard> cardsInHand = game.getGameState().getHand(playerId);
             final List<PhysicalCard> validStarfighters = new ArrayList<PhysicalCard>();
-            Collection<PhysicalCard> starfighters = Filters.filter(cardsInHand, game, Filters.and(Filters.icon(Icon.A_NEW_HOPE), Filters.Falcon));
+            Collection<PhysicalCard> starfighters = Filters.filter(cardsInHand, game, Filters.and(Icon.A_NEW_HOPE, Filters.Falcon));
             for (PhysicalCard starfighter : starfighters) {
-                if (Filters.canSpot(cardsInHand, game, Filters.and(Filters.icon(Icon.A_NEW_HOPE), Filters.Han, Filters.deployableSimultaneouslyWith(self, starfighter, false, -1, false, 0)))) {
+                if (Filters.canSpot(cardsInHand, game, Filters.and(filterHan, Filters.deployableSimultaneouslyWith(self, starfighter, false, -1, false, 0)))) {
                     validStarfighters.add(starfighter);
                 }
             }
@@ -77,7 +78,7 @@ public class Card223_042 extends AbstractNormalEffect {
             if (!validStarfighters.isEmpty() || canDeployCardFromReserveDeck) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId1);
-                action.setText("Deploy a starfighter and pilot");
+                action.setText("Deploy Falcon and Han");
                 // Update usage limit(s)
                 action.appendUsage(
                         new OncePerGameEffect(action));
@@ -102,8 +103,7 @@ public class Card223_042 extends AbstractNormalEffect {
                                                         }
                                                         @Override
                                                         protected void cardSelected(SwccgGame game, final PhysicalCard starfighter) {
-                                                            Collection<PhysicalCard> pilots = Filters.filter(cardsInHand, game, Filters.and(Filters.icon(Icon.A_NEW_HOPE),
-                                                                    Filters.Han, Filters.deployableSimultaneouslyWith(self, starfighter, false, -1, false, -1)));
+                                                            Collection<PhysicalCard> pilots = Filters.filter(cardsInHand, game, Filters.and(filterHan, Filters.deployableSimultaneouslyWith(self, starfighter, false, -1, false, 0)));
                                                             action.appendTargeting(
                                                                     new ChooseCardFromHandEffect(action, playerId, Filters.in(pilots)) {
                                                                         @Override
@@ -114,7 +114,7 @@ public class Card223_042 extends AbstractNormalEffect {
                                                                         protected void cardSelected(SwccgGame game, PhysicalCard pilot) {
                                                                             // Perform result(s)
                                                                             action.appendEffect(
-                                                                                    new DeployCardsSimultaneouslyEffect(action, starfighter, false, -1, pilot, false, -1));
+                                                                                    new DeployCardsSimultaneouslyEffect(action, starfighter, false, -1, pilot, false, 0));
                                                                         }
                                                                     }
                                                             );
@@ -155,6 +155,7 @@ public class Card223_042 extends AbstractNormalEffect {
     }
 
     private StandardEffect getChooseCardsEffect(final TopLevelGameTextAction action) {
+        Filter filterHan = Filters.and(Icon.A_NEW_HOPE, Filters.Han);
         return new ChooseCardCombinationFromHandAndOrReserveDeckEffect(action) {
             @Override
             public String getChoiceText(SwccgGame game, Collection<PhysicalCard> cardsSelected) {
@@ -170,16 +171,16 @@ public class Card223_042 extends AbstractNormalEffect {
 
                 if (cardsSelected.isEmpty()) {
                     final List<PhysicalCard> validStarfighters = new ArrayList<PhysicalCard>();
-                    Collection<PhysicalCard> starfighters = Filters.filter(cardsToChooseFrom, game, Filters.and(Filters.icon(Icon.A_NEW_HOPE), Filters.Falcon));
+                    Collection<PhysicalCard> starfighters = Filters.filter(cardsToChooseFrom, game, Filters.and(Icon.A_NEW_HOPE, Filters.Falcon));
                     for (PhysicalCard starfighter : starfighters) {
-                        if (Filters.canSpot(cardsToChooseFrom, game, Filters.and(Icon.A_NEW_HOPE, Filters.Han, Filters.deployableSimultaneouslyWith(action.getActionSource(), starfighter, false, -1, false, 0)))) {
+                        if (Filters.canSpot(cardsToChooseFrom, game, Filters.and(filterHan, Filters.deployableSimultaneouslyWith(action.getActionSource(), starfighter, false, -1, false, 0)))) {
                             validStarfighters.add(starfighter);
                         }
                     }
                     return Filters.in(validStarfighters);
                 } else if (cardsSelected.size() == 1) {
                     PhysicalCard starfighter = cardsSelected.iterator().next();
-                    return Filters.and(Filters.Han, Filters.deployableSimultaneouslyWith(action.getActionSource(), starfighter, false, -1, false, 0));
+                    return Filters.and(filterHan, Filters.deployableSimultaneouslyWith(action.getActionSource(), starfighter, false, -1, false, 0));
                 }
                 return Filters.none;
             }
