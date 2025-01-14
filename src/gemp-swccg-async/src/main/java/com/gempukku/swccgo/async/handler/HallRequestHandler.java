@@ -1,5 +1,10 @@
 package com.gempukku.swccgo.async.handler;
 
+import io.netty.handler.codec.http.HttpMethod;
+import io.netty.handler.codec.http.HttpRequest;
+import io.netty.handler.codec.http.QueryStringDecoder;
+import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
+
 import com.gempukku.polling.LongPollingResource;
 import com.gempukku.polling.LongPollingSystem;
 import com.gempukku.swccgo.SubscriptionConflictException;
@@ -15,7 +20,12 @@ import com.gempukku.swccgo.draft.Draft;
 import com.gempukku.swccgo.draft.DraftChannelVisitor;
 import com.gempukku.swccgo.draft.DraftCommunicationChannel;
 import com.gempukku.swccgo.draft.DraftFinishedException;
-import com.gempukku.swccgo.game.*;
+import com.gempukku.swccgo.game.CardCollection;
+import com.gempukku.swccgo.game.Player;
+import com.gempukku.swccgo.game.SwccgCardBlueprint;
+import com.gempukku.swccgo.game.SwccgCardBlueprintLibrary;
+import com.gempukku.swccgo.game.SwccgFormat;
+import com.gempukku.swccgo.game.SwccgoServer;
 import com.gempukku.swccgo.game.formats.SwccgoFormatLibrary;
 import com.gempukku.swccgo.hall.HallChannelVisitor;
 import com.gempukku.swccgo.hall.HallCommunicationChannel;
@@ -25,21 +35,19 @@ import com.gempukku.swccgo.league.LeagueSeriesData;
 import com.gempukku.swccgo.league.LeagueService;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.vo.SwccgDeck;
-import io.netty.handler.codec.http.HttpMethod;
-import io.netty.handler.codec.http.HttpRequest;
-import io.netty.handler.codec.http.QueryStringDecoder;
-import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
 import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class HallRequestHandler extends SwccgoServerRequestHandler implements UriRequestHandler {
     private CollectionsManager _collectionManager;
@@ -494,7 +502,7 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
             result.append("</ul></li>"); /* restricted cards */
         }
         if (!swccgFormat.getValidCards().isEmpty()) {
-            result.append("<li class=\"format-detail\"><span id=\""+formatCssId+"-format-additional-valid\" class=\"format-additional-valid-label\"  onclick=\"showFormat(this);\">Aditional valid:</span> <ul id=\""+formatCssId+"-format-additional-valid-content\" style=\"display:none;\">");
+            result.append("<li class=\"format-detail\"><span id=\""+formatCssId+"-format-additional-valid\" class=\"format-additional-valid-label\"  onclick=\"showFormat(this);\">Additional valid:</span> <ul id=\""+formatCssId+"-format-additional-valid-content\" style=\"display:none;\">");
             for (String blueprintId : swccgFormat.getValidCards()) {
                 SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
                 SwccgCardBlueprint backSideBlueprint = _library.getSwccgoCardBlueprintBack(blueprintId);
