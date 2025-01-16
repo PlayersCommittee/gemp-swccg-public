@@ -113,7 +113,7 @@ public class Card219_028 extends AbstractDroid {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new AttritionModifier(self, Filters.here(self), new WithCondition(self, Filters.or(Filters.Anakin, Filters.C3PO, Filters.Luke)), -2, game.getOpponent(self.getOwner())));
+        modifiers.add(new AttritionModifier(self, Filters.here(self), new WithCondition(self, Filters.or(Filters.Anakin, Filters.C3PO, Filters.Luke)), -2, self.getOwner()));
         return modifiers;
     }
 }
