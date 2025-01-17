@@ -36,7 +36,7 @@ public class Card217_021 extends AbstractLostOrStartingInterrupt {
     public Card217_021() {
         super(Side.DARK, 3, Title.Rise_Of_The_Sith, Uniqueness.RESTRICTED_2, ExpansionSet.SET_17, Rarity.V);
         setGameText("LOST: Raise your converted location to the top. " +
-                "STARTING: If your starting location was a battleground, deploy Revenge Of The Sith and up to three Effects that deploy for free and are always immune to Alter. Place Interrupt in hand.");
+                "STARTING: If your starting location was a non-Palace battleground, deploy Revenge Of The Sith and up to three Effects that deploy for free and are always immune to Alter. Place Interrupt in hand.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_17);
     }
 
@@ -79,7 +79,9 @@ public class Card217_021 extends AbstractLostOrStartingInterrupt {
     protected PlayInterruptAction getGameTextStartingAction(final String playerId, final SwccgGame game, final PhysicalCard self) {
         // Check condition(s)
         final PhysicalCard startingLocation = game.getModifiersQuerying().getStartingLocation(playerId);
-        if (startingLocation != null && startingLocation.isStartingLocationBattleground()) {
+        if (startingLocation != null
+                && startingLocation.isStartingLocationBattleground()
+                && !Filters.titleContains("Palace").accepts(game, startingLocation)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.STARTING);
             action.setText("Deploy Revenge Of The Sith and Effects from Reserve Deck");

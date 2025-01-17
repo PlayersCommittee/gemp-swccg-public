@@ -2,8 +2,9 @@ package com.gempukku.swccgo.cards.set200.dark;
 
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.WithCondition;
+import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
+import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
@@ -22,15 +23,13 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleModifierEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByWeaponsModifier;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerMultiplierModifier;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -49,7 +48,7 @@ public class Card200_084 extends AbstractAlien {
         super(Side.DARK, 1, 4, 3, 4, 7, "Jabba The Hutt", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("Jabba Desilijic Tiure. Male heir to Zorba the Hutt. Gangster. Leader of one of the largest criminal organizations in the galaxy. Over six hundred years old.");
-        setGameText("While with your alien leader, Jabba is immune to attrition any may not be targeted by Interrupts or weapons. May [download] one Scum And Villainy. During battle may use 1 Force to double the power of one other non-[Maintenance] alien present.");
+        setGameText("During battle, may use 1 Force to double the power of a non-[Maintenance] alien present with Jabba. While at Audience Chamber, may [download] Scum And Villainy and immune to attrition < 4. Once per game, may retrieve Salacious Crumb. (OH-HO-HO!)");
         addIcons(Icon.JABBAS_PALACE, Icon.VIRTUAL_SET_0);
         addPersona(Persona.JABBA);
         setSpecies(Species.HUTT);
@@ -58,12 +57,8 @@ public class Card200_084 extends AbstractAlien {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        Condition withYourAlienLeader = new WithCondition(self, Filters.and(Filters.your(self), Filters.alien_leader));
-
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new ImmuneToAttritionModifier(self, withYourAlienLeader));
-        modifiers.add(new MayNotBeTargetedByWeaponsModifier(self, withYourAlienLeader));
-        modifiers.add(new MayNotBeTargetedByModifier(self, withYourAlienLeader, Filters.Interrupt));
+        modifiers.add(new ImmuneToAttritionLessThanModifier(self, new AtCondition(self, Filters.Audience_Chamber), 4));
         return modifiers;
     }
 
@@ -74,7 +69,8 @@ public class Card200_084 extends AbstractAlien {
         GameTextActionId gameTextActionId = GameTextActionId.JABBA_THE_HUTT__DOWNLOAD_SCUM_AND_VILLAINY;
 
         // Check condition(s)
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
+        if (GameConditions.isAtLocation(game, self, Filters.Audience_Chamber)
+                && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Title.Scum_And_Villainy)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
@@ -131,6 +127,22 @@ public class Card200_084 extends AbstractAlien {
                         }
                     }
             );
+            actions.add(action);
+        }
+
+        gameTextActionId = GameTextActionId.JABBA_THE_HUTT__RETRIEVE;
+
+        if (GameConditions.isOncePerGame(game, self, gameTextActionId)) {
+
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+            action.setText("OH-HO-HO!");
+            action.setActionMsg("Retrieve Salacious Crumb");
+
+            action.appendUsage(
+                    new OncePerGameEffect(action));
+            action.appendEffect(
+                    new RetrieveCardEffect(action, playerId, Filters.title(Title.Salacious_Crumb)));
+
             actions.add(action);
         }
 

@@ -65,6 +65,7 @@
                 chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-swccg-server", true, null, false, true, [], true);
                 chat.setBounds(2, 2, 780 - 4, 200 - 4);
                 chat.showTimestamps = true;
+                chat.beginGameChat();
 
                 hall = new GempSwccgHallUI($("#hall"), "/gemp-swccg-server", chat);
 

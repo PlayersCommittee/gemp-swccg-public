@@ -132,6 +132,20 @@ public class DeployCardToTargetFromReserveDeckEffect extends DeployCardFromPileE
      * @param card the card
      * @param targetFilter the target filter
      * @param forFree true if deploying for free, otherwise false
+     * @param changeInCost true if deploying as a react, otherwise false
+     * @param reshuffle true if pile is reshuffled, otherwise false
+     */
+    public DeployCardToTargetFromReserveDeckEffect(Action action, PhysicalCard card, Filter targetFilter, boolean forFree, float changeInCost, boolean reshuffle) {
+        super(action, Zone.RESERVE_DECK, card, targetFilter, forFree, changeInCost, false, reshuffle);
+    }
+
+    /**
+     * Creates an effect that causes the player performing the action to deploy a specific card from Reserve Deck to a
+     * target accepted by the target filter.
+     * @param action the action performing this effect
+     * @param card the card
+     * @param targetFilter the target filter
+     * @param forFree true if deploying for free, otherwise false
      * @param asReact true if deploying as a react, otherwise false
      * @param reshuffle true if pile is reshuffled, otherwise false
      */

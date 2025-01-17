@@ -26,6 +26,7 @@ import com.gempukku.swccgo.logic.effects.PutCardFromReserveDeckOnTopOfCardPileEf
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -44,7 +45,7 @@ public class Card215_011 extends AbstractRebel {
     public Card215_011() {
         super(Side.LIGHT, 1, 4, 4, 3, 6, "Han Solo, Optimistic General", Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
         setLore("Leader. Scout.");
-        setGameText("[Pilot] 3. Cancels Kylo's game text here. When deployed, may reveal the top two cards of your Reserve Deck; take one into hand. During battle with Chewie or [Endor] Leia, may add one destiny to total power.");
+        setGameText("[Pilot] 3. Cancels Kylo's game text here. When deployed, may reveal the top two cards of your Reserve Deck; take one into hand. Draws one battle destiny if unable to otherwise. During battle with Chewie or [Endor] Leia, may add one destiny to total power.");
         addPersona(Persona.HAN);
         setSpecies(Species.CORELLIAN);
         addIcons(Icon.WARRIOR, Icon.PILOT, Icon.ENDOR, Icon.VIRTUAL_SET_15);
@@ -56,6 +57,7 @@ public class Card215_011 extends AbstractRebel {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3));
         modifiers.add(new CancelsGameTextModifier(self, Filters.and(Filters.Kylo, Filters.here(self))));
+        modifiers.add(new DrawsBattleDestinyIfUnableToOtherwiseModifier(self, 1));
         return modifiers;
     }
 

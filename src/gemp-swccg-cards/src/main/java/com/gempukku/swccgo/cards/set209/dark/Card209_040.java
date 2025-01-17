@@ -11,7 +11,6 @@ import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
-import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -32,19 +31,17 @@ import java.util.List;
  */
 public class Card209_040 extends AbstractImperial {
     public Card209_040() {
-        super(Side.DARK, 3, 4, 2, 4, 4, "Vanee", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
+        super(Side.DARK, 2, 4, 2, 4, 4, "Vanee", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("");
-        setGameText("Deploys -3 to a site with 'Vader' in game text. Once during your turn, may activate 1 Force. Once per game, may take a card with 'Vader' in title into hand from Reserve Deck; reshuffle.");
+        setGameText("Deploys -2 to Holotheatre, Meditation Chamber, or a Vader's Castle site. Once during your turn, may activate 1 Force. Once per game, may [upload] a card with 'Vader' in title.");
         addPersona(Persona.VANEE);
         addIcons(Icon.VIRTUAL_SET_9);
     }
 
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
-        Filter siteWithVaderInGametext = Filters.and(Filters.site, Filters.gameTextContains("vader"));
-
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DeployCostToLocationModifier(self, -3, siteWithVaderInGametext));
+        modifiers.add(new DeployCostToLocationModifier(self, -2, Filters.or(Filters.Holotheatre, Filters.Meditation_Chamber, Filters.Vaders_Castle_site)));
         return modifiers;
     }
 

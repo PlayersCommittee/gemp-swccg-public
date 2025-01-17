@@ -24,6 +24,8 @@ import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleModifierEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveCardIntoHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifierFlag;
 import com.gempukku.swccgo.logic.modifiers.SpecialFlagModifier;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -42,14 +44,22 @@ public class Card201_031 extends AbstractNormalEffect {
     public Card201_031() {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Jabba's Haven", Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
         setLore("Jabba has won the service of many of his guards and other henchbeings through games of chance.");
-        setGameText("If a Jabba's Palace site on table, deploy on table. The Camp is canceled. May [download] Nal Hutta. Once per battle, may lose 1 Force; your battle destiny modifiers affect your total battle destiny instead. Once per game, may retrieve a non-[Maintenance] alien or [Independent] starship into hand. [Immune to Alter]");
+        setGameText("If you have deployed a [Jabba's Place] site, deploy on table. May [download] Nal Hutta. You may not deploy systems except Nal Hutta and Tatooine. Cancels The Camp. During battle, may lose 1 Force; your battle destiny modifiers affect your total battle destiny instead. Once per game, may retrieve a non-[Maintenance] alien or [Independent] starship into hand. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_1);
         addImmuneToCardTitle(Title.Alter);
     }
 
     @Override
     protected boolean checkGameTextDeployRequirements(String playerId, SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return GameConditions.canSpotLocation(game, Filters.Jabbas_Palace_site);
+        return GameConditions.canSpotLocation(game, Filters.and(Filters.your(self), Icon.JABBAS_PALACE, Filters.site))
+                || GameConditions.canSpotConvertedLocation(game, Filters.and(Filters.your(self), Icon.JABBAS_PALACE, Filters.site));
+    }
+
+    @Override
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<>();
+        modifiers.add(new MayNotPlayModifier(self, Filters.and(Filters.system, Filters.except(Filters.or(Filters.Nal_Hutta_system, Filters.Tatooine_system))), self.getOwner()));
+        return modifiers;
     }
 
     @Override

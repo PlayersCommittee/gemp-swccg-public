@@ -10,6 +10,7 @@ import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -21,8 +22,8 @@ import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.TotalPowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.results.PlacedCardOutOfPlayFromOffTableResult;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,8 +37,8 @@ public class Card214_007 extends AbstractSith {
     public Card214_007() {
         super(Side.DARK, 2, 4, 3, 4, 5, "Ochi", Uniqueness.UNIQUE, ExpansionSet.SET_14, Rarity.V);
         setLore("Assassin.");
-        setGameText("Adds 2 to power of anything he pilots. While piloting Bestoon Legacy, it is immune to attrition < 5. " +
-                "While [Episode VII] Emperor on table, your total power here is +3. If opponent's character was just placed out of play, opponent loses 1 Force.");
+        setGameText("[Pilot] 2. While piloting Bestoon Legacy, it is immune to attrition < 5. " +
+                "While [Episode VII] Emperor on table, your total power here is +3. If opponent's character was just placed out of play (even from Lost Pile), opponent loses 1 Force.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.EPISODE_VII, Icon.VIRTUAL_SET_14);
         addPersona(Persona.OCHI);
         addKeywords(Keyword.ASSASSIN);
@@ -55,6 +56,8 @@ public class Card214_007 extends AbstractSith {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        List<RequiredGameTextTriggerAction> actions = new LinkedList<>();
+
         final String playerId = self.getOwner();
         final String opponent = game.getOpponent(playerId);
 
@@ -67,8 +70,26 @@ public class Card214_007 extends AbstractSith {
             action.appendEffect(
                     new LoseForceEffect(action, opponent, 1)
             );
-            return Collections.singletonList(action);
+           actions.add(action);
         }
-        return null;
+
+        // Check condition(s)
+        if (TriggerConditions.justPlacedOutOfPlayFromOffTable(game, effectResult, Filters.and(Filters.opponents(playerId), Filters.character))) {
+            PlacedCardOutOfPlayFromOffTableResult result = (PlacedCardOutOfPlayFromOffTableResult)effectResult;
+
+            if (result.getPreviousZone() == Zone.LOST_PILE || result.getPreviousZone() == Zone.TOP_OF_LOST_PILE) {
+
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setText("Opponent loses 1 force");
+                action.setActionMsg("Opponent loses 1 force");
+                // Update usage limit(s)
+                action.appendEffect(
+                        new LoseForceEffect(action, opponent, 1)
+                );
+                actions.add(action);
+            }
+        }
+
+        return actions;
     }
 }
