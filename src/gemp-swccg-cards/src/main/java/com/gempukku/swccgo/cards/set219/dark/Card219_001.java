@@ -25,7 +25,7 @@ import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromPileEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.evaluators.ConstantEvaluator;
-import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotPlayModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -45,7 +45,7 @@ public class Card219_001 extends AbstractObjective {
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Lothal system, Advanced Projects Laboratory, Imperial Complex, and Thrawn's Art Collection. " +
                     "For remainder of game, you may not deploy Chiraneau or [Episode I] (or [Episode VII]) cards with ability or [Presence]. Once per turn, may [download] a battleground system (or a site to Lothal). " +
-                    "While this side up, Imperial Star Destroyers deploy -1 (-3 if Chimaera). " +
+                    "While this side up, Imperial Star Destroyers deploy -1 (-3 if Chimaera deploying to Lothal). " +
                     "Flip this card during any deploy phase if Thrawn at a battleground and two or more artwork cards on table.");
         addIcons(Icon.VIRTUAL_SET_19);
     }
@@ -90,8 +90,8 @@ public class Card219_001 extends AbstractObjective {
         Filter mayNotPlayFilter = Filters.or(Filters.Chiraneau,
                 Filters.and(Filters.your(self), Filters.or(Icon.EPISODE_I, Icon.EPISODE_VII), Filters.or(Filters.hasAbilityOrHasPermanentPilotWithAbility, Icon.PRESENCE)));
         modifiers.add(new MayNotPlayModifier(self, mayNotPlayFilter, self.getOwner()));
-        modifiers.add(new DeployCostModifier(self, Filters.and(Filters.Imperial_starship, Filters.Star_Destroyer),
-        new CardMatchesEvaluator(new PerStarDestroyerEvaluator(-1), new ConstantEvaluator( -3), Filters.Chimaera)));
+        modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.Imperial_starship, Filters.Star_Destroyer), -1, Filters.not(Filters.Lothal_location)));
+        modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.Imperial_starship, Filters.Star_Destroyer), new CardMatchesEvaluator(new PerStarDestroyerEvaluator(-1), new ConstantEvaluator( -3), Filters.Chimaera), Filters.Lothal_location));
         return modifiers;
     }
 

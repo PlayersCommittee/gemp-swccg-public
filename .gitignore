@@ -69,3 +69,5 @@ database/*
 !database/.placeholder
 
 /.vs
+.local/*
+.vscode/*

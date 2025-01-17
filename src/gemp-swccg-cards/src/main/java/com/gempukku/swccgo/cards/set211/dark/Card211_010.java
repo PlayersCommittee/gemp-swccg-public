@@ -7,7 +7,6 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -29,7 +28,7 @@ import com.gempukku.swccgo.logic.effects.ShuffleReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardsFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.DestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
@@ -45,9 +44,9 @@ import java.util.List;
  */
 public class Card211_010 extends AbstractNormalEffect {
     public Card211_010() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Quietly Observing", Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Quietly_Observing, Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLore("On her assignment to kill Sharad Hett, Aurra used her patience and cunning to help track down the Jedi Master.");
-        setGameText("Text: Deploy on table. Aurra, Bossk, and Cad are destiny +2. Once per game, may reveal up to two unique (•) aliens from hand and/or Reserve Deck (reshuffle); for remainder of game, those cards are assassins and Black Sun agents. [Immune to Alter.]");
+        setGameText("Deploy on table. While alone, assassins are power +1. Once per game, may reveal up to two unique (•) aliens from hand and/or Reserve Deck (reshuffle); for remainder of game, those cards are assassins and, if your [Reflections II] objective on table, Black Sun agents. [Immune to Alter.]");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I, Icon.VIRTUAL_SET_11);
         setVirtualSuffix(true);
         addImmuneToCardTitle(Title.Alter);
@@ -56,13 +55,7 @@ public class Card211_010 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new DestinyModifier(self, Filters.or(
-                Filters.Aurra,
-                Filters.Bossk,
-                Filters.Cad,
-                Filters.hasPermanentAboard(Filters.persona(Persona.AURRA)),
-                Filters.hasPermanentAboard(Filters.persona(Persona.BOSSK)),
-                Filters.hasPermanentAboard(Filters.persona(Persona.CAD))), 2));
+        modifiers.add(new PowerModifier(self, Filters.and(Filters.alone, Filters.assassin), 1));
         return modifiers;
     }
 
@@ -113,7 +106,7 @@ public class Card211_010 extends AbstractNormalEffect {
                                                                                 }
                                                                         )
                                                                 );
-                                                                appendEffects(self, selectedCard, action, false);
+                                                                appendEffects(game, self, selectedCard, action, false);
                                                             }
                                                         }
                                                 );
@@ -124,7 +117,7 @@ public class Card211_010 extends AbstractNormalEffect {
                                                             @Override
                                                             protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
                                                                 for (PhysicalCard selectedCard : selectedCards) {
-                                                                    appendEffects(self, selectedCard, action, false);
+                                                                    appendEffects(game, self, selectedCard, action, false);
                                                                 }
                                                             }
                                                         }
@@ -149,7 +142,7 @@ public class Card211_010 extends AbstractNormalEffect {
                     @Override
                     protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
                         for (PhysicalCard selectedCard : selectedCards) {
-                            appendEffects(self, selectedCard, action, true);
+                            appendEffects(game, self, selectedCard, action, true);
                         }
                     }
                 }
@@ -159,7 +152,7 @@ public class Card211_010 extends AbstractNormalEffect {
         );
     }
 
-    private void appendEffects(PhysicalCard self, PhysicalCard selectedCard, TopLevelGameTextAction action, boolean fromReserveDeck) {
+    private void appendEffects(SwccgGame game, PhysicalCard self, PhysicalCard selectedCard, TopLevelGameTextAction action, boolean fromReserveDeck) {
         String revealedFromLocation;
         Filter filter = Filters.sameTitleAs(selectedCard, true);
         if(fromReserveDeck){
@@ -178,10 +171,12 @@ public class Card211_010 extends AbstractNormalEffect {
                         action, new KeywordModifier(self, filter, Keyword.ASSASSIN), GameUtils.getCardLink(selectedCard) + " is an Assassin for remainder of Game "
                 )
         );
-        action.appendEffect(
-                new AddUntilEndOfGameModifierEffect(
-                        action, new KeywordModifier(self, filter, Keyword.BLACK_SUN_AGENT), GameUtils.getCardLink(selectedCard) + " is a Black Sun Agent for remainder of Game"
-                )
-        );
+        if (GameConditions.canTarget(game, self, Filters.and(Filters.your(self), Icon.REFLECTIONS_II, Filters.Objective))) {
+            action.appendEffect(
+                    new AddUntilEndOfGameModifierEffect(
+                            action, new KeywordModifier(self, filter, Keyword.BLACK_SUN_AGENT), GameUtils.getCardLink(selectedCard) + " is a Black Sun Agent for remainder of Game"
+                    )
+            );
+        }
     }
 }

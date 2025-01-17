@@ -3,7 +3,6 @@ package com.gempukku.swccgo.cards.set215.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelBattleEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
@@ -22,22 +21,26 @@ import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
+import com.gempukku.swccgo.logic.effects.CaptureWithImprisonmentEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardsInUsedPileFromTableEffect;
+import com.gempukku.swccgo.logic.effects.RestoreCardToNormalEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
 import com.gempukku.swccgo.logic.modifiers.InitiateForceDrainCostModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotBeConvertedModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.results.AboutToLeaveTableResult;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -54,7 +57,10 @@ public class Card215_017_BACK extends AbstractObjective {
         setGameText("For remainder of game, I Can't Believe He's Gone may only add power in battles involving Leia or Luke." +
                 "While this side up, for opponent to initiate a Force drain, opponent must use +1 Force. Whenever you 'hit' a character with a blaster, opponent loses 1 Force. May place Obi-Wan out of play from a Death Star site to cancel a battle just initiated anywhere on Death Star. During opponent's draw phase, if opponent did not initiate a battle this turn, may retrieve 1 Force." +
                 "Flip this card if Leia is not at a Death Star site.");
-        addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_15);
+        setGameText("While this side up, for opponent to initiate a Force drain, opponent must use +1 Force. Your Death Star sites are immune to Set Your Course for Alderaan. Once per turn, if you just 'hit' a character with a blaster, opponent loses 1 Force. May place Obi-Wan out of play from a Death Star site to cancel a battle just initiated anywhere on Death Star. I Can't Believe He's Gone is canceled. During opponent's draw phase, if opponent did not initiate a battle this turn, may retrieve 1 Force.\n" +
+                "Flip this card if Leia is not at a Death Star site.");
+        addIcons(Icon.A_NEW_HOPE, Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_15);
+        hideFromDeckBuilder();
     }
 
     @Override
@@ -66,7 +72,6 @@ public class Card215_017_BACK extends AbstractObjective {
         modifiers.add(new MayNotDeployModifier(self, Filters.or(Filters.and(Filters.Luke, Filters.abilityMoreThan(4)), Filters.and(Filters.Jedi, Filters.or(Filters.icon(Icon.EPISODE_I), Filters.icon(Icon.EPISODE_VII)))), playerId));
         modifiers.add(new ModifyGameTextModifier(self, Filters.Set_Your_Course_For_Alderaan, ModifyGameTextType.SET_YOUR_COURSE_FOR_ALDERAAN__ONLY_AFFECTS_DARK_SIDE_DEATH_STAR_SITES));
         modifiers.add(new InitiateForceDrainCostModifier(self, 1, game.getOpponent(self.getOwner())));
-        modifiers.add(new MayNotBeConvertedModifier(self, Filters.Death_Star_site));
         return modifiers;
     }
 
@@ -95,7 +100,7 @@ public class Card215_017_BACK extends AbstractObjective {
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
-        if (TriggerConditions.isPlayingCard(game, effect, Filters.title(Title.Path_Of_Least_Resistance))
+        if (TriggerConditions.isPlayingCard(game, effect, Filters.I_Cant_Believe_Hes_Gone)
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
@@ -128,19 +133,44 @@ public class Card215_017_BACK extends AbstractObjective {
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         List<RequiredGameTextTriggerAction> actions = new LinkedList<>();
 
-        GameTextActionId gameTextActionId = GameTextActionId.SOMETIMES_I_AMAZE_EVEN_MYSELF__FLIP_ACTION;
+        String playerId = self.getOwner();
+        if (TriggerConditions.isAboutToLeaveTable(game, effectResult, Filters.Leia)) {
+            final AboutToLeaveTableResult result = (AboutToLeaveTableResult) effectResult;
+            final PhysicalCard leia = result.getCardAboutToLeaveTable();
+            final PhysicalCard detentionBlockCorridor = Filters.findFirstFromTopLocationsOnTable(game, Filters.Detention_Block_Corridor);
 
-        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && TriggerConditions.cardFlipped(game, effectResult, self)) {
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.appendUsage(
-                    new OncePerGameEffect(action)
-            );
-            action.appendEffect(
-                    new AddUntilEndOfGameModifierEffect(action,
-                            new ModifyGameTextModifier(self, Filters.I_Cant_Believe_Hes_Gone, ModifyGameTextType.I_CANT_BELIEVE_HES_GONE__ONLY_EFFECTS_BATTLES_WITH_LUKE_OR_LEIA),
-                            "I Can't Believe He's Gone may only add power in battles involving Luke or Leia")
-            );
+            if (leia != null
+                    && detentionBlockCorridor != null) {
+                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setText("Imprison Leia");
+                action.setPerformingPlayer(playerId);
+                action.appendEffect(
+                        new PassthruEffect(action) {
+                            @Override
+                            protected void doPlayEffect(SwccgGame game) {
+                                Collection<PhysicalCard> cardsOnLeia = Filters.filterAllOnTable(game, Filters.attachedTo(leia));
+
+                                result.getPreventableCardEffect().preventEffectOnCard(leia);
+                                action.appendEffect(
+                                        new RestoreCardToNormalEffect(action, leia));
+                                action.appendEffect(
+                                        new PlaceCardsInUsedPileFromTableEffect(action, cardsOnLeia));
+                                action.appendEffect(
+                                        new CaptureWithImprisonmentEffect(action, leia, detentionBlockCorridor, leia.isUndercover(), leia.isMissing()));
+                            }
+                        });
+                actions.add(action);
+            }
+
+        }
+
+        // Check condition(s)
+        if (TriggerConditions.isTableChanged(game, effectResult)
+                && GameConditions.canTargetToCancel(game, self, Filters.I_Cant_Believe_Hes_Gone)) {
+
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            // Build action using common utility
+            CancelCardActionBuilder.buildCancelCardAction(action, Filters.I_Cant_Believe_Hes_Gone, Title.I_Cant_Believe_Hes_Gone);
             actions.add(action);
         }
 
@@ -154,9 +184,13 @@ public class Card215_017_BACK extends AbstractObjective {
             actions.add(action);
         }
 
-        if (TriggerConditions.justHitBy(game, effectResult, Filters.character, Filters.and(Filters.your(self.getOwner()), Filters.blaster))) {
-            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+        if (TriggerConditions.justHitBy(game, effectResult, Filters.character, Filters.and(Filters.your(self.getOwner()), Filters.blaster))
+                && GameConditions.isOncePerTurn(game, self, gameTextSourceCardId, gameTextActionId)) {
+            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Make opponent lose 1 Force");
+            action.appendUsage(
+                    new OncePerTurnEffect(action));
             action.appendEffect(
                     new LoseForceEffect(action, game.getOpponent(self.getOwner()), 1)
             );

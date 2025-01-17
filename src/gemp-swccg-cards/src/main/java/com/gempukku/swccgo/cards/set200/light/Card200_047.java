@@ -21,7 +21,7 @@ import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.TotalForceGenerationModifier;
+import com.gempukku.swccgo.logic.modifiers.ResetPersonalForceGenerationModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class Card200_047 extends AbstractNormalEffect {
         super(Side.LIGHT, 2, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Wokling, Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("Every Ewok is taught to be protective of the younger members of their clan.");
-        setGameText("Unless Massassi Throne Room on table, deploy on table. Your total Force generation is +1. Once per game, may use 3 Force to [upload] an Effect that has no deploy cost and deploys on another card. May place this Effect out of play to retrieve 1 Force. [Immune to Alter.]");
+        setGameText("Unless Massassi Throne Room on table, deploy on table. Your personal Force generation = 2. Once per game, may use 3 Force to [upload] an Effect that has no deploy cost and deploys on another card. May place this Effect out of play to retrieve 1 Force. [Immune to Alter.]");
         addIcons(Icon.ENDOR, Icon.VIRTUAL_SET_0);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -48,8 +48,8 @@ public class Card200_047 extends AbstractNormalEffect {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new TotalForceGenerationModifier(self, 1, self.getOwner()));
+        List<Modifier> modifiers = new LinkedList<>();
+        modifiers.add(new ResetPersonalForceGenerationModifier(self, 2, self.getOwner()));
         return modifiers;
     }
 

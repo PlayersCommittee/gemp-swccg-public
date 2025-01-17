@@ -7,6 +7,7 @@ import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
@@ -38,6 +39,7 @@ public class Card209_050 extends AbstractSite {
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 0);
         addIcons(Icon.VIRTUAL_SET_9, Icon.EXTERIOR_SITE, Icon.PLANET);
+        addKeywords(Keyword.VADERS_CASTLE_SITE);
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
@@ -38,6 +39,7 @@ public class Card3_067 extends AbstractCombatVehicle {
         setLore("Enclosed. First snowspeeder to be successfully adapted to Hoth's environment. Piloted by Zev Senesca. Led team in search of Captain Solo and Commander Skywalker.");
         setGameText("May add 2 pilots or passengers. Immune to attrition < 3 if Zev piloting. May add 2 to search party destiny draw if all pilots aboard are part of that search party.");
         addModelType(ModelType.T_47);
+        addPersona(Persona.ROGUE2);
         addIcons(Icon.HOTH);
         addKeywords(Keyword.ENCLOSED, Keyword.SNOWSPEEDER, Keyword.ROGUE_SQUADRON);
         setPilotOrPassengerCapacity(2);

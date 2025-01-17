@@ -17797,6 +17797,7 @@ public class Filters {
     public static final Filter creature_vehicle = Filters.and(CardType.VEHICLE, CardSubtype.CREATURE);
     public static final Filter Credits_Will_Do_Fine = Filters.title(Title.Credits_Will_Do_Fine);
     public static final Filter Crimson_Dawn = Filters.keyword(Keyword.CRIMSON_DAWN);
+    public static final Filter Critical_Error_Revealed = Filters.title(Title.Critical_Error_Revealed);
     public static final Filter cruiser = Filters.or(ModelType.CORELLIAN_REPUBLIC_CRUISER, Keyword.CRUISER, ModelType.DREADNAUGHT_CLASS_HEAVY_CRUISER, ModelType.MON_CALAMARI_STAR_CRUISER);
     public static final Filter Cyborg_Construct = Filters.title(Title.Cyborg_Construct);
     public static final Filter Dagobah_Bog_Clearing = Filters.title(Title.Dagobah_Bog_Clearing);
@@ -18061,6 +18062,7 @@ public class Filters {
     public static final Filter Force_Projection = Filters.title(Title.Force_Projection);
     public static final Filter Force_Sensitive_character = Filters.and(CardCategory.CHARACTER, Filters.or(Filters.abilityEqualTo(4), Filters.abilityEqualTo(5)));
     public static final Filter forest = Filters.keyword(Keyword.FOREST);
+    public static final Filter Foundling = Filters.title(Title.Foundling);
     public static final Filter Fourth_Marker = Filters.keyword(Keyword.MARKER_4);
     public static final Filter freighter = Filters.or(ModelType.FREIGHTER, ModelType.HEAVILY_MODIFIED_FREIGHTER, ModelType.HEAVILY_MODIFIED_LIGHT_FREIGHTER, ModelType.MODIFIED_ACTION_VI_FREIGHTER, ModelType.MODIFIED_CORELLIAN_FREIGHTER, ModelType.MODIFIED_LIGHT_FREIGHTER, ModelType.MODIFIED_VCX_FREIGHTER, ModelType.YV_CLASS_FREIGHTER);
     public static final Filter Friendly_Fire = Filters.title(Title.Friendly_Fire);
@@ -18407,6 +18409,7 @@ public class Filters {
     public static final Filter Life_Debt = Filters.title(Title.Life_Debt);
     public static final Filter Lift_Tube = Filters.title(Title.Lift_Tube);
     public static final Filter lightsaber = Filters.keyword(Keyword.LIGHTSABER);
+    public static final Filter Lightmaker = Filters.title(Title.Lightmaker);
     public static final Filter Lightsaber_Proficiency = Filters.title(Title.Lightsaber_Proficiency);
     public static final Filter Limited_Resources = Filters.title(Title.Limited_Resources);
     public static final Filter Lirin_Carn = Filters.title(Title.Lirin_Carn);
@@ -18673,13 +18676,16 @@ public class Filters {
     public static final Filter proton_bombs = Filters.title(Title.Proton_Bombs);
     public static final Filter Proton_Torpedoes = Filters.keyword(Keyword.PROTON_TORPEDOES);
     public static final Filter Proxima = Filters.title(Title.Proxima);
+    public static final Filter Pryce = Filters.persona(Persona.PRYCE);
     public static final Filter Pryde = Filters.persona(Persona.PRYDE);
     public static final Filter Puck = Filters.persona(Persona.PUCK);
     public static final Filter Pulsar_Skate = Filters.persona(Persona.PULSAR_SKATE);
+    public static final Filter Punishing_One = Filters.persona(Persona.PUNISHING_ONE);
     public static final Filter Qira = Filters.persona(Persona.QIRA);
     public static final Filter Quad_Laser_Cannon = Filters.title(Title.Quad_Laser_Cannon);
     public static final Filter Queens_Royal_Starship = Filters.persona(Persona.QUEENS_ROYAL_STARSHIP);
     public static final Filter Quiet_Mining_Colony = Filters.title(Title.Quiet_Mining_Colony);
+    public static final Filter Quietly_Observing = Filters.title(Title.Quietly_Observing);
     public static final Filter Quiggold = Filters.title(Title.Quiggold);
     public static final Filter QuiGon = Filters.persona(Persona.QUIGON);
     public static final Filter Rancor = Filters.title(Title.Rancor);
@@ -18880,7 +18886,7 @@ public class Filters {
     public static final Filter skiff = Filters.keyword(Keyword.SKIFF);
     public static final Filter Skrilling = Filters.species(Species.SKRILLING);
     public static final Filter Skyhook_Platform = Filters.title(Title.Skyhook_Platform);
-    public static final Filter Skywalker = Filters.or(Persona.ANAKIN, Persona.LUKE, Persona.LEIA, Persona.MARA_SKYWALKER, Filters.title(Title.Shmi), Keyword.SKYWALKER);
+    public static final Filter Skywalker = Filters.or(Persona.ANAKIN, Persona.LUKE, Persona.LEIA, Persona.BEN_SOLO, Persona.MARA_SKYWALKER, Filters.title(Title.Shmi), Keyword.SKYWALKER);
     public static final Filter Skywalker_Hut = Filters.title(Title.Skywalker_Hut);
     public static final Filter Skywalkers = Filters.title(Title.Skywalkers);
     public static final Filter Slave_I = Filters.persona(Persona.SLAVE_I);
@@ -19107,7 +19113,7 @@ public class Filters {
     public static final Filter Trade_Federation_starfighter = Filters.and(Icon.TRADE_FEDERATION, CardSubtype.STARFIGHTER);
     public static final Filter Trample = Filters.title(Title.Trample);
     public static final Filter Trandoshan = Filters.species(Species.TRANDOSHAN);
-    public static final Filter transport = Filters.and(CardType.STARSHIP, Filters.or(Keyword.TRANSPORT_SHIP, ModelType.BYBLOS_G1A_TRANSPORT, ModelType.MODIFIED_TRANSPORT, ModelType.OUBLIETTE_CLASS_TRANSPORT, ModelType.RESISTANCE_TRANSPORT, ModelType.TRANSPORT, ModelType.WTK_85A_INTERSTELLAR_TRANSPORT, ModelType.ZETA_CLASS_TRANSPORT));
+    public static final Filter transport = Filters.and(CardType.STARSHIP, Filters.or(Keyword.TRANSPORT_SHIP, ModelType.BYBLOS_G1A_TRANSPORT, ModelType.KOMRK_CLASS_FIGHTER_TRANSPORT, ModelType.MODIFIED_TRANSPORT, ModelType.OUBLIETTE_CLASS_TRANSPORT, ModelType.RESISTANCE_TRANSPORT, ModelType.TRANSPORT, ModelType.WTK_85A_INTERSTELLAR_TRANSPORT, ModelType.ZETA_CLASS_TRANSPORT));
     public static final Filter transport_vehicle = Filters.and(CardType.VEHICLE, CardSubtype.TRANSPORT);
     public static final Filter Transmission_Terminated = Filters.title(Title.Transmission_Terminated);
     public static final Filter Trap_Door = Filters.title(Title.Trap_Door);
@@ -19150,6 +19156,7 @@ public class Filters {
     public static final Filter Utinni_Effect_that_retrieves_Force = Filters.and(CardType.EFFECT, CardSubtype.UTINNI, Keyword.UTINNI_EFFECT_THAT_RETRIEVES_FORCE);
     public static final Filter Vader = Filters.persona(Persona.VADER);
     public static final Filter Vaders_Castle = Filters.title(Title.Vaders_Castle);
+    public static final Filter Vaders_Castle_site = Filters.keyword(Keyword.VADERS_CASTLE_SITE);
     public static final Filter Vaders_Custom_TIE = Filters.persona(Persona.VADERS_CUSTOM_TIE);
     public static final Filter Vaders_Lightsaber = Filters.persona(Persona.VADERS_LIGHTSABER);
     public static final Filter Vaders_Obsession = Filters.title(Title.Vaders_Obsession);
@@ -19261,7 +19268,7 @@ public class Filters {
     public static final Filter Yuzzum = Filters.species(Species.YUZZUM);
     public static final Filter Z_95 = Filters.or(ModelType.MODIFIED_Z_95_HEADHUNTER, ModelType.Z_95_HEADHUNTER);
     public static final Filter Zeb = Filters.title(Title.Zeb);
-    public static final Filter Zev = Filters.title(Title.Zev);
+    public static final Filter Zev = Filters.persona(Persona.ZEV);
     public static final Filter Zuckuss = Filters.persona(Persona.ZUCKUSS);
     public static final Filter Zutton = Filters.title(Title.Zutton);
 	public static final Filter Arx_location = Filters.partOfSystem(Title.Arx);

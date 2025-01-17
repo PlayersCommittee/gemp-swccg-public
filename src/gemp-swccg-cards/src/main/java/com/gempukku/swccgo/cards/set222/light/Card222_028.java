@@ -2,10 +2,9 @@ package com.gempukku.swccgo.cards.set222.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.CantSpotCondition;
-import com.gempukku.swccgo.cards.effects.PayRelocateBetweenLocationsCostEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
+import com.gempukku.swccgo.cards.evaluators.MaxLimitEvaluator;
+import com.gempukku.swccgo.cards.evaluators.OccupiesEvaluator;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
@@ -19,14 +18,12 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.RelocateBetweenLocationsEffect;
-import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.evaluators.Evaluator;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.TotalForceGenerationModifier;
-import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.modifiers.ResetPersonalForceGenerationModifier;
+import com.gempukku.swccgo.logic.modifiers.TotalPowerModifier;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -43,9 +40,9 @@ public class Card222_028 extends AbstractNormalEffect {
         setVirtualSuffix(true);
         setLore("When a Jedi dies, the spirit spreads through the Force and touches the living.");
         setGameText("If His Destiny on table, deploy on table. " +
-                "Unless Wokling on table, your total Force generation is +1. " +
-                "Once per turn, may [download] a mobile docking bay. Once per game, during your move phase, " +
-                "may relocate Luke to same battleground as Prophecy Of The Force. [Immune to Alter.]");
+                "Your personal Force generation = 2. " +
+                "Once per turn, may [download] a mobile docking bay. " +
+                "Your total power everywhere is +1 for each [Endor] or [Death Star II] battleground you occupy (limit +2). [Immune to Alter.]");
         addIcons(Icon.DEATH_STAR_II);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -58,7 +55,11 @@ public class Card222_028 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new TotalForceGenerationModifier(self, new CantSpotCondition(self, Filters.title(Title.Wokling)), 1, self.getOwner()));
+        String playerId = self.getOwner();
+        Evaluator battlegroundCount = new MaxLimitEvaluator(new OccupiesEvaluator(playerId, Filters.and(Filters.or(Icon.ENDOR, Icon.DEATH_STAR_II), Filters.battleground)), 2);
+
+        modifiers.add(new ResetPersonalForceGenerationModifier(self, 2, self.getOwner()));
+        modifiers.add(new TotalPowerModifier(self, Filters.location, battlegroundCount, playerId));
         return modifiers;
     }
 
@@ -82,40 +83,6 @@ public class Card222_028 extends AbstractNormalEffect {
             return Collections.singletonList(action);
         }
 
-        gameTextActionId = GameTextActionId.TWILIGHT_IS_UPON_ME__RELOCATE_LUKE;
-
-        if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.isDuringYourPhase(game, playerId, Phase.MOVE)
-                && GameConditions.canSpot(game, self, Filters.and(Filters.Luke, Filters.not(Filters.with(self, Filters.Prophecy_Of_The_Force)), Filters.canBeRelocated(false)))
-                && GameConditions.canSpot(game, self, Filters.and(Filters.battleground, Filters.hasAttached(Filters.Prophecy_Of_The_Force)))) {
-
-            final PhysicalCard luke = Filters.findFirstActive(game, self, Filters.Luke);
-            final PhysicalCard battlegroundWithProphecyOfTheForce = Filters.findFirstActive(game, self, Filters.and(Filters.battleground, Filters.hasAttached(Filters.Prophecy_Of_The_Force)));
-
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Relocate Luke");
-            action.setActionMsg("Relocate Luke to same battleground as Prophecy of the Force");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerGameEffect(action));
-            // Perform result(s)
-            action.addAnimationGroup(battlegroundWithProphecyOfTheForce);
-            // Pay cost(s)
-            action.appendCost(
-                    new PayRelocateBetweenLocationsCostEffect(action, playerId, luke, battlegroundWithProphecyOfTheForce, 0));
-            // Allow response(s)
-            action.allowResponses("Relocate Luke to " + GameUtils.getCardLink(battlegroundWithProphecyOfTheForce),
-                    new UnrespondableEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new RelocateBetweenLocationsEffect(action, luke, battlegroundWithProphecyOfTheForce));
-                        }
-                    }
-            );
-            return Collections.singletonList(action);
-        }
         return null;
     }
 }

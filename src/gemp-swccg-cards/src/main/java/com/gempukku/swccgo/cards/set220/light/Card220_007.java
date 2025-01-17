@@ -21,6 +21,7 @@ import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardAboardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
@@ -40,9 +41,9 @@ public class Card220_007 extends AbstractStarfighter {
         super(Side.LIGHT, 2, 3, 3, null, 4, 6, 7, "Millennium Falcon", Uniqueness.UNIQUE, ExpansionSet.SET_20, Rarity.V);
         setVirtualSuffix(true);
         setLore("Modified YT-1300 freighter. Owned by Lando Calrissian until won by Han in a sabacc game. 26.7 meters long. 'She may not look like much, but she's got it where it counts.'");
-        setGameText("May add 2 pilots and 2 passengers. Once per game, if your [Reflections II] or [Skywalker] site on table, may [download] Han or Chewie aboard. While Han or Chewie piloting, immune to attrition < 5 (< 7 if both).");
+        setGameText("May add 2 pilots and 2 passengers. Once per game, may [download] Han or Chewie aboard. While [A New Hope] Han piloting, Force drain +1 here. While Han or Chewie piloting, immune to attrition < 5 (< 7 if both).");
         addPersona(Persona.FALCON);
-        addIcons(Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_20);
+        addIcons(Icon.A_NEW_HOPE, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_20);
         addModelType(ModelType.MODIFIED_LIGHT_FREIGHTER);
         setPilotCapacity(2);
         setPassengerCapacity(2);
@@ -54,7 +55,6 @@ public class Card220_007 extends AbstractStarfighter {
         GameTextActionId gameTextActionId = GameTextActionId.MILLENNIUM_FALCON__DOWNLOAD_HAN_OR_CHEWIE;
 
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canSpot(game, self, Filters.and(Filters.your(self), Filters.or(Icon.REFLECTIONS_II, Icon.SKYWALKER), Filters.site))
                 && (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.CHEWIE)
                 || (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Persona.HAN)))) {
             
@@ -74,9 +74,11 @@ public class Card220_007 extends AbstractStarfighter {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         Condition hanPiloting = new HasPilotingCondition(self, Filters.Han);
         Condition chewiePiloting = new HasPilotingCondition(self, Filters.Chewie);
+        String playerId = self.getOwner();
 
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, new OrCondition(hanPiloting, chewiePiloting), new ConditionEvaluator(5, 7, new AndCondition(hanPiloting, chewiePiloting))));
+        modifiers.add(new ForceDrainModifier(self, Filters.here(self), new HasPilotingCondition(self, Filters.and(Icon.A_NEW_HOPE, Filters.Han)), 1, playerId));
         return modifiers;
     }
 }

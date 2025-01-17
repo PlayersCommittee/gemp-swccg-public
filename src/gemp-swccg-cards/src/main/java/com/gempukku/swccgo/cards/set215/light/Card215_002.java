@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set215.light;
 
 import com.gempukku.swccgo.cards.AbstractEpicEventDeployable;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.HasStackedCondition;
 import com.gempukku.swccgo.cards.effects.takeandputcards.StackCardsFromHandEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
@@ -18,17 +19,17 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
-import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
+import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.effects.PutStackedCardInLostPileEffect;
 import com.gempukku.swccgo.logic.effects.ShowCardOnScreenEffect;
 import com.gempukku.swccgo.logic.effects.ShutDownDeathStarPowerEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardEffect;
-import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeModifiedByModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.MovesFreeFromLocationToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MovesForFreeUsingLandspeedModifier;
+import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.ArrayList;
@@ -45,11 +46,11 @@ public class Card215_002 extends AbstractEpicEventDeployable {
     public Card215_002() {
         super(Side.LIGHT, PlayCardZoneOption.ATTACHED, Title.A_Power_Loss, Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
         setLore("");
-        setGameText("Deploy on Central Core. Leia may not modify Force drains. Once per game, opponent may stack up to two cards from hand face-down here." +
-                "Allow The Ship To Leave: If you just won a battle on Death Star (or initiated a Force drain here), place a card stacked here in owner’s Lost Pile." +
-                "That Old Man Did It!: If you occupy this site and another Death Star site while no cards stacked here, power 'shut down' (place this card out of play; your movement between Death Star locations is free this turn).");
+        setGameText("Deploy on Central Core. Once per game, opponent may stack up to two cards from hand face-down here. " +
+                "All This Sneaking Around: Path Of Least Resistance is canceled. While no cards stacked here, Leia moves for free using her landspeed. " +
+                "Allow The Ship To Leave: If you just won a battle at a Death Star site (or initiated a Force drain here), place a card stacked here in owner’s Lost Pile. " +
+                "That Old Man Did It!: If you occupy this site and another Death Star site while no cards stacked here, for remainder of game, power 'shut down.'");
         addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_15);
-        addImmuneToCardTitle(Title.Alter);
     }
 
     @Override
@@ -60,7 +61,7 @@ public class Card215_002 extends AbstractEpicEventDeployable {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new ForceDrainsMayNotBeModifiedByModifier(self, Filters.Leia, self.getOwner()));
+        modifiers.add(new MovesForFreeUsingLandspeedModifier(self, Filters.Leia, new NotCondition(new HasStackedCondition(self, Filters.any))));
         return modifiers;
     }
 
@@ -82,6 +83,20 @@ public class Card215_002 extends AbstractEpicEventDeployable {
             return Collections.singletonList(action);
         }
 
+        return null;
+    }
+
+    @Override
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
+        // Check condition(s)
+        if (TriggerConditions.isPlayingCard(game, effect, Filters.title(Title.Path_Of_Least_Resistance))
+                && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
+
+            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            // Build action using common utility
+            CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
+            return Collections.singletonList(action);
+        }
         return null;
     }
 
@@ -120,20 +135,13 @@ public class Card215_002 extends AbstractEpicEventDeployable {
                 && !game.getModifiersQuerying().isDeathStarPowerShutDown()) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setActionMsg("That Old Man Did It!");
             action.setSingletonTrigger(true);
             action.appendEffect(
                     new ShowCardOnScreenEffect(action, self)
             );
             action.appendEffect(
                     new ShutDownDeathStarPowerEffect(action)
-            );
-            action.appendEffect(
-                    new AddUntilEndOfTurnModifierEffect(
-                            action, new MovesFreeFromLocationToLocationModifier(self, Filters.your(playerId), Filters.Death_Star_location, Filters.Death_Star_location), "Your movement between Death Star locations is free"
-                    )
-            );
-            action.appendEffect(
-                    new PlaceCardOutOfPlayFromTableEffect(action, self)
             );
 
             actions.add(action);

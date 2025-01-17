@@ -41,6 +41,10 @@ public class SpeciesModifier extends AbstractModifier{
         this(source, source, null, null, null, matchRepSpecies);
     }
 
+    public SpeciesModifier(PhysicalCard source, Condition condition, boolean matchRepSpecies) {
+        this(source, source, condition, null, null, matchRepSpecies);
+    }
+
     public SpeciesModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Species species, Evaluator evaluator) {
         this(source, affectFilter, condition, species, evaluator, false);
     }

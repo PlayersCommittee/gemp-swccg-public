@@ -244,6 +244,7 @@ public interface Title {
     String Crash_Site_Memorial = "Crash Site Memorial";
     String Credits_Will_Do_Fine = "Credits Will Do Fine";
     String Crimson_Dawn_Blaster = "Crimson Dawn Blaster";
+    String Critical_Error_Revealed = "Critical Error Revealed";
     String Crossfire = "Crossfire";
     String Cyrkon = "Cyrkon";
     String Cyborg_Construct = "Cyborg Construct";
@@ -267,6 +268,7 @@ public interface Title {
     String Darksaber = "Darksaber";
     String Darth_Vader_Dark_Lord_of_the_Sith = "Darth Vader, Dark Lord Of The Sith";
     String DataVault = "Scarif: Data Vault";
+    String OceanShallows = "Scarif: Ocean Shallows";
     String Dathcha = "Dathcha";
     String Dathomir = "Dathomir";
     String Dathomir_Mauls_Chambers = "Dathomir: Maul's Chambers";
@@ -422,6 +424,7 @@ public interface Title {
     String Force_Projection = "Force Projection";
     String Force_Push = "Force Push";
     String Forced_Servitude = "Forced Servitude";
+    String Foundling = "Foundling";
     String Free_Ride = "Free Ride";
     String Friendly_Fire = "Friendly Fire";
     String Frostbite = "Frostbite";
@@ -668,6 +671,7 @@ public interface Title {
     String Life_Day = "Life Day";
     String Life_Debt = "Life Debt";
     String Lift_Tube = "Lift Tube";
+    String Lightmaker = "Lightmaker";
     String Lightsaber_Proficiency = "Lightsaber Proficiency";
     String Like_My_Father_Before_Me = "Like My Father Before Me";
     String Limited_Resources = "Limited Resources";
@@ -812,6 +816,7 @@ public interface Title {
     String Ord_Mantell = "Ord Mantell";
     String Order_To_Engage = "Order To Engage";
     String Organized_Attack = "Organized Attack";
+    String Ortugg = "Ortugg";
     String Ortuggs_Ax = "Ortugg's Ax";
     String OS_72_10 = "OS-72-10";
     String Ounee_Ta = "Ounee Ta";
@@ -870,9 +875,11 @@ public interface Title {
     String Proton_Bombs = "Proton Bombs";
     String Proxima = "Lady Proxima";
     String Puck = "Puck";
+    String Punishing_One = "Punishing One";
     String Put_All_Sections_On_Alert = "Put All Sections On Alert";
     String Quad_Laser_Cannon = "Quad Laser Cannon";
     String Quiet_Mining_Colony = "Quiet Mining Colony";
+    String Quietly_Observing = "Quietly Observing";
     String Quite_A_Mercenary = "Quite A Mercenary";
     String Quiggold = "Quiggold";
     String Radar_Scanner = "Radar Scanner";
@@ -951,6 +958,7 @@ public interface Title {
     String Saitorr_Kal_Fas = "Sai'torr Kal Fas";
     String Salm = "Colonel Salm";
     String Saddle = "Ahch-To: Saddle";
+    String Salacious_Crumb = "Salacious Crumb";
     String Sando_Aqua_Monster = "Sando Aqua Monster";
     String Sandwhirl = "Sandwhirl";
     String Sanity_And_Compassion = "Sanity And Compassion";
@@ -1207,6 +1215,7 @@ public interface Title {
     String We_Have_A_Prisoner = "We Have A Prisoner";
     String We_Need_Luke_Skywalker = "We Need Luke Skywalker";
     String We_Need_Your_Help = "We Need Your Help";
+    String Weapon_Of_A_Sith = "Weapon Of A Sith";
     String Weapons_Are_Part_Of_My_Religion = "Weapons Are Part Of My Religion";
     String Weather_Vane = "Weather Vane";
     String Weequay_Guard = "Weequay Guard";

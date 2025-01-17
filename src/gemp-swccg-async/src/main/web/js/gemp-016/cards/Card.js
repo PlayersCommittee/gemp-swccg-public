@@ -104,7 +104,7 @@ class Card {
         }
 
 
-        this.horizontal = Card.isHorizontal(this.bareBlueprint, this.zone);
+        this.horizontal = Card.isHorizontal(this.bareBlueprint, this.zone, this.alternateImage);
 
         if (this.bareBlueprint != "-1_1" && this.bareBlueprint != "-1_2" && Card.CardCache[this.bareBlueprint] != null) {
             var cardFromCache = Card.CardCache[this.bareBlueprint];
@@ -128,7 +128,7 @@ class Card {
 
     flipOverCard() {
         this.bareBlueprint = Card.getBackSideBlueprintId(this.bareBlueprint);
-        this.horizontal = Card.isHorizontal(this.bareBlueprint, this.zone);
+        this.horizontal = Card.isHorizontal(this.bareBlueprint, this.zone, this.alternateImage);
         var tempText = this.testingText;
         this.testingText = this.backSideTestingText;
         this.backSideTestingText = tempText;
@@ -156,7 +156,7 @@ class Card {
 
     turnCardOver(tempBlueprintId) {
         this.bareBlueprint = tempBlueprintId;
-        this.horizontal = Card.isHorizontal(this.bareBlueprint, this.zone);
+        this.horizontal = Card.isHorizontal(this.bareBlueprint, this.zone, this.alternateImage);
         var tempText = this.testingText;
         this.testingText = this.backSideTestingText;
         this.backSideTestingText = tempText;
@@ -423,12 +423,15 @@ class Card {
                    (cardNo == 74) ||
                    (cardNo == 75);
         }if(setNo == 222){
-                     return (cardNo == 9) ||
-                            (cardNo == 22);
+            return (cardNo == 9) ||
+                   (cardNo == 22);
         }if(setNo == 223){
             return (cardNo == 36) ||
                    (cardNo == 38) ||
                    (cardNo == 48);
+        }if(setNo == 224){
+            return (cardNo == 13) ||
+                   (cardNo == 22); 
         }if(setNo == 302) {
 			return (cardNo == 9) ||
 			       (cardNo == 16) ||
@@ -467,7 +470,11 @@ class Card {
                    (cardNo == 113) ||
                    (cardNo == 118) ||
                    (cardNo == 171) ||
-                   (cardNo == 173);
+                   (cardNo == 173) ||
+                   (cardNo == 204) ||
+                   (cardNo == 209) ||
+                   (cardNo == 216) ||
+                   (cardNo == 220);
         }
         if (setNo == 601) {
              return (cardNo == 14) ||
@@ -495,14 +502,14 @@ class Card {
         return false;
     }
 
-    static isHorizontal(blueprintId, zone) {
+    static isHorizontal(blueprintId, zone, alternateImage) {
 
         // For some zones, never show the card as horizontal
         if (Card.isZoneNeverHorizontal(zone)) {
             return false;
         }
 
-        return Card.isBlueprintHorizontal(blueprintId);
+        return Card.isBlueprintHorizontal(blueprintId, alternateImage);
     }
 
     static isIncomplete(blueprintId) {

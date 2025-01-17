@@ -104,11 +104,6 @@ var ChatBoxUI = Class.extend({
                 this.div.append(this.lockButton);
             this.div.append(this.chatTalkDiv);
 
-            this.communication.startChat(this.name,
-                    function (xml) {
-                        that.processMessages(xml, true);
-                    }, this.chatErrorMap());
-
             this.chatTalkDiv.bind("keypress", function (e) {
                 var code = (e.keyCode ? e.keyCode : e.which);
                 if (code == 13) {
@@ -121,6 +116,14 @@ var ChatBoxUI = Class.extend({
         } else {
             this.talkBoxHeight = 0;
         }
+    },
+    
+    beginGameChat:function() {
+        var that = this;
+        this.communication.startChat(this.name,
+                function (xml) {
+                    that.processMessages(xml, true);
+                }, this.chatErrorMap());
     },
 
     hideMessageClass:function (msgClass) {

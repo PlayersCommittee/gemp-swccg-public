@@ -45,7 +45,7 @@ public class Card219_048 extends AbstractObjective {
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Lothal system and a Lothal site." +
                 "For remainder of game, Menace Fades and Projection Of A Skywalker are canceled. " +
-                "Jedi (except Ahsoka and Kanan), Resistance characters, and [Resistance] starships are deploy +1. " +
+                "Harc, Jedi (except Ahsoka and Kanan), and your [Episode I] (and [Episode VII]) cards with ability are deploy +2. " +
                 "Chopper, Ezra, Hera, Kanan, Sabine, and Zeb gain Phoenix Squadron. Once per turn, may [download] a Lothal site." +
                 "Flip this card if Rebels control three Lothal locations (or you occupy three Lothal locations with Phoenix Squadron characters) and opponent controls no Lothal locations.");
         addIcons(Icon.VIRTUAL_SET_19);
@@ -76,7 +76,7 @@ public class Card219_048 extends AbstractObjective {
         RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
-                        new DeployCostModifier(self, Filters.or(Filters.and(Filters.Jedi, Filters.except(Filters.or(Filters.Ahsoka, Filters.Kanan))), Filters.Resistance_character, Filters.and(Icon.RESISTANCE, Filters.starship)), 1),
+                        new DeployCostModifier(self, Filters.or(Filters.Harc, Filters.and(Filters.Jedi, Filters.except(Filters.or(Filters.Ahsoka, Filters.Kanan))), Filters.and(Filters.your(playerId), Filters.or(Icon.EPISODE_I, Icon.EPISODE_VII), Filters.hasAbilityOrHasPermanentPilotWithAbility)), 2),
                         null));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,

@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set204.light;
 import com.gempukku.swccgo.cards.AbstractResistance;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
+import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.common.ExpansionSet;
@@ -43,7 +44,7 @@ public class Card204_009 extends AbstractResistance {
     public Card204_009() {
         super(Side.LIGHT, 1, 4, 4, 4, 7, Title.Rey, Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setLore("Female scavenger.");
-        setGameText("[Pilot] 3. When deployed, may take any card from Used Pile into hand; reshuffle. Your total battle destiny here is +1. Once per turn, may draw bottom card of your Force Pile. Immune to attrition < 3 (< 6 if on Jakku).");
+        setGameText("[Pilot] 3. Once per game, when deployed, may take any card into hand from Used Pile; reshuffle. Your total battle destiny here is +1. Once per turn, may draw bottom card of your Force Pile. Immune to attrition < 3 (< 6 if on Jakku).");
         addIcons(Icon.EPISODE_VII, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_4);
         addKeywords(Keyword.FEMALE, Keyword.SCAVENGER);
         addPersona(Persona.REY);
@@ -62,15 +63,19 @@ public class Card204_009 extends AbstractResistance {
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.REY__UPLOAD_CARD_FROM_USED_PILE;
+        GameTextActionId gameTextActionId = GameTextActionId.REY__CARD_FROM_USED_PILE;
 
         // Check condition(s)
         if (TriggerConditions.justDeployed(game, effectResult, self)
+                && GameConditions.isOncePerGame(game, self, gameTextActionId)
                 && GameConditions.canTakeCardsIntoHandFromUsedPile(game, playerId, self, gameTextActionId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Take card into hand from Used Pile");
-            action.setActionMsg("Take any card from Used Pile into hand");
+            action.setActionMsg("Take any card into hand from Used Pile");
+
+            action.appendUsage(
+                    new OncePerGameEffect(action));
             // Perform result(s)
             action.appendEffect(
                     new TakeCardIntoHandFromUsedPileEffect(action, playerId, true));

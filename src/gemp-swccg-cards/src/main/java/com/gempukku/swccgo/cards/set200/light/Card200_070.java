@@ -19,17 +19,16 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
-import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
-import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.CancelDestinyEffect;
+import com.gempukku.swccgo.logic.conditions.WeaponBeingFiredByCondition;
 import com.gempukku.swccgo.logic.effects.FireWeaponEffect;
-import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
-import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -43,20 +42,20 @@ public class Card200_070 extends AbstractCharacterWeapon {
         super(Side.LIGHT, 2, Title.Hans_Heavy_Blaster_Pistol, Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("BlasTech DL-44 heavy pistol. Short range, but relatively powerful. Carries energy for 25 shots. Illegal or restricted on most systems.");
-        setGameText("Deploy on Beckett or non-spy Han. May target a character. Draw destiny. Target hit, and its forfeit = 0, if destiny +2 > defense value. If on Han, may fire once during your control phase, and may place this weapon in Used Pile to cancel a weapon destiny targeting Han.");
+        setGameText("Deploy on Han or a smuggler. Greedo's gametext is canceled here. May target a character. Draw destiny. Target hit if destiny +2 > defense value. If hit by Han or Beckett, target's forfeit = 0. If on Han (unless Undercover), may fire once during your control phase.");
         addKeywords(Keyword.BLASTER);
-        setMatchingCharacterFilter(Filters.or(Filters.Beckett, Filters.Han));
+        setMatchingCharacterFilter(Filters.or(Filters.Beckett, Filters.Han, Filters.Greedo));
     }
 
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.and(Filters.your(self), Filters.or(Filters.and(Filters.Han, Filters.not(Filters.spy)), Filters.Beckett));
+        return Filters.and(Filters.your(self), Filters.or(Filters.Han, Filters.smuggler));
     }
 
     @Override
     protected Filter getGameTextValidToUseWeaponFilter(final SwccgGame game, final PhysicalCard self) {
-        return Filters.and(Filters.your(self), Filters.or(Filters.and(Filters.Han, Filters.not(Filters.spy)), Filters.Beckett));
+        return Filters.and(Filters.your(self), Filters.or(Filters.Han, Filters.smuggler));
     }
 
     @Override
@@ -66,10 +65,18 @@ public class Card200_070 extends AbstractCharacterWeapon {
         if (actionBuilder != null) {
 
             // Build action using common utility
-            FireWeaponAction action = actionBuilder.buildFireWeaponWithHitAction(1, 2, Statistic.DEFENSE_VALUE, true, 0);
+            FireWeaponAction action = actionBuilder.buildFireWeaponWithHitAction(1, 2, Statistic.DEFENSE_VALUE,
+                    new WeaponBeingFiredByCondition(self, Filters.or(Filters.Han, Filters.Beckett)), true, 0);
             return Collections.singletonList(action);
         }
         return null;
+    }
+
+    @Override
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<>();
+        modifiers.add(new CancelsGameTextModifier(self, Filters.and(Filters.Greedo, Filters.here(self))));
+        return modifiers;
     }
 
     @Override
@@ -78,7 +85,7 @@ public class Card200_070 extends AbstractCharacterWeapon {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
-                && GameConditions.isAttachedTo(game, self, Filters.Han)
+                && GameConditions.isAttachedTo(game, self, Filters.and(Filters.Han, Filters.not(Filters.undercover_spy)))
                 && Filters.canBeFired(self, 0).accepts(game, self)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
@@ -92,24 +99,6 @@ public class Card200_070 extends AbstractCharacterWeapon {
                     new FireWeaponEffect(action, self, false, Filters.character));
             return Collections.singletonList(action);
         }
-        return null;
-    }
-
-    @Override
-    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        // Check condition(s)
-        if (TriggerConditions.isWeaponDestinyJustDrawnTargeting(game, effectResult, Filters.any, Filters.Han)
-                && GameConditions.isAttachedTo(game, self, Filters.Han)
-                && GameConditions.canCancelDestiny(game, playerId)) {
-
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Cancel weapon destiny");
-            action.appendCost(new PlaceCardInUsedPileFromTableEffect(action, self));
-            action.appendEffect(new CancelDestinyEffect(action));
-
-            return Collections.singletonList(action);
-        }
-
         return null;
     }
 }
