@@ -64,6 +64,7 @@ public enum ExpansionSet {
 	DJB_CORE("Dark Jedi Brotherhood", 302),
 	SA("Shadow Academy", 303),
 	GREAT_HUTT_EXPANSION("The Great Hutt Expansion", 304),
+	ABT("A Better Tomorrrow", 305),
 
     DREAM_CARDS("Dream Cards", 401),
 

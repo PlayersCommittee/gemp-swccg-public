@@ -39,7 +39,7 @@ public class Card304_060 extends AbstractAlien {
         setLore("Sqygorn serves as Candon Coburn's gangster leader. whenever there's a job that Candon wants done cleanly and quickly, Sqygorn's who he calls. Sqygorn, however, is just in it for the spice.");
 		setGameText("During opponent's control phase, may 'threaten' one [CSP] at same site. Opponent may use all Force Pile cards to cancel threat, allowing you to activate same amount. Otherwise, draw destiny. If destiny + Sqygorn's ability > 6, [CSP] lost.");
         addIcons(Icon.WARRIOR);
-        addKeywords(Keyword.GANGSTER, Keyword.LEADER);
+        addKeywords(Keyword.CLAN_TIURE, Keyword.GANGSTER, Keyword.LEADER);
         addPersona(Persona.SQYGORN);
     }
 

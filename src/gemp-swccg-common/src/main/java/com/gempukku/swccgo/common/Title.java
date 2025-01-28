@@ -1390,5 +1390,7 @@ public interface Title {
     String SARLAC_Docking_Bay = "SARLaC: Docking Bay";
     String There_Is_Another_Laplamiz = "There Is Another Lap'lamiz";
     String Sibling_Bait = "Sibling Bait";
+    String Myryakur = "Myryakur";
+    String Conquering_Caperion = "Conquering Caperion";
 
 }

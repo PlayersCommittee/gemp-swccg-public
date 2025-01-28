@@ -125,6 +125,7 @@ public enum Icon implements Filterable {
     TRADE_FEDERATION("Trade Federation"),
 	CSP("Clan Scholae Palatinae"),
 	ARCONA("Clan Arcona"),
+    COU("Clan Odan-Urr"),
     ;
 
     private String _humanReadable;

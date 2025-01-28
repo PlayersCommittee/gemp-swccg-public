@@ -1003,6 +1003,7 @@ public enum GameTextActionId {
     STANDOFF__EXCLUDE_CHARACTERS_OR_EXCHANGE_CARDS(false, true),
     MONOLITH_THRONE_ROOM__UPLOAD_SCHOLAE_PALATINAES_POWER(true, true),
     KYLE_WARHAWK_EMPERORS_HAND__DOWNLOAD_WEAPON(true, true),
+    CONQUERING_CAPERION__UPLOAD_SYSTEM_OR_SARLAC(true, true),
 
     // Per captive
     DUNGEON__RETRIEVE_FORCE(false, false, true, false),

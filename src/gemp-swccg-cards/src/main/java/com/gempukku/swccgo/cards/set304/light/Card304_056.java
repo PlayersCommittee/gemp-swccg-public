@@ -4,13 +4,7 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.common.ExpansionSet;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Rarity;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Species;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -37,11 +31,11 @@ import java.util.List;
 public class Card304_056 extends AbstractAlien {
     public Card304_056() {
         super(Side.LIGHT, 3, 3, 2, 2, 4, "Gex Degrix", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
-        setLore("A Besalisk back alley doctor, hired by Claudius to stitch up his crew. A string of gambling debts left him with no choice but to give up his practice. He justifies it as giving them a second chance at life.");
+        setLore("A Besalisk back alley doctor, hired by Claudius to stitch up his crew. A string of gambling debts left him with no choice but to give up his practice. He justifies it as giving them a second chance at life. Gangster.");
         setGameText("Prevents your characters from having their forfeit reduced at same location (and at Ulress sites if Gex is at Ixtal's Garage). When with your FX droid, once per turn allows your character just forfeited from same site to be placed in Used Pile.");
         addIcons(Icon.WARRIOR);
-		setSpecies(Species.BESALISK);
-        addKeywords(Keyword.CLAN_TIURE);
+        setSpecies(Species.BESALISK);
+        addKeywords(Keyword.CLAN_TIURE, Keyword.GANGSTER);
     }
 
     @Override

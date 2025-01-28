@@ -40,7 +40,7 @@ public class Card304_025 extends AbstractImperial {
     public Card304_025() {
         super(Side.DARK, 3, 3, 5, 3, 4, "Komilia Lap'lamiz, Emperor's Guard", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("Appointed to lead the Royal Guard by her Father, Komilia was out of her league. Her lack of experience and arrogance would have led to an early death if not for her name.");
-        setGameText("Adds 2 to anything she pilots. When armed witha Force pike, adds one battle destiny. When deployed, may [retrieve] a Scholae Palatinae, Royal Guard. During battle, if with Kamjin or a Scholae Palatinae Emperor, once per game may cancel a non-[Immune to Sense] Interrupt.");
+        setGameText("Adds 2 to anything she pilots. When armed with a Force pike, adds one battle destiny. When deployed, may [retrieve] a Scholae Palatinae, Royal Guard. During battle, if with Kamjin or a Scholae Palatinae Emperor, once per game may cancel a non-[Immune to Sense] Interrupt.");
         addPersona(Persona.KOMILIA);
         addIcons(Icon.CSP, Icon.PILOT, Icon.WARRIOR);
         addKeywords(Keyword.CSP_ROYAL_GUARD, Keyword.FEMALE);

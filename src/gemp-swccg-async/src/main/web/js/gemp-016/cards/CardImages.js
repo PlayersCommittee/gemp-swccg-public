@@ -3798,7 +3798,7 @@ const fixedImages = {
 "304_22":"https://i.imgur.com/TPm25Zu.png", //Vincent Brujah
 "304_23":"https://i.imgur.com/zIVJBJm.png", //Scholae Palatinae, Royal Guard
 "304_24":"https://i.imgur.com/RkX37Gj.png", //PD-209
-"304_25":"https://i.imgur.com/NkvkurT.png", //Komilia Lap'lamiz, Emperor's Guard
+"304_25":"https://i.imgur.com/56oNlqM.png", //Komilia Lap'lamiz, Emperor's Guard
 "304_26":"https://i.imgur.com/H1t7EbJ.png", //K'vin J. Lawdogg, Attorney-At-Law
 "304_27":"https://i.imgur.com/WlHfJON.png", //Rohan Lap'lamiz, Stormtrooper
 "304_28":"https://i.imgur.com/DeuUvKk.png", //Master Kamjin 'Maverick' Lap'lamiz
@@ -3823,7 +3823,7 @@ const fixedImages = {
 "304_47":"https://i.imgur.com/mU2vl65.png", //Calle Tarnoc
 "304_48":"https://i.imgur.com/sM6va8o.png", //Clone Technician
 "304_49":"https://i.imgur.com/uuexEjL.png", //Allie Grosser
-"304_50":"https://i.imgur.com/mIgKuIA.png", //Brie Cunngemi
+"304_50":"https://i.imgur.com/GdGZDpb.png", //Brie Cunngemi
 "304_51":"https://i.imgur.com/gqsIz1e.png", //Candon Coburn with Blaster Pistols
 "304_52":"https://i.imgur.com/rQFqqmf.png", //Claudius the Hutt, Crimelord
 "304_53":"https://i.imgur.com/gl0RUb5.png", //Club Antonia Bouncer
@@ -3918,12 +3918,16 @@ const fixedImages = {
 "304_140":"https://i.imgur.com/QxWp0JG.png", //K'vin J. Lawdogg
 "304_141":"https://i.imgur.com/U5CS5KA.png", //Saris Aran
 "304_142":"https://i.imgur.com/o4xdALw.png", //Sykes Jades, Mercenary
-"304_143":"https://i.imgur.com/XyrjyMT.png", //There Is Another Lap'lamiz
+"304_143":"https://i.imgur.com/Fx4LxXA.png", //There Is Another Lap'lamiz
 "304_144":"https://i.imgur.com/c1CPk9x.png", //Sibling Bait
 "304_145":"https://i.imgur.com/F0q510i.png", //Kai Lap'lamiz, Jedi Knight
 "304_146":"https://i.imgur.com/0V3ATYo.jpg", //Kai Lap'lamiz's Lightsaber
 "304_147":"https://i.imgur.com/mN3ZH9P.png", //Daughter of Lap'lamiz
 "304_148":"https://i.imgur.com/webwMkT.png", //Pocket Salt
+
+"305_1":"https://i.imgur.com/XFHcqHf.png", //Edgar Drachen, The Hothfather
+"305_2":"https://i.imgur.com/7Q1lYeZ.png", //Palatinae Royal Guard Force Pike
+"305_3":"https://i.imgur.com/fyeaN1a.png", //Conquering Caperion
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
@@ -4533,8 +4537,12 @@ const fixedImages = {
 "206_6ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/whatchancedowehave_ai.png",
 "204_1ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/bb8_ai.png",
 "208_8ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/lukeskywalkertherebellionshope_ai.png",
+"302_12ai":"https://i.imgur.com/geP8b55.png", //Howlader Taldrya
+"302_25ai":"https://i.imgur.com/3BD62vH.png", //Dacien Victae, Deputy Grand Master
+"302_29ai":"https://i.imgur.com/olRnWpk.png", //Lord Idris Adenn, Voice
+"303_27ai":"https://i.imgur.com/B1pYIkt.png", //Kai Lap'lamiz With Lightsaber
 "304_13ai":"https://i.imgur.com/KtBWlJ1.png", //Sykes Jade
-"304_28ai":"https://i.imgur.com/RlhlDPg.png", //Master Kamjin 'Maverick' Lap'lamiz
+"304_28ai":"https://i.imgur.com/4HgpyMF.png", //Master Kamjin 'Maverick' Lap'lamiz
 "304_33ai":"https://i.imgur.com/UJk50gN.png", //Pete From Sales
 
 };
