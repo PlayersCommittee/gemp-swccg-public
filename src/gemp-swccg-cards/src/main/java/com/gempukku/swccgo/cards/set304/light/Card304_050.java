@@ -29,9 +29,9 @@ import java.util.List;
 public class Card304_050 extends AbstractAlien {
     public Card304_050() {
         super(Side.LIGHT, 3, 3, 2, 2, 4, "Brie Cunngemi", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
-        setLore("Brie has had a hard life growing up mostly on the streets. If not for her looks she'd have been overlooked by the Tiure clan. She now manages the oldest known profession within the Tiure clan.");
+        setLore("Brie has had a hard life growing up mostly on the streets. If not for her looks she'd have been overlooked by the Tiure clan. She now manages the oldest known profession within the Tiure clan. Leader.");
         setGameText("Subtracts 1 from deploy cost of Gangsters at same site (Candon Coburn deploy free). During battle, subtracts X from opponent's total power, where X = number of your musicians present (+2 if battling Kamjin or Thran, or +4 if both).");
-        addKeywords(Keyword.FEMALE, Keyword.MUSICIAN, Keyword.CLAN_TIURE);
+        addKeywords(Keyword.FEMALE, Keyword.MUSICIAN, Keyword.CLAN_TIURE, Keyword.LEADER);
 		addIcon(Icon.WARRIOR);
         addPersona(Persona.BRIE);
     }

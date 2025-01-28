@@ -50,7 +50,7 @@ public class Card304_062 extends AbstractAlien {
         super(Side.LIGHT, 2, 3, 3, 1, 4, "Vos Nokler", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("Vos is a leader and majordomo for Claudius the Hutt. Unlike other majordomo's Vos is completely loyal to Claudius given the large sum of credits and men that have been given to Vos over the years.");
         setGameText("Deploys only to Koudooine. Opponent's characters of ability < 4 may not move from same site as Vos to a Claudius's Palace site. When forfeited at same site as Claudius, may satisify all remaining attration against you.");
-        addKeywords(Keyword.LEADER);
+        addKeywords(Keyword.LEADER, Keyword.CLAN_TIURE);
     }
 
     @Override

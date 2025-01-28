@@ -45,7 +45,7 @@ public class Card304_102 extends AbstractAlien {
         setLore("Musician. Thief. Selynn Valtora fell in love with Sqygorn Dar and found herself caught up in the gangster lifestyle. Now she'd do anything for him. Even kill.");
         setGameText("Total power at same site is +1 for each of your gangster/musician pairs present. Once during each battle, if present with Sqygorn, may use 1 Force to search any Used Pile and move 1 character there to the Lost Pile.");
         addIcons(Icon.WARRIOR);
-        addKeywords(Keyword.GANGSTER, Keyword.THIEF, Keyword.MUSICIAN);
+        addKeywords(Keyword.GANGSTER, Keyword.THIEF, Keyword.MUSICIAN, Keyword.CLAN_TIURE);
     }
 
     @Override

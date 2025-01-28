@@ -3891,7 +3891,7 @@ const fixedImages = {
 "304_114":"https://i.imgur.com/oPTe3AL.jpg", //Slithering Back
 "304_115":"https://i.imgur.com/A3BxqFJ.jpg", //Get Behind Me
 "304_116":"https://i.imgur.com/hOITmc6.jpg", //Hired Gun
-"304_117":"https://i.imgur.com/zFcQzs0.jpg", //He's Crazy
+"304_117":"https://i.imgur.com/zGQFv41.png", //He's Crazy
 "304_118":"https://i.imgur.com/X97wmeV.jpg", //Number One Gangster
 "304_119":"https://i.imgur.com/HkHsJrc.jpg", //Standoff
 "304_120":"https://i.imgur.com/OvDuDNC.jpg", //Training Failure & Gambling Addiction
