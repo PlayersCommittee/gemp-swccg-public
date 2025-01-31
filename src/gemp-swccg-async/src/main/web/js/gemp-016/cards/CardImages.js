@@ -3823,14 +3823,14 @@ const fixedImages = {
 "304_47":"https://i.imgur.com/mU2vl65.png", //Calle Tarnoc
 "304_48":"https://i.imgur.com/sM6va8o.png", //Clone Technician
 "304_49":"https://i.imgur.com/uuexEjL.png", //Allie Grosser
-"304_50":"https://i.imgur.com/GdGZDpb.png", //Brie Cunngemi
+"304_50":"https://i.imgur.com/fzhCaVl.png", //Brie Cunngemi
 "304_51":"https://i.imgur.com/gqsIz1e.png", //Candon Coburn with Blaster Pistols
 "304_52":"https://i.imgur.com/rQFqqmf.png", //Claudius the Hutt, Crimelord
 "304_53":"https://i.imgur.com/gl0RUb5.png", //Club Antonia Bouncer
 "304_54":"https://i.imgur.com/m2E4iO4.png", //Dia Gida
 "304_55":"https://i.imgur.com/TlwH0fd.png", //Gaius the Hutt
 "304_56":"https://i.imgur.com/HpdLgT2.png", //Gex Degrix
-"304_57":"https://i.imgur.com/aRW0LPf.png", //Ixtal Noxus
+"304_57":"https://i.imgur.com/QNWjAuS.png", //Ixtal Noxus
 "304_58":"https://i.imgur.com/Vz24DHC.png", //Jloc'itaome'faottas or Locita
 "304_59":"https://i.imgur.com/aNpjeOr.png", //Silri R'lobsam
 "304_60":"https://i.imgur.com/jRhCXO9.png", //Sqygorn Dar
