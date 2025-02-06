@@ -69,6 +69,8 @@ public class PackagedProductStorageBuilder {
             packStorage.addPackagedProduct(product.getProductName(), product);
             product = new SABoosterPack(library);
             packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new GreatHuttExpansionBoosterPack(library);
+            packStorage.addPackagedProduct(product.getProductName(), product);
 
             // Add Standard Booster Boxes
             product = new PremiereBoosterBox(library);

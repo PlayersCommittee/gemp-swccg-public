@@ -10,20 +10,20 @@ import com.gempukku.swccgo.game.SwccgCardBlueprintLibrary;
 import java.util.*;
 
 /**
- * Defines a Shadow Academy booster pack.
+ * Defines a Great Hutt Expansion booster pack.
  */
-public class SABoosterPack extends BasePackagedCardProduct {
+public class GreatHuttExpansionBoosterPack extends BasePackagedCardProduct {
     private Random _random = new Random();
     private SetRarity _setRarity;
 
     /**
-     * Creates a Shadow Academy booster pack.
+     * Creates a Premiere booster pack.
      * @param library the blueprint library
      */
-    public SABoosterPack(SwccgCardBlueprintLibrary library) {
+    public GreatHuttExpansionBoosterPack(SwccgCardBlueprintLibrary library) {
         super(library);
         RarityReader rarityReader = new RarityReader();
-        _setRarity = rarityReader.getSetRarity(String.valueOf(ExpansionSet.SA.getSetNumber()));
+        _setRarity = rarityReader.getSetRarity(String.valueOf(ExpansionSet.GREAT_HUTT_EXPANSION.getSetNumber()));
     }
 
     /**
@@ -32,7 +32,7 @@ public class SABoosterPack extends BasePackagedCardProduct {
      */
     @Override
     public String getProductName() {
-        return ProductName.SA_BOOSTER_PACK;
+        return ProductName.GREAT_HUTT_EXPANSION_BOOSTER_PACK;
     }
 
     /**
@@ -41,7 +41,7 @@ public class SABoosterPack extends BasePackagedCardProduct {
      */
     @Override
     public float getProductPrice() {
-        return ProductPrice.SA_BOOSTER_PACK;
+        return ProductPrice.GREAT_HUTT_EXPANSION_BOOSTER_PACK;
     }
 
     /**
@@ -51,9 +51,9 @@ public class SABoosterPack extends BasePackagedCardProduct {
     @Override
     public List<CardCollection.Item> openPackage() {
         List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
-        addRandomCommonCard(result, 6);
+        addRandomUncommonCard(result, 4);
         addRandomRareCard(result, 1);
-        addRandomUncommonCard(result, 2);
+        addRandomCommonCard(result, 10);
         return result;
     }
 
@@ -64,12 +64,13 @@ public class SABoosterPack extends BasePackagedCardProduct {
      */
     private void addRandomRareCard(List<CardCollection.Item> result, int count) {
         List<String> possibleCards = new ArrayList<String>();
-        possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.UR));
-        possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.R));
-        possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.R));
+        possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.V));
+        possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.V));
+        possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.V));
         filterNonExistingCards(possibleCards);
         Collections.shuffle(possibleCards, _random);
-        addCards(result, possibleCards.subList(0, Math.min(possibleCards.size(), count)), true);
+        addCards(result, possibleCards.subList(0, 1), true);
+        addCards(result, possibleCards.subList(0, Math.min(possibleCards.size(), count)), false);
     }
 
     /**
@@ -79,7 +80,9 @@ public class SABoosterPack extends BasePackagedCardProduct {
      */
     private void addRandomUncommonCard(List<CardCollection.Item> result, int count) {
         List<String> possibleCards = new ArrayList<String>();
-        possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.U));
+        possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.V));
+        possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.V));
+        possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.V));
         filterNonExistingCards(possibleCards);
         Collections.shuffle(possibleCards, _random);
         addCards(result, possibleCards.subList(0, Math.min(possibleCards.size(), count)), false);
@@ -92,7 +95,12 @@ public class SABoosterPack extends BasePackagedCardProduct {
      */
     private void addRandomCommonCard(List<CardCollection.Item> result, int count) {
         List<String> possibleCards = new ArrayList<String>();
-        possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.C));
+        possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.V));
+        possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.V));
+        possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.V));
+        possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.V));
+        possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.V));
+        possibleCards.addAll(_setRarity.getCardsOfRarity(Rarity.V));
         filterNonExistingCards(possibleCards);
         Collections.shuffle(possibleCards, _random);
         addCards(result, possibleCards.subList(0, 1), true);

@@ -26,6 +26,7 @@ public interface ProductPrice {
     int REFLECTIONS_III_BOOSTER_PACK = 825;
     int DB_CORE_BOOSTER_PACK = 300;
     int SA_BOOSTER_PACK = 250;
+    int GREAT_HUTT_EXPANSION_BOOSTER_PACK = 300;
 
     // Booster box prices
     int PREMIERE_BOOSTER_BOX = 9000;
