@@ -43,7 +43,7 @@ import java.util.List;
  */
 public class Card303_024 extends AbstractNormalEffect {
     public Card303_024() {
-        super(Side.LIGHT, 4, null, Title.Dark_Side_Corruption, Uniqueness.UNRESTRICTED, ExpansionSet.SA, Rarity.V);
+        super(Side.LIGHT, 4, null, Title.Dark_Side_Corruption, Uniqueness.UNRESTRICTED, ExpansionSet.SA, Rarity.U);
         setLore("The Dark Side is a path to power but it comes at a cost.");
         setGameText("Deploy on any character. Subtracts 2 from that character's training destiny draws. OR Deploy on an opponent's character of ability > 3 at a site. During each of opponent's move phases, opponent must choose to move that character, lose that character or lose 1 Force.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

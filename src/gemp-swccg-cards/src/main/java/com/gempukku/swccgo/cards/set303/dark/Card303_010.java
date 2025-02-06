@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card303_010 extends AbstractCharacterDevice {
     public Card303_010() {
-        super(Side.DARK, 5, Title.Shadow_Academy_Holocron, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 5, Title.Shadow_Academy_Holocron, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.R);
         setLore("The Shadow Academy prides itself on a limited collection of powerful Sith relics. This particular holocron focuses on training apprentices who've lost their master.");
         setGameText("Deploy on any character. Adds 2 to training destiny when held by the apprentice.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

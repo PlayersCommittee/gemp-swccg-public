@@ -37,7 +37,7 @@ import java.util.List;
  */
 public class Card303_019 extends AbstractAlien {
     public Card303_019() {
-        super(Side.LIGHT, 1, 4, 4, 5, 5, "Malfearak Asvraal, Herald", Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.V);
+        super(Side.LIGHT, 1, 4, 4, 5, 5, "Malfearak Asvraal, Herald", Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.R);
         setLore("Experienced Jawa thief. Pilfers equipment and hijacks vehicles from unwary bystanders in Mos Eisley. Het Nkik's ugliest cousin.");
         setGameText("Adds 1 to power of any ship he pilots. During your control phase, may exchange one card in hand for one weapon or device in your Lost Pile OR may lose 1 Force to steal into hand one character weapon or device from opponent's Lost Pile.");
         addIcons(Icon.PILOT, Icon.WARRIOR);

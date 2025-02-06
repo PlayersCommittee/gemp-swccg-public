@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card303_008 extends AbstractImperial {
     public Card303_008() {
-        super(Side.DARK, 1, 5, 3, 4, 6, Title.Alethia_Archenksova_Headmistress, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 1, 5, 3, 4, 6, Title.Alethia_Archenksova_Headmistress, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.R);
         setLore("Currently serving as the Headmistress and Leader of the Shadow Academy. Her leadership has shaped a new generation of  Brotherhood members. Probably harmless.");
         setGameText("Deploys only to Shadow Academy location, but may move elsewhere. When the Master, adds 1 to training destiny. Immune to attrition. ");
         addPersona(Persona.ALETHIA);

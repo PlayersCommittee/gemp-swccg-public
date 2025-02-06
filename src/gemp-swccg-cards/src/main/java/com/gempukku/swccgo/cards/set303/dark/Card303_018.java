@@ -58,7 +58,7 @@ import java.util.List;
  */
 public class Card303_018 extends AbstractJediTest {
     public Card303_018() {
-        super(Side.DARK, 5, "Through Victory, My Chains Are Broken", ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 5, "Through Victory, My Chains Are Broken", ExpansionSet.SA, Rarity.R);
         setGameText("Deploy on a Shadow Academy site. Target a mentor on Arx and an apprentice who has completed Sith Test #4. Attempt when apprentice is present at the beginning of your control phase. Turn apprentice upside down (cannot move and power = 0). At the end of your next turn, turn apprentice right side up (restored): Place on apprentice. Immune to attrition < 4. Reveal the top two cards of your Reserve Deck and place one upside down on apprentice. Whenever you are about to draw a card for destiny, you may instead use the upside-down card (which remains on apprentice for re-use).");
         addKeyword(Keyword.SITH_TEST_5);
     }

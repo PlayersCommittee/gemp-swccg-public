@@ -52,7 +52,7 @@ import java.util.List;
  */
 public class Card303_007_BACK extends AbstractObjective {
     public Card303_007_BACK() {
-        super(Side.DARK, 7, "The Force Shall Free Me", ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 7, "The Force Shall Free Me", ExpansionSet.SA, Rarity.R);
         setGameText("Immediately retrieve 10 Force and place destiny card from Sith Test #5 on that Sith Test. While this side up, your Sith and Dark Jedi ignore deployment restrictions. Opponent may not play Sense or Alter. Place out of play if you Force drain at Arx. Cancel Apprentice's Sith Tests.");
     }
 

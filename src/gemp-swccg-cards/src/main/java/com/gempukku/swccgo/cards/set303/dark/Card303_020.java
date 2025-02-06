@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class Card303_020 extends AbstractAlien {
     public Card303_020() {
-        super(Side.DARK, 1, 6, 5, 6, 7, "Seraine Ténamao, Emissary", Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 1, 6, 5, 6, 7, "Seraine Ténamao, Emissary", Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.R);
         setLore("A long standing member of the Brotherhood, she recently became Emissary. In her new role she seeks out new members to join the Brotherhood's ranks.");
         setGameText("Adds 3 to any ship she pilots. Once per game, during your move phase, may relocate Seraine to the location of a character ability < 4. Immune attrition < 4.");
         addIcons(Icon.PILOT, Icon.WARRIOR);

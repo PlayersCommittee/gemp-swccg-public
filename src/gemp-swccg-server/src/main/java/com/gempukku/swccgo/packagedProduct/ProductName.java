@@ -25,6 +25,8 @@ public interface ProductName {
     String REFLECTIONS_II_BOOSTER_PACK = "Reflections II Booster Pack";
     String REFLECTIONS_III_BOOSTER_PACK = "Reflections III Booster Pack";
     String REFLECTIONS_III_BOOSTER_PACK_EPISODE_I_ONLY_NO_SHIELDS = "Reflections III Booster Pack (Episode I only no shields)";
+    String DB_CORE_BOOSTER_PACK = "Dark Brotherhood Core Set Booster Pack";
+    String SA_BOOSTER_PACK = "Shadow Academy Booster Pack";
 
     // Booster box
     String PREMIERE_BOOSTER_BOX = "Premiere Booster Box";

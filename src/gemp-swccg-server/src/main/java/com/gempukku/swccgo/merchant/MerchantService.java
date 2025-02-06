@@ -97,6 +97,8 @@ public class MerchantService {
         addFixedItem(ProductName.REFLECTIONS_BOOSTER_PACK, ProductPrice.REFLECTIONS_BOOSTER_PACK);
         addFixedItem(ProductName.REFLECTIONS_II_BOOSTER_PACK, ProductPrice.REFLECTIONS_II_BOOSTER_PACK);
         addFixedItem(ProductName.REFLECTIONS_III_BOOSTER_PACK, ProductPrice.REFLECTIONS_III_BOOSTER_PACK);
+        addFixedItem(ProductName.DB_CORE_BOOSTER_PACK, ProductPrice.DB_CORE_BOOSTER_PACK);
+        addFixedItem(ProductName.SA_BOOSTER_PACK, ProductPrice.SA_BOOSTER_PACK);
 
         // Add booster boxes
         addFixedItem(ProductName.PREMIERE_BOOSTER_BOX, ProductPrice.PREMIERE_BOOSTER_BOX);

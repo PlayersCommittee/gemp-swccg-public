@@ -65,6 +65,10 @@ public class PackagedProductStorageBuilder {
             packStorage.addPackagedProduct(product.getProductName(), product);
             product = new TheedPalaceBoosterPack(library);
             packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new DBCoreBoosterPack(library);
+            packStorage.addPackagedProduct(product.getProductName(), product);
+            product = new SABoosterPack(library);
+            packStorage.addPackagedProduct(product.getProductName(), product);
 
             // Add Standard Booster Boxes
             product = new PremiereBoosterBox(library);

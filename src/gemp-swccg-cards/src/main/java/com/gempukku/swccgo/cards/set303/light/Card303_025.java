@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card303_025 extends AbstractCharacterWeapon {
     public Card303_025() {
-        super(Side.LIGHT, 1, "Marick Tyris Arconae's Lightsaber", Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.V);
+        super(Side.LIGHT, 1, "Marick Tyris Arconae's Lightsaber", Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.U);
         setLore("After his time as Combat Master, Marick found less and less use for his lightsabers. Instead he's focused on become a silent assassin. ");
         setGameText("Deploy on Marick. May add 1 to Force drain where present. May target a character or creature for free. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value.");
         addKeywords(Keyword.LIGHTSABER);

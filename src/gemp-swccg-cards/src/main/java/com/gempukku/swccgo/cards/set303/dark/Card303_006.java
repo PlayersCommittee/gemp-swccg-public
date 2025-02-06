@@ -37,7 +37,7 @@ import java.util.List;
  */
 public class Card303_006 extends AbstractImmediateEffect {
     public Card303_006() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Through_Power_I_Gain_Victory, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Through_Power_I_Gain_Victory, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.C);
         setLore("'Unless the victory is achieved by demonstrating that your power is superior, it is only an illusion. Temporary at best. We seek more.' - Yuthura Ban");
         setGameText("Deploy on an apprentice at the beginning of your turn. Apprentice may not attempt Sith Tests until end of your next turn. At any time, may relocate Immediate Effect from apprentice to a Sith Test. Apprentice adds 3 to training destiny of this test. (Immune to Control). ");
         addImmuneToCardTitle(Title.Control);

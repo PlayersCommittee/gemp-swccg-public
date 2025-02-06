@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card303_022 extends AbstractCharacterWeapon {
     public Card303_022() {
-        super(Side.DARK, 1, "Kamjin's Lightsaber", Uniqueness.RESTRICTED_2, ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 1, "Kamjin's Lightsaber", Uniqueness.RESTRICTED_2, ExpansionSet.SA, Rarity.U);
         setLore("Created by Kamjin Lap'lamiz following his duel with Grand Master Zoraan. Rumor has it that the blade is powered by the crystalized remains of the Grand Master.");
         setGameText("Deploy on Kamjin Lap'lamiz. May add 1 to Force drain where present. May target a character or creature for free. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value.");
         addPersona(Persona.KAMJINS_LIGHTSABER);

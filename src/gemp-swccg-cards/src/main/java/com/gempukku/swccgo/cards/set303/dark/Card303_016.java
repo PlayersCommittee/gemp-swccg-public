@@ -45,7 +45,7 @@ import java.util.List;
  */
 public class Card303_016 extends AbstractJediTest {
     public Card303_016() {
-        super(Side.DARK, 3, "Evil's Domain", ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 3, "Evil's Domain", ExpansionSet.SA, Rarity.C);
         setGameText("Deploy on Shadow Academy: Dueling Platform or Shadow Academy: Training Grounds. Target a mentor at the Shadow Academy and an apprentice who has completed Sith Test #2. Attempt when apprentice is present at the end of your turn and none of your cards participated in battles, Force drains or Sith Tests during that turn. Draw training destiny. If destiny + apprentice's ability > 14, test completed. Place on apprentice. You may subtract 1 from each of opponent's destiny draws.");
         addKeyword(Keyword.SITH_TEST_3);
     }

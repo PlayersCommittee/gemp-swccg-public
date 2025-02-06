@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card303_030 extends AbstractCharacterDevice {
     public Card303_030() {
-        super(Side.LIGHT, 3, "Crystal Armor", Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.V);
+        super(Side.LIGHT, 3, "Crystal Armor", Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.U);
         setLore("Created from the remains of the Crystaline Creatures this armor provide robust protection to the wearer.");
         setGameText("Use 3 Force to deploy on any alien or Rebel. Character is power +2, has armor = 5 and is immune to attrition < 3.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);

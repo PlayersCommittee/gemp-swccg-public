@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card303_026 extends AbstractCharacterWeapon {
     public Card303_026() {
-        super(Side.DARK, 2, "Darth Renatus's Lightsabers", Uniqueness.RESTRICTED_2, ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 2, "Darth Renatus's Lightsabers", Uniqueness.RESTRICTED_2, ExpansionSet.SA, Rarity.U);
         setLore("Created by Thane 'Atra' Skotos before taking the title Darth Renatus. These sabers show the craftsmenship of a former Regent.");
         setGameText("Deploy on Darth Renatus. May add 1 to Force drain where present. May target a character or creature for free. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value.");
         addKeywords(Keyword.LIGHTSABER);

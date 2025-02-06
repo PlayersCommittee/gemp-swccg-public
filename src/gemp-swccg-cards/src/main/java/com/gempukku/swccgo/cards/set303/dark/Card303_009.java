@@ -49,7 +49,7 @@ import java.util.List;
  */
 public class Card303_009 extends AbstractJediTest {
     public Card303_009() {
-        super(Side.DARK, 1, Title.Hence_Forth_You_Shall_Be_Known_As, ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 1, Title.Hence_Forth_You_Shall_Be_Known_As, ExpansionSet.SA, Rarity.U);
         setGameText("Deploy on a Shadow Academy site. Target a mentor here. Also, target or deploy (regardless of location deployment restrictions) an apprentice here. Attempt when targets are present at the beginning of your control phase. Draw training destiny. If destiny + apprentice's ability > 12, test completed: Place on apprentice. All opponent's Force drain bonuses are canceled. (Mentor: one of your characters of ability > 2. Apprentice: one of your non-droid, non-Sith characters of lesser ability than mentor. Each time you complete any Sith Test, you may exchange one card in hand for one Sith Test in your Lost Pile.)");
         addKeyword(Keyword.SITH_TEST_1);
     }

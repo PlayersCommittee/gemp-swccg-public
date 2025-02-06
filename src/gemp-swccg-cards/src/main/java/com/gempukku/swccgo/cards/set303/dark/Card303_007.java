@@ -56,7 +56,7 @@ import java.util.Set;
  */
 public class Card303_007 extends AbstractObjective {
     public Card303_007() {
-        super(Side.DARK, 0, Title.Peace_Is_A_Lie_There_Is_Only_Passion, ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 0, Title.Peace_Is_A_Lie_There_Is_Only_Passion, ExpansionSet.SA, Rarity.R);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy The Shadow Academy Training Grounds (may not be converted). While this side up, during your deploy phase, may deploy a character with ability <7, a Headmaster/mistress or Instructor, Shadow Academy Holocron, Through Passion, I Gain Strength, and Through Power, I Gain Victory to Shadow Academy Training Grounds from Reserve Deck; reshuffle. Whenever you draw training destiny, draw two and choose one. Place Apprentice's completed Sith Tests on table. Your cards at the Shadow Academy may not Force drain or contribute to Force retrieval. Add 4 to each player's destiny draw for Sense and Alter. Flip this card when Apprentice completes Sith Test #5.");
     }

@@ -42,7 +42,7 @@ import java.util.List;
 
 public class Card303_027 extends AbstractRebel {
     public Card303_027() {
-        super(Side.LIGHT, 1, 4, 4, 4, 5, "Kai Lap'lamiz With Lightsaber", Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.V);
+        super(Side.LIGHT, 1, 4, 4, 4, 5, "Kai Lap'lamiz With Lightsaber", Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.R);
         setLore("Kai is the mirror image of his father, Kamjin. But that's where the similarities end. Kai has embraced the light side of the Force and believes his father can be redeemed.");
         setGameText("Adds 2 to any ship he pilots. May spend 3 Force to cancel a destiny draw. Permanent weapon is •Kai's Lightsaber (may target a character or creature for free; draw two destiny; target hit, and its forfeit = 0, if total destiny > defense value).");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON);

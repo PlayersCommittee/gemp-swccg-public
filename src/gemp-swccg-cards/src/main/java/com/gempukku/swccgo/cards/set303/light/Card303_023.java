@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card303_023 extends AbstractNormalEffect {
     public Card303_023() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Self Doubt", Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.V);
+        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Self Doubt", Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.C);
         setLore("Once you start down the dark path, forever will it dominate your destiny, consume you it will, as it did Obi-Wan's apprentice.");
         setGameText("Deploy on your side of table. Apprentices subtract X from training destiny, where X = ability - Sith Test number (minimum zero). Also, once per turn, you may use 2 Force to move the top card of opponent's Force Pile to the top of opponent's Reserve Deck.");
     }

@@ -18,6 +18,8 @@ const packBlueprints = {
     "Reflections II Booster Pack":"https://res.starwarsccg.org/packs/reflections_2_booster_pack.png",
     "Reflections III Booster Pack":"https://res.starwarsccg.org/packs/reflections_3_booster_pack.png",
     "Reflections III Booster Pack (Episode I only no shields)":"https://res.starwarsccg.org/packs/reflections_3_booster_pack.png",
+	"Dark Brotherhood Core Set Booster Pack":"https://i.imgur.com/PZTk3vU.png",
+	"Shadow Academy Booster Pack":"https://i.imgur.com/X26m7u8.png",
 
     "Premiere Booster Box":"https://res.starwarsccg.org/packs/premiere_booster_box.png",
     "A New Hope Booster Box":"https://res.starwarsccg.org/packs/a_new_hope_booster_box.png",

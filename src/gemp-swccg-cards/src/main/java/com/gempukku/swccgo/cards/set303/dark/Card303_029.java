@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card303_029 extends AbstractStarfighter {
     public Card303_029() {
-        super(Side.DARK, 3, 3, 3, null, 4, 4, 4, "TXR-711 Attack Ship", Uniqueness.UNRESTRICTED, ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 3, 3, 3, null, 4, 4, 4, "TXR-711 Attack Ship", Uniqueness.UNRESTRICTED, ExpansionSet.SA, Rarity.C);
         setLore("The TXR-711 Attack Ship is a new addition from Arx Starship Acquisitions.");
         setGameText("May add 2 pilots and 2 passengers. Starship Cannons may deploy (and fire free) aboard.");
         addIcons(Icon.NAV_COMPUTER, Icon.SCOMP_LINK);

@@ -40,7 +40,7 @@ import java.util.List;
  */
 public class Card303_001 extends AbstractJediMaster {
     public Card303_001() {
-        super(Side.LIGHT, 6, 6, 4, 7, 8, Title.Marick_Tyris_Arconae_Exarch, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.V);
+        super(Side.LIGHT, 6, 6, 4, 7, 8, Title.Marick_Tyris_Arconae_Exarch, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.R);
         setLore("");
         setGameText("Once per game, if opponent initiated battle here, may retrieve Jedi Levitation or Weapon Levitation; reshuffle. Immune to attrition <6 (<8 if with Councilor).");
         addPersona(Persona.MARICK);

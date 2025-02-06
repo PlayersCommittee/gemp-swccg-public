@@ -57,7 +57,7 @@ import java.util.List;
  */
 public class Card303_012 extends AbstractJediTest {
     public Card303_012() {
-        super(Side.DARK, 2, "Through Strength, I Gain Power", ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 2, "Through Strength, I Gain Power", ExpansionSet.SA, Rarity.C);
         setGameText("Deploy on an unoccupied Shadow Academy site. At the beginning of each of your move phases, opponent may relocate this Sith Test to an adjacent site. Target a mentor at the Shadow Aacademy and an apprentice who has completed Sith Test #1. Apprentice may move only by using personal landspeed. Attempt when apprentice is present at the beginning of your control phase. Draw training destiny. If destiny + apprentice's ability > 13, test completed: Place on apprentice. Apprentice is power +2 and may move normally. Total ability of 6 or more is required for opponent to draw battle destiny.");
         addKeyword(Keyword.SITH_TEST_2);
     }

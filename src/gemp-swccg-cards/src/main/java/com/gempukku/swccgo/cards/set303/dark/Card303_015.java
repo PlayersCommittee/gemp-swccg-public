@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card303_015 extends AbstractSite {
     public Card303_015() {
-        super(Side.DARK, Title.Shadow_Academy_Dueling_Platform, Title.Arx, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, Title.Shadow_Academy_Dueling_Platform, Title.Arx, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.R);
         setLocationDarkSideGameText("If a Headmaster here, once per turn, may subtract 2 from attrition against you at another location.");
 		setLocationLightSideGameText("If you occupy, opponent's Dueling Platform game text is canceled.");
         addIcon(Icon.DARK_FORCE, 2);

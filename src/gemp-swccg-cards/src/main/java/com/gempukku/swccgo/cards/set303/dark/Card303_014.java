@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class Card303_014 extends AbstractNormalEffect {
     public Card303_014() {
-        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Impatient Apprentice", Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Impatient Apprentice", Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.U);
         setLore("By nature of the Rule of Two, an Apprentice will attempt to overthrow their Master. All to often the Apprentice rushes to claim power and learns a bitter lesson.");
         setGameText("Deploy on your side of table. Your training destiny draws are each +1. Your Immediate Effects may deploy for free. During your deploy phase, you may deploy one Shadow Academy site directly from Reserve Deck. Shuffle, cut and replace. (Immune to Alter.)");
         addImmuneToCardTitle(Title.Alter);

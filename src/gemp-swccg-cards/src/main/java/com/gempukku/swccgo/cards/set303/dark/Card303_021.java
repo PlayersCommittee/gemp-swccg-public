@@ -52,7 +52,7 @@ import java.util.List;
  */
 public class Card303_021 extends AbstractDarkJediMasterImperial {
     public Card303_021() {
-        super(Side.DARK, 6, 6, 6, 7, 8, "Master Kamjin Lap'lamiz, Justicar", Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 6, 6, 6, 7, 8, "Master Kamjin Lap'lamiz, Justicar", Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.R);
         setVirtualSuffix(true);
         setLore("Retreating from the spotlight as Emperor of Scholae Palatinae, Kamjin has assumed the role of Justicar within the Brotherhood. While early in his tenure he has made it a point of eliminating clones.");
         setGameText("Adds 3 to anything he pilots. May use 3 force to 'hide' (be excluded) from a battle. Characters about to be 'hit' by Kamjin may be captured instead. If Kamjin just seized a Councilor or Jedi opponent loses 2 Force.");

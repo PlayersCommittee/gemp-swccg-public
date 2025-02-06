@@ -54,7 +54,7 @@ import java.util.List;
  */
 public class Card303_017 extends AbstractJediTest {
     public Card303_017() {
-        super(Side.DARK, 4, "Knowledge Is Taken", ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 4, "Knowledge Is Taken", ExpansionSet.SA, Rarity.U);
         setGameText("Deploy on Shadow Academy: Study Room. Target a mentor on Arx and an apprentice who has completed Sith Test #3. Attempt when apprentice is present at the beginning of your control phase. Draw training destiny. If destiny + apprentice's ability > 15, test completed: Place on apprentice. Immune to attrition < 3. Once during each of your control phases, you may use 2 Force to search your Reserve Deck and take any one card you find there into hand. Shuffle, cut and replace.");
         addKeyword(Keyword.SITH_TEST_4);
     }

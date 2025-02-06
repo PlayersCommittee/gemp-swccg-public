@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class Card303_013 extends AbstractSite {
     public Card303_013() {
-        super(Side.DARK, Title.Shadow_Academy_Study_Room, Title.Arx, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, Title.Shadow_Academy_Study_Room, Title.Arx, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.U);
         setLocationDarkSideGameText("If opponent has presence here, your Force icon here is cancelled.");
         setLocationLightSideGameText("");
         addIcon(Icon.DARK_FORCE, 1);

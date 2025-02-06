@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card303_004 extends AbstractSite {
     public Card303_004() {
-        super(Side.DARK, Title.Shadow_Academy_Training_Grounds, Title.Arx, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, Title.Shadow_Academy_Training_Grounds, Title.Arx, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.C);
         setLocationDarkSideGameText("Once per turn, may search Reserve Deck. Take one Sith Test into hand. Reshuffle deck.");
         setLocationLightSideGameText("You may use 1 Force to cancel any Force drain here.");
         addIcon(Icon.DARK_FORCE, 2);

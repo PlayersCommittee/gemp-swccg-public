@@ -43,7 +43,7 @@ import java.util.List;
  */
 public class Card303_028 extends AbstractUsedOrLostInterrupt {
     public Card303_028() {
-        super(Side.DARK, 5, "Gentle Vistage", Uniqueness.UNRESTRICTED, ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 5, "Gentle Vistage", Uniqueness.UNRESTRICTED, ExpansionSet.SA, Rarity.U);
         setLore("Not everyone who is evil wears a mask.");
         setGameText("USED: Cancel Dark Side Corruption or cancel an attempt to target a Dark Jedi with a character weapon. LOST: Use 2 Force to target a character present with your Dark Jedi. Target cannot move or battle until end of your next turn.");
     }

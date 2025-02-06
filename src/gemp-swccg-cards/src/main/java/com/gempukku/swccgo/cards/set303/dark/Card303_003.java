@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card303_003 extends AbstractSite {
     public Card303_003() {
-        super(Side.DARK, Title.Shadow_Academy, Title.Arx, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, Title.Shadow_Academy, Title.Arx, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.C);
         setLocationDarkSideGameText("If Alethia here, once per turn, may subtract 2 from attrition against you at another location.");
         setLocationLightSideGameText("If you occupy, opponent's The Shadow Academy game text is canceled.");
         addIcon(Icon.LIGHT_FORCE, 1);

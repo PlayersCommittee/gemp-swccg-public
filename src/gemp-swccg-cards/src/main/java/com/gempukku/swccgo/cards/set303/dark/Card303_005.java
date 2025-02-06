@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card303_005 extends AbstractNormalEffect {
     public Card303_005() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Through_Passion_I_Gain_Strength, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.V);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Through_Passion_I_Gain_Strength, Uniqueness.UNIQUE, ExpansionSet.SA, Rarity.C);
         setLore("'It is our goal to be stronger, to achieve our potential and not rest upon our laurels. We are the seekers, not the shepherds.' - Yuthura Ban");
         setGameText("Deploy on a character. When on the mentor, adds 1 to training destiny draws. If mentor is a Headmaster/mistress or Instructor, adds 2 to training destiny draws.");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
