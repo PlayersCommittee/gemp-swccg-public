@@ -19416,6 +19416,7 @@ public class Filters {
     public static final Filter Kais_Lightsaber = Filters.persona(Persona.KAIS_LIGHTSABER);
     public static final Filter Usurped = Filters.title(Title.Usurped);
     public static final Filter Sibling_Bait = Filters.title(Title.Sibling_Bait);
+    public static final Filter COU = Filters.icon(Icon.COU);
     public static final Filter COU_character = Filters.and(Icon.COU, CardCategory.CHARACTER);
     public static final Filter Seraph_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Seraph));
     public static final Filter Danktooine_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Danktooine));

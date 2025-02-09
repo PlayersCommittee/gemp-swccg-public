@@ -3928,6 +3928,9 @@ const fixedImages = {
 "305_1":"https://i.imgur.com/XFHcqHf.png", //Edgar Drachen, The Hothfather
 "305_2":"https://i.imgur.com/7Q1lYeZ.png", //Palatinae Royal Guard Force Pike
 "305_3":"https://i.imgur.com/fyeaN1a.png", //Conquering Caperion
+"305_4":"https://i.imgur.com/T9en715.png", //Resurgent-II
+"305_5":"https://i.imgur.com/syT5wap.png", //Sunrider
+"305_6":"https://i.imgur.com/uzBYNu7.png", //Nebula-Class Star Destroyer
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
@@ -4544,5 +4547,6 @@ const fixedImages = {
 "304_13ai":"https://i.imgur.com/KtBWlJ1.png", //Sykes Jade
 "304_28ai":"https://i.imgur.com/4HgpyMF.png", //Master Kamjin 'Maverick' Lap'lamiz
 "304_33ai":"https://i.imgur.com/UJk50gN.png", //Pete From Sales
+"305_5ai":"https://i.imgur.com/EqQnjbO.png", //Sunrider
 
 };

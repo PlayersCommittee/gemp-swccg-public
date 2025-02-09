@@ -139,7 +139,8 @@ public enum ModelType implements Filterable {
 	TIE_BA("TIE/BA"),
 	PREDATOR("Predator"),
 	STARVIPER("StarViper"),
-	MINSTREL("Minstrel-class Star-Yacht");
+	MINSTREL("Minstrel-class Star-Yacht"),
+    NEBULA_CLASS_STAR_DESTROYER("Nebula-Class Star Destroyer");
 	
 
     private String _humanReadable;
