@@ -111,109 +111,129 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
      */
     private void getDeckStats(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        String contents = getFormParameterSafely(postDecoder, "deckContents");
-        
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        try {
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String contents = getFormParameterSafely(postDecoder, "deckContents");
+            
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        SwccgDeck deck = _swccgoServer.createDeckWithValidate("tempDeck", contents);
-        if (deck == null)
-            throw new HttpProcessingException(400);
+            SwccgDeck deck = _swccgoServer.createDeckWithValidate("tempDeck", contents);
+            if (deck == null)
+                throw new HttpProcessingException(400);
 
-        int lightCount = 0;
-        int darkCount = 0;
-        for (String card : deck.getCards()) {
-            SwccgCardBlueprint bp = _library.getSwccgoCardBlueprint(card);
-            if(bp == null)
-                continue;
+            int lightCount = 0;
+            int darkCount = 0;
+            for (String card : deck.getCards()) {
+                SwccgCardBlueprint bp = _library.getSwccgoCardBlueprint(card);
+                if(bp == null)
+                    continue;
 
-            Side side = bp.getSide();
-            if (side == Side.DARK)
-                darkCount++;
-            else if (side == Side.LIGHT)
-                lightCount++;
-        }
+                Side side = bp.getSide();
+                if (side == Side.DARK)
+                    darkCount++;
+                else if (side == Side.LIGHT)
+                    lightCount++;
+            }
 
-        String lightDarkCountBonusCss = "";
-        if ((lightCount > 0) && (darkCount > 0)) {
-            lightDarkCountBonusCss = "deckstats-card-count-light-and-dark-set";
-        }
+            String lightDarkCountBonusCss = "";
+            if ((lightCount > 0) && (darkCount > 0)) {
+                lightDarkCountBonusCss = "deckstats-card-count-light-and-dark-set";
+            }
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("<div id=\"deckstats-card-count-container\">");
-        sb.append("<div id=\"deckstats-light-container\" class=\""+lightDarkCountBonusCss+"\"><span id=\"deckstats-light\">Light Cards:</span> <span id=\"deckstats-light-content\">" + lightCount + "</span></div>");
-        sb.append("<div id=\"deckstats-dark-container\"  class=\""+lightDarkCountBonusCss+"\"><span id=\"deckstats-dark\">Dark Cards:</span> <span id=\"deckstats-dark-content\">" + darkCount + "</span></div>");
-        sb.append("</div>");
-        /* Clear out the floats. Render all elements after inline */
-        sb.append("<div style=\"clear:both; margin-bottom:1em;\"></div>");
+            StringBuilder sb = new StringBuilder();
+            sb.append("<div id=\"deckstats-card-count-container\">");
+            sb.append("<div id=\"deckstats-light-container\" class=\""+lightDarkCountBonusCss+"\"><span id=\"deckstats-light\">Light Cards:</span> <span id=\"deckstats-light-content\">" + lightCount + "</span></div>");
+            sb.append("<div id=\"deckstats-dark-container\"  class=\""+lightDarkCountBonusCss+"\"><span id=\"deckstats-dark\">Dark Cards:</span> <span id=\"deckstats-dark-content\">" + darkCount + "</span></div>");
+            sb.append("</div>");
+            /* Clear out the floats. Render all elements after inline */
+            sb.append("<div style=\"clear:both; margin-bottom:1em;\"></div>");
 
-        StringBuilder valid = new StringBuilder();
-        StringBuilder invalid = new StringBuilder();
-        for (SwccgFormat format : _formatLibrary.getAllFormats().values()) {
-            if (!format.isPlaytesting() || resourceOwner.hasType(Player.Type.ADMIN) || resourceOwner.hasType(Player.Type.PLAYTESTER)) {
-                String formatCssId = format.getName().replace(" ", "-").replace("(", "").replace(")", "").replace("/", "").replace("'", "");
-                try {
-                    format.validateDeck(deck);
-                    valid.append("<div id=\"deckstats-format-" + formatCssId + "-container\" class=\"deckstats-format-container\"></span><span id=\"deckstats-format-" + formatCssId + "\" class=\"deckstats-format-name\">" + format.getName() + ":</span> <span id=\"deckstats-format-" + formatCssId + "-content\" class=\"deckstats-format-valid\">valid</span></div>");
-                } catch (DeckInvalidException exp) {
-                    invalid.append("<div id=\"deckstats-format-" + formatCssId + "-container\" class=\"deckstats-format-container\"></span><span id=\"deckstats-format-" + formatCssId + "\" class=\"deckstats-format-name\">" + format.getName() + ":</span> <span id=\"deckstats-format-" + formatCssId + "-content\" class=\"deckstats-format-invalid\">" + exp.getMessage() + "</span></div>");
+            StringBuilder valid = new StringBuilder();
+            StringBuilder invalid = new StringBuilder();
+            for (SwccgFormat format : _formatLibrary.getAllFormats().values()) {
+                if (!format.isPlaytesting() || resourceOwner.hasType(Player.Type.ADMIN) || resourceOwner.hasType(Player.Type.PLAYTESTER)) {
+                    String formatCssId = format.getName().replace(" ", "-").replace("(", "").replace(")", "").replace("/", "").replace("'", "");
+                    try {
+                        format.validateDeck(deck);
+                        valid.append("<div id=\"deckstats-format-" + formatCssId + "-container\" class=\"deckstats-format-container\"></span><span id=\"deckstats-format-" + formatCssId + "\" class=\"deckstats-format-name\">" + format.getName() + ":</span> <span id=\"deckstats-format-" + formatCssId + "-content\" class=\"deckstats-format-valid\">valid</span></div>");
+                    } catch (DeckInvalidException exp) {
+                        invalid.append("<div id=\"deckstats-format-" + formatCssId + "-container\" class=\"deckstats-format-container\"></span><span id=\"deckstats-format-" + formatCssId + "\" class=\"deckstats-format-name\">" + format.getName() + ":</span> <span id=\"deckstats-format-" + formatCssId + "-content\" class=\"deckstats-format-invalid\">" + exp.getMessage() + "</span></div>");
+                    }
                 }
             }
-        }
-        sb.append(valid);
-        sb.append(invalid);
+            sb.append(valid);
+            sb.append(invalid);
 
-        responseWriter.writeHtmlResponse(sb.toString());
+            responseWriter.writeHtmlResponse(sb.toString());
+        }
+        finally {
+            postDecoder.destroy();
+        }
     }
 
     private void deleteDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        String deckName = getFormParameterSafely(postDecoder, "deckName");
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        try {
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String deckName = getFormParameterSafely(postDecoder, "deckName");
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        _deckDao.deleteDeckForPlayer(resourceOwner, deckName);
+            _deckDao.deleteDeckForPlayer(resourceOwner, deckName);
 
-        responseWriter.writeXmlResponse(null);
+            responseWriter.writeXmlResponse(null);
+        }
+        finally {
+            postDecoder.destroy();
+        }
     }
 
     private void renameDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        String deckName = getFormParameterSafely(postDecoder, "deckName");
-        String oldDeckName = getFormParameterSafely(postDecoder, "oldDeckName");
+        try {
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String deckName = getFormParameterSafely(postDecoder, "deckName");
+            String oldDeckName = getFormParameterSafely(postDecoder, "oldDeckName");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        SwccgDeck deck = _deckDao.renameDeck(resourceOwner, oldDeckName, deckName);
-        if (deck == null)
-            throw new HttpProcessingException(404);
+            SwccgDeck deck = _deckDao.renameDeck(resourceOwner, oldDeckName, deckName);
+            if (deck == null)
+                throw new HttpProcessingException(404);
 
-        responseWriter.writeXmlResponse(serializeDeck(deck));
+            responseWriter.writeXmlResponse(serializeDeck(deck));
+        }
+        finally {
+            postDecoder.destroy();
+        }
     }
 
     private void saveDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        String deckName = getFormParameterSafely(postDecoder, "deckName");
-        String contents = getFormParameterSafely(postDecoder, "deckContents");
+        try {
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String deckName = getFormParameterSafely(postDecoder, "deckName");
+            String contents = getFormParameterSafely(postDecoder, "deckContents");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        SwccgDeck swccgDeck = _swccgoServer.createDeckWithValidate(deckName, contents);
-        if (swccgDeck == null)
-            throw new HttpProcessingException(400);
+            SwccgDeck swccgDeck = _swccgoServer.createDeckWithValidate(deckName, contents);
+            if (swccgDeck == null)
+                throw new HttpProcessingException(400);
 
-        _deckDao.saveDeckForPlayer(resourceOwner, deckName, swccgDeck);
+            _deckDao.saveDeckForPlayer(resourceOwner, deckName, swccgDeck);
 
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-        Document doc = documentBuilder.newDocument();
-        Element deckElem = doc.createElement("ok");
-        doc.appendChild(deckElem);
+            Document doc = documentBuilder.newDocument();
+            Element deckElem = doc.createElement("ok");
+            doc.appendChild(deckElem);
 
-        responseWriter.writeXmlResponse(doc);
+            responseWriter.writeXmlResponse(doc);
+        }
+        finally {
+            postDecoder.destroy();
+        }
     }
 
     private void getDeckInHtml(HttpRequest request, ResponseWriter responseWriter) throws Exception {

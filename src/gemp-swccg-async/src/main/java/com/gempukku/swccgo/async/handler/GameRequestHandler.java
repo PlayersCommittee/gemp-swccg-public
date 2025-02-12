@@ -79,35 +79,40 @@ public class GameRequestHandler extends SwccgoServerRequestHandler implements Ur
 
     private void updateGameState(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        int channelNumber = Integer.parseInt(getFormParameterSafely(postDecoder, "channelNumber"));
-        Integer decisionId = null;
-        String decisionIdStr = getFormParameterSafely(postDecoder, "decisionId");
-        if (decisionIdStr != null)
-            decisionId = Integer.parseInt(decisionIdStr);
-        String decisionValue = getFormParameterSafely(postDecoder, "decisionValue");
-
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
-
-        SwccgGameMediator gameMediator = _swccgoServer.getGameById(gameId);
-        if (gameMediator == null)
-            throw new HttpProcessingException(404);
-
-        gameMediator.setPlayerAutoPassSettings(resourceOwner.getName(), getAutoPassPhases(request));
-
         try {
-            if (decisionId != null)
-                gameMediator.playerAnswered(resourceOwner, channelNumber, decisionId, decisionValue);
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            int channelNumber = Integer.parseInt(getFormParameterSafely(postDecoder, "channelNumber"));
+            Integer decisionId = null;
+            String decisionIdStr = getFormParameterSafely(postDecoder, "decisionId");
+            if (decisionIdStr != null)
+                decisionId = Integer.parseInt(decisionIdStr);
+            String decisionValue = getFormParameterSafely(postDecoder, "decisionValue");
 
-            GameCommunicationChannel pollableResource = gameMediator.getCommunicationChannel(resourceOwner, channelNumber);
-            GameUpdateLongPollingResource pollingResource = new GameUpdateLongPollingResource(pollableResource, channelNumber, gameMediator, resourceOwner, responseWriter);
-            _longPollingSystem.processLongPollingResource(pollingResource, pollableResource);
-        } catch (SubscriptionConflictException exp) {
-            responseWriter.writeError(409);
-        } catch (PrivateInformationException e) {
-            responseWriter.writeError(403);
-        } catch (SubscriptionExpiredException e) {
-            responseWriter.writeError(410);
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+            SwccgGameMediator gameMediator = _swccgoServer.getGameById(gameId);
+            if (gameMediator == null)
+                throw new HttpProcessingException(404);
+
+            gameMediator.setPlayerAutoPassSettings(resourceOwner.getName(), getAutoPassPhases(request));
+
+            try {
+                if (decisionId != null)
+                    gameMediator.playerAnswered(resourceOwner, channelNumber, decisionId, decisionValue);
+
+                GameCommunicationChannel pollableResource = gameMediator.getCommunicationChannel(resourceOwner, channelNumber);
+                GameUpdateLongPollingResource pollingResource = new GameUpdateLongPollingResource(pollableResource, channelNumber, gameMediator, resourceOwner, responseWriter);
+                _longPollingSystem.processLongPollingResource(pollingResource, pollableResource);
+            } catch (SubscriptionConflictException exp) {
+                responseWriter.writeError(409);
+            } catch (PrivateInformationException e) {
+                responseWriter.writeError(403);
+            } catch (SubscriptionExpiredException e) {
+                responseWriter.writeError(410);
+            }
+        }
+        finally {
+            postDecoder.destroy();
         }
     }
 
@@ -158,61 +163,81 @@ public class GameRequestHandler extends SwccgoServerRequestHandler implements Ur
 
     private void cancel(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        try {
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        SwccgGameMediator gameMediator = _swccgoServer.getGameById(gameId);
-        if (gameMediator == null)
-            throw new HttpProcessingException(404);
+            SwccgGameMediator gameMediator = _swccgoServer.getGameById(gameId);
+            if (gameMediator == null)
+                throw new HttpProcessingException(404);
 
-        gameMediator.cancel(resourceOwner);
+            gameMediator.cancel(resourceOwner);
 
-        responseWriter.writeXmlResponse(null);
+            responseWriter.writeXmlResponse(null);
+        }
+        finally {
+            postDecoder.destroy();
+        }
     }
 
     private void concede(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
+        try {
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        SwccgGameMediator gameMediator = _swccgoServer.getGameById(gameId);
-        if (gameMediator == null)
-            throw new HttpProcessingException(404);
+            SwccgGameMediator gameMediator = _swccgoServer.getGameById(gameId);
+            if (gameMediator == null)
+                throw new HttpProcessingException(404);
 
-        gameMediator.concede(resourceOwner);
+            gameMediator.concede(resourceOwner);
 
-        responseWriter.writeXmlResponse(null);
+            responseWriter.writeXmlResponse(null);
+        }
+        finally {
+            postDecoder.destroy();
+        }
     }
 
     private void extendGameTimer(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        String minutesStr = getFormParameterSafely(postDecoder, "minutesToExtend");
-        int minutes = Integer.parseInt(minutesStr);
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        try {
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String minutesStr = getFormParameterSafely(postDecoder, "minutesToExtend");
+            int minutes = Integer.parseInt(minutesStr);
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        SwccgGameMediator gameMediator = _swccgoServer.getGameById(gameId);
-        if (gameMediator == null)
-            throw new HttpProcessingException(404);
+            SwccgGameMediator gameMediator = _swccgoServer.getGameById(gameId);
+            if (gameMediator == null)
+                throw new HttpProcessingException(404);
 
-        gameMediator.extendGameTimer(resourceOwner, minutes);
+            gameMediator.extendGameTimer(resourceOwner, minutes);
 
-        responseWriter.writeXmlResponse(null);
+            responseWriter.writeXmlResponse(null);
+        }
+        finally {
+            postDecoder.destroy();
+        }
     }
 
     private void disableActionTimer(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        try {
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        SwccgGameMediator gameMediator = _swccgoServer.getGameById(gameId);
-        if (gameMediator == null)
-            throw new HttpProcessingException(404);
+            SwccgGameMediator gameMediator = _swccgoServer.getGameById(gameId);
+            if (gameMediator == null)
+                throw new HttpProcessingException(404);
 
-        gameMediator.disableActionTimer(resourceOwner);
+            gameMediator.disableActionTimer(resourceOwner);
 
-        responseWriter.writeXmlResponse(null);
+            responseWriter.writeXmlResponse(null);
+        }
+        finally {
+            postDecoder.destroy();
+        }
     }
 
     private void getCardInfo(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {
