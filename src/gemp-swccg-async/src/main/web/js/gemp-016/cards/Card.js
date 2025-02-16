@@ -433,7 +433,8 @@ class Card {
             return (cardNo == 13) ||
                    (cardNo == 22);        
         }if (setNo == 501) {
-            return (cardNo == 6) ||
+            return (cardNo == 4) ||
+                   (cardNo == 6) ||
                    (cardNo == 7) ||
                    (cardNo == 8) ||
                    (cardNo == 13) ||
@@ -444,17 +445,13 @@ class Card {
                    (cardNo == 36) ||
                    (cardNo == 38) ||
                    (cardNo == 39) ||
-                   (cardNo == 47) ||
                    (cardNo == 108) ||
                    (cardNo == 109) ||
                    (cardNo == 113) ||
                    (cardNo == 118) ||
-                   (cardNo == 171) ||
-                   (cardNo == 173) ||
-                   (cardNo == 204) ||
-                   (cardNo == 209) ||
-                   (cardNo == 216) ||
-                   (cardNo == 220);
+                   (cardNo == 160) ||
+                   (cardNo == 164) ||
+                   (cardNo == 171) ;
         }
         if (setNo == 601) {
              return (cardNo == 14) ||

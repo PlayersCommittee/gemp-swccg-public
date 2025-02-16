@@ -54,6 +54,7 @@ public enum Persona implements Filterable {
     GALEN("Galen"),
     FENNEC_SHAND("Fennec Shand"),
     FIGRIN_DAN("Figrin D'an"),
+    FINN("Finn"),
     GIDEON("Gideon"),
     GREEF("Greef"),
     GREEN_LEADER("Green Leader"),

@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
@@ -39,6 +40,7 @@ public class Card204_006 extends AbstractResistance {
         super(Side.LIGHT, 1, 3, 4, 3, 6, Title.Finn, Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setLore("Gunner. Stormtrooper.");
         setGameText("Adds 3 to power of any starship or enclosed vehicle he is aboard as a passenger. May deploy as a 'react' to same location as your pilot (free if Poe or Rey). Once per game, may [upload] Blaster Proficiency. Immune to attrition < 4.");
+        addPersona(Persona.FINN);
         addIcons(Icon.EPISODE_VII, Icon.WARRIOR, Icon.VIRTUAL_SET_4);
         addKeywords(Keyword.GUNNER, Keyword.STORMTROOPER);
     }

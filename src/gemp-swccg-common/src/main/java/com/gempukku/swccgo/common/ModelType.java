@@ -58,6 +58,7 @@ public enum ModelType implements Filterable {
     MODIFIED_CORELLIAN_FREIGHTER("Modified Corellian Freighter"),
     MODIFIED_DELTA_7_INTERCEPTOR("Modified Delta-7 Interceptor"),
     MODIFIED_LIGHT_FREIGHTER("Modified Light Freighter"),
+    MODIFIED_N_1_STARFIGHTER("Modified N-1 Starfighter"),
     MODIFIED_NEBULON_B_FRIGATE("Modified Nebulon-B Frigate"),
     MODIFIED_TRANSPORT("Modified Transport"),
     MODIFIED_VCX_FREIGHTER("Modified VCX Freighter"),
