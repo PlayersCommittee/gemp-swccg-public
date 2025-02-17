@@ -14465,6 +14465,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (isLocationUnderHothEnergyShield(gameState, location))
             return false;
 
+        // Check if considered a non-battleground regardless of Force icons. Note that NONBATTLEGROUND modifier overrides BATTLEGROUND modifier so we process it first
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.NONBATTLEGROUND, location)) {
+            modifierCollector.addModifier(modifier);
+            return false;
+        }
+
         // Must have both Light and Dark icons
         if (hasLightAndDarkForceIcons(gameState, location, ignoreForceIconsFromCard))
             return true;
