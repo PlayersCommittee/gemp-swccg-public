@@ -3758,7 +3758,6 @@ const fixedImages = {
 "501_94_BACK":"https://res.starwarsccg.org/cards/Endor-Light/large/garrisondestroyed.gif",
 "501_95":"https://res.starwarsccg.org/cards/Endor-Light/large/deactivatetheshieldgenerator.gif",
 "501_102":"https://res.starwarsccg.org/cards/Virtual8-Dark/large/captainpeavey.gif",
-"501_104":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/large/kylorenwithlightsaber_ai.gif",
 "501_105":"https://res.starwarsccg.org/cards/Virtual4-Dark/large/bowtothefirstorder.gif",
 "501_106":"https://res.starwarsccg.org/cards/Tatooine-Dark/large/ifthetracewascorrect.gif",
 "501_107":"https://res.starwarsccg.org/cards/Hoth-Dark/large/hoth.gif",
