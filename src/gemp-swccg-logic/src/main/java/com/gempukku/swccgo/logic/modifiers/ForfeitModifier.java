@@ -105,6 +105,17 @@ public class ForfeitModifier extends AbstractModifier {
     }
 
     /**
+     * 
+     * @param source
+     * @param affectFilter
+     * @param modifierAmount
+     * @param cumulative
+     */
+    public ForfeitModifier(PhysicalCard source, Filterable affectFilter, float modifierAmount, boolean cumulative){
+        this(source, affectFilter, null, new ConstantEvaluator(modifierAmount), cumulative);
+    }
+
+    /**
      * Creates a forfeit modifier.
      *
      * @param source         the source of the modifier

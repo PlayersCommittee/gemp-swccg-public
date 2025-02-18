@@ -17559,6 +17559,7 @@ public class Filters {
     public static final Filter At_Last_The_Jedi_Are_No_More = Filters.title(Title.At_Last_The_Jedi_Are_No_More);
     public static final Filter At_Last_We_Will_Have_Revenge = Filters.title(Title.At_Last_We_Will_Have_Revenge);
     public static final Filter At_Peace = Filters.title(Title.At_Peace);
+    public static final Filter AT_M6 = Filters.modelType(ModelType.AT_M6);
     public static final Filter AT_ST = Filters.modelType(ModelType.AT_ST);
     public static final Filter AT_ST_Dual_Cannon = Filters.title(Title.AT_ST_Dual_Cannon);
     public static final Filter At_Death_Star_Site = Filters.atSiteOfSystem(Title.Death_Star);

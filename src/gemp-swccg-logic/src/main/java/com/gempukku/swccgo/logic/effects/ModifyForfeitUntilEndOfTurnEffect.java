@@ -21,6 +21,7 @@ import com.gempukku.swccgo.logic.timing.results.ResetOrModifyCardAttributeResult
 public class ModifyForfeitUntilEndOfTurnEffect extends AbstractSuccessfulEffect {
     private PhysicalCard _cardToModify;
     private float _modifierAmount;
+    private boolean _cumulative;
 
     /**
      * Creates an effect that modifies the forfeit value of a card until end of the turn.
@@ -29,9 +30,21 @@ public class ModifyForfeitUntilEndOfTurnEffect extends AbstractSuccessfulEffect 
      * @param modifierAmount the amount of the modifier
      */
     public ModifyForfeitUntilEndOfTurnEffect(Action action, PhysicalCard cardToModify, float modifierAmount) {
+        this(action, cardToModify, modifierAmount, false);
+    }
+
+    /**
+     * Creates an effect that modifies the forfeit value of a card until end of the turn.
+     * @param action the action performing this effect
+     * @param cardToModify the card whose forfeit value is modified
+     * @param modifierAmount the amount of the modifier
+     * @param cumulative boolean to apply the forfeit modifier cumulatively
+     */
+    public ModifyForfeitUntilEndOfTurnEffect(Action action, PhysicalCard cardToModify, float modifierAmount, boolean cumulative){
         super(action);
         _cardToModify = cardToModify;
         _modifierAmount = modifierAmount;
+        _cumulative = cumulative;
     }
 
     @Override
@@ -64,7 +77,7 @@ public class ModifyForfeitUntilEndOfTurnEffect extends AbstractSuccessfulEffect 
         Filter cardFilter = Filters.and(Filters.sameCardId(_cardToModify), Filters.in_play);
 
         modifiersEnvironment.addUntilEndOfTurnModifier(
-                new ForfeitModifier(source, cardFilter, _modifierAmount));
+                new ForfeitModifier(source, cardFilter, _modifierAmount, _cumulative));
 
         actionsEnvironment.emitEffectResult(new ResetOrModifyCardAttributeResult(_action.getPerformingPlayer(), _cardToModify));
     }
