@@ -12,25 +12,36 @@ import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
  * An evaluator that returns the number of cards out of play accepted by the specified filter.
  */
 public class OutOfPlayEvaluator extends BaseEvaluator {
-    private int _permSourceCardId;
     private Filter _filters;
+    private String _playerId;
+
+    /**
+     * Creates an evaluator that returns the number of cards out of play accepted by the specified filter.
+     *
+     * @param source  the card that is creating this evaluator, its owners out of play area will be evaluated
+     * @param filters the filter
+     */
+    public OutOfPlayEvaluator(PhysicalCard source, Filterable filters) {
+        _filters = Filters.and(filters);
+        _playerId = source.getOwner();
+    }
 
     /**
      * Creates an evaluator that returns the number of cards out of play accepted by the specified filter.
      *
      * @param source  the card that is creating this evaluator
      * @param filters the filter
+     * @param playerId the player whose out of play area will be evaluated
      */
-    public OutOfPlayEvaluator(PhysicalCard source, Filterable filters) {
-        _permSourceCardId = source.getPermanentCardId();
+    public OutOfPlayEvaluator(PhysicalCard source, Filterable filters, String playerId) {
         _filters = Filters.and(filters);
+        _playerId = playerId;
     }
+
 
     @Override
     public float evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        PhysicalCard source = gameState.findCardByPermanentId(_permSourceCardId);
-
         Filter filterToUse = Filters.or(_filters, Filters.hasPermanentAboard(_filters), Filters.hasPermanentWeapon(_filters));
-        return Filters.count(gameState.getOutOfPlayPile(source.getOwner()), gameState.getGame(), filterToUse);
+        return Filters.count(gameState.getOutOfPlayPile(_playerId), gameState.getGame(), filterToUse);
     }
 }
