@@ -39,6 +39,8 @@ public class VirtualAlternateImageBoosterPack extends BasePackagedCardProduct {
                 return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_5;
             case 6:
                 return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_6;
+            case 7:
+                return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_7;
         }
 
         return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_1;
@@ -193,6 +195,24 @@ public class VirtualAlternateImageBoosterPack extends BasePackagedCardProduct {
                 possibleCards.add("218_31^"); //Tydirum (V) (Border Breaker)
                 possibleCards.add("217_52^"); //Your Thoughts Dwell On Your Mother
                 possibleCards.add("204_46^"); //Zam Wesell (Semi Border Break)
+                break;
+            case 7:
+                possibleCards.add("224_9^"); //Balanced Attack & Darklighter Spin (Animated AI)    
+                possibleCards.add("200_109^"); //Coarse And Rough And Irritating (AI)
+                possibleCards.add("214_3^"); //Darksaber (AI)
+                possibleCards.add("214_18^"); //Din Djarin (AI)
+                possibleCards.add("200_39^"); //I Don't Like Sand (AI)
+                possibleCards.add("210_17^"); //Jedi Business (AI)
+                possibleCards.add("211_33^"); //Jedi Lightsaber (V) (AI)
+                possibleCards.add("208_35^"); //Lord Sidious (Hologram AI)
+                possibleCards.add("200_85^"); //Maarek Stele, The Emperor's Reach (AI)
+                possibleCards.add("218_4^"); //Master Windu (Hologram AI)
+                possibleCards.add("214_8^"); //Palpatine, Emperor Returned (AI)
+                possibleCards.add("214_21^"); //Plo Koon's Jedi Starfighter (AI)
+                possibleCards.add("200_88^"); //Probot (AI)
+                possibleCards.add("214_22^"); //Rey, All Of The Jedi (AI)
+                possibleCards.add("214_9^"); //Steadfast (AI)
+                possibleCards.add("219_27^"); //Vader's Lightsaber (V) (AI)
                 break;
         }
 
