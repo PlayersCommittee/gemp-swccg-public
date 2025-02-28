@@ -207,10 +207,10 @@ public class VirtualAlternateImageBoosterPack extends BasePackagedCardProduct {
                 possibleCards.add("208_35^"); //Lord Sidious (Hologram AI)
                 possibleCards.add("200_85^"); //Maarek Stele, The Emperor's Reach (AI)
                 possibleCards.add("218_4^"); //Master Windu (Hologram AI)
+                possibleCards.add("218_27^"); //Outrider (AI)
                 possibleCards.add("214_8^"); //Palpatine, Emperor Returned (AI)
                 possibleCards.add("214_21^"); //Plo Koon's Jedi Starfighter (AI)
                 possibleCards.add("200_88^"); //Probot (AI)
-                possibleCards.add("214_22^"); //Rey, All Of The Jedi (AI)
                 possibleCards.add("214_9^"); //Steadfast (AI)
                 possibleCards.add("219_27^"); //Vader's Lightsaber (V) (AI)
                 break;
