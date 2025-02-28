@@ -126,6 +126,7 @@ public enum Icon implements Filterable {
 	CSP("Clan Scholae Palatinae"),
 	ARCONA("Clan Arcona"),
     COU("Clan Odan-Urr"),
+    TAL("Clan Taldryan"),
     ;
 
     private String _humanReadable;

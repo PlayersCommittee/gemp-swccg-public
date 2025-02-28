@@ -19422,6 +19422,10 @@ public class Filters {
     public static final Filter Danktooine_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Danktooine));
     public static final Filter Ragnath_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Ragnath));
     public static final Filter Myryakur_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Myryakur));
+    public static final Filter TAL_character = Filters.and(Icon.TAL, CardCategory.CHARACTER);
+    public static final Filter COU_leader = Filters.and(Icon.COU, Keyword.LEADER);
+    public static final Filter COU_starship = Filters.and(Icon.COU, CardCategory.STARSHIP);
+    public static final Filter Uncontrolled_Force_Lightning = Filters.title(Title.Uncontrolled_Force_Lightning);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

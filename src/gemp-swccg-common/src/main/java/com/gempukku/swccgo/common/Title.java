@@ -1392,5 +1392,6 @@ public interface Title {
     String Sibling_Bait = "Sibling Bait";
     String Myryakur = "Myryakur";
     String Conquering_Caperion = "Conquering Caperion";
+    String Uncontrolled_Force_Lightning = "Uncontrolled Force Lightning";
 
 }

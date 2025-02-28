@@ -3701,9 +3701,9 @@ const fixedImages = {
 "302_12":"https://i.imgur.com/3qjTn3i.png", //Howlader Taldrya
 "302_13":"https://i.imgur.com/Vtm0FQV.png", //Rajhin Cindertail
 "302_14":"https://i.imgur.com/p7hmzax.png", //T-85 X-Wing Fighter
-"302_15":"https://i.imgur.com/3Ln6rCj.png",
+"302_15":"https://i.imgur.com/3Ln6rCj.png", //Former New Republic Pilot
 "302_16":"https://i.imgur.com/glDKLXk.png", //Arx: Eos City
-"302_17":"https://i.imgur.com/n7ZoDxW.png",
+"302_17":"https://i.imgur.com/n7ZoDxW.png", //Training Failure
 "302_18":"https://i.imgur.com/xfjmU8C.png", //Arx: The Iron Garage
 "302_19":"https://i.imgur.com/8BXf9pU.png",
 "302_20":"https://i.imgur.com/8KxoJG9.png", //Arx: Dark Ascent
@@ -3931,6 +3931,17 @@ const fixedImages = {
 "305_4":"https://i.imgur.com/T9en715.png", //Resurgent-II
 "305_5":"https://i.imgur.com/syT5wap.png", //Sunrider
 "305_6":"https://i.imgur.com/uzBYNu7.png", //Nebula-Class Star Destroyer
+"305_7":"https://i.imgur.com/5KKStR6.png", //Supreme Chancellor Ood Bnar
+"305_8":"https://i.imgur.com/9MuBYvX.png", //Remembrance of Seher
+"305_9":"https://i.imgur.com/P5jjqGl.png", //Solari
+"305_10":"https://i.imgur.com/OJGJKsX.png", //Benn Nevis
+"305_11":"https://i.imgur.com/kmb09Pf.png", //Defender-Class Cruiser
+"305_12":"https://i.imgur.com/UJ8D8yn.png", //Vesper II
+"305_13":"https://i.imgur.com/16ZnPmz.png", //Uncontrolled Force Lightning
+"305_14":"https://i.imgur.com/nY76Z8P.png", //Syrena Valkar
+"305_15":"https://i.imgur.com/W1ccVNu.png", //Hikaru Lap'lamiz With Lightsaber
+"305_16":"https://i.imgur.com/tWoox5n.png", //Hikaru's Lightsaber
+"305_17":"https://i.imgur.com/XOFyuTF.png", //Hikaru Lap'lamiz
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
@@ -4547,6 +4558,7 @@ const fixedImages = {
 "304_13ai":"https://i.imgur.com/KtBWlJ1.png", //Sykes Jade
 "304_28ai":"https://i.imgur.com/4HgpyMF.png", //Master Kamjin 'Maverick' Lap'lamiz
 "304_33ai":"https://i.imgur.com/UJk50gN.png", //Pete From Sales
+"304_71ai":"https://i.imgur.com/wR5fhzv.png", //Where is Jenni III
 "305_5ai":"https://i.imgur.com/EqQnjbO.png", //Sunrider
 
 };

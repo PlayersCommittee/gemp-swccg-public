@@ -201,6 +201,7 @@ public enum Persona implements Filterable {
     KYLE_WARHAWK("Kyle Warhawk"),
     KORVYN("Korvyn"),
     KVIN("K'vin'"),
+    OOD("Odd Bnar"),
 
 
     // Starships
@@ -245,6 +246,7 @@ public enum Persona implements Filterable {
 	GUARDIAN_1("Guardian 1"),
     FERFIEK_CHAWA("Ferfiek Chawa"),
     SARLAC("S.A.R.L.a.C"),
+    SOLARI("Solari"),
 
     // Vehicles
     JABBAS_SAIL_BARGE("Jabba's Sail Barge"),
@@ -277,6 +279,7 @@ public enum Persona implements Filterable {
 	LAPLAMIZ_LIGHTSABER("Lap'lamiz's Lightsaber"),
     SQYGORNS_BLASTER("Sqygorn Dar's Blaster"),
     KYLE_WARHAWK_LIGHTSABER("Kyle Warhawk's Lightsaber"),
+    HIKARUS_LIGHTSABER("Hikaru Lap'lamiz's Lightsaber"),
 
 
     ;
