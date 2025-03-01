@@ -3788,7 +3788,6 @@ const fixedImages = {
 "501_169":"https://res.starwarsccg.org/cards/TheedPalace-Light/large/electropole.gif",
 "501_170":"https://res.starwarsccg.org/cards/JabbasPalace-Light/large/pucumirthryss.gif",
 "501_171":"https://res.starwarsccg.org/cards/SpecialEdition-Light/large/cloudcitynorthcorridor.gif",
-"501_172":"https://res.starwarsccg.org/cards/Premiere-Light/large/demotion.gif",
 "501_173":"https://res.starwarsccg.org/cards/Dagobah-Light/large/obiwansapparition.gif",
 "501_174":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/large/finn_ai.gif",
 "501_175":"https://res.starwarsccg.org/cards/CloudCity-Light/large/idontneedtheirscumeither.gif",
