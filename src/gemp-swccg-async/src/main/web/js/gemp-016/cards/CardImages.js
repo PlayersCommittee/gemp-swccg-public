@@ -3746,6 +3746,7 @@ const fixedImages = {
 "501_50": "https://res.starwarsccg.org/cards/TheedPalace-Dark/large/darthsidious_ai.gif",
 "501_51": "https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/large/darthmaullonehunter_ai.gif",
 "501_52":"https://res.starwarsccg.org/cards/Tatooine-Light/large/ajedispatience.gif",
+"501_53":"https://res.starwarsccg.org/cards/Premiere-Dark/large/preciseattack.gif",
 "501_54":"https://res.starwarsccg.org/cards/Coruscant-Light/large/naboodefensefighter.gif",
 "501_59":"https://res.starwarsccg.org/cards/EnhancedPremiere-Light/large/lukewithlightsaber.gif",
 "501_89":"https://res.starwarsccg.org/cards/Endor-Light/large/orrimaarko.gif",
@@ -3790,6 +3791,9 @@ const fixedImages = {
 "501_172":"https://res.starwarsccg.org/cards/Premiere-Light/large/demotion.gif",
 "501_173":"https://res.starwarsccg.org/cards/Dagobah-Light/large/obiwansapparition.gif",
 "501_174":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/large/finn_ai.gif",
+"501_175":"https://res.starwarsccg.org/cards/CloudCity-Light/large/idontneedtheirscumeither.gif",
+"501_176":"https://res.starwarsccg.org/cards/DeathStarII-Light/large/insertionplanning.gif",
+"501_177":"https://res.starwarsccg.org/cards/Premiere-Light/large/skywalkers.gif",
 "501_196":"https://res.starwarsccg.org/cards/Tatooine-Light/large/neckandneck.gif",
 
 //legacy
