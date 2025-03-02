@@ -9,6 +9,7 @@ import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 public class Card5_051 extends AbstractUsedOrLostInterrupt {
     public Card5_051() {
-        super(Side.LIGHT, 5, "I Don't Need Their Scum, Either", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
+        super(Side.LIGHT, 5, Title.I_Dont_Need_Their_Scum_Either, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Of all the scum and villainy Lando had dealt with (pirates, smugglers, con-artists, thieves, swindlers, politicians and Imperial lackeys), he hated bounty hunters the most.");
         setGameText("USED: Search your Reserve Deck, take one We Don't Need Their Scum into hand and reshuffle. LOST: If a bounty hunter and your Lando are involved in the same battle, you may add one battle destiny (add two if bounty hunter is Boba Fett).");
         addIcons(Icon.CLOUD_CITY);

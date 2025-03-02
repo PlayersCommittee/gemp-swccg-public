@@ -18606,6 +18606,7 @@ public class Filters {
     public static final Filter Order_To_Engage = Filters.title(Title.Order_To_Engage);
     public static final Filter Organized_Attack = Filters.title(Title.Organized_Attack);
     public static final Filter OS_72_10 = Filters.title(Title.OS_72_10);
+    public static final Filter Ounee_Ta = Filters.title(Title.Ounee_Ta);
     public static final Filter Our_First_Catch_Of_The_Day = Filters.title(Title.Our_First_Catch_Of_The_Day);
     public static final Filter Out_Of_Commission = Filters.title(Title.Out_Of_Commission);
     public static final Filter Out_Of_Nowhere = Filters.title(Title.Out_Of_Nowhere);
@@ -18824,6 +18825,7 @@ public class Filters {
     public static final Filter Saurin = Filters.species(Species.SAURIN);
     public static final Filter Save_You_It_Can = Filters.title(Title.Save_You_It_Can);
     public static final Filter Saw = Filters.title(Title.Saw);
+    public static final Filter Scanner_Techs = Filters.title(Title.Scanner_Techs);
     public static final Filter Scanning_Crew = Filters.title(Title.Scanning_Crew);
     public static final Filter Scarif_battleground_site = Filters.and(Filters.partOfSystem(Title.Scarif), CardSubtype.SITE, Filters.battleground());
     public static final Filter Scarif_location = Filters.partOfSystem(Title.Scarif);

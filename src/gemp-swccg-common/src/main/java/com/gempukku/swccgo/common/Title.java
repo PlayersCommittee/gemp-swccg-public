@@ -524,6 +524,7 @@ public interface Title {
     String I_Cant_Believe_Hes_Gone = "I Can't Believe He's Gone";
     String I_Can_Bring_You_In_Warm = "I Can Bring You In Warm";
     String I_Did_It = "I Did It!";
+    String I_Dont_Need_Their_Scum_Either = "I Don't Need Their Scum, Either";
     String I_Feel_The_Conflict = "I Feel The Conflict";
     String I_Have_You_Now = "I Have You Now";
     String I_Hope_Shes_All_Right = "I Hope She's All Right";
@@ -965,6 +966,7 @@ public interface Title {
     String Sarlacc = "Sarlacc";
     String Save_You_It_Can = "Save You It Can";
     String Saw = "Saw Gerrera";
+    String Scanner_Techs = "Scanner Techs";
     String Scanning_Crew = "Scanning Crew";
     String Scarif = "Scarif";
     String Scarif_Citadel_Tower = "Scarif: Citadel Tower";
