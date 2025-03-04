@@ -1127,6 +1127,7 @@ public interface Title {
     String Theed_Palace_Hallway = "Naboo: Theed Palace Hallway";
     String Theed_Palace_Throne_Room = "Naboo: Theed Palace Throne Room";
     String Their_Fire_Has_Gone_Out_Of_The_Universe = "Their Fire Has Gone Out Of The Universe";
+    String There_Are_Many_Hunting_You_Now = "There Are Many Hunting You Now";
     String There_Is_Good_In_Him = "There Is Good In Him";
     String Theyre_On_Dantooine = "They're On Dantooine";
     String They_Will_Be_Lost_And_Confused = "They Will Be Lost And Confused";

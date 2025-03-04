@@ -18941,8 +18941,7 @@ public class Filters {
     public static final Filter starship_cannon = Filters.and(CardType.WEAPON, CardSubtype.STARSHIP, Filters.or(Keyword.CANNON, Keyword.ION_CANNON, Keyword.LASER_CANNON));
     public static final Filter Strike_Planning = Filters.title(Title.Strike_Planning);
     public static final Filter Super_class_Star_Destroyer = Filters.modelType(ModelType.SUPER_CLASS_STAR_DESTROYER);
-    public static final Filter Taking_Control_Of_The_Weapon = Filters.title(Title.Taking_Control_Of_The_Weapon);
-
+    
     /**
      * Wrapper method to allow other static filters to access the wrapped filter.
      */
@@ -19007,6 +19006,7 @@ public class Filters {
     public static final Filter Take_Them_Away = Filters.title(Title.Take_Them_Away);
     public static final Filter Take_Your_Fathers_Place = Filters.title(Title.Take_Your_Fathers_Place);
     public static final Filter Takeel = Filters.title(Title.Takeel);
+    public static final Filter Taking_Control_Of_The_Weapon = Filters.title(Title.Taking_Control_Of_The_Weapon);
     public static final Filter Takodana_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Takodana));
     public static final Filter Tala_1 = Filters.title(Title.Tala_1);
     public static final Filter Tala_2 = Filters.title(Title.Tala_2);
@@ -19067,6 +19067,7 @@ public class Filters {
     public static final Filter Theed_Palace_site = Filters.keyword(Keyword.THEED_PALACE_SITE);
     public static final Filter Theed_Palace_Throne_Room = Filters.title(Title.Theed_Palace_Throne_Room);
     public static final Filter Their_Fire_Has_Gone_Out_Of_The_Universe = Filters.title(Title.Their_Fire_Has_Gone_Out_Of_The_Universe);
+    public static final Filter There_Are_Many_Hunting_You_Now = Filters.title(Title.There_Are_Many_Hunting_You_Now);
     public static final Filter There_Is_Another = Filters.title(Title.There_Is_Another);
     public static final Filter There_Is_Good_In_Him = Filters.title(Title.There_Is_Good_In_Him);
     public static final Filter There_Is_No_Try = Filters.title(Title.There_Is_No_Try);

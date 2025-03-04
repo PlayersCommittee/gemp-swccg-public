@@ -151,6 +151,7 @@ public enum Persona implements Filterable {
     SNAP("Snap Wexley"),
     SNOKE("Snoke"),
     SON_OF_VADER("Son Of Vader"),
+    TALA_DURITH("Tala Durith"),
     TALLIE_LINTRA("Tallie"),
     TARKIN("Tarkin"),
     TEDN_DAHAI("Tedn Dahai"),
