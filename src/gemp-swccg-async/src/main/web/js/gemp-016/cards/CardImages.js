@@ -3742,7 +3742,7 @@ const fixedImages = {
 "501_46_BACK": "https://res.starwarsccg.org/cards/Virtual16-Dark/large/takingcontroloftheweapon.gif",
 "501_47": "https://res.starwarsccg.org/cards/ReflectionsIII-Dark/large/comehereyoubigcoward.gif",
 "501_48":"https://res.starwarsccg.org/cards/TheedPalace-Dark/large/theretheyare.gif",
-"501_49": "https://res.starwarsccg.org/cards/Coruscant-Dark/large/teyhow.gif",
+"501_49": "https://res.starwarsccg.org/cards/TheedPalace-Dark/large/silunch.gif",
 "501_50": "https://res.starwarsccg.org/cards/TheedPalace-Dark/large/darthsidious_ai.gif",
 "501_51": "https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/large/darthmaullonehunter_ai.gif",
 "501_52":"https://res.starwarsccg.org/cards/Tatooine-Light/large/ajedispatience.gif",

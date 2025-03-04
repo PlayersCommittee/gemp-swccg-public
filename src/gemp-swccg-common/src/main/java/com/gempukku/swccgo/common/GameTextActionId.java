@@ -903,7 +903,7 @@ public enum GameTextActionId {
     TATOOINE_GREAT_PIT_OF_CARKOON__DEPLOY_BOBA(true, true),
     TEMMIN_SNAP_WEXLEY__STEAL_BATTLE_DROID_INTO_HAND(false, true),
     TENTACLE_V__SHUFFLE_PILE(false, true),
-    TEY_HOW__DOWNLOAD_DEVICE(true, true),
+    SIL_UNCH__DOWNLOAD_DEVICE(true, true),
     THE_ARMORER__RETRIEVE_WEAPON_INTO_HAND(true, true),
     THE_CLIENT__TAKE_BOUNTY_HUNTER_INTO_HAND(true, true),
     THE_DARK_PATH_V__STACK_HATE_CARDS(true, true),
