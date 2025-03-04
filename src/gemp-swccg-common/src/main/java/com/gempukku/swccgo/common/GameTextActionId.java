@@ -18,6 +18,7 @@ public enum GameTextActionId {
     CANCEL_AND_REDRAW_A_DESTINY,
     Takodana__Draw_Top_Card_Of_Reserve_Deck,
     DAUGHTER_OF_LAPLAMIZ_GAMETEXT_ONCE_PER_BATTLE,
+    HIKARU_LAPLAMIZ_ONE_PER_MOVE_PHASE,
 
     // Used for card action that causes other cards to deploy as a 'react'
     OTHER_CARD_ACTION_REACT_DEPLOY_OTHER_CARDS,

@@ -50,6 +50,7 @@ public class Card305_017 extends AbstractAlien {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+        List<TopLevelGameTextAction> actions = new LinkedList<>();
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
@@ -93,11 +94,14 @@ public class Card305_017 extends AbstractAlien {
                             }
                         }
                 );
+                actions.add(action);
             }
         }
 
+        gameTextActionId = GameTextActionId.HIKARU_LAPLAMIZ_ONE_PER_MOVE_PHASE;
+
         // Check condition(s)
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, Phase.MOVE)) {
+        if (GameConditions.isNumTimesDuringYourPhase(game, self, playerId, 10000, gameTextSourceCardId, Phase.MOVE)) {
             final Filter siteYouOccupyFilter = Filters.and(Filters.site, Filters.otherLocation(self), Filters.occupies(playerId));
             Filter jediFilter = Filters.and(Filters.your(self), Filters.other(self), Filters.Jedi, Filters.here(self),
                     Filters.canBeRelocatedToLocation(siteYouOccupyFilter, 4));
@@ -107,7 +111,7 @@ public class Card305_017 extends AbstractAlien {
                 action.setText("Relocate a Jedi here to site you occupy");
                 // Update usage limit(s)
                 action.appendUsage(
-                        new NumTimesPerPhaseEffect(action, 100));
+                        new NumTimesPerPhaseEffect(action, 10000));
                 // Choose target(s)
                 action.appendTargeting(
                         new TargetCardOnTableEffect(action, playerId, "Choose Jedi", jediFilter) {
@@ -138,9 +142,9 @@ public class Card305_017 extends AbstractAlien {
                             }
                         }
                 );
-                return Collections.singletonList(action);
+                actions.add(action);
             }
         }
-        return null;
+        return actions;
     }
 }
