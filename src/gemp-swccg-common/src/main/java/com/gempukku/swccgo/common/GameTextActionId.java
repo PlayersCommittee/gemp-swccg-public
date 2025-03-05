@@ -837,6 +837,7 @@ public enum GameTextActionId {
     OR_BE_DESTROYED__RETRIEVE_FORCE(false, true),
     ORD_MANTELL__UPLOAD_DEATH_MARK(true, true),
     ORDER_66__AFFECT_JEDI(false, true),
+    ORRIMAARKO__CANCEL_FORCE_DRAIN(false, true),
     OUNEE_TA_V__PLACE_INTERRUPT_OUT_OF_PLAY(true, true),
     OUR_ONLY_HOPE_V__UPLOAD_SITE(true, false),
     OVERSEEING_IT_PERSONALLY__PLACE_OUT_OF_PLAY_TO_RETRIEVE_VADER(true, true),
