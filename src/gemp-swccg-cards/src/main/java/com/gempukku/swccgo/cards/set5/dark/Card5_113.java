@@ -38,7 +38,7 @@ public class Card5_113 extends AbstractNormalEffect {
     public Card5_113() {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Bounty, Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.C);
         setLore("One of the most profitable occupations in the galaxy is hunting down and capturing wanted beings. The more notable the quarry, the more profitable the venture.");
-        setGameText("Deploy on an opponent's non-droid character. If subsequently captured by a bounty hunter and then transferred to a prison, retrieve Force equal to character's forfeit -2 and place Effect in Used Pile. (Immune to Alter.)");
+        setGameText("Deploy on an opponent's non-droid character. If subsequently captured, seized by a bounty hunter, and then transferred to a prison, retrieve Force equal to character's forfeit -2 and place Effect in Used Pile. (Immune to Alter.)");
         addIcons(Icon.CLOUD_CITY);
         addKeywords(Keyword.BOUNTY, Keyword.DEPLOYS_ON_CHARACTERS);
         addImmuneToCardTitle(Title.Alter);

@@ -17,12 +17,12 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.CancelGameTextUntilStartOfTurnEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeUsedModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotCloakModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotFireWeaponsModifier;
-import com.gempukku.swccgo.logic.modifiers.SuspendsCardModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 
@@ -94,24 +94,21 @@ public class Card223_006 extends AbstractUsedOrLostInterrupt {
             actions.add(action);
         }
 
-        if (GameConditions.canSpot(game, self, Filters.Admirals_Order) ||
-                GameConditions.canSpot(game, self, Filters.Emperors_Power)) {
+        if (GameConditions.canTarget(game, self, Filters.or(Filters.Admirals_Order, Filters.Emperors_Power))) {
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
-            action.setText("Suspend card for remainder of turn");
+            action.setText("Cancel game text of a card");
 
-            action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Target card to suspend", Filters.or(Filters.Admirals_Order, Filters.Emperors_Power)) {
+            action.appendTargeting(new TargetCardOnTableEffect(action, playerId, "Target card to cancel game text", Filters.or(Filters.Admirals_Order, Filters.Emperors_Power)) {
                 @Override
                 protected void cardTargeted(int targetGroupId, final PhysicalCard targetedCard) {
                     // Allow response(s)
-                    action.allowResponses("Suspend " + GameUtils.getCardLink(targetedCard) + " for remainder of turn",
+                    action.allowResponses("Cancel game text of " + GameUtils.getCardLink(targetedCard),
                             new RespondablePlayCardEffect(action) {
                                 @Override
                                 protected void performActionResults(Action targetingAction) {
+                                    PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
                                     action.appendEffect(
-                                            new AddUntilEndOfTurnModifierEffect(action,
-                                                    new SuspendsCardModifier(self, targetedCard),
-                                                    "Suspends " + GameUtils.getCardLink(targetedCard))
-                                    );
+                                            new CancelGameTextUntilStartOfTurnEffect(action, finalTarget, playerId));
                                 }
                             }
                     );

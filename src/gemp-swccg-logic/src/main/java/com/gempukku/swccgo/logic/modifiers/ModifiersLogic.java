@@ -102,6 +102,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     private List<Modifier> _untilEndOfEpicEventModifiers = new LinkedList<Modifier>();
     private List<Modifier> _untilEndOfSabaccModifiers = new LinkedList<Modifier>();
     private Map<String, List<Modifier>> _untilEndOfPlayersNextTurnModifiers = new HashMap<String, List<Modifier>>();
+    private List<Modifier> _untilStartOfTurnModifiers = new LinkedList<Modifier>();
+    private Map<String, List<Modifier>> _untilStartOfPlayersNextTurnModifiers = new HashMap<String, List<Modifier>>();
 
     private Set<Modifier> _skipSet = new HashSet<Modifier>();
 
@@ -253,6 +255,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             List<Modifier> snapshotList = new LinkedList<Modifier>(_untilEndOfPlayersNextTurnModifiers.get(playerId));
             snapshot._untilEndOfPlayersNextTurnModifiers.put(playerId, snapshotList);
         }
+        for (String playerId : _untilStartOfPlayersNextTurnModifiers.keySet()) {
+            List<Modifier> snapshotList = new LinkedList<Modifier>(_untilStartOfPlayersNextTurnModifiers.get(playerId));
+            snapshot._untilStartOfPlayersNextTurnModifiers.put(playerId, snapshotList);
+        }
+        snapshot._untilStartOfTurnModifiers.addAll(_untilStartOfTurnModifiers);
         snapshot._skipSet.addAll(_skipSet);
         for (Phase phase : _endOfPhaseLimitCounters.keySet()) {
             Map<String, LimitCounter> snapshotMap = new HashMap<String, LimitCounter>();
@@ -15738,6 +15745,24 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     }
 
     /**
+     * Removes modifiers that expire when the current turn begins.
+     */
+    @Override
+    public void removeStartOfTurnModifiers() {
+        removeModifiers(_untilStartOfTurnModifiers);
+        _untilStartOfTurnModifiers.clear();
+
+        // Move modifiers in "until start of player's next turn" list for the next player
+        // to the "until start of turn" list since that player's turn is next
+        String nextPlayer = _swccgGame.getOpponent(_swccgGame.getGameState().getCurrentPlayerId());
+        List<Modifier> nextTurnModifiers = _untilStartOfPlayersNextTurnModifiers.get(nextPlayer);
+        if (nextTurnModifiers != null) {
+            _untilStartOfTurnModifiers.addAll(nextTurnModifiers);
+            _untilStartOfPlayersNextTurnModifiers.remove(nextPlayer);
+        }
+    }
+
+    /**
      * Removes counters that expire when the current turn is finished.
      */
     @Override
@@ -16040,6 +16065,38 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
             _untilEndOfPlayersNextTurnModifiers.put(playerId, list);
         }
         list.add(modifier);
+    }
+
+    /**
+     * Adds a modifier that expires when the specified players next turn begins.
+     * @param modifier the modifier
+     */
+    @Override
+    public void addUntilStartOfPlayersNextTurnModifier(Modifier modifier, String playerId) {
+        // if it is the opponent's turn add the modifier to _untilStartOfTurnModifiers
+        if (_swccgGame.getOpponent(playerId).equals(_swccgGame.getGameState().getCurrentPlayerId())) {
+            addUntilStartOfNextTurnModifier(modifier);
+        } else {
+            modifier.setPersistent(true);
+            addModifier(modifier);
+            List<Modifier> list = _untilStartOfPlayersNextTurnModifiers.get(playerId);
+            if (list == null) {
+                list = new LinkedList<>();
+                _untilStartOfPlayersNextTurnModifiers.put(playerId, list);
+            }
+            list.add(modifier);
+        }
+    }
+
+    /**
+     * Adds a modifier that expires when the next turn begins.
+     * @param modifier the modifier
+     */
+    @Override
+    public void addUntilStartOfNextTurnModifier(Modifier modifier) {
+        modifier.setPersistent(true);
+        addModifier(modifier);
+        _untilStartOfTurnModifiers.add(modifier);
     }
 
     /**

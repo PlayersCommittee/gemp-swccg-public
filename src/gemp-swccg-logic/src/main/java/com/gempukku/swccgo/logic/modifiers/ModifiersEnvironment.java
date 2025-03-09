@@ -151,6 +151,19 @@ public interface ModifiersEnvironment {
     void addUntilEndOfGameModifier(Modifier modifier);
 
     /**
+     * Adds a modifier that expires when the specified players next turn begins.
+     * @param modifier the modifier
+     */
+    void addUntilStartOfPlayersNextTurnModifier(Modifier modifier, String playerId);
+
+    /**
+     * Adds a modifier that expires when the next turn begins.
+     * @param modifier the modifier
+     */
+    void addUntilStartOfNextTurnModifier(Modifier modifier);
+
+
+    /**
      * Removes modifiers whose expire condition is met.
      */
     void removeExpiredModifiers();
@@ -159,6 +172,11 @@ public interface ModifiersEnvironment {
      * Removes modifiers that expire when the current turn is finished.
      */
     void removeEndOfTurnModifiers();
+
+    /**
+     * Removes modifiers that expire when the current turn begins.
+     */
+    void removeStartOfTurnModifiers();
 
     /**
      * Removes counters that expire when the current turn is finished.

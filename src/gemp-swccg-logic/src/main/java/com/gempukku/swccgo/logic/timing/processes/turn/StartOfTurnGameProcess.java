@@ -26,6 +26,14 @@ public class StartOfTurnGameProcess implements GameProcess {
         }
 
         SystemQueueAction action = new SystemQueueAction();
+        // Remove any modifiers that expire at the start of the turn
+        action.appendEffect(
+                new PassthruEffect(action) {
+                    @Override
+                    public void doPlayEffect(SwccgGame game) {
+                        game.getModifiersEnvironment().removeStartOfTurnModifiers();
+                    }
+                });
         // Trigger effect result for "Start of turn"
         action.appendEffect(
                 new TriggeringResultEffect(action, new StartOfTurnResult()));
