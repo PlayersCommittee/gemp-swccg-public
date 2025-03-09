@@ -31,7 +31,7 @@
      private int _maxCountIntoHand;
 
      /**
-      * Creates an effect for peeking at the top cards of Used Pile and choosing a specified number of them to be lost.
+      * Creates an effect for peeking at the top cards of Used Pile and choosing to take a specified number of them into hand.
       * @param action the action performing this effect
       * @param cardPileOwner the owner of the Force Pile
       * @param count the number of cards to peek at

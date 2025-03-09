@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card3_145 extends AbstractSite {
     public Card3_145() {
-        super(Side.DARK, "Hoth: Echo Command Center (War Room)", Title.Hoth, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U2);
+        super(Side.DARK, Title.Echo_Command_Center, Title.Hoth, Uniqueness.UNIQUE, ExpansionSet.HOTH, Rarity.U2);
         setLocationDarkSideGameText("Add 1 to total of Commence Primary Ignition when targeting the Hoth system.");
         setLocationLightSideGameText("If you control, your starship movement from Hoth sites to the Hoth system is free.");
         addIcon(Icon.DARK_FORCE, 1);

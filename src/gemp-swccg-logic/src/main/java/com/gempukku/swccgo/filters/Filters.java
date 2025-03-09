@@ -17964,6 +17964,7 @@ public class Filters {
     public static final Filter East_Platform = Filters.title(Title.East_Platform);
     public static final Filter Echo_Base_Operations = Filters.title(Title.Echo_Base_Operations);
     public static final Filter Echo_Base_trooper = Filters.keyword(Keyword.ECHO_BASE_TROOPER);
+    public static final Filter Echo_Command_Center = Filters.title(Title.Echo_Command_Center);
     public static final Filter Echo_Docking_Bay = Filters.title(Title.Echo_Docking_Bay);
     public static final Filter Echo_Med_Lab = Filters.title(Title.Echo_Med_Lab);
     public static final Filter Echo_site = Filters.and(CardSubtype.SITE, Filters.titleContains("Echo"));

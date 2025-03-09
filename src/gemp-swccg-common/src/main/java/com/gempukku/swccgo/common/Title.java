@@ -353,6 +353,7 @@ public interface Title {
     String Early_Warning_Network = "Early Warning Network";
     String East_Platform = "Cloud City: East Platform (Docking Bay)";
     String Echo_Base_Operations = "Echo Base Operations";
+    String Echo_Command_Center = "Hoth: Echo Command Center (War Room)";
     String Echo_Docking_Bay = "Hoth: Echo Docking Bay";
     String Echo_Med_Lab = "Hoth: Echo Med Lab";
     String Eee_Chu_Wawa = "Eee Chu Wawa!";
