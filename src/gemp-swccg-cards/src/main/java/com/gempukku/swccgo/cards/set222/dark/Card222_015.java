@@ -67,7 +67,7 @@ public class Card222_015 extends AbstractAlien {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        if (TriggerConditions.isDestinyJustDrawn(game, effectResult)
+        if (TriggerConditions.isBattleDestinyJustDrawnBy(game, effectResult, playerId)
                 && GameConditions.isNumTimesPerBattle(game, self, 2, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isInBattle(game, self)) {
             // Check more condition(s)
