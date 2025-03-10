@@ -94,7 +94,7 @@ public class Card223_039 extends AbstractNormalEffect {
             );
             // Perform result(s)
             action.appendEffect(
-                    new ExchangeCardInHandWithCardInReserveDeckEffect(action, playerId, Filters.any, Filters.any, true)
+                    new ExchangeCardInHandWithCardInReserveDeckEffect(action, playerId, Filters.any, Filters.any, true, true, true)
             );
             actions.add(action);
         }
