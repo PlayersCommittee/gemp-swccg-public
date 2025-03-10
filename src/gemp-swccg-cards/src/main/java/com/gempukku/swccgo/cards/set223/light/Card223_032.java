@@ -2,9 +2,7 @@ package com.gempukku.swccgo.cards.set223.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.InPlayDataSetCondition;
 import com.gempukku.swccgo.cards.effects.AddDestinyToAttritionEffect;
-import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
@@ -21,11 +19,10 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.SendMessageEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilStartOfPlayersNextTurnModifierEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotParticipateInBattleModifier;
@@ -45,7 +42,7 @@ public class Card223_032 extends AbstractRebel {
     public Card223_032() {
         super(Side.LIGHT, 1, 4, 4, 4, 6, Title.Boushh, Uniqueness.UNIQUE, ExpansionSet.SET_23, Rarity.V);
         setLore("Leia obtained the armor of a notorious mercenary to sneak onto Coruscant. She later assumed the same role to spy on Jabba. Fearless and inventive. Jabba's kind of scum.");
-        setGameText("If with Chewie, may add one destiny to your total attrition. If deployed to same site as frozen Han, Leia may not participate in battle until your next turn. Your characters here are immune to Imperial Barrier. Once per game, may take Someone Who Loves You into hand from Reserve Deck; reshuffle.");
+        setGameText("If deployed to same site as frozen Han, Leia may not battle until your next turn. Your characters here are immune to Imperial Barrier. During battle with Chewie, may add one destiny to attrition. Once per game, may [upload] Someone Who Loves You.");
         setArmor(5);
         addIcons(Icon.PREMIUM, Icon.JABBAS_PALACE, Icon.VIRTUAL_SET_23, Icon.PILOT, Icon.WARRIOR);
         addKeywords(Keyword.SPY, Keyword.FEMALE);
@@ -59,7 +56,6 @@ public class Card223_032 extends AbstractRebel {
         List<Modifier> modifiers = new LinkedList<Modifier>();
 
         modifiers.add(new ImmuneToTitleModifier(self, Filters.and(Filters.your(self), Filters.here(self), Filters.character), Title.Imperial_Barrier));
-        modifiers.add(new MayNotParticipateInBattleModifier(self, self, new InPlayDataSetCondition(self)));
         return modifiers;
     }
 
@@ -68,34 +64,15 @@ public class Card223_032 extends AbstractRebel {
         List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
 
         if (TriggerConditions.justDeployedToLocation(game, effectResult, self, Filters.sameSiteAs(self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Filters.frozenCaptive, Filters.Han)))) {
-        
+            String playerId = self.getOwner();
+
 			final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-			action.setText("Boushh may not battle");
-            action.setActionMsg("Boushh may not battle until the start of the Light Side player's next turn.");
+			action.setText("Leia may not battle");
+            action.setActionMsg("Prevent Leia from battling until the start of " + playerId + "'s next turn.");
             // Perform result(s)
             action.appendEffect(
-                    new SetWhileInPlayDataEffect(action, self, new WhileInPlayData()));
-            action.appendEffect(
-                    new SendMessageEffect(action, "Boushh may not battle"));
-            actions.add(action);
-        }
-        return actions;
-    }
-
-    @Override
-    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggersAlwaysWhenInPlay(SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
-        String playerId = self.getOwner();
-        if (TriggerConditions.isStartOfYourTurn(game, effectResult, playerId)
-                && GameConditions.cardHasWhileInPlayDataSet(self)) {
-
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Boushh may battle");
-            // Perform result(s)
-            action.appendEffect(
-                    new SetWhileInPlayDataEffect(action, self, null));
-            action.appendEffect(
-                    new SendMessageEffect(action, "Boushh may battle"));
+                    new AddUntilStartOfPlayersNextTurnModifierEffect(action, playerId,
+                            new MayNotParticipateInBattleModifier(self, Filters.Leia), null));
             actions.add(action);
         }
         return actions;
@@ -108,7 +85,7 @@ public class Card223_032 extends AbstractRebel {
 
         // Check condition(s)
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.hasReserveDeck(game, playerId)) {
+                && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Take Someone Who Loves You into hand");
