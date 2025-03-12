@@ -13039,10 +13039,10 @@ public class Filters {
     }
 
     /**
-     * Gets a filter representing the cards that are physically at locations
+     * Gets a filter representing the cards that are physically PRESENT at locations
      * (and not attached to something else at those locations) that fit the input filters.
-     * This is mainly used when determining cards that "move" from a location.
-     * If you want a filter for cards "at" a location in the rules sense of the term, use the cardsAtLocation() method instead.
+     * This is mainly used when determining cards that "move" from a location (e.g. Elis Helrot)
+     * If you want a filter for cards "at" a location in the rules sense of the term, use Filters.at() or Filters.locationAndCardsAtLocation()
      * @param locationFilter the filter
      */
     public static Filter atLocation(final Filter locationFilter) {
