@@ -48,7 +48,7 @@ public class Card304_055 extends AbstractAlien {
     public Card304_055() {
         super(Side.LIGHT, 2, 5, 3, 3, 6, "Gaius the Hutt", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("A minor member of the Tiure clan. This gangster has been tasked bu Claudius the Hutt to run the clans spice trade. Leader.");
-        setGameText("While with your alien leader, Gaius is immune to attrition any may not be targeted by Interrupts or weapons. May [download] one Hive of Scum And Villainy. During battle may use 1 Force to double the power of one other non-[Maintenance] alien present.");
+        setGameText("While with your alien leader, Gaius is immune to attrition and may not be targeted by Interrupts or weapons. May [download] one Hive of Scum And Villainy. During battle may use 1 Force to double the power of one other non-[Maintenance] alien present.");
         setSpecies(Species.HUTT);
         addKeywords(Keyword.GANGSTER, Keyword.CLAN_TIURE, Keyword.LEADER);
         addPersona(Persona.GAIUS);

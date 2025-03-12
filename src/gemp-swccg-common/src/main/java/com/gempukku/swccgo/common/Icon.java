@@ -74,6 +74,7 @@ public enum Icon implements Filterable {
     FIRST_ORDER("First Order"),
     IMPERIAL("Imperial"),
     INTERRUPT("Interrupt"),
+    MANDALORIAN("Mandalorian"),
     JEDI_MASTER("Jedi Master"),
     JEDI_TEST("Jedi Test"),
     NEW_REPUBLIC("New Republic"),
@@ -127,6 +128,7 @@ public enum Icon implements Filterable {
 	ARCONA("Clan Arcona"),
     COU("Clan Odan-Urr"),
     TAL("Clan Taldryan"),
+    VIZSLA("Clan Vizsla"),
     ;
 
     private String _humanReadable;

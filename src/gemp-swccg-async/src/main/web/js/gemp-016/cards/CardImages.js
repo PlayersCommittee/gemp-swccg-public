@@ -3702,7 +3702,7 @@ const fixedImages = {
 "302_13":"https://i.imgur.com/Vtm0FQV.png", //Rajhin Cindertail
 "302_14":"https://i.imgur.com/p7hmzax.png", //T-85 X-Wing Fighter
 "302_15":"https://i.imgur.com/3Ln6rCj.png", //Former New Republic Pilot
-"302_16":"https://i.imgur.com/glDKLXk.png", //Arx: Eos City
+"302_16":"https://i.imgur.com/MIXYmyG.png", //Arx: Eos City
 "302_17":"https://i.imgur.com/n7ZoDxW.png", //Training Failure
 "302_18":"https://i.imgur.com/xfjmU8C.png", //Arx: The Iron Garage
 "302_19":"https://i.imgur.com/8BXf9pU.png",
@@ -3828,7 +3828,7 @@ const fixedImages = {
 "304_52":"https://i.imgur.com/rQFqqmf.png", //Claudius the Hutt, Crimelord
 "304_53":"https://i.imgur.com/gl0RUb5.png", //Club Antonia Bouncer
 "304_54":"https://i.imgur.com/m2E4iO4.png", //Dia Gida
-"304_55":"https://i.imgur.com/TlwH0fd.png", //Gaius the Hutt
+"304_55":"https://i.imgur.com/9HzO9dy.png", //Gaius the Hutt
 "304_56":"https://i.imgur.com/HpdLgT2.png", //Gex Degrix
 "304_57":"https://i.imgur.com/QNWjAuS.png", //Ixtal Noxus
 "304_58":"https://i.imgur.com/Vz24DHC.png", //Jloc'itaome'faottas or Locita
@@ -3942,6 +3942,13 @@ const fixedImages = {
 "305_15":"https://i.imgur.com/W1ccVNu.png", //Hikaru Lap'lamiz With Lightsaber
 "305_16":"https://i.imgur.com/tWoox5n.png", //Hikaru's Lightsaber
 "305_17":"https://i.imgur.com/XOFyuTF.png", //Hikaru Lap'lamiz
+"305_18":"https://i.imgur.com/VE8RO5k.png", //Declan Roark's Dual WESTAR-35
+"305_19":"https://i.imgur.com/DsWgBGk.png", //Declan Roark With Blaster Rifle
+"305_20":"https://i.imgur.com/Fuss020.png", //Declan Roark
+"305_21":"https://i.imgur.com/RkHelBa.png", //Darth Pravus, Grand Master
+"305_22":"https://i.imgur.com/YXlCuxK.png", //Darth Sarin, Grand Master
+"305_23":"https://i.imgur.com/TvheRKh.png", //Darth Sarin's Lightsaber
+"305_24":"https://i.imgur.com/zbY3Ns1.png", //Declan Roark's Blaster Rifle
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
@@ -4560,5 +4567,9 @@ const fixedImages = {
 "304_33ai":"https://i.imgur.com/UJk50gN.png", //Pete From Sales
 "304_71ai":"https://i.imgur.com/wR5fhzv.png", //Where is Jenni III
 "305_5ai":"https://i.imgur.com/EqQnjbO.png", //Sunrider
+"305_19ai":"https://i.imgur.com/r5oXkaz.png", //Declan Roark With Blaster Rifle
+"305_20ai":"https://i.imgur.com/No4F7Ix.png", //Declan Roark
+"305_22ai":"https://i.imgur.com/jZIIzNb.png", //Darth Sarin, Grand Master
+"305_24ai":"https://i.imgur.com/9cM8NTI.png", //Declan Roark's Blaster Rifle
 
 };

@@ -17,6 +17,7 @@ public enum CardType implements Filterable {
     FIRST_ORDER("First Order"),
     IMPERIAL("Imperial"),
     INTERRUPT("Interrupt"),
+    MANDALORIAN("Mandalorian"),
     JEDI_MASTER("Jedi Master"),
     JEDI_TEST("Jedi Test"),
     LOCATION("Location"),

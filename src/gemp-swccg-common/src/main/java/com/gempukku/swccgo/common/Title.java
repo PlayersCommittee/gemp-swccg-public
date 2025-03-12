@@ -1393,5 +1393,6 @@ public interface Title {
     String Myryakur = "Myryakur";
     String Conquering_Caperion = "Conquering Caperion";
     String Uncontrolled_Force_Lightning = "Uncontrolled Force Lightning";
+    String Declan_Roarks_Blaster_Rifle = "Declan Roark's Blaster Rifle";
 
 }

@@ -17888,8 +17888,8 @@ public class Filters {
     public static final Filter Deploys_at_Roche = Filters.or(Filters.placeToBePresentOnPlanet(Title.Roche), Filters.locationAndCardsAtLocation(Filters.title(Title.Roche)));
     public static final Filter Deploys_at_Sullust = Filters.or(Filters.placeToBePresentOnPlanet(Title.Sullust), Filters.locationAndCardsAtLocation(Filters.title(Title.Sullust)));
     public static final Filter Deploys_at_Tatooine = Filters.or(Filters.placeToBePresentOnPlanet(Title.Tatooine), Filters.locationAndCardsAtLocation(Filters.title(Title.Tatooine)));
-    public static final Filter Deploys_on_Tatooine = Filters.placeToBePresentOnPlanet(Title.Tatooine);
     public static final Filter Deploys_to_Jabbas_Palace_site = Filters.locationAndCardsAtLocation(Filters.keyword(Keyword.JABBAS_PALACE_SITE));
+    public static final Filter Deploys_on_Tatooine = Filters.placeToBePresentOnPlanet(Title.Tatooine);
     public static final Filter Deploys_at_Yavin_4 = Filters.or(Filters.placeToBePresentOnPlanet(Title.Yavin_4), Filters.locationAndCardsAtLocation(Filters.title(Title.Yavin_4)));
     public static final Filter Deploys_on_Yavin_4 = Filters.placeToBePresentOnPlanet(Title.Yavin_4);
     public static final Filter Derlin = Filters.title(Title.Derlin);
@@ -18453,7 +18453,7 @@ public class Filters {
     public static final Filter Malastare = Filters.title(Title.Malastare);
     public static final Filter male = Filters.and(CardCategory.CHARACTER, Filters.or(Keyword.MALE, Filters.not(Filters.keyword(Keyword.FEMALE))));
     public static final Filter Mandalore_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Mandalore));
-    public static final Filter Mandalorian = Filters.species(Species.MANDALORIAN);
+    public static final Filter Mandalorian = Filters.or(Species.MANDALORIAN, CardType.MANDALORIAN);
     public static final Filter Mandalorian_Armor = Filters.title(Title.Mandalorian_Armor);
     public static final Filter Mandalorian_Covert = Filters.title(Title.Mandalorian_Covert);
     public static final Filter Maneuvering_Flaps = Filters.title(Title.Maneuvering_Flaps);
@@ -19426,6 +19426,10 @@ public class Filters {
     public static final Filter COU_leader = Filters.and(Icon.COU, Keyword.LEADER);
     public static final Filter COU_starship = Filters.and(Icon.COU, CardCategory.STARSHIP);
     public static final Filter Uncontrolled_Force_Lightning = Filters.title(Title.Uncontrolled_Force_Lightning);
+    public static final Filter DECLAN = Filters.persona(Persona.DECLAN);
+    public static final Filter VIZSLA_character = Filters.and(Icon.VIZSLA, CardCategory.CHARACTER);
+    public static final Filter Deploys_at_Arx = Filters.or(Filters.placeToBePresentOnPlanet(Title.Arx), Filters.locationAndCardsAtLocation(Filters.title(Title.Arx)));
+    public static final Filter Sarin = Filters.persona(Persona.SARIN);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

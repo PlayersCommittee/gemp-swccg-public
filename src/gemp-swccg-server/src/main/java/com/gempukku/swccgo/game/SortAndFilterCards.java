@@ -225,6 +225,9 @@ public class SortAndFilterCards {
                 if (filterValue.startsWith("CHARACTER_IMPERIAL")) {
                     return CardType.IMPERIAL;
                 }
+                if (filterValue.startsWith("CHARACTER_MANDALORIAN")) {
+                    return CardType.MANDALORIAN;
+                }
                 if (filterValue.startsWith("CHARACTER_JEDI_MASTER")) {
                     return CardType.JEDI_MASTER;
                 }

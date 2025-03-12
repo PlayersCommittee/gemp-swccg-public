@@ -31,8 +31,8 @@ import java.util.List;
 public class Card302_016 extends AbstractSite {
     public Card302_016() {
         super(Side.DARK, Title.Eos_City, Title.Arx, Uniqueness.UNIQUE, ExpansionSet.DJB_CORE, Rarity.V);
-        setLocationDarkSideGameText("Councilors deploys free here. If your moff here, all Imperials are deploy -1 at sites.");
-        setLocationLightSideGameText("Force drain +1 here. If you control, Councilors may not deploy to Coruscant.");
+        setLocationDarkSideGameText("Councilors deploy -4 here. If your Councilor here, all Imperials are deploy -1 at sites.");
+        setLocationLightSideGameText("Force drain +1 here. If you control, Councilors may not deploy to Arx.");
         addIcon(Icon.DARK_FORCE, 2);
 		addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.EXTERIOR_SITE, Icon.PLANET, Icon.SCOMP_LINK);
@@ -41,7 +41,7 @@ public class Card302_016 extends AbstractSite {
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DeploysFreeToLocationModifier(self, Filters.Dark_Councilor, self));
+        modifiers.add(new DeployCostToLocationModifier(self, Filters.Dark_Councilor, -4, self));
         modifiers.add(new DeployCostToLocationModifier(self, Filters.Imperial,
                 new HereCondition(self, Filters.and(Filters.your(playerOnDarkSideOfLocation), Filters.Dark_Councilor)), -1, Filters.site));
         return modifiers;

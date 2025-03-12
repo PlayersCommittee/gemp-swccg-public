@@ -254,6 +254,7 @@ var CardFilter = Class.extend({
             + "<option value='CHARACTER_DROID'>Character - Droid</option>"
             + "<option value='CHARACTER_FIRST_ORDER'>Character - First Order</option>"
             + "<option value='CHARACTER_IMPERIAL'>Character - Imperial</option>"
+			+ "<option value='CHARACTER_MANDALORIAN'>Character - Mandalorian</option>"
             + "<option value='CHARACTER_JEDI_MASTER'>Character - Jedi Master</option>"
             + "<option value='CHARACTER_REBEL'>Character - Rebel</option>"
             + "<option value='CHARACTER_REPUBLIC'>Character - Republic</option>"
