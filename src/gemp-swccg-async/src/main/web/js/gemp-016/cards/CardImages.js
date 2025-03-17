@@ -3949,6 +3949,8 @@ const fixedImages = {
 "305_22":"https://i.imgur.com/YXlCuxK.png", //Darth Sarin, Grand Master
 "305_23":"https://i.imgur.com/TvheRKh.png", //Darth Sarin's Lightsaber
 "305_24":"https://i.imgur.com/zbY3Ns1.png", //Declan Roark's Blaster Rifle
+"305_25":"https://i.imgur.com/m8qMRPN.png", //Delak Krennel
+"305_26":"https://i.imgur.com/92pjsJt.png", //Delak Krennel's Lightsaber
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",

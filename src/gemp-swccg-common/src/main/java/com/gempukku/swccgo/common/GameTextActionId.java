@@ -678,6 +678,7 @@ public enum GameTextActionId {
     HOSTILE_TAKEOVER__DOWNLOAD_LOCITA(true),
     OOD_BNAR__UPLOAD_LIGHTSABER(true),
     DARTH_PRAVUS__UPLOAD_FORCE_LIGHTNING(true),
+    DELAK__UPLOAD_CARD(true),
 
 
     // Per game

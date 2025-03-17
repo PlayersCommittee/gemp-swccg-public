@@ -205,6 +205,7 @@ public enum Persona implements Filterable {
     SARIN("Sarin"),
     PRAVUS("Parvus"),
     DECLAN("Declan Roark"),
+    DELAK("Delak Krennel"),
 
 
     // Starships
@@ -285,6 +286,7 @@ public enum Persona implements Filterable {
     HIKARUS_LIGHTSABER("Hikaru Lap'lamiz's Lightsaber"),
     DECLANS_BLASTER("Declan Roark's Blaster"),
     SARINS_LIGHTSABER("Darth Sarin's Lightsaber"),
+    DELAKS_LIGHTSABER("Delak Krennel's Lightsaber"),
 
 
     ;

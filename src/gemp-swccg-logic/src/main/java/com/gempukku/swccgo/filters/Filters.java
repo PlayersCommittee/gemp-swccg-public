@@ -19430,6 +19430,7 @@ public class Filters {
     public static final Filter VIZSLA_character = Filters.and(Icon.VIZSLA, CardCategory.CHARACTER);
     public static final Filter Deploys_at_Arx = Filters.or(Filters.placeToBePresentOnPlanet(Title.Arx), Filters.locationAndCardsAtLocation(Filters.title(Title.Arx)));
     public static final Filter Sarin = Filters.persona(Persona.SARIN);
+    public static final Filter Delak = Filters.persona(Persona.DELAK);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {
