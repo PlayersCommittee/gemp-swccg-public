@@ -41,6 +41,7 @@ public class Card305_023 extends AbstractCharacterWeapon {
         super(Side.DARK, 1, "Darth Sarin's Lightsaber", Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.U);
         setLore("As recognition for his service to the Brotherhood, Darth Sarin was award a Golden Lightsaber. It has been plated entirely in the rarest electrum from pommel to shroud and emits a unique golden hue.");
         setGameText("Deploy on Sarin. May not be stolen. If present during battle, may 'throw' (place in Lost Pile) to add a destiny to attrition. May target a character for free. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value.");
+        addIcons(Icon.ABT);
         addPersona(Persona.SARINS_LIGHTSABER);
         addKeywords(Keyword.LIGHTSABER);
         setMatchingCharacterFilter(Filters.Sarin);

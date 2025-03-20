@@ -35,7 +35,7 @@ public class Card305_012 extends AbstractCapitalStarship {
         super(Side.LIGHT, 1, 9, 9, 8, null, 4, 10, "Vesper II", Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.UR);
         setLore("Following the attack by Starkiller Base, numerous New Republic vessels found their way into the hands of friendly worlds. It is unknown where Clan Odan-Urr acquired the Vesper II.");
         setGameText("May add 5 pilots, 6 passengers, 1 vehicle and 3 starfighters. Has ship-docking capability. Permanent pilot aboard provides ability of 2. Adds 1 to attrition against opponent here for each piloted [COU] starship here. Immune to attrition < 12");
-        addIcons(Icon.COU, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
+        addIcons(Icon.ABT, Icon.COU, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
         addModelType(ModelType.DEFENDER_CLASS_CRUISER);
         setPilotCapacity(5);
         setPassengerCapacity(6);

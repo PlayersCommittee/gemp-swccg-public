@@ -40,6 +40,7 @@ public class Card304_093 extends AbstractNormalEffect {
         super(Side.LIGHT, 3, PlayCardZoneOption.ATTACHED, Title.Crime_Wave, Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("Criminals thrive on the indulgence of society's 'understanding'.");
         setGameText("Deploy on Ulress if you control that sector and at least three related sites. At each Ulress site, your total power is +4 and your Force drains are +2. Effect canceled if opponent occupies four Ulress locations. (Immune to Alter.)");
+        addIcons(Icon.GREAT_HUTT_EXPANSION);
         addImmuneToCardTitle(Title.Alter);
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);
     }

@@ -41,6 +41,7 @@ public class Card304_128 extends AbstractNormalEffect {
         super(Side.DARK, 0, PlayCardZoneOption.ATTACHED, Title.Complications, Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("Kamjin's daring plan to be captured and root out the Clan Tiure threat succeeded. However, he now risks being usurped by his own Proconsul.");
         setGameText("Deploy on Hostile Takeover. When Kamjin is present at a battleground site, at start of your turn opponent loses 3 Force unless Locita is captured, out of play, or present at a battleground site. Also, Locita is immune to Responsibility Of Command. (Immune to Alter.)");
+        addIcons(Icon.GREAT_HUTT_EXPANSION);
         addImmuneToCardTitle(Title.Alter);
     }
 

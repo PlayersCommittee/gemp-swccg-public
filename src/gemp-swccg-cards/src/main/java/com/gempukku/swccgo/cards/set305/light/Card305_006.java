@@ -25,7 +25,7 @@ public class Card305_006 extends AbstractCapitalStarship {
         super(Side.LIGHT, 1, 8, 8, 6, null, 3, 9, "Nebula-Class Star Destroyer", Uniqueness.UNRESTRICTED, ExpansionSet.ABT, Rarity.U);
         setLore("Also known as the Defender-class Star Destroyer, was the largest, most powerful warship design in the New Republic's New   Class Modernization Program.");
         setGameText("May add 6 pilots, 8 passengers, 2 vehicles and 4 starfighters. Has ship-docking capability. Permanent pilot aboard provides ability of 1.");
-        addIcons(Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
+        addIcons(Icon.ABT, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
         addModelType(ModelType.NEBULA_CLASS_STAR_DESTROYER);
         setPilotCapacity(6);
         setPassengerCapacity(8);

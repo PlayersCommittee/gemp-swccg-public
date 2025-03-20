@@ -39,8 +39,9 @@ import java.util.List;
 public class Card304_073 extends AbstractNormalEffect {
     public Card304_073() {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Hive_of_Scum_and_Villainy, Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
-        setLore("");
+        setLore("Despite making his palace in a former museum made of ice people flock to Claudius's Palace to party. Drinks and dancing are a must to keep the patrons from developing frostbite.");
         setGameText("Deploy on Claudius's Throne Room. While all your ability on table is provided by aliens and independent starship pilots, your aliens and starships deploy -1 and you retrieve 2 Force whenever you initiate battle. (Immune to Alter if you control at least three Claudius's Palace sites.)");
+        addIcons(Icon.GREAT_HUTT_EXPANSION);
         addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 

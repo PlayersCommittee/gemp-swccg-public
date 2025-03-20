@@ -43,7 +43,7 @@ public class Card305_009 extends AbstractCapitalStarship {
         setLore("The pride of Clan Odan-Urr's fleet. While originally a MC-80 star cruiser she has been retrofitted with the latest technology from Arx Fleet Systems.");
         setGameText("May add unlimited pilots, passengers, vehicles and starfighters. Has ship-docking capability. [Pilot] 4. Immune to attrition < 8 (< 10 when [COU] leader piloting). Each of it's weapon destiny draws are +2. Capital starships it hits are power -5.");
         addPersona(Persona.SOLARI);
-        addIcons(Icon.COU, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
+        addIcons(Icon.ABT, Icon.COU, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
         addIcon(Icon.PILOT, 2);
         addModelType(ModelType.MON_CALAMARI_STAR_CRUISER);
         setPilotCapacity(Integer.MAX_VALUE);

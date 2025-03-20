@@ -30,7 +30,7 @@ public class Card305_011 extends AbstractCapitalStarship {
         super(Side.LIGHT, 1, 8, 8, 6, null, 4, 9, "Defender-Class Cruiser", Uniqueness.UNRESTRICTED, ExpansionSet.ABT, Rarity.C);
         setLore("Manufactured by Mon Calamari Shipyards following the end of the Galactic Civil War. Primarily utilized for patrols and prisoner transports.");
         setGameText("May add 5 pilots, 6 passengers, 1 vehicle and 3 starfighters. Has ship-docking capability. Permanent pilot aboard provides ability of 2.");
-        addIcons(Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
+        addIcons(Icon.ABT, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
         addModelType(ModelType.DEFENDER_CLASS_CRUISER);
         setPilotCapacity(5);
         setPassengerCapacity(6);

@@ -43,6 +43,7 @@ public class Card304_138 extends AbstractNormalEffect {
         super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "You Haven't Earned This", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("When Kamjin was recovering from the assassination attempt his son, Kai, took one of his father's lightsabers. Now, Kamjin seeks to regain his lost blade.");
         setGameText("Deploy on table. Once per turn may place a card from hand here (lost if Effect canceled). If Kai's Lightsaber on table, its gametext is canceled and opponent's battle destiny draws are -X, where X = number of cards here. Opponent may lose 2 Force to cancel Effect.");
+        addIcons(Icon.GREAT_HUTT_EXPANSION);
         addImmuneToCardTitle(Title.Alter);
     }
 

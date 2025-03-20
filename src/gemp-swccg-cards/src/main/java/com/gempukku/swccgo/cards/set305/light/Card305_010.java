@@ -41,7 +41,7 @@ public class Card305_010 extends AbstractAlien {
         super(Side.LIGHT, 1, 5, 4, 6, 6, "Benn Nevis", Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.U);
         setLore("Benn was identified as a Force sensitive child during the height of the Empire's reign. Kept in hiding as a child, he eventually joined Clan Odan-Urr as a Jedi, diplomat, mentor, consular and chef.");
         setGameText("Adds 3 to anything he pilots. Once per game, may take a Sense, Control, or Alter into hand from Reserve Deck; reshuffle. Adds 1 to training destiny.");
-        addIcons(Icon.COU, Icon.WARRIOR, Icon.PILOT);
+        addIcons(Icon.ABT, Icon.COU, Icon.WARRIOR, Icon.PILOT);
     }
 
     @Override

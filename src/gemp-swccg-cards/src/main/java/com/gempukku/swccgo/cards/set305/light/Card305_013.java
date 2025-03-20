@@ -45,6 +45,7 @@ public class Card305_013 extends AbstractUsedOrLostInterrupt {
         super(Side.LIGHT, 5, Title.Uncontrolled_Force_Lightning, Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.R);
         setLore("Anger and Fear are a dangerous combination with the Force. Fighting against the First Order, Rey's emotions lashed out in a blast of uncontrolled Force lightning. Nearly killing her friend.");
         setGameText("Target any character (even a captive) present with Rey. USED: Target is defense value -4 for remainder of turn. LOST: Rey loses immunity to attrition and is defense value -2 for remainder of turn. Draw destiny. Target lost if destiny +1 > defense value.");
+        addIcons(Icon.ABT);
     }
 
     @Override

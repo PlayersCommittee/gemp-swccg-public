@@ -38,7 +38,7 @@ public class Card305_001 extends AbstractAlien {
         super(Side.LIGHT, 1, 6, 5, 6, 7, "Edgar Drachen, The Hothfather", Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.R);
         setLore("Edgar was brought up with a deep-seated sense of honor and devotion from a very early age. As a leader in Odan-Urr, espec-ially in the House of Hoth, he protects his home, Solyiat, at any cost.");
         setGameText("Adds 1 to anything he pilots. While armed with a lightsaber, adds 2 to his defense value. During battle, may lose 2 Force to add one battle destiny. Immune to attrition < 6.");
-        addIcons(Icon.COU, Icon.PILOT, Icon.WARRIOR);
+        addIcons(Icon.ABT, Icon.COU, Icon.PILOT, Icon.WARRIOR);
         addKeyword(Keyword.LEADER);
     }
 

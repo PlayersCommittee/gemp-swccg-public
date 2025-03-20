@@ -19431,6 +19431,7 @@ public class Filters {
     public static final Filter Deploys_at_Arx = Filters.or(Filters.placeToBePresentOnPlanet(Title.Arx), Filters.locationAndCardsAtLocation(Filters.title(Title.Arx)));
     public static final Filter Sarin = Filters.persona(Persona.SARIN);
     public static final Filter Delak = Filters.persona(Persona.DELAK);
+    public static final Filter Quermia_site = Filters.and(Filters.partOfSystem(Title.Quermia), CardSubtype.SITE);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

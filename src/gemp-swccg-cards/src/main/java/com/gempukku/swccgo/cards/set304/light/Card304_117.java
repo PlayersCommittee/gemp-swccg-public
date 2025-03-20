@@ -45,6 +45,7 @@ public class Card304_117 extends AbstractNormalEffect {
         super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Hes_Crazy, Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("Sqygorn's temper has often led him to being call crazy, behind his back of course. Course, his temper has also caused him to rush into situations he can't handle.");
         setGameText("Deploy on table. Once per turn, may [download] Sqygorn's Blaster. At start of opponent's control phase, may relocate Sqygorn to same site as a [CSP] character. May place this Effect out of play to deploy Sqygorn's blaster from Lost Pile. Immune to Alter.");
+        addIcons(Icon.GREAT_HUTT_EXPANSION);
         addImmuneToCardTitle(Title.Alter);
     }
 

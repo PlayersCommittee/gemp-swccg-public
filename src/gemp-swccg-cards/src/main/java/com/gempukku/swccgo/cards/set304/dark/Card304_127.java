@@ -42,6 +42,7 @@ public class Card304_127 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Competitive_Advantage, Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("The Empire knows when dealing with non-Imperial factions they need to always hold the competitive advantage. Whether it's ethical or not.");
         setGameText("Use 2 Force to deploy on table. Each time you win a battle, opponent loses 1 Force (cannot be reduced) and stacks lost card here face down. When attempting to cross Locita over (except with Epic Duel), add 3 to total destiny for each card in stack. (Immune to Alter.)");
+        addIcons(Icon.GREAT_HUTT_EXPANSION);
         addImmuneToCardTitle(Title.Alter);
     }
 

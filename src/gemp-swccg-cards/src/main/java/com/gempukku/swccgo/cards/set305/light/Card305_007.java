@@ -32,7 +32,7 @@ public class Card305_007 extends AbstractAlien {
         super(Side.LIGHT, 1, 6, 5, 6, 7, "Supreme Chancellor Ood Bnar", Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.R);
         setLore("A Neeti with amnesia, Ood Bnar has found himself a new home within the Brotherhood. Currently is the leader of Clan Taldryan serving as their Supreme Chancellor and the Left Hand of Justice.");
         setGameText("If drawn for destiny, may [upload] a [TAL] character or a lightsaber. While armed with a lightsaber, adds 2 to his defense value. Once per game, may deploy a lightsaber on Ood Bnar from Lost Pile. Immune to attrition < 6.");
-        addIcons(Icon.WARRIOR, Icon.TAL);
+        addIcons(Icon.ABT, Icon.WARRIOR, Icon.TAL);
         addKeywords(Keyword.LEADER, Keyword.HAND);
         addPersona(Persona.OOD);
     }

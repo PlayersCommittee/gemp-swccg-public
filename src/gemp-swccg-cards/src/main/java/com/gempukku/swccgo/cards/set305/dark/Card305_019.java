@@ -33,6 +33,7 @@ public class Card305_019 extends AbstractMandalorian {
         setArmor(7);
         setLore("A Mandalorian warrior who rose to be the leader of Clan Vizsla. A seasoned combat veteran of numerous tours. Beloved by my soldiers and feared by his enemies.");
         setGameText("Adds 2 to power of anything he pilots. Adds one battle destiny if with [Vizsla] or Mandalorian. Permanent weapon is •Declan Roark's Blaster Rifle (may target a character or creature for free; draw destiny; target hit, and its forfeit = 0, if destiny +1 > defense value).");
+        addIcons(Icon.ABT);
         addPersona(Persona.DECLAN);
         setSpecies(Species.MANDALORIAN);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.VIZSLA);

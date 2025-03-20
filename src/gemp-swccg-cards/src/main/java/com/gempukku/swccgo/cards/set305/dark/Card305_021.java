@@ -44,6 +44,7 @@ public class Card305_021 extends AbstractDarkJediMasterSith {
         super(Side.DARK, 6, 9, 6, 7, 10, "Darth Pravus", Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.UR);
         setLore("Grand Master and leader of the Brotherhood, Darth Pravus is a controversial leader shrouded in mystery. He was responsible for restoring clans to the Brotherhood.");
         setGameText("Deploys -4 to Arx. [Pilot] 1. May use two weapons. Unless opponent's character of ability > 3 here, opponent's total ability here = 0. Once per turn, you may take Force Lightning into hand from Reserve Deck; reshuffle. May be targeted by Force Lightning. Immune to attrition.");
+        addIcons(Icon.ABT);
         addPersona(Persona.PRAVUS);
         addIcon(Icon.WARRIOR, 2);
         addIcons(Icon.PILOT, Icon.SITH);

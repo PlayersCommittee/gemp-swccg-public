@@ -679,6 +679,7 @@ public enum GameTextActionId {
     OOD_BNAR__UPLOAD_LIGHTSABER(true),
     DARTH_PRAVUS__UPLOAD_FORCE_LIGHTNING(true),
     DELAK__UPLOAD_CARD(true),
+    YOUR_INSIGHT_SERVES_YOU_WELL_SAFE_HOUSE__UPLOAD_EFFECT(true),
 
 
     // Per game

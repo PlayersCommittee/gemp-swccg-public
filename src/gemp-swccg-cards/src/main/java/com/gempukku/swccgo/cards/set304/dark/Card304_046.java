@@ -44,6 +44,7 @@ public class Card304_046 extends AbstractNormalEffect {
         super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Cloning_Tanks, Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("'Dark science. Cloning. Secrets only the Sith knew.'");
         setGameText("Use 4 Force to deploy on your side of table. A non-droid character you just lost may be placed here instead of Lost Pile. Holds 1 'clone' at a time. During your deploy phase, may use X Force to bring 'clone' to hand, where X = deploy cost of 'clone.'");
+        addIcons(Icon.GREAT_HUTT_EXPANSION);
     }
 
     @Override

@@ -45,7 +45,7 @@ public class Card304_002 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Scholae Palatinae Occupation", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("Following the conquest of the Caperion system, Scholae Palatinae set forth a policy of occupation to ensure compliance by local populations with Imperial edicts.");
         setGameText("Deploy on a land site. When deployed, stack [CSP] I.S.N. Palpatine face up here from outside your deck. I.S.N. Palpatine may deploy from here as if from hand. Once per battle involving a Scholae Palatinae Emperor, may take your just drawn destiny into hand. Immune to Alter.");
-        addIcons(Icon.CSP);
+        addIcons(Icon.GREAT_HUTT_EXPANSION, Icon.CSP);
         addImmuneToCardTitle(Title.Alter);
     }
 

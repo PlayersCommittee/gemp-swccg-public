@@ -1394,5 +1394,7 @@ public interface Title {
     String Conquering_Caperion = "Conquering Caperion";
     String Uncontrolled_Force_Lightning = "Uncontrolled Force Lightning";
     String Declan_Roarks_Blaster_Rifle = "Declan Roark's Blaster Rifle";
+    String Quermia = "Quermia";
+    String Safe_House = "Safe House";
 
 }

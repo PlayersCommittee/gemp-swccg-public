@@ -33,7 +33,7 @@ public class Card305_005 extends AbstractCapitalStarship {
         super(Side.LIGHT, 2, 6, 7, 6, null, 4, 7, "Sunrider", Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.U);
         setGameText("May add 5 pilots, 5 passengers, 5 vehicles, and 5 starfighters. Permanent pilot provides ability of 2. [COU] with ability < 4 deploy -1 aboard and shuttle from here for free. Immune to attrition < 3.");
         addModelType(ModelType.VENATOR_CLASS_ATTACK_CRUISER);
-        addIcons(Icon.PILOT, Icon.NAV_COMPUTER, Icon.COU, Icon.SCOMP_LINK);
+        addIcons(Icon.ABT, Icon.PILOT, Icon.NAV_COMPUTER, Icon.COU, Icon.SCOMP_LINK);
         setPilotCapacity(5);
         setPassengerCapacity(5);
         setVehicleCapacity(5);

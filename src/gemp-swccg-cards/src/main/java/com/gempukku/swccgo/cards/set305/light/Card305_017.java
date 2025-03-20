@@ -37,6 +37,7 @@ public class Card305_017 extends AbstractAlien {
         super(Side.LIGHT, 1, 5, 4, 5, 7, "Hikaru Lap'lamiz", Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.R);
         setLore("Hikaru experienced the same coma that befell his father, Kamjin. After their meeting in the World Between Worlds, Hikaru returned with mysterious new powers.");
         setGameText("[Pilot] 2. During your move phase, may use 4 Force to relocate your other Jedi here to any site you occupy. During your deploy phase, may use 3 Force to relocate Hikaru from here to same site as a [CSP] character.");
+        addIcons(Icon.ABT);
         addPersona(Persona.HIKARU);
         addIcons(Icon.PILOT, Icon.WARRIOR);
     }

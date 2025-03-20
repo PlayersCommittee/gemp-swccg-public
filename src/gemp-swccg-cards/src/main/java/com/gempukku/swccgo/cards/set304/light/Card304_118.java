@@ -41,6 +41,7 @@ public class Card304_118 extends AbstractNormalEffect {
         super(Side.LIGHT, 7, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Number_One_Gangster, Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("No one knows why, but Sqygorn is Candon Coburn's number one gangster. Candon turns a blind eye to the horrible acts that Sqygorn commits.");
         setGameText("Deploy on table. Once per turn, if Sqygorn on table, may deploy a gangster from Reserve Deck; reshuffle. While present with opponent's [CSP] character, Sqygorn is defense value +2 and immune to attrition. If Sqygorn just lost, place Effect in Used Pile. (Immune to Alter.)");
+        addIcons(Icon.GREAT_HUTT_EXPANSION);
         addImmuneToCardTitle(Title.Alter);
     }
 

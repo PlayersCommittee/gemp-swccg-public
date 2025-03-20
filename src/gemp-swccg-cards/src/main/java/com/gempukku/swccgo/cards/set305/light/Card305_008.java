@@ -33,7 +33,7 @@ public class Card305_008 extends AbstractCapitalStarship {
         super(Side.LIGHT, 1, 9, 8, 6, null, 3, 10, "Remembrance of Seher", Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.R);
         setLore("Named after the Harakoan city, Sehar.");
         setGameText("May add 5 pilots, 6 passengers, 1 vehicle and 3 starfighters. Has ship-docking capability. Permanent pilot provides ability of 2. Immune to attrition < 3 (< 4 if [COU] leader aboard).");
-        addIcons(Icon.COU, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
+        addIcons(Icon.ABT, Icon.COU, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
         addModelType(ModelType.MON_CALAMARI_STAR_CRUISER);
         setPilotCapacity(5);
         setPassengerCapacity(6);

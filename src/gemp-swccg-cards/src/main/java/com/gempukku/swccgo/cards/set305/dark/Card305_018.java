@@ -2,15 +2,7 @@ package com.gempukku.swccgo.cards.set305.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.conditions.AttachedCondition;
-import com.gempukku.swccgo.common.ExpansionSet;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Persona;
-import com.gempukku.swccgo.common.PlayCardOptionId;
-import com.gempukku.swccgo.common.Rarity;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Statistic;
-import com.gempukku.swccgo.common.TargetingReason;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -36,6 +28,7 @@ public class Card305_018 extends AbstractCharacterWeapon {
         super(Side.DARK, 1, "Declan Roark's Dual WESTAR-35s", Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.U);
         setLore("Customized WESTAR-35s made for Declan Roark. Each blaster's grip contains a unique spade in black and gold.");
         setGameText("Deploy on Declan Roark. Twice per battle, may target a character. Draw destiny. Add 2 if Declan is alone. Target hit, and its forfeit = 0, if total +2 > defense value. May not be stolen.");
+        addIcons(Icon.ABT);
         addPersona(Persona.DECLANS_BLASTER);
         addKeywords(Keyword.BLASTER);
         setMatchingCharacterFilter(Filters.DECLAN);

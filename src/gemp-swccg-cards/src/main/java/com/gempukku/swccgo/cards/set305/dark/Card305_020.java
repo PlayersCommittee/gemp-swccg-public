@@ -33,6 +33,7 @@ public class Card305_020 extends AbstractMandalorian {
         setArmor(7);
         setLore("A Mandalorian warrior who rose to be the leader of Clan Vizsla. He began his life as a mercenary but never loss his sense of compassion for his fellow Mandalorians.");
         setGameText("Adds 2 to power of anything he pilots. Adds 3 to power, 4 to defense value, and 4 to forfeit of each [Vizsla] character at same and related locations. May be targeted by Hidden Weapons. Immune to attrition.");
+        addIcons(Icon.ABT);
         addPersona(Persona.DECLAN);
         setSpecies(Species.MANDALORIAN);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIZSLA);

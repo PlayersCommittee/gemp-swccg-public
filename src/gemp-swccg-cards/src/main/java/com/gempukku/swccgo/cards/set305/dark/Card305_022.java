@@ -30,6 +30,7 @@ public class Card305_022 extends AbstractDarkJediMasterImperial {
         super(Side.DARK, 6, 8, 6, 7, 9, "Darth Sarin, Grand Master", Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.R);
         setLore("Grand Master and leader, Darth Sarin spent his life in service of the Empire in Avenger squadron and Commodore of the Grey Wolf. Recognizing the challenges in the EH he defected with the Brotherhood.");
         setGameText("Deploys -4 to Arx. [Pilot] 3. When Sarin swings a lightsaber at a Jedi, each weapon destiny draw is +2. If Sarin hits a Jedi during battle, that Jedi is power -3 for remainder of battle. Immune to Clash Of Sabers and attrition.");
+        addIcons(Icon.ABT);
         addPersona(Persona.SARIN);
         addIcons(Icon.PILOT, Icon.WARRIOR);
         addKeywords(Keyword.GRAND_MASTER, Keyword.DARK_COUNCILOR, Keyword.LEADER);

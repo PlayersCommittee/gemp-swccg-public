@@ -61,6 +61,12 @@ public enum Icon implements Filterable {
     LEGACY_BLOCK_9("Block 9", true),
     LEGACY_BLOCK_D("Block D", true),
 
+    //DB:CCG expansions
+    DJB_CORE("Dark Jedi Brotherhood Core", true),
+    SA("Shadow Academy", true),
+    GREAT_HUTT_EXPANSION("The Great Hutt Expansion", true),
+    ABT("A Better Tomorrow", true),
+
     // Card types
     ADMIRALS_ORDER("Admiral's Order"),
     ALIEN("Alien"),

@@ -39,6 +39,7 @@ public class Card304_075 extends AbstractNormalEffect {
         super(Side.LIGHT, 2, PlayCardZoneOption.ATTACHED, "Kam's Ham Sam", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("When you're the Emperor you should question everything. Including the ham sandwich you order for lunch.");
         setGameText("Deploy on Kamjin. He is land speed +2. Opponent loses 2 Force at end of each of opponent's turns in which Kamjin did not battle and you had a character of ability > 3 on table. (Immune to Alter.)");
+        addIcons(Icon.GREAT_HUTT_EXPANSION);
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addImmuneToCardTitle(Title.Alter);
     }

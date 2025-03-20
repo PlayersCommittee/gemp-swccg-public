@@ -34,6 +34,7 @@ public class Card305_002 extends AbstractCharacterWeapon {
         super(Side.DARK, 4, "Palatinae Royal Guard Force Pike", Uniqueness.UNRESTRICTED, ExpansionSet.ABT, Rarity.C);
         setLore("Uses microscopic vibrations emitted from its tip. Cuts through stone, metal, and bone. Ceremonial weapon for most; deadly implement in the hands of the Royal Guard.");
         setGameText("Deploy on your [CSP] Royal Guard (or use 3 Force to deploy on your other warrior). Adds 1 to defense value. May target a character or creature using 1 Force. Draw destiny. Target hit if destiny +1 > defense value. If hit by a [CSP] Royal Guard, target's power = 0.");
+        addIcons(Icon.ABT);
         addKeywords(Keyword.FORCE_PIKE);
     }
 

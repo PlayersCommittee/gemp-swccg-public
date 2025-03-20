@@ -45,7 +45,7 @@ public class Card305_015 extends AbstractAlien {
         super(Side.LIGHT, 4, 4, 4, 4, 6, "Hikaru Lap'lamiz With Lightsaber", Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.R);
         setLore("The youngest son of Kamjin Lap'lamiz. His childhood illness has given him a unique connection with the Force which his Father seeks to better understand.");
         setGameText("Adds 2 to any ship he pilots. Permanent weapon is •Hikaru's Lightsaber (may target a character or creature for free; draw two destiny; target hit, and its forfeit = 0, if total destiny > defense value).");
-        addIcons(Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON);
+        addIcons(Icon.ABT, Icon.PILOT, Icon.WARRIOR, Icon.PERMANENT_WEAPON);
         addPersona(Persona.HIKARU);
     }
 

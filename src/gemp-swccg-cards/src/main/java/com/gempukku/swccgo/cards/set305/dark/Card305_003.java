@@ -33,6 +33,7 @@ public class Card305_003 extends AbstractNormalEffect {
         super(Side.DARK, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Conquering_Caperion, Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.U);
         setLore("The conquest of the Caperion system relied on swift troop dispatch from docking bays.");
         setGameText("Deploy on table. Your Force generation is +1 at each docking bay you occupy (or +2 if you control). Once per game, you may take one Seraph, Ulress, Danktooine, Ragnath or Myryakur system or SARLaC into hand from Reserve Deck; reshuffle. (Immune to Alter.)");
+        addIcons(Icon.ABT);
         addImmuneToCardTitle(Title.Alter);
     }
 

@@ -40,7 +40,7 @@ public class Card305_025 extends AbstractSith {
         super(Side.DARK, 1, 5, 3, 6, 6, "Delak Krennel", Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.C);
         setLore("Obelisk Force User focusing on lightsaber combat while dabbling with Force powers of the mind. Was badly wounded after  the battle of Corulag when his ship was destroyed.");
         setGameText("[Pilot] 1. If alone and a battle was just initiated here, may [upload] Lightsaber Parry, Physical Choke, or Vader's Anger.");
-        addIcons(Icon.PILOT, Icon.WARRIOR);
+        addIcons(Icon.ABT, Icon.PILOT, Icon.WARRIOR);
         addPersona(Persona.DELAK);
     }
 

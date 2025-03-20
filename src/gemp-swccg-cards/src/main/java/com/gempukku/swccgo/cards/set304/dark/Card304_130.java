@@ -38,6 +38,7 @@ public class Card304_130 extends AbstractNormalEffect {
         super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Scholae_Palatinaes_Power, Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setLore("There is one constant in Scholae Palatinae, the strong will rule. The Emperor must always be wary of being usurped.");
         setGameText("Deploy on your Monolith Throne Room. You may not Force drain here. While [CSP] with Ability > 5 here, opponent's characters are deploy +2 to Seraph sites and, one per turn, you may lose Effect (or 1 Force from top of Reserve Deck) to add one battle destiny anywhere. (Immune to Alter.)");
+        addIcons(Icon.GREAT_HUTT_EXPANSION);
         addKeywords(Keyword.DEPLOYS_ON_SITE);
         addImmuneToCardTitle(Title.Alter);
     }

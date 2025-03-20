@@ -32,7 +32,7 @@ public class Card305_004 extends AbstractCapitalStarship {
         super(Side.LIGHT, 2, 6, 7, 6, null, 4, 7, "Resurgent-II", Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.R);
         setGameText("May add 5 pilots, 5 passengers, 5 vehicles, and 5 starfighters. Permanent pilot provides ability of 2. While [COU] piloting with ability > 3, immune to attrition < 5 and your [COU] cards at related sites are power +1.");
         addModelType(ModelType.VENATOR_CLASS_ATTACK_CRUISER);
-        addIcons(Icon.COU, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
+        addIcons(Icon.ABT, Icon.COU, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
         setPilotCapacity(5);
         setPassengerCapacity(5);
         setVehicleCapacity(5);
