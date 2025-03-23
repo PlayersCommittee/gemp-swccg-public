@@ -49,7 +49,7 @@ public class Card5_038 extends AbstractLostInterrupt {
 
         // Check condition(s)
         if (GameConditions.canUseForceToPlayInterrupt(game, playerId, self, 2)) {
-            Filter filter = Filters.and(Filters.character, Filters.presentWith(self, Filters.and(Filters.your(self), Filters.warrior, Filters.armedWith(Filters.lightsaber))));
+            Filter filter = Filters.and(Filters.character, Filters.presentWith(self, Filters.and(Filters.your(self), Filters.warrior, Filters.armedWith(Filters.lightsaber), Filters.canBeTargetedBy(self))));
             if (GameConditions.canTarget(game, self, filter)) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
