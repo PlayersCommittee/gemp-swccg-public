@@ -19051,6 +19051,7 @@ public class Filters {
     public static final Filter The_Force_Is_Strong_In_My_Family = Filters.title(Title.The_Force_Is_Strong_In_My_Family);
     public static final Filter The_Force_Is_Strong_With_This_One = Filters.title(Title.The_Force_Is_Strong_With_This_One);
     public static final Filter The_Galaxy_May_Need_A_Legend = Filters.title(Title.The_Galaxy_May_Need_A_Legend);
+    public static final Filter The_Grand_Inquisitor = Filters.persona(Persona.THE_GRAND_INQUISITOR);
     public static final Filter The_Hyperdrive_Generators_Gone = Filters.title(Title.The_Hyperdrive_Generators_Gone);
     public static final Filter The_Phantom_Menace = Filters.title(Title.The_Phantom_Menace);
     public static final Filter The_Planet_That_Its_Farthest_From = Filters.title(Title.The_Planet_That_Its_Farthest_From);
