@@ -3951,10 +3951,14 @@ const fixedImages = {
 "305_24":"https://i.imgur.com/zbY3Ns1.png", //Declan Roark's Blaster Rifle
 "305_25":"https://i.imgur.com/m8qMRPN.png", //Delak Krennel
 "305_26":"https://i.imgur.com/92pjsJt.png", //Delak Krennel's Lightsaber
-"305_27":"https://i.imgur.com/F2gWNoH.png", //Quermia (Dark)
+"305_27":"https://i.imgur.com/qg16DAT.png", //Quermia (Dark)
 "305_28":"https://i.imgur.com/ieFlCs8.png", //Quermia (Light)
 "305_29":"https://i.imgur.com/drH2dC3.png", //Your Insight Serves You Well & Safe House
-"305_30":"", //TBD
+"305_30":"https://i.imgur.com/gKDMlYl.png", //Quermia: Senate Council Chambers (Light)
+"305_31":"", //Quermia: Senate Council Chambers (Dark)
+"305_32":"https://i.imgur.com/0kdemQL.png", //Baron Sirra Uvam
+"305_33":"https://i.imgur.com/5qChfCn.png", //Duke Airron Uleich
+"304_34":"https://i.imgur.com/mo5XYFG.png", //Get Them Out Of My Sight
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",

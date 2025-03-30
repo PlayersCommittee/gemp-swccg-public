@@ -19432,6 +19432,12 @@ public class Filters {
     public static final Filter Sarin = Filters.persona(Persona.SARIN);
     public static final Filter Delak = Filters.persona(Persona.DELAK);
     public static final Filter Quermia_site = Filters.and(Filters.partOfSystem(Title.Quermia), CardSubtype.SITE);
+    public static final Filter Senate_Council_Chambers = Filters.title(Title.Senate_Council_Chambers);
+    public static final Filter Sirra = Filters.persona(Persona.SIRRA);
+    public static final Filter Airron = Filters.persona(Persona.AIRRON);
+    public static final Filter Get_Them_Out_Of_My_Sight = Filters.title(Title.Get_Them_Out_Of_My_Sight);
+    public static final Filter NRN99 = Filters.modelType(ModelType.NRN99);
+    public static final Filter Sephi = Filters.species(Species.SEPHI);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

@@ -92,6 +92,7 @@ public enum Species implements Filterable {
     SAKIYAN("Sakiyan", true),
     SARKAN("Sarkan", true),
     SAURIN("Saurin", true),
+    SEPHI("Sephi", true),
     SERENNIAN("Serennian", true),
     SHAWDA_UBB("Shawda Ubb", true),
     SHISTAVANEN("Shistavanen", true),

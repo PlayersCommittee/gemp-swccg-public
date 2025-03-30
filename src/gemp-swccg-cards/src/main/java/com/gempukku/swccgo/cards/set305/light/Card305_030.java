@@ -22,16 +22,16 @@ import java.util.List;
  * Set: A Better Tomorrow
  * Type: Location
  * Subtype: Site
- * Title: Naboo: Theed Palace Throne Room
+ * Title: Quermia: Senate Council Chambers
  */
 public class Card305_030 extends AbstractSite {
     public Card305_030() {
-        super(Side.LIGHT, Title.Theed_Palace_Throne_Room, Title.Quermia, Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.C);
+        super(Side.LIGHT, Title.Senate_Council_Chambers, Title.Quermia, Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.C);
         setLocationLightSideGameText("While you occupy, opponent's [Presence] droids require +1 Force to move to here.");
         addIcon(Icon.DARK_FORCE, 1);
         addIcon(Icon.LIGHT_FORCE, 2);
         addIcons(Icon.ABT, Icon.INTERIOR_SITE, Icon.PLANET);
-        addKeywords(Keyword.THEED_PALACE_SITE);
+        addKeywords(Keyword.QUERMIA_SENATE_SITE);
     }
 
     @Override

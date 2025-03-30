@@ -1396,5 +1396,7 @@ public interface Title {
     String Declan_Roarks_Blaster_Rifle = "Declan Roark's Blaster Rifle";
     String Quermia = "Quermia";
     String Safe_House = "Safe House";
+    String Senate_Council_Chambers = "Quermia: Senate Council Chambers";
+    String Get_Them_Out_Of_My_Sight = "Get Them Out Of My Sight";
 
 }

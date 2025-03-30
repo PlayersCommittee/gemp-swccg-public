@@ -221,7 +221,8 @@ public enum Keyword implements Filterable {
 	CLUB_ANTONIA_SITE("Club Antonia Site", false),
 	CLAUDIUS_PALACE_SITE("Claudius Palace Site", false),
 	ULRESS_SITE("Ulress Site", false),
-    KOUDOOINE_SITE("Koudooine Site", false);
+    KOUDOOINE_SITE("Koudooine Site", false),
+    QUERMIA_SENATE_SITE("Quermia: Senate Site", false);
 
 
     private String _humanReadable;

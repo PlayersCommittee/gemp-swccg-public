@@ -206,6 +206,8 @@ public enum Persona implements Filterable {
     PRAVUS("Parvus"),
     DECLAN("Declan Roark"),
     DELAK("Delak Krennel"),
+    SIRRA("Sirra Uvam"),
+    AIRRON("Airron Uleich"),
 
 
     // Starships
