@@ -382,6 +382,7 @@ public class TriggerConditions {
                 || effectResult.getType() == EffectResult.Type.TRANSFERRED_CAPTIVE_TO_NEW_ESCORT
                 || effectResult.getType() == EffectResult.Type.ROTATE_CARD
                 || effectResult.getType() == EffectResult.Type.TRANSFERRED_DEVICE_OR_WEAPON
+                || effectResult.getType() == EffectResult.Type.RELOCATED_DEVICE_OR_WEAPON
                 || effectResult.getType() == EffectResult.Type.CONVERT_LOCATION
                 || effectResult.getType() == EffectResult.Type.BATTLE_CANCELED
                 || effectResult.getType() == EffectResult.Type.ATTACK_INITIATED

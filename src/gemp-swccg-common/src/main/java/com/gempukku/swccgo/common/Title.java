@@ -32,6 +32,7 @@ public interface Title {
     String Agents_In_The_Court = "Agents In The Court";
     String Agents_Of_Black_Sun = "Agents Of Black Sun";
     String Ahch_To = "Ahch-To";
+    String AhchTo_Jedi_Village = "Ahch-To: Jedi Village";
     String Ahsokas_Lightsabers = "Ahsoka's Lightsabers";
     String Aiiii_Aaa_Agggggggggg = "Aiiii! Aaa! Agggggggggg!";
     String Aim_High = "Aim High";
@@ -100,6 +101,7 @@ public interface Title {
     String Beskar_Deflection = "Beskar Deflection";
     String Bespin = "Bespin";
     String Bespin_Cloud_City = "Bespin: Cloud City";
+    String Be_With_Me = "Be With Me";
     String Bib = "Bib Fortuna";
     String Beilert_Valance = "Beilert Valance";
     String Big_One = "Big One";

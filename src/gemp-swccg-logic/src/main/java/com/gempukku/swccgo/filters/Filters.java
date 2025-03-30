@@ -17497,6 +17497,7 @@ public class Filters {
     public static final Filter AAT_Laser_Cannon = Filters.title(Title.AAT_Laser_Cannon);
     public static final Filter accountant = Filters.keyword(Keyword.ACCOUNTANT);
     public static final Filter Ackbar = Filters.persona(Persona.ACKBAR);
+    public static final Filter AhchTo_Jedi_Village = Filters.title(Title.AhchTo_Jedi_Village);
     public static final Filter AhchTo_site = Filters.and(Filters.partOfSystem(Title.Ahch_To), CardSubtype.SITE);
     public static final Filter Ahch_To_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Ahch_To));
     public static final Filter Activate_The_Droids = Filters.title(Title.Activate_The_Droids);
@@ -17528,6 +17529,7 @@ public class Filters {
     public static final Filter An_Inkling_Of_Its_Destructive_Potential = Filters.title(Title.An_Inkling_Of_Its_Destructive_Potential);
     public static final Filter Anakin = Filters.persona(Persona.ANAKIN);
     public static final Filter Anakin_Skywalker = Filters.title(Title.Anakin_Skywalker);
+    public static final Filter Anakins_Lightsaber = Filters.persona(Persona.ANAKINS_LIGHTSABER);
     public static final Filter Anakins_Podracer = Filters.title(Title.Anakins_Podracer);
     public static final Filter Anchorhead = Filters.title(Title.Anchorhead);
     public static final Filter And_Now_Youll_Give_It_To_Me = Filters.title(Title.And_Now_Youll_Give_It_To_Me);
@@ -17597,6 +17599,7 @@ public class Filters {
     public static final Filter Beilert_Valance = Filters.title(Title.Beilert_Valance);
     public static final Filter Beggar = Filters.title(Title.Beggar);
     public static final Filter Beggars_Canyon = Filters.title(Title.Beggars_Canyon);
+    public static final Filter Ben_Solo = Filters.persona(Persona.BEN_SOLO);
     public static final Filter Beru = Filters.title(Title.Beru_Lars);
     public static final Filter Beru_Stew = Filters.title(Title.Beru_Stew);
     public static final Filter Besieged = Filters.title(Title.Besieged);
@@ -17606,6 +17609,7 @@ public class Filters {
     public static final Filter Bespin_location = Filters.partOfSystem(Title.Bespin);
     public static final Filter Bespin_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Bespin));
     public static final Filter Bestoon_Legacy = Filters.persona(Persona.BESTOON_LEGACY);
+    public static final Filter Be_With_Me = Filters.title(Title.Be_With_Me);
     public static final Filter Bib = Filters.persona(Persona.BIB);
     public static final Filter biker_scout = Filters.keyword(Keyword.BIKER_SCOUT);
     public static final Filter Big_One = Filters.title(Title.Big_One);

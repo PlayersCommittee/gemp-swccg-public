@@ -8,6 +8,7 @@ import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +34,7 @@ import java.util.List;
  */
 public class Card217_029 extends AbstractEpicEventDeployable {
     public Card217_029() {
-        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, "Be With Me", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
+        super(Side.LIGHT, PlayCardZoneOption.ATTACHED, Title.Be_With_Me, Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setGameText("Deploy on an Ahch-To location. Opponent generates no Force here. " +
                 "A Thousand Generations Live In You Now: Rey is power and forfeit +1 for each Jedi out of play. " +
                 "Bring Back The Balance, Rey, As I Did: While [Set 14] Rey in battle, your battle destiny draws and Rey's weapon destiny draws are +1. " +
