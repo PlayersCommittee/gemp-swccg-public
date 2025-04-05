@@ -87,7 +87,12 @@ public class SwccgCardBlueprintLibrary {
 
     public SwccgCardBlueprint getSwccgoCardBlueprint(String blueprintId) {
         try {
+            int previousLength = blueprintId.length();
             blueprintId = stripBlueprintModifiers(blueprintId);
+
+            // fail if there are multiple suffixes
+            if (blueprintId.length()<previousLength-1)
+                return null;
 
             if (_blueprintMap.containsKey(blueprintId))
                 return _blueprintMap.get(blueprintId);
