@@ -3726,7 +3726,7 @@ const fixedImages = {
 "501_31": "https://res.starwarsccg.org/cards/TheedPalace-Dark/large/fightersstraightahead.gif",
 "501_32": "https://res.starwarsccg.org/cards/TheedPalace-Dark/large/3b321.gif",
 "501_33": "https://res.starwarsccg.org/cards/Virtual4-Dark/hires/kylorenscommandshuttle.png",
-"501_34": "https://res.starwarsccg.org/cards/SpecialEdition-Dark/large/jabbasinfluence.gif",
+"501_34": "https://res.starwarsccg.org/cards/SpecialEdition-Dark/large/nobargain.gif",
 "501_35": "https://res.starwarsccg.org/cards/JabbasPalace-Dark/large/bibfortuna.gif",
 "501_36": "https://res.starwarsccg.org/cards/SpecialEdition-Dark/large/swamp.gif",
 "501_37": "https://res.starwarsccg.org/cards/CloudCity-Dark/large/bounty.gif",
