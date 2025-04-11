@@ -3955,10 +3955,17 @@ const fixedImages = {
 "305_28":"https://i.imgur.com/ieFlCs8.png", //Quermia (Light)
 "305_29":"https://i.imgur.com/drH2dC3.png", //Your Insight Serves You Well & Safe House
 "305_30":"https://i.imgur.com/gKDMlYl.png", //Quermia: Senate Council Chambers (Light)
-"305_31":"", //Quermia: Senate Council Chambers (Dark)
+"305_31":"https://i.imgur.com/dhsIMyK.png", //Quermia: Senate Council Chambers (Dark)
 "305_32":"https://i.imgur.com/0kdemQL.png", //Baron Sirra Uvam
 "305_33":"https://i.imgur.com/5qChfCn.png", //Duke Airron Uleich
-"304_34":"https://i.imgur.com/mo5XYFG.png", //Get Them Out Of My Sight
+"305_34":"https://i.imgur.com/mo5XYFG.png", //Get Them Out Of My Sight
+"305_35":"https://i.imgur.com/gnkumLt.png", //Mihoshi Keibatsu
+"305_36":"https://i.imgur.com/O19ziu2.png", //NR-N99 Persuader-Class Tank Droid
+"305_37":"https://i.imgur.com/63bY3Qu.png", //NR-N99 Assault Leader
+"305_38":"https://i.imgur.com/dQZeKy8.png", //Talon Jade
+"305_39":"https://i.imgur.com/xyVd1NG.png", //Talon Jade's Lightsabers
+"305_40":"https://i.imgur.com/csnOPrI.png", //Teikhos Ta'var, Jedi Defender
+"305_41":"https://i.imgur.com/pEkrnyR.png", //Kamjin's Double-Bladed Lightsaber
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
@@ -4581,5 +4588,6 @@ const fixedImages = {
 "305_20ai":"https://i.imgur.com/No4F7Ix.png", //Declan Roark
 "305_22ai":"https://i.imgur.com/jZIIzNb.png", //Darth Sarin, Grand Master
 "305_24ai":"https://i.imgur.com/9cM8NTI.png", //Declan Roark's Blaster Rifle
+"305_35ai":"https://i.imgur.com/7mETNZ6.png", //Mihoshi Keibatsu
 
 };

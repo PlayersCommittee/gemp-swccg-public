@@ -19438,6 +19438,9 @@ public class Filters {
     public static final Filter Get_Them_Out_Of_My_Sight = Filters.title(Title.Get_Them_Out_Of_My_Sight);
     public static final Filter NRN99 = Filters.modelType(ModelType.NRN99);
     public static final Filter Sephi = Filters.species(Species.SEPHI);
+    public static final Filter Mihoshi = Filters.persona(Persona.MIHOSHI);
+    public static final Filter Deploys_at_Quermia = Filters.or(Filters.placeToBePresentOnPlanet(Title.Quermia), Filters.locationAndCardsAtLocation(Filters.title(Title.Quermia)));
+    public static final Filter Talon_Jade = Filters.persona(Persona.TALON);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

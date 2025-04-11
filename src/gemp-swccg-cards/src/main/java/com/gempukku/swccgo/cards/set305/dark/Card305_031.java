@@ -28,8 +28,8 @@ import java.util.List;
 public class Card305_031 extends AbstractSite {
     public Card305_031() {
         super(Side.DARK, Title.Senate_Council_Chambers, Title.Quermia, Uniqueness.UNIQUE, ExpansionSet.ABT, Rarity.C);
-        setLocationDarkSideGameText("If Sirra or Gunray present, Force drain +1 here.");
-        setLocationLightSideGameText("Unless Amidala present, Force drain -1 here.");
+        setLocationDarkSideGameText("If Sirra Uvam or Airron Uleich present, Force drain +1 here.");
+        setLocationLightSideGameText("Unless Mihoshi present, Force drain -1 here.");
         addIcon(Icon.DARK_FORCE, 2);
         addIcon(Icon.LIGHT_FORCE, 1);
         addIcons(Icon.ABT, Icon.INTERIOR_SITE, Icon.PLANET);
@@ -47,7 +47,7 @@ public class Card305_031 extends AbstractSite {
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new ForceDrainModifier(self, new UnlessCondition(new PresentCondition(self, Filters.Amidala)),
+        modifiers.add(new ForceDrainModifier(self, new UnlessCondition(new PresentCondition(self, Filters.Mihoshi)),
                 -1, playerOnLightSideOfLocation));
         return modifiers;
     }

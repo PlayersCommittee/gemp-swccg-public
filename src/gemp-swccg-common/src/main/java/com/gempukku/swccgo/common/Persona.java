@@ -208,6 +208,9 @@ public enum Persona implements Filterable {
     DELAK("Delak Krennel"),
     SIRRA("Sirra Uvam"),
     AIRRON("Airron Uleich"),
+    MIHOSHI("Mihoshi Keibatsu"),
+    TALON("Talon Jade"),
+    TEIKHOS("Teikhos Ta'var"),
 
 
     // Starships
@@ -289,6 +292,8 @@ public enum Persona implements Filterable {
     DECLANS_BLASTER("Declan Roark's Blaster"),
     SARINS_LIGHTSABER("Darth Sarin's Lightsaber"),
     DELAKS_LIGHTSABER("Delak Krennel's Lightsaber"),
+    TALON_JADES_LIGHTSABER("Talon Jade's Lightsabers"),
+    KAMJINS_DOUBLE_BLADED_LIGHTSABER("Kamjin's Double-Bladed Lightsaber"),
 
 
     ;
