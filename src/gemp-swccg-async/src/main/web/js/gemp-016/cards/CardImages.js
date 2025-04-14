@@ -3676,6 +3676,18 @@ const fixedImages = {
 "224_22":"https://res.starwarsccg.org/cards/Virtual24-Light/hires/tatooinedunesea.png",
 "224_23":"https://res.starwarsccg.org/cards/Virtual24-Light/hires/zevinrogue2.png",
 
+"225_1":"https://res.starwarsccg.org/cards/Virtual25-Dark/hires/bibfortuna.png",
+"225_2":"https://res.starwarsccg.org/cards/Virtual25-Dark/hires/blastpoints.png",
+"225_3":"https://res.starwarsccg.org/cards/Virtual25-Dark/hires/comehereyoubigcoward.png",
+"225_4":"https://res.starwarsccg.org/cards/Virtual25-Dark/hires/nobargain.png",
+"225_5":"https://res.starwarsccg.org/cards/Virtual25-Dark/hires/silunch.png",
+"225_6":"https://res.starwarsccg.org/cards/Virtual25-Dark/hires/stranded.png",
+
+"225_7":"https://res.starwarsccg.org/cards/Virtual25-Light/hires/criticalerrorrevealed.png",
+"225_8":"https://res.starwarsccg.org/cards/Virtual25-Light/hires/idontneedtheirscumeither.png",
+"225_9":"https://res.starwarsccg.org/cards/Virtual25-Light/hires/mysisterhasit.png",
+"225_10":"https://res.starwarsccg.org/cards/Virtual25-Light/hires/wuta.png",
+
 "301_1":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/ahsokatanowithlightsabers.gif",
 "301_2":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/cityintheclouds.gif",
 "301_2_BACK":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/youtrulybelongherewithus.gif",
