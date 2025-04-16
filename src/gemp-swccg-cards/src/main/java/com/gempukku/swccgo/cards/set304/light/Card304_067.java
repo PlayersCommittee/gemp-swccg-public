@@ -26,9 +26,9 @@ import java.util.List;
 public class Card304_067 extends AbstractCapitalStarship {
     public Card304_067() {
         super(Side.LIGHT, 1, 3, 1, 3, null, 2, 5, "Ferfiek Chawa", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
-        setLore("");
+        setLore("Used by Claudius the Hutt as his mobile pleasure yacht. Claudius spent a small fortune on improving the interior of the yacht while leaving it's exterior a 'stock'.");
         setGameText("May add 1 pilot and 6 passengers. Deploys and moves like a starfighter. Has ship-docking capability. During battle, your total battle destiny is +1 for each Clan Tiure aboard. Permanent pilot aboard provides ability of 1.");
-        addIcons(Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
+        addIcons(Icon.INDEPENDENT, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK);
         addModelType(ModelType.MINSTREL);
         setPilotCapacity(1);
         setPassengerCapacity(6);

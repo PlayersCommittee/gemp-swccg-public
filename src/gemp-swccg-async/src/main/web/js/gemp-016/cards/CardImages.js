@@ -3840,7 +3840,7 @@ const fixedImages = {
 "304_64":"https://i.imgur.com/czSndYV.png", //Hutt Speeder Bike
 "304_65":"https://i.imgur.com/J5CWGNm.png", //Ixtal's Speeder
 "304_66":"https://i.imgur.com/Veoict9.png", //StarViper
-"304_67":"https://i.imgur.com/JBnwg9B.png", //Ferfiek Chawa
+"304_67":"https://i.imgur.com/9djY4V3.png", //Ferfiek Chawa
 "304_68":"https://i.imgur.com/GdvPSO1.jpg", //Dia Gida's Sniper Rifle
 "304_69":"https://i.imgur.com/pdNKtsE.png", //Do A Backflip Derrin
 "304_70":"https://i.imgur.com/glzNYAo.jpg", //Locked Door

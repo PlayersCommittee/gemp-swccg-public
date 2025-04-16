@@ -42,7 +42,7 @@ public class Card304_098 extends AbstractObjective {
         super(Side.LIGHT, 0, Title.Organized_Crime, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
         setFrontOfDoubleSidedCard(true);
         setGameText("Deploy Club Antonia: Backstage." +
-                "For remainder of game, you may not deploy cards with ability except characters with 'Tiure' or 'Smuggler' in lore, assassins, gangsters, bounty hunters, musicians and      starships. Once per turn, may deploy a non-unique blaster (or a card with 'Ferfiek Chawa' in title) from Reserve Deck; reshuffle." +
+                "For remainder of game, you may not deploy cards with ability except characters with 'Tiure' or 'Smuggler' in lore, assassins, gangsters, bounty hunters, musicians and [Independent] starships. Once per turn, may deploy a non-unique blaster (or a card with 'Ferfiek Chawa' in title) from Reserve Deck; reshuffle." +
                 "Flip this card if you just 'hit' a character (or during your battle phase if your gangsters control two battlegrounds).");
     }
 
