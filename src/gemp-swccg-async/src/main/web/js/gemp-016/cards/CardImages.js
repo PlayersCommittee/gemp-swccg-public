@@ -3805,6 +3805,16 @@ const fixedImages = {
 "501_175":"https://res.starwarsccg.org/cards/CloudCity-Light/large/idontneedtheirscumeither.gif",
 "501_176":"https://res.starwarsccg.org/cards/DeathStarII-Light/large/criticalerrorrevealed.gif",
 "501_177":"https://res.starwarsccg.org/cards/Premiere-Light/large/skywalkers.gif",
+"501_178":"https://res.starwarsccg.org/cards/SpecialEdition-Light/large/mindwhatyouhavelearned.gif",
+"501_178_BACK":"https://res.starwarsccg.org/cards/SpecialEdition-Light/large/saveyouitcan.gif",
+"501_179":"https://res.starwarsccg.org/cards/Dagobah-Light/large/obiwansapparition.gif",
+"501_180":"https://res.starwarsccg.org/cards/Hoth-Light/large/youwillgotothedagobahsystem.gif",
+"501_181":"https://res.starwarsccg.org/cards/Dagobah-Light/large/yodashope.gif",
+"501_182":"https://res.starwarsccg.org/cards/Dagobah-Light/large/nodisintegrations.gif",
+"501_183":"https://res.starwarsccg.org/cards/CloudCity-Light/large/captainhansolo.gif",
+"501_184":"https://res.starwarsccg.org/cards/EnhancedCloudCity-Light/large/chewiewithblasterrifle.gif",
+"501_185":"https://res.starwarsccg.org/cards/EnhancedCloudCity-Light/large/landowithblasterpistol.gif",
+"501_186":"https://res.starwarsccg.org/cards/CloudCity-Light/large/cloudcitycarbonitechamber.gif",
 "501_196":"https://res.starwarsccg.org/cards/Tatooine-Light/large/neckandneck.gif",
 
 //legacy
