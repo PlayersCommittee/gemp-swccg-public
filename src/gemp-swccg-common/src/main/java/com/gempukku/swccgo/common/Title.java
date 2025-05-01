@@ -656,6 +656,7 @@ public interface Title {
     String Lana_Dobreed = "Lana Dobreed";
     String Landing_Claw = "Landing Claw";
     String Landing_Platform = "Endor: Landing Platform (Docking Bay)";
+    String Landos_Blaster_Rifle = "Lando's Blaster Rifle";
     String Lars_Moisture_Farm = "Tatooine: Lars' Moisture Farm";
     String Laser_Cannon_Battery = "Laser Cannon Battery";
     String Laser_Gate = "Laser Gate";
