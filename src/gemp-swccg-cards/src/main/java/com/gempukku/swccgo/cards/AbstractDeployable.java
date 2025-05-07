@@ -2404,59 +2404,6 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
     public List<TriggerAction> getOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
         List<TriggerAction> actions = super.getOptionalAfterTriggers(playerId, game, effectResult, self);
 
-        // Check for 'react' actions
-        if (TriggerConditions.forceDrainInitiatedBy(game, effectResult, game.getOpponent(playerId))
-                || TriggerConditions.battleInitiated(game, effectResult, game.getOpponent(playerId))) {
-
-            if (self.getZone() == Zone.STACKED) {
-                if (!game.getModifiersQuerying().isGameTextCanceled(game.getGameState(), self)) {
-                    // Deploy other cards as 'react'
-                    List<TriggerAction> deployOtherCardsAsReactActions = getDeployOtherCardsAsReactAction(playerId, game, self);
-                    if (deployOtherCardsAsReactActions != null) {
-                        for (TriggerAction deployOtherCardsAsReactAction : deployOtherCardsAsReactActions) {
-                            actions.add(deployOtherCardsAsReactAction);
-                        }
-                    }
-                }
-            }
-
-            if (self.getZone().isInPlay()) {
-                boolean inPlayActive = game.getGameState().isCardInPlayActive(self, false, true, false, false, false, false, false, false);
-
-                if (!game.getModifiersQuerying().isGameTextCanceled(game.getGameState(), self)) {
-                    if (inPlayActive) {
-
-                        // If device, need to check that it can be used by the card it is attached to.
-                        if (self.getBlueprint().getCardCategory() != CardCategory.DEVICE
-                                || !game.getModifiersQuerying().mayNotBeUsed(game.getGameState(), self)
-                                || self.getAttachedTo() == null
-                                || Filters.canUseDevice(self).accepts(game, self.getOwner().equals(self.getAttachedTo().getOwner()) ? self.getAttachedTo() : self)) {
-
-                            // Deploy other cards as 'react'
-                            List<TriggerAction> deployOtherCardsAsReactActions = getDeployOtherCardsAsReactAction(playerId, game, self);
-                            if (deployOtherCardsAsReactActions != null) {
-                                for (TriggerAction deployOtherCardsAsReactAction : deployOtherCardsAsReactActions) {
-                                    actions.add(deployOtherCardsAsReactAction);
-                                }
-                            }
-
-                            // Move other cards as 'react'
-                            TriggerAction moveOtherCardsAsReactAction = getMoveOtherCardsAsReactAction(playerId, game, self);
-                            if (moveOtherCardsAsReactAction != null) {
-                                actions.add(moveOtherCardsAsReactAction);
-                            }
-
-                            // Move other cards away as 'react'
-                            TriggerAction moveOtherCardsAwayAsReactAction = getMoveOtherCardsAwayAsReactAction(playerId, game, self);
-                            if (moveOtherCardsAwayAsReactAction != null) {
-                                actions.add(moveOtherCardsAwayAsReactAction);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         return actions;
     }
 
