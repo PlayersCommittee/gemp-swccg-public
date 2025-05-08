@@ -3801,7 +3801,7 @@ const fixedImages = {
 "304_25":"https://i.imgur.com/56oNlqM.png", //Komilia Lap'lamiz, Emperor's Guard
 "304_26":"https://i.imgur.com/H1t7EbJ.png", //K'vin J. Lawdogg, Attorney-At-Law
 "304_27":"https://i.imgur.com/WlHfJON.png", //Rohan Lap'lamiz, Stormtrooper
-"304_28":"https://i.imgur.com/DeuUvKk.png", //Master Kamjin 'Maverick' Lap'lamiz
+"304_28":"https://i.imgur.com/Lha7kEZ.png", //Master Kamjin 'Maverick' Lap'lamiz
 "304_29":"https://i.imgur.com/qmL0jf3.png", //Kamjin Lap'lamiz, The Conqueror
 "304_30":"https://i.imgur.com/YxvfF9o.png", //Kamjin Lap'lamiz, Proconsul
 "304_31":"https://i.imgur.com/FivCos6.png", //Apprentice Maverick
@@ -3959,13 +3959,16 @@ const fixedImages = {
 "305_32":"https://i.imgur.com/0kdemQL.png", //Baron Sirra Uvam
 "305_33":"https://i.imgur.com/5qChfCn.png", //Duke Airron Uleich
 "305_34":"https://i.imgur.com/mo5XYFG.png", //Get Them Out Of My Sight
-"305_35":"https://i.imgur.com/gnkumLt.png", //Mihoshi Keibatsu
+"305_35":"https://i.imgur.com/7mETNZ6.png", //Mihoshi Keibatsu
 "305_36":"https://i.imgur.com/O19ziu2.png", //NR-N99 Persuader-Class Tank Droid
 "305_37":"https://i.imgur.com/63bY3Qu.png", //NR-N99 Assault Leader
 "305_38":"https://i.imgur.com/dQZeKy8.png", //Talon Jade
 "305_39":"https://i.imgur.com/xyVd1NG.png", //Talon Jade's Lightsabers
 "305_40":"https://i.imgur.com/csnOPrI.png", //Teikhos Ta'var, Jedi Defender
 "305_41":"https://i.imgur.com/pEkrnyR.png", //Kamjin's Double-Bladed Lightsaber
+"305_42":"https://i.imgur.com/54cntwJ.png", //Councillor Turel Sorenn
+"305_43":"https://i.imgur.com/SIxU6mN.png", //Mihoshi Keibatsu, Councillor of Urr
+"305_44":"https://i.imgur.com/Udsi5Kt.png", //Hidden Corridors
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",
@@ -4580,7 +4583,7 @@ const fixedImages = {
 "302_29ai":"https://i.imgur.com/olRnWpk.png", //Lord Idris Adenn, Voice
 "303_27ai":"https://i.imgur.com/B1pYIkt.png", //Kai Lap'lamiz With Lightsaber
 "304_13ai":"https://i.imgur.com/KtBWlJ1.png", //Sykes Jade
-"304_28ai":"https://i.imgur.com/4HgpyMF.png", //Master Kamjin 'Maverick' Lap'lamiz
+"304_28ai":"https://i.imgur.com/t91DYBW.png", //Master Kamjin 'Maverick' Lap'lamiz
 "304_33ai":"https://i.imgur.com/UJk50gN.png", //Pete From Sales
 "304_71ai":"https://i.imgur.com/wR5fhzv.png", //Where is Jenni III
 "305_5ai":"https://i.imgur.com/EqQnjbO.png", //Sunrider
@@ -4588,6 +4591,5 @@ const fixedImages = {
 "305_20ai":"https://i.imgur.com/No4F7Ix.png", //Declan Roark
 "305_22ai":"https://i.imgur.com/jZIIzNb.png", //Darth Sarin, Grand Master
 "305_24ai":"https://i.imgur.com/9cM8NTI.png", //Declan Roark's Blaster Rifle
-"305_35ai":"https://i.imgur.com/7mETNZ6.png", //Mihoshi Keibatsu
 
 };

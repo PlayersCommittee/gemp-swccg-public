@@ -211,6 +211,7 @@ public enum Persona implements Filterable {
     MIHOSHI("Mihoshi Keibatsu"),
     TALON("Talon Jade"),
     TEIKHOS("Teikhos Ta'var"),
+    TUREL("Turel Sorenn"),
 
 
     // Starships

@@ -19441,6 +19441,10 @@ public class Filters {
     public static final Filter Mihoshi = Filters.persona(Persona.MIHOSHI);
     public static final Filter Deploys_at_Quermia = Filters.or(Filters.placeToBePresentOnPlanet(Title.Quermia), Filters.locationAndCardsAtLocation(Filters.title(Title.Quermia)));
     public static final Filter Talon_Jade = Filters.persona(Persona.TALON);
+    public static final Filter Turel = Filters.persona(Persona.TUREL);
+    public static final Filter Teikhos = Filters.persona(Persona.TEIKHOS);
+    public static final Filter Quermia_Senate_Hallway = Filters.title(Title.Quermia_Senate_Hallway);
+    public static final Filter interior_Quermia_site = Filters.and(Icon.INTERIOR_SITE, Filters.partOfSystem(Title.Quermia));
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {

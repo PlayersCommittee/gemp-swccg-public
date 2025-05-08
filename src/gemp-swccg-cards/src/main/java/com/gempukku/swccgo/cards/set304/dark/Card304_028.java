@@ -39,8 +39,8 @@ import java.util.List;
 public class Card304_028 extends AbstractDarkJediMasterImperial {
     public Card304_028() {
         super(Side.DARK, 6, 6, 7, 7, 9, "Master Kamjin 'Maverick' Lap'lamiz", Uniqueness.UNIQUE, ExpansionSet.GREAT_HUTT_EXPANSION, Rarity.V);
-        setLore("After years of study, Kamjin has been promoted to Master. Currently the leader of the Scholae Palatinae Empire. Despite his pleasant appearnace, Kamjin is the embodiment of the Dark Side of the Force.");
-        setGameText("Deploys -3 at Seraph or Raganth locations. Adds +3 to anything he pilots. May be targeted by Force Lightning. Once per turn, you may take Force Lightning into hand from Reserve Deck; reshuffle. Immune to attrition.");
+        setLore("After years of study, Kamjin has been promoted to Master. Currently the leader of the Scholae Palatinae Empire. Despite his pleasant appearance, Kamjin is the embodiment of the Dark Side of the Force.");
+        setGameText("Deploys -3 at Seraph or Ragnath locations. Adds +3 to anything he pilots. May be targeted by Force Lightning. Once per turn, you may take Force Lightning into hand from Reserve Deck; reshuffle. Immune to attrition.");
         addPersona(Persona.KAMJIN);
         addIcons(Icon.CSP, Icon.WARRIOR, Icon.PILOT);
         addKeywords(Keyword.LEADER, Keyword.CSP_EMPEROR, Keyword.MALE);

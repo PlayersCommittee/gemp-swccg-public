@@ -1398,5 +1398,7 @@ public interface Title {
     String Safe_House = "Safe House";
     String Senate_Council_Chambers = "Quermia: Senate Council Chambers";
     String Get_Them_Out_Of_My_Sight = "Get Them Out Of My Sight";
+    String Hidden_Corridors = "Hidden Corridors";
+    String Quermia_Senate_Hallway = "Quermia: Senate Hallway";
 
 }
