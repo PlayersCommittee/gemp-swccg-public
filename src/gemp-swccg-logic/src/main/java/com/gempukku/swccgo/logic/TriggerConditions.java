@@ -4816,6 +4816,23 @@ public class TriggerConditions {
     }
 
     /**
+     * Determines if the specified player just lost Force (for any reason)
+     * @param game the game
+     * @param effectResult the effect result
+     * @param playerId the player
+     * @return true or false
+     */
+    public static boolean justLostForce(SwccgGame game, EffectResult effectResult, String playerId) {
+        if (effectResult.getType() == EffectResult.Type.FORCE_LOST) {
+            LostForceResult lostForceResult = (LostForceResult) effectResult;
+            if (playerId.equals(lostForceResult.getPerformingPlayerId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Determines if the specified player just lost Force from battle damage.
      * @param game the game
      * @param effectResult the effect result

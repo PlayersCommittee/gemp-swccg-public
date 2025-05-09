@@ -47,7 +47,7 @@ import java.util.List;
 public class Card211_031 extends AbstractNormalEffect {
     public Card211_031() {
         super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Beldon's Eye & All My Urchins", Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
-        addComboCardTitles("Beldon's Eye", "All My Urchins");
+        addComboCardTitles(Title.Beldons_Eye, "All My Urchins");
         setGameText("Deploy on table. Once per game, if Quiet Mining Colony on table, may search your hand and/or Reserve Deck and reveal an [Independent] starfighter and matching pilot; place both in hand, reshuffle; they each deploy -1 this turn. Once per game, if a battle just initiated at Bespin system while Executor there, may cancel that battle unless opponent uses 15 Force. [Immune to Alter.]");
         addIcons(Icon.VIRTUAL_SET_11);
         addImmuneToCardTitle(Title.Alter);

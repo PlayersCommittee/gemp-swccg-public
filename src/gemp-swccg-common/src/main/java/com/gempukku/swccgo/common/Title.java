@@ -94,6 +94,8 @@ public interface Title {
     String Bazes_Cannon = "Baze's Cannon";
     String Beggar = "Beggar";
     String Beggars_Canyon = "Tatooine: Beggar's Canyon";
+    String Beldons_Eye = "Beldon's Eye";
+    String Beldons_Gallery = "Cloud City: Beldon's Gallery";
     String Beru_Lars = "Beru Lars";
     String Beru_Stew = "Beru Stew";
     String Besieged = "Besieged";
@@ -783,7 +785,7 @@ public interface Title {
     String Nightfall = "Nightfall";
     String Niima_Outpost_Shipyard = "Jakku: Niima Outpost Shipyard";
     String No_Bargain = "No Bargain";
-    String No_Disintegrations = "No_Disintegrations!";
+    String No_Disintegrations = "No Disintegrations!";
     String No_Escape = "No Escape";
     String No_Love_For_The_Empire = "No Love For The Empire";
     String No_Money_No_Parts_No_Deal = "No Money, No Parts, No Deal!";
@@ -845,6 +847,7 @@ public interface Title {
     String Part_of_the_Tribe = "Part Of The Tribe";
     String Passenger_Deck = "Jabba's Sail Barge: Passenger Deck";
     String Path_Of_Least_Resistance = "Path Of Least Resistance";
+    String Patience = "Patience!";
     String Patrol_Craft = "Patrol Craft";
     String Perimeter_Patrol = "Perimeter Patrol";
     String Phantom = "Phantom";
