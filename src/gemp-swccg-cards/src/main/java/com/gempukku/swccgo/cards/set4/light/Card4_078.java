@@ -83,8 +83,12 @@ public class Card4_078 extends AbstractJediTest {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self, final int gameTextSourceCardId) {
         List<OptionalGameTextTriggerAction> actions = new LinkedList<OptionalGameTextTriggerAction>();
 
+        boolean normalTiming = TriggerConditions.isStartOfYourPhase(game, self, effectResult, Phase.CONTROL);
+        boolean specialTiming = TriggerConditions.isStartOfOpponentsPhase(game, self, effectResult, Phase.CONTROL) && GameConditions.hasGameTextModification(game, self, ModifyGameTextType.JEDI_TESTS__MAY_ATTEMPT_IN_OPPONENTS_CONTROL_PHASE);
+        boolean timingSatisfied = normalTiming || specialTiming;
+        
         // Check condition(s)
-        if (TriggerConditions.isStartOfYourPhase(game, self, effectResult, Phase.CONTROL)) {
+        if (timingSatisfied) {
             if (!GameConditions.isJediTestBeingAttempted(game, self) && !GameConditions.isJediTestCompleted(game, self)) {
                 final GameState gameState = game.getGameState();
                 final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();

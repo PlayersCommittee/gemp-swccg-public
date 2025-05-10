@@ -8,6 +8,7 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -72,8 +73,12 @@ public class Card4_076 extends AbstractJediTest {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         String opponent = game.getOpponent(playerId);
 
+        boolean normalTiming = TriggerConditions.isEndOfYourTurn(game, effectResult, self);
+        boolean specialTiming = TriggerConditions.isStartOfOpponentsPhase(game, self, effectResult, Phase.CONTROL) && GameConditions.hasGameTextModification(game, self, ModifyGameTextType.JEDI_TESTS__MAY_ATTEMPT_IN_OPPONENTS_CONTROL_PHASE);
+        boolean timingSatisfied = normalTiming || specialTiming;
+
         // Check condition(s)
-        if (TriggerConditions.isEndOfYourTurn(game, effectResult, self)
+        if (timingSatisfied
                 && !GameConditions.isJediTestCompleted(game, self)) {
             ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
             if (modifiersQuerying.getNumBattlesInitiatedThisTurn(playerId) == 0
