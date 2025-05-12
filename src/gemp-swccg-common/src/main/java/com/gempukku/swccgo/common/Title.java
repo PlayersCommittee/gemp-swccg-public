@@ -596,6 +596,7 @@ public interface Title {
     String IT0 = "IT-O (Eyetee-Oh)";
     String It_Can_Wait = "It Can Wait";
     String It_Could_Be_Worse = "It Could Be Worse";
+    String It_Is_The_Future_You_See = "It Is The Future You See";
     String Its_A_Hit = "It's A Hit!";
     String Its_A_Trap = "It's A Trap!";
     String Its_An_Older_Code = "It's An Older Code";

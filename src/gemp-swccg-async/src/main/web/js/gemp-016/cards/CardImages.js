@@ -3816,6 +3816,7 @@ const fixedImages = {
 "501_185":"https://res.starwarsccg.org/cards/EnhancedCloudCity-Light/large/landowithblasterpistol.gif",
 "501_186":"https://res.starwarsccg.org/cards/CloudCity-Light/large/cloudcitycarbonitechamber.gif",
 "501_187":"https://res.starwarsccg.org/cards/SpecialEdition-Light/large/cloudcitywestgallery.gif",
+"501_188":"https://res.starwarsccg.org/cards/Dagobah-Light/large/itisthefutureyousee.gif",
 "501_196":"https://res.starwarsccg.org/cards/Tatooine-Light/large/neckandneck.gif",
 
 //legacy
