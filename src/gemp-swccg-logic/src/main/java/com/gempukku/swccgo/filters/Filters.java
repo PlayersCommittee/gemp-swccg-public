@@ -19159,6 +19159,7 @@ public class Filters {
     public static final Filter underwater_site = Filters.and(Icon.UNDERWATER, CardSubtype.SITE);
     public static final Filter Underworld_Contacts = Filters.title(Title.Underworld_Contacts);
     public static final Filter Unkar_Plutt = Filters.title(Title.Unkar_Plutt);
+    public static final Filter Unlimited_Power = Filters.title(Title.Unlimited_Power);
     public static final Filter Until_We_Win_Or_The_Chances_Are_Spent = Filters.title(Title.Until_We_Win_Or_The_Chances_Are_Spent);
     public static final Filter Uplink_Station = Filters.title(Title.Uplink_Station);
     public static final Filter Upper_Plaza_Corridor = Filters.title(Title.Upper_Plaza_Corridor);
@@ -19276,6 +19277,7 @@ public class Filters {
     public static final Filter You_Rebel_Scum = Filters.title(Title.You_Rebel_Scum);
     public static final Filter You_Truly_Belong_Here_With_Us = Filters.title(Title.You_Truly_Belong_Here_With_Us);
     public static final Filter You_Overestimate_Their_Chances = Filters.title(Title.You_Overestimate_Their_Chances);
+    public static final Filter Young_Fool = Filters.title(Title.Young_Fool);
     public static final Filter Your_Destiny = Filters.title(Title.Your_Destiny);
     public static final Filter Youll_Be_Dead = Filters.title(Title.Youll_Be_Dead);
     public static final Filter Youre_A_Slave = Filters.title(Title.Youre_A_Slave);

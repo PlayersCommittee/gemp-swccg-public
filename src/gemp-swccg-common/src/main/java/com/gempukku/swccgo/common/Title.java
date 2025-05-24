@@ -1285,6 +1285,7 @@ public interface Title {
     String You_Rebel_Scum = "You Rebel Scum";
     String You_Truly_Belong_Here_With_Us = "You Truly Belong Here With Us";
     String Youll_Be_Dead = "You'll Be Dead!";
+    String Young_Fool = "Young Fool";
     String Your_Destiny = "Your Destiny";
     String Your_Insight_Serves_You_Well = "Your Insight Serves You Well";
     String Your_Thoughts_Dwell_On_Your_Mother = "Your Thoughts Dwell On Your Mother";
