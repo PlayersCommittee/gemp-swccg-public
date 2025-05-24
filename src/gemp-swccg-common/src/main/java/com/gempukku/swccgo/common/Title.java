@@ -95,7 +95,7 @@ public interface Title {
     String Beggar = "Beggar";
     String Beggars_Canyon = "Tatooine: Beggar's Canyon";
     String Beldons_Eye = "Beldon's Eye";
-    String Beldons_Gallery = "Cloud City: Beldon's Gallery";
+    String Beldons_Corridor = "Cloud City: Beldon's Corridor";
     String Beru_Lars = "Beru Lars";
     String Beru_Stew = "Beru Stew";
     String Besieged = "Besieged";
@@ -639,6 +639,7 @@ public interface Title {
     String Karie_Neth = "Karie Neth";
     String Kashyyyk = "Kashyyyk";
     String Keep_Your_Eyes_Open = "Keep Your Eyes Open";
+    String Keeping_The_Empire_Out_Forever = "Keeping The Empire Out Forever";
     String Kef_Bir = "Kef Bir";
     String Kessel = "Kessel";
     String Kessel_Run = "Kessel Run";

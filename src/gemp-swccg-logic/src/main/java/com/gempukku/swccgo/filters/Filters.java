@@ -17600,7 +17600,7 @@ public class Filters {
     public static final Filter Beggar = Filters.title(Title.Beggar);
     public static final Filter Beggars_Canyon = Filters.title(Title.Beggars_Canyon);
     public static final Filter Beldons_Eye = Filters.title(Title.Beldons_Eye);
-    public static final Filter Beldons_Gallery = Filters.title(Title.Beldons_Gallery);
+    public static final Filter Beldons_Corridor = Filters.title(Title.Beldons_Corridor);
     public static final Filter Ben_Solo = Filters.persona(Persona.BEN_SOLO);
     public static final Filter Beru = Filters.title(Title.Beru_Lars);
     public static final Filter Beru_Stew = Filters.title(Title.Beru_Stew);
@@ -18370,6 +18370,7 @@ public class Filters {
     public static final Filter Kazuda = Filters.persona(Persona.KAZUDA);
     public static final Filter Kowakian = Filters.species(Species.KOWAKIAN);
     public static final Filter Keep_Your_Eyes_Open = Filters.title(Title.Keep_Your_Eyes_Open);
+    public static final Filter Keeping_The_Empire_Out_Forever = Filters.title(Title.Keeping_The_Empire_Out_Forever);
     public static final Filter Kef_Bir_site = Filters.and(Filters.partOfSystem(Title.Kef_Bir), CardSubtype.SITE);
     public static final Filter Kessel_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Kessel));
     public static final Filter Kessel_Run = Filters.title(Title.Kessel_Run);
