@@ -3786,6 +3786,8 @@ const fixedImages = {
 "501_117":"https://res.starwarsccg.org/cards/Coruscant-Dark/large/nocivilityonlypolitics.gif",
 "501_118":"https://res.starwarsccg.org/cards/Virtual21-Dark/hires/jakkuniimamarketplace.png",
 "501_119":"https://res.starwarsccg.org/cards/Dagobah-Dark/large/bombingrun.gif",
+"501_120":"https://res.starwarsccg.org/cards/Virtual11-Dark/large/insidiousprisoner.gif",
+"501_121":"https://res.starwarsccg.org/cards/Coruscant-Dark/large/nocivilityonlypolitics.gif",
 "501_130":"https://res.starwarsccg.org/cards/Virtual4-Dark/large/forcefreeze.gif",
 "501_131":"https://res.starwarsccg.org/cards/Dagobah-Dark/large/ig88spulsecannon.gif",
 "501_138":"https://res.starwarsccg.org/cards/Dagobah-Dark/large/flagship.gif",
@@ -3819,6 +3821,8 @@ const fixedImages = {
 "501_188":"https://res.starwarsccg.org/cards/Dagobah-Light/large/itisthefutureyousee.gif",
 "501_189":"https://res.starwarsccg.org/cards/ReflectionsIII-Light/large/letskeepalittleoptimismhere.gif",
 "501_190":"https://res.starwarsccg.org/cards/Tatooine-Light/large/ajedisconcentration.gif",
+"501_191":"https://res.starwarsccg.org/cards/Virtual8-Light/large/restorefreedomtothegalaxy.gif",
+"501_192":"https://res.starwarsccg.org/cards/Coruscant-Light/large/newleadershipisneeded.gif",
 "501_196":"https://res.starwarsccg.org/cards/Tatooine-Light/large/neckandneck.gif",
 
 //legacy
