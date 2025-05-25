@@ -17925,6 +17925,7 @@ public class Filters {
     public static final Filter disarming_card = Filters.keyword(Keyword.DISARMING_CARD);
     public static final Filter DJ = Filters.persona(Persona.DJ);
     public static final Filter Do_Or_Do_Not = Filters.title(Title.Do_Or_Do_Not);
+    public static final Filter Do_They_Have_A_Code_Clearance = Filters.title(Title.Do_They_Have_A_Code_Clearance);
     public static final Filter Doallyn = Filters.title(Title.Doallyn);
     public static final Filter Docking_And_Repair_Facilities = Filters.title(Title.Docking_And_Repair_Facilities);
     public static final Filter docking_bay = Filters.keyword(Keyword.DOCKING_BAY);
