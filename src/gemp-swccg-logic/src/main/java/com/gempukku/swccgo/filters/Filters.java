@@ -19240,6 +19240,7 @@ public class Filters {
     public static final Filter Wioslea = Filters.title(Title.Wioslea);
     public static final Filter Wise_Advice = Filters.title(Title.Wise_Advice);
     public static final Filter Wittin = Filters.title(Title.Wittin);
+    public static final Filter Wokling = Filters.title(Title.Wokling);
     public static final Filter womp_rat = Filters.title(Title.Womp_Rat);
     public static final Filter Wookiee = Filters.species(Species.WOOKIEE);
     public static final Filter Wookiee_Homestead = Filters.title(Title.Wookiee_Homestead);
