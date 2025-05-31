@@ -43,6 +43,7 @@ public enum ModifyGameTextType {
     JAWA_SIESTA__DOUBLED_BY_KALIT("Doubled And May Deploy For Free"),
     JAWA_PACK__DOUBLED_BY_WITTIN("Doubled And May Deploy For Free"),
     JEDI_TESTS__MAY_ATTEMPT_IN_OPPONENTS_CONTROL_PHASE("May be attempted at start of opponent's control phase"),
+    JEDI_TESTS__ONLY_LUKE_MAY_BE_APPRENTICE("Only Luke may be the apprentice"),
     JEDI_TEST_2__MAY_NOT_MOVE("Jedi Test 2 may not move"),
     JEDI_TEST_4__SEARCHES_FOR_FREE("Jedi Test 4 searches for free"),
     KETWOL__MAY_EXCHANGE_DOCKING_BAY_ONCE_PER_GAME("May exchange docking bay only once per game"),
