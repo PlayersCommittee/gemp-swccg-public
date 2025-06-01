@@ -81,7 +81,7 @@ public class Card4_076 extends AbstractJediTest {
         String opponent = game.getOpponent(playerId);
 
         boolean normalTiming = TriggerConditions.isEndOfYourTurn(game, effectResult, self);
-        boolean specialTiming = TriggerConditions.isStartOfOpponentsPhase(game, self, effectResult, Phase.CONTROL) && GameConditions.hasGameTextModification(game, self, ModifyGameTextType.JEDI_TESTS__MAY_ATTEMPT_IN_OPPONENTS_CONTROL_PHASE);
+        boolean specialTiming = TriggerConditions.isStartOfOpponentsPhase(game, self, effectResult, Phase.DEPLOY) && GameConditions.hasGameTextModification(game, self, ModifyGameTextType.JEDI_TESTS__MAY_ATTEMPT_IN_OPPONENTS_DEPLOY_PHASE);
         boolean timingSatisfied = normalTiming || specialTiming;
 
         // Check condition(s)
