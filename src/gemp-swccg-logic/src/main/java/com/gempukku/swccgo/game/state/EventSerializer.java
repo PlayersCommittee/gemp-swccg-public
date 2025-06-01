@@ -160,21 +160,15 @@ public class EventSerializer {
             AwaitingDecision decision = gameEvent.getAwaitingDecision();
             eventElem.setAttribute("id", String.valueOf(decision.getAwaitingDecisionId()));
             eventElem.setAttribute("decisionType", decision.getDecisionType().name());
-            if (decision.getText() != null)
+            if (decision.getText() != null) {
                 eventElem.setAttribute("text", decision.getText());
-            for (Map.Entry<String, Object> paramEntry : decision.getDecisionParameters().entrySet()) {
-                if (paramEntry.getValue() instanceof String) {
+            }
+            for (Map.Entry<String, String[]> paramEntry : decision.getDecisionParameters().entrySet()) {
+                for (String value : paramEntry.getValue()) {
                     Element decisionParam = doc.createElement("parameter");
                     decisionParam.setAttribute("name", paramEntry.getKey());
-                    decisionParam.setAttribute("value", (String) paramEntry.getValue());
+                    decisionParam.setAttribute("value", value);
                     eventElem.appendChild(decisionParam);
-                } else if (paramEntry.getValue() instanceof String[]) {
-                    for (String value : (String[]) paramEntry.getValue()) {
-                        Element decisionParam = doc.createElement("parameter");
-                        decisionParam.setAttribute("name", paramEntry.getKey());
-                        decisionParam.setAttribute("value", value);
-                        eventElem.appendChild(decisionParam);
-                    }
                 }
             }
         }

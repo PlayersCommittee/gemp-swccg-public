@@ -6,14 +6,11 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.PlayOrder;
 import com.gempukku.swccgo.logic.decisions.CardActionSelectionDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
 import com.gempukku.swccgo.logic.timing.Action;
-import com.gempukku.swccgo.logic.timing.GameSnapshot;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.processes.GameProcess;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,7 +49,7 @@ public class PlayersPlayPhaseActionsInOrderGameProcess implements GameProcess {
                     public void decisionMade(String result) throws DecisionResultInvalidException {
                         // Check if revert to previous game state was chosen
                         if ("revert".equalsIgnoreCase(result)) {
-                            performRevert(game, playerId);
+                            game.requestRevert(playerId, () -> checkPlayerAgain(game));
                         }
                         else {
                             final Action action = getSelectedAction(result);
@@ -127,70 +124,6 @@ public class PlayersPlayPhaseActionsInOrderGameProcess implements GameProcess {
         _playOrder.getNextPlayer();
         _nextProcess = new PlayersPlayPhaseActionsInOrderGameProcess(game.getGameState().getPlayerOrder().getPlayOrder(_playOrder.getNextPlayer(), true), _consecutivePasses, _followingGameProcess);
     }
-
-    /**
-     * This method if the player chooses to revert game to a previous game state.
-     * @param game the game
-     * @param playerId the player
-     */
-    private void performRevert(final SwccgGame game, final String playerId) {
-        final List<Integer> snapshotIds = new ArrayList<Integer>();
-        final List<String> snapshotDescriptions = new ArrayList<String>();
-        for (GameSnapshot gameSnapshot : game.getSnapshots()) {
-            snapshotIds.add(gameSnapshot.getId());
-            snapshotDescriptions.add(gameSnapshot.getDescription());
-        }
-        int numSnapshots = snapshotDescriptions.size();
-        if (numSnapshots == 0) {
-            checkPlayerAgain(game);
-            return;
-        }
-        snapshotIds.add(-1);
-        snapshotDescriptions.add("Do not revert");
-
-        // Ask player to choose snapshot to revert back to
-        game.getUserFeedback().sendAwaitingDecision(playerId,
-                new MultipleChoiceAwaitingDecision("Choose game state to revert prior to", snapshotDescriptions.toArray(new String[0]), snapshotDescriptions.size() - 1) {
-                    @Override
-                    public void validDecisionMade(int index, String result) {
-                        final int snapshotIdChosen = snapshotIds.get(index);
-                        if (snapshotIdChosen == -1) {
-                            checkPlayerAgain(game);
-                            return;
-                        }
-
-                        game.getGameState().sendMessage(playerId + " attempts to revert game to a previous state");
-
-                        // Confirm with the other player if it is acceptable to revert to the game state
-                        final String opponent = game.getOpponent(playerId);
-                        StringBuilder snapshotDescMsg = new StringBuilder("</br>");
-                        for (int i=0; i<snapshotDescriptions.size() - 1; ++i) {
-                            if (i == index) {
-                                snapshotDescMsg.append("</br>").append(">>> Revert to here <<<");
-                            }
-                            if ((index - i) < 3) {
-                                snapshotDescMsg.append("</br>").append(snapshotDescriptions.get(i));
-                            }
-                        }
-                        snapshotDescMsg.append("</br>");
-
-                        game.getUserFeedback().sendAwaitingDecision(opponent,
-                                new YesNoDecision("Do you want to allow game to be reverted to the following game state?" + snapshotDescMsg) {
-                                    @Override
-                                    protected void yes() {
-                                        game.getGameState().sendMessage(opponent + " allows game to revert to a previous state");
-                                        game.requestRestoreSnapshot(snapshotIdChosen);
-                                    }
-                                    @Override
-                                    protected void no() {
-                                        game.getGameState().sendMessage(opponent + " denies attempt to revert game to a previous state");
-                                        checkPlayerAgain(game);
-                                    }
-                                });
-                    }
-                });
-    }
-
 
     @Override
     public GameProcess getNextProcess() {

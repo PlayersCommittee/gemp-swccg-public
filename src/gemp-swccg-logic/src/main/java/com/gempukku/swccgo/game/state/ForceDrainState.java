@@ -8,9 +8,12 @@ import com.gempukku.swccgo.game.SwccgGame;
  * This class contains the state information for a Force drain.
  */
 public class ForceDrainState {
-    private SwccgGame _game;
-    private String _playerId;
-    private PhysicalCard _location;
+    private final SwccgGame _game;
+    private final String _playerId;
+    private int _forceRemaining;
+    private int _forceTotal;
+    private int _forcePaid;
+    private final PhysicalCard _location;
     private boolean _canceled;
 
     /**
@@ -58,4 +61,40 @@ public class ForceDrainState {
     public void cancel() {
         _canceled = true;
     }
+
+    /**
+     * @param total The total Force amount that will be paid as part of this drain.
+     */
+    public void updateTotal(float total) {
+        _forceTotal = (int) total;
+    }
+
+    /**
+     * @return The total amount of force that will be paid as part of this drain.
+     */
+    public int getForceTotal() { return _forceTotal; }
+
+    /**
+     * @param remaining The remaining unpaid Force that has yet to be paid for this drain.
+     */
+    public void updateRemaining(float remaining) {
+        _forceRemaining = (int) remaining;
+    }
+
+    /**
+     * @return How much Force remains unpaid on this Force drain.
+     */
+    public int getForceRemaining() { return _forceRemaining; }
+
+    /**
+     * @param paid The total amount of Force that has been paid so far for this drain.
+     */
+    public void updatePaid(float paid) {
+        _forcePaid = (int) paid;
+    }
+
+    /**
+     * @return How much Force has been paid so far as part of this Force drain.
+     */
+    public int getForcePaid() { return _forcePaid; }
 }

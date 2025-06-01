@@ -28,7 +28,7 @@ public class LoseForceFromReserveDeckEffect extends LoseForceEffect {
      * @param cannotBeReduced true if Force loss cannot be reduced, otherwise false
      */
     public LoseForceFromReserveDeckEffect(Action action, String playerToLoseForce, float amount, boolean cannotBeReduced) {
-        super(action, playerToLoseForce, amount, cannotBeReduced, false, false, false, true, false, null, false, false);
+        super(action, playerToLoseForce, amount, cannotBeReduced, null, false, false, true, false, null, false, false);
     }
 
     /**
@@ -39,7 +39,7 @@ public class LoseForceFromReserveDeckEffect extends LoseForceEffect {
      * @param cannotBeReducedBelow the amount below which the force loss cannot be reduced (if the initial amount is less than that then it will +)
      */
     public LoseForceFromReserveDeckEffect(Action action, String playerToLoseForce, float amount, float cannotBeReducedBelow) {
-        super(action, playerToLoseForce, amount, false, false, false, false, true, false, null, false, false, false, cannotBeReducedBelow);
+        super(action, playerToLoseForce, amount, false, null, false, false, true, false, null, false, false, false, cannotBeReducedBelow);
     }
 
     @Override

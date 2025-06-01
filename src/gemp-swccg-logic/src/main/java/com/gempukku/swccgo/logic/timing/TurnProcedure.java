@@ -422,6 +422,12 @@ public class TurnProcedure implements Snapshotable<TurnProcedure> {
                 }
             }
         }
+
+        //If we are running inside the test rig, we want more information on what procedure we are currently
+        // on than just "optional response".
+        if(game.isTestEnvironment() && text == null && effectResults.size() == 1) {
+            text = effectResults.stream().findFirst().get().getType().toString();
+        }
         return (text != null ? (text + " - ") : "") + textToAppend;
     }
 

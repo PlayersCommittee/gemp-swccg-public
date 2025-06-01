@@ -69,7 +69,7 @@ public class ForceDrainEffect extends AbstractSubActionEffect {
                             // Perform Force loss
                             SubAction forceLossSubAction = new SubAction(subAction);
                             forceLossSubAction.appendEffect(
-                                    new LoseForceEffect(subAction, game.getOpponent(_performingPlayerId), amountToDrain, false, true, false, false, false, false, null, false, false));
+                                    new LoseForceEffect(subAction, game.getOpponent(_performingPlayerId), amountToDrain, false, game.getGameState().getForceDrainState(), false, false, false, false, null, false, false));
                             subAction.stackSubAction(forceLossSubAction);
                         }
                     }
