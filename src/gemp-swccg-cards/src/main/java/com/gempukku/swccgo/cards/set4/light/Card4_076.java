@@ -89,7 +89,7 @@ public class Card4_076 extends AbstractJediTest {
                 && !GameConditions.isJediTestCompleted(game, self)) {
             ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
             if (modifiersQuerying.getNumBattlesInitiatedThisTurn(playerId) == 0
-                    && modifiersQuerying.getNumForceDrainsInitiatedThisTurn() == 0
+                    && (modifiersQuerying.getNumForceDrainsInitiatedThisTurn() == 0 || GameConditions.isOpponentsTurn(game, playerId))
                     && !modifiersQuerying.hasAttemptedJediTests()) {
                 final PhysicalCard apprentice = Filters.findFirstActive(game, self, Filters.and(Filters.mayAttemptJediTest(self), Filters.present(self)));
                 if (apprentice != null) {
