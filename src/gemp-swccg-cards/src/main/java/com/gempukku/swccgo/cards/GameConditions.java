@@ -4842,7 +4842,7 @@ public class GameConditions {
      * @return true or false
      */
     public static boolean canInitiateBattleAtLocation(String player, SwccgGame game, PhysicalCard location, boolean forFree) {
-        return canInitiateBattleAtLocation(player, game, location, forFree, false);
+        return canInitiateBattleAtLocation(player, game, location, forFree, false, false);
     }
 
     /**
@@ -4851,9 +4851,24 @@ public class GameConditions {
      * @param game the game
      * @param location the location
      * @param forFree if the battle would be initiated for free
+     * @param skipPhaseCheck if owner's battle phase is not required
      * @return true or false
      */
     public static boolean canInitiateBattleAtLocation(String player, SwccgGame game, PhysicalCard location, boolean forFree, boolean skipPhaseCheck) {
+        return canInitiateBattleAtLocation(player, game, location, forFree, skipPhaseCheck, false);
+    }
+
+    /**
+     * Determines if the specified player can initiate battle at the location.
+     * @param player the player
+     * @param game the game
+     * @param location the location
+     * @param forFree if the battle would be initiated for free
+     * @param skipPhaseCheck if owner's battle phase is not required
+     * @param skipPresenceCheck if occupying is not required
+     * @return true or false
+     */
+    public static boolean canInitiateBattleAtLocation(String player, SwccgGame game, PhysicalCard location, boolean forFree, boolean skipPhaseCheck, boolean skipPresenceCheck) {
         GameState gameState = game.getGameState();
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
@@ -4890,8 +4905,8 @@ public class GameConditions {
         boolean foundMayBeBattled = Filters.canSpot(game, null, Filters.and(Filters.opponents(player), Filters.mayBeBattled, Filters.canParticipateInBattleAt(location, player)));
 
         // Both sides occupy location (excluding cards that cannot participate in battle)
-        return ((foundMayInitiateBattle || modifiersQuerying.hasPresenceAt(gameState, player, location, true, player, null))
-                && (foundMayBeBattled || modifiersQuerying.hasPresenceAt(gameState, gameState.getOpponent(player), location, true, player, null)));
+        return ((foundMayInitiateBattle || modifiersQuerying.hasPresenceAt(gameState, player, location, true, player, null) || skipPresenceCheck)
+                && (foundMayBeBattled || modifiersQuerying.hasPresenceAt(gameState, gameState.getOpponent(player), location, true, player, null) || skipPresenceCheck));
     }
 
     /**
