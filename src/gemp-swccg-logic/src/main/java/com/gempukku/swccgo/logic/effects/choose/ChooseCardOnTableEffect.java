@@ -76,6 +76,18 @@ public abstract class ChooseCardOnTableEffect extends ChooseCardsOnTableEffect {
         super(action, playerId, choiceText, 1, 1, spotOverrides, filters);
     }
 
+    /**
+     * Creates an effect that causes the player to choose a card on the table accepted by the specified filter.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param choiceText the text shown to the player choosing the card
+     * @param spotOverrides overrides for which inactive cards are visible
+     * @param filters the filter
+     */
+    public ChooseCardOnTableEffect(Action action, String playerId, String choiceText, Map<InactiveReason, Boolean> spotOverrides, Filterable filters, Integer minimum) {
+        super(action, playerId, choiceText, minimum, 1, spotOverrides, filters);
+    }
+
     @Override
     protected final void cardsSelected(Collection<PhysicalCard> selectedCards) {
         if (selectedCards.size() == 1)

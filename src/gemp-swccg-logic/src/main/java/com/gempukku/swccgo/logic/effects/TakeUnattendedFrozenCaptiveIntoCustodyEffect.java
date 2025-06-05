@@ -39,7 +39,7 @@ public class TakeUnattendedFrozenCaptiveIntoCustodyEffect extends AbstractSucces
         if (_thawCaptive) {
             _captive.setFrozen(false);
         }
-        gameState.moveCardToAttached(_captive, _escort);
+        gameState.seizeCharacter(game, _captive, _escort);
 
         // Emit the result effect that can trigger other cards
         game.getActionsEnvironment().emitEffectResult(new TookUnattendedFrozenCaptiveIntoCustodyResult(_escort, _captive, site));

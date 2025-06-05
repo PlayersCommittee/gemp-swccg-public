@@ -2,17 +2,16 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.swccgo.framework.StartingSetup;
 import org.junit.Test;
 
 import java.util.HashMap;
 
-import static com.gempukku.swccgo.framework.Assertions.assertAtLocation;
-import static com.gempukku.swccgo.framework.Assertions.assertInHand;
+import static com.gempukku.swccgo.framework.Assertions.*;
 import static org.junit.Assert.*;
 
 public class Card_1_304_Tests {
-	protected VirtualTableScenario GetScenario() throws DecisionResultInvalidException {
+	protected VirtualTableScenario GetScenario() {
 		return new VirtualTableScenario(
 				new HashMap<>()
 				{{
@@ -24,18 +23,18 @@ public class Card_1_304_Tests {
 				}},
 				10,
 				10,
-				VirtualTableScenario.DefaultSpaceLSSystem,
-				VirtualTableScenario.DefaultSpaceDSSystem,
-				VirtualTableScenario.NoLSStarters,
-				VirtualTableScenario.NoDSStarters,
-				VirtualTableScenario.NoLSShields,
-				VirtualTableScenario.NoDSShields,
+				StartingSetup.DefaultLSSpaceSystem,
+				StartingSetup.DefaultDSSpaceSystem,
+				StartingSetup.NoLSStartingInterrupts,
+				StartingSetup.NoDSStartingInterrupts,
+				StartingSetup.NoLSShields,
+				StartingSetup.NoDSShields,
 				VirtualTableScenario.Open
 		);
 	}
 
 	@Test
-	public void TIEFighterStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException {
+	public void TIEFighterStatsAndKeywordsAreCorrect() {
 		/**
 		 * Title: TIE Fighter
 		 * Uniqueness: Unrestricted
@@ -81,7 +80,7 @@ public class Card_1_304_Tests {
 	}
 
 	@Test
-	public void TIEFighterDeploysFor1ForceNormally() throws DecisionResultInvalidException {
+	public void TIEFighterDeploysFor1ForceNormally() {
 		var scn = GetScenario();
 
 		var tie = scn.GetDSCard("tie");
@@ -94,7 +93,7 @@ public class Card_1_304_Tests {
 		scn.PassControlActions();
 
 		assertEquals(Phase.DEPLOY, scn.GetCurrentPhase());
-		assertTrue(scn.DSDecisionAvailable("Choose Deploy action or Pass"));
+		assertTrue(scn.AwaitingDSDeployPhaseActions());
 
 		assertInHand(tie);
 		assertEquals(3, scn.GetDSForcePileCount());
@@ -106,7 +105,7 @@ public class Card_1_304_Tests {
 	}
 
 	@Test
-	public void TIEFighterDeploysFor0ForceWithImperialCapitalStarship() throws DecisionResultInvalidException {
+	public void TIEFighterDeploysFor0ForceWithImperialCapitalStarship() {
 		var scn = GetScenario();
 
 		var tie = scn.GetDSCard("tie");
@@ -131,7 +130,7 @@ public class Card_1_304_Tests {
 	}
 
 	@Test
-	public void TIEFighterHasAbility1FromPermanentPilot() throws DecisionResultInvalidException {
+	public void TIEFighterHasAbility1FromPermanentPilot() {
 		var scn = GetScenario();
 
 		var tie = scn.GetDSCard("tie");

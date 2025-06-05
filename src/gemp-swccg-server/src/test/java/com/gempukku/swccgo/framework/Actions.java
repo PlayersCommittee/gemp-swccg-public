@@ -114,15 +114,13 @@ public interface Actions extends Decisions, Choices {
 	/**
 	 * Causes the Dark Side player to choose the given action whose description contains the given search text.
 	 * @param option The text to search for.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void DSChooseAction(String option) throws DecisionResultInvalidException { ChooseAction(DS, "actionText", option); }
+	default void DSChooseAction(String option) { ChooseAction(DS, "actionText", option); }
 	/**
 	 * Causes the Light Side player to choose the given action whose description contains the given search text.
 	 * @param option The text to search for.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void LSChooseAction(String option) throws DecisionResultInvalidException { ChooseAction(LS, "actionText", option); }
+	default void LSChooseAction(String option) { ChooseAction(LS, "actionText", option); }
 
 
 
@@ -144,17 +142,13 @@ public interface Actions extends Decisions, Choices {
 	/**
 	 * Causes the Dark Side player to execute an available action on the given card.
 	 * @param card The card which is being used (played, deployed, activated, etc).
-	 * @throws DecisionResultInvalidException Thrown if there is no legal action using that card (i.e. it would not be
-	 * highlighted in Gemp).
 	 */
-	default void DSUseCardAction(PhysicalCardImpl card) throws DecisionResultInvalidException { DSDecided(GetCardActionId(DS, card)); }
+	default void DSUseCardAction(PhysicalCardImpl card) { DSDecided(GetCardActionId(DS, card)); }
 	/**
 	 * Causes the Light Side player to execute an available action on the given card.
 	 * @param card The card which is being used (played, deployed, activated, etc).
-	 * @throws DecisionResultInvalidException Thrown if there is no legal action using that card (i.e. it would not be
-	 * highlighted in Gemp).
 	 */
-	default void LSUseCardAction(PhysicalCardImpl card) throws DecisionResultInvalidException { LSDecided(GetCardActionId(LS, card)); }
+	default void LSUseCardAction(PhysicalCardImpl card) { LSDecided(GetCardActionId(LS, card)); }
 
 
 	/**
@@ -179,17 +173,15 @@ public interface Actions extends Decisions, Choices {
 	 * Technically this is a catch-all that will activate any action on this card, but the use of this function
 	 * communicates that the tester intended to play it from hand.
 	 * @param card The card to play.
-	 * @throws DecisionResultInvalidException This error will be thrown if the card does not have any available action.
 	 */
-	default void DSPlayCard(PhysicalCardImpl card) throws DecisionResultInvalidException { DSDecided(GetCardActionId(DS, card)); }
+	default void DSPlayCard(PhysicalCardImpl card) { DSDecided(GetCardActionId(DS, card)); }
 	/**
 	 * Causes the Light Side player to select the given card and execute its legal action (i.e. plays that card from hand).
 	 * Technically this is a catch-all that will activate any action on this card, but the use of this function
 	 * communicates that the tester intended to play it from hand.
 	 * @param card The card to play.
-	 * @throws DecisionResultInvalidException This error will be thrown if the card does not have any available action.
 	 */
-	default void LSPlayCard(PhysicalCardImpl card) throws DecisionResultInvalidException { LSDecided(GetCardActionId(LS, card)); }
+	default void LSPlayCard(PhysicalCardImpl card) { LSDecided(GetCardActionId(LS, card)); }
 
 
 
@@ -228,38 +220,31 @@ public interface Actions extends Decisions, Choices {
 	 * card from hand). This may only be useful for cards which have both a USED and LOST operation and may fail if
 	 * using it for vanilla LOST Interrupts.
 	 * @param card The card to play.
-	 * @throws DecisionResultInvalidException This error will be thrown if a matching LOST play action is not found for
 	 * this card.
 	 */
-	default void DSPlayLostInterrupt(PhysicalCardImpl card) throws DecisionResultInvalidException { DSDecided(GetCardActionId(DS, card, "LOST: ")); }
+	default void DSPlayLostInterrupt(PhysicalCardImpl card) { DSDecided(GetCardActionId(DS, card, "LOST: ")); }
 	/**
 	 * Causes the Light Side player to select the given Lost Interrupt and execute its legal action (i.e. plays that
 	 * card from hand). This may only be useful for cards which have both a USED and LOST operation and may fail if
 	 * using it for vanilla LOST Interrupts.
 	 * @param card The card to play.
-	 * @throws DecisionResultInvalidException This error will be thrown if a matching LOST play action is not found for
-	 * this card.
 	 */
-	default void LSPlayLostInterrupt(PhysicalCardImpl card) throws DecisionResultInvalidException { LSDecided(GetCardActionId(LS, card, "LOST: ")); }
+	default void LSPlayLostInterrupt(PhysicalCardImpl card) { LSDecided(GetCardActionId(LS, card, "LOST: ")); }
 
 	/**
 	 * Causes the Dark Side player to select the given Used Interrupt and execute its legal action (i.e. plays that
 	 * card from hand). This may only be useful for cards which have both a USED and LOST operation and may fail if
 	 * using it for vanilla USED Interrupts.
 	 * @param card The card to play.
-	 * @throws DecisionResultInvalidException This error will be thrown if a matching USED play action is not found for
-	 * this card.
 	 */
-	default void DSPlayUsedInterrupt(PhysicalCardImpl card) throws DecisionResultInvalidException { DSDecided(GetCardActionId(DS, card, "USED: ")); }
+	default void DSPlayUsedInterrupt(PhysicalCardImpl card) { DSDecided(GetCardActionId(DS, card, "USED: ")); }
 	/**
 	 * Causes the Light Side player to select the given Used Interrupt and execute its legal action (i.e. plays that
 	 * card from hand). This may only be useful for cards which have both a USED and LOST operation and may fail if
 	 * using it for vanilla USED Interrupts.
 	 * @param card The card to play.
-	 * @throws DecisionResultInvalidException This error will be thrown if a matching USED play action is not found for
-	 * this card.
 	 */
-	default void LSPlayUsedInterrupt(PhysicalCardImpl card) throws DecisionResultInvalidException { LSDecided(GetCardActionId(LS, card, "USED: ")); }
+	default void LSPlayUsedInterrupt(PhysicalCardImpl card) { LSDecided(GetCardActionId(LS, card, "USED: ")); }
 
 
 	/**
@@ -278,26 +263,20 @@ public interface Actions extends Decisions, Choices {
 	/**
 	 * Causes the Dark Side player to perform  a legal deployment action of the given card (i.e. plays that card from hand).
 	 * @param card The card to deploy.
-	 * @throws DecisionResultInvalidException This error will be thrown if the card is not in hand or is otherwise not
-	 * legal to deploy (due to costs, requirements, or other rules).
 	 */
-	default void DSDeployCard(PhysicalCardImpl card) throws DecisionResultInvalidException { DSDecided(GetCardActionId(DS, card, "Deploy")); }
+	default void DSDeployCard(PhysicalCardImpl card) { DSDecided(GetCardActionId(DS, card, "Deploy")); }
 	/**
 	 * Causes the Light Side player to perform  a legal deployment action of the given card (i.e. plays that card from hand).
 	 * @param card The card to deploy.
-	 * @throws DecisionResultInvalidException This error will be thrown if the card is not in hand or is otherwise not
-	 * legal to deploy (due to costs, requirements, or other rules).
 	 */
-	default void LSDeployCard(PhysicalCardImpl card) throws DecisionResultInvalidException { LSDecided(GetCardActionId(LS, card, "Deploy")); }
+	default void LSDeployCard(PhysicalCardImpl card) { LSDecided(GetCardActionId(LS, card, "Deploy")); }
 
 	/**
 	 * Causes the Dark Side player to perform  a legal deployment action of the given location (i.e. plays that card
 	 * from hand).  The site will be placed on the left automatically if necessary
 	 * @param site The site to deploy.
-	 * @throws DecisionResultInvalidException This error will be thrown if the card is not in hand or is otherwise not
-	 * legal to deploy (due to costs, requirements, or other rules).
 	 */
-	default void DSDeployLocation(PhysicalCardImpl site) throws DecisionResultInvalidException {
+	default void DSDeployLocation(PhysicalCardImpl site) {
 		DSDecided(GetCardActionId(DS, site, "Deploy"));
 		if(DSDecisionAvailable("On which side")) {
 			DSChoose("Left");
@@ -307,10 +286,8 @@ public interface Actions extends Decisions, Choices {
 	 * Causes the Light Side player to perform  a legal deployment action of the given location (i.e. plays that card
 	 * from hand).  The site will be placed on the left automatically if necessary
 	 * @param site The site to deploy.
-	 * @throws DecisionResultInvalidException This error will be thrown if the card is not in hand or is otherwise not
-	 * legal to deploy (due to costs, requirements, or other rules).
 	 */
-	default void LSDeployLocation(PhysicalCardImpl site) throws DecisionResultInvalidException {
+	default void LSDeployLocation(PhysicalCardImpl site) {
 		LSDecided(GetCardActionId(LS, site, "Deploy"));
 		if(LSDecisionAvailable("On which side")) {
 			LSChoose("Left");
@@ -335,16 +312,14 @@ public interface Actions extends Decisions, Choices {
 	 * Causes the Dark Side player to initiate a Transfer action on the given card.  Follow-up decisions will need to be
 	 * made regarding the target.
 	 * @param card The card to transfer.
-	 * @throws DecisionResultInvalidException Thrown if the given card does not have a legal transfer action to perform.
 	 */
-	default void DSTransferCard(PhysicalCardImpl card) throws DecisionResultInvalidException { DSDecided(GetCardActionId(DS, card, "Transfer")); }
+	default void DSTransferCard(PhysicalCardImpl card) { DSDecided(GetCardActionId(DS, card, "Transfer")); }
 	/**
 	 * Causes the Light Side player to initiate a Transfer action on the given card.  Follow-up decisions will need to be
 	 * made regarding the target.
 	 * @param card The card to transfer.
-	 * @throws DecisionResultInvalidException Thrown if the given card does not have a legal transfer action to perform.
 	 */
-	default void LSTransferCard(PhysicalCardImpl card) throws DecisionResultInvalidException { LSDecided(GetCardActionId(LS, card, "Transfer ")); }
+	default void LSTransferCard(PhysicalCardImpl card) { LSDecided(GetCardActionId(LS, card, "Transfer ")); }
 
 
 
@@ -365,18 +340,16 @@ public interface Actions extends Decisions, Choices {
 	/**
 	 * Causes the Dark Side player to initiate a legal Force Drain action at the given site.
 	 * @param site The location to initiate the Force Drain at.
-	 * @throws DecisionResultInvalidException Thrown if there is no legal Force Drain action to perform.
 	 */
-	default void DSForceDrainAt(PhysicalCardImpl site) throws DecisionResultInvalidException {
+	default void DSForceDrainAt(PhysicalCardImpl site) {
 		DSDecided(GetCardActionId(DS, site, "Force drain"));
 	}
 
 	/**
 	 * Causes the Dark Side player to initiate a legal Force Drain action at the given site.
 	 * @param site The location to initiate the Force Drain at.
-	 * @throws DecisionResultInvalidException Thrown if there is no legal Force Drain action to perform.
 	 */
-	default void LSForceDrainAt(PhysicalCardImpl site) throws DecisionResultInvalidException {
+	default void LSForceDrainAt(PhysicalCardImpl site) {
 		LSDecided(GetCardActionId(LS, site, "Force drain"));
 	}
 

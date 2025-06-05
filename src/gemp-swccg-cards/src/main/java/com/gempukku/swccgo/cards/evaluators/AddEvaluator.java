@@ -24,7 +24,7 @@ public class AddEvaluator extends BaseEvaluator {
     }
 
     /**
-     * Creates an evaluator that returns the result of the specified amou with the specified amount added.
+     * Creates an evaluator that returns the result of the specified amount with the specified amount added.
      * @param initialAmount the initial amount
      * @param amountsToAdd the evaluators for the amounts to add
      */

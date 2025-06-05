@@ -655,7 +655,7 @@ public class GameState implements Snapshotable<GameState> {
      */
     public void freezeCharacter(PhysicalCard card) {
         card.setFrozen(true);
-        card.setCaptive(true);
+        //card.setCaptiveEscort(true);
 
         // Use cardRotated from listener since it just updates the image/overlays and doesn't move/replace the card
         for (GameStateListener listener : getAllGameStateListeners())
@@ -720,7 +720,7 @@ public class GameState implements Snapshotable<GameState> {
     public void makeGoMissing(SwccgGame game, PhysicalCard card) {
         card.setMissing(true);
         if (!card.isFrozen()) {
-            card.setCaptive(false);
+            card.setCaptiveEscort(null);
         }
         moveCardToLocation(card, _game.getModifiersQuerying().getLocationThatCardIsAt(this, card), !card.isUndercover() && !card.isFrozen());
         if (!card.isInverted()) {
@@ -749,14 +749,14 @@ public class GameState implements Snapshotable<GameState> {
     public void imprisonCharacter(SwccgGame game, PhysicalCard card, PhysicalCard prison) {
         // Move or attach card based on if card was already in play
         if (Filters.in_play.accepts(game.getGameState(), game.getModifiersQuerying(), card)) {
-            card.setCaptive(true);
             card.setImprisoned(true);
+            card.setCaptiveEscort(null);
             moveCardToAttached(card, prison);
         }
         else {
             game.getGameState().removeCardsFromZone(Collections.singleton(card));
-            card.setCaptive(true);
             card.setImprisoned(true);
+            card.setCaptiveEscort(null);
             attachCard(card, prison);
         }
     }
@@ -770,13 +770,13 @@ public class GameState implements Snapshotable<GameState> {
     public void seizeCharacter(SwccgGame game, PhysicalCard card, PhysicalCard escort) {
         // Move or attach card based on if card was already in play
         if (Filters.in_play.accepts(game.getGameState(), game.getModifiersQuerying(), card)) {
-            card.setCaptive(true);
+            card.setCaptiveEscort(escort);
             card.setImprisoned(false);
             moveCardToAttached(card, escort);
         }
         else {
             game.getGameState().removeCardsFromZone(Collections.singleton(card));
-            card.setCaptive(true);
+            card.setCaptiveEscort(escort);
             card.setImprisoned(false);
             attachCard(card, escort);
         }
@@ -834,9 +834,7 @@ public class GameState implements Snapshotable<GameState> {
         card.atLocation(moveTo);
         card.attachTo(null, false, false, false, false, false);
         card.stackOn(null, false, false);
-        if (!card.isFrozen()) {
-            card.setCaptive(false);
-        }
+        card.setCaptiveEscort(null);
         card.setImprisoned(false);
         card.setZone(Zone.AT_LOCATION);
         card.setZoneOwner(newZoneOwner);
@@ -1466,7 +1464,7 @@ public class GameState implements Snapshotable<GameState> {
         toCard.setUndercover(fromCard.isUndercover());
         toCard.setMissing(fromCard.isMissing());
         toCard.setCapturedStarship(fromCard.isCapturedStarship());
-        toCard.setCaptive(fromCard.isCaptive());
+        toCard.setCaptiveEscort(fromCard.getEscort());
         toCard.setImprisoned(fromCard.isImprisoned());
         toCard.setFrozen(fromCard.isFrozen());
         toCard.setProbeCard(fromCard.isProbeCard());
@@ -1510,7 +1508,7 @@ public class GameState implements Snapshotable<GameState> {
         card.setUndercover(false);
         card.setMissing(false);
         card.setCapturedStarship(false);
-        card.setCaptive(false);
+        card.setCaptiveEscort(null);
         card.setImprisoned(false);
         card.setFrozen(false);
         card.setProbeCard(false);
@@ -2507,10 +2505,20 @@ public class GameState implements Snapshotable<GameState> {
                 includeWeaponsForStealingForThisCard = true;
             }
 
+            //Captive Fury requires that the targeted captives be treated as active for most purposes
+            boolean treatCaptiveAsActive = false;
+            if(includeCaptives || modifiersQuerying.captiveMayParticipateInBattle(_game.getGameState(), physicalCard)) {
+                treatCaptiveAsActive = true;
+            }
+
             // Check if the card can be spotted as "active" and include it if it can be.
-            if (isCardInPlayActive(physicalCard, includeExcludedFromBattle, includeUndercoverForThisCard, includeCaptives, includeConcealed, includeWeaponsForStealingForThisCard, includeMissing, false, includeSuspended))
-                if (physicalCardVisitor.visitPhysicalCard(physicalCard))
+            if (isCardInPlayActive(physicalCard, includeExcludedFromBattle, includeUndercoverForThisCard, treatCaptiveAsActive,
+                    includeConcealed, includeWeaponsForStealingForThisCard, includeMissing, false, includeSuspended)) {
+                if (physicalCardVisitor.visitPhysicalCard(physicalCard)) {
                     return true;
+                }
+            }
+
         }
 
         return false;
@@ -3044,15 +3052,13 @@ public class GameState implements Snapshotable<GameState> {
     }
 
     public List<PhysicalCard> getCaptivesOfEscort(PhysicalCard card) {
-        List<PhysicalCard> result = new LinkedList<PhysicalCard>();
-        if (card.getBlueprint().getCardCategory() == CardCategory.CHARACTER) {
-            for (PhysicalCard physicalCard : getAttachedCards(card, false)) {
-                if (physicalCard.isCaptive()) {
-                    result.add(physicalCard);
-                }
-            }
-        }
-        return result;
+        return card.getCardsEscorting();
+    }
+
+    public List<PhysicalCard> getInactiveCaptivesOfEscort(SwccgGame game, PhysicalCard card) {
+        return card.getCardsEscorting().stream().filter(captive -> {
+			return !game.getModifiersQuerying().captiveMayParticipateInBattle(game.getGameState(), captive);
+		}).toList();
     }
 
     public List<PhysicalCard> getCaptivesInPrison(PhysicalCard prison) {
@@ -3274,14 +3280,16 @@ public class GameState implements Snapshotable<GameState> {
 
         // Passenger slots are also filled by captives, so count any captives that are escorted by the card if not already aboard.
         if (!isCardAlreadyAboard && cardToCheckFor != null) {
-            passengerCapacity -= getCaptivesOfEscort(cardToCheckFor).size();
+            passengerCapacity -= getInactiveCaptivesOfEscort(_game, cardToCheckFor).size();
             passengerCapacity -= getNonCaptiveCharactersCarried(cardToCheckFor).size();
         }
 
         for (PhysicalCard pilot : pilots) {
+            if(cardToCheckFor == null)
+                continue;
             // Passenger slots are also filled by captives, so count any captives that are escorted by pilots or passengers.
             if (!isCardAlreadyAboard || cardToCheckFor.getCardId() != pilot.getCardId()) {
-                passengerCapacity -= getCaptivesOfEscort(pilot).size();
+                passengerCapacity -= getInactiveCaptivesOfEscort(_game, pilot).size();
                 passengerCapacity -= getNonCaptiveCharactersCarried(pilot).size();
             }
         }
@@ -3289,7 +3297,7 @@ public class GameState implements Snapshotable<GameState> {
         for (PhysicalCard passengerCard : passengers) {
             // Passenger slots are also filled by captives, so count any captives that are escorted by pilots or passengers.
             if (!isCardAlreadyAboard || cardToCheckFor.getCardId() != passengerCard.getCardId()) {
-                passengerCapacity -= getCaptivesOfEscort(passengerCard).size();
+                passengerCapacity -= getInactiveCaptivesOfEscort(_game, passengerCard).size();
                 passengerCapacity -= getNonCaptiveCharactersCarried(passengerCard).size();
             }
 
@@ -3694,7 +3702,8 @@ public class GameState implements Snapshotable<GameState> {
             _battleState.addParticipants(this, localTroubleParticipants);
         }
         else {
-            _battleState.addParticipants(this, Filters.filterActive(_game, null, Filters.initiallyParticipatesInBattle(location)));
+            _battleState.addParticipants(this, Filters.filterActive(_game, null, SpotOverride.INCLUDE_CAPTIVE,
+                    Filters.initiallyParticipatesInBattle(location)));
         }
 
         for (Modifier modifier: extraModifiers) {

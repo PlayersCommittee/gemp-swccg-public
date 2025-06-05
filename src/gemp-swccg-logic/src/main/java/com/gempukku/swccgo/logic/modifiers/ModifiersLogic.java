@@ -7000,6 +7000,23 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
     }
 
     /**
+     * Determines if the specified captive is to be treated as active as it participates in a battle.
+     * @param gameState the game state
+     * @param card the captive
+     * @return true if card should be treated as active, otherwise false
+     */
+    @Override
+    public boolean captiveMayParticipateInBattle(GameState gameState, PhysicalCard card) {
+        if (!card.isCaptive())
+            return false;
+
+        if(card.getAttachedTo() == card.getEscort())
+            return false;
+
+        return !getModifiersAffectingCard(gameState, ModifierType.CAPTIVE_MAY_PARTICIPATE_IN_BATTLE, card).isEmpty();
+    }
+
+    /**
      * Determines if the specified card is prohibited from moving.
      * @param gameState the game state
      * @param card the card
@@ -8243,7 +8260,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying, 
         if (!includeMissing && physicalCard.isMissing())
             return CardState.INACTIVE;
 
-        if (!includeCaptives && (physicalCard.isCaptive() || physicalCard.isCapturedStarship()))
+        if (!includeCaptives && (physicalCard.isCaptive() || physicalCard.isCapturedStarship()) &&
+                !captiveMayParticipateInBattle(gameState, physicalCard))
             return CardState.INACTIVE;
 
         if (!includeExcludedFromBattle && zone.isInPlay() && gameState.isDuringBattle() && isExcludedFromBattle(gameState, physicalCard))

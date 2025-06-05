@@ -22,9 +22,8 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 	 * Causes the Dark Side player to activate the maximum amount of available force, causes Light Side to let the same
 	 * amount pass without a react, and then causes both players to pass Activate phase actions.
 	 * @return The total amount of force that was activated
-	 * @throws DecisionResultInvalidException
 	 */
-	default int DSActivateMaxForceAndPass() throws DecisionResultInvalidException {
+	default int DSActivateMaxForceAndPass() {
 		if(AwaitingDSActivatePhaseActions() && DSActionAvailable("Activate Force")) {
 			DSChooseAction("Activate Force");
 			int max = DSGetChoiceMax();
@@ -41,9 +40,8 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 	 * Causes the Light Side player to activate the maximum amount of available force, causes Dark Side to let the same
 	 * amount pass without a react, and then causes both players to pass Activate phase actions.
 	 * @return The total amount of force that was activated
-	 * @throws DecisionResultInvalidException
 	 */
-	default int LSActivateMaxForceAndPass() throws DecisionResultInvalidException {
+	default int LSActivateMaxForceAndPass() {
 		if(AwaitingLSActivatePhaseActions() && LSActionAvailable("Activate Force")) {
 			LSChooseAction("Activate Force");
 			int max = LSGetChoiceMax();
@@ -115,15 +113,13 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 	 * any force use optional responses and deployment responses for both players.
 	 * @param card The card to be deployed
 	 * @param location Which location the card should be deployed to (should be in play already)
-	 * @throws DecisionResultInvalidException
 	 */
-	default void DSDeployCardAndPassResponses(PhysicalCardImpl card, PhysicalCardImpl location) throws DecisionResultInvalidException {
+	default void DSDeployCardAndPassResponses(PhysicalCardImpl card, PhysicalCardImpl location) {
 		DSDeployCard(card);
 		assertTrue(DSDecisionAvailable("Choose where to deploy"));
 		DSChooseCard(location);
 
-		PassResponses("Force - Optional responses");
-		PassResponses("Optional response");
+		PassAllResponses();
 	}
 
 	/**
@@ -131,47 +127,77 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 	 * any force use optional responses and deployment responses for both players.
 	 * @param card The card to be deployed
 	 * @param location Which location the card should be deployed to (should be in play already)
-	 * @throws DecisionResultInvalidException
 	 */
-	default void LSDeployCardAndPassResponses(PhysicalCardImpl card, PhysicalCardImpl location) throws DecisionResultInvalidException {
+	default void LSDeployCardAndPassResponses(PhysicalCardImpl card, PhysicalCardImpl location) {
 		LSDeployCard(card);
 		assertTrue(LSDecisionAvailable("Choose where to deploy"));
 		LSChooseCard(location);
 
-		PassResponses("Force - Optional responses");
-		PassResponses("Optional response");
+		PassAllResponses();
+	}
+
+	/**
+	 * Causes Dark Side to play the given card and automatically pass optional responses and deployment responses for both players.
+	 * @param card The card to be played
+	 */
+	default void DSPlayCardAndPassResponses(PhysicalCardImpl card) { DSPlayCardAndPassResponses(card, null); }
+
+	/**
+	 * Causes Dark Side to play the given card and automatically pass optional responses and deployment responses for both players.
+	 * @param card The card to be played
+	 * @param target The card this card will target
+	 */
+	default void DSPlayCardAndPassResponses(PhysicalCardImpl card, PhysicalCardImpl target) {
+		DSPlayCard(card);
+		if(target != null) {
+			DSChooseCard(target);
+		}
+		PassAllResponses();
+	}
+
+	/**
+	 * Causes Light Side to play the given card and automatically pass optional responses and deployment responses for both players.
+	 * @param card The card to be played
+	 */
+	default void LSPlayCardAndPassResponses(PhysicalCardImpl card ) { LSPlayCardAndPassResponses(card, null); }
+
+	/**
+	 * Causes Light Side to play the given card and automatically pass optional responses and deployment responses for both players.
+	 * @param card The card to be played
+	 * @param target The card this card will target
+	 */
+	default void LSPlayCardAndPassResponses(PhysicalCardImpl card, PhysicalCardImpl target) {
+		LSPlayCard(card);
+		if(target != null) {
+			LSChooseCard(target);
+		}
+		PassAllResponses();
 	}
 
 	/**
 	 * Causes both players to pass during the Activate phase.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassActivateActions() throws DecisionResultInvalidException { PassResponses(); }
+	default void PassActivateActions() { PassResponses(); }
 	/**
 	 * Causes both players to pass during the Control phase.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassControlActions() throws DecisionResultInvalidException { PassResponses(); }
+	default void PassControlActions() { PassResponses(); }
 	/**
 	 * Causes both players to pass during the Deploy phase.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassDeployActions() throws DecisionResultInvalidException { PassResponses(); }
+	default void PassDeployActions() { PassResponses(); }
 	/**
 	 * Causes both players to pass during the Move phase.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassMoveActions() throws DecisionResultInvalidException { PassResponses(); }
+	default void PassMoveActions() { PassResponses(); }
 	/**
 	 * Causes both players to pass during the Battle phase.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassBattleActions() throws DecisionResultInvalidException { PassResponses(); }
+	default void PassBattleActions() { PassResponses(); }
 	/**
 	 * Causes both players to pass during the Draw phase.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassDrawActions() throws DecisionResultInvalidException { PassResponses(); }
+	default void PassDrawActions() { PassResponses(); }
 
 	/**
 	 * @return True if the Dark Side player is currently deciding what to do with a captured character.
@@ -180,14 +206,12 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 
 	/**
 	 * Causes the Dark Side player to choose to let the recently-captured captive "escape" (go to the used pile).
-	 * @throws DecisionResultInvalidException Thrown if the Dark Side player is not actually deciding a captive's fate.
 	 */
-	default void DSChooseEscape() throws DecisionResultInvalidException { DSChoose("Escape"); }
+	default void DSChooseEscape() { DSChoose("Escape"); }
 	/**
 	 * Causes the Dark Side player to choose to "seize" the recently-captured captive (attaching it to the captor).
-	 * @throws DecisionResultInvalidException Thrown if the Dark Side player is not actually deciding a captive's fate.
 	 */
-	default void DSChooseSeize() throws DecisionResultInvalidException { DSChoose("Seize"); }
+	default void DSChooseSeize() { DSChoose("Seize"); }
 
 	/**
 	 * @return True if the Light Side player is currently deciding what to do with a released captive.
@@ -196,29 +220,25 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 
 	/**
 	 * Causes the Light Side player to choose to let the recently-released captive "escape" (go to the used pile).
-	 * @throws DecisionResultInvalidException Thrown if the Light Side player is not actually deciding a captive's fate.
 	 */
-	default void LSChooseEscape() throws DecisionResultInvalidException { LSChoose("Escape"); }
+	default void LSChooseEscape() { LSChoose("Escape"); }
 	/**
 	 * Causes the Light Side player to choose to let the recently-released captive "rally" (move to the current location).
-	 * @throws DecisionResultInvalidException Thrown if the Light Side player is not actually deciding a captive's fate.
 	 */
-	default void LSChooseRally() throws DecisionResultInvalidException { LSChoose("Rally"); }
+	default void LSChooseRally() { LSChoose("Rally"); }
 
 	/**
 	 * When a card leaves the table, there are various responses.  This causes all players to pass all of them.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassCardLeavingTable() throws DecisionResultInvalidException {
+	default void PassCardLeavingTable() {
 		PassResponses("FORFEITED_TO_LOST_PILE_FROM_TABLE");
 		PassResponses("PUT_IN_CARD_PILE_FROM_OFF_TABLE");
 	}
 
 	/**
 	 * When a Force Drain begins, there are various responses.  This causes all players to pass all of them.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassForceDrainStartResponses() throws DecisionResultInvalidException {
+	default void PassForceDrainStartResponses() {
 		PassResponses("FORCE_DRAIN_INITIATED");
 		PassResponses("FORCE_LOSS_INITIATED");
 		PassForceDrainPendingResponses();
@@ -226,24 +246,21 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 
 	/**
 	 * During a Force Drain, this response occurs between each paid Force.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassForceDrainPendingResponses() throws DecisionResultInvalidException {
+	default void PassForceDrainPendingResponses() {
 		PassResponses("ABOUT_TO_LOSE_FORCE_NOT_FROM_BATTLE_DAMAGE");
 	}
 	/**
 	 * After a Force Drain, one last response occurs once the targeted player has paid all Force costs.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassForceDrainEndResponses() throws DecisionResultInvalidException {
+	default void PassForceDrainEndResponses() {
 		PassResponses("FORCE_DRAIN_COMPLETED");
 	}
 
 	/**
 	 * When we don't care about the responses being presented and we just want to skip forward to the next actual action.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassAllResponses() throws DecisionResultInvalidException {
+	default void PassAllResponses() {
 		for(int i = 0; i < 20; ++i) {
 			if(!GetCurrentDecision().getText().toLowerCase().contains("optional response"))
 				return;
@@ -254,9 +271,8 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 
 	/**
 	 * Causes both players to pass, first the player with a current decision and then the other.
-	 * @throws DecisionResultInvalidException Throws this error if the decision wasn't passable.
 	 */
-	default void PassResponses() throws DecisionResultInvalidException {
+	default void PassResponses() {
 		var decider = GetDecidingPlayer();
 		var offPlayer = GetNextDecider();
 
@@ -270,10 +286,9 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 	/**
 	 * Causes both players to pass any decisions that contain the provided text.  First the current decider will pass,
 	 * and then the other.
-	 * @param text
-	 * @throws DecisionResultInvalidException Throws this error if the decision can't be passed.
+	 * @param text Text which must be contained inside the decision
 	 */
-	default void PassResponses(String text) throws DecisionResultInvalidException {
+	default void PassResponses(String text) {
 		var decider = GetDecidingPlayer();
 		var offPlayer = GetNextDecider();
 
@@ -288,40 +303,35 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 
 	/**
 	 * When a card is played, there are various responses.  This causes both players to pass all of them.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassCardAndForceUseResponses() throws DecisionResultInvalidException {
+	default void PassCardAndForceUseResponses() {
 		PassCardPlayResponses();
 		PassForceUseResponses();
 	}
 
 	/**
 	 * When a card is played, there are various responses.  This passes just the responses to the card being played.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassCardPlayResponses() throws DecisionResultInvalidException { PassResponses("Playing <div"); }
+	default void PassCardPlayResponses() { PassResponses("Playing <div"); }
 	/**
 	 * When a card is played, there are various responses.  This passes just the responses to the Force paid during that
 	 * card's deployment.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassForceUseResponses() throws DecisionResultInvalidException { PassResponses(" Force - Optional responses"); }
+	default void PassForceUseResponses() { PassResponses(" Force - Optional responses"); }
 
 
 	/**
 	 * Skips to the Battle phase.
-	 * @throws DecisionResultInvalidException
 	 */
-    default void SkipToBattle() throws DecisionResultInvalidException { SkipToPhase(Phase.BATTLE); }
+    default void SkipToBattle() { SkipToPhase(Phase.BATTLE); }
 
 	/**
 	 * Causes players to spam pass until the provided target phase is current.  This process attempts to choose the
 	 * first option of any required triggers, but may be brittle if there are any reacts that interrupt the pass-fest.
 	 * Only 20 rounds of passing will be attempted to avoid infinite loops.
 	 * @param target The phase the tester actually wants to be in
-	 * @throws DecisionResultInvalidException
 	 */
-    default void SkipToPhase(Phase target) throws DecisionResultInvalidException {
+    default void SkipToPhase(Phase target) {
         for(int attempts = 1; attempts <= 20; attempts++)
         {
             Phase current = gameState().getCurrentPhase();
@@ -356,42 +366,38 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 
             if(attempts == 20)
             {
-                throw new DecisionResultInvalidException("Could not arrive at target '" + target + "' after 20 attempts!");
+                throw new RuntimeException("Could not arrive at target '" + target + "' after 20 attempts!");
             }
         }
     }
 
 	/**
 	 * Regardless of the current player, skips to the Activate phase of the next player's turn.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void SkipToNextTurn() throws DecisionResultInvalidException {
+	default void SkipToNextTurn() {
 		SkipToNextTurn(game().getOpponent(gameState().getCurrentPlayerId()));
 	}
 
 	/**
 	 * Skips to the Light Side player's next turn.  If Light Side is the current player, this will skip over an entire
 	 * Dark Side turn.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void SkipToLSTurn() throws DecisionResultInvalidException { SkipToNextTurn(LS);	}
+	default void SkipToLSTurn() { SkipToNextTurn(LS);	}
 
 	/**
 	 * Skips to the Light Side player's next turn.  If Light Side is the current player, this will skip over an entire
 	 * Dark Side turn.  After making it to the LS player, passes to the given phase.
 	 * @param phase The phase to skip to
-	 * @throws DecisionResultInvalidException
 	 */
-	default void SkipToLSTurn(Phase phase) throws DecisionResultInvalidException {
+	default void SkipToLSTurn(Phase phase) {
 		SkipToLSTurn();
 		SkipToPhase(phase);
 	}
 	/**
 	 * Skips to the Dark Side player's next turn.  If Dark Side is the current player, this will skip over an entire
 	 * Light Side turn.  After making it to the DS player, passes to the given phase.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void SkipToDSTurn(Phase phase) throws DecisionResultInvalidException {
+	default void SkipToDSTurn(Phase phase) {
 		SkipToDSTurn();
 		SkipToPhase(phase);
 	}
@@ -399,16 +405,14 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 	/**
 	 * Skips to the Dark Side player's next turn.  If Dark Side is the current player, this will skip over an entire
 	 * Light Side turn.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void SkipToDSTurn() throws DecisionResultInvalidException { SkipToNextTurn(DS);	}
+	default void SkipToDSTurn() { SkipToNextTurn(DS);	}
 
 	/**
 	 * Skips to a given player's next turn.  If they are the current player, this will skip over their opponent's turn.
 	 * @param player The player whose turn it should be once we stop.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void SkipToNextTurn(String player) throws DecisionResultInvalidException {
+	default void SkipToNextTurn(String player) {
 		SkipToTurn(player, gameState().getPlayersLatestTurnNumber(player) + 1);
 	}
 
@@ -418,9 +422,8 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 	 * infinite loops.
 	 * @param player Who should be the current player once we stop.
 	 * @param targetTurn What number turn that player should be on.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void SkipToTurn(String player, int targetTurn) throws DecisionResultInvalidException {
+	default void SkipToTurn(String player, int targetTurn) {
 		for(int attempts = 1; attempts <= 20; attempts++)
 		{
 			String currentPlayer = gameState().getCurrentPlayerId();
@@ -435,7 +438,7 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 
 			if(attempts == 20)
 			{
-				throw new DecisionResultInvalidException("Could not arrive at target turn '" + targetTurn + "' for '"
+				throw new RuntimeException("Could not arrive at target turn '" + targetTurn + "' for '"
 						+ player + "'after 20 attempts!");
 			}
 		}
@@ -443,15 +446,13 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 
 	/**
 	 * After the Dark Side player has peeked at a set of cards from a normally-hidden pile, they then dismiss those cards.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void DSDismissRevealedCards() throws DecisionResultInvalidException { DSPass(); }
+	default void DSDismissRevealedCards() { DSPass(); }
 	/**
 	 * After the Light Side player has peeked at a set of cards from a normally-hidden pile, they then dismiss those cards.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void LSDismissRevealedCards() throws DecisionResultInvalidException { LSPass(); }
-//    default void DismissRevealedCards() throws DecisionResultInvalidException {
+	default void LSDismissRevealedCards() { LSPass(); }
+//    default void DismissRevealedCards() {
 //        DSDismissRevealedCards();
 //        LSDismissRevealedCards();
 //    }

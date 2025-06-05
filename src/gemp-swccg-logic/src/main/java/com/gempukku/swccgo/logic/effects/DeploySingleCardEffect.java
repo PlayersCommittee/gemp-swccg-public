@@ -358,7 +358,7 @@ public class DeploySingleCardEffect extends AbstractSubActionEffect implements P
                                                             destinationCard = attachTo;
 
                                                             if (_deployAsCaptiveOption != null && _deployAsCaptiveOption.getCaptureOption() == CaptureOption.SEIZE) {
-                                                                _cardToPlay.setCaptive(true);
+                                                                _cardToPlay.setCaptiveEscort(attachTo);
                                                                 gameState.attachCard(_cardToPlay, attachTo);
                                                                 playCardText.append(GameUtils.getCardLink(_cardToPlay)).append(asReactText).append(" from ").append(fromText).append(" to ").append(GameUtils.getCardLink(attachTo)).append(" as an escorted captive");
                                                             }
@@ -396,8 +396,8 @@ public class DeploySingleCardEffect extends AbstractSubActionEffect implements P
                                                             _cardToPlay.setDejarikHologramAtHolosite(_playCardOptionId == PlayCardOptionId.PLAY_AS_DEJARIK);
 
                                                             if (_deployAsCaptiveOption != null && _deployAsCaptiveOption.getCaptureOption() == CaptureOption.IMPRISONMENT) {
-                                                                _cardToPlay.setCaptive(true);
                                                                 _cardToPlay.setImprisoned(true);
+                                                                _cardToPlay.setCaptiveEscort(null);
                                                                 _cardToPlay.setFrozen(_deployAsCaptiveOption.isFrozenCaptive());
                                                                 gameState.attachCard(_cardToPlay, destinationCard);
                                                                 playCardText.append(GameUtils.getCardLink(_cardToPlay)).append(asReactText).append(" from ").append(fromText).append(" into ").append(GameUtils.getCardLink(destinationCard));
@@ -409,8 +409,8 @@ public class DeploySingleCardEffect extends AbstractSubActionEffect implements P
                                                                 }
                                                             }
                                                             else if (_deployAsCaptiveOption != null && _deployAsCaptiveOption.getCaptureOption() == CaptureOption.LEAVE_UNATTENDED) {
-                                                                _cardToPlay.setCaptive(true);
                                                                 _cardToPlay.setFrozen(true);
+                                                                _cardToPlay.setCaptiveEscort(null);
                                                                 gameState.playCardToLocation(_cardToPlay, destinationCard, game.getDarkPlayer());
                                                                 playCardText.append(GameUtils.getCardLink(_cardToPlay)).append(asReactText).append(" from ").append(fromText).append(" to ").append(GameUtils.getCardLink(destinationCard)).append(" as an unattended 'frozen' captive");
                                                             }

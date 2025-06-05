@@ -73,12 +73,14 @@ public interface ZoneManipulation extends TestBase{
 	 */
 	default void MoveCardsToLocation(PhysicalCardImpl location, PhysicalCardImpl...cards) {
 		Arrays.stream(cards).forEach(card -> {
-			//If it's not in play, we'll temporarily stick it on the side of the table so that it goes through
-			// all the correct "entering play" startup
+			//If it's not in play, we have to use a different method that properly activates the card
 			if(!card.getZone().isInPlay()) {
-				MoveCardsToSideOfTable(card);
+				RemoveCardZone(card);
+				gameState().playCardToLocation(card, location, card.getOwner());
 			}
-			gameState().moveCardToLocation(card, location, true);
+			else {
+				gameState().moveCardToLocation(card, location, true);
+			}
 		});
 	}
 	/**

@@ -2748,6 +2748,14 @@ public interface ModifiersQuerying {
     boolean mayNotBeTransferred(GameState gameState, PhysicalCard card);
 
     /**
+     * Determines if the specified captive is to be treated as active as it participates in a battle.
+     * @param gameState the game state
+     * @param card the captive
+     * @return true if card should be treated as active, otherwise false
+     */
+    boolean captiveMayParticipateInBattle(GameState gameState, PhysicalCard card);
+
+    /**
      * Determines if the specified card ignores location deployment restrictions when deploying to the specified target.
      * @param gameState the game state
      * @param card the card

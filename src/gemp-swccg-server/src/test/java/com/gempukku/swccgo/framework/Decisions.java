@@ -146,31 +146,27 @@ public interface Decisions extends GameProperties, TestBase  {
 
 	/**
 	 * Wrapper for DSPass for the situations where an optional action is actually being offered which we want to decline.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void DSDecline() throws DecisionResultInvalidException { DSPass(); }
+	default void DSDecline() { DSPass(); }
 	/**
 	 * Wrapper for LSPass for the situations where an optional action is actually being offered which we want to decline.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void LSDecline() throws DecisionResultInvalidException { LSPass(); }
+	default void LSDecline() { LSPass(); }
 
 	/**
 	 * Causes the Dark Side player to pass the current decision.
-	 * @throws DecisionResultInvalidException This operation will fail if the current decision is not passable.
 	 */
 	// If this seems out of place organization-wise, it's because of the chain of inheritance between the various test interfaces.
-	default void DSPass() throws DecisionResultInvalidException {
+	default void DSPass() {
 		if(DSAnyDecisionsAvailable()) {
 			PlayerDecided(DS, "");
 		}
 	}
 	/**
 	 * Causes the Light Side player to pass the current decision.
-	 * @throws DecisionResultInvalidException This operation will fail if the current decision is not passable.
 	 */
 	// If this seems out of place organization-wise, it's because of the chain of inheritance between the various test interfaces.
-	default void LSPass() throws DecisionResultInvalidException {
+	default void LSPass() {
 		if(LSAnyDecisionsAvailable()) {
 			PlayerDecided(LS, "");
 		}
@@ -179,9 +175,8 @@ public interface Decisions extends GameProperties, TestBase  {
 	/**
 	 * Causes the given player to pass whatever decision they are currently being presented with, if any.
 	 * @param player The player who is currently pending a decision.
-	 * @throws DecisionResultInvalidException Throws if the current decision cannot be passed.
 	 */
-	default void PlayerPass(String player) throws DecisionResultInvalidException {
+	default void PlayerPass(String player) {
 		if(AnyDecisionsAvailable(player)) {
 			PlayerDecided(player, "");
 		}
@@ -192,18 +187,16 @@ public interface Decisions extends GameProperties, TestBase  {
 	 * uses of this helper function.
 	 * @param playerID The player who should make the current decision
 	 * @param option The text to search for in all available choices
-	 * @throws DecisionResultInvalidException Throws if the current player is not making a decision
 	 */
-	default void ChooseOption(String playerID, String option) throws DecisionResultInvalidException { ChooseAction(playerID, "results", option); }
+	default void ChooseOption(String playerID, String option) { ChooseAction(playerID, "results", option); }
 
 	/**
 	 * Causes the given player to choose an action which is part of the current decision.  This is usually
 	 * used as a low-level function; see {@link Actions} for more specific uses of this helper function.
 	 * @param playerID The player who should make the current decision.
 	 * @param option The search text to look for in available actions
-	 * @throws DecisionResultInvalidException
 	 */
-	default void ChooseAction(String playerID, String option) throws DecisionResultInvalidException {
+	default void ChooseAction(String playerID, String option) {
 		ChooseAction(playerID, "actionText", option);
 	}
 
@@ -213,10 +206,8 @@ public interface Decisions extends GameProperties, TestBase  {
 	 * @param playerID The player who should make the current decision.
 	 * @param paramName The parameter on the current decision which should be searched.
 	 * @param option The search text to look for in the parameter list.
-	 * @throws DecisionResultInvalidException Throws if the current player is not making a decision or no option could
-	 * be found.
 	 */
-	default void ChooseAction(String playerID, String paramName, String option) throws DecisionResultInvalidException {
+	default void ChooseAction(String playerID, String paramName, String option) {
 		List<String> choices = GetADParamAsList(playerID, paramName);
 		for(String choice : choices){
 			if(option == null && choice == null // This only happens when a rule is the source of an action
@@ -333,16 +324,14 @@ public interface Decisions extends GameProperties, TestBase  {
 	 * Issues a request by the Dark Side player to revert.  This should only be used during any top-level phase
 	 * action decision or it will fail.  You should also only use this to inspect the list of options and choose
 	 * one, then pass it into the IssueRevert function.
-	 * @throws DecisionResultInvalidException The DS player is not currently awaiting a top-level phase or battle action.
 	 */
-	default void DSRequestRevert() throws DecisionResultInvalidException { DSDecided("revert"); }
+	default void DSRequestRevert() { DSDecided("revert"); }
 	/**
 	 * Issues a request by the Light Side player to revert.  This should only be used during any top-level phase
 	 * action decision or it will fail.  You should also only use this to inspect the list of options and choose
 	 * one, then pass it into the IssueRevert function.
-	 * @throws DecisionResultInvalidException The LS player is not currently awaiting a top-level phase or battle action.
 	 */
-	default void LSRequestRevert() throws DecisionResultInvalidException { LSDecided("revert"); }
+	default void LSRequestRevert() { LSDecided("revert"); }
 
 	/**
 	 * Causes the current player to request a revert, then causes the opponent to accept this revert.  The Virtual
@@ -350,10 +339,8 @@ public interface Decisions extends GameProperties, TestBase  {
 	 * pre-revert state.
 	 * @param target Which particular phase point to return to.  Use DSRequestRevert or LSRequestRevert to inspect the
 	 *               available options to pass in here.
-	 * @throws DecisionResultInvalidException Thrown if it is not possible to request a revert at this point.  (Reverts
-	 * can only be requested during a top-level action, not as part of a response).
 	 */
-	default void IssueRevert(String target) throws DecisionResultInvalidException {
+	default void IssueRevert(String target) {
 		var decider = GetDecidingPlayer();
 		var offPlayer = GetNextDecider();
 
@@ -367,50 +354,42 @@ public interface Decisions extends GameProperties, TestBase  {
 	 * Causes Dark Side to decide to use the given answer.  Integers usually indicate an index between multiple choices,
 	 * but they may be literal integers if the player is asked to choose a number.
 	 * @param answer The integer answer to return to the server
-	 * @throws DecisionResultInvalidException This operation will fail if the answer is incompatible with the current
-	 * decision.
 	 */
-	default void DSDecided(int answer) throws DecisionResultInvalidException { PlayerDecided(DS, String.valueOf(answer));}
+	default void DSDecided(int answer) { PlayerDecided(DS, String.valueOf(answer));}
 
 	/**
 	 * Causes Dark Side to decide to use the given answer.  Answers may take different forms depending on the exact
 	 * nature of the decision at hand.
 	 * @param answer The answer to return to the server
-	 * @throws DecisionResultInvalidException This operation will fail if the answer is incompatible with the current
-	 * decision.
 	 */
-	default void DSDecided(String answer) throws DecisionResultInvalidException { PlayerDecided(DS, answer);}
+	default void DSDecided(String answer) { PlayerDecided(DS, answer);}
 
 	/**
 	 * Causes Light Side to decide to use the given answer.  Integers usually indicate an index between multiple choices,
 	 * but they may be literal integers if the player is asked to choose a number.
 	 * @param answer The integer answer to return to the server
-	 * @throws DecisionResultInvalidException This operation will fail if the answer is incompatible with the current
-	 * decision.
 	 */
-	default void LSDecided(int answer) throws DecisionResultInvalidException { PlayerDecided(LS, String.valueOf(answer));}
+	default void LSDecided(int answer) { PlayerDecided(LS, String.valueOf(answer));}
 	/**
 	 * Causes Light Side to decide to use the given answer.  Answers may take different forms depending on the exact
 	 * nature of the decision at hand.
 	 * @param answer The answer to return to the server
-	 * @throws DecisionResultInvalidException This operation will fail if the answer is incompatible with the current
-	 * decision.
 	 */
-	default void LSDecided(String answer) throws DecisionResultInvalidException { PlayerDecided(LS, answer);}
+	default void LSDecided(String answer) { PlayerDecided(LS, answer);}
 
 	// As this is actually related to the heart of the table simulation, this is left to be implemented on the main Scenario class.
-	void PlayerDecided(String player, String answer) throws DecisionResultInvalidException;
+	void PlayerDecided(String player, String answer);
 
 	//
 //    public boolean DSHasOptionalTriggerAvailable() { return DSDecisionAvailable("Optional"); }
 //    public boolean LSHasOptionalTriggerAvailable() { return LSDecisionAvailable("Optional"); }
 //
-//    public void DSAcceptOptionalTrigger() throws DecisionResultInvalidException { PlayerDecided(DS, "0"); }
-//    public void DSDeclineOptionalTrigger() throws DecisionResultInvalidException { PlayerDecided(DS, ""); }
-//    public void LSAcceptOptionalTrigger() throws DecisionResultInvalidException { PlayerDecided(LS, "0"); }
-//    public void LSDeclineOptionalTrigger() throws DecisionResultInvalidException { PlayerDecided(LS, ""); }
-//    public void DSDeclineChoosing() throws DecisionResultInvalidException { PlayerDecided(DS, ""); }
-//    public void LSDeclineChoosing() throws DecisionResultInvalidException { PlayerDecided(LS, ""); }
+//    public void DSAcceptOptionalTrigger() { PlayerDecided(DS, "0"); }
+//    public void DSDeclineOptionalTrigger() { PlayerDecided(DS, ""); }
+//    public void LSAcceptOptionalTrigger() { PlayerDecided(LS, "0"); }
+//    public void LSDeclineOptionalTrigger() { PlayerDecided(LS, ""); }
+//    public void DSDeclineChoosing() { PlayerDecided(DS, ""); }
+//    public void LSDeclineChoosing() { PlayerDecided(LS, ""); }
 
 
 

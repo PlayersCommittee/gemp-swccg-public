@@ -17,26 +17,21 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	/**
 	 * Causes the Dark Side player to initiate battle at the given location.
 	 * @param location The location to start battle at.
-	 * @throws DecisionResultInvalidException Thrown if battle is not offered as an action or if it is not that player's
 	 * turn to perform actions.
 	 */
-	default void DSInitiateBattle(PhysicalCardImpl location) throws DecisionResultInvalidException { InitiateBattle(DS, location); }
+	default void DSInitiateBattle(PhysicalCardImpl location) { InitiateBattle(DS, location); }
 	/**
 	 * Causes the Light Side player to initiate battle at the given location.
 	 * @param location The location to start battle at.
-	 * @throws DecisionResultInvalidException Thrown if battle is not offered as an action or if it is not that player's
-	 * turn to perform actions.
 	 */
-	default void LSInitiateBattle(PhysicalCardImpl location) throws DecisionResultInvalidException { InitiateBattle(LS, location); }
+	default void LSInitiateBattle(PhysicalCardImpl location) { InitiateBattle(LS, location); }
 
 	/**
 	 * Causes the given player to initiate battle at the given location.
 	 * @param player The player who should initiate.
 	 * @param location The location to start battle at.
-	 * @throws DecisionResultInvalidException Thrown if battle is not offered as an action or if it is not that player's
-	 * turn to perform actions.
 	 */
-	default void InitiateBattle(String player, PhysicalCardImpl location) throws DecisionResultInvalidException {
+	default void InitiateBattle(String player, PhysicalCardImpl location) {
 		ChooseAction(player, "Initiate battle");
 		//TODO: Add handling for choosing the location, I am certain that this should be needed but it clearly auto-chose here
 		//ChooseCards(player, location);
@@ -48,9 +43,8 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	/**
 	 * Right after battle has been initiated, skips to the start of the Power Segment right before the first player is
 	 * given the option to draw battle destiny.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void SkipToPowerSegment() throws DecisionResultInvalidException {
+	default void SkipToPowerSegment() {
 		PassBattleStartResponses();
 		PassWeaponsSegmentActions();
 		PassResponses("BEFORE_BATTLE_DESTINY_DRAWS");
@@ -61,9 +55,8 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * to draw or not draw destinies as provided. Be sure to use PrepareDSDestiny / PrepareLSDestiny if you are expecting
 	 * a particular outcome.
 	 * @param drawDestiny True if both players should draw destiny, false if they should both pass.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void SkipBattleDestinyDraws(boolean drawDestiny) throws DecisionResultInvalidException {
+	default void SkipBattleDestinyDraws(boolean drawDestiny) {
 		var currentPlayer = GetCurrentPlayer();
 		var offPlayer = GetOpponent();
 
@@ -102,14 +95,13 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * This will arrive at the last point where the total power of both sides can be checked in the BattleState; it
 	 * will be cleared to 0 as soon as attrition is calculated.
 	 * @param drawDestiny True if both players should draw destiny, false if they should both pass.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void SkipToEndOfPowerSegment(boolean drawDestiny) throws DecisionResultInvalidException {
+	default void SkipToEndOfPowerSegment(boolean drawDestiny) {
 		SkipToPowerSegment();
 		SkipBattleDestinyDraws(drawDestiny);
 	}
 
-	default void SkipToDamageSegment() throws DecisionResultInvalidException { SkipToDamageSegment(false); }
+	default void SkipToDamageSegment() { SkipToDamageSegment(false); }
 	/**
 	 * Right after battle has been initiated, skips to the end of the Power Segment after both players have drawn
 	 * battle destiny. Both players will be instructed to draw or not draw destinies as provided. Be sure to use
@@ -118,9 +110,8 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * Remember that the power of both sides will be set to 0 in the BattleState at this point.  If you meant to check
 	 * the power result of one side or the other, use {@link #SkipToEndOfPowerSegment(boolean)} instead.
 	 * @param drawDestiny True if both players should draw destiny, false if they should both pass.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void SkipToDamageSegment(boolean drawDestiny) throws DecisionResultInvalidException {
+	default void SkipToDamageSegment(boolean drawDestiny) {
 		SkipToEndOfPowerSegment(drawDestiny);
 		PassResponses("INITIAL_ATTRITION_CALCULATED");
 	}
@@ -128,17 +119,15 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	/**
 	 * After a player has chosen to fire a weapon, this function can be used to skip past all optional responses for each
 	 * sub-step of that weapon firing and drawing destiny.  Will only skip past a single destiny drawn.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassWeaponFireWithDestinyDraw() throws DecisionResultInvalidException { PassWeaponFireWithDestinyDraw(1); }
+	default void PassWeaponFireWithDestinyDraw() { PassWeaponFireWithDestinyDraw(1); }
 
 	/**
 	 * After a player has chosen to fire a weapon, this function can be used to skip past all optional responses for each
 	 * sub-step of that weapon firing and drawing destiny.  Will only skip past the given number of destiny draws.
 	 * @param draws How many destiny draws to execute and skip past.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassWeaponFireWithDestinyDraw(int draws) throws DecisionResultInvalidException {
+	default void PassWeaponFireWithDestinyDraw(int draws) {
 		// weapon firing
 		PassResponses("Fire ");
 		for(int i = 0; i < draws; ++i) {
@@ -151,9 +140,8 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 
 	/**
 	 * Any time a destiny is drawn, there are multiple sub-steps of responses.  This will skip past all of them.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassDestinyDrawResponses() throws DecisionResultInvalidException {
+	default void PassDestinyDrawResponses() {
 		PassResponses("COST_TO_DRAW_DESTINY_CARD");
 		PassResponses("ABOUT_TO_DRAW_DESTINY_CARD");
 		PassResponses("DESTINY_DRAWN");
@@ -164,9 +152,8 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	/**
 	 * After a battle has been initiated but before it has actually begun there is a brief window to respond to it and
 	 * cancel it.  If you are just trying to get to the action, this can be used right after battle is initiated to begin.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassBattleStartResponses() throws DecisionResultInvalidException { PassResponses("BATTLE_INITIATED"); }
+	default void PassBattleStartResponses() { PassResponses("BATTLE_INITIATED"); }
 
 	/**
 	 * @return True if the game is currently awaiting a weapons segment action decision from the Dark Side player, false otherwise.
@@ -197,19 +184,16 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 
 	/**
 	 * Causes both players to pass weapons segment actions.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassWeaponsSegmentActions() throws DecisionResultInvalidException { PassResponses("Choose weapons segment action to play or Pass"); }
+	default void PassWeaponsSegmentActions() { PassResponses("Choose weapons segment action to play or Pass"); }
 	/**
 	 * Causes both players to pass power segment actions.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassPowerSegmentActions() throws DecisionResultInvalidException { PassResponses("Choose power segment action to play or Pass"); }
+	default void PassPowerSegmentActions() { PassResponses("Choose power segment action to play or Pass"); }
 	/**
 	 * Causes both players to pass damage segment actions.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void PassDamageSegmentActions() throws DecisionResultInvalidException { PassResponses("Choose damage segment action to play or Pass"); }
+	default void PassDamageSegmentActions() { PassResponses("Choose damage segment action to play or Pass"); }
 
 
 	/**
@@ -242,9 +226,8 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * Pays for 1 or more Force worth of Dark Side attrition by sacrificing the provided card in play, then passes
 	 * the responses for it leaving the table.
 	 * @param card The DS card in play to sacrifice for attrition.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void DSPayAttritionFromCardInPlay(PhysicalCardImpl card) throws DecisionResultInvalidException {
+	default void DSPayAttritionFromCardInPlay(PhysicalCardImpl card) {
 		DSChooseCard(card);
 		PassCardLeavingTable();
 	}
@@ -253,9 +236,8 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * Pays for 1 or more Force worth of Light Side attrition by sacrificing the provided card in play, then passes
 	 * the responses for it leaving the table.
 	 * @param card The LS card in play to sacrifice for attrition.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void LSPayAttritionFromCardInPlay(PhysicalCardImpl card) throws DecisionResultInvalidException {
+	default void LSPayAttritionFromCardInPlay(PhysicalCardImpl card) {
 		LSChooseCard(card);
 		PassCardLeavingTable();
 	}
@@ -285,41 +267,36 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 
 	/**
 	 * Pays for the remaining Dark Side battle damage using cards on the top of the DS Reserve deck.
-	 * @throws DecisionResultInvalidException Throws this error if the player is not currently paying battle damage.
 	 */
-	default void DSPayRemainingBattleDamageFromReserveDeck() throws DecisionResultInvalidException {
+	default void DSPayRemainingBattleDamageFromReserveDeck() {
 		DSPayBattleDamageFromReserveDeck(GetUnpaidDSBattleDamage());
 	}
 	/**
 	 * Pays for the given amount of Force worth of Dark Side battle damage using cards on the top of the DS Reserve deck.
-	 * @throws DecisionResultInvalidException Throws this error if the player is not currently paying battle damage.
 	 */
-	default void DSPayBattleDamageFromReserveDeck(int amount) throws DecisionResultInvalidException {
+	default void DSPayBattleDamageFromReserveDeck(int amount) {
 		for(int i = 0; i < amount; ++i) {
 			DSPayBattleDamageFromReserveDeck();
 		}
 	}
 	/**
 	 * Pays for 1 Force worth of Dark Side battle damage using the card on the top of the DS Reserve deck.
-	 * @throws DecisionResultInvalidException Throws this error if the player is not currently paying battle damage.
 	 */
-	default void DSPayBattleDamageFromReserveDeck() throws DecisionResultInvalidException {
+	default void DSPayBattleDamageFromReserveDeck() {
 		DSChooseCard(GetTopOfDSReserveDeck());
 		PassCardLeavingTable();
 	}
 	/**
 	 * Pays for 1 Force worth of Dark Side battle damage using the card on the top of the DS Force Pile.
-	 * @throws DecisionResultInvalidException Throws this error if the player is not currently paying battle damage.
 	 */
-	default void DSPayBattleDamageFromForcePile() throws DecisionResultInvalidException {
+	default void DSPayBattleDamageFromForcePile() {
 		DSChooseCard(GetTopOfDSForcePile());
 		PassCardLeavingTable();
 	}
 	/**
 	 * Pays for 1 Force worth of Dark Side battle damage using the card on the top of the DS Used Pile.
-	 * @throws DecisionResultInvalidException Throws this error if the player is not currently paying battle damage.
 	 */
-	default void DSPayBattleDamageFromUsedPile() throws DecisionResultInvalidException {
+	default void DSPayBattleDamageFromUsedPile() {
 		DSChooseCard(GetTopOfDSUsedPile());
 		PassCardLeavingTable();
 	}
@@ -327,62 +304,71 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * Pays for 1 or more Force worth of Dark Side battle damage by sacrificing the provided card in play, applying
 	 * its forfeit value against the battle damage.
 	 * @param card The DS card in play to sacrifice for battle damage.
-	 * @throws DecisionResultInvalidException Throws this error if the player is not currently paying battle damage.
 	 */
-	default void DSPayBattleDamageFromCardInPlay(PhysicalCardImpl card) throws DecisionResultInvalidException {
+	default void DSPayBattleDamageFromCardInPlay(PhysicalCardImpl card) {
 		DSChooseCard(card);
-		PassResponses("FORFEITED_TO_LOST_PILE_FROM_TABLE");
-		PassCardLeavingTable();
+		PassAllResponses();
+	}
+	/**
+	 * Pays for 1 or more Force worth of Dark Side battle damage by sacrificing the provided card in hand.
+	 * @param card The DS card in hand to sacrifice for battle damage.
+	 */
+	default void DSPayBattleDamageFromCardInHand(PhysicalCardImpl card) {
+		DSChooseCard(card);
+		PassAllResponses();
 	}
 
 	/**
 	 * Pays for the remaining Light Side battle damage using cards on the top of the DS Reserve deck.
-	 * @throws DecisionResultInvalidException Throws this error if the player is not currently paying battle damage.
 	 */
-	default void LSPayRemainingBattleDamageFromReserveDeck() throws DecisionResultInvalidException {
+	default void LSPayRemainingBattleDamageFromReserveDeck() {
 		LSPayBattleDamageFromReserveDeck(GetUnpaidLSBattleDamage());
 	}
 	/**
 	 * Pays for the given amount of Force worth of Light Side battle damage using cards on the top of the DS Reserve deck.
-	 * @throws DecisionResultInvalidException Throws this error if the player is not currently paying battle damage.
 	 */
-	default void LSPayBattleDamageFromReserveDeck(int amount) throws DecisionResultInvalidException {
+	default void LSPayBattleDamageFromReserveDeck(int amount) {
 		for(int i = 0; i < amount; ++i) {
 			DSPayBattleDamageFromReserveDeck();
 		}
 	}
 	/**
 	 * Pays for 1 Force worth of Light Side battle damage using the card on the top of the LS Reserve deck.
-	 * @throws DecisionResultInvalidException Throws this error if the player is not currently paying battle damage.
 	 */
-	default void LSPayBattleDamageFromReserveDeck() throws DecisionResultInvalidException {
+	default void LSPayBattleDamageFromReserveDeck() {
 		LSChooseCard(GetTopOfLSReserveDeck());
 		PassCardLeavingTable();
 	}
 	/**
 	 * Pays for 1 Force worth of Light Side battle damage using the card on the top of the LS Force Pile.
-	 * @throws DecisionResultInvalidException Throws this error if the player is not currently paying battle damage.
 	 */
-	default void LSPayBattleDamageFromForcePile() throws DecisionResultInvalidException {
+	default void LSPayBattleDamageFromForcePile() {
 		LSChooseCard(GetTopOfLSForcePile());
 		PassCardLeavingTable();
 	}
 	/**
 	 * Pays for 1 Force worth of Light Side battle damage using the card on the top of the LS Force Pile.
-	 * @throws DecisionResultInvalidException Throws this error if the player is not currently paying battle damage.
 	 */
-	default void LSPayBattleDamageFromUsedPile() throws DecisionResultInvalidException {
+	default void LSPayBattleDamageFromUsedPile() {
 		LSChooseCard(GetTopOfLSUsedPile());
 		PassCardLeavingTable();
 	}
 	/**
 	 * Pays for 1 or more Force worth of Light Side battle damage by sacrificing the provided card in play.
 	 * @param card The LS card in play to sacrifice for battle damage.
-	 * @throws DecisionResultInvalidException Throws this error if the player is not currently paying battle damage.
 	 */
-	default void LSPayBattleDamageFromCardInPlay(PhysicalCardImpl card) throws DecisionResultInvalidException {
+	default void LSPayBattleDamageFromCardInPlay(PhysicalCardImpl card) {
 		LSChooseCard(card);
-		PassResponses("FORFEITED_TO_LOST_PILE_FROM_TABLE");
+		PassAllResponses();
+	}
+
+	/**
+	 * Pays for 1 or more Force worth of Light Side battle damage by sacrificing the provided card in hand.
+	 * @param card The LS card in hand to sacrifice for battle damage.
+	 */
+	default void LSPayBattleDamageFromCardInHand(PhysicalCardImpl card) {
+		DSChooseCard(card);
+		PassResponses("FORFEITED_TO_LOST_PILE_FROM_HAND");
 		PassCardLeavingTable();
 	}
 

@@ -50,9 +50,8 @@ public interface Choices extends Decisions {
 	 * This is a catch-all that either selects the provided choice if part of a multiple choice decision, or else
 	 * falls back on providing the provided choice as a top-level response to the current decision.
 	 * @param choice The choice (or decision response)
-	 * @throws DecisionResultInvalidException This error will be thrown if the response is invalid for the current decision.
 	 */
-	default void DSChoose(String choice) throws DecisionResultInvalidException {
+	default void DSChoose(String choice) {
 		if(DSGetChoiceCount() > 0) {
 			DSChooseOption(choice);
 		}
@@ -65,17 +64,15 @@ public interface Choices extends Decisions {
 	 * Causes the Dark Side player to choose the given options.  This will automatically format the response to contain
 	 * all the provided options in a comma-separated list.
 	 * @param choices The choices the player wishes to make.
-	 * @throws DecisionResultInvalidException This error will be thrown if the response is invalid for the current decision.
 	 */
-	default void DSChoose(String...choices) throws DecisionResultInvalidException { PlayerDecided(DS, String.join(",", choices)); }
+	default void DSChoose(String...choices) { PlayerDecided(DS, String.join(",", choices)); }
 	/**
 	 * Causes the Light Side player to choose the given option.
 	 * This is a catch-all that either selects the provided choice if part of a multiple choice decision, or else
 	 * falls back on providing the provided choice as a top-level response to the current decision.
 	 * @param choice The choice (or decision response)
-	 * @throws DecisionResultInvalidException This error will be thrown if the response is invalid for the current decision.
 	 */
-	default void LSChoose(String choice) throws DecisionResultInvalidException {
+	default void LSChoose(String choice) {
 		if(LSGetChoiceCount() > 0) {
 			LSChooseOption(choice);
 		}
@@ -87,56 +84,47 @@ public interface Choices extends Decisions {
 	 * Causes the Light Side player to choose the given options.  This will automatically format the response to contain
 	 * all the provided options in a comma-separated list.
 	 * @param choices The choices the player wishes to make.
-	 * @throws DecisionResultInvalidException This error will be thrown if the response is invalid for the current decision.
 	 */
-	default void LSChoose(String...choices) throws DecisionResultInvalidException { PlayerDecided(LS, String.join(",", choices)); }
+	default void LSChoose(String...choices) { PlayerDecided(LS, String.join(",", choices)); }
 
 
 	/**
 	 * Causes the Dark Side player to return a canned "Yes" response to a Yes or No question.
-	 * @throws DecisionResultInvalidException This error will be thrown if the response is invalid for the current decision.
 	 */
-	default void DSChooseYes() throws DecisionResultInvalidException { ChooseOption(DS, "Yes"); }
+	default void DSChooseYes() { ChooseOption(DS, "Yes"); }
 	/**
 	 * Causes the Light Side player to return a canned "Yes" response to a Yes or No question.
-	 * @throws DecisionResultInvalidException This error will be thrown if the response is invalid for the current decision.
 	 */
-	default void LSChooseYes() throws DecisionResultInvalidException { ChooseOption(LS, "Yes"); }
+	default void LSChooseYes() { ChooseOption(LS, "Yes"); }
 	/**
 	 * Causes the given player to return a canned "Yes" response to a Yes or No question.
 	 * @param player The player to make the decision for
-	 * @throws DecisionResultInvalidException This error will be thrown if the response is invalid for the current decision.
 	 */
-	default void PlayerChooseYes(String player) throws DecisionResultInvalidException { ChooseOption(player, "Yes"); }
+	default void PlayerChooseYes(String player) { ChooseOption(player, "Yes"); }
 	/**
 	 * Causes the Dark Side player to return a canned "No" response to a Yes or No question.
-	 * @throws DecisionResultInvalidException This error will be thrown if the response is invalid for the current decision.
 	 */
-	default void DSChooseNo() throws DecisionResultInvalidException { ChooseOption(DS, "No"); }
+	default void DSChooseNo() { ChooseOption(DS, "No"); }
 	/**
 	 * Causes the Light Side player to return a canned "No" response to a Yes or No question.
-	 * @throws DecisionResultInvalidException This error will be thrown if the response is invalid for the current decision.
 	 */
-	default void LSChooseNo() throws DecisionResultInvalidException { ChooseOption(LS, "No"); }
+	default void LSChooseNo() { ChooseOption(LS, "No"); }
 	/**
 	 * Causes the given player to return a canned "No" response to a Yes or No question.
 	 * @param player The player to make the decision for
-	 * @throws DecisionResultInvalidException This error will be thrown if the response is invalid for the current decision.
 	 */
-	default void PlayerChooseNo(String player) throws DecisionResultInvalidException { ChooseOption(player, "No"); }
+	default void PlayerChooseNo(String player) { ChooseOption(player, "No"); }
 
 	/**
 	 * Causes the Dark Side player to choose an option containing the given text.
 	 * @param option The text to search for.
-	 * @throws DecisionResultInvalidException Thrown if this option cannot be found for the current decision.
 	 */
-	default void DSChooseOption(String option) throws DecisionResultInvalidException { ChooseOption(DS, option); }
+	default void DSChooseOption(String option) { ChooseOption(DS, option); }
 	/**
 	 * Causes the Light Side player to choose an option containing the given text.
 	 * @param option The text to search for.
-	 * @throws DecisionResultInvalidException Thrown if this option cannot be found for the current decision.
 	 */
-	default void LSChooseOption(String option) throws DecisionResultInvalidException { ChooseOption(LS, option); }
+	default void LSChooseOption(String option) { ChooseOption(LS, option); }
 
 
 
@@ -146,7 +134,7 @@ public interface Choices extends Decisions {
 	//The reason this is commented out is because I am unsure how rule timing resolution occurs in the SWCCG.
 	//In LOTR, the Free Peoples player gets to pick the order in event of a tie, which is then followed here
 //
-//    default void DSChooseAny() throws DecisionResultInvalidException {
+//    default void DSChooseAny() {
 //        if (GetChoiceCount(DSGetActionChoices()) > 0){
 //            ChooseAction(DS, "actionId", DSGetActionChoices().getFirst());
 //        }
@@ -158,8 +146,8 @@ public interface Choices extends Decisions {
 //        }
 //    }
 //
-//    default void DSResolveRuleFirst() throws DecisionResultInvalidException { DSResolveActionOrder(GetADParamAsList(DS, "actionText").getFirst()); }
-//    default void DSResolveActionOrder(String option) throws DecisionResultInvalidException { ChooseAction(DS, "actionText", option); }
+//    default void DSResolveRuleFirst() { DSResolveActionOrder(GetADParamAsList(DS, "actionText").getFirst()); }
+//    default void DSResolveActionOrder(String option) { ChooseAction(DS, "actionText", option); }
 //
 
 	/**
@@ -257,38 +245,30 @@ public interface Choices extends Decisions {
 	/**
 	 * Causes the Dark Side player to choose a card matching the provided physical card.
 	 * @param card The card to pick.
-	 * @throws DecisionResultInvalidException Thrown if the provided card isn't one of the options, or if the current
-	 * decision isn't about cards, or if this player isn't making a decision right now.
 	 */
-	default void DSChooseCard(PhysicalCardImpl card) throws DecisionResultInvalidException { DSChooseCards(card); }
+	default void DSChooseCard(PhysicalCardImpl card) { DSChooseCards(card); }
 	/**
 	 * Causes the Light Side player to choose a card matching the provided physical card.
 	 * @param card The card to pick.
-	 * @throws DecisionResultInvalidException Thrown if the provided card isn't one of the options, or if the current
-	 * decision isn't about cards, or if this player isn't making a decision right now.
 	 */
-	default void LSChooseCard(PhysicalCardImpl card) throws DecisionResultInvalidException { LSChooseCards(card); }
+	default void LSChooseCard(PhysicalCardImpl card) { LSChooseCards(card); }
 
 	/**
 	 * Causes the Dark Side player to choose the first available card option.  Used in cases where the choice doesn't
 	 * matter for the purposes of the test.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void DSChooseAnyCard() throws DecisionResultInvalidException { DSChoose(DSGetCardChoices().getFirst()); }
+	default void DSChooseAnyCard() { DSChoose(DSGetCardChoices().getFirst()); }
 	/**
 	 * Causes the Light Side player to choose the first available card option.  Used in cases where the choice doesn't
 	 * matter for the purposes of the test.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void LSChooseAnyCard() throws DecisionResultInvalidException { LSChoose(LSGetCardChoices().getFirst()); }
+	default void LSChooseAnyCard() { LSChoose(LSGetCardChoices().getFirst()); }
 
 	/**
 	 * Causes the Dark Side player to choose the given cards out of the options they have been presented with.
 	 * @param cards Which cards to select
-	 * @throws DecisionResultInvalidException Thrown if too many or too fews cards are provided, or if the current
-	 * decision doesn't involve cards or this player at all.
 	 */
-	default void DSChooseCards(PhysicalCardImpl...cards) throws DecisionResultInvalidException {
+	default void DSChooseCards(PhysicalCardImpl...cards) {
 		if(GetChoiceCount(DSGetBPChoices()) > 0) {
 			ChooseCardBPFromSelection(DS, cards);
 		}
@@ -299,10 +279,8 @@ public interface Choices extends Decisions {
 	/**
 	 * Causes the Light Side player to choose the given cards out of the options they have been presented with.
 	 * @param cards Which cards to select
-	 * @throws DecisionResultInvalidException Thrown if too many or too fews cards are provided, or if the current
-	 * decision doesn't involve cards or this player at all.
 	 */
-	default void LSChooseCards(PhysicalCardImpl...cards) throws DecisionResultInvalidException {
+	default void LSChooseCards(PhysicalCardImpl...cards) {
 		if(GetChoiceCount(LSGetBPChoices()) > 0) {
 			ChooseCardBPFromSelection(LS, cards);
 		}
@@ -310,7 +288,7 @@ public interface Choices extends Decisions {
 			ChooseCards(LS, cards);
 		}
 	}
-	default void ChooseCards(String player, PhysicalCardImpl...cards) throws DecisionResultInvalidException {
+	default void ChooseCards(String player, PhysicalCardImpl...cards) {
 		String[] ids = new String[cards.length];
 
 		for(int i = 0; i < cards.length; i++)
@@ -337,10 +315,8 @@ public interface Choices extends Decisions {
 	 * as when choosing active cards to target for a card effect).
 	 * @param player The player to issue a decision for.
 	 * @param cards The cards to include in the decision response.
-	 * @throws DecisionResultInvalidException This error will be thrown if the current decision does not accept blueprint
-	 * IDs.
 	 */
-	default void ChooseCardBPFromSelection(String player, PhysicalCardImpl...cards) throws DecisionResultInvalidException {
+	default void ChooseCardBPFromSelection(String player, PhysicalCardImpl...cards) {
 		String[] choices = GetADParam(player,"blueprintId");
 		ArrayList<String> bps = new ArrayList<>();
 		ArrayList<PhysicalCardImpl> found = new ArrayList<>();
@@ -373,7 +349,6 @@ public interface Choices extends Decisions {
 	 * among cards on the table).
 	 * @param card The card to search for.
 	 * @return True if the given card is one of the options presented to the player, false otherwise.
-	 * @throws DecisionResultInvalidException
 	 */
 	default boolean DSHasCardChoiceAvailable(PhysicalCardImpl card) { return HasCardChoiceAvailable(DS, card);}
 	/**
@@ -382,7 +357,6 @@ public interface Choices extends Decisions {
 	 * among cards on the table).
 	 * @param card The card to search for.
 	 * @return True if the given card is one of the options presented to the player, false otherwise.
-	 * @throws DecisionResultInvalidException
 	 */
 	default boolean LSHasCardChoiceAvailable(PhysicalCardImpl card) { return HasCardChoiceAvailable(LS, card);}
 
@@ -499,18 +473,16 @@ public interface Choices extends Decisions {
 	 * succeed if being used to target currently live cards; it will not work if being presented with a choice of
 	 * out-of-play cards (such as when choosing from the reserve deck).
 	 * @param cards The cards to include in the decision response.
-	 * @throws DecisionResultInvalidException This error will be thrown if the current decision does not accept card IDs.
 	 */
-	default void DSChooseCardIDFromSelection(PhysicalCardImpl...cards) throws DecisionResultInvalidException { ChooseCardIDFromSelection(DS, cards);}
+	default void DSChooseCardIDFromSelection(PhysicalCardImpl...cards) { ChooseCardIDFromSelection(DS, cards);}
 	/**
 	 * Causes the Light Side player to issue a decision response composed of a comma-separated list of the provided
 	 * card IDs.  This is used when e.g. the player must choose one or more targets for an effect.  This will only
 	 * succeed if being used to target currently live cards; it will not work if being presented with a choice of
 	 * out-of-play cards (such as when choosing from the reserve deck).
 	 * @param cards The cards to include in the decision response.
-	 * @throws DecisionResultInvalidException This error will be thrown if the current decision does not accept card IDs.
 	 */
-	default void LSChooseCardIDFromSelection(PhysicalCardImpl...cards) throws DecisionResultInvalidException { ChooseCardIDFromSelection(LS, cards);}
+	default void LSChooseCardIDFromSelection(PhysicalCardImpl...cards) { ChooseCardIDFromSelection(LS, cards);}
 
 	/**
 	 * Causes the given player to issue a decision response composed of a comma-separated list of the provided card IDs.
@@ -518,9 +490,8 @@ public interface Choices extends Decisions {
 	 * choice of out-of-play cards (such as when choosing from the reserve deck).
 	 * @param player The player to issue a decision for.
 	 * @param cards The cards to include in the decision response.
-	 * @throws DecisionResultInvalidException This error will be thrown if the current decision does not accept card IDs.
 	 */
-	default void ChooseCardIDFromSelection(String player, PhysicalCardImpl...cards) throws DecisionResultInvalidException {
+	default void ChooseCardIDFromSelection(String player, PhysicalCardImpl...cards) {
 		AwaitingDecision decision = userFeedback().getAwaitingDecision(player);
 		//PlayerDecided(player, "" + card.getCardId());
 

@@ -2,18 +2,15 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.swccgo.framework.StartingSetup;
 import org.junit.Test;
 
 import java.util.HashMap;
 
-import static com.gempukku.swccgo.framework.Assertions.assertAtLocation;
-import static com.gempukku.swccgo.framework.Assertions.assertInHand;
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 public class Card_1_146_Tests {
-	protected VirtualTableScenario GetScenario() throws DecisionResultInvalidException {
+	protected VirtualTableScenario GetScenario() {
 		return new VirtualTableScenario(
 				new HashMap<>()
 				{{
@@ -24,18 +21,18 @@ public class Card_1_146_Tests {
 				}},
 				10,
 				10,
-				VirtualTableScenario.DefaultSpaceLSSystem,
-				VirtualTableScenario.DefaultSpaceDSSystem,
-				VirtualTableScenario.NoLSStarters,
-				VirtualTableScenario.NoDSStarters,
-				VirtualTableScenario.NoLSShields,
-				VirtualTableScenario.NoDSShields,
+				StartingSetup.DefaultLSSpaceSystem,
+				StartingSetup.DefaultDSSpaceSystem,
+				StartingSetup.NoLSStartingInterrupts,
+				StartingSetup.NoDSStartingInterrupts,
+				StartingSetup.NoLSShields,
+				StartingSetup.NoDSShields,
 				VirtualTableScenario.Open
 		);
 	}
 
 	@Test
-	public void XWingStatsAndKeywordsAreCorrect() throws DecisionResultInvalidException {
+	public void XWingStatsAndKeywordsAreCorrect() {
 		/**
 		 * Title: X-wing
 		 * Uniqueness: Unrestricted
@@ -83,7 +80,7 @@ public class Card_1_146_Tests {
 
 
 	@Test
-	public void XWingHasAbility1FromPermanentPilot() throws DecisionResultInvalidException {
+	public void XWingHasAbility1FromPermanentPilot() {
 		var scn = GetScenario();
 
 		var xwing = scn.GetLSCard("xwing");

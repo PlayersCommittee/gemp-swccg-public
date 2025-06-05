@@ -107,7 +107,9 @@ public class LoseOneForceEffect extends AbstractSuccessfulEffect {
             int increaseBy = 1;
             if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.DROIDS_SATISFY_FORCE_LOSS_UP_TO_THEIR_FORFEIT_VALUE, playerId)
                     && _card.getBlueprint().hasIcon(Icon.DROID) && (zone.isLifeForce() || zone == Zone.HAND)) {
-                increaseBy = _card.getBlueprint().getForfeit().intValue();
+                //Have to get the value from modifier due to cards like Septoid with a variable amount
+                float droidForfeit = game.getModifiersQuerying().getForfeit(game.getGameState(), _card);
+                increaseBy = (int) Math.max(0, droidForfeit);
             }
 
             BattleState battleState = game.getGameState().getBattleState();

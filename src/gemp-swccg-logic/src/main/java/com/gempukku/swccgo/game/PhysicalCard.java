@@ -142,10 +142,12 @@ public interface PhysicalCard extends Filterable, Snapshotable<PhysicalCard> {
     List<PhysicalCard> getCardsAtLocation();
 
     /**
-     * Gets the card that is in the AT_LOCATION zone if this card is ATTACHED to another card.  This is used when adding
-     * cards to the "in a duel" or "attacking/defending" group in the user interface since if the dueling/attacking/defending
-     * character is attached to another card need to add the card is is attached to to the group.
-     * @return card at location
+     * Climbs the attachment chain and returns the root card that is actually itself at a location, regardless of how many
+     * links are in that chain from here to there.
+     * This is used when adding cards to the "in a duel" or "attacking/defending" group in the user interface, as well
+     * as any other context where you want to be sure you're finding the card physically touching the ground.
+     * @return This card if it is at a location with no parents, or the card this is attached to if it is at the location,
+     * or the ancestor that is itself "at" a location. Returns null if none of the ancestors in the chain are at a location.
      */
     PhysicalCard getCardAttachedToAtLocation();
 
@@ -332,7 +334,10 @@ public interface PhysicalCard extends Filterable, Snapshotable<PhysicalCard> {
     void setCapturedStarship(boolean capturedStarship);
     boolean isCapturedStarship();
 
-    void setCaptive(boolean captive);
+    List<PhysicalCard> getCardsEscorting();
+
+    void setCaptiveEscort(PhysicalCard escort);
+    PhysicalCard getEscort();
     boolean isCaptive();
 
     void setImprisoned(boolean imprisoned);

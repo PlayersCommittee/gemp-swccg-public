@@ -11467,12 +11467,23 @@ public class Filters {
     }
 
     /**
+     * Filter for captives that have an escort yet are not attached to anything, which means they must have been moved
+     * to the same site by effects such as Captive Fury to participate in battle.
+     */
+    public static final Filter battlingCaptive = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return physicalCard.getEscort() != null && physicalCard.getAttachedTo() == null;
+        }
+    };
+
+    /**
      * Filter that accepts cards that are escorted captives.
      */
     public static final Filter escortedCaptive = new Filter() {
         @Override
         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-            return physicalCard.isCaptive() && !physicalCard.isImprisoned() && physicalCard.getAttachedTo() != null;
+            return physicalCard.getEscort() != null;
         }
     };
     /**
@@ -11494,8 +11505,7 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 PhysicalCard card = gameState.findCardByPermanentId(permCardId);
-                return physicalCard.isCaptive() && !physicalCard.isImprisoned() && physicalCard.getAttachedTo() != null
-                        && Filters.sameCardId(physicalCard.getAttachedTo()).accepts(gameState, modifiersQuerying, card);
+                return physicalCard.isCaptive() && Filters.sameCardId(physicalCard.getEscort()).accepts(gameState, modifiersQuerying, card);
             }
         };
     }

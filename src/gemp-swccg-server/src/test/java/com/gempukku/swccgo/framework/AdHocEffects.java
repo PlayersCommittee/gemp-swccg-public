@@ -56,10 +56,8 @@ public interface AdHocEffects extends TestBase, Decisions {
 	 * When it works, it can be useful for altering the game state in situations where you want e.g. the proper trigger
 	 * or other side-effects to be respected.  It is finicky tho.
 	 * @param effect The effect to execute.  Details are determined by the effect itself.
-	 * @throws DecisionResultInvalidException This error will be thrown if the effect cannot for whatever reason be
-	 * executed as part of the current player decision.
 	 */
-	default void DSExecuteAdHocEffect(PhysicalCardImpl source, StandardEffect effect) throws DecisionResultInvalidException {
+	default void DSExecuteAdHocEffect(PhysicalCardImpl source, StandardEffect effect) {
 		ExecuteAdHocEffect(DS, source, effect);
 	}
 	/**
@@ -68,10 +66,8 @@ public interface AdHocEffects extends TestBase, Decisions {
 	 * When it works, it can be useful for altering the game state in situations where you want e.g. the proper trigger
 	 * or other side-effects to be respected.  It is finicky tho.
 	 * @param effect The effect to execute.  Details are determined by the effect itself.
-	 * @throws DecisionResultInvalidException This error will be thrown if the effect cannot for whatever reason be
-	 * executed as part of the current player decision.
 	 */
-	default void LSExecuteAdHocEffect(PhysicalCardImpl source, StandardEffect effect) throws DecisionResultInvalidException {
+	default void LSExecuteAdHocEffect(PhysicalCardImpl source, StandardEffect effect) {
 		ExecuteAdHocEffect(LS, source, effect);
 	}
 
@@ -82,10 +78,8 @@ public interface AdHocEffects extends TestBase, Decisions {
 	 * or other side-effects to be respected.  It is finicky tho.
 	 * @param playerId The player who will execute the effect.
 	 * @param effect The effect to execute.  Details are determined by the effect itself.
-	 * @throws DecisionResultInvalidException This error will be thrown if the effect cannot for whatever reason be
-	 * executed as part of the current player decision.
 	 */
-	default void ExecuteAdHocEffect(String playerId, PhysicalCardImpl source, StandardEffect effect) throws DecisionResultInvalidException {
+	default void ExecuteAdHocEffect(String playerId, PhysicalCardImpl source, StandardEffect effect) {
         carryOutEffectInPhaseActionByPlayer(playerId, source, effect);
     }
 
@@ -94,9 +88,8 @@ public interface AdHocEffects extends TestBase, Decisions {
 	 * @param playerId Player to make the action available to.
 	 * @param source Card which theoretically has this text "printed" on it.
 	 * @param effect The effect the tester would like to execute.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void carryOutEffectInPhaseActionByPlayer(String playerId, PhysicalCardImpl source, StandardEffect effect) throws DecisionResultInvalidException {
+	default void carryOutEffectInPhaseActionByPlayer(String playerId, PhysicalCardImpl source, StandardEffect effect) {
 		var action = new TopLevelGameTextAction(source, playerId, source.getCardId());
 		action.appendEffect(effect);
 		carryOutEffectInPhaseActionByPlayer(playerId, action);
@@ -106,9 +99,8 @@ public interface AdHocEffects extends TestBase, Decisions {
 	 * Low-level function used by other ad-hoc functions in the test rig.  Use one of the other helper functions instead.
 	 * @param playerId Player to make the action available to.
 	 * @param action Action to add and execute.
-	 * @throws DecisionResultInvalidException
 	 */
-	default void carryOutEffectInPhaseActionByPlayer(String playerId, Action action) throws DecisionResultInvalidException {
+	default void carryOutEffectInPhaseActionByPlayer(String playerId, Action action) {
 		var awaitingDecision = (CardActionSelectionDecision) userFeedback().getAwaitingDecision(playerId);
 		awaitingDecision.addAction(action);
 

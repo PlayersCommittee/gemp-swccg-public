@@ -40,6 +40,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
     private boolean _isStackedViaJediTest5;
     private PhysicalCard _atLocation;
     private List<PhysicalCard> _cardsAttached = new LinkedList<PhysicalCard>();
+    private List<PhysicalCard> _cardsEscorting = new LinkedList<PhysicalCard>();
     private List<PhysicalCard> _cardsStacked = new LinkedList<PhysicalCard>();
     private List<PhysicalCard> _cardsAtLocation = new LinkedList<PhysicalCard>();
     private boolean _inPilotCapacitySlot;
@@ -71,7 +72,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
     private boolean _isConcealed;
     private boolean _isUndercover;
     private boolean _isMissing;
-    private boolean _isCaptive;
+    private PhysicalCard _escort = null;
     private boolean _isCapturedStarship;
     private boolean _isImprisoned;
     private boolean _isFrozen;
@@ -155,6 +156,9 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
         for (PhysicalCard card : _cardsAttached) {
             snapshot._cardsAttached.add(snapshotData.getDataForSnapshot(card));
         }
+        for (PhysicalCard card : _cardsEscorting) {
+            snapshot._cardsEscorting.add(snapshotData.getDataForSnapshot(card));
+        }
         for (PhysicalCard card : _cardsStacked) {
             snapshot._cardsStacked.add(snapshotData.getDataForSnapshot(card));
         }
@@ -190,7 +194,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
         snapshot._isConcealed = _isConcealed;
         snapshot._isUndercover = _isUndercover;
         snapshot._isMissing = _isMissing;
-        snapshot._isCaptive = _isCaptive;
+        snapshot._escort = snapshotData.getDataForSnapshot(_escort);
         snapshot._isCapturedStarship = _isCapturedStarship;
         snapshot._isImprisoned = _isImprisoned;
         snapshot._isFrozen = _isFrozen;
@@ -598,21 +602,14 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
 
     @Override
     public PhysicalCard getCardAttachedToAtLocation() {
-        PhysicalCard curCard = this;
-        while (true) {
-            if (curCard == null) {
-                return null;
-            }
-            else if (curCard.getZone()==Zone.AT_LOCATION) {
-                return curCard;
-            }
-            else if (curCard.getZone()==Zone.ATTACHED) {
-                curCard = curCard.getAttachedTo();
-            }
-            else {
-                return null;
-            }
-        }
+
+        if(_zone == Zone.AT_LOCATION)
+            return this;
+
+        if(_zone == Zone.ATTACHED)
+            return getAttachedTo().getCardAttachedToAtLocation();
+
+       return null;
     }
 
     @Override
@@ -1212,13 +1209,41 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
     }
 
     @Override
-    public void setCaptive(boolean captive) {
-        _isCaptive = captive;
+    public List<PhysicalCard> getCardsEscorting() {
+        return _cardsEscorting;
     }
 
+    /**
+     * Sets or resets this card's current escort.
+     * @param newEscort The card which is escorting this captive. If null, this captive is no longer being escorted.
+     */
+    @Override
+    public void setCaptiveEscort(PhysicalCard newEscort) {
+        if(_escort != null) {
+            _escort.getCardsEscorting().remove(this);
+        }
+
+        if(newEscort != null) {
+            newEscort.getCardsEscorting().add(this);
+        }
+        _escort = newEscort;
+    }
+
+    /**
+     * @return Gets the card that is currently escorting this captive card.  Null if this card has no escort.
+     */
+    @Override
+    public PhysicalCard getEscort() {
+        return _escort;
+    }
+
+    /**
+     * @return Whether this card is currently a captive, which is to say whether it is frozen, imprisoned, or
+     * actively being escorted.
+     */
     @Override
     public boolean isCaptive() {
-        return _isCaptive;
+        return _isFrozen || _isImprisoned || _escort != null;
     }
 
     @Override

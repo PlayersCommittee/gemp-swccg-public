@@ -4,17 +4,15 @@ import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.game.*;
 import com.gempukku.swccgo.game.formats.SwccgoFormatLibrary;
 import com.gempukku.swccgo.game.state.GameState;
-import com.gempukku.swccgo.logic.decisions.AwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.timing.DefaultSwccgGame;
 import com.gempukku.swccgo.logic.timing.DefaultUserFeedback;
 import com.gempukku.swccgo.logic.vo.SwccgDeck;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertTrue;
+
 
 public class VirtualTableScenario implements TestBase, Actions, AdHocEffects, Battles, CardProperties, Choices, Decisions,
         GameProcedures, GameProperties, PileProperties, ZoneManipulation {
@@ -32,6 +30,16 @@ public class VirtualTableScenario implements TestBase, Actions, AdHocEffects, Ba
     private DefaultSwccgGame _game;
     private GameState _gameState;
     private DefaultUserFeedback _userFeedback;
+
+    private final StartingSetup LSObjectiveOrLocation;
+    private final StartingSetup DSObjectiveOrLocation;
+
+    private final StartingSetup LSStartingInterrupts;
+    private final StartingSetup DSStartingInterrupts;
+
+    private final StartingSetup LSShields;
+    private final StartingSetup DSShields;
+
     public DefaultSwccgGame game() { return _game; }
     public GameState gameState() { return _gameState; }
     public DefaultUserFeedback userFeedback() { return _userFeedback; }
@@ -41,10 +49,10 @@ public class VirtualTableScenario implements TestBase, Actions, AdHocEffects, Ba
      * with 10 filler cards apiece, no shields or starting interrupts, and using a default pair of ground locations.
      * @param LSCards The Light Side cards to include besides the filler.
      * @param DSCards The Dight Side cards to include besides the filler.
-     * @throws DecisionResultInvalidException
      */
-    public VirtualTableScenario(HashMap<String, String> LSCards, HashMap<String, String> DSCards) throws DecisionResultInvalidException {
-        this(LSCards, DSCards, 10, 10, DefaultGroundLSLocation, DefaultGroundDSLocation, NoLSStarters, NoDSStarters, NoLSShields, NoDSShields, Open);
+    public VirtualTableScenario(HashMap<String, String> LSCards, HashMap<String, String> DSCards) {
+        this(LSCards, DSCards, 10, 10, StartingSetup.DefaultLSGroundLocation, StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts, StartingSetup.NoDSStartingInterrupts, StartingSetup.NoLSShields, StartingSetup.NoDSShields, Open);
     }
 
     /**
@@ -53,24 +61,30 @@ public class VirtualTableScenario implements TestBase, Actions, AdHocEffects, Ba
      * @param DSCards The important Dark-side cards to include in your testing deck.
      * @param LSFillerCount How many filler cards will be inserted into the Light Side deck (for Force purposes).
      * @param DSFillerCount How many filler cards will be inserted into the Dark Side deck (for Force purposes).
-     * @param LSStartingLocation Which starting location to insert into the Light Side deck and automatically play
-     *                           during startup.
-     * @param DSStartingLocation Which starting location to insert into the Light Side deck and automatically play
-     *                           during startup
-     * @param LSStarters Objectives or starting interrupts to include in the LS deck and automatically play during startup.
-     * @param DSStarters Objectives or starting interrupts to include in the DS deck and automatically play during startup.
+     * @param LSObjectiveOrLocation Cards to be played by LS at the start the game.  These can include Objectives or a
+     *                              starting location to include in the LS deck and automatically play during startup.
+     *                              This also includes any cards which the objective will automatically play.
+     * @param DSObjectiveOrLocation Cards to be played by DS at the start the game.  These can include Objectives or a
+     *                              starting location to include in the LS deck and automatically play during startup.
+     *                              This also includes any cards which the objective will automatically play.
      * @param LSShields Shields or other out-of-play cards to include as a side deck for the Light Side.
      * @param DSShields Shields or other out-of-play cards to include as a side deck for the Dark Side.
      * @param format Which format to instantiate the table using.
-     * @throws DecisionResultInvalidException
      */
     public VirtualTableScenario(HashMap<String, String> LSCards, HashMap<String, String> DSCards,
             int LSFillerCount, int DSFillerCount,
-            String LSStartingLocation, String DSStartingLocation,
-            HashMap<String, String> LSStarters, HashMap<String, String> DSStarters,
-            HashMap<String, String> LSShields, HashMap<String, String> DSShields,
-            String format) throws DecisionResultInvalidException {
+            StartingSetup LSObjectiveOrLocation, StartingSetup DSObjectiveOrLocation,
+            StartingSetup LSStartingInterrupts, StartingSetup DSStartingInterrupts,
+            StartingSetup LSShields, StartingSetup DSShields,
+            String format) {
         super();
+
+        this.LSObjectiveOrLocation = LSObjectiveOrLocation;
+        this.DSObjectiveOrLocation = DSObjectiveOrLocation;
+        this.LSStartingInterrupts = LSStartingInterrupts;
+        this.DSStartingInterrupts = DSStartingInterrupts;
+        this.LSShields = LSShields;
+        this.DSShields = DSShields;
 
         Map<String, SwccgDeck> decks = new HashMap<>();
         decks.put(DS, new SwccgDeck(DS + "'s deck"));
@@ -90,14 +104,11 @@ public class VirtualTableScenario implements TestBase, Actions, AdHocEffects, Ba
             DSCards.put(name, DefaultDSFiller);
         }
 
-        LSCards.put("starting-location", LSStartingLocation);
-        DSCards.put("starting-location", DSStartingLocation);
-
         LSCards.putAll(LSDestinyPack);
         DSCards.putAll(DSDestinyPack);
 
-		LSCards.putAll(LSStarters);
-        DSCards.putAll(DSStarters);
+		LSCards.putAll(this.LSObjectiveOrLocation.Cards());
+        DSCards.putAll(this.DSObjectiveOrLocation.Cards());
 
         // Now that all the helper parameters have been stuffed into the decklist, we now populate an actual deck for each player.
 
@@ -111,13 +122,15 @@ public class VirtualTableScenario implements TestBase, Actions, AdHocEffects, Ba
             decks.get(DS).addCard(id);
         }
 
-        for(String name : LSShields.keySet()) {
-            String id = LSShields.get(name);
+        var lshields = LSShields.Cards();
+        for(String name : lshields.keySet()) {
+            String id = lshields.get(name);
             decks.get(LS).addCardOutsideDeck(id);
         }
 
-        for(String name : DSShields.keySet()) {
-            String id = DSShields.get(name);
+        var dshields = DSShields.Cards();
+        for(String name : dshields.keySet()) {
+            String id = dshields.get(name);
             decks.get(DS).addCardOutsideDeck(id);
         }
 
@@ -249,15 +262,12 @@ public class VirtualTableScenario implements TestBase, Actions, AdHocEffects, Ba
         return (PhysicalCardImpl) _gameState.findCardByPermanentId(card.getPermanentCardId());
     }
 
-
-
     /**
      * Passes through certain setup steps at the start of the game so our test may begin at the first player's (usually
      * Dark Side) Activate phase.  Resets the hand so that the only cards in hand are those the tester defines manually
      * before calling this function.
-     * @throws DecisionResultInvalidException
      */
-    public void StartGame() throws DecisionResultInvalidException {
+    public void StartGame() {
         StartGame(true);
     }
 
@@ -268,9 +278,8 @@ public class VirtualTableScenario implements TestBase, Actions, AdHocEffects, Ba
      *                  ensuring that each player only has the cards in their hand that the tester manually places
      *                  before calling StartGame.  This ensures that there are no confounding variables.
      *                  If false, the default drawn hand will remain untouched.
-     * @throws DecisionResultInvalidException
      */
-    public void StartGame(boolean resetHand) throws DecisionResultInvalidException {
+    public void StartGame(boolean resetHand) {
         if(DSDecisionAvailable("Select OK to start game")) {
             DSDecided("0");
         }
@@ -282,15 +291,14 @@ public class VirtualTableScenario implements TestBase, Actions, AdHocEffects, Ba
         var initialLSHand = _gameState.getHand(LS).stream().toList();
         var initialDSHand = _gameState.getHand(DS).stream().toList();
 
-        if(DSDecisionAvailable("Choose starting location")) {
-            DSChooseCard(GetDSCard("starting-location"));
-        }
+        DSShields.Setup(this);
+        LSShields.Setup(this);
 
-        if(LSDecisionAvailable("Choose starting location")) {
-            LSChooseCard(GetLSCard("starting-location"));
-        }
+        DSObjectiveOrLocation.Setup(this);
+        LSObjectiveOrLocation.Setup(this);
 
-        //TODO: Add support for starting interrupts/objectives here
+        DSStartingInterrupts.Setup(this);
+        DSStartingInterrupts.Setup(this);
 
         // As a convenience, we want the tester to be able to stack their hand and other piles before the game begins.
         // However, since a new hand will be drawn, this tramples over the careful stacking, so we will reset the
@@ -316,17 +324,15 @@ public class VirtualTableScenario implements TestBase, Actions, AdHocEffects, Ba
      * you find a reason to call this, you have actually found a reason to add a new helper function to the test rig.
      * @param player The player making the decision
      * @param answer What decision is being returned to the server
-     * @throws DecisionResultInvalidException If there is any mismatch between what the server is expecting and your
-     * answer, this test will fail.
      */
-    public void PlayerDecided(String player, String answer) throws DecisionResultInvalidException {
+    public void PlayerDecided(String player, String answer) {
         var decision = userFeedback().getAwaitingDecision(player);
         userFeedback().participantDecided(player);
         try {
             decision.decisionMade(answer);
         } catch (DecisionResultInvalidException exp) {
             userFeedback().sendAwaitingDecision(player, decision);
-            throw exp;
+            throw new RuntimeException(exp);
         }
         game().carryOutPendingActionsUntilDecisionNeeded();
     }
