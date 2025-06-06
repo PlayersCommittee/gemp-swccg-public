@@ -3702,8 +3702,12 @@ public class GameState implements Snapshotable<GameState> {
             _battleState.addParticipants(this, localTroubleParticipants);
         }
         else {
+            //Initial non-captive participants
+            _battleState.addParticipants(this, Filters.filterActive(_game, null, Filters.initiallyParticipatesInBattle(location)));
+
+            //Adding captives enabled by Captive Fury, but ignoring others
             _battleState.addParticipants(this, Filters.filterActive(_game, null, SpotOverride.INCLUDE_CAPTIVE,
-                    Filters.initiallyParticipatesInBattle(location)));
+                    Filters.and(Filters.initiallyParticipatesInBattle(location), Filters.battlingCaptive)));
         }
 
         for (Modifier modifier: extraModifiers) {

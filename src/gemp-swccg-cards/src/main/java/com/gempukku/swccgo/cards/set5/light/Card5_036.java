@@ -135,10 +135,17 @@ public class Card5_036 extends AbstractUsedOrLostInterrupt {
     }
 
     private List<PhysicalCard> getBattleEligibleEscortedCaptives(SwccgGame game, PhysicalCard self, Filter filter) {
-        var validCaptives = new ArrayList<PhysicalCard>();
-
         var captives = Filters.filterActive(game, self, SpotOverride.INCLUDE_CAPTIVE, filter);
-        return captives.stream().filter(card -> !GameConditions.hasParticipatedInBattleThisTurn(game, card)).toList();
+
+        return captives.stream().filter(card -> {
+            var location = card.getCardAttachedToAtLocation().getAtLocation();
+            var player = card.getOwner();
+			return !GameConditions.hasParticipatedInBattleThisTurn(game, card) &&
+                    (
+                        GameConditions.canInitiateBattleAtLocation(player, game, location, false, true, true)
+                        || GameConditions.canInitiateBattleAtLocation(player, game, location, true, true, true)
+                    );
+		}).toList();
     }
 
     private static void chooseCaptives(PlayInterruptAction action, String playerId, List<PhysicalCard> initialTargets, List<PhysicalCard> selectedCaptives) {

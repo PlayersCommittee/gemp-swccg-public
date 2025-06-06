@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
+import static com.gempukku.swccgo.framework.Assertions.assertAtLocation;
+import static com.gempukku.swccgo.framework.Assertions.assertInHand;
 import static org.junit.Assert.*;
 
 public class CaptiveTests {
@@ -16,6 +18,9 @@ public class CaptiveTests {
 				{{
 					put("chewie", "200_5");
 					put("protector", "10_3"); //Chewbacca persona
+					put("han", "1_11");
+					put("leia", "1_17");
+					put("loves_you", "6_75");
 				}},
 				new HashMap<>()
 				{{
@@ -120,6 +125,48 @@ public class CaptiveTests {
 
 		//4 minus 1 for Boba and minus 1 for his captive
 		assertEquals(2, scn.GetPassengerCapacity(tube));
+	}
+
+	@Test
+	public void CaptiveJoinsBattleWhenReleasedMidBattle() {
+		var scn = GetScenario();
+
+		var han = scn.GetLSCard("han");
+		var leia = scn.GetLSCard("leia");
+		var loves_you = scn.GetLSCard("loves_you");
+		scn.MoveCardsToHand(loves_you);
+
+		var site = scn.GetLSStartingLocation();
+
+		var stormtrooper = scn.GetDSFiller(1);
+
+		scn.StartGame();
+
+		scn.MoveCardsToLocation(site, leia, han, stormtrooper);
+		scn.CaptureCardWith(stormtrooper, han);
+
+		scn.SkipToLSTurn(Phase.BATTLE);
+
+		assertFalse(han.isFrozen());
+		assertTrue(han.isCaptive());
+		assertEquals(stormtrooper, han.getAttachedTo());
+		assertEquals(stormtrooper, han.getEscort());
+		assertAtLocation(site, leia, stormtrooper);
+		assertInHand(loves_you);
+
+		scn.LSInitiateBattle(site);
+		scn.PassBattleStartResponses();
+
+		assertTrue(scn.IsParticipatingInBattle(leia, stormtrooper));
+		assertFalse(scn.IsParticipatingInBattle(han));
+		assertTrue(scn.LSCardPlayAvailable(loves_you));
+		scn.LSPlayCardAndPassResponses(loves_you, han);
+		scn.LSChooseRally();
+
+		assertFalse(han.isFrozen());
+		assertFalse(han.isCaptive());
+		assertAtLocation(site, han);
+		assertTrue(scn.IsParticipatingInBattle(han));
 	}
 
 }
