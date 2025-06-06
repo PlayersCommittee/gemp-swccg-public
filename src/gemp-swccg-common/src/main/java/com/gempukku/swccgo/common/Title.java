@@ -29,6 +29,7 @@ public interface Title {
     String Activate_The_Droids = "Activate The Droids";
     String Advance_Preparation = "Advance Preparation";
     String Advosze = "Advosze";
+    String A_Few_Maneuvers = "A Few Maneuvers";
     String Agents_In_The_Court = "Agents In The Court";
     String Agents_Of_Black_Sun = "Agents Of Black Sun";
     String Ahch_To = "Ahch-To";

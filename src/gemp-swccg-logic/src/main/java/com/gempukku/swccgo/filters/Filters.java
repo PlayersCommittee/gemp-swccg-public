@@ -17515,6 +17515,7 @@ public class Filters {
     public static final Filter Admirals_Order = Filters.type(CardType.ADMIRALS_ORDER);
     public static final Filter Advance_Preparation = Filters.title(Title.Advance_Preparation);
     public static final Filter Advosze = Filters.title(Title.Advosze);
+    public static final Filter A_Few_Maneuvers = Filters.title(Title.A_Few_Maneuvers);
     public static final Filter Agents_In_The_Court = Filters.title(Title.Agents_In_The_Court);
     public static final Filter Agents_Of_Black_Sun = Filters.title(Title.Agents_Of_Black_Sun);
     public static final Filter AhchTo_location = Filters.partOfSystem(Title.Ahch_To);
