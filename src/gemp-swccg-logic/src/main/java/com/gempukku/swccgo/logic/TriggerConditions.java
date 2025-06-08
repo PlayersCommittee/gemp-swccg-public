@@ -2714,6 +2714,23 @@ public class TriggerConditions {
     }
 
     /**
+     * Determines if a card was just stolen by another.
+     * @param game the game
+     * @param effectResult the effect result
+     * @param cardFilter the card being stolen
+     * @return true if an acceptable card was just stolen, false otherwise
+     */
+    public static boolean justStolen(SwccgGame game, EffectResult effectResult, Filterable cardFilter) {
+        if (effectResult.getType() == EffectResult.Type.STOLEN) {
+            StolenResult stolenResult = (StolenResult) effectResult;
+            PhysicalCard cardStolen = stolenResult.getStolenCard();
+
+            return Filters.and(cardFilter).accepts(game, cardStolen);
+        }
+        return false;
+    }
+
+    /**
      * Determines if a card accepted by the card filter was just stolen by the specified player from a location accepted by the location filter.
      * @param game the game
      * @param effectResult the effect result

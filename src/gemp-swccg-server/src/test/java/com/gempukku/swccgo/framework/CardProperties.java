@@ -4,6 +4,7 @@ import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
 import com.gempukku.swccgo.logic.timing.results.VehicleCrashedResult;
 
@@ -256,6 +257,16 @@ public interface CardProperties extends TestBase {
 	 */
 	default int GetLSIconsOnLocation(PhysicalCardImpl location) {
 		return location.getBlueprint().getIconCount(Icon.LIGHT_FORCE);
+	}
+
+	/**
+	 * Checks whether one site is considered adjacent to another.
+	 * @param site The site whose adjacency is in question.
+	 * @param other The site the first site should be adjacent to.
+	 * @return True if the two sites are considered adjacent, false otherwise.
+	 */
+	default boolean IsAdjacentTo(PhysicalCardImpl site, PhysicalCardImpl other) {
+		return Filters.adjacentSite(site).accepts(game(), other);
 	}
 
 }

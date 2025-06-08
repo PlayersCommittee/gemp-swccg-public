@@ -175,7 +175,7 @@ class StealCapturedStarshipToLocationEffect extends AbstractSubActionEffect impl
                                 gameState.reapplyAffectingForCard(game, card);
                             }
                             // Emit effect result for each stolen card
-                            game.getActionsEnvironment().emitEffectResult(new StolenResult(_playerId, _cardToBeStolen, currentLocation));
+                            game.getActionsEnvironment().emitEffectResult(new StolenResult(_playerId, _cardToBeStolen, null, currentLocation));
                         }
                     }
                 }

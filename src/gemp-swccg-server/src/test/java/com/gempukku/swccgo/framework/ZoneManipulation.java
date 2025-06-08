@@ -6,6 +6,7 @@ import com.gempukku.swccgo.game.layout.LocationPlacement;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * While the ability to programmatically execute games is a boon to testing efforts, the real strength of this test rig
@@ -153,6 +154,14 @@ public interface ZoneManipulation extends TestBase{
 	}
 
 	/**
+	 * Moves one or more cards to the top of their owner's reserve deck.
+	 * @param cards The cards to move.
+	 */
+	default void MoveCardsToTopOfOwnReserveDeck(List<PhysicalCardImpl> cards) {
+		MoveCardsToTopOfOwnReserveDeck(cards.toArray(cards.toArray(new PhysicalCardImpl[0])));
+	}
+
+	/**
 	 * Moves one or more cards to the top of the Dark Side player's reserve deck.
 	 * @param cards The cards to move.
 	 */
@@ -235,6 +244,14 @@ public interface ZoneManipulation extends TestBase{
 			RemoveCardZone(card);
 			gameState().addCardToTopOfZone(card, Zone.FORCE_PILE, card.getOwner());
 		});
+	}
+
+	/**
+	 * Moves one or more cards to the top of its owner's Force Pile.
+	 * @param cards The card to reposition.
+	 */
+	default void MoveCardsToTopOfOwnForcePile(List<PhysicalCardImpl> cards) {
+		MoveCardsToTopOfOwnForcePile(cards.toArray(cards.toArray(new PhysicalCardImpl[0])));
 	}
 
 	/**

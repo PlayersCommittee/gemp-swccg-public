@@ -319,7 +319,7 @@ public class Card_5_036_Tests {
 		scn.PassBattleStartResponses();
 		scn.LSPass();
 
-		assertTrue(scn.DSActionAvailable(bobas_blaster));
+		assertTrue(scn.DSCardActionAvailable(bobas_blaster));
 		scn.DSUseCardAction(bobas_blaster);
 
 		assertTrue(scn.DSDecisionAvailable("Choose target"));
@@ -895,7 +895,7 @@ public class Card_5_036_Tests {
 
 		scn.PassResponses("ABOUT_TO_BE_CAPTURED");
 		assertTrue(scn.DSCaptureDecisionAvailable());
-		scn.DSChooseSeize();
+		scn.DSChooseSeizeCaptive();
 
 		assertTrue(scn.DSDecisionAvailable("Choose escort for"));
 		scn.DSChooseCard(boba);
@@ -1084,7 +1084,7 @@ public class Card_5_036_Tests {
 		scn.PassCardAndForceUseResponses();
 		scn.PassBattleStartResponses();
 
-		assertTrue(scn.LSActionAvailable(blaster));
+		assertTrue(scn.LSCardActionAvailable(blaster));
 		scn.LSUseCardAction(blaster);
 
 		assertTrue(scn.LSDecisionAvailable("Choose target"));

@@ -1,7 +1,6 @@
 package com.gempukku.swccgo.framework;
 
 import com.gempukku.swccgo.game.PhysicalCardImpl;
-import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 
 public interface Battles extends Decisions, GameProcedures, PileProperties {
 

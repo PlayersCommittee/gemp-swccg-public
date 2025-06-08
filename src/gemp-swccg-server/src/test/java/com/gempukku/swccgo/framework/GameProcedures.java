@@ -2,7 +2,6 @@ package com.gempukku.swccgo.framework;
 
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
-import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 
 import static org.junit.Assert.assertTrue;
 
@@ -16,7 +15,7 @@ import static org.junit.Assert.assertTrue;
  * to do it manually.  If you actually do need such a pestering card on the table, it is advised that you only place
  * it at the last possible second rather than putting it down early and requiring you to do all the manual procedure.
  */
-public interface GameProcedures extends Actions, Decisions, GameProperties {
+public interface GameProcedures extends Actions, Decisions, GameProperties, PileProperties {
 
 	/**
 	 * Causes the Dark Side player to activate the maximum amount of available force, causes Light Side to let the same
@@ -26,10 +25,19 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 	default int DSActivateMaxForceAndPass() {
 		if(AwaitingDSActivatePhaseActions() && DSActionAvailable("Activate Force")) {
 			DSChooseAction("Activate Force");
-			int max = DSGetChoiceMax();
+			int max = Math.min(GetDSReserveDeckCount() - 1, DSGetChoiceMax());
 			DSDecided(max);
-			LSDecided(max);
-			PassResponses();
+			if(max == 0) {
+				DSPass();
+				if(DSDecisionAvailable("You have not activated Force. Do you want to Pass?")) {
+					DSChooseYes();
+				}
+			}
+
+			if(LSDecisionAvailable("Choose amount of Force to allow opponent to activate without you performing a top-level action")) {
+				LSDecided(max);
+			}
+			PassActivateActions();
 			return max;
 		}
 
@@ -44,10 +52,19 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 	default int LSActivateMaxForceAndPass() {
 		if(AwaitingLSActivatePhaseActions() && LSActionAvailable("Activate Force")) {
 			LSChooseAction("Activate Force");
-			int max = LSGetChoiceMax();
+			int max = Math.min(GetLSReserveDeckCount() - 1, LSGetChoiceMax());
 			LSDecided(max);
-			DSDecided(max);
-			PassResponses();
+			if(max == 0) {
+				LSPass();
+				if(LSDecisionAvailable("You have not activated Force. Do you want to Pass?")) {
+					LSChooseYes();
+				}
+			}
+
+			if(DSDecisionAvailable("Choose amount of Force to allow opponent to activate without you performing a top-level action")) {
+				DSDecided(max);
+			}
+			PassActivateActions();
 			return max;
 		}
 
@@ -177,27 +194,27 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 	/**
 	 * Causes both players to pass during the Activate phase.
 	 */
-	default void PassActivateActions() { PassResponses(); }
+	default void PassActivateActions() { PassResponses("activate"); }
 	/**
 	 * Causes both players to pass during the Control phase.
 	 */
-	default void PassControlActions() { PassResponses(); }
+	default void PassControlActions() { PassResponses("control"); }
 	/**
 	 * Causes both players to pass during the Deploy phase.
 	 */
-	default void PassDeployActions() { PassResponses(); }
+	default void PassDeployActions() { PassResponses("deploy"); }
 	/**
 	 * Causes both players to pass during the Move phase.
 	 */
-	default void PassMoveActions() { PassResponses(); }
+	default void PassMoveActions() { PassResponses("move"); }
 	/**
 	 * Causes both players to pass during the Battle phase.
 	 */
-	default void PassBattleActions() { PassResponses(); }
+	default void PassBattleActions() { PassResponses("battle"); }
 	/**
 	 * Causes both players to pass during the Draw phase.
 	 */
-	default void PassDrawActions() { PassResponses(); }
+	default void PassDrawActions() { PassResponses("draw"); }
 
 	/**
 	 * @return True if the Dark Side player is currently deciding what to do with a captured character.
@@ -211,7 +228,7 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 	/**
 	 * Causes the Dark Side player to choose to "seize" the recently-captured captive (attaching it to the captor).
 	 */
-	default void DSChooseSeize() { DSChoose("Seize"); }
+	default void DSChooseSeizeCaptive() { DSChoose("Seize"); }
 
 	/**
 	 * @return True if the Light Side player is currently deciding what to do with a released captive.
@@ -231,6 +248,7 @@ public interface GameProcedures extends Actions, Decisions, GameProperties {
 	 * When a card leaves the table, there are various responses.  This causes all players to pass all of them.
 	 */
 	default void PassCardLeavingTable() {
+		PassResponses("ABOUT_TO_LOSE_FORCE_NOT_FROM_BATTLE_DAMAGE");
 		PassResponses("FORFEITED_TO_LOST_PILE_FROM_TABLE");
 		PassResponses("PUT_IN_CARD_PILE_FROM_OFF_TABLE");
 	}

@@ -90,7 +90,8 @@ class StealOneCardToLocationEffect extends AbstractSubActionEffect implements Pr
                             allCardsStolen.addAll(gameState.getAllAttachedRecursively(_cardToBeStolen));
 
                             gameState.sendMessage(_playerId + " steals " + GameUtils.getCardLink(_cardToBeStolen) + " using " + GameUtils.getCardLink(_action.getActionSource()));
-                            PhysicalCard stolenFromLocation = game.getModifiersQuerying().getLocationThatCardIsAt(gameState, _cardToBeStolen);
+                            var stolenFrom = _cardToBeStolen.getAttachedTo();
+                            var stolenFromLocation = game.getModifiersQuerying().getLocationThatCardIsAt(gameState, _cardToBeStolen);
 
                             // Update owner and zone owner of each card, then attach card
                             for (PhysicalCard card : allCardsStolen) {
@@ -103,7 +104,7 @@ class StealOneCardToLocationEffect extends AbstractSubActionEffect implements Pr
                                 gameState.reapplyAffectingForCard(game, card);
                             }
                             // Emit effect result for each stolen card
-                            game.getActionsEnvironment().emitEffectResult(new StolenResult(_playerId, _cardToBeStolen, stolenFromLocation));
+                            game.getActionsEnvironment().emitEffectResult(new StolenResult(_playerId, _cardToBeStolen, stolenFrom, stolenFromLocation));
                         }
                     }
                 }

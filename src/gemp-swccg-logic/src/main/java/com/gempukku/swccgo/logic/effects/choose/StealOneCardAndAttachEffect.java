@@ -94,6 +94,7 @@ class StealOneCardAndAttachEffect extends AbstractSubActionEffect implements Pre
 
                             String fromZoneText = Filters.onTable.accepts(game, _cardToBeStolen) ? "" : (" from opponent's " + _cardToBeStolen.getZone().getHumanReadable());
                             gameState.sendMessage(_playerId + " steals " + GameUtils.getCardLink(_cardToBeStolen) + fromZoneText + " using " + GameUtils.getCardLink(_action.getActionSource()));
+                            var stolenFrom = _cardToBeStolen.getAttachedTo();
                             PhysicalCard stolenFromLocation = modifiersQuerying.getLocationThatCardIsAt(gameState, _cardToBeStolen);
 
                             // Update owner and zone owner of each card, then attach card
@@ -114,7 +115,7 @@ class StealOneCardAndAttachEffect extends AbstractSubActionEffect implements Pre
                                 gameState.reapplyAffectingForCard(game, card);
                             }
                             // Emit effect result for each stolen card
-                            game.getActionsEnvironment().emitEffectResult(new StolenResult(_playerId, _cardToBeStolen, stolenFromLocation));
+                            game.getActionsEnvironment().emitEffectResult(new StolenResult(_playerId, _cardToBeStolen, stolenFrom, stolenFromLocation));
                         }
                     }
                 }

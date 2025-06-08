@@ -294,8 +294,17 @@ public class VirtualTableScenario implements TestBase, Actions, AdHocEffects, Ba
         DSShields.Setup(this);
         LSShields.Setup(this);
 
-        DSObjectiveOrLocation.Setup(this);
-        LSObjectiveOrLocation.Setup(this);
+        var dsLocation = DSObjectiveOrLocation.Cards().containsKey("starting-location");
+        var lsLocation = LSObjectiveOrLocation.Cards().containsKey("starting-location");
+        if(lsLocation && !dsLocation) {
+            //A player with a starting location goes before a player with an objective
+            LSObjectiveOrLocation.Setup(this);
+            DSObjectiveOrLocation.Setup(this);
+        }
+        else {
+            DSObjectiveOrLocation.Setup(this);
+            LSObjectiveOrLocation.Setup(this);
+        }
 
         DSStartingInterrupts.Setup(this);
         DSStartingInterrupts.Setup(this);

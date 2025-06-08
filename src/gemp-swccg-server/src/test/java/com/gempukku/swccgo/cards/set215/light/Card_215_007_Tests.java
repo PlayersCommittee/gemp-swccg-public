@@ -8,7 +8,6 @@ import org.junit.Test;
 import java.util.HashMap;
 
 import static com.gempukku.swccgo.framework.Assertions.assertAtLocation;
-import static com.gempukku.swccgo.framework.Assertions.assertInHand;
 import static org.junit.Assert.*;
 
 public class Card_215_007_Tests {

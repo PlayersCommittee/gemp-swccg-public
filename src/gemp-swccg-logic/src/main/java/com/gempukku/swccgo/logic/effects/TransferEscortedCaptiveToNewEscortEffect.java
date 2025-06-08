@@ -33,7 +33,7 @@ public class TransferEscortedCaptiveToNewEscortEffect extends AbstractSuccessful
         PhysicalCard oldEscort = _captive.getAttachedTo();
 
         gameState.sendMessage(GameUtils.getCardLink(_captive) + " is transferred from " + GameUtils.getCardLink(oldEscort) + " to " + GameUtils.getCardLink(_newEscort));
-        gameState.moveCardToAttached(_captive, _newEscort);
+        gameState.seizeCharacter(game, _captive, _newEscort);
 
         // Emit the result effect that can trigger other cards
         game.getActionsEnvironment().emitEffectResult(new TransferredCaptiveToNewEscortResult(_captive, oldEscort, _newEscort));

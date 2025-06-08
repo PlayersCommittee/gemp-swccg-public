@@ -103,7 +103,7 @@ public class Card_215_017_Tests {
 		scn.DSInitiateBattle(core);
 		scn.PassBattleStartResponses();
 
-		assertTrue(scn.DSActionAvailable(lightsaber));
+		assertTrue(scn.DSCardActionAvailable(lightsaber));
 		scn.DSUseCardAction(lightsaber);
 
 		assertTrue(scn.DSDecisionAvailable("Choose target"));
