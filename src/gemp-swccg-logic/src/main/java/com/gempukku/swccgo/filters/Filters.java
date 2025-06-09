@@ -18649,6 +18649,7 @@ public class Filters {
     public static final Filter Paploo = Filters.persona(Persona.PAPLOO);
     public static final Filter parasite = Filters.and(CardCategory.CREATURE, Keyword.PARASITE);
     public static final Filter Part_of_the_Tribe = Filters.title(Title.Part_of_the_Tribe);
+    public static final Filter Passel_Argente = Filters.title(Title.Passel_Argente);
     public static final Filter Passenger_Deck = Filters.title(Title.Passenger_Deck);
     public static final Filter Path_Of_Least_Resistance = Filters.title(Title.Path_Of_Least_Resistance);
     public static final Filter Patience = Filters.title(Title.Patience);

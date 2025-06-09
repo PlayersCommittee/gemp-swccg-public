@@ -848,6 +848,7 @@ public interface Title {
     String Palace_Raider = "Palace Raider";
     String Paploo = "Paploo";
     String Part_of_the_Tribe = "Part Of The Tribe";
+    String Passel_Argente = "Passel Argente";
     String Passenger_Deck = "Jabba's Sail Barge: Passenger Deck";
     String Path_Of_Least_Resistance = "Path Of Least Resistance";
     String Patience = "Patience!";

@@ -9,6 +9,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -33,7 +34,7 @@ import java.util.List;
  */
 public class Card12_116 extends AbstractRepublic {
     public Card12_116() {
-        super(Side.DARK, 2, 3, 1, 2, 3, "Passel Argente", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
+        super(Side.DARK, 2, 3, 1, 2, 3, Title.Passel_Argente, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setPolitics(2);
         setLore("A senator known for his ability to deflect blame. It is rumored that Argente receives kickbacks from a few corporations to thwart other companies' developments.");
         setGameText("Agendas: ambition, taxation. While in a senate majority, opponent's non-unique starships and non-unique vehicles are each deploy +2 and power -1. Argente is politics +X, where X = number of opponent's senators at same site.");

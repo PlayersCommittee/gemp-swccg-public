@@ -41,7 +41,7 @@ import java.util.List;
  */
 public class Card217_018 extends AbstractRepublic {
     public Card217_018() {
-        super(Side.DARK, 2, 3, 1, 2, 3, "Passel Argente", Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
+        super(Side.DARK, 2, 3, 1, 2, 3, Title.Passel_Argente, Uniqueness.UNIQUE, ExpansionSet.SET_17, Rarity.V);
         setPolitics(2);
         setVirtualSuffix(true);
         setLore("A senator known for his ability to deflect blame. It is rumored that Argente receives kickbacks from a few corporations to thwart other companies' developments.");
