@@ -37,7 +37,7 @@ public class Card207_019 extends AbstractCharacterWeapon {
         super(Side.LIGHT, 5, "Luke's Hunting Rifle", Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setVirtualSuffix(true);
         setLore("Czerka 6-2Aug2. Extended barrel provides long-range targeting without expensive laser sight. Sturdy construction, but no match for a Tusken Raider's gaderffi stick.");
-        setGameText("Deploy on your alien or Rebel. May target a character or creature for free. Draw destiny. Target hit if destiny +2 > defense value. If hit by Luke or Owen, target’s forfeit = 0 and you retrieve 1 Force. Once during your move phase, may fire at a Jawa or Undercover spy.");
+        setGameText("Deploy on your alien or Rebel. May target a character or creature for free. Draw destiny. Target hit if destiny +2 > defense value. If hit by Luke or Owen, target's forfeit = 0 and you retrieve 1 Force. Once during your move phase, may fire at a Jawa or Undercover spy.");
         addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_7);
         addKeywords(Keyword.RIFLE);
         setMatchingCharacterFilter(Filters.or(Filters.Luke, Filters.Owen));

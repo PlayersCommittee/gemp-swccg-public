@@ -47,7 +47,7 @@ public class Card221_025 extends AbstractImperial {
     public Card221_025() {
         super(Side.DARK, 3, 3, 3, 3, 5, "Lieutenant Dedra Meero", Uniqueness.UNIQUE, ExpansionSet.SET_21, Rarity.V);
         setLore("Female ISB leader.");
-        setGameText("When deployed, may target an opponent’s spy present to be power = 0 until end of turn. Once per turn, if an ISB agent on table, may place a card from hand on Used Pile; the next ISB agent you deploy this turn is deploy -1.");
+        setGameText("When deployed, may target an opponent's spy present to be power = 0 until end of turn. Once per turn, if an ISB agent on table, may place a card from hand on Used Pile; the next ISB agent you deploy this turn is deploy -1.");
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_21);
         addKeywords(Keyword.FEMALE, Keyword.LEADER);
     }

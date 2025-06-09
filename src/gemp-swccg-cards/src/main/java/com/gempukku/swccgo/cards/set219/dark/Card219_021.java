@@ -39,7 +39,7 @@ public class Card219_021 extends AbstractUsedOrLostInterrupt {
     public Card219_021() {
         super(Side.DARK, 6, "Thrawn Pincer", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setGameText("USED: Add 1 to hyperspeed of a dreadnaught or Star Destroyer for each artwork card on table for remainder of turn. " +
-                    "LOST: Once per game, if your [Set 19] objective just ‘studied’ a vehicle or starship, relocate your Star Destroyer from anywhere on table to that battle.");
+                    "LOST: Once per game, if your [Set 19] objective just 'studied' a vehicle or starship, relocate your Star Destroyer from anywhere on table to that battle.");
         addIcons(Icon.VIRTUAL_SET_19);
     }
 

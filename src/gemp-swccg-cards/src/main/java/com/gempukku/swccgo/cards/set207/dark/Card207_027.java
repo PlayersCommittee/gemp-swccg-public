@@ -40,7 +40,7 @@ public class Card207_027 extends AbstractNormalEffect {
     public Card207_027() {
         super(Side.DARK, 7, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Specter Of The Supreme Leader", Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setLore("Hologram.");
-        setGameText("Deploy on table. The Phantom Menace is canceled. You lose no Force to Kylo or Kylo’s Lightsaber. If Kylo (or Kylo’s Lightsaber) just lost, may place this Effect in Lost Pile to take that card into hand. (Immune to Alter.)");
+        setGameText("Deploy on table. The Phantom Menace is canceled. You lose no Force to Kylo or Kylo's Lightsaber. If Kylo (or Kylo's Lightsaber) just lost, may place this Effect in Lost Pile to take that card into hand. (Immune to Alter.)");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_7);
         addKeywords(Keyword.HOLOGRAM);
         addImmuneToCardTitle(Title.Alter);

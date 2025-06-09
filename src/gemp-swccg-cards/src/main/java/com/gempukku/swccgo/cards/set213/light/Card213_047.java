@@ -43,7 +43,7 @@ public class Card213_047 extends AbstractNormalEffect {
         super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Meditation, Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setVirtualSuffix(true);
         setLore("To prepare for the inevitable conflict with Jabba's minions, Luke entered a calm state of mental preparation.");
-        setGameText("Deploy on your character of ability > 3. Opponent’s aliens are power -1 here (and forfeit -2 if a leader or [PW] or [M] card). If opponent has more characters at same site, may add one battle destiny (then lose Effect at end of battle).");
+        setGameText("Deploy on your character of ability > 3. Opponent's aliens are power -1 here (and forfeit -2 if a leader or [PW] or [M] card). If opponent has more characters at same site, may add one battle destiny (then lose Effect at end of battle).");
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_13);
     }

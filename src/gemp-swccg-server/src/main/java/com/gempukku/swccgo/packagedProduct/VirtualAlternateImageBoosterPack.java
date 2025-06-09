@@ -163,7 +163,7 @@ public class VirtualAlternateImageBoosterPack extends BasePackagedCardProduct {
                 possibleCards.add("203_31^"); //Coruscant (V) (DS)
                 possibleCards.add("216_25^"); //Coruscant: Jedi Temple Meditation Room
                 possibleCards.add("216_4^"); //Coruscant: The Works (Borderless)
-                possibleCards.add("216_26^"); //Dagobah: Yoda’s Hut (V)
+                possibleCards.add("216_26^"); //Dagobah: Yoda's Hut (V)
                 possibleCards.add("202_9^"); //Daroe (V)
                 possibleCards.add("213_3^"); //Darth Tyranus (Hologram AI)
                 possibleCards.add("216_6^"); //Darth Vader, Betrayer Of The Jedi
@@ -174,7 +174,7 @@ public class VirtualAlternateImageBoosterPack extends BasePackagedCardProduct {
                 possibleCards.add("201_21^"); //Mace Windu's Lightsaber
                 possibleCards.add("210_23^"); //Plo Koon (V)
                 possibleCards.add("208_17^"); //Restore Freedom To The Galaxy
-                possibleCards.add("216_43^"); //Tatooine: Obi-Wan’s Hut (V) (Borderless)
+                possibleCards.add("216_43^"); //Tatooine: Obi-Wan's Hut (V) (Borderless)
                 break;
             case 6:
                 possibleCards.add("204_1^"); //BB-8 (Border Breaker)

@@ -42,7 +42,7 @@ public class Card221_069 extends AbstractCharacterWeapon {
         super(Side.LIGHT, 1, "Qui-Gon Jinn's Lightsaber", Uniqueness.UNIQUE, ExpansionSet.SET_21, Rarity.V);
         setVirtualSuffix(true);
         setLore("Qui-Gon was forced to defend himself when Darth Maul tracked them down on Tatooine. He was barely able to escape, in order to fight another day.");
-        setGameText("Deploy on Qui-Gon or [Episode I] Obi-Wan. May add 1 to Force drain where present. May target a character or creature. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value. While at Watto’s Junkyard, Undercover spies here are lost.");
+        setGameText("Deploy on Qui-Gon or [Episode I] Obi-Wan. May add 1 to Force drain where present. May target a character or creature. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value. While at Watto's Junkyard, Undercover spies here are lost.");
         addPersona(Persona.QUIGON_JINNS_LIGHTSABER);
         addIcons(Icon.TATOOINE, Icon.EPISODE_I, Icon.VIRTUAL_SET_21);
         addKeywords(Keyword.LIGHTSABER);

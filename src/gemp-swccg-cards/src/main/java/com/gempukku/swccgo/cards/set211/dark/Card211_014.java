@@ -43,7 +43,7 @@ public class Card211_014 extends AbstractUsedOrLostInterrupt {
         super(Side.DARK, 6, "Trade Federation Tactics", Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setVirtualSuffix(true);
         setLore("Organizations as wealthy as the Trade Federation can afford large amounts of military hardware, all purchased under the guise of protecting their commercial interests.");
-        setGameText("USED: Cancel an attempt to use a weapon to target your capital starship. LOST: Re-target On Target to an opponent’s capital starship armed with a weapon. OR [upload] Blockade Support Ship or Invisible Hand.");
+        setGameText("USED: Cancel an attempt to use a weapon to target your capital starship. LOST: Re-target On Target to an opponent's capital starship armed with a weapon. OR [upload] Blockade Support Ship or Invisible Hand.");
         addIcons(Icon.VIRTUAL_SET_11, Icon.THEED_PALACE, Icon.EPISODE_I);
     }
 
@@ -76,7 +76,7 @@ public class Card211_014 extends AbstractUsedOrLostInterrupt {
 
 
 
-        // "LOST: Re-target On Target to an opponent’s capital starship armed with a weapon."
+        // "LOST: Re-target On Target to an opponent's capital starship armed with a weapon."
 
         // Check condition(s)
         if (TriggerConditions.isPlayingCardTargeting(game, effect, Filters.On_Target, Filters.any)) {

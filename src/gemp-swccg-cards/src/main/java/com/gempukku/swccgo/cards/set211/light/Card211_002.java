@@ -41,14 +41,14 @@ public class Card211_002 extends AbstractUsedInterrupt {
     public Card211_002() {
         super(Side.LIGHT, 5, "See You Around, Kid", Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLore("");
-        setGameText("Cancel a just-deployed First Order character’s game text until end of turn. OR Destiny draws during battles at sites may not be canceled this turn. OR During any draw phase, place a card from hand under Used Pile to take any one card into hand from Force Pile; reshuffle.");
+        setGameText("Cancel a just-deployed First Order character's game text until end of turn. OR Destiny draws during battles at sites may not be canceled this turn. OR During any draw phase, place a card from hand under Used Pile to take any one card into hand from Force Pile; reshuffle.");
         addIcons(Icon.VIRTUAL_SET_11, Icon.EPISODE_VII);
     }
 
 
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
-        // Cancel a just-deployed First Order character’s game text until end of turn
+        // Cancel a just-deployed First Order character's game text until end of turn
 
         // Check condition(s)
         if (TriggerConditions.justDeployed(game, effectResult, Filters.First_Order_character)) {

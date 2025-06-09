@@ -40,7 +40,7 @@ public class Card224_006 extends AbstractImperial {
         super(Side.DARK, 2, 5, 4, 5, 7, "Second Sister", Uniqueness.UNIQUE, ExpansionSet.SET_24, Rarity.V);
         setLore("Female Inquisitor.");
         setGameText("Padawans are power -2 here. " +
-                "Once per game, may place a 'Hatred' card here in owner’s Lost Pile to choose: " +
+                "Once per game, may place a 'Hatred' card here in owner's Lost Pile to choose: " +
                 "Take any card into hand from Used Pile; reshuffle. " +
                 "OR Deploy a lightsaber on this character from Lost Pile. " +
                 "Unless Vader here, immune to attrition < 4.");

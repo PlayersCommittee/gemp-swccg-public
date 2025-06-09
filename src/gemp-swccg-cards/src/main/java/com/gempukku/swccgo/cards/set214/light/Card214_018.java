@@ -50,7 +50,7 @@ public class Card214_018 extends AbstractAlien {
     public Card214_018() {
         super(Side.LIGHT, 1, 3, 4, 3, 6, "Din Djarin", Uniqueness.UNIQUE, ExpansionSet.SET_14, Rarity.V);
         setLore("Mandalorian");
-        setGameText("Adds 2 to power of anything he pilots. While with an alien, adds one battle destiny. Once per turn, may target opponent’s non-'hit' character here. If Din on table when target lost this turn, choose: retrieve 1 Force or place target in Used Pile to retrieve 2 Force.");
+        setGameText("Adds 2 to power of anything he pilots. While with an alien, adds one battle destiny. Once per turn, may target opponent's non-'hit' character here. If Din on table when target lost this turn, choose: retrieve 1 Force or place target in Used Pile to retrieve 2 Force.");
         setArmor(5);
         addPersona(Persona.DIN);
         setSpecies(Species.MANDALORIAN);

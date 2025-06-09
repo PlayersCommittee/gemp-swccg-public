@@ -39,7 +39,7 @@ public class Card210_031 extends AbstractNormalEffect {
     public Card210_031() {
         super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "The Dark Path", Uniqueness.UNRESTRICTED, ExpansionSet.SET_10, Rarity.V);
         setLore("'If once you start down the dark path, forever will it dominate your destiny. Consume you it will, as it did Obi-Wan's apprentice.'");
-        setGameText("Deploy on table. Add one [DS] icon at each site where you have a 'Hatred’ card. Once per game, target two battleground sites you occupy; one at a time, stack top card of your Lost Pile face down (as a 'Hatred’ card) at those locations. [Immune to Alter.]");
+        setGameText("Deploy on table. Add one [DS] icon at each site where you have a 'Hatred' card. Once per game, target two battleground sites you occupy; one at a time, stack top card of your Lost Pile face down (as a 'Hatred' card) at those locations. [Immune to Alter.]");
         addIcons(Icon.DAGOBAH, Icon.VIRTUAL_SET_10);
         addImmuneToCardTitle(Title.Alter);
         setVirtualSuffix(true);
@@ -49,7 +49,7 @@ public class Card210_031 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
 
-        // Add one [DS] icon at each site where you have a 'Hatred’ card
+        // Add one [DS] icon at each site where you have a 'Hatred' card
         Filter siteWithHatredCardStacked = Filters.and(Filters.site, Filters.or(Filters.hasStacked(Filters.hatredCard), Filters.sameSiteAs(self, Filters.and(Filters.character, Filters.hasStacked(Filters.hatredCard)))));
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new IconModifier(self, siteWithHatredCardStacked, Icon.DARK_FORCE, 1));
@@ -63,7 +63,7 @@ public class Card210_031 extends AbstractNormalEffect {
         GameTextActionId gameTextActionId = GameTextActionId.THE_DARK_PATH_V__STACK_HATE_CARDS;
 
         // Once per game, target two battleground sites you occupy;
-        // one at a time, stack top card of your Lost Pile face down (as a 'Hatred’ card) at those locations.
+        // one at a time, stack top card of your Lost Pile face down (as a 'Hatred' card) at those locations.
         Filter battlegroundsYouOccupy = Filters.and(Filters.battleground_site, Filters.occupies(playerId));
 
         // Check condition(s)

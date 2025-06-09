@@ -43,7 +43,7 @@ import java.util.List;
 /**
  * Set: Set 8
  * Type: Objective
- * Title: I Want That Map / And Now You’ll Give It To Me
+ * Title: I Want That Map / And Now You'll Give It To Me
  */
 public class Card208_057_BACK extends AbstractObjective {
     public Card208_057_BACK() {

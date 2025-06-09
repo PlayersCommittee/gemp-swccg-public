@@ -35,7 +35,7 @@ public class Card219_002 extends AbstractCapitalStarship {
         setVirtualSuffix(true);
         setLore("Early model Imperial-class Star Destroyer. Acting command ship in the absence of Executor.");
         setGameText("May add 6 pilots, 6 passengers, and 4 TIEs. Permanent pilot provides ability of 2. " +
-                    "While Thrawn piloting, immune to attrition < 5 and game text of We’re In Attack Position Now may not be canceled.");
+                    "While Thrawn piloting, immune to attrition < 5 and game text of We're In Attack Position Now may not be canceled.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_19);
         addModelType(ModelType.IMPERIAL_CLASS_STAR_DESTROYER);
         setPilotCapacity(6);

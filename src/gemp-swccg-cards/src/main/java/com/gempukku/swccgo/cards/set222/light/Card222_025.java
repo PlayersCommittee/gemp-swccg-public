@@ -34,7 +34,7 @@ public class Card222_025 extends AbstractAlienRebel {
         super(Side.LIGHT, 2, 2, 2, 2, 4, "Nien Nunb, Sullustan Smuggler", Uniqueness.UNIQUE, ExpansionSet.SET_22, Rarity.V);
         setLore("Brilliant navigator. Former SoroSuub employee. Turned to pirating when that corporation backed the Empire. Tall for a Sullustan. Smuggler.");
         setGameText("Adds 2 to power of anything he pilots. While piloting a freighter, " +
-                "it is defense value +2 and opponent’s immunity to attrition is limited to < 7 here (< 5 if Lando piloting here).");
+                "it is defense value +2 and opponent's immunity to attrition is limited to < 7 here (< 5 if Lando piloting here).");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_22);
         addPersona(Persona.NIEN_NUNB);
         addKeyword(Keyword.SMUGGLER);

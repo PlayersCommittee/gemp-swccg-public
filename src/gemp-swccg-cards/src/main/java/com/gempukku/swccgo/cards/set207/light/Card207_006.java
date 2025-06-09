@@ -32,7 +32,7 @@ public class Card207_006 extends AbstractRebel {
         super(Side.LIGHT, 3, 2, 2, 2, 4, Title.Kian, Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setVirtualSuffix(true);
         setLore("Rogue Squadron pilot. Assigned as gunner aboard Colonel Salm's Y-wing at Battle of Endor, as part of Gray Squadron. Former member of Aggressor Squadron.");
-        setGameText("[Pilot] 2. Matching pilot for any ‘snub’ fighter. While piloting a ‘snub’ fighter, draws one battle destiny if unable to otherwise and opponent may not substitute battle destiny draws here.");
+        setGameText("[Pilot] 2. Matching pilot for any 'snub' fighter. While piloting a 'snub' fighter, draws one battle destiny if unable to otherwise and opponent may not substitute battle destiny draws here.");
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_7);
         addKeywords(Keyword.ROGUE_SQUADRON, Keyword.GUNNER, Keyword.GRAY_SQUADRON);
         setMatchingStarshipFilter(Filters.snub_fighter);

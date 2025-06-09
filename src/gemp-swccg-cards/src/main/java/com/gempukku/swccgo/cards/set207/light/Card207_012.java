@@ -40,7 +40,7 @@ public class Card207_012 extends AbstractLostInterrupt {
         super(Side.LIGHT, 3, Title.Help_Me_Obi_Wan_Kenobi, Uniqueness.UNRESTRICTED, ExpansionSet.SET_7, Rarity.V);
         setVirtualSuffix(true);
         setLore("Leia sent a hologram plea, 'General Kenobi, years ago you served my father in the Clone Wars. Now he begs you to help him in his struggle against the Empire.'");
-        setGameText("During battle, target an opponent’s character of ability < 2 present with your Jedi; target is excluded from battle. OR Cancel a ‘react.’ OR If Obi-Wan is at a battleground site, and your Rebel or Republic character (or Leia) is in battle at another location, add one battle destiny.");
+        setGameText("During battle, target an opponent's character of ability < 2 present with your Jedi; target is excluded from battle. OR Cancel a 'react.' OR If Obi-Wan is at a battleground site, and your Rebel or Republic character (or Leia) is in battle at another location, add one battle destiny.");
         addKeywords(Keyword.HOLOGRAM);
     }
 

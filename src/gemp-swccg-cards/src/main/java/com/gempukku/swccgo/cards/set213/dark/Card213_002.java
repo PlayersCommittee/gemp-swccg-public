@@ -46,7 +46,7 @@ public class Card213_002 extends AbstractAlien {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
-        //While with another guard or at opponent’s site, each opponent’s weapon destiny is -1 here.
+        //While with another guard or at opponent's site, each opponent's weapon destiny is -1 here.
         String playerId = self.getOwner();
         String opponent = game.getOpponent(playerId);
         List<Modifier> modifiers = new LinkedList<>();

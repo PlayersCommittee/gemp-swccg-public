@@ -38,7 +38,7 @@ public class Card219_018 extends AbstractUsedOrLostInterrupt {
         super(Side.DARK, 4, "Surely You Can Do Better", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setGameText("USED: During battle, target a character present with [Set 13] Dooku. Target is power -3. " +
                     "LOST: If lightsaber combat was just initiated, add one destiny to your total. " +
-                    "OR If [Set 13] Dooku on table, deploy Dooku’s Lightsaber from Lost Pile.");
+                    "OR If [Set 13] Dooku on table, deploy Dooku's Lightsaber from Lost Pile.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_19);
     }
 
@@ -73,13 +73,13 @@ public class Card219_018 extends AbstractUsedOrLostInterrupt {
             actions.add(action);
         }
 
-        // OR If [Set 13] Dooku on table, deploy Dooku’s Lightsaber from Lost Pile
+        // OR If [Set 13] Dooku on table, deploy Dooku's Lightsaber from Lost Pile
         if (GameConditions.canSpot(game, self, set13Dooku)
                 && GameConditions.hasLostPile(game, playerId)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
-            action.setText("Deploy Dooku’s Lightsaber from Lost Pile");
-            action.setActionMsg("Deploy Dooku’s Lightsaber from Lost Pile");
+            action.setText("Deploy Dooku's Lightsaber from Lost Pile");
+            action.setActionMsg("Deploy Dooku's Lightsaber from Lost Pile");
             // Allow response(s)
             action.allowResponses(
                     new RespondablePlayCardEffect(action) {

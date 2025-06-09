@@ -347,7 +347,7 @@ public interface Title {
     String Droid_Starfighter_Laser_Cannons = "Droid Starfighter Laser Cannons";
     String Droid_Workshop = "Jabba's Palace: Droid Workshop";
     String Drop = "Drop!";
-    String Dyden_Vos_s_Kyuzo_Petars = "Dryden Vos’s Kyuzo Petars";
+    String Dyden_Vos_s_Kyuzo_Petars = "Dryden Vos's Kyuzo Petars";
     String DS_181_3 = "DS-181-3";
     String DS_181_4 = "DS-181-4";
     String DS_61_5 = "DS-61-5";

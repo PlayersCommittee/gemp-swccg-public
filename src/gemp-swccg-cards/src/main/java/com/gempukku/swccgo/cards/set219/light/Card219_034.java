@@ -44,7 +44,7 @@ public class Card219_034 extends AbstractCharacterWeapon {
         setLore("");
         setGameText("Deploy on Ezra. Once per turn, may return to hand to cancel and redraw a destiny targeting a Rebel here. " +
                     "May target a character for free. Draw destiny. If destiny +3 > defense value, target hit, its forfeit = 0 and, " +
-                    "if target’s ability > 4, user is power +2 until end of turn.");
+                    "if target's ability > 4, user is power +2 until end of turn.");
         addPersona(Persona.EZRAS_BLASTER_LIGHTSABER);
         addIcons(Icon.VIRTUAL_SET_19);
         addKeywords(Keyword.BLASTER, Keyword.LIGHTSABER);

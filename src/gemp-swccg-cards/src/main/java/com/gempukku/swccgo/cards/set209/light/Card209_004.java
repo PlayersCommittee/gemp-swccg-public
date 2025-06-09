@@ -43,7 +43,7 @@ public class Card209_004 extends AbstractRebel {
     public Card209_004() {
         super(Side.LIGHT, 3, 3, 3, 3, 4, "Galen Erso", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setLore("Information broker, leader, and spy.");
-        setGameText("Once per game, may place a non-[Immune to Alter] Effect in owner’s Used Pile. If both players just drew one battle destiny here, may use 2 Force (free if with an Imperial) to switch numbers. Opponent must first lose 2 Force to fire a superlaser.");
+        setGameText("Once per game, may place a non-[Immune to Alter] Effect in owner's Used Pile. If both players just drew one battle destiny here, may use 2 Force (free if with an Imperial) to switch numbers. Opponent must first lose 2 Force to fire a superlaser.");
         addIcons(Icon.VIRTUAL_SET_9);
         addKeywords(Keyword.INFORMATION_BROKER, Keyword.SPY, Keyword.LEADER);
     }

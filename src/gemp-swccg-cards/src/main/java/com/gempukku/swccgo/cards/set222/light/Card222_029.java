@@ -40,7 +40,7 @@ public class Card222_029 extends AbstractRebel {
         super(Side.LIGHT, 6, 8, 6, 6, 9, "Young Skywalker", Uniqueness.UNIQUE, ExpansionSet.SET_22, Rarity.V);
         setLore("Scout.");
         setGameText("[Pilot] 2. Deploys -3 to Endor. Power +2 while armed with Luke's Lightsaber. " +
-                "Once per game, may retrieve A Jedi’s Focus or A Jedi’s Fury into hand. " +
+                "Once per game, may retrieve A Jedi's Focus or A Jedi's Fury into hand. " +
                 "Immune to attrition < 5 (< 6 while armed with Luke's Lightsaber).");
         addPersona(Persona.LUKE);
         addIcons(Icon.DEATH_STAR_II, Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_22);
@@ -74,7 +74,7 @@ public class Card222_029 extends AbstractRebel {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Retrieve a card into hand");
-            action.setActionMsg("Retrieve A Jedi’s Focus or A Jedi’s Fury into hand");
+            action.setActionMsg("Retrieve A Jedi's Focus or A Jedi's Fury into hand");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerGameEffect(action));
