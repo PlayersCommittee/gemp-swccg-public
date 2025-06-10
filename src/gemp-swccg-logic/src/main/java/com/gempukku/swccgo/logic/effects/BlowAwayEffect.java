@@ -9,7 +9,7 @@ import com.gempukku.swccgo.game.state.BlowAwayState;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.actions.SubAction;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.*;
 import com.gempukku.swccgo.logic.timing.results.BlownAwayCalculateForceLossStepResult;
 import com.gempukku.swccgo.logic.timing.results.BlownAwayLastStepResult;

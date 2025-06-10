@@ -7,7 +7,7 @@ import com.gempukku.swccgo.game.state.BattleState;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.modifiers.AbilityForBattleDestinyModifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersEnvironment;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersEnvironment;
 import com.gempukku.swccgo.logic.modifiers.TotalAbilityForBattleDestinyModifier;
 import com.gempukku.swccgo.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.swccgo.logic.timing.Action;

@@ -16,7 +16,7 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.LoseForceFromInsertCardEffect;
 import com.gempukku.swccgo.logic.effects.LoseInsertCardEffect;
 import com.gempukku.swccgo.logic.effects.RefreshPrintedDestinyValuesEffect;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 

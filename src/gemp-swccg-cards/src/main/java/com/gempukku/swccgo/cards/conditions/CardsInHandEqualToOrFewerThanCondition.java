@@ -2,7 +2,7 @@ package com.gempukku.swccgo.cards.conditions;
 
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * A condition that is fulfilled when the specified player has at most a specified number of cards in hand.

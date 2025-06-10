@@ -8,7 +8,7 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.modifiers.AbstractModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifierType;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * A modifier that causes specified cards to take off free from specified locations to specified locations.

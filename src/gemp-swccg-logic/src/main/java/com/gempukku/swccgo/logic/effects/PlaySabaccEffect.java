@@ -15,7 +15,7 @@ import com.gempukku.swccgo.logic.decisions.YesNoDecision;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardsFromSabaccHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardsFromSabaccHandOrFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifierFlag;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.*;
 import com.gempukku.swccgo.logic.timing.results.SabaccTotalCalculatedResult;
 import com.gempukku.swccgo.logic.timing.results.SabaccWinnerDeterminedResult;

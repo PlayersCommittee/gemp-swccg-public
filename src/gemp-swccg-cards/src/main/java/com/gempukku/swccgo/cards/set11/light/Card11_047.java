@@ -28,7 +28,7 @@ import com.gempukku.swccgo.logic.evaluators.ConstantEvaluator;
 import com.gempukku.swccgo.logic.modifiers.DrawsRaceDestinyAndChooseModifier;
 import com.gempukku.swccgo.logic.modifiers.DrawsRaceDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;

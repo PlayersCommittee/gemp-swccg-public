@@ -15,7 +15,7 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseCardsOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotJoinSearchPartyModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotMoveModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotParticipateInBattleModifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersEnvironment;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersEnvironment;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;

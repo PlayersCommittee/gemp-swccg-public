@@ -5,6 +5,7 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.evaluators.ConstantEvaluator;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 public class NumLightsaberCombatDestinyDrawsModifier extends AbstractModifier {
     private Evaluator _evaluator;

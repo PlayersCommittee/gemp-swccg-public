@@ -9,7 +9,7 @@ import com.gempukku.swccgo.logic.actions.SubAction;
 import com.gempukku.swccgo.logic.effects.LoseCardsFromTableSimultaneouslyEffect;
 import com.gempukku.swccgo.logic.effects.PreventableCardEffect;
 import com.gempukku.swccgo.logic.effects.TriggeringResultsEffect;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;

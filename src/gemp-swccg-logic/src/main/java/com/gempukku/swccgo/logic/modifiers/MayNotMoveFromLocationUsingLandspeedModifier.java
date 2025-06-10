@@ -6,6 +6,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * A modifier for not allowing specified cards to move from specified locations using landspeed.

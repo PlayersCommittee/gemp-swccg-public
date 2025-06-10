@@ -4,7 +4,7 @@ import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.modifiers.ModifierFlag;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.processes.GameProcess;
 import com.gempukku.swccgo.logic.timing.processes.turn.BetweenTurnsProcess;
 

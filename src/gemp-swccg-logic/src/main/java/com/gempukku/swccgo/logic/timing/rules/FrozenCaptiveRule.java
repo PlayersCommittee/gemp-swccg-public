@@ -2,6 +2,7 @@ package com.gempukku.swccgo.logic.timing.rules;
 
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersEnvironment;
 
 public class FrozenCaptiveRule implements Rule {
     private ModifiersEnvironment _modifiersEnvironment;

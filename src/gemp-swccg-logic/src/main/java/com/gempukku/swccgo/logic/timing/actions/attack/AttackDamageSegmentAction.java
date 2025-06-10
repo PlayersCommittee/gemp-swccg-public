@@ -11,7 +11,7 @@ import com.gempukku.swccgo.logic.effects.AttachParasiteEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardsFromTableEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardsOutOfPlayFromTableEffect;
 import com.gempukku.swccgo.logic.effects.TriggeringResultsEffect;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;

@@ -79,7 +79,7 @@ import com.gempukku.swccgo.logic.effects.choose.TakeStackedCardsIntoHandEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsDestinyToAttritionModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionChangeModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeFiredModifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;

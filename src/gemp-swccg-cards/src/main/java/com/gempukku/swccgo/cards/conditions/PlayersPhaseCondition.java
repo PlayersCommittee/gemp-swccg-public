@@ -3,7 +3,7 @@ package com.gempukku.swccgo.cards.conditions;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * A condition that is fulfilled during the specified player's phase.

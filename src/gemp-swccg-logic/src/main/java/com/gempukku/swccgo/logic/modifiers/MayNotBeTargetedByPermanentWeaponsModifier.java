@@ -1,11 +1,11 @@
 package com.gempukku.swccgo.logic.modifiers;
 
 import com.gempukku.swccgo.common.Filterable;
-import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 public class MayNotBeTargetedByPermanentWeaponsModifier extends AbstractModifier {
 

@@ -1,7 +1,6 @@
 package com.gempukku.swccgo.logic.timing.rules;
 
 import com.gempukku.swccgo.common.SpotOverride;
-import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.ActionsEnvironment;
@@ -10,12 +9,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredRuleTriggerAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardToLoseFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.StealCapturedStarshipEffect;
-import com.gempukku.swccgo.logic.effects.choose.StealCardsToLocationEffect;
-import com.gempukku.swccgo.logic.modifiers.MayNotApplyAbilityForBattleDestinyModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotDeployOrMoveOperativeToLocationsRuleModifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersEnvironment;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collection;

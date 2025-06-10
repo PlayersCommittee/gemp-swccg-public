@@ -39,7 +39,7 @@ import com.gempukku.swccgo.logic.effects.RespondableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.BlownAwayForceLossMultiplierModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.ResetHyperspeedModifier;
 import com.gempukku.swccgo.logic.modifiers.TotalDestinyModifier;
 import com.gempukku.swccgo.logic.timing.Action;

@@ -2,7 +2,7 @@ package com.gempukku.swccgo.logic.conditions;
 
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.game.state.GameState;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * A condition that is fulfilled during the specified phase (or during the specified phase of the specified player's turn).

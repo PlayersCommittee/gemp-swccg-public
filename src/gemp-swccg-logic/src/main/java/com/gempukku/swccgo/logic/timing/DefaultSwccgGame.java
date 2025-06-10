@@ -15,9 +15,9 @@ import com.gempukku.swccgo.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.swccgo.logic.PlayerOrder;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
-import com.gempukku.swccgo.logic.modifiers.ModifiersEnvironment;
-import com.gempukku.swccgo.logic.modifiers.ModifiersLogic;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersEnvironment;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersLogic;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.vo.SwccgDeck;
 
 import java.util.*;

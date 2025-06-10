@@ -2,15 +2,12 @@ package com.gempukku.swccgo.cards.conditions;
 
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.Filterable;
-import com.gempukku.swccgo.common.InactiveReason;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
-
-import java.util.Map;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 
 /**

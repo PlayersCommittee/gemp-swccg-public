@@ -5,6 +5,7 @@ import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 public class ForceLossFromForceDrainsMayNotBeReducedModifier extends AbstractModifier {
 

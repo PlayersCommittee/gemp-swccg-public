@@ -1,13 +1,11 @@
 package com.gempukku.swccgo.cards.conditions;
 
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.Species;
-import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 public class AtLeastNumberOfAlienSpeciesOnTableCondition implements Condition {
     private SwccgGame _game;

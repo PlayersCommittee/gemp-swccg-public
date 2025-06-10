@@ -10,6 +10,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.evaluators.ConstantEvaluator;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * A deploy cost modifier for when deploying aboard specified starships or vehicles.

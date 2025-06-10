@@ -6,6 +6,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 public class EatenByIsPlacedOutOfPlayModifier extends AbstractModifier {
     private Filter _eatenFilter;

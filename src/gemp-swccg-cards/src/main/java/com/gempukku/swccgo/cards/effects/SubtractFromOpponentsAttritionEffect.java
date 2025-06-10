@@ -5,7 +5,7 @@ import com.gempukku.swccgo.game.state.BattleState;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.modifiers.AttritionModifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersEnvironment;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersEnvironment;
 import com.gempukku.swccgo.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;

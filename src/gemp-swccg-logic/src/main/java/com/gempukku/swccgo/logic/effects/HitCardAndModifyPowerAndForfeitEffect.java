@@ -10,6 +10,8 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.SubAction;
 import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersEnvironment;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.*;
 import com.gempukku.swccgo.logic.timing.results.AboutToBeHitResult;
 import com.gempukku.swccgo.logic.timing.results.HitResult;

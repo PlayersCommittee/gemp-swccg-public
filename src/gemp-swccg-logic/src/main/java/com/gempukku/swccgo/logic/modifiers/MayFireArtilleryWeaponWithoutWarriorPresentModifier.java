@@ -4,6 +4,7 @@ import com.gempukku.swccgo.common.Filterable;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * A modifier that allows a specified artillery weapon to fire without a warrior present.

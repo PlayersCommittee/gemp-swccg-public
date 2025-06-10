@@ -27,7 +27,7 @@ import com.gempukku.swccgo.logic.effects.MovingAsReactEffect;
 import com.gempukku.swccgo.logic.effects.RespondableDeployMultipleCardsSimultaneouslyEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;

@@ -3,6 +3,7 @@ package com.gempukku.swccgo.logic.modifiers;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 public class SpecialFlagModifier extends AbstractModifier {
     private ModifierFlag _modifierFlag;

@@ -3,6 +3,7 @@ package com.gempukku.swccgo.logic.modifiers;
 import com.gempukku.swccgo.common.Filterable;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * A modifier for never being able to deploy to specified targets.
