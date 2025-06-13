@@ -514,6 +514,7 @@ public interface Title {
     String Hoth_Sentry = "Hoth Sentry";
     String Houjix = "Houjix";
     String How_Did_We_Get_Into_This_Mess = "How Did We Get Into This Mess?";
+    String How_Liberty_Dies = "How Liberty Dies";
     String Human_Shield = "Human_Shield";
     String Hunt_Down_And_Destroy_The_Jedi = "Hunt Down And Destroy The Jedi";
     String Hunt_For_The_Droid_General = "Hunt For The Droid General";
@@ -783,6 +784,7 @@ public interface Title {
     String Nevar_Yalnal = "Nevar Yalnal";
     String Nevarro = "Nevarro";
     String Never_Tell_Me_The_Odds = "Never Tell Me The Odds";
+    String New_Leadership_Is_Needed = "New Leadership Is Needed";
     String Nien_Nunb = "Nien Nunb";
     String Nightclub = "Coruscant: Night Club";
     String Nightfall = "Nightfall";

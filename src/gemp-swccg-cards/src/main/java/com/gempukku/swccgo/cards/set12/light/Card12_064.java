@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card12_064 extends AbstractUsedInterrupt {
     public Card12_064() {
-        super(Side.LIGHT, 5, "New Leadership Is Needed", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
+        super(Side.LIGHT, 5, Title.New_Leadership_Is_Needed, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.C);
         setLore("The political process in the Republic is one whereby even the most powerful positions are fraught with peril.");
         setGameText("If you have a senate majority, activate 1 Force. OR If your opponent has a senate majority, place your character with politics at Galactic Senate in Used Pile to place an opponent's character present (your choice) in opponent's Used Pile. (Immune to Sense.)");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I);

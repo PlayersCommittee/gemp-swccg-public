@@ -18200,6 +18200,7 @@ public class Filters {
     public static final Filter Houjix = Filters.title(Title.Houjix);
     public static final Filter Hounds_Tooth = Filters.persona(Persona.HOUNDS_TOOTH);
     public static final Filter How_Did_We_Get_Into_This_Mess = Filters.title(Title.How_Did_We_Get_Into_This_Mess);
+    public static final Filter How_Liberty_Dies = Filters.title(Title.How_Liberty_Dies);
     public static final Filter Human_Shield = Filters.title(Title.Human_Shield);
     public static final Filter Hunt_Down_And_Destroy_The_Jedi = Filters.title(Title.Hunt_Down_And_Destroy_The_Jedi);
     public static final Filter Hunt_For_The_Droid_General = Filters.title(Title.Hunt_For_The_Droid_General);
