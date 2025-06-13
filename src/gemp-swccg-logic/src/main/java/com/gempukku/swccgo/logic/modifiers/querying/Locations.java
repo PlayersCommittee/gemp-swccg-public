@@ -133,7 +133,29 @@ public interface Locations extends BaseQuery, Flags, Icons, Presence, Podracing 
 	 */
 	default boolean isAdjacentSites(GameState gameState, PhysicalCard site1, PhysicalCard site2) {
 		Integer distance = getDistanceBetweenSites(gameState, site1, site2);
-		return distance != null && distance == 1;
+		if(distance != null)
+			return distance == 1;
+
+		//If a coherent distance was not found, then we will check to see if we are comparing a vehicle/starship site
+		// with a normal site that the vehicle/starship is potentially parked at.  Since getDistanceBetweenSites would
+		// have checked for both sites being associated with the same vehicle/starship, here we assume that only 1 is.
+
+		if(site1.getBlueprint().hasIcon(Icon.VEHICLE_SITE) || site1.getBlueprint().hasIcon(Icon.STARSHIP_SITE)) {
+			var site1VehicleOrStarship = Filters.findFirstActive(gameState.getGame(), null, Filters.relatedStarshipOrVehicle(site1));
+			if(site1VehicleOrStarship != null && Filters.site.accepts(gameState.getGame(), site2)
+					&& site1VehicleOrStarship.getAtLocation() != null && site1VehicleOrStarship.getAtLocation().getCardId() == site2.getCardId()
+			)
+				return true;
+		}
+
+		if(site2.getBlueprint().hasIcon(Icon.VEHICLE_SITE) || site2.getBlueprint().hasIcon(Icon.STARSHIP_SITE)) {
+			var site2VehicleOrStarship = Filters.findFirstActive(gameState.getGame(), null, Filters.relatedStarshipOrVehicle(site2));
+			if(site2VehicleOrStarship != null && Filters.site.accepts(gameState.getGame(), site1)
+					&& site2VehicleOrStarship.getAtLocation() != null && site2VehicleOrStarship.getAtLocation().getCardId() == site1.getCardId())
+				return true;
+		}
+
+		return false;
 	}
 
 	/**

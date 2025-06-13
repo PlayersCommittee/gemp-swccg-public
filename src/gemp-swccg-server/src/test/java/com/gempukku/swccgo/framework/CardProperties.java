@@ -5,6 +5,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
+import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
 import com.gempukku.swccgo.logic.timing.results.VehicleCrashedResult;
 
@@ -267,6 +268,34 @@ public interface CardProperties extends TestBase {
 	 */
 	default boolean IsAdjacentTo(PhysicalCardImpl site, PhysicalCardImpl other) {
 		return Filters.adjacentSite(site).accepts(game(), other);
+	}
+
+	/**
+	 * Checks whether one site is considered related to another.
+	 * @param site The site whose relationship is in question.
+	 * @param other The site the first site should be related to.
+	 * @return True if the two sites are considered related, false otherwise.
+	 */
+	default boolean IsRelatedTo(PhysicalCardImpl site, PhysicalCardImpl other) {
+		return Filters.relatedSite(site).accepts(game(), other);
+	}
+
+	/**
+	 * Checks whether a card is wholly immune to attrition
+	 * @param card The card to check
+	 * @return True if no amount of attrition can affect this card, false otherwise.
+	 */
+	default boolean IsImmuneToAttrition(PhysicalCardImpl card) {
+		return game().getModifiersQuerying().getImmunityToAttritionOfExactly(gameState(), card) == Float.MAX_VALUE;
+	}
+
+	/**
+	 * Checks for 'nighttime conditions' at a particular site
+	 * @param site The site to check
+	 * @return True if site is affected by nighttime conditions, false otherwise
+	 */
+	default boolean IsNighttimeAt(PhysicalCardImpl site) {
+		return Filters.under_nighttime_conditions.accepts(game(), site);
 	}
 
 }

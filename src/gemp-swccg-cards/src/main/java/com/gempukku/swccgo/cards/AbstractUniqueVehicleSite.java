@@ -6,6 +6,8 @@ import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.filters.Filter;
+import com.gempukku.swccgo.filters.Filters;
 
 /**
  * The abstract class providing the common implementation for unique vehicle sites.
@@ -30,5 +32,10 @@ public abstract class AbstractUniqueVehicleSite extends AbstractSite {
     @Override
     public final Persona getRelatedStarshipOrVehiclePersona() {
         return _vehicle;
+    }
+
+    @Override
+    public final Filter getRelatedStarshipOrVehicleFilter() {
+        return Filters.persona(_vehicle);
     }
 }
