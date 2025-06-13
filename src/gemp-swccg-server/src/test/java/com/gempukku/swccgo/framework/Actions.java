@@ -319,6 +319,48 @@ public interface Actions extends Decisions, Choices {
 	default void LSTransferCard(PhysicalCardImpl card) { LSDecided(GetCardActionId(LS, card, "Transfer ")); }
 
 
+	/**
+	 * Checks whether the given card can use a move action for the Dark Side player.
+	 * @param card The card being checked.
+	 * @return True if there is an available Move action for that card, false otherwise.
+	 */
+	default boolean DSMoveAvailable(PhysicalCardImpl card) { return DSCardActionAvailable(card, "Move"); }
+	/**
+	 * Checks whether the given card can use a move action for the Light Side player.
+	 * @param card The card being checked.
+	 * @return True if there is an available Move action for that card, false otherwise.
+	 */
+	default boolean LSMoveAvailable(PhysicalCardImpl card) { return LSCardActionAvailable(card, "Move"); }
+
+	/**
+	 * Causes the Dark Side player to perform a legal move action on the given card (i.e. moves that card using its
+	 * landspeed or hyperspeed).
+	 * @param card The card to move.
+	 * @param location Which site to move this card to
+	 */
+	default void DSMoveCard(PhysicalCardImpl card, PhysicalCardImpl location) {
+		String id = GetCardActionId(DS, card, "Move");
+		if(id == null)
+			throw new RuntimeException("Card '" + card.getBlueprint().getTitle() + "' does not have an available move action.");
+
+		DSDecided(id);
+		DSChooseCard(location);
+	}
+
+	/**
+	 * Causes the Light Side player to perform a legal move action on the given card (i.e. moves that card using its
+	 * landspeed or hyperspeed).
+	 * @param card The card to move.
+	 * @param location Which site to move this card to
+	 */
+	default void LSMoveCard(PhysicalCardImpl card, PhysicalCardImpl location) {
+		String id = GetCardActionId(LS, card, "Move");
+		if(id == null)
+			throw new RuntimeException("Card '" + card.getBlueprint().getTitle() + "' does not have an available move action.");
+
+		LSDecided(id);
+		LSChooseCard(location);
+	}
 
 
 	/**

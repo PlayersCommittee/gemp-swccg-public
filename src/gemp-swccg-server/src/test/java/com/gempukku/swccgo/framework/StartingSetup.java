@@ -258,5 +258,29 @@ public interface StartingSetup {
 			}
 		}
 	};
+
+	/**
+	 * The Light Side objective There Is Good In Him / I Can Save Him and associated cards.
+	 */
+	StartingSetup ThereIsGoodInHimObjective = new StartingSetup() {
+		@Override
+		public HashMap<String, String> Cards() {
+			return new HashMap<>() {{
+				put("tigih", "9_61"); // Objective
+				put("hut", "8_71"); // Endor: Chief Chirpa's Hut
+				put("platform", "8_76"); // Endor: Landing Platform (Docking Bay)
+				put("lsjk", "9_24"); // Luke Skywalker, Jedi Knight
+				put("lightsaber", "9_90"); //Luke's Lightsaber
+				put("conflict", "9_34"); //I Feel The Conflict
+			}};
+		}
+
+		@Override
+		public void Setup(VirtualTableScenario scn) {
+			if(scn.LSDecisionAvailable("On which side")) {
+				scn.LSChoose("Left");
+			}
+		}
+	};
 }
 
