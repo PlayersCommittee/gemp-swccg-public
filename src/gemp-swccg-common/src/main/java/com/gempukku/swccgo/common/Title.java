@@ -790,6 +790,7 @@ public interface Title {
     String Nightfall = "Nightfall";
     String Niima_Outpost_Shipyard = "Jakku: Niima Outpost Shipyard";
     String No_Bargain = "No Bargain";
+    String No_Civility_Only_Politics = "No Civility, Only Politics";
     String No_Disintegrations = "No Disintegrations!";
     String No_Escape = "No Escape";
     String No_Love_For_The_Empire = "No Love For The Empire";
@@ -1253,6 +1254,7 @@ public interface Title {
     String Williams = "Lieutenant Williams";
     String Wioslea = "Wioslea";
     String Wise_Advice = "Wise Advice";
+    String With_Thunderous_Applause = "With Thunderous Applause";
     String Wittin = "Wittin";
     String Wokling = "Wokling";
     String Womp_Rat = "Womp Rat";

@@ -19252,6 +19252,7 @@ public class Filters {
     public static final Filter Williams = Filters.title(Title.Williams);
     public static final Filter Wioslea = Filters.title(Title.Wioslea);
     public static final Filter Wise_Advice = Filters.title(Title.Wise_Advice);
+    public static final Filter With_Thunderous_Applause = Filters.title(Title.With_Thunderous_Applause);
     public static final Filter Wittin = Filters.title(Title.Wittin);
     public static final Filter Wokling = Filters.title(Title.Wokling);
     public static final Filter womp_rat = Filters.title(Title.Womp_Rat);
