@@ -44,7 +44,7 @@ public class Card215_019 extends AbstractCharacterWeapon {
 
     @Override
     protected Filter getGameTextValidToUseWeaponFilter(final SwccgGame game, final PhysicalCard self) {
-        return Filters.warrior;
+        return Filters.or(Filters.Rebel, Filters.stormtrooper);
     }
 
     @Override

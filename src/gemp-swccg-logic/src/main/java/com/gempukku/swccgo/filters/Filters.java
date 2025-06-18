@@ -17700,6 +17700,7 @@ public class Filters {
     public static final Filter Bunker = Filters.title(Title.Bunker);
     public static final Filter C3PO = Filters.persona(Persona.C3PO);
     public static final Filter Cad = Filters.persona(Persona.CAD);
+    public static final Filter cadet = Filters.keyword(Keyword.CADET);
     public static final Filter Cal = Filters.persona(Persona.CAL);
     public static final Filter Cantina = Filters.title(Title.Cantina);
     public static final Filter canyon = Filters.keyword(Keyword.CANYON);
@@ -18263,7 +18264,6 @@ public class Filters {
     public static final Filter Imperial_Trooper_Guard = Filters.keyword(Keyword.IMPERIAL_TROOPER_GUARD);
     public static final Filter Imperial_Troops_Have_Entered_The_Base = Filters.title(Title.Imperial_Troops_Have_Entered_The_Base);
     public static final Filter Imperial_Tyranny = Filters.title(Title.Imperial_Tyranny);
-    public static final Filter Imperial_veteran = Filters.and(Icon.IMPERIAL, Filters.or(Keyword.LEADER, Filters.and(Filters.or(Keyword.TROOPER, Keyword.STORMTROOPER, Keyword.SNOWTROOPER, Keyword.SANDTROOPER, Keyword.CLOUD_CITY_TROOPER, Keyword.DEATH_STAR_TROOPER, Keyword.IMPERIAL_TROOPER_GUARD, Keyword.BIKER_SCOUT), Filters.not(Filters.keyword(Keyword.CADET)))));
     public static final Filter imprisoned_character = Filters.and(CardCategory.CHARACTER, Filters.imprisoned());
     public static final Filter In_Complete_Control = Filters.title(Title.In_Complete_Control);
     public static final Filter In_The_Hands_Of_The_Empire = Filters.title(Title.In_The_Hands_Of_The_Empire);
@@ -18754,9 +18754,9 @@ public class Filters {
     public static final Filter Rebel_starship = Filters.and(Side.LIGHT, CardType.STARSHIP, Filters.not(Filters.or(Icon.INDEPENDENT, Icon.REPUBLIC, Icon.TRADE_FEDERATION, Icon.SEPARATIST, Icon.CLONE_ARMY, Icon.FIRST_ORDER, Icon.RESISTANCE)));
     public static final Filter Rebel_Strike_Team = Filters.title(Title.Rebel_Strike_Team);
     public static final Filter Rebel_Tech = Filters.title(Title.Rebel_Tech);
-    public static final Filter Rebel_veteran = Filters.and(Icon.REBEL, Filters.or(Keyword.LEADER, Filters.and(Filters.or(Keyword.TROOPER, Keyword.ECHO_BASE_TROOPER, Keyword.CLOUD_CITY_TROOPER), Filters.not(Filters.keyword(Keyword.RECRUIT)))));
     public static final Filter rebellion_agenda = Filters.agenda(Agenda.REBELLION);
     public static final Filter Recoil_In_Fear = Filters.title(Title.Recoil_In_Fear);
+    public static final Filter recruit = Filters.keyword(Keyword.RECRUIT);
     public static final Filter Red_1 = Filters.persona(Persona.RED_1);
     public static final Filter Red_2 = Filters.persona(Persona.RED_2);
     public static final Filter Red_3 = Filters.title(Title.Red_3);

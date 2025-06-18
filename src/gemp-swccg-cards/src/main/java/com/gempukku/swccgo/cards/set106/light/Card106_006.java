@@ -40,7 +40,7 @@ public class Card106_006 extends AbstractRebel {
     public Card106_006() {
         super(Side.LIGHT, 3, 1, 1, 1, 1, "Rebel Trooper Recruit", Uniqueness.UNRESTRICTED, ExpansionSet.OTSD, Rarity.PM);
         setLore("New Rebel troopers gain invaluable experience while acting as support for seasoned troops. The Alliance prefers to assign rookies to soldiers on a one-to-one basis.");
-        setGameText("Deploys free to same site as an Rebel leader. Adds 1 to power of one non-unique Rebel warrior present. When forfeited at same site as a Rebel 'veteran' (a leader or non-cadet trooper), also satisfies all remaining attrition against you.");
+        setGameText("Deploys free to same site as a Rebel leader. Once per turn, may target a non-unique Rebel warrior present; target is power +1 for remainder of turn. When forfeited at same site as a Rebel leader (or non-recruit trooper), also satisfies all remaining attrition against you.");
         addIcons(Icon.PREMIUM);
         addKeywords(Keyword.TROOPER, Keyword.RECRUIT);
     }
@@ -55,8 +55,9 @@ public class Card106_006 extends AbstractRebel {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
+        Filter rebelVeteranFilter = Filters.and(Icon.REBEL, Filters.or(Keyword.LEADER, Filters.and(Filters.trooper, Filters.not(Filters.recruit))));
         modifiers.add(new PowerModifier(self, Filters.isInCardInPlayData(self), new InPlayDataSetCondition(self), 1));
-        modifiers.add(new SatisfiesAllAttritionWhenForfeitedModifier(self, new AtSameSiteAsCondition(self, Filters.Rebel_veteran)));
+        modifiers.add(new SatisfiesAllAttritionWhenForfeitedModifier(self, new AtSameSiteAsCondition(self, rebelVeteranFilter)));
         return modifiers;
     }
 
