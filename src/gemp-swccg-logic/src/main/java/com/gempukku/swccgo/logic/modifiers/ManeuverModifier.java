@@ -89,10 +89,34 @@ public class ManeuverModifier extends AbstractModifier {
      * @param source the source of the modifier
      * @param affectFilter the filter for cards whose maneuver is modified
      * @param condition the condition that must be fulfilled for the modifier to be in effect
+     * @param modifierAmount the amount of the modifier
+     * @param cumulative true if the effect should cumulatively stack with other modifiers from the same source, false otherwise
+     */
+    public ManeuverModifier(PhysicalCard source, Filterable affectFilter, Condition condition, float modifierAmount, boolean cumulative) {
+        this(source, affectFilter, condition, new ConstantEvaluator(modifierAmount), cumulative);
+    }
+
+    /**
+     * Creates a maneuver modifier.
+     * @param source the source of the modifier
+     * @param affectFilter the filter for cards whose maneuver is modified
+     * @param condition the condition that must be fulfilled for the modifier to be in effect
      * @param evaluator the evaluator that calculates the amount of the modifier
      */
     public ManeuverModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator) {
-        super(source, null, affectFilter, condition, ModifierType.MANEUVER, false);
+        this(source, affectFilter, condition, evaluator, false);
+    }
+
+    /**
+     * Creates a maneuver modifier.
+     * @param source the source of the modifier
+     * @param affectFilter the filter for cards whose maneuver is modified
+     * @param condition the condition that must be fulfilled for the modifier to be in effect
+     * @param evaluator the evaluator that calculates the amount of the modifier
+     * @param cumulative true if the effect should cumulatively stack with other modifiers from the same source, false otherwise
+     */
+    public ManeuverModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator, boolean cumulative) {
+        super(source, null, affectFilter, condition, ModifierType.MANEUVER, cumulative);
         _evaluator = evaluator;
     }
 

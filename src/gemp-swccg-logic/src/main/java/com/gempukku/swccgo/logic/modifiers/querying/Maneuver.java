@@ -1,12 +1,13 @@
 package com.gempukku.swccgo.logic.modifiers.querying;
 
 import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifierCollector;
-import com.gempukku.swccgo.logic.modifiers.ModifierCollectorImpl;
-import com.gempukku.swccgo.logic.modifiers.ModifierType;
+import com.gempukku.swccgo.logic.modifiers.*;
+
+import java.util.HashMap;
+import java.util.stream.Collectors;
 
 public interface Maneuver extends BaseQuery, Piloting {
 	/**
@@ -68,9 +69,42 @@ public interface Maneuver extends BaseQuery, Piloting {
 				result *= 2;
 			}
 
+			//We split up maneuver modifiers into a map based on source so that we can cap those sources independently
+			var mods = new HashMap<PhysicalCard, Float>();
+
 			for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MANEUVER, physicalCard)) {
-				result += modifier.getManeuverModifier(gameState, query(), physicalCard);
+				var source = modifier.getSource(gameState);
+				float mod = modifier.getManeuverModifier(gameState, query(), physicalCard);
+				if(mods.containsKey(source)) {
+					mod += mods.get(source);
+					mods.put(source, mod);
+				}
+				else {
+					mods.put(source, mod);
+				}
 				modifierCollector.addModifier(modifier);
+			}
+
+			var pilots = gameState.getPilotCardsAboard(query(), physicalCard, false);
+
+			for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MANEUVER_INCREASE_FROM_PILOT_LIMIT, physicalCard)) {
+				var capModifier = (ManeuverLimitFromPilotModifier)modifier;
+				float cap = capModifier.getManeuverModifierLimit(gameState, query(), physicalCard);
+				var cappedPilots = Filters.filterActive(game(), null, capModifier.getLimitedPilotFilter()).stream().toList();
+
+				for(var pilot : cappedPilots) {
+					if(!pilots.contains(pilot) || !mods.containsKey(pilot))
+						continue;
+
+					Float mod = mods.get(pilot);
+					mods.put(pilot, Math.min(mod, cap));
+				}
+
+				modifierCollector.addModifier(modifier);
+			}
+
+			for(Float mod : mods.values()) {
+				result += mod;
 			}
 		}
 

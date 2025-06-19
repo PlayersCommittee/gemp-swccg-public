@@ -826,6 +826,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public float getManeuverModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return 0;
+    }
+
+    @Override
     public float getArmorModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
         return 0;
     }

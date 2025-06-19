@@ -327,6 +327,7 @@ public interface Modifier {
 
     float getManeuverModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
     float getUnmodifiableManeuverModifier(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard);
+    float getManeuverModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
 
     float getArmorModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
     float getUnmodifiableArmorModifier(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard);

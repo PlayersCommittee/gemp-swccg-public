@@ -2733,16 +2733,54 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
             Icon icon = modifier.getIcon();
 
             for (Modifier liveModifier : modifierList) {
-                if (liveModifier.getModifierType() == modifierType
+                if (
+                        // Modifiers that affect different things cannot be said to be cumulative in any sense
+                        liveModifier.getModifierType() == modifierType
+                        // Non-card modifiers must be from a game rule, and those cannot violate the cumulative rule.
                         && liveModifier.getSource(gameState) != null
-                        && (liveModifier.isFromPermanentPilot() == modifier.isFromPermanentPilot()
-                        && liveModifier.isFromPermanentAstromech() == modifier.isFromPermanentAstromech())
-                        && liveModifier.getSource(gameState).getTitle().equals(cardTitle)
-                        && (modifier.getSource(gameState).getBlueprint().getUniqueness() != Uniqueness.UNIQUE
-                        || liveModifier.getSource(gameState).getBlueprint().getUniqueness() != Uniqueness.UNIQUE
-                        || modifier.getSource(gameState).getCardId() != liveModifier.getSource(gameState).getCardId())
-                        && liveModifier.isForPlayer(forPlayer)
-                        && liveModifier.getIcon() == icon) {
+                        && (
+                                liveModifier.isFromPermanentPilot() == modifier.isFromPermanentPilot()
+                                && liveModifier.isFromPermanentAstromech() == modifier.isFromPermanentAstromech())
+                                // The cumulative rule is all about 'copies" of the same card, which is to say cards
+                                // with the same title.
+                                && liveModifier.getSource(gameState).getTitle().equals(cardTitle)
+                                && (
+                                        //Non-unique cards with the same title and same modifier type are the main
+                                        // reason the cumulative rule exists at all.
+                                        modifier.getSource(gameState).getBlueprint().getUniqueness() != Uniqueness.UNIQUE
+                                        || liveModifier.getSource(gameState).getBlueprint().getUniqueness() != Uniqueness.UNIQUE
+                                        //This is for checking for persistent modifiers that were emitted by a previous
+                                        // incarnation of a unique card.  For example, if a unique card modifies a force
+                                        // drain amount and then leaves play and re-enters, they are considered a new
+                                        // card, but since another "copy" of that card already modified the force drain
+                                        // amount, the new one cannot also alter it without violating the cumulative rule.
+                                        || modifier.getSource(gameState).getCardId() != liveModifier.getSource(gameState).getCardId()
+
+                                        /*
+                                        The above section is the reason for the Rebel Flight Suit failure when you attach
+                                        2 copies of it to 2 different Ralltiir Freighter Captains on the same ship.
+                                        Either RFS marks its maneuver modifier as cumulative and you end up with two +2
+                                        bonuses from nonuniques, or you mark it as non-cumulative and the pilot's own +1
+                                        crushes the RFS +2 for cumulative reasons.
+
+                                        This entire for loop should be broken up to use fewer && checks and more standalone
+                                        if blocks in the future. (Use "continue" upon finding a relationship that can't
+                                        possibly be cumulative rather than endlessly chaining.)
+
+                                        This subsection should then be broken up into two categories:
+                                        - a check for both sources being unique
+                                            - same current id is the same card with two different unrelated modifiers that should combine
+                                            - different current id is a past life invocation that violates cumulative
+                                        - a check for both sources being nonunique:
+                                            - same permanent id is the same card with two different unrelated modifiers that should combine
+                                            - different permanent ids are two different cards violating cumulative
+
+                                         */
+                                )
+                                // Presumably cards with the same title on different sides do not interfere cumulatively
+                                && liveModifier.isForPlayer(forPlayer)
+                                && liveModifier.getIcon() == icon
+                        ) {
                     return true;
                 }
             }

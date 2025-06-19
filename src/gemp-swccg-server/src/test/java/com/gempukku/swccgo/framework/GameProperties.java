@@ -115,4 +115,12 @@ public interface GameProperties extends TestBase {
 	default boolean CardsAtLocation(PhysicalCardImpl site, PhysicalCardImpl...cards) {
 		return GetCardsAtLocation(site).containsAll(Arrays.stream(cards).toList());
 	}
+
+	default int GetDSAbilityAtLocation(PhysicalCardImpl site) {
+		return (int) game().getModifiersQuerying().getTotalAbilityAtLocation(gameState(), DS, site);
+	}
+
+	default int GetLSAbilityAtLocation(PhysicalCardImpl site) {
+		return (int) game().getModifiersQuerying().getTotalAbilityAtLocation(gameState(), LS, site);
+	}
 }

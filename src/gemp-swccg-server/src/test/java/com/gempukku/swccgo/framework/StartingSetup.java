@@ -18,6 +18,33 @@ public interface StartingSetup {
 	};
 
 	/**
+	 * A process that is a wrapper for DS starting location deployment
+	 */
+	static StartingSetup DSStartingLocation(String id) {
+		return new StartingSetup() {
+			@Override
+			public HashMap<String, String> Cards() { return new HashMap<>() {{ put("starting-location", id); }}; }
+
+			@Override
+			public void Setup(VirtualTableScenario scn) { scn.DSChooseCard(scn.GetDSCard("starting-location")); }
+		};
+	}
+
+	/**
+	 * A process that is a wrapper for LS starting location deployment
+	 */
+	static StartingSetup LSStartingLocation(String id) {
+		return new StartingSetup() {
+			@Override
+			public HashMap<String, String> Cards() { return new HashMap<>() {{ put("starting-location", id); }}; }
+
+			@Override
+			public void Setup(VirtualTableScenario scn) { scn.LSChooseCard(scn.GetLSCard("starting-location")); }
+		};
+	}
+
+
+	/**
 	 * An empty outside-of-deck pile communicating that the Dark Side will have no shields or other out-of-game cards
 	 * for a particular test scenario.
 	 */
@@ -46,62 +73,22 @@ public interface StartingSetup {
 	/**
 	 * The default ground location used by Dark Side.  This will be played at the start of the game automatically.
 	 */
-	StartingSetup DefaultDSGroundLocation = new StartingSetup() {
-		@Override
-		public HashMap<String, String> Cards() {
-			return new HashMap<>() {{
-				put("starting-location", "12_176"); // Tatooine: Marketplace
-			}};
-		}
-
-		@Override
-		public void Setup(VirtualTableScenario scn) { scn.DSChooseCard(scn.GetDSCard("starting-location")); }
-	};
+	StartingSetup DefaultDSGroundLocation = DSStartingLocation("12_176");  // Tatooine: Marketplace
 
 	/**
 	 * The default ground location used by Light Side.  This will be played at the start of the game automatically.
 	 */
-	StartingSetup DefaultLSGroundLocation = new StartingSetup() {
-		@Override
-		public HashMap<String, String> Cards() {
-			return new HashMap<>() {{
-				put("starting-location", "5_079"); // Cloud City: Chasm Walkway
-			}};
-		}
-
-		@Override
-		public void Setup(VirtualTableScenario scn) { scn.LSChooseCard(scn.GetLSCard("starting-location")); }
-	};
+	StartingSetup DefaultLSGroundLocation = LSStartingLocation("5_079");  // Cloud City: Chasm Walkway
 
 	/**
 	 * The default space system used by Dark Side.  This will be played at the start of the game automatically.
 	 */
-	StartingSetup DefaultDSSpaceSystem = new StartingSetup() {
-		@Override
-		public HashMap<String, String> Cards() {
-			return new HashMap<>() {{
-				put("starting-location", "1_282"); // Dantooine
-			}};
-		}
-
-		@Override
-		public void Setup(VirtualTableScenario scn) { scn.DSChooseCard(scn.GetDSCard("starting-location")); }
-	};
+	StartingSetup DefaultDSSpaceSystem = DSStartingLocation("1_282"); // Dantooine
 
 	/**
 	 * The default space system used by Light Side.  This will be played at the start of the game automatically.
 	 */
-	StartingSetup DefaultLSSpaceSystem = new StartingSetup() {
-		@Override
-		public HashMap<String, String> Cards() {
-			return new HashMap<>() {{
-				put("starting-location", "6_087"); // Tibrin
-			}};
-		}
-
-		@Override
-		public void Setup(VirtualTableScenario scn) { scn.LSChooseCard(scn.GetLSCard("starting-location")); }
-	};
+	StartingSetup DefaultLSSpaceSystem = LSStartingLocation("6_087"); // Tibrin
 
 
 	/**

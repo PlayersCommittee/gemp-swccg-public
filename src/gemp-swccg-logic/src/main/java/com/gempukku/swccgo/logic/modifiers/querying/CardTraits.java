@@ -236,13 +236,14 @@ public interface CardTraits extends BaseQuery, Limits, Piloting, Weapons {
 
 				// Check if the character has the starship as matching (or vice versa)
 				if (characterBlueprint.getMatchingStarshipFilter().accepts(gameState, query(), starshipVehicleOrWeapon)
-						|| starshipBlueprint.getMatchingPilotFilter().accepts(gameState, query(), character)) {
+						|| starshipBlueprint.getMatchingPilotFilter().accepts(gameState, query(), character)
+						|| !getModifiersAffectingCard(gameState, ModifierType.CONSIDERED_MATCHING_PILOT, character).isEmpty()) {
 
 					// Further check that the character is a valid pilot for the starship
 					if (Filters.pilot.accepts(gameState, query(), character)
-							&& starshipBlueprint.getValidPilotFilter(starshipVehicleOrWeapon.getOwner(), gameState.getGame(), starshipVehicleOrWeapon, false).accepts(gameState, query(), character)) {
+							&& starshipBlueprint.getValidPilotFilter(starshipVehicleOrWeapon.getOwner(),gameState.getGame(),
+								starshipVehicleOrWeapon,false).accepts(gameState, query(), character))
 						return true;
-					}
 				}
 			}
 			else if (starshipVehicleOrWeapon.getBlueprint().getCardCategory()==CardCategory.VEHICLE) {
@@ -255,11 +256,13 @@ public interface CardTraits extends BaseQuery, Limits, Piloting, Weapons {
 
 				// Check if the character has the vehicle as matching (or vice versa)
 				if (characterBlueprint.getMatchingVehicleFilter().accepts(gameState, query(), starshipVehicleOrWeapon)
-						|| vehicleBlueprint.getMatchingPilotFilter().accepts(gameState, query(), character)) {
+						|| vehicleBlueprint.getMatchingPilotFilter().accepts(gameState, query(), character)
+						|| !getModifiersAffectingCard(gameState, ModifierType.CONSIDERED_MATCHING_PILOT, character).isEmpty()) {
 
 					// Further check that the character is a valid pilot for the vehicle
 					if (Filters.pilot.accepts(gameState, query(), character)
-							&& vehicleBlueprint.getValidPilotFilter(starshipVehicleOrWeapon.getOwner(), gameState.getGame(), starshipVehicleOrWeapon, false).accepts(gameState, query(), character)) {
+							&& vehicleBlueprint.getValidPilotFilter(starshipVehicleOrWeapon.getOwner(), gameState.getGame(),
+								starshipVehicleOrWeapon, false).accepts(gameState, query(), character)) {
 						return true;
 					}
 				}

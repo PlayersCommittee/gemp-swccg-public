@@ -136,6 +136,15 @@ public interface CardProperties extends TestBase {
 
 	/**
 	 * @param card The card to inspect.
+	 * @return The modified current maneuver of the card, as altered by all current in-game effects.
+	 */
+	default int GetManeuver(PhysicalCardImpl card)
+	{
+		return (int) game().getModifiersQuerying().getManeuver(gameState(), card);
+	}
+
+	/**
+	 * @param card The card to inspect.
 	 * @return The modified current ability of the card, as altered by all current in-game effects.
 	 */
 	default float GetAbility(PhysicalCardImpl card)
@@ -297,5 +306,8 @@ public interface CardProperties extends TestBase {
 	default boolean IsNighttimeAt(PhysicalCardImpl site) {
 		return Filters.under_nighttime_conditions.accepts(game(), site);
 	}
-
+	
+	default boolean IsMatchingPilot(PhysicalCardImpl ship, PhysicalCardImpl character) {
+		return game().getModifiersQuerying().isMatchingPair(gameState(), character, ship);
+	}
 }
