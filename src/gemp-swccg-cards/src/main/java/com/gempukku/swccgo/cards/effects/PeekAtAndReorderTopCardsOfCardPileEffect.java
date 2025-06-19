@@ -98,12 +98,15 @@ abstract class PeekAtAndReorderTopCardsOfCardPileEffect extends AbstractSubActio
                                         // Put cards in card pile in new order
                                         for (int i=_cardsInOldOrder.size()-1; i>=0; --i) {
                                             PhysicalCard card = _cardsInOldOrder.get(i);
-                                            gameState.removeCardFromZone(card, true, true);
+                                            boolean lastCard = i==0;
+                                            // if not the last card, skip listener updates
+                                            gameState.removeCardFromZone(card, !lastCard, !lastCard);
                                         }
                                         for (PhysicalCard card : _cardsInNewOrder) {
-                                            gameState.addCardToZone(card, _cardPile, _cardPileOwner, true, true);
+                                            boolean lastCard = card.equals(_cardsInNewOrder.get(_cardsInNewOrder.size()-1));
+                                            // if not the last card, skip listener updates
+                                            gameState.addCardToZone(card, _cardPile, _cardPileOwner, !lastCard, !lastCard);
                                         }
-
                                         gameState.sendMessage(_playerId + " has completed peeking at and reordering the top " + numCardsToPeekAt + " card" + GameUtils.s(numCardsToPeekAt) + " of " + _cardPileOwner + "'s " + _cardPile.getHumanReadable());
                                     }
                                 }
