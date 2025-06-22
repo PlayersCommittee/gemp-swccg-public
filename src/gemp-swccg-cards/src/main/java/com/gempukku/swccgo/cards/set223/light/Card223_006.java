@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class Card223_006 extends AbstractUsedOrLostInterrupt {
     public Card223_006() {
-        super(Side.LIGHT, 5, Title.Transmission_Terminated, Uniqueness.UNIQUE, ExpansionSet.SET_23, Rarity.V);
+        super(Side.LIGHT, 5, Title.Transmission_Terminated, Uniqueness.UNRESTRICTED, ExpansionSet.SET_23, Rarity.V);
         setVirtualSuffix(true);
         setLore("After the mission, the Death Squadron HoloNet communications system reported fifteen system errors: ten computer malfunctions, four power failures and one asteroid.");
         setGameText("USED: Target a starship. For remainder of turn, target may not use tractor beams, fire weapons, or 'cloak.'" +
