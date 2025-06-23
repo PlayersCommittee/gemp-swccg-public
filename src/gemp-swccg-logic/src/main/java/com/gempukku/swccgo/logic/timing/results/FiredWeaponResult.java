@@ -15,6 +15,7 @@ public class FiredWeaponResult extends EffectResult {
     private SwccgBuiltInCardBlueprint _permanentWeapon;
     private PhysicalCard _cardFiringWeapon;
     private boolean _thrown;
+    private boolean _repeatedFiring;
     private Collection<PhysicalCard> _targets;
 
     /**
@@ -24,7 +25,7 @@ public class FiredWeaponResult extends EffectResult {
      * @param permanentWeapon the permanent weapon (or null if weapon is not a permanent weapon)
      * @param cardFiringWeapon the card that fired the weapon (or null if the card is self-firing)
      */
-    public FiredWeaponResult(SwccgGame game, PhysicalCard weaponCard, SwccgBuiltInCardBlueprint permanentWeapon, PhysicalCard cardFiringWeapon, boolean thrown, Collection<PhysicalCard> targets) {
+    public FiredWeaponResult(SwccgGame game, PhysicalCard weaponCard, SwccgBuiltInCardBlueprint permanentWeapon, PhysicalCard cardFiringWeapon, boolean thrown, boolean repeatedFiring, Collection<PhysicalCard> targets) {
         super(Type.FIRED_WEAPON, (weaponCard != null ? weaponCard.getOwner() :
                 (permanentWeapon != null ? permanentWeapon.getPhysicalCard(game).getOwner()
                         : (cardFiringWeapon != null ? cardFiringWeapon.getOwner() : null))));
@@ -32,7 +33,12 @@ public class FiredWeaponResult extends EffectResult {
         _permanentWeapon = permanentWeapon;
         _cardFiringWeapon = cardFiringWeapon;
         _thrown = thrown;
+        _repeatedFiring = repeatedFiring;
         _targets = targets;
+    }
+
+    public FiredWeaponResult(SwccgGame game, PhysicalCard weaponCard, SwccgBuiltInCardBlueprint permanentWeapon, PhysicalCard cardFiringWeapon, boolean thrown, Collection<PhysicalCard> targets) {
+        this(game, weaponCard, permanentWeapon, cardFiringWeapon, thrown, false, targets);
     }
 
     /**
@@ -62,10 +68,19 @@ public class FiredWeaponResult extends EffectResult {
     /**
      * True if the weapon was 'thrown'
      *
-     * @return the card that fired the weapon, or null
+     * @return true or false
      */
     public boolean wasThrown() {
         return _thrown;
+    }
+
+    /**
+     * True if the weapon was fired repeatedly
+     *
+     * @return true or false
+     */
+    public boolean wasRepeatedFiring() {
+        return _repeatedFiring;
     }
 
     /**

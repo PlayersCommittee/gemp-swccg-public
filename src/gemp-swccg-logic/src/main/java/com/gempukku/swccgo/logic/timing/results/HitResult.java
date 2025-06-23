@@ -14,6 +14,7 @@ public class HitResult extends EffectResult {
     private PhysicalCard _hitByCard;
     private SwccgBuiltInCardBlueprint _hitByPermanentWeapon;
     private PhysicalCard _cardFiringWeapon;
+    private boolean _hitByRepeatedFiring;
 
     /**
      * Creates an effect result that is emitted when a card is 'hit'.
@@ -21,13 +22,19 @@ public class HitResult extends EffectResult {
      * @param hitByCard the card that performed the hit
      * @param hitByPermanentWeapon the permanent weapon that performed the hit, or null
      * @param cardFiringWeapon the card that fired the weapon that performed the hit, or null
+     * @param hitByRepeatedFiring true if the weapon was firing repeatedly when it hit
      */
-    public HitResult(PhysicalCard cardHit, PhysicalCard hitByCard, SwccgBuiltInCardBlueprint hitByPermanentWeapon, PhysicalCard cardFiringWeapon) {
+    public HitResult(PhysicalCard cardHit, PhysicalCard hitByCard, SwccgBuiltInCardBlueprint hitByPermanentWeapon, PhysicalCard cardFiringWeapon, boolean hitByRepeatedFiring) {
         super(Type.HIT, hitByCard.getOwner());
         _cardHit = cardHit;
         _hitByCard = hitByCard;
         _hitByPermanentWeapon = hitByPermanentWeapon;
         _cardFiringWeapon = cardFiringWeapon;
+        _hitByRepeatedFiring = hitByRepeatedFiring;
+    }
+
+    public HitResult(PhysicalCard cardHit, PhysicalCard hitByCard, SwccgBuiltInCardBlueprint hitByPermanentWeapon, PhysicalCard cardFiringWeapon) {
+        this(cardHit, hitByCard, hitByPermanentWeapon, cardFiringWeapon, false);
     }
 
     /**
@@ -52,6 +59,14 @@ public class HitResult extends EffectResult {
      */
     public SwccgBuiltInCardBlueprint getHitByPermanentWeapon() {
         return _hitByPermanentWeapon;
+    }
+
+     /**
+     * Gets whether the hit was caused by repeated firing
+     * @return true or false
+     */
+    public boolean getHitByRepeatedFiring() {
+        return _hitByRepeatedFiring;
     }
 
     /**

@@ -34,6 +34,7 @@ public class HitCardAndResetForfeitEffect extends AbstractSubActionEffect implem
     private PhysicalCard _cardFiringWeapon;
     private Set<PhysicalCard> _preventedCards = new HashSet<PhysicalCard>();
     private HitCardAndResetForfeitEffect _that;
+    private boolean _hitByRepeatedFiring;
 
     /**
      * Creates an effect to 'hit' a card and resets its forfeit value.
@@ -45,12 +46,27 @@ public class HitCardAndResetForfeitEffect extends AbstractSubActionEffect implem
      * @param cardFiringWeapon the card that fired the weapon
      */
     public HitCardAndResetForfeitEffect(Action action, PhysicalCard cardHitAndReset, float resetValue, PhysicalCard hitByCard, SwccgBuiltInCardBlueprint hitByPermanentWeapon, PhysicalCard cardFiringWeapon) {
+        this(action, cardHitAndReset, resetValue, hitByCard, hitByPermanentWeapon, cardFiringWeapon, false);
+    }
+
+    /**
+     * Creates an effect to 'hit' a card and resets its forfeit value.
+     * @param action the action performing this effect
+     * @param cardHitAndReset the card that is hit and whose forfeit value is reset
+     * @param resetValue the reset value
+     * @param hitByCard the card the card was hit by
+     * @param hitByPermanentWeapon the permanent weapon that hit the card
+     * @param cardFiringWeapon the card that fired the weapon
+     * @param hitByRepeatedFiring true if the weapon was firing repeatedly when it hit
+     */
+    public HitCardAndResetForfeitEffect(Action action, PhysicalCard cardHitAndReset, float resetValue, PhysicalCard hitByCard, SwccgBuiltInCardBlueprint hitByPermanentWeapon, PhysicalCard cardFiringWeapon, boolean hitByRepeatedFiring) {
         super(action);
         _cardHitAndReset = cardHitAndReset;
         _resetValue = resetValue;
         _hitByCard = hitByCard;
         _hitByPermanentWeapon = hitByPermanentWeapon;
         _cardFiringWeapon = cardFiringWeapon;
+        _hitByRepeatedFiring = hitByRepeatedFiring;
         _that = this;
     }
 
@@ -113,7 +129,7 @@ public class HitCardAndResetForfeitEffect extends AbstractSubActionEffect implem
                                                 gameState.turnCardSideways(game, _cardHitAndReset, false);
                                             }
 
-                                            actionsEnvironment.emitEffectResult(new HitResult(_cardHitAndReset, _hitByCard, _hitByPermanentWeapon, _cardFiringWeapon));
+                                            actionsEnvironment.emitEffectResult(new HitResult(_cardHitAndReset, _hitByCard, _hitByPermanentWeapon, _cardFiringWeapon, _hitByRepeatedFiring));
 
                                             if (resetForfeit) {
                                                 // Filter for same card while it is in play

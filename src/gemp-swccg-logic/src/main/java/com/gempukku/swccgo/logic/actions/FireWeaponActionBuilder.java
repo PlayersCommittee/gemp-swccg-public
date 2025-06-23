@@ -1305,7 +1305,7 @@ public class FireWeaponActionBuilder {
                                                                         if (opponentsForceLoss > 0 && forceLossTargetFilter.accepts(game, cardFiredAt)) {
                                                                             effectList.add(new HitCardResetForfeitAndOpponentLosesForceEffect(action, cardFiredAt, forfeitModifierOrResetValue, opponentsForceLoss, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon()));
                                                                         } else {
-                                                                            effectList.add(new HitCardAndResetForfeitEffect(action, cardFiredAt, forfeitModifierOrResetValue, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon()));
+                                                                            effectList.add(new HitCardAndResetForfeitEffect(action, cardFiredAt, forfeitModifierOrResetValue, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon(), _repeatedFiring));
                                                                         }
                                                                     } else {
                                                                         if (opponentsForceLoss > 0 && forceLossTargetFilter.accepts(game, cardFiredAt)) {
@@ -1452,7 +1452,7 @@ public class FireWeaponActionBuilder {
                                                                         if (opponentsForceLoss > 0 && forceLossTargetFilter.accepts(game, cardFiredAt)) {
                                                                             effectList.add(new HitCardResetForfeitAndOpponentLosesForceEffect(action, cardFiredAt, forfeitModifierOrResetValue, opponentsForceLoss, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon()));
                                                                         } else {
-                                                                            effectList.add(new HitCardAndResetForfeitEffect(action, cardFiredAt, forfeitModifierOrResetValue, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon()));
+                                                                            effectList.add(new HitCardAndResetForfeitEffect(action, cardFiredAt, forfeitModifierOrResetValue, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon(), _repeatedFiring));
                                                                         }
                                                                     } else {
                                                                         if (opponentsForceLoss > 0 && forceLossTargetFilter.accepts(game, cardFiredAt)) {
@@ -2751,7 +2751,7 @@ public class FireWeaponActionBuilder {
                                                         if ((totalDestiny + 1) > valueToCompare) {
                                                             gameState.sendMessage("Result: Succeeded");
                                                             action.appendEffect(
-                                                                    new HitCardAndResetForfeitEffect(action, cardFiredAt, 0, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon()));
+                                                                    new HitCardAndResetForfeitEffect(action, cardFiredAt, 0, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon(), _repeatedFiring));
                                                         }
                                                         else {
                                                             gameState.sendMessage("Result: Failed");
@@ -4512,7 +4512,7 @@ public class FireWeaponActionBuilder {
                                                         if ((totalDestiny + 2) > valueToCompare) {
                                                             gameState.sendMessage("Result: Succeeded");
                                                             action.appendEffect(
-                                                                    new HitCardAndResetForfeitEffect(action, cardFiredAt, 0, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon()));
+                                                                    new HitCardAndResetForfeitEffect(action, cardFiredAt, 0, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon(), _repeatedFiring));
                                                         }
                                                         else {
                                                             gameState.sendMessage("Result: Failed");
@@ -6440,7 +6440,7 @@ public class FireWeaponActionBuilder {
                                                         if (totalDestiny + 3 > valueToCompare) {
                                                             gameState.sendMessage("Result: Succeeded");
                                                             action.appendEffect(
-                                                                    new HitCardAndResetForfeitEffect(action, cardFiredAt, 0,  _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon())
+                                                                    new HitCardAndResetForfeitEffect(action, cardFiredAt, 0,  _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon(), _repeatedFiring)
                                                             );
                                                         }
                                                         else {

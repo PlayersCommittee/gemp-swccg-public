@@ -15,7 +15,6 @@ import com.gempukku.swccgo.logic.timing.results.FiredWeaponResult;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 /**
  * An action for firing a single weapon.
@@ -34,6 +33,7 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
     private Float _defenseValueAsCharacter;
     private boolean _ignorePerAttackOrBattleLimit;
     private boolean _thrown;
+    private boolean _repeatedFiring;
 
     /**
      * Creates an action for firing a single weapon.
@@ -58,6 +58,7 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
         _defenseValueAsCharacter = defenseValueAsCharacter;
         _ignorePerAttackOrBattleLimit = ignorePerAttackOrBattleLimit;
         _thrown = thrown;
+        _repeatedFiring = repeatedFiring;
     }
 
     /**
@@ -81,6 +82,7 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
         _defenseValueAsCharacter = defenseValueAsCharacter;
         _ignorePerAttackOrBattleLimit = ignorePerAttackOrBattleLimit;
         _thrown = false;
+        _repeatedFiring = repeatedFiring;
     }
 
     @Override
@@ -219,7 +221,7 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
                 // Emit effect result that weapon was fired
                 if (!_emitFiredWeaponResult) {
                     _emitFiredWeaponResult = true;
-                    game.getActionsEnvironment().emitEffectResult(new FiredWeaponResult(game, _permanentWeapon != null ? null : _weaponToFire, _permanentWeapon, getCardFiringWeapon(), _thrown, (game.getGameState().getWeaponFiringState()==null ? Collections.<PhysicalCard>emptyList():game.getGameState().getWeaponFiringState().getTargets())));
+                    game.getActionsEnvironment().emitEffectResult(new FiredWeaponResult(game, _permanentWeapon != null ? null : _weaponToFire, _permanentWeapon, getCardFiringWeapon(), _thrown, _repeatedFiring, (game.getGameState().getWeaponFiringState()==null ? Collections.<PhysicalCard>emptyList():game.getGameState().getWeaponFiringState().getTargets())));
                 }
             }
         }
