@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.effects;
 
 import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
@@ -121,7 +122,7 @@ abstract class PeekAtAndReorderTopCardsOfCardPileEffect extends AbstractSubActio
         private SubAction _subAction;
 
         public ChooseNextCardToPutInPile(SubAction subAction) {
-            super(subAction, _playerId, "Choose next card to put on " + _cardPileOwner + "'s " +  _cardPile.getHumanReadable(), _remainingCardsToReorder, 1, 1);
+            super(subAction, _playerId, "Choose next card to put on " + _cardPileOwner + "'s " +  _cardPile.getHumanReadable(), _remainingCardsToReorder, Filters.any, 1, 1, false);
             _subAction = subAction;
         }
 
