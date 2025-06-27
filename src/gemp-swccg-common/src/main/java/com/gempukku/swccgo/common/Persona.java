@@ -228,6 +228,7 @@ public enum Persona implements Filterable {
     ANAKINS_LIGHTSABER("Anakin's Lightsaber"),
     ASAJJS_LIGHTSABERS("Asajj's Lightsabers"),
     AURRAS_BLASTER_RIFLE("Aurra Sing's Blaster Rifle"),
+    DOOKUS_LIGHTSABER("Dooku's Lightsaber"),
     EZRAS_BLASTER_LIGHTSABER("Ezra's Blaster Lightsaber"),
     GALENS_LIGHTSABER("Galen's Lightsaber"),
     KYLOS_LIGHTSABER("Kylo's Lightsaber"),

@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -74,11 +76,12 @@ public class Card219_018 extends AbstractUsedOrLostInterrupt {
         }
 
         // OR If [Set 13] Dooku on table, deploy Dooku's Lightsaber from Lost Pile
+        GameTextActionId gameTextActionId = GameTextActionId.SURELY_YOU_CAN_DO_BETTER__DEPLOY_DOOKUS_LIGHTSABER_FROM_LOST_PILE;
         if (GameConditions.canSpot(game, self, set13Dooku)
-                && GameConditions.hasLostPile(game, playerId)) {
+                && GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, false, Persona.DOOKUS_LIGHTSABER)) {
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
-            action.setText("Deploy Dooku's Lightsaber from Lost Pile");
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId, CardSubtype.LOST);
+            action.setText("Deploy card from Lost Pile");
             action.setActionMsg("Deploy Dooku's Lightsaber from Lost Pile");
             // Allow response(s)
             action.allowResponses(
@@ -86,7 +89,7 @@ public class Card219_018 extends AbstractUsedOrLostInterrupt {
                         @Override
                         protected void performActionResults(Action targetingAction) {
                             action.appendEffect(
-                                    new DeployCardFromLostPileEffect(action, Filters.title("Dooku's Lightsaber"), false)
+                                    new DeployCardFromLostPileEffect(action, Filters.Dookus_Lightsaber, false)
                             );
                         }
                     }

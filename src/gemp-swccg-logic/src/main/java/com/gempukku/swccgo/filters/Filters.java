@@ -17950,6 +17950,7 @@ public class Filters {
     public static final Filter Dont_Get_Cocky = Filters.title(Title.Dont_Get_Cocky);
     public static final Filter Dont_Underestimate_Our_Chances = Filters.title(Title.Dont_Underestimate_Our_Chances);
     public static final Filter Dooku = Filters.persona(Persona.DOOKU);
+    public static final Filter Dookus_Lightsaber = Filters.persona(Persona.DOOKUS_LIGHTSABER);
     public static final Filter Dopra_Doompa= Filters.title(Title.Dobra_Doompa);
     public static final Filter Double_Agent = Filters.title(Title.Double_Agent);
     public static final Filter Double_Back = Filters.title(Title.Double_Back);
