@@ -82,11 +82,12 @@ public class Card_1_028_Tests {
 		var scn = GetScenario();
 
 		var trooper = scn.GetLSCard("trooper");
-		scn.MoveCardsToLSHand(trooper);
 
 		var site = scn.GetLSStartingLocation();
 
 		scn.StartGame();
+
+		scn.MoveCardsToLSHand(trooper);
 
 		scn.SkipToLSTurn();
 
@@ -111,11 +112,12 @@ public class Card_1_028_Tests {
 
 		var trooper = scn.GetLSCard("trooper");
 		var biggs = scn.GetLSCard("biggs");
-		scn.MoveCardsToLSHand(trooper, biggs);
 
 		var site = scn.GetLSStartingLocation();
 
 		scn.StartGame();
+
+		scn.MoveCardsToLSHand(trooper, biggs);
 
 		scn.SkipToLSTurn();
 
@@ -144,11 +146,12 @@ public class Card_1_028_Tests {
 
 		var trooper = scn.GetLSCard("trooper");
 		var ackbar = scn.GetLSCard("ackbar");
-		scn.MoveCardsToLSHand(trooper, ackbar);
 
 		var site = scn.GetLSStartingLocation();
 
 		scn.StartGame();
+
+		scn.MoveCardsToLSHand(trooper, ackbar);
 
 		scn.SkipToLSTurn();
 

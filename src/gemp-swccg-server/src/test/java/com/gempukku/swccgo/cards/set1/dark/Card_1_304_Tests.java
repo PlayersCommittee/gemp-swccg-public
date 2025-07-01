@@ -84,11 +84,13 @@ public class Card_1_304_Tests {
 		var scn = GetScenario();
 
 		var tie = scn.GetDSCard("tie");
-		scn.MoveCardsToDSHand(tie);
 
 		var site = scn.GetDSStartingLocation();
 
 		scn.StartGame();
+
+		scn.MoveCardsToDSHand(tie);
+
 		scn.DSActivateMaxForceAndPass();
 		scn.PassControlActions();
 
@@ -110,11 +112,12 @@ public class Card_1_304_Tests {
 
 		var tie = scn.GetDSCard("tie");
 		var starDestroyer = scn.GetDSCard("star-destroyer");
-		scn.MoveCardsToDSHand(tie);
 
 		var site = scn.GetDSStartingLocation();
 
 		scn.StartGame();
+
+		scn.MoveCardsToDSHand(tie);
 
 		scn.MoveCardsToLocation(site, starDestroyer);
 		scn.SkipToPhase(Phase.DEPLOY);

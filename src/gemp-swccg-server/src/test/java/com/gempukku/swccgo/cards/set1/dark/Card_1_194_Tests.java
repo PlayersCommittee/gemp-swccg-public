@@ -80,11 +80,13 @@ public class Card_1_194_Tests
 		var scn = GetScenario();
 
 		var stormtrooper = scn.GetDSCard("stormtrooper");
-		scn.MoveCardsToDSHand(stormtrooper);
 
 		var site = scn.GetDSStartingLocation();
 
 		scn.StartGame();
+
+		scn.MoveCardsToDSHand(stormtrooper);
+
 		scn.DSActivateMaxForceAndPass();
 		scn.PassControlActions();
 
@@ -106,11 +108,12 @@ public class Card_1_194_Tests
 
 		var stormtrooper = scn.GetDSCard("stormtrooper");
 		var chiraneau = scn.GetDSCard("chiraneau");
-		scn.MoveCardsToDSHand(stormtrooper, chiraneau);
 
 		var site = scn.GetDSStartingLocation();
 
 		scn.StartGame();
+
+		scn.MoveCardsToDSHand(stormtrooper, chiraneau);
 
 		scn.MoveCardsToLocation(site, chiraneau);
 		scn.SkipToPhase(Phase.DEPLOY);
@@ -132,11 +135,12 @@ public class Card_1_194_Tests
 
 		var stormtrooper = scn.GetDSCard("stormtrooper");
 		var motti = scn.GetDSCard("motti");
-		scn.MoveCardsToDSHand(stormtrooper, motti);
 
 		var site = scn.GetDSStartingLocation();
 
 		scn.StartGame();
+
+		scn.MoveCardsToDSHand(stormtrooper, motti);
 
 		scn.MoveCardsToLocation(site, motti);
 		scn.SkipToPhase(Phase.DEPLOY);

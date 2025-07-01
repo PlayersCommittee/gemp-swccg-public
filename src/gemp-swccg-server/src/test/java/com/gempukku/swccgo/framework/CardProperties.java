@@ -7,10 +7,16 @@ import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
+import com.gempukku.swccgo.game.SwccgCardBlueprint;
 import com.gempukku.swccgo.logic.timing.results.VehicleCrashedResult;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Functions for checking aspects of a card, such as numeric stats and other state-based properties.
@@ -309,5 +315,17 @@ public interface CardProperties extends TestBase {
 	
 	default boolean IsMatchingPilot(PhysicalCardImpl ship, PhysicalCardImpl character) {
 		return game().getModifiersQuerying().isMatchingPair(gameState(), character, ship);
+	}
+
+
+	default void BlueprintIconCheck(SwccgCardBlueprint bp, List<Icon> allowedIcons) {
+		for(var icon : Icon.values()) {
+			if(allowedIcons.contains(icon)) {
+				assertTrue(bp.hasIcon(icon));
+			}
+			else {
+				assertFalse(bp.hasIcon(icon));
+			}
+		}
 	}
 }

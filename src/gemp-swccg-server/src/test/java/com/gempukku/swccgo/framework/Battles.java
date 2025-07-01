@@ -328,7 +328,7 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 */
 	default void LSPayBattleDamageFromReserveDeck(int amount) {
 		for(int i = 0; i < amount; ++i) {
-			DSPayBattleDamageFromReserveDeck();
+			LSPayBattleDamageFromReserveDeck();
 		}
 	}
 	/**

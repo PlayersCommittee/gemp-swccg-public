@@ -483,7 +483,7 @@ public class Card_5_036_Tests {
 		assertEquals(0, scn.GetPassengerCapacity(tube));
 
 		scn.SkipToDamageSegment(false);
-		scn.LSPayBattleDamageFromReserveDeck(6);
+		scn.DSPayBattleDamageFromReserveDeck(6);
 		assertFalse(scn.IsActiveBattle());
 
 		assertFalse(scn.IsAttachedTo(boba, chewie));
