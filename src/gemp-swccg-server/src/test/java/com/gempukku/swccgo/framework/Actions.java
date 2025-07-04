@@ -77,7 +77,7 @@ public interface Actions extends Decisions, Choices {
 	/**
 	 * Checks whether the Dark Side player has an action available containing the provided text.
 	 * @param card The card ID to search for.
-	 *             @param text The text to search for.
+	 * @param text The text to search for.
 	 * @return True if an active decision has an action matching text, otherwise false.
 	 */
 	default boolean DSCardActionAvailable(PhysicalCardImpl card, String text) { return ActionAvailable(DS, card, text); }
@@ -144,6 +144,16 @@ public interface Actions extends Decisions, Choices {
 	 * @return True if there is an available play action for that card, false otherwise.
 	 */
 	default boolean DSCardPlayAvailable(PhysicalCardImpl card) { return DSCardActionAvailable(card); }
+
+	/**
+	 * Checks whether the given card can be played by the Dark Side player.  Technically this is a catch-all function
+	 * that only looks for any action associated with the given card, but the use of this function communicates that
+	 * the tester intended to check for a play action from hand.
+	 * @param card The card being searched for.
+	 * @param text substring to match against possible action text
+	 * @return True if there is an available play action for that card, false otherwise.
+	 */
+	default boolean DSCardPlayAvailable(PhysicalCardImpl card, String text) { return DSCardActionAvailable(card, text); }
 	/**
 	 * Checks whether the given card can be played by the Light Side player.  Technically this is a catch-all function
 	 * that only looks for any action associated with the given card, but the use of this function communicates that
@@ -154,12 +164,32 @@ public interface Actions extends Decisions, Choices {
 	default boolean LSCardPlayAvailable(PhysicalCardImpl card) { return LSCardActionAvailable(card); }
 
 	/**
+	 * Checks whether the given card can be played by the Light Side player.  Technically this is a catch-all function
+	 * that only looks for any action associated with the given card, but the use of this function communicates that
+	 * the tester intended to check for a play action from hand.
+	 * @param card The card being searched for.
+	 * @param text substring to match against possible action text
+	 * @return True if there is an available play action for that card, false otherwise.
+	 */
+	default boolean LSCardPlayAvailable(PhysicalCardImpl card, String text) { return LSCardActionAvailable(card,text); }
+
+	/**
 	 * Causes the Dark Side player to select the given card and execute its legal action (i.e. plays that card from hand).
 	 * Technically this is a catch-all that will activate any action on this card, but the use of this function
 	 * communicates that the tester intended to play it from hand.
 	 * @param card The card to play.
 	 */
 	default void DSPlayCard(PhysicalCardImpl card) { DSDecided(GetCardActionId(DS, card)); }
+
+	/**
+	 * Causes the Dark Side player to select the given card and execute its legal action (i.e. plays that card from hand).
+	 * Technically this is a catch-all that will activate any action on this card, but the use of this function
+	 * communicates that the tester intended to play it from hand.
+	 * @param card The card to play.
+	 * @param text Substring of the action text for the action to play
+	 */
+	default void DSPlayCard(PhysicalCardImpl card, String text) { DSDecided(GetCardActionId(DS, card, text)); }
+
 	/**
 	 * Causes the Light Side player to select the given card and execute its legal action (i.e. plays that card from hand).
 	 * Technically this is a catch-all that will activate any action on this card, but the use of this function
@@ -168,6 +198,14 @@ public interface Actions extends Decisions, Choices {
 	 */
 	default void LSPlayCard(PhysicalCardImpl card) { LSDecided(GetCardActionId(LS, card)); }
 
+	/**
+	 * Causes the Light Side player to select the given card and execute its legal action (i.e. plays that card from hand).
+	 * Technically this is a catch-all that will activate any action on this card, but the use of this function
+	 * communicates that the tester intended to play it from hand.
+	 * @param card The card to play.
+	 * @param text Substring of the action text for the action to play
+	 */
+	default void LSPlayCard(PhysicalCardImpl card, String text) { LSDecided(GetCardActionId(LS, card, text)); }
 
 
 	/**

@@ -74,13 +74,20 @@ public class Card_224_020_Tests {
 		assertTrue(card.hasVirtualSuffix());
 		assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
 		assertEquals(Side.LIGHT, card.getSide());
-		assertTrue(card.isCardType(CardType.REBEL));
-		assertTrue(card.hasPersona(Persona.LUKE));
 		assertEquals(1, card.getDestiny(), scn.epsilon);
 		assertEquals(5, card.getDeployCost(), scn.epsilon);
 		assertEquals(5, card.getPower(), scn.epsilon);
 		assertEquals(5, card.getAbility(), scn.epsilon);
 		assertEquals(8, card.getForfeit(), scn.epsilon);
+		scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+			add(CardType.REBEL);
+		}});
+		scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+			//null
+		}});
+		scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
+			add(Persona.LUKE);
+		}});
 		scn.BlueprintIconCheck(card, new ArrayList<>() {{
 			add(Icon.REBEL);
 			add(Icon.PILOT);
@@ -89,10 +96,12 @@ public class Card_224_020_Tests {
 			add(Icon.CLOUD_CITY);
 			add(Icon.VIRTUAL_SET_24);
 		}});
+		assertEquals(ExpansionSet.SET_24,card.getExpansionSet());
+		assertEquals(Rarity.V,card.getRarity());
 	}
 
 	@Test
-	public void SonofSkywalkerVAdds2ToPowerOfStarfighterHePilots() {
+	public void SonOfSkywalkerVAdds2ToPowerOfStarfighterHePilots() {
 		var scn = GetScenario();
 
 		var sos = scn.GetLSCard("sos");
@@ -114,7 +123,7 @@ public class Card_224_020_Tests {
 	}
 
 	@Test
-	public void SonofSkywalkerVAdds2ToPowerOfVehicleHePilots() {
+	public void SonOfSkywalkerVAdds2ToPowerOfVehicleHePilots() {
 		var scn = GetScenario();
 
 		var sos = scn.GetLSCard("sos");
@@ -135,7 +144,7 @@ public class Card_224_020_Tests {
 	}
 
 	@Test
-	public void SonofSkywalkerVHittingCharacterPreventsThemUsingWeapon() {
+	public void SonOfSkywalkerVHittingCharacterPreventsThemUsingWeapon() {
 		var scn = GetScenario();
 
 		var sos = scn.GetLSCard("sos");
@@ -176,7 +185,7 @@ public class Card_224_020_Tests {
 	}
 
 	@Test
-	public void SonofSkywalkerVMayDeployAnakinsLightsaberFromReserve() {
+	public void SonOfSkywalkerVMayDeployAnakinsLightsaberFromReserve() {
 		var scn = GetScenario();
 
 		var sos = scn.GetLSCard("sos");
@@ -207,7 +216,7 @@ public class Card_224_020_Tests {
 	}
 
 	@Test
-	public void SonofSkywalkerVCannotUseDeployActionIfAnakinsLightsaberOnTable() {
+	public void SonOfSkywalkerVCannotUseDeployActionIfAnakinsLightsaberOnTable() {
 		var scn = GetScenario();
 
 		var sos = scn.GetLSCard("sos");
@@ -229,7 +238,7 @@ public class Card_224_020_Tests {
 	}
 
 	@Test
-	public void SonofSkywalkerVBattleAbilityExcludesEveryoneFromBattleExceptSelfAndDarkJedi() {
+	public void SonOfSkywalkerVBattleAbilityExcludesEveryoneFromBattleExceptSelfAndDarkJedi() {
 		var scn = GetScenario();
 
 		var rebel = scn.GetLSFiller(1);
@@ -260,7 +269,7 @@ public class Card_224_020_Tests {
 	}
 
 	@Test
-	public void SonofSkywalkerVBattleAbilityNotAvailableIfBattleTriggeredElsewhere() {
+	public void SonOfSkywalkerVBattleAbilityNotAvailableIfBattleTriggeredElsewhere() {
 		var scn = GetScenario();
 
 		var rebel = scn.GetLSFiller(1);
@@ -285,7 +294,7 @@ public class Card_224_020_Tests {
 	}
 
 	@Test
-	public void SonofSkywalkerVCannotUseBattleAbilityIfVehicleThere() {
+	public void SonOfSkywalkerVCannotUseBattleAbilityIfVehicleThere() {
 		var scn = GetScenario();
 
 		var rebel = scn.GetLSFiller(1);
@@ -311,7 +320,7 @@ public class Card_224_020_Tests {
 	}
 
 	@Test
-	public void SonofSkywalkerVImmuneToAttritionLessThan4() {
+	public void SonOfSkywalkerVImmuneToAttritionLessThan4() {
 		var scn = GetScenario();
 
 		var sos = scn.GetLSCard("sos");
@@ -346,7 +355,7 @@ public class Card_224_020_Tests {
 	}
 
 	@Test
-	public void SonofSkywalkerVNotImmuneToAttritionOf4() {
+	public void SonOfSkywalkerVNotImmuneToAttritionOf4() {
 		var scn = GetScenario();
 
 		var sos = scn.GetLSCard("sos");

@@ -1,9 +1,6 @@
 package com.gempukku.swccgo.framework;
 
-import com.gempukku.swccgo.common.CardType;
-import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
@@ -318,14 +315,68 @@ public interface CardProperties extends TestBase {
 	}
 
 
+	/**
+	 * Checks that all Icons in list are on card blueprint and that all Icons (in enum) not in the list are not on card blueprint
+	 * @param bp The card blueprint to check
+	 * @param allowedIcons The list of expected Icons to test against
+	 */
 	default void BlueprintIconCheck(SwccgCardBlueprint bp, List<Icon> allowedIcons) {
 		for(var icon : Icon.values()) {
 			if(allowedIcons.contains(icon)) {
-				assertTrue(bp.hasIcon(icon));
+				assertTrue("Card '" + bp.getTitle() + "' missing required icon:  " + icon, bp.hasIcon(icon));
 			}
 			else {
-				assertFalse(bp.hasIcon(icon));
+				assertFalse("Card '" + bp.getTitle() + "' included disallowed icon: " + icon, bp.hasIcon(icon));
+			}
+		}
+	}
+
+	/**
+	 * Checks that all Personas in list are on card blueprint and that all Personas (in enum) not in the list are not on card blueprint
+	 * @param bp The card blueprint to check
+	 * @param allowedPersonas The list of expected Personas to test against
+	 */
+	default void BlueprintPersonaCheck(SwccgCardBlueprint bp, List<Persona> allowedPersonas) {
+		for(var persona : Persona.values()) {
+			if(allowedPersonas.contains(persona)) {
+				assertTrue("Card '" + bp.getTitle() + "' missing required Persona: " + persona, bp.hasPersona(persona));
+			}
+			else {
+				assertFalse("Card '" + bp.getTitle() + "' included disallowed Persona: " + persona,bp.hasPersona(persona));
+			}
+		}
+	}
+
+	/**
+	 * Checks that all Keywords in list are on card blueprint and that all Keywords (in enum) not in the list are not on card blueprint
+	 * @param bp The card blueprint to check
+	 * @param allowedKeywords The list of expected Keywords to test against
+	 */
+	default void BlueprintKeywordCheck(SwccgCardBlueprint bp, List<Keyword> allowedKeywords) {
+		for(var keyword : Keyword.values()) {
+			if(allowedKeywords.contains(keyword)) {
+				assertTrue("Card '" + bp.getTitle() + "' missing required Keyword: " + keyword, bp.hasKeyword(keyword));
+			}
+			else {
+				assertFalse("Card '" + bp.getTitle() + "' included disallowed Keyword: " + keyword,bp.hasKeyword(keyword));
+			}
+		}
+	}
+
+	/**
+	 * Checks that all CardTypes in list are on card blueprint and that all CardTypes (in enum) not in the list are not on card blueprint
+	 * @param bp The card blueprint to check
+	 * @param allowedCardTypes The list of expected CardTypes to test against
+	 */
+	default void BlueprintCardTypeCheck(SwccgCardBlueprint bp, List<CardType> allowedCardTypes) {
+		for(var cardtype : CardType.values()) {
+			if(allowedCardTypes.contains(cardtype)) {
+				assertTrue("Card '" + bp.getTitle() + "' missing required CardType: " + cardtype,bp.isCardType(cardtype));
+			}
+			else {
+				assertFalse("Card '" + bp.getTitle() + "' included disallowed CardType: " + cardtype,bp.isCardType(cardtype));
 			}
 		}
 	}
 }
+

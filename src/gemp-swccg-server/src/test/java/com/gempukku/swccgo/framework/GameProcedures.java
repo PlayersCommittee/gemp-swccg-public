@@ -133,7 +133,7 @@ public interface GameProcedures extends Actions, Decisions, GameProperties, Pile
 	 */
 	default void DSDeployCardAndPassResponses(PhysicalCardImpl card, PhysicalCardImpl location) {
 		DSDeployCard(card);
-		assertTrue(DSDecisionAvailable("Choose where to deploy"));
+		assertTrue(DSDecisionAvailable("Choose where to deploy") || DSDecisionAvailable("Choose location where to deploy"));
 		DSChooseCard(location);
 
 		PassAllResponses();
@@ -157,15 +157,31 @@ public interface GameProcedures extends Actions, Decisions, GameProperties, Pile
 	 * Causes Dark Side to play the given card and automatically pass optional responses and deployment responses for both players.
 	 * @param card The card to be played
 	 */
-	default void DSPlayCardAndPassResponses(PhysicalCardImpl card) { DSPlayCardAndPassResponses(card, null); }
+	default void DSPlayCardAndPassResponses(PhysicalCardImpl card) { DSPlayCardAndPassResponses(card, null, null); }
+
+	/**
+	 * Causes Dark Side to play the given card and automatically pass optional responses and deployment responses for both players.
+	 * @param card The card to be played
+	 * @param text The text substring to match against action text of the card to be played
+	 */
+	default void DSPlayCardAndPassResponses(PhysicalCardImpl card, String text) { DSPlayCardAndPassResponses(card, text, null); }
 
 	/**
 	 * Causes Dark Side to play the given card and automatically pass optional responses and deployment responses for both players.
 	 * @param card The card to be played
 	 * @param target The card this card will target
 	 */
-	default void DSPlayCardAndPassResponses(PhysicalCardImpl card, PhysicalCardImpl target) {
-		DSPlayCard(card);
+	default void DSPlayCardAndPassResponses(PhysicalCardImpl card, PhysicalCardImpl target) { DSPlayCardAndPassResponses(card, null, target); }
+
+	/**
+	 * Causes Dark Side to play the given card and automatically pass optional responses and deployment responses for both players.
+	 * @param card The card to be played
+	 * @param text The text substring to match against action text of the card to be played
+	 * @param target The card this card will target
+	 */
+	default void DSPlayCardAndPassResponses(PhysicalCardImpl card, String text, PhysicalCardImpl target) {
+		assertTrue(DSCardPlayAvailable(card,text));
+		DSPlayCard(card,text);
 		if(target != null) {
 			DSChooseCard(target);
 		}
@@ -176,15 +192,31 @@ public interface GameProcedures extends Actions, Decisions, GameProperties, Pile
 	 * Causes Light Side to play the given card and automatically pass optional responses and deployment responses for both players.
 	 * @param card The card to be played
 	 */
-	default void LSPlayCardAndPassResponses(PhysicalCardImpl card ) { LSPlayCardAndPassResponses(card, null); }
+	default void LSPlayCardAndPassResponses(PhysicalCardImpl card) { LSPlayCardAndPassResponses(card, null, null); }
+
+	/**
+	 * Causes Light Side to play the given card and automatically pass optional responses and deployment responses for both players.
+	 * @param card The card to be played
+	 * @param text The text substring to match against action text of the card to be played
+	 */
+	default void LSPlayCardAndPassResponses(PhysicalCardImpl card, String text) { LSPlayCardAndPassResponses(card, text, null); }
 
 	/**
 	 * Causes Light Side to play the given card and automatically pass optional responses and deployment responses for both players.
 	 * @param card The card to be played
 	 * @param target The card this card will target
 	 */
-	default void LSPlayCardAndPassResponses(PhysicalCardImpl card, PhysicalCardImpl target) {
-		LSPlayCard(card);
+	default void LSPlayCardAndPassResponses(PhysicalCardImpl card, PhysicalCardImpl target) { LSPlayCardAndPassResponses(card, null, target); }
+
+	/**
+	 * Causes Light Side to play the given card and automatically pass optional responses and deployment responses for both players.
+	 * @param card The card to be played
+	 * @param text The text substring to match against action text of the card to be played
+	 * @param target The card this card will target
+	 */
+	default void LSPlayCardAndPassResponses(PhysicalCardImpl card, String text, PhysicalCardImpl target) {
+		assertTrue(LSCardPlayAvailable(card,text));
+		LSPlayCard(card,text);
 		if(target != null) {
 			LSChooseCard(target);
 		}
