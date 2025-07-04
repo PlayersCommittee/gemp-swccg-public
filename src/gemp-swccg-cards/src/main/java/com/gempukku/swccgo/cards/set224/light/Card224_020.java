@@ -116,7 +116,7 @@ public class Card224_020 extends AbstractRebel {
                 && otherCharacters.size() > 1) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Exclude characters from battle");
+            action.setText("Confront a Dark Jedi");
             // Choose target(s)
             action.appendTargeting(
                     new TargetCardOnTableEffect(action, playerId, "Choose a Dark Jedi to battle", darkJediFilter) {
