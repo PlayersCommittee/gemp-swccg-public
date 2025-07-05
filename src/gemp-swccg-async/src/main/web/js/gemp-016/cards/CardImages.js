@@ -3739,6 +3739,7 @@ const fixedImages = {
 "501_32": "https://res.starwarsccg.org/cards/TheedPalace-Dark/large/3b321.gif",
 "501_35": "https://res.starwarsccg.org/cards/Premiere-Dark/large/ds613.gif",
 "501_33": "https://res.starwarsccg.org/cards/Virtual4-Dark/hires/kylorenscommandshuttle.png",
+"501_34": "https://res.starwarsccg.org/cards/DeathStarII-Dark/large/deathstariithroneroom.gif",
 "501_36": "https://res.starwarsccg.org/cards/SpecialEdition-Dark/large/swamp.gif",
 "501_37": "https://res.starwarsccg.org/cards/CloudCity-Dark/large/bounty.gif",
 "501_38": "https://res.starwarsccg.org/cards/Virtual16-Dark/large/scarifcommandcenter.gif",
