@@ -350,6 +350,7 @@ public interface Title {
     String Dyden_Vos_s_Kyuzo_Petars = "Dryden Vos's Kyuzo Petars";
     String DS_181_3 = "DS-181-3";
     String DS_181_4 = "DS-181-4";
+    String DS_61_3 = "DS-61-3";
     String DS_61_5 = "DS-61-5";
     String Dual_Laser_Cannon = "Dual Laser Cannon";
     String Dungeon = "Jabba's Palace: Dungeon";
