@@ -3747,6 +3747,7 @@ const fixedImages = {
 "501_40": "https://res.starwarsccg.org/cards/Virtual16-Dark/large/scarif.gif",
 "501_41": "https://res.starwarsccg.org/cards/Tatooine-Dark/large/iwillfindthemquicklymaster.gif",
 "501_42": "https://res.starwarsccg.org/cards/Premiere-Dark/large/darkjedilightsaber.gif",
+"501_43": "https://res.starwarsccg.org/cards/Virtual22-Dark/large/aplek.gif",
 "501_44": "https://res.starwarsccg.org/cards/Virtual9-Dark/large/commenceprimaryignition.gif",
 "501_45": "https://res.starwarsccg.org/cards/Virtual16-Dark/large/shieldgate.gif",
 "501_46": "https://res.starwarsccg.org/cards/Virtual16-Dark/large/onthevergeofgreatness.gif",
