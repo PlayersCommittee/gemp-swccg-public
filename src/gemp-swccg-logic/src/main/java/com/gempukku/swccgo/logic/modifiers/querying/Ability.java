@@ -99,7 +99,7 @@ public interface Ability extends BaseQuery, Destiny, Icons, JediTests, Piloting,
 			return false;
 
 		return !Filters.canSpot(gameState.getGame(), source,
-				Filters.and(Filters.owner(playerId), CardCategory.CHARACTER, Filters.abilityMoreThan(ability), Filters.notExcludedFromBeingHighestAbilityCharacter(source)));
+				Filters.and(Filters.owner(playerId), CardCategory.CHARACTER, Filters.abilityMoreThan(ability), Filters.notExcludedFromBeingHighestAbilityCharacter(source), Filters.canBeTargetedBy(source)));
 	}
 
 	/**

@@ -64,6 +64,7 @@ public class StackCardsFromOutsideDeckEffect extends AbstractSubActionEffect {
      * @param min the minimum cards to stack
      * @param max the maximum cards to stack
      * @param stackOn the card to stack on
+     * @param faceDown true if the card will be stacked face down
      * @param cardFilter the filter for cards to be stacked
      */
     public StackCardsFromOutsideDeckEffect(Action action, String playerId, int min, int max, PhysicalCard stackOn, boolean faceDown, Filterable cardFilter) {
