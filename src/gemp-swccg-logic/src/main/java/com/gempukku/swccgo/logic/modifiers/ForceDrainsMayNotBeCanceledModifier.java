@@ -44,6 +44,17 @@ public class ForceDrainsMayNotBeCanceledModifier extends AbstractModifier {
      * @param source the source of the modifier
      * @param locationFilter the location filter
      * @param condition the condition that must be fulfilled for the modifier to be in effect
+     */
+    public ForceDrainsMayNotBeCanceledModifier(PhysicalCard source, Filterable locationFilter, Condition condition) {
+        this(source, locationFilter, condition, null, null);
+    }
+
+    /**
+     * Creates a modifier that prevents the specified player from canceling the specified player's Force drains at locations
+     * accepted by the location filter when a given condition is met.
+     * @param source the source of the modifier
+     * @param locationFilter the location filter
+     * @param condition the condition that must be fulfilled for the modifier to be in effect
      * @param playerDraining the player Force draining, or null for either player
      */
     public ForceDrainsMayNotBeCanceledModifier(PhysicalCard source, Filterable locationFilter, Condition condition, String playerDraining) {
