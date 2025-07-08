@@ -526,6 +526,7 @@ public interface Title {
     String Hux = "General Hux";
     String Hydroponics_Station = "Hydroponics Station";
     String Hyper_Escape = "Hyper Escape";
+    String Hyperwave_Scan = "Hyperwave Scan";
     String Hypo = "Hypo";
     String I_Am_Your_Father = "I Am Your Father";
     String I_Can_Save_Him = "I Can Save Him";

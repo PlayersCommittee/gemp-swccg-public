@@ -45,8 +45,8 @@ import com.gempukku.swccgo.game.state.actions.PlayCardState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import com.gempukku.swccgo.logic.effects.RespondableWeaponFiringEffect;
-import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -18213,6 +18213,7 @@ public class Filters {
     public static final Filter Hux = Filters.title(Title.Hux);
     public static final Filter Hydroponics_Station = Filters.title(Title.Hydroponics_Station);
     public static final Filter Hyper_Escape = Filters.title(Title.Hyper_Escape);
+    public static final Filter Hyperwave_Scan = Filters.title(Title.Hyperwave_Scan);
     public static final Filter Hypo = Filters.title(Title.Hypo);
     public static final Filter I_Am_Your_Father = Filters.title(Title.I_Am_Your_Father);
     public static final Filter I_Can_Save_Him = Filters.title(Title.I_Can_Save_Him);

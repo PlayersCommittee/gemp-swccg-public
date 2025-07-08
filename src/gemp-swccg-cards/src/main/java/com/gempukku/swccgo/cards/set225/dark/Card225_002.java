@@ -1,8 +1,5 @@
 package com.gempukku.swccgo.cards.set225.dark;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtTopCardsOfReserveDeckAndChooseCardsToTakeIntoHandEffect;
@@ -27,6 +24,9 @@ import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInCardPileResult;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Set: Set 25
  * Type: Interrupt
@@ -46,7 +46,7 @@ public class Card225_002 extends AbstractUsedInterrupt {
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<>();
 
-        Filter pullFilter = Filters.or(Filters.Ghhhk, Filters.title("Hyperwave Scan"));
+        Filter pullFilter = Filters.or(Filters.Ghhhk, Filters.Hyperwave_Scan);
         GameTextActionId gameTextActionId = GameTextActionId.BLAST_POINTS_V__UPLOAD_CARD;
 
         // Check condition(s)
