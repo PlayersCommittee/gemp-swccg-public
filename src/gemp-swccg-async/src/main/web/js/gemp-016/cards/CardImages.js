@@ -3789,6 +3789,7 @@ const fixedImages = {
 "501_131":"https://res.starwarsccg.org/cards/Dagobah-Dark/large/ig88spulsecannon.gif",
 "501_138":"https://res.starwarsccg.org/cards/Dagobah-Dark/large/flagship.gif",
 "501_160":"https://res.starwarsccg.org/cards/Endor-Light/large/endorrebellandingsiteforest.gif",
+"501_161":"https://res.starwarsccg.org/cards/Hoth-Light/large/anakinslightsaber.gif",
 "501_162":"https://res.starwarsccg.org/cards/DeathStarII-Light/large/majorpanno.gif",
 "501_164":"https://res.starwarsccg.org/cards/Coruscant-Light/large/coruscantjedicouncilchamber.gif",
 "501_165":"https://res.starwarsccg.org/cards/CloudCity-Light/large/courageofaskywalker.gif",
