@@ -18,7 +18,7 @@ gemp_app contains the slightly more involved environment necessary to run the ap
 * A Java IDE; we recommend [IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/download/?section=windows) - recommended
 * Java 21 - required (IDEA includes this)
 * [Maven 3.9.6](https://archive.apache.org/dist/maven/maven-3/3.9.6/) - required (IDEA includes this)
-* A Docker container manager such as [PortainerIO](https://www.portainer.io/) - recommended
+* A Docker container manager such as [PortainerIO](https://www.portainer.io/) or more specifically this free [Portainer Community Edition](https://docs.portainer.io/start/install-ce) - recommended
 * A MySQL manager such as [DBeaver](https://dbeaver.io/) - recommended
 
 ## Installation Steps
@@ -26,7 +26,7 @@ gemp_app contains the slightly more involved environment necessary to run the ap
 1. Install [Docker](https://www.docker.com/products/docker-desktop/).
 	* Windows Users: make sure that when you install Docker Desktop you select the option to use WSL2 instead of Hyper-V. This option will mimic a Linux environment.  If you are on Windows 10 Home instead, you will not have this option.
 	* If you're installing this on Linux, I assume you know more than I do about how to set it up properly.
-2. Install your container manager of choice.  I would HIGHLY recommend [PortainerIO](https://www.portainer.io/), which itself runs in a docker container and exposes itself as an interactable web page.  This will give you a graphical readout of all your currently running containers, registered images, networks, volumes, and just about anything else you might want, PLUS have interactive command lines for when the GUI just doesn't cut it.  The manager that comes with Docker Desktop by default is pretty much only just barely enough to run portainer with, so don't bother with it otherwise.
+2. Install your container manager of choice.  I would HIGHLY recommend [PortainerIO](https://www.portainer.io/) or more specifically this [Portainer Community Edition](https://docs.portainer.io/start/install-ce), which itself runs in a docker container and exposes itself as an interactable web page.  This will give you a graphical readout of all your currently running containers, registered images, networks, volumes, and just about anything else you might want, PLUS have interactive command lines for when the GUI just doesn't cut it.  The manager that comes with Docker Desktop by default is pretty much only just barely enough to run portainer with, so don't bother with it otherwise.
 3. Pull the git repository down to your host machine; you may have already done this.
 4. Open a code editor of your choice and navigate to `{repo-root}/src`.  Open up [docker-compose.yml](docker-compose.yml) and change the defaults to suit your needs:
 	1. Note all the relative paths under each volume/source: these are all paths on your host system.  If you want e.g. the database to be in a different location than what's listed, alter these relative paths to something else on your host system.
@@ -59,12 +59,12 @@ gemp_app contains the slightly more involved environment necessary to run the ap
 	* This process will take upwards of 5-10 minutes.  
 	* You should see a green "BUILD SUCCESS" when it is successfully done.  In portainer.io or another rich command line context, you should see lots of red text if it failed.
 10. On your host machine, open up `src/docker-compose.yml` again and uncomment lines 42-48, so that the Command instruction is restored.
-11. On your host machine, cycle your docker container
-	* You can do this in Portainer by putting a checkmark next to the gemp app container and clicking the "Restart" button.
-	* If you prefer, in a terminal navigate to `src/docker` and run `docker compose restart`
-10. If all has gone as planned, you should now be able to navigate to your own personal instance of Gemp.  
+11. On your host machine, rebuild your docker container
+	* In a terminal navigate to `src/docker` and run `docker compose down` and then `docker compose build` and then `docker compose up -d`
+NOTE: You will not normally need to rebuild the docker container. Normally, after compiling code updates with `mvn install` you will only need to restart the container, not rebuild it. You can do that through the Docker or Portainer interface (look for a restart button on the container) or you can run `docker compose restart`
+12. If all has gone as planned, you should now be able to navigate to your own personal instance of Gemp.  
 	* Open your browser of choice and navigate to http://localhost:17001/gemp-swccg/ .  (If you need a different port to be bound to, then repeat step 4 and edit the exposed port, then repeat step 9 to load those changes.)
-11. If you're presented with the home page, log in using the default `asdf`/`asdf` user. It's possible for the login page to present but login itself to fail if configured incorrectly, so don't celebrate until you see the (empty) lobby.  If you get that far, then congrats, you now have a working local version of Gemp.
+13. If you're presented with the home page, log in using the default `asdf`/`asdf` user. It's possible for the login page to present but login itself to fail if configured incorrectly, so don't celebrate until you see the (empty) lobby.  If you get that far, then congrats, you now have a working local version of Gemp.
 
 At this point, editing the code is a matter of changing the files on your local machine, re-compiling the code base in IDEA (or via `mvn install`), and then restarting the container.  
 
