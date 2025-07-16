@@ -171,11 +171,11 @@ public interface PileProperties extends TestBase{
 	/**
 	 * @return Gets the top card of the Dark Side player's Lost Pile.
 	 */
-	default PhysicalCardImpl GetTopOfDSLostPile() { return (PhysicalCardImpl) GetUsedPile(DS).getFirst(); }
+	default PhysicalCardImpl GetTopOfDSLostPile() { return (PhysicalCardImpl) GetLostPile(DS).getFirst(); }
 	/**
 	 * @return Gets the top card of the Light Side player's Lost Pile.
 	 */
-	default PhysicalCardImpl GetTopOfLSLostPile() { return (PhysicalCardImpl) GetUsedPile(LS).getFirst(); }
+	default PhysicalCardImpl GetTopOfLSLostPile() { return (PhysicalCardImpl) GetLostPile(LS).getFirst(); }
 
 //
 //    default PhysicalCardImpl GetDSBottomOfDeck() { return GetPlayerBottomOfDeck(DS); }

@@ -2237,6 +2237,7 @@ public class GameState implements Snapshotable<GameState> {
         getZoneCards(newCard.getZoneOwner(), newCard.getZone()).add(newCard);
 
         List<PhysicalCard> attachedCardList = getAttachedCards(oldCard, true);
+        List<PhysicalCard> captivesCardList = getCaptivesOfEscort(oldCard);
         List<PhysicalCard> stackedCardList = getStackedCards(oldCard);
 
         for (GameStateListener listener : getAllGameStateListeners())
@@ -2256,6 +2257,11 @@ public class GameState implements Snapshotable<GameState> {
                 removeCardFromZone(attachedCard);
                 addCardToTopOfZone(attachedCard, Zone.VOID, attachedCard.getOwner());
             }
+        }
+
+        // Transfer captive cards to the new card (if allowed)
+        for (PhysicalCard captiveCard : captivesCardList) {
+            captiveCard.setCaptiveEscort(newCard);
         }
 
         // Transfer stacked cards to the new card

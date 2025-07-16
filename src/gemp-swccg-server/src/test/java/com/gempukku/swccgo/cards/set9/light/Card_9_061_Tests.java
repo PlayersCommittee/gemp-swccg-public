@@ -19,6 +19,7 @@ public class Card_9_061_Tests {
 				new HashMap<>()
 				{{
 					put("vader", "1_168");
+					put("chokevader", "7_175");
 				}},
 				10,
 				10,
@@ -157,4 +158,65 @@ public class Card_9_061_Tests {
 
 		assertFalse(scn.DSDecisionAvailable("FORCE_LOSS_INITIATED - Optional responses"));
 	}
+
+	@Test
+	public void ICanSaveHimVaderPersonaReplaceTransfersCaptive() {
+		var scn = GetScenario();
+
+		var lsjk = scn.GetLSCard("lsjk");
+		var tigih = scn.GetLSCard("tigih");
+
+		var hut = scn.GetLSCard("hut");
+
+		var vader = scn.GetDSCard("vader");
+		var chokevader = scn.GetDSCard("chokevader");
+
+		scn.StartGame();
+
+		scn.MoveCardsToDSHand(chokevader);
+
+		assertFalse(tigih.isFlipped());
+		scn.MoveCardsToLocation(hut, vader);
+
+		scn.SkipToPhase(Phase.MOVE);
+
+		assertTrue(lsjk.isCaptive());
+		assertEquals(vader, lsjk.getEscort());
+		assertEquals(vader, lsjk.getAttachedTo());
+		assertTrue(vader.getCardsEscorting().contains(lsjk));
+		assertTrue(tigih.isFlipped());
+
+		scn.SkipToPhase(Phase.DRAW);
+		scn.DSPass();
+		scn.LSPass();
+
+		assertFalse(scn.DSDecisionAvailable("FORCE_LOSS_INITIATED - Optional responses"));
+
+		scn.SkipToDSTurn(Phase.DEPLOY);
+
+		assertTrue(scn.DSCardPlayAvailable(chokevader));
+		scn.DSPlayCard(chokevader); //persona replacement
+		assertTrue(scn.DSHasCardChoiceAvailable(vader)); //target to replace
+		scn.DSChooseCard(vader);
+		scn.PassAllResponses();
+
+		assertTrue(lsjk.isCaptive());
+
+		assertNotEquals(vader, lsjk.getEscort()); //detached from old vader
+		assertNotEquals(vader, lsjk.getAttachedTo());
+		assertFalse(vader.getCardsEscorting().contains(lsjk));
+
+		assertEquals(chokevader, lsjk.getEscort()); //attached to new vader
+		assertEquals(chokevader, lsjk.getAttachedTo());
+		assertTrue(chokevader.getCardsEscorting().contains(lsjk));
+
+		assertTrue(tigih.isFlipped());
+
+		scn.SkipToPhase(Phase.DRAW);
+		scn.DSPass();
+		scn.LSPass();
+
+		assertFalse(scn.DSDecisionAvailable("FORCE_LOSS_INITIATED - Optional responses"));
+	}
 }
+
