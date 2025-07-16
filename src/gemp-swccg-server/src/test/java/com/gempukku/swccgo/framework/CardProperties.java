@@ -378,5 +378,22 @@ public interface CardProperties extends TestBase {
 			}
 		}
 	}
+
+	/**
+	 * Checks that all ModelTypes in list are on card blueprint and that all ModelTypes (in enum) not in the list are not on card blueprint
+	 * @param bp The card blueprint to check
+	 * @param allowedModelTypes The list of expected ModelTypes to test against
+	 */
+	default void BlueprintModelTypeCheck(SwccgCardBlueprint bp, List<ModelType> allowedModelTypes) {
+		for(var modeltype : ModelType.values()) {
+			if(allowedModelTypes.contains(modeltype)) {
+				assertTrue("Card '" + bp.getTitle() + "' missing required ModelType: " + modeltype,bp.getModelTypes().contains(modeltype));
+			}
+			else {
+				assertFalse("Card '" + bp.getTitle() + "' included disallowed ModelType: " + modeltype,bp.getModelTypes().contains(modeltype));
+			}
+		}
+	}
+
 }
 
