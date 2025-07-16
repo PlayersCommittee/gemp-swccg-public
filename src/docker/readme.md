@@ -61,7 +61,7 @@ gemp_app contains the slightly more involved environment necessary to run the ap
 10. On your host machine, open up `src/docker-compose.yml` again and uncomment lines 42-48, so that the Command instruction is restored.
 11. On your host machine, rebuild your docker container
 	* In a terminal navigate to `src/docker` and run `docker compose down` and then `docker compose build` and then `docker compose up -d`
-NOTE: You will not normally need to rebuild the docker container. Normally, after compiling code updates with `mvn install` you will only need to restart the container, not rebuild it. You can do that through the Docker or Portainer interface (look for a restart button on the container) or you can run `docker compose restart`
+	* NOTE: You will not normally need to rebuild the docker container. Normally, after compiling code updates with `mvn install` you will only need to restart the container, not rebuild it. You can do that through the Docker or Portainer interface (look for a restart button on the container) or you can run `docker compose restart`
 12. If all has gone as planned, you should now be able to navigate to your own personal instance of Gemp.  
 	* Open your browser of choice and navigate to http://localhost:17001/gemp-swccg/ .  (If you need a different port to be bound to, then repeat step 4 and edit the exposed port, then repeat step 9 to load those changes.)
 13. If you're presented with the home page, log in using the default `asdf`/`asdf` user. It's possible for the login page to present but login itself to fail if configured incorrectly, so don't celebrate until you see the (empty) lobby.  If you get that far, then congrats, you now have a working local version of Gemp.
