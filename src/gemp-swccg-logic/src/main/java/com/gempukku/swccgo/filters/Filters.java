@@ -1919,6 +1919,26 @@ public class Filters {
     }
 
     /**
+     * Filter that accepts cards that have a printed alterate destiny > X.
+     * An alternate destiny is the second destiny listed on a card. R2-D2 has a printedDestiny of 2 and a printedAlternateDestiny of 5
+     * If a card only has one destiny number (e.g. 99.99% of cards) then its printedAlternateDestiny is the same as its printedDestiny
+     *
+     * @param destiny the value of X
+     * @return Filter
+     */
+    public static Filter printedAlternateDestinyGreaterThan(final float destiny) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (physicalCard.getBlueprint().getAlternateDestiny()==null)
+                    return false;
+
+                return physicalCard.getBlueprint().getAlternateDestiny() > destiny;
+            }
+        };
+    }
+
+    /**
      * Filter that accepts cards that have multiple destiny values, such as R2D2.
      */
     public static final Filter multipleDestinyValues = new Filter() {
