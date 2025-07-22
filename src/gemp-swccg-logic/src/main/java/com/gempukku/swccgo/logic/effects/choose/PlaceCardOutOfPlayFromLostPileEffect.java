@@ -36,6 +36,20 @@ public class PlaceCardOutOfPlayFromLostPileEffect extends PlaceCardsOutOfPlayFro
     }
 
     /**
+     * Creates an effect that causes the player to search Lost Pile for a card accepted by the specified filter and place
+     * it out of play.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param cardPileOwner the card pile owner
+     * @param filters the filter
+     * @param reshuffle true if pile is reshuffled, otherwise false
+     * @param topmost true if only the topmost cards should be chosen from, otherwise false
+     */
+    public PlaceCardOutOfPlayFromLostPileEffect(Action action, String playerId, String cardPileOwner, Filterable filters, boolean reshuffle, boolean topmost) {
+        super(action, playerId, cardPileOwner, 1, 1, filters, reshuffle, topmost);
+    }
+
+    /**
      * A callback method for the cards placed out of play.
      * @param cards the cards placed out of play
      */
