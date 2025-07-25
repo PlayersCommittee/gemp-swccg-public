@@ -673,6 +673,7 @@ public interface Title {
     String Leave_Them_To_Me = "Leave Them To Me";
     String Leebo = "LE-BO2D9 (Leebo)";
     String Leia_Of_Alderaan = "Leia Of Alderaan";
+    String Leias_Lightsaber = "Leia's Lightsaber";
     String Let_The_Wookiee_Win = "Let The Wookiee Win";
     String Let_Them_Make_The_First_Move = "Let Them Make The First Move";
     String Lets_Keep_A_Little_Optimism_Here = "Let's Keep A Little Optimism Here";

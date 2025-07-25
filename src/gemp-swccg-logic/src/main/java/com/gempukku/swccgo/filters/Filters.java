@@ -18445,6 +18445,7 @@ public class Filters {
     public static final Filter Leebo = Filters.title(Title.Leebo);
     public static final Filter Leia = Filters.persona(Persona.LEIA);
     public static final Filter Leia_Of_Alderaan = Filters.title(Title.Leia_Of_Alderaan);
+    public static final Filter Leias_Lightsaber = Filters.persona(Persona.LEIAS_LIGHTSABER);
     public static final Filter Let_The_Wookiee_Win = Filters.title(Title.Let_The_Wookiee_Win);
     public static final Filter Let_Them_Make_The_First_Move = Filters.title(Title.Let_Them_Make_The_First_Move);
     public static final Filter Lets_Keep_A_Little_Optimism_Here = Filters.title(Title.Lets_Keep_A_Little_Optimism_Here);
