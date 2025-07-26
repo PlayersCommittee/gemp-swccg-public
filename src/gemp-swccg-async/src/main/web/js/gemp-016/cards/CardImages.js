@@ -3751,6 +3751,7 @@ const fixedImages = {
 "501_44": "https://res.starwarsccg.org/cards/Virtual9-Dark/large/commenceprimaryignition.gif",
 "501_45": "https://res.starwarsccg.org/cards/Virtual16-Dark/large/shieldgate.gif",
 "501_46": "https://res.starwarsccg.org/cards/Virtual16-Dark/large/onthevergeofgreatness.gif",
+"501_47": "https://res.starwarsccg.org/cards/Virtual19-Dark/hires/noescape.png",
 "501_46_BACK": "https://res.starwarsccg.org/cards/Virtual16-Dark/large/takingcontroloftheweapon.gif",
 "501_48":"https://res.starwarsccg.org/cards/TheedPalace-Dark/large/theretheyare.gif",
 "501_50": "https://res.starwarsccg.org/cards/TheedPalace-Dark/large/darthsidious_ai.gif",
