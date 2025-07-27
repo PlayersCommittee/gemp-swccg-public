@@ -3777,7 +3777,7 @@ const fixedImages = {
 "501_111":"https://res.starwarsccg.org/cards/Virtual8-Dark/large/iwantthatmap.gif",
 "501_111_BACK":"https://res.starwarsccg.org/cards/Virtual8-Dark/large/andnowyoullgiveittome.gif",
 "501_112":"https://res.starwarsccg.org/cards/OfficialTournamentSealedDeck-Dark/large/dreadnaughtclassheavycruiser.gif",
-"501_113":"https://res.starwarsccg.org/cards/Dagobah-Dark/large/executor.gif",
+"501_113":"https://res.starwarsccg.org/cards/Dagobah-Dark/large/avenger.gif",
 "501_114":"https://res.starwarsccg.org/cards/EmpireStrikesBackIntroductoryTwoPlayerGame-Dark/large/imperialwalker.gif",
 "501_115":"https://res.starwarsccg.org/cards/Hoth-Dark/large/atatcannon.gif",
 "501_116":"https://res.starwarsccg.org/cards/Virtual3-Light/large/wildkarrde.gif",
