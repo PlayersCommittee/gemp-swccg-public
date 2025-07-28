@@ -11734,12 +11734,25 @@ public class Filters {
      * @return Filter
      */
     public static Filter canEscortCaptive(PhysicalCard captive, final boolean skipWarriorCheck) {
+        return canEscortCaptive(captive, skipWarriorCheck, false, false);
+    }
+
+    /**
+     * Filter that accepts cards that can escort the specified captive card.
+     *
+     * @param captive the captive
+     * @param skipWarriorCheck false if checking that the escort is a warrior, etc. true if skipping that check (e.g. There Is Good In Him)
+     * @param skipMaxCaptivesCheck false if checking that the escort has capacity for the new captive. true (skip) if an existing captive can be immediately released to make room for the new captive
+     * @param skipStarshipVehicleCapacityCheck false if checking that the escort's starship/vehicle has capacity for the new captive. true (skip) if the escort can immediately disembark for the purpose of seizing the new captive
+     * @return Filter
+     */
+    public static Filter canEscortCaptive(PhysicalCard captive, final boolean skipWarriorCheck, final boolean skipMaxCaptivesCheck, final boolean skipStarshipVehicleCapacityCheck) {
         final Integer permCaptiveCardId = captive.getPermanentCardId();
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 PhysicalCard captive = gameState.findCardByPermanentId(permCaptiveCardId);
-                return !physicalCard.isLeavingTable() && modifiersQuerying.canEscortCaptive(gameState, physicalCard, captive, skipWarriorCheck);
+                return !physicalCard.isLeavingTable() && modifiersQuerying.canEscortCaptive(gameState, physicalCard, captive, skipWarriorCheck, skipMaxCaptivesCheck, skipStarshipVehicleCapacityCheck);
             }
         };
     }

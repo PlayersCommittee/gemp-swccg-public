@@ -18,6 +18,7 @@ public class CaptureCharactersOnTableEffect extends AbstractSubActionEffect {
     private Collection<PhysicalCard> _remainingCards;
     private boolean _freezeCharacters;
     private PhysicalCard _cardFiringWeapon;
+    private boolean _seizeEvenIfNotPossible;
 
     /**
      * Creates an effect to capture the specified characters.
@@ -36,10 +37,23 @@ public class CaptureCharactersOnTableEffect extends AbstractSubActionEffect {
      * @param cardFiringWeapon the card that fired weapon that caused capture, or null
      */
     protected CaptureCharactersOnTableEffect(Action action, Collection<PhysicalCard> characters, boolean freezeCharacters, PhysicalCard cardFiringWeapon) {
+        this(action, characters, freezeCharacters, cardFiringWeapon, false);
+    }
+
+    /**
+     * Creates an effect to capture the specified characters.
+     * @param action the action performing this effect
+     * @param characters the characters to capture
+     * @param freezeCharacters true if the characters are 'frozen' when captured, otherwise false
+     * @param cardFiringWeapon the card that fired weapon that caused capture, or null
+     * @param seizeEvenIfNotPossible true if seizing the captive will be facilitated by immediately disembarking a starship/vehicle or releasing another captive
+     */
+    protected CaptureCharactersOnTableEffect(Action action, Collection<PhysicalCard> characters, boolean freezeCharacters, PhysicalCard cardFiringWeapon, boolean seizeEvenIfNotPossible) {
         super(action);
         _remainingCards = characters;
         _freezeCharacters = freezeCharacters;
         _cardFiringWeapon = cardFiringWeapon;
+        _seizeEvenIfNotPossible = seizeEvenIfNotPossible;
     }
 
     @Override
@@ -104,7 +118,7 @@ public class CaptureCharactersOnTableEffect extends AbstractSubActionEffect {
         protected void cardSelected(final PhysicalCard selectedCard) {
             // Perform the CaptureOneCharacterOnTableEffect on the selected card
             _subAction.appendEffect(
-                    new CaptureOneCharacterOnTableEffect(_subAction, selectedCard, _freezeCharacters, _cardFiringWeapon));
+                    new CaptureOneCharacterOnTableEffect(_subAction, selectedCard, _freezeCharacters, _cardFiringWeapon, _seizeEvenIfNotPossible));
             _subAction.appendEffect(
                     new PassthruEffect(_subAction) {
                         @Override

@@ -82,6 +82,18 @@ public interface Captives extends BaseQuery, MovementCosts {
 	 * @return true or false
 	 */
 	default boolean canEscortCaptive(GameState gameState, PhysicalCard escort, PhysicalCard captive, boolean skipWarriorCheck) {
+		return canEscortCaptive(gameState, escort, captive, skipWarriorCheck, true, true);
+	}
+
+	/**
+	 * Determines if a specified card can escort another specified card as a captive.
+	 * @param gameState the game state
+	 * @param escort the escort
+	 * @param captive the captive
+	 * @param skipWarriorCheck true if checking that escort is a warrior, etc. is skipped, otherwise false
+	 * @return true or false
+	 */
+	default boolean canEscortCaptive(GameState gameState, PhysicalCard escort, PhysicalCard captive, boolean skipWarriorCheck, boolean skipMaxCaptivesCheck, boolean skipStarshipVehicleCapacityCheck) {
 		// Need to allow if character is already a captive since Jabba's Prize is a Dark Side card
 		if ((!captive.isCaptive() && !captive.getOwner().equals(gameState.getLightPlayer()))
 				|| captive.getBlueprint().getCardCategory() != CardCategory.CHARACTER) {
@@ -96,7 +108,7 @@ public interface Captives extends BaseQuery, MovementCosts {
 		Collection<PhysicalCard> captives = gameState.getCaptivesOfEscort(escort);
 		if (!captives.contains(captive)) {
 
-			if (captives.size() >= maxCaptives) {
+			if (!skipMaxCaptivesCheck && captives.size() >= maxCaptives) {
 				return false;
 			}
 
@@ -108,7 +120,7 @@ public interface Captives extends BaseQuery, MovementCosts {
 			// If character is aboard a vehicle or starship (except vehicle/starship sites), unless captive already aboard that vehicle or starship,
 			// check if there is at least one available passenger slot, since the captive takes up a passenger slot
 			PhysicalCard attachedTo = escort.getAttachedTo();
-			if (attachedTo != null && (escort.isPilotOf() || escort.isPassengerOf())
+			if (!skipStarshipVehicleCapacityCheck && attachedTo != null && (escort.isPilotOf() || escort.isPassengerOf())
 					&& (attachedTo.getBlueprint().getCardCategory() == CardCategory.STARSHIP || attachedTo.getBlueprint().getCardCategory() == CardCategory.VEHICLE)) {
 				if ((!captive.isCaptive() || captive.getAttachedTo() == null || !Filters.or(Filters.piloting(attachedTo), Filters.aboardAsPassenger(attachedTo)).accepts(gameState, query(), captive.getAttachedTo()))
 						&& gameState.getAvailablePassengerCapacity(query(), attachedTo, captive) < 1) {
