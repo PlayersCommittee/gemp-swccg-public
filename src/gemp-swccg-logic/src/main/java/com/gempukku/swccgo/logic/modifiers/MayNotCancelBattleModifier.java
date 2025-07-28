@@ -26,6 +26,14 @@ public class MayNotCancelBattleModifier extends AbstractModifier {
     /**
      * Creates a modifier that prevents battles from being canceled by either player.
      * @param source the source of the modifier
+     */
+    public MayNotCancelBattleModifier(PhysicalCard source, Filter locationFilter) {
+        this(source, locationFilter, null, null);
+    }
+
+    /**
+     * Creates a modifier that prevents battles from being canceled by either player.
+     * @param source the source of the modifier
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      */
     public MayNotCancelBattleModifier(PhysicalCard source, Condition condition) {

@@ -3818,6 +3818,7 @@ const fixedImages = {
 "501_190":"https://res.starwarsccg.org/cards/Tatooine-Light/large/ajedisconcentration.gif",
 "501_191":"https://res.starwarsccg.org/cards/Virtual8-Light/large/restorefreedomtothegalaxy.gif",
 "501_192":"https://res.starwarsccg.org/cards/Coruscant-Light/large/newleadershipisneeded.gif",
+"501_193":"https://res.starwarsccg.org/cards/Virtual0-Light/large/hansheavyblasterpistol.gif",
 "501_196":"https://res.starwarsccg.org/cards/Tatooine-Light/large/neckandneck.gif",
 
 //legacy
