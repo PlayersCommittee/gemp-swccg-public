@@ -3047,6 +3047,19 @@ public class GameConditions {
      * @param playerId the player
      * @param self the self
      * @param gameTextActionId the identifier for the card's specific action to perform the search
+     * @param title card that can be chosen to deploy that is identified by title
+     * @return true or false
+     */
+    public static boolean canDeployCardFromLostPile(SwccgGame game, String playerId, PhysicalCard self, GameTextActionId gameTextActionId, String title) {
+        return canDeployCardFromCardPile(game, playerId, self, Zone.LOST_PILE, gameTextActionId, false, false, Collections.<Persona>emptySet(), Collections.singletonList(title));
+    }
+
+    /**
+     * Checks if the player can deploy a card from Lost Pile.
+     * @param game the game
+     * @param playerId the player
+     * @param self the self
+     * @param gameTextActionId the identifier for the card's specific action to perform the search
      * @param skipDeployPhaseCheck true if checking it is the player's deploy phase is skipped, otherwise false
      * @param persona persona that can be chosen to deploy that are identified by persona
      * @return true or false

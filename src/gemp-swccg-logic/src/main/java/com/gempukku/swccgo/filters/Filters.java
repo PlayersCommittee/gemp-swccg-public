@@ -18197,6 +18197,7 @@ public class Filters {
     public static final Filter handmaiden = Filters.keyword(Keyword.HANDMAIDEN);
     public static final Filter Hans_Back = Filters.title(Title.Hans_Back);
     public static final Filter Hans_Dice = Filters.title(Title.Hans_Dice);
+    public static final Filter Hans_Heavy_Blaster_Pistol = Filters.title(Title.Hans_Heavy_Blaster_Pistol);
     public static final Filter Hans_Toolkit = Filters.title(Title.Hans_Toolkit);
     public static final Filter Harc = Filters.title(Title.Harc);
     public static final Filter Harvest = Filters.title(Title.Harvest);

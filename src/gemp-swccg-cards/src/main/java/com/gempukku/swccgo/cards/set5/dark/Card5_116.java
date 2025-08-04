@@ -58,7 +58,7 @@ public class Card5_116 extends AbstractImmediateEffect {
             rebelCapturedOrFrozen = ((FrozenResult) effectResult).getCaptive();
         }
 
-        if (rebelCapturedOrFrozen != null && GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(rebelCapturedOrFrozen, Filters.captive))) {
+        if (rebelCapturedOrFrozen != null) {
 
             PlayCardAction action = getPlayCardAction(playerId, game, self, self, false, 0, null, null, null, null, null, false, 0, Filters.and(Filters.other(rebelCapturedOrFrozen), Filters.Rebel), null);
             if (action != null) {
@@ -89,7 +89,8 @@ public class Card5_116 extends AbstractImmediateEffect {
         // Check condition(s)
         PhysicalCard captive = self.getTargetedCard(game.getGameState(), TargetId.IMMEDIATE_EFFECT_TARGET_1);
         if (captive != null && (TriggerConditions.released(game, effectResult, captive)
-                || TriggerConditions.leavesTable(game, effectResult, captive))) {
+                || TriggerConditions.leavesTable(game, effectResult, captive)
+                || (TriggerConditions.justDeployed(game, effectResult, self) && !GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, captive)))) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Make lost");
