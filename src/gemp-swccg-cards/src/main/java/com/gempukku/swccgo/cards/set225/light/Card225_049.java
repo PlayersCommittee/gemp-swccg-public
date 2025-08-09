@@ -41,7 +41,7 @@ import java.util.List;
 
 public class Card225_049 extends AbstractAlienRebel {
     public Card225_049() {
-        super(Side.LIGHT, 1, 4, 3, 3, 5, "Lando With Blaster Rifle", Uniqueness.UNIQUE, ExpansionSet.SET_25, Rarity.V);
+        super(Side.LIGHT, 1, 3, 3, 3, 5, "Lando With Blaster Rifle", Uniqueness.UNIQUE, ExpansionSet.SET_25, Rarity.V);
         setLore("Works every time. Smuggler.");
         setGameText("[Pilot] 2. Permanent weapon is •Lando's Blaster Rifle (may target a character for free; draw destiny; target hit, and its forfeit = 0, if destiny +1 > defense value). During battle, if your total battle destiny is odd, may retrieve 1 Force (2 if total is 11).");
         addPersona(Persona.LANDO);
