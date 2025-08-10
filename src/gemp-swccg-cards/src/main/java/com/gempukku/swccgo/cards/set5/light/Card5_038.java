@@ -39,7 +39,7 @@ public class Card5_038 extends AbstractLostInterrupt {
     public Card5_038() {
         super(Side.LIGHT, 3, Title.Clash_Of_Sabers, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLore("Weooww-bzzzzt-bzt-weoww-bzzzt-weoww-weow-bzt-bzt-bzt-weow-bzzzzzt!");
-        setGameText("Use 2 Force to target a character present with your warrior with a lightsaber. Target cannot move or battle until the end of your next turn. OR Use 1 Force to search your Reserve Deck, take one Uncontrollable Fury into hand and reshuffle. OR Cancel Presence Of The Force.");
+        setGameText("Use 2 Force to target a character present with your warrior with a lightsaber. Target cannot move or battle until end of your next turn. OR Use 1 Force to search your Reserve Deck, take one Uncontrollable Fury into hand and reshuffle. OR Cancel Presence Of The Force.");
         addIcons(Icon.CLOUD_CITY);
     }
 

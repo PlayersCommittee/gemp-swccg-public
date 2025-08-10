@@ -100,27 +100,27 @@ public interface GameProperties extends TestBase {
 	default int GetPlayerLifeForceRemaining(String player) { return gameState().getPlayerLifeForce(player); }
 
 	/**
-	 * @param site The location to check.
+	 * @param location The location to check.
 	 * @return All cards "at" the current location, but not their attached cards, pilots, passengers, or other esoteria.
 	 */
-	default List<PhysicalCard> GetCardsAtLocation(PhysicalCardImpl site) { return gameState().getCardsAtLocation(site); }
+	default List<PhysicalCard> GetCardsAtLocation(PhysicalCardImpl location) { return gameState().getCardsAtLocation(location); }
 
 	/**
 	 * Checks that all the provided cards are "at" the given location.  A card is not "at" that site if they are riding
 	 * or piloting a vehicle or ship, or are otherwise attached or stacked on a card "at" that site.
-	 * @param site The location to check.
+	 * @param location The location to check.
 	 * @param cards The cards to search for.
 	 * @return True if all cards are "at" the given location, false if any are not.
 	 */
-	default boolean CardsAtLocation(PhysicalCardImpl site, PhysicalCardImpl...cards) {
-		return GetCardsAtLocation(site).containsAll(Arrays.stream(cards).toList());
+	default boolean CardsAtLocation(PhysicalCardImpl location, PhysicalCardImpl...cards) {
+		return GetCardsAtLocation(location).containsAll(Arrays.stream(cards).toList());
 	}
 
-	default int GetDSAbilityAtLocation(PhysicalCardImpl site) {
-		return (int) game().getModifiersQuerying().getTotalAbilityAtLocation(gameState(), DS, site);
+	default int GetDSAbilityAtLocation(PhysicalCardImpl location) {
+		return (int) game().getModifiersQuerying().getTotalAbilityAtLocation(gameState(), DS, location);
 	}
 
-	default int GetLSAbilityAtLocation(PhysicalCardImpl site) {
-		return (int) game().getModifiersQuerying().getTotalAbilityAtLocation(gameState(), LS, site);
+	default int GetLSAbilityAtLocation(PhysicalCardImpl location) {
+		return (int) game().getModifiersQuerying().getTotalAbilityAtLocation(gameState(), LS, location);
 	}
 }
