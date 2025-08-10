@@ -118,7 +118,7 @@ public class TakeStackedCardsIntoHandEffect extends AbstractSubActionEffect {
                                 new RemovedFromStackedResult(subAction));
                         for (PhysicalCard cardStolen : _cardsStolen) {
                             game.getActionsEnvironment().emitEffectResult(
-                                    new StolenResult(_playerId, cardStolen, null));
+                                    new StolenResult(_playerId, cardStolen, null, null));
                         }
                     }
                 }

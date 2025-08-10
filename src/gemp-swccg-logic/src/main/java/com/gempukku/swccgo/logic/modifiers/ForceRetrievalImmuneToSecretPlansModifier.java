@@ -4,6 +4,7 @@ import com.gempukku.swccgo.common.Filterable;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * A modifier that causes Force retrieve from specified cards to be immune to Secret Plans.

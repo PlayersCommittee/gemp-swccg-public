@@ -8,6 +8,7 @@ import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -28,7 +29,7 @@ import java.util.List;
  */
 public class Card5_018 extends AbstractNormalEffect {
     public Card5_018() {
-        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, "Beldon's Eye", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
+        super(Side.LIGHT, 6, PlayCardZoneOption.ATTACHED, Title.Beldons_Eye, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Symbol for the Cloud City Miner's Guild (not affiliated with the Galactic Miner's Guild). Named after the beldons, giant creatures who generate Tibanna gas.");
         setGameText("Deploy on Cloud City. Your Tibanna Gas Miners deploy free to Cloud City sites and double the Force they activate.");
         addIcons(Icon.CLOUD_CITY);

@@ -28,6 +28,7 @@ import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardsInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.effects.RestoreCardToNormalEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.ForceGenerationModifier;
 import com.gempukku.swccgo.logic.modifiers.InitiateForceDrainCostModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
@@ -54,10 +55,7 @@ public class Card215_017_BACK extends AbstractObjective {
     public Card215_017_BACK() {
         super(Side.LIGHT, 7, Title.Sometimes_I_Amaze_Even_Myself, ExpansionSet.SET_15, Rarity.V);
         setVirtualSuffix(true);
-        setGameText("For remainder of game, I Can't Believe He's Gone may only add power in battles involving Leia or Luke." +
-                "While this side up, for opponent to initiate a Force drain, opponent must use +1 Force. Whenever you 'hit' a character with a blaster, opponent loses 1 Force. May place Obi-Wan out of play from a Death Star site to cancel a battle just initiated anywhere on Death Star. During opponent's draw phase, if opponent did not initiate a battle this turn, may retrieve 1 Force." +
-                "Flip this card if Leia is not at a Death Star site.");
-        setGameText("While this side up, for opponent to initiate a Force drain, opponent must use +1 Force. Your Death Star sites are immune to Set Your Course for Alderaan. Once per turn, if you just 'hit' a character with a blaster, opponent loses 1 Force. May place Obi-Wan out of play from a Death Star site to cancel a battle just initiated anywhere on Death Star. I Can't Believe He's Gone is canceled. During opponent's draw phase, if opponent did not initiate a battle this turn, may retrieve 1 Force.\n" +
+        setGameText("While this side up, for opponent to initiate a Force drain, opponent must use +1 Force. Your Death Star sites are immune to Set Your Course For Alderaan. Once per turn, if you just 'hit' a character with a blaster, opponent loses 1 Force. May place Obi-Wan out of play from a Death Star site to cancel a battle just initiated anywhere on Death Star. I Can't Believe He's Gone is canceled. During opponent's draw phase, if opponent did not initiate a battle this turn, may retrieve 1 Force. " +
                 "Flip this card if Leia is not at a Death Star site.");
         addIcons(Icon.A_NEW_HOPE, Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_15);
         hideFromDeckBuilder();
@@ -79,12 +77,34 @@ public class Card215_017_BACK extends AbstractObjective {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
         String opponent = game.getOpponent(playerId);
 
+        List<TopLevelGameTextAction> actions = new LinkedList<>();
+
+        GameTextActionId gameTextActionId = GameTextActionId.RESCUE_THE_PRINCESS_V__DOWNLOAD_SITE;
+
+        // Check condition(s)
+        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
+
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Deploy Death Star site from Reserve Deck");
+            action.setActionMsg("Deploy a Death Star site from Reserve Deck");
+            // Update usage limit(s)
+            action.appendUsage(
+                    new OncePerTurnEffect(action));
+            // Perform result(s)
+            action.appendEffect(
+                    new DeployCardFromReserveDeckEffect(action, Filters.Death_Star_site, true));
+            actions.add(action);
+        }
+
+
+        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
         // Check condition(s)
         if (GameConditions.isDuringOpponentsPhase(game, playerId, Phase.DRAW)
                 && !GameConditions.hasInitiatedBattleThisTurn(game, opponent)
-                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)) {
+                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
 
-            TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId);
+            TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Retrieve 1 Force");
             // Perform result(s)
             action.appendUsage(
@@ -92,9 +112,9 @@ public class Card215_017_BACK extends AbstractObjective {
             );
             action.appendEffect(
                     new RetrieveForceEffect(action, playerId, 1));
-            return Collections.singletonList(action);
+            actions.add(action);
         }
-        return null;
+        return actions;
     }
 
     @Override

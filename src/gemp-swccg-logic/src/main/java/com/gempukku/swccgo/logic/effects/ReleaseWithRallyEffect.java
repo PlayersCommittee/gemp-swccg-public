@@ -59,9 +59,12 @@ public class ReleaseWithRallyEffect extends AbstractSuccessfulEffect {
             gameState.cardAffectsCard(_performingPlayer, source, _captive);
         }
 
-        _captive.setCaptive(false);
+        _captive.setCaptiveEscort(null);
         _captive.setImprisoned(false);
         _captive.setFrozen(false);
+        //Something like this needs to be done to ensure that captives who have marked their escort as a
+        // target are no longer displaying that stale target in the UI.
+        //_captive.clearTargetedCards();
         game.getModifiersEnvironment().removeEndOfCaptivity(_captive);
 
         if (rallyToLocation)

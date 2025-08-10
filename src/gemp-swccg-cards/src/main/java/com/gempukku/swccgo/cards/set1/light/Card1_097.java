@@ -20,13 +20,14 @@ import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.PutCardFromVoidInLostPileEffect;
 import com.gempukku.swccgo.logic.effects.PutCardInVoidEffect;
+import com.gempukku.swccgo.logic.effects.RecordCardsBeingPlayedEffect;
 import com.gempukku.swccgo.logic.effects.RelocateBetweenLocationsEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardsOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.FailCostEffect;
@@ -100,6 +101,12 @@ public class Card1_097 extends AbstractUsedInterrupt {
                                                                 final GameState gameState = game.getGameState();
                                                                 action.addAnimationGroup(cardsToRelocate);
                                                                 action.addAnimationGroup(toSite);
+
+                                                                // At this point, mark the card as 'played'. If the subsequent costs
+                                                                // fail, we need to record that the player attempted to play this card
+                                                                // (by default, gemp records cards played only after all costs have been successfully paid)
+                                                                action.appendCost(new RecordCardsBeingPlayedEffect(action, Collections.singleton(self)));
+
                                                                 gameState.sendMessage(playerId + " targets to 'transport' " + GameUtils.getAppendedNames(cardsToRelocate) + " to " + GameUtils.getCardLink(toSite) + " using " + GameUtils.getCardLink(self));
                                                                 // Pay cost(s)
                                                                 // Draw destiny to determine cost to 'transport'

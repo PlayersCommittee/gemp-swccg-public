@@ -4,6 +4,7 @@ import com.gempukku.swccgo.common.Filterable;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * A game text modifier. This is used when a card changes the game text of another card in a very specific way. These

@@ -48,7 +48,7 @@ public class Card210_007 extends AbstractNormalEffect {
         }
         
         Filter yourAliens = Filters.and(Filters.your(playerId), Filters.alien);
-        Filter yourAliensAtLocations = Filters.and(yourAliens, Filters.atLocation(Filters.any));
+        Filter yourAliensAtLocations = Filters.and(yourAliens, Filters.at(Filters.any));
         Filter locationsWithYourAlien = Filters.sameLocationAs(self, yourAliens);
         Filter battlegroundsWithYourAlien = Filters.and(Filters.battleground, locationsWithYourAlien);
 

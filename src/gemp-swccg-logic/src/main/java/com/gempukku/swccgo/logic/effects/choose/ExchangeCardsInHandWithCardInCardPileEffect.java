@@ -100,6 +100,23 @@ public class ExchangeCardsInHandWithCardInCardPileEffect extends AbstractSubActi
      * @param hiddenFromHand true if the card exchanged from hand should be hidden from opponent
      */
     protected ExchangeCardsInHandWithCardInCardPileEffect(Action action, String playerId, Zone cardPile, int minimum, int maximum, Filterable cardsInHandFilter, Filterable cardInPileFilter, boolean reshuffle, boolean hiddenFromHand) {
+        this(action, playerId, cardPile, minimum, maximum, cardsInHandFilter, cardInPileFilter, reshuffle, hiddenFromHand, false);
+    }
+
+    /**
+     * Creates an effect to exchange cards from hand with a card from the specified card pile.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param cardPile the card pile to exchange cards with
+     * @param minimum the minimum number of cards from hand to exchange
+     * @param maximum the maximum number of cards from hand to exchange
+     * @param cardsInHandFilter the cards in hand filter
+     * @param cardInPileFilter the cards in pile filter
+     * @param reshuffle true if the card pile is reshuffled after the exchange, otherwise false
+     * @param hiddenFromHand true if the card exchanged from hand should be hidden from opponent
+     * @param hiddenFromPile true if the card exchanged from pile should be hidden from opponent
+     */
+    protected ExchangeCardsInHandWithCardInCardPileEffect(Action action, String playerId, Zone cardPile, int minimum, int maximum, Filterable cardsInHandFilter, Filterable cardInPileFilter, boolean reshuffle, boolean hiddenFromHand, boolean hiddenFromPile) {
         super(action);
         _playerId = playerId;
         _cardPile = cardPile;
@@ -108,7 +125,7 @@ public class ExchangeCardsInHandWithCardInCardPileEffect extends AbstractSubActi
         _cardsInHandFilter = cardsInHandFilter;
         _cardInPileFilter = cardInPileFilter;
         _hiddenFromHand = hiddenFromHand;
-        _hiddenFromPile = false;
+        _hiddenFromPile = hiddenFromPile;
         _reshuffle = reshuffle;
     }
 

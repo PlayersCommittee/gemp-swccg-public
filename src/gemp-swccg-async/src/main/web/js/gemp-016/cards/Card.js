@@ -431,7 +431,16 @@ class Card {
                    (cardNo == 48);
         }if(setNo == 224){
             return (cardNo == 13) ||
-                   (cardNo == 22); 
+                   (cardNo == 22);
+		}if(setNo == 225){
+            return (cardNo == 16) ||
+                   (cardNo == 17) ||
+                   (cardNo == 28) ||
+                   (cardNo == 29) ||
+                   (cardNo == 30) ||
+                   (cardNo == 40) ||
+                   (cardNo == 41) ||
+                   (cardNo == 44);				   
         }if(setNo == 302) {
 			return (cardNo == 9) ||
 			       (cardNo == 16) ||
@@ -456,30 +465,29 @@ class Card {
 			return (cardNo == 9) ||
 				   (cardNo == 12) ||
 				   (cardNo >= 30 && cardNo <= 31) ||
-				   (cardNo == 41);
-		}if (setNo == 501) {
-            return (cardNo == 6) ||
+				   (cardNo == 41); 
+        }if (setNo == 501) {
+            return (cardNo == 4) ||
+                   (cardNo == 6) ||
                    (cardNo == 7) ||
                    (cardNo == 8) ||
                    (cardNo == 13) ||
                    (cardNo == 21) ||
+				   (cardNo == 22) ||
                    (cardNo == 24) ||
-                   (cardNo == 27) ||
                    (cardNo == 29) ||
+                   (cardNo == 34) ||
                    (cardNo == 36) ||
                    (cardNo == 38) ||
                    (cardNo == 39) ||
-                   (cardNo == 47) ||
                    (cardNo == 108) ||
                    (cardNo == 109) ||
-                   (cardNo == 113) ||
                    (cardNo == 118) ||
+                   (cardNo == 160) ||
+                   (cardNo == 164) ||
                    (cardNo == 171) ||
-                   (cardNo == 173) ||
-                   (cardNo == 204) ||
-                   (cardNo == 209) ||
-                   (cardNo == 216) ||
-                   (cardNo == 220);
+                   (cardNo == 186) ||
+                   (cardNo == 187);
         }
         if (setNo == 601) {
              return (cardNo == 14) ||

@@ -15,6 +15,6 @@ public class LoseForceFromInsertCardEffect extends LoseForceEffect {
      * @param amount the amount of Force to lose
      */
     public LoseForceFromInsertCardEffect(Action action, String playerToLoseForce, float amount) {
-        super(action, playerToLoseForce, amount, false, false, true, false, false, false, null,false, false);
+        super(action, playerToLoseForce, amount, false, null, true, false, false, false, null,false, false);
     }
 }

@@ -35,7 +35,7 @@ import java.util.List;
 public class Card223_014 extends AbstractUsedInterrupt {
     public Card223_014() {
         super(Side.DARK, 3, "Imperial Assault", Uniqueness.UNIQUE, ExpansionSet.SET_23, Rarity.V);
-        setGameText("Destiny +1 for each of your battlegrounds on table when drawn for weapon or battle destiny (limit +4). If you have deployed four battlegrounds this game: place this card in your force pile and shuffle. OR During battle, your total power is +2.");
+        setGameText("When drawn for weapon or battle destiny, destiny +1 for each of your battlegrounds on table (limit +4). If you have deployed four battlegrounds, choose: Shuffle this card into your Force pile. OR During battle, add 2 to your total power.");
         addIcons(Icon.VIRTUAL_SET_23);
     }    
     @Override
@@ -59,7 +59,7 @@ public class Card223_014 extends AbstractUsedInterrupt {
         {
 
             final PlayInterruptAction forcePileAction = new PlayInterruptAction(game, self);
-            forcePileAction.setText("Place this card in your force pile");
+            forcePileAction.setText("Shuffle this card into Force Pile");
             // Allow response(s)
             forcePileAction.allowResponses(
                     new RespondablePlayCardEffect(forcePileAction) {

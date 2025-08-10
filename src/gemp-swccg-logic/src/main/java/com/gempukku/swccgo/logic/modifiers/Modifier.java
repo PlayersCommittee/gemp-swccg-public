@@ -14,6 +14,7 @@ import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collection;
@@ -326,6 +327,7 @@ public interface Modifier {
 
     float getManeuverModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
     float getUnmodifiableManeuverModifier(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard);
+    float getManeuverModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
 
     float getArmorModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
     float getUnmodifiableArmorModifier(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard);

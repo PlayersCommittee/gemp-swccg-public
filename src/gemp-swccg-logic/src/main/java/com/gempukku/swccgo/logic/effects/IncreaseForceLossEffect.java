@@ -8,7 +8,7 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.modifiers.BattleDamageModifier;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifier;
 import com.gempukku.swccgo.logic.modifiers.ForceLossModifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersEnvironment;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersEnvironment;
 import com.gempukku.swccgo.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 

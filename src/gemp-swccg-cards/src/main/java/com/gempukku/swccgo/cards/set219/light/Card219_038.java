@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set219.light;
 
 import com.gempukku.swccgo.cards.AbstractSystem;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
@@ -25,7 +26,7 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromHandEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.IconModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.MovesFreeToLocationModifier;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
 
@@ -74,6 +75,8 @@ public class Card219_038 extends AbstractSystem {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId);
                 action.setText("Deploy Ghost and Hera");
+                // Update usage limit(s)
+                action.appendUsage(new OncePerGameEffect(action));
                 // Choose target(s)
                 if (!validGhostsInHand.isEmpty() && canDeployCardFromReserveDeck) {
                     action.appendTargeting(

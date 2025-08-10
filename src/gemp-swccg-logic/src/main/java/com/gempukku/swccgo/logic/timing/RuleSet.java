@@ -2,7 +2,7 @@ package com.gempukku.swccgo.logic.timing;
 
 import com.gempukku.swccgo.game.ActionsEnvironment;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.ModifiersEnvironment;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersEnvironment;
 import com.gempukku.swccgo.logic.timing.rules.*;
 
 /**

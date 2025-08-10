@@ -40,7 +40,7 @@ import java.util.List;
 
 public class Card223_027 extends AbstractUsedOrLostInterrupt {
     public Card223_027() {
-        super(Side.DARK, 6, "Young Fool", Uniqueness.UNIQUE, ExpansionSet.SET_23, Rarity.V);
+        super(Side.DARK, 6, Title.Young_Fool, Uniqueness.UNIQUE, ExpansionSet.SET_23, Rarity.V);
         setLore("Now, young Skywalker... you will die");
         setGameText("USED: If you have two battlegrounds on table and opponent does not, activate up to 2 Force. LOST: Cancel Disarmed or Jedi Presence. OR During your turn, if Sidious in battle and no other Dark Jedi participating, add one destiny to total power.");
         setVirtualSuffix(true);

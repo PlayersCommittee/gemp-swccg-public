@@ -67,7 +67,7 @@ public class Card12_111 extends AbstractRepublic {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
+        modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2, Filters.starship));
         modifiers.add(new ForfeitModifier(self, new PilotingCondition(self), 2));
         return modifiers;
     }

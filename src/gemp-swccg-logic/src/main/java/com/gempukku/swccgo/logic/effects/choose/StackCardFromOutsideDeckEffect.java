@@ -18,6 +18,18 @@ public class StackCardFromOutsideDeckEffect extends StackCardsFromOutsideDeckEff
      * @param cardFilter the filter for the card to be stacked
      */
     public StackCardFromOutsideDeckEffect(Action action, String playerId, PhysicalCard stackOn, Filterable cardFilter) {
-        super(action, playerId, 1, 1, stackOn, cardFilter);
+        this(action, playerId, stackOn, true, cardFilter);
+    }
+
+    /**
+     * Creates an effect that stacks a card from outside of deck on a specified card.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param stackOn the card to stack on
+     * @param faceDown true if the card will be stacked face down
+     * @param cardFilter the filter for the card to be stacked
+     */
+    public StackCardFromOutsideDeckEffect(Action action, String playerId, PhysicalCard stackOn, boolean faceDown, Filterable cardFilter) {
+        super(action, playerId, 1, 1, stackOn, faceDown, cardFilter);
     }
 }

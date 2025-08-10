@@ -27,7 +27,7 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.DrawRaceDestinyEffect;
 import com.gempukku.swccgo.logic.effects.FinishPodraceEffect;
 import com.gempukku.swccgo.logic.effects.InitiatePodraceEffect;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 

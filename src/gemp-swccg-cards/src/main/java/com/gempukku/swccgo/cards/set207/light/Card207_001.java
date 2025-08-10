@@ -71,7 +71,7 @@ public class Card207_001 extends AbstractRebel {
         return null;
     }
 
-    // Define "Baze’s Cannon" permanent weapon
+    // Define "Baze's Cannon" permanent weapon
     @Override
     protected AbstractPermanentWeapon getGameTextPermanentWeapon() {
         AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Title.Bazes_Cannon, Uniqueness.UNIQUE) {

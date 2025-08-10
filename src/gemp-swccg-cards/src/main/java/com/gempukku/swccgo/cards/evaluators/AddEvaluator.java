@@ -5,7 +5,7 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.evaluators.BaseEvaluator;
 import com.gempukku.swccgo.logic.evaluators.ConstantEvaluator;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * An evaluator that returns the result of the specified evaluator with the specified amount added.
@@ -24,7 +24,7 @@ public class AddEvaluator extends BaseEvaluator {
     }
 
     /**
-     * Creates an evaluator that returns the result of the specified amou with the specified amount added.
+     * Creates an evaluator that returns the result of the specified amount with the specified amount added.
      * @param initialAmount the initial amount
      * @param amountsToAdd the evaluators for the amounts to add
      */

@@ -53,7 +53,7 @@ public class Card11_061 extends AbstractAlien {
         String opponent = game.getOpponent(playerId);
 
         // Check condition(s)
-        if (TriggerConditions.isBattleDestinyJustDrawnBy(game, effectResult, opponent)
+        if (TriggerConditions.isDestinyJustDrawnBy(game, effectResult, opponent)
                 && GameConditions.isInBattle(game, self)
                 && GameConditions.canMakeDestinyCardLost(game)
                 && GameConditions.isDestinyCardMatchTo(game, Filters.Interrupt)

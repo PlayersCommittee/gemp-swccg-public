@@ -21,23 +21,27 @@ public class RegisterRequestHandler extends SwccgoServerRequestHandler implement
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         if ("".equals(uri) && request.method() == HttpMethod.POST) {
             HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-            String login = getFormParameterSafely(postDecoder, "login");
-            String password = getFormParameterSafely(postDecoder, "password");
             try {
-                if (!_gempSettingDAO.newAccountRegistrationEnabled()) {
-                    throw new RegisterNotAllowedException();
+                String login = getFormParameterSafely(postDecoder, "login");
+                String password = getFormParameterSafely(postDecoder, "password");
+                try {
+                    if (!_gempSettingDAO.newAccountRegistrationEnabled()) {
+                        throw new RegisterNotAllowedException();
+                    }
+                    if (_playerDao.registerPlayer(login, password, remoteIp)) {
+                        responseWriter.writeXmlResponse(null, logUserReturningHeaders(remoteIp, login));
+                    } else {
+                        throw new HttpProcessingException(403);
+                    }
+                } catch (LoginInvalidException exp) {
+                    throw new HttpProcessingException(400);
+                } catch (RegisterNotAllowedException exp) {
+                    throw new HttpProcessingException(405);
                 }
-                if (_playerDao.registerPlayer(login, password, remoteIp)) {
-                    responseWriter.writeXmlResponse(null, logUserReturningHeaders(remoteIp, login));
-                } else {
-                    throw new HttpProcessingException(403);
-                }
-            } catch (LoginInvalidException exp) {
-                throw new HttpProcessingException(400);
-            } catch (RegisterNotAllowedException exp) {
-                throw new HttpProcessingException(405);
             }
-
+            finally {
+                postDecoder.destroy();
+            }
         } else {
             responseWriter.writeError(404);
         }

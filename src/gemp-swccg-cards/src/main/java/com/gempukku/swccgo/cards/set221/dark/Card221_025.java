@@ -29,7 +29,7 @@ import com.gempukku.swccgo.logic.effects.ResetPowerUntilEndOfTurnEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -47,7 +47,7 @@ public class Card221_025 extends AbstractImperial {
     public Card221_025() {
         super(Side.DARK, 3, 3, 3, 3, 5, "Lieutenant Dedra Meero", Uniqueness.UNIQUE, ExpansionSet.SET_21, Rarity.V);
         setLore("Female ISB leader.");
-        setGameText("When deployed, may target an opponent’s spy present to be power = 0 until end of turn. Once per turn, if an ISB agent on table, may place a card from hand on Used Pile; the next ISB agent you deploy this turn is deploy -1.");
+        setGameText("When deployed, may target an opponent's spy present to be power = 0 until end of turn. Once per turn, if an ISB agent on table, may place a card from hand on Used Pile; the next ISB agent you deploy this turn is deploy -1.");
         addIcons(Icon.WARRIOR, Icon.VIRTUAL_SET_21);
         addKeywords(Keyword.FEMALE, Keyword.LEADER);
     }
@@ -105,7 +105,7 @@ public class Card221_025 extends AbstractImperial {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Place card from hand on Used Pile");
-            action.setActionMsg("Make the next ISB agent you deploy this turn deploy -1");
+            action.setActionMsg("Make the next ISB agent they deploy this turn deploy -1");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));

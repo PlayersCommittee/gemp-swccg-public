@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card2_120 extends AbstractNormalEffect {
     public Card2_120() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Hyperwave Scan", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.U1);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Hyperwave_Scan, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("Full Imperial scans include full-spectrum transceivers, dedicated energy receptors, crystal gravfield traps, and hyperwave signal interceptors.");
         setGameText("Deploy on your side of table. Scanning Crew is immune to Sense. If Scanning Crew is played against an opponent who has 13 or more cards in hand, opponent also loses all cards with 'Rebel' in the title found there.");
         addIcons(Icon.A_NEW_HOPE);

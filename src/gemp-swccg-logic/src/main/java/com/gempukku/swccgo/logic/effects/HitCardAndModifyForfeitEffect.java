@@ -11,9 +11,13 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.SubAction;
 import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersEnvironment;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
-import com.gempukku.swccgo.logic.timing.*;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersEnvironment;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
+import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
+import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.GuiUtils;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.AboutToBeHitResult;
 import com.gempukku.swccgo.logic.timing.results.HitResult;
 import com.gempukku.swccgo.logic.timing.results.ResetOrModifyCardAttributeResult;
@@ -34,6 +38,7 @@ public class HitCardAndModifyForfeitEffect extends AbstractSubActionEffect imple
     private PhysicalCard _cardFiringWeapon;
     private Set<PhysicalCard> _preventedCards = new HashSet<PhysicalCard>();
     private HitCardAndModifyForfeitEffect _that;
+    private boolean _cumulative;
 
     /**
      * Creates an effect to 'hit' a card and modifies its forfeit value.
@@ -45,12 +50,33 @@ public class HitCardAndModifyForfeitEffect extends AbstractSubActionEffect imple
      * @param cardFiringWeapon the card that fired the weapon
      */
     public HitCardAndModifyForfeitEffect(Action action, PhysicalCard cardHitAndReset, float modifierAmount, PhysicalCard hitByCard, SwccgBuiltInCardBlueprint hitByPermanentWeapon, PhysicalCard cardFiringWeapon) {
+        this(action, cardHitAndReset, modifierAmount, hitByCard, hitByPermanentWeapon, cardFiringWeapon, false);
+        _cardHitAndReset = cardHitAndReset;
+        _modifierAmount = modifierAmount;
+        _hitByCard = hitByCard;
+        _hitByPermanentWeapon = hitByPermanentWeapon;
+        _cardFiringWeapon = cardFiringWeapon;
+        _that = this;
+    }
+
+    /**
+     * Creates an effect to 'hit' a card and modifies its forfeit value.
+     * @param action the action performing this effect
+     * @param cardHitAndReset the card that is hit and whose forfeit value is reset
+     * @param modifierAmount the forfeit modifier amount
+     * @param hitByCard the card the card was hit by
+     * @param hitByPermanentWeapon the permanent weapon that hit the card
+     * @param cardFiringWeapon the card that fired the weapon
+     * @param cumulative boolean to apply the forfeit modifier cumulatively
+     */
+    public HitCardAndModifyForfeitEffect(Action action, PhysicalCard cardHitAndReset, float modifierAmount, PhysicalCard hitByCard, SwccgBuiltInCardBlueprint hitByPermanentWeapon, PhysicalCard cardFiringWeapon, boolean cumulative) {
         super(action);
         _cardHitAndReset = cardHitAndReset;
         _modifierAmount = modifierAmount;
         _hitByCard = hitByCard;
         _hitByPermanentWeapon = hitByPermanentWeapon;
         _cardFiringWeapon = cardFiringWeapon;
+        _cumulative = cumulative;
         _that = this;
     }
 
@@ -122,7 +148,7 @@ public class HitCardAndModifyForfeitEffect extends AbstractSubActionEffect imple
                                                 // Filter for same card while it is in play
                                                 Filter cardFilter = Filters.and(Filters.sameCardId(_cardHitAndReset), Filters.or(Filters.onTable, Filters.canBeTargetedByWeaponAsIfPresent));
 
-                                                Modifier modifier = new ForfeitModifier(source, cardFilter, _modifierAmount);
+                                                Modifier modifier = new ForfeitModifier(source, cardFilter, _modifierAmount, _cumulative);
                                                 modifier.skipSettingNotRemovedOnRestoreToNormal();
 
                                                 // If during battle and the source if the action is not a weapon, then reset until end of the battle, otherwise

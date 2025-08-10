@@ -40,8 +40,8 @@ import java.util.List;
 public class Card223_036 extends AbstractSite {
     public Card223_036() {
         super(Side.LIGHT, Title.Docking_Control_Room_327, Title.Death_Star, Uniqueness.UNIQUE, ExpansionSet.SET_23, Rarity.V);
-        setLocationLightSideGameText("May deploy [Set 15] C-3PO from Reserve Deck here; reshuffle.");
-        setLocationDarkSideGameText("Luke may not be captured here. Restraining Bolt canceled here.");
+        setLocationLightSideGameText("May [download] [Set 15] C-3PO here.");
+        setLocationDarkSideGameText("Luke may not be captured here. Restraining Bolt here is canceled.");
         addIcon(Icon.LIGHT_FORCE, 2);
         addIcon(Icon.DARK_FORCE, 1);
         addIcons(Icon.INTERIOR_SITE, Icon.MOBILE, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_23);
@@ -53,8 +53,8 @@ public class Card223_036 extends AbstractSite {
 
         if (GameConditions.canDeployCardFromReserveDeck(game, playerOnLightSideOfLocation, self, gameTextActionId, Persona.C3PO)) {
             TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy [ANH] C-3PO here from Reserve Deck");
-            action.setActionMsg("Deploy [ANH] C-3PO here from Reserve Deck");
+            action.setText("Deploy [Set 15] C-3PO here from Reserve Deck");
+            action.setActionMsg("Deploy [Set 15] C-3PO here from Reserve Deck");
             action.appendEffect(
                     new DeployCardToLocationFromReserveDeckEffect(action, Filters.and(Filters.icon(Icon.VIRTUAL_SET_15), Filters.C3PO), Filters.here(self), true)
             );
@@ -66,9 +66,9 @@ public class Card223_036 extends AbstractSite {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextDarkSideRequiredBeforeTriggers(String playerOnDarkSideOfLocation, SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
-        Filter restrainingBoltHere = Filters.and(Filters.Restraining_Bolt, Filters.atLocation(self));
+        Filter restrainingBolt = Filters.Restraining_Bolt;
         // Check condition(s)
-        if (TriggerConditions.isPlayingCard(game, effect, restrainingBoltHere)
+        if (TriggerConditions.isPlayingCardTargeting(game, effect, restrainingBolt, Filters.here(self))
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
@@ -81,10 +81,10 @@ public class Card223_036 extends AbstractSite {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextDarkSideRequiredAfterTriggers(String playerOnDarkSideOfLocation, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        Filter restrainingBoltHere = Filters.and(Filters.Restraining_Bolt, Filters.atLocation(self));
+        Filter restrainingBoltHere = Filters.and(Filters.Restraining_Bolt, Filters.here(self));
         // Check conditions(s)
         if (TriggerConditions.isTableChanged(game, effectResult) 
-                && GameConditions.canTargetToCancel(game, self, Filters.and(Filters.Restraining_Bolt, Filters.atLocation(self)))) {
+                && GameConditions.canTargetToCancel(game, self, restrainingBoltHere)) {
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             CancelCardActionBuilder.buildCancelCardAction(action, restrainingBoltHere, "Cancel Restraining Bolt");
             return Collections.singletonList(action);

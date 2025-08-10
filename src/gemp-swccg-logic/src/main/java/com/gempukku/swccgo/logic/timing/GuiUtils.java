@@ -9,7 +9,7 @@ import com.gempukku.swccgo.game.state.DuelState;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.game.state.LightsaberCombatState;
 import com.gempukku.swccgo.game.state.SabaccState;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;

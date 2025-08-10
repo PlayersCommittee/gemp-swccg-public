@@ -7,6 +7,7 @@ import com.gempukku.swccgo.cards.effects.RevealTopCardsOfReserveDeckEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -40,6 +41,7 @@ public class Card203_022 extends AbstractImperial {
         super(Side.DARK, 2, 4, 4, 3, 6, "Agent Kallus", Uniqueness.UNIQUE, ExpansionSet.SET_3, Rarity.V);
         setLore("ISB Leader");
         setGameText("[Pilot] 2. When deployed, may reveal the top two cards of your Reserve Deck; take one into hand and place the other in Used Pile. While with an ISB agent, adds one battle destiny.");
+        addPersona(Persona.KALLUS);
         addKeywords(Keyword.LEADER);
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_3);
     }

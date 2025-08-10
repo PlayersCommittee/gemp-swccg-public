@@ -1,7 +1,7 @@
 package com.gempukku.swccgo.logic.conditions;
 
 import com.gempukku.swccgo.game.state.GameState;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * A condition that is fulfilled when the included condition is not fulfilled.

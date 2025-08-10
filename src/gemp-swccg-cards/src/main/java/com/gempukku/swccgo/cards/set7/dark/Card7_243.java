@@ -41,7 +41,7 @@ public class Card7_243 extends AbstractNormalEffect {
     public Card7_243() {
         super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Tarkin's Bounty", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("'You don't know how hard I found it signing the order to terminate your life.'");
-        setGameText("Deploy on opponent's spy or Rebel leader. If subsequently captured by a bounty hunter or Imperial and then transferred to Detention Block Corridor, retrieve Force equal to character's forfeit (+4 if Leia) and lose Effect. (Immune to Alter.)");
+        setGameText("Deploy on opponent's spy or Rebel leader. If subsequently captured, seized by a bounty hunter or Imperial, and then transferred to Detention Block Corridor, retrieve Force equal to character's forfeit (+4 if Leia) and lose Effect. (Immune to Alter.)");
         addIcons(Icon.SPECIAL_EDITION);
         addKeywords(Keyword.BOUNTY, Keyword.DEPLOYS_ON_CHARACTERS);
         addImmuneToCardTitle(Title.Alter);

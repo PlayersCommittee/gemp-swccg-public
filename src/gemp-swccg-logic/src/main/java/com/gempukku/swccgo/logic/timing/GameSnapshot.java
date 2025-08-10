@@ -3,7 +3,8 @@ package com.gempukku.swccgo.logic.timing;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.game.ActionsEnvironment;
 import com.gempukku.swccgo.game.state.GameState;
-import com.gempukku.swccgo.logic.modifiers.ModifiersLogic;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersLogic;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * Defines a snapshot of a game. Since the SwccgGame class is not a snapshotable,

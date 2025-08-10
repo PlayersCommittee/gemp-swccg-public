@@ -43,7 +43,7 @@ public class Card219_024 extends AbstractUsedOrLostInterrupt {
     public Card219_024() {
         super(Side.DARK, 4, "Understand Art, Understand A Species", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setGameText("USED: Target a character in battle. Target and opponent's cards that share any characteristic(s) with it are power and forfeit -1. " +
-                    "LOST: Once per game, if your [Set 19] objective just ‘studied’ a character, add one battle destiny (two if a character of same species is in battle).");
+                    "LOST: Once per game, if your [Set 19] objective just 'studied' a character, add one battle destiny (two if a character of same species is in battle).");
         addIcons(Icon.VIRTUAL_SET_19);
     }
 

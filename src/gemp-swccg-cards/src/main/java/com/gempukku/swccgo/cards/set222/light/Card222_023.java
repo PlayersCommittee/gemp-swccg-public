@@ -44,7 +44,7 @@ import java.util.List;
  */
 public class Card222_023 extends AbstractUsedOrLostInterrupt {
     public Card222_023() {
-        super(Side.LIGHT, 5, "I’m Ready For Anything", Uniqueness.UNIQUE, ExpansionSet.SET_22, Rarity.V);
+        super(Side.LIGHT, 5, "I'm Ready For Anything", Uniqueness.UNIQUE, ExpansionSet.SET_22, Rarity.V);
         setLore("");
         setGameText("USED: For remainder of turn, each player may only fire one weapon at each Cantina or [Reflections II] site. " +
                 "OR If your Mara in battle, add 1 to a just drawn battle destiny (2 if at a [Reflections II] site). " +
@@ -114,9 +114,9 @@ public class Card222_023 extends AbstractUsedOrLostInterrupt {
             final Filter mara = Filters.and(Filters.your(playerId), Filters.character, Filters.Mara_Jade);
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
-            action.setText("Deploy Mara with Anakin’s Lightsaber");
+            action.setText("Deploy Mara with Anakin's Lightsaber");
             // Allow response(s)
-            action.allowResponses("Deploy Mara with Anakin’s Lightsaber",
+            action.allowResponses("Deploy Mara with Anakin's Lightsaber",
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {

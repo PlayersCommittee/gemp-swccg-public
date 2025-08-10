@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card11_020 extends AbstractNormalEffect {
     public Card11_020() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Keeping The Empire Out Forever", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Keeping_The_Empire_Out_Forever, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setLore("'Our operation is small enough not to be noticed...'");
         setGameText("Deploy on table. If you control two Cloud City sites and occupy Bespin system, flip Quiet Mining Colony. While Independent Operation on table, it may not flip and once per turn may search your Force Pile and take one card there into hand; reshuffle. (Immune to Alter.)");
         addIcons(Icon.TATOOINE);

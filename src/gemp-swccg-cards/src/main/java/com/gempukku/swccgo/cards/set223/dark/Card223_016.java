@@ -60,7 +60,7 @@ public class Card223_016 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        Filter abilityLTFiveAtSameCCSite = Filters.and(Filters.your(self), Filters.character, Filters.abilityLessThan(5), Filters.atSameLocation(self), Filters.atLocation(Filters.Cloud_City_site));
+        Filter abilityLTFiveAtSameCCSite = Filters.and(Filters.your(self), Filters.character, Filters.abilityLessThan(5), Filters.atSameLocation(self), Filters.at(Filters.Cloud_City_site));
 
         modifiers.add(new ImmuneToTitleModifier(self, abilityLTFiveAtSameCCSite, Title.Clash_Of_Sabers));
         modifiers.add(new MayNotTargetToBeLostModifier(self, abilityLTFiveAtSameCCSite, new DuringWeaponsSegmentWithParticipantCondition(abilityLTFiveAtSameCCSite)));

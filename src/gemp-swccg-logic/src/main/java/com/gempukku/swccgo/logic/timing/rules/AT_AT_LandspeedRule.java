@@ -2,7 +2,7 @@ package com.gempukku.swccgo.logic.timing.rules;
 
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.logic.modifiers.LandspeedMayNotBeIncreasedModifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersEnvironment;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersEnvironment;
 
 /**
  * Enforces the game rule that specifies that AT-AT's may not have their landspeed increased.

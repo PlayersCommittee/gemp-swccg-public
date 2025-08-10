@@ -35,7 +35,7 @@ public class Card219_009 extends AbstractUsedOrLostInterrupt {
     public Card219_009() {
         super(Side.DARK, 5, "History, Philosophy, And Art", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setGameText("USED: During battle, add 1 to your total battle destiny for each artwork card on table. " +
-                    "LOST: Once per game, if your [Set 19] objective just ‘studied’ an Interrupt, you may take one Interrupt into hand from Lost Pile.");
+                    "LOST: Once per game, if your [Set 19] objective just 'studied' an Interrupt, you may take one Interrupt into hand from Lost Pile.");
         addIcons(Icon.VIRTUAL_SET_19);
     }
 

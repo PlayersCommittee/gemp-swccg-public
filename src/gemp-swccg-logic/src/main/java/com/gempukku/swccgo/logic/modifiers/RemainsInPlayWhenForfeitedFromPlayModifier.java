@@ -3,6 +3,7 @@ package com.gempukku.swccgo.logic.modifiers;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * A modifier that causes card to remain in play and only reduce for forfeit when 'forfeited'.

@@ -7,8 +7,8 @@ import com.gempukku.swccgo.communication.GameStateListener;
 import com.gempukku.swccgo.communication.InGameStatisticsListener;
 import com.gempukku.swccgo.communication.UserFeedback;
 import com.gempukku.swccgo.game.state.GameState;
-import com.gempukku.swccgo.logic.modifiers.ModifiersEnvironment;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersEnvironment;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.GameResultListener;
 import com.gempukku.swccgo.logic.timing.GameSnapshot;
 import com.gempukku.swccgo.logic.timing.GameStats;
@@ -24,6 +24,13 @@ import java.util.Set;
  * the game engine.
  */
 public interface SwccgGame {
+    /**
+     * Flag that indicates whether the game is being ran in a unit test context.
+     * Controls certain behaviors such as labeling what turn procedure events are
+     * being responded to.
+     */
+    boolean isTestEnvironment();
+
     /**
      * Gets the game state.
      * @return the game state
@@ -231,6 +238,26 @@ public interface SwccgGame {
      * Gets all game state listeners
      */
     Collection<GameStateListener> getAllGameStateListeners();
+
+    /**
+     * A player has requested a revert, which will then go through the snapshot selection process and offer the
+     * revert to their opponent, who may reject it.
+     * @param playerId The player requesting a revert.
+     * @param onAbort Callback to be executed if the revert is aborted for any reason (including no snapshots,
+     *                player changed their mind, or opponent rejected).
+     */
+    void requestRevert(final String playerId, Runnable onAbort);
+
+    /**
+     * A player has requested a revert, which will then go through the snapshot selection process and offer the
+     * revert to their opponent, who may reject it.
+     * @param playerId The player requesting a revert
+     * @param onInvalid If the revert is found to be invalid due to no snapshots existing, this will be called.
+     * @param onRejected If the player changes their mind after seeing the snapshot list, or if their opponent
+     *                   rejects the revert, this will be called.
+     */
+    void requestRevert(final String playerId, Runnable onInvalid, Runnable onRejected);
+
 
     /**
      * Gets the game snapshots.

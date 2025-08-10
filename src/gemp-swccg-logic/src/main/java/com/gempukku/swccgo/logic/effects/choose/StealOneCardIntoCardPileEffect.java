@@ -89,7 +89,9 @@ public class StealOneCardIntoCardPileEffect extends AbstractSubActionEffect impl
 
                             String fromZoneText = Filters.onTable.accepts(game, _cardToBeStolen) ? "" : (" from opponent's " + _cardToBeStolen.getZone().getHumanReadable());
                             gameState.sendMessage(_playerId + " steals " + GameUtils.getCardLink(_cardToBeStolen) + fromZoneText + " into " + _cardPile.getHumanReadable() + " using " + GameUtils.getCardLink(_action.getActionSource()));
-                            PhysicalCard stolenFromLocation = game.getModifiersQuerying().getLocationThatCardIsAt(gameState, _cardToBeStolen);
+                            var stolenFrom = _cardToBeStolen.getAttachedTo();
+                            var stolenFromLocation = game.getModifiersQuerying().getLocationThatCardIsAt(gameState, _cardToBeStolen);
+
 
                             gameState.removeCardsFromZone(Collections.singleton(_cardToBeStolen));
                             _cardToBeStolen.setOwner(_playerId);
@@ -97,7 +99,7 @@ public class StealOneCardIntoCardPileEffect extends AbstractSubActionEffect impl
                             gameState.reapplyAffectingForCard(game, _cardToBeStolen);
 
                             // Emit effect result for each stolen card
-                            game.getActionsEnvironment().emitEffectResult(new StolenResult(_playerId, _cardToBeStolen, stolenFromLocation));
+                            game.getActionsEnvironment().emitEffectResult(new StolenResult(_playerId, _cardToBeStolen, stolenFrom, stolenFromLocation));
                         }
                     }
                 }

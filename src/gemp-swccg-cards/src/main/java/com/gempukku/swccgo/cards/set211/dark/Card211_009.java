@@ -39,7 +39,7 @@ public class Card211_009 extends AbstractImmediateEffect {
     public Card211_009(){
         super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Pride_Of_The_Empire, Uniqueness.UNIQUE, ExpansionSet.SET_11, Rarity.V);
         setLore("Imperial starships that perform with distinction are highly publicized in an attempt to make the pilots look like heroes to the citizens of the Empire.");
-        setGameText("If you just deployed a pilot aboard a Black Squadron TIE, deploy on that pilot; pilot’s game text may not be canceled. During your turn, may [upload] a Black Squadron pilot. If pilot just won a battle, retrieve a Black Squadron pilot.");
+        setGameText("If you just deployed a pilot aboard a Black Squadron TIE, deploy on that pilot; pilot's game text may not be canceled. During your turn, may [upload] a Black Squadron pilot. If pilot just won a battle, retrieve a Black Squadron pilot.");
         addIcons(Icon.SPECIAL_EDITION, Icon.VIRTUAL_SET_11);
         setVirtualSuffix(true);
     }

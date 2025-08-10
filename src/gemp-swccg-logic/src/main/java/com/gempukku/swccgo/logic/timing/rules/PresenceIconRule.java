@@ -4,7 +4,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotBePurchasedModifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersEnvironment;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersEnvironment;
 
 /**
  * Enforces the game rule that specifies that a card with [Presence icon] is immune to Restraining Bolt and may not be 'purchased'.

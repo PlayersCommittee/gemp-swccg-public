@@ -44,7 +44,7 @@ public class Card219_004 extends AbstractAlien {
         super(Side.DARK, 5, 2, 2, 1, 3, "Elan Sleazebaggano", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setLore("Balosar information broker.");
         setGameText("Power and forfeit +2 at a Coruscant location. At the beginning of opponent's control phase, " +
-                    "if present with opponent’s character, ‘sell death sticks’ (opponent must use or lose 1 Force; " +
+                    "if present with opponent's character, 'sell death sticks' (opponent must use or lose 1 Force; " +
                     "if a Jedi present, also place Elan in Used Pile).");
         addKeywords(Keyword.INFORMATION_BROKER);
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_19);

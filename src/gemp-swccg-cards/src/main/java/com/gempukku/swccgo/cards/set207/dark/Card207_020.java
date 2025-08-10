@@ -44,7 +44,7 @@ public class Card207_020 extends AbstractImperial {
     public Card207_020() {
         super(Side.DARK, 2, 3, 3, 3, 5, Title.Krennic, Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setLore("Commander. Leader.");
-        setGameText("[Pilot] 2. During your control phase, if with opponent’s Undercover spy, opponent loses 2 Force (may not be reduced). While at a site, opponent may not cancel or modify your battle destiny draws here.");
+        setGameText("[Pilot] 2. During your control phase, if with opponent's Undercover spy, opponent loses 2 Force (may not be reduced). While at a site, opponent may not cancel or modify your battle destiny draws here.");
         addIcons(Icon.PILOT, Icon.WARRIOR, Icon.VIRTUAL_SET_7);
         addKeywords(Keyword.COMMANDER, Keyword.LEADER);
         addPersona(Persona.KRENNIC);

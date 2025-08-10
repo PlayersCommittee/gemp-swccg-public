@@ -6,6 +6,7 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.evaluators.ConstantEvaluator;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
 /**
@@ -102,6 +103,17 @@ public class ForfeitModifier extends AbstractModifier {
      */
     public ForfeitModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator) {
         this(source, affectFilter, condition, evaluator, false);
+    }
+
+    /**
+     * 
+     * @param source
+     * @param affectFilter
+     * @param modifierAmount
+     * @param cumulative
+     */
+    public ForfeitModifier(PhysicalCard source, Filterable affectFilter, float modifierAmount, boolean cumulative){
+        this(source, affectFilter, null, new ConstantEvaluator(modifierAmount), cumulative);
     }
 
     /**

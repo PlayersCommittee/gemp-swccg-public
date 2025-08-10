@@ -41,7 +41,7 @@ public class Card207_004 extends AbstractAlien {
         super(Side.LIGHT, 2, 3, 2, 3, 5, Title.Dice_Ibegon, Uniqueness.UNIQUE, ExpansionSet.SET_7, Rarity.V);
         setVirtualSuffix(true);
         setLore("Female companion of Lak Sivrak. A Florn lamproid. Dangerous predator with a poison stinger. Rumored to have mysterious time-shifting attunement to the Force.");
-        setGameText("Power +2 at a Jabba’s Palace or Endor site. If just lost, place Dice in Used Pile. If opponent is about to draw destiny for an Interrupt targeting your character here, opponent must first lose 1 Force, then shuffle their Reserve Deck.");
+        setGameText("Power +2 at a Jabba's Palace or Endor site. If just lost, place Dice in Used Pile. If opponent is about to draw destiny for an Interrupt targeting your character here, opponent must first lose 1 Force, then shuffle their Reserve Deck.");
         addIcons(Icon.VIRTUAL_SET_7);
         addKeywords(Keyword.FEMALE);
         setSpecies(Species.FLORN_LAMPROID);

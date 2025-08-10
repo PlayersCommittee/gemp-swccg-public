@@ -23,6 +23,7 @@ public abstract class ChooseArbitraryCardsEffect extends AbstractStandardEffect 
     private Filterable _filter;
     private int _minimum;
     private int _maximum;
+    private boolean _allowAutomaticSelection;
 
     /**
      * Creates an effect that involves choosing cards from a pop-up window in the User Interface.
@@ -34,7 +35,7 @@ public abstract class ChooseArbitraryCardsEffect extends AbstractStandardEffect 
      * @param maximum the maximum number of cards to choose
      */
     public ChooseArbitraryCardsEffect(Action action, String playerId, String choiceText, Collection<? extends PhysicalCard> cards, int minimum, int maximum) {
-        this(action, playerId, choiceText, cards, Filters.any, minimum, maximum);
+        this(action, playerId, choiceText, cards, Filters.any, minimum, maximum, true);
     }
 
     /**
@@ -48,6 +49,21 @@ public abstract class ChooseArbitraryCardsEffect extends AbstractStandardEffect 
      * @param maximum the maximum number of cards to choose
      */
     public ChooseArbitraryCardsEffect(Action action, String playerId, String choiceText, Collection<? extends PhysicalCard> cards, Filterable filter, int minimum, int maximum) {
+        this(action, playerId, choiceText, cards, filter, minimum, maximum, true);
+    }
+
+    /**
+     * Creates an effect that involves choosing cards from a pop-up window in the User Interface.
+     * @param action the action performing this effect
+     * @param playerId the player choosing cards
+     * @param choiceText the text shown to the player
+     * @param cards the cards shown
+     * @param filter the filter for which shown cards are selectable
+     * @param minimum the minimum number of cards to choose
+     * @param maximum the maximum number of cards to choose
+     * @param allowAutomaticSelection if true, will automatically choose when there is only one option (convenient). if false, player must manually choose the sole option (great for peeking at 1 card)
+     */
+    public ChooseArbitraryCardsEffect(Action action, String playerId, String choiceText, Collection<? extends PhysicalCard> cards, Filterable filter, int minimum, int maximum, boolean allowAutomaticSelection) {
         super(action);
         _playerId = playerId;
         _choiceText = choiceText;
@@ -55,6 +71,7 @@ public abstract class ChooseArbitraryCardsEffect extends AbstractStandardEffect 
         _filter = filter;
         _minimum = minimum;
         _maximum = maximum;
+        _allowAutomaticSelection = allowAutomaticSelection;
     }
 
     @Override
@@ -75,7 +92,7 @@ public abstract class ChooseArbitraryCardsEffect extends AbstractStandardEffect 
 
         if (_maximum == 0) {
             cardsSelected(game, Collections.<PhysicalCard>emptySet());
-        } else if (possibleCards.size() == minimum) {
+        } else if (possibleCards.size() == minimum && _allowAutomaticSelection) {
             cardsSelected(game, possibleCards);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,

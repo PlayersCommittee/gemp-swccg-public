@@ -28,7 +28,7 @@ import java.util.List;
 public class Card1_149 extends AbstractTransportVehicle {
     public Card1_149() {
         super(Side.LIGHT, 3, 2, 1, null, 5, 4, 4, Title.Lukes_X34_Landspeeder, Uniqueness.UNIQUE, ExpansionSet.PREMIERE, Rarity.U2);
-        setLore("Skywalker's SoroSuub. Common open (AI)r transport. Top speed 250 km per hour. Repulsorlift drive keeps it suspended one meter above ground, even when parked.");
+        setLore("Skywalker's SoroSuub. Common open air transport. Top speed 250 km per hour. Repulsorlift drive keeps it suspended one meter above ground, even when parked.");
         setGameText("May add 1 driver and 2 passengers. Moves free if Luke aboard. May move as a 'react.'");
         setDriverCapacity(1);
         setPassengerCapacity(2);

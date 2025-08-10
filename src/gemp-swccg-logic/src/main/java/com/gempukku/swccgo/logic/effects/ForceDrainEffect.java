@@ -5,7 +5,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.SubAction;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -69,7 +69,7 @@ public class ForceDrainEffect extends AbstractSubActionEffect {
                             // Perform Force loss
                             SubAction forceLossSubAction = new SubAction(subAction);
                             forceLossSubAction.appendEffect(
-                                    new LoseForceEffect(subAction, game.getOpponent(_performingPlayerId), amountToDrain, false, true, false, false, false, false, null, false, false));
+                                    new LoseForceEffect(subAction, game.getOpponent(_performingPlayerId), amountToDrain, false, game.getGameState().getForceDrainState(), false, false, false, false, null, false, false));
                             subAction.stackSubAction(forceLossSubAction);
                         }
                     }

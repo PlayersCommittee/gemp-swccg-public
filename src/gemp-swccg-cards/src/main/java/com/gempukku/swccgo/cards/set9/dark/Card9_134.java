@@ -128,7 +128,7 @@ public class Card9_134 extends AbstractNormalEffect {
 
         modifiers.add(new ImmuneToTitleModifier(self, Filters.Leia, targetLeiaInsteadOfLuke, Title.Responsibility_Of_Command));
         modifiers.add(new ImmuneToTitleModifier(self, Filters.Luke, targetLuke, Title.Responsibility_Of_Command));
-        modifiers.add(new ImmuneToTitleModifier(self, Filters.Luke, targetKananInsteadOfLuke, Title.Responsibility_Of_Command));
+        modifiers.add(new ImmuneToTitleModifier(self, Filters.Kanan, targetKananInsteadOfLuke, Title.Responsibility_Of_Command));
         return modifiers;
     }
 }

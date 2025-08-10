@@ -38,7 +38,7 @@ import com.gempukku.swccgo.logic.effects.choose.StackOneCardFromPileEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotMoveModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.modifiers.ResetPowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -58,7 +58,7 @@ import java.util.List;
  */
 public class Card4_078 extends AbstractJediTest {
     public Card4_078() {
-        super(Side.LIGHT, 5, "It Is The Future You See", ExpansionSet.DAGOBAH, Rarity.R);
+        super(Side.LIGHT, 5, Title.It_Is_The_Future_You_See, ExpansionSet.DAGOBAH, Rarity.R);
         setGameText("Deploy on a Dagobah site. Target a mentor on Dagobah and an apprentice who has completed Jedi Test #4. Attempt when apprentice is present at the beginning of your control phase. Turn apprentice upside down (cannot move and power = 0). At the end of your next turn, turn apprentice right side up (restored): Place on apprentice. Immune to attrition < 4. Reveal the top two cards of your Reserve Deck and place one upside down on apprentice. Whenever you are about to draw a card for destiny, you may instead use the upside-down card (which remains on apprentice for re-use).");
         addIcons(Icon.DAGOBAH);
         addKeyword(Keyword.JEDI_TEST_5);
@@ -76,15 +76,26 @@ public class Card4_078 extends AbstractJediTest {
 
     @Override
     protected Filter getGameTextValidApprenticeFilter(String playerId, SwccgGame game, PhysicalCard self, PhysicalCard deployTarget, PhysicalCard mentor, boolean isDeployFromHand) {
-        return Filters.apprenticeTargetedByJediTest(Filters.and(Filters.completed_Jedi_Test, Filters.Jedi_Test_4));
+        Filter apprenticeFilter = Filters.apprenticeTargetedByJediTest(Filters.and(Filters.completed_Jedi_Test, Filters.Jedi_Test_4));
+
+        if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.JEDI_TESTS__ONLY_LUKE_MAY_BE_APPRENTICE))
+        {
+            apprenticeFilter = Filters.and(apprenticeFilter, Filters.Luke);
+        }
+
+        return apprenticeFilter;
     }
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self, final int gameTextSourceCardId) {
         List<OptionalGameTextTriggerAction> actions = new LinkedList<OptionalGameTextTriggerAction>();
 
+        boolean normalTiming = TriggerConditions.isStartOfYourPhase(game, self, effectResult, Phase.CONTROL);
+        boolean specialTiming = TriggerConditions.isStartOfOpponentsPhase(game, self, effectResult, Phase.DEPLOY) && GameConditions.hasGameTextModification(game, self, ModifyGameTextType.JEDI_TESTS__MAY_ATTEMPT_IN_OPPONENTS_DEPLOY_PHASE);
+        boolean timingSatisfied = normalTiming || specialTiming;
+        
         // Check condition(s)
-        if (TriggerConditions.isStartOfYourPhase(game, self, effectResult, Phase.CONTROL)) {
+        if (timingSatisfied) {
             if (!GameConditions.isJediTestBeingAttempted(game, self) && !GameConditions.isJediTestCompleted(game, self)) {
                 final GameState gameState = game.getGameState();
                 final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();

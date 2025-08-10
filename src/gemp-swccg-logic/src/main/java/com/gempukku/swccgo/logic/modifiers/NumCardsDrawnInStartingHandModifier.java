@@ -2,6 +2,7 @@ package com.gempukku.swccgo.logic.modifiers;
 
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * A modifier to the number of cards drawn in starting hand.

@@ -18,7 +18,7 @@ public class TransferDeviceOrWeaponEffect extends AbstractSuccessfulEffect {
     private PlayCardOptionId _playCardOptionId;
 
     /**
-     * Create an effect to transfer an escorted captive to a new escort.
+     * Create an effect to transfer a weapon or device to a new holder.
      * @param action the action performing this effect
      * @param deviceOrWeapon the device or weapon
      * @param transferTo the card to transfer the device or weapon to
@@ -37,10 +37,11 @@ public class TransferDeviceOrWeaponEffect extends AbstractSuccessfulEffect {
         String performingPlayerId = _action.getPerformingPlayer();
 
         gameState.sendMessage(performingPlayerId + " transfers " + GameUtils.getCardLink(_deviceOrWeapon) + " from " + GameUtils.getCardLink(_deviceOrWeapon.getAttachedTo()) + " to " + GameUtils.getCardLink(_transferTo));
+        var transferFrom = _deviceOrWeapon.getAttachedTo();
         gameState.moveCardToAttached(_deviceOrWeapon, _transferTo);
         _deviceOrWeapon.setPlayCardOptionId(_playCardOptionId);
 
         // Emit the result effect that can trigger other cards
-        game.getActionsEnvironment().emitEffectResult(new TransferredDeviceOrWeaponResult(performingPlayerId, _deviceOrWeapon, _transferTo));
+        game.getActionsEnvironment().emitEffectResult(new TransferredDeviceOrWeaponResult(performingPlayerId, _deviceOrWeapon, transferFrom, _transferTo));
     }
 }

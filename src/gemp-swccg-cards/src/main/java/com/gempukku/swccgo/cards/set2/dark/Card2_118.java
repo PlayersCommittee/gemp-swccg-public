@@ -25,7 +25,7 @@ import com.gempukku.swccgo.logic.evaluators.BaseEvaluator;
 import com.gempukku.swccgo.logic.modifiers.CancelIconModifier;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.PilotCapacityModifier;
 import com.gempukku.swccgo.logic.modifiers.RemovePermanentPilotsModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;

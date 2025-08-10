@@ -45,7 +45,7 @@ public class Card214_019 extends AbstractSite {
         Filter character = Filters.Luke;
         Filter destination = Filters.Landing_Platform;
         
-        if (GameConditions.canSpot(game, self, Filters.and(Filters.Imperial, Filters.atLocation(Filters.Landing_Platform)))
+        if (GameConditions.canSpot(game, self, Filters.and(Filters.Imperial, Filters.at(Filters.Landing_Platform)))
                 && GameConditions.isOpponentsTurn(game, self)
                 && GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, character, self, destination, true)) {
             

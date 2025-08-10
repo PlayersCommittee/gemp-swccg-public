@@ -41,7 +41,7 @@ public class Card222_027 extends AbstractObjective {
     public Card222_027() {
         super(Side.LIGHT, 0, "The Empire Knows We're Here", ExpansionSet.SET_22, Rarity.V);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Hoth and 1st Marker." +
+        setGameText("Deploy Hoth system and 1st Marker. " +
                 "For remainder of game, Hoth Energy Shield does not extend beyond 1st Marker. " +
                 "You may not deploy Ice Storm, [Special Edition] Leia, systems, or characters of ability > 4. " +
                 "Echo Base Garrison is immune to Alter. Once per turn, may [download] Echo Command Center or a marker site." +
@@ -94,13 +94,13 @@ public class Card222_027 extends AbstractObjective {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy a location from Reserve Deck");
-            action.setActionMsg("Deploy a Marker site or Echo War Room from Reserve Deck");
+            action.setActionMsg("Deploy Echo Command Center or a marker site from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.marker_site, Filters.and(Filters.Echo_site, Filters.war_room)), true));
+                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.Echo_Command_Center, Filters.marker_site), true));
 
             actions.add(action);
         }
@@ -110,7 +110,7 @@ public class Card222_027 extends AbstractObjective {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
-                && GameConditions.occupies(game, playerId, 2, Filters.marker_site)) {
+                && GameConditions.occupies(game, playerId, 2, Filters.and(Filters.battleground, Filters.marker_site))) {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Retrieve 1 Force");
             // Update usage limit(s)
@@ -153,7 +153,7 @@ public class Card222_027 extends AbstractObjective {
         // Check if reached end of each control phase and action was not performed yet.
         if (TriggerConditions.isEndOfYourPhase(game, effectResult, Phase.CONTROL, playerId)
                 && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
-                && GameConditions.occupies(game, playerId, 2, Filters.marker_site)) {
+                && GameConditions.occupies(game, playerId, 2, Filters.and(Filters.battleground, Filters.marker_site))) {
 
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);

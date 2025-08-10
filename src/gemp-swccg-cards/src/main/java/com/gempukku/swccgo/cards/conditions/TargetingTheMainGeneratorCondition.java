@@ -7,7 +7,7 @@ import com.gempukku.swccgo.game.state.EpicEventState;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.game.state.TargetTheMainGeneratorState;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * A condition that is fulfilled when the specified card (or a card accepted by the specified filter) is the AT-AT or

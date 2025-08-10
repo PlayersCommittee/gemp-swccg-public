@@ -35,7 +35,7 @@ public class Card1_103 extends AbstractUsedInterrupt {
     public Card1_103() {
         super(Side.LIGHT, 4, Title.Panic, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("Cornered by Imperial troops, Han's gambler reflexes led him to do what comes naturally - attack! Surprise assaults work...sometimes.");
-        setGameText("If opponent just initiated a battle where opponent has more than double your power, draw up to 3 cards from your Reserve Deck. Of those 3, deploy anywhere (for free) any characters, starships, vehicles, devices or weapons. Any others are lost.");
+        setGameText("If opponent just initiated a battle where opponent has more than double your power, reveal up to 3 cards from your Reserve Deck. Of those 3, deploy anywhere (for free) any characters, starships, vehicles, devices or weapons. Any others are lost.");
     }
 
     @Override

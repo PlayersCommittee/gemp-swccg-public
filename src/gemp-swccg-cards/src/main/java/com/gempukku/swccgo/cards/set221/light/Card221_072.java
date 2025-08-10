@@ -10,6 +10,7 @@ import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -37,7 +38,7 @@ import java.util.List;
  */
 public class Card221_072 extends AbstractNormalEffect {
     public Card221_072() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, "Scanner Techs", Uniqueness.UNRESTRICTED, ExpansionSet.SET_21, Rarity.V);
+        super(Side.LIGHT, 5, PlayCardZoneOption.ATTACHED, Title.Scanner_Techs, Uniqueness.UNRESTRICTED, ExpansionSet.SET_21, Rarity.V);
         setVirtualSuffix(true);
         setLore("Specialized scanner technicians examine scanner output to identify the presence of life forms. Experienced operators can even identify species and gender.");
         setGameText("Deploy on a location. At same battleground, opponent may not cancel or reduce your Force drains here. Forfeit values and total battle destiny may not be increased here. You initiate battles here for free. If you just initiated battle here, may draw top card of Reserve Deck.");

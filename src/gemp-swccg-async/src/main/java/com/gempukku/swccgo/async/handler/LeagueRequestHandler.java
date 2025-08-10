@@ -52,18 +52,23 @@ public class LeagueRequestHandler extends SwccgoServerRequestHandler implements 
 
     private void joinLeague(HttpRequest request, String leagueType, ResponseWriter responseWriter, String remoteIp) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
+        try {
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        League league = _leagueService.getLeagueByType(leagueType);
-        if (league == null)
-            throw new HttpProcessingException(404);
+            League league = _leagueService.getLeagueByType(leagueType);
+            if (league == null)
+                throw new HttpProcessingException(404);
 
-        if (!_leagueService.playerJoinsLeague(league, resourceOwner, remoteIp, false))
-            throw new HttpProcessingException(409);
+            if (!_leagueService.playerJoinsLeague(league, resourceOwner, remoteIp, false))
+                throw new HttpProcessingException(409);
 
-        responseWriter.writeXmlResponse(null);
+            responseWriter.writeXmlResponse(null);
+        }
+        finally {
+            postDecoder.destroy();
+        }
     }
 
     private void getLeagueInformation(HttpRequest request, String leagueType, ResponseWriter responseWriter) throws Exception {

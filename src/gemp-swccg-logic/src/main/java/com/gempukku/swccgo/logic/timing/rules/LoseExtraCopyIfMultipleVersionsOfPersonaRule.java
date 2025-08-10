@@ -1,7 +1,6 @@
 package com.gempukku.swccgo.logic.timing.rules;
 
 import com.gempukku.swccgo.common.Persona;
-import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -15,8 +14,6 @@ import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.effects.PlaceCardInLostPileFromTableEffect;
 import com.gempukku.swccgo.logic.effects.PutStackedCardInLostPileEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardEffect;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
-import com.gempukku.swccgo.logic.modifiers.ModifiersEnvironment;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collection;

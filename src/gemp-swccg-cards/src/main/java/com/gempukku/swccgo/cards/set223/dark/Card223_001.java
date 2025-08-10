@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card223_001 extends AbstractUsedOrLostInterrupt {
     public Card223_001() {
-        super(Side.DARK, 5, "Not Within Sight Or Reach", Uniqueness.UNRESTRICTED, ExpansionSet.SET_22, Rarity.V);
+        super(Side.DARK, 5, "Not Within Sight Or Reach", Uniqueness.UNRESTRICTED, ExpansionSet.SET_23, Rarity.V);
         setLore("When the Empire amasses its fleet, the only option for the Alliance is retreat.");
         setGameText("USED: [Upload] Thrawn or Vanto. OR During battle, players may not draw power or attrition destinies. " +
                 "LOST: Once per game, if opponent has deployed two systems and no battleground sites (or a system is 'liberated'), " +

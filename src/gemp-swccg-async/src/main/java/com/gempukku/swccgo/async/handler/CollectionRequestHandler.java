@@ -150,51 +150,56 @@ public class CollectionRequestHandler extends SwccgoServerRequestHandler impleme
 
     private void openPack(HttpRequest request, String collectionType, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        String selection = getFormParameterSafely(postDecoder, "selection");
-        String packId = getFormParameterSafely(postDecoder, "pack");
+        try {
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String selection = getFormParameterSafely(postDecoder, "selection");
+            String packId = getFormParameterSafely(postDecoder, "pack");
 
-        // Players are not allowed to open selection packs without specifying a choice, or they get all packs
-        if (packId.startsWith("(S)") && selection == null) {
-            throw new HttpProcessingException(500);
-        }
-
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
-
-        CollectionType collectionTypeObj = createCollectionType(collectionType);
-        CardCollection packContents = _collectionsManager.openPackInPlayerCollection(resourceOwner, collectionTypeObj, selection, _packStorage, packId);
-
-        if (packContents == null)
-            throw new HttpProcessingException(404);
-
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-
-        Document doc = documentBuilder.newDocument();
-
-        Element collectionElem = doc.createElement("pack");
-        doc.appendChild(collectionElem);
-
-        for (CardCollection.Item item : packContents.getAll().values()) {
-            String blueprintId = item.getBlueprintId();
-            if (item.getType() == CardCollection.Item.Type.CARD) {
-                Element card = doc.createElement("card");
-                card.setAttribute("count", String.valueOf(item.getCount()));
-                card.setAttribute("blueprintId", blueprintId);
-                SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
-                appendCardSide(card, blueprint);
-                appendCardTestingText(card, blueprint);
-                appendCardBackSideTestingText(card, _library.getSwccgoCardBlueprintBack(blueprintId));
-                collectionElem.appendChild(card);
-            } else {
-                Element pack = doc.createElement("pack");
-                pack.setAttribute("count", String.valueOf(item.getCount()));
-                pack.setAttribute("blueprintId", blueprintId);
-                collectionElem.appendChild(pack);
+            // Players are not allowed to open selection packs without specifying a choice, or they get all packs
+            if (packId.startsWith("(S)") && selection == null) {
+                throw new HttpProcessingException(500);
             }
-        }
 
-        responseWriter.writeXmlResponse(doc);
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+            CollectionType collectionTypeObj = createCollectionType(collectionType);
+            CardCollection packContents = _collectionsManager.openPackInPlayerCollection(resourceOwner, collectionTypeObj, selection, _packStorage, packId);
+
+            if (packContents == null)
+                throw new HttpProcessingException(404);
+
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+            Document doc = documentBuilder.newDocument();
+
+            Element collectionElem = doc.createElement("pack");
+            doc.appendChild(collectionElem);
+
+            for (CardCollection.Item item : packContents.getAll().values()) {
+                String blueprintId = item.getBlueprintId();
+                if (item.getType() == CardCollection.Item.Type.CARD) {
+                    Element card = doc.createElement("card");
+                    card.setAttribute("count", String.valueOf(item.getCount()));
+                    card.setAttribute("blueprintId", blueprintId);
+                    SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
+                    appendCardSide(card, blueprint);
+                    appendCardTestingText(card, blueprint);
+                    appendCardBackSideTestingText(card, _library.getSwccgoCardBlueprintBack(blueprintId));
+                    collectionElem.appendChild(card);
+                } else {
+                    Element pack = doc.createElement("pack");
+                    pack.setAttribute("count", String.valueOf(item.getCount()));
+                    pack.setAttribute("blueprintId", blueprintId);
+                    collectionElem.appendChild(pack);
+                }
+            }
+
+            responseWriter.writeXmlResponse(doc);
+        }
+        finally {
+            postDecoder.destroy();
+        }
     }
 
     private void getCollectionTypes(HttpRequest request, ResponseWriter responseWriter) throws Exception {

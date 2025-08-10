@@ -35,6 +35,7 @@ public class TakeImprisonedCaptiveCustodyEffect extends AbstractSuccessfulEffect
         GameState gameState = game.getGameState();
 
         gameState.sendMessage(GameUtils.getCardLink(_escort) + " takes imprisoned captive " + GameUtils.getCardLink(_captive) + " from " + GameUtils.getCardLink(_prison) + " into custody");
+        _captive.setCaptiveEscort(_escort);
         _captive.setImprisoned(false);
         gameState.moveCardToAttached(_captive, _escort);
 

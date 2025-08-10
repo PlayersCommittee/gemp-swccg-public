@@ -10,6 +10,7 @@ import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -37,7 +38,7 @@ import java.util.List;
  */
 public class Card221_022 extends AbstractNormalEffect {
     public Card221_022() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "Hyperwave Scan", Uniqueness.UNRESTRICTED, ExpansionSet.SET_21, Rarity.V);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Hyperwave_Scan, Uniqueness.UNRESTRICTED, ExpansionSet.SET_21, Rarity.V);
         setVirtualSuffix(true);
         setLore("Full Imperial scans include full-spectrum transceivers, dedicated energy receptors, crystal gravfield traps, and hyperwave signal interceptors.");
         setGameText("Deploy on a location. At same battleground, opponent may not cancel or reduce your Force drains here. Forfeit values and total battle destiny may not be increased here. You initiate battles here for free. If you just initiated battle here, may draw top card of Reserve Deck.");

@@ -49,31 +49,36 @@ public class ChatRequestHandler extends SwccgoServerRequestHandler implements Ur
 
     private void postMessages(HttpRequest request, String room, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-        String participantId = getFormParameterSafely(postDecoder, "participantId");
-        String latestMsgIdRcvd = getFormParameterSafely(postDecoder, "latestMsgIdRcvd");
-        String message = getFormParameterSafely(postDecoder, "message");
-
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
-
-        ChatRoomMediator chatRoom = _chatServer.getChatRoom(room);
-        if (chatRoom == null)
-            throw new HttpProcessingException(404);
-
         try {
-            if (message != null && !message.trim().isEmpty()) {
-                chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml3(message), resourceOwner.hasType(Player.Type.ADMIN));
-                responseWriter.writeXmlResponse(null);
-            } else {
-                ChatCommunicationChannel pollableResource = chatRoom.getChatRoomListener(resourceOwner.getName());
-                ChatUpdateLongPollingResource polledResource = new ChatUpdateLongPollingResource(chatRoom, room, resourceOwner.getName(), latestMsgIdRcvd != null ? Integer.valueOf(latestMsgIdRcvd) : null, responseWriter);
-                _longPollingSystem.processLongPollingResource(polledResource, pollableResource);
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String latestMsgIdRcvd = getFormParameterSafely(postDecoder, "latestMsgIdRcvd");
+            String message = getFormParameterSafely(postDecoder, "message");
+
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+            ChatRoomMediator chatRoom = _chatServer.getChatRoom(room);
+            if (chatRoom == null)
+                throw new HttpProcessingException(404);
+
+            try {
+                if (message != null && !message.trim().isEmpty()) {
+                    chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml3(message), resourceOwner.hasType(Player.Type.ADMIN));
+                    responseWriter.writeXmlResponse(null);
+                } else {
+                    ChatCommunicationChannel pollableResource = chatRoom.getChatRoomListener(resourceOwner.getName());
+                    ChatUpdateLongPollingResource polledResource = new ChatUpdateLongPollingResource(chatRoom, room, resourceOwner.getName(), latestMsgIdRcvd != null ? Integer.valueOf(latestMsgIdRcvd) : null, responseWriter);
+                    _longPollingSystem.processLongPollingResource(polledResource, pollableResource);
+                }
+            } catch (SubscriptionExpiredException exp) {
+                throw new HttpProcessingException(410);
+            } catch (PrivateInformationException exp) {
+                throw new HttpProcessingException(403);
+            } catch (ChatCommandErrorException exp) {
+                throw new HttpProcessingException(400);
             }
-        } catch (SubscriptionExpiredException exp) {
-            throw new HttpProcessingException(410);
-        } catch (PrivateInformationException exp) {
-            throw new HttpProcessingException(403);
-        } catch (ChatCommandErrorException exp) {
-            throw new HttpProcessingException(400);
+        }
+        finally {
+            postDecoder.destroy();
         }
     }
 

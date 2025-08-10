@@ -29,7 +29,7 @@ public interface AwaitingDecision {
      * Gets the decision parameters.
      * @return the decision parameters
      */
-    Map<String, Object> getDecisionParameters();
+    Map<String, String[]> getDecisionParameters();
 
     /**
      * This method is called with the result of the players decision.

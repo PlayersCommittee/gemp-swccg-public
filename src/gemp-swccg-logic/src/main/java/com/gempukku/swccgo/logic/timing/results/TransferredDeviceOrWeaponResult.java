@@ -10,6 +10,7 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
  */
 public class TransferredDeviceOrWeaponResult extends EffectResult {
     private PhysicalCard _deviceOrWeapon;
+    private PhysicalCard _transferredFrom;
     private PhysicalCard _transferredTo;
 
     /**
@@ -17,9 +18,10 @@ public class TransferredDeviceOrWeaponResult extends EffectResult {
      * @param deviceOrWeapon the device or weapon
      * @param transferredTo the card the device or weapon was transferred to
      */
-    public TransferredDeviceOrWeaponResult(String playerId, PhysicalCard deviceOrWeapon, PhysicalCard transferredTo) {
+    public TransferredDeviceOrWeaponResult(String playerId, PhysicalCard deviceOrWeapon, PhysicalCard transferredFrom, PhysicalCard transferredTo) {
         super(Type.TRANSFERRED_DEVICE_OR_WEAPON, playerId);
         _deviceOrWeapon = deviceOrWeapon;
+        _transferredFrom = transferredFrom;
         _transferredTo = transferredTo;
     }
 
@@ -29,6 +31,14 @@ public class TransferredDeviceOrWeaponResult extends EffectResult {
      */
     public PhysicalCard getDeviceOrWeapon() {
         return _deviceOrWeapon;
+    }
+
+    /**
+     * Gets the card the device or weapon was transferred from.
+     * @return the card the device or weapon was transferred from
+     */
+    public PhysicalCard getTransferredFrom() {
+        return _transferredFrom;
     }
 
     /**

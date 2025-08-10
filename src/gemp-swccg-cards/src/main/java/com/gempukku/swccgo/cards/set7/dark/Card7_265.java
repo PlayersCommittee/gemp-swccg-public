@@ -38,7 +38,7 @@ public class Card7_265 extends AbstractUsedInterrupt {
     public Card7_265() {
         super(Side.DARK, 4, "They're Coming In Too Fast!", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("'We're not out of this yet!'");
-        setGameText("If you have a piloted starship armed with a starship weapon, select one opponent's starship present to lose all immunity to attrition for remainder of turn. OR Cancel Dark Maneuvers.");
+        setGameText("If you have a piloted starship armed with a starship weapon, select one opponent's starship present to lose all immunity to attrition for remainder of turn. OR Cancel A Few Maneuvers.");
         addIcons(Icon.SPECIAL_EDITION);
     }
 
@@ -85,11 +85,11 @@ public class Card7_265 extends AbstractUsedInterrupt {
         }
 
         // Check condition(s)
-        if (GameConditions.canTargetToCancel(game, self, Filters.Dark_Maneuvers)) {
+        if (GameConditions.canTargetToCancel(game, self, Filters.A_Few_Maneuvers)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             // Build action using common utility
-            CancelCardActionBuilder.buildCancelCardAction(action, Filters.Dark_Maneuvers, Title.Dark_Maneuvers);
+            CancelCardActionBuilder.buildCancelCardAction(action, Filters.A_Few_Maneuvers, Title.A_Few_Maneuvers);
             actions.add(action);
         }
         return actions;
@@ -98,7 +98,7 @@ public class Card7_265 extends AbstractUsedInterrupt {
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalBeforeActions(String playerId, SwccgGame game, Effect effect, PhysicalCard self) {
         // Check condition(s)
-        if (TriggerConditions.isPlayingCard(game, effect, Filters.Dark_Maneuvers)
+        if (TriggerConditions.isPlayingCard(game, effect, Filters.A_Few_Maneuvers)
                 && GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
             PlayInterruptAction action = new PlayInterruptAction(game, self);

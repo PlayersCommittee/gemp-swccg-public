@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -42,6 +43,7 @@ public class Card200_142 extends AbstractCharacterWeapon {
         addKeywords(Keyword.LIGHTSABER);
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_0);
         setMatchingCharacterFilter(Filters.Dooku);
+        addPersona(Persona.DOOKUS_LIGHTSABER);
     }
 
     @Override

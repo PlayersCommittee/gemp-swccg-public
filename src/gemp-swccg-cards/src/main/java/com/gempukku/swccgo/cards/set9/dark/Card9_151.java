@@ -11,6 +11,7 @@ import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
@@ -114,7 +115,7 @@ public class Card9_151 extends AbstractObjective {
                                 // Check condition(s)
                                 if (targetsLeiaInsteadOfLuke) {
                                     if (TriggerConditions.isTableChanged(game, effectResult)) {
-                                        final PhysicalCard leia = Filters.findFirstActive(game, self, Filters.and(Filters.Leia, Filters.not(Filters.captive)));
+                                        final PhysicalCard leia = Filters.findFirstActive(game, self, Filters.and(Filters.Leia, Filters.not(Filters.captive), Filters.canBeTargetedBy(self, TargetingReason.TO_BE_CAPTURED)));
                                         if (leia != null) {
                                             PhysicalCard vader = Filters.findFirstActive(game, self, Filters.and(Filters.Vader, Filters.presentWith(leia), Filters.not(Filters.or(Filters.isLeavingTable, Filters.escorting(Filters.any)))));
                                             if (vader != null) {
@@ -139,7 +140,7 @@ public class Card9_151 extends AbstractObjective {
                                 }
                                 else if (targetsKananInsteadOfLuke) {
                                     if (TriggerConditions.isTableChanged(game, effectResult)) {
-                                        final PhysicalCard kanan = Filters.findFirstActive(game, self, Filters.and(Filters.Kanan, Filters.not(Filters.captive)));
+                                        final PhysicalCard kanan = Filters.findFirstActive(game, self, Filters.and(Filters.Kanan, Filters.not(Filters.captive), Filters.canBeTargetedBy(self, TargetingReason.TO_BE_CAPTURED)));
                                         if (kanan != null) {
                                             PhysicalCard vader = Filters.findFirstActive(game, self, Filters.and(Filters.Vader, Filters.presentWith(kanan), Filters.not(Filters.or(Filters.isLeavingTable, Filters.escorting(Filters.any)))));
                                             if (vader != null) {
@@ -165,7 +166,7 @@ public class Card9_151 extends AbstractObjective {
                                 else {
                                     if (TriggerConditions.isTableChanged(game, effectResult)
                                             && !GameConditions.hasGameTextModification(game, self, ModifyGameTextType.BRING_HIM_BEFORE_ME__MAY_NOT_CAPTURE_LUKE)) {
-                                        final PhysicalCard luke = Filters.findFirstActive(game, self, Filters.and(Filters.Luke, Filters.not(Filters.captive)));
+                                        final PhysicalCard luke = Filters.findFirstActive(game, self, Filters.and(Filters.Luke, Filters.not(Filters.captive), Filters.canBeTargetedBy(self, TargetingReason.TO_BE_CAPTURED)));
                                         if (luke != null) {
                                             PhysicalCard vader = Filters.findFirstActive(game, self, Filters.and(Filters.Vader, Filters.presentWith(luke), Filters.not(Filters.or(Filters.isLeavingTable, Filters.escorting(Filters.any)))));
                                             if (vader != null) {

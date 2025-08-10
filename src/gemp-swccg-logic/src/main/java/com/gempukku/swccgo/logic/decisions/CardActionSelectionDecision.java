@@ -40,6 +40,15 @@ public abstract class CardActionSelectionDecision extends AbstractAwaitingDecisi
     }
 
     /**
+     * For testing, being able to inject an extra action at any point.
+     *
+     * @param action
+     */
+    public void addAction(Action action) {
+        _actions.add(action);
+    }
+
+    /**
      * Gets the temp action ids
      * @param actions the actions
      * @return the temp action ids

@@ -276,7 +276,7 @@ public abstract class AbstractObjective extends AbstractNonLocationPlaysToTable 
      */
     @Override
     public final List<TriggerAction> getOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
-        List<TriggerAction> actions = new LinkedList<TriggerAction>();
+        List<TriggerAction> actions = super.getOptionalAfterTriggers(playerId, game, effectResult, self);
 
         // Trigger actions from game text
         List<OptionalGameTextTriggerAction> gameTextActions;

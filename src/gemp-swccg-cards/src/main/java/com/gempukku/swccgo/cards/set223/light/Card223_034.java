@@ -38,7 +38,7 @@ public class Card223_034 extends AbstractLostInterrupt {
     public Card223_034() {
         super(Side.LIGHT, 4, "Choke", Uniqueness.UNRESTRICTED, ExpansionSet.SET_23, Rarity.V);
         setLore("Reaching out with the Force, Luke rendered Ortugg unconscious without doing the Gamorrean any actual harm.");
-        setGameText("Cancel None Shall Pass. OR If a battle just initiated at a First Light or Jabba’s Palace site, cancel game text of a participating character of ability < 4. OR If your character of ability = 5 on table, take an Interrupt with printed destiny = 4 into hand from Reserve Deck; reshuffle.");
+        setGameText("Cancel None Shall Pass. OR If a battle just initiated at a First Light or Jabba's Palace site, cancel game text of a participating character of ability < 4. OR If your character of ability = 5 on table, take an Interrupt with printed destiny = 4 into hand from Reserve Deck; reshuffle.");
         addIcons(Icon.JABBAS_PALACE, Icon.VIRTUAL_SET_23);
         setVirtualSuffix(true);
     }

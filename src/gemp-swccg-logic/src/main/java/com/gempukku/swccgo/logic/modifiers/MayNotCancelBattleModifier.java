@@ -6,6 +6,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * A modifier that prevents battles from being canceled.
@@ -20,6 +21,14 @@ public class MayNotCancelBattleModifier extends AbstractModifier {
      */
     public MayNotCancelBattleModifier(PhysicalCard source) {
         this(source, Filters.any, null, null);
+    }
+
+    /**
+     * Creates a modifier that prevents battles from being canceled by either player.
+     * @param source the source of the modifier
+     */
+    public MayNotCancelBattleModifier(PhysicalCard source, Filter locationFilter) {
+        this(source, locationFilter, null, null);
     }
 
     /**

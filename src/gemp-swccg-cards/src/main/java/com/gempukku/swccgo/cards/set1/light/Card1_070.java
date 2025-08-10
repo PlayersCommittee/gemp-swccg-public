@@ -2,10 +2,7 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.common.ExpansionSet;
-import com.gempukku.swccgo.common.Rarity;
-import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -33,7 +30,7 @@ import java.util.List;
  */
 public class Card1_070 extends AbstractUsedInterrupt {
     public Card1_070() {
-        super(Side.LIGHT, 6, "A Few Maneuvers", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
+        super(Side.LIGHT, 6, Title.A_Few_Maneuvers, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("'...I know a few maneuvers. We'll lose them.' Boosted shields and fancy flying are necessary to escape Imperial weapon fire until hyperspace jump can be made.");
         setGameText("Add 2 to hyperspeed and maneuver of any starfighter for the remainder of this turn. (Interrupt may even affect the result immediately after a destiny draw targeting the starfighter's maneuver.)");
     }

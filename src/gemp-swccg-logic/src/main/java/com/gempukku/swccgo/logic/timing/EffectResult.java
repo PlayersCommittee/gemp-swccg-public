@@ -57,6 +57,8 @@ public abstract class EffectResult implements Snapshotable<EffectResult> {
 
         // Transferred
         TRANSFERRED_DEVICE_OR_WEAPON,
+        // Relocated device or weapon
+        RELOCATED_DEVICE_OR_WEAPON,
 
         // Epic event total
         CALCULATING_EPIC_EVENT_TOTAL,

@@ -8,6 +8,7 @@ import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -30,7 +31,7 @@ import java.util.List;
  */
 public class Card7_160 extends AbstractCharacterWeapon {
     public Card7_160() {
-        super(Side.LIGHT, 3, "Lando's Blaster Rifle", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
+        super(Side.LIGHT, 3, Title.Landos_Blaster_Rifle, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.R);
         setLore("Standard-issue Imperial blaster rifle appropriated by Lando from a stormtrooper. Used by Calrissian to pin down stormtroopers as he made his escape from Cloud City.");
         setGameText("Deploy on your Lando or use 3 Force to deploy on your other warrior. May target a character, creature or vehicle using 1 Force. If Lando targeting a character, target is power -2 for remainder of turn. Draw destiny. Target hit if destiny +1 > defense value.");
         addIcons(Icon.SPECIAL_EDITION);

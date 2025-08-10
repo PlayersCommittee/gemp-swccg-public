@@ -7,7 +7,7 @@ import com.gempukku.swccgo.game.state.EpicEventState;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.game.state.actions.CommencePrimaryIgnitionState;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * A condition that is fulfilled when the specified system is being targeted by Commence Primary Ignition.

@@ -12,7 +12,7 @@ import com.gempukku.swccgo.logic.actions.SubAction;
 import com.gempukku.swccgo.logic.decisions.CardsSelectionDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.modifiers.ModifierFlag;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -31,7 +31,7 @@ public class LoseForceEffect extends AbstractSubActionEffect {
     protected String _playerToLoseForce;
     protected float _initialAmount;
     private boolean _isCannotBeReduced;
-    private boolean _isFromForceDrain;
+    private ForceDrainState _forceDrainState;
     private boolean _isFromInsertCard;
     private boolean _fromHandOnly;
     private boolean _fromReserveDeckOnly;
@@ -65,7 +65,7 @@ public class LoseForceEffect extends AbstractSubActionEffect {
      * @param cannotBeReduced true if Force loss cannot be reduced, otherwise false
      */
     public LoseForceEffect(Action action, String playerToLoseForce, float amount, boolean cannotBeReduced) {
-        this(action, playerToLoseForce, amount, cannotBeReduced, false, false, false, false, false, null, false, false);
+        this(action, playerToLoseForce, amount, cannotBeReduced, null, false, false, false, false, null, false, false);
     }
 
     /**
@@ -76,7 +76,7 @@ public class LoseForceEffect extends AbstractSubActionEffect {
      * @param cannotBeReducedBelow the amount below which the force loss cannot be reduced (if the initial amount is less than that then it will +)
      */
     public LoseForceEffect(Action action, String playerToLoseForce, float amount, float cannotBeReducedBelow) {
-        this(action, playerToLoseForce, amount, false, false, false, false, false, false, null, false, false, false, cannotBeReducedBelow);
+        this(action, playerToLoseForce, amount, false, null, false, false, false, false, null, false, false, false, cannotBeReducedBelow);
     }
 
     /**
@@ -89,7 +89,7 @@ public class LoseForceEffect extends AbstractSubActionEffect {
      * @param fromLifeForceOnly true if Force must be lost from Life Force, otherwise false
      */
     public LoseForceEffect(Action action, String playerToLoseForce, float amount, boolean cannotBeReduced, boolean fromLifeForceOnly) {
-        this(action, playerToLoseForce, amount, cannotBeReduced, false, false, false, false, fromLifeForceOnly, null, false, false);
+        this(action, playerToLoseForce, amount, cannotBeReduced, null, false, false, false, fromLifeForceOnly, null, false, false);
     }
 
     /**
@@ -98,8 +98,8 @@ public class LoseForceEffect extends AbstractSubActionEffect {
      * @param playerToLoseForce the player
      * @param amount the amount of Force to lose
      * @param cannotBeReduced true if Force loss cannot be reduced, otherwise false
-     * @param isFromForceDrain true if Force loss is from a Force drain, otherwise false
-     * @param isFromForceDrain true if Force loss is from an 'insert' card, otherwise false
+     * @param forceDrainState The active force drain state if this force loss is from a force drain, else null.
+     * @param isFromInsertCard true if Force loss is from an 'insert' card, otherwise false
      * @param fromHandOnly true if Force must be lost from hand, otherwise false
      * @param fromReserveDeckOnly true if Force must be lost from Reserve Deck, otherwise false
      * @param fromLifeForceOnly true if Force must be lost from Life Force, otherwise false
@@ -107,16 +107,16 @@ public class LoseForceEffect extends AbstractSubActionEffect {
      * @param stackFaceDown card that lost Force is stacked face down
      * @param asLiberationCard the card lost as Force is stacked as a liberation card
      */
-    protected LoseForceEffect(Action action, String playerToLoseForce, float amount, boolean cannotBeReduced, boolean isFromForceDrain, boolean isFromInsertCard, boolean fromHandOnly, boolean fromReserveDeckOnly, boolean fromLifeForceOnly, PhysicalCard stackOn, boolean stackFaceDown, boolean asLiberationCard) {
-        this(action, playerToLoseForce, amount, cannotBeReduced, isFromForceDrain, isFromInsertCard, fromHandOnly, fromReserveDeckOnly, fromLifeForceOnly, stackOn, stackFaceDown, asLiberationCard, false, Float.MIN_VALUE);
+    protected LoseForceEffect(Action action, String playerToLoseForce, float amount, boolean cannotBeReduced, ForceDrainState forceDrainState, boolean isFromInsertCard, boolean fromHandOnly, boolean fromReserveDeckOnly, boolean fromLifeForceOnly, PhysicalCard stackOn, boolean stackFaceDown, boolean asLiberationCard) {
+        this(action, playerToLoseForce, amount, cannotBeReduced, forceDrainState, isFromInsertCard, fromHandOnly, fromReserveDeckOnly, fromLifeForceOnly, stackOn, stackFaceDown, asLiberationCard, false, Float.MIN_VALUE);
     }
 
-    protected LoseForceEffect(Action action, String playerToLoseForce, float amount, boolean cannotBeReduced, boolean isFromForceDrain, boolean isFromInsertCard, boolean fromHandOnly, boolean fromReserveDeckOnly, boolean fromLifeForceOnly, PhysicalCard stackOn, boolean stackFaceDown, boolean asLiberationCard, boolean fromForcePileOnly, float cannotBeReducedBelow) {
+    protected LoseForceEffect(Action action, String playerToLoseForce, float amount, boolean cannotBeReduced, ForceDrainState forceDrainState, boolean isFromInsertCard, boolean fromHandOnly, boolean fromReserveDeckOnly, boolean fromLifeForceOnly, PhysicalCard stackOn, boolean stackFaceDown, boolean asLiberationCard, boolean fromForcePileOnly, float cannotBeReducedBelow) {
         super(action);
         _playerToLoseForce = playerToLoseForce;
         _initialAmount = amount;
         _isCannotBeReduced = cannotBeReduced;
-        _isFromForceDrain = isFromForceDrain;
+        _forceDrainState = forceDrainState;
         _isFromInsertCard = isFromInsertCard;
         _fromHandOnly = fromHandOnly;
         _fromReserveDeckOnly = fromReserveDeckOnly;
@@ -127,6 +127,10 @@ public class LoseForceEffect extends AbstractSubActionEffect {
         _asLiberationCard = asLiberationCard;
         _loseForceEffect = this;
         _cannotBeReducedBelow = cannotBeReducedBelow;
+
+        if(_forceDrainState != null) {
+            _forceDrainState.updateTotal(_initialAmount);
+        }
     }
 
     @Override
@@ -153,7 +157,7 @@ public class LoseForceEffect extends AbstractSubActionEffect {
      * @return true or false
      */
     public boolean isForceDrain() {
-        return _isFromForceDrain;
+        return _forceDrainState != null;
     }
 
     /**
@@ -181,7 +185,7 @@ public class LoseForceEffect extends AbstractSubActionEffect {
         // If this is from a Force drain, need to recheck the Force drain amount,
         // since cards like It's Worse actually act as a Force drain bonus and
         // cause the Force drain amount to need to be recalculated.
-        if (_isFromForceDrain) {
+        if (isForceDrain()) {
             float previousAmount = _initialAmount;
             ForceDrainState forceDrainState = game.getGameState().getForceDrainState();
             _initialAmount = game.getModifiersQuerying().getForceDrainAmount(game.getGameState(), forceDrainState.getLocation(), forceDrainState.getPlayerId());
@@ -189,12 +193,18 @@ public class LoseForceEffect extends AbstractSubActionEffect {
             if (previousAmount != _initialAmount) {
                 game.getGameState().sendMessage(forceDrainState.getPlayerId() + " Force drains " + GuiUtils.formatAsString(_initialAmount) + " at " + GameUtils.getCardLink(forceDrainState.getLocation()));
                 game.getModifiersQuerying().forceDrainPerformed(forceDrainState.getLocation(), _initialAmount);
+                if(_forceDrainState != null) {
+                    _forceDrainState.updateTotal(_initialAmount);
+                }
             }
             _isCannotBeReduced = game.getModifiersQuerying().cantReduceForceLossFromForceDrainAtLocation(game.getGameState(), forceDrainState.getLocation(), _playerToLoseForce, forceDrainState.getPlayerId());
         }
 
         // Get "Force loss amount" since there may be modifiers for it
         _currentAmountLeft = Math.max(0, game.getModifiersQuerying().getForceToLose(game.getGameState(), _playerToLoseForce, _isCannotBeReduced, _initialAmount) - _amountLostSoFar);
+        if(_forceDrainState != null) {
+            _forceDrainState.updateRemaining(_currentAmountLeft);
+        }
         return _currentAmountLeft;
     }
 
@@ -225,7 +235,7 @@ public class LoseForceEffect extends AbstractSubActionEffect {
 
         // Get the maximum amount of Force that can be lost
         _maxForceLossAllowed = Integer.MAX_VALUE;
-        if (_isFromForceDrain) {
+        if (isForceDrain()) {
             _maxForceLossAllowed = Math.min(_maxForceLossAllowed, modifiersQuerying.getForceToLoseFromForceDrainLimit(gameState, _playerToLoseForce, gameState.getForceDrainLocation()));
         }
         else if (_action.getActionAttachedToCard() != null) {
@@ -246,7 +256,7 @@ public class LoseForceEffect extends AbstractSubActionEffect {
                 msgText.append(GuiUtils.formatAsString(_maxForceLossAllowed));
             }
 
-            if (_isFromForceDrain) {
+            if (isForceDrain()) {
                 msgText.append(" from Force drain at ").append(GameUtils.getCardLink(gameState.getForceDrainLocation()));
             }
             else if (_action.getActionAttachedToCard() != null) {
@@ -274,6 +284,9 @@ public class LoseForceEffect extends AbstractSubActionEffect {
 
             subAction.appendEffect(
                     new TriggeringResultEffect(subAction, new ForceLossInitiatedResult(subAction, _action.getActionSource(), _initialAmount)));
+            if(_forceDrainState != null) {
+                _forceDrainState.updateTotal(_initialAmount);
+            }
 
             // 1) Begin Force loss
             subAction.appendEffect(
@@ -377,6 +390,10 @@ public class LoseForceEffect extends AbstractSubActionEffect {
                                 msgText.append(")");
                             }
 
+                            if(_forceDrainState != null) {
+                                _forceDrainState.updateRemaining(_currentAmountLeft);
+                            }
+
                             game.getGameState().sendMessage(msgText.toString());
 
                             // Lose a Force
@@ -457,7 +474,7 @@ public class LoseForceEffect extends AbstractSubActionEffect {
                             boolean allowForceLossFromAnywhereAvailable = !((_fromReserveDeckOnly && topOfReserveDeck != null) || (_fromForcePileOnly && topOfForcePile != null) || (_fromHandOnly && !game.getGameState().getHand(_playerToLoseForce).isEmpty()));
 
                             // Check if Force loss from Force drain must come certain places, if possible
-                            if (_isFromForceDrain) {
+                            if (isForceDrain()) {
                                 boolean mustComeFromReserveDeck = topOfReserveDeck != null && game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.FORCE_DRAIN_LOST_FROM_RESERVE_DECK, _playerToLoseForce);
                                 boolean mustComeFromForcePile = topOfForcePile != null && game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.FORCE_DRAIN_LOST_FROM_FORCE_PILE, _playerToLoseForce);
                                 if (mustComeFromReserveDeck || mustComeFromForcePile) {
@@ -498,19 +515,22 @@ public class LoseForceEffect extends AbstractSubActionEffect {
                                         public void decisionMade(String result) throws DecisionResultInvalidException {
                                             List<PhysicalCard> cards = getSelectedCardsByResponse(result);
                                             if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.DROIDS_SATISFY_FORCE_LOSS_UP_TO_THEIR_FORFEIT_VALUE, _playerToLoseForce)
-                                                    && cards.get(0).getBlueprint().hasIcon(Icon.DROID) && (_fromHand || _fromUsedPile || _fromForcePile || _fromReserveDeck)) {
+                                                    && cards.getFirst().getBlueprint().hasIcon(Icon.DROID) && (_fromHand || _fromUsedPile || _fromForcePile || _fromReserveDeck)) {
                                                 //get modifiers to droid forfeit (especially modifiers that set the forfeit value like Septoid droid)
-                                                Float droidForfeit = game.getModifiersQuerying().getForfeit(game.getGameState(),cards.get(0));
+                                                Float droidForfeit = game.getModifiersQuerying().getForfeit(game.getGameState(), cards.getFirst());
 
                                                 //if it still isn't defined, treat it as 0
-                                                int forceLossToApply = (int)Math.min(getForceLossRemaining(game),(droidForfeit==null?0:droidForfeit.intValue()));
+                                                int forceLossToApply = (int)Math.min(getForceLossRemaining(game), droidForfeit.intValue());
 
                                                 _amountLostSoFar = _amountLostSoFar + forceLossToApply;
                                             } else {
                                                 _amountLostSoFar++;
                                             }
+                                            if(_forceDrainState != null) {
+                                                _forceDrainState.updatePaid(_amountLostSoFar);
+                                            }
                                             subAction.appendEffect(
-                                                    new LoseOneForceEffect(subAction, cards.get(0), _amountLostSoFar, false, _isFromForceDrain, _stackOn, _stackFaceDown, _asLiberationCard) {
+                                                    new LoseOneForceEffect(subAction, cards.getFirst(), _amountLostSoFar, false, isForceDrain(), _stackOn, _stackFaceDown, _asLiberationCard) {
                                                         @Override
                                                         public boolean isShownIfLostFromHand() {
                                                             return _loseForceEffect.isShownIfLostFromHand();

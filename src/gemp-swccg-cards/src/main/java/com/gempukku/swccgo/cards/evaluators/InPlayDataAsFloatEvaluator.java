@@ -3,7 +3,7 @@ package com.gempukku.swccgo.cards.evaluators;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.evaluators.BaseEvaluator;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
  * An evaluator that returns the value of "while in play" data of the card data stored as a Float, or 0 if not a valid float.

@@ -49,7 +49,7 @@ import com.gempukku.swccgo.game.state.WeaponFiringState;
 import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifierFlag;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -3047,6 +3047,19 @@ public class GameConditions {
      * @param playerId the player
      * @param self the self
      * @param gameTextActionId the identifier for the card's specific action to perform the search
+     * @param title card that can be chosen to deploy that is identified by title
+     * @return true or false
+     */
+    public static boolean canDeployCardFromLostPile(SwccgGame game, String playerId, PhysicalCard self, GameTextActionId gameTextActionId, String title) {
+        return canDeployCardFromCardPile(game, playerId, self, Zone.LOST_PILE, gameTextActionId, false, false, Collections.<Persona>emptySet(), Collections.singletonList(title));
+    }
+
+    /**
+     * Checks if the player can deploy a card from Lost Pile.
+     * @param game the game
+     * @param playerId the player
+     * @param self the self
+     * @param gameTextActionId the identifier for the card's specific action to perform the search
      * @param skipDeployPhaseCheck true if checking it is the player's deploy phase is skipped, otherwise false
      * @param persona persona that can be chosen to deploy that are identified by persona
      * @return true or false
@@ -4842,7 +4855,7 @@ public class GameConditions {
      * @return true or false
      */
     public static boolean canInitiateBattleAtLocation(String player, SwccgGame game, PhysicalCard location, boolean forFree) {
-        return canInitiateBattleAtLocation(player, game, location, forFree, false);
+        return canInitiateBattleAtLocation(player, game, location, forFree, false, false);
     }
 
     /**
@@ -4851,9 +4864,24 @@ public class GameConditions {
      * @param game the game
      * @param location the location
      * @param forFree if the battle would be initiated for free
+     * @param skipPhaseCheck if owner's battle phase is not required
      * @return true or false
      */
     public static boolean canInitiateBattleAtLocation(String player, SwccgGame game, PhysicalCard location, boolean forFree, boolean skipPhaseCheck) {
+        return canInitiateBattleAtLocation(player, game, location, forFree, skipPhaseCheck, false);
+    }
+
+    /**
+     * Determines if the specified player can initiate battle at the location.
+     * @param player the player
+     * @param game the game
+     * @param location the location
+     * @param forFree if the battle would be initiated for free
+     * @param skipPhaseCheck if owner's battle phase is not required
+     * @param skipPresenceCheck if occupying is not required
+     * @return true or false
+     */
+    public static boolean canInitiateBattleAtLocation(String player, SwccgGame game, PhysicalCard location, boolean forFree, boolean skipPhaseCheck, boolean skipPresenceCheck) {
         GameState gameState = game.getGameState();
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
@@ -4890,8 +4918,8 @@ public class GameConditions {
         boolean foundMayBeBattled = Filters.canSpot(game, null, Filters.and(Filters.opponents(player), Filters.mayBeBattled, Filters.canParticipateInBattleAt(location, player)));
 
         // Both sides occupy location (excluding cards that cannot participate in battle)
-        return ((foundMayInitiateBattle || modifiersQuerying.hasPresenceAt(gameState, player, location, true, player, null))
-                && (foundMayBeBattled || modifiersQuerying.hasPresenceAt(gameState, gameState.getOpponent(player), location, true, player, null)));
+        return ((foundMayInitiateBattle || modifiersQuerying.hasPresenceAt(gameState, player, location, true, player, null) || skipPresenceCheck)
+                && (foundMayBeBattled || modifiersQuerying.hasPresenceAt(gameState, gameState.getOpponent(player), location, true, player, null) || skipPresenceCheck));
     }
 
     /**

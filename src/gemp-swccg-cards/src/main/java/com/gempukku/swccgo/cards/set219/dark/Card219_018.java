@@ -4,7 +4,9 @@ import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -38,7 +40,7 @@ public class Card219_018 extends AbstractUsedOrLostInterrupt {
         super(Side.DARK, 4, "Surely You Can Do Better", Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setGameText("USED: During battle, target a character present with [Set 13] Dooku. Target is power -3. " +
                     "LOST: If lightsaber combat was just initiated, add one destiny to your total. " +
-                    "OR If [Set 13] Dooku on table, deploy Dooku’s Lightsaber from Lost Pile.");
+                    "OR If [Set 13] Dooku on table, deploy Dooku's Lightsaber from Lost Pile.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_19);
     }
 
@@ -73,20 +75,21 @@ public class Card219_018 extends AbstractUsedOrLostInterrupt {
             actions.add(action);
         }
 
-        // OR If [Set 13] Dooku on table, deploy Dooku’s Lightsaber from Lost Pile
+        // OR If [Set 13] Dooku on table, deploy Dooku's Lightsaber from Lost Pile
+        GameTextActionId gameTextActionId = GameTextActionId.SURELY_YOU_CAN_DO_BETTER__DEPLOY_DOOKUS_LIGHTSABER_FROM_LOST_PILE;
         if (GameConditions.canSpot(game, self, set13Dooku)
-                && GameConditions.hasLostPile(game, playerId)) {
+                && GameConditions.canDeployCardFromLostPile(game, playerId, self, gameTextActionId, false, Persona.DOOKUS_LIGHTSABER)) {
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
-            action.setText("Deploy Dooku’s Lightsaber from Lost Pile");
-            action.setActionMsg("Deploy Dooku’s Lightsaber from Lost Pile");
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId, CardSubtype.LOST);
+            action.setText("Deploy card from Lost Pile");
+            action.setActionMsg("Deploy Dooku's Lightsaber from Lost Pile");
             // Allow response(s)
             action.allowResponses(
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {
                             action.appendEffect(
-                                    new DeployCardFromLostPileEffect(action, Filters.title("Dooku's Lightsaber"), false)
+                                    new DeployCardFromLostPileEffect(action, Filters.Dookus_Lightsaber, false)
                             );
                         }
                     }

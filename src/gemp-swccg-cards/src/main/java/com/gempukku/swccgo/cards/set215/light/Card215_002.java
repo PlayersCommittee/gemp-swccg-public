@@ -48,7 +48,7 @@ public class Card215_002 extends AbstractEpicEventDeployable {
         setLore("");
         setGameText("Deploy on Central Core. Once per game, opponent may stack up to two cards from hand face-down here. " +
                 "All This Sneaking Around: Path Of Least Resistance is canceled. While no cards stacked here, Leia moves for free using her landspeed. " +
-                "Allow The Ship To Leave: If you just won a battle at a Death Star site (or initiated a Force drain here), place a card stacked here in owner’s Lost Pile. " +
+                "Allow The Ship To Leave: If you just won a battle at a Death Star site (or initiated a Force drain here), place a card stacked here in owner's Lost Pile. " +
                 "That Old Man Did It!: If you occupy this site and another Death Star site while no cards stacked here, for remainder of game, power 'shut down.'");
         addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_15);
     }

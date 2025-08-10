@@ -9,27 +9,36 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
  * The effect result that is emitted when a card is stolen.
  */
 public class StolenResult extends EffectResult {
-    private PhysicalCard _cardStolen;
-    private PhysicalCard _stolenFromLocation;
+    private final PhysicalCard _cardStolen;
+    private final PhysicalCard _stolenFrom;
+    private final PhysicalCard _stolenFromLocation;
 
     /**
      * Creates an effect result that is emitted when a card is stolen.
      * @param performingPlayerId the player that performed the action
      * @param cardStolen the card that is stolen
+     * @param stolenFrom The card originally owning the stolen card
      * @param stolenFromLocation the location the card was stolen from, or null
      */
-    public StolenResult(String performingPlayerId, PhysicalCard cardStolen, PhysicalCard stolenFromLocation) {
+    public StolenResult(String performingPlayerId, PhysicalCard cardStolen, PhysicalCard stolenFrom, PhysicalCard stolenFromLocation) {
         super(Type.STOLEN, performingPlayerId);
         _cardStolen = cardStolen;
+        _stolenFrom = stolenFrom;
         _stolenFromLocation = stolenFromLocation;
     }
 
     /**
-     * Gets the card that was stolen.
-     * @return the card
+     * @return The card which was just stolen
      */
     public PhysicalCard getStolenCard() {
         return _cardStolen;
+    }
+
+    /**
+     * @return The card originally possessing the card before it was stolen.  Null if no owner, such as a derelict spaceship.
+     */
+    public PhysicalCard getStolenFrom() {
+        return _stolenFrom;
     }
 
     /**

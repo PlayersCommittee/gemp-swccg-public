@@ -2,7 +2,7 @@ package com.gempukku.swccgo.logic.timing.rules;
 
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextAbilityModifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersEnvironment;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersEnvironment;
 
 /**
  * Enforces the special Jabba's Palace Sealed game rule that any character of ability 1 who has a printed deploy number

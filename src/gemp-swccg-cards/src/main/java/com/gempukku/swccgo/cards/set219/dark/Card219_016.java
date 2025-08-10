@@ -17,6 +17,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.CancelCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
@@ -28,6 +29,7 @@ import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.UniqueModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.results.LostFromTableResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -43,9 +45,7 @@ public class Card219_016 extends AbstractNormalEffect {
         super(Side.DARK, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.No_Escape, Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setVirtualSuffix(true);
         setLore("Jabba's influence is not easily ignored. Neither are his voracious and vile appetites. Even Jedi soon learn this lesson.");
-        setGameText("Deploy on table. When deployed, may take the top card of Lost Pile into hand. During your move phase, " +
-                    "may cancel Landing Claw (then place it out of play from Lost Pile). " +
-                    "Elis Helrot and Nabrun Leids are unique (•) and are Lost Interrupts. [Immune to Alter.]");
+        setGameText("Deploy on table. When deployed, may take the top card of Lost Pile into hand. During your move phase, may cancel Landing Claw. If Landing Claw was just lost, place it out of play. Elis Helrot and Nabrun Leids are unique (•) and are Lost Interrupts. [Immune to Alter.]");
         addIcons(Icon.PREMIUM, Icon.VIRTUAL_SET_19);
         addImmuneToCardTitle(Title.Alter);
     }
@@ -73,15 +73,30 @@ public class Card219_016 extends AbstractNormalEffect {
                                             action.appendEffect(
                                                     new CancelCardOnTableEffect(action, targetedCard)
                                             );
-                                            action.appendEffect(
-                                                    new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, game.getOpponent(playerId), Filters.samePermanentCardId(targetedCard), false)
-                                            );
                                         }
                                     }
                             );
                         }
                     }
             );
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
+
+    @Override
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        String playerId = self.getOwner();
+        
+        // Check condition(s)
+        if (TriggerConditions.justLost(game, effectResult, Filters.Landing_Claw)) {
+            PhysicalCard cardLost = ((LostFromTableResult) effectResult).getCard();
+
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setText("Place " + GameUtils.getFullName(cardLost) + " out of play");
+            // Perform result(s)
+            action.appendEffect(
+                    new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, game.getOpponent(playerId), Filters.samePermanentCardId(cardLost), false));
             return Collections.singletonList(action);
         }
         return null;

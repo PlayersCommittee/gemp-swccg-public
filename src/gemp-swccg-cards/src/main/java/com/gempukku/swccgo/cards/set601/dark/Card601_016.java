@@ -23,7 +23,7 @@ import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeCanceledModifier;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainsMayNotBeModifiedModifier;
 import com.gempukku.swccgo.logic.modifiers.JabbasSailBargeMayDeployHereModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 
 import java.util.LinkedList;

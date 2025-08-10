@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card2_037 extends AbstractNormalEffect {
     public Card2_037() {
-        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Scanner Techs", Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.U1);
+        super(Side.LIGHT, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Scanner_Techs, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.U1);
         setLore("Specialized scanner technicians examine scanner output to identify the presence of life forms. Experienced operators can even identify species and gender.");
         setGameText("Deploy on your side of table. Radar Scanner is immune to Sense. If Radar Scanner is played against an opponent who has more than 13 cards in hand, opponent loses all Jawas, Tusken Raiders and stormtroopers found there.");
         addIcons(Icon.A_NEW_HOPE);

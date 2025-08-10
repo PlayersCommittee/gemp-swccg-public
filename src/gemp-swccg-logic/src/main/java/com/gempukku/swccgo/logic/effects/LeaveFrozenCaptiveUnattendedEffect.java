@@ -36,6 +36,9 @@ public class LeaveFrozenCaptiveUnattendedEffect extends AbstractSuccessfulEffect
 
         gameState.sendMessage(GameUtils.getCardLink(_escort) + " leaves 'frozen' captive " + GameUtils.getCardLink(_captive) + " 'unattended' at " + GameUtils.getCardLink(_site));
         gameState.moveCardToLocation(_captive, _site, _captive.getOwner().equals(game.getDarkPlayer()));
+        //Something like this needs to be applied to fix the unattended captive no longer showing the escort
+        // as a target in the UI.
+        //_captive.clearTargetedCards();
 
         // Emit the result effect that can trigger other cards
         game.getActionsEnvironment().emitEffectResult(new LeaveFrozenCaptiveUnattendedResult(_escort, _captive, _site));

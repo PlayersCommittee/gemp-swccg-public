@@ -7,7 +7,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.game.state.SabaccState;
 import com.gempukku.swccgo.logic.PlayerOrder;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 import java.util.Collections;
 import java.util.HashMap;

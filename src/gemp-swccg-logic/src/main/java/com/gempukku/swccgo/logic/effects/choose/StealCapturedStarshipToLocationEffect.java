@@ -10,7 +10,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.SubAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.modifiers.ModifiersQuerying;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -175,7 +175,7 @@ class StealCapturedStarshipToLocationEffect extends AbstractSubActionEffect impl
                                 gameState.reapplyAffectingForCard(game, card);
                             }
                             // Emit effect result for each stolen card
-                            game.getActionsEnvironment().emitEffectResult(new StolenResult(_playerId, _cardToBeStolen, currentLocation));
+                            game.getActionsEnvironment().emitEffectResult(new StolenResult(_playerId, _cardToBeStolen, null, currentLocation));
                         }
                     }
                 }
