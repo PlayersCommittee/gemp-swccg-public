@@ -442,26 +442,18 @@ class Card {
                    (cardNo == 41) ||
                    (cardNo == 44);        
         }if (setNo == 501) {
-            return (cardNo == 4) ||
-                   (cardNo == 6) ||
+            return (cardNo == 6) ||
                    (cardNo == 7) ||
                    (cardNo == 8) ||
                    (cardNo == 13) ||
                    (cardNo == 21) ||
                    (cardNo == 24) ||
                    (cardNo == 29) ||
-                   (cardNo == 34) ||
                    (cardNo == 36) ||
                    (cardNo == 38) ||
                    (cardNo == 39) ||
-                   (cardNo == 108) ||
-                   (cardNo == 109) ||
-                   (cardNo == 118) ||
-                   (cardNo == 160) ||
                    (cardNo == 164) ||
-                   (cardNo == 171) ||
-                   (cardNo == 186) ||
-                   (cardNo == 187);
+                   (cardNo == 171);
         }
         if (setNo == 601) {
              return (cardNo == 14) ||
