@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.logic.timing.rules;
 
 import com.gempukku.swccgo.common.CaptureOption;
+import com.gempukku.swccgo.common.CardState;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.ActionsEnvironment;
@@ -37,7 +38,8 @@ public class LeavesTableCardRule implements Rule {
                         PhysicalCard cardThatLeftTable = getCardThatLeftTable(effectResult);
 
                         // If game text of card was not previously canceled, get required triggers from card itself
-                        if (cardThatLeftTable != null && !cardThatLeftTable.wasPreviouslyCanceledGameText()) {
+                        if (cardThatLeftTable != null && !cardThatLeftTable.wasPreviouslyCanceledGameText()
+                                && (cardThatLeftTable.getPreviousCardState() == CardState.ACTIVE || cardThatLeftTable.getPreviousCardState() == CardState.INACTIVE)) {
                             return cardThatLeftTable.getBlueprint().getLeavesTableRequiredTriggers(game, effectResult, cardThatLeftTable);
                         }
 
@@ -50,6 +52,7 @@ public class LeavesTableCardRule implements Rule {
                         List<TriggerAction> allTriggers = new LinkedList<>();
                         // If game text of card was not previously canceled, get card owner's optional triggers from card itself
                         if (cardThatLeftTable != null && !cardThatLeftTable.wasPreviouslyCanceledGameText()
+                                && (cardThatLeftTable.getPreviousCardState() == CardState.ACTIVE || cardThatLeftTable.getPreviousCardState() == CardState.INACTIVE)
                                 && cardThatLeftTable.getOwner().equals(playerId)) {
                             List<TriggerAction> triggers = cardThatLeftTable.getBlueprint().getLeavesTableOptionalTriggers(playerId, game, effectResult, cardThatLeftTable);
                             if (triggers != null) {
@@ -67,6 +70,7 @@ public class LeavesTableCardRule implements Rule {
                         }
 
                         if (cardThatLeftTable != null && !cardThatLeftTable.wasPreviouslyCanceledGameText()
+                                && (cardThatLeftTable.getPreviousCardState() == CardState.ACTIVE || cardThatLeftTable.getPreviousCardState() == CardState.INACTIVE)
                                 && cardThatLeftTable.getOwner().equals(game.getOpponent(playerId))) {
                             List<TriggerAction> triggers = cardThatLeftTable.getBlueprint().getOpponentsCardLeavesTableOptionalTriggers(playerId, game, effectResult, cardThatLeftTable);
                             if (triggers != null) {

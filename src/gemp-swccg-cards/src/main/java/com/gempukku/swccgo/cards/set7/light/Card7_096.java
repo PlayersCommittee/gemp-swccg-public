@@ -37,7 +37,7 @@ public class Card7_096 extends AbstractUsedInterrupt {
     public Card7_096() {
         super(Side.LIGHT, 5, Title.On_Target, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Some Imperial starfighters are equipped with sensors, informing the pilot when an enemy craft has targeted him. The pilot's evasive maneuvers cost him time, but save his life.");
-        setGameText("If you have a piloted capital starship armed with a starship weapon, use 2 Force to target an opponent's starship present. Until the end of your next turn, target cannot move and its pilots may not apply ability toward drawing battle destiny.");
+        setGameText("If you have a piloted capital starship armed with a starship weapon, use 2 Force to target an opponent's starship present. Until end of your next turn, target cannot move and its pilots may not apply ability toward drawing battle destiny.");
         addIcons(Icon.SPECIAL_EDITION);
     }
 

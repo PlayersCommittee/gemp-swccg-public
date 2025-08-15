@@ -19,7 +19,7 @@ public class PayMoveWithoutUsingHyperspeedCostEffect extends AbstractSubActionEf
     private float _changeInCost;
 
     /**
-     * Creates an effect that pays the cost of moving a card between systems using hyperspeed.
+     * Creates an effect that pays the cost of moving a card between systems without using hyperspeed.
      * @param action the action performing this effect
      * @param playerId the player to pay the cost
      * @param cardToMove the card to move

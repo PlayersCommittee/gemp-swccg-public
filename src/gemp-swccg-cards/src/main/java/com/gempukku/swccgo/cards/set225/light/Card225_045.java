@@ -22,7 +22,7 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.OrCondition;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsDestinyToPowerModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.MayDeployToTargetModifier;
@@ -89,7 +89,7 @@ public class Card225_045 extends AbstractResistance {
                     new OncePerGameEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, downloadFilter, true));
+                    new DeployCardToLocationFromReserveDeckEffect(action, downloadFilter, Filters.here(self), true));
             return Collections.singletonList(action);
         }
         return null;
