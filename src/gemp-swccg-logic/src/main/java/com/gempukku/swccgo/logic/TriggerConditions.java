@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.logic;
 
 import com.gempukku.swccgo.common.CaptureOption;
+import com.gempukku.swccgo.common.CardState;
 import com.gempukku.swccgo.common.DestinyType;
 import com.gempukku.swccgo.common.Filterable;
 import com.gempukku.swccgo.common.GameTextActionId;
@@ -2333,6 +2334,7 @@ public class TriggerConditions {
             PhysicalCard cardLost = ((LostFromTableResult) effectResult).getCard();
 
             return GameUtils.getZoneFromZoneTop(cardLost.getZone()) == Zone.LOST_PILE
+                    && (cardLost.getPreviousCardState() == CardState.ACTIVE || cardLost.getPreviousCardState() == CardState.INACTIVE)
                     && Filters.and(filter).accepts(game.getGameState(), game.getModifiersQuerying(), cardLost);
         }
         return false;
@@ -2354,6 +2356,7 @@ public class TriggerConditions {
             if (playerId.equals(effectResult.getPerformingPlayerId())
                 || (effectResult.getPerformingPlayerId() == null && playerId.equals(cardLost.getOwner()))) {
                 return GameUtils.getZoneFromZoneTop(cardLost.getZone()) == Zone.LOST_PILE
+                        && (cardLost.getPreviousCardState() == CardState.ACTIVE || cardLost.getPreviousCardState() == CardState.INACTIVE)
                         && Filters.and(filter).accepts(game.getGameState(), game.getModifiersQuerying(), cardLost);
             }
         }
@@ -2378,6 +2381,7 @@ public class TriggerConditions {
             Collection<PhysicalCard> wasPresentWith = lostFromTableResult.getWasPresentWith();
 
             return GameUtils.getZoneFromZoneTop(cardLost.getZone()) == Zone.LOST_PILE
+                    && (cardLost.getPreviousCardState() == CardState.ACTIVE || cardLost.getPreviousCardState() == CardState.INACTIVE)
                     && Filters.and(cardFilter).accepts(game, cardLost)
                     && !Filters.filterCount(wasPresentWith, game, 1, presentWithFilter).isEmpty();
         }
@@ -2401,6 +2405,7 @@ public class TriggerConditions {
             PhysicalCard fromAttachedTo = lostFromTableResult.getFromAttachedTo();
 
             return GameUtils.getZoneFromZoneTop(cardLost.getZone()) == Zone.LOST_PILE
+                    && (cardLost.getPreviousCardState() == CardState.ACTIVE || cardLost.getPreviousCardState() == CardState.INACTIVE)
                     && Filters.and(cardFilter).accepts(game.getGameState(), game.getModifiersQuerying(), cardLost)
                     && fromAttachedTo != null && Filters.and(attachedToFilter).accepts(game.getGameState(), game.getModifiersQuerying(), fromAttachedTo);
         }
@@ -2438,6 +2443,7 @@ public class TriggerConditions {
             PhysicalCard location = lostFromTableResult.getFromLocation();
 
             return GameUtils.getZoneFromZoneTop(cardLost.getZone()) == Zone.LOST_PILE
+                    && (cardLost.getPreviousCardState() == CardState.ACTIVE || cardLost.getPreviousCardState() == CardState.INACTIVE)
                     && Filters.and(cardFilter).accepts(game.getGameState(), game.getModifiersQuerying(), cardLost)
                     && location != null && Filters.and(locationFilter).accepts(game.getGameState(), game.getModifiersQuerying(), location);
         }
