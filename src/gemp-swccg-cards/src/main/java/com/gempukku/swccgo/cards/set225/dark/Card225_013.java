@@ -58,7 +58,7 @@ public class Card225_013 extends AbstractFirstOrder {
         Filter pilotingFulminatrix = Filters.and(Filters.hasPiloting(self), Filters.Fulminatrix);
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
-        modifiers.add(new ArmorModifier(self, Filters.First_Order_starship, pilotingFOStarshipCond, evaluator));
+        modifiers.add(new ArmorModifier(self, Filters.and(Filters.hasPiloting(self), Filters.First_Order_starship), pilotingFOStarshipCond, evaluator));
         modifiers.add(new ImmunityToAttritionChangeModifier(self, pilotingFOStarshipNotFulminatrix, 1));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, pilotingFulminatrix, 6));
         modifiers.add(new MayNotReactToLocationModifier(self, Filters.here(self), opponent));
