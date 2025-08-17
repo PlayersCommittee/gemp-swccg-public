@@ -29,7 +29,7 @@ import com.gempukku.swccgo.logic.conditions.TrueCondition;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
 import com.gempukku.swccgo.logic.effects.FlipSingleSidedStackedCard;
 import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardEffect;
-import com.gempukku.swccgo.logic.effects.choose.StackCardFromOutsideDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.StackCardsFromOutsideDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.JediTestSuspendedInsteadOfLostModifier;
 import com.gempukku.swccgo.logic.modifiers.MayDeployAsIfFromHandModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -70,15 +70,7 @@ public class Card225_057 extends AbstractEpicEventDeployable {
             action.setPerformingPlayer(playerId);
             // Perform result(s)
             action.appendEffect(
-                new StackCardFromOutsideDeckEffect(action, playerId, self, false, Filters.Jedi_Test_1));
-            action.appendEffect(
-                new StackCardFromOutsideDeckEffect(action, playerId, self, false, Filters.Jedi_Test_2));
-            action.appendEffect(
-                new StackCardFromOutsideDeckEffect(action, playerId, self, false, Filters.Jedi_Test_3));
-            action.appendEffect(
-                new StackCardFromOutsideDeckEffect(action, playerId, self, false, Filters.Jedi_Test_4));
-            action.appendEffect(
-                new StackCardFromOutsideDeckEffect(action, playerId, self, false, Filters.Jedi_Test_5));
+                new StackCardsFromOutsideDeckEffect(action, playerId, 5, 5, self, false, Filters.Jedi_Test, true));
             actions.add(action);
         }
 
