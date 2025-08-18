@@ -116,7 +116,7 @@ public class Card225_057 extends AbstractEpicEventDeployable {
         modifiers.add(new MayDeployAsIfFromHandModifier(self, Filters.and(Filters.not(Filters.face_down), Filters.Jedi_Test, Filters.stackedOn(self))));
         modifiers.add(new PlaceJediTestOnTableWhenCompletedModifier(self, Filters.any, new TrueCondition()));
         modifiers.add(new ModifyGameTextModifier(self, Filters.Jedi_Test, ModifyGameTextType.JEDI_TESTS__ONLY_LUKE_MAY_BE_APPRENTICE));
-        modifiers.add(new JediTestSuspendedInsteadOfLostModifier(self, Filters.completed_Jedi_Test, new TrueCondition()));
+        modifiers.add(new JediTestSuspendedInsteadOfLostModifier(self, Filters.any, new TrueCondition()));
 
         Condition lukeBattlingAlone = new DuringBattleWithParticipantCondition(Filters.and(Filters.Luke, Filters.alone));
         Condition duringBattleUnlessLukeBattlingAlone = new AndCondition(new DuringBattleCondition(), new UnlessCondition(lukeBattlingAlone));
