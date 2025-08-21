@@ -34,7 +34,7 @@ public class Card200_135 extends AbstractCapitalStarship {
         super(Side.DARK, 2, 3, 5, 4, null, 4, 6, "Hound's Tooth", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("Controlled by state-of-the-art-voice-activated X10-D computers. Internal sensors and security systems monitor prisoner activity. Modified for Bossk's Trandoshan physiology.");
-        setGameText("May add 1 pilot (must be smuggler or bounty hunter), 6 passengers and 1 vehicle. Immune to attrition < 4 if Bossk piloting. Deploys and moves like a starfighter. Has ship-docking capability.");
+        setGameText("May add 1 alien pilot, 6 passengers, and 1 vehicle. Deploys (even using Combat Response) and moves like a starfighter. While Bossk piloting, adds one battle destiny and immune to attrition < 4.");
         addIcons(Icon.DAGOBAH, Icon.INDEPENDENT, Icon.NAV_COMPUTER, Icon.SCOMP_LINK, Icon.VIRTUAL_SET_0);
         addModelType(ModelType.MODIFIED_CORELLIAN_FREIGHTER);
         addPersona(Persona.HOUNDS_TOOTH);
