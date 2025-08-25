@@ -4031,6 +4031,7 @@ const fixedImages = {
 "305_42":"https://i.imgur.com/54cntwJ.png", //Councillor Turel Sorenn
 "305_43":"https://i.imgur.com/SIxU6mN.png", //Mihoshi Keibatsu, Councillor of Urr
 "305_44":"https://i.imgur.com/Udsi5Kt.png", //Hidden Corridors
+"305_45":"https://i.imgur.com/GjhYmHy.png", //Kalen Joss
 
 //playtesting
 "501_1":"https://res.starwarsccg.org/cards/Virtual20-Light/hires/beskardeflection.png",

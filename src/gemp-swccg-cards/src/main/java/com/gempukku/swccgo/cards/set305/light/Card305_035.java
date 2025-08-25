@@ -35,7 +35,7 @@ public class Card305_035 extends AbstractAlien {
         setLore("Currently a leader in clan Odan-Urr. This Odanite loves the cards and the dice almost as much as she does fighting. As a gambler the only god she worships is luck.");
         setGameText("Deploys -3 to Quermia. Mihoshi and your other [COU] characters present are defense value +2, and immune to You Are Beaten, Sniper, and attrition < 3.");
         addPersona(Persona.MIHOSHI);
-        addIcons(Icon.ABT, Icon.WARRIOR);
+        addIcons(Icon.ABT, Icon.COU, Icon.WARRIOR);
         addKeywords(Keyword.FEMALE, Keyword.LEADER, Keyword.GAMBLER);
     }
 

@@ -19520,6 +19520,7 @@ public class Filters {
     public static final Filter Teikhos = Filters.persona(Persona.TEIKHOS);
     public static final Filter Quermia_Senate_Hallway = Filters.title(Title.Quermia_Senate_Hallway);
     public static final Filter interior_Quermia_site = Filters.and(Icon.INTERIOR_SITE, Filters.partOfSystem(Title.Quermia));
+    public static final Filter PLAG = Filters.icon(Icon.PLAG);
 
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {
