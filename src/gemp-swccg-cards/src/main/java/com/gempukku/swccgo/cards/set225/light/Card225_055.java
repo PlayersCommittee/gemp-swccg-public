@@ -22,7 +22,6 @@ import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.CaptureCharacterOnTableEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.swccgo.logic.effects.RestoreCardToNormalEffect;
 import com.gempukku.swccgo.logic.modifiers.ExtraForceCostToFireWeaponModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -85,8 +84,6 @@ public class Card225_055 extends AbstractNormalEffect {
                                         game.getGameState().sendMessage(opponent + " chooses to capture and seize " + GameUtils.getCardLink(cardToBeLost));
 
                                         aboutToLeaveTableResult.getPreventableCardEffect().preventEffectOnCard(cardToBeLost);
-                                        action.appendEffect(
-                                                new RestoreCardToNormalEffect(action, cardToBeLost));
                                         action.appendEffect(
                                                 new CaptureCharacterOnTableEffect(action, cardToBeLost, false, null, true));
                                     }

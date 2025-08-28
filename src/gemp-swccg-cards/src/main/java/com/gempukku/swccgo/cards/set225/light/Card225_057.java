@@ -29,7 +29,7 @@ import com.gempukku.swccgo.logic.conditions.TrueCondition;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
 import com.gempukku.swccgo.logic.effects.FlipSingleSidedStackedCard;
 import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardEffect;
-import com.gempukku.swccgo.logic.effects.choose.StackCardFromOutsideDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.StackCardsFromOutsideDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.JediTestSuspendedInsteadOfLostModifier;
 import com.gempukku.swccgo.logic.modifiers.MayDeployAsIfFromHandModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -70,15 +70,7 @@ public class Card225_057 extends AbstractEpicEventDeployable {
             action.setPerformingPlayer(playerId);
             // Perform result(s)
             action.appendEffect(
-                new StackCardFromOutsideDeckEffect(action, playerId, self, false, Filters.Jedi_Test_1));
-            action.appendEffect(
-                new StackCardFromOutsideDeckEffect(action, playerId, self, false, Filters.Jedi_Test_2));
-            action.appendEffect(
-                new StackCardFromOutsideDeckEffect(action, playerId, self, false, Filters.Jedi_Test_3));
-            action.appendEffect(
-                new StackCardFromOutsideDeckEffect(action, playerId, self, false, Filters.Jedi_Test_4));
-            action.appendEffect(
-                new StackCardFromOutsideDeckEffect(action, playerId, self, false, Filters.Jedi_Test_5));
+                new StackCardsFromOutsideDeckEffect(action, playerId, 5, 5, self, false, Filters.Jedi_Test, true));
             actions.add(action);
         }
 
@@ -102,6 +94,10 @@ public class Card225_057 extends AbstractEpicEventDeployable {
             action.appendTargeting(
                     new ChooseStackedCardEffect(action, playerId, patienceWithJediTestStackedFaceUp, jediTestFaceUp, false) {
                         @Override
+                        public String getChoiceText(int numCardsToChoose) {
+                            return "Choose a Jedi Test on Patience! to turn face down";
+                        }
+                        @Override
                         protected void cardSelected(PhysicalCard selectedCard) {
                             // Perform result(s)
                             action.appendEffect(
@@ -120,7 +116,7 @@ public class Card225_057 extends AbstractEpicEventDeployable {
         modifiers.add(new MayDeployAsIfFromHandModifier(self, Filters.and(Filters.not(Filters.face_down), Filters.Jedi_Test, Filters.stackedOn(self))));
         modifiers.add(new PlaceJediTestOnTableWhenCompletedModifier(self, Filters.any, new TrueCondition()));
         modifiers.add(new ModifyGameTextModifier(self, Filters.Jedi_Test, ModifyGameTextType.JEDI_TESTS__ONLY_LUKE_MAY_BE_APPRENTICE));
-        modifiers.add(new JediTestSuspendedInsteadOfLostModifier(self, Filters.completed_Jedi_Test, new TrueCondition()));
+        modifiers.add(new JediTestSuspendedInsteadOfLostModifier(self, Filters.any, new TrueCondition()));
 
         Condition lukeBattlingAlone = new DuringBattleWithParticipantCondition(Filters.and(Filters.Luke, Filters.alone));
         Condition duringBattleUnlessLukeBattlingAlone = new AndCondition(new DuringBattleCondition(), new UnlessCondition(lukeBattlingAlone));

@@ -16,6 +16,7 @@ import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -28,6 +29,7 @@ public class StackCardsFromOutsideDeckEffect extends AbstractSubActionEffect {
     private PhysicalCard _stackOn;
     private boolean _faceDown;
     private Filterable _cardFilter;
+    private boolean _sortByDestiny;
     private Collection<PhysicalCard> _cardsStacked = new ArrayList<PhysicalCard>();
     private boolean _stackAsManyAsPossible;
     private StackCardsFromOutsideDeckEffect _that;
@@ -68,6 +70,21 @@ public class StackCardsFromOutsideDeckEffect extends AbstractSubActionEffect {
      * @param cardFilter the filter for cards to be stacked
      */
     public StackCardsFromOutsideDeckEffect(Action action, String playerId, int min, int max, PhysicalCard stackOn, boolean faceDown, Filterable cardFilter) {
+        this(action, playerId, min, max, stackOn, faceDown, cardFilter, false);
+    }
+
+    /**
+     * Creates an effect that stacks cards from outside of deck accepted by the filter on a specified card.
+     * @param action the action performing this effect
+     * @param playerId the player
+     * @param min the minimum cards to stack
+     * @param max the maximum cards to stack
+     * @param stackOn the card to stack on
+     * @param faceDown true if the card will be stacked face down
+     * @param cardFilter the filter for cards to be stacked
+     * @param sortByDestiny true if cards should be sorted by destiny (only meaningful if the cards are stacked automatically)
+     */
+    public StackCardsFromOutsideDeckEffect(Action action, String playerId, int min, int max, PhysicalCard stackOn, boolean faceDown, Filterable cardFilter, boolean sortByDestiny) {
         super(action);
         _playerId = playerId;
         _min = min;
@@ -75,6 +92,7 @@ public class StackCardsFromOutsideDeckEffect extends AbstractSubActionEffect {
         _stackOn = stackOn;
         _faceDown = faceDown;
         _cardFilter = cardFilter;
+        _sortByDestiny = sortByDestiny;
         _stackAsManyAsPossible = true;
         _that = this;
     }
@@ -94,7 +112,15 @@ public class StackCardsFromOutsideDeckEffect extends AbstractSubActionEffect {
 
         final SubAction subAction = new SubAction(_action, _playerId);
 
-        final Collection<PhysicalCard> outsideOfDeck = Filters.filter(game.getGameState().getOutsideOfDeck(_playerId), game, _cardFilter);
+        final Collection<PhysicalCard> collectionOutsideOfDeck = Filters.filter(game.getGameState().getOutsideOfDeck(_playerId), game, _cardFilter);
+        final List<PhysicalCard> outsideOfDeck = new ArrayList<>(collectionOutsideOfDeck);
+
+        if (_sortByDestiny)
+        {
+            outsideOfDeck.sort(
+                    Comparator.comparingDouble(card -> card.getBlueprint().getDestiny()));
+        }
+
         if (outsideOfDeck.size() >= _min) {
             final int numCardsToStack = Math.min(_max, outsideOfDeck.size());
             if (_stackAsManyAsPossible && numCardsToStack >= outsideOfDeck.size()) {
