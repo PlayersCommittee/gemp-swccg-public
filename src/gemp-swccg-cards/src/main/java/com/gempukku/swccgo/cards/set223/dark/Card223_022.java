@@ -110,6 +110,7 @@ public class Card223_022 extends AbstractUsedInterrupt {
 
         if (GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId1)) {
             final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId1);
+            action.setText("Take [Set 0] Imperial Decree into hand");
             action.allowResponses("Take [Set 0] Imperial Decree into hand from Reserve Deck",
                     new RespondablePlayCardEffect(action) {
                         @Override
