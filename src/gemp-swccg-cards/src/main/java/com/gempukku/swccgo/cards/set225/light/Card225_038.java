@@ -87,7 +87,7 @@ public class Card225_038 extends AbstractRebel {
                     new LoseForceEffect(action, playerId, 1, true));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardToTargetFromLostPileEffect(action, Filters.Hans_Heavy_Blaster_Pistol, Filters.sameCardId(self), true));
+                    new DeployCardToTargetFromLostPileEffect(action, Filters.Hans_Heavy_Blaster_Pistol, Filters.sameCardId(self), false));
             actions.add(action);
         }
         return actions;
