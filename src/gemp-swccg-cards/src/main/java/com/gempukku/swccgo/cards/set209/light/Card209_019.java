@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class Card209_019 extends AbstractUsedOrLostInterrupt {
     public Card209_019() {
-        super(Side.LIGHT, 4, "Effective Repairs & Starship Levitation", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
+        super(Side.LIGHT, 4, "Effective Repairs & Starship Levitation", Uniqueness.UNRESTRICTED, ExpansionSet.SET_9, Rarity.V);
         addComboCardTitles(Title.Effective_Repairs, Title.Starship_Levitation);
         setLore("");
         setGameText("USED: Cancel Broken Concentration, Lateral Damage, or Limited Resources. OR Place a card just stacked on Droid Racks or Strategic Reserves in opponent's Lost Pile. (Immune to Sense) OR If you just drew a starship for destiny, take that starship into hand to cancel and redraw that destiny. LOST: Use 3 Force to retrieve an Effect of any kind or a non-[Maintenance] starship into hand.");

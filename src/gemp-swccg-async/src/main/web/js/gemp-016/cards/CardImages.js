@@ -4282,5 +4282,7 @@ const fixedImages = {
 "222_29ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/youngskywalker_ai.png",
 "222_12ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/palpatinegalacticemperor_ai.png",
 "221_41ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/vadersobsession_ai.png",
+"200_110ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Dark/hires/knowledgeanddefense_ai.png",
+"200_35ai":"https://res.starwarsccg.org/cards/VirtualAlternateImage-Light/hires/angerfearaggression_ai.png",
 
 };
