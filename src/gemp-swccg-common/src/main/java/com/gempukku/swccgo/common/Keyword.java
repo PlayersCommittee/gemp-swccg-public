@@ -92,6 +92,7 @@ public enum Keyword implements Filterable {
     JABBAS_PALACE_SITE("Jabba's Palace Site", false),
     JAWA_WEAPON("Jawa Weapon", false),
     JEDI_COUNCIL_MEMBER("Jedi Council Member", true, true),
+    JEDI_SURVIVOR("Jedi Survivor", true, true),
     JEDI_TEST_1("Jedi Test #1", true),
     JEDI_TEST_2("Jedi Test #2", true),
     JEDI_TEST_3("Jedi Test #3", true),
