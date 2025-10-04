@@ -18208,6 +18208,7 @@ public class Filters {
     public static final Filter He_Will_Bring_Balance = Filters.title(Title.He_Will_Bring_Balance);
     public static final Filter Heart_Of_The_Chasm = Filters.title(Title.Heart_Of_The_Chasm);
     public static final Filter Hebsly = Filters.title(Title.Hebsly);
+    public static final Filter Help_Me_ObiWan_Kenobi = Filters.title(Title.Help_Me_Obi_Wan_Kenobi);
     public static final Filter Hera = Filters.title(Title.Hera);
     public static final Filter Hero_Of_A_Thousand_Devices = Filters.title(Title.Hero_Of_A_Thousand_Devices);
     public static final Filter Heroic_Sacrifice = Filters.title(Title.Heroic_Sacrifice);
