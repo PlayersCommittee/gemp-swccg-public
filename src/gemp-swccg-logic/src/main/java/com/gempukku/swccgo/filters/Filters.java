@@ -18385,6 +18385,7 @@ public class Filters {
     public static final Filter Jedi_Lightsaber = Filters.title(Title.Jedi_Lightsaber);
     public static final Filter Jedi_Master = Filters.type(CardType.JEDI_MASTER);
     public static final Filter Jedi_Presence = Filters.title(Title.Jedi_Presence);
+    public static final Filter Jedi_Survivor = Filters.keyword(Keyword.JEDI_SURVIVOR);
     public static final Filter Jedi_Test = Filters.type(CardType.JEDI_TEST);
     public static final Filter Jedi_Test_1 = Filters.keyword(Keyword.JEDI_TEST_1);
     public static final Filter Jedi_Test_2 = Filters.keyword(Keyword.JEDI_TEST_2);
