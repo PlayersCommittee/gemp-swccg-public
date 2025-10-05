@@ -17865,6 +17865,7 @@ public class Filters {
     public static final Filter Dantooine_site = Filters.and(Filters.partOfSystem(Title.Dantooine), CardSubtype.SITE);
     public static final Filter Dantooine_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Dantooine));
     public static final Filter Danz_Borin = Filters.title(Title.Danz_Borin);
+    public static final Filter Dark_Approach = Filters.title(Title.Dark_Approach);
     public static final Filter Dark_Collaboration = Filters.title(Title.Dark_Collaboration);
     public static final Filter Dark_Deal = Filters.title(Title.Dark_Deal);
     public static final Filter Dark_Forces = Filters.title(Title.Dark_Forces);

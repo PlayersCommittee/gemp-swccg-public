@@ -262,6 +262,7 @@ public interface Title {
     String Dantooine = "Dantooine";
     String Dantooine_Base_Operations = "Dantooine Base Operations";
     String Danz_Borin = "Danz Borin";
+    String Dark_Approach = "Dark Approach";
     String Dark_Collaboration = "Dark Collaboration";
     String Dark_Deal = "Dark Deal";
     String Dark_Forces = "Dark Forces";

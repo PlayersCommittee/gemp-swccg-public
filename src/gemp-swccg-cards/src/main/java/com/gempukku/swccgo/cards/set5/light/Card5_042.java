@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -32,7 +33,7 @@ import java.util.List;
  */
 public class Card5_042 extends AbstractLostInterrupt {
     public Card5_042() {
-        super(Side.LIGHT, 4, "Dark Approach", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
+        super(Side.LIGHT, 4, Title.Dark_Approach, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("'The Force is with you, young Skywalker. But you are not a Jedi yet.'");
         setGameText("If opponent just initiated a battle, you may do one of the following: Add one destiny to power only. OR If you have a character weapon present, select one opponent's character present to lose all immunity to attrition for remainder of battle.");
         addIcons(Icon.CLOUD_CITY);
