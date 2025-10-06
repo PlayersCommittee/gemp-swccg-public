@@ -9,6 +9,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -34,7 +35,7 @@ import java.util.List;
  */
 public class Card220_004 extends AbstractImperial {
     public Card220_004() {
-        super(Side.DARK, 3, 3, 4, 4, 5, "Third Sister", Uniqueness.UNIQUE, ExpansionSet.SET_20, Rarity.V);
+        super(Side.DARK, 3, 3, 4, 4, 5, Title.Third_Sister, Uniqueness.UNIQUE, ExpansionSet.SET_20, Rarity.V);
         setLore("Female Inquisitor.");
         setGameText("Deploys +3 to your location. Obi-Wan is not a general. Once per turn, if opponent's card just moved from here, opponent loses 1 Force. Your characters here move (using landspeed) to sites opponent occupies for free. Immune to attrition < 4.");
         addKeywords(Keyword.INQUISITOR, Keyword.FEMALE);

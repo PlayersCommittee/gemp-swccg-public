@@ -19076,6 +19076,7 @@ public class Filters {
     public static final Filter Takodana_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Takodana));
     public static final Filter Tala_1 = Filters.title(Title.Tala_1);
     public static final Filter Tala_2 = Filters.title(Title.Tala_2);
+    public static final Filter Tala_Durith = Filters.persona(Persona.TALA_DURITH);
     public static final Filter Tallon_Roll = Filters.title(Title.Tallon_Roll);
     public static final Filter Talz = Filters.species(Species.TALZ);
     public static final Filter Tanbris = Filters.title(Title.Tanbris);
@@ -19145,6 +19146,7 @@ public class Filters {
     public static final Filter Third_Marker = Filters.keyword(Keyword.MARKER_3);
     public static final Filter They_Will_Be_Lost_And_Confused = Filters.title(Title.They_Will_Be_Lost_And_Confused);
     public static final Filter They_Will_Be_No_Match_For_You = Filters.title(Title.They_Will_Be_No_Match_For_You);
+    public static final Filter Third_Sister = Filters.title(Title.Third_Sister);
     public static final Filter This_Deal_Is_Getting_Worse_All_The_Time = Filters.title(Title.This_Deal_Is_Getting_Worse_All_The_Time);
     public static final Filter This_Is_All_Your_Fault = Filters.title(Title.This_Is_All_Your_Fault);
     public static final Filter This_Is_Just_Wrong = Filters.title(Title.This_Is_Just_Wrong);
