@@ -18144,6 +18144,7 @@ public class Filters {
     public static final Filter gangster = Filters.keyword(Keyword.GANGSTER);
     public static final Filter Garrison_Destroyed = Filters.title(Title.Garrison_Destroyed);
     public static final Filter gas_miner = Filters.keyword(Keyword.GAS_MINER);
+    public static final Filter Gather_Allies_And_Train = Filters.title(Title.Gather_Allies_And_Train);
     public static final Filter general = Filters.keyword(Keyword.GENERAL);
     public static final Filter General_Calrissian = Filters.title(Title.General_Calrissian);
     public static final Filter General_Dodonna = Filters.title(Title.General_Dodonna);
@@ -18360,6 +18361,7 @@ public class Filters {
     public static final Filter Jabbas_Sail_Barge = Filters.persona(Persona.JABBAS_SAIL_BARGE);
     public static final Filter Jabbas_Space_Cruiser = Filters.title(Title.Jabbas_Space_Cruiser);
     public static final Filter Jabbas_Trophies = Filters.title(Title.Jabbas_Trophies);
+    public static final Filter Jabiim_site = Filters.and(Filters.partOfSystem(Title.Jabiim), CardSubtype.SITE);
     public static final Filter Jakku_battleground = Filters.and(Filters.partOfSystem(Title.Jakku), Filters.battleground());
     public static final Filter Jakku_battleground_site = Filters.and(Filters.partOfSystem(Title.Jakku), CardSubtype.SITE, Filters.battleground());
     public static final Filter Jakku_Landing_Site = Filters.title(Title.Jakku_Landing_Site);
@@ -19213,6 +19215,7 @@ public class Filters {
     public static final Filter Under_Attack = Filters.title(Title.Under_Attack);
     public static final Filter under_nighttime_conditions = Filters.or(Filters.and(CardType.LOCATION, Keyword.NIGHTTIME_CONDITIONS), Filters.at(Filters.keyword(Keyword.NIGHTTIME_CONDITIONS)));
     public static final Filter Undercover = Filters.title(Title.Undercover);
+    public static final Filter Underground_Corridor = Filters.title(Title.Underground_Corridor);
     public static final Filter underground_site = Filters.and(Icon.UNDERGROUND, CardSubtype.SITE);
     public static final Filter underwater_site = Filters.and(Icon.UNDERWATER, CardSubtype.SITE);
     public static final Filter Underworld_Contacts = Filters.title(Title.Underworld_Contacts);

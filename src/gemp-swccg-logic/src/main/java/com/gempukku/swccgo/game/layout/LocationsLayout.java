@@ -111,6 +111,9 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
             else if (system.getTitle().equals(Title.Lothal)) {
                 systemLayout = new LothalLayout(system.getTitle(), system.getParsec());
             }
+            else if (system.getTitle().equals(Title.Mapuzo)) {
+                systemLayout = new MapuzoLayout(system.getTitle(), 6);
+            }
             else if (system.getTitle().equals(Title.Naboo)) {
                 systemLayout = new NabooLayout(system.getTitle(), system.getParsec());
             }
@@ -134,14 +137,13 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
                 addToLayouts(systemLayout);
             }
         }
-        //Information for planets that have sites, but no corresponding system location in the game yet
+        //Add layouts for planets that have sites, but no system location in the game yet
         addToLayouts(new DefaultPlanetLayout(Title.Ajan_Kloss, 9));
         addToLayouts(new DefaultPlanetLayout(Title.Dathomir, 4));
         addToLayouts(new DefaultPlanetLayout(Title.Exegol, 10));
         addToLayouts(new DefaultPlanetLayout(Title.Jabiim, 6));
         addToLayouts(new DefaultPlanetLayout(Title.Kef_Bir, 8));
-        addToLayouts(new DefaultPlanetLayout(Title.Malachor, 6));
-        addToLayouts(new DefaultPlanetLayout(Title.Mapuzo, 6));
+        addToLayouts(new MapuzoLayout(Title.Mapuzo, 6));
     }
 
     /**
