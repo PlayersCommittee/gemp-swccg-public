@@ -17646,6 +17646,7 @@ public class Filters {
     public static final Filter Beldons_Eye = Filters.title(Title.Beldons_Eye);
     public static final Filter Beldons_Corridor = Filters.title(Title.Beldons_Corridor);
     public static final Filter Ben_Solo = Filters.persona(Persona.BEN_SOLO);
+    public static final Filter Beq = Filters.persona(Persona.BEQ);
     public static final Filter Beru = Filters.title(Title.Beru_Lars);
     public static final Filter Beru_Stew = Filters.title(Title.Beru_Stew);
     public static final Filter Besieged = Filters.title(Title.Besieged);
