@@ -108,7 +108,7 @@ public class Card201_035 extends AbstractUsedInterrupt {
         String opponent = game.getOpponent(playerId);
 
         // Check condition(s)
-        if (TriggerConditions.isAboutToRemoveJustLostCardFromLostPile(game, effectResult, opponent, Filters.and(Filters.opponents(self), Filters.character))) {
+        if (TriggerConditions.isAboutToRemoveJustLostCardFromLostPile(game, effectResult, opponent, Filters.and(Filters.opponents(self), Filters.character, Filters.canBeTargetedBy(self)))) {
             final AboutToRemoveJustLostCardFromLostPileResult result = (AboutToRemoveJustLostCardFromLostPileResult) effectResult;
             final PhysicalCard cardToRemoveFromLostPile = result.getCardToRemoveFromLostPile();
 
