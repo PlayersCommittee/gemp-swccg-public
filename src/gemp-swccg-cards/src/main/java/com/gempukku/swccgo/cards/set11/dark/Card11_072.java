@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card11_072 extends AbstractNormalEffect {
     public Card11_072() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "I'm Sorry", Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Im_Sorry, Uniqueness.UNIQUE, ExpansionSet.TATOOINE, Rarity.R);
         setLore("'I'm sorry, too.'");
         setGameText("Deploy on table. If This Deal Is Getting Worse All The Time on table, once per game may take up to 2 interior Cloud City battlegrounds into hand from Reserve Deck; reshuffle. You may not play Scanning Crew or Imperial Barrier. (Immune to Alter.)");
         addIcons(Icon.TATOOINE);

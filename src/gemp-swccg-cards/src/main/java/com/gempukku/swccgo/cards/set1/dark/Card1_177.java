@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.conditions.AtSameLocationAsCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -34,6 +35,7 @@ public class Card1_177 extends AbstractAlien {
         setLore("Long-nosed, male Kubaz from Kubindi. Spy. Squealed on Obi-Wan and Luke outside Docking Bay 94. Works for Jabba the Hutt or the highest bidder. Not particularly brave.");
         setGameText("When at same location as a Rebel of ability > 2, deploy -1 there for any Imperials, and during your move phase, Imperials at an adjacent site may move there for free.");
         addKeywords(Keyword.SPY);
+        addPersona(Persona.GARINDAN);
         setSpecies(Species.KUBAZ);
     }
 

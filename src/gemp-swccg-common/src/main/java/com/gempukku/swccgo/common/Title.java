@@ -557,6 +557,7 @@ public interface Title {
     String I_Will_Make_It_Legal = "I Will Make It Legal";
     String Im_Here_To_Rescue_You = "I'm Here To Rescue You";
     String Im_On_The_Leader = "I'm On The Leader";
+    String Im_Sorry = "I'm Sorry";
     String Im_With_You_Too = "I'm With You Too";
     String Imperial_Arrest_Order = "Imperial Arrest Order";
     String Imperial_Artillery = "Imperial Artillery";
@@ -676,6 +677,7 @@ public interface Title {
     String Laser_Gate = "Laser Gate";
     String Lateral_Damage = "Lateral Damage";
     String Launch_Bay = "Star Destroyer: Launch Bay";
+    String Launching_The_Assault = "Launching The Assault";
     String Leave_Them_To_Me = "Leave Them To Me";
     String Leebo = "LE-BO2D9 (Leebo)";
     String Leia_Of_Alderaan = "Leia Of Alderaan";
@@ -824,6 +826,7 @@ public interface Title {
     String Old_Ben = "Old Ben";
     String Ominous_Rumors = "Ominous Rumors";
     String Ommni_Box = "Ommni Box";
+    String Ommni_Box_Its_Worse = "Ommni Box & It's Worse";
     String On_Target = "On Target";
     String On_The_Verge_Of_Greatness = "On The Verge Of Greatness";
     String One_In_A_Million = "One In A Million";
@@ -1015,6 +1018,7 @@ public interface Title {
     String Secret_Plans = "Secret Plans";
     String Security_Precautions = "Security Precautions";
     String Security_Tower = "Cloud City: Security Tower";
+    String See_Threepio = "See-Threepio";
     String Seeking_An_Audience = "Seeking An Audience";
     String Seelos = "Seelos";
     String Sei_Taria = "Sei Taria";

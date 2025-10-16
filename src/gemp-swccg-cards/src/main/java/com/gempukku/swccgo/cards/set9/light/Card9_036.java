@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class Card9_036 extends AbstractNormalEffect {
     public Card9_036() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, "Launching The Assault", Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
+        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Launching_The_Assault, Uniqueness.UNIQUE, ExpansionSet.DEATH_STAR_II, Rarity.R);
         setLore("By recruiting the Mon Calamari, a race of master shipwrights, the Rebel starfleet gained capital starships rivaling the dreaded Imperial Star Destroyers.");
         setGameText("Deploy on any system. Once per game, may take Home One into from Reserve Deck; reshuffle. Your Force drains are +1 at battleground systems where you have a Star Cruiser piloted by a character. Effect canceled when Rendezvous Point on table. (Immune to Alter.)");
         addKeywords(Keyword.DEPLOYS_ON_LOCATION);

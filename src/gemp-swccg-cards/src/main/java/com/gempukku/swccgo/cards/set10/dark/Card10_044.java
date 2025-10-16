@@ -42,7 +42,7 @@ import java.util.List;
  */
 public class Card10_044 extends AbstractUsedOrLostInterrupt {
     public Card10_044() {
-        super(Side.DARK, 5, "Ommni Box & It's Worse", Uniqueness.UNRESTRICTED, ExpansionSet.REFLECTIONS_II, Rarity.PM);
+        super(Side.DARK, 5, Title.Ommni_Box_Its_Worse, Uniqueness.UNRESTRICTED, ExpansionSet.REFLECTIONS_II, Rarity.PM);
         addComboCardTitles(Title.Ommni_Box, Title.Its_Worse);
         setGameText("USED: Shuffle any player's Reserve Deck or Lost Pile. LOST: If It Could Be Worse was just played, it is canceled and you may use X Force to raise damage against opponent by X amount. OR If opponent just lost Force from a battle, play to increase loss by 1 Force.");
         addIcons(Icon.REFLECTIONS_II);
