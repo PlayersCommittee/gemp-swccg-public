@@ -452,13 +452,15 @@ class Card {
                    (cardNo == 36) ||
                    (cardNo == 38) ||
                    (cardNo == 39) ||
+                   (cardNo == 69) ||
+                   (cardNo == 164) ||
+                   (cardNo == 171) ||
                    (cardNo == 203) ||
                    (cardNo == 204) ||
                    (cardNo == 205) ||
                    (cardNo == 206) ||
                    (cardNo == 207) ||
-                   (cardNo == 164) ||
-                   (cardNo == 171);
+                   (cardNo == 213);
         }
         if (setNo == 601) {
              return (cardNo == 14) ||
