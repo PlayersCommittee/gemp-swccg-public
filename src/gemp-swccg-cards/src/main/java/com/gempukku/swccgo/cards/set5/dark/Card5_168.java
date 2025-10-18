@@ -14,6 +14,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.DoubledModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployOtherCardsAsReactToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
@@ -38,9 +39,7 @@ public class Card5_168 extends AbstractSite {
     @Override
     protected List<Modifier> getGameTextDarkSideWhileActiveModifiers(String playerOnDarkSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        // TODO: Fix this
-        // modifiers.add(new MayDeployAsReactToLocationModifier(self, Filters.and(Filters.your(playerOnDarkSideOfLocation),
-        //        Filters.or(Filters.character, Filters.character_weapon)), self));
+        modifiers.add(new MayDeployOtherCardsAsReactToLocationModifier(self, "Deploy card as a 'react'", playerOnDarkSideOfLocation, Filters.or(Filters.character, Filters.character_weapon), self));
         return modifiers;
     }
 
