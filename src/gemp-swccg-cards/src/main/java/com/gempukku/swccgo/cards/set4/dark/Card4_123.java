@@ -108,7 +108,7 @@ public class Card4_123 extends AbstractNormalEffect {
                                         else {
                                             game.getGameState().sendMessage(opponent + " chooses to lose 1 Force");
                                             action.appendEffect(
-                                                    new LoseForceEffect(action, opponent, 1, true));
+                                                    new LoseForceEffect(action, opponent, 1));
                                         }
                                     }
                                 }
