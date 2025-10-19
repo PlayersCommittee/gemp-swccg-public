@@ -18278,6 +18278,7 @@ public class Filters {
     public static final Filter I_Had_No_Choice = Filters.title(Title.I_Had_No_Choice);
     public static final Filter Im_Here_To_Rescue_You = Filters.title(Title.Im_Here_To_Rescue_You);
     public static final Filter Im_On_The_Leader = Filters.title(Title.Im_On_The_Leader);
+    public static final Filter Im_Sorry = Filters.title(Title.Im_Sorry);
     public static final Filter Im_With_You_Too = Filters.title(Title.Im_With_You_Too);
     public static final Filter Immediate_Effect = Filters.and(CardType.EFFECT, Filters.subtype(CardSubtype.IMMEDIATE));
     public static final Filter immune_to_Alter = Filters.immuneToCardTitle(Title.Alter);
