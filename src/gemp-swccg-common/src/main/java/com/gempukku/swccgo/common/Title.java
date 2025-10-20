@@ -273,6 +273,7 @@ public interface Title {
     String Dark_Waters = "Dark Waters";
     String Darklighter_Spin = "Darklighter Spin";
     String Darksaber = "Darksaber";
+    String Darth_Tyranus = "Darth Tyranus";
     String Darth_Vader_Dark_Lord_of_the_Sith = "Darth Vader, Dark Lord Of The Sith";
     String DataVault = "Scarif: Data Vault";
     String OceanShallows = "Scarif: Ocean Shallows";
@@ -455,6 +456,7 @@ public interface Title {
     String General_Calrissian = "General Calrissian";
     String General_Dodonna = "General Dodonna";
     String Geonosis = "Geonosis";
+    String Geonosis_Petranaki_Arena = "Geonosis: Petranaki Arena";
     String Get_Alongside_That_One = "Get Alongside That One";
     String Ghhhk = "Ghhhk";
     String Ghost = "Ghost";

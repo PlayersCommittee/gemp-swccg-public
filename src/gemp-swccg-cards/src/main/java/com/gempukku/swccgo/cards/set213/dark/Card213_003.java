@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class Card213_003 extends AbstractDarkJediMaster {
     public Card213_003() {
-        super(Side.DARK, 1, 7, 5, 7, 8, "Darth Tyranus", Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
+        super(Side.DARK, 1, 7, 5, 7, 8, Title.Darth_Tyranus, Uniqueness.UNIQUE, ExpansionSet.SET_13, Rarity.V);
         setLore("Serennian leader. Trade Federation.");
         setGameText("Deploys -1 to an [Episode I] location. Jedi here are power and immunity to attrition -1. During battle or lightsaber combat involving Dooku, may cancel and redraw an opponent's just drawn destiny. Immune to Sorry About The Mess and attrition < 6.");
         addIcons(Icon.WARRIOR, Icon.PILOT, Icon.SEPARATIST, Icon.EPISODE_I, Icon.VIRTUAL_SET_13);
