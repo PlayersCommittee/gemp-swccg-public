@@ -13,6 +13,7 @@ import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetId;
 import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -54,7 +55,7 @@ import java.util.List;
  */
 public class Card1_218 extends AbstractNormalEffect {
     public Card1_218() {
-        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, "I've Lost Artoo!", Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
+        super(Side.DARK, 5, PlayCardZoneOption.ATTACHED, Title.Ive_Lost_Artoo, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U1);
         setLore("'WHAAAAAAAAAOOOOW!'");
         setGameText("Use 1 Force to target a starship's [Nav Computer] or astromech. Draw destiny. If destiny > 1, [Nav Computer] or astromech is lost. If starship's [Nav Computer] is lost, place Effect on starship (may add 1 astromech); otherwise, Effect lost.");
     }

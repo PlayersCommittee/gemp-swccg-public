@@ -611,6 +611,7 @@ public interface Title {
     String Its_An_Older_Code = "It's An Older Code";
     String Its_Worse = "It's Worse";
     String Ive_Got_A_Problem_Here = "I've Got A Problem Here";
+    String Ive_Lost_Artoo = "I've Lost Artoo!";
     String Jabbas_Palace = "Tatooine: Jabba's Palace";
     String Jabbas_Prize = "Jabba's Prize";
     String Jabbas_Influence = "Jabba's Influence";
@@ -1070,6 +1071,7 @@ public interface Title {
     String Stalker = "Stalker";
     String Stardust = "Stardust";
     String Starkiller_Base = "Starkiller Base";
+    String Starship_Graveyard = "Jakku: Starship Graveyard";
     String Steady_Steady = "Steady, Steady";
     String Stolen_Data_Tapes = "Stolen Data Tapes";
     String Stone_Pile = "Stone Pile";

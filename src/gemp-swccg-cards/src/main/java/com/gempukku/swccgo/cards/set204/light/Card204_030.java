@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card204_030 extends AbstractSite {
     public Card204_030() {
-        super(Side.LIGHT, "Jakku: Starship Graveyard", Title.Jakku, Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
+        super(Side.LIGHT, Title.Starship_Graveyard, Title.Jakku, Uniqueness.UNIQUE, ExpansionSet.SET_4, Rarity.V);
         setLocationDarkSideGameText("Unless you occupy, your non-scavenger characters deploy and move to here for +1 Force.");
         setLocationLightSideGameText("If you just deployed a scavenger here, may retrieve a device, droid, or weapon.");
         addIcon(Icon.DARK_FORCE, 2);

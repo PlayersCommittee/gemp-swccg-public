@@ -57,7 +57,7 @@ public class Card224_018 extends AbstractJediMaster {
             if (GameConditions.canSearchLostPile(game, playerId, self, gameTextActionId, true)) {
 
                 final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-                action.setText("Retrieve a musician into hand");
+                action.setText("Retrieve a musician");
                 action.appendUsage(
                     new OncePerGameEffect(action));
                 // Perform result(s)
