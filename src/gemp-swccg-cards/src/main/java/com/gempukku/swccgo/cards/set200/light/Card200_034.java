@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card200_034 extends AbstractNormalEffect {
     public Card200_034() {
-        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "A Good Blaster At Your Side", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
+        super(Side.LIGHT, 3, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.A_Good_Blaster_At_Your_Side, Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setLore("'I've been looking forward to this for a long time.' 'Yes, I'll bet you have.' Han abruptly ended his conversation with Greedo and flipped Wuher a credit to pay for the cleanup.");
         setGameText("Deploy on table. Non-lightsaber weapons carried by your non-Jedi characters may not be stolen. During your control phase, opponent loses 1 Force for each battleground site you control with a non-[Permanent Weapon] blaster present. Rebel Artillery is a Lost Interrupt. Immune to Alter.");
         addIcons(Icon.A_NEW_HOPE, Icon.VIRTUAL_SET_0);

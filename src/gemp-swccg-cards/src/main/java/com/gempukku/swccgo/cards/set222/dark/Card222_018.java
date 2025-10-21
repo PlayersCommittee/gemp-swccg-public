@@ -96,7 +96,7 @@ public class Card222_018 extends AbstractLostInterrupt {
         final String opponent = game.getOpponent(playerId);
 
         // Check condition(s)
-        if (TriggerConditions.lostBattle(game, effectResult, game.getOpponent(playerId))) {
+        if (TriggerConditions.lostBattle(game, effectResult, opponent)) {
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText("Make opponent lose 2 Force");
             // Allow response(s)
