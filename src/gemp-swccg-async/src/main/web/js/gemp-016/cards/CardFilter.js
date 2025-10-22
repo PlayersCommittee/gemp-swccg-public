@@ -156,6 +156,7 @@ var CardFilter = Class.extend({
             + "<option value='open_no_episodevii'>Open (no Episode VII)</option>"
             + "<option value='classic'>Classic</option>"
             + "<option value='classic_no_virtual'>Classic (no virtual cards)</option>"
+            + "<option value='classic_no_virtual_m'>Classic (no virtual cards) (Modified)</option>"
             + "<option value='jawa'>Jawa</option>"
             + "<option value='legacy'>Legacy</option>"
             //+ "<option value='limited_resources'>Limited Resources</option>"
