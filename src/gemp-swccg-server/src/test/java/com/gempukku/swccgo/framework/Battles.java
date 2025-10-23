@@ -11,7 +11,7 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	/**
 	 * @return True if the Light Side player has an available action to initiate battle, false otherwise.
 	 */
-	default boolean LSCanInitiateBattle() { return DSActionAvailable("Initiate battle"); }
+	default boolean LSCanInitiateBattle() { return LSActionAvailable("Initiate battle"); }
 
 	/**
 	 * Causes the Dark Side player to initiate battle at the given location.
