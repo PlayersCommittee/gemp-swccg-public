@@ -10,6 +10,7 @@ public enum SealedLeagueType {
     HOTH_DAGOBAH_CC_SEALED("hoth_dagobah_cc_sealed", "sealed", "Hoth-Dagobah-Cloud City Sealed"),
     JP_SEALED("jp_sealed", "jp_sealed", "Jabba's Palace Sealed"),
     ENDOR_DSII_SEALED("endor_dsII_sealed", "sealed", "Endor-Death Star II Sealed"),
+    REFLECTIONS_SEALED("reflections_sealed", "sealed", "Reflections Sealed"),
     EPISODE_I_SEALED("episode_i_sealed", "sealed", "Episode I Sealed"),
     ALL_OF_THE_JEDI_SEALED("all_of_the_jedi_sealed", "sealed", "All of the Jedi Sealed"),
     NOVELTY_SEALED("novelty_sealed","sealed", "Space Sealed"),
