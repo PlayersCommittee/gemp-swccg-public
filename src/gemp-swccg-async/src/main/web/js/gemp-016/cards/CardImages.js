@@ -3823,6 +3823,7 @@ const fixedImages = {
 "501_70":"https://res.starwarsccg.org/cards/EnhancedJabbasPalace-Dark/large/marajadetheemperorshand.gif",
 "501_71":"https://res.starwarsccg.org/cards/ReflectionsII-Dark/large/ommnibox&itsworse.gif",
 "501_72":"https://res.starwarsccg.org/cards/Virtual23-Dark/hires/bespin.png",
+"501_73":"https://res.starwarsccg.org/cards/Virtual8-Dark/hires/lieutenantdopheldmitaka.png",
 "501_89":"https://res.starwarsccg.org/cards/Endor-Light/large/orrimaarko.gif",
 "501_90":"https://res.starwarsccg.org/cards/Premiere-Light/large/deathstarplans.gif",
 "501_91":"https://res.starwarsccg.org/cards/ThirdAnthology-Light/large/massassibaseoperations.gif",
