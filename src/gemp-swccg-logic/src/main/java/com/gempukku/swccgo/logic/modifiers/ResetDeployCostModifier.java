@@ -40,7 +40,7 @@ public class ResetDeployCostModifier extends AbstractModifier {
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      * @param resetValue the reset value
      */
-    private ResetDeployCostModifier(PhysicalCard source, Filterable affectFilter, Condition condition, float resetValue) {
+    public ResetDeployCostModifier(PhysicalCard source, Filterable affectFilter, Condition condition, float resetValue) {
         super(source, null, affectFilter, condition, ModifierType.UNMODIFIABLE_DEPLOY_COST, true);
         _resetValue = resetValue;
     }
