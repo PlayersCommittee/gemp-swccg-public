@@ -40,7 +40,7 @@ import java.util.List;
  */
 public class Card225_056 extends AbstractRebel {
     public Card225_056() {
-        super(Side.LIGHT, 1, 4, 4, 4, 5, Title.Orrimaarko, Uniqueness.UNIQUE, ExpansionSet.SET_25, Rarity.V);
+        super(Side.LIGHT, 1, 4, 4, 4, 6, Title.Orrimaarko, Uniqueness.UNIQUE, ExpansionSet.SET_25, Rarity.V);
         setLore("Dresselian scout and resistance leader. Worked tirelessly to combat the subjugation of his homeworld before Bothans brought him into contact with the Alliance.");
         setGameText("If you just won a battle here (or at same site as your scout general), opponent loses 1 Force. While on Endor, adds 1 to your [Endor] Epic Event total for each Endor location you occupy and, once per game, may cancel a Force drain at a related battleground.");
         addIcons(Icon.ENDOR, Icon.WARRIOR, Icon.VIRTUAL_SET_25);
