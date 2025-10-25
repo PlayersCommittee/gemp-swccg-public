@@ -32,6 +32,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+//mirror changes to Card14_079 (AI)
 
 /**
  * Set: Theed Palace
@@ -58,8 +59,7 @@ public class Card14_078 extends AbstractDarkJediMaster {
                 && !GameConditions.canSpot(game, self, Filters.and(Filters.other(self), Filters.character, Filters.present(self)))) {
             final PhysicalCard cardLost = ((LostFromTableResult) effectResult).getCard();
 
-            if (GameConditions.canTarget(game, self, TargetingReason.TO_BE_PLACED_OUT_OF_PLAY, cardLost)) {
-
+            if(game.getModifiersQuerying().canBeTargetedBy(game.getGameState(), cardLost, self, Collections.singleton(TargetingReason.TO_BE_PLACED_OUT_OF_PLAY))) {
                 final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
                 action.setText("Place " + GameUtils.getFullName(cardLost) + " out of play");
                 action.setActionMsg("Place " + GameUtils.getCardLink(cardLost) + " out of play");
