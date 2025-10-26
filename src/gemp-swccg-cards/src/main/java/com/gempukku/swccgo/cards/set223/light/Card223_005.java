@@ -54,7 +54,7 @@ public class Card223_005 extends AbstractRebel {
         PresentAtCondition presentAtBattleground = new PresentAtCondition(self, Filters.battleground);
         modifiers.add(new AddsBattleDestinyModifier(self, new OnTableCondition(self, Filters.and(Filters.spy, Filters.hasAttached(Filters.Stardust))), 1));
         modifiers.add(new ForceDrainModifier(self, Filters.here(self), new AndCondition(hasStardustAttached, presentAtBattleground), 1, self.getOwner()));
-        modifiers.add(new MayNotBeChokedModifier(self, Filters.and(Filters.here(self), Filters.and(Filters.not(Filters.trooper), Filters.Rebel, Filters.spy))));
+        modifiers.add(new MayNotBeChokedModifier(self, Filters.and(Filters.here(self), Filters.and(Filters.not(Filters.trooper), Filters.Rebel, Filters.spy)), new AndCondition(hasStardustAttached, presentAtBattleground)));
         return modifiers;
     }
 
