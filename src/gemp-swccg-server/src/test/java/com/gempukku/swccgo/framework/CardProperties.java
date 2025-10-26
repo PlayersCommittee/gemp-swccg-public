@@ -397,3 +397,4 @@ public interface CardProperties extends TestBase {
 
 }
 
+

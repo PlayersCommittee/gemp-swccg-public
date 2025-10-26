@@ -1314,6 +1314,17 @@ public class GameConditions {
     }
 
     /**
+     * Determines if the specified card is only inactive because it is excluded from battle (or attached to a card that is excluded from battle).
+     *
+     * @param game the game
+     * @param card the card
+     * @return true or false
+     */
+    public static boolean isOnlyExcluded(SwccgGame game, PhysicalCard card) {
+        return game.getGameState().isCardInPlayActive(card, true, false, false, false, false, false, false, false);
+    }
+
+    /**
      * Determines if the specified persona has 'crossed over'.
      *
      * @param game the game

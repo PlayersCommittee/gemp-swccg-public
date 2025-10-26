@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.cards.conditions.IsOnlyExcludedCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
@@ -16,6 +17,7 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
@@ -27,6 +29,7 @@ import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.modifiers.NotUniqueModifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Effect;
 
 import java.util.Collections;
@@ -91,6 +94,18 @@ public class Card6_022 extends AbstractAlien {
         modifiers.add(new NotUniqueModifier(self, jawaSiesta));
         modifiers.add(new ModifyGameTextModifier(self, jawaSiesta, ModifyGameTextType.JAWA_SIESTA__DOUBLED_BY_KALIT));
         modifiers.add(new PowerModifier(self, yourOtherJawas, atAudienceChamberOrJawaCamp, 2));
+        return modifiers;
+    }
+
+    @Override
+    protected List<Modifier> getGameTextWhileInactiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        //Excluded From Battle - special rules exception:
+        //"being excluded will not cause ... other cards to be canceled or otherwise removed from table"
+        Filter jawaSiesta = Filters.Jawa_Siesta;
+
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        //prevent Jawa Siesta from being removed from table
+        modifiers.add(new NotUniqueModifier(self, jawaSiesta, new IsOnlyExcludedCondition(self)));
         return modifiers;
     }
 }
