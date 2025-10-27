@@ -64,7 +64,7 @@ public class Card6_021 extends AbstractAlien {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        Filter filter = Filters.and(Filters.opponents(self), Filters.male, Filters.alien, Filters.abilityLessThan(3), Filters.present(self));
+        Filter filter = Filters.and(Filters.male, Filters.alien, Filters.abilityLessThan(3), Filters.present(self));
 
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
 
