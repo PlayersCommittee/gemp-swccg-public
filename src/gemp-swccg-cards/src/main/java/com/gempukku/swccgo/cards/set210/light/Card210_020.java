@@ -25,6 +25,7 @@ import com.gempukku.swccgo.logic.modifiers.DeployCostToTargetModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
 import com.gempukku.swccgo.logic.modifiers.MayDeployToAhchToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.NeverDeploysToLocationModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -46,6 +47,7 @@ public class Card210_020 extends AbstractJediMaster {
         addIcons(Icon.VIRTUAL_SET_10, Icon.PILOT, Icon.WARRIOR, Icon.EPISODE_VII);
     }
 
+    //redundant with NeverDeploysToLocationModifier, but necessary to prevent persona replacement until NeverDeploysToLocationModifier is fixed
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
         return Filters.not(Filters.and(Filters.site, Filters.occupies(game.getOpponent(self.getOwner()))));
@@ -53,7 +55,10 @@ public class Card210_020 extends AbstractJediMaster {
 
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
+        Filter siteOpponentOccupies = Filters.and(Filters.site, Filters.occupies(game.getOpponent(self.getOwner())));
+
         List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new NeverDeploysToLocationModifier(self, siteOpponentOccupies));
         modifiers.add(new DeployCostToTargetModifier(self, -2, Filters.or(Filters.Deploys_at_Ahch_To)));
         modifiers.add(new MayDeployToAhchToLocationModifier(self));
         return modifiers;
