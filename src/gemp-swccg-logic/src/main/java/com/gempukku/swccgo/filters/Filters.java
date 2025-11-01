@@ -18390,6 +18390,7 @@ public class Filters {
     public static final Filter Jaxxon_T_Tumperakki = Filters.title(Title.Jaxxon_T_Tumperakki);
     public static final Filter Jedha_location = Filters.partOfSystem(Title.Jedha);
     public static final Filter Jedi = Filters.and(Filters.side(Side.LIGHT), Filters.character, Filters.abilityMoreThanOrEqualTo(6));
+    public static final Filter Jedi_Business = Filters.title(Title.Jedi_Business);
     public static final Filter Jedi_Council_Chamber = Filters.title(Title.Jedi_Council_Chamber);
     public static final Filter Jedi_Council_member = Filters.keyword(Keyword.JEDI_COUNCIL_MEMBER);
     public static final Filter Jedi_Knight = Filters.and(Filters.Jedi, Filters.abilityEqualTo(6));
@@ -19360,6 +19361,7 @@ public class Filters {
     public static final Filter Young_Fool = Filters.title(Title.Young_Fool);
     public static final Filter Your_Destiny = Filters.title(Title.Your_Destiny);
     public static final Filter Youll_Be_Dead = Filters.title(Title.Youll_Be_Dead);
+    public static final Filter Your_Thoughts_Dwell_On_Your_Mother = Filters.title(Title.Your_Thoughts_Dwell_On_Your_Mother);
     public static final Filter Youre_A_Slave = Filters.title(Title.Youre_A_Slave);
     public static final Filter Youre_All_Clear_Kid = Filters.title(Title.Youre_All_Clear_Kid);
     public static final Filter YT_1300_Transport = Filters.title(Title.YT_1300_Transport);

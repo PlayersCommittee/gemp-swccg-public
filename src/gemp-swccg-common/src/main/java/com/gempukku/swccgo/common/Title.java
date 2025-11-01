@@ -633,6 +633,7 @@ public interface Title {
     String Jaxxon_T_Tumperakki = "Jaxxon T. Tumperakki";
     String Jedha = "Jedha";
     String Jedha_City = "Jedha: Jedha City";
+    String Jedi_Business = "Jedi Business";
     String Jedi_Council_Chamber = "Coruscant: Jedi Council Chamber";
     String Jedi_Lightsaber = "Jedi Lightsaber";
     String Jedi_Presence = "Jedi Presence";
