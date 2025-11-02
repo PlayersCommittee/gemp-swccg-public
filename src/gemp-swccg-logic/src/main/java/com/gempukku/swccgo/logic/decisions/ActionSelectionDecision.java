@@ -25,6 +25,7 @@ public abstract class ActionSelectionDecision extends AbstractAwaitingDecision {
         setParam("blueprintId", getBlueprintIds(actions));
         setParam("testingText", getTestingTexts(actions));
         setParam("backSideTestingText", getBackSideTestingTexts(actions));
+        setParam("horizontal", getHorizontals(actions));
         setParam("actionText", getActionTexts(actions));
     }
 
@@ -87,6 +88,23 @@ public abstract class ActionSelectionDecision extends AbstractAwaitingDecision {
                 result[i] = String.valueOf(physicalCard.getTestingText(null, physicalCard.getBlueprint().getCardCategory() != CardCategory.OBJECTIVE, true));
             else
                 result[i] = "null";
+        }
+        return result;
+    }
+
+    /**
+     * Gets the card horizontals.
+     * @param actions the actions
+     * @return the card horizontals
+     */
+    private String[] getHorizontals(List<Action> actions) {
+        String[] result = new String[actions.size()];
+        for (int i = 0; i < result.length; i++) {
+            PhysicalCard physicalCard = actions.get(i).getActionAttachedToCard();
+            if (physicalCard != null)
+                result[i] = String.valueOf(physicalCard.getBlueprint().isHorizontal());
+            else
+                result[i] = "false";
         }
         return result;
     }

@@ -66,7 +66,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
                     that.clearCollection();
                 },
                 function (elem, type, blueprintId, testingText, backSideTestingText, count) {
-                    that.addCardToCollection(type, blueprintId, testingText, backSideTestingText, count, elem.getAttribute("side"), elem.getAttribute("contents"));
+                    that.addCardToCollection(type, blueprintId, testingText, backSideTestingText, count, elem.getAttribute("side"), elem.getAttribute("contents"), elem.getAttribute("horizontal"));
                 },
                 function () {
                     that.finishCollection();
@@ -592,7 +592,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
                         return false;
                     } else if (selectedCardElem.hasClass("cardInCollection")) {
                         var cardData = selectedCardElem.data("card");
-                        this.selectionFunc(cardData.blueprintId, cardData.testingText);
+                        this.selectionFunc(cardData.blueprintId, cardData.testingText, cardData.backSideTestingText, cardData.horizontal);
                         cardData.tokens = {count:(parseInt(cardData.tokens["count"]) - 1)};
                         layoutTokens(selectedCardElem);
                     } else if (selectedCardElem.hasClass("packInCollection")) {
@@ -645,7 +645,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
                         var selection = selectedCardElem.data("selection");
                         var blueprintIds = selection.split("|");
                         for (var i = 0; i < blueprintIds.length; i++) {
-                            var card = new Card(blueprintIds[i], cardData.testingText, cardData.backSideTestingText, "selection", "selection" + i, "player");
+                            var card = new Card(blueprintIds[i], cardData.testingText, cardData.backSideTestingText, cardData.horizontal, "selection", "selection" + i, "player");
                             var cardDiv = Card.CreateCardDiv(card.imageUrl, card.testingText, null, card.isFoil(), false, card.isPack(), card.incomplete);
                             cardDiv.data("card", card);
                             cardDiv.addClass("cardToSelect");
@@ -737,26 +737,26 @@ var GempSwccgDeckBuildingUI = Class.extend({
             });
     },
 
-    addCardToContainer:function (blueprintId, testingText, backSideTestingText, zone, container, tokens) {
-        var card = new Card(blueprintId, testingText, backSideTestingText, zone, "deck", "player");
+    addCardToContainer:function (blueprintId, testingText, backSideTestingText, horizontal, zone, container, tokens) {
+        var card = new Card(blueprintId, testingText, backSideTestingText, horizontal, zone, "deck", "player");
         var cardDiv = Card.CreateCardDiv(card.imageUrl, card.testingText, null, card.isFoil(), tokens, card.isPack(), card.incomplete);
         cardDiv.data("card", card);
         container.append(cardDiv);
         return cardDiv;
     },
 
-    addCardToDeckAndLayout:function (blueprintId, testingText, backSideTestingText) {
+    addCardToDeckAndLayout:function (blueprintId, testingText, backSideTestingText, horizontal) {
         var that = this;
 
-        this.addCardToDeck(blueprintId, testingText, backSideTestingText);
+        this.addCardToDeck(blueprintId, testingText, backSideTestingText, horizontal);
         that.deckGroup.layoutCards();
 
         that.deckModified(true);
     },
 
-    addCardToOutsideDeckAndLayout:function (blueprintId, testingText, backSideTestingText) {
+    addCardToOutsideDeckAndLayout:function (blueprintId, testingText, backSideTestingText, horizontal) {
         var that = this;
-        var cardDiv = this.addCardToContainer(blueprintId, testingText, backSideTestingText, "outsideDeck", that.outsideDeckDiv, false);
+        var cardDiv = this.addCardToContainer(blueprintId, testingText, backSideTestingText, horizontal, "outsideDeck", that.outsideDeckDiv, false);
         cardDiv.addClass("cardOutsideDeck");
         that.outsideDeckGroup.layoutCards()
         that.deckDirty = true;
@@ -774,11 +774,11 @@ var GempSwccgDeckBuildingUI = Class.extend({
                   return $(this).attr('blueprintId');
               }).get();
               for (let blueprintId of blueprintIds) {
-                  var cardDiv = that.addCardToContainer(blueprintId, null, null, "outsideDeck", that.outsideDeckDiv, false);
+                  var cardDiv = that.addCardToContainer(blueprintId, null, null, false, "outsideDeck", that.outsideDeckDiv, false);
                   cardDiv.addClass("cardOutsideDeck");
               };
               if (side === "LIGHT") {
-                var addMythrol = that.addCardToContainer("200_16", null, null, "outsideDeck", that.outsideDeckDiv, false);
+                var addMythrol = that.addCardToContainer("200_16", null, null, false, "outsideDeck", that.outsideDeckDiv, false);
                 addMythrol.addClass("cardOutsideDeck");
               };
               that.outsideDeckGroup.layoutCards();
@@ -803,20 +803,20 @@ var GempSwccgDeckBuildingUI = Class.extend({
             $("#editingDeck").text(name);
     },
 
-    addCardToDeck:function (blueprintId, testingText, backSideTestingText) {
+    addCardToDeck:function (blueprintId, testingText, backSideTestingText, horizontal) {
         var that = this;
         var added = false;
         $(".card.cardInDeck", this.drawDeckDiv).each(
                 function () {
                     var cardData = $(this).data("card");
                     if (cardData.blueprintId == blueprintId) {
-                        var attDiv = that.addCardToContainer(blueprintId, testingText, backSideTestingText, "attached", that.drawDeckDiv, false);
+                        var attDiv = that.addCardToContainer(blueprintId, testingText, backSideTestingText, horizontal, "attached", that.drawDeckDiv, false);
                         cardData.attachedCards.push(attDiv);
                         added = true;
                     }
                 });
         if (!added) {
-            var div = this.addCardToContainer(blueprintId, testingText, backSideTestingText, "deck", this.drawDeckDiv, false)
+            var div = this.addCardToContainer(blueprintId, testingText, backSideTestingText, horizontal, "deck", this.drawDeckDiv, false)
             div.addClass("cardInDeck");
         }
 
@@ -916,11 +916,11 @@ var GempSwccgDeckBuildingUI = Class.extend({
             }
             var cards = root.getElementsByTagName("card");
             for (var i = 0; i < cards.length; i++)
-                this.addCardToDeck(cards[i].getAttribute("blueprintId"), cards[i].getAttribute("testingText"), cards[i].getAttribute("backSideTestingText"));
+                this.addCardToDeck(cards[i].getAttribute("blueprintId"), cards[i].getAttribute("testingText"), cards[i].getAttribute("backSideTestingText"), cards[i].getAttribute("horizontal"));
 
             var cardsOutsideDeck = root.getElementsByTagName("cardOutsideDeck");
             for (var i = 0; i < cardsOutsideDeck.length; i++)
-                this.addCardToContainer(cardsOutsideDeck[i].getAttribute("blueprintId"), cardsOutsideDeck[i].getAttribute("testingText"), cardsOutsideDeck[i].getAttribute("backSideTestingText"), "outsideDeck", this.outsideDeckDiv, false).addClass("cardOutsideDeck");
+                this.addCardToContainer(cardsOutsideDeck[i].getAttribute("blueprintId"), cardsOutsideDeck[i].getAttribute("testingText"), cardsOutsideDeck[i].getAttribute("backSideTestingText"), cardsOutsideDeck[i].getAttribute("horizontal"), "outsideDeck", this.outsideDeckDiv, false).addClass("cardOutsideDeck");
 
             this.layoutUI(false);
 
@@ -933,17 +933,17 @@ var GempSwccgDeckBuildingUI = Class.extend({
         $(".card", this.normalCollectionDiv).remove();
     },
 
-    addCardToCollection:function (type, blueprintId, testingText, backSideTestingText, count, side, contents) {
+    addCardToCollection:function (type, blueprintId, testingText, backSideTestingText, count, side, contents, horizontal) {
         if (type == "pack") {
             if (blueprintId.substr(0, 3) == "(S)") {
-                var card = new Card(blueprintId, null, null, "pack", "collection", "player");
+                var card = new Card(blueprintId, null, null, horizontal, "pack", "selection", "player");
                 card.tokens = {"count":count};
                 var cardDiv = Card.CreateCardDiv(card.imageUrl, card.testingText, null, false, true, true, false, card.incomplete);
                 cardDiv.data("card", card);
                 cardDiv.data("selection", contents);
                 cardDiv.addClass("selectionInCollection");
             } else {
-                var card = new Card(blueprintId, null, null, "pack", "collection", "player");
+                var card = new Card(blueprintId, null, null, horizontal, "pack", "collection", "player");
                 card.tokens = {"count":count};
                 var cardDiv = Card.CreateCardDiv(card.imageUrl, card.testingText, null, false, true, true, false, card.incomplete);
                 cardDiv.data("card", card);
@@ -951,7 +951,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
             }
             this.normalCollectionDiv.append(cardDiv);
         } else if (type == "card") {
-            var card = new Card(blueprintId, testingText, backSideTestingText, "card", "collection", "player");
+            var card = new Card(blueprintId, testingText, backSideTestingText, horizontal, "card", "collection", "player");
             var countInDeck = 0;
             $(".card", this.deckDiv).each(
                     function () {

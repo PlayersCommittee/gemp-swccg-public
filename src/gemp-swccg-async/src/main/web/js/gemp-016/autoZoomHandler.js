@@ -113,7 +113,7 @@ class AutoZoom {
 		var targetLong = Math.min(maxLongSide, CardDisplay.TargetLong);
 		var targetShort = Math.min(maxShortSide, CardDisplay.TargetShort);
 
-		if(card.horizontal || card.effectivelyHorizontal()) {
+		if(card.horizontal) {
 			this.cardDisplay.reloadFromCard(card, targetLong, targetShort);
 		}
 		else {
@@ -266,7 +266,8 @@ class AutoZoom {
 		const blueprintId = target.attr("value");
 		const testingText = target.attr("data-testingText");
 		const backSideTestingText = target.attr("data-backSideTestingText");
-		const card = new Card(blueprintId, testingText, backSideTestingText, "SPECIAL", "hint", "");
+		const horizontal = target.attr("data-horizontal") === "true";
+		const card = new Card(blueprintId, testingText, backSideTestingText, horizontal, "SPECIAL", "hint", "");
 
 		this.baseImageDiv = target[0];
 		this.displayPreviewImage(card, this.baseImageDiv);

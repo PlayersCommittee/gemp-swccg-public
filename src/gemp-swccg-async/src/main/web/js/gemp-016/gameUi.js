@@ -1276,7 +1276,8 @@ var GempSwccgGameUI = Class.extend({
             var blueprintId = tar.attr("value");
             var testingText = tar.attr("data-testingText");
             var backSideTestingText = tar.attr("data-backSideTestingText");
-            var card = new Card(blueprintId, testingText, backSideTestingText, "SPECIAL", "hint", "");
+            var horizontal = tar.attr("data-horizontal");
+            var card = new Card(blueprintId, testingText, backSideTestingText, horizontal, "SPECIAL", "hint", "");
             this.displayCardInfo(card);
             event.stopPropagation();
             return false;
@@ -2519,6 +2520,7 @@ var GempSwccgGameUI = Class.extend({
         var cardTexts = this.getDecisionParameters(decision, "cardText");
         var testingTexts = this.getDecisionParameters(decision, "testingText");
         var backSideTestingTexts = this.getDecisionParameters(decision, "backSideTestingText");
+        var horizontals = this.getDecisionParameters(decision, "horizontal");
 
         var that = this;
 
@@ -2559,6 +2561,7 @@ var GempSwccgGameUI = Class.extend({
             if (backSideTestingText == "null") {
                 backSideTestingText = null;
             }
+            var horizontal = horizontals[i] === "true";
 
             if (selectable[i] == "true")
                 selectableCardIds.push(cardId);
@@ -2567,7 +2570,7 @@ var GempSwccgGameUI = Class.extend({
                 selectedCardIds.push(cardId);
             }
 
-            var card = new Card(blueprintId, testingText, backSideTestingText, "SPECIAL", cardId, null);
+            var card = new Card(blueprintId, testingText, backSideTestingText, horizontal, "SPECIAL", cardId, null);
 
             var cardDiv = this.createCardDiv(card, cardText);
 
@@ -2733,6 +2736,7 @@ var GempSwccgGameUI = Class.extend({
         var isRevertEligible = this.getDecisionParameters(decision, "revertEligible");
         var testingTexts = this.getDecisionParameters(decision, "testingText");
         var backSideTestingTexts = this.getDecisionParameters(decision, "backSideTestingText");
+        var horizontals = this.getDecisionParameters(decision, "horizontal");
 
         var that = this;
 
@@ -2840,6 +2844,7 @@ var GempSwccgGameUI = Class.extend({
                 if (backSideTestingText == "null") {
                     backSideTestingText = null;
                 }
+                var horizontal = horizontals[i] === "true";
 
                 if (blueprintId == "inPlay") {
                     var cardIdElem = $(".card:cardId(" + cardId + ")");
@@ -2852,7 +2857,7 @@ var GempSwccgGameUI = Class.extend({
                 } else {
                     hasVirtual = true;
                     cardIds[i] = "extra" + cardId;
-                    var card = new Card(blueprintId, testingText, backSideTestingText, "EXTRA", "extra" + cardId, null);
+                    var card = new Card(blueprintId, testingText, backSideTestingText, horizontal, "EXTRA", "extra" + cardId, null);
 
                     var cardDiv = that.createCardDiv(card);
                     $(cardDiv).css({ opacity: "0.8" });
@@ -3002,6 +3007,7 @@ var GempSwccgGameUI = Class.extend({
         var actionTexts = this.getDecisionParameters(decision, "actionText");
         var testingTexts = this.getDecisionParameters(decision, "testingText");
         var backSideTestingTexts = this.getDecisionParameters(decision, "backSideTestingText");
+        var horizontals = this.getDecisionParameters(decision, "horizontal");
 
         var that = this;
 
@@ -3023,9 +3029,10 @@ var GempSwccgGameUI = Class.extend({
             if (backSideTestingText == "null") {
                 backSideTestingText = null;
             }
+            var horizontal = horizontals[i] === "true";
 
             cardIds.push("temp" + i);
-            var card = new Card(blueprintId, testingText, backSideTestingText, "SPECIAL", "temp" + i, null);
+            var card = new Card(blueprintId, testingText, backSideTestingText, horizontal, "SPECIAL", "temp" + i, null);
 
             var cardDiv = this.createCardDiv(card, actionTexts[i]);
 

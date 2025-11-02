@@ -41,6 +41,7 @@ public class GameEvent {
     private String _blueprintId;
     private String _testingText;
     private String _backSideTestingText;
+    private Boolean _horizontal;
     private Integer _cardId;
     private Integer _targetCardId;
     private String _phase;
@@ -215,6 +216,7 @@ public class GameEvent {
         GameEvent gameEvent = cardId(physicalCard.getCardId()).blueprintId(physicalCard.getBlueprintId(gameState, alwaysShowCardFront));
         gameEvent = gameEvent.testingText(physicalCard.getTestingText(gameState, alwaysShowCardFront, false));
         gameEvent = gameEvent.backSideTestingText(physicalCard.getTestingText(gameState, alwaysShowCardFront, true));
+        gameEvent = gameEvent.horizontal(physicalCard.getBlueprint().isHorizontal());
         gameEvent = gameEvent.participantId(physicalCard.getOwner()).zone(physicalCard.getZone()).zoneOwnerId(physicalCard.getZoneOwner());
         gameEvent = gameEvent.locationIndex(physicalCard.getLocationZoneIndex()).inverted(physicalCard.isInverted()).sideways(physicalCard.isSideways());
         gameEvent = gameEvent.frozen(physicalCard.isFrozen()).suspendedOrTurnedOff(physicalCard.isSuspended() || physicalCard.isBinaryOff() || physicalCard.isMissing());
@@ -269,6 +271,15 @@ public class GameEvent {
 
     public GameEvent backSideTestingText(String text) {
         _backSideTestingText = text;
+        return this;
+    }
+
+    public Boolean getHorizontal() {
+        return _horizontal;
+    }
+
+    public GameEvent horizontal(Boolean horizontal) {
+        _horizontal = horizontal;
         return this;
     }
 

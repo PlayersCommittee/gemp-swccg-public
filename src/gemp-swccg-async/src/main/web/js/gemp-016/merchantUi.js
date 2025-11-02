@@ -182,6 +182,7 @@ var GempSwccgMerchantUI = Class.extend({
         var buyPrice = elem.getAttribute("buyPrice");
         var sellPrice = elem.getAttribute("sellPrice");
         var tradeFoil = elem.getAttribute("tradeFoil");
+        var horizontal = elem.getAttribute("horizontal");
 
         var sizeListeners = new Array();
         sizeListeners[0] = {
@@ -198,13 +199,13 @@ var GempSwccgMerchantUI = Class.extend({
         var card = null;
 
         if (type == "pack") {
-            card = new Card(blueprintId, null, null, "merchant", "collection", "player");
+            card = new Card(blueprintId, null, null, false, "merchant", "collection", "player");
             cardDiv = Card.CreateCardDiv(card.imageUrl, card.testingText, null, false, true, true, card.incomplete, null);
             cardDiv.data("card", card);
             cardDiv.data("sizeListeners", sizeListeners);
             this.cardsDiv.append(cardDiv);
         } else if (type == "card") {
-            card = new Card(blueprintId, testingText, backSideTestingText, "merchant", "collection", "player");
+            card = new Card(blueprintId, testingText, backSideTestingText, horizontal, "merchant", "collection", "player");
             cardDiv = Card.CreateCardDiv(card.imageUrl, card.testingText, null, card.isFoil(), true, false, card.incomplete, null);
             cardDiv.data("card", card);
             cardDiv.data("sizeListeners", sizeListeners);

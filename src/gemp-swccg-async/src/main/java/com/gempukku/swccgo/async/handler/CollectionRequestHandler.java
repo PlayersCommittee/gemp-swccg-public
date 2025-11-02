@@ -118,6 +118,7 @@ public class CollectionRequestHandler extends SwccgoServerRequestHandler impleme
                     SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
                     appendCardSide(card, blueprint);
                     appendCardGroup(card, blueprint);
+                    appendCardHorizontal(card, blueprint);
                     appendCardTestingText(card, blueprint);
                     appendCardBackSideTestingText(card, _library.getSwccgoCardBlueprintBack(blueprintId));
                     collectionElem.appendChild(card);
@@ -184,6 +185,7 @@ public class CollectionRequestHandler extends SwccgoServerRequestHandler impleme
                     card.setAttribute("blueprintId", blueprintId);
                     SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
                     appendCardSide(card, blueprint);
+                    appendCardHorizontal(card, blueprint);
                     appendCardTestingText(card, blueprint);
                     appendCardBackSideTestingText(card, _library.getSwccgoCardBlueprintBack(blueprintId));
                     collectionElem.appendChild(card);
@@ -250,6 +252,11 @@ public class CollectionRequestHandler extends SwccgoServerRequestHandler impleme
         //    group="objective";
         //
         card.setAttribute("group", group);
+    }
+
+    private void appendCardHorizontal(Element card, SwccgCardBlueprint blueprint) {
+        boolean horizontal = blueprint.isHorizontal();
+        card.setAttribute("horizontal", String.valueOf(horizontal));
     }
 
     private void appendCardTestingText(Element card, SwccgCardBlueprint blueprint) {

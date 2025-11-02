@@ -88,6 +88,7 @@ public abstract class ArbitraryCardsSelectionDecision extends AbstractAwaitingDe
         setParam("blueprintId", getBlueprintIds(physicalCards));
         setParam("testingText", getTestingTexts(physicalCards));
         setParam("backSideTestingText", getBackSideTestingTexts(physicalCards));
+        setParam("horizontal", getHorizontals(physicalCards));
         setParam("preselected", getPreselected(physicalCards, preselected));
         setParam("selectable", getSelectable(physicalCards, selectable));
         setParam("cardText", getCardTexts(physicalCards, texts));
@@ -177,6 +178,21 @@ public abstract class ArbitraryCardsSelectionDecision extends AbstractAwaitingDe
         int index = 0;
         for (PhysicalCard physicalCard : physicalCards) {
             result[index] = String.valueOf(physicalCard.getTestingText(null, physicalCard.getBlueprint().getCardCategory() != CardCategory.OBJECTIVE, true));
+            index++;
+        }
+        return result;
+    }
+
+    /**
+     * Gets the card horizontals.
+     * @param physicalCards the cards
+     * @return the card horizontals
+     */
+    private String[] getHorizontals(Collection<PhysicalCard> physicalCards) {
+        String[] result = new String[physicalCards.size()];
+        int index = 0;
+        for (PhysicalCard physicalCard : physicalCards) {
+            result[index] = String.valueOf(physicalCard.getBlueprint().isHorizontal());
             index++;
         }
         return result;

@@ -526,6 +526,8 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
                         card.setAttribute("backSideTestingText", GameUtils.convertTestingText(backSideBlueprint.getTestingText()));
                     }
                 }
+                // Add horizontal attribute
+                card.setAttribute("horizontal", String.valueOf(blueprint.isHorizontal()));
             }
             deckElem.appendChild(card);
         }
@@ -546,6 +548,8 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
                         cardOutsideDeck.setAttribute("backSideTestingText", GameUtils.convertTestingText(backSideBlueprint.getTestingText()));
                     }
                 }
+                // Add horizontal attribute
+                cardOutsideDeck.setAttribute("horizontal", String.valueOf(blueprint.isHorizontal()));
             }
             deckElem.appendChild(cardOutsideDeck);
         }

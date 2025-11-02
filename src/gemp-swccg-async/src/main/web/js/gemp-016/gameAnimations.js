@@ -58,9 +58,10 @@ var GameAnimations = Class.extend({
             var destinyText = element.getAttribute("destinyText");
             var testingText = element.getAttribute("testingText");
             var backSideTestingText = element.getAttribute("backSideTestingText");
+            var horizontal = element.getAttribute("horizontal");
 
             // Play-out game event animation to both players
-            var card = new Card(blueprintId, testingText, backSideTestingText, "ANIMATION", "anim", participantId);
+            var card = new Card(blueprintId, testingText, backSideTestingText, horizontal, "DESTINY_ANIMATION", "anim", participantId);
             var cardDiv = Card.CreateSimpleCardDiv(card.imageUrl, card.testingText, card.foil, card.incomplete, 16);
             // Overlay destiny card with text explaining destiny type
             var destinyTypeOverlayDiv = $("<div class='destinyTypeOverlay'></div>");
@@ -119,9 +120,10 @@ var GameAnimations = Class.extend({
             var blueprintId = element.getAttribute("blueprintId");
             var testingText = element.getAttribute("testingText");
             var backSideTestingText = element.getAttribute("backSideTestingText");
+            var horizontal = element.getAttribute("horizontal");
 
             // Play-out game event animation to both players
-            var card = new Card(blueprintId, testingText, backSideTestingText, "ANIMATION", "anim", participantId);
+            var card = new Card(blueprintId, testingText, backSideTestingText, horizontal, "ANIMATION", "anim", participantId);
             var cardDiv = Card.CreateSimpleCardDiv(card.imageUrl, card.testingText, card.foil, card.incomplete, 16);
 
             $("#main").queue(
@@ -188,6 +190,7 @@ var GameAnimations = Class.extend({
             var targetCardIds = element.getAttribute("otherCardIds").split(",");
             var testingText = element.getAttribute("testingText");
             var backSideTestingText = element.getAttribute("backSideTestingText");
+            var horizontal = element.getAttribute("horizontal");
 
             // Play-out game event animation to both players
             $("#main").queue(
@@ -195,7 +198,7 @@ var GameAnimations = Class.extend({
                     for (var i = 0; i < targetCardIds.length; i++) {
                         var targetCardId = targetCardIds[i];
 
-                        var card = new Card(blueprintId, testingText, backSideTestingText, "ANIMATION", "anim" + i, participantId);
+                        var card = new Card(blueprintId, testingText, backSideTestingText, horizontal, "ANIMATION", "anim" + i, participantId);
                         var cardDiv = Card.CreateSimpleCardDiv(card.imageUrl, card.testingText, card.foil, card.incomplete, 6);
 
                         var targetCard = $(".card:cardId(" + targetCardId + ")");
@@ -286,6 +289,7 @@ var GameAnimations = Class.extend({
                 var targetCardId = element.getAttribute("targetCardId");
                 var testingText = element.getAttribute("testingText");
                 var backSideTestingText = element.getAttribute("backSideTestingText");
+                var horizontal = element.getAttribute("horizontal");
 
                 // Only add location div if this is not a replacement (conversion) of a location
                 if (zone == "LOCATIONS" && eventType != "RCIP") {
@@ -322,7 +326,7 @@ var GameAnimations = Class.extend({
                     collapsed = true;
                 }
 
-                var card = new Card(blueprintId, testingText, backSideTestingText, zone, cardId, zoneOwnerId, locationIndex, upsideDown, onSide, frozen, suspended, collapsed);
+                var card = new Card(blueprintId, testingText, backSideTestingText, horizontal, zone, cardId, zoneOwnerId, locationIndex, upsideDown, onSide, frozen, suspended, collapsed);
 
                 var cardDiv = that.game.createCardDiv(card, null);
 

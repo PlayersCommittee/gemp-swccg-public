@@ -5,6 +5,8 @@ import com.gempukku.swccgo.async.ResponseWriter;
 import com.gempukku.swccgo.collection.TransferDAO;
 import com.gempukku.swccgo.game.CardCollection;
 import com.gempukku.swccgo.game.Player;
+import com.gempukku.swccgo.game.SwccgCardBlueprint;
+import com.gempukku.swccgo.game.SwccgCardBlueprintLibrary;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import org.w3c.dom.Document;
@@ -17,10 +19,12 @@ import java.util.Map;
 
 public class DeliveryRequestHandler extends SwccgoServerRequestHandler implements UriRequestHandler {
     private TransferDAO _transferDAO;
+    private SwccgCardBlueprintLibrary _library;
 
     public DeliveryRequestHandler(Map<Type, Object> context) {
         super(context);
         _transferDAO = extractObject(context, TransferDAO.class);
+        _library = extractObject(context, SwccgCardBlueprintLibrary.class);
     }
 
     @Override
@@ -57,6 +61,10 @@ public class DeliveryRequestHandler extends SwccgoServerRequestHandler implement
                         Element card = doc.createElement("card");
                         card.setAttribute("count", String.valueOf(item.getCount()));
                         card.setAttribute("blueprintId", blueprintId);
+                        SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
+                        if (blueprint != null) {
+                            card.setAttribute("horizontal", String.valueOf(blueprint.isHorizontal()));
+                        }
                         collectionTypeElem.appendChild(card);
                     } else {
                         Element pack = doc.createElement("pack");

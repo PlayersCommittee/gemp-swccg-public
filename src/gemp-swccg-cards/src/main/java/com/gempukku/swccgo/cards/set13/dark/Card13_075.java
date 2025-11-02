@@ -40,6 +40,7 @@ import java.util.List;
 public class Card13_075 extends AbstractCharacterWeapon {
     public Card13_075() {
         super(Side.DARK, 1, "Maul's Double-Bladed Lightsaber", Uniqueness.UNIQUE, ExpansionSet.REFLECTIONS_III, Rarity.PM);
+        setAsHorizontal(true);
         setLore("Maul's double-bladed lightsaber was actually two lightsabers fused into one. Only after years of training could Maul finally wield this powerful weapon, which hasn't been used in ages.");
         setGameText("Deploy on Maul. Adds 1 to Maul's lightsaber combat total. May lose 1 Force to add 2 to Force drain where present. Twice per battle, may target a character. Draw two destiny. Target hit, and its forfeit = 0, if total > defense value. May not be stolen.");
         addPersona(Persona.MAULS_DOUBLE_BLADED_LIGHTSABER);

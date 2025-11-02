@@ -574,20 +574,6 @@ function layoutCardElem(cardElem, x, y, width, height, index) {
         && cardElem.css("width") == (width + "px") && cardElem.css("height") == (height + "px")
         && cardElem.css("zIndex") == index)
         return;
-    
-    var img = $(cardElem).find("img")[0];
-    if(cardData.effectivelyHorizontal()) {
-        img.style.transform = "rotate(90deg) translateX(7px) translateY(6px)"; 
-        img.style.height = "" + width + "px";
-        img.style.width = "" + height + "px";
-        img.style.marginBottom = "15px";
-    }
-    else {
-        img.style.transform = "rotate(0deg) translate(0px, 0px)";
-        img.style.width = "100%";
-        img.style.height = "100%";
-        img.style.marginBottom = "0px";
-    }
 
     cardElem.css({position:"absolute", left:x + "px", top:y + "px", width:width, height:height, zIndex:index });
 
@@ -606,6 +592,20 @@ function layoutCardElem(cardElem, x, y, width, height, index) {
     if (sizeListeners != null)
         for (var i = 0; i < sizeListeners.length; i++)
             sizeListeners[i].sizeChanged(cardElem, width, height);
+
+    // Handle rotation for horizontal cards on top of lost pile
+    var img = $(cardElem).find("img")[0];
+    if ((cardData.zone === "LOST_PILE" || cardData.zone === "TOP_OF_LOST_PILE") && cardData.blueprintHorizontal) {
+        img.style.transform = "rotate(90deg) translateX(7px) translateY(6px)";
+        img.style.height = "" + width + "px";
+        img.style.width = "" + height + "px";
+        img.style.marginBottom = "15px";
+    } else {
+        img.style.transform = "rotate(0deg) translate(0px, 0px)";
+        img.style.width = "100%";
+        img.style.height = "100%";
+        img.style.marginBottom = "0px";
+    }
 }
 
 function layoutTokens(cardElem) {

@@ -20,6 +20,8 @@ public class EventSerializer {
             eventElem.setAttribute("testingText", gameEvent.getTestingText());
         if (gameEvent.getBackSideTestingText() != null)
             eventElem.setAttribute("backSideTestingText", gameEvent.getBackSideTestingText());
+        if (gameEvent.getHorizontal() != null)
+            eventElem.setAttribute("horizontal", gameEvent.getHorizontal().toString());
         if (gameEvent.getCardId() != null)
             eventElem.setAttribute("cardId", gameEvent.getCardId().toString());
         if (gameEvent.getIndex() != null)
