@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.set223.light;
 
 import com.gempukku.swccgo.cards.AbstractDefensiveShield;
+import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DuringPlayersTurnNumberCondition;
 import com.gempukku.swccgo.cards.evaluators.NumCopiesOfCardAtLocationEvaluator;
 import com.gempukku.swccgo.common.ExpansionSet;
@@ -12,11 +13,17 @@ import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.effects.PlaceCardsInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ExtraForceCostToDeployCardForFreeExceptByOwnGametextModifier;
 import com.gempukku.swccgo.logic.modifiers.ExtraForceCostToDeployCardToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.SuspendsCardModifier;
+import com.gempukku.swccgo.logic.timing.EffectResult;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,4 +50,21 @@ public class Card223_049 extends AbstractDefensiveShield {
         return modifiers;
     }
 
+    @Override
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        if (TriggerConditions.isTableChanged(game, effectResult)
+                && GameConditions.canSpot(game, self, 2, Filters.and(Filters.Yavin_Sentry, Filters.unique))) {
+
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+
+            Collection<PhysicalCard> yavinSentries = Filters.filterActive(game, self, Filters.Yavin_Sentry);
+            PhysicalCard firstYavinSentries = Filters.findFirstActive(game, self, Filters.Yavin_Sentry);
+            yavinSentries.remove(firstYavinSentries);
+            action.appendEffect(
+                    new PlaceCardsInUsedPileFromTableEffect(action, self.getOwner(), yavinSentries)
+            );
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
 }

@@ -18184,6 +18184,7 @@ public class Filters {
     public static final Filter Green_Leader = Filters.persona(Persona.GREEN_LEADER);
     public static final Filter Green_Squadron_1 = Filters.persona(Persona.GREEN_SQUADRON_1);
     public static final Filter Green_Squadron_3 = Filters.persona(Persona.GREEN_SQUADRON_3);
+    public static final Filter Grenwick = Filters.persona(Persona.GRENWICK);
     public static final Filter Grievous = Filters.persona(Persona.GRIEVOUS);
     public static final Filter Grievous_Will_Run_And_Hide = Filters.title(Title.Grievous_Will_Run_And_Hide);
     public static final Filter Grimtaash = Filters.title(Title.Grimtaash);

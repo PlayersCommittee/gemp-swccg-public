@@ -1,12 +1,15 @@
 package com.gempukku.swccgo.cards.conditions;
 
 import com.gempukku.swccgo.common.Filterable;
+import com.gempukku.swccgo.common.InactiveReason;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
+
+import java.util.Map;
 
 /**
  * A condition that is fulfilled when the specified card is on the system of the specified name,
@@ -15,6 +18,7 @@ import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 public class OnCondition implements Condition {
     private Integer _permSourceCardId;
     private Integer _permCardId;
+    private Map<InactiveReason, Boolean> _spotOverrides;
     private Filter _cardFilter;
     private String _system;
 
@@ -36,7 +40,20 @@ public class OnCondition implements Condition {
      * @param system the name of the system
      */
     public OnCondition(PhysicalCard source, Filterable cardFilter, String system) {
+        this(source, null, cardFilter, system);
+    }
+
+    /**
+     * Creates a condition that is fulfilled when a card accepted by the specified cardFilter is on the system of the
+     * specified name.
+     * @param source the card that is checking this condition
+     * @param spotOverrides overrides for which inactive cards are visible to this condition check
+     * @param cardFilter the card filter
+     * @param system the name of the system
+     */
+    public OnCondition(PhysicalCard source, Map<InactiveReason, Boolean> spotOverrides, Filterable cardFilter, String system) {
         _permSourceCardId = source.getPermanentCardId();
+        _spotOverrides = spotOverrides;
         _cardFilter = Filters.and(cardFilter);
         _system = system;
     }
@@ -51,7 +68,7 @@ public class OnCondition implements Condition {
         }
         else {
             Filter filterToUse = Filters.and(Filters.or(_cardFilter, Filters.hasPermanentAboard(_cardFilter), Filters.hasPermanentWeapon(_cardFilter)));
-            return Filters.canSpot(gameState.getGame(), source, Filters.and(filterToUse, Filters.on(_system)));
+            return Filters.canSpot(gameState.getGame(), source, _spotOverrides, Filters.and(filterToUse, Filters.on(_system)));
         }
     }
 }

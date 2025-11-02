@@ -15,11 +15,13 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.effects.PlaceCardsInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ExtraForceCostToDeployCardToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -64,6 +66,21 @@ public class Card601_033 extends AbstractDefensiveShield {
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             // Build action using common utility
             CancelCardActionBuilder.buildCancelCardAction(action, Filters.Colo_Claw_Fish, Title.Colo_Claw_Fish);
+            actions.add(action);
+        }
+
+        // Check condition(s)
+        if (TriggerConditions.isTableChanged(game, effectResult)
+                && GameConditions.canSpot(game, self, 2, Filters.and(Filters.Death_Star_Sentry, Filters.unique))) {
+
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+
+            Collection<PhysicalCard> deathStarSentries = Filters.filterActive(game, self, Filters.Death_Star_Sentry);
+            PhysicalCard firstDeathStarSentries = Filters.findFirstActive(game, self, Filters.Death_Star_Sentry);
+            deathStarSentries.remove(firstDeathStarSentries);
+            action.appendEffect(
+                    new PlaceCardsInUsedPileFromTableEffect(action, self.getOwner(), deathStarSentries)
+            );
             actions.add(action);
         }
         return actions;

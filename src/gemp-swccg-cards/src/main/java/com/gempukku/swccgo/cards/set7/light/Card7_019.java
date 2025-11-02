@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
+import com.gempukku.swccgo.cards.conditions.IsOnlyExcludedCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
@@ -9,12 +10,14 @@ import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.modifiers.DeploysFreeModifier;
@@ -59,6 +62,19 @@ public class Card7_019 extends AbstractRebel {
         modifiers.add(new ModifyGameTextModifier(self, yavinSentryFilter, onYavin4Condition, ModifyGameTextType.YAVIN_SENTRY__APPLIES_ALL_MODIFIERS));
         modifiers.add(new ImmuneToTitleModifier(self, yavinSentryFilter, onYavin4Condition, Title.Alter));
         modifiers.add(new PowerModifier(self, new NotCondition(onYavin4Condition), -1));
+        return modifiers;
+    }
+
+    @Override
+    protected List<Modifier> getGameTextWhileInactiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        //Excluded From Battle - special rules exception:
+        //"being excluded will not cause ... other cards to be canceled or otherwise removed from table"
+        Condition onYavin4Condition = new OnCondition(self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.Grondorn, Title.Yavin_4);
+        Filter yavinSentryFilter = Filters.and(Filters.your(self), Filters.Yavin_Sentry);
+
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        //prevent Yavin Sentry from being removed from table
+        modifiers.add(new NotUniqueModifier(self, yavinSentryFilter, new AndCondition(onYavin4Condition, new IsOnlyExcludedCondition(self))));
         return modifiers;
     }
 }

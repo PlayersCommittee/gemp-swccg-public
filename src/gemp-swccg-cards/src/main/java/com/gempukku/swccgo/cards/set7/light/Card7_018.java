@@ -2,18 +2,21 @@ package com.gempukku.swccgo.cards.set7.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.conditions.OnCondition;
+import com.gempukku.swccgo.cards.conditions.IsOnlyExcludedCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.modifiers.DeploysFreeModifier;
@@ -57,6 +60,19 @@ public class Card7_018 extends AbstractRebel {
         modifiers.add(new ModifyGameTextModifier(self, hothSentryFilter, onHothCondition, ModifyGameTextType.HOTH_SENTRY__APPLIES_ALL_MODIFIERS));
         modifiers.add(new ImmuneToTitleModifier(self, hothSentryFilter, onHothCondition, Title.Alter));
         modifiers.add(new PowerModifier(self, new NotCondition(onHothCondition), -1));
+        return modifiers;
+    }
+
+    @Override
+    protected List<Modifier> getGameTextWhileInactiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        //Excluded From Battle - special rules exception:
+        //"being excluded will not cause ... other cards to be canceled or otherwise removed from table"
+        Condition onHothCondition = new OnCondition(self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.McQuarrie, Title.Hoth);
+        Filter hothSentryFilter = Filters.and(Filters.your(self), Filters.Hoth_Sentry);
+
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        //prevent Hoth Sentry from being removed from table
+        modifiers.add(new NotUniqueModifier(self, hothSentryFilter, new AndCondition(onHothCondition, new IsOnlyExcludedCondition(self))));
         return modifiers;
     }
 }

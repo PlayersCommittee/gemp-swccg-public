@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
+import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.DoubledCondition;
 import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
 import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
@@ -18,8 +19,11 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.OrCondition;
+import com.gempukku.swccgo.logic.effects.PlaceCardsInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
@@ -27,8 +31,11 @@ import com.gempukku.swccgo.logic.modifiers.IncreaseAbilityRequiredForBattleDesti
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.modifiers.TotalPowerModifier;
+import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -85,6 +92,24 @@ public class Card1_068 extends AbstractNormalEffect {
         modifiers.add(new TotalPowerModifier(self, sameAndAdjacentSite,
                 new OrCondition(playCardOptionId3, appliesAllModifiers), evaluator, playerId));
         return modifiers;
+    }
+
+    @Override
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        if (TriggerConditions.isTableChanged(game, effectResult)
+                && GameConditions.canSpot(game, self, 2, Filters.and(Filters.Yavin_Sentry, Filters.unique))) {
+
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+
+            Collection<PhysicalCard> yavinSentries = Filters.filterActive(game, self, Filters.Yavin_Sentry);
+            PhysicalCard firstYavinSentries = Filters.findFirstActive(game, self, Filters.Yavin_Sentry);
+            yavinSentries.remove(firstYavinSentries);
+            action.appendEffect(
+                    new PlaceCardsInUsedPileFromTableEffect(action, self.getOwner(), yavinSentries)
+            );
+            return Collections.singletonList(action);
+        }
+        return null;
     }
 
     @Override

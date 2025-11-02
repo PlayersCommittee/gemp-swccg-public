@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set6.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
+import com.gempukku.swccgo.cards.conditions.IsOnlyExcludedCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
@@ -85,12 +86,24 @@ public class Card6_135 extends AbstractAlien {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         Condition atAudienceChamberOrJawaCamp = new AtCondition(self, Filters.or(Filters.Jawa_Camp, Filters.Audience_Chamber));
         Filter yourOtherJawas = Filters.and(Filters.your(self), Filters.other(self), Filters.Jawa);
-        Filter jawaPack = Filters.Jawa_Pack;
+        Filter jawaPack = Filters.and(Filters.your(self), Filters.Jawa_Pack);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new NotUniqueModifier(self, jawaPack));
         modifiers.add(new ModifyGameTextModifier(self, jawaPack, ModifyGameTextType.JAWA_PACK__DOUBLED_BY_WITTIN));
         modifiers.add(new PowerModifier(self, yourOtherJawas, atAudienceChamberOrJawaCamp, 2));
+        return modifiers;
+    }
+
+    @Override
+    protected List<Modifier> getGameTextWhileInactiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        //Excluded From Battle - special rules exception:
+        //"being excluded will not cause ... other cards to be canceled or otherwise removed from table"
+        Filter jawaPack = Filters.and(Filters.your(self), Filters.Jawa_Pack);
+
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        //prevent Jawa Pack from being removed from table
+        modifiers.add(new NotUniqueModifier(self, jawaPack, new IsOnlyExcludedCondition(self)));
         return modifiers;
     }
 }

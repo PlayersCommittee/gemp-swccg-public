@@ -17,7 +17,6 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
@@ -29,7 +28,6 @@ import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.modifiers.NotUniqueModifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
-import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Effect;
 
 import java.util.Collections;
@@ -88,7 +86,7 @@ public class Card6_022 extends AbstractAlien {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         Condition atAudienceChamberOrJawaCamp = new AtCondition(self, Filters.or(Filters.Jawa_Camp, Filters.Audience_Chamber));
         Filter yourOtherJawas = Filters.and(Filters.your(self), Filters.other(self), Filters.Jawa);
-        Filter jawaSiesta = Filters.Jawa_Siesta;
+        Filter jawaSiesta = Filters.and(Filters.your(self), Filters.Jawa_Siesta);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new NotUniqueModifier(self, jawaSiesta));
@@ -101,7 +99,7 @@ public class Card6_022 extends AbstractAlien {
     protected List<Modifier> getGameTextWhileInactiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         //Excluded From Battle - special rules exception:
         //"being excluded will not cause ... other cards to be canceled or otherwise removed from table"
-        Filter jawaSiesta = Filters.Jawa_Siesta;
+        Filter jawaSiesta = Filters.and(Filters.your(self), Filters.Jawa_Siesta);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         //prevent Jawa Siesta from being removed from table

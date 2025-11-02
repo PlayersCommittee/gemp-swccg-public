@@ -23,6 +23,7 @@ import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.AttachCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.PlaceCardsInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionOfExactlyModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
@@ -32,6 +33,7 @@ import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -78,6 +80,8 @@ public class Card1_067 extends AbstractUtinniEffect {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
+
         final GameState gameState = game.getGameState();
         PhysicalCard target = self.getTargetedCard(gameState, TargetId.UTINNI_EFFECT_TARGET_1);
 
@@ -102,9 +106,24 @@ public class Card1_067 extends AbstractUtinniEffect {
             // Perform result(s)
             action.appendEffect(
                     new AttachCardFromTableEffect(action, self, target));
-            return Collections.singletonList(action);
+            actions.add(action);
         }
-        return null;
+
+        // Check condition(s)
+        if (TriggerConditions.isTableChanged(game, effectResult)
+                && GameConditions.canSpot(game, self, 2, Filters.and(Filters.Tusken_Breath_Mask, Filters.unique))) {
+
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+
+            Collection<PhysicalCard> tuskenBreathMasks = Filters.filterActive(game, self, Filters.Tusken_Breath_Mask);
+            PhysicalCard firstTuskenBreathMasks = Filters.findFirstActive(game, self, Filters.Tusken_Breath_Mask);
+            tuskenBreathMasks.remove(firstTuskenBreathMasks);
+            action.appendEffect(
+                    new PlaceCardsInUsedPileFromTableEffect(action, self.getOwner(), tuskenBreathMasks)
+            );
+            actions.add(action);
+        }
+        return actions;
     }
 
     @Override
