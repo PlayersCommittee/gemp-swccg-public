@@ -4,6 +4,7 @@ import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -26,6 +27,8 @@ public class PersonaReplacementTests {
 				{{
 					put("vader", "1_168");
 					put("chokevader", "7_175");
+                    put("palp", "9_109");
+                    put("palp_forseer", "205_012");
 				}},
 				10,
 				10,
@@ -101,7 +104,28 @@ public class PersonaReplacementTests {
 		assertFalse(scn.LSCardPlayAvailable(hoth_luke)); //may only deploy on hoth
 	}
 
-	@Test
+    @Test @Ignore
+    public void PersonaReplacePreventedByNeverDeploysRestrictions() {
+        //demonstrates bug https://github.com/PlayersCommittee/gemp-swccg-public/issues/890
+
+        var scn = GetScenario();
+
+        var site = scn.GetLSStartingLocation();
+
+        var palp = scn.GetDSCard("palp");
+        var palp_forseer = scn.GetDSCard("palp_forseer");
+
+        scn.StartGame();
+
+        scn.MoveCardsToDSHand(palp_forseer);
+
+        scn.MoveCardsToLocation(site, palp);
+
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertFalse(scn.DSCardPlayAvailable(palp_forseer));
+    }
+
+    @Test
 	public void PersonaReplacePreventedByLowerPower() {
 		var scn = GetScenario();
 
