@@ -11,9 +11,9 @@ import com.gempukku.swccgo.logic.conditions.Condition;
 public class MayNotPlayModifier extends AbstractModifier {
 
     /**
-     * Creates a modifier that prevents the source card from being playing.
-     * @param affectFilter the filter
+     * Creates a modifier that prevents both players from playing cards accepted by the filter.
      * @param source the source of the modifier
+     * @param affectFilter the filter
      */
     public MayNotPlayModifier(PhysicalCard source, Filterable affectFilter) {
         super(source, "May not be played", Filters.and(affectFilter, Filters.not(Filters.in_play), Filters.canBeTargetedBy(source)), ModifierType.MAY_NOT_PLAY);
