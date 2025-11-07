@@ -24,7 +24,6 @@ import com.gempukku.swccgo.logic.effects.ModifyForfeitUntilEndOfTurnEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
-import com.gempukku.swccgo.logic.modifiers.DeployCostToTargetModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
@@ -55,7 +54,7 @@ public class Card210_023 extends AbstractJediMaster {
     @Override
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new DeployCostToTargetModifier(self, -2, Filters.sameLocationAs(self, Filters.Ahsoka)));
+        modifiers.add(new DeployCostToLocationModifier(self, -2, Filters.sameLocationAs(self, Filters.Ahsoka)));
         return modifiers;
     }
 
