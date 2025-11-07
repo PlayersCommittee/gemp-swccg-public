@@ -47,9 +47,20 @@ public class AttachedToInvalidCardRule implements Rule {
                             List<PhysicalCard> cardsToLose = new ArrayList<PhysicalCard>();
 
                             for (PhysicalCard attachedCard : cardsAttachedToOtherCards) {
+                                List<String> attachedCardTitles = attachedCard.getTitles();
                                 PhysicalCard attachedTo = attachedCard.getAttachedTo();
-                                if (attachedTo != null && !attachedCard.getBlueprint().getValidTargetFilterToRemainAttachedTo(game, attachedCard).accepts(game, attachedTo)) {
-                                    cardsToLose.add(attachedCard);
+                                if (attachedTo != null) {
+                                    if(!attachedCard.getBlueprint().getValidTargetFilterToRemainAttachedTo(game, attachedCard).accepts(game, attachedTo)) {
+                                        cardsToLose.add(attachedCard);
+                                    }
+                                    else {
+                                        for (String attachedCardTitle : attachedCardTitles) {
+                                            if (game.getModifiersQuerying().isImmuneToCardTitle(game.getGameState(), attachedTo, attachedCardTitle)) {
+                                                cardsToLose.add(attachedCard);
+                                                break; //avoid adding same card more than once
+                                            }
+                                        }
+                                    }
                                 }
                             }
 
