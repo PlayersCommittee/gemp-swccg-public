@@ -22,6 +22,7 @@ public abstract class AbstractHolosite extends AbstractLocation {
     protected AbstractHolosite(Side side, String title, ExpansionSet expansionSet, Rarity rarity) {
         super(side, title, Uniqueness.UNIQUE, expansionSet, rarity);
         setCardSubtype(CardSubtype.SITE);
+        setAsHorizontal(true);
         addKeyword(Keyword.HOLOSITE);
     }
 
