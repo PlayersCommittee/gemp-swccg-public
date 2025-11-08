@@ -1040,7 +1040,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
 
         if (self.getZone().isInPlay()) {
             // Get the actions based on the card state
-            boolean inPlayActive = game.getGameState().isCardInPlayActive(self, false, false, false, false, false, false, false, false);
+            boolean inPlayActive = game.getGameState().isCardInPlayActive(self, false, true, false, false, false, false, false, false);
 
             if (!game.getModifiersQuerying().isGameTextCanceled(game.getGameState(), self)) {
                 if (inPlayActive) {
