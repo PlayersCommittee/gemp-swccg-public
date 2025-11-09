@@ -181,7 +181,8 @@ public class GameUtils {
         String backSideTestingText = otherSideBlueprint != null ? otherSideBlueprint.getTestingText() : null;
 
         return "<div class='cardHint' value='" + blueprintId + "'" + (testingText != null ? (" data-testingText='" + convertTestingText(testingText) + "'") : "")
-                + (backSideTestingText != null ? (" data-backSideTestingText='" + convertTestingText(backSideTestingText) + "'") : "") + ">" + fullTitle + "</div>";
+                + (backSideTestingText != null ? (" data-backSideTestingText='" + convertTestingText(backSideTestingText) + "'") : "")
+                + (blueprint.isHorizontal() ? " data-horizontal='true'" : "") + ">" + fullTitle + "</div>";
     }
 
     /**
@@ -207,7 +208,8 @@ public class GameUtils {
         String backSideTestingText = otherSideBlueprint != null ? otherSideBlueprint.getTestingText() : null;
 
         return "<div class='cardHint' value='" + blueprintId + "'" + (testingText != null ? (" data-testingText='" + convertTestingText(testingText) + "'") : "")
-                + (backSideTestingText != null ? (" data-backSideTestingText='" + convertTestingText(backSideTestingText) + "'") : "") + ">" + dots + fullTitle + "</div>";
+                + (backSideTestingText != null ? (" data-backSideTestingText='" + convertTestingText(backSideTestingText) + "'") : "")
+                + (blueprint.isHorizontal() ? " data-horizontal='true'" : "") + ">" + dots + fullTitle + "</div>";
     }
 
     /**
@@ -230,7 +232,8 @@ public class GameUtils {
         String backSideTestingText = otherSideBlueprint != null ? otherSideBlueprint.getTestingText() : null;
 
         return "<div class='cardHint' value='" + blueprintId + "'" + (testingText != null ? (" data-testingText='" + convertTestingText(testingText) + "'") : "")
-                + (backSideTestingText != null ? (" data-backSideTestingText='" + convertTestingText(backSideTestingText) + "'") : "") + ">" + dots + GameUtils.getGenericLocationFullName(systemName, blueprint) + "</div>";
+                + (backSideTestingText != null ? (" data-backSideTestingText='" + convertTestingText(backSideTestingText) + "'") : "")
+                + (blueprint.isHorizontal() ? " data-horizontal='true'" : "") + ">" + dots + GameUtils.getGenericLocationFullName(systemName, blueprint) + "</div>";
     }
 
     /**
