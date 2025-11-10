@@ -1232,6 +1232,7 @@ public interface Title {
     String Utapau = "Utapau";
     String Utinni = "Utinni!";
     String Vader = "Vader";
+    String Vaders_Bounty = "Vader's Bounty";
     String Vaders_Castle = "Mustafar: Vader's Castle";
     String Vaders_Obsession = "Vader's Obsession";
     String Vaders_Malediction = "Vader's Malediction";

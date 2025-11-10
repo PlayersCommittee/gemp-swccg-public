@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card5_125 extends AbstractNormalEffect {
     public Card5_125() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "Vader's Bounty", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Vaders_Bounty, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("'We would be honored if you would join us.'");
         setGameText("Deploy on a Rebel of ability > 2. If subsequently captured, seized by a bounty hunter, and then transferred to a prison where Vader is present, retrieve Force equal to character's forfeit (+4 if Luke) and lose Effect. (Immune to Alter.)");
         addIcons(Icon.CLOUD_CITY);
