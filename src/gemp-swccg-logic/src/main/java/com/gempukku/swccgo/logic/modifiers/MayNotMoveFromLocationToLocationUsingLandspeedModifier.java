@@ -37,7 +37,7 @@ public class MayNotMoveFromLocationToLocationUsingLandspeedModifier extends Abst
      * @param toLocationFilter the to location filter
      */
     public MayNotMoveFromLocationToLocationUsingLandspeedModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Filterable fromLocationFilter, Filterable toLocationFilter) {
-        super(source, null, Filters.and(Filters.location, fromLocationFilter), condition, ModifierType.MAY_NOT_MOVE_FROM_LOCATION_TO_LOCATION_USING_LANDSPEED, true);
+        super(source, "May not move using landspeed to or from certain locations", Filters.and(Filters.location, fromLocationFilter), condition, ModifierType.MAY_NOT_MOVE_FROM_LOCATION_TO_LOCATION_USING_LANDSPEED, true);
         _affectedFilter = Filters.and(affectFilter);
         _toLocationFilter = Filters.and(Filters.location, toLocationFilter);
     }

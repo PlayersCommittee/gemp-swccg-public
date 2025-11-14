@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.cards.AbstractImperial;
+
 import com.gempukku.swccgo.cards.conditions.PilotingCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
@@ -13,7 +14,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.DeployCostAboardModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotMoveUsingLandspeedModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotMoveFromLocationToLocationUsingLandspeedModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
@@ -46,8 +47,8 @@ public class Card9_115 extends AbstractImperial {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
-        modifiers.add(new MayNotMoveUsingLandspeedModifier(self, Filters.and(Filters.opponents(self), Filters.character, Filters.atSameSite(self)),
-                new PilotingCondition(self, Filters.and(Filters.bomber, Filters.makingBombingRun))));
+        modifiers.add(new MayNotMoveFromLocationToLocationUsingLandspeedModifier(self, Filters.and(Filters.opponents(self), Filters.character,
+                Filters.atSameSite(self)), new PilotingCondition(self, Filters.and(Filters.bomber, Filters.makingBombingRun)), Filters.any, Filters.any));
         return modifiers;
     }
 }
