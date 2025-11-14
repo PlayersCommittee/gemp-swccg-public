@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.cards.AbstractPermanentAboard;
 import com.gempukku.swccgo.cards.AbstractPermanentPilot;
 import com.gempukku.swccgo.cards.AbstractStarfighter;
+import com.gempukku.swccgo.cards.conditions.LandedCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
@@ -56,6 +57,7 @@ public class Card8_080 extends AbstractStarfighter {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayDeployToTargetModifier(self, Filters.and(Filters.your(self), quadLaserCannonAndSurfaceDefenseCannon), self));
         modifiers.add(new DeploysFreeToTargetModifier(self, quadLaserCannonAndSurfaceDefenseCannon, self));
+        modifiers.add(new FiresForFreeModifier(self, Filters.and(Filters.Surface_Defense_Cannon, Filters.attachedTo(self)), new LandedCondition(self)));
         return modifiers;
     }
 
