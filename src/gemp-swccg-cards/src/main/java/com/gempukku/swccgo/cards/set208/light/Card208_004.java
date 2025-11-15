@@ -20,6 +20,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.effects.RearmCharacterEffect;
 import com.gempukku.swccgo.logic.effects.RespondableEffect;
 import com.gempukku.swccgo.logic.effects.RestoreCardToNormalEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
@@ -98,6 +99,10 @@ public class Card208_004 extends AbstractRebel {
                                             PhysicalCard cardToRestoreToNormal = targetingAction.getPrimaryTargetCard(targetGroupId);
 
                                             // Perform result(s)
+                                            if(cardToRestoreToNormal.isDisarmed()) {
+                                                action.appendEffect(
+                                                        new RearmCharacterEffect(action, cardToRestoreToNormal));
+                                            }
                                             action.appendEffect(
                                                     new RestoreCardToNormalEffect(action, cardToRestoreToNormal));
                                         }
@@ -144,6 +149,10 @@ public class Card208_004 extends AbstractRebel {
                                                 PhysicalCard cardToRestoreToNormal = targetingAction.getPrimaryTargetCard(targetGroupId);
 
                                                 // Perform result(s)
+                                                if(cardToRestoreToNormal.isDisarmed()) {
+                                                    action.appendEffect(
+                                                            new RearmCharacterEffect(action, cardToRestoreToNormal));
+                                                }
                                                 action.appendEffect(
                                                         new RestoreCardToNormalEffect(action, cardToRestoreToNormal));
                                             }
