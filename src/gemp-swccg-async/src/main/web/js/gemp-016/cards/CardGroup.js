@@ -593,9 +593,8 @@ function layoutCardElem(cardElem, x, y, width, height, index) {
         for (var i = 0; i < sizeListeners.length; i++)
             sizeListeners[i].sizeChanged(cardElem, width, height);
 
-    // Handle rotation for horizontal cards on top of lost pile
     var img = $(cardElem).find("img")[0];
-    if ((cardData.zone === "LOST_PILE" || cardData.zone === "TOP_OF_LOST_PILE") && cardData.blueprintHorizontal) {
+    if (cardData.zone === "TOP_OF_LOST_PILE" && cardData.blueprintHorizontal) {
         img.style.transform = "rotate(90deg) translateX(7px) translateY(6px)";
         img.style.height = "" + width + "px";
         img.style.width = "" + height + "px";
