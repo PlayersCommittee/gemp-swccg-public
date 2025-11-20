@@ -33,8 +33,8 @@ import java.util.List;
 public class Card223_038 extends AbstractSite {
     public Card223_038() {
         super(Side.LIGHT, Title.Defensive_Perimeter, Title.Hoth, Uniqueness.UNIQUE, ExpansionSet.SET_23, Rarity.V);
-        setLocationLightSideGameText("Once during opponent's turn, if your [Hoth] card occupies, may activate 1 Force.");
-        setLocationDarkSideGameText("If you occupy, Force generation +1 for you here.");
+        setLocationLightSideGameText("During opponent's turn, if you occupy with a [Hoth] character or [Hoth] vehicle, may activate 1 Force.");
+        setLocationDarkSideGameText("If you occupy, your Force generation is +1 here.");
         addIcon(Icon.LIGHT_FORCE, 2);
         addIcon(Icon.DARK_FORCE, 1);
         addIcons(Icon.HOTH, Icon.EXTERIOR_SITE, Icon.PLANET, Icon.VIRTUAL_SET_23);
@@ -56,7 +56,7 @@ public class Card223_038 extends AbstractSite {
         // Check condition(s)
         if (GameConditions.isOnceDuringOpponentsTurn(game, self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canActivateForce(game, playerOnLightSideOfLocation)
-                && GameConditions.occupiesWith(game, self, playerOnLightSideOfLocation, Filters.here(self), Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.icon(Icon.HOTH)))) {
+                && GameConditions.occupiesWith(game, self, playerOnLightSideOfLocation, Filters.here(self), Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.or(Filters.character, Filters.vehicle), Filters.icon(Icon.HOTH)))) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerOnLightSideOfLocation, gameTextSourceCardId, gameTextActionId);
             action.setText("Activate 1 Force");
