@@ -5,6 +5,7 @@ import com.gempukku.swccgo.game.PhysicalCardImpl;
 
 import javax.xml.stream.Location;
 
+import static com.gempukku.swccgo.framework.TestBase.epsilon;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -55,4 +56,15 @@ public class Assertions {
 	 * @param cards One or more cards which must all be in hand.
 	 */
 	public static void assertInHand(PhysicalCardImpl...cards) { assertInZone(Zone.HAND, cards); }
+
+    /**
+     * Asserts that a float value can safely be considered an int.
+     * Catches cases where non-int values are used (Braniac, etc)
+     * @param value The float to check.
+     */
+    public static void assertIsInt(float value) {
+        assertTrue("Value cannot safely be treated as int",Math.abs(value - Math.round(value))  < epsilon);
+    }
+
 }
+

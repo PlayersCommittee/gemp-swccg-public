@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 
 
 public class VirtualTableScenario implements TestBase, Actions, AdHocEffects, Battles, CardProperties, Choices, Decisions,
-        GameProcedures, GameProperties, PileProperties, ZoneManipulation {
+        GameProcedures, GameProperties, PileProperties, Sabacc, ZoneManipulation {
 
     public static SwccgCardBlueprintLibrary _cardLibrary;
     public static SwccgoFormatLibrary _formatLibrary;
