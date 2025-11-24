@@ -621,7 +621,7 @@ public interface Title {
     String Jabbas_Space_Cruiser = "Jabba's Space Cruiser";
     String Jabbas_Trophies = "Jabba's Trophies";
     String Jabiim = "Jabiim";
-    String Jabiim_Hangar_Bay = "Jabiim: Hangar Bay";
+    String Jabiim_Starship_Hangar = "Jabiim: Starship Hangar";
     String Jakku = "Jakku";
     String Jakku_Landing_Site = "Jakku: Landing Site";
     String Jango_Fett = "Jango Fett";
