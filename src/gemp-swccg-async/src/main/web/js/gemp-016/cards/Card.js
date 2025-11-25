@@ -252,40 +252,35 @@ class Card {
     }
 
     getHeightForWidth(width) {
-        var effectivelyHorizontal = this.onSide ? !this.horizontal : this.horizontal;
-        if (effectivelyHorizontal)
+        if (this.horizontal)
             return Math.floor(width * Card.CardScale);
         else
             return Math.floor(width / Card.CardScale);
     }
 
     getHeightForColumnWidth(columnWidth) {
-        var effectivelyHorizontal = this.onSide ? !this.horizontal : this.horizontal;
-        if (effectivelyHorizontal)
+        if (this.horizontal)
             return columnWidth;
         else
             return Math.floor(columnWidth / Card.CardScale);
     }
 
     getWidthForHeight(height) {
-        var effectivelyHorizontal = this.onSide ? !this.horizontal : this.horizontal;
-        if (effectivelyHorizontal)
+        if (this.horizontal)
             return Math.floor(height / Card.CardScale);
         else
             return Math.floor(height * Card.CardScale);
     }
 
     getWidthForMaxDimension(maxDimension) {
-        var effectivelyHorizontal = this.onSide ? !this.horizontal : this.horizontal;
-        if (effectivelyHorizontal)
+        if (this.horizontal)
             return maxDimension;
         else
             return Math.floor(maxDimension * Card.CardScale);
     }
 
     getHeightForMaxDimension(maxDimension) {
-        var effectivelyHorizontal = this.onSide ? !this.horizontal : this.horizontal;
-        if (effectivelyHorizontal)
+        if (this.horizontal)
             return Math.floor(maxDimension * Card.CardScale);
         else
             return maxDimension;

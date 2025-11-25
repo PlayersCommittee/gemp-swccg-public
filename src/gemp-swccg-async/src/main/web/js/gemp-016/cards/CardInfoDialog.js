@@ -154,13 +154,14 @@ class CardInfoDialog {
 		let maxLong = Math.min(this.maxHeight, this.maxWidth, this.currentLongSetting);
 		let maxShort = Math.min(this.maxHeight, this.maxWidth, this.currentShortSetting);
 
-		let effectivelyHorizontal = this.card.onSide ? !this.card.blueprintHorizontal : this.card.blueprintHorizontal;
+		//We have to compensate for horizontal cards vertically rotated on the lost pile
+		let horizontal = this.card.blueprintHorizontal;
 
-		if(effectivelyHorizontal) {
-			this.cardDisplay.resize(effectivelyHorizontal, maxLong, maxLong);
+		if(horizontal) {
+			this.cardDisplay.resize(horizontal, maxLong, maxLong);
 		}
 		else {
-			this.cardDisplay.resize(effectivelyHorizontal, maxLong, maxLong);
+			this.cardDisplay.resize(horizontal, maxLong, maxLong);
 		}
 
 		let width = this.cardDisplay.width() + CardInfoDialog.DialogPadding + (this.hasDetails ? CardInfoDialog.DetailsWidth : 0)
