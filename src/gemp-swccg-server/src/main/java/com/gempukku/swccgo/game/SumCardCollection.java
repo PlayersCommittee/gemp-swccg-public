@@ -21,6 +21,22 @@ public class SumCardCollection implements CardCollection {
     }
 
     @Override
+    public Map<String, Object> getExtraInformation() {
+        Map<String, Object> result = new HashMap<String, Object>();
+        for (CardCollection cardCollection : _cardCollections) {
+            result.putAll(cardCollection.getExtraInformation());
+        }
+        return result;
+    }
+
+    @Override
+    public void setExtraInformation(Map<String, Object> newExtraInformation) {
+        for (CardCollection cardCollection : _cardCollections) {
+            cardCollection.setExtraInformation(newExtraInformation);
+        }
+    }
+
+    @Override
     public Map<String, Item> getAll() {
         Map<String, Item> sum = new HashMap<String, Item>();
         for (CardCollection cardCollection : _cardCollections) {

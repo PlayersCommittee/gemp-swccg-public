@@ -6,6 +6,7 @@ import com.gempukku.swccgo.game.state.EventSerializer;
 import com.gempukku.swccgo.game.state.GameCommunicationChannel;
 import com.gempukku.swccgo.game.state.GameEvent;
 import com.gempukku.swccgo.league.NewSealedLeagueData;
+import com.gempukku.swccgo.draft2.SoloDraftDefinitions;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -28,9 +29,12 @@ public class GameRecorder {
     private static int _charsCount = _possibleChars.length();
 
     private GameHistoryService _gameHistoryService;
+    private SoloDraftDefinitions _soloDraftDefinitions;
 
-    public GameRecorder(GameHistoryService gameHistoryService) {
+    public GameRecorder(GameHistoryService gameHistoryService,
+                        SoloDraftDefinitions soloDraftDefinitions) {
         _gameHistoryService = gameHistoryService;
+        _soloDraftDefinitions = soloDraftDefinitions;
     }
 
     private String randomUid() {
@@ -61,7 +65,7 @@ public class GameRecorder {
         }
         final SwccgGameMediator mediator = swccgoGame;
         final String leagueType = mediator.getLeague()==null?"":mediator.getLeague().getType();
-        final String sealedLeagueType = ((mediator.getLeague()==null||mediator.getLeague().getLeagueData()==null||!mediator.getLeague().getLeagueData().isSealed()))?"":((NewSealedLeagueData)mediator.getLeague().getLeagueData()).getSealedLeagueType().getHumanReadable();
+        final String sealedLeagueType = ((mediator.getLeague()==null||mediator.getLeague().getLeagueData(_soloDraftDefinitions)==null||!mediator.getLeague().getLeagueData(_soloDraftDefinitions).isSealed()))?"":((NewSealedLeagueData)mediator.getLeague().getLeagueData(_soloDraftDefinitions)).getSealedLeagueType().getHumanReadable();
 
         return new GameRecordingInProgress() {
             @Override

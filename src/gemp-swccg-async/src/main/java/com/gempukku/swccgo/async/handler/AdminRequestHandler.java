@@ -5,6 +5,7 @@ import com.gempukku.swccgo.async.HttpProcessingException;
 import com.gempukku.swccgo.async.ResponseWriter;
 import com.gempukku.swccgo.cache.CacheManager;
 import com.gempukku.swccgo.collection.CollectionsManager;
+import com.gempukku.swccgo.draft2.SoloDraftDefinitions;
 import com.gempukku.swccgo.db.LeagueDAO;
 import com.gempukku.swccgo.db.LeagueDecklistEntry;
 import com.gempukku.swccgo.db.PlayerDAO;
@@ -41,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class AdminRequestHandler extends SwccgoServerRequestHandler implements UriRequestHandler {
+    private SoloDraftDefinitions _soloDraftDefinitions;
     private final LeagueService _leagueService;
     private final TournamentService _tournamentService;
     private final CacheManager _cacheManager;
@@ -56,6 +58,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
 
     public AdminRequestHandler(Map<Type, Object> context) {
         super(context);
+        _soloDraftDefinitions = extractObject(context, SoloDraftDefinitions.class);
         _leagueService = extractObject(context, LeagueService.class);
         _tournamentService = extractObject(context, TournamentService.class);
         _cacheManager = extractObject(context, CacheManager.class);
@@ -87,6 +90,10 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             processConstructedLeague(request, responseWriter, true);
         } else if (uri.equals("/league/constructed/create") && request.method() == HttpMethod.POST) {
             processConstructedLeague(request, responseWriter, false);
+        } else if (uri.equals("/league/solodraft/preview") && request.method() == HttpMethod.POST) {
+            processSoloDraftLeague(request, responseWriter, true);
+        } else if (uri.equals("/league/solodraft/create") && request.method() == HttpMethod.POST) {
+            processSoloDraftLeague(request, responseWriter, false);
         } else if (uri.equals("/league/addplayers") && request.method() == HttpMethod.POST) {
             addPlayersToLeague(request, responseWriter, remoteIp);
         } else if (uri.equals("/collections/additems") && request.method() == HttpMethod.POST) {
@@ -664,7 +671,116 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             String code = String.valueOf(System.currentTimeMillis());
 
             String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
-            LeagueData leagueData = new NewSealedLeagueData(_cardLibrary, parameters);
+            LeagueData leagueData = new NewSealedLeagueData(_cardLibrary, _soloDraftDefinitions, parameters);
+            List<LeagueSeriesData> series = leagueData.getSeries();
+            int leagueStart = series.get(0).getStart();
+            int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
+
+            if(!preview) {
+                _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd,
+                        allowSpectators, allowTimeExtensions, showPlayerNames, invitationOnly, registrationInfo,
+                        decisionTimeoutSeconds, timePerPlayerMinutes);
+                _leagueService.clearCache();
+
+                responseWriter.writeHtmlResponse("OK");
+                return;
+            }
+
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+            Document doc = documentBuilder.newDocument();
+
+            Element leagueElem = doc.createElement("league");
+
+            leagueElem.setAttribute("name", name);
+            leagueElem.setAttribute("cost", String.valueOf(cost));
+            leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
+            leagueElem.setAttribute("allowTimeExtensions", String.valueOf(allowTimeExtensions));
+            leagueElem.setAttribute("allowSpectators", String.valueOf(allowSpectators));
+            leagueElem.setAttribute("showPlayerNames", String.valueOf(showPlayerNames));
+            leagueElem.setAttribute("invitationOnly", String.valueOf(invitationOnly));
+            leagueElem.setAttribute("registrationInfo", registrationInfo);
+            leagueElem.setAttribute("decisionTimeoutSeconds", String.valueOf(decisionTimeoutSeconds));
+            leagueElem.setAttribute("timePerPlayerMinutes", String.valueOf(timePerPlayerMinutes));
+
+            leagueElem.setAttribute("end", String.valueOf(displayEnd));
+
+            for (LeagueSeriesData serie : series) {
+                Element serieElem = doc.createElement("serie");
+                serieElem.setAttribute("type", serie.getName());
+                serieElem.setAttribute("maxMatches", String.valueOf(serie.getMaxMatches()));
+                serieElem.setAttribute("start", String.valueOf(serie.getStart()));
+                serieElem.setAttribute("end", String.valueOf(serie.getEnd()));
+                serieElem.setAttribute("format", _formatLibrary.getFormat(serie.getFormat()).getName());
+                serieElem.setAttribute("collection", serie.getCollectionType().getFullName());
+                serieElem.setAttribute("limited", String.valueOf(serie.isLimited()));
+
+                leagueElem.appendChild(serieElem);
+            }
+
+            doc.appendChild(leagueElem);
+
+            responseWriter.writeXmlResponse(doc);
+        }
+        finally {
+            postDecoder.destroy();
+        }
+    }
+
+    /**
+     * Processes the passed parameters for a theoretical Solo Draft League.  Based on the preview parameter, this will
+     * either create the league for real, or just return the parsed values to the client so the admin can preview
+     * the input.
+     * @param request the request
+     * @param responseWriter the response writer
+     * @param preview If true, no league will be created and the client will have an XML payload returned representing
+     *                what the league would be upon creation.  If false, the league will be created for real.
+     * @throws Exception
+     */
+    private void processSoloDraftLeague(HttpRequest request, ResponseWriter responseWriter, boolean preview) throws Exception {
+        validateLeagueAdmin(request);
+
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
+            String name = getFormParameterSafely(postDecoder, "name");
+            String costStr = getFormParameterSafely(postDecoder, "cost");
+            String startStr = getFormParameterSafely(postDecoder, "start");
+            String format = getFormParameterSafely(postDecoder, "format");
+            String serieDurationStr = getFormParameterSafely(postDecoder, "serieDuration");
+            String maxMatchesStr = getFormParameterSafely(postDecoder, "maxMatches");
+            String allowTimeExtensionsStr = getFormParameterSafely(postDecoder, "allowTimeExtensions");
+            String allowSpectatorsStr = getFormParameterSafely(postDecoder, "allowSpectators");
+            String showPlayerNamesStr = getFormParameterSafely(postDecoder, "showPlayerNames");
+            String invitationOnlyStr = getFormParameterSafely(postDecoder, "invitationOnly");
+            String registrationInfo = getFormParameterSafely(postDecoder, "registrationInfo");
+            String decisionTimeoutStr = getFormParameterSafely(postDecoder, "decisionTimeoutSeconds");
+            String timePerPlayerStr = getFormParameterSafely(postDecoder, "timePerPlayerMinutes");
+
+            Throw400IfStringNull("name", name);
+            int cost = Throw400IfNullOrNonInteger("cost", costStr);
+            int start = Throw400IfNullOrNonInteger("start", startStr);
+            if(startStr.length() != 8)
+                throw new HttpProcessingException(400, "Parameter 'start' must be exactly 8 digits long: YYYYMMDD");
+            Throw400IfStringNull("format", format);
+            int serieDuration = Throw400IfNullOrNonInteger("serieDuration", serieDurationStr);
+            int maxMatches = Throw400IfNullOrNonInteger("maxMatches", maxMatchesStr);
+            boolean allowTimeExtensions = Throw400IfNullOrNonBoolean("allowTimeExtensions", allowTimeExtensionsStr);
+            boolean allowSpectators = Throw400IfNullOrNonBoolean("allowSpectators", allowSpectatorsStr);
+            boolean showPlayerNames = Throw400IfNullOrNonBoolean("showPlayerNames", showPlayerNamesStr);
+            boolean invitationOnly = Throw400IfNullOrNonBoolean("invitationOnly", invitationOnlyStr);
+            //Throw400IfStringNull("registrationInfo", registrationInfo);
+            int decisionTimeoutSeconds = Throw400IfNullOrNonInteger("decisionTimeoutSeconds", decisionTimeoutStr);
+            int timePerPlayerMinutes = Throw400IfNullOrNonInteger("timePerPlayerMinutes", timePerPlayerStr);
+
+            if(registrationInfo.toLowerCase().contains("starwarsccg.org") && !registrationInfo.contains(" ")) {
+                registrationInfo = "<a href='" + registrationInfo + "' target='_blank'>" + registrationInfo + "</a>";
+            }
+
+            String code = String.valueOf(System.currentTimeMillis());
+
+            String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
+            LeagueData leagueData = new NewSoloDraftLeagueData(_cardLibrary, _soloDraftDefinitions, parameters);
             List<LeagueSeriesData> series = leagueData.getSeries();
             int leagueStart = series.get(0).getStart();
             int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
@@ -783,7 +899,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             }
 
             String parameters = sb.toString();
-            LeagueData leagueData = new NewConstructedLeagueData(_cardLibrary, parameters);
+            LeagueData leagueData = new NewConstructedLeagueData(_cardLibrary, _soloDraftDefinitions, parameters);
             List<LeagueSeriesData> series = leagueData.getSeries();
             int leagueStart = series.get(0).getStart();
             int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);

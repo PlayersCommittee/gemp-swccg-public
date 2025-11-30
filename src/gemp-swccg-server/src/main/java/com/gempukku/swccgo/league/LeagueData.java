@@ -2,6 +2,7 @@ package com.gempukku.swccgo.league;
 
 import com.gempukku.swccgo.collection.CollectionsManager;
 import com.gempukku.swccgo.competitive.PlayerStanding;
+import com.gempukku.swccgo.draft2.SoloDraft;
 import com.gempukku.swccgo.game.CardCollection;
 import com.gempukku.swccgo.game.Player;
 
@@ -17,6 +18,18 @@ public interface LeagueData {
      * @return the league data
      */
     List<LeagueSeriesData> getSeries();
+
+    /**
+     * For solo draft leagues, gets related information
+     * @return related draft information
+     */
+    SoloDraft getSoloDraft();
+
+    /**
+     * Is this a solo draft league?
+     * @return solo draft league or not
+     */
+    boolean isSoloDraftLeague();
 
     /**
      * Adds the league product to the player's collection used for the league.

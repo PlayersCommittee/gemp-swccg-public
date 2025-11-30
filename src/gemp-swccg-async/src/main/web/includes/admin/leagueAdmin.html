@@ -275,7 +275,62 @@
                 	$("#sealed-league-result").html("OK");
                 }, leagueErrorMap($("#sealed-league-result")));
 						});
-				
+
+				$("#previewSoloDraft").button().click(
+						function () {
+							var data = gatherData($("#addSoloDraftForm"));
+							$("#solo-draft-league-result").html("Processing...");
+
+							hall.comm.previewSoloDraftLeague(
+								data.name[0],
+                data.cost[0],
+                data.start[0],
+                data.format[0],
+                data.serieDuration[0],
+                data.maxMatches[0],
+                data.allowTimeExtensions[0],
+                data.allowSpectators[0],
+                data.showPlayerNames[0],
+                data.invitationOnly[0],
+                data.registrationInfo[0],
+                data.decisionTimeoutSeconds[0],
+                data.timePerPlayerMinutes[0],
+                function(xml) {
+                	previewDialog.html("");
+                	displayPreview(xml, previewDialog);
+                	$("#solo-draft-league-result").html("OK");
+                }, leagueErrorMap($("#sealed-league-result"), function() {
+                  	previewDialog.dialog("close");
+                  }));
+
+					previewDialog.html("Processing...");
+					previewDialog.dialog("open");
+				});
+
+				$("#submitSoloDraft").button().click(
+						function () {
+							var data = gatherData($("#addSoloDraftForm"));
+							$("#solo-draft-league-result").html("Processing...");
+
+							hall.comm.addSoloDraftLeague(
+								data.name[0],
+                data.cost[0],
+                data.start[0],
+                data.format[0],
+                data.serieDuration[0],
+                data.maxMatches[0],
+                data.allowTimeExtensions[0],
+                data.allowSpectators[0],
+                data.showPlayerNames[0],
+                data.invitationOnly[0],
+                data.registrationInfo[0],
+                data.decisionTimeoutSeconds[0],
+                data.timePerPlayerMinutes[0],
+                function() {
+                	$("#sealed-league-result").html("OK");
+                }, leagueErrorMap($("#sealed-league-result")));
+						});
+
 				$("#addConstructedSeries").button().click(
 						function () {
 							$(".seriesData").last().clone().appendTo(".series");
@@ -392,7 +447,36 @@
 	</div>
 
 	<br><br><hr><br>
-	
+
+	<div>
+		<h1>Add Solo Draft League</h1>
+
+		<div id="addSoloDraftForm">
+			Name: <input type="text" name="name"/><br/>
+			Cost (in silver): <input type="number" name="cost" value="0"/><br/>
+			Start (YYYYMMDD): <input type="number" name="start" required/><br/>
+			Format:
+			<select name="format">
+				<option value="c7_draft">Cube v7 Draft</option>
+				<option value="c7obj_draft">Cube v7 Draft + Obj</option>
+			</select><br/>
+			Serie duration in days: <input type="number" name="serieDuration" value="7"/><br/>
+			Maximum matches per serie: <input type="number" name="maxMatches" value="10"/><br/>
+			Allow Time Extensions: <input type="checkbox" name="allowTimeExtensions"/><br/>
+			Allow Spectators <input type="checkbox" name="allowSpectators" checked/><br/>
+			Show Player Names in Hall <input type="checkbox" name="showPlayerNames"/><br/>
+			Invite only: <input type="checkbox" name="invitationOnly" value="on"/><br/>
+			Registration info link: <input type="text" name="registrationInfo"/><br/>
+			Decision Timeout (seconds) <input type="number" name="decisionTimeoutSeconds" min="1" value=300 style="min-width: 4em"><br/>
+			Time Per Player (minutes) <input type="number" name="timePerPlayerMinutes" min="1" value=50 style="min-width: 4em"><br/>
+			<button id="previewSoloDraft" class="admin-button">Preview solo draft league</button>
+			<button id="submitSoloDraft" class="admin-button">Add solo league</button>
+			<span id="solo-draft-league-result" style="display:inline-block;">Ready.</span>
+		</div>
+	</div>
+
+	<br><br><hr><br>
+
 	<div>
 		<h1>Add Constructed League</h1>
 

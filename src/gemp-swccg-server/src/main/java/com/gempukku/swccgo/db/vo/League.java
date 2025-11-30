@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.db.vo;
 
+import com.gempukku.swccgo.draft2.SoloDraftDefinitions;
 import com.gempukku.swccgo.game.SwccgCardBlueprintLibrary;
 import com.gempukku.swccgo.league.LeagueData;
 
@@ -61,7 +62,7 @@ public class League {
     public boolean getInvitationOnly() { return _invitationOnly; }
 
     public String getRegistrationInfo() {
-        if(_registrationInfo.toLowerCase().contains("starwarsccg.org") && !_registrationInfo.contains(" "))
+        if(_registrationInfo != null && _registrationInfo.toLowerCase().contains("starwarsccg.org") && !_registrationInfo.contains(" "))
             return "<a href='"+_registrationInfo+"' target='_new'>"+_registrationInfo+"</a>";
         return _registrationInfo;
     }
@@ -70,12 +71,12 @@ public class League {
 
     public int getTimePerPlayerMinutes() { return _timePerPlayerMinutes; }
 
-    public synchronized LeagueData getLeagueData() {
+    public synchronized LeagueData getLeagueData(SoloDraftDefinitions soloDraftDefinitions) {
         if (_leagueData == null) {
             try {
                 Class<?> aClass = Class.forName(_clazz);
-                Constructor<?> constructor = aClass.getConstructor(SwccgCardBlueprintLibrary.class, String.class);
-                _leagueData = (LeagueData) constructor.newInstance(_library, _parameters);
+                Constructor<?> constructor = aClass.getConstructor(SwccgCardBlueprintLibrary.class, SoloDraftDefinitions.class, String.class);
+                _leagueData = (LeagueData) constructor.newInstance(_library, soloDraftDefinitions, _parameters);
             } catch (Exception exp) {
                 throw new RuntimeException("Unable to create LeagueData", exp);
             }

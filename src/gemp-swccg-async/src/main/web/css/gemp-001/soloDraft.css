@@ -1,0 +1,133 @@
+/* Solo Draft UI Styles */
+
+/* Body Styles */
+/* Dirty hack to fix centering of main divs */
+.soloDraft {
+    padding-left: 9px !important;
+    background-color: #000000;
+}
+
+/* Fix main container spacing */
+.soloDraft .ui-layout-pane {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.soloDraft .ui-layout-north {
+    border: none !important;
+}
+
+.soloDraft .ui-layout-center {
+    border: none !important;
+}
+
+/* Header area styling */
+#messageDiv {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #e0e0e0;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8),
+                 0 1px 2px rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    letter-spacing: 1px;
+}
+
+/* Completion Screen Overlay */
+#completionScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Completion Content Card */
+#completionContent {
+    text-align: center;
+    padding: 40px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    border-radius: 12px;
+    border: 2px solid #4a90e2;
+    box-shadow: 0 8px 32px rgba(74, 144, 226, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+/* Completion Title */
+#completionTitle {
+    color: #4a90e2;
+    font-size: 48px;
+    font-weight: bold;
+    margin: 0 0 30px 0;
+    text-shadow: 0 2px 10px rgba(74, 144, 226, 0.5);
+    font-family: Arial, sans-serif;
+}
+
+/* Deckbuilder Button */
+#deckbuilderButton {
+    display: inline-block;
+    padding: 16px 40px;
+    background: linear-gradient(135deg, #2c5aa0 0%, #4a90e2 100%);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 2px solid #5ba3ff;
+    box-shadow: 0 4px 16px rgba(74, 144, 226, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+    transition: all 0.3s ease;
+    font-family: Arial, sans-serif;
+}
+
+/* Deckbuilder Button Hover State */
+#deckbuilderButton:hover {
+    background: linear-gradient(135deg, #3a6fc0 0%, #5ba3ff 100%);
+    box-shadow: 0 6px 24px rgba(74, 144, 226, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+    transform: translateY(-2px);
+}
+
+/* Deckbuilder Button Active State */
+#deckbuilderButton:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+}
+
+/* Card Styles */
+#picksDiv .card,
+#draftedDiv .card {
+    cursor: pointer;
+    transition: box-shadow 0.15s ease-in;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6),
+                0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Card Images - Border Radius */
+#picksDiv .card img,
+#draftedDiv .card img {
+    border-radius: 3px;
+}
+
+/* Card Hover - Lightsaber Glow for Picks Only (Obi-Wan Blue) */
+#picksDiv .card:hover {
+    box-shadow: 0 0 10px 3px rgba(100, 180, 230, 0.9),
+                0 0 20px 6px rgba(100, 180, 230, 0.7),
+                0 0 30px 8px rgba(100, 180, 230, 0.5),
+                0 0 40px 10px rgba(100, 180, 230, 0.3),
+                0 4px 8px rgba(0, 0, 0, 0.6);
+    filter: brightness(1.15);
+    transition: box-shadow 0.08s ease-out;
+}

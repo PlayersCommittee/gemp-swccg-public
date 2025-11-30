@@ -369,7 +369,7 @@ public class CollectionSerializer {
                 collection.addItem(blueprintId + "*", foilCount);
 
         }
-
+        
         return collection;
     }
 

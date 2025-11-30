@@ -4,8 +4,10 @@ import com.gempukku.swccgo.DateUtils;
 import com.gempukku.swccgo.collection.CollectionsManager;
 import com.gempukku.swccgo.competitive.PlayerStanding;
 import com.gempukku.swccgo.db.vo.CollectionType;
+import com.gempukku.swccgo.draft2.SoloDraftDefinitions;
 import com.gempukku.swccgo.game.CardCollection;
 import com.gempukku.swccgo.game.Player;
+import com.gempukku.swccgo.draft2.SoloDraft;
 import com.gempukku.swccgo.game.SwccgCardBlueprintLibrary;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class NewConstructedLeagueData implements LeagueData {
     private CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
     private CollectionType _collectionType;
 
-    public NewConstructedLeagueData(SwccgCardBlueprintLibrary library, String parameters) {
+    public NewConstructedLeagueData(SwccgCardBlueprintLibrary library, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
         _leaguePrizes = new FixedLeaguePrizes(library);
         String[] params = parameters.split(",");
         int start = Integer.parseInt(params[0]);
@@ -45,6 +47,16 @@ public class NewConstructedLeagueData implements LeagueData {
 
             seriesStart = DateUtils.offsetDate(seriesStart, duration);
         }
+    }
+
+    @Override
+    public boolean isSoloDraftLeague() {
+        return false;
+    }
+
+    @Override
+    public SoloDraft getSoloDraft() {
+        return null;
     }
 
     /**

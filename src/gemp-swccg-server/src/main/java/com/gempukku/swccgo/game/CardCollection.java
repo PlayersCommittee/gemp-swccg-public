@@ -8,6 +8,8 @@ public interface CardCollection extends OwnershipCheck {
     Map<String, Item> getAll();
 
     int getItemCount(String blueprintId);
+    Map<String, Object> getExtraInformation();
+    void setExtraInformation(Map<String, Object> newExtraInformation);
 
     boolean excludePackDuplicates();
 

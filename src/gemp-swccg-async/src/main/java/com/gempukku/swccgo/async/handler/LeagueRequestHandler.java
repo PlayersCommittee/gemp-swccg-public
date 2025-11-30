@@ -4,6 +4,7 @@ import com.gempukku.swccgo.DateUtils;
 import com.gempukku.swccgo.async.HttpProcessingException;
 import com.gempukku.swccgo.async.ResponseWriter;
 import com.gempukku.swccgo.competitive.PlayerStanding;
+import com.gempukku.swccgo.draft2.SoloDraftDefinitions;
 import com.gempukku.swccgo.db.vo.League;
 import com.gempukku.swccgo.db.vo.LeagueMatchResult;
 import com.gempukku.swccgo.game.Player;
@@ -27,23 +28,25 @@ import java.util.List;
 import java.util.Map;
 
 public class LeagueRequestHandler extends SwccgoServerRequestHandler implements UriRequestHandler {
-    private final LeagueService _leagueService;
-    private final SwccgoFormatLibrary _formatLibrary;
+    private final SoloDraftDefinitions _soloDraftDefinitions;
+    private LeagueService _leagueService;
+    private SwccgoFormatLibrary _formatLibrary;
 
     public LeagueRequestHandler(Map<Type, Object> context) {
         super(context);
 
         _leagueService = extractObject(context, LeagueService.class);
         _formatLibrary = extractObject(context, SwccgoFormatLibrary.class);
+        _soloDraftDefinitions = extractObject(context, SoloDraftDefinitions.class);
     }
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
-        if ("".equals(uri) && request.method() == HttpMethod.GET) {
+        if ("".equals(uri) && request.getMethod() == HttpMethod.GET) {
             getNonExpiredLeagues(request, responseWriter);
-        } else if (uri.startsWith("/") && request.method() == HttpMethod.GET) {
+        } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
             getLeagueInformation(request, uri.substring(1), responseWriter);
-        } else if (uri.startsWith("/") && request.method() == HttpMethod.POST) {
+        } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
             joinLeague(request, uri.substring(1), responseWriter, remoteIp);
         } else {
             responseWriter.writeError(404);
@@ -72,7 +75,7 @@ public class LeagueRequestHandler extends SwccgoServerRequestHandler implements 
     }
 
     private void getLeagueInformation(HttpRequest request, String leagueType, ResponseWriter responseWriter) throws Exception {
-        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -87,16 +90,19 @@ public class LeagueRequestHandler extends SwccgoServerRequestHandler implements 
         if (league == null)
             throw new HttpProcessingException(404);
 
-        final LeagueData leagueData = league.getLeagueData();
+        final LeagueData leagueData = league.getLeagueData(_soloDraftDefinitions);
         final List<LeagueSeriesData> series = leagueData.getSeries();
 
         int end = series.get(series.size() - 1).getEnd();
+        int start = series.get(0).getStart();
+        int currentDate = DateUtils.getCurrentDate();
 
         Element leagueElem = doc.createElement("league");
         boolean inLeague = _leagueService.isPlayerInLeague(league, resourceOwner);
 
         leagueElem.setAttribute("member", String.valueOf(inLeague));
         leagueElem.setAttribute("joinable", String.valueOf(!inLeague && end >= DateUtils.getCurrentDate()));
+        leagueElem.setAttribute("draftable", String.valueOf(inLeague && leagueData.isSoloDraftLeague() && start <= currentDate));
         leagueElem.setAttribute("type", league.getType());
         leagueElem.setAttribute("name", league.getName());
         leagueElem.setAttribute("cost", String.valueOf(league.getCost()));
@@ -161,13 +167,13 @@ public class LeagueRequestHandler extends SwccgoServerRequestHandler implements 
         Element leagues = doc.createElement("leagues");
 
         for (League league : _leagueService.getActiveLeagues()) {
-            final LeagueData leagueData = league.getLeagueData();
+            final LeagueData leagueData = league.getLeagueData(_soloDraftDefinitions);
             final List<LeagueSeriesData> series = leagueData.getSeries();
 
             int end = series.get(series.size() - 1).getEnd();
 
             Element leagueElem = doc.createElement("league");
-            QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
+            QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
             String participantId = getQueryParameterSafely(queryDecoder, "participantId");
             Player resourceOwner = getResourceOwnerSafely(request, participantId);
             boolean inLeague = _leagueService.isPlayerInLeague(league, resourceOwner);

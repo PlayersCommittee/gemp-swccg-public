@@ -192,7 +192,7 @@ var GempSwccgCommunication = Class.extend({
                 participantId:getUrlParam("participantId") },
             success:this.deliveryCheck(callback),
             error:this.errorCheck(errorMap),
-            dataType:"xml"
+            dataType:"html"
         });
     },
     getReplay:function (replayId, callback, errorMap) {
@@ -1122,8 +1122,69 @@ var GempSwccgCommunication = Class.extend({
             dataType:"html"
         });
     },
-    
-    
+
+
+    previewSoloDraftLeague:function (name, cost, start, format, serieDuration, maxMatches,
+                              allowTimeExtensions, allowSpectators, showPlayerNames,
+                              invitationOnly, registrationInfo, decisionTimeoutSeconds,
+                              timePerPlayerMinutes,
+                              callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/league/solodraft/preview",
+            cache:false,
+            data:{
+                name:name,
+                cost:cost,
+                start:start,
+                format:format,
+                serieDuration:serieDuration,
+                maxMatches:maxMatches,
+                allowTimeExtensions:allowTimeExtensions,
+                allowSpectators:allowSpectators,
+                showPlayerNames:showPlayerNames,
+                invitationOnly:invitationOnly,
+                registrationInfo:registrationInfo,
+                decisionTimeoutSeconds:decisionTimeoutSeconds,
+                timePerPlayerMinutes:timePerPlayerMinutes
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+
+    addSoloDraftLeague:function (name, cost, start, format, serieDuration, maxMatches,
+                              allowTimeExtensions, allowSpectators, showPlayerNames,
+                              invitationOnly, registrationInfo, decisionTimeoutSeconds,
+                              timePerPlayerMinutes,
+                              callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/admin/league/solodraft/create",
+            cache:false,
+            data:{
+                name:name,
+                cost:cost,
+                start:start,
+                format:format,
+                serieDuration:serieDuration,
+                maxMatches:maxMatches,
+                allowTimeExtensions:allowTimeExtensions,
+                allowSpectators:allowSpectators,
+                showPlayerNames:showPlayerNames,
+                invitationOnly:invitationOnly,
+                registrationInfo:registrationInfo,
+                decisionTimeoutSeconds:decisionTimeoutSeconds,
+                timePerPlayerMinutes:timePerPlayerMinutes
+            },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"html"
+        });
+    },
+
+
     previewConstructedLeague:function (name, cost, start, collectionType,  
                               allowTimeExtensions, allowSpectators, showPlayerNames, 
                               invitationOnly, registrationInfo, decisionTimeoutSeconds, 
@@ -1320,6 +1381,31 @@ var GempSwccgCommunication = Class.extend({
             success:this.deliveryCheck(callback),
             error:this.errorCheck(errorMap),
             dataType:"html"
+        });
+    },
+    getDraft:function (leagueType, callback, errorMap) {
+        $.ajax({
+            type:"GET",
+            url:this.url + "/soloDraft/"+leagueType,
+            cache:false,
+            data:{
+                participantId:getUrlParam("participantId")},
+            success:callback,
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+    makeDraftPick:function (leagueType, choiceId, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/soloDraft/"+leagueType,
+            cache:false,
+            data:{
+                choiceId:choiceId,
+                participantId:getUrlParam("participantId")},
+            success:callback,
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
         });
     }
 });

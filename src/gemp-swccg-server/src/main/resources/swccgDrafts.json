@@ -1,0 +1,10 @@
+[
+  {
+    "type": "c7_draft",
+    "location": "/draft/cube7Draft.json"
+  },
+  {
+    "type": "c7obj_draft",
+    "location": "/draft/cubeObj7Draft.json"
+  }
+]

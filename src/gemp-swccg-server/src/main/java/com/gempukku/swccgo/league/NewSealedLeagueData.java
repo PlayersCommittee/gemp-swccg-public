@@ -4,6 +4,8 @@ import com.gempukku.swccgo.DateUtils;
 import com.gempukku.swccgo.collection.CollectionsManager;
 import com.gempukku.swccgo.competitive.PlayerStanding;
 import com.gempukku.swccgo.db.vo.CollectionType;
+import com.gempukku.swccgo.draft2.SoloDraft;
+import com.gempukku.swccgo.draft2.SoloDraftDefinitions;
 import com.gempukku.swccgo.game.*;
 
 import java.util.Collections;
@@ -26,7 +28,7 @@ public class NewSealedLeagueData implements LeagueData {
      * Creates the data for a sealed league.
      * @param parameters the input parameters
      */
-    public NewSealedLeagueData(SwccgCardBlueprintLibrary library, String parameters) {
+    public NewSealedLeagueData(SwccgCardBlueprintLibrary library, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
         _leaguePrizes = new FixedLeaguePrizes(library);
 
         String[] params = parameters.split(",");
@@ -47,6 +49,17 @@ public class NewSealedLeagueData implements LeagueData {
                             _leagueType.getFormatCode(), _collectionType));
         }
     }
+
+    @Override
+    public boolean isSoloDraftLeague() {
+        return false;
+    }
+
+    @Override
+    public SoloDraft getSoloDraft() {
+        return null;
+    }
+
 
     /**
      * Gets the league data for all series of the the league.

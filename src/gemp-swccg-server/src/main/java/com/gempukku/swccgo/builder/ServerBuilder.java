@@ -4,6 +4,7 @@ import com.gempukku.swccgo.chat.ChatServer;
 import com.gempukku.swccgo.collection.CollectionsManager;
 import com.gempukku.swccgo.collection.TransferDAO;
 import com.gempukku.swccgo.db.*;
+import com.gempukku.swccgo.draft2.SoloDraftDefinitions;
 import com.gempukku.swccgo.game.GameHistoryService;
 import com.gempukku.swccgo.game.GameRecorder;
 import com.gempukku.swccgo.game.SwccgCardBlueprintLibrary;
@@ -32,12 +33,10 @@ public class ServerBuilder {
         objectMap.put(SwccgoFormatLibrary.class,
                 new SwccgoFormatLibrary(
                         extract(objectMap, SwccgCardBlueprintLibrary.class)));
+
         objectMap.put(GameHistoryService.class,
                 new GameHistoryService(
                         extract(objectMap, GameHistoryDAO.class)));
-        objectMap.put(GameRecorder.class,
-                new GameRecorder(
-                        extract(objectMap, GameHistoryService.class)));
 
         objectMap.put(CollectionsManager.class,
                 new CollectionsManager(
@@ -46,13 +45,24 @@ public class ServerBuilder {
                         extract(objectMap, TransferDAO.class),
                         extract(objectMap, SwccgCardBlueprintLibrary.class)));
 
+        objectMap.put(SoloDraftDefinitions.class,
+                new SoloDraftDefinitions(
+                        extract(objectMap, CollectionsManager.class),
+                        extract(objectMap, SwccgCardBlueprintLibrary.class),
+                        extract(objectMap, SwccgoFormatLibrary.class)));
+
+        objectMap.put(GameRecorder.class,
+                new GameRecorder(
+                        extract(objectMap, GameHistoryService.class), extract(objectMap, SoloDraftDefinitions.class)));
+
         objectMap.put(LeagueService.class,
                 new LeagueService(
                         extract(objectMap, SwccgCardBlueprintLibrary.class),
                         extract(objectMap, LeagueDAO.class),
                         extract(objectMap, LeagueMatchDAO.class),
                         extract(objectMap, LeagueParticipationDAO.class),
-                        extract(objectMap, CollectionsManager.class)));
+                        extract(objectMap, CollectionsManager.class),
+                        extract(objectMap, SoloDraftDefinitions.class)));
 
         objectMap.put(AdminService.class,
                 new AdminService(

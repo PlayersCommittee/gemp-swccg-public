@@ -32,6 +32,7 @@ public class RootUriRequestHandler implements UriRequestHandler {
     private final ServerStatsRequestHandler _serverStatsRequestHandler;
     private final PlayerStatsRequestHandler _playerStatsRequestHandler;
     private final TournamentRequestHandler _tournamentRequestHandler;
+    private SoloDraftRequestHandler _soloDraftRequestHandler;
 
     private final Pattern originPattern;
 
@@ -57,6 +58,7 @@ public class RootUriRequestHandler implements UriRequestHandler {
         _serverStatsRequestHandler = new ServerStatsRequestHandler(context);
         _playerStatsRequestHandler = new PlayerStatsRequestHandler(context);
         _tournamentRequestHandler = new TournamentRequestHandler(context);
+        _soloDraftRequestHandler = new SoloDraftRequestHandler(context);
     }
 
     @Override
@@ -126,6 +128,8 @@ public class RootUriRequestHandler implements UriRequestHandler {
             } else if (uri.startsWith(_serverContextPath + "tournament")) {
                 _tournamentRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 10), request,
                         context, responseWriter, remoteIp);
+            } else if (uri.startsWith(_serverContextPath + "soloDraft")) {
+                _soloDraftRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 9), request, context, responseWriter, remoteIp);
             } else {
                 responseWriter.writeError(404);
             }
