@@ -34,11 +34,11 @@ import java.util.List;
  * Set: Set 22
  * Type: Interrupt
  * Subtype: Used or Lost
- * Title: A Fine Addition to my Collection
+ * Title: A Fine Addition To My Collection
  */
 public class Card222_001 extends AbstractLostInterrupt {
     public Card222_001() {
-        super(Side.DARK, 5, "A Fine Addition to my Collection", Uniqueness.UNIQUE, ExpansionSet.SET_22, Rarity.V);
+        super(Side.DARK, 5, "A Fine Addition To My Collection", Uniqueness.UNIQUE, ExpansionSet.SET_22, Rarity.V);
         setLore("");
         setGameText("If Grievous just swung a lightsaber, add one battle destiny. " +
                 "OR Cancel an attempt to target Grievous with a lightsaber. " +
