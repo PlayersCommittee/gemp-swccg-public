@@ -1,0 +1,341 @@
+#!/bin/bash
+
+################################################################################
+# GEMP-SWCCG Development Helper Script
+#
+# Provides convenient commands for common development tasks
+#
+# Usage: ./bin/gemp [command]
+################################################################################
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+print_status() {
+    echo -e "${BLUE}==>${NC} $1"
+}
+
+print_success() {
+    echo -e "${GREEN}✓${NC} $1"
+}
+
+print_error() {
+    echo -e "${RED}✗${NC} $1"
+}
+
+show_help() {
+    echo "GEMP-SWCCG Development Helper"
+    echo ""
+    echo "Usage: ./bin/gemp [command]"
+    echo ""
+    echo "Commands:"
+    echo "  initialize  - First-time setup (builds containers and compiles application)"
+    echo "  start       - Start the application containers"
+    echo "  stop        - Stop the application containers (preserves containers)"
+    echo "  restart     - Restart the application containers"
+    echo "  rebuild     - Recompile the application with Maven"
+    echo "  rebuild-fast- Recompile the application with Maven (skip tests)"
+    echo "  reload      - Rebuild and restart the application"
+    echo "  reload-fast - Rebuild and restart the application (skip tests)"
+    echo "  logs        - Show application logs (tail -f)"
+    echo "  status      - Show container status"
+    echo "  shell       - Open a shell in the app container"
+    echo "  db-shell    - Open MySQL shell"
+    echo "  destroy     - Stop and remove containers (preserves database)"
+    echo "  reset-db    - Reset the database (WARNING: deletes all data)"
+    echo "  help        - Show this help message"
+    echo ""
+}
+
+check_containers() {
+    if ! docker ps --filter "name=gemp_swccg_app_1" --format "{{.Names}}" | grep -q gemp_swccg_app_1; then
+        print_error "Application container is not running"
+        echo "Run './bin/gemp start' to start the containers"
+        return 1
+    fi
+    return 0
+}
+
+# Original attempt at getting stuff to work, but ended up figuring it out
+# the issues this was attempting to solve in the setup script, I believe (deprecated)
+# start_java_app() {
+#     print_status "Starting Java application..."
+#     docker exec -d gemp_swccg_app_1 sh -c "nohup java -Xmx4g -Dlog4j.debug -Dlog4j.configurationFile=/opt/gemp-swccg/src/gemp-swccg-async/src/main/resources/prod-log4j.xml -jar /opt/gemp-swccg/src/gemp-swccg-async/target/web.jar com.gempukku.swccgo.async.SwccgoAsyncServer > /logs/nohup.out 2>&1 &"
+#     sleep 5
+#     print_success "Application started"
+# }
+
+case "$1" in
+    initialize)
+        print_status "Initializing GEMP-SWCCG from scratch..."
+        SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+        cd "$SCRIPT_DIR/../src"
+
+        # Step 1: Stop and remove any existing containers
+        print_status "Cleaning up existing containers..."
+        docker compose -f docker-compose.build.yml down 2>/dev/null || true
+        docker compose down 2>/dev/null || true
+
+        # Step 2: Build using build compose file (no command section)
+        print_status "Building Docker images..."
+        if ! docker compose -f docker-compose.build.yml build; then
+            print_error "Failed to build Docker images"
+            exit 1
+        fi
+        print_success "Docker images built"
+
+        # Step 3: Start containers without the Java app
+        print_status "Starting containers (without Java app)..."
+        docker compose -f docker-compose.build.yml up -d
+
+        # Step 4: Wait for database to be ready
+        print_status "Waiting for database to initialize..."
+        sleep 10
+
+        # Step 5: Build the application with Maven
+        print_status "Compiling application with Maven (this takes 5-10 minutes)..."
+        echo "Building all modules..."
+        if ! docker exec gemp_swccg_app_1 mvn install; then
+            print_error "Maven build failed!"
+            print_status "You can check logs with: docker logs gemp_swccg_app_1"
+            exit 1
+        fi
+        print_success "Maven build completed successfully"
+
+        # Verify web.jar was created
+        if ! docker exec gemp_swccg_app_1 test -f /opt/gemp-swccg/src/gemp-swccg-async/target/web.jar; then
+            print_error "web.jar was not created"
+            exit 1
+        fi
+        print_success "web.jar verified"
+
+        # Step 6: Stop the build containers
+        print_status "Stopping build containers..."
+        docker compose -f docker-compose.build.yml down
+
+        # Step 7: Start with main compose file (includes command section)
+        print_status "Starting application with main docker-compose.yml..."
+        docker compose up -d
+
+        # Step 8: Wait for application to start
+        print_status "Waiting for application to start..."
+        sleep 10
+
+        # Verify Java process is running
+        if docker exec gemp_swccg_app_1 ps aux | grep -q "java.*web.jar"; then
+            print_success "Java application is running"
+        else
+            print_error "Java process may not have started correctly"
+            print_status "Check logs with: ./bin/gemp logs"
+        fi
+
+        print_success "Initialization complete!"
+        echo ""
+        echo "Application URL:  http://localhost:17001/gemp-swccg/"
+        echo "Default Login:    asdf / asdf"
+        echo ""
+        echo "Useful commands:"
+        echo "  ./bin/gemp logs    - View application logs"
+        echo "  ./bin/gemp status  - Check application status"
+        ;;
+
+    start)
+        print_status "Starting containers..."
+        SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+        cd "$SCRIPT_DIR/../src"
+
+        # Check if web.jar exists
+        if [ ! -f "gemp-swccg-async/target/web.jar" ]; then
+            print_error "Application has not been built yet!"
+            echo "Run './bin/gemp initialize' first to set up the application"
+            exit 1
+        fi
+
+        docker compose up -d
+        sleep 5
+        #start_java_app
+        print_success "Containers started"
+        echo "Access the application at: http://localhost:17001/gemp-swccg/"
+        ;;
+
+    stop)
+        print_status "Stopping containers..."
+        SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+        cd "$SCRIPT_DIR/../src"
+        docker compose stop
+        print_success "Containers stopped"
+        echo "Use './bin/gemp start' to start them again"
+        ;;
+
+    restart)
+        print_status "Restarting application..."
+        if check_containers; then
+            SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+            cd "$SCRIPT_DIR/../src"
+            # Restart only the app container (not database)
+            docker compose restart build
+            # May take a few seconds to start the actual process in the container
+            sleep 5
+            print_success "Application restarted"
+            echo "Check logs with: ./bin/gemp logs"
+        fi
+        ;;
+
+    rebuild)
+        print_status "Recompiling application with Maven..."
+        if check_containers; then
+            docker exec gemp_swccg_app_1 mvn install
+            print_success "Application recompiled"
+            echo "Run './bin/gemp restart' to restart with the new build"
+        fi
+        ;;
+
+    rebuild-fast)
+        print_status "Recompiling application with Maven (skipping tests)..."
+        if check_containers; then
+            docker exec gemp_swccg_app_1 mvn install -DskipTests
+            print_success "Application recompiled (tests skipped)"
+            echo "Run './bin/gemp restart' to restart with the new build"
+        fi
+        ;;
+
+    reload)
+        print_status "Rebuilding and restarting application..."
+        if check_containers; then
+            # Run Maven build inside container and wait for completion
+            print_status "Running Maven build..."
+            if ! docker exec gemp_swccg_app_1 mvn install; then
+                print_error "Maven build failed!"
+                exit 1
+            fi
+            print_success "Maven build completed"
+
+            # Restart only the app container (not the database)
+            print_status "Restarting application container..."
+            SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+            cd "$SCRIPT_DIR/../src"
+            docker compose restart build
+
+            # Wait for application to start
+            sleep 5
+            print_success "Application rebuilt and restarted"
+            echo "Check logs with: ./bin/gemp logs"
+        fi
+        ;;
+
+    reload-fast)
+        print_status "Rebuilding and restarting application (skipping tests)..."
+        if check_containers; then
+            # Run Maven build inside container and wait for completion
+            print_status "Running Maven build (skipping tests)..."
+            if ! docker exec gemp_swccg_app_1 mvn install -DskipTests; then
+                print_error "Maven build failed!"
+                exit 1
+            fi
+            print_success "Maven build completed (tests skipped)"
+
+            # Restart only the app container (not the database)
+            print_status "Restarting application container..."
+            SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+            cd "$SCRIPT_DIR/../src"
+            docker compose restart build
+
+            # Wait for application to start
+            sleep 5
+            print_success "Application rebuilt and restarted (tests skipped)"
+            echo "Check logs with: ./bin/gemp logs"
+        fi
+        ;;
+
+    logs)
+        print_status "Showing application logs (Ctrl+C to exit)..."
+        SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+        tail -f "$SCRIPT_DIR/../logs/nohup.out"
+        ;;
+
+    status)
+        print_status "Container status:"
+        docker ps --filter "name=gemp_swccg"
+        echo ""
+        print_status "Java process status:"
+        if check_containers; then
+            docker exec gemp_swccg_app_1 ps aux | grep java | grep -v grep || echo "Java not running"
+        fi
+        echo ""
+        print_status "Application accessibility:"
+        HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:17001/gemp-swccg/ 2>&1 || echo "000")
+        if [ "$HTTP_CODE" = "200" ]; then
+            print_success "Application is accessible (HTTP $HTTP_CODE)"
+            echo "URL: http://localhost:17001/gemp-swccg/"
+        else
+            print_error "Application not accessible (HTTP $HTTP_CODE)"
+        fi
+        ;;
+
+    shell)
+        print_status "Opening shell in app container..."
+        if check_containers; then
+            docker exec -it gemp_swccg_app_1 /bin/bash
+        fi
+        ;;
+
+    db-shell)
+        print_status "Opening MySQL shell..."
+        if check_containers; then
+            docker exec -it gemp_swccg_db_1 mysql -ugemp -pFour_mason8pirate gemp-swccg
+        fi
+        ;;
+
+    destroy)
+        print_status "Stopping and removing containers..."
+        echo "This will remove all containers but preserve the database"
+        read -p "Continue? [y/N] " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+            cd "$SCRIPT_DIR/../src"
+            docker compose down
+            print_success "Containers removed"
+            echo "Use './bin/gemp start' to recreate and start containers"
+        fi
+        ;;
+
+    reset-db)
+        print_error "WARNING: This will DELETE ALL DATABASE DATA!"
+        echo "This includes:"
+        echo "  - All user accounts"
+        echo "  - All decks"
+        echo "  - All game history"
+        echo "  - All collections"
+        read -p "Are you absolutely sure? [y/N] " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            print_status "Stopping containers..."
+            SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+            cd "$SCRIPT_DIR/../src"
+            docker compose down
+            print_status "Removing database files..."
+            cd "$SCRIPT_DIR/.."
+            rm -rf database/*
+            print_success "Database reset"
+            echo "Run './bin/gemp start' to reinitialize the database"
+        else
+            print_status "Database reset cancelled"
+        fi
+        ;;
+
+    help|--help|-h|"")
+        show_help
+        ;;
+
+    *)
+        print_error "Unknown command: $1"
+        echo ""
+        show_help
+        exit 1
+        ;;
+esac
