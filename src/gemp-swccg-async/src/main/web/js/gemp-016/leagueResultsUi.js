@@ -53,6 +53,7 @@ var LeagueResultsUI = Class.extend({
             var end = league.getAttribute("end");
             var member = league.getAttribute("member");
             var joinable = league.getAttribute("joinable");
+            var isSoloDraft = league.getAttribute("isSoloDraft");
             var draftable = league.getAttribute("draftable");
             var invitationOnly = league.getAttribute("invitationOnly");
             var registrationInfo = league.getAttribute("registrationInfo");
@@ -82,6 +83,11 @@ var LeagueResultsUI = Class.extend({
                     })(leagueType);
                     draftBut.click(draftFunc);
                     memberDiv.append(draftBut);
+                } else if (isSoloDraft == "true") {
+                    // Solo draft league but not yet draftable (hasn't started yet)
+                    // Show grayed out button with availability date
+                    var grayedButton = $("<button disabled='disabled' class='draft-not-available'>Draft Available " + getDateString(start) + "</button>");
+                    memberDiv.append(grayedButton);
                 }
                 $(leagueExtraInfoCssId).append(memberDiv);
             }

@@ -439,3 +439,11 @@ li.social-link {
     color:#79da71;
 }
 
+/* Disabled draft button */
+button.draft-not-available {
+    background-color: #666 !important;
+    color: #f0f0f0 !important;
+    cursor: not-allowed !important;
+    border: 1px solid #555 !important;
+}
+

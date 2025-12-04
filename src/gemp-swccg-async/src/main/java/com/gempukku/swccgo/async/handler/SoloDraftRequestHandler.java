@@ -10,6 +10,7 @@ import com.gempukku.swccgo.draft2.SoloDraft;
 import com.gempukku.swccgo.draft2.SoloDraftDefinitions;
 import com.gempukku.swccgo.game.CardCollection;
 import com.gempukku.swccgo.game.Player;
+import com.gempukku.swccgo.game.SwccgCardBlueprint;
 import com.gempukku.swccgo.game.SwccgCardBlueprintLibrary;
 import com.gempukku.swccgo.league.LeagueData;
 import com.gempukku.swccgo.league.LeagueService;
@@ -33,12 +34,14 @@ public class SoloDraftRequestHandler extends SwccgoServerRequestHandler implemen
     private CollectionsManager _collectionsManager;
     private SoloDraftDefinitions _soloDraftDefinitions;
     private LeagueService _leagueService;
+    private SwccgCardBlueprintLibrary _library;
 
     public SoloDraftRequestHandler(Map<Type, Object> context) {
         super(context);
         _leagueService = extractObject(context, LeagueService.class);
         _soloDraftDefinitions = extractObject(context, SoloDraftDefinitions.class);
         _collectionsManager = extractObject(context, CollectionsManager.class);
+        _library = extractObject(context, SwccgCardBlueprintLibrary.class);
     }
 
     @Override
@@ -179,8 +182,16 @@ public class SoloDraftRequestHandler extends SwccgoServerRequestHandler implemen
 
         for (CardCollection.Item item : selectedCards.getAll().values()) {
             Element pickedCard = doc.createElement("pickedCard");
-            pickedCard.setAttribute("blueprintId", item.getBlueprintId());
+            String blueprintId = item.getBlueprintId();
+            pickedCard.setAttribute("blueprintId", blueprintId);
             pickedCard.setAttribute("count", String.valueOf(item.getCount()));
+            SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
+            if (blueprint != null) {
+                if (blueprint.isHorizontal()) {
+                    pickedCard.setAttribute("horizontal", "true");
+                }
+                pickedCard.setAttribute("side", blueprint.getSide().toString().toLowerCase());
+            }
             pickResultElem.appendChild(pickedCard);
         }
 
@@ -200,8 +211,16 @@ public class SoloDraftRequestHandler extends SwccgoServerRequestHandler implemen
             String packDesc = availableChoice.getObjPackDescription();
             Element availablePick = doc.createElement("availablePick");
             availablePick.setAttribute("id", choiceId);
-            if (blueprintId != null)
+            if (blueprintId != null) {
                 availablePick.setAttribute("blueprintId", blueprintId);
+                SwccgCardBlueprint blueprint = _library.getSwccgoCardBlueprint(blueprintId);
+                if (blueprint != null) {
+                    if (blueprint.isHorizontal()) {
+                        availablePick.setAttribute("horizontal", "true");
+                    }
+                    availablePick.setAttribute("side", blueprint.getSide().toString().toLowerCase());
+                }
+            }
             if (choiceUrl != null)
                 availablePick.setAttribute("url", choiceUrl);
             if (packDesc != null)
