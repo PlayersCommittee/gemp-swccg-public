@@ -79,7 +79,7 @@ public class ImmuneToCardTests {
         scn.PassAllResponses();
 
         assertTrue(scn.IsAttachedTo(ozzel, promotion));
-        assertEquals(4,scn.GetPower(ozzel), scn.epsilon); //3 + 1 from promotion
+        assertEquals(4,scn.GetPower(ozzel)); //3 + 1 from promotion
 
 		scn.SkipToLSTurn(Phase.DEPLOY);
 
@@ -110,7 +110,7 @@ public class ImmuneToCardTests {
         scn.AttachCardsTo(ozzel,demotion);
 
         assertTrue(scn.IsAttachedTo(ozzel, demotion));
-        assertEquals(1,scn.GetPower(ozzel), scn.epsilon); //2 - 1 from demotion
+        assertEquals(1,scn.GetPower(ozzel)); //2 - 1 from demotion
 
         scn.SkipToPhase(Phase.DEPLOY);
         assertTrue(scn.DSDeployAvailable(promotion));
@@ -123,7 +123,7 @@ public class ImmuneToCardTests {
         assertTrue(scn.IsAttachedTo(ozzel, promotion));
         assertFalse(scn.IsAttachedTo(ozzel,demotion));
         assertEquals(1,scn.GetLSLostPileCount()); //demotion in lost
-        assertEquals(4,scn.GetPower(ozzel), scn.epsilon); //3 + 1 from promotion
+        assertEquals(4,scn.GetPower(ozzel)); //3 + 1 from promotion
     }
 
     //shows fixed: https://github.com/PlayersCommittee/gemp-swccg-public/issues/654
@@ -206,7 +206,7 @@ public class ImmuneToCardTests {
         scn.PassAllResponses();
 
         assertTrue(scn.IsAttachedTo(kessel, lateral_damage));
-        assertEquals(0,scn.GetPower(corvette), scn.epsilon);
+        assertEquals(0,scn.GetPower(corvette));
 
         scn.SkipToLSTurn(Phase.MOVE);
         assertTrue(scn.GetLSForcePileCount() >= 2); //enough to shuttle
@@ -220,7 +220,7 @@ public class ImmuneToCardTests {
         scn.DSPass();
         assertTrue(scn.AwaitingLSMovePhaseActions());
         assertTrue(scn.IsAttachedTo(kessel,lateral_damage)); //lateral damage still in play
-        assertEquals(0,scn.GetPower(corvette), scn.epsilon);
+        assertEquals(0,scn.GetPower(corvette));
 
         assertTrue(scn.LSCardActionAvailable(r3a2_v));
         scn.LSUseCardAction(r3a2_v); //shuttle
@@ -228,7 +228,7 @@ public class ImmuneToCardTests {
         scn.LSChooseCard(corvette);
         scn.PassAllResponses(); //r3a2_v gametext should cause corvette to become immune to lateral damage
 
-        assertEquals(6,scn.GetPower(corvette), scn.epsilon); //5 + 1 from R3-A2
+        assertEquals(6,scn.GetPower(corvette)); //5 + 1 from R3-A2
         assertFalse(scn.IsAttachedTo(kessel,lateral_damage));
         assertEquals(1,scn.GetDSLostPileCount()); //lateral damage in lost
     }
@@ -256,7 +256,7 @@ public class ImmuneToCardTests {
         scn.AttachCardsTo(weakvader,fury);
 
         assertTrue(scn.IsAttachedTo(weakvader, fury));
-        assertEquals(6,scn.GetPower(weakvader), scn.epsilon); //4 + 2 from fury
+        assertEquals(6,scn.GetPower(weakvader)); //4 + 2 from fury
         scn.SkipToDSTurn(Phase.DEPLOY);
         assertTrue(scn.DSCardPlayAvailable(lordvader));
         scn.DSPlayCard(lordvader);
@@ -265,7 +265,7 @@ public class ImmuneToCardTests {
         scn.PassAllResponses(); //fury sent lost here
 
         assertFalse(scn.IsAttachedTo(lordvader, fury));
-        assertEquals(7,scn.GetPower(lordvader), scn.epsilon); //7 + 0 (no fury)
+        assertEquals(7,scn.GetPower(lordvader)); //7 + 0 (no fury)
         assertEquals(1,scn.GetLSLostPileCount()); //fury in lost
         assertEquals(1,scn.GetDSLostPileCount()); //weakvader in lost
     }

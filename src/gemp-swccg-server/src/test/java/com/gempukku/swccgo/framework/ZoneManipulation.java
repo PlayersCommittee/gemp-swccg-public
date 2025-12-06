@@ -73,6 +73,7 @@ public interface ZoneManipulation extends TestBase{
 	 * @param cards The cards to move
 	 */
 	default void MoveCardsToLocation(PhysicalCardImpl location, PhysicalCardImpl...cards) {
+        //TODO add assert that location is on table (zone check)?
 		Arrays.stream(cards).forEach(card -> {
 			//If it's not in play, we have to use a different method that properly activates the card
 			if(!card.getZone().isInPlay()) {

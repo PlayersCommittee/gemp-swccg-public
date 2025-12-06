@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  * Decisions will always come with at least one choice, even if that single choice is "pass".  These functions will
  * let you inspect the choices available and offer shortcuts for e.g. selecting a physical card which you have
@@ -52,6 +54,7 @@ public interface Choices extends Decisions {
 	 * @param choice The choice (or decision response)
 	 */
 	default void DSChoose(String choice) {
+        assertTrue("Specified choice not available",DSChoiceAvailable(choice));
 		if(DSGetChoiceCount() > 0) {
 			DSChooseOption(choice);
 		}
@@ -73,6 +76,7 @@ public interface Choices extends Decisions {
 	 * @param choice The choice (or decision response)
 	 */
 	default void LSChoose(String choice) {
+        assertTrue("Specified choice not available",LSChoiceAvailable(choice));
 		if(LSGetChoiceCount() > 0) {
 			LSChooseOption(choice);
 		}
@@ -246,12 +250,18 @@ public interface Choices extends Decisions {
 	 * Causes the Dark Side player to choose a card matching the provided physical card.
 	 * @param card The card to pick.
 	 */
-	default void DSChooseCard(PhysicalCardImpl card) { DSChooseCards(card); }
+	default void DSChooseCard(PhysicalCardImpl card) {
+        assertTrue("Card choice unavailable",DSHasCardChoiceAvailable(card));
+        DSChooseCards(card);
+    }
 	/**
 	 * Causes the Light Side player to choose a card matching the provided physical card.
 	 * @param card The card to pick.
 	 */
-	default void LSChooseCard(PhysicalCardImpl card) { LSChooseCards(card); }
+	default void LSChooseCard(PhysicalCardImpl card) {
+        assertTrue("Card choice unavailable",LSHasCardChoiceAvailable(card));
+        LSChooseCards(card);
+    }
 
 	/**
 	 * Causes the Dark Side player to choose the first available card option.  Used in cases where the choice doesn't
@@ -269,6 +279,7 @@ public interface Choices extends Decisions {
 	 * @param cards Which cards to select
 	 */
 	default void DSChooseCards(PhysicalCardImpl...cards) {
+        assertTrue("One or more card choices unavailable",DSHasCardChoicesAvailable(cards));
 		if(GetChoiceCount(DSGetBPChoices()) > 0) {
 			ChooseCardBPFromSelection(DS, cards);
 		}
@@ -281,6 +292,7 @@ public interface Choices extends Decisions {
 	 * @param cards Which cards to select
 	 */
 	default void LSChooseCards(PhysicalCardImpl...cards) {
+        assertTrue("One or more card choices unavailable",LSHasCardChoicesAvailable(cards));
 		if(GetChoiceCount(LSGetBPChoices()) > 0) {
 			ChooseCardBPFromSelection(LS, cards);
 		}

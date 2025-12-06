@@ -138,6 +138,6 @@ public class Card_1_304_Tests {
 
 		var tie = scn.GetDSCard("tie");
 
-		assertEquals(1, scn.GetBattleDestinyAbility(tie), scn.epsilon);
+		assertEquals(1, scn.GetBattleDestinyAbility(tie));
 	}
 }

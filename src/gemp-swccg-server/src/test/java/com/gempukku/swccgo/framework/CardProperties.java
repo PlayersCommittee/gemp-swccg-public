@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import static com.gempukku.swccgo.framework.Assertions.assertIsInt;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -123,18 +124,22 @@ public interface CardProperties extends TestBase {
 	 * @param card The card to inspect.
 	 * @return The modified current destiny of the card, as altered by all current in-game effects.
 	 */
-	default float GetDestiny(PhysicalCardImpl card)
+	default int GetDestiny(PhysicalCardImpl card)
 	{
-		return game().getModifiersQuerying().getDestiny(gameState(), card);
+        float destiny = game().getModifiersQuerying().getDestiny(gameState(), card);
+        assertIsInt(destiny);
+        return Math.round(destiny);
 	}
 
 	/**
 	 * @param card The card to inspect.
 	 * @return The modified current power of the card, as altered by all current in-game effects.
 	 */
-	default float GetPower(PhysicalCardImpl card)
+	default int GetPower(PhysicalCardImpl card)
 	{
-		return game().getModifiersQuerying().getPower(gameState(), card);
+        float power = game().getModifiersQuerying().getPower(gameState(), card);
+        assertIsInt(power);
+		return Math.round(power);
 	}
 
 	/**
@@ -143,76 +148,96 @@ public interface CardProperties extends TestBase {
 	 */
 	default int GetManeuver(PhysicalCardImpl card)
 	{
-		return (int) game().getModifiersQuerying().getManeuver(gameState(), card);
+        float maneuver = game().getModifiersQuerying().getManeuver(gameState(), card);
+        assertIsInt(maneuver);
+        return Math.round(maneuver);
 	}
 
 	/**
 	 * @param card The card to inspect.
 	 * @return The modified current ability of the card, as altered by all current in-game effects.
 	 */
-	default float GetAbility(PhysicalCardImpl card)
+	default int GetAbility(PhysicalCardImpl card)
 	{
-		return game().getModifiersQuerying().getAbility(gameState(), card);
+        float ability = game().getModifiersQuerying().getAbility(gameState(), card);
+        assertIsInt(ability);
+        return Math.round(ability);
 	}
 
 	/**
 	 * @param card The card to inspect.
 	 * @return The modified current defense of the card, as altered by all current in-game effects.
 	 */
-	default float GetDefense(PhysicalCardImpl card) { return game().getModifiersQuerying().getDefenseValue(gameState(), card); }
+	default int GetDefense(PhysicalCardImpl card) {
+        float defense = game().getModifiersQuerying().getDefenseValue(gameState(), card);
+        assertIsInt(defense);
+        return Math.round(defense);
+    }
 
 	/**
 	 * @param card The card to inspect.
 	 * @return The modified current battle destiny ability of the card, as altered by all current in-game effects.
 	 */
-	default float GetBattleDestinyAbility(PhysicalCardImpl card)
+	default int GetBattleDestinyAbility(PhysicalCardImpl card)
 	{
-		return game().getModifiersQuerying().getAbilityForBattleDestiny(gameState(), card);
+        float battlDestinyAbility = game().getModifiersQuerying().getAbilityForBattleDestiny(gameState(), card);
+        assertIsInt(battlDestinyAbility);
+        return Math.round(battlDestinyAbility);
 	}
 
 	/**
 	 * @param card The card to inspect.
 	 * @return The modified current armor of the card, as altered by all current in-game effects.
 	 */
-	default float GetArmor(PhysicalCardImpl card)
+	default int GetArmor(PhysicalCardImpl card)
 	{
-		return game().getModifiersQuerying().getArmor(gameState(), card);
+        float armor = game().getModifiersQuerying().getArmor(gameState(), card);
+        assertIsInt(armor);
+        return Math.round(armor);
 	}
 
 	/**
 	 * @param card The card to inspect.
 	 * @return The modified current deploy cost of the card, as altered by all current in-game effects.
 	 */
-	default float GetDeployCost(PhysicalCardImpl card)
+	default int GetDeployCost(PhysicalCardImpl card)
 	{
-		return game().getModifiersQuerying().getDeployCost(gameState(), card);
+        float deployCost = game().getModifiersQuerying().getDeployCost(gameState(), card);
+        assertIsInt(deployCost);
+        return Math.round(deployCost);
 	}
 
 	/**
 	 * @param card The card to inspect.
 	 * @return The modified current forfeit value of the card, as altered by all current in-game effects.
 	 */
-	default float GetForfeit(PhysicalCardImpl card)
+	default int GetForfeit(PhysicalCardImpl card)
 	{
-		return game().getModifiersQuerying().getForfeit(gameState(), card);
+        float forfeit = game().getModifiersQuerying().getForfeit(gameState(), card);
+        assertIsInt(forfeit);
+        return Math.round(forfeit);
 	}
 
 	/**
 	 * @param card The card to inspect.
 	 * @return The modified current landspeed of the card, as altered by all current in-game effects.
 	 */
-	default float GetLandspeed(PhysicalCardImpl card)
+	default int GetLandspeed(PhysicalCardImpl card)
 	{
-		return game().getModifiersQuerying().getLandspeed(gameState(), card);
+        float landspeed = game().getModifiersQuerying().getLandspeed(gameState(), card);
+        assertIsInt(landspeed);
+        return Math.round(landspeed);
 	}
 
 	/**
 	 * @param card The card to inspect.
 	 * @return The modified current hyperspeed of the card, as altered by all current in-game effects.
 	 */
-	default float GetHyperspeed(PhysicalCardImpl card)
+	default int GetHyperspeed(PhysicalCardImpl card)
 	{
-		return game().getModifiersQuerying().getHyperspeed(gameState(), card);
+        float hyperspeed = game().getModifiersQuerying().getHyperspeed(gameState(), card);
+        assertIsInt(hyperspeed);
+        return Math.round(hyperspeed);
 	}
 
 	/**
@@ -220,9 +245,11 @@ public interface CardProperties extends TestBase {
 	 * @param icon The icon to check for.
 	 * @return The modified current icon count of the card, as altered by all current in-game effects.
 	 */
-	default float GetIconCount(PhysicalCardImpl card, Icon icon)
+	default int GetIconCount(PhysicalCardImpl card, Icon icon)
 	{
-		return game().getModifiersQuerying().getIconCount(gameState(), card, icon);
+        float iconCount = game().getModifiersQuerying().getIconCount(gameState(), card, icon);
+        assertIsInt(iconCount);
+        return Math.round(iconCount);
 	}
 
 	/**

@@ -114,12 +114,12 @@ public class Card_224_020_Tests {
 		scn.MoveLocationToTable(naboo);
 		scn.MoveCardsToLocation(naboo, ywing);
 
-		assertEquals(2, scn.GetPower(ywing), scn.epsilon);
+		assertEquals(2, scn.GetPower(ywing));
 
 		scn.BoardAsPilot(ywing, sos);
 
 		//Base 2, +2 from SOS's text
-		assertEquals(4, scn.GetPower(ywing), scn.epsilon);
+		assertEquals(4, scn.GetPower(ywing));
 	}
 
 	@Test
@@ -135,12 +135,12 @@ public class Card_224_020_Tests {
 
 		scn.MoveCardsToLocation(site, snowspeeder);
 
-		assertEquals(3, scn.GetPower(snowspeeder), scn.epsilon);
+		assertEquals(3, scn.GetPower(snowspeeder));
 
 		scn.BoardAsPilot(snowspeeder, sos);
 
 		//Base 3, +2 from SOS's text
-		assertEquals(5, scn.GetPower(snowspeeder), scn.epsilon);
+		assertEquals(5, scn.GetPower(snowspeeder));
 	}
 
 	@Test

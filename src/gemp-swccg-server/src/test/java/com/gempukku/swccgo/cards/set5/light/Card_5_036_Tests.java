@@ -1043,7 +1043,7 @@ public class Card_5_036_Tests {
 		scn.PassResponses();
 
 		// DS only has a battle destiny draw because Dengar is "escorting a captive"
-		assertEquals(2, scn.GetAbility(dengar), scn.epsilon);
+		assertEquals(2, scn.GetAbility(dengar));
 		scn.PrepareDSDestiny(3);
 		assertEquals(0, scn.GetDSTotalDestiny());
 		assertTrue(scn.DSDecisionAvailable("Do you want to draw 1 battle destiny?"));
@@ -1139,8 +1139,9 @@ public class Card_5_036_Tests {
 		assertEquals(2, scn.GetUnpaidDSBattleDamage());
 		scn.DSPlayLostInterrupt(human_shield);
 
+        assertTrue(scn.DSDecisionAvailable("Target captives(s) to forfeit"));
 		assertTrue(scn.DSHasCardChoiceAvailable(chewie));
-		scn.DSPayBattleDamageFromCardInPlay(chewie);
+        scn.DSChooseCard(chewie); //captive to forfeit
 		scn.PassCardPlayResponses();
 		scn.PassCardLeavingTable(); //chewie forfeited
 		scn.PassCardLeavingTable(); //human shield
@@ -1329,11 +1330,11 @@ public class Card_5_036_Tests {
 		//Base forfeit is 6, +5 from Boba Fett
 		assertTrue(scn.CardsAtLocation(site, chewie, boba));
 		assertEquals(6, chewie.getBlueprint().getForfeit(), scn.epsilon);
-		assertEquals(11, scn.GetForfeit(chewie), scn.epsilon);
+		assertEquals(11, scn.GetForfeit(chewie));
 		//Base power is 6, +1 if Han can be spotted at the same location
 		assertTrue(scn.CardsAtLocation(site, chewie, han));
 		assertEquals(6, chewie.getBlueprint().getPower(), scn.epsilon);
-		assertEquals(7, scn.GetPower(chewie), scn.epsilon);
+		assertEquals(7, scn.GetPower(chewie));
 	}
 
 	@Test

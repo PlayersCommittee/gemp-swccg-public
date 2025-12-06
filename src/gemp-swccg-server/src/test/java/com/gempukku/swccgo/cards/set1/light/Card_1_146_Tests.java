@@ -85,6 +85,6 @@ public class Card_1_146_Tests {
 
 		var xwing = scn.GetLSCard("xwing");
 
-		assertEquals(1, scn.GetBattleDestinyAbility(xwing), scn.epsilon);
+		assertEquals(1, scn.GetBattleDestinyAbility(xwing));
 	}
 }

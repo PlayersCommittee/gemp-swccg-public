@@ -70,9 +70,9 @@ public class FrozenTests {
 		scn.MoveCardsToLocation(site, boba, han);
 		scn.FreezeCard(han);
 
-		assertEquals(0, scn.GetPower(han), scn.epsilon);
-		assertEquals(0, scn.GetAbility(han), scn.epsilon);
-		assertEquals(0, scn.GetLandspeed(han), scn.epsilon);
+		assertEquals(0, scn.GetPower(han));
+		assertEquals(0, scn.GetAbility(han));
+		assertEquals(0, scn.GetLandspeed(han));
 	}
 
 	@Test

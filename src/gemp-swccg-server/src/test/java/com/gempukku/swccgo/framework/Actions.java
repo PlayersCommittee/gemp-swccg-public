@@ -128,12 +128,18 @@ public interface Actions extends Decisions, Choices {
 	 * Causes the Dark Side player to execute an available action on the given card.
 	 * @param card The card which is being used (played, deployed, activated, etc).
 	 */
-	default void DSUseCardAction(PhysicalCardImpl card) { DSDecided(GetCardActionId(DS, card)); }
+	default void DSUseCardAction(PhysicalCardImpl card) {
+        assertTrue("No card action available",DSCardActionAvailable(card));
+        DSDecided(GetCardActionId(DS, card));
+    }
 	/**
 	 * Causes the Light Side player to execute an available action on the given card.
 	 * @param card The card which is being used (played, deployed, activated, etc).
 	 */
-	default void LSUseCardAction(PhysicalCardImpl card) { LSDecided(GetCardActionId(LS, card)); }
+	default void LSUseCardAction(PhysicalCardImpl card) {
+        assertTrue("No card action available",LSCardActionAvailable(card));
+        LSDecided(GetCardActionId(LS, card));
+    }
 
 
 	/**
@@ -179,7 +185,10 @@ public interface Actions extends Decisions, Choices {
 	 * communicates that the tester intended to play it from hand.
 	 * @param card The card to play.
 	 */
-	default void DSPlayCard(PhysicalCardImpl card) { DSDecided(GetCardActionId(DS, card)); }
+	default void DSPlayCard(PhysicalCardImpl card) {
+        assertTrue("No card play available",DSCardPlayAvailable(card));
+        DSDecided(GetCardActionId(DS, card));
+    }
 
 	/**
 	 * Causes the Dark Side player to select the given card and execute its legal action (i.e. plays that card from hand).
@@ -188,7 +197,10 @@ public interface Actions extends Decisions, Choices {
 	 * @param card The card to play.
 	 * @param text Substring of the action text for the action to play
 	 */
-	default void DSPlayCard(PhysicalCardImpl card, String text) { DSDecided(GetCardActionId(DS, card, text)); }
+	default void DSPlayCard(PhysicalCardImpl card, String text) {
+        assertTrue("Specified card play unavailable",DSCardPlayAvailable(card, text));
+        DSDecided(GetCardActionId(DS, card, text));
+    }
 
 	/**
 	 * Causes the Light Side player to select the given card and execute its legal action (i.e. plays that card from hand).
@@ -196,7 +208,10 @@ public interface Actions extends Decisions, Choices {
 	 * communicates that the tester intended to play it from hand.
 	 * @param card The card to play.
 	 */
-	default void LSPlayCard(PhysicalCardImpl card) { LSDecided(GetCardActionId(LS, card)); }
+	default void LSPlayCard(PhysicalCardImpl card) {
+        assertTrue("No card play available",LSCardPlayAvailable(card));
+        LSDecided(GetCardActionId(LS, card));
+    }
 
 	/**
 	 * Causes the Light Side player to select the given card and execute its legal action (i.e. plays that card from hand).
@@ -205,7 +220,10 @@ public interface Actions extends Decisions, Choices {
 	 * @param card The card to play.
 	 * @param text Substring of the action text for the action to play
 	 */
-	default void LSPlayCard(PhysicalCardImpl card, String text) { LSDecided(GetCardActionId(LS, card, text)); }
+	default void LSPlayCard(PhysicalCardImpl card, String text) {
+        assertTrue("Specified card play unavailable",LSCardPlayAvailable(card, text));
+        LSDecided(GetCardActionId(LS, card, text));
+    }
 
 
 	/**
@@ -245,14 +263,20 @@ public interface Actions extends Decisions, Choices {
 	 * @param card The card to play.
 	 * this card.
 	 */
-	default void DSPlayLostInterrupt(PhysicalCardImpl card) { DSDecided(GetCardActionId(DS, card, "LOST: ")); }
+	default void DSPlayLostInterrupt(PhysicalCardImpl card) {
+        assertTrue("Lost interrupt play unavailable",DSPlayLostInterruptAvailable(card));
+        DSDecided(GetCardActionId(DS, card, "LOST: "));
+    }
 	/**
 	 * Causes the Light Side player to select the given Lost Interrupt and execute its legal action (i.e. plays that
 	 * card from hand). This may only be useful for cards which have both a USED and LOST operation and may fail if
 	 * using it for vanilla LOST Interrupts.
 	 * @param card The card to play.
 	 */
-	default void LSPlayLostInterrupt(PhysicalCardImpl card) { LSDecided(GetCardActionId(LS, card, "LOST: ")); }
+	default void LSPlayLostInterrupt(PhysicalCardImpl card) {
+        assertTrue("Lost interrupt play unavailable",LSPlayLostInterruptAvailable(card));
+        LSDecided(GetCardActionId(LS, card, "LOST: "));
+    }
 
 	/**
 	 * Causes the Dark Side player to select the given Used Interrupt and execute its legal action (i.e. plays that
@@ -260,14 +284,20 @@ public interface Actions extends Decisions, Choices {
 	 * using it for vanilla USED Interrupts.
 	 * @param card The card to play.
 	 */
-	default void DSPlayUsedInterrupt(PhysicalCardImpl card) { DSDecided(GetCardActionId(DS, card, "USED: ")); }
+	default void DSPlayUsedInterrupt(PhysicalCardImpl card) {
+        assertTrue("Used interrupt play unavailable",DSPlayUsedInterruptAvailable(card));
+        DSDecided(GetCardActionId(DS, card, "USED: "));
+    }
 	/**
 	 * Causes the Light Side player to select the given Used Interrupt and execute its legal action (i.e. plays that
 	 * card from hand). This may only be useful for cards which have both a USED and LOST operation and may fail if
 	 * using it for vanilla USED Interrupts.
 	 * @param card The card to play.
 	 */
-	default void LSPlayUsedInterrupt(PhysicalCardImpl card) { LSDecided(GetCardActionId(LS, card, "USED: ")); }
+	default void LSPlayUsedInterrupt(PhysicalCardImpl card) {
+        assertTrue("Used interrupt play unavailable",LSPlayUsedInterruptAvailable(card));
+        LSDecided(GetCardActionId(LS, card, "USED: "));
+    }
 
 
 	/**
@@ -308,22 +338,24 @@ public interface Actions extends Decisions, Choices {
 
 	/**
 	 * Causes the Dark Side player to perform  a legal deployment action of the given location (i.e. plays that card
-	 * from hand).  The site will be placed on the left automatically if necessary
-	 * @param site The site to deploy.
+	 * from hand).  The location will be placed on the left automatically if necessary
+	 * @param location The location to deploy.
 	 */
-	default void DSDeployLocation(PhysicalCardImpl site) {
-		DSDeployCard(site);
+	default void DSDeployLocation(PhysicalCardImpl location) {
+        assertTrue(DSDeployAvailable(location));
+		DSDeployCard(location);
 		if(DSDecisionAvailable("On which side")) {
 			DSChoose("Left");
 		}
 	}
 	/**
 	 * Causes the Light Side player to perform  a legal deployment action of the given location (i.e. plays that card
-	 * from hand).  The site will be placed on the left automatically if necessary
-	 * @param site The site to deploy.
+	 * from hand).  The location will be placed on the left automatically if necessary
+	 * @param location The location to deploy.
 	 */
-	default void LSDeployLocation(PhysicalCardImpl site) {
-		LSDeployCard(site);
+	default void LSDeployLocation(PhysicalCardImpl location) {
+        assertTrue(LSDeployAvailable(location));
+		LSDeployCard(location);
 		if(LSDecisionAvailable("On which side")) {
 			LSChoose("Left");
 		}
@@ -348,13 +380,19 @@ public interface Actions extends Decisions, Choices {
 	 * made regarding the target.
 	 * @param card The card to transfer.
 	 */
-	default void DSTransferCard(PhysicalCardImpl card) { DSDecided(GetCardActionId(DS, card, "Transfer")); }
+	default void DSTransferCard(PhysicalCardImpl card) {
+        assertTrue(DSTransferAvailable(card));
+        DSDecided(GetCardActionId(DS, card, "Transfer"));
+    }
 	/**
 	 * Causes the Light Side player to initiate a Transfer action on the given card.  Follow-up decisions will need to be
 	 * made regarding the target.
 	 * @param card The card to transfer.
 	 */
-	default void LSTransferCard(PhysicalCardImpl card) { LSDecided(GetCardActionId(LS, card, "Transfer ")); }
+	default void LSTransferCard(PhysicalCardImpl card) {
+        assertTrue(LSTransferAvailable(card));
+        LSDecided(GetCardActionId(LS, card, "Transfer "));
+    }
 
 
 	/**
@@ -419,7 +457,8 @@ public interface Actions extends Decisions, Choices {
 	 * @param site The location to initiate the Force Drain at.
 	 */
 	default void DSForceDrainAt(PhysicalCardImpl site) {
-		DSDecided(GetCardActionId(DS, site, "Force drain"));
+        assertTrue(DSForceDrainAvailable(site));
+        DSDecided(GetCardActionId(DS, site, "Force drain"));
 	}
 
 	/**
@@ -427,7 +466,8 @@ public interface Actions extends Decisions, Choices {
 	 * @param site The location to initiate the Force Drain at.
 	 */
 	default void LSForceDrainAt(PhysicalCardImpl site) {
-		LSDecided(GetCardActionId(LS, site, "Force drain"));
+        assertTrue(LSForceDrainAvailable(site));
+        LSDecided(GetCardActionId(LS, site, "Force drain"));
 	}
 
 

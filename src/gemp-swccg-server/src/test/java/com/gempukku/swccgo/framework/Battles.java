@@ -1,6 +1,10 @@
 package com.gempukku.swccgo.framework;
 
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public interface Battles extends Decisions, GameProcedures, PileProperties {
 
@@ -8,22 +12,41 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * @return True if the Dark Side player has an available action to initiate battle, false otherwise.
 	 */
 	default boolean DSCanInitiateBattle() { return DSActionAvailable("Initiate battle"); }
+
+    /**
+     * @param location The location to check if battle can be initiated at.
+     * @return True if the Dark Side player has an available action to initiate battle, false otherwise.
+     */
+    default boolean DSCanInitiateBattle(PhysicalCardImpl location) { return DSCardActionAvailable(location,"Initiate battle"); }
+
 	/**
 	 * @return True if the Light Side player has an available action to initiate battle, false otherwise.
 	 */
 	default boolean LSCanInitiateBattle() { return LSActionAvailable("Initiate battle"); }
 
-	/**
+    /**
+     * @param location The location to check if battle can be initiated at.
+     * @return True if the Light Side player has an available action to initiate battle, false otherwise.
+     */
+    default boolean LSCanInitiateBattle(PhysicalCardImpl location) { return LSCardActionAvailable(location,"Initiate battle"); }
+
+    /**
 	 * Causes the Dark Side player to initiate battle at the given location.
 	 * @param location The location to start battle at.
 	 * turn to perform actions.
 	 */
-	default void DSInitiateBattle(PhysicalCardImpl location) { InitiateBattle(DS, location); }
+	default void DSInitiateBattle(PhysicalCardImpl location) {
+        assertTrue("Unable to initiate battle at location",DSCanInitiateBattle(location));
+        InitiateBattle(DS, location);
+    }
 	/**
 	 * Causes the Light Side player to initiate battle at the given location.
 	 * @param location The location to start battle at.
 	 */
-	default void LSInitiateBattle(PhysicalCardImpl location) { InitiateBattle(LS, location); }
+	default void LSInitiateBattle(PhysicalCardImpl location) {
+        assertTrue("Unable to initiate battle at location",LSCanInitiateBattle(location));
+        InitiateBattle(LS, location);
+    }
 
 	/**
 	 * Causes the given player to initiate battle at the given location.
@@ -227,6 +250,7 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * @param card The DS card in play to sacrifice for attrition.
 	 */
 	default void DSPayAttritionFromCardInPlay(PhysicalCardImpl card) {
+        assertTrue("Not waiting for Attrition payment",AwaitingDSAttritionPayment());
 		DSChooseCard(card);
 		PassCardLeavingTable();
 	}
@@ -237,6 +261,7 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * @param card The LS card in play to sacrifice for attrition.
 	 */
 	default void LSPayAttritionFromCardInPlay(PhysicalCardImpl card) {
+        assertTrue("Not waiting for Attrition payment",AwaitingLSAttritionPayment());
 		LSChooseCard(card);
 		PassCardLeavingTable();
 	}
@@ -268,6 +293,8 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * Pays for the remaining Dark Side battle damage using cards on the top of the DS Reserve deck.
 	 */
 	default void DSPayRemainingBattleDamageFromReserveDeck() {
+        assertTrue("Not waiting for Battle Damage payment",AwaitingDSBattleDamagePayment());
+        assertTrue("Insufficient cards in Reserve Deck to lose from",GetDSReserveDeckCount() >= GetUnpaidDSBattleDamage());
 		DSPayBattleDamageFromReserveDeck(GetUnpaidDSBattleDamage());
 	}
 	/**
@@ -282,21 +309,27 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * Pays for 1 Force worth of Dark Side battle damage using the card on the top of the DS Reserve deck.
 	 */
 	default void DSPayBattleDamageFromReserveDeck() {
-		DSChooseCard(GetTopOfDSReserveDeck());
+        assertTrue("Not waiting for Battle Damage payment",AwaitingDSBattleDamagePayment());
+        assertTrue("Insufficient cards in Reserve Deck to lose from",GetDSReserveDeckCount() >= 1);
+        DSChooseCard(GetTopOfDSReserveDeck());
 		PassCardLeavingTable();
 	}
 	/**
 	 * Pays for 1 Force worth of Dark Side battle damage using the card on the top of the DS Force Pile.
 	 */
 	default void DSPayBattleDamageFromForcePile() {
-		DSChooseCard(GetTopOfDSForcePile());
+        assertTrue("Not waiting for Battle Damage payment",AwaitingDSBattleDamagePayment());
+        assertTrue("Insufficient cards in Force Pile to lose from",GetDSForcePileCount() >= 1);
+        DSChooseCard(GetTopOfDSForcePile());
 		PassCardLeavingTable();
 	}
 	/**
 	 * Pays for 1 Force worth of Dark Side battle damage using the card on the top of the DS Used Pile.
 	 */
 	default void DSPayBattleDamageFromUsedPile() {
-		DSChooseCard(GetTopOfDSUsedPile());
+        assertTrue("Not waiting for Battle Damage payment",AwaitingDSBattleDamagePayment());
+        assertTrue("Insufficient cards in Used Pile to lose from",GetDSUsedPileCount() >= 1);
+        DSChooseCard(GetTopOfDSUsedPile());
 		PassCardLeavingTable();
 	}
 	/**
@@ -305,7 +338,8 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * @param card The DS card in play to sacrifice for battle damage.
 	 */
 	default void DSPayBattleDamageFromCardInPlay(PhysicalCardImpl card) {
-		DSChooseCard(card);
+        assertTrue("Not waiting for Battle Damage payment",AwaitingDSBattleDamagePayment());
+        DSChooseCard(card);
 		PassAllResponses();
 	}
 	/**
@@ -313,7 +347,9 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * @param card The DS card in hand to sacrifice for battle damage.
 	 */
 	default void DSPayBattleDamageFromCardInHand(PhysicalCardImpl card) {
-		DSChooseCard(card);
+        assertTrue("Not waiting for Battle Damage payment",AwaitingDSBattleDamagePayment());
+        assertEquals("Card to lose was not in hand",Zone.HAND,card.getZone());
+        DSChooseCard(card);
 		PassAllResponses();
 	}
 
@@ -321,7 +357,9 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * Pays for the remaining Light Side battle damage using cards on the top of the DS Reserve deck.
 	 */
 	default void LSPayRemainingBattleDamageFromReserveDeck() {
-		LSPayBattleDamageFromReserveDeck(GetUnpaidLSBattleDamage());
+        assertTrue("Not waiting for Battle Damage payment",AwaitingLSBattleDamagePayment());
+        assertTrue("Insufficient cards in Reserve Deck to lose from",GetLSReserveDeckCount() >= GetUnpaidLSBattleDamage());
+        LSPayBattleDamageFromReserveDeck(GetUnpaidLSBattleDamage());
 	}
 	/**
 	 * Pays for the given amount of Force worth of Light Side battle damage using cards on the top of the DS Reserve deck.
@@ -335,6 +373,8 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * Pays for 1 Force worth of Light Side battle damage using the card on the top of the LS Reserve deck.
 	 */
 	default void LSPayBattleDamageFromReserveDeck() {
+        assertTrue("Not waiting for Battle Damage payment",AwaitingLSBattleDamagePayment());
+        assertTrue("Insufficient cards in Reserve Deck to lose from",GetLSReserveDeckCount() >= 1);
 		LSChooseCard(GetTopOfLSReserveDeck());
 		PassCardLeavingTable();
 	}
@@ -342,6 +382,8 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * Pays for 1 Force worth of Light Side battle damage using the card on the top of the LS Force Pile.
 	 */
 	default void LSPayBattleDamageFromForcePile() {
+        assertTrue("Not waiting for Battle Damage payment",AwaitingLSBattleDamagePayment());
+        assertTrue("Insufficient cards in Force Pile to lose from",GetLSForcePileCount() >= 1);
 		LSChooseCard(GetTopOfLSForcePile());
 		PassCardLeavingTable();
 	}
@@ -349,6 +391,8 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * Pays for 1 Force worth of Light Side battle damage using the card on the top of the LS Force Pile.
 	 */
 	default void LSPayBattleDamageFromUsedPile() {
+        assertTrue("Not waiting for Battle Damage payment",AwaitingLSBattleDamagePayment());
+        assertTrue("Insufficient cards in Used Pile to lose from",GetLSUsedPileCount() >= 1);
 		LSChooseCard(GetTopOfLSUsedPile());
 		PassCardLeavingTable();
 	}
@@ -357,6 +401,7 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * @param card The LS card in play to sacrifice for battle damage.
 	 */
 	default void LSPayBattleDamageFromCardInPlay(PhysicalCardImpl card) {
+        assertTrue("Not waiting for Battle Damage payment",AwaitingLSBattleDamagePayment());
 		LSChooseCard(card);
 		PassAllResponses();
 	}
@@ -366,7 +411,9 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * @param card The LS card in hand to sacrifice for battle damage.
 	 */
 	default void LSPayBattleDamageFromCardInHand(PhysicalCardImpl card) {
-		DSChooseCard(card);
+        assertTrue("Not waiting for Battle Damage payment",AwaitingLSBattleDamagePayment());
+        assertEquals("Card to lose was not in hand",Zone.HAND,card.getZone());
+        LSChooseCard(card);
 		PassResponses("FORFEITED_TO_LOST_PILE_FROM_HAND");
 		PassCardLeavingTable();
 	}
@@ -422,5 +469,108 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 */
 	default boolean IsReachedDamageSegment() { return gameState().getBattleState().isReachedDamageSegment(); }
 
+    /**
+     * @return True if the Dark Side player is currently deciding on what to pay to satisfy unpaid Force loss.
+     */
+    default boolean AwaitingDSForceLossPayment() {
+        return DecisionAvailable(DS, "Choose Force to lose");
+    }
+
+    /**
+     * @return True if the Light Side player is currently deciding on what to pay to satisfy unpaid Force loss.
+     */
+    default boolean AwaitingLSForceLossPayment() {
+        return DecisionAvailable(LS, "Choose Force to lose");
+    }
+
+    /**
+     * Pays for 1 Force worth of Dark Side Force loss using the card on the top of the DS Reserve deck.
+     */
+    default void DSPayForceLossFromReserveDeck() {
+        assertTrue("Not waiting for Force Loss",AwaitingDSForceLossPayment());
+        assertTrue("Insufficient cards in Reserve Deck to lose from",GetDSReserveDeckCount() >= 1);
+        DSChooseCard(GetTopOfDSReserveDeck());
+        PassCardLeavingTable();
+    }
+
+    /**
+     * Pays for 1 Force worth of Light Side Force loss using the card on the top of the LS Reserve deck.
+     */
+    default void LSPayForceLossFromReserveDeck() {
+        assertTrue("Not waiting for Force Loss",AwaitingLSForceLossPayment());
+        assertTrue("Insufficient cards in Reserve Deck to lose from",GetLSReserveDeckCount() >= 1);
+        LSChooseCard(GetTopOfLSReserveDeck());
+        PassCardLeavingTable();
+    }
+
+    /**
+     * Pays for remaining Dark Side Force loss using cards from the top of the DS Reserve deck.
+     */
+    default void DSPayRemainingForceLossFromReserveDeck() {
+        assertTrue("Not waiting for Force Loss",AwaitingDSForceLossPayment());
+        for(int i = 0; i < 60; ++i) { //replace 60 with remaining force loss count, if we can access it?
+            if(AwaitingDSForceLossPayment()) {
+                assertTrue("Insufficient cards in Reserve Deck to lose from",GetDSReserveDeckCount() >= 1);
+                DSChooseCard(GetTopOfDSReserveDeck());
+                PassCardLeavingTable();
+            }
+
+        }
+    }
+
+    /**
+     * Pays for remaining Light Side Force loss using cards from the top of the LS Reserve deck.
+     */
+    default void LSPayRemainingForceLossFromReserveDeck() {
+        assertTrue("Not waiting for Force Loss",AwaitingLSForceLossPayment());
+        for(int i = 0; i < 60; ++i) { //replace 60 with remaining force loss count, if we can access it?
+            if(AwaitingLSForceLossPayment()) {
+                assertTrue("Insufficient cards in Reserve Deck to lose from",GetLSReserveDeckCount() >= 1);
+                LSChooseCard(GetTopOfLSReserveDeck());
+                PassCardLeavingTable();
+            }
+
+        }
+    }
+
+    /**
+     * Pays for 1 Force worth of Dark Side Force loss using the card on the top of the DS Used Pile.
+     */
+    default void DSPayForceLossFromUsedPile() {
+        assertTrue("Not waiting for Force Loss",AwaitingDSForceLossPayment());
+        assertTrue("Insufficient cards in Used Pile to lose from",GetDSUsedPileCount() >= 1);
+        DSChooseCard(GetTopOfDSUsedPile());
+        PassCardLeavingTable();
+    }
+
+    /**
+     * Pays for 1 Force worth of Light Side Force loss using the card on the top of the LS Used Pile.
+     */
+    default void LSPayForceLossFromUsedPile() {
+        assertTrue("Not waiting for Force Loss",AwaitingLSForceLossPayment());
+        assertTrue("Insufficient cards in Used Pile to lose from",GetLSUsedPileCount() >= 1);
+        LSChooseCard(GetTopOfLSUsedPile());
+        PassCardLeavingTable();
+    }
+
+    /**
+     * Pays for 1 Force worth of Dark Side Force loss using the card on the top of the DS Force Pile.
+     */
+    default void DSPayForceLossFromForcePile() {
+        assertTrue("Not waiting for Force Loss",AwaitingDSForceLossPayment());
+        assertTrue("Insufficient cards in Force Pile to lose from",GetDSForcePileCount() >= 1);
+        DSChooseCard(GetTopOfDSForcePile());
+        PassCardLeavingTable();
+    }
+
+    /**
+     * Pays for 1 Force worth of Light Side Force loss using the card on the top of the LS Force Pile.
+     */
+    default void LSPayForceLossFromForcePile() {
+        assertTrue("Not waiting for Force Loss",AwaitingLSForceLossPayment());
+        assertTrue("Insufficient cards in Force Pile to lose from",GetLSForcePileCount() >= 1);
+        LSChooseCard(GetTopOfLSForcePile());
+        PassCardLeavingTable();
+    }
 
 }

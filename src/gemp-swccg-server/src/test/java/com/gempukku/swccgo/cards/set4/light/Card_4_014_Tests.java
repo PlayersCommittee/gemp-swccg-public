@@ -394,7 +394,7 @@ public class Card_4_014_Tests {
 		scn.PassResponses("BATTLE_DESTINY_DRAWS_COMPLETE_FOR_PLAYER");
 
 		//Not eligible for battle destiny normally
-		assertEquals(2, scn.GetAbility(biggs), scn.epsilon);
+		assertEquals(2, scn.GetAbility(biggs));
 		assertTrue(scn.LSDecisionAvailable("Do you want to draw 1 battle destiny?"));
 	}
 
@@ -459,7 +459,7 @@ public class Card_4_014_Tests {
 		scn.PassResponses("BATTLE_DESTINY_DRAWS_COMPLETE_FOR_PLAYER");
 
 		//Eligible for battle destiny normally
-		assertEquals(4, scn.GetAbility(luke), scn.epsilon);
+		assertEquals(4, scn.GetAbility(luke));
 		//Only 1 battle destiny and not 2
 		assertTrue(scn.LSDecisionAvailable("Do you want to draw 1 battle destiny?"));
 	}

@@ -152,17 +152,10 @@ public class Card_9_151_Tests {
 		scn.PassAllResponses();
 
 		int life = scn.GetLSLifeForceRemaining();
-		assertTrue(scn.LSDecisionAvailable("Choose Force to lose"));
-		scn.LSPayBattleDamageFromReserveDeck();
-		assertTrue(scn.LSDecisionAvailable("Choose Force to lose"));
-		scn.LSPayBattleDamageFromReserveDeck();
-		assertTrue(scn.LSDecisionAvailable("Choose Force to lose"));
-		scn.LSPayBattleDamageFromReserveDeck();
-
+        scn.LSPayRemainingForceLossFromReserveDeck();
 		assertEquals(life-3, scn.GetLSLifeForceRemaining());
 
 		assertTrue(scn.AwaitingLSControlPhaseActions());
 	}
-
 
 }

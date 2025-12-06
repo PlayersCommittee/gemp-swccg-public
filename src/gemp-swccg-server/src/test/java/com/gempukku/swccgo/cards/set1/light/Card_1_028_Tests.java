@@ -131,7 +131,7 @@ public class Card_1_028_Tests {
 
 		assertInHand(trooper);
 		assertAtLocation(site, biggs);
-		assertEquals(2, scn.GetAbility(biggs), scn.epsilon);
+		assertEquals(2, scn.GetAbility(biggs));
 		assertEquals(3, scn.GetLSForcePileCount());
 
 		scn.LSDeployCardAndPassResponses(trooper, site);
@@ -165,7 +165,7 @@ public class Card_1_028_Tests {
 
 		assertInHand(trooper);
 		assertAtLocation(site, ackbar);
-		assertEquals(3, scn.GetAbility(ackbar), scn.epsilon);
+		assertEquals(3, scn.GetAbility(ackbar));
 		assertEquals(3, scn.GetLSForcePileCount());
 
 		scn.LSDeployCardAndPassResponses(trooper, site);

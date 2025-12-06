@@ -120,7 +120,7 @@ public class Card_1_194_Tests
 
 		assertInHand(stormtrooper);
 		assertAtLocation(site, chiraneau);
-		assertEquals(2, scn.GetAbility(chiraneau), scn.epsilon);
+		assertEquals(2, scn.GetAbility(chiraneau));
 		assertEquals(3, scn.GetDSForcePileCount());
 
 		scn.DSDeployCardAndPassResponses(stormtrooper, site);
@@ -147,7 +147,7 @@ public class Card_1_194_Tests
 
 		assertInHand(stormtrooper);
 		assertAtLocation(site, motti);
-		assertEquals(3, scn.GetAbility(motti), scn.epsilon);
+		assertEquals(3, scn.GetAbility(motti));
 		assertEquals(3, scn.GetDSForcePileCount());
 
 		scn.DSDeployCardAndPassResponses(stormtrooper, site);
