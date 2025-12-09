@@ -1062,6 +1062,7 @@ public interface Title {
     String Solo_Han = "Solo Han";
     String Sometimes_I_Amaze_Even_Myself = "Sometimes I Amaze Even Myself";
     String Someone_Who_Loves_You = "Someone Who Loves You";
+    String Something_About_This_Boy = "Something About This Boy";
     String Sonic_Bombardment = "Sonic Bombardment";
     String Sorry_About_The_Mess = "Sorry About The Mess";
     String Sound_The_Attack = "Sound The Attack";

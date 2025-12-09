@@ -11,6 +11,7 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -36,7 +37,7 @@ import com.gempukku.swccgo.logic.timing.Action;
  */
 public class Card226_027 extends AbstractLostOrStartingInterrupt {
     public Card226_027() {
-        super(Side.LIGHT, 3, "Something About This Boy", Uniqueness.UNIQUE, ExpansionSet.SET_26, Rarity.V);
+        super(Side.LIGHT, 3, Title.Something_About_This_Boy, Uniqueness.UNIQUE, ExpansionSet.SET_26, Rarity.V);
         setLore("'What'd he mean by that?' 'I'll tell you later.'");
         setGameText("LOST: Relocate Prophecy Of The Force to a site. STARTING: If your starting location was Skywalker Hut, deploy Prophecy Of The Force there, Do, Or Do Not and Jedi Business. Light Side goes first. Place Interrupt in Reserve Deck.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_26);

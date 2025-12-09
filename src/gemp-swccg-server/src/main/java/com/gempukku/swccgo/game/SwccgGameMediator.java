@@ -1291,6 +1291,10 @@ public class SwccgGameMediator {
                     // Slip Sliding Away (v)
                     return startingLocation.getBlueprint().getTitle() + " SSAv";
                 }
+                if(Filters.Something_About_This_Boy.accepts(_swccgoGame, startingInterrupt)) {
+                    // Something About This Boy
+                    return "Boy";
+                }
                 if(Filters.Let_The_Wookiee_Win.accepts(_swccgoGame, startingInterrupt)
                         && startingInterrupt.getBlueprint().hasVirtualSuffix()
                         && startingLocation.getBlueprint().getTitle() != null){
@@ -1413,6 +1417,10 @@ public class SwccgGameMediator {
             if (Filters.or(Filters.Hidden_Base, Filters.Systems_Will_Slip_Through_Your_Fingers).accepts(_swccgoGame, objective)) {
                 // Hidden Base
                 objectiveLabel = "Hidden Base";
+            }
+            if (Filters.or(Filters.The_Hidden_Path, Filters.Gather_Allies_And_Train).accepts(_swccgoGame, objective)) {
+                // The Hidden Path
+                objectiveLabel = "Hidden Path";
             }
             if (Filters.or(Filters.Hunt_Down_And_Destroy_The_Jedi, Filters.Their_Fire_Has_Gone_Out_Of_The_Universe).accepts(_swccgoGame, objective)) {
                 // Hunt Down

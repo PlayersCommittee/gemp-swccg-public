@@ -18984,6 +18984,7 @@ public class Filters {
     public static final Filter Slaving_Camp_Headquarters = Filters.title(Title.Slaving_Camp_Headquarters);
     public static final Filter Slip_Sliding_Away = Filters.title(Title.Slip_Sliding_Away);
     public static final Filter Smoke_Screen = Filters.title(Title.Smoke_Screen);
+    public static final Filter Something_About_This_Boy = Filters.title(Title.Something_About_This_Boy);
     public static final Filter smuggler = Filters.keyword(Keyword.SMUGGLER);
     public static final Filter Snap = Filters.persona(Persona.SNAP);
     public static final Filter Sniper = Filters.title(Title.Sniper);
