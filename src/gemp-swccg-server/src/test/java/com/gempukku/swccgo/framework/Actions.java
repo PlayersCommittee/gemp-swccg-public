@@ -141,8 +141,21 @@ public interface Actions extends Decisions, Choices {
         LSDecided(GetCardActionId(LS, card));
     }
 
+    /**
+     * Causes the Dark Side player to execute an available action on the given card.
+     * @param card The card which is being used (played, deployed, activated, etc).
+     * @param text Substring of the action text for the card action to play
+     */
+    default void DSUseCardAction(PhysicalCardImpl card, String text) { DSDecided(GetCardActionId(DS, card, text)); }
+    /**
+     * Causes the Light Side player to execute an available action on the given card.
+     * @param card The card which is being used (played, deployed, activated, etc).
+     * @param text Substring of the action text for the card action to play
+     */
+    default void LSUseCardAction(PhysicalCardImpl card, String text) { LSDecided(GetCardActionId(LS, card, text)); }
 
-	/**
+
+    /**
 	 * Checks whether the given card can be played by the Dark Side player.  Technically this is a catch-all function
 	 * that only looks for any action associated with the given card, but the use of this function communicates that
 	 * the tester intended to check for a play action from hand.

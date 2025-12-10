@@ -124,16 +124,15 @@ public class Card1_046 extends AbstractUtinniEffect {
                         new DrawDestinyEffect(action, playerId, numDestinyToDraw) {
                             @Override
                             protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
-                                if (totalDestiny == null) {
-                                    return;
+                                if (totalDestiny != null) {
+                                    action.appendEffect(
+                                            new RetrieveForceEffect(action, playerId, totalDestiny) {
+                                                @Override
+                                                public Collection<PhysicalCard> getAdditionalCardsInvolvedInForceRetrieval() {
+                                                    return Collections.singletonList(self.getTargetedCard(gameState, TargetId.UTINNI_EFFECT_TARGET_1));
+                                                }
+                                            });
                                 }
-                                action.appendEffect(
-                                        new RetrieveForceEffect(action, playerId, totalDestiny) {
-                                            @Override
-                                            public Collection<PhysicalCard> getAdditionalCardsInvolvedInForceRetrieval() {
-                                                return Collections.singletonList(self.getTargetedCard(gameState, TargetId.UTINNI_EFFECT_TARGET_1));
-                                            }
-                                        });
                                 action.appendEffect(
                                         new LoseCardFromTableEffect(action, self));
                             }
