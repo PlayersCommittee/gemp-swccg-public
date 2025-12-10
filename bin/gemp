@@ -47,6 +47,7 @@ show_help() {
     echo "  db-shell    - Open MySQL shell"
     echo "  destroy     - Stop and remove containers (preserves database)"
     echo "  reset-db    - Reset the database (WARNING: deletes all data)"
+    echo "  release-diff- Generate final diff for new release"
     echo "  help        - Show this help message"
     echo ""
 }
@@ -326,6 +327,54 @@ case "$1" in
         else
             print_status "Database reset cancelled"
         fi
+        ;;
+
+    release-diff)
+        if [[ -n "$2" ]] ; then
+            setid=$2
+            shift
+            if [[ "$2" == "-o" ]] ; then
+                shift
+                if [[ -n "$2" ]] ; then
+                    outFile="`pwd`/$2"
+                else
+                    print_error "The -o option requires a file name"
+                    exit 1
+                fi
+            fi
+        else
+            print_error "$1 requires a set number argument"
+            exit 1
+        fi
+        [[ -n "$outFile" ]] && print_status "output will be saved to $outFile"
+        SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+        cd $SCRIPT_DIR/..
+        if [[ ! -d src/gemp-swccg-cards/src/main/java/com/gempukku/swccgo/cards/set$setid ]] ; then
+            print_error "No directory found for set $setid"
+            print_status "src/gemp-swccg-cards/src/main/java/com/gempukku/swccgo/cards/set$setid"
+            exit 1
+        fi
+        if [[ -n "$outFile" && -f $outFile ]] ; then
+            print_error "WARNING: File exists"
+            read -p "Overwrite it? [y/N] " -n 1 -r
+            echo
+            if [[ $REPLY =~ ^[Yy]$ ]]; then
+                print_status "Proceeding"
+            else
+                print_status "Diff generation cancelled"
+                exit
+            fi
+        fi
+        print_status "Generating release diff for Set $setid"
+        output=$(find src/gemp-swccg-cards/src/main/java/com/gempukku/swccgo/cards/set$setid/ -type f -name *java -exec grep -Hin Title: {} \; | while read line ; do
+            file=$(echo $line | sed -e 's/^.*Card/Card/' -e 's/\.java:.*$/\.java/');
+            (echo $file | grep -q BACK) && nfmt="*BACK.java" || nfmt="*[0-9].java";
+            newid=$(echo $line | sed -e "s/^.*set$setid\///" -e 's/\.java.*$/\.java/');
+            card=$(echo $line | sed 's/^.*Title: //');
+            oldid=$(find src/gemp-swccg-cards/src/main/java/com/gempukku/swccgo/cards/set501/ -type f -name $nfmt -exec grep -Hin "Title: $card" {} \;|head -n1|sed -e 's/^.*501\///' -e 's/\.java.*$/.java/');
+            diff -ruN src/gemp-swccg-cards/src/main/java/com/gempukku/swccgo/cards/set501/$oldid src/gemp-swccg-cards/src/main/java/com/gempukku/swccgo/cards/set$setid/$newid;
+        done)
+        [[ -n "$outFile" ]] && (echo $output > $outFile) || echo "$output"
         ;;
 
     help|--help|-h|"")
