@@ -316,6 +316,17 @@ public class BattleDamageSegmentAction extends SystemQueueAction {
                                 gameState.sendMessage(_playerId + " has " + GuiUtils.formatAsString(attritionRemaining) + " attrition remaining to satisfy");
 
                             }
+                            // Cards must be forfeited, but attrition remaining (and may be ignored)
+                            else if (!cardsThatMustBeForfeited.isEmpty()
+                                    && attritionRemaining > 0 && attritionCanBeIgnored) {
+
+                                // Add cards that may be forfeited
+                                selectableCards.addAll(cardsThatMayBeForfeited);
+
+                                // Set text and send message
+                                _text = "Choose a card from battle to forfeit";
+                                game.getGameState().sendMessage(_playerId + " has cards remaining that must be forfeited");
+                            }
                             // Cards must be forfeited
                             else if (!cardsThatMustBeForfeited.isEmpty()) {
 
