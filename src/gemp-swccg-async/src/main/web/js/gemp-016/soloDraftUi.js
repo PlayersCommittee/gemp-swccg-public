@@ -24,6 +24,8 @@ var GempSwccgSoloDraftUI = Class.extend({
     autoZoom:null,
     currentDraftingSide:null,
 
+    rightClickListenerAdded:false,
+
     init:function (url) {
         var that = this;
 
@@ -59,6 +61,19 @@ var GempSwccgSoloDraftUI = Class.extend({
                 function (event) {
                     return that.clickCardFunction(event);
                 });
+
+        if (!this.rightClickListenerAdded) {
+            $("body")[0].addEventListener("contextmenu",
+                function (event) {
+                    if(!that.clickCardFunction(event))
+                    {
+                        event.preventDefault();
+                        return false;
+                    }
+                    return true;
+                });
+            this.rightClickListenerAdded = true;
+        }
 
         $('body').unbind('mouseover');
         $("body").mouseover(
@@ -332,6 +347,7 @@ var GempSwccgSoloDraftUI = Class.extend({
                 // Shift-click or right-click shows card info
                 if (event.shiftKey || event.which > 1) {
                     this.displayCardInfo(selectedCardElem.data("card"));
+                    return false;
                 } else {
                     if (selectedCardElem.data("card").zone == "picks") {
                         this.handlePickSelection(selectedCardElem);
