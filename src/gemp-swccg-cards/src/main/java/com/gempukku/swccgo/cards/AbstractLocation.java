@@ -325,7 +325,7 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
 
         // Search party
         if (GameConditions.canFormSearchPartyAtLocation(game, playerId, self)) {
-            actions.add(new SearchPartyAction(playerId, self));
+            actions.add(new SearchPartyAction(playerId, self, false));
         }
 
         // Release unattended 'frozen' captive

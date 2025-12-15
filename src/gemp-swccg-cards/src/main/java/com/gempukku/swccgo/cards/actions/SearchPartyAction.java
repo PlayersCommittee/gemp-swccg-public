@@ -9,9 +9,15 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.AbstractTopLevelRuleAction;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfCardPlayedModifierEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfDrawDestinyModifierEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfEffectResultModifierEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.CaptureCharacterOnTableEffect;
 import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.FindMissingCharacterEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardsOnTableEffect;
+import com.gempukku.swccgo.logic.modifiers.EachSearchPartyDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotJoinSearchPartyModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotMoveModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotParticipateInBattleModifier;
@@ -37,8 +43,9 @@ public class SearchPartyAction extends AbstractTopLevelRuleAction {
      * Creates an action that forms a Search Party to search for a 'missing' character.
      * @param playerId the player to form the Search Party
      * @param site the site
+     * @param isHuntingParty false for normal search parties, only true for Hunting Party
      */
-    public SearchPartyAction(final String playerId, final PhysicalCard site) {
+    public SearchPartyAction(final String playerId, final PhysicalCard site, final boolean isHuntingParty) {
         super(site, playerId);
         _playerId = playerId;
         _site = site;
@@ -65,6 +72,12 @@ public class SearchPartyAction extends AbstractTopLevelRuleAction {
                                         modifiersEnvironment.addUntilEndOfTurnModifier(
                                                 new MayNotParticipateInBattleModifier(null, filter));
 
+                                        if (isHuntingParty) {
+                                            int numBountyHuntersInSearchParty = Filters.count(cards,game,Filters.and(filter,Filters.bounty_hunter));
+                                            _that.appendEffect(new AddUntilEndOfCardPlayedModifierEffect(_that,getActionSource(),
+                                                    new EachSearchPartyDestinyModifier(getActionSource(), site, numBountyHuntersInSearchParty, playerId),null));
+                                        }
+
                                         _that.appendEffect(
                                                 new DrawDestinyEffect(_that, playerId, 1, DestinyType.SEARCH_PARTY_DESTINY) {
                                                     @Override
@@ -79,8 +92,12 @@ public class SearchPartyAction extends AbstractTopLevelRuleAction {
                                                         if (totalDestiny > 5) {
                                                             gameState.sendMessage("Result: Succeeded");
 
+                                                            String missingCharacterOwner;
+                                                            if(isHuntingParty) missingCharacterOwner = game.getOpponent(playerId);
+                                                            else missingCharacterOwner = playerId;
+
                                                             Collection<PhysicalCard> missingCharacters = Filters.filterActive(game, null,
-                                                                    SpotOverride.INCLUDE_MISSING_AND_UNDERCOVER, Filters.and(Filters.owner(playerId), Filters.missing, Filters.character, Filters.at(_site)));
+                                                                    SpotOverride.INCLUDE_MISSING_AND_UNDERCOVER, Filters.and(Filters.owner(missingCharacterOwner), Filters.missing, Filters.character, Filters.at(_site)));
                                                             if (!missingCharacters.isEmpty()) {
                                                                 PhysicalCard foundCharacter = GameUtils.getRandomCards(missingCharacters, 1).get(0);
                                                                 _that.appendEffect(
@@ -93,6 +110,11 @@ public class SearchPartyAction extends AbstractTopLevelRuleAction {
                                                                         new MayNotJoinSearchPartyModifier(null, foundCharacter));
                                                                 modifiersEnvironment.addUntilEndOfTurnModifier(
                                                                         new MayNotParticipateInBattleModifier(null, foundCharacter));
+
+                                                                if (isHuntingParty) {
+                                                                    _that.appendEffect(
+                                                                            new CaptureCharacterOnTableEffect(_that, foundCharacter));
+                                                                    }
                                                             }
                                                         }
                                                         else {

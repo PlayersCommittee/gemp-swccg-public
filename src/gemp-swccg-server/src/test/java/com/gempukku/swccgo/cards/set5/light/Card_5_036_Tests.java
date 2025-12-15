@@ -452,7 +452,7 @@ public class Card_5_036_Tests {
 		scn.StartGame();
 
 		scn.MoveCardsToLocation(site, boba, tube);
-		scn.MoveCardsToLocation(troopers.get(0), troopers.get(1), troopers.get(2));
+		scn.MoveCardsToLocation(site, troopers.get(0), troopers.get(1), troopers.get(2));
 		scn.CaptureCardWith(boba, chewie);
 		scn.BoardAsPassenger(tube, boba);
 
