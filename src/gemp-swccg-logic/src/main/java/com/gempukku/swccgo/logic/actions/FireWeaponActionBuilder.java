@@ -410,7 +410,11 @@ public class FireWeaponActionBuilder {
                     Set<TargetingReason> targetingReasons = _targetingReasonList.get(i);
                     for (TargetingReason targetingReason : targetingReasons) {
 
-                        Filter filterToAddToMap = Filters.and(newTargetFilterable, validForUserToTargetFilter, Filters.canBeTargetedBy(_weaponOrCardWithPermanentWeapon, _permanentWeapon, targetingReason));
+                        Filter filterToAddToMap = Filters.and(newTargetFilterable, validForUserToTargetFilter);
+                        // needs to be able to be targeted for all targetingReasons
+                        for (TargetingReason targetingReason2 : targetingReasons) {
+                            filterToAddToMap = Filters.and(filterToAddToMap, Filters.canBeTargetedBy(_weaponOrCardWithPermanentWeapon, _permanentWeapon, targetingReason2));
+                        }
 
                         Filterable targetFilterable = _targetFiltersMap.get(targetingReason);
                         if (targetFilterable == null) {
@@ -631,6 +635,16 @@ public class FireWeaponActionBuilder {
      * @return the builder
      */
     public FireWeaponActionBuilder targetForFree(Filter targetFilter, TargetingReason targetingReason) {
+        return targetForFree(targetFilter, Collections.singleton(targetingReason));
+    }
+
+    /**
+     * Sets the targeting info when the weapon fires for free.
+     * @param targetFilter the target filter
+     * @param targetingReasons the targeting reasons
+     * @return the builder
+     */
+    public FireWeaponActionBuilder targetForFree(Filter targetFilter, Set<TargetingReason> targetingReasons) {
         Filter presentAt = Filters.presentAt(Filters.wherePresent(_weaponOrCardWithPermanentWeapon));
         _proximityFilterList.add(Filters.or(presentAt,
                 Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent)));
@@ -638,7 +652,7 @@ public class FireWeaponActionBuilder {
         _targetsForFree.add(true);
         _targetingUseForceCostMin.add(0);
         _targetingUseForceCostMax.add(0);
-        _targetingReasonList.add(Collections.singleton(targetingReason));
+        _targetingReasonList.add(targetingReasons);
         return this;
     }
 
@@ -662,6 +676,18 @@ public class FireWeaponActionBuilder {
      * @return the builder
      */
     public FireWeaponActionBuilder targetUsingForce(int numTargets, Filter targetFilter, int useForceCost, TargetingReason targetingReason) {
+        return targetUsingForce(numTargets, targetFilter, useForceCost, Collections.singleton(targetingReason));
+    }
+
+    /**
+     * Sets the targeting info when the weapon has a cost to fire.
+     * @param targetFilter the target filter
+     * @param numTargets the number of targets
+     * @param useForceCost the Force to use
+     * @param targetingReasons the targeting reasons
+     * @return the builder
+     */
+    public FireWeaponActionBuilder targetUsingForce(int numTargets, Filter targetFilter, int useForceCost, Set<TargetingReason> targetingReasons) {
         _numTargets = numTargets;
         Filter presentAt = Filters.presentAt(Filters.wherePresent(_weaponOrCardWithPermanentWeapon));
         _proximityFilterList.add(Filters.or(presentAt,
@@ -670,7 +696,7 @@ public class FireWeaponActionBuilder {
         _targetsForFree.add(false);
         _targetingUseForceCostMin.add(useForceCost);
         _targetingUseForceCostMax.add(useForceCost);
-        _targetingReasonList.add(Collections.singleton(targetingReason));
+        _targetingReasonList.add(targetingReasons);
         return this;
     }
 

@@ -27,8 +27,10 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.HitResult;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Set: Special Edition
@@ -66,8 +68,15 @@ public class Card7_161 extends AbstractCharacterWeapon {
 
     @Override
     protected List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, final SwccgGame game, final PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
+        Set<TargetingReason> targetingReasons = new HashSet<>();
+        targetingReasons.add(TargetingReason.TO_BE_HIT);
+        // add targeting reason to be lost if attached to Leia
+        if (self.getAttachedTo() != null && Filters.Leia.accepts(game, self.getAttachedTo())) {
+            targetingReasons.add(TargetingReason.TO_BE_LOST);
+        }
+
         FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)
-                .targetUsingForce(Filters.or(Filters.character, targetedAsCharacter, Filters.creature, Filters.vehicle), 1, TargetingReason.TO_BE_HIT).finishBuildPrep();
+                .targetUsingForce(1, Filters.or(Filters.character, targetedAsCharacter, Filters.creature, Filters.vehicle), 1, targetingReasons).finishBuildPrep();
         if (actionBuilder != null) {
 
             // Build action using common utility
