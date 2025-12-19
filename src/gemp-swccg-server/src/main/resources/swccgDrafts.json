@@ -4,6 +4,10 @@
     "location": "/draft/cube7Draft.json"
   },
   {
+    "type": "c7revised_draft",
+    "location": "/draft/cube7RevisedDraft.json"
+  },
+  {
     "type": "c7obj_draft",
     "location": "/draft/cubeObj7Draft.json"
   }
