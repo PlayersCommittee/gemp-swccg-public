@@ -22,7 +22,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.DeploysFreeToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByModifier;
@@ -65,11 +65,11 @@ public class Card225_001 extends AbstractAlien {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy card from Reserve Deck");
-            action.setActionMsg("Deploy [Jabba's Palace] No Bargain here from Reserve Deck");
+            action.setActionMsg("Deploy [Jabba's Palace] No Bargain from Reserve Deck");
 
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardToLocationFromReserveDeckEffect(action, Filters.and(Icon.JABBAS_PALACE, Filters.No_Bargain), Filters.here(self), true));
+                    new DeployCardFromReserveDeckEffect(action, Filters.and(Icon.JABBAS_PALACE, Filters.No_Bargain), true));
 
             actions.add(action);
         }
