@@ -1469,6 +1469,7 @@ public class GameState implements Snapshotable<GameState> {
         toCard.setFrozen(fromCard.isFrozen());
         toCard.setProbeCard(fromCard.isProbeCard());
         toCard.setHatredCard(fromCard.isHatredCard());
+        toCard.setJamCard(fromCard.isJamCard());
         toCard.setEnslavedCard(fromCard.isEnslavedCard());
         toCard.setCoaxiumCard(fromCard.isCoaxiumCard());
         toCard.setLiberationCard(fromCard.isLiberationCard());
@@ -1513,6 +1514,7 @@ public class GameState implements Snapshotable<GameState> {
         card.setFrozen(false);
         card.setProbeCard(false);
         card.setHatredCard(false);
+        card.setJamCard(false);
         card.setEnslavedCard(false);
         card.setLiberationCard(false);
         card.setBluffCard(false);

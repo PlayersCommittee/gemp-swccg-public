@@ -72,7 +72,7 @@ public interface CardProperties extends TestBase {
 	 * @return True if card is in the ATTACHED zone and records bearer as its AttachedTo.
 	 */
 	default boolean IsStackedOn(PhysicalCardImpl on, PhysicalCardImpl card) {
-		if(card.getZone() != Zone.STACKED) {
+		if((card.getZone() != Zone.STACKED) && (card.getZone() != Zone.STACKED_FACE_DOWN)) {
 			return false;
 		}
 

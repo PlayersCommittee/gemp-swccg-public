@@ -641,6 +641,7 @@ public interface Title {
     String Jerjerrod = "Moff Jerjerrod";
     String Jet_Pack = "Jet Pack";
     String Jodo = "Jodo Kast";
+    String Joh_Yowza = "Joh Yowza";
     String Jquille = "J'Quille";
     String Judicator = "Judicator";
     String Jundland_Wastes = "Tatooine: Jundland Wastes";

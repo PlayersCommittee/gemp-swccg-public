@@ -11110,6 +11110,23 @@ public class Filters {
     }
 
     /**
+     * Filter that accepts cards that are 'jam' cards.
+     */
+    public static final Filter jamCard = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return physicalCard.isJamCard();
+        }
+    };
+
+    /**
+     * Wrapper method to allow other static filters to access the wrapped filter.
+     */
+    private static Filter jamCard() {
+        return jamCard;
+    }
+
+    /**
      * Filter that accepts cards that are 'conflict' cards.
      */
     public static final Filter conflictCard = new Filter() {
@@ -18412,6 +18429,7 @@ public class Filters {
     public static final Filter Jerus = Filters.persona(Persona.JERUS);
     public static final Filter Jet_Pack = Filters.title(Title.Jet_Pack);
     public static final Filter Jodo = Filters.title(Title.Jodo);
+    public static final Filter Joh_Yowza = Filters.title(Title.Joh_Yowza);
     public static final Filter Judicator = Filters.title(Title.Judicator);
     public static final Filter Jundland_Wastes = Filters.title(Title.Jundland_Wastes);
     public static final Filter jungle = Filters.keyword(Keyword.JUNGLE);
