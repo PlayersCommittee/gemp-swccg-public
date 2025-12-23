@@ -47,6 +47,7 @@ show_help() {
     echo "  db-shell    - Open MySQL shell"
     echo "  destroy     - Stop and remove containers (preserves database)"
     echo "  reset-db    - Reset the database (WARNING: deletes all data)"
+    echo "  export-cards- Export all card data to JSON file"
     echo "  release-diff- Generate final diff for new release"
     echo "  help        - Show this help message"
     echo ""
@@ -326,6 +327,26 @@ case "$1" in
             echo "Run './bin/gemp start' to reinitialize the database"
         else
             print_status "Database reset cancelled"
+        fi
+        ;;
+
+    export-cards)
+        OUTPUT_FILE="${2:-card_data.json}"
+        print_status "Exporting card data to $OUTPUT_FILE..."
+        if check_containers; then
+            SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+            print_status "Running CardDataExporter..."
+            if docker exec gemp_swccg_app_1 sh -c "cd /opt/gemp-swccg/src/gemp-swccg-server && mvn exec:java@export-cards -Doutput.file=/opt/gemp-swccg/$OUTPUT_FILE -q"; then
+                print_success "Card data exported successfully"
+                echo "Output file: $SCRIPT_DIR/../$OUTPUT_FILE"
+
+                # Show summary
+                CARD_COUNT=$(docker exec gemp_swccg_app_1 sh -c "grep -o '\"cardId\"' /opt/gemp-swccg/$OUTPUT_FILE | wc -l")
+                print_status "Total cards exported: $CARD_COUNT"
+            else
+                print_error "Failed to export card data"
+                exit 1
+            fi
         fi
         ;;
 

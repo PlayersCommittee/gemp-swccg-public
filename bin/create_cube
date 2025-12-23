@@ -1,0 +1,198 @@
+#!/usr/bin/env python3
+"""
+Create a cube draft configuration from mapped card files.
+
+This script takes the default_cards, lightside, and darkside mapped JSON files
+and creates a cube draft configuration in the format expected by GEMP-SWCCG.
+
+Usage:
+    ./bin/create_cube <cube_dir> <output_file>
+
+Arguments:
+    cube_dir     - Directory containing the mapped JSON files
+    output_file  - Output path for the cube configuration JSON
+
+The script expects these files in the cube_dir:
+    - default_cards_mapped.json  (core cards for starting pool)
+    - cube_worlds_lightside_mapped.json  (light side cards for packs)
+    - cube_worlds_darkside_mapped.json  (dark side cards for packs)
+"""
+
+import json
+import sys
+from pathlib import Path
+
+
+def load_mapped_cards(cube_dir):
+    """
+    Load the mapped card files from the cube directory.
+
+    Args:
+        cube_dir: Path to directory containing mapped JSON files
+
+    Returns:
+        Tuple of (default_cards, lightside_cards, darkside_cards)
+    """
+    cube_path = Path(cube_dir)
+
+    # Load default cards (single column, flat array)
+    default_path = cube_path / "default_cards_mapped.json"
+    with open(default_path, 'r', encoding='utf-8') as f:
+        default_cards = json.load(f)
+
+    # Load lightside cards (multi-column, array of arrays)
+    lightside_path = cube_path / "cube_worlds_lightside_mapped.json"
+    with open(lightside_path, 'r', encoding='utf-8') as f:
+        lightside_cards = json.load(f)
+
+    # Load darkside cards (multi-column, array of arrays)
+    darkside_path = cube_path / "cube_worlds_darkside_mapped.json"
+    with open(darkside_path, 'r', encoding='utf-8') as f:
+        darkside_cards = json.load(f)
+
+    return default_cards, lightside_cards, darkside_cards
+
+
+def create_cube_config(default_cards, lightside_cards, darkside_cards):
+    """
+    Create the cube configuration object.
+
+    Args:
+        default_cards: Array of core card IDs
+        lightside_cards: Array of arrays for light side packs
+        darkside_cards: Array of arrays for dark side packs
+
+    Returns:
+        Dictionary containing the cube configuration
+    """
+    # Number of pack choices to show simultaneously (standard draft pack size)
+    pack_choice_count = 9
+
+    # Fixed repeat count (MUST be divisible by pack_choice_count for stage logic to work)
+    repeat_count = 54
+
+    # Create the base configuration
+    # fixedCount = number of core cards given to each player at start
+    cube_config = {
+        "format": "cube",
+        "fixedCount": len(default_cards),
+        "objChoiceCountPerSide": 0,
+        "choiceCountPerSide": repeat_count,
+        "lightObjCards": [],
+        "darkObjCards": [],
+        "startingPool": {
+            "type": "cubeDraftRun",
+            "data": {
+                "coreCards": default_cards
+            }
+        },
+        "choices": []
+    }
+
+    # Add light side choice - one choice containing all cards, repeated 56 times
+    if lightside_cards:
+        # Extract cards as flat list of card IDs and build addOnCards map
+        light_available_cards = []
+        light_add_ons = {}
+
+        for pack in lightside_cards:
+            if isinstance(pack, list) and len(pack) > 0:
+                main_card = pack[0]
+                light_available_cards.append(main_card)
+
+                # If pack has add-on cards, store them in the map
+                if len(pack) > 1:
+                    light_add_ons[main_card] = pack[1:]
+
+        lightside_choice = {
+            "type": "cubePackPick",
+            "repeat": repeat_count,
+            "data": {
+                "count": pack_choice_count,
+                "availableCards": light_available_cards,
+                "addOnCards": light_add_ons
+            }
+        }
+        cube_config["choices"].append(lightside_choice)
+
+    # Add dark side choice - one choice containing all cards, repeated 56 times
+    if darkside_cards:
+        # Extract cards as flat list of card IDs and build addOnCards map
+        dark_available_cards = []
+        dark_add_ons = {}
+
+        for pack in darkside_cards:
+            if isinstance(pack, list) and len(pack) > 0:
+                main_card = pack[0]
+                dark_available_cards.append(main_card)
+
+                # If pack has add-on cards, store them in the map
+                if len(pack) > 1:
+                    dark_add_ons[main_card] = pack[1:]
+
+        darkside_choice = {
+            "type": "cubePackPick",
+            "repeat": repeat_count,
+            "data": {
+                "count": pack_choice_count,
+                "availableCards": dark_available_cards,
+                "addOnCards": dark_add_ons
+            }
+        }
+        cube_config["choices"].append(darkside_choice)
+
+    return cube_config
+
+
+def main():
+    if len(sys.argv) < 3:
+        print("Usage: ./bin/create_cube <cube_dir> <output_file>")
+        print("\nCreates a cube draft configuration from mapped card files.")
+        print("\nArguments:")
+        print("  cube_dir     - Directory containing the mapped JSON files")
+        print("  output_file  - Output path for the cube configuration JSON")
+        print("\nExpected files in cube_dir:")
+        print("  - default_cards_mapped.json")
+        print("  - cube_worlds_lightside_mapped.json")
+        print("  - cube_worlds_darkside_mapped.json")
+        sys.exit(1)
+
+    cube_dir = sys.argv[1]
+    output_file = sys.argv[2]
+
+    print(f"Loading mapped card files from: {cube_dir}")
+
+    try:
+        default_cards, lightside_cards, darkside_cards = load_mapped_cards(cube_dir)
+    except FileNotFoundError as e:
+        print(f"Error: Could not find required file: {e}")
+        sys.exit(1)
+
+    print(f"Loaded:")
+    print(f"  Default cards:   {len(default_cards)}")
+    print(f"  Light side packs: {len(lightside_cards)}")
+    print(f"  Dark side packs:  {len(darkside_cards)}")
+
+    print("\nCreating cube configuration...")
+    cube_config = create_cube_config(default_cards, lightside_cards, darkside_cards)
+
+    # Write the output file
+    output_path = Path(output_file)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with open(output_path, 'w', encoding='utf-8') as f:
+        json.dump(cube_config, f, indent=2, ensure_ascii=False)
+
+    print(f"\n{'='*60}")
+    print("CUBE CONFIGURATION CREATED")
+    print(f"{'='*60}")
+    print(f"Output file:      {output_path}")
+    print(f"Core cards:       {len(cube_config['startingPool']['data']['coreCards'])}")
+    print(f"Light side packs: {len(lightside_cards)}")
+    print(f"Dark side packs:  {len(darkside_cards)}")
+    print(f"Total choices:    {len(cube_config['choices'])}")
+    print(f"{'='*60}\n")
+
+
+if __name__ == "__main__":
+    main()

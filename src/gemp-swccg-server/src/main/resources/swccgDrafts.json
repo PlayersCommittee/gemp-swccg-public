@@ -10,5 +10,9 @@
   {
     "type": "c7obj_draft",
     "location": "/draft/cubeObj7Draft.json"
+  },
+  {
+    "type": "cube_worlds_2025_draft",
+    "location": "/draft/cubeWorlds2025.json"
   }
 ]

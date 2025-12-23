@@ -1,0 +1,379 @@
+#!/usr/bin/env python3
+"""
+Map card names from a CSV file to GEMP-SWCCG card IDs.
+
+This script reads card names from a CSV file, slugifies them, and maps them to
+card IDs using the card_blueprint_database.json file. It handles both single
+and multi-column CSV files.
+
+Usage:
+    ./bin/map_card_names_to_ids <input.csv> [output.json] [database.json]
+
+Output:
+    - Single column CSV: Array of card IDs
+    - Multi-column CSV: Array of arrays (one array per row, with card IDs for each column)
+    - Task log with statistics and missing cards
+"""
+
+import csv
+import json
+import sys
+import os
+import re
+from pathlib import Path
+from datetime import datetime
+
+
+def slugify(text):
+    """
+    Convert a string to a URL-friendly slug.
+    Matches the Java implementation in CardDataExporter.
+
+    Args:
+        text: The text to slugify
+
+    Returns:
+        Slugified text
+    """
+    if not text:
+        return ""
+
+    text = text.lower()
+    # Replace apostrophes and quotes with empty string
+    text = re.sub(r"['\"`]", "", text)
+    # Replace spaces, underscores, and other non-alphanumeric characters with hyphens
+    text = re.sub(r"[^a-z0-9]+", "-", text)
+    # Remove leading/trailing hyphens
+    text = re.sub(r"^-+|-+$", "", text)
+
+    return text
+
+
+def load_card_database(database_path):
+    """
+    Load the card blueprint database and create slug-to-ID mappings.
+
+    Args:
+        database_path: Path to card_blueprint_database.json
+
+    Returns:
+        Tuple of (slug_to_id dict, slug_with_set_to_id dict, all_cards list)
+    """
+    with open(database_path, 'r', encoding='utf-8') as f:
+        cards = json.load(f)
+
+    slug_to_id = {}
+    slug_with_set_to_id = {}
+
+    for card in cards:
+        card_id = card.get('cardId')
+        slug = card.get('slug')
+        slug_with_set = card.get('slugWithSetName')
+
+        if slug and card_id:
+            # For duplicate slugs, store as a list
+            if slug in slug_to_id:
+                if isinstance(slug_to_id[slug], list):
+                    slug_to_id[slug].append(card_id)
+                else:
+                    slug_to_id[slug] = [slug_to_id[slug], card_id]
+            else:
+                slug_to_id[slug] = card_id
+
+        if slug_with_set and card_id:
+            slug_with_set_to_id[slug_with_set] = card_id
+
+    return slug_to_id, slug_with_set_to_id, cards
+
+
+def find_card_id(card_name, slug_to_id, slug_with_set_to_id):
+    """
+    Find a card ID for a given card name.
+
+    Args:
+        card_name: The card name to look up
+        slug_to_id: Dictionary mapping slugs to card IDs
+        slug_with_set_to_id: Dictionary mapping slugs with set names to card IDs
+
+    Returns:
+        Tuple of (card_id or None, match_type, alternatives if multiple matches)
+    """
+    if not card_name or not card_name.strip():
+        return None, "empty", None
+
+    slug = slugify(card_name.strip())
+
+    if not slug:
+        return None, "invalid_slug", None
+
+    # First try exact slug match
+    if slug in slug_to_id:
+        result = slug_to_id[slug]
+        if isinstance(result, list):
+            # Multiple cards with same name - return first and note alternatives
+            return result[0], "multiple_matches", result
+        else:
+            return result, "exact", None
+
+    # Try slug with set name (in case the CSV includes set names)
+    if slug in slug_with_set_to_id:
+        return slug_with_set_to_id[slug], "exact_with_set", None
+
+    # Try slug with -v suffix (for virtual cards when LEGACY versions are removed)
+    slug_v = slug + "-v"
+    if slug_v in slug_to_id:
+        result = slug_to_id[slug_v]
+        if isinstance(result, list):
+            return result[0], "virtual_fallback", result
+        else:
+            return result, "virtual_fallback", None
+
+    return None, "not_found", None
+
+
+def process_csv(csv_path, slug_to_id, slug_with_set_to_id):
+    """
+    Process a CSV file and map card names to IDs.
+
+    Args:
+        csv_path: Path to the input CSV file
+        slug_to_id: Dictionary mapping slugs to card IDs
+        slug_with_set_to_id: Dictionary mapping slugs with set names to card IDs
+
+    Returns:
+        Tuple of (result data, processing log)
+    """
+    result = []
+    log = {
+        "input_file": str(csv_path),
+        "timestamp": datetime.now().isoformat(),
+        "total_rows": 0,
+        "total_cells": 0,
+        "non_empty_cells": 0,
+        "successful_matches": 0,
+        "multiple_matches": 0,
+        "missing_cards": [],
+        "warnings": []
+    }
+
+    with open(csv_path, 'r', encoding='utf-8') as f:
+        reader = csv.reader(f)
+        rows = list(reader)
+
+    if not rows:
+        log["warnings"].append("CSV file is empty")
+        return result, log
+
+    # Determine if single column or multi-column
+    # Check if only first column has data (rest are empty)
+    num_columns = len(rows[0]) if rows else 0
+
+    # Count how many columns actually have data
+    non_empty_columns = 0
+    if rows:
+        for col_idx in range(num_columns):
+            has_data = any(row[col_idx].strip() if col_idx < len(row) else False for row in rows)
+            if has_data:
+                non_empty_columns += 1
+
+    is_single_column = non_empty_columns <= 1
+    log["num_columns"] = num_columns
+    log["non_empty_columns_detected"] = non_empty_columns
+
+    for row_idx, row in enumerate(rows):
+        log["total_rows"] += 1
+
+        if is_single_column:
+            # Single column - return flat array of card IDs
+            card_name = row[0] if row else ""
+            log["total_cells"] += 1
+
+            # Track non-empty cells
+            if card_name and card_name.strip():
+                log["non_empty_cells"] += 1
+
+            card_id, match_type, alternatives = find_card_id(card_name, slug_to_id, slug_with_set_to_id)
+
+            if card_id:
+                result.append(card_id)
+                log["successful_matches"] += 1
+
+                if match_type == "multiple_matches":
+                    log["multiple_matches"] += 1
+                    log["warnings"].append({
+                        "row": row_idx + 1,
+                        "card_name": card_name,
+                        "message": f"Multiple cards found, using first match: {card_id}",
+                        "alternatives": alternatives
+                    })
+            else:
+                # Only log non-empty missing cards
+                if card_name and card_name.strip():
+                    log["missing_cards"].append({
+                        "row": row_idx + 1,
+                        "column": 1,
+                        "card_name": card_name,
+                        "slug": slugify(card_name),
+                        "reason": match_type
+                    })
+        else:
+            # Multi-column - return array of arrays
+            row_result = []
+            for col_idx, card_name in enumerate(row):
+                log["total_cells"] += 1
+
+                # Track non-empty cells
+                if card_name and card_name.strip():
+                    log["non_empty_cells"] += 1
+
+                card_id, match_type, alternatives = find_card_id(card_name, slug_to_id, slug_with_set_to_id)
+
+                if card_id:
+                    row_result.append(card_id)
+                    log["successful_matches"] += 1
+
+                    if match_type == "multiple_matches":
+                        log["multiple_matches"] += 1
+                        log["warnings"].append({
+                            "row": row_idx + 1,
+                            "column": col_idx + 1,
+                            "card_name": card_name,
+                            "message": f"Multiple cards found, using first match: {card_id}",
+                            "alternatives": alternatives
+                        })
+                else:
+                    # Only log non-empty missing cards
+                    if card_name and card_name.strip():
+                        log["missing_cards"].append({
+                            "row": row_idx + 1,
+                            "column": col_idx + 1,
+                            "card_name": card_name,
+                            "slug": slugify(card_name),
+                            "reason": match_type
+                        })
+
+            # Only add non-empty rows
+            if row_result:
+                result.append(row_result)
+
+    log["missing_count"] = len(log["missing_cards"])
+    log["success_rate"] = f"{(log['successful_matches'] / log['non_empty_cells'] * 100):.2f}%" if log["non_empty_cells"] > 0 else "0%"
+
+    return result, log
+
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: ./bin/map_card_names_to_ids <input.csv> [output.json] [database.json]")
+        print("\nMaps card names from a CSV file to GEMP-SWCCG card IDs.")
+        print("\nArguments:")
+        print("  input.csv     - CSV file with card names")
+        print("  output.json   - (Optional) Output file path")
+        print("  database.json - (Optional) Custom card database path")
+        print("\nIf no database is specified, the script will look for card_blueprint_database.json in:")
+        print("  - src/gemp-swccg-cards/src/main/resources/")
+        print("\nOutputs:")
+        print("  - <output>.json - Array of card IDs (or array of arrays for multi-column)")
+        print("  - <output>_log.json - Processing log with statistics and missing cards")
+        sys.exit(1)
+
+    csv_path = Path(sys.argv[1])
+
+    if not csv_path.exists():
+        print(f"Error: CSV file not found: {csv_path}")
+        sys.exit(1)
+
+    # Determine output path
+    if len(sys.argv) >= 3 and not sys.argv[2].endswith('.json'):
+        output_path = Path(sys.argv[2])
+    elif len(sys.argv) >= 3 and Path(sys.argv[2]).exists():
+        # sys.argv[2] is a path to an existing file, assume it's database if it exists
+        output_path = csv_path.parent / f"{csv_path.stem}_mapped.json"
+    else:
+        if len(sys.argv) >= 3:
+            output_path = Path(sys.argv[2])
+        else:
+            output_path = csv_path.parent / f"{csv_path.stem}_mapped.json"
+
+    # Determine log path
+    log_path = output_path.parent / f"{output_path.stem}_log.json"
+
+    # Determine database path
+    if len(sys.argv) >= 4:
+        # Third parameter is database path
+        database_path = Path(sys.argv[3])
+    elif len(sys.argv) >= 3 and sys.argv[2].endswith('.json') and 'card_blueprint_database' in sys.argv[2]:
+        # Second parameter looks like a database path
+        database_path = Path(sys.argv[2])
+        output_path = csv_path.parent / f"{csv_path.stem}_mapped.json"
+    else:
+        # Use default database path
+        script_dir = Path(__file__).parent
+        project_root = script_dir.parent
+        database_path = project_root / "src" / "gemp-swccg-cards" / "src" / "main" / "resources" / "card_blueprint_database.json"
+
+    if not database_path.exists():
+        print(f"Error: Card database not found at: {database_path}")
+        print("\nPlease run: ./bin/gemp export-cards src/gemp-swccg-cards/src/main/resources/card_blueprint_database.json")
+        print("Or specify a custom database path as the third argument.")
+        sys.exit(1)
+
+    print(f"Loading card database from: {database_path}")
+    slug_to_id, slug_with_set_to_id, cards = load_card_database(database_path)
+    print(f"Loaded {len(cards)} cards from database")
+
+    print(f"\nProcessing CSV file: {csv_path}")
+    result, log = process_csv(csv_path, slug_to_id, slug_with_set_to_id)
+
+    # Write card IDs output
+    with open(output_path, 'w', encoding='utf-8') as f:
+        json.dump(result, f, indent=2, ensure_ascii=False)
+
+    # Write log output
+    with open(log_path, 'w', encoding='utf-8') as f:
+        json.dump(log, f, indent=2, ensure_ascii=False)
+
+    # Print summary
+    print(f"\n{'='*60}")
+    print("MAPPING SUMMARY")
+    print(f"{'='*60}")
+    print(f"Input file:        {log['input_file']}")
+    print(f"Output file:       {output_path}")
+    print(f"Log file:          {log_path}")
+    print(f"Total rows:        {log['total_rows']}")
+    print(f"Total cells:       {log['total_cells']}")
+    print(f"Non-empty cells:   {log['non_empty_cells']}")
+    print(f"Columns:           {log['num_columns']}")
+    print(f"Successful:        {log['successful_matches']}")
+    print(f"Missing:           {log['missing_count']}")
+    print(f"Multiple matches:  {log['multiple_matches']}")
+    print(f"Success rate:      {log['success_rate']}")
+
+    if log['missing_cards']:
+        print(f"\n{'='*60}")
+        print("MISSING CARDS")
+        print(f"{'='*60}")
+        for missing in log['missing_cards'][:10]:  # Show first 10
+            print(f"Row {missing['row']}, Col {missing['column']}: '{missing['card_name']}' (slug: '{missing['slug']}', reason: {missing['reason']})")
+
+        if len(log['missing_cards']) > 10:
+            print(f"... and {len(log['missing_cards']) - 10} more (see log file for full list)")
+
+    if log['warnings']:
+        print(f"\n{'='*60}")
+        print("WARNINGS")
+        print(f"{'='*60}")
+        for warning in log['warnings'][:5]:  # Show first 5
+            print(f"Row {warning['row']}, Col {warning.get('column', 'N/A')}: {warning['message']}")
+
+        if len(log['warnings']) > 5:
+            print(f"... and {len(log['warnings']) - 5} more (see log file for full list)")
+
+    print(f"\n{'='*60}")
+    print(f"Card IDs:  {output_path}")
+    print(f"Log data:  {log_path}")
+    print(f"{'='*60}\n")
+
+
+if __name__ == "__main__":
+    main()

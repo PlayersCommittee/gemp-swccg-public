@@ -1,0 +1,620 @@
+{
+  "input_file": "src/gemp-swccg-server/src/main/resources/draft/cube_building/worlds_2025/default_cards.csv",
+  "timestamp": "2025-12-17T16:24:41.016208",
+  "total_rows": 180,
+  "total_cells": 180,
+  "non_empty_cells": 180,
+  "successful_matches": 171,
+  "multiple_matches": 60,
+  "missing_cards": [
+    {
+      "row": 13,
+      "column": 1,
+      "card_name": "Coruscant (SE)",
+      "slug": "coruscant-se",
+      "reason": "not_found"
+    },
+    {
+      "row": 14,
+      "column": 1,
+      "card_name": "Coruscant (EP1)",
+      "slug": "coruscant-ep1",
+      "reason": "not_found"
+    },
+    {
+      "row": 15,
+      "column": 1,
+      "card_name": "Coruscant: Docking Bay (SE)",
+      "slug": "coruscant-docking-bay-se",
+      "reason": "not_found"
+    },
+    {
+      "row": 75,
+      "column": 1,
+      "card_name": "Tatooine (ep1)",
+      "slug": "tatooine-ep1",
+      "reason": "not_found"
+    },
+    {
+      "row": 98,
+      "column": 1,
+      "card_name": "Coruscant (SE)",
+      "slug": "coruscant-se",
+      "reason": "not_found"
+    },
+    {
+      "row": 120,
+      "column": 1,
+      "card_name": "Hoth: Main Power Generators (V)",
+      "slug": "hoth-main-power-generators-v",
+      "reason": "not_found"
+    },
+    {
+      "row": 121,
+      "column": 1,
+      "card_name": "Hoth: North Ridge",
+      "slug": "hoth-north-ridge",
+      "reason": "not_found"
+    },
+    {
+      "row": 122,
+      "column": 1,
+      "card_name": "Hoth: Snow Trench (V)",
+      "slug": "hoth-snow-trench-v",
+      "reason": "not_found"
+    },
+    {
+      "row": 164,
+      "column": 1,
+      "card_name": "Tatooine (EP1)",
+      "slug": "tatooine-ep1",
+      "reason": "not_found"
+    }
+  ],
+  "warnings": [
+    {
+      "row": 1,
+      "card_name": "Bespin",
+      "message": "Multiple cards found, using first match: 5_164",
+      "alternatives": [
+        "5_164",
+        "5_76"
+      ]
+    },
+    {
+      "row": 3,
+      "card_name": "Blockade Flagship: Docking Bay",
+      "message": "Multiple cards found, using first match: 14_111",
+      "alternatives": [
+        "14_111",
+        "14_48"
+      ]
+    },
+    {
+      "row": 7,
+      "card_name": "Cloud City: Downtown Plaza",
+      "message": "Multiple cards found, using first match: 7_113",
+      "alternatives": [
+        "7_113",
+        "7_270"
+      ]
+    },
+    {
+      "row": 8,
+      "card_name": "Cloud City: Incinerator",
+      "message": "Multiple cards found, using first match: 5_170",
+      "alternatives": [
+        "5_170",
+        "5_81"
+      ]
+    },
+    {
+      "row": 11,
+      "card_name": "Cloud City: West Gallery",
+      "message": "Multiple cards found, using first match: 7_115",
+      "alternatives": [
+        "7_115",
+        "7_274"
+      ]
+    },
+    {
+      "row": 12,
+      "card_name": "Corulag",
+      "message": "Multiple cards found, using first match: 106_12",
+      "alternatives": [
+        "106_12",
+        "106_2"
+      ]
+    },
+    {
+      "row": 21,
+      "card_name": "Death Star",
+      "message": "Multiple cards found, using first match: 2_143",
+      "alternatives": [
+        "2_143",
+        "7_117"
+      ]
+    },
+    {
+      "row": 24,
+      "card_name": "Endor",
+      "message": "Multiple cards found, using first match: 8_157",
+      "alternatives": [
+        "8_157",
+        "8_68"
+      ]
+    },
+    {
+      "row": 25,
+      "card_name": "Endor: Back Door",
+      "message": "Multiple cards found, using first match: 8_159",
+      "alternatives": [
+        "8_159",
+        "8_69"
+      ]
+    },
+    {
+      "row": 26,
+      "card_name": "Endor: Bunker",
+      "message": "Multiple cards found, using first match: 8_160",
+      "alternatives": [
+        "8_160",
+        "8_70"
+      ]
+    },
+    {
+      "row": 36,
+      "card_name": "Hoth",
+      "message": "Multiple cards found, using first match: 3_143",
+      "alternatives": [
+        "3_143",
+        "3_55"
+      ]
+    },
+    {
+      "row": 37,
+      "card_name": "Hoth: Defensive Perimeter (3rd Marker)",
+      "message": "Multiple cards found, using first match: 3_144",
+      "alternatives": [
+        "3_144",
+        "3_56"
+      ]
+    },
+    {
+      "row": 43,
+      "card_name": "Jabba's Palace: Audience Chamber",
+      "message": "Multiple cards found, using first match: 6_162",
+      "alternatives": [
+        "6_162",
+        "6_81"
+      ]
+    },
+    {
+      "row": 50,
+      "card_name": "Kashyyyk",
+      "message": "Multiple cards found, using first match: 2_146",
+      "alternatives": [
+        "2_146",
+        "2_64"
+      ]
+    },
+    {
+      "row": 51,
+      "card_name": "Kessel",
+      "message": "Multiple cards found, using first match: 1_126",
+      "alternatives": [
+        "1_126",
+        "1_288"
+      ]
+    },
+    {
+      "row": 52,
+      "card_name": "Kiffex",
+      "message": "Multiple cards found, using first match: 2_147",
+      "alternatives": [
+        "2_147",
+        "6_83"
+      ]
+    },
+    {
+      "row": 53,
+      "card_name": "Lothal",
+      "message": "Multiple cards found, using first match: 219_10",
+      "alternatives": [
+        "219_10",
+        "219_38"
+      ]
+    },
+    {
+      "row": 55,
+      "card_name": "Lothal: Capital City",
+      "message": "Multiple cards found, using first match: 219_12",
+      "alternatives": [
+        "219_12",
+        "219_39"
+      ]
+    },
+    {
+      "row": 60,
+      "card_name": "Mon Calamari",
+      "message": "Multiple cards found, using first match: 9_149",
+      "alternatives": [
+        "9_149",
+        "9_59"
+      ]
+    },
+    {
+      "row": 65,
+      "card_name": "Naboo: Theed Palace Generator",
+      "message": "Multiple cards found, using first match: 13_31",
+      "alternatives": [
+        "13_31",
+        "13_76"
+      ]
+    },
+    {
+      "row": 66,
+      "card_name": "Naboo: Theed Palace Generator Core",
+      "message": "Multiple cards found, using first match: 13_32",
+      "alternatives": [
+        "13_32",
+        "13_77"
+      ]
+    },
+    {
+      "row": 72,
+      "card_name": "<>Spaceport Docking Bay",
+      "message": "Multiple cards found, using first match: 7_126",
+      "alternatives": [
+        "7_126",
+        "7_289"
+      ]
+    },
+    {
+      "row": 73,
+      "card_name": "Sullust",
+      "message": "Multiple cards found, using first match: 9_150",
+      "alternatives": [
+        "9_150",
+        "9_60"
+      ]
+    },
+    {
+      "row": 79,
+      "card_name": "Tatooine: Docking Bay 94",
+      "message": "Multiple cards found, using first match: 1_129",
+      "alternatives": [
+        "1_129",
+        "1_291"
+      ]
+    },
+    {
+      "row": 82,
+      "card_name": "Tatooine: Jabba's Palace",
+      "message": "Multiple cards found, using first match: 6_171",
+      "alternatives": [
+        "6_171",
+        "7_131"
+      ]
+    },
+    {
+      "row": 84,
+      "card_name": "Tatooine: Jundland Wastes",
+      "message": "Multiple cards found, using first match: 106_8",
+      "alternatives": [
+        "106_8",
+        "1_293"
+      ]
+    },
+    {
+      "row": 85,
+      "card_name": "Tatooine: Lars' Moisture Farm",
+      "message": "Multiple cards found, using first match: 1_132",
+      "alternatives": [
+        "1_132",
+        "1_294"
+      ]
+    },
+    {
+      "row": 86,
+      "card_name": "Tatooine: Mos Eisley (V)",
+      "message": "Multiple cards found, using first match: 218_30",
+      "alternatives": [
+        "218_30",
+        "221_37"
+      ]
+    },
+    {
+      "row": 87,
+      "card_name": "Tatooine: Mos Espa",
+      "message": "Multiple cards found, using first match: 11_43",
+      "alternatives": [
+        "11_43",
+        "11_93"
+      ]
+    },
+    {
+      "row": 88,
+      "card_name": "Tatooine: Mos Espa Docking Bay",
+      "message": "Multiple cards found, using first match: 12_177",
+      "alternatives": [
+        "12_177",
+        "12_86"
+      ]
+    },
+    {
+      "row": 91,
+      "card_name": "Yavin 4",
+      "message": "Multiple cards found, using first match: 1_135",
+      "alternatives": [
+        "1_135",
+        "1_296"
+      ]
+    },
+    {
+      "row": 97,
+      "card_name": "Corulag",
+      "message": "Multiple cards found, using first match: 106_12",
+      "alternatives": [
+        "106_12",
+        "106_2"
+      ]
+    },
+    {
+      "row": 105,
+      "card_name": "Dantooine",
+      "message": "Multiple cards found, using first match: 1_122",
+      "alternatives": [
+        "1_122",
+        "1_282"
+      ]
+    },
+    {
+      "row": 109,
+      "card_name": "Endor",
+      "message": "Multiple cards found, using first match: 8_157",
+      "alternatives": [
+        "8_157",
+        "8_68"
+      ]
+    },
+    {
+      "row": 112,
+      "card_name": "Endor: Back Door",
+      "message": "Multiple cards found, using first match: 8_159",
+      "alternatives": [
+        "8_159",
+        "8_69"
+      ]
+    },
+    {
+      "row": 116,
+      "card_name": "Hoth",
+      "message": "Multiple cards found, using first match: 3_143",
+      "alternatives": [
+        "3_143",
+        "3_55"
+      ]
+    },
+    {
+      "row": 117,
+      "card_name": "Hoth: Echo Command Center (War Room)",
+      "message": "Multiple cards found, using first match: 3_145",
+      "alternatives": [
+        "3_145",
+        "3_57"
+      ]
+    },
+    {
+      "row": 118,
+      "card_name": "Hoth: Echo Docking Bay",
+      "message": "Multiple cards found, using first match: 3_147",
+      "alternatives": [
+        "3_147",
+        "3_59"
+      ]
+    },
+    {
+      "row": 124,
+      "card_name": "Jabba's Palace: Audience Chamber",
+      "message": "Multiple cards found, using first match: 6_162",
+      "alternatives": [
+        "6_162",
+        "6_81"
+      ]
+    },
+    {
+      "row": 125,
+      "card_name": "Jakku",
+      "message": "Multiple cards found, using first match: 204_26",
+      "alternatives": [
+        "204_26",
+        "204_51"
+      ]
+    },
+    {
+      "row": 130,
+      "card_name": "Jakku: Tuanul Village",
+      "message": "Multiple cards found, using first match: 204_31",
+      "alternatives": [
+        "204_31",
+        "204_53"
+      ]
+    },
+    {
+      "row": 134,
+      "card_name": "Kashyyyk",
+      "message": "Multiple cards found, using first match: 2_146",
+      "alternatives": [
+        "2_146",
+        "2_64"
+      ]
+    },
+    {
+      "row": 138,
+      "card_name": "Kessel",
+      "message": "Multiple cards found, using first match: 1_126",
+      "alternatives": [
+        "1_126",
+        "1_288"
+      ]
+    },
+    {
+      "row": 139,
+      "card_name": "Kiffex",
+      "message": "Multiple cards found, using first match: 2_147",
+      "alternatives": [
+        "2_147",
+        "6_83"
+      ]
+    },
+    {
+      "row": 140,
+      "card_name": "Lothal",
+      "message": "Multiple cards found, using first match: 219_10",
+      "alternatives": [
+        "219_10",
+        "219_38"
+      ]
+    },
+    {
+      "row": 141,
+      "card_name": "Lothal: Capital City",
+      "message": "Multiple cards found, using first match: 219_12",
+      "alternatives": [
+        "219_12",
+        "219_39"
+      ]
+    },
+    {
+      "row": 147,
+      "card_name": "Mon Calamari",
+      "message": "Multiple cards found, using first match: 9_149",
+      "alternatives": [
+        "9_149",
+        "9_59"
+      ]
+    },
+    {
+      "row": 148,
+      "card_name": "Naboo",
+      "message": "Multiple cards found, using first match: 12_169",
+      "alternatives": [
+        "12_169",
+        "12_78"
+      ]
+    },
+    {
+      "row": 149,
+      "card_name": "Naboo: Battle Plains",
+      "message": "Multiple cards found, using first match: 12_170",
+      "alternatives": [
+        "12_170",
+        "12_79"
+      ]
+    },
+    {
+      "row": 151,
+      "card_name": "Naboo: Theed Palace Generator",
+      "message": "Multiple cards found, using first match: 13_31",
+      "alternatives": [
+        "13_31",
+        "13_76"
+      ]
+    },
+    {
+      "row": 152,
+      "card_name": "Naboo: Theed Palace Generator Core",
+      "message": "Multiple cards found, using first match: 13_32",
+      "alternatives": [
+        "13_32",
+        "13_77"
+      ]
+    },
+    {
+      "row": 157,
+      "card_name": "Scarif",
+      "message": "Multiple cards found, using first match: 209_23",
+      "alternatives": [
+        "209_23",
+        "216_13"
+      ]
+    },
+    {
+      "row": 158,
+      "card_name": "Scarif: Beach",
+      "message": "Multiple cards found, using first match: 209_24",
+      "alternatives": [
+        "209_24",
+        "216_14"
+      ]
+    },
+    {
+      "row": 161,
+      "card_name": "<>Spaceport Docking Bay",
+      "message": "Multiple cards found, using first match: 7_126",
+      "alternatives": [
+        "7_126",
+        "7_289"
+      ]
+    },
+    {
+      "row": 165,
+      "card_name": "Tatooine: Cantina",
+      "message": "Multiple cards found, using first match: 1_128",
+      "alternatives": [
+        "1_128",
+        "1_290"
+      ]
+    },
+    {
+      "row": 167,
+      "card_name": "Tatooine: Docking Bay 94",
+      "message": "Multiple cards found, using first match: 1_129",
+      "alternatives": [
+        "1_129",
+        "1_291"
+      ]
+    },
+    {
+      "row": 168,
+      "card_name": "Tatooine: Jabba's Palace",
+      "message": "Multiple cards found, using first match: 6_171",
+      "alternatives": [
+        "6_171",
+        "7_131"
+      ]
+    },
+    {
+      "row": 170,
+      "card_name": "Tatooine: Mos Eisley",
+      "message": "Multiple cards found, using first match: 1_133",
+      "alternatives": [
+        "1_133",
+        "1_295"
+      ]
+    },
+    {
+      "row": 171,
+      "card_name": "Tatooine: Mos Espa",
+      "message": "Multiple cards found, using first match: 11_43",
+      "alternatives": [
+        "11_43",
+        "11_93"
+      ]
+    },
+    {
+      "row": 176,
+      "card_name": "Tatooine: Watto's Junkyard",
+      "message": "Multiple cards found, using first match: 12_178",
+      "alternatives": [
+        "12_178",
+        "12_87"
+      ]
+    }
+  ],
+  "num_columns": 7,
+  "non_empty_columns_detected": 1,
+  "missing_count": 9,
+  "success_rate": "95.00%"
+}

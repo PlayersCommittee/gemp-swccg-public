@@ -63,7 +63,7 @@ public class DefaultSoloDraft implements SoloDraft {
         // For obj-based drafts, some stages award many cards per pick.  Therefore we have to offset the stage
         // by that many cards (differs per objective) so that the pack sizes can still oscillate properly.
         int offset = howManyObjPicked;
-        if (offset % _objChoiceCountPerSide == 0) {
+        if (_objChoiceCountPerSide > 0 && offset % _objChoiceCountPerSide == 0) {
             return stage - offset;
         }
         return stage;

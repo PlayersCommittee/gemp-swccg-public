@@ -1,0 +1,177 @@
+{
+  "input_file": "src/gemp-swccg-server/src/main/resources/draft/cube_building/worlds_2025/cube_worlds_darkside.csv",
+  "timestamp": "2025-12-17T16:37:59.270620",
+  "total_rows": 300,
+  "total_cells": 1800,
+  "non_empty_cells": 329,
+  "successful_matches": 319,
+  "multiple_matches": 9,
+  "missing_cards": [
+    {
+      "row": 5,
+      "column": 2,
+      "card_name": "Rise of the Sith & Lord Sidious",
+      "slug": "rise-of-the-sith-lord-sidious",
+      "reason": "not_found"
+    },
+    {
+      "row": 27,
+      "column": 1,
+      "card_name": "Captain Khurgee (V)",
+      "slug": "captain-khurgee-v",
+      "reason": "not_found"
+    },
+    {
+      "row": 126,
+      "column": 1,
+      "card_name": "Boba Fett In Slave 1 (V)",
+      "slug": "boba-fett-in-slave-1-v",
+      "reason": "not_found"
+    },
+    {
+      "row": 151,
+      "column": 1,
+      "card_name": "Slave 1, Symbol Of Fear",
+      "slug": "slave-1-symbol-of-fear",
+      "reason": "not_found"
+    },
+    {
+      "row": 152,
+      "column": 1,
+      "card_name": "Slave 1, Symbol Of Fear",
+      "slug": "slave-1-symbol-of-fear",
+      "reason": "not_found"
+    },
+    {
+      "row": 173,
+      "column": 2,
+      "card_name": "Fanfare (shield)",
+      "slug": "fanfare-shield",
+      "reason": "not_found"
+    },
+    {
+      "row": 211,
+      "column": 2,
+      "card_name": "U-3PO",
+      "slug": "u-3po",
+      "reason": "not_found"
+    },
+    {
+      "row": 248,
+      "column": 1,
+      "card_name": "Force Push & Podrace Collision",
+      "slug": "force-push-podrace-collision",
+      "reason": "not_found"
+    },
+    {
+      "row": 251,
+      "column": 1,
+      "card_name": "Hunting Party (V)",
+      "slug": "hunting-party-v",
+      "reason": "not_found"
+    },
+    {
+      "row": 277,
+      "column": 1,
+      "card_name": "Sense (ep1)",
+      "slug": "sense-ep1",
+      "reason": "not_found"
+    }
+  ],
+  "warnings": [
+    {
+      "row": 1,
+      "column": 2,
+      "card_name": "Sarlacc",
+      "message": "Multiple cards found, using first match: 107_5",
+      "alternatives": [
+        "107_5",
+        "7_214"
+      ]
+    },
+    {
+      "row": 33,
+      "column": 1,
+      "card_name": "Darth Maul",
+      "message": "Multiple cards found, using first match: 11_54",
+      "alternatives": [
+        "11_54",
+        "11_55"
+      ]
+    },
+    {
+      "row": 37,
+      "column": 1,
+      "card_name": "Darth Sidious",
+      "message": "Multiple cards found, using first match: 14_78",
+      "alternatives": [
+        "14_78",
+        "14_79"
+      ]
+    },
+    {
+      "row": 61,
+      "column": 1,
+      "card_name": "Grand Admiral Thrawn (V)",
+      "message": "Multiple cards found, using first match: 207_21",
+      "alternatives": [
+        "207_21",
+        "207_30"
+      ]
+    },
+    {
+      "row": 149,
+      "column": 1,
+      "card_name": "Maul's Sith Infiltrator",
+      "message": "Multiple cards found, using first match: 12_182",
+      "alternatives": [
+        "12_182",
+        "12_183"
+      ]
+    },
+    {
+      "row": 218,
+      "column": 1,
+      "card_name": "The Phantom Menace",
+      "message": "Multiple cards found, using first match: 12_139",
+      "alternatives": [
+        "12_139",
+        "12_140"
+      ]
+    },
+    {
+      "row": 219,
+      "column": 1,
+      "card_name": "The Phantom Menace",
+      "message": "Multiple cards found, using first match: 12_139",
+      "alternatives": [
+        "12_139",
+        "12_140"
+      ]
+    },
+    {
+      "row": 227,
+      "column": 1,
+      "card_name": "Alter (V)",
+      "message": "Multiple cards found, using first match: 200_115",
+      "alternatives": [
+        "200_115",
+        "200_144"
+      ]
+    },
+    {
+      "row": 236,
+      "column": 1,
+      "card_name": "Control",
+      "message": "Multiple cards found, using first match: 12_146",
+      "alternatives": [
+        "12_146",
+        "4_139"
+      ]
+    }
+  ],
+  "num_columns": 6,
+  "non_empty_columns_detected": 2,
+  "missing_count": 10,
+  "success_rate": "96.96%"
+}

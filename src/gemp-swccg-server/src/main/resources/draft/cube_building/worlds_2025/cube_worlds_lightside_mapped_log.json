@@ -1,0 +1,192 @@
+{
+  "input_file": "src/gemp-swccg-server/src/main/resources/draft/cube_building/worlds_2025/cube_worlds_lightside.csv",
+  "timestamp": "2025-12-17T16:37:59.190125",
+  "total_rows": 300,
+  "total_cells": 1800,
+  "non_empty_cells": 328,
+  "successful_matches": 313,
+  "multiple_matches": 7,
+  "missing_cards": [
+    {
+      "row": 11,
+      "column": 1,
+      "card_name": "Ahsoka Tano, Friend of the Family",
+      "slug": "ahsoka-tano-friend-of-the-family",
+      "reason": "not_found"
+    },
+    {
+      "row": 19,
+      "column": 1,
+      "card_name": "BB-8",
+      "slug": "bb-8",
+      "reason": "not_found"
+    },
+    {
+      "row": 24,
+      "column": 1,
+      "card_name": "C-3P0 (V)",
+      "slug": "c-3p0-v",
+      "reason": "not_found"
+    },
+    {
+      "row": 59,
+      "column": 1,
+      "card_name": "K-2SO",
+      "slug": "k-2so",
+      "reason": "not_found"
+    },
+    {
+      "row": 63,
+      "column": 1,
+      "card_name": "Lando With Blaster Rifle (V)",
+      "slug": "lando-with-blaster-rifle-v",
+      "reason": "not_found"
+    },
+    {
+      "row": 75,
+      "column": 2,
+      "card_name": "Communing + I Am Part Of The Living Force",
+      "slug": "communing-i-am-part-of-the-living-force",
+      "reason": "not_found"
+    },
+    {
+      "row": 119,
+      "column": 2,
+      "card_name": "Concussion Missles",
+      "slug": "concussion-missles",
+      "reason": "not_found"
+    },
+    {
+      "row": 165,
+      "column": 1,
+      "card_name": "Simple Tricks And Nonsense",
+      "slug": "simple-tricks-and-nonsense",
+      "reason": "not_found"
+    },
+    {
+      "row": 166,
+      "column": 1,
+      "card_name": "Simple Tricks And Nonsense",
+      "slug": "simple-tricks-and-nonsense",
+      "reason": "not_found"
+    },
+    {
+      "row": 183,
+      "column": 1,
+      "card_name": "Descent Into The Dark",
+      "slug": "descent-into-the-dark",
+      "reason": "not_found"
+    },
+    {
+      "row": 196,
+      "column": 1,
+      "card_name": "Jedi Business (V)",
+      "slug": "jedi-business-v",
+      "reason": "not_found"
+    },
+    {
+      "row": 209,
+      "column": 2,
+      "card_name": "Rock + Rock",
+      "slug": "rock-rock",
+      "reason": "not_found"
+    },
+    {
+      "row": 282,
+      "column": 1,
+      "card_name": "Sabotage (V)",
+      "slug": "sabotage-v",
+      "reason": "not_found"
+    },
+    {
+      "row": 283,
+      "column": 1,
+      "card_name": "Sense (ep1)",
+      "slug": "sense-ep1",
+      "reason": "not_found"
+    },
+    {
+      "row": 293,
+      "column": 1,
+      "card_name": "Through The Force Things You Will See",
+      "slug": "through-the-force-things-you-will-see",
+      "reason": "not_found"
+    }
+  ],
+  "warnings": [
+    {
+      "row": 1,
+      "column": 2,
+      "card_name": "The Falcon, Junkyard Garbage",
+      "message": "Multiple cards found, using first match: 204_35",
+      "alternatives": [
+        "204_35",
+        "204_35_BACK"
+      ]
+    },
+    {
+      "row": 16,
+      "column": 1,
+      "card_name": "Artoo, Brave Little Droid",
+      "message": "Multiple cards found, using first match: 14_3",
+      "alternatives": [
+        "14_3",
+        "14_4"
+      ]
+    },
+    {
+      "row": 73,
+      "column": 1,
+      "card_name": "Mace Windu (V)",
+      "message": "Multiple cards found, using first match: 201_2",
+      "alternatives": [
+        "201_2",
+        "201_42"
+      ]
+    },
+    {
+      "row": 84,
+      "column": 1,
+      "card_name": "Padme Naberrie (V)",
+      "message": "Multiple cards found, using first match: 203_10",
+      "alternatives": [
+        "203_10",
+        "203_36"
+      ]
+    },
+    {
+      "row": 99,
+      "column": 1,
+      "card_name": "Threepio With His Parts Showing",
+      "message": "Multiple cards found, using first match: 11_13",
+      "alternatives": [
+        "11_13",
+        "11_14"
+      ]
+    },
+    {
+      "row": 228,
+      "column": 1,
+      "card_name": "Alter (V)",
+      "message": "Multiple cards found, using first match: 200_143",
+      "alternatives": [
+        "200_143",
+        "200_48"
+      ]
+    },
+    {
+      "row": 237,
+      "column": 1,
+      "card_name": "Control",
+      "message": "Multiple cards found, using first match: 12_57",
+      "alternatives": [
+        "12_57",
+        "4_48"
+      ]
+    }
+  ],
+  "num_columns": 6,
+  "non_empty_columns_detected": 2,
+  "missing_count": 15,
+  "success_rate": "95.43%"
+}

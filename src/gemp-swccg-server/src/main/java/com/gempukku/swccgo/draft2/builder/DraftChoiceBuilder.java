@@ -265,10 +265,30 @@ public class DraftChoiceBuilder {
         for (String availableCard : (Iterable<String>) availableCards)
             cards.add(availableCard);
 
+        // Parse addOnCards as map of cardId -> list of add-on card IDs
+        final Map<String, List<String>> addOnCards = new HashMap<>();
+        JSONObject addOnsJson = (JSONObject) data.get("addOnCards");
+        if (addOnsJson != null) {
+            for (Object key : addOnsJson.keySet()) {
+                String cardId = (String) key;
+                JSONArray addOns = (JSONArray) addOnsJson.get(cardId);
+                List<String> addOnList = new ArrayList<>();
+                for (Object addOnId : addOns) {
+                    addOnList.add((String) addOnId);
+                }
+                addOnCards.put(cardId, addOnList);
+            }
+        }
+
         return new DraftChoiceDefinition() {
             @Override
             public int cardCountForChoiceId(String choiceId) {
-                return 1;
+                // Return 1 for the main card + number of add-ons if present
+                int result = 1;
+                if (addOnCards.containsKey(choiceId)) {
+                    result += addOnCards.get(choiceId).size();
+                }
+                return result;
             }
 
             @Override
@@ -303,7 +323,17 @@ public class DraftChoiceBuilder {
                                 }
 
                                 @Override
-                                public String getObjPackDescription() { return null; }
+                                public String getObjPackDescription() {
+                                    // Build comma-separated list of main card + add-ons
+                                    if (addOnCards.containsKey(getChoiceId())) {
+                                        StringBuilder result = new StringBuilder(getChoiceId());
+                                        for (String addOn : addOnCards.get(getChoiceId())) {
+                                            result.append(",").append(addOn);
+                                        }
+                                        return result.toString();
+                                    }
+                                    return null;
+                                }
                             });
                 }
                 return draftableCards;
@@ -312,7 +342,17 @@ public class DraftChoiceBuilder {
             @Override
             public CardCollection getCardsForChoiceId(String choiceId, long seed, int stage, CardCollection currentCards) {
                 DefaultCardCollection result = new DefaultCardCollection();
+
+                // Add the main card
                 result.addItem(choiceId, 1);
+
+                // Add any add-on cards if present
+                if (addOnCards.containsKey(choiceId)) {
+                    for (String addOn : addOnCards.get(choiceId)) {
+                        result.addItem(addOn, 1);
+                    }
+                }
+
                 return result;
             }
 
