@@ -19316,6 +19316,7 @@ public class Filters {
     public static final Filter We_Need_Your_Help = Filters.title(Title.We_Need_Your_Help);
     public static final Filter wealth_agenda = Filters.agenda(Agenda.WEALTH);
     public static final Filter weapon = Filters.type(CardType.WEAPON);
+    public static final Filter Weapon_Levitation = Filters.title(Title.Weapon_Levitation);
     public static final Filter weapon_or_character_with_permanent_weapon = Filters.or(CardType.WEAPON, Filters.hasPermanentWeapon());
     public static final Filter Weather_Vane = Filters.title(Title.Weather_Vane);
     public static final Filter Wedge = Filters.persona(Persona.WEDGE);

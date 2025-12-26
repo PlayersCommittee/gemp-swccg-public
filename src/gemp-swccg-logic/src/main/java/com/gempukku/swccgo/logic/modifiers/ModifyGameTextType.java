@@ -91,6 +91,7 @@ public enum ModifyGameTextType {
     WALKER_GARRISON__ADDITIONAL_SITE_TO_GAIN_FORCE_DRAIN_BONUS("Additional site required for Force drain bonus"),
     WAT_TAMBOR__IGNORED_BY_WHERE_ARE_THOSE_DROIDEKAS("Ignores Wat Tambor"),
     WATTOS_BOX__MAY_DEPLOY_REGARDLESS_OF_RACE_TOTAL("May deploy regardless of race total"),
+    WEAPON_LEVITATION_MAY_NOT_STEAL_WEAPONS("May not steal weapons"),
     WELL_HANDLE_THIS__ONLY_TARGET_UNDERCOVER_SPIES_AND_5D6RA7("May target only Undercover spies and 5D6-RA-7"),
     VADER__DOES_NOT_ADD_1_TO_BATTLE_DESTINY("Does not add 1 to battle destiny"),
     YAVIN_SENTRY__APPLIES_ALL_MODIFIERS("Applies all modifiers"),

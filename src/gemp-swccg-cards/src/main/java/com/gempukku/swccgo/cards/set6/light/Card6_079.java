@@ -23,6 +23,7 @@ import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.StealCardAndAttachFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromUsedPileEffect;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -40,7 +41,7 @@ import java.util.List;
  */
 public class Card6_079 extends AbstractUsedOrLostInterrupt {
     public Card6_079() {
-        super(Side.LIGHT, 4, "Weapon Levitation", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
+        super(Side.LIGHT, 4, Title.Weapon_Levitation, Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.U);
         setLore("A Jedi is taught to use the anger of his opponents (and their weapons) against them.");
         setGameText("USED: Search your Used Pile, take one weapon into hand and reshuffle. LOST: Cancel You Are Beaten. OR If a battle was just initiated, one of your characters of ability > 3 present may steal one character weapon present.");
         addIcons(Icon.JABBAS_PALACE);
@@ -106,7 +107,8 @@ public class Card6_079 extends AbstractUsedOrLostInterrupt {
         if (TriggerConditions.battleInitiated(game, effectResult)) {
             final Filter characterFilter = Filters.and(Filters.your(self), Filters.character, Filters.abilityMoreThan(3), Filters.presentInBattle);
             final Filter weaponFilter = Filters.and(Filters.opponents(self), Filters.character_weapon, Filters.presentAt(Filters.battleLocation), Filters.canBeStolenBy(self, characterFilter));
-            if (GameConditions.canTarget(game, self, targetingReason, weaponFilter)) {
+            if (GameConditions.canTarget(game, self, targetingReason, weaponFilter)
+                    && !GameConditions.hasGameTextModification(game, self, ModifyGameTextType.WEAPON_LEVITATION_MAY_NOT_STEAL_WEAPONS)) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
                 action.setText("'Steal' character weapon");

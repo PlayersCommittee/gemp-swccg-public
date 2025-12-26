@@ -9,6 +9,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -21,6 +22,7 @@ import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.StealCardAndAttachFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromUsedPileEffect;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -36,7 +38,7 @@ import java.util.List;
  */
 public class Card5_160 extends AbstractUsedOrLostInterrupt {
     public Card5_160() {
-        super(Side.DARK, 4, "Weapon Levitation", Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.U);
+        super(Side.DARK, 4, Title.Weapon_Levitation, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.U);
         setLore("Vader confiscated Han's blaster, his ship, his Wookiee, his girl and his only hope of escape.");
         setGameText("USED: Search your Used Pile, take one weapon into hand and reshuffle. LOST: If a battle was just initiated, one of your characters of ability > 3 present may 'steal' one character weapon present.");
         addIcons(Icon.CLOUD_CITY);
@@ -75,7 +77,8 @@ public class Card5_160 extends AbstractUsedOrLostInterrupt {
         if (TriggerConditions.battleInitiated(game, effectResult)) {
             final Filter characterFilter = Filters.and(Filters.your(self), Filters.character, Filters.abilityMoreThan(3), Filters.presentInBattle);
             final Filter weaponFilter = Filters.and(Filters.opponents(self), Filters.character_weapon, Filters.presentAt(Filters.battleLocation), Filters.canBeStolenBy(self, characterFilter));
-            if (GameConditions.canTarget(game, self, targetingReason, weaponFilter)) {
+            if (GameConditions.canTarget(game, self, targetingReason, weaponFilter)
+                    && !GameConditions.hasGameTextModification(game, self, ModifyGameTextType.WEAPON_LEVITATION_MAY_NOT_STEAL_WEAPONS)) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
                 action.setText("'Steal' character weapon");

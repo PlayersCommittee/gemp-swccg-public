@@ -30,11 +30,14 @@ import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.effects.RelocateBetweenLocationsEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.ForceDrainModifiersMayNotBeCanceledModifier;
+import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.modifiers.TotalBattleDestinyModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
@@ -49,7 +52,7 @@ import com.gempukku.swccgo.logic.timing.Action;
 public class Card226_028_BACK extends AbstractObjective {
     public Card226_028_BACK() {
         super(Side.LIGHT, 7, Title.Gather_Allies_And_Train, ExpansionSet.SET_26, Rarity.V);
-        setGameText("While this side up, if your holocron is about to leave table, place it in Used Pile. Your lightsaber Force drain bonuses may not be canceled. Opponent's total battle destiny where they have a character of ability > 4 is -1. During your move phase, may relocate a Jedi between a Jabiim site and a battleground site as a regular move for free. At the end of your turn, opponent loses 1 Force. Flip this card if you do not occupy two sites with Jedi.");
+        setGameText("While this side up, Jedi survivors are deploy -1. if your holocron is about to leave table, place it in Used Pile. Opponent's total battle destiny where they have a character of ability > 4 is -1. During your move phase, may use 2 Force to relocate a Jedi between a Jabiim site and a battleground site as a regular move. At the end of your turn, if Jedi occupy two battleground sites, opponent loses 1 Force. Flip this card if Jedi do not occupy two sites.");
         addIcons(Icon.VIRTUAL_SET_26);
     }
 
@@ -65,9 +68,10 @@ public class Card226_028_BACK extends AbstractObjective {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         // For remainder of game
         modifiers.add(new MayNotDeployModifier(self, Filters.or(genericLocations, jediExceptJediSurvivors), playerId));
+        modifiers.add(new ModifyGameTextModifier(self, Filters.Weapon_Levitation, ModifyGameTextType.WEAPON_LEVITATION_MAY_NOT_STEAL_WEAPONS));
 
         // While this side up
-        modifiers.add(new ForceDrainModifiersMayNotBeCanceledModifier(self, Filters.and(Filters.your(playerId), Filters.lightsaber)));
+        modifiers.add(new DeployCostModifier(self, Filters.Jedi_Survivor, -1));
         modifiers.add(new TotalBattleDestinyModifier(self, new InBattleCondition(self, opponentsHighAbilityCharacter), -1, opponent, true));
 
         return modifiers;
@@ -100,7 +104,9 @@ public class Card226_028_BACK extends AbstractObjective {
         }
 
         // Check condition(s)
-        if (TriggerConditions.isEndOfYourTurn(game, effectResult, playerId)) {
+        if (TriggerConditions.isEndOfYourTurn(game, effectResult, playerId)
+                && GameConditions.occupiesWith(game, self, playerId, 2, Filters.battleground_site, Filters.Jedi)) {
+
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
 
             // Perform result(s)
@@ -139,16 +145,14 @@ public class Card226_028_BACK extends AbstractObjective {
             
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
 
-            Filter battlegroundExceptTatooineKaminoOrRef3 = Filters.and(Filters.battleground, Filters.not(Filters.Kamino_location), Filters.not(Filters.Tatooine_location), Filters.not(Icon.REFLECTIONS_III));
-
-            action.setText("Deploy location from Reserve Deck");
-            action.setActionMsg("Deploy a Jabiim site or a battleground (except a Kamino, Tatooine, or [Reflections III] location) from Reserve Deck");
+            action.setText("Deploy a Jabiim location");
+            action.setActionMsg("Deploy a Jabiim location from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.Jabiim_site, battlegroundExceptTatooineKaminoOrRef3), true));
+                    new DeployCardFromReserveDeckEffect(action, Filters.Jabiim_location, true));
             actions.add(action);
         }
 
@@ -163,7 +167,8 @@ public class Card226_028_BACK extends AbstractObjective {
 
         // Check condition(s)
         if (GameConditions.canSpot(game, self, jediValidToRelocate)
-                && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.MOVE)) {
+                && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.MOVE)
+                && GameConditions.canUseForce(game, playerId, 2)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Relocate a Jedi");
@@ -194,6 +199,9 @@ public class Card226_028_BACK extends AbstractObjective {
                                         protected void cardSelected(final PhysicalCard siteSelected) {
                                             action.addAnimationGroup(self);
                                             action.addAnimationGroup(jediSelected);
+                                            // Pay cost(s)
+                                            action.appendCost(
+                                                    new UseForceEffect(action, playerId, 2));
                                             // Allow response(s)
                                             action.allowResponses("Relocate " + GameUtils.getCardLink(jediSelected) + " to " + GameUtils.getCardLink(siteSelected),
                                                     new UnrespondableEffect(action) {
