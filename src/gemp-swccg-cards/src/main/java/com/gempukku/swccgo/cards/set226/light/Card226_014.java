@@ -25,6 +25,7 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployStackedCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.StackCardsFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.StackOneCardFromLostPileEffect;
@@ -47,7 +48,7 @@ import com.gempukku.swccgo.logic.timing.results.LostFromTableResult;
 public class Card226_014 extends AbstractEpicEventDeployable {
     public Card226_014() {
         super(Side.LIGHT, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Fallen_Order, Uniqueness.UNIQUE, ExpansionSet.SET_26, Rarity.V);
-        setGameText("If The Hidden Path on table, deploy on table. When deployed, stack three Jedi survivors from Reserve Deck here. During your deploy phase, Jedi survivors here may deploy as if from hand. The Light Will Fade: While The Hidden Path on table, Jedi survivors are deploy = 2, power = 3, forfeit = 3, deploy only to Safehouse, move using landspeed for free, and their game text is canceled. But It Is Never Forgotten: If your Jedi survivor was just lost, may stack it here. (Immune to Cold Feet.)");
+        setGameText("If The Hidden Path on table, deploy on table. When deployed, stack three Jedi survivors from Reserve Deck here. During your deploy phase, Jedi survivors here may deploy as if from hand. The Light Will Fade: While The Hidden Path on table, Jedi survivors are deploy = 3, power = 3, forfeit = 3, deploy only to Safehouse, move using landspeed for free, and their game text is canceled. But It Is Never Forgotten: If your Jedi survivor was just lost, may lose 1 Force to stack it here. (Immune to Cold Feet.)");
         addIcons(Icon.VIRTUAL_SET_26);
     }
 
@@ -102,7 +103,7 @@ public class Card226_014 extends AbstractEpicEventDeployable {
 
         Condition hiddenPathOnTable = new OnTableCondition(self, Filters.The_Hidden_Path);
 
-        modifiers.add(new ResetDeployCostModifier(self, Filters.Jedi_Survivor, hiddenPathOnTable, 2));
+        modifiers.add(new ResetDeployCostModifier(self, Filters.Jedi_Survivor, hiddenPathOnTable, 3));
         modifiers.add(new ResetPowerModifier(self, Filters.Jedi_Survivor, hiddenPathOnTable, 3));
         modifiers.add(new ResetForfeitModifier(self, Filters.Jedi_Survivor, hiddenPathOnTable, 3));
         modifiers.add(new MayNotDeployToLocationModifier(self, Filters.Jedi_Survivor, hiddenPathOnTable, Filters.not(Filters.Safehouse)));
@@ -123,7 +124,9 @@ public class Card226_014 extends AbstractEpicEventDeployable {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Stack " + GameUtils.getFullName(cardLost) + " here");
             action.setActionMsg("Stack " + GameUtils.getFullName(cardLost) + " on " + GameUtils.getCardLink(self));
-
+            // Pay cost(s)
+            action.appendCost(
+                    new LoseForceEffect(action, playerId, 1, true));
             // Perform result(s)
             action.appendEffect(
                     new StackOneCardFromLostPileEffect(action, cardLost, self, false, false, true));
