@@ -54,16 +54,15 @@ public class BeginnerAi implements SwccgAiController {
     private String pickActionChoice(Map<String, String[]> params) {
         String[] actions = params.get("actionId");
         boolean noPass = Boolean.parseBoolean(first(params.get("noPass"), "false"));
-        boolean autoPassEligible = Boolean.parseBoolean(first(params.get("autoPassEligible"), "false"));
 
         if (actions == null || actions.length == 0) {
             // No available actions -> pass
             return "";
         }
 
-        // If passing is allowed and the UI deems this auto-pass eligible, pass to keep play moving
-        if (!noPass && autoPassEligible) {
-            return "";
+        // Prefer taking an action if one exists; only pass when explicitly forced
+        if (noPass) {
+            return pickFirstIndex(params);
         }
 
         return pickFirstIndex(params);
