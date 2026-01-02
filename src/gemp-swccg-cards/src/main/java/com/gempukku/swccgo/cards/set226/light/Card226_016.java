@@ -79,7 +79,7 @@ public class Card226_016 extends AbstractSite {
                     new OncePerGameEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardToTargetFromLostPileEffect(action, Filters.The_Grand_Inquisitor, Filters.here(self), true));
+                    new DeployCardToTargetFromLostPileEffect(action, Filters.The_Grand_Inquisitor, Filters.here(self), false));
             actions.add(action);
         }
         return actions;
