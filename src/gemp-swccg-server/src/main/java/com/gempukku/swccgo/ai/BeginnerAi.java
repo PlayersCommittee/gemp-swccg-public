@@ -23,9 +23,10 @@ public class BeginnerAi implements SwccgAiController {
 
         switch (decision.getDecisionType()) {
             case MULTIPLE_CHOICE:
+                return pickFirstIndex(params);
             case ACTION_CHOICE:
             case CARD_ACTION_CHOICE:
-                return pickFirstIndex(params);
+                return pickActionChoice(params);
             case CARD_SELECTION:
                 return pickCardSelection(params);
             case ARBITRARY_CARDS:
@@ -40,10 +41,32 @@ public class BeginnerAi implements SwccgAiController {
     private String pickFirstIndex(Map<String, String[]> params) {
         String[] results = firstNonNull(params, "index", "choice", "actionId", "results");
         if (results != null && results.length > 0) {
-            // All index-based decisions use zero-based values server-side
+            // Respect defaultIndex if present and valid
+            int defaultIdx = parseInt(params.get("defaultIndex"), 0);
+            if (defaultIdx >= 0 && defaultIdx < results.length) {
+                return String.valueOf(defaultIdx);
+            }
             return "0";
         }
         return "0";
+    }
+
+    private String pickActionChoice(Map<String, String[]> params) {
+        String[] actions = params.get("actionId");
+        boolean noPass = Boolean.parseBoolean(first(params.get("noPass"), "false"));
+        boolean autoPassEligible = Boolean.parseBoolean(first(params.get("autoPassEligible"), "false"));
+
+        if (actions == null || actions.length == 0) {
+            // No available actions -> pass
+            return "";
+        }
+
+        // If passing is allowed and the UI deems this auto-pass eligible, pass to keep play moving
+        if (!noPass && autoPassEligible) {
+            return "";
+        }
+
+        return pickFirstIndex(params);
     }
 
     private String pickCardSelection(Map<String, String[]> params) {
@@ -89,10 +112,18 @@ public class BeginnerAi implements SwccgAiController {
     private String pickInteger(Map<String, String[]> params) {
         int min = parseInt(params.get("min"), 0);
         int max = parseInt(params.get("max"), min);
-        int choice = min;
-        if (choice > max) {
-            choice = max;
+        int defaultVal = parseInt(params.get("defaultValue"), min);
+
+        // Normalize bounds
+        if (max < min) {
+            max = min;
         }
+
+        // Prefer a provided default if valid, otherwise clamp to range
+        int choice = defaultVal;
+        if (choice < min) choice = min;
+        if (choice > max) choice = max;
+
         return String.valueOf(choice);
     }
 
@@ -105,6 +136,13 @@ public class BeginnerAi implements SwccgAiController {
         } catch (NumberFormatException e) {
             return defaultValue;
         }
+    }
+
+    private String first(String[] value, String defaultValue) {
+        if (value == null || value.length == 0 || value[0] == null) {
+            return defaultValue;
+        }
+        return value[0];
     }
 
     private String[] firstNonNull(Map<String, String[]> params, String... keys) {

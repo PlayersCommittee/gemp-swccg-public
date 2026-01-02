@@ -1287,6 +1287,13 @@ public class SwccgGameMediator {
         try {
             String answer = ai.decide(decision, _swccgoGame.getGameState());
 
+            // Surface AI choices to chat for debugging
+            _swccgoGame.getGameState().sendMessage(
+                    "[AI DEBUG] " + playerId
+                            + " decisionType=" + decision.getDecisionType()
+                            + " text=\"" + decision.getText() + "\""
+                            + " answer=" + answer);
+
             LOG.error("[AI] {} decisionType={} answer={}",
                     playerId,
                     decision.getDecisionType(),
@@ -1300,6 +1307,7 @@ public class SwccgGameMediator {
 
         } catch (DecisionResultInvalidException e) {
             LOG.error("[AI] Invalid decision by {}: {}", playerId, e.getMessage());
+            _swccgoGame.getGameState().sendMessage("[AI DEBUG] " + playerId + " made invalid decision; retrying.");
             _userFeedback.sendAwaitingDecision(playerId, decision);
         }
     }
