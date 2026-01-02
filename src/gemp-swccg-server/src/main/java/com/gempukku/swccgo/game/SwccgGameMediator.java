@@ -23,7 +23,6 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.state.GameCommunicationChannel;
 import com.gempukku.swccgo.game.state.GameEvent;
 import com.gempukku.swccgo.game.state.GameState;
-import com.gempukku.swccgo.hall.HallException;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.decisions.AwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
@@ -52,7 +51,7 @@ import java.util.Set;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class SwccgGameMediator {
-    private static final Logger LOG = LogManager.getLogger(SwccgGameMediator.class);
+    private static final Logger LOG = LogManager.getLogger(SwccgGame.class);
     private static final int MAX_AI_CHAIN = 50;
     private int aiChainCounter = 0;
 
@@ -1221,10 +1220,11 @@ public class SwccgGameMediator {
 
     private void startClocksForUsersPendingDecision() {
         long currentTime = System.currentTimeMillis();
-        Set<String> users = _userFeedback.getUsersPendingDecision();
+        // Copy to avoid ConcurrentModification when AI decisions resolve immediately
+        Set<String> users = new HashSet<String>(_userFeedback.getUsersPendingDecision());
         for (String user : users) {
             _decisionQuerySentTimes.put(user, currentTime);
-            // maybeLetAiPlay(user);
+            maybeLetAiPlay(user);
         }
     }
 
@@ -1259,7 +1259,7 @@ public class SwccgGameMediator {
         return stringBuilder.toString();
     }
 
-    private void maybeLetAiPlay(String playerId) throws HallException {
+    private void maybeLetAiPlay(String playerId) {
         LOG.error("[AI] maybeLetAiPlay: playerId={} isAi={}",  playerId, AiRegistry.isAi(playerId));
 
         if (!AiRegistry.isAi(playerId)) {
