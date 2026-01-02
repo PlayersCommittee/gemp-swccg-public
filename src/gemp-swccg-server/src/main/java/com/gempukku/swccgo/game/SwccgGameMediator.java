@@ -3,6 +3,8 @@ package com.gempukku.swccgo.game;
 import com.gempukku.swccgo.PrivateInformationException;
 import com.gempukku.swccgo.SubscriptionConflictException;
 import com.gempukku.swccgo.SubscriptionExpiredException;
+import com.gempukku.swccgo.ai.AiRegistry;
+import com.gempukku.swccgo.ai.SwccgAiController;
 import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
@@ -21,6 +23,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.state.GameCommunicationChannel;
 import com.gempukku.swccgo.game.state.GameEvent;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.hall.HallException;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.decisions.AwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
@@ -50,6 +53,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class SwccgGameMediator {
     private static final Logger LOG = LogManager.getLogger(SwccgGameMediator.class);
+    private static final int MAX_AI_CHAIN = 50;
+    private int aiChainCounter = 0;
 
     private Map<String, GameCommunicationChannel> _communicationChannels = Collections.synchronizedMap(new HashMap<String, GameCommunicationChannel>());
     private DefaultUserFeedback _userFeedback;
@@ -1217,8 +1222,10 @@ public class SwccgGameMediator {
     private void startClocksForUsersPendingDecision() {
         long currentTime = System.currentTimeMillis();
         Set<String> users = _userFeedback.getUsersPendingDecision();
-        for (String user : users)
+        for (String user : users) {
             _decisionQuerySentTimes.put(user, currentTime);
+            // maybeLetAiPlay(user);
+        }
     }
 
     private void addTimeSpentOnDecisionToUserClock(String participantId) {
@@ -1250,6 +1257,51 @@ public class SwccgGameMediator {
             stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
         }
         return stringBuilder.toString();
+    }
+
+    private void maybeLetAiPlay(String playerId) throws HallException {
+        LOG.error("[AI] maybeLetAiPlay: playerId={} isAi={}",  playerId, AiRegistry.isAi(playerId));
+
+        if (!AiRegistry.isAi(playerId)) {
+            aiChainCounter = 0; // Reset for human player
+            return;
+        }
+
+        if (++aiChainCounter > MAX_AI_CHAIN) {
+            LOG.error("[AI] Aborting infinite AI loop");
+            return;
+        }
+
+        AwaitingDecision decision = _userFeedback.getAwaitingDecision(playerId);
+        if (decision == null) {
+            LOG.error("[AI] decision is null");
+            return;
+        }
+
+        LOG.error("[AI] decisionType={} params={}",
+                decision.getDecisionType(),
+                decision.getDecisionParameters());
+
+        SwccgAiController ai = AiRegistry.get(playerId);
+
+        try {
+            String answer = ai.decide(decision, _swccgoGame.getGameState());
+
+            LOG.error("[AI] {} decisionType={} answer={}",
+                    playerId,
+                    decision.getDecisionType(),
+                    answer);
+
+            _userFeedback.participantDecided(playerId);
+            decision.decisionMade(answer);
+
+            _swccgoGame.carryOutPendingActionsUntilDecisionNeeded();
+            startClocksForUsersPendingDecision();
+
+        } catch (DecisionResultInvalidException e) {
+            LOG.error("[AI] Invalid decision by {}: {}", playerId, e.getMessage());
+            _userFeedback.sendAwaitingDecision(playerId, decision);
+        }
     }
 
     public String getDeckString(Side side) {

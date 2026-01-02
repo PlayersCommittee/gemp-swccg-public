@@ -1,6 +1,8 @@
 package com.gempukku.swccgo.hall;
 
 import com.gempukku.swccgo.*;
+import com.gempukku.swccgo.ai.AiRegistry;
+import com.gempukku.swccgo.ai.BeginnerAi;
 import com.gempukku.swccgo.chat.ChatCommandCallback;
 import com.gempukku.swccgo.chat.ChatCommandErrorException;
 import com.gempukku.swccgo.chat.ChatRoomMediator;
@@ -26,6 +28,8 @@ import com.gempukku.swccgo.logic.vo.SwccgDeck;
 import com.gempukku.swccgo.service.AdminService;
 import com.gempukku.swccgo.tournament.*;
 import com.gempukku.util.SwccgUuid;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -34,6 +38,8 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class HallServer extends AbstractServer {
+    private static final Logger LOG = LogManager.getLogger(HallServer.class);
+
     private final int _playerInactivityPeriod = 1000 * 60; // 60 seconds
     private final long _scheduledTournamentLoadTime = 1000 * 60 * 60 * 24 * 7; // Week
     private final long _repeatTournaments = 1000 * 60 * 60 * 24 * 2;
@@ -221,7 +227,12 @@ public class HallServer extends AbstractServer {
     /**
      * @return If table created, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
-    public void createNewTable(String type, Player player, String deckName, boolean sampleDeck, String tableDesc, boolean isPrivate, Player librarian) throws HallException {
+    public void createNewTable(String type, Player player, String deckName, boolean sampleDeck, String tableDesc, boolean isPrivate, Player librarian, boolean playVsAi, String aiSkill, String aiDeckName) throws HallException {
+        // TESTS
+        playVsAi = true;                 // pretend UI sent this
+        aiSkill = "BEGINNER";             // pretend UI sent this
+        aiDeckName = "Precon Premiere Intro 2PG (Light)";
+
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. No games may be started. Server will be restarted after all games have finished.");
 
@@ -275,6 +286,26 @@ public class HallServer extends AbstractServer {
 
             boolean isPrivateGame = isPrivate&&privateGamesAllowed();
 
+            SwccgDeck aiDeck = null;
+
+            // AI Logic
+            if (playVsAi) {
+
+                aiDeck = validateUserAndDeck(
+                        format,
+                        librarian,          // AI decks come from librarian
+                        aiDeckName,
+                        collectionType,
+                        true,               // AI decks are always sample decks
+                        librarian
+                );
+
+                Side aiSide = aiDeck.getSide(_library);
+
+                if (aiSide == swccgDeck.getSide(_library)) {
+                    throw new HallException("AI deck must be the opposite side of the Force");
+                }
+            }
 
             /*
              * Generate a new table ID based on a UUID.
@@ -284,6 +315,14 @@ public class HallServer extends AbstractServer {
             String tableId = new SwccgUuid().generateNewTableId();
             AwaitingTable table = new AwaitingTable(format, collectionType, league, leagueSerie, tableDesc, isPrivateGame);
             _awaitingTables.put(tableId, table);
+
+            if (playVsAi) {
+                String aiPlayerId = "AI_" + aiSkill + "_" + tableId;
+
+                table.setAiPlayer(aiPlayerId, aiDeck);
+
+                AiRegistry.register(aiPlayerId, new BeginnerAi()); // skill switch later
+            }
 
             joinTableInternal(tableId, player.getName(), table, swccgDeck);
             hallChanged();
@@ -856,7 +895,7 @@ public class HallServer extends AbstractServer {
         return tournamentName;
     }
 
-    private void createGameFromAwaitingTable(String tableId, AwaitingTable awaitingTable) {
+    private void createGameFromAwaitingTable(String tableId, AwaitingTable awaitingTable) throws HallException {
         Set<SwccgGameParticipant> players = awaitingTable.getPlayers();
         SwccgGameParticipant[] participants = players.toArray(new SwccgGameParticipant[players.size()]);
         final League league = awaitingTable.getLeague();
@@ -948,7 +987,7 @@ public class HallServer extends AbstractServer {
             if (!_leagueService.canPlayRankedGame(league, leagueSerie, player))
                 throw new HallException("You have already played max games in league");
             if (!_leagueService.canPlayRankedGameAsSide(league, leagueSerie, player, side)) {
-                Side otherSide = (side== Side.DARK) ? Side.LIGHT : Side.DARK;
+                Side otherSide = (side == Side.DARK) ? Side.LIGHT : Side.DARK;
                 throw new HallException("You have already played max games in league as " + side.getHumanReadable() + ", but you may still play as " + otherSide.getHumanReadable());
             }
             if (!awaitingTable.getPlayerNames().isEmpty()) {
@@ -974,6 +1013,15 @@ public class HallServer extends AbstractServer {
         }
 
         boolean tableFull = awaitingTable.addPlayer(new SwccgGameParticipant(player, swccgDeck));
+
+        if (!tableFull && awaitingTable.hasAi()) {
+            String aiPlayerId = awaitingTable.getAiPlayerId();
+            if (!awaitingTable.hasPlayer(aiPlayerId)) {
+                SwccgDeck aiDeck = awaitingTable.getAiDeck();
+                tableFull = awaitingTable.addPlayer(new SwccgGameParticipant(aiPlayerId, aiDeck));
+            }
+        }
+
         if (tableFull)
             createGameFromAwaitingTable(tableId, awaitingTable);
     }
@@ -1097,7 +1145,10 @@ public class HallServer extends AbstractServer {
                                 }
                             }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), null, allowSpectators, false, false, false, false, _decisionTimeoutSeconds, _timePerPlayerMinutes, false);
                 }
-            } finally {
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            finally {
                 _hallDataAccessLock.writeLock().unlock();
             }
         }
