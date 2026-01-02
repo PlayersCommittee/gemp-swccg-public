@@ -5,7 +5,6 @@ import com.gempukku.swccgo.db.vo.League;
 import com.gempukku.swccgo.game.SwccgFormat;
 import com.gempukku.swccgo.game.SwccgGameParticipant;
 import com.gempukku.swccgo.league.LeagueSeriesData;
-import com.gempukku.swccgo.logic.vo.SwccgDeck;
 
 import java.util.*;
 
@@ -17,9 +16,6 @@ public class AwaitingTable {
     private String _tableDesc;
     private Map<String, SwccgGameParticipant> _players = new HashMap<String, SwccgGameParticipant>();
     private boolean _isPrivate;
-    private SwccgDeck _aiDeck;
-    private String _aiPlayerId;
-
 
     private int _capacity = 2;
 
@@ -76,22 +72,5 @@ public class AwaitingTable {
 
     public String getTableDesc() {
         return _tableDesc;
-    }
-
-    public void setAiPlayer(String aiPlayerId, SwccgDeck aiDeck) {
-        _aiPlayerId = aiPlayerId;
-        _aiDeck = aiDeck;
-    }
-
-    public boolean hasAi() {
-        return _aiPlayerId != null;
-    }
-
-    public String getAiPlayerId() {
-        return _aiPlayerId;
-    }
-
-    public SwccgDeck getAiDeck() {
-        return _aiDeck;
     }
 }

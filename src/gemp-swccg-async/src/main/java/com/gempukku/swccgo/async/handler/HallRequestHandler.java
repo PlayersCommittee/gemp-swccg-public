@@ -311,9 +311,6 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
             boolean sampleDeck = (sampleDeckVal != null ? Boolean.valueOf(sampleDeckVal) : false);
             String isPrivateVal = getFormParameterSafely(postDecoder, "isPrivate");
             boolean isPrivate = (isPrivateVal != null ? Boolean.valueOf(isPrivateVal) : false);
-            boolean playVsAi = Boolean.parseBoolean(getFormParameterSafely(postDecoder, "playVsAi"));
-            String aiSkill = getFormParameterSafely(postDecoder, "aiSkill");
-            String aiDeckName = getFormParameterSafely(postDecoder, "aiDeckName");
 
             //if they tried creating a private game while they are disabled, let them know instead of creating the table
             if(isPrivate&&!_hallServer.privateGamesAllowed()) {
@@ -333,11 +330,10 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
             Player librarian = sampleDeck ? getLibrarian() : null;
 
             try {
-                _hallServer.createNewTable(format, resourceOwner, deckName, sampleDeck, tableDesc, isPrivate, librarian, playVsAi, aiSkill, aiDeckName);
+                _hallServer.createNewTable(format, resourceOwner, deckName, sampleDeck, tableDesc, isPrivate, librarian);
                 responseWriter.writeXmlResponse(null);
-            } catch (Exception e) {
-                HallException ex = new HallException(e.getMessage());
-                responseWriter.writeXmlResponse(marshalException(ex));
+            } catch (HallException e) {
+                responseWriter.writeXmlResponse(marshalException(e));
             }
         }
         finally {
