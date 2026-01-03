@@ -228,11 +228,6 @@ public class HallServer extends AbstractServer {
      * @return If table created, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
     public void createNewTable(String type, Player player, String deckName, boolean sampleDeck, String tableDesc, boolean isPrivate, Player librarian, boolean playVsAi, String aiSkill, String aiDeckName) throws HallException {
-        // TESTS
-        playVsAi = true;                 // pretend UI sent this
-        aiSkill = "BEGINNER";             // pretend UI sent this
-        aiDeckName = "Precon Premiere Intro 2PG (Light)";
-
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. No games may be started. Server will be restarted after all games have finished.");
 
@@ -290,6 +285,13 @@ public class HallServer extends AbstractServer {
 
             // AI Logic
             if (playVsAi) {
+                if (aiDeckName == null || aiDeckName.isEmpty()) {
+                    throw new HallException("AI deck must be selected");
+                }
+
+                if (aiSkill == null || aiSkill.isEmpty()) {
+                    aiSkill = "BEGINNER";
+                }
 
                 aiDeck = validateUserAndDeck(
                         format,
