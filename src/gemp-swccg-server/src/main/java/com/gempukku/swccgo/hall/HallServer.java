@@ -1,6 +1,8 @@
 package com.gempukku.swccgo.hall;
 
 import com.gempukku.swccgo.*;
+import com.gempukku.swccgo.ai.AiRegistry;
+import com.gempukku.swccgo.ai.BeginnerAi;
 import com.gempukku.swccgo.chat.ChatCommandCallback;
 import com.gempukku.swccgo.chat.ChatCommandErrorException;
 import com.gempukku.swccgo.chat.ChatRoomMediator;
@@ -221,7 +223,7 @@ public class HallServer extends AbstractServer {
     /**
      * @return If table created, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
-    public void createNewTable(String type, Player player, String deckName, boolean sampleDeck, String tableDesc, boolean isPrivate, Player librarian) throws HallException {
+    public void createNewTable(String type, Player player, String deckName, boolean sampleDeck, String tableDesc, boolean isPrivate, Player librarian, boolean playVsAi, String aiSkill, String aiDeckName) throws HallException {
         if (_shutdown)
             throw new HallException("Server is in shutdown mode. No games may be started. Server will be restarted after all games have finished.");
 
@@ -275,6 +277,33 @@ public class HallServer extends AbstractServer {
 
             boolean isPrivateGame = isPrivate&&privateGamesAllowed();
 
+            SwccgDeck aiDeck = null;
+
+            // AI Logic
+            if (playVsAi) {
+                if (aiDeckName == null || aiDeckName.isEmpty()) {
+                    throw new HallException("AI deck must be selected");
+                }
+
+                if (aiSkill == null || aiSkill.isEmpty()) {
+                    aiSkill = "BEGINNER";
+                }
+
+                aiDeck = validateUserAndDeck(
+                        format,
+                        librarian,          // AI decks come from librarian
+                        aiDeckName,
+                        collectionType,
+                        true,               // AI decks are always sample decks
+                        librarian
+                );
+
+                Side aiSide = aiDeck.getSide(_library);
+
+                if (aiSide == swccgDeck.getSide(_library)) {
+                    throw new HallException("AI deck must be the opposite side of the Force");
+                }
+            }
 
             /*
              * Generate a new table ID based on a UUID.
@@ -284,6 +313,15 @@ public class HallServer extends AbstractServer {
             String tableId = new SwccgUuid().generateNewTableId();
             AwaitingTable table = new AwaitingTable(format, collectionType, league, leagueSerie, tableDesc, isPrivateGame);
             _awaitingTables.put(tableId, table);
+
+            if (playVsAi) {
+                // Short, readable AI id: AI_<skill>_<4-char table suffix>
+                String aiPlayerId = "AI_" + aiSkill + "_" + tableId.substring(0, 4);
+
+                table.setAiPlayer(aiPlayerId, aiDeck);
+
+                AiRegistry.register(aiPlayerId, new BeginnerAi()); // skill switch later
+            }
 
             joinTableInternal(tableId, player.getName(), table, swccgDeck);
             hallChanged();
@@ -948,7 +986,7 @@ public class HallServer extends AbstractServer {
             if (!_leagueService.canPlayRankedGame(league, leagueSerie, player))
                 throw new HallException("You have already played max games in league");
             if (!_leagueService.canPlayRankedGameAsSide(league, leagueSerie, player, side)) {
-                Side otherSide = (side== Side.DARK) ? Side.LIGHT : Side.DARK;
+                Side otherSide = (side == Side.DARK) ? Side.LIGHT : Side.DARK;
                 throw new HallException("You have already played max games in league as " + side.getHumanReadable() + ", but you may still play as " + otherSide.getHumanReadable());
             }
             if (!awaitingTable.getPlayerNames().isEmpty()) {
@@ -974,6 +1012,15 @@ public class HallServer extends AbstractServer {
         }
 
         boolean tableFull = awaitingTable.addPlayer(new SwccgGameParticipant(player, swccgDeck));
+
+        if (!tableFull && awaitingTable.hasAi()) {
+            String aiPlayerId = awaitingTable.getAiPlayerId();
+            if (!awaitingTable.hasPlayer(aiPlayerId)) {
+                SwccgDeck aiDeck = awaitingTable.getAiDeck();
+                tableFull = awaitingTable.addPlayer(new SwccgGameParticipant(aiPlayerId, aiDeck));
+            }
+        }
+
         if (tableFull)
             createGameFromAwaitingTable(tableId, awaitingTable);
     }
@@ -1097,7 +1144,8 @@ public class HallServer extends AbstractServer {
                                 }
                             }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), null, allowSpectators, false, false, false, false, _decisionTimeoutSeconds, _timePerPlayerMinutes, false);
                 }
-            } finally {
+            }
+            finally {
                 _hallDataAccessLock.writeLock().unlock();
             }
         }
