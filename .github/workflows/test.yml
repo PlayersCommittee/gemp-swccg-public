@@ -50,15 +50,23 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: |
           set -euxo pipefail
+          # Load ports from .env so we hit the mapped host port
+          set -a
+          source .env
+          set +a
+          APP_URL="http://127.0.0.1:${APP_PORT}/gemp-swccg/index.html"
+
           # Wait (with visibility) for the app to start responding
           timeout 240 bash -c '
-            until docker compose exec -T build curl -fSs --max-time 10 --retry 30 --retry-delay 2 --retry-connrefused http://127.0.0.1:8080/gemp-swccg/index.html; do
-              echo "Waiting for app to respond..."
+            url="$1"
+            until curl -fSs --max-time 10 --retry 30 --retry-delay 2 --retry-connrefused "$url"; do
+              echo "Waiting for app to respond at ${url}..."
               docker compose ps
               docker compose logs --tail=50 build || true
+              docker compose exec -T build sh -c "tail -n 50 /root/nohup.out || tail -n 50 /opt/gemp-swccg/src/nohup.out" || true
               sleep 5
             done
-          '
+          ' bash "${APP_URL}"
           python3 -m pip install --upgrade pip
           pip3 install -r requirements.txt
           python3 -u gemp_client_test.py
