@@ -49,8 +49,16 @@ jobs:
         env:
           PYTHONUNBUFFERED: "1"
         run: |
-          set -x
-          docker compose exec build curl -s --retry 10 --retry-connrefused http://127.0.0.1:8080/gemp-swccg/index.html
+          set -euxo pipefail
+          # Wait (with visibility) for the app to start responding
+          timeout 240 bash -c '
+            until docker compose exec -T build curl -fSs --max-time 10 --retry 30 --retry-delay 2 --retry-connrefused http://127.0.0.1:8080/gemp-swccg/index.html; do
+              echo "Waiting for app to respond..."
+              docker compose ps
+              docker compose logs --tail=50 build || true
+              sleep 5
+            done
+          '
           python3 -m pip install --upgrade pip
           pip3 install -r requirements.txt
           python3 -u gemp_client_test.py
