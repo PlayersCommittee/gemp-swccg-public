@@ -1259,13 +1259,14 @@ public class SwccgGameMediator {
         return stringBuilder.toString();
     }
 
+    // Let registered AI users answer pending decisions; guards against runaway loops.
     private void maybeLetAiPlay(String playerId) {
         if (!AiRegistry.isAi(playerId)) {
             aiChainCounter = 0; // Reset for human player
             return;
         }
 
-        if (++aiChainCounter > MAX_AI_CHAIN) {
+        if (++aiChainCounter > MAX_AI_CHAIN) { // simple guard if AI keeps triggering itself
             return;
         }
 

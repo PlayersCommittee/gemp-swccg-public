@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Locale;
 
+// Very lightweight, beginner-level AI that makes simple, safe choices and
+// avoids obvious loops (optional responses spam, move/seat shuffles).
 public class BeginnerAi implements SwccgAiController {
 
     @Override
