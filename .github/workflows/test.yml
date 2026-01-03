@@ -34,13 +34,13 @@ jobs:
 
       # Build Docker stack
       - name: Build Docker stack
-        run: docker-compose build
+        run: docker compose build
 
       # Start Docker stack
       - name: Start Docker stack
-        run: docker-compose up -d
-
-      # Run integration tests
+        run: docker compose up -d
+      
+        # Run integration tests
       - name: Run integration tests
         run: |
           docker exec gemp curl -s --retry 10 --retry-connrefused http://127.0.0.1:8080/gemp-swccg/index.html
