@@ -1,5 +1,9 @@
 [
   {
+    "type": "basic_premds2_draft",
+    "location": "/draft/basic_premds2_draft.json"
+  },  
+  {
     "type": "c7_draft",
     "location": "/draft/cube7Draft.json"
   },
