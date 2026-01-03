@@ -74,11 +74,11 @@ services:
       gemp_net_1:
         ipv4_address: ${DB_IP}
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD}"]
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p${MYSQL_ROOT_PASSWORD} --silent"]
       interval: 5s
       timeout: 5s
       retries: 20
-      start_period: 10s
+      start_period: 30s
       
   
 networks:
