@@ -88,7 +88,7 @@ public class BeginnerAi implements SwccgAiController {
 
         String decisionText = decision.getText() != null ? decision.getText().toLowerCase(Locale.ROOT) : "";
         if (decisionText.contains("optional responses")) {
-            // Skip spamming optional responses
+            // Skip spamming optional responses; let the stack clear
             return "";
         }
 
@@ -114,7 +114,7 @@ public class BeginnerAi implements SwccgAiController {
                 if (txt == null) continue;
                 String lc = txt.toLowerCase(Locale.ROOT);
                 if (lc.contains("capacity slot")) {
-                    capacityShuffle = true;
+                    capacityShuffle = true; // avoid seat-shuffling loops
                     break;
                 }
             }

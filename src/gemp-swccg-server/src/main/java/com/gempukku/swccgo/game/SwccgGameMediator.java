@@ -1260,44 +1260,24 @@ public class SwccgGameMediator {
     }
 
     private void maybeLetAiPlay(String playerId) {
-        LOG.error("[AI] maybeLetAiPlay: playerId={} isAi={}",  playerId, AiRegistry.isAi(playerId));
-
         if (!AiRegistry.isAi(playerId)) {
             aiChainCounter = 0; // Reset for human player
             return;
         }
 
         if (++aiChainCounter > MAX_AI_CHAIN) {
-            LOG.error("[AI] Aborting infinite AI loop");
             return;
         }
 
         AwaitingDecision decision = _userFeedback.getAwaitingDecision(playerId);
         if (decision == null) {
-            LOG.error("[AI] decision is null");
             return;
         }
-
-        LOG.error("[AI] decisionType={} params={}",
-                decision.getDecisionType(),
-                decision.getDecisionParameters());
 
         SwccgAiController ai = AiRegistry.get(playerId);
 
         try {
             String answer = ai.decide(decision, _swccgoGame.getGameState());
-
-            // Surface AI choices to chat for debugging
-            _swccgoGame.getGameState().sendMessage(
-                    "[AI DEBUG] " + playerId
-                            + " decisionType=" + decision.getDecisionType()
-                            + " text=\"" + decision.getText() + "\""
-                            + " answer=" + answer);
-
-            LOG.error("[AI] {} decisionType={} answer={}",
-                    playerId,
-                    decision.getDecisionType(),
-                    answer);
 
             _userFeedback.participantDecided(playerId);
             decision.decisionMade(answer);
@@ -1306,8 +1286,6 @@ public class SwccgGameMediator {
             startClocksForUsersPendingDecision();
 
         } catch (DecisionResultInvalidException e) {
-            LOG.error("[AI] Invalid decision by {}: {}", playerId, e.getMessage());
-            _swccgoGame.getGameState().sendMessage("[AI DEBUG] " + playerId + " made invalid decision; retrying.");
             _userFeedback.sendAwaitingDecision(playerId, decision);
         }
     }
