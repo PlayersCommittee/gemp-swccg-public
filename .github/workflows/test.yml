@@ -44,8 +44,9 @@ jobs:
       
         # Run integration tests
       - name: Run integration tests
+        working-directory: src
         run: |
-          docker exec gemp curl -s --retry 10 --retry-connrefused http://127.0.0.1:8080/gemp-swccg/index.html
+          docker compose exec build curl -s --retry 10 --retry-connrefused http://127.0.0.1:8080/gemp-swccg/index.html
           python3 -m pip install --upgrade pip
           pip3 install -r requirements.txt
           python3 gemp_client_test.py
