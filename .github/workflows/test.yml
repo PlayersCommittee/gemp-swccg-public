@@ -41,11 +41,17 @@ jobs:
       - name: Start Docker stack
         working-directory: src
         run: |
+          set -euxo pipefail
+          # Load env so we can reuse DB credentials/ports
+          set -a
+          source .env
+          set +a
+
           # Start DB first
           docker compose up -d db
           # Wait for DB to be reachable
           timeout 180 bash -c '
-            until docker compose exec -T db mysqladmin ping -uroot -p${MYSQL_ROOT_PASSWORD} --silent; do
+            until docker compose exec -T db sh -c "mariadb-admin ping -uroot -p\"$MYSQL_ROOT_PASSWORD\" --silent"; do
               echo "Waiting for DB to be ready..."
               docker compose logs --tail=20 db || true
               sleep 5
