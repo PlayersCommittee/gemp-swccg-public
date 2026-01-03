@@ -40,7 +40,13 @@ jobs:
       # Start Docker stack
       - name: Start Docker stack
         working-directory: src
-        run: docker compose up -d
+        run: |
+          docker compose up -d || {
+            echo "docker compose up failed; dumping status and db logs"
+            docker compose ps
+            docker compose logs db
+            exit 1
+          }
       
         # Run integration tests
       - name: Run integration tests
