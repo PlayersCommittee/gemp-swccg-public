@@ -28,8 +28,6 @@ import com.gempukku.swccgo.logic.vo.SwccgDeck;
 import com.gempukku.swccgo.service.AdminService;
 import com.gempukku.swccgo.tournament.*;
 import com.gempukku.util.SwccgUuid;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -38,8 +36,6 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class HallServer extends AbstractServer {
-    private static final Logger LOG = LogManager.getLogger(HallServer.class);
-
     private final int _playerInactivityPeriod = 1000 * 60; // 60 seconds
     private final long _scheduledTournamentLoadTime = 1000 * 60 * 60 * 24 * 7; // Week
     private final long _repeatTournaments = 1000 * 60 * 60 * 24 * 2;
@@ -897,7 +893,7 @@ public class HallServer extends AbstractServer {
         return tournamentName;
     }
 
-    private void createGameFromAwaitingTable(String tableId, AwaitingTable awaitingTable) throws HallException {
+    private void createGameFromAwaitingTable(String tableId, AwaitingTable awaitingTable) {
         Set<SwccgGameParticipant> players = awaitingTable.getPlayers();
         SwccgGameParticipant[] participants = players.toArray(new SwccgGameParticipant[players.size()]);
         final League league = awaitingTable.getLeague();
@@ -1147,8 +1143,6 @@ public class HallServer extends AbstractServer {
                                 }
                             }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), null, allowSpectators, false, false, false, false, _decisionTimeoutSeconds, _timePerPlayerMinutes, false);
                 }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
             }
             finally {
                 _hallDataAccessLock.writeLock().unlock();

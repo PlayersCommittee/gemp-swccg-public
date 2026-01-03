@@ -335,10 +335,8 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
             try {
                 _hallServer.createNewTable(format, resourceOwner, deckName, sampleDeck, tableDesc, isPrivate, librarian, playVsAi, aiSkill, aiDeckName);
                 responseWriter.writeXmlResponse(null);
-            } catch (Exception e) {
-                // Testing
-                HallException ex = new HallException(e.getMessage());
-                responseWriter.writeXmlResponse(marshalException(ex));
+            } catch (HallException e) {
+                responseWriter.writeXmlResponse(marshalException(e));
             }
         }
         finally {

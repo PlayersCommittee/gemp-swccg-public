@@ -51,7 +51,7 @@ import java.util.Set;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class SwccgGameMediator {
-    private static final Logger LOG = LogManager.getLogger(SwccgGame.class);
+    private static final Logger LOG = LogManager.getLogger(SwccgGameMediator.class);
     private static final int MAX_AI_CHAIN = 50;
     private int aiChainCounter = 0;
 
