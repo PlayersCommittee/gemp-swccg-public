@@ -315,7 +315,8 @@ public class HallServer extends AbstractServer {
             _awaitingTables.put(tableId, table);
 
             if (playVsAi) {
-                String aiPlayerId = "AI_" + aiSkill + "_" + tableId;
+                // Short, readable AI id: AI_<skill>_<4-char table suffix>
+                String aiPlayerId = "AI_" + aiSkill + "_" + tableId.substring(0, 4);
 
                 table.setAiPlayer(aiPlayerId, aiDeck);
 
