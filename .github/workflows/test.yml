@@ -41,12 +41,18 @@ jobs:
       - name: Start Docker stack
         working-directory: src
         run: |
-          docker compose up -d || {
-            echo "docker compose up failed; dumping status and db logs"
-            docker compose ps
-            docker compose logs db
-            exit 1
-          }
+          # Start DB first
+          docker compose up -d db
+          # Wait for DB to be reachable
+          timeout 180 bash -c '
+            until docker compose exec -T db mysqladmin ping -uroot -p${MYSQL_ROOT_PASSWORD} --silent; do
+              echo "Waiting for DB to be ready..."
+              docker compose logs --tail=20 db || true
+              sleep 5
+            done
+          '
+          # Then start app
+          docker compose up -d build
       
         # Run integration tests
       - name: Run integration tests

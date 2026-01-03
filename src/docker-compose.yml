@@ -9,8 +9,7 @@ services:
       dockerfile: ./docker/gemp_app.Dockerfile
     image: gemp_app
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     expose:
       - "80"
       - "8080"
@@ -73,12 +72,6 @@ services:
     networks:
       gemp_net_1:
         ipv4_address: ${DB_IP}
-    healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -uroot -p${MYSQL_ROOT_PASSWORD} --silent"]
-      interval: 5s
-      timeout: 5s
-      retries: 40
-      start_period: 60s
       
   
 networks:
