@@ -34,10 +34,12 @@ jobs:
 
       # Build Docker stack
       - name: Build Docker stack
+        working-directory: src
         run: docker compose build
 
       # Start Docker stack
       - name: Start Docker stack
+        working-directory: src
         run: docker compose up -d
       
         # Run integration tests
