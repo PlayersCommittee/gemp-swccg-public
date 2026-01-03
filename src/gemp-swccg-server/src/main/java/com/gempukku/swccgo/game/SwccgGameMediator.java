@@ -188,6 +188,15 @@ public class SwccgGameMediator {
         return false;
     }
 
+    private boolean isBotGame() {
+        for (SwccgGameParticipant participant : _playersPlaying) {
+            if (AiRegistry.isAi(participant.getPlayerId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Gets the game status.
      * @return the game status
@@ -1082,8 +1091,16 @@ public class SwccgGameMediator {
         String playerId = player.getName();
         _writeLock.lock();
         try {
-            if (isPlayerPlaying(playerId))
-                _swccgoGame.requestCancel(playerId);
+            if (isPlayerPlaying(playerId)) {
+                if (isBotGame()) {
+                    // Auto-cancel bot games on a single human request
+                    for (SwccgGameParticipant participant : _playersPlaying) {
+                        _swccgoGame.requestCancel(participant.getPlayerId());
+                    }
+                } else {
+                    _swccgoGame.requestCancel(playerId);
+                }
+            }
         } finally {
             _writeLock.unlock();
         }
