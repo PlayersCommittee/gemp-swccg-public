@@ -27,7 +27,7 @@ public class BeginnerAi implements SwccgAiController {
                 return pickMultipleChoice(decision, params);
             case ACTION_CHOICE:
             case CARD_ACTION_CHOICE:
-                return pickActionChoice(params);
+                return pickActionChoice(decision, params);
             case CARD_SELECTION:
                 return pickCardSelection(params);
             case ARBITRARY_CARDS:
@@ -77,7 +77,7 @@ public class BeginnerAi implements SwccgAiController {
         return "0";
     }
 
-    private String pickActionChoice(Map<String, String[]> params) {
+    private String pickActionChoice(AwaitingDecision decision, Map<String, String[]> params) {
         String[] actions = params.get("actionId");
         boolean noPass = Boolean.parseBoolean(first(params.get("noPass"), "false"));
 
@@ -86,9 +86,46 @@ public class BeginnerAi implements SwccgAiController {
             return "";
         }
 
+        String decisionText = decision.getText() != null ? decision.getText().toLowerCase(Locale.ROOT) : "";
+        if (decisionText.contains("optional responses")) {
+            // Skip spamming optional responses
+            return "";
+        }
+
+        // Prefer to pass move spam loops unless forced
+        if (decisionText.contains("move action") || decisionText.contains("move or pass")) {
+            if (!noPass) {
+                int passIdx = findPassIndex(params.get("actionText"));
+                if (passIdx >= 0) {
+                    return String.valueOf(passIdx);
+                }
+                return "";
+            }
+        }
+
         // Prefer a non-pass action if available
         String[] actionTexts = params.get("actionText");
         int passIdx = findPassIndex(actionTexts);
+
+        // Avoid toggling capacity slots back and forth if pass is allowed
+        boolean capacityShuffle = false;
+        if (actionTexts != null) {
+            for (String txt : actionTexts) {
+                if (txt == null) continue;
+                String lc = txt.toLowerCase(Locale.ROOT);
+                if (lc.contains("capacity slot")) {
+                    capacityShuffle = true;
+                    break;
+                }
+            }
+        }
+        if (capacityShuffle && decisionText.contains("deploy action") && !noPass) {
+            if (passIdx >= 0) {
+                return String.valueOf(passIdx);
+            }
+            return "";
+        }
+
         for (int i = 0; i < actions.length; i++) {
             if (i != passIdx) {
                 return String.valueOf(i);
