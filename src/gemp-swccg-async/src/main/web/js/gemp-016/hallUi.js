@@ -5,6 +5,11 @@ var GempSwccgHallUI = Class.extend({
     supportedFormatsInitialized:false,
     supportedFormatsSelect:null,
     decksSelect:null,
+    opponentSelect:null,
+    aiSkillSelect:null,
+    aiDeckSelect:null,
+    aiControlsDiv:null,
+    deckOptions:[],
     tableDescInput:null,
     createTableButton:null,
 
@@ -80,6 +85,8 @@ var GempSwccgHallUI = Class.extend({
             function () {
                 that.supportedFormatsSelect.hide();
                 that.decksSelect.hide();
+                that.opponentSelect.hide();
+                that.aiControlsDiv.hide();
                 that.createTableButton.hide();
                 that.isPrivateCheckbox.hide();
                 var format = that.supportedFormatsSelect.val();
@@ -89,23 +96,49 @@ var GempSwccgHallUI = Class.extend({
                 var isPrivate = false;
                 if(document.getElementById('isPrivateCheckbox1')!=null)
                     isPrivate = document.getElementById('isPrivateCheckbox1').checked;
+                var playVsAi = that.opponentSelect.val() === "ai";
+                var aiSkill = that.aiSkillSelect.val();
+                var aiDeckName = that.aiDeckSelect.val();
                 if (deck != null) {
-                    that.comm.createTable(format, deck, sampleDeck, tableDesc, isPrivate, function (xml) {
+                    that.comm.createTable(format, deck, sampleDeck, tableDesc, isPrivate, playVsAi, aiSkill, aiDeckName, function (xml) {
                         that.processResponse(xml);
                     });
                 }
             });
         this.createTableButton.hide();
 
-        this.isPrivateCheckbox = $("$<label><input type='checkbox' id='isPrivateCheckbox1'>Private game</input></label>")
+        // Fix bad jQuery literal
+        this.isPrivateCheckbox = $("<label><input type='checkbox' id='isPrivateCheckbox1'>Private game</input></label>");
 
         this.decksSelect = $("<select style='width: 300px'></select>");
         this.decksSelect.hide();
+        this.decksSelect.change(function () { that.updateAiDecksForSelection(); });
+
+        this.opponentSelect = $("<select style='width: 110px'></select>");
+        this.opponentSelect.append("<option value='human'>vs Human</option>");
+        this.opponentSelect.append("<option value='ai'>vs Bot</option>");
+        this.opponentSelect.change(function () { that.updateAiDecksForSelection(); });
+
+        this.aiSkillSelect = $("<select style='width: 120px'></select>");
+        this.aiSkillSelect.append("<option value='BEGINNER'>Beginner</option>");
+
+        this.aiDeckSelect = $("<select style='width: 250px'></select>");
+
+        this.aiControlsDiv = $("<span style='white-space:nowrap;'></span>");
+        this.aiControlsDiv.append(this.aiSkillSelect);
+        this.aiControlsDiv.append(" ");
+        this.aiControlsDiv.append(this.aiDeckSelect);
+        // Hide by default; only show when vs Bot is selected
+        this.aiControlsDiv.hide();
 
         this.tableDescInput = $("<input id='tableDescInput' type='text' maxlength='50' style='width: 150px;' placeHolder='Description (optional)'>");
 
         this.buttonsDiv.append(this.supportedFormatsSelect);
         this.buttonsDiv.append(this.decksSelect);
+        this.buttonsDiv.append(" ");
+        this.buttonsDiv.append(this.opponentSelect);
+        this.buttonsDiv.append(" ");
+        this.buttonsDiv.append(this.aiControlsDiv);
         this.buttonsDiv.append(this.tableDescInput);
         this.buttonsDiv.append(this.createTableButton);
         this.buttonsDiv.append(this.isPrivateCheckbox);
@@ -415,10 +448,14 @@ var GempSwccgHallUI = Class.extend({
 
     updateDecks:function () {
         var that = this;
+        this.deckOptions = [];
+        this.decksSelect.html("");
+        this.aiDeckSelect.html("");
         this.comm.getDecks(function (xml) {
             that.processDecks(xml);
             that.comm.getLibraryDecks(function (xml2) {
                 that.processLibraryDecks(xml2);
+                that.updateAiDecksForSelection();
             });
         });
     },
@@ -434,15 +471,14 @@ var GempSwccgHallUI = Class.extend({
     },
 
     processDecks:function (xml) {
-        this.decksSelect.html("");
         var root = xml.documentElement;
         if (root.tagName == "decks") {
             var darkDecks = root.getElementsByTagName("darkDeck");
-            this.generateDeckRow(darkDecks, "[DARK] ", "false");
+            this.generateDeckRow(darkDecks, "[DARK] ", "false", "dark");
             var lightDecks = root.getElementsByTagName("lightDeck");
-            this.generateDeckRow(lightDecks, "[LIGHT] ", "false");
+            this.generateDeckRow(lightDecks, "[LIGHT] ", "false", "light");
             var otherDecks = root.getElementsByTagName("otherDeck");
-            this.generateDeckRow(otherDecks, "[UNKNOWN] ", "false");
+            this.generateDeckRow(otherDecks, "[UNKNOWN] ", "false", "other");
         }
     },
 
@@ -450,16 +486,18 @@ var GempSwccgHallUI = Class.extend({
         var root = xml.documentElement;
         if (root.tagName == "decks") {
             var darkDecks = root.getElementsByTagName("darkDeck");
-            this.generateDeckRow(darkDecks, "Sample: [DARK] ", "true");
+            this.generateDeckRow(darkDecks, "Sample: [DARK] ", "true", "dark");
             var lightDecks = root.getElementsByTagName("lightDeck");
-            this.generateDeckRow(lightDecks, "Sample: [LIGHT] ", "true");
+            this.generateDeckRow(lightDecks, "Sample: [LIGHT] ", "true", "light");
             var otherDecks = root.getElementsByTagName("otherDeck");
-            this.generateDeckRow(otherDecks, "Sample: [UNKNOWN] ", "true");
+            this.generateDeckRow(otherDecks, "Sample: [UNKNOWN] ", "true", "other");
         }
         this.decksSelect.css("display", "");
+        this.aiControlsDiv.css("display", "");
+        this.updateAiDecksForSelection();
     },
 
-    generateDeckRow:function (decks, prefix, sampleDeck) {
+    generateDeckRow:function (decks, prefix, sampleDeck, side) {
         var that = this;
         for (var i = 0; i < decks.length; i++) {
             var deck = decks[i];
@@ -474,8 +512,59 @@ var GempSwccgHallUI = Class.extend({
             var deckElem = $("<option></option>");
             deckElem.attr("value", deckName);
             deckElem.attr("data-sample-deck", sampleDeck);
+            deckElem.attr("data-side", side);
             deckElem.text(prefix + deckName);
             this.decksSelect.append(deckElem);
+
+            // Track for AI selection (especially sample decks)
+            this.deckOptions.push({name: deckName, sample: sampleDeck === "true", side: side, label: prefix + deckName});
+        }
+    },
+
+    getSelectedDeckSide:function() {
+        var opt = this.decksSelect.find(":selected");
+        if (opt == null || opt.length == 0)
+            return null;
+        var side = opt.attr("data-side");
+        return side;
+    },
+
+    updateAiDecksForSelection:function() {
+        var playingVsAi = this.opponentSelect.val() === "ai";
+        if (!playingVsAi) {
+            this.aiControlsDiv.hide();
+            return;
+        }
+        if (this.aiControlsDiv.css("display") == "none") {
+            this.aiControlsDiv.show();
+        }
+        this.aiControlsDiv.show();
+
+        var playerSide = this.getSelectedDeckSide();
+        this.aiDeckSelect.html("");
+
+        var added = false;
+        for (var i = 0; i < this.deckOptions.length; i++) {
+            var opt = this.deckOptions[i];
+            if (!opt.sample)
+                continue;
+            if (playerSide != null) {
+                if (opt.side === "dark" && playerSide === "dark")
+                    continue;
+                if (opt.side === "light" && playerSide === "light")
+                    continue;
+            }
+            var option = $("<option></option>");
+            option.attr("value", opt.name);
+            option.attr("data-side", opt.side);
+            option.text(opt.label);
+            this.aiDeckSelect.append(option);
+            added = true;
+        }
+
+        if (!added) {
+            var placeholder = $("<option disabled selected>No opposite-side sample decks found</option>");
+            this.aiDeckSelect.append(placeholder);
         }
     },
 
