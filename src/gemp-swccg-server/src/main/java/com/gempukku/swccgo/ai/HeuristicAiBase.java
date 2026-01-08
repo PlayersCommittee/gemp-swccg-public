@@ -16,7 +16,7 @@ import java.util.Map;
 // Heuristic AI base that scores actions/choices using simple keyword weights.
 public abstract class HeuristicAiBase implements SwccgAiController {
     @Override
-    public String decide(AwaitingDecision decision, GameState gameState) {
+    public String decide(String playerId, AwaitingDecision decision, GameState gameState) {
         Map<String, String[]> params = decision.getDecisionParameters();
 
         if (decision.getDecisionType() == AwaitingDecisionType.EMPTY) {
@@ -29,14 +29,14 @@ public abstract class HeuristicAiBase implements SwccgAiController {
 
         switch (decision.getDecisionType()) {
             case MULTIPLE_CHOICE:
-                return pickMultipleChoice(decision, params);
+                return pickMultipleChoice(playerId, decision, params, gameState);
             case ACTION_CHOICE:
             case CARD_ACTION_CHOICE:
-                return pickActionChoice(decision, params, gameState);
+                return pickActionChoice(playerId, decision, params, gameState);
             case CARD_SELECTION:
                 return pickCardSelection(params);
             case ARBITRARY_CARDS:
-                return pickArbitraryCards(decision, params);
+                return pickArbitraryCards(playerId, decision, params, gameState);
             case INTEGER:
                 return pickInteger(decision, params);
             default:
@@ -46,6 +46,10 @@ public abstract class HeuristicAiBase implements SwccgAiController {
 
     protected int getPassPenalty() {
         return 200;
+    }
+
+    protected boolean shouldSkipOptionalResponses() {
+        return true;
     }
 
     protected abstract KeywordWeight[] getActionWeights();
@@ -58,7 +62,19 @@ public abstract class HeuristicAiBase implements SwccgAiController {
 
     protected abstract String[] getCardHints();
 
-    private String pickMultipleChoice(AwaitingDecision decision, Map<String, String[]> params) {
+    protected int scoreActionContext(String playerId, GameState gameState, String decisionText, String actionText, Phase phase, Map<String, String[]> params) {
+        return 0;
+    }
+
+    protected int scoreChoiceContext(String playerId, GameState gameState, String decisionText, String choiceText, String[] results) {
+        return 0;
+    }
+
+    protected int scoreCardContext(String playerId, GameState gameState, String decisionText, String cardText) {
+        return 0;
+    }
+
+    private String pickMultipleChoice(String playerId, AwaitingDecision decision, Map<String, String[]> params, GameState gameState) {
         String[] results = firstNonNull(params, "index", "choice", "results");
         if (results == null || results.length == 0) {
             return "0";
@@ -73,7 +89,8 @@ public abstract class HeuristicAiBase implements SwccgAiController {
         int bestScore = Integer.MIN_VALUE;
         for (int i = 0; i < results.length; i++) {
             String choice = lower(results[i]);
-            int score = scoreChoice(decisionText, choice, results);
+            int score = scoreChoice(decisionText, choice, results)
+                    + scoreChoiceContext(playerId, gameState, decisionText, choice, results);
             if (i == passIdx) {
                 score -= getPassPenalty();
             }
@@ -106,7 +123,7 @@ public abstract class HeuristicAiBase implements SwccgAiController {
         return "0";
     }
 
-    private String pickActionChoice(AwaitingDecision decision, Map<String, String[]> params, GameState gameState) {
+    private String pickActionChoice(String playerId, AwaitingDecision decision, Map<String, String[]> params, GameState gameState) {
         String[] actions = params.get("actionId");
         boolean noPass = Boolean.parseBoolean(first(params.get("noPass"), "false"));
 
@@ -116,7 +133,7 @@ public abstract class HeuristicAiBase implements SwccgAiController {
         }
 
         String decisionText = lower(decision.getText());
-        if (decisionText.contains("optional responses")) {
+        if (decisionText.contains("optional responses") && shouldSkipOptionalResponses()) {
             // Skip spamming optional responses; let the stack clear
             return "";
         }
@@ -160,7 +177,8 @@ public abstract class HeuristicAiBase implements SwccgAiController {
         int bestScore = Integer.MIN_VALUE;
         for (int i = 0; i < actions.length; i++) {
             String actionText = lower(getAtIndex(actionTexts, i));
-            int score = scoreAction(actionText, decisionText, phase);
+            int score = scoreAction(actionText, decisionText, phase)
+                    + scoreActionContext(playerId, gameState, decisionText, actionText, phase, params);
             if (i == passIdx) {
                 score -= getPassPenalty();
             }
@@ -192,7 +210,7 @@ public abstract class HeuristicAiBase implements SwccgAiController {
         return String.join(",", Arrays.copyOfRange(cardIds, 0, pickCount));
     }
 
-    private String pickArbitraryCards(AwaitingDecision decision, Map<String, String[]> params) {
+    private String pickArbitraryCards(String playerId, AwaitingDecision decision, Map<String, String[]> params, GameState gameState) {
         String[] cardIds = params.get("cardId");
         String[] selectable = params.get("selectable");
         int min = parseInt(params.get("min"), 0);
@@ -222,8 +240,10 @@ public abstract class HeuristicAiBase implements SwccgAiController {
         Collections.sort(candidates, new Comparator<Integer>() {
             @Override
             public int compare(Integer left, Integer right) {
-                int leftScore = scoreCard(decisionText, combine(cardText, testingText, backSideTestingText, left));
-                int rightScore = scoreCard(decisionText, combine(cardText, testingText, backSideTestingText, right));
+                int leftScore = scoreCard(decisionText, combine(cardText, testingText, backSideTestingText, left))
+                        + scoreCardContext(playerId, gameState, decisionText, combine(cardText, testingText, backSideTestingText, left));
+                int rightScore = scoreCard(decisionText, combine(cardText, testingText, backSideTestingText, right))
+                        + scoreCardContext(playerId, gameState, decisionText, combine(cardText, testingText, backSideTestingText, right));
                 if (leftScore != rightScore) {
                     return rightScore - leftScore;
                 }

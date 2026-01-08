@@ -1295,7 +1295,7 @@ public class SwccgGameMediator {
         SwccgAiController ai = AiRegistry.get(playerId);
 
         try {
-            String answer = ai.decide(decision, _swccgoGame.getGameState());
+            String answer = ai.decide(playerId, decision, _swccgoGame.getGameState());
 
             _userFeedback.participantDecided(playerId);
             decision.decisionMade(answer);
