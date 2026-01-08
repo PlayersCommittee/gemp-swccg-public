@@ -1,8 +1,10 @@
 package com.gempukku.swccgo.hall;
 
 import com.gempukku.swccgo.*;
+import com.gempukku.swccgo.ai.AdvancedAi;
 import com.gempukku.swccgo.ai.AiRegistry;
 import com.gempukku.swccgo.ai.BeginnerAi;
+import com.gempukku.swccgo.ai.SwccgAiController;
 import com.gempukku.swccgo.chat.ChatCommandCallback;
 import com.gempukku.swccgo.chat.ChatCommandErrorException;
 import com.gempukku.swccgo.chat.ChatRoomMediator;
@@ -320,7 +322,7 @@ public class HallServer extends AbstractServer {
 
                 table.setAiPlayer(aiPlayerId, aiDeck);
 
-                AiRegistry.register(aiPlayerId, new BeginnerAi()); // skill switch later
+                AiRegistry.register(aiPlayerId, createAiForSkill(aiSkill));
             }
 
             joinTableInternal(tableId, player.getName(), table, swccgDeck);
@@ -328,6 +330,17 @@ public class HallServer extends AbstractServer {
         } finally {
             _hallDataAccessLock.writeLock().unlock();
         }
+    }
+
+    private SwccgAiController createAiForSkill(String aiSkill) {
+        if (aiSkill == null) {
+            return new BeginnerAi();
+        }
+        String normalized = aiSkill.trim().toUpperCase(Locale.ROOT);
+        if ("ADVANCED".equals(normalized)) {
+            return new AdvancedAi();
+        }
+        return new BeginnerAi();
     }
 
     public void setPrivateGames(boolean enabled) {
