@@ -44,7 +44,7 @@ public class Card5_045 extends AbstractLostInterrupt {
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalBeforeActions(String playerId, SwccgGame game, Effect effect, PhysicalCard self) {
         // Check condition(s)
-        if (TriggerConditions.isTargetedByWeapon(game, effect, Filters.and(Filters.your(self), Filters.character, Filters.abilityMoreThan(2)), Filters.weapon)) {
+        if (TriggerConditions.isTargetedByWeapon(game, effect, Filters.and(Filters.your(self), Filters.character, Filters.abilityMoreThan(2), Filters.canBeTargetedBy(self)), Filters.weapon)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText("Subtract 3 from each weapon destiny draw");
