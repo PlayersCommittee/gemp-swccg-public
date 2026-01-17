@@ -4,23 +4,29 @@
     "location": "/draft/basic_premds2_draft.json"
   },
   {
+    "type": "basic_premv13_draft",
+    "location": "/draft/basic_premv13_draft.json"
+  },
+  {
     "type": "holocron_premv25_draft",
     "location": "/draft/holocron_premv25_draft.json"
   },  
-  {
-    "type": "c7_draft",
-    "location": "/draft/cube7Draft.json"
-  },
-  {
-    "type": "c7revised_draft",
-    "location": "/draft/cube7RevisedDraft.json"
-  },
   {
     "type": "c7obj_draft",
     "location": "/draft/cubeObj7Draft.json"
   },
 
 
+  {
+    "legacy": true,
+    "type": "c7_draft",
+    "location": "/draft/cube7Draft.json"
+  },
+  {
+    "legacy": true,
+    "type": "c7revised_draft",
+    "location": "/draft/cube7RevisedDraft.json"
+  },
   {
     "legacy": true,
     "type": "cube_worlds_2025_draft",
