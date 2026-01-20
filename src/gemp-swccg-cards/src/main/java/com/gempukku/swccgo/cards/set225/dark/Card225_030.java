@@ -58,7 +58,7 @@ public class Card225_030 extends AbstractSite {
                 && GameConditions.canTarget(game, self, convertableTargetsFilter)
                 && GameConditions.isOncePerTurn(game, self, playerOnDarkSideOfLocation, gameTextSourceCardId, gameTextActionId)) {
 
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerOnDarkSideOfLocation, gameTextSourceCardId, gameTextActionId);
             action.setText("Raise your converted Jabba's Palace site");
             action.appendUsage(
                 new OncePerTurnEffect(action));
