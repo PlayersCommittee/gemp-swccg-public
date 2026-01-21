@@ -288,6 +288,10 @@ public class DefaultSwccgGame implements SwccgGame {
 
     @Override
     public void requestCancel(String playerId) {
+        // Ignore if game is already finished
+        if (_finished)
+             return;
+
         _gameState.sendMessage(playerId + " has requested the game to be canceled. Game will be canceled if requested by all players");
         _requestedCancel.add(playerId);
         if (_requestedCancel.size() >= _allPlayers.size()) {

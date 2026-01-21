@@ -51,6 +51,24 @@
 						$("#private-response").html(string);
 					});
 				});
+
+			$("#enable-bot-tables-button").button().click(
+				function () {
+					$("#bot-tables-response").html("Processing...");
+
+					hall.comm.setAiTablesEnabled(true, function (string) {
+						$("#bot-tables-response").html(string);
+					});
+				});
+
+			$("#disable-bot-tables-button").button().click(
+				function () {
+					$("#bot-tables-response").html("Processing...");
+
+					hall.comm.setAiTablesEnabled(false, function (string) {
+						$("#bot-tables-response").html(string);
+					});
+				});
 			
 			$("#enable-registration-button").button().click(
 				function () {
@@ -298,6 +316,24 @@
 			<td id="private-response">Ready.</td>
 			<td>
 				Controls whether players are allowed to make private tables (unlisted and unspectatable, except to admins).  The "Private game" checkbox will not display at all if this is not set.
+				<br><br>
+				This setting persists between server restarts.
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<button id="enable-bot-tables-button" class="" style="padding:4px;">
+					Enable bot tables
+				</button>
+
+				<button id="disable-bot-tables-button" class="" style="padding:4px;">
+					Disable bot tables
+				</button>
+			</td>
+			<td id="bot-tables-response">Ready.</td>
+			<td>
+				Controls whether players are allowed to create tables vs bots. The "vs Bot" option will be hidden if disabled.
 				<br><br>
 				This setting persists between server restarts.
 			</td>
@@ -583,4 +619,3 @@
 	</div>
 
 </div>
-

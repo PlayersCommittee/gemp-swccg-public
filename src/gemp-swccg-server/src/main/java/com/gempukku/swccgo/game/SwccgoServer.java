@@ -2,6 +2,7 @@ package com.gempukku.swccgo.game;
 
 import com.gempukku.swccgo.AbstractServer;
 import com.gempukku.swccgo.PrivateInformationException;
+import com.gempukku.swccgo.ai.AiRegistry;
 import com.gempukku.swccgo.chat.ChatCommandErrorException;
 import com.gempukku.swccgo.chat.ChatServer;
 import com.gempukku.swccgo.db.DeckDAO;
@@ -68,6 +69,7 @@ public class SwccgoServer extends AbstractServer {
                 }
                 if (currentTime > finishedGame.getValue().getTime() + _timeToGameDeath) {
                     _runningGames.get(gameId).destroy();
+                    AiRegistry.unregisterGame(gameId);
                     _gameDeathWarningsSent.remove(gameId);
                     _runningGames.remove(gameId);
                     _chatServer.destroyChatRoom(getChatRoomName(gameId));
@@ -191,4 +193,3 @@ public class SwccgoServer extends AbstractServer {
         }
     }
 }
-

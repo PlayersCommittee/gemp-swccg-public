@@ -124,6 +124,8 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             findMultipleAccounts(request, responseWriter);
         } else if (uri.equals("/settings/privategames") && request.method() == HttpMethod.POST) {
             setPrivateGames(request, responseWriter);
+        } else if (uri.equals("/settings/aitables") && request.method() == HttpMethod.POST) {
+            setAiTables(request, responseWriter);
         } else if (uri.equals("/settings/bonusabilities") && request.method() == HttpMethod.POST) {
             setBonusAbilities(request, responseWriter);
         } else if (uri.equals("/settings/stattracking") && request.method() == HttpMethod.POST) {
@@ -1072,6 +1074,22 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             _hallServer.setPrivateGames(enabled);
 
             responseWriter.writeHtmlResponse("OK.  Private games enabled: " + _hallServer.privateGamesAllowed());
+        }
+        finally {
+            postDecoder.destroy();
+        }
+    }
+
+    private void setAiTables(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+        validateAdmin(request);
+
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        try {
+            boolean enabled = Boolean.parseBoolean(getFormParameterSafely(postDecoder, "enabled"));
+
+            _hallServer.setAiTablesEnabled(enabled);
+
+            responseWriter.writeHtmlResponse("OK.  Bot tables enabled: " + _hallServer.aiTablesEnabled());
         }
         finally {
             postDecoder.destroy();

@@ -39,6 +39,10 @@ public interface GempSettingDAO {
 
     void setNewAccountRegistrationEnabled(boolean enabled);
 
+    boolean aiTablesEnabled();
+
+    void setAiTablesEnabled(boolean enabled);
+
     void setFlag(String name, boolean enabled);
     boolean toggleFlag(String name);
     boolean getFlag(String name);

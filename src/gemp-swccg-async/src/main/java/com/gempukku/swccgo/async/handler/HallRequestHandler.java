@@ -311,6 +311,13 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
             boolean sampleDeck = (sampleDeckVal != null ? Boolean.valueOf(sampleDeckVal) : false);
             String isPrivateVal = getFormParameterSafely(postDecoder, "isPrivate");
             boolean isPrivate = (isPrivateVal != null ? Boolean.valueOf(isPrivateVal) : false);
+            boolean playVsAi = Boolean.parseBoolean(getFormParameterSafely(postDecoder, "playVsAi"));
+            String aiSkill = getFormParameterSafely(postDecoder, "aiSkill");
+            String aiDeckName = getFormParameterSafely(postDecoder, "aiDeckName");
+            String aiDeckSampleVal = getFormParameterSafely(postDecoder, "aiDeckSample");
+            boolean aiDeckSample = (aiDeckSampleVal == null || aiDeckSampleVal.isEmpty())
+                    ? true
+                    : Boolean.valueOf(aiDeckSampleVal);
 
             //if they tried creating a private game while they are disabled, let them know instead of creating the table
             if(isPrivate&&!_hallServer.privateGamesAllowed()) {
@@ -327,10 +334,12 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
             }
 
             Player resourceOwner = getResourceOwnerSafely(request, participantId);
-            Player librarian = sampleDeck ? getLibrarian() : null;
 
+            // Librarian is needed for sample decks AND for AI decks (AI decks come from librarian)
+            Player librarian = (sampleDeck || playVsAi) ? getLibrarian() : null;
+            
             try {
-                _hallServer.createNewTable(format, resourceOwner, deckName, sampleDeck, tableDesc, isPrivate, librarian);
+                _hallServer.createNewTable(format, resourceOwner, deckName, sampleDeck, tableDesc, isPrivate, librarian, playVsAi, aiSkill, aiDeckName, aiDeckSample);
                 responseWriter.writeXmlResponse(null);
             } catch (HallException e) {
                 responseWriter.writeXmlResponse(marshalException(e));
@@ -672,6 +681,7 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
             }
 
             hall.setAttribute("privateGamesEnabledBoolean", String.valueOf(_hallServer.privateGamesAllowed()));
+            hall.setAttribute("aiTablesEnabledBoolean", String.valueOf(_hallServer.aiTablesEnabled()));
             doc.appendChild(hall);
 
 
@@ -740,6 +750,7 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
                     hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(_resourceOwner, "permanent").getCurrency()));
 
                     hall.setAttribute("privateGamesEnabledBoolean", String.valueOf(_hallServer.privateGamesAllowed()));
+                    hall.setAttribute("aiTablesEnabledBoolean", String.valueOf(_hallServer.aiTablesEnabled()));
                     doc.appendChild(hall);
 
                     Map<String, String> headers = new HashMap<String, String>();

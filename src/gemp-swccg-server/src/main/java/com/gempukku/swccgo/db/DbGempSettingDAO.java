@@ -15,6 +15,7 @@ public class DbGempSettingDAO implements GempSettingDAO {
     public static String InGameStatisticsFlag = "inGameStatistics";
     public static String BonusAbilitiesEnabledFlag = "bonusAbilitiesEnabled";
     public static String NewAccountRegistrationEnabled = "newAccountRegistrationEnabled";
+    public static String AiTablesEnabledFlag = "aiTablesEnabled";
 
     /**
      * Creates a gemp_setting data access object that access the database.
@@ -62,6 +63,16 @@ public class DbGempSettingDAO implements GempSettingDAO {
     @Override
     public void setNewAccountRegistrationEnabled(boolean enabled) {
         setFlag(NewAccountRegistrationEnabled, enabled);
+    }
+
+    @Override
+    public boolean aiTablesEnabled() {
+        return getFlagOrDefault(AiTablesEnabledFlag, false);
+    }
+
+    @Override
+    public void setAiTablesEnabled(boolean enabled) {
+        setFlag(AiTablesEnabledFlag, enabled);
     }
 
     @Override
@@ -113,5 +124,24 @@ public class DbGempSettingDAO implements GempSettingDAO {
             throw new RuntimeException("Unable to get setting '" + name + "': ", exp);
         }
         return enabled;
+    }
+
+    private boolean getFlagOrDefault(String name, boolean defaultValue) {
+        boolean enabled = defaultValue;
+        boolean hasValue = false;
+        try {
+            try (Connection connection = _dbAccess.getDataSource().getConnection()) {
+                try (ResultSet result = connection.createStatement().executeQuery(
+                        "SELECT settingValue FROM gemp_settings WHERE settingName = '" + name + "'")) {
+                    while (result.next()) {
+                        enabled = result.getBoolean(1);
+                        hasValue = true;
+                    }
+                }
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to get setting '" + name + "': ", exp);
+        }
+        return hasValue ? enabled : defaultValue;
     }
 }

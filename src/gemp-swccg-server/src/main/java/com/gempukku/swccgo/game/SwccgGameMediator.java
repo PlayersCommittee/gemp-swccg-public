@@ -3,6 +3,8 @@ package com.gempukku.swccgo.game;
 import com.gempukku.swccgo.PrivateInformationException;
 import com.gempukku.swccgo.SubscriptionConflictException;
 import com.gempukku.swccgo.SubscriptionExpiredException;
+import com.gempukku.swccgo.ai.AiRegistry;
+import com.gempukku.swccgo.ai.SwccgAiController;
 import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
@@ -50,6 +52,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class SwccgGameMediator {
     private static final Logger LOG = LogManager.getLogger(SwccgGameMediator.class);
+    private static final int MAX_AI_CHAIN = 50;
+    private int aiChainCounter = 0;
 
     private Map<String, GameCommunicationChannel> _communicationChannels = Collections.synchronizedMap(new HashMap<String, GameCommunicationChannel>());
     private DefaultUserFeedback _userFeedback;
@@ -181,6 +185,15 @@ public class SwccgGameMediator {
             }
         }
 
+        return false;
+    }
+
+    private boolean isBotGame() {
+        for (SwccgGameParticipant participant : _playersPlaying) {
+            if (AiRegistry.isAi(_gameId, participant.getPlayerId())) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -1078,8 +1091,16 @@ public class SwccgGameMediator {
         String playerId = player.getName();
         _writeLock.lock();
         try {
-            if (isPlayerPlaying(playerId))
-                _swccgoGame.requestCancel(playerId);
+            if (isPlayerPlaying(playerId)) {
+                if (isBotGame()) {
+                    // Auto-cancel bot games on a single human request
+                    for (SwccgGameParticipant participant : _playersPlaying) {
+                        _swccgoGame.requestCancel(participant.getPlayerId());
+                    }
+                } else {
+                    _swccgoGame.requestCancel(playerId);
+                }
+            }
         } finally {
             _writeLock.unlock();
         }
@@ -1216,9 +1237,12 @@ public class SwccgGameMediator {
 
     private void startClocksForUsersPendingDecision() {
         long currentTime = System.currentTimeMillis();
-        Set<String> users = _userFeedback.getUsersPendingDecision();
-        for (String user : users)
+        // Copy to avoid ConcurrentModification when AI decisions resolve immediately
+        Set<String> users = new HashSet<String>(_userFeedback.getUsersPendingDecision());
+        for (String user : users) {
             _decisionQuerySentTimes.put(user, currentTime);
+            maybeLetAiPlay(user);
+        }
     }
 
     private void addTimeSpentOnDecisionToUserClock(String participantId) {
@@ -1227,6 +1251,50 @@ public class SwccgGameMediator {
             long currentTime = System.currentTimeMillis();
             long diffSec = (currentTime - queryTime) / 1000;
             _playerClocks.put(participantId, _playerClocks.get(participantId) + (int) diffSec);
+        }
+    }
+
+    // Let registered AI users answer pending decisions; guards against runawayloops.
+    private void maybeLetAiPlay(String playerId) {
+        if (!AiRegistry.isAi(_gameId, playerId)) {
+            aiChainCounter = 0; // Reset for human player
+            return;
+        }
+
+        if (++aiChainCounter > MAX_AI_CHAIN) { // simple guard if AI keeps triggering itself
+            return;
+        }
+
+        AwaitingDecision decision = _userFeedback.getAwaitingDecision(playerId);
+        if (decision == null) {
+            return;
+        }
+
+        SwccgAiController ai = AiRegistry.get(_gameId, playerId);
+        if (ai == null) {
+            return;
+        }
+
+        try {
+            // Provide the full game reference for advanced AI features (e.g., deploy planning)
+            ai.setGame(_swccgoGame);
+            String answer = ai.decide(playerId, decision, _swccgoGame.getGameState());
+
+            _userFeedback.participantDecided(playerId);
+            decision.decisionMade(answer);
+
+            // Check if AI has any chat messages to send
+            String chatMessage = ai.getChatMessage();
+            if (chatMessage != null && !chatMessage.isEmpty()) {
+                // Format as a player message: "PlayerName: message"
+                _swccgoGame.getGameState().sendMessage(playerId + ": " + chatMessage);
+            }
+
+            _swccgoGame.carryOutPendingActionsUntilDecisionNeeded();
+            startClocksForUsersPendingDecision();
+
+        } catch (DecisionResultInvalidException e) {
+            _userFeedback.sendAwaitingDecision(playerId, decision);
         }
     }
 
