@@ -453,6 +453,25 @@ public interface ZoneManipulation extends TestBase{
 		});
 	}
 
+	/**
+	 * Causes a card to be attached to the given vehicle or ship as a vehicle capacity occupant, and updates all the appropriate state
+	 * on each card.  This does not follow the game procedure and is cheating the card into place.
+	 * @param vehicleOrStarship The vehicle (or ship) that will hold the vehicle(s).
+	 * @param vehicles One or more vehicles to board.
+	 */
+	default void BoardAsVehicle(PhysicalCardImpl vehicleOrStarship, PhysicalCardImpl...vehicles) {
+		Arrays.stream(vehicles).forEach(vehicle -> {
+			var originalZone = vehicle.getZone();
+			RemoveCardZone(vehicle);
+			if(originalZone.isInPlay()) {
+				gameState().moveCardToAttachedInVehicleCapacitySlot(vehicle, vehicleOrStarship);
+			}
+			else {
+				gameState().attachCardInVehicleCapacitySlot(vehicle, vehicleOrStarship);
+			}
+		});
+	}
+
 
 	/**
 	 * Directly attaches one or more cards to a target card, regardless of legality or costs.  This is often used once
