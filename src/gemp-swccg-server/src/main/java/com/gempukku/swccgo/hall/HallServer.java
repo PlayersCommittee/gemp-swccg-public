@@ -291,6 +291,9 @@ public class HallServer extends AbstractServer {
             if (isPrivate && format.isPlaytesting()) {
                 throw new HallException("Playtesting games cannot be private");
             }
+            if (playVsAi && league != null) {
+                throw new HallException("League games cannot be played against the bot");
+            }
 
             boolean isPrivateGame = isPrivate && privateGamesAllowed();
 
