@@ -74,9 +74,18 @@ public interface Targeting extends BaseQuery, Weapons, Captives, CardTraits, Pil
 				&& !getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_BE_DISARMED, cardToTarget).isEmpty())
 			return false;
 
-		if (targetingReasons.contains(TargetingReason.TO_BE_CAPTURED)
-				&& !getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_TARGET_TO_BE_CAPTURED, cardToTarget).isEmpty())
-			return false;
+		if (targetingReasons.contains(TargetingReason.TO_BE_CAPTURED)) {
+			if (cardDoingTargeting != null) {
+				if (cardDoingTargeting.getOwner().equals(gameState.getLightPlayer())) //Light Side may not use capturing
+					return false;
+			}
+
+			if (cardToTarget.getOwner().equals(gameState.getDarkPlayer())) //Dark Side may only capture Light Side cards
+				return false;
+
+			if (!getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_TARGET_TO_BE_CAPTURED, cardToTarget).isEmpty())
+				return false;
+		}
 
 		if (targetingReasons.contains(TargetingReason.TO_BE_FROZEN)
 				&& !getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_TARGET_TO_BE_FROZEN, cardToTarget).isEmpty())
