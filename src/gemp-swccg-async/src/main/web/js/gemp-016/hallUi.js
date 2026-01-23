@@ -17,6 +17,8 @@ var GempSwccgHallUI = Class.extend({
 
     tablesDiv:null,
     buttonsDiv:null,
+    controlsLeft:null,
+    controlsRight:null,
     isPrivateCheckbox:null,
     adminTab:null,
     userInfo:null,
@@ -65,19 +67,27 @@ var GempSwccgHallUI = Class.extend({
         this.div.append(this.tablesDiv);
 
         this.buttonsDiv = $("<div></div>");
-        this.buttonsDiv.css({left:"0px", top:(height - 30) + "px", width:width + "px", height:29 + "px", align:"right", backgroundColor:"#000000", "border-top-width":"1px", "border-top-color":"#ffffff", "border-top-style":"solid"});
+        this.buttonsDiv.css({left:"0px", top:(height - 30) + "px", width:width + "px", align:"right", backgroundColor:"#000000", "border-top-width":"1px", "border-top-color":"#ffffff", "border-top-style":"solid", "box-sizing":"border-box", padding:"4px 6px", display:"grid", "grid-template-columns":"1fr auto", "column-gap":"8px", "align-items":"center"});
 
         var that = this;
 
-        this.buttonsDiv.append("<a href='deckBuild.html' target='_blank'>Deck Builder</a>");
-        this.buttonsDiv.append(" | ");
+        this.controlsLeft = $("<div></div>");
+        this.controlsLeft.css({display:"flex", "flex-wrap":"wrap", "align-items":"center", gap:"6px", flex:"1 1 auto", "min-width":"0"});
+
+        this.controlsRight = $("<div></div>");
+        this.controlsRight.css({display:"flex", "align-items":"center", gap:"6px", "justify-self":"end", "white-space":"nowrap"});
+
+        this.buttonsDiv.append(this.controlsLeft);
+        this.buttonsDiv.append(this.controlsRight);
+
+        this.controlsLeft.append("<a href='deckBuild.html' target='_blank'>Deck Builder</a>");
+        this.controlsLeft.append(" | ");
 
 //        this.buttonsDiv.append("<a href='merchant.html'>Merchant</a>");
 //        this.buttonsDiv.append(" | ");
 
         this.pocketDiv = $("<div class='pocket'></div>");
-        this.pocketDiv.css({"float":"right", width:95, height:18});
-        this.buttonsDiv.append(this.pocketDiv);
+        this.pocketDiv.css({width:95, height:18});
 
         this.supportedFormatsSelect = $("<select style='width: 175px'></select>");
         this.supportedFormatsSelect.hide();
@@ -136,15 +146,14 @@ var GempSwccgHallUI = Class.extend({
 
         this.tableDescInput = $("<input id='tableDescInput' type='text' maxlength='50' style='width: 150px;' placeHolder='Description (optional)'>");
 
-        this.buttonsDiv.append(this.supportedFormatsSelect);
-        this.buttonsDiv.append(this.decksSelect);
-        this.buttonsDiv.append(" ");
-        this.buttonsDiv.append(this.opponentSelect);
-        this.buttonsDiv.append(" ");
-        this.buttonsDiv.append(this.aiControlsDiv);
-        this.buttonsDiv.append(this.tableDescInput);
-        this.buttonsDiv.append(this.createTableButton);
-        this.buttonsDiv.append(this.isPrivateCheckbox);
+        this.controlsLeft.append(this.supportedFormatsSelect);
+        this.controlsLeft.append(this.decksSelect);
+        this.controlsLeft.append(this.opponentSelect);
+        this.controlsLeft.append(this.aiControlsDiv);
+        this.controlsLeft.append(this.tableDescInput);
+        this.controlsLeft.append(this.isPrivateCheckbox);
+        this.controlsRight.append(this.createTableButton);
+        this.controlsRight.append(this.pocketDiv);
         
         this.adminTab = $("#admin-tab");
         this.adminTab.hide();
@@ -165,7 +174,9 @@ var GempSwccgHallUI = Class.extend({
                 }
             });
 
+        this.updateCreateTableLabel();
         this.div.append(this.buttonsDiv);
+        this.hallResized(width, height);
 
         this.getHall();
         this.updateDecks();
@@ -384,9 +395,23 @@ var GempSwccgHallUI = Class.extend({
         $.cookie("hallSettings", newHallSettings, { expires:365 });
     },
 
+    refreshLayout:function() {
+        if (this.div == null) {
+            return;
+        }
+        var width = $(this.div).width();
+        var height = $(this.div).height();
+        this.hallResized(width, height);
+    },
+
     hallResized:function (width, height) {
-        this.tablesDiv.css({overflow:"auto", left:"0px", top:"0px", width:width + "px", height:(height - 30) + "px"});
-        this.buttonsDiv.css({left:"0px", top:(height - 30) + "px", width:width + "px", height:29 + "px", align:"right", backgroundColor:"#000000", "border-top-width":"1px", "border-top-color":"#ffffff", "border-top-style":"solid"});
+        this.buttonsDiv.css({left:"0px", width:width + "px", align:"right", backgroundColor:"#000000", "border-top-width":"1px", "border-top-color":"#ffffff", "border-top-style":"solid"});
+        var buttonsHeight = this.buttonsDiv.outerHeight();
+        if (buttonsHeight == null || buttonsHeight <= 0) {
+            buttonsHeight = 30;
+        }
+        this.tablesDiv.css({overflow:"auto", left:"0px", top:"0px", width:width + "px", height:(height - buttonsHeight) + "px"});
+        this.buttonsDiv.css({top:(height - buttonsHeight) + "px"});
     },
 
     getHall: function() {
@@ -532,18 +557,50 @@ var GempSwccgHallUI = Class.extend({
         return side;
     },
 
+    updateCreateTableLabel:function() {
+        if (this.createTableButton == null || this.opponentSelect == null) {
+            return false;
+        }
+        var label = this.opponentSelect.val() === "ai" ? "Start Bot Game" : "Create table";
+        var button = $(this.createTableButton);
+        var currentLabel = button.hasClass("ui-button") ? button.button("option", "label") : button.text();
+        if (currentLabel === label) {
+            return false;
+        }
+        if (button.hasClass("ui-button")) {
+            button.button("option", "label", label);
+        } else {
+            button.text(label);
+        }
+        return true;
+    },
+
     updateAiDecksForSelection:function() {
+        var layoutChanged = this.updateCreateTableLabel();
         if (!this.aiTablesEnabled) {
-            this.aiControlsDiv.hide();
+            if (this.aiControlsDiv.css("display") != "none") {
+                this.aiControlsDiv.hide();
+                layoutChanged = true;
+            }
+            if (layoutChanged) {
+                this.refreshLayout();
+            }
             return;
         }
         var playingVsAi = this.opponentSelect.val() === "ai";
         if (!playingVsAi) {
-            this.aiControlsDiv.hide();
+            if (this.aiControlsDiv.css("display") != "none") {
+                this.aiControlsDiv.hide();
+                layoutChanged = true;
+            }
+            if (layoutChanged) {
+                this.refreshLayout();
+            }
             return;
         }
         if (this.aiControlsDiv.css("display") == "none") {
             this.aiControlsDiv.show();
+            layoutChanged = true;
         }
         this.aiControlsDiv.show();
 
@@ -557,6 +614,9 @@ var GempSwccgHallUI = Class.extend({
             shouldRebuild = true;
         }
         if (!shouldRebuild) {
+            if (layoutChanged) {
+                this.refreshLayout();
+            }
             return;
         }
 
@@ -601,6 +661,7 @@ var GempSwccgHallUI = Class.extend({
                 this.aiDeckSelect.val(previousSelection);
             }
         }
+        this.refreshLayout();
     },
 
     setAiTablesEnabled:function(enabled) {
@@ -951,12 +1012,22 @@ var GempSwccgHallUI = Class.extend({
                 this.supportedFormatsInitialized = true;
             }
 
-            if (this.supportedFormatsSelect.css("display") == "none")
+            var layoutChanged = false;
+            if (this.supportedFormatsSelect.css("display") == "none") {
                 this.supportedFormatsSelect.css("display", "");
-            if (this.decksSelect.css("display") == "none")
+                layoutChanged = true;
+            }
+            if (this.decksSelect.css("display") == "none") {
                 this.decksSelect.css("display", "");
-            if (this.createTableButton.css("display") == "none")
+                layoutChanged = true;
+            }
+            if (this.createTableButton.css("display") == "none") {
                 this.createTableButton.css("display", "");
+                layoutChanged = true;
+            }
+            if (layoutChanged) {
+                this.refreshLayout();
+            }
 
             setTimeout(function () {
                 that.updateHall();
