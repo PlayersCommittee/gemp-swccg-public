@@ -219,16 +219,18 @@ public class Card_1_079_Tests {
         scn.DSInitiateBattle(system);
         scn.SkipToDamageSegment(false);
 
-        scn.LSPayBattleDamageFromCardInPlay(transport);
+        assertTrue(scn.AwaitingLSBattleDamagePayment());
+        scn.LSChooseCard(transport);
 
-        assertFalse(scn.LSDecisionAvailable("About to forfeit")); //About to forfeit Medium Transport - Optional responses
-        assertTrue(scn.LSDecisionAvailable("Choose Force to lose")); //test1: (past window to play Escape Pod)
+        assertFalse(scn.LSAnyDecisionsAvailable()); //test1: DS decision means past window to play Escape Pod
+        assertTrue(scn.DSDecisionAvailable("FORFEITED_TO_LOST_PILE_FROM_TABLE")); //optional response
     }
 
     @Test
     public void EscapePodMayBePlayedIfAllActiveCharactersAboardCannotRelocate() {
         //test1: escape pod can be played when your capital ship is about to be lost
         //  and not all characters aboard can relocate to the target planet site
+        //test2: does not relocate character aboard that was unable to move
         var scn = GetScenario();
 
         var escape = scn.GetLSCard("escape");
@@ -273,7 +275,7 @@ public class Card_1_079_Tests {
         scn.PassAllResponses();
 
         assertTrue(scn.CardsAtLocation(ls_cantina,pilot));
-        assertFalse(scn.CardsAtLocation(ls_cantina,rebelguard)); //cannot move, so could not relocate and stays on ship
+        assertFalse(scn.CardsAtLocation(ls_cantina,rebelguard)); //test2: cannot move, so could not relocate and stays on ship
         assertSame(Zone.TOP_OF_USED_PILE,escape.getZone());
         assertTrue(scn.LSDecisionAvailable("Choose card to put on Lost Pile")); //rebelguard and transport simultaneous loss
     }
@@ -355,10 +357,48 @@ public class Card_1_079_Tests {
     }
 
     @Test
-    public void EscapePodCannotTargetYourLandedShipSite() {
-        //(locationCanBeRelocatedTo requires destination location to be different from current location)
+    public void EscapePodCannotTargetFromDagobah() {
+        //test1: escape pod cannot be played when your capital ship is about to be lost
+        //  from Dagobah location
+        var scn = GetScenario();
+
+        var escape = scn.GetLSCard("escape");
+        var ls_dag = scn.GetLSCard("ls_dag");
+        var transport = scn.GetLSCard("transport");
+        var pilot = scn.GetLSCard("pilot");
+        var ls_cantina = scn.GetLSCard("ls_cantina");
+
+        var trooper = scn.GetDSFiller(1);
+
+        scn.StartGame();
+
+        scn.MoveCardsToLSHand(escape);
+
+        scn.MoveLocationToTable(ls_dag);
+        scn.MoveLocationToTable(ls_cantina);
+
+        scn.MoveCardsToLocation(ls_dag,trooper,transport);
+        scn.BoardAsPilot(transport,pilot);
+
+        scn.SkipToPhase(Phase.BATTLE);
+
+        scn.DSInitiateBattle(ls_dag);
+        scn.SkipToDamageSegment(false);
+
+        scn.LSPayBattleDamageFromCardInPlay(transport);
+
+        assertTrue(scn.LSDecisionAvailable("still want to forfeit"));
+        scn.LSChooseYes();
+
+        assertFalse(scn.LSDecisionAvailable("About to forfeit")); //About to forfeit Medium Transport - Optional responses
+        assertTrue(scn.DSAnyDecisionsAvailable()); //test1 (past window to play Escape Pod)
+    }
+
+    @Test
+    public void EscapePodCanTargetYourLandedShipSite() {
         //test1: escape pod is playable if lost while landed at a site
-        //test2: escape pod cannot relocate to the same site that your ship is currently landed at
+        //test2: escape pod can relocate to the same site that your ship is currently landed at
+        //test3: relocate to same site succeeds
         var scn = GetScenario();
 
         var escape = scn.GetLSCard("escape");
@@ -395,7 +435,13 @@ public class Card_1_079_Tests {
         scn.LSPlayCard(escape);
         assertTrue(scn.LSDecisionAvailable("Choose planet site"));
         assertTrue(scn.LSHasCardChoiceAvailable(ls_cantina));
-        assertFalse(scn.LSHasCardChoiceAvailable(ls_yavin_db)); //test2
+        assertTrue(scn.LSHasCardChoiceAvailable(ls_yavin_db)); //test2
+        scn.LSChooseCard(ls_yavin_db);
+
+        scn.PassAllResponses();
+
+        assertTrue(scn.CardsAtLocation(ls_yavin_db,pilot)); //test3
+        assertFalse(scn.IsAttachedTo(transport,pilot));
     }
 
     @Test

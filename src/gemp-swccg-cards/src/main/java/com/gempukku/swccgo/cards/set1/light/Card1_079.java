@@ -53,7 +53,7 @@ public class Card1_079 extends AbstractUsedInterrupt {
 
             Collection<PhysicalCard> possibleSites = new HashSet<>();
             for (PhysicalCard card : Filters.filterActive(game, self, aboardFilter)) {
-                possibleSites.addAll(Filters.filterTopLocationsOnTable(game, Filters.and(destinationFilter, Filters.locationCanBeRelocatedTo(card, 0))));
+                possibleSites.addAll(Filters.filterTopLocationsOnTable(game, Filters.and(destinationFilter, Filters.locationCanBeRelocatedTo(card, false, false, false, 0, false, true))));
             }
 
             if (!possibleSites.isEmpty()) {
@@ -71,7 +71,7 @@ public class Card1_079 extends AbstractUsedInterrupt {
                                     protected void performActionResults(Action targetingAction) {
                                         // Perform result(s)
                                         PhysicalCard destination = action.getPrimaryTargetCard(targetGroupId);
-                                        Collection<PhysicalCard> toRelocate = Filters.filterActive(game, self, Filters.and(aboardFilter, Filters.canBeRelocatedToLocation(destination, 0)));
+                                        Collection<PhysicalCard> toRelocate = Filters.filterActive(game, self, Filters.and(aboardFilter, Filters.canBeRelocatedToLocation(destination, false, false, false, 0, false, true)));
                                         action.addAnimationGroup(toRelocate);
                                         action.appendEffect(new RelocateBetweenLocationsEffect(action, toRelocate, destination));
                                     }
