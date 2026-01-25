@@ -43,7 +43,7 @@ public class Card206_012 extends AbstractImmediateEffect {
         super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, "Xizor's Bounty", Uniqueness.UNIQUE, ExpansionSet.SET_6, Rarity.V);
         setGameText("Use 1 Force to deploy on opponent's just deployed character at same site as a Black Sun agent; character may not battle this turn. If character is about to leave table or be captured, peek at opponent's hand, retrieve 1 Force, and lose this Immediate Effect.");
         addIcons(Icon.VIRTUAL_SET_6);
-        addKeywords(Keyword.BOUNTY);
+        addKeywords(Keyword.BOUNTY, Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

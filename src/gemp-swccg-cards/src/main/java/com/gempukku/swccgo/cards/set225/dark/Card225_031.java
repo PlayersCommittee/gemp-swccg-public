@@ -46,7 +46,7 @@ public class Card225_031 extends AbstractImmediateEffect {
         setGameText("Deploy on opponent's just deployed character. Once per turn, if a bounty hunter here, may reveal the top card of each player's Reserve Deck. If this character is about to be captured, retrieve 2 Force (3 if The Client on table) and return this card to your hand. [Immune to Control.]");
         addIcons(Icon.VIRTUAL_SET_25);
         addImmuneToCardTitle(Title.Control);
-        addKeywords(Keyword.BOUNTY);
+        addKeywords(Keyword.BOUNTY, Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override
