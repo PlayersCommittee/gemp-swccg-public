@@ -51,7 +51,9 @@ public class MoveCardsAwayEffect extends AbstractSubActionEffect {
      * @param action the action performing this effect
      * @param playerId the player
      * @param cardFilter the card filter
+     * @param moveToFilter the destination location filter
      * @param asManyAsPossible true if as many as possible must be moved, otherwise false
+     * @param forFree true if movement is free
      */
     public MoveCardsAwayEffect(Action action, String playerId, Filterable cardFilter, Filterable moveToFilter, boolean asManyAsPossible, boolean forFree) {
         this(action, playerId, cardFilter, moveToFilter, asManyAsPossible, forFree, true);
@@ -62,7 +64,10 @@ public class MoveCardsAwayEffect extends AbstractSubActionEffect {
      * @param action the action performing this effect
      * @param playerId the player
      * @param cardFilter the card filter
+     * @param moveToFilter the destination location filter
      * @param asManyAsPossible true if as many as possible must be moved, otherwise false
+     * @param forFree true if movement is free
+     * @param mustMoveAtLeastOne true if must move at least one
      */
     public MoveCardsAwayEffect(Action action, String playerId, Filterable cardFilter, Filterable moveToFilter, boolean asManyAsPossible, boolean forFree,  boolean mustMoveAtLeastOne) {
         super(action);
