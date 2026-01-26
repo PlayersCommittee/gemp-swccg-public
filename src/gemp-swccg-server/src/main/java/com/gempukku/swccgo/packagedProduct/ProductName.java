@@ -76,6 +76,7 @@ public interface ProductName {
     String VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_5 = "Virtual Alternate Image Booster Pack Series 5";
     String VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_6 = "Virtual Alternate Image Booster Pack Series 6";
     String VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_7 = "Virtual Alternate Image Booster Pack Series 7";
+    String VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_8 = "Virtual Alternate Image Booster Pack Series 8";
 
     // Anthology Boxes
     String FIRST_ANTHOLOGY_BOX = "First Anthology Box";

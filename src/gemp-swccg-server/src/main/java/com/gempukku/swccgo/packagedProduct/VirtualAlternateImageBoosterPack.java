@@ -41,6 +41,8 @@ public class VirtualAlternateImageBoosterPack extends BasePackagedCardProduct {
                 return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_6;
             case 7:
                 return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_7;
+            case 8:
+                return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_8;
         }
 
         return ProductName.VIRTUAL_ALTERNATE_IMAGE_BOOSTER_PACK_SERIES_1;
@@ -213,6 +215,27 @@ public class VirtualAlternateImageBoosterPack extends BasePackagedCardProduct {
                 possibleCards.add("200_88^"); //Probot (AI)
                 possibleCards.add("214_9^"); //Steadfast (AI)
                 possibleCards.add("219_27^"); //Vader's Lightsaber (V) (AI)
+                break;
+            case 8:
+                possibleCards.add("201_8^"); //A New Secret Base (V)
+                possibleCards.add("217_26^"); //Admiral Kilian (Hologram)
+                possibleCards.add("209_1^"); //Admiral Raddus
+                possibleCards.add("212_6^"); //Allegiant General Pryde (Hologram)
+                possibleCards.add("211_12^"); //Always Two There Are
+                possibleCards.add("221_47^"); //Anakin's Destiny
+                possibleCards.add("203_24^"); //Cad Bane
+                possibleCards.add("221_54^"); //Clone Command Center
+                possibleCards.add("213_55^"); //Corellia (V)
+                possibleCards.add("221_19^"); //First Light
+                possibleCards.add("213_31^"); //Hunt Down And Destroy The Jedi (V)
+                possibleCards.add("222_10^"); //Kylo, Master Of The Knights Of Ren
+                possibleCards.add("211_29^"); //Make Ten Men Feel Like A Hundred
+                possibleCards.add("222_25^"); //Nien Nunb, Sullustan Smuggler
+                possibleCards.add("221_71^"); //Resolute
+                possibleCards.add("221_33^"); //Tatooine: Cantina (DARK) (V)
+                possibleCards.add("203_15^"); //The Shield Is Down! (V)
+                possibleCards.add("219_26^"); //Vader (V)
+                possibleCards.add("206_6^"); //What Chance Do We Have?
                 break;
         }
 
