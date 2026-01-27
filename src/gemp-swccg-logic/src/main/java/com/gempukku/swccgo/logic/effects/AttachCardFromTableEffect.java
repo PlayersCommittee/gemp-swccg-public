@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.logic.effects;
 
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
@@ -31,11 +32,18 @@ public class AttachCardFromTableEffect extends AbstractSuccessfulEffect {
     protected void doPlayEffect(SwccgGame game) {
         GameState gameState = game.getGameState();
 
-        if (_action.getPerformingPlayer() != null)
-            gameState.sendMessage(_action.getPerformingPlayer() + " places " + GameUtils.getCardLink(_cardToAttach) + " on " + GameUtils.getCardLink(_attachToCard));
-        else
-            gameState.sendMessage(GameUtils.getCardLink(_cardToAttach) + " is placed on " + GameUtils.getCardLink(_attachToCard));
-        gameState.moveCardToAttached(_cardToAttach, _attachToCard);
-        game.getActionsEnvironment().emitEffectResult(new AttachedCardFromTableResult(_action.getPerformingPlayer(), _cardToAttach, _attachToCard));
+        // Both cards must be on the table
+        if(Filters.and(_cardToAttach, Filters.onTable).accepts(game, _cardToAttach) &&
+                Filters.and(_attachToCard, Filters.onTable).accepts(game, _attachToCard) ) {
+            if (_action.getPerformingPlayer() != null)
+                gameState.sendMessage(_action.getPerformingPlayer() + " places " + GameUtils.getCardLink(_cardToAttach) + " on " + GameUtils.getCardLink(_attachToCard));
+            else
+                gameState.sendMessage(GameUtils.getCardLink(_cardToAttach) + " is placed on " + GameUtils.getCardLink(_attachToCard));
+            gameState.moveCardToAttached(_cardToAttach, _attachToCard);
+            game.getActionsEnvironment().emitEffectResult(new AttachedCardFromTableResult(_action.getPerformingPlayer(), _cardToAttach, _attachToCard));
+        }
+        else {
+            gameState.sendMessage(GameUtils.getCardLink(_cardToAttach) + " could not be placed on " + GameUtils.getCardLink(_attachToCard));
+        }
     }
 }
