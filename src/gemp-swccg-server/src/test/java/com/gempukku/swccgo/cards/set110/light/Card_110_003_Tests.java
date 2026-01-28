@@ -74,7 +74,7 @@ public class Card_110_003_Tests {
 		 * Lore: C-3PO was Jabba's 'khan chita,' or translator. Survived more battles than most members of the Alliance.
          *      Wasn't informed of R2-D2's role in the rescue of Han.
 		 * Set: Enhanced Jabba's Palace
-		 * Rarity: R
+		 * Rarity: PM
 		 */
 
 		var scn = GetScenario();

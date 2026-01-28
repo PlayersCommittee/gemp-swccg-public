@@ -3368,7 +3368,7 @@ public class FireWeaponActionBuilder {
 
                                                     @Override
                                                     protected List<OptionalGameTextTriggerAction> getGameTextOptionalTotalDestinyTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-                                                        final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                                                        final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(_weaponOrCardWithPermanentWeapon, gameTextSourceCardId);
                                                         action.setText("Subtract 1 from total weapon destiny");
                                                         // Perform result(s)
                                                         action.appendEffect(
@@ -3447,15 +3447,15 @@ public class FireWeaponActionBuilder {
                                     @Override
                                     protected List<OptionalGameTextTriggerAction> getGameTextOptionalTotalDestinyTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
                                         List<OptionalGameTextTriggerAction> actions = new LinkedList<OptionalGameTextTriggerAction>();
-                                        if (Filters.canSpot(game, self, Filters.and(Filters.any_bounty, Filters.atSameLocation(self)))) {
-                                            final OptionalGameTextTriggerAction action1 = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                                        if (Filters.canSpot(game, _weaponOrCardWithPermanentWeapon, Filters.and(Filters.any_bounty, Filters.atSameLocation(_weaponOrCardWithPermanentWeapon)))) {
+                                            final OptionalGameTextTriggerAction action1 = new OptionalGameTextTriggerAction(_weaponOrCardWithPermanentWeapon, gameTextSourceCardId);
                                             action1.setText("Add 1 to total weapon destiny");
                                             // Perform result(s)
                                             action1.appendEffect(
                                                     new ModifyTotalWeaponDestinyEffect(action1, 1));
                                             actions.add(action1);
 
-                                            final OptionalGameTextTriggerAction action2 = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                                            final OptionalGameTextTriggerAction action2 = new OptionalGameTextTriggerAction(_weaponOrCardWithPermanentWeapon, gameTextSourceCardId);
                                             action2.setText("Subtract 1 from total weapon destiny");
                                             // Perform result(s)
                                             action2.appendEffect(
