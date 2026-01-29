@@ -56,7 +56,7 @@ public class Card9_166 extends AbstractStarfighter {
         String opponent = game.getOpponent(self.getOwner());
 
         // Check condition(s)
-        if (TriggerConditions.siteCollapsedBy(game, effectResult, Filters.and(Filters.proton_bombs, Filters.aboardExceptRelatedSites(self)))) {
+        if (TriggerConditions.siteCollapsedBy(game, effectResult, Filters.and(Filters.proton_bombs, Filters.attachedTo(self)))) {
             Collection<PhysicalCard> cardsLost = ((CollapsedSiteResult) effectResult).getCardsLost();
             int numForce = Filters.filter(cardsLost, game, Filters.Rebel).size();
             if (numForce > 0) {
