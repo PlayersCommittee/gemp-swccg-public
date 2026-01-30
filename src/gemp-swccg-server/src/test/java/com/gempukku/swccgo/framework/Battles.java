@@ -54,9 +54,8 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 	 * @param location The location to start battle at.
 	 */
 	default void InitiateBattle(String player, PhysicalCardImpl location) {
-		ChooseAction(player, "Initiate battle");
-		//TODO: Add handling for choosing the location, I am certain that this should be needed but it clearly auto-chose here
-		//ChooseCards(player, location);
+		if(player.equals(DS)) DSUseCardAction(location,"Initiate battle");
+		else LSUseCardAction(location,"Initiate battle");
 		PassForceUseResponses();
 		PassBattleStartResponses();
 	}
