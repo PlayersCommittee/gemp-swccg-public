@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set7.dark;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.GameTextModificationCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
@@ -21,10 +22,13 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.conditions.NotCondition;
 import com.gempukku.swccgo.logic.effects.CancelCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.CancelOpponentsForceDrainModifiersModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.TargetingEffect;
@@ -40,7 +44,7 @@ import java.util.List;
  */
 public class Card7_218 extends AbstractNormalEffect {
     public Card7_218() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, "A Bright Center To The Universe", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
+        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.A_Bright_Center_To_The_Universe, Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("The intimidating power of the Empire was focused in the core systems, allowing the Emperor to ignore minor activities occurring on the Outer Rim.");
         setGameText("Deploy on Death Star system or Coruscant system. Target another system. At locations related to target system, opponent's Force drain modifiers are canceled. Effect canceled if opponent controls this system. (Immune to Alter.)");
         addIcons(Icon.SPECIAL_EDITION);
@@ -75,8 +79,11 @@ public class Card7_218 extends AbstractNormalEffect {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        Condition cancelsOpponentsForceDrainModifiersEverywhere = new GameTextModificationCondition(self, ModifyGameTextType.A_BRIGHT_CENTER_TO_THE_UNIVERSE__CANCELS_OPPONENTS_FORCE_DRAIN_MODIFIERS_EVERYWHERE);
+        
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new CancelOpponentsForceDrainModifiersModifier(self, Filters.relatedLocationTo(self, Filters.targetedByCardOnTableAsTargetId(self, TargetId.EFFECT_TARGET_1))));
+        modifiers.add(new CancelOpponentsForceDrainModifiersModifier(self, new NotCondition(cancelsOpponentsForceDrainModifiersEverywhere), Filters.relatedLocationTo(self, Filters.targetedByCardOnTableAsTargetId(self, TargetId.EFFECT_TARGET_1))));
+        modifiers.add(new CancelOpponentsForceDrainModifiersModifier(self, cancelsOpponentsForceDrainModifiersEverywhere));
         return modifiers;
     }
 

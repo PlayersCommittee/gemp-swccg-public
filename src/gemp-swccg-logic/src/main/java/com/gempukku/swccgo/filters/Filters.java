@@ -17727,6 +17727,7 @@ public class Filters {
     public static final Filter _500_Republica = Filters.title(Title._500_Republica);
     public static final Filter _5D6RA7 = Filters.title(Title._5D6RA7);
     public static final Filter _8D8 = Filters.title(Title._8D8);
+    public static final Filter A_Bright_Center_To_The_Universe = Filters.title(Title.A_Bright_Center_To_The_Universe);
     public static final Filter A_Dangerous_Time = Filters.title(Title.A_Dangerous_Time);
     public static final Filter A_Gift = Filters.title(Title.A_Gift);
     public static final Filter A_Good_Blaster_At_Your_Side = Filters.title(Title.A_Good_Blaster_At_Your_Side);

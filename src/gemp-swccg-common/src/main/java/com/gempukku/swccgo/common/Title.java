@@ -11,6 +11,7 @@ public interface Title {
     String _500_Republica = "Coruscant: 500 Republica";
     String _5D6RA7 = "5D6-RA-7 (Fivedesix)";
     String _8D8 = "8D8";
+    String A_Bright_Center_To_The_Universe = "A Bright Center To The Universe";
     String A_Dangerous_Time = "A Dangerous Time";
     String A_Gift = "A Gift";
     String A_Good_Blaster_At_Your_Side = "A Good Blaster At Your Side";
