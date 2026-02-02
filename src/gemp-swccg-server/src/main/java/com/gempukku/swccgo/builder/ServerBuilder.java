@@ -113,6 +113,7 @@ public class ServerBuilder {
                         extract(objectMap, PlayerDAO.class),
                         extract(objectMap, IpBanDAO.class),
                         extract(objectMap, GempSettingDAO.class),
+                        extract(objectMap, BotStatsDAO.class),
                         extract(objectMap, AdminService.class),
                         tournamentPrizeSchemeRegistry,
                         pairingMechanismRegistry

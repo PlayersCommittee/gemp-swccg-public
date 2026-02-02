@@ -1,8 +1,10 @@
 package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import org.junit.Test;
@@ -17,11 +19,15 @@ public class Card_9_151_Tests {
 				new HashMap<>()
 				{{
 					put("luke", "1_19");
+					put("leia","1_017");
+					put("nobleSac", "1_99"); //noble sacrifice
 				}},
 				new HashMap<>()
 				{{
 					put("vader", "1_168");
 					put("emperor", "9_109");
+					put("dannik","2_084"); //dannik jerriko
+					put("reeYees","6_121"); //Ree-Yees
 				}},
 				10,
 				10,
@@ -156,6 +162,91 @@ public class Card_9_151_Tests {
 		assertEquals(life-3, scn.GetLSLifeForceRemaining());
 
 		assertTrue(scn.AwaitingLSControlPhaseActions());
+	}
+
+	@Test
+	public void BHBMAllowsDSPlacingLukeOOP() {
+		var scn = GetScenario();
+
+		var luke = scn.GetLSCard("luke");
+
+		var throne = scn.GetDSCard("throne");
+
+		var emperor = scn.GetDSCard("emperor");
+		var dannik = scn.GetDSCard("dannik");
+
+		scn.StartGame();
+
+		scn.MoveCardsToLocation(throne,emperor,dannik,luke);
+
+		scn.SkipToPhase(Phase.BATTLE);
+		scn.DSInitiateBattle(throne);
+
+		scn.SkipToDamageSegment(false);
+
+		scn.DSPass(); //FORCE_LOSS_INITIATED - Optional responses
+		scn.LSPass();
+
+		scn.DSPass(); //ABOUT_TO_LOSE_FORCE_NOT_FROM_BATTLE_DAMAGE - Optional responses
+		scn.LSPass();
+
+		assertTrue(scn.LSDecisionAvailable("Choose Force to lose")); //from Insignificant Rebellion
+		scn.LSChooseCard(scn.GetTopOfLSReserveDeck());
+
+		assertTrue(scn.LSDecisionAvailable("to forfeit")); //battle damage
+		scn.LSChooseCard(luke);
+
+		assertTrue(scn.DSDecisionAvailable("Just forfeited"));
+		assertTrue(scn.DSCardActionAvailable(dannik,"soup"));
+		scn.DSUseCardAction(dannik,"soup");
+
+		scn.LSPass(); //Use 1 Force - Optional responses
+		scn.DSPass();
+
+		scn.LSPass(); //ABOUT_TO_BE_PLACED_OUT_OF_PLAY_FROM_OFF_TABLE - Optional responses
+		scn.DSPass();
+
+		scn.LSPass(); //PLACED_OUT_OF_PLAY_FROM_OFF_TABLE - Optional responses
+		scn.DSPass();
+
+		assertEquals(Zone.OUT_OF_PLAY,luke.getZone());
+	}
+
+	@Test
+	public void BHBMPreventsLSPlacingLukeOOP() {
+		var scn = GetScenario();
+
+		var luke = scn.GetLSCard("luke");
+		var leia = scn.GetLSCard("leia");
+		var nobleSac = scn.GetLSCard("nobleSac");
+
+		var throne = scn.GetDSCard("throne");
+
+		var reeYees = scn.GetDSCard("reeYees");
+
+		scn.StartGame();
+
+		scn.MoveCardsToLocation(throne,luke,leia);
+
+		scn.MoveCardsToDSHand(reeYees);
+		scn.MoveCardsToLSHand(nobleSac);
+
+		scn.SkipToPhase(Phase.DEPLOY);
+		scn.DSDeployCard(reeYees);
+		scn.DSChooseCard(throne);
+
+		assertEquals(3,scn.GetPower(leia));
+		assertEquals(3,scn.GetPower(luke));
+
+		scn.LSPass(); //Use 3 Force - Optional responses
+		scn.DSPass();
+
+		assertTrue(scn.LSDecisionAvailable("just deployed"));
+		assertTrue(scn.LSCardPlayAvailable(nobleSac));
+		scn.LSPlayCard(nobleSac);
+		scn.LSChooseCard(reeYees);
+		assertTrue(scn.LSHasCardChoiceAvailable(leia));
+		assertFalse(scn.LSHasCardChoiceAvailable(luke)); //BHBM prevents LS cards from placing Luke OOP...
 	}
 
 }

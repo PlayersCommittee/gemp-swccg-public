@@ -4,6 +4,8 @@ import com.gempukku.swccgo.PrivateInformationException;
 import com.gempukku.swccgo.SubscriptionConflictException;
 import com.gempukku.swccgo.SubscriptionExpiredException;
 import com.gempukku.swccgo.ai.AiRegistry;
+import com.gempukku.swccgo.chat.ChatCommandErrorException;
+import com.gempukku.swccgo.chat.ChatRoomMediator;
 import com.gempukku.swccgo.ai.SwccgAiController;
 import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.common.CardSubtype;
@@ -73,6 +75,7 @@ public class SwccgGameMediator {
     private int _secondsGameTimerExtended;
     private boolean _isPrivate;
     private League _league;
+    private ChatRoomMediator _chatRoom;  // For AI player messages
 
     private ReentrantReadWriteLock _lock = new ReentrantReadWriteLock(true);
     private ReentrantReadWriteLock.ReadLock _readLock = _lock.readLock();
@@ -122,6 +125,16 @@ public class SwccgGameMediator {
         return _gameId;
     }
 
+    /**
+     * Set the chat room for AI player messages.
+     * When set, AI chat messages will appear as player messages (blue) instead of system messages.
+     *
+     * @param chatRoom the chat room mediator for this game
+     */
+    public void setChatRoom(ChatRoomMediator chatRoom) {
+        _chatRoom = chatRoom;
+    }
+
     public boolean isAllowSpectators() {
         return _allowSpectators;
     }
@@ -169,6 +182,14 @@ public class SwccgGameMediator {
             return "None";
 
         return _swccgoGame.getSide(_swccgoGame.getWinner()).getHumanReadable();
+    }
+
+    /**
+     * Get the game state for accessing game data.
+     * @return the game state, or null if game not started
+     */
+    public GameState getGameState() {
+        return _swccgoGame != null ? _swccgoGame.getGameState() : null;
     }
 
     public List<SwccgGameParticipant> getPlayersPlaying() {
@@ -1286,8 +1307,18 @@ public class SwccgGameMediator {
             // Check if AI has any chat messages to send
             String chatMessage = ai.getChatMessage();
             if (chatMessage != null && !chatMessage.isEmpty()) {
-                // Format as a player message: "PlayerName: message"
-                _swccgoGame.getGameState().sendMessage(playerId + ": " + chatMessage);
+                // Prefer chat room for proper player message styling (blue messages)
+                if (_chatRoom != null) {
+                    try {
+                        _chatRoom.sendMessage(playerId, chatMessage, true);
+                    } catch (PrivateInformationException | ChatCommandErrorException e) {
+                        // Fallback to game state message
+                        _swccgoGame.getGameState().sendMessage(playerId + ": " + chatMessage);
+                    }
+                } else {
+                    // Fallback to game state (appears as system message)
+                    _swccgoGame.getGameState().sendMessage(playerId + ": " + chatMessage);
+                }
             }
 
             _swccgoGame.carryOutPendingActionsUntilDecisionNeeded();

@@ -799,13 +799,23 @@ public class DeployPhasePlanner {
                 continue;
             }
 
-            // Find optimal combination to beat enemy power
+            // Calculate power needed accounting for ability differential
+            // If enemy has more ability, they draw more destiny (avg ~2.5 per ability)
+            // So we need extra power margin to compensate
+            float abilityPenalty = Math.max(0, loc.theirAbility - 4) * 2.5f; // Penalize if they have >4 ability
+            int effectivePowerNeeded = (int) (loc.theirPower + abilityPenalty);
+
+            // Find optimal combination to beat enemy effective power
             OptimalCombination combo = findOptimalCombination(
-                deployableHere, remaining, (int) loc.theirPower, true);
+                deployableHere, remaining, effectivePowerNeeded, true);
 
             // CRITICAL FIX: Only deploy if we can ACTUALLY beat them!
-            // Otherwise we just give them a battle to win and lose MORE force.
-            if (!combo.isEmpty() && combo.achievesGoal) {
+            // Also check ability - if they have significantly more ability, they'll draw
+            // more destiny and likely win even with equal power.
+            boolean abilityOk = combo.totalAbility >= loc.theirAbility ||
+                                combo.totalPower >= loc.theirPower + 3; // Need power margin if ability disadvantage
+
+            if (!combo.isEmpty() && combo.achievesGoal && abilityOk) {
                 for (PhysicalCard card : combo.cards) {
                     CardInfo info = findCardInfo(available, card);
                     if (info != null) {
@@ -816,6 +826,10 @@ public class DeployPhasePlanner {
                         available.removeIf(c -> c.card == card);
                     }
                 }
+            } else if (!combo.isEmpty() && !abilityOk) {
+                LOG.info("📋 Skipping stop-bleed at {} - ability disadvantage (ours: {}, theirs: {}) with only {} power margin",
+                    loc.location.getTitle(), combo.totalAbility, (int) loc.theirAbility,
+                    combo.totalPower - (int) loc.theirPower);
             } else if (!combo.isEmpty()) {
                 LOG.info("📋 Skipping stop-bleed at {} - can't beat enemy power {} with available cards (best: {})",
                     loc.location.getTitle(), (int) loc.theirPower, combo.totalPower);

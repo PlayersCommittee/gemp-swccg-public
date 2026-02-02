@@ -89,7 +89,6 @@ public class Card209_015 extends AbstractDefensiveShield {
         Filter ds2Filter = Filters.or(Filters.Bring_Him_Before_Me, Filters.Take_Your_Fathers_Place, Filters.Your_Destiny, Filters.Insignificant_Rebellion);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new SuspendModifierEffectsModifier(self, Filters.Luke, ds2Filter));
         modifiers.add(new ModifyGameTextModifier(self, ds2Filter, ModifyGameTextType.BRING_HIM_BEFORE_ME__TARGETS_LEIA_INSTEAD_OF_LUKE));
         modifiers.add(new CrossOverAttemptTotalModifier(self, Filters.Leia, -2));
         modifiers.add(new NoForceLossFromCardModifier(self, Filters.and(Filters.opponents(self), Filters.Objective), opponent));

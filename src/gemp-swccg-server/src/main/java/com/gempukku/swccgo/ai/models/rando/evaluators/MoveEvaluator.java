@@ -206,9 +206,11 @@ public class MoveEvaluator extends ActionEvaluator {
                 handleLandAction(action, actionLower, cardToMove);
             }
 
-            // Move phase bonus
+            // Move phase - no automatic bonus, moves should be strategic
+            // The old +5 bonus caused wasteful moves
             if (context.getPhase() == Phase.MOVE) {
-                action.addReasoning("Move phase - consider repositioning", 5.0f);
+                // Only add reasoning without bonus - moves need strategic justification
+                action.addReasoning("Move phase", 0.0f);
             }
 
             logger.debug("[MoveEvaluator] Scored '{}' -> {:.1f}",
@@ -301,12 +303,23 @@ public class MoveEvaluator extends ActionEvaluator {
 
         // === OFFENSIVE ATTACK OPPORTUNITY ===
         // If we're at an uncontested location with significant power, look for attack targets
+        // NOTE: We can't verify reachability here, so be conservative - only recommend if:
+        // 1. We have overwhelming force AND
+        // 2. There are high-value targets (opponent icons for force drain)
         if (!theirHasCards && myPower >= ATTACK_MIN_POWER && myCardCount >= 2) {
             AttackAnalysis attack = analyzeAttackOpportunity(gameState, game, playerId,
                                                              mySide, location, myPower, myCardCount);
-            if (attack != null && attack.viable) {
+            // Only recommend attack if there's force drain potential (icons > 0)
+            // and we have a significant power advantage
+            if (attack != null && attack.viable && attack.hasForcedrainPotential) {
                 action.addReasoning(attack.reason, attack.score);
                 logger.info("[MoveEvaluator] ⚔️ ATTACK opportunity: {}", attack.reason);
+                return;
+            } else if (attack != null && attack.viable) {
+                // Attack possible but no force drain - much smaller bonus
+                // Don't waste moves just to attack weak positions
+                action.addReasoning("Possible attack (no drain icons)", 15.0f);
+                logger.debug("[MoveEvaluator] Weak attack opportunity (no icons): {}", attack.reason);
                 return;
             }
         }
@@ -328,8 +341,9 @@ public class MoveEvaluator extends ActionEvaluator {
             }
         }
 
-        // Default: not a good time to move
-        action.addReasoning("No good reason to move", BAD_DELTA);
+        // Default: not a good time to move - strong penalty to avoid wasteful moves
+        // Moves cost force and can leave positions vulnerable
+        action.addReasoning("No strategic reason to move", -50.0f);
     }
 
     /**
@@ -425,9 +439,10 @@ public class MoveEvaluator extends ActionEvaluator {
                     reason += " - deny " + theirIcons + " icon drain!";
                 }
 
+                boolean hasForcedrainPotential = theirIcons > 0;
                 if (score > bestScore) {
                     bestScore = score;
-                    bestAttack = new AttackAnalysis(true, reason, score);
+                    bestAttack = new AttackAnalysis(true, reason, score, hasForcedrainPotential);
                 }
             }
         }
@@ -603,11 +618,13 @@ public class MoveEvaluator extends ActionEvaluator {
         boolean viable;
         String reason;
         float score;
+        boolean hasForcedrainPotential;  // True if target has opponent icons
 
-        AttackAnalysis(boolean viable, String reason, float score) {
+        AttackAnalysis(boolean viable, String reason, float score, boolean hasForcedrainPotential) {
             this.viable = viable;
             this.reason = reason;
             this.score = score;
+            this.hasForcedrainPotential = hasForcedrainPotential;
         }
     }
 

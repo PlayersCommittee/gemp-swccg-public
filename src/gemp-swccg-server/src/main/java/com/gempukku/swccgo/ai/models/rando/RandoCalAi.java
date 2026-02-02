@@ -90,7 +90,12 @@ public class RandoCalAi extends HeuristicAiBase {
 
     // Opponent tracking for strategy components
     private final Set<String> seenOpponentCards = new HashSet<>();
+    // Own shield tracking for shield pacing
+    private final Set<String> seenOwnShields = new HashSet<>();
     private String lastPendingDeployType = null;  // Track pending deploy for confirmation
+
+    // Bot stats DAO for record lookups (optional - set via setter)
+    private com.gempukku.swccgo.db.BotStatsDAO botStatsDAO;
 
     // =========================================================================
     // Keyword Weights - Higher than AdvancedAi for more aggressive play
@@ -809,6 +814,14 @@ public class RandoCalAi extends HeuristicAiBase {
     }
 
     /**
+     * Set the BotStatsDAO for record lookups in welcome messages.
+     * @param dao the bot stats DAO
+     */
+    public void setBotStatsDAO(com.gempukku.swccgo.db.BotStatsDAO dao) {
+        this.botStatsDAO = dao;
+    }
+
+    /**
      * Get pending chat message if available.
      * @return message to send, or null
      */
@@ -1187,6 +1200,7 @@ public class RandoCalAi extends HeuristicAiBase {
             chatManager.resetForGame(currentGameId);
             decisionTracker.clear();  // Clear loop tracking for new game
             seenOpponentCards.clear();  // Clear opponent card tracking
+            seenOwnShields.clear();  // Clear own shield tracking for pacing
 
             // Reset and update strategy components with new side
             strategyController.setSide(mySide);
@@ -1202,7 +1216,31 @@ public class RandoCalAi extends HeuristicAiBase {
 
             // Queue welcome message
             if (personality != null && RandoConfig.CHAT_ENABLED) {
-                String welcome = personality.getWelcomeMessage(opponentName, mySide);
+                // Try to get current records for welcome message
+                String damageRecordHolder = null;
+                int damageRecordValue = 0;
+                String routeRecordHolder = null;
+                int routeRecordValue = 0;
+
+                if (botStatsDAO != null) {
+                    try {
+                        com.gempukku.swccgo.db.vo.LeaderboardEntry damageRecord = botStatsDAO.getBestDamageRecord();
+                        if (damageRecord != null) {
+                            damageRecordHolder = damageRecord.getPlayerName();
+                            damageRecordValue = damageRecord.getValue();
+                        }
+                        com.gempukku.swccgo.db.vo.LeaderboardEntry routeRecord = botStatsDAO.getBestRouteScoreRecord();
+                        if (routeRecord != null) {
+                            routeRecordHolder = routeRecord.getPlayerName();
+                            routeRecordValue = routeRecord.getValue();
+                        }
+                    } catch (Exception e) {
+                        LOG.debug("Could not fetch records for welcome: {}", e.getMessage());
+                    }
+                }
+
+                String welcome = personality.getWelcomeMessage(opponentName, mySide,
+                    damageRecordHolder, damageRecordValue, routeRecordHolder, routeRecordValue);
                 if (holidayOverlay != null && holidayOverlay.isHolidayActive()) {
                     welcome = holidayOverlay.getGreeting().orElse(welcome);
                 }
@@ -1254,6 +1292,9 @@ public class RandoCalAi extends HeuristicAiBase {
 
         // Track opponent cards for situational shield decisions
         trackOpponentCards(gameState, newOpponent);
+
+        // Track our own shields for pacing (so we don't deploy all 4 on turn 1)
+        trackOwnShields(gameState, playerId);
 
         // Check for Battle Order/Plan cards in play and update strategy
         // This enables proper force drain cost calculation (+3 when under Battle Order rules)
@@ -1334,6 +1375,45 @@ public class RandoCalAi extends HeuristicAiBase {
             }
         } catch (Exception e) {
             LOG.debug("Error tracking opponent cards: {}", e.getMessage());
+        }
+    }
+
+    /**
+     * Track our own defensive shields as they are played.
+     * This enables shield pacing - we don't want to deploy all 4 shields on turn 1.
+     * ShieldStrategy uses this to limit how many shields we play early.
+     */
+    private void trackOwnShields(GameState gameState, String playerId) {
+        if (gameState == null || playerId == null) return;
+
+        try {
+            for (PhysicalCard card : gameState.getAllPermanentCards()) {
+                if (card == null) continue;
+                if (!playerId.equals(card.getOwner())) continue;
+
+                Zone zone = card.getZone();
+                // Defensive shields go to the SIDE_OF_TABLE zone
+                if (zone != Zone.SIDE_OF_TABLE) continue;
+
+                String title = card.getTitle();
+                if (title == null) continue;
+
+                SwccgCardBlueprint blueprint = card.getBlueprint();
+                if (blueprint == null || blueprint.getCardCategory() != CardCategory.DEFENSIVE_SHIELD) {
+                    continue;
+                }
+
+                // Check if this is a new shield we haven't recorded
+                String blueprintId = card.getBlueprintId(true);
+                String shieldKey = card.getCardId() + "_" + blueprintId;
+                if (!seenOwnShields.contains(shieldKey)) {
+                    seenOwnShields.add(shieldKey);
+                    shieldStrategy.recordShieldPlayed(blueprintId, title);
+                    LOG.info("🛡️ Tracked own shield: {} ({})", title, blueprintId);
+                }
+            }
+        } catch (Exception e) {
+            LOG.debug("Error tracking own shields: {}", e.getMessage());
         }
     }
 

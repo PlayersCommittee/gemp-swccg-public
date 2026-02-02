@@ -6,6 +6,7 @@ import com.gempukku.swccgo.ai.SwccgAiController;
 import com.gempukku.swccgo.ai.models.AdvancedAi;
 import com.gempukku.swccgo.ai.models.BeginnerAi;
 import com.gempukku.swccgo.ai.models.rando.RandoCalAi;
+import com.gempukku.swccgo.bot.BotStatsGameResultListener;
 import com.gempukku.swccgo.chat.ChatCommandCallback;
 import com.gempukku.swccgo.chat.ChatCommandErrorException;
 import com.gempukku.swccgo.chat.ChatRoomMediator;
@@ -13,6 +14,7 @@ import com.gempukku.swccgo.chat.ChatServer;
 import com.gempukku.swccgo.collection.CollectionsManager;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.ApplicationConfiguration;
+import com.gempukku.swccgo.db.BotStatsDAO;
 import com.gempukku.swccgo.db.GempSettingDAO;
 import com.gempukku.swccgo.db.IpBanDAO;
 import com.gempukku.swccgo.db.PlayerDAO;
@@ -58,6 +60,7 @@ public class HallServer extends AbstractServer {
     private PlayerDAO _playerDAO;
     private IpBanDAO _ipBanDAO;
     private GempSettingDAO _gempSettingDAO;
+    private BotStatsDAO _botStatsDAO;
     private AdminService _adminService;
     private TournamentPrizeSchemeRegistry _tournamentPrizeSchemeRegistry;
 
@@ -90,7 +93,7 @@ public class HallServer extends AbstractServer {
             TournamentService tournamentService, SwccgCardBlueprintLibrary library,
             SwccgoFormatLibrary formatLibrary, CollectionsManager collectionsManager,
             PlayerDAO playerDAO, IpBanDAO ipBanDAO, GempSettingDAO gempSettingDAO,
-            AdminService adminService,
+            BotStatsDAO botStatsDAO, AdminService adminService,
             TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,
             PairingMechanismRegistry pairingMechanismRegistry) {
         _swccgoServer = swccgoServer;
@@ -103,6 +106,7 @@ public class HallServer extends AbstractServer {
         _playerDAO = playerDAO;
         _ipBanDAO = ipBanDAO;
         _gempSettingDAO = gempSettingDAO;
+        _botStatsDAO = botStatsDAO;
         _privateGamesEnabled = _gempSettingDAO.privateGamesEnabled();
         _inGameStatisticsEnabled = _gempSettingDAO.inGameStatisticsEnabled();
         _bonusAbilitiesEnabled = _gempSettingDAO.bonusAbilitiesEnabled();
@@ -377,7 +381,12 @@ public class HallServer extends AbstractServer {
             return new AdvancedAi();
         }
         if ("RANDO".equals(normalized)) {
-            return new RandoCalAi();
+            RandoCalAi rando = new RandoCalAi();
+            // Pass the BotStatsDAO for record lookups in welcome messages
+            if (_botStatsDAO != null) {
+                rando.setBotStatsDAO(_botStatsDAO);
+            }
+            return rando;
         }
         return new BeginnerAi();
     }
@@ -1090,6 +1099,28 @@ public class HallServer extends AbstractServer {
         }
         if (aiPlayerId != null) {
             AiRegistry.register(swccgGameMediator.getGameId(), aiPlayerId, createAiForSkill(aiSkill));
+            // Add bot stats tracking for AI games (both result listener and real-time state listener)
+            if (_botStatsDAO != null) {
+                BotStatsGameResultListener botStatsListener = new BotStatsGameResultListener(
+                    _botStatsDAO, _playerDAO, swccgGameMediator, aiPlayerId);
+
+                // Set the chat room so bot messages appear as player chat, not system messages
+                ChatRoomMediator gameChatRoom = _swccgoServer.getGameChatRoom(swccgGameMediator.getGameId());
+                if (gameChatRoom != null) {
+                    botStatsListener.setChatRoom(gameChatRoom);
+                    // Also set on game mediator for AI turn messages (welcome, commentary, etc.)
+                    swccgGameMediator.setChatRoom(gameChatRoom);
+                }
+
+                swccgGameMediator.addGameResultListener(botStatsListener);
+
+                // Register the game state listener for real-time achievement checking
+                if (botStatsListener.isInitialized()) {
+                    swccgGameMediator.addGameStateListener(
+                        botStatsListener.getGameStateListener().getPlayerId(),
+                        botStatsListener.getGameStateListener());
+                }
+            }
         }
         swccgGameMediator.startGame();
         swccgGameMediator.addGameResultListener(_notifyHallListeners);

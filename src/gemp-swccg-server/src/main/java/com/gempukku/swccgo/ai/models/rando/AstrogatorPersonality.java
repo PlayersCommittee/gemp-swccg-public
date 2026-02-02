@@ -251,21 +251,35 @@ public class AstrogatorPersonality {
     // =========================================================================
 
     /**
+     * Get a welcome message for game start (without records).
+     * Delegates to the full version with null records.
+     */
+    public String getWelcomeMessage(String opponentName, Side mySide) {
+        return getWelcomeMessage(opponentName, mySide, null, 0, null, 0);
+    }
+
+    /**
      * Get a welcome message for game start.
      *
      * Full format matching Python Astrogator personality:
      * 1. Side-based greeting (Light = Rebel, Dark = Imperial)
      * 2. Intro explaining the route score meta-game
      * 3. Optional disclaimer about ignoring the score
-     * 4. Deck origin ("Found this deck...")
-     * 5. Help text reminder
+     * 4. Current records to beat
+     * 5. Deck origin ("Found this deck...")
      * 6. "gl hf!"
      *
      * @param opponentName the opponent's name
      * @param mySide our side (Dark or Light) - opponent is opposite side
+     * @param damageRecordHolder name of player with best damage record (or null)
+     * @param damageRecordValue the best damage record value
+     * @param routeRecordHolder name of player with best route score (or null)
+     * @param routeRecordValue the best route score value
      * @return welcome message
      */
-    public String getWelcomeMessage(String opponentName, Side mySide) {
+    public String getWelcomeMessage(String opponentName, Side mySide,
+                                     String damageRecordHolder, int damageRecordValue,
+                                     String routeRecordHolder, int routeRecordValue) {
         String name = opponentName != null ? opponentName : "there";
 
         // Check for holiday greeting first
@@ -297,13 +311,25 @@ public class AstrogatorPersonality {
         // Random disclaimer
         String optional = pickMessage(OPTIONAL_DISCLAIMERS);
 
+        // Build records info if available
+        String recordsInfo = "";
+        if (damageRecordHolder != null && damageRecordValue > 0) {
+            recordsInfo = "Current damage record: " + damageRecordValue + " by " + damageRecordHolder + ".";
+            if (routeRecordHolder != null && routeRecordValue > 0) {
+                recordsInfo += " Best route score: " + routeRecordValue + " by " + routeRecordHolder + ".";
+            }
+            recordsInfo += " ";
+        } else if (routeRecordHolder != null && routeRecordValue > 0) {
+            recordsInfo = "Best route score: " + routeRecordValue + " by " + routeRecordHolder + ". ";
+        }
+
         // Deck origin - try holiday origin first, fall back to regular
         java.util.Optional<String> holidayOrigin = holiday.getDeckOrigin();
         String origin = holidayOrigin.orElse(pickMessage(DECK_ORIGINS));
         String deckContext = "Found this deck " + origin + ".";
 
         // Build full message
-        return greeting + " " + intro + " " + optional + " " + deckContext + " gl hf!";
+        return greeting + " " + intro + " " + optional + " " + recordsInfo + deckContext + " gl hf!";
     }
 
     /**

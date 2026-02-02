@@ -19,22 +19,22 @@ import java.util.Locale;
  * - Reserve deck (need cards for destiny draws)
  * - Strategic situation (ahead/behind on board/life force)
  *
- * Threat levels (conservative thresholds to account for attrition):
+ * Threat levels:
  * - CRUSH: Power advantage 8+ -> definitely battle
- * - FAVORABLE: Power advantage 6-7 -> battle recommended
- * - MARGINAL: Power advantage 4-5 -> battle if no weapons
- * - RISKY: Power diff 0 to +3 -> avoid unless necessary
+ * - FAVORABLE: Power advantage 5-7 -> battle recommended
+ * - MARGINAL: Power advantage 2-4 -> battle worth considering
+ * - RISKY: Power diff 0 to +1 -> cautious
  * - DANGEROUS: Power disadvantage -> avoid/retreat
  *
  * Ported from Python battle_evaluator.py
  */
 public class BattleEvaluator extends ActionEvaluator {
 
-    // Battle thresholds
-    private static final int CRUSH_THRESHOLD = 8;
-    private static final int FAVORABLE_THRESHOLD = 6;
-    private static final int MARGINAL_THRESHOLD = 4;
-    private static final int RISKY_THRESHOLD = 0;
+    // Battle thresholds (power advantage needed)
+    private static final int CRUSH_THRESHOLD = 8;      // Overwhelming advantage
+    private static final int FAVORABLE_THRESHOLD = 5;  // Strong advantage
+    private static final int MARGINAL_THRESHOLD = 2;   // Worth initiating
+    private static final int RISKY_THRESHOLD = 0;      // Even or slight advantage
 
     // Minimum reserve deck for destiny draws
     private static final int MIN_RESERVE_FOR_BATTLE = 3;
@@ -161,14 +161,31 @@ public class BattleEvaluator extends ActionEvaluator {
                                     foundAnyContestedLocation = true;
                                     float powerDiff = ourPower - theirPower;
 
-                                    logger.info("[BattleEvaluator] Checking {}: ours={}, theirs={}, diff={}",
-                                        location.getTitle(), ourPower, theirPower, powerDiff);
+                                    // Also check ability differential (affects destiny draws)
+                                    float ourAbility = game.getModifiersQuerying().getTotalAbilityAtLocation(
+                                        gameState, playerId, location);
+                                    float theirAbility = game.getModifiersQuerying().getTotalAbilityAtLocation(
+                                        gameState, opponentId, location);
+                                    float abilityDiff = ourAbility - theirAbility;
 
-                                    if (powerDiff >= MARGINAL_THRESHOLD) {
+                                    logger.info("[BattleEvaluator] Checking {}: power={}/{} (diff={}), ability={}/{} (diff={})",
+                                        location.getTitle(), ourPower, theirPower, powerDiff,
+                                        ourAbility, theirAbility, abilityDiff);
+
+                                    // Adjust effective power difference based on ability
+                                    // Each point of ability disadvantage roughly equals 2-3 power disadvantage
+                                    // (enemy draws more destiny which averages ~2-3)
+                                    float effectiveDiff = powerDiff + (abilityDiff * 2.5f);
+
+                                    if (effectiveDiff >= MARGINAL_THRESHOLD) {
                                         foundFavorableBattle = true;
-                                        action.addReasoning(String.format("Favorable battle available at %s (%.0f vs %.0f)",
-                                            location.getTitle(), ourPower, theirPower), 40.0f);
+                                        action.addReasoning(String.format("Favorable battle at %s (power %.0f vs %.0f, ability %.0f vs %.0f)",
+                                            location.getTitle(), ourPower, theirPower, ourAbility, theirAbility), 40.0f);
                                         break; // Found at least one good option
+                                    } else if (abilityDiff < -1) {
+                                        // They have significantly more ability - they'll draw more destiny
+                                        action.addReasoning(String.format("Ability disadvantage at %s (%.0f vs %.0f) - enemy draws more destiny",
+                                            location.getTitle(), ourAbility, theirAbility), -25.0f);
                                     }
                                 }
                             }

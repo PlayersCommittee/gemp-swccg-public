@@ -300,11 +300,18 @@ public class CardSelectionEvaluator extends ActionEvaluator {
         boolean isStarship = false;
         boolean isVehicle = false;
         boolean isCharacter = false;
+        boolean isWeapon = false;  // Weapon deployment (deploys ON a character)
         String deployingCardName = "card";
 
         // Try to determine from decision text what we're deploying
         String decisionText = context.getDecisionText() != null ? context.getDecisionText().toLowerCase() : "";
-        if (decisionText.contains("starship") || decisionText.contains("capital ship")) {
+
+        // Check for weapon deployment first - "as attached" indicates weapon/device
+        if (decisionText.contains("as attached")) {
+            isWeapon = true;
+            deployingCardName = "weapon";
+            logger.info("🔫 Detected WEAPON deployment (as attached)");
+        } else if (decisionText.contains("starship") || decisionText.contains("capital ship")) {
             isStarship = true;
             deployingCardName = "starship";
         } else if (decisionText.contains("vehicle")) {
@@ -402,6 +409,41 @@ public class CardSelectionEvaluator extends ActionEvaluator {
                         }
 
                         // =====================================================
+                        // CRITICAL: WEAPON DEPLOYMENT - check if target already has weapon
+                        // Don't deploy a second weapon on a character that already has one!
+                        // =====================================================
+                        if (isWeapon && blueprint != null && blueprint.getCardCategory() == CardCategory.CHARACTER) {
+                            PhysicalCard targetCharacter = location;  // 'location' is actually the target character
+                            boolean alreadyHasWeapon = false;
+                            String existingWeaponName = null;
+
+                            // Check cards attached to this character
+                            List<PhysicalCard> attachedCards = gameState.getAttachedCards(targetCharacter);
+                            if (attachedCards != null) {
+                                for (PhysicalCard attached : attachedCards) {
+                                    if (attached != null && attached.getBlueprint() != null) {
+                                        CardCategory attachedCategory = attached.getBlueprint().getCardCategory();
+                                        if (attachedCategory == CardCategory.WEAPON) {
+                                            alreadyHasWeapon = true;
+                                            existingWeaponName = attached.getTitle();
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (alreadyHasWeapon) {
+                                // HEAVILY penalize deploying second weapon
+                                action.addReasoning("⚠️ CHARACTER ALREADY HAS WEAPON: " + existingWeaponName, -200.0f);
+                                logger.warn("⚠️ {} already has weapon '{}' - penalizing second weapon deployment!",
+                                    title, existingWeaponName);
+                            } else {
+                                // Good target - character has no weapon
+                                action.addReasoning("Character needs weapon", 20.0f);
+                            }
+                        }
+
+                        // =====================================================
                         // CRITICAL: Detect location type
                         // =====================================================
                         boolean isDockingBay = titleLower.contains("docking bay") || titleLower.contains("landing platform");
@@ -425,8 +467,56 @@ public class CardSelectionEvaluator extends ActionEvaluator {
                                 logger.warn("⚠️ {} would have 0 power at docking bay {}!", deployingCardName, title);
                             } else if (isSpaceSystem) {
                                 // Space system - starship has power here (if piloted)
-                                action.addReasoning("Starship to space system - has power!", GOOD_DELTA * 3);
-                                logger.debug("✅ {} to space system {} - good!", deployingCardName, title);
+                                // BUT check if we'd be at a power disadvantage!
+                                if (game != null) {
+                                    try {
+                                        float ourPower = game.getModifiersQuerying().getTotalPowerAtLocation(
+                                            game.getGameState(), location, playerId, false, false);
+                                        String opponent = game.getOpponent(playerId);
+                                        float theirPower = game.getModifiersQuerying().getTotalPowerAtLocation(
+                                            game.getGameState(), location, opponent, false, false);
+
+                                        if (theirPower > 0) {
+                                            // Contested space location - check power differential
+                                            // Get ship's power from blueprint
+                                            int shipPower = 0;
+                                            SwccgCardBlueprint deployingBlueprint = getBlueprintFromId(context, deployingBlueprintId);
+                                            if (deployingBlueprint != null && deployingBlueprint.hasPowerAttribute()) {
+                                                Float power = deployingBlueprint.getPower();
+                                                shipPower = power != null ? power.intValue() : 0;
+                                            }
+
+                                            float projectedPower = ourPower + shipPower;
+                                            if (projectedPower < theirPower) {
+                                                // We'd still be losing after deployment!
+                                                action.addReasoning(String.format(
+                                                    "⚠️ SPACE POWER DISADVANTAGE: %.0f vs %.0f after deploy",
+                                                    projectedPower, theirPower), -80.0f);
+                                                logger.warn("⚠️ Deploying {} to {} would leave us at power disadvantage ({} vs {})",
+                                                    deployingCardName, title, (int)projectedPower, (int)theirPower);
+                                            } else if (projectedPower >= theirPower + 3) {
+                                                // Good advantage
+                                                action.addReasoning(String.format(
+                                                    "Good space position: %.0f vs %.0f after deploy",
+                                                    projectedPower, theirPower), 30.0f);
+                                            } else {
+                                                // Close fight
+                                                action.addReasoning(String.format(
+                                                    "Close space fight: %.0f vs %.0f after deploy",
+                                                    projectedPower, theirPower), 10.0f);
+                                            }
+                                        } else {
+                                            // Uncontested - good target
+                                            action.addReasoning("Uncontested space system", 30.0f);
+                                        }
+                                    } catch (Exception e) {
+                                        // Fallback to basic bonus if we can't check power
+                                        action.addReasoning("Starship to space system", GOOD_DELTA * 2);
+                                        logger.debug("Could not check power at {}: {}", title, e.getMessage());
+                                    }
+                                } else {
+                                    action.addReasoning("Starship to space system", GOOD_DELTA * 2);
+                                }
                             } else if (isGroundSite) {
                                 // Ground location - starship can't deploy here normally
                                 action.addReasoning("STARSHIP TO GROUND - unusual!", BAD_DELTA);
