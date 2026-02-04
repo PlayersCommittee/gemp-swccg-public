@@ -18045,6 +18045,7 @@ public class Filters {
     public static final Filter Court_Of_The_Vile_Gangster = Filters.title(Title.Court_Of_The_Vile_Gangster);
     public static final Filter Cracken = Filters.persona(Persona.CRACKEN);
     public static final Filter Crait_location = Filters.partOfSystem(Title.Crait);
+    public static final Filter Crait_site = Filters.and(Filters.partOfSystem(Title.Crait), CardSubtype.SITE);
     public static final Filter Crait_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Crait));
     public static final Filter Crait_Salt_Plateau = Filters.and(CardSubtype.SITE, Filters.title(Title.Crait_Salt_Plateau));
     public static final Filter Crash_Landing = Filters.title(Title.Crash_Landing);
@@ -18650,6 +18651,7 @@ public class Filters {
     public static final Filter Kian = Filters.title(Title.Kian);
     public static final Filter Keir_Santage = Filters.title(Title.Keir_Santage);
     public static final Filter Kiffex_site = Filters.and(Filters.partOfSystem(Title.Kiffex), CardSubtype.SITE);
+    public static final Filter Kijimi_location = Filters.partOfSystem(Title.Kijimi);
     public static final Filter Kirdo_III_site = Filters.and(Filters.partOfSystem(Title.Kirdo_III), CardSubtype.SITE);
     public static final Filter Kitonak = Filters.species(Species.KITONAK);
     public static final Filter Klaatu = Filters.title(Title.Klaatu);
@@ -19274,6 +19276,7 @@ public class Filters {
     public static final Filter superlaser_weapon = Filters.or(Filters.title(Title.Superlaser), Filters.title(Title.Superlaser_Mark_II));
     public static final Filter Supremacy = Filters.title(Title.Supremacy);
     public static final Filter Supremacy_Bridge = Filters.title(Title.Supremacy_Bridge);
+    public static final Filter Supremacy_site = Filters.siteOfStarshipOrVehicle(Persona.SUPREMACY, true);
     public static final Filter Surface_Defense_Cannon = Filters.title(Title.Surface_Defense_Cannon);
     public static final Filter Surprise = Filters.title(Title.Surprise);
     public static final Filter Surprise_Assault = Filters.title(Title.Surprise_Assault);
