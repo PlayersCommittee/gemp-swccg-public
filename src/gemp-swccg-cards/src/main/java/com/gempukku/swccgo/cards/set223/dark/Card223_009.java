@@ -67,7 +67,7 @@ public class Card223_009 extends AbstractNormalEffect {
         if (TriggerConditions.wonBattle(game, effectResult, Filters.and(Filters.your(self), Filters.alien, Filters.with(self, Filters.and(Filters.your(self), Filters.Imperial)), Filters.atRelatedSite(self)))) {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Take a card into hand from Used Pile");
-            action.setActionMsg("Take a card into handle from Used Pile; reshuffle");
+            action.setActionMsg("Take a card into hand from Used Pile; reshuffle");
             action.appendEffect(
                 new TakeCardIntoHandFromUsedPileEffect(action, playerId, true));
             return Collections.singletonList(action);

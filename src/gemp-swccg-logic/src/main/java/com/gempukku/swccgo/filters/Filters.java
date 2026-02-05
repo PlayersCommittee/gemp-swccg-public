@@ -17744,6 +17744,7 @@ public class Filters {
     public static final Filter accountant = Filters.keyword(Keyword.ACCOUNTANT);
     public static final Filter Ackbar = Filters.persona(Persona.ACKBAR);
     public static final Filter AhchTo_Jedi_Village = Filters.title(Title.AhchTo_Jedi_Village);
+    public static final Filter AhchTo_Saddle = Filters.title(Title.Saddle);
     public static final Filter AhchTo_site = Filters.and(Filters.partOfSystem(Title.Ahch_To), CardSubtype.SITE);
     public static final Filter Ahch_To_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Ahch_To));
     public static final Filter Activate_The_Droids = Filters.title(Title.Activate_The_Droids);
@@ -18018,6 +18019,7 @@ public class Filters {
     public static final Filter Concussion_Grenade = Filters.title(Title.Concussion_Grenade);
     public static final Filter Concussion_Missiles = Filters.title(Title.Concussion_Missiles);
     public static final Filter cannon = Filters.or(Keyword.CANNON, Keyword.ION_CANNON, Keyword.LASER_CANNON, Keyword.AT_AT_CANNON);
+    public static final Filter Connix = Filters.persona(Persona.CONNIX);
     public static final Filter Control = Filters.title(Title.Control);
     public static final Filter Coolant_Shaft = Filters.title(Title.Coolant_Shaft);
     public static final Filter Corellia_location = Filters.partOfSystem(Title.Corellia);
@@ -18905,7 +18907,7 @@ public class Filters {
     public static final Filter Ozzel = Filters.persona(Persona.OZZEL);
     public static final Filter padawan = Filters.and(Filters.keyword(Keyword.PADAWAN), Filters.not(Filters.abilityMoreThanOrEqualTo(6)));
     public static final Filter Padme = Filters.title(Title.Padme);
-    public static final Filter Paige = Filters.title(Title.Paige);
+    public static final Filter Paige = Filters.persona(Persona.PAIGE);
     public static final Filter Palace_Raider = Filters.title(Title.Palace_Raider);
     public static final Filter Palpatine = Filters.and(Filters.persona(Persona.SIDIOUS), Filters.titleContains("Palpatine"));
     public static final Filter Panaka = Filters.persona(Persona.PANAKA);
@@ -18948,6 +18950,7 @@ public class Filters {
     public static final Filter power_droid = Filters.modelType(ModelType.POWER);
     public static final Filter power_harpoon = Filters.title(Title.Power_Harpoon);
     public static final Filter Power_Pivot = Filters.title(Title.Power_Pivot);
+    public static final Filter Praji = Filters.persona(Persona.PRAJI);
     public static final Filter Pray_I_Dont_Alter_It_Any_Further = Filters.title(Title.Pray_I_Dont_Alter_It_Any_Further);
     public static final Filter Pre_Vizsla = Filters.persona(Persona.PRE_VIZSLA);
     public static final Filter Precise_Attack = Filters.title(Title.Precise_Attack);
@@ -19304,6 +19307,7 @@ public class Filters {
     public static final Filter Tala_1 = Filters.title(Title.Tala_1);
     public static final Filter Tala_2 = Filters.title(Title.Tala_2);
     public static final Filter Tala_Durith = Filters.persona(Persona.TALA_DURITH);
+    public static final Filter Tallie = Filters.persona(Persona.TALLIE_LINTRA);
     public static final Filter Tallon_Roll = Filters.title(Title.Tallon_Roll);
     public static final Filter Talz = Filters.species(Species.TALZ);
     public static final Filter Tanbris = Filters.title(Title.Tanbris);

@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.conditions.PresentCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -32,6 +33,7 @@ public class Card1_167 extends AbstractImperial {
         setGameText("Adds 2 to power of anything he pilots. When piloting Devastator, also adds 1 to hyperspeed. Where present, cancels game text of C-3PO or R2-D2.");
         addIcons(Icon.PILOT, Icon.WARRIOR);
         addKeywords(Keyword.COMMANDER);
+        addPersona(Persona.PRAJI);
         setMatchingStarshipFilter(Filters.Devastator);
     }
 
