@@ -433,6 +433,7 @@ public interface Title {
     String Floating_Refinery = "Floating Refinery";
     String Focused_Attack = "Focused Attack";
     String Fondor = "Fondor";
+    String Force_Field = "Force Field";
     String Force_Lightning = "Force Lightning";
     String Force_Projection = "Force Projection";
     String Force_Push = "Force Push";

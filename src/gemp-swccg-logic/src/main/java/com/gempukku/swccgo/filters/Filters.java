@@ -18323,6 +18323,7 @@ public class Filters {
     public static final Filter Focused_Attack = Filters.title(Title.Focused_Attack);
     public static final Filter Fondor = Filters.title(Title.Fondor);
     public static final Filter Force_Attuned_character = Filters.and(CardCategory.CHARACTER, Filters.abilityEqualTo(3));
+    public static final Filter Force_Field = Filters.title(Title.Force_Field);
     public static final Filter Force_Lightning = Filters.title(Title.Force_Lightning);
     public static final Filter Force_pike = Filters.keyword(Keyword.FORCE_PIKE);
     public static final Filter Force_Push = Filters.title(Title.Force_Push);
@@ -18432,6 +18433,7 @@ public class Filters {
     public static final Filter Hidden_Forest_Trail = Filters.title(Title.Hidden_Forest_Trail);
     public static final Filter Hidden_Weapons = Filters.title(Title.Hidden_Weapons);
     public static final Filter Highspeed_Tactics = Filters.title(Title.Highspeed_Tactics);
+    public static final Filter His_Destiny = Filters.title(Title.His_Destiny);
     public static final Filter His_Name_Is_Anakin = Filters.title(Title.His_Name_Is_Anakin);
     public static final Filter Hit_And_Run = Filters.title(Title.Hit_And_Run);
     public static final Filter hit_character = Filters.and(CardCategory.CHARACTER, Filters.hit());

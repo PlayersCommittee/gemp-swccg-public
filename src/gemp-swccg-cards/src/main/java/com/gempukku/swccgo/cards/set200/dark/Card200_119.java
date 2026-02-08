@@ -8,6 +8,7 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -31,7 +32,7 @@ import java.util.List;
  */
 public class Card200_119 extends AbstractUsedOrLostInterrupt {
     public Card200_119() {
-        super(Side.DARK, 4, "Force Field", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
+        super(Side.DARK, 4, Title.Force_Field, Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
         setVirtualSuffix(true);
         setLore("Han was fast. Vader was faster.");
         setGameText("USED: Cancel an attempt to use a character weapon to target your character of ability > 4. LOST: Use 2 Force to cancel an attempt to use a [Permanent Weapon] weapon to target your character.");
