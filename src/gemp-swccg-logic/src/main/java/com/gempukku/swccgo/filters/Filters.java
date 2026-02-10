@@ -13579,7 +13579,7 @@ public class Filters {
                 if (cardToTransfer.getBlueprint().getCardCategory() != CardCategory.DEVICE && cardToTransfer.getBlueprint().getCardCategory() != CardCategory.WEAPON)
                     return false;
 
-                return cardToTransfer.getBlueprint().getTransferDeviceOrWeaponAction(cardToTransfer.getOwner(), gameState.getGame(), cardToTransfer, forFree, Filters.and(targetFilter)) != null;
+                return cardToTransfer.getBlueprint().getTransferDeviceOrWeaponAction(cardToTransfer.getOwner(), gameState.getGame(), cardToTransfer, forFree, false, Filters.and(targetFilter)) != null;
             }
         };
     }
@@ -13600,7 +13600,7 @@ public class Filters {
                 if (cardToTransfer.getBlueprint().getCardCategory() != CardCategory.DEVICE && cardToTransfer.getBlueprint().getCardCategory() != CardCategory.WEAPON)
                     return false;
 
-                return cardToTransfer.getBlueprint().getTransferDeviceOrWeaponAction(cardToTransfer.getOwner(), gameState.getGame(), cardToTransfer, forFree, Filters.sameCardId(targetCard)) != null;
+                return cardToTransfer.getBlueprint().getTransferDeviceOrWeaponAction(cardToTransfer.getOwner(), gameState.getGame(), cardToTransfer, forFree, false, Filters.sameCardId(targetCard)) != null;
             }
         };
     }

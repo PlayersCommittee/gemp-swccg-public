@@ -226,10 +226,11 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
      * @param game the game
      * @param self the card
      * @param forFree true if moving for free, otherwise false
+     * @param ignoreDeployRestriction true if ignoring deployment restrictions that would normally prevent transferring
      * @param transferTargetFilter the filter for where the card can be transferred
      * @return the transfer device or weapon actions
      */
-    private List<Action> getTransferDeviceOrWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, Filter transferTargetFilter) {
+    private List<Action> getTransferDeviceOrWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean ignoreDeployRestriction, Filter transferTargetFilter) {
         List<Action> transferCardActions = new ArrayList<Action>();
 
         if ((self.getBlueprint().getCardCategory() == CardCategory.DEVICE || self.getBlueprint().getCardCategory() == CardCategory.WEAPON)) {
@@ -241,7 +242,9 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
                     // Determine the spot override to use when transferring the card using this play card option
                     Map<InactiveReason, Boolean> spotOverrides = self.getBlueprint().getDeployTargetSpotOverride(playCardOption.getId());
 
-                    Filter completeTargetFilter = getValidTransferDeviceOrWeaponTargetFilter(playerId, game, self, playCardOption, forFree, transferTargetFilter);
+                    Filter completeTargetFilter;
+                    if(ignoreDeployRestriction) completeTargetFilter = transferTargetFilter; ///could improve this?  Maybe pass ignoreDeployRestriction into getValidTransferDeviceOrWeaponTargetFilter, down the chain so things like cost checking work properly?
+                    else completeTargetFilter = getValidTransferDeviceOrWeaponTargetFilter(playerId, game, self, playCardOption, forFree, transferTargetFilter);
 
                     // Check that a valid target to transfer to as attached can be found
                     if (Filters.canSpot(game, self, spotOverrides, TargetingReason.TO_BE_DEPLOYED_ON, completeTargetFilter)) {
@@ -268,13 +271,14 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
      * @param game the game
      * @param self the card
      * @param forFree true if moving for free, otherwise false
+     * @param ignoreDeployRestriction true if ignoring deployment restrictions that would normally prevent transferring
      * @param transferTargetFilter the filter for where the card can be transferred
      * @return the transfer device or weapon actions
      */
     @Override
-    public Action getTransferDeviceOrWeaponAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, Filter transferTargetFilter) {
+    public Action getTransferDeviceOrWeaponAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean ignoreDeployRestriction, Filter transferTargetFilter) {
         // Get the transfer actions
-        List<Action> transferActions = getTransferDeviceOrWeaponActions(playerId, game, self, forFree, transferTargetFilter);
+        List<Action> transferActions = getTransferDeviceOrWeaponActions(playerId, game, self, forFree, ignoreDeployRestriction, transferTargetFilter);
 
         if (transferActions.isEmpty())
             return null;
@@ -2058,7 +2062,7 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
                 }
 
                 // Transfer device or weapon (includes stolen)
-                List<Action> transferDeviceOrWeaponActions = getTransferDeviceOrWeaponActions(playerId, game, self, false, Filters.present(self));
+                List<Action> transferDeviceOrWeaponActions = getTransferDeviceOrWeaponActions(playerId, game, self, false, false, Filters.present(self));
                 if (transferDeviceOrWeaponActions != null) {
                     actions.addAll(transferDeviceOrWeaponActions);
                 }

@@ -16,7 +16,8 @@ public class TransferDeviceOrWeaponEffect extends AbstractSubActionEffect {
     private PhysicalCard _deviceOrWeapon;
     private PhysicalCard _transferTo;
     private boolean _forFree;
-
+    private boolean _ignoreDeployRestrictions;
+    
     /**
      * Creates an effect that transfers a device or weapon.
      * @param action the action performing this effect
@@ -29,6 +30,23 @@ public class TransferDeviceOrWeaponEffect extends AbstractSubActionEffect {
         _deviceOrWeapon = deviceOrWeapon;
         _transferTo = transferTo;
         _forFree = forFree;
+        _ignoreDeployRestrictions = false;
+    }
+
+    /**
+     * Creates an effect that transfers a device or weapon.
+     * @param action the action performing this effect
+     * @param deviceOrWeapon the device or weapon to be transferred
+     * @param transferTo the card to transfer the device or weapon to
+     * @param forFree true if the transfer is to be free, otherwise false
+     * @param ignoreDeployRestrictions true if the transfer to include cards that cannot normally be deployed on transferTo
+     */
+    public TransferDeviceOrWeaponEffect(Action action, PhysicalCard deviceOrWeapon, PhysicalCard transferTo, boolean forFree, boolean ignoreDeployRestrictions) {
+        super(action);
+        _deviceOrWeapon = deviceOrWeapon;
+        _transferTo = transferTo;
+        _forFree = forFree;
+        _ignoreDeployRestrictions = ignoreDeployRestrictions;
     }
 
     @Override
@@ -45,7 +63,7 @@ public class TransferDeviceOrWeaponEffect extends AbstractSubActionEffect {
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
                         Action transferDeviceOrWeaponAction = _deviceOrWeapon.getBlueprint().getTransferDeviceOrWeaponAction(_action.getPerformingPlayer(), game,
-                                _deviceOrWeapon, _forFree, Filters.sameCardId(_transferTo));
+                                _deviceOrWeapon, _forFree, _ignoreDeployRestrictions, Filters.sameCardId(_transferTo));
                         if (transferDeviceOrWeaponAction != null) {
                             subAction.appendEffect(
                                     new StackActionEffect(subAction, transferDeviceOrWeaponAction));
