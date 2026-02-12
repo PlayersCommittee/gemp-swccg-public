@@ -1364,8 +1364,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
         _firedInBattleCompletedMap.clear();
         _firedInBattleByPlayerMap.clear();
         _firedInBattleByPlayerCompletedMap.clear();
+        _firedInBattleByCardMap.clear();
+        _firedInBattleByCardCompletedMap.clear();
         _permWeaponFiredInBattleByPlayerMap.clear();
         _permWeaponFiredInBattleByPlayerCompletedMap.clear();
+        _permWeaponFiredInBattleByCardMap.clear();
+        _permWeaponFiredInBattleByCardCompletedMap.clear();
     }
 
     /**
