@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -54,23 +55,25 @@ public class Card9_141 extends AbstractLostInterrupt {
         if (TriggerConditions.justLostWasPresentWith(game, effectResult, Filters.and(Filters.opponents(self), Filters.character), Filters.Emperor)) {
             final PhysicalCard justLostCard = ((LostFromTableResult) effectResult).getCard();
 
-            final PlayInterruptAction action = new PlayInterruptAction(game, self);
-            action.setText("Place " + GameUtils.getFullName(justLostCard) + " out of play");
-            // Pay cost(s)
-            action.appendCost(
-                    new LoseForceEffect(action, playerId, 1, true));
-            // Allow response(s)
-            action.allowResponses("Place " + GameUtils.getCardLink(justLostCard) + " out of play",
-                    new RespondablePlayCardEffect(action) {
-                        @Override
-                        protected void performActionResults(Action targetingAction) {
-                            // Perform result(s)
-                            action.appendEffect(
-                                    new PlaceCardOutOfPlayFromOffTableEffect(action, justLostCard));
+            if(Filters.canBeTargetedBy(self, TargetingReason.TO_BE_PLACED_OUT_OF_PLAY).accepts(game, justLostCard)) {
+                final PlayInterruptAction action = new PlayInterruptAction(game, self);
+                action.setText("Place " + GameUtils.getFullName(justLostCard) + " out of play");
+                // Pay cost(s)
+                action.appendCost(
+                        new LoseForceEffect(action, playerId, 1, true));
+                // Allow response(s)
+                action.allowResponses("Place " + GameUtils.getCardLink(justLostCard) + " out of play",
+                        new RespondablePlayCardEffect(action) {
+                            @Override
+                            protected void performActionResults(Action targetingAction) {
+                                // Perform result(s)
+                                action.appendEffect(
+                                        new PlaceCardOutOfPlayFromOffTableEffect(action, justLostCard));
+                            }
                         }
-                    }
-            );
-            return Collections.singletonList(action);
+                );
+                return Collections.singletonList(action);
+            }
         }
         return null;
     }

@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -45,7 +46,7 @@ public class Card2_043 extends AbstractUsedOrLostInterrupt {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
         final Collection<PhysicalCard> mayBePlacedOutOfPlay = Filters.filter(game.getGameState().getHand(playerId), game,
-                Filters.or(Filters.Attack_Run, Filters.Youre_All_Clear_Kid, Filters.Death_Star_Trench, Filters.Rebel_Tech));
+                Filters.and(Filters.or(Filters.Attack_Run, Filters.Youre_All_Clear_Kid, Filters.Death_Star_Trench, Filters.Rebel_Tech), Filters.canBeTargetedBy(self, TargetingReason.TO_BE_PLACED_OUT_OF_PLAY)));
         if (!mayBePlacedOutOfPlay.isEmpty()) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);

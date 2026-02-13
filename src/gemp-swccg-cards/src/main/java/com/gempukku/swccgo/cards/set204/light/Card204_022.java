@@ -24,6 +24,7 @@ import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -53,37 +54,39 @@ public class Card204_022 extends AbstractLostInterrupt {
                 final PhysicalCard topCardOfLostPile = gameState.getTopOfLostPile(playerId);
                 if (topCardOfLostPile != null) {
 
-                    final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
-                    action.setText("Place top card of Lost Pile out of play");
-                    // Update usage limit(s)
-                    action.appendUsage(
-                            new OncePerGameEffect(action));
-                    // Pay cost(s)
-                    action.appendCost(
-                            new PlaceCardOutOfPlayFromOffTableEffect(action, topCardOfLostPile));
-                    action.appendCost(
-                            new RefreshPrintedDestinyValuesEffect(action, topCardOfLostPile) {
-                                @Override
-                                protected void refreshedPrintedDestinyValues() {
-                                    float destinyValue = modifiersQuerying.getDestiny(gameState, topCardOfLostPile);
-                                    action.setActionMsg("Add " + GuiUtils.formatAsString(destinyValue) + " to total power");
+                    if(Filters.canBeTargetedBy(self, TargetingReason.TO_BE_PLACED_OUT_OF_PLAY).accepts(game, topCardOfLostPile)) {
+                        final PlayInterruptAction action = new PlayInterruptAction(game, self, gameTextActionId);
+                        action.setText("Place top card of Lost Pile out of play");
+                        // Update usage limit(s)
+                        action.appendUsage(
+                                new OncePerGameEffect(action));
+                        // Pay cost(s)
+                        action.appendCost(
+                                new PlaceCardOutOfPlayFromOffTableEffect(action, topCardOfLostPile));
+                        action.appendCost(
+                                new RefreshPrintedDestinyValuesEffect(action, topCardOfLostPile) {
+                                    @Override
+                                    protected void refreshedPrintedDestinyValues() {
+                                        float destinyValue = modifiersQuerying.getDestiny(gameState, topCardOfLostPile);
+                                        action.setActionMsg("Add " + GuiUtils.formatAsString(destinyValue) + " to total power");
 
-                                    // Allow response(s)
-                                    action.allowResponses(
-                                            new RespondablePlayCardEffect(action) {
-                                                @Override
-                                                protected void performActionResults(Action targetingAction) {
-                                                    float destinyValue = modifiersQuerying.getDestiny(gameState, topCardOfLostPile);
-                                                    // Perform result(s)
-                                                    action.appendEffect(
-                                                            new ModifyTotalPowerUntilEndOfBattleEffect(action, destinyValue, playerId,
-                                                                    "Adds " + GuiUtils.formatAsString(destinyValue) + " to total power"));
+                                        // Allow response(s)
+                                        action.allowResponses(
+                                                new RespondablePlayCardEffect(action) {
+                                                    @Override
+                                                    protected void performActionResults(Action targetingAction) {
+                                                        float destinyValue = modifiersQuerying.getDestiny(gameState, topCardOfLostPile);
+                                                        // Perform result(s)
+                                                        action.appendEffect(
+                                                                new ModifyTotalPowerUntilEndOfBattleEffect(action, destinyValue, playerId,
+                                                                        "Adds " + GuiUtils.formatAsString(destinyValue) + " to total power"));
+                                                    }
                                                 }
-                                            }
-                                    );
-                                }
-                            });
-                    actions.add(action);
+                                        );
+                                    }
+                                });
+                        actions.add(action);
+                    }
                 }
             }
 

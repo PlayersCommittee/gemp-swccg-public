@@ -8,6 +8,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -48,7 +49,7 @@ public class Card7_072 extends AbstractNormalEffect {
                 && GameConditions.canModifyAttritionAgainst(game, playerId)
                 && GameConditions.isAttritionRemaining(game, playerId)) {
             final Collection<PhysicalCard> mayBePlacedOutOfPlay = Filters.filter(game.getGameState().getHand(playerId), game,
-                    Filters.and(Filters.unique, Filters.sameTitleAs(self, Filters.and(Filters.unique, Filters.participatingInBattle))));
+                    Filters.and(Filters.unique, Filters.sameTitleAs(self, Filters.and(Filters.unique, Filters.participatingInBattle)), Filters.canBeTargetedBy(self, TargetingReason.TO_BE_PLACED_OUT_OF_PLAY)));
             if (!mayBePlacedOutOfPlay.isEmpty()) {
 
                 final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);

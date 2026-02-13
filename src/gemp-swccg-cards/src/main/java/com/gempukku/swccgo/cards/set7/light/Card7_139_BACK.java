@@ -11,6 +11,7 @@ import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -98,13 +99,15 @@ public class Card7_139_BACK extends AbstractObjective {
                 && GameConditions.isDuringBattle(game)) {
             PhysicalCard cardLost = ((LostFromTableResult) effectResult).getCard();
 
-            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Place " + GameUtils.getFullName(cardLost) + " out of play");
-            action.setActionMsg("Place " + GameUtils.getCardLink(cardLost) + " out of play");
-            // Perform result(s)
-            action.appendEffect(
-                    new PlaceCardOutOfPlayFromOffTableEffect(action, cardLost));
-            actions.add(action);
+            if(Filters.canBeTargetedBy(self, TargetingReason.TO_BE_PLACED_OUT_OF_PLAY).accepts(game, cardLost)) {
+                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setText("Place " + GameUtils.getFullName(cardLost) + " out of play");
+                action.setActionMsg("Place " + GameUtils.getCardLink(cardLost) + " out of play");
+                // Perform result(s)
+                action.appendEffect(
+                        new PlaceCardOutOfPlayFromOffTableEffect(action, cardLost));
+                actions.add(action);
+            }
         }
 
         // Check condition(s)

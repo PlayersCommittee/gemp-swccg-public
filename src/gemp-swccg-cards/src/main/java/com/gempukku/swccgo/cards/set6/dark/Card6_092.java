@@ -10,6 +10,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -51,24 +52,26 @@ public class Card6_092 extends AbstractAlien {
                 && GameConditions.canUseForce(game, playerId, 2)) {
             final PhysicalCard lostCard = ((LostFromTableResult) effectResult).getCard();
 
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("'Behead' " + GameUtils.getFullName(lostCard));
-            action.setActionMsg("'Behead' " + GameUtils.getCardLink(lostCard));
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerBattleEffect(action));
-            // Pay cost(s)
-            action.appendCost(
-                    new UseForceEffect(action, playerId, 2));
-            // Perform result(s)
-            action.appendEffect(
-                    new PlaceCardOutOfPlayFromOffTableEffect(action, lostCard) {
-                        @Override
-                        protected void cardPlacedOutOfPlay(PhysicalCard card) {
-                            lostCard.setBeheaded();
-                        }
-                    });
-            return Collections.singletonList(action);
+            if(Filters.canBeTargetedBy(self, TargetingReason.TO_BE_PLACED_OUT_OF_PLAY).accepts(game, lostCard)) {
+                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setText("'Behead' " + GameUtils.getFullName(lostCard));
+                action.setActionMsg("'Behead' " + GameUtils.getCardLink(lostCard));
+                // Update usage limit(s)
+                action.appendUsage(
+                        new OncePerBattleEffect(action));
+                // Pay cost(s)
+                action.appendCost(
+                        new UseForceEffect(action, playerId, 2));
+                // Perform result(s)
+                action.appendEffect(
+                        new PlaceCardOutOfPlayFromOffTableEffect(action, lostCard) {
+                            @Override
+                            protected void cardPlacedOutOfPlay(PhysicalCard card) {
+                                lostCard.setBeheaded();
+                            }
+                        });
+                return Collections.singletonList(action);
+            }
         }
         return null;
     }

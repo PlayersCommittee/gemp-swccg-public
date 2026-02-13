@@ -12,6 +12,7 @@ import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -63,32 +64,34 @@ public class Card2_084 extends AbstractAlien {
                 && GameConditions.canUseForce(game, playerId, 1)) {
             final PhysicalCard lostCard = ((LostFromTableResult) effectResult).getCard();
 
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("'Eat the soup' of " + GameUtils.getFullName(lostCard));
-            action.setActionMsg("'Eat the soup' of " + GameUtils.getCardLink(lostCard));
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerBattleEffect(action));
-            // Pay cost(s)
-            action.appendCost(
-                    new UseForceEffect(action, playerId, 1));
-            // Perform result(s)
-            action.appendEffect(
-                    new PassthruEffect(action) {
-                        @Override
-                        protected void doPlayEffect(SwccgGame game) {
-                            final float ability = game.getModifiersQuerying().getAbility(game.getGameState(), lostCard);
-                            action.appendEffect(
-                                    new PlaceCardOutOfPlayFromOffTableEffect(action, lostCard) {
-                                        @Override
-                                        protected void cardPlacedOutOfPlay(PhysicalCard card) {
-                                            lostCard.setSoupEaten(ability);
-                                        }
-                                    });
+            if(Filters.canBeTargetedBy(self, TargetingReason.TO_BE_PLACED_OUT_OF_PLAY).accepts(game, lostCard)) {
+                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setText("'Eat the soup' of " + GameUtils.getFullName(lostCard));
+                action.setActionMsg("'Eat the soup' of " + GameUtils.getCardLink(lostCard));
+                // Update usage limit(s)
+                action.appendUsage(
+                        new OncePerBattleEffect(action));
+                // Pay cost(s)
+                action.appendCost(
+                        new UseForceEffect(action, playerId, 1));
+                // Perform result(s)
+                action.appendEffect(
+                        new PassthruEffect(action) {
+                            @Override
+                            protected void doPlayEffect(SwccgGame game) {
+                                final float ability = game.getModifiersQuerying().getAbility(game.getGameState(), lostCard);
+                                action.appendEffect(
+                                        new PlaceCardOutOfPlayFromOffTableEffect(action, lostCard) {
+                                            @Override
+                                            protected void cardPlacedOutOfPlay(PhysicalCard card) {
+                                                lostCard.setSoupEaten(ability);
+                                            }
+                                        });
+                            }
                         }
-                    }
-            );
-            return Collections.singletonList(action);
+                );
+                return Collections.singletonList(action);
+            }
         }
         return null;
     }

@@ -11,6 +11,7 @@ import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -77,7 +78,7 @@ public class Card225_046 extends AbstractLostInterrupt {
         }
 
         gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
-        final Filter patienceWithCardStacked = Filters.and(Filters.Patience, Filters.hasStacked(Filters.any));
+        final Filter patienceWithCardStacked = Filters.and(Filters.Patience, Filters.hasStacked(Filters.canBeTargetedBy(self, TargetingReason.TO_BE_PLACED_OUT_OF_PLAY)));
         // Check condition(s)
         if (GameConditions.canSpot(game, self, patienceWithCardStacked)
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Icon.CLOUD_CITY, Filters.Rebel))
@@ -88,7 +89,7 @@ public class Card225_046 extends AbstractLostInterrupt {
                 action.setActionMsg("Place a card on Patience! out of play to add one battle destiny");
                 
                 action.appendTargeting(
-                        new ChooseStackedCardEffect(action, playerId, patienceWithCardStacked, Filters.any, false) {
+                        new ChooseStackedCardEffect(action, playerId, patienceWithCardStacked, Filters.canBeTargetedBy(self, TargetingReason.TO_BE_PLACED_OUT_OF_PLAY), false) {
                             @Override
                             protected void cardSelected(PhysicalCard selectedCard) {
                                 // Pay cost(s)
@@ -122,7 +123,7 @@ public class Card225_046 extends AbstractLostInterrupt {
                 
                 action.appendTargeting(
                         
-                        new ChooseStackedCardEffect(action, playerId, patienceWithCardStacked, Filters.any, false) {
+                        new ChooseStackedCardEffect(action, playerId, patienceWithCardStacked, Filters.canBeTargetedBy(self, TargetingReason.TO_BE_PLACED_OUT_OF_PLAY), false) {
                             @Override
                             protected void cardSelected(PhysicalCard selectedCard) {
                                 // Pay cost(s)

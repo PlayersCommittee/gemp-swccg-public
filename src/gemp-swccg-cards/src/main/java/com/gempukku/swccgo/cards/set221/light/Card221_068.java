@@ -6,6 +6,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -58,7 +59,8 @@ public class Card221_068 extends AbstractDefensiveShield {
             final PhysicalCard weaponToBeStolen = aboutToStealCardResult.getCardToBeStolen();
             final PhysicalCard targetCharacter = weaponToBeStolen.getAttachedTo();
             if (targetCharacter != null
-                    && !game.getModifiersQuerying().hasIcon(game.getGameState(), sourceCard, Icon.EPISODE_I)) {
+                    && !game.getModifiersQuerying().hasIcon(game.getGameState(), sourceCard, Icon.EPISODE_I)
+                    && Filters.canBeTargetedBy(self, TargetingReason.TO_BE_PLACED_OUT_OF_PLAY).accepts(game, sourceCard)) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setText("Make " + opponent + " draw destiny");

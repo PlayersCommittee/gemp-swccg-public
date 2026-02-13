@@ -10,6 +10,7 @@ import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -67,30 +68,32 @@ public class Card207_024 extends AbstractAlien {
             final PhysicalCard lostCard = ((LostFromTableResult) effectResult).getCard();
             final int numForceToLose = (GameConditions.hasRep(game, playerId, Filters.pirate) || GameConditions.didNotDeployAnObjective(game, playerId)) ? 2 : 1;
 
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Place " + GameUtils.getFullName(lostCard) + " out of play");
-            action.setActionMsg("Place " + GameUtils.getCardLink(lostCard) + " out of play");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerTurnEffect(action));
-            // Perform result(s)
-            action.appendEffect(
-                    new PlayoutDecisionEffect(action, opponent,
-                            new YesNoDecision("Do you want to lose " + numForceToLose + " Force instead of having " + GameUtils.getCardLink(lostCard) + " placed out of play?") {
-                                @Override
-                                protected void yes() {
-                                    gameState.sendMessage(opponent + " chooses to lose " + numForceToLose + " Force instead of having " + GameUtils.getCardLink(lostCard) + " placed out of play");
-                                    action.appendEffect(
-                                            new LoseForceEffect(action, opponent, numForceToLose, true));
+            if(Filters.canBeTargetedBy(self, TargetingReason.TO_BE_PLACED_OUT_OF_PLAY).accepts(game, lostCard)) {
+                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setText("Place " + GameUtils.getFullName(lostCard) + " out of play");
+                action.setActionMsg("Place " + GameUtils.getCardLink(lostCard) + " out of play");
+                // Update usage limit(s)
+                action.appendUsage(
+                        new OncePerTurnEffect(action));
+                // Perform result(s)
+                action.appendEffect(
+                        new PlayoutDecisionEffect(action, opponent,
+                                new YesNoDecision("Do you want to lose " + numForceToLose + " Force instead of having " + GameUtils.getCardLink(lostCard) + " placed out of play?") {
+                                    @Override
+                                    protected void yes() {
+                                        gameState.sendMessage(opponent + " chooses to lose " + numForceToLose + " Force instead of having " + GameUtils.getCardLink(lostCard) + " placed out of play");
+                                        action.appendEffect(
+                                                new LoseForceEffect(action, opponent, numForceToLose, true));
+                                    }
+                                    protected void no() {
+                                        gameState.sendMessage(opponent + " chooses to not lose " + numForceToLose + " Force instead of having " + GameUtils.getCardLink(lostCard) + " placed out of play");
+                                        action.appendEffect(
+                                                new PlaceCardOutOfPlayFromOffTableEffect(action, lostCard));
+                                    }
                                 }
-                                protected void no() {
-                                    gameState.sendMessage(opponent + " chooses to not lose " + numForceToLose + " Force instead of having " + GameUtils.getCardLink(lostCard) + " placed out of play");
-                                    action.appendEffect(
-                                            new PlaceCardOutOfPlayFromOffTableEffect(action, lostCard));
-                                }
-                            }
-                    ));
-            return Collections.singletonList(action);
+                        ));
+                return Collections.singletonList(action);
+            }
         }
         return null;
     }
