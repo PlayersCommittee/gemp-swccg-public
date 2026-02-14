@@ -25,6 +25,7 @@ public class ExchangeCardFromHandWithStackedCardEffect extends AbstractSubAction
     private Filterable _cardInHandFilter;
     private Filterable _stackedOnFilter;
     private Filterable _stackedCardFilter;
+    private boolean _isRaceDestiny;
 
     /**
      * Creates an effect that causes the player to exchange a card in hand accepted by the card in hand filter with a card
@@ -40,7 +41,27 @@ public class ExchangeCardFromHandWithStackedCardEffect extends AbstractSubAction
         _cardInHandFilter = Filters.and(cardInHandFilter);
         _stackedOnFilter = Filters.and(stackedOnFilter);
         _stackedCardFilter = Filters.and(stackedCardFilter);
+        _isRaceDestiny = false;
     }
+
+    /**
+     * Creates an effect that causes the player to exchange a card in hand accepted by the card in hand filter with a card
+     * accepted by the stacked card filter that is stacked on a card accepted by the stacked on filter.
+     * @param action the action performing this effect
+     * @param playerId the player performing this effect
+     * @param cardInHandFilter the card in hand filter
+     * @param stackedOnFilter the stacked on filter
+     * @param stackedCardFilter the stacked card filter
+     * @param isRaceDestiny true if the stacked card is a race destiny
+     */
+    public ExchangeCardFromHandWithStackedCardEffect(Action action, String playerId, Filterable cardInHandFilter, Filterable stackedOnFilter, Filterable stackedCardFilter, boolean isRaceDestiny) {
+        super(action);
+        _playerId = playerId;
+        _cardInHandFilter = Filters.and(cardInHandFilter);
+        _stackedOnFilter = Filters.and(stackedOnFilter);
+        _stackedCardFilter = Filters.and(stackedCardFilter);
+        _isRaceDestiny = isRaceDestiny;
+    }    
 
     @Override
     public boolean isPlayableInFull(SwccgGame game) {
@@ -72,6 +93,10 @@ public class ExchangeCardFromHandWithStackedCardEffect extends AbstractSubAction
                                         gameState.removeCardsFromZone(cardsToRemove);
                                         gameState.addCardToZone(stackedCard, Zone.HAND, _playerId);
                                         gameState.stackCard(cardFromHand, stackedOn, false, stackedAsInactive, false);
+
+                                        if(_isRaceDestiny) {
+                                            cardFromHand.setRaceDestinyForPlayer(_playerId);
+                                        }
                                     }
                                 });
                     }
