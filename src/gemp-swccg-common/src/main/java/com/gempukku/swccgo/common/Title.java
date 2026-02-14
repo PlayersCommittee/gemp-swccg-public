@@ -1030,6 +1030,7 @@ public interface Title {
     String Seeking_An_Audience = "Seeking An Audience";
     String Seelos = "Seelos";
     String Sei_Taria = "Sei Taria";
+    String Senate_Hovercam = "Senate Hovercam";
     String Send_A_Detachment_Down = "Send A Detachment Down";
     String Sense = "Sense";
     String Set_For_Stun = "Set For Stun";

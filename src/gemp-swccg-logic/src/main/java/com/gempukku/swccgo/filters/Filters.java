@@ -19153,6 +19153,7 @@ public class Filters {
     public static final Filter Seelos_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Seelos));
     public static final Filter Sefla = Filters.persona(Persona.SEFLA);
     public static final Filter Sei_Taria = Filters.title(Title.Sei_Taria);
+    public static final Filter Senate_Hovercam = Filters.title(Title.Senate_Hovercam);
     public static final Filter senator = Filters.keyword(Keyword.SENATOR);
     public static final Filter Sense = Filters.title(Title.Sense);
     public static final Filter Set_For_Stun = Filters.title(Title.Set_For_Stun);
