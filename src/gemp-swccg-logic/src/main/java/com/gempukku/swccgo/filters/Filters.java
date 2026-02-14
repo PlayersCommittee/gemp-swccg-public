@@ -18011,6 +18011,7 @@ public class Filters {
     public static final Filter combat_vehicle = Filters.and(CardType.VEHICLE, CardSubtype.COMBAT);
     public static final Filter Combined_Attack = Filters.title(Title.Combined_Attack);
     public static final Filter Comlink = Filters.title(Title.Comlink);
+    public static final Filter Comm_Chief = Filters.title(Title.Comm_Chief);
     public static final Filter commander = Filters.keyword(Keyword.COMMANDER);
     public static final Filter Commence_Primary_Ignition = Filters.title(Title.Commence_Primary_Ignition);
     public static final Filter Commence_Recharging = Filters.title(Title.Commence_Recharging);

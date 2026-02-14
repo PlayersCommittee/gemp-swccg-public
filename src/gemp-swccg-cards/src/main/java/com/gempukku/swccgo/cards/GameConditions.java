@@ -2979,6 +2979,20 @@ public class GameConditions {
      * @param self the self
      * @param gameTextActionId the identifier for the card's specific action to perform the search
      * @param persona persona that can be chosen to deploy that are identified by persona
+     * @param title card that can be chosen to deploy that are identified by title
+     * @return true or false
+     */
+    public static boolean canDeployCardFromReserveDeck(SwccgGame game, String playerId, PhysicalCard self, GameTextActionId gameTextActionId, Persona persona, String title) {
+        return canDeployCardFromCardPile(game, playerId, self, Zone.RESERVE_DECK, gameTextActionId, false, false, Collections.singleton(persona), Collections.singletonList(title));
+    }
+
+    /**
+     * Checks if the player can deploy a card from Reserve Deck.
+     * @param game the game
+     * @param playerId the player
+     * @param self the self
+     * @param gameTextActionId the identifier for the card's specific action to perform the search
+     * @param persona persona that can be chosen to deploy that are identified by persona
      * @param titles cards that can be chosen to deploy that are identified by title
      * @return true or false
      */

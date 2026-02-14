@@ -222,6 +222,7 @@ public interface Title {
     String Come_Here_You_Big_Coward = "Come Here You Big Coward";
     String Come_With_Me = "Come With Me";
     String Comlink = "Comlink";
+    String Comm_Chief = "Comm Chief";
     String Commence_Primary_Ignition = "Commence Primary Ignition";
     String Commence_Recharging = "Commence Recharging";
     String Communing = "Communing";

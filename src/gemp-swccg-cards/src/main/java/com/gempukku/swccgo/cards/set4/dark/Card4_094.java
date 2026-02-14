@@ -5,6 +5,7 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +26,7 @@ import java.util.List;
  */
 public class Card4_094 extends AbstractImperial {
     public Card4_094() {
-        super(Side.DARK, 2, 3, 1, 2, 3, "Comm Chief", Uniqueness.RESTRICTED_3, ExpansionSet.DAGOBAH, Rarity.C);
+        super(Side.DARK, 2, 3, 1, 2, 3, Title.Comm_Chief, Uniqueness.RESTRICTED_3, ExpansionSet.DAGOBAH, Rarity.C);
         setLore("Chief Hudiss is one of the Imperial fleet's many communication specialists. Coordinates Star Destroyer fleet movement during challenging tactical situations.");
         setGameText("Adds 2 to power of anything he pilots, and that starship or vehicle moves for free.");
         addIcons(Icon.DAGOBAH, Icon.PILOT);
