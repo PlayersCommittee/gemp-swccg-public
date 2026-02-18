@@ -4,6 +4,7 @@ import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public interface Battles extends Decisions, GameProcedures, PileProperties {
@@ -417,6 +418,44 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
 		PassCardLeavingTable();
 	}
 
+	/**
+	 * Gets the number of destinies that the specified player can attempt to draw for battle destiny.
+	 * Must be called during a battle.
+	 * @param player The player.
+	 * @return the number of battle destinies
+	 */
+	default int GetBattleDestinyCount(String player) {
+		assertNotNull(gameState().getBattleState());
+		return game().getModifiersQuerying().getNumBattleDestinyDraws(gameState(), player, false, false);
+	}
+
+	default int GetDSBattleDestinyCount() {
+		return GetBattleDestinyCount(DS);
+	}
+
+	default int GetLSBattleDestinyCount() {
+		return GetBattleDestinyCount(LS);
+	}
+
+	/**
+	 * Gets the limit of destinies that the specified player can draw for battle destiny.
+	 * Must be called during a battle.
+	 * Expect Integer.MAX_VALUE if there is no limit imposed.
+	 * @param player The player.
+	 * @return the limit to number of battle destinies
+	 */
+	default int GetBattleDestinyLimit(String player) {
+		assertNotNull(gameState().getBattleState());
+		return game().getModifiersQuerying().getNumBattleDestinyDraws(gameState(), player, true, false);
+	}
+
+	default int GetDSBattleDestinyLimit() {
+		return GetBattleDestinyLimit(DS);
+	}
+
+	default int GetLSBattleDestinyLimit() {
+		return GetBattleDestinyLimit(LS);
+	}
 
 	/**
 	 * @return The total battle destiny drawn by the Dark Side player during the current battle.
