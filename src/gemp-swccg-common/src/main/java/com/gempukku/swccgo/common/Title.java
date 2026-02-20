@@ -16,6 +16,7 @@ public interface Title {
     String A_Gift = "A Gift";
     String A_Good_Blaster_At_Your_Side = "A Good Blaster At Your Side";
     String A_Great_Tactician_Creates_Plans = "A Great Tactician Creates Plans";
+    String A_Jedis_Resilience = "A Jedi's Resilience";
     String A_Million_Voices_Crying_Out = "A Million Voices Crying Out";
     String A_Siths_Plans = "A Sith's Plans";
     String A_Power_Loss = "A Power Loss";
