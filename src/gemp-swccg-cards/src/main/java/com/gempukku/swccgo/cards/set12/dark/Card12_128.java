@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class Card12_128 extends AbstractNormalEffect {
     public Card12_128() {
-        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Allegations Of Corruption", Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
+        super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Allegations_Of_Corruption, Uniqueness.UNIQUE, ExpansionSet.CORUSCANT, Rarity.U);
         setLore("With the Republic groaning under the weight of its own bureaucracy, senators accuse, bicker, and fight to further their own agendas.");
         setGameText("Deploy on table. Once per game, may use 1 Force to stack one Interrupt just played here. To play any new Interrupt of the same name, player must first stack it here and use +1 Force for each Interrupt in stack, even if Interrupt is normally free. (Immune to Alter.)");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.GRABBER);

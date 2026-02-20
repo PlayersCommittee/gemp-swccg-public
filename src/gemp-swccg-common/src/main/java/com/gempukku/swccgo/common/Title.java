@@ -45,6 +45,7 @@ public interface Title {
     String All_Too_Easy = "All Too Easy";
     String All_Wings_Report_In = "All Wings Report In";
     String All_Wrapped_Up = "All Wrapped Up";
+    String Allegations_Of_Corruption = "Allegations Of Corruption";
     String Alter = "Alter";
     String Alternatives_To_Fighting = "Alternatives To Fighting";
     String Always_Thinking_With_Your_Stomach = "Always Thinking With Your Stomach";

@@ -17767,6 +17767,7 @@ public class Filters {
     public static final Filter All_Too_Easy = Filters.title(Title.All_Too_Easy);
     public static final Filter All_Wings_Report_In = Filters.title(Title.All_Wings_Report_In);
     public static final Filter All_Wrapped_Up = Filters.title(Title.All_Wrapped_Up);
+    public static final Filter Allegations_Of_Corruption = Filters.title(Title.Allegations_Of_Corruption);
     public static final Filter Alter = Filters.title(Title.Alter);
     public static final Filter Alternatives_To_Fighting = Filters.title(Title.Alternatives_To_Fighting);
     public static final Filter always_immune_to_Alter = Filters.alwaysImmuneToCardTitle(Title.Alter);
