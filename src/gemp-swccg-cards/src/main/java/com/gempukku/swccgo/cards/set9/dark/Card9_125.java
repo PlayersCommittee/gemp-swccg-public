@@ -60,7 +60,7 @@ public class Card9_125 extends AbstractNormalEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         String playerId = self.getOwner();
-        Filter yourTIEs = Filters.and(Filters.your(self), Filters.TIE);
+        Filter yourTIEs = Filters.and(Filters.your(self), Filters.TIE, Filters.canBeTargetedBy(self));
         Filter systemsWhereYouHaveTIEs = Filters.sameSystemAs(self, yourTIEs);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
