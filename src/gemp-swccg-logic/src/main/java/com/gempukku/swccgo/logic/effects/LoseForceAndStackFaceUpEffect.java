@@ -16,9 +16,9 @@ public class LoseForceAndStackFaceUpEffect extends LoseForceEffect {
      * @param action the action performing this effect
      * @param playerToLoseForce the player
      * @param amount the amount of Force to lose
-     * @param stackFaceDownOn the card lost as Force is instead stacked face up on
+     * @param stackFaceUpOn the card lost as Force is instead stacked face up on
      */
-    public LoseForceAndStackFaceUpEffect(Action action, String playerToLoseForce, float amount, PhysicalCard stackFaceDownOn) {
-        super(action, playerToLoseForce, amount, true, null, false, false, false, false, stackFaceDownOn, false, false);
+    public LoseForceAndStackFaceUpEffect(Action action, String playerToLoseForce, float amount, PhysicalCard stackFaceUpOn) {
+        super(action, playerToLoseForce, amount, true, null, false, false, false, false, stackFaceUpOn, false, false);
     }
 }

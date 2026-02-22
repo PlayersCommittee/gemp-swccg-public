@@ -58,6 +58,7 @@ public interface Title {
     String Anakins_Lightsaber = "Anakin's Lightsaber";
     String Anakins_Podracer = "Anakin's Podracer";
     String Anchorhead = "Tatooine: Anchorhead";
+    String Ancient_Watering_Hole = "Ancient Watering Hole";
     String And_Now_Youll_Give_It_To_Me = "And Now You'll Give It To Me";
     String Anger_Fear_Aggression = "Anger, Fear, Aggression";
     String Anoat = "Anoat";

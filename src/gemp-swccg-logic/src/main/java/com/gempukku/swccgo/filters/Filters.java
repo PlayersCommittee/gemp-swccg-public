@@ -17782,6 +17782,7 @@ public class Filters {
     public static final Filter Anakins_Lightsaber = Filters.persona(Persona.ANAKINS_LIGHTSABER);
     public static final Filter Anakins_Podracer = Filters.title(Title.Anakins_Podracer);
     public static final Filter Anchorhead = Filters.title(Title.Anchorhead);
+    public static final Filter Ancient_Watering_Hole = Filters.title(Title.Ancient_Watering_Hole);
     public static final Filter And_Now_Youll_Give_It_To_Me = Filters.title(Title.And_Now_Youll_Give_It_To_Me);
     public static final Filter Anger_Fear_Aggression = Filters.title(Title.Anger_Fear_Aggression);
     public static final Filter Anoat_site = Filters.and(Filters.partOfSystem(Title.Anoat), CardSubtype.SITE);
