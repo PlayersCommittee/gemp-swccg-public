@@ -18303,6 +18303,7 @@ public class Filters {
     public static final Filter Fel = Filters.title(Title.Fel);
     public static final Filter Feltipern_Trevagg = Filters.title(Title.Feltipern_Trevagg);
     public static final Filter Fennec_Shand = Filters.persona(Persona.FENNEC_SHAND);
+    public static final Filter Fenson = Filters.persona(Persona.FENSON);
     public static final Filter Fett = Filters.or(Filters.persona(Persona.BOBA_FETT), Filters.persona(Persona.JANGO_FETT));
     public static final Filter female = Filters.and(CardCategory.CHARACTER, Keyword.FEMALE);
     public static final Filter Free_Ride = Filters.title(Title.Free_Ride);
@@ -18652,6 +18653,7 @@ public class Filters {
     public static final Filter Keep_Your_Eyes_Open = Filters.title(Title.Keep_Your_Eyes_Open);
     public static final Filter Keeping_The_Empire_Out_Forever = Filters.title(Title.Keeping_The_Empire_Out_Forever);
     public static final Filter Kef_Bir_site = Filters.and(Filters.partOfSystem(Title.Kef_Bir), CardSubtype.SITE);
+    public static final Filter Kensaric = Filters.persona(Persona.KENSARIC);
     public static final Filter Kessel_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Kessel));
     public static final Filter Kessel_Run = Filters.title(Title.Kessel_Run);
     public static final Filter Kessel_site = Filters.and(Filters.partOfSystem(Title.Kessel), CardSubtype.SITE);

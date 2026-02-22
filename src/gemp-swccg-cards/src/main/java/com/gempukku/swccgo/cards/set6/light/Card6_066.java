@@ -52,7 +52,7 @@ public class Card6_066 extends AbstractUsedInterrupt {
         List<PlayInterruptAction> actions = new LinkedList<>();
         String opponent = game.getOpponent(playerId);
         TargetingReason targetingReason = TargetingReason.TO_BE_LOST;
-        Filter locationFilter = Filters.or(Filters.Back_Door, Filters.Rancor_Pit, Filters.Jabbas_Palace, Filters.docking_bay);
+        Filter locationFilter = Filters.and(Filters.or(Filters.Back_Door, Filters.Rancor_Pit, Filters.Jabbas_Palace, Filters.docking_bay), Filters.canBeTargetedBy(self));
 
         // Check condition(s)
         if (TriggerConditions.battleInitiatedAt(game, effectResult, opponent, locationFilter)) {

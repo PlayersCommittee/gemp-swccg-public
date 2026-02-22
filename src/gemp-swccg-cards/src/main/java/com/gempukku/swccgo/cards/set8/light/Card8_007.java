@@ -8,6 +8,7 @@ import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -34,6 +35,7 @@ public class Card8_007 extends AbstractRebel {
         setGameText("When present at an exterior battleground site with your other scout, adds 2 (or 1 if Goo Nee Tay on table) to deploy cost of opponent's characters, vehicles and starships to same site.");
         addIcons(Icon.ENDOR, Icon.WARRIOR);
         addKeywords(Keyword.SCOUT);
+        addPersona(Persona.KENSARIC);
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.evaluators.CardMatchesEvaluator;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -33,6 +34,7 @@ public class Card8_108 extends AbstractImperial {
         setGameText("Subtracts 3 from Force opponent retrieves for On The Edge and Off The Edge. When at Bunker, adds 2 to deploy cost of each opponent's character (except Ewoks, spies and scouts) to Endor sites (except Rebel Landing Site).");
         addIcons(Icon.ENDOR, Icon.WARRIOR);
         addKeywords(Keyword.TROOPER);
+        addPersona(Persona.FENSON);
     }
 
     @Override
