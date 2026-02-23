@@ -1,8 +1,9 @@
 package com.gempukku.swccgo.cards.set106.light;
 
 import com.gempukku.swccgo.cards.AbstractRebel;
+import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.AtSameSiteAsCondition;
-import com.gempukku.swccgo.cards.conditions.InPlayDataSetCondition;
+import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
@@ -13,18 +14,16 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.GameUtils;
-import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.effects.ModifyPowerUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.modifiers.DeploysFreeToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.modifiers.SatisfiesAllAttritionWhenForfeitedModifier;
-import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.Action;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -56,40 +55,44 @@ public class Card106_006 extends AbstractRebel {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         Filter rebelVeteranFilter = Filters.and(Icon.REBEL, Filters.or(Keyword.LEADER, Filters.and(Filters.trooper, Filters.not(Filters.recruit))));
-        modifiers.add(new PowerModifier(self, Filters.isInCardInPlayData(self), new InPlayDataSetCondition(self), 1));
         modifiers.add(new SatisfiesAllAttritionWhenForfeitedModifier(self, new AtSameSiteAsCondition(self, rebelVeteranFilter)));
         return modifiers;
     }
 
     @Override
-    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        // Check condition(s)
-        if (TriggerConditions.isTableChanged(game, effectResult)) {
-            final Filter filter = Filters.and(Filters.non_unique, Filters.Rebel, Filters.warrior, Filters.present(self));
-            PhysicalCard currentRebel = self.getWhileInPlayData() != null ? self.getWhileInPlayData().getPhysicalCard() : null;
-            if (currentRebel == null || !filter.accepts(game.getGameState(), game.getModifiersQuerying(), currentRebel)) {
-                self.setWhileInPlayData(null);
-                Collection<PhysicalCard> otherRebels = Filters.filterActive(game, self, filter);
-                if (!otherRebels.isEmpty()) {
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+        final Filter targetFilter = Filters.and(Filters.non_unique, Filters.Rebel, Filters.warrior, Filters.present(self));
 
-                    final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                    action.setSingletonTrigger(true);
-                    action.setText("Add 1 to a Rebel's power");
-                    // Perform result(s)
-                    action.appendEffect(
-                            new ChooseCardOnTableEffect(action, self.getOwner(), "Choose Rebel", Filters.in(otherRebels)) {
-                                @Override
-                                protected void cardSelected(PhysicalCard selectedCard) {
-                                    action.addAnimationGroup(selectedCard);
-                                    action.setActionMsg(null);
-                                    self.setWhileInPlayData(new WhileInPlayData(selectedCard));
-                                    game.getGameState().sendMessage(GameUtils.getCardLink(self) + " is now adding 1 to " + GameUtils.getCardLink(selectedCard) + "'s power");
-                                }
-                            }
-                    );
-                    return Collections.singletonList(action);
-                }
-            }
+        // Check condition(s)
+        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)
+                && GameConditions.canTarget(game, self, targetFilter)) {
+
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
+            action.setText("Add 1 to a Rebel's power");
+            // Update usage limit(s)
+            action.appendUsage(
+                    new OncePerTurnEffect(action));
+            // Choose target(s)
+            action.appendTargeting(
+                    new TargetCardOnTableEffect(action, playerId, "Choose Rebel", targetFilter) {
+                        @Override
+                        protected void cardTargeted(int targetGroupId, final PhysicalCard targetedCard) {
+                            action.addAnimationGroup(targetedCard);
+                            // Allow response(s)
+                            action.allowResponses("Add 1 to " + GameUtils.getCardLink(targetedCard) + "'s power",
+                                    new UnrespondableEffect(action) {
+                                        @Override
+                                        protected void performActionResults(Action targetingAction) {
+                                            // Perform result(s)
+                                            action.appendEffect(
+                                                    new ModifyPowerUntilEndOfTurnEffect(action, targetedCard, 1));
+                                        }
+                                    }
+                            );
+                        }
+                    }
+            );
+            return Collections.singletonList(action);
         }
         return null;
     }
