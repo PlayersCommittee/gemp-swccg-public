@@ -4,7 +4,6 @@ import com.gempukku.swccgo.cards.AbstractImmediateEffect;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
@@ -17,6 +16,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.CancelCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.FerocityModifier;
@@ -46,7 +46,7 @@ public class Card3_102 extends AbstractImmediateEffect {
 
     @Override
     protected boolean canPlayCardDuringCurrentPhase(String playerId, SwccgGame game, PhysicalCard self) {
-        return GameConditions.isDuringYourPhase(game, playerId, Phase.DEPLOY);
+        return true;
     }
 
     @Override
@@ -66,28 +66,6 @@ public class Card3_102 extends AbstractImmediateEffect {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        String opponent = game.getOpponent(self.getOwner());
-
-        // Check condition(s)
-        if (TriggerConditions.isTableChanged(game, effectResult)
-                && GameConditions.canBeCanceled(game, self)) {
-            PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self);
-            if (location != null) {
-                if (GameConditions.canSpot(game, self, Filters.and(Filters.opponents(self), Filters.lightsaber, Filters.present(self)))
-                        || (game.getModifiersQuerying().getTotalAbilityPresentAtLocation(game.getGameState(), opponent, location) > 4)) {
-
-                    RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                    action.setSingletonTrigger(true);
-                    action.setText("Cancel");
-                    action.setActionMsg("Cancel " + GameUtils.getCardLink(self));
-                    // Perform result(s)
-                    action.appendEffect(
-                            new CancelCardOnTableEffect(action, self));
-                    return Collections.singletonList(action);
-                }
-            }
-        }
-
         // Check condition(s)
         if (TriggerConditions.justEatenBy(game, effectResult, Filters.hasAttached(self), Filters.creature)) {
             PhysicalCard creature = ((EatenResult) effectResult).getEatenByCard();
@@ -101,6 +79,31 @@ public class Card3_102 extends AbstractImmediateEffect {
                             new FerocityModifier(self, creature, 2, true),
                             "Adds 2 to " + GameUtils.getCardLink(creature) + "'s ferocity"));
             return Collections.singletonList(action);
+        }
+        return null;
+    }
+
+    @Override
+    protected List<TopLevelGameTextAction> getOpponentsCardGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+        String opponent = game.getOpponent(self.getOwner());
+
+        // Check condition(s)
+        if (GameConditions.canBeCanceled(game, self)) {
+            PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self);
+            if (location != null) {
+                if (GameConditions.canSpot(game, self, Filters.and(Filters.opponents(self), Filters.lightsaber, Filters.present(self)))
+                        || (game.getModifiersQuerying().getTotalAbilityPresentAtLocation(game.getGameState(), opponent, location) > 4)) {
+
+                    TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
+                    action.setSingletonTrigger(true);
+                    action.setText("Cancel");
+                    action.setActionMsg("Cancel " + GameUtils.getCardLink(self));
+                    // Perform result(s)
+                    action.appendEffect(
+                            new CancelCardOnTableEffect(action, self));
+                    return Collections.singletonList(action);
+                }
+            }
         }
         return null;
     }
