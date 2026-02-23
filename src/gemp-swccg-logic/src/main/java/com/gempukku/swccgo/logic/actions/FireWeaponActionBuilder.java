@@ -692,7 +692,7 @@ public class FireWeaponActionBuilder {
         Filter presentAt = Filters.presentAt(Filters.wherePresent(_weaponOrCardWithPermanentWeapon));
         _proximityFilterList.add(Filters.or(presentAt,
                 Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent)));
-        _targetFilterList.add(Filters.and(Filters.opponents(_weaponOrCardWithPermanentWeapon), targetFilter));
+        _targetFilterList.add(Filters.and(Filters.or(Filters.opponents(_weaponOrCardWithPermanentWeapon), Filters.creature), targetFilter));
         _targetsForFree.add(false);
         _targetingUseForceCostMin.add(useForceCost);
         _targetingUseForceCostMax.add(useForceCost);
@@ -712,7 +712,7 @@ public class FireWeaponActionBuilder {
         Filter presentAt = Filters.presentAt(Filters.wherePresent(_weaponOrCardWithPermanentWeapon));
         _proximityFilterList.add(Filters.or(presentAt,
                 Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent)));
-        _targetFilterList.add(Filters.and(Filters.opponents(_weaponOrCardWithPermanentWeapon), targetFilter));
+        _targetFilterList.add(Filters.and(Filters.or(Filters.opponents(_weaponOrCardWithPermanentWeapon), Filters.creature), targetFilter));
         _targetsForFree.add(false);
         _targetingUseForceCostMin.add(useForceCostMin);
         _targetingUseForceCostMax.add(useForceCostMax);
@@ -730,7 +730,7 @@ public class FireWeaponActionBuilder {
         Filter presentAt = Filters.presentAt(Filters.sameOrAdjacentSite(_weaponOrCardWithPermanentWeapon));
         _proximityFilterList.add(Filters.or(presentAt,
                 Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent)));
-        _targetFilterList.add(Filters.and(Filters.opponents(_weaponOrCardWithPermanentWeapon), targetFilter));
+        _targetFilterList.add(Filters.and(Filters.or(Filters.opponents(_weaponOrCardWithPermanentWeapon), Filters.creature), targetFilter));
         _targetsForFree.add(true);
         _targetingUseForceCostMin.add(0);
         _targetingUseForceCostMax.add(0);
@@ -749,7 +749,7 @@ public class FireWeaponActionBuilder {
                 Filters.and(Filters.exterior_site, Filters.siteWithinDistance(_weaponOrCardWithPermanentWeapon, 2))));
         _proximityFilterList.add(Filters.or(presentAt,
                 Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent)));
-        _targetFilterList.add(Filters.and(Filters.opponents(_weaponOrCardWithPermanentWeapon), targetFilter));
+        _targetFilterList.add(Filters.and(Filters.or(Filters.opponents(_weaponOrCardWithPermanentWeapon), Filters.creature), targetFilter));
         _targetsForFree.add(true);
         _targetingUseForceCostMin.add(0);
         _targetingUseForceCostMax.add(0);
@@ -769,7 +769,7 @@ public class FireWeaponActionBuilder {
         Filter presentAt = Filters.presentAt(Filters.sameOrAdjacentSite(_weaponOrCardWithPermanentWeapon));
         _proximityFilterList.add(Filters.or(presentAt,
                 Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent)));
-        _targetFilterList.add(Filters.and(Filters.opponents(_weaponOrCardWithPermanentWeapon), targetFilter));
+        _targetFilterList.add(Filters.and(Filters.or(Filters.opponents(_weaponOrCardWithPermanentWeapon), Filters.creature), targetFilter));
         _targetsForFree.add(false);
         _targetingUseForceCostMin.add(useForceCost);
         _targetingUseForceCostMax.add(useForceCost);
@@ -788,7 +788,7 @@ public class FireWeaponActionBuilder {
         Filter presentAt = Filters.presentAt(Filters.or(sameSystem, Filters.isOrbitedBy(sameSystem)));
         _proximityFilterList.add(Filters.or(presentAt,
                 Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent)));
-        _targetFilterList.add(Filters.and(Filters.opponents(_weaponOrCardWithPermanentWeapon), targetFilter));
+        _targetFilterList.add(Filters.and(Filters.or(Filters.opponents(_weaponOrCardWithPermanentWeapon), Filters.creature), targetFilter));
         _targetsForFree.add(true);
         _targetingUseForceCostMin.add(0);
         _targetingUseForceCostMax.add(0);
@@ -808,7 +808,7 @@ public class FireWeaponActionBuilder {
         Filter presentAt = Filters.presentAt(Filters.or(sameSystem, Filters.isOrbitedBy(sameSystem)));
         _proximityFilterList.add(Filters.or(presentAt,
                 Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent)));
-        _targetFilterList.add(Filters.and(Filters.opponents(_weaponOrCardWithPermanentWeapon), targetFilter));
+        _targetFilterList.add(Filters.and(Filters.or(Filters.opponents(_weaponOrCardWithPermanentWeapon), Filters.creature), targetFilter));
         _targetsForFree.add(false);
         _targetingUseForceCostMin.add(useForceCost);
         _targetingUseForceCostMax.add(useForceCost);
@@ -827,7 +827,7 @@ public class FireWeaponActionBuilder {
         Filter presentAt = Filters.presentAt(Filters.relatedSystem(_weaponOrCardWithPermanentWeapon));
         _proximityFilterList.add(Filters.or(presentAt,
                 Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent)));
-        _targetFilterList.add(Filters.and(Filters.opponents(_weaponOrCardWithPermanentWeapon), targetFilter));
+        _targetFilterList.add(Filters.and(Filters.or(Filters.opponents(_weaponOrCardWithPermanentWeapon), Filters.creature), targetFilter));
         _targetsForFree.add(false);
         _targetingUseForceCostMin.add(useForceCost);
         _targetingUseForceCostMax.add(useForceCost);
