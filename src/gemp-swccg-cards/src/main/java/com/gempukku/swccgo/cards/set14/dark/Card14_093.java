@@ -62,6 +62,10 @@ public class Card14_093 extends AbstractNormalEffect {
                 public Collection<PhysicalCard> getAdditionalCardsInvolvedInForceRetrieval() {
                     return Filters.filterActive(game, null, Filters.and(Filters.your(self), Filters.participatingInBattle));
                 }
+                @Override
+                public boolean isDueToInitiatingBattle() {
+                    return true;
+                }
             });
             action.appendEffect(
                     new ChooseEffectEffect(action, playerId, effectChoices));

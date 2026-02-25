@@ -133,7 +133,12 @@ public class Card221_067_BACK extends AbstractObjective {
 
 
             if (x > 1) {
-                action.appendEffect(new RetrieveCardIntoHandEffect(action, playerId, Filters.icon(Icon.CLONE_ARMY)));
+                action.appendEffect(new RetrieveCardIntoHandEffect(action, playerId, Filters.icon(Icon.CLONE_ARMY)) {
+                        @Override
+                        public boolean isDueToInitiatingBattle() {
+                            return true;
+                        }
+                });
 
                 final PhysicalCard location = Filters.findFirstFromTopLocationsOnTable(game, Filters.battleLocation);
                 final Filter cloneToMove = Filters.and(Filters.your(self), Filters.clone,

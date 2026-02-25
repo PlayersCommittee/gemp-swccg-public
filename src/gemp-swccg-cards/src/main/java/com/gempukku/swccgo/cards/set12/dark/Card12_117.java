@@ -138,6 +138,10 @@ public class Card12_117 extends AbstractRepublic {
                         public Collection<PhysicalCard> getAdditionalCardsInvolvedInForceRetrieval() {
                             return Collections.singletonList(battleSite);
                         }
+                        @Override
+                        public boolean isDueToInitiatingBattle() {
+                            return true;
+                        }
                     });
             return Collections.singletonList(action);
         }
