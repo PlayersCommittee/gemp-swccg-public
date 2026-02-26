@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.effects.PayMoveUsingLocationTextCostEffect;
 import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.common.Filterable;
 import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.InactiveReason;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * An action to perform a movement using location text.
@@ -69,6 +71,22 @@ public class MoveUsingLocationTextAction extends TopLevelGameTextAction {
      * @param game the game
      * @param location the location
      * @param gameTextSourceCardId the card id of the card the game text is originally from
+     * @param spotOverrides overrides which cards can be seen as "active" for the purposes of the cardToMoveFilter or null
+     * @param cardToMoveFilter the filter for card to move
+     * @param fromCardFilter the filter for card to move from
+     * @param toCardFilter the filter for card to move to
+     * @param forFree true if moving for free, otherwise false
+     */
+    public MoveUsingLocationTextAction(final String playerId, final SwccgGame game, PhysicalCard location, int gameTextSourceCardId, Map<InactiveReason, Boolean> spotOverrides, final Filterable cardToMoveFilter, Filterable fromCardFilter, final Filterable toCardFilter, boolean forFree) {
+        this(playerId, game, location, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_DEFAULT, spotOverrides, cardToMoveFilter, fromCardFilter, toCardFilter, forFree, 1);
+    }
+
+    /**
+     * Creates an action to perform a movement using location text.
+     * @param playerId the player
+     * @param game the game
+     * @param location the location
+     * @param gameTextSourceCardId the card id of the card the game text is originally from
      * @param cardToMoveFilter the filter for card to move
      * @param fromCardFilter the filter for card to move from
      * @param toCardFilter the filter for card to move to
@@ -79,19 +97,37 @@ public class MoveUsingLocationTextAction extends TopLevelGameTextAction {
         this(playerId, game, location, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_DEFAULT, cardToMoveFilter, fromCardFilter, toCardFilter, forFree, baseCost);
     }
 
-        /**
+    /**
+     * Creates an action to perform a movement using location text.
+     * @param playerId the player
+     * @param game the game
+     * @param location the location
+     * @param gameTextSourceCardId the card id of the card the game text is originally from
+     * @param cardToMoveFilter the filter for card to move
+     * @param fromCardFilter the filter for card to move from
+     * @param toCardFilter the filter for card to move to
+     * @param forFree true if moving for free, otherwise false
+     * @param baseCost base cost in amount of Force required to perform the movement
+     */
+    public MoveUsingLocationTextAction(final String playerId, final SwccgGame game, PhysicalCard location, int gameTextSourceCardId, GameTextActionId gameTextActionId, final Filterable cardToMoveFilter, Filterable fromCardFilter, final Filterable toCardFilter, boolean forFree, float baseCost) {
+        this(playerId, game, location, gameTextSourceCardId, gameTextActionId, null, cardToMoveFilter, fromCardFilter, toCardFilter, forFree, baseCost);
+    }
+
+    /**
          * Creates an action to perform a movement using location text.
          * @param playerId the player
          * @param game the game
          * @param location the location
          * @param gameTextSourceCardId the card id of the card the game text is originally from
+         * @param gameTextActionId the game text action ID for the source card
+         * @param spotOverrides overrides which cards can be seen as "active" for the purposes of the cardToMoveFilter or null
          * @param cardToMoveFilter the filter for card to move
          * @param fromCardFilter the filter for card to move from
          * @param toCardFilter the filter for card to move to
          * @param forFree true if moving for free, otherwise false
          * @param baseCost base cost in amount of Force required to perform the movement
          */
-    public MoveUsingLocationTextAction(final String playerId, final SwccgGame game, PhysicalCard location, int gameTextSourceCardId, GameTextActionId gameTextActionId, final Filterable cardToMoveFilter, Filterable fromCardFilter, final Filterable toCardFilter, boolean forFree, float baseCost) {
+    public MoveUsingLocationTextAction(final String playerId, final SwccgGame game, PhysicalCard location, int gameTextSourceCardId, GameTextActionId gameTextActionId, Map<InactiveReason, Boolean> spotOverrides, final Filterable cardToMoveFilter, Filterable fromCardFilter, final Filterable toCardFilter, boolean forFree, float baseCost) {
         super(location, playerId, gameTextSourceCardId, gameTextActionId);
         setText("Move using location text");
         _playerId = playerId;
@@ -109,7 +145,7 @@ public class MoveUsingLocationTextAction extends TopLevelGameTextAction {
 
         // Figure out which from locations (or starships/vehicles) contain any of the cards can move to valid to locations (or starship/vehicles)
         for (PhysicalCard fromCard : fromCards) {
-            final Collection<PhysicalCard> cardsToMoveFromCard = Filters.filterActive(game, null,
+            final Collection<PhysicalCard> cardsToMoveFromCard = Filters.filterActive(game, null, spotOverrides,
                     Filters.and(Filters.owner(playerId), cardToMoveFilter, Filters.hasNotPerformedRegularMove, Filters.or(Filters.atLocation(fromCard), Filters.aboardExceptRelatedSites(fromCard))));
 
             for (PhysicalCard cardToMove : cardsToMoveFromCard) {
@@ -129,7 +165,7 @@ public class MoveUsingLocationTextAction extends TopLevelGameTextAction {
             protected void cardSelected(PhysicalCard fromCard) {
                 _fromCardChosen = true;
 
-                final Collection<PhysicalCard> cardsToMove = Filters.filterActive(game, null,
+                final Collection<PhysicalCard> cardsToMove = Filters.filterActive(game, null, spotOverrides,
                         Filters.and(Filters.owner(playerId), cardToMoveFilter, Filters.hasNotPerformedRegularMove, Filters.or(Filters.atLocation(fromCard), Filters.aboardExceptRelatedSites(fromCard))));
 
                 final LinkedList<PhysicalCard> validToCards = new LinkedList<PhysicalCard>();

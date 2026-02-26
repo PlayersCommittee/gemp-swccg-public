@@ -9,6 +9,7 @@ import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -56,15 +57,15 @@ public class Card7_127 extends AbstractSite {
         // Check condition(s)
         if (GameConditions.isDuringYourPhase(game, playerOnLightSideOfLocation, Phase.MOVE)
                 && GameConditions.canSpotLocation(game, relatedGenericSpaceportSite)) {
-            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, Filters.any, self, relatedGenericSpaceportSite, true)) {
+            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, SpotOverride.INCLUDE_UNDERCOVER, Filters.any, self, relatedGenericSpaceportSite, true)) {
 
-                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, Filters.any, self, relatedGenericSpaceportSite, true);
+                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, SpotOverride.INCLUDE_UNDERCOVER, Filters.any, self, relatedGenericSpaceportSite, true);
                 action.setText("Move from here to related spaceport site");
                 actions.add(action);
             }
-            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, Filters.any, relatedGenericSpaceportSite, self, true)) {
+            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, SpotOverride.INCLUDE_UNDERCOVER, Filters.any, relatedGenericSpaceportSite, self, true)) {
 
-                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, Filters.any, relatedGenericSpaceportSite, self, true);
+                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, SpotOverride.INCLUDE_UNDERCOVER, Filters.any, relatedGenericSpaceportSite, self, true);
                 action.setText("Move from related spaceport site to here");
                 actions.add(action);
             }
