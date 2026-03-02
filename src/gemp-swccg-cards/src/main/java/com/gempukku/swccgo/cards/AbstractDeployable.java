@@ -247,7 +247,7 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
                     else completeTargetFilter = getValidTransferDeviceOrWeaponTargetFilter(playerId, game, self, playCardOption, forFree, transferTargetFilter);
 
                     // Check that a valid target to transfer to as attached can be found
-                    if (Filters.canSpot(game, self, spotOverrides, TargetingReason.TO_BE_DEPLOYED_ON, completeTargetFilter)) {
+                    if (Filters.canSpot(game, self, spotOverrides, TargetingReason.TO_BE_TRANSFERRED_TO, completeTargetFilter)) {
                         transferDeviceOrWeaponAction = new TransferDeviceOrWeaponAction(playerId, self, playCardOption, forFree, completeTargetFilter);
                     }
 
@@ -302,7 +302,7 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
     @Override
     public Filter getValidTransferDeviceOrWeaponTargetFilter(String playerId, SwccgGame game, PhysicalCard self, PlayCardOption playCardOption, boolean forFree, Filter transferTargetFilter) {
         return Filters.and(Filters.your(self), Filters.or(Filters.character, Filters.starship, Filters.vehicle), Filters.not(Filters.hasAttached(self)),
-                Filters.not(Filters.attachedToWithRecursiveChecking(self)), Filters.atSameLocation(self), transferTargetFilter, getValidTransferTargetFilter(playerId, game, self, playCardOption, forFree));
+                Filters.not(Filters.attachedToWithRecursiveChecking(self)), Filters.presentWith(self), transferTargetFilter, getValidTransferTargetFilter(playerId, game, self, playCardOption, forFree));
     }
 
     /**
@@ -2062,7 +2062,7 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
                 }
 
                 // Transfer device or weapon (includes stolen)
-                List<Action> transferDeviceOrWeaponActions = getTransferDeviceOrWeaponActions(playerId, game, self, false, false, Filters.present(self));
+                List<Action> transferDeviceOrWeaponActions = getTransferDeviceOrWeaponActions(playerId, game, self, false, false, Filters.presentWith(self));
                 if (transferDeviceOrWeaponActions != null) {
                     actions.addAll(transferDeviceOrWeaponActions);
                 }

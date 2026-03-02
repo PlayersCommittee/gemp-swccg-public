@@ -44,7 +44,7 @@ public class TransferDeviceOrWeaponAction extends AbstractTopLevelRuleAction {
         _text = "Transfer";
 
         appendTargeting(
-                new TargetCardOnTableEffect(_that, getPerformingPlayer(), "Choose where to transfer " + GameUtils.getCardLink(_cardToTransfer), TargetingReason.TO_BE_DEPLOYED_ON, transferTargetFilter) {
+                new TargetCardOnTableEffect(_that, getPerformingPlayer(), "Choose where to transfer " + GameUtils.getCardLink(_cardToTransfer), TargetingReason.TO_BE_TRANSFERRED_TO, transferTargetFilter) {
                     @Override
                     protected void cardTargeted(int targetGroupId, PhysicalCard target) {
                         _target = target;
