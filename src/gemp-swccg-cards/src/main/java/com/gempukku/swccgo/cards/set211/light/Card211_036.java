@@ -3,7 +3,6 @@ package com.gempukku.swccgo.cards.set211.light;
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.actions.ObjectiveDeployedTriggerAction;
-import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
@@ -24,7 +23,6 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
-import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromForcePileEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
@@ -46,9 +44,9 @@ public class Card211_036 extends AbstractObjective {
     public Card211_036() {
         super(Side.LIGHT, 0, Title.The_Galaxy_May_Need_A_Legend, ExpansionSet.SET_11, Rarity.V);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Ahch-To system and any [Episode VII] battleground.\n" +
-                "For remainder of game, Luke deploys only to Ahch-To. You may not Force drain on Ahch-To. You may not deploy Jedi while a Jedi on table. You may not deploy [Episode I] locations or non-[Episode VII] Luke. Once per game, may take any one card into hand from Force Pile; reshuffle.\n" +
-                "While this side up, once per turn, may use 1 Force to [download] an Ahch-To location or [Episode VII] battleground.\n" +
+        setGameText("Deploy Ahch-To: Saddle and any [Episode VII] battleground. " +
+                "For remainder of game, Luke deploys only to Ahch-To. You may not Force drain on Ahch-To. You may not deploy [Episode I] locations or non-[Episode VII] characters of ability > 4. Once per game, may take any one card into hand from Force Pile; reshuffle. " +
+                "While this side up, once per turn, may [download] an Ahch-To location or [Episode VII] battleground. " +
                 "May flip this card if Luke on Ahch-To and a battle was just initiated involving a Resistance character.");
         addIcons(Icon.VIRTUAL_SET_11, Icon.EPISODE_VII);
     }
@@ -57,10 +55,10 @@ public class Card211_036 extends AbstractObjective {
     protected ObjectiveDeployedTriggerAction getGameTextWhenDeployedAction(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         ObjectiveDeployedTriggerAction action = new ObjectiveDeployedTriggerAction(self);
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.Ahch_To_system, true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.AhchTo_Saddle, true, false) {
                     @Override
                     public String getChoiceText() {
-                        return "Choose Ahch-To System to deploy";
+                        return "Choose Ahch-To: Saddle to deploy";
                     }
                 });
         action.appendRequiredEffect(
@@ -81,10 +79,7 @@ public class Card211_036 extends AbstractObjective {
                         new MayNotForceDrainAtLocationModifier(self, Filters.on(Title.Ahch_To), playerId), null));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotDeployModifier(self, Filters.or(Filters.and(Filters.location, Icon.EPISODE_I), Filters.and(Filters.Luke, Filters.not(Icon.EPISODE_VII))), playerId), null));
-        action.appendEffect(
-                new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotDeployModifier(self, Filters.Jedi, new OnTableCondition(self, Filters.Jedi), playerId), null));
+                        new MayNotDeployModifier(self, Filters.or(Filters.and(Filters.location, Icon.EPISODE_I), Filters.and(Filters.not(Icon.EPISODE_VII), Filters.character, Filters.abilityMoreThan(4))), playerId), null));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
                         new MayNotDeployToLocationModifier(self, Filters.Luke, Filters.not(Filters.AhchTo_location)), null));
@@ -123,8 +118,7 @@ public class Card211_036 extends AbstractObjective {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId2, Phase.DEPLOY)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId2)
-                && GameConditions.canUseForce(game, playerId, 1)) {
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId2)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId2);
             action.setText("Deploy location from Reserve Deck");
@@ -132,9 +126,6 @@ public class Card211_036 extends AbstractObjective {
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerPhaseEffect(action));
-            // Pay cost(s)
-            action.appendCost(
-                    new UseForceEffect(action, playerId, 1));
             // Perform result(s)
             action.appendEffect(
                     new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.AhchTo_location, Filters.and(Filters.battleground, Icon.EPISODE_VII)), true));

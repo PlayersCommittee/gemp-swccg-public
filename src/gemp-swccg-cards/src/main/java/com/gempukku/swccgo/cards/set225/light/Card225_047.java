@@ -41,6 +41,7 @@ import com.gempukku.swccgo.logic.effects.PutCardFromHandOnUsedPileEffect;
 import com.gempukku.swccgo.logic.effects.ReduceAttritionEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -53,7 +54,7 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 public class Card225_047 extends AbstractEpicEventDeployable {
     public Card225_047() {
         super(Side.LIGHT, PlayCardZoneOption.ATTACHED, Title.How_Liberty_Dies, Uniqueness.UNIQUE, ExpansionSet.SET_25, Rarity.V);
-        setGameText("Deploy on Galactic Senate. Your Political Effects are canceled. Twice per turn, may target your agenda here: Justice: During battle, subtract 1 from a just drawn weapon destiny. Order: During any move phase, peek at the top 2 cards of any Reserve Deck and replace in any order. Peace: Subtract 1 from attrition against you. Taxation: Place a card with no printed destiny number > 4 from hand in Used Pile to activate 1 Force.");
+        setGameText("Deploy on Galactic Senate. Your Political Effects are canceled. Twice per turn, may target your agenda here: Justice: During battle, subtract 1 from a just drawn weapon destiny. Order: During any move phase, peek at the top 2 cards of any Reserve Deck and replace in any order. Peace: Subtract 1 from attrition against you. Taxation: Place a character with politics from hand in Used Pile to activate 1 Force.");
         addIcons(Icon.CORUSCANT, Icon.EPISODE_I, Icon.VIRTUAL_SET_25);
     }
 
@@ -242,16 +243,16 @@ public class Card225_047 extends AbstractEpicEventDeployable {
         }
 
         Filter taxationAgendaFilter = Filters.and(Filters.your(playerId), Filters.taxation_agenda, Filters.here(self));
-        Filter lowDestinyCard = Filters.and(Filters.not(Filters.printedDestinyGreaterThan(4)), Filters.not(Filters.printedAlternateDestinyGreaterThan(4)));
 
         // Check condition(s)
         if (GameConditions.isNumTimesPerTurn(game, self, playerId, 2, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canTarget(game, self, taxationAgendaFilter)
-                && GameConditions.hasInHand(game, playerId, lowDestinyCard)) {
+                && GameConditions.hasInHand(game, playerId, Filters.character_with_politics)
+                && GameConditions.canActivateForce(game, playerId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action.setText("Taxation: Place card in Used Pile");
-            action.setActionMsg("Place a card with no printed destiny number > 4 from hand in Used Pile to activate 1 Force");
+            action.setText("Taxation: Activate 1 Force");
+            action.setActionMsg("Place a character with politics from hand in Used Pile to activate 1 Force");
 
             // Update usage limit(s)
             action.appendUsage(
@@ -264,7 +265,7 @@ public class Card225_047 extends AbstractEpicEventDeployable {
                             action.addAnimationGroup(cardTargeted);
                             // Pay cost(s)
                             action.appendCost(
-                                    new PutCardFromHandOnUsedPileEffect(action, playerId, lowDestinyCard, false));
+                                    new PutCardFromHandOnUsedPileEffect(action, playerId, Filters.character_with_politics, false));
                             // Allow response(s)
                             action.allowResponses("Target taxation agenda on " + GameUtils.getCardLink(cardTargeted) + " to activate 1 Force",
                                     new UnrespondableEffect(action) {
@@ -278,7 +279,48 @@ public class Card225_047 extends AbstractEpicEventDeployable {
                             );
 
                         }
-                    });
+                    }
+            );
+            actions.add(action);
+        }
+
+        // Check condition(s)
+        if (GameConditions.isNumTimesPerTurn(game, self, playerId, 2, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.canTarget(game, self, taxationAgendaFilter)
+                && GameConditions.hasInHand(game, playerId, Filters.character_with_politics)
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Title.Senate_Hovercam)) {
+
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+            action.setText("Taxation: Deploy Senate Hovercam");
+            action.setActionMsg("Place a character with politics from hand in Used Pile to deploy Senate Hovercam from Reserve Deck");
+
+            // Update usage limit(s)
+            action.appendUsage(
+                    new NumTimesPerTurnEffect(action, 2));
+            // Choose target(s)
+            action.appendTargeting(
+                    new TargetCardOnTableEffect(action, playerId, "Target taxation agenda", taxationAgendaFilter) {
+                        @Override
+                        protected void cardTargeted(final int targetGroupId, final PhysicalCard cardTargeted) {
+                            action.addAnimationGroup(cardTargeted);
+                            // Pay cost(s)
+                            action.appendCost(
+                                    new PutCardFromHandOnUsedPileEffect(action, playerId, Filters.character_with_politics, false));
+                            // Allow response(s)
+                            action.allowResponses("Target taxation agenda on " + GameUtils.getCardLink(cardTargeted) + " to deploy Senate Hovercam from Reserve Deck",
+                                    new UnrespondableEffect(action) {
+                                        @Override
+                                        protected void performActionResults(Action targetingAction) {
+                                            // Perform result(s)
+                                            action.appendEffect(
+                                                    new DeployCardFromReserveDeckEffect(action, Filters.Senate_Hovercam, true));
+                                        }
+                                    }
+                            );
+
+                        }
+                    }
+            );
             actions.add(action);
         }
         return actions;

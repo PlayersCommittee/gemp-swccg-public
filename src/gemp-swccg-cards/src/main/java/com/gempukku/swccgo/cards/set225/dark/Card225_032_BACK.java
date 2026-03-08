@@ -2,8 +2,8 @@ package com.gempukku.swccgo.cards.set225.dark;
 
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.OccupiesCondition;
 import com.gempukku.swccgo.cards.conditions.OccupiesWithCondition;
+import com.gempukku.swccgo.cards.conditions.ControlsWithCondition;
 import com.gempukku.swccgo.cards.effects.CancelForceRetrievalEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
@@ -39,7 +39,7 @@ import java.util.List;
 public class Card225_032_BACK extends AbstractObjective {
     public Card225_032_BACK() {
         super(Side.DARK, 7, Title.The_Resistance_Is_Doomed, ExpansionSet.SET_25, Rarity.V);
-        setGameText("While this side up, once per turn, may deploy a non-unique trooper (or non-unique [First Order] vehicle) from Lost Pile. While you occupy a Crait location, your Force drains at battlegrounds where you have two First Order characters are +1. While Kylo occupies Salt Plateau, opponent may not Force drain where their character or permanent pilot is alone. While you control Salt Plateau, opponent's Force retrieval is canceled. Place out of play if Kylo just forfeited from a battle you lost at Salt Plateau where Han, Leia, or Luke present.");
+        setGameText("While this side up, once per turn, may deploy a non-unique trooper (or non-unique [First Order] vehicle) from Lost Pile. While Kylo occupies a Crait location, your Force drains at battlegrounds where you have two First Order characters are +1. While Kylo controls Salt Plateau, opponent may not Force drain where their character or permanent pilot is alone and opponent's Force retrieval is canceled. Place out of play if Kylo was just forfeited from a battle you lost at Salt Plateau where Han, Leia, or Luke present.");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_25);
     }
 
@@ -53,14 +53,14 @@ public class Card225_032_BACK extends AbstractObjective {
                 && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Deploy location from Reserve Deck");
-            action.setActionMsg("Deploy an [Episode VII] battleground from Reserve Deck");
+            action.setText("Deploy Supremacy card or battleground");
+            action.setActionMsg("Deploy a card with 'Supremacy' in title or an [Episode VII] battleground from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.and(Icon.EPISODE_VII, Filters.battleground), true));
+                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.titleContains("Supremacy"), Filters.and(Icon.EPISODE_VII, Filters.battleground)), true));
             actions.add(action);
         }
 
@@ -112,7 +112,7 @@ public class Card225_032_BACK extends AbstractObjective {
 
         // Check condition(s)
         if (TriggerConditions.isAboutToRetrieveForce(game, effectResult, game.getOpponent(self.getOwner()))
-                && GameConditions.controls(game, playerId, Filters.Crait_Salt_Plateau)) {
+                && GameConditions.controlsWith(game, self, playerId, Filters.Crait_Salt_Plateau, Filters.Kylo)) {
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Cancel retrieval");
             action.setActionMsg("Force retrieval is canceled");
@@ -131,15 +131,15 @@ public class Card225_032_BACK extends AbstractObjective {
         String opponent = game.getOpponent(playerId);
         List<Modifier> modifiers = new LinkedList<>();
         
-        // While you occupy a Crait location, your Force drains at battlegrounds where you have two First Order characters are +1.
-        Condition youOccupyACraitLocation = new OccupiesCondition(playerId, Filters.Crait_location);
+        // While Kylo occupies a Crait location, your Force drains at battlegrounds where you have two First Order characters are +1.
+        Condition kyloOccupiesACraitLocation = new OccupiesWithCondition(self, playerId, Filters.Crait_location, Filters.Kylo);
         Filter battlegroundsWithTwoFirstOrderCharacters = Filters.and(Filters.battleground, Filters.occupiesWith(playerId, self, Filters.and(Filters.First_Order_character, Filters.with(self, Filters.First_Order_character))));
-        modifiers.add(new ForceDrainModifier(self, battlegroundsWithTwoFirstOrderCharacters, youOccupyACraitLocation, 1, playerId));
+        modifiers.add(new ForceDrainModifier(self, battlegroundsWithTwoFirstOrderCharacters, kyloOccupiesACraitLocation, 1, playerId));
 
-        // While Kylo occupies Salt Plateau, opponent may not Force drain where their character or permanent pilot is alone.
-        Condition kyloOccupiesSaltPlateau = new OccupiesWithCondition(self, playerId, Filters.Crait_Salt_Plateau, Filters.Kylo);
+        // While Kylo controls Salt Plateau, opponent may not Force drain where their character or permanent pilot is alone.
+        Condition kyloControlsSaltPlateau = new ControlsWithCondition(self, playerId, Filters.Crait_Salt_Plateau, Filters.Kylo);
         Filter locationHasOneCardsWithAbility = Filters.and(Filters.sameLocationAs(self, Filters.and(Filters.opponents(self), Filters.characterOrPermanentPilotAlone)));
-        modifiers.add(new MayNotForceDrainAtLocationModifier(self, Filters.sameLocationAs(self, locationHasOneCardsWithAbility), kyloOccupiesSaltPlateau, opponent));
+        modifiers.add(new MayNotForceDrainAtLocationModifier(self, Filters.sameLocationAs(self, locationHasOneCardsWithAbility), kyloControlsSaltPlateau, opponent));
 
         return modifiers;
     }

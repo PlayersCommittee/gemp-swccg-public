@@ -42,7 +42,7 @@ public class Card226_012 extends AbstractObjective {
     public Card226_012() {
         super(Side.DARK, 0, Title.This_Deal_Is_Getting_Worse_All_The_Time, ExpansionSet.SET_26, Rarity.V);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy one Cloud City battleground site and [Cloud City] I'm Sorry. For remainder of game, you may not deploy Admiral's Orders. During your control phase, your Lando may make a regular move. While this side up, once per turn, may [upload] Cloud City Occupation, Dark Deal, Vader's Bounty, or [Special Edition] Bespin. Flip this card if you control 3 Bespin locations and opponent controls fewer than 3 Bespin locations.");
+        setGameText("Deploy a Cloud City battleground site and [Cloud City] I'm Sorry. For remainder of game, you may not deploy Admiral's Orders or [Death Star II] Executor. During your control phase, your Lando may make a regular move. Once during your turn, may [upload] Dark Deal, Vader's Bounty, or [Special Edition] Bespin. Flip this card if you control 3 Bespin locations and opponent controls fewer than 3 Bespin locations.");
         addIcons(Icon.CLOUD_CITY, Icon.PREMIUM, Icon.VIRTUAL_SET_26);
         setVirtualSuffix(true);
     }
@@ -72,7 +72,7 @@ public class Card226_012 extends AbstractObjective {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         String playerId = self.getOwner();
         //For remainder of game
-        modifiers.add(new MayNotDeployModifier(self, Filters.Admirals_Order, playerId));
+        modifiers.add(new MayNotDeployModifier(self, Filters.or(Filters.Admirals_Order, Filters.and(Icon.DEATH_STAR_II, Filters.Executor)), playerId));
         return modifiers;
     }
 
@@ -106,18 +106,18 @@ public class Card226_012 extends AbstractObjective {
         gameTextActionId = GameTextActionId.THIS_DEAL_IS_GETTING_WORSE_ALL_THE_TIME_V__UPLOAD_CARD;
 
         // Check condition(s)
-        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+        if (GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Take card into hand from Reserve Deck");
-            action.setActionMsg("Take Cloud City Occupation, Dark Deal, Vader's Bounty, or [Special Edition] Bespin into hand from Reserve Deck");
+            action.setActionMsg("Take Dark Deal, Vader's Bounty, or [Special Edition] Bespin into hand from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.Cloud_City_Occupation, Filters.Dark_Deal, Filters.Vaders_Bounty, Filters.and(Icon.SPECIAL_EDITION, Filters.Bespin_system)), true));
+                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.Dark_Deal, Filters.Vaders_Bounty, Filters.and(Icon.SPECIAL_EDITION, Filters.Bespin_system)), true));
             actions.add(action);
         }
         return actions;

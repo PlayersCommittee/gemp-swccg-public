@@ -2,40 +2,40 @@ package com.gempukku.swccgo.cards.set216.dark;
 
 import com.gempukku.swccgo.cards.AbstractObjective;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.OnTableCondition;
+import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
-import com.gempukku.swccgo.cards.evaluators.MultiplyEvaluator;
-import com.gempukku.swccgo.cards.evaluators.OnTableEvaluator;
-import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.cards.evaluators.ConditionEvaluator;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.decisions.YesNoDecision;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.conditions.InBattleCondition;
 import com.gempukku.swccgo.logic.effects.FlipCardEffect;
-import com.gempukku.swccgo.logic.effects.LoseForceEffect;
-import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromOffTableEffect;
+import com.gempukku.swccgo.logic.effects.MoveCardAsRegularMoveEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
-import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
-import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromForcePileEffect;
-import com.gempukku.swccgo.logic.modifiers.CommencePrimaryIgnitionTotalModifier;
-import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.TotalForceGenerationModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.TotalBattleDestinyModifier;
+import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
-import com.gempukku.swccgo.logic.timing.results.ForceLossInitiatedResult;
-import com.gempukku.swccgo.logic.timing.results.LostFromTableResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -49,9 +49,7 @@ import java.util.List;
 public class Card216_011_BACK extends AbstractObjective {
     public Card216_011_BACK() {
         super(Side.DARK, 7, Title.Taking_Control_Of_The_Weapon, ExpansionSet.SET_16, Rarity.V);
-        setGameText("While this side up, your Force generation is +2 for each 'blown away' Scarif site. Tarkin Doctrine is immune to Alter and, when it initiates Force loss, may take any one card into hand from Force Pile. Once per turn, if opponent's character just lost from your site, may place it out of play unless opponent loses 1 Force. Tarkin adds 3 to total of Commence Primary Ignition. \n" +
-                "Flip this card if you have no leaders on Scarif. \n" +
-                "Place this card out of play if Shield Gate not on table or if Death Star has been 'blown away.'");
+        setGameText("While this side up, A Bright Center To The Universe cancels opponent's Force drain modifiers everywhere. Vader may make a regular move to a battle just initiated. At Death Star, system it orbits, and sites related to either, your total battle destiny is +1 (+2 if your non-unique card with ability in battle). During your draw phase, may retrieve a non-unique card with ability. Flip this card if you do not have a leader at a Scarif battleground site. Place out of play if Death Star or Shield Gate not on table.");
         addIcons(Icon.VIRTUAL_SET_16);
     }
 
@@ -59,85 +57,106 @@ public class Card216_011_BACK extends AbstractObjective {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         String playerId = self.getOwner();
 
+        Filter battleDestinyBonusSystems = Filters.or(Filters.Death_Star_system, Filters.isOrbitedBy(Filters.Death_Star_system));
+        Filter battleDestinyBonusSites = Filters.and(Filters.site, Filters.relatedSiteTo(self, battleDestinyBonusSystems));
+        Filter battleDestinyBonusLocations = Filters.or(battleDestinyBonusSystems, battleDestinyBonusSites);
+
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new TotalForceGenerationModifier(self, new MultiplyEvaluator(2,
-                new OnTableEvaluator(self, Filters.and(Filters.partOfSystem(Title.Scarif), Filters.blown_away))), playerId));
-        modifiers.add(new ImmuneToTitleModifier(self, Filters.Tarkin_Doctrine, Title.Alter));
-        modifiers.add(new CommencePrimaryIgnitionTotalModifier(self, new OnTableCondition(self, Filters.Tarkin),3));
+        modifiers.add(new ModifyGameTextModifier(self, Filters.A_Bright_Center_To_The_Universe, ModifyGameTextType.A_BRIGHT_CENTER_TO_THE_UNIVERSE__CANCELS_OPPONENTS_FORCE_DRAIN_MODIFIERS_EVERYWHERE));
+        modifiers.add(new TotalBattleDestinyModifier(self, battleDestinyBonusLocations,
+                new ConditionEvaluator(1, 2, new InBattleCondition(self, Filters.and(Filters.your(playerId), Filters.non_unique, Filters.hasAbilityOrHasPermanentPilotWithAbility))), playerId));
         return modifiers;
     }
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         List<OptionalGameTextTriggerAction> actions = new LinkedList<>();
-        final String opponent = game.getOpponent(playerId);
+        
+        Filter vaderFilter = Filters.and(Filters.Vader, Filters.movableAsRegularMove(playerId, false, 0, false, Filters.locationAndCardsAtLocation(Filters.battleLocation)));
 
-        // when [Tarkin Doctrine] initiates Force loss, may take any one card into hand from Force Pile
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
-        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && TriggerConditions.forceLossInitiated(game, effectResult)
-                && GameConditions.hasForcePile(game, playerId)) {
-            PhysicalCard source = ((ForceLossInitiatedResult)effectResult).getSource();
-            if (source != null
-                    && Filters.Tarkin_Doctrine.accepts(game, source)) {
+        if (TriggerConditions.battleInitiated(game, effectResult)
+                && GameConditions.canTarget(game, self, vaderFilter)) {
+            final PhysicalCard battleLocation = game.getGameState().getBattleLocation();
 
-                OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-                action.setText("Take a card into hand from Force Pile");
-                action.setActionMsg("Take any one card into hand from Force Pile");
-                action.appendUsage(new OncePerTurnEffect(action));
-                action.appendEffect(new TakeCardIntoHandFromForcePileEffect(action, playerId, true));
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setPerformingPlayer(playerId);
+            action.setText("Move Vader to the battle");
+            action.setActionMsg("Move Vader as a regular move to a battle just initiated");
+            action.appendTargeting(
+                    new TargetCardOnTableEffect(action, playerId, "Choose Vader", vaderFilter) {
+                        @Override
+                        protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
+                            action.addAnimationGroup(targetedCard);
+                            action.addAnimationGroup(battleLocation);
+                            // Allow response(s)
+                            action.allowResponses("Move " + GameUtils.getCardLink(targetedCard) + " to " + GameUtils.getCardLink(battleLocation),
+                                    new RespondableEffect(action) {
+                                        @Override
+                                        protected void performActionResults(Action targetingAction) {
+                                            // Get the targeted card(s) from the action using the targetGroupId.
+                                            // This needs to be done in case the target(s) were changed during the responses.
+                                            final PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
 
-                actions.add(action);
-            }
+                                            // Perform result(s)
+                                            action.appendEffect(
+                                                    new MoveCardAsRegularMoveEffect(action, playerId, finalTarget, false, false, Filters.locationAndCardsAtLocation(Filters.battleLocation)));
+                                        }
+                                    }
+                            );
+                        }
+                    }
+            );
+            actions.add(action);
         }
+        return actions;
+    }
 
-        // Once per turn, may place opponent's character just lost from your site out of play unless opponent loses 1 Force.
-        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
+    @Override
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+        List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
+
+        GameTextActionId gameTextActionId = GameTextActionId.ON_THE_VERGE_OF_GREATNESS__DEPLOY_SCARIF_BATTLEGROUND;
+
         // Check condition(s)
-        if (TriggerConditions.justLostFromLocation(game, effectResult, Filters.and(Filters.opponents(self), Filters.character), Filters.and(Filters.your(self), Filters.site))
-                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
-            final GameState gameState = game.getGameState();
-            final PhysicalCard lostCard = ((LostFromTableResult) effectResult).getCard();
+        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action.setText("Place " + GameUtils.getFullName(lostCard) + " out of play");
-            action.setActionMsg("Place " + GameUtils.getCardLink(lostCard) + " out of play");
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+            action.setText("Deploy a Scarif battleground");
+            action.setActionMsg("Deploy a Scarif battleground from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
                     new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new PlayoutDecisionEffect(action, opponent,
-                            new YesNoDecision("Do you want to lose 1 Force instead of having " + GameUtils.getCardLink(lostCard) + " placed out of play?") {
-                                @Override
-                                protected void yes() {
-                                    gameState.sendMessage(opponent + " chooses to lose 1 Force instead of having " + GameUtils.getCardLink(lostCard) + " placed out of play");
-                                    action.appendEffect(
-                                            new LoseForceEffect(action, opponent, 1, true));
-                                }
-                                protected void no() {
-                                    gameState.sendMessage(opponent + " chooses to not lose 1 Force instead of having " + GameUtils.getCardLink(lostCard) + " placed out of play");
-                                    action.appendEffect(
-                                            new PlaceCardOutOfPlayFromOffTableEffect(action, lostCard));
-                                }
-                            }
-                    ));
+                    new DeployCardFromReserveDeckEffect(action, Filters.and(Filters.Scarif_location, Filters.battleground), true));
             actions.add(action);
         }
 
+        gameTextActionId = GameTextActionId.TAKING_CONTROL_OF_THE_WEAPON__RETRIEVE_NON_UNIQUE_CARD_WITH_ABILITY;
 
+        // Check condition(s)
+        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DRAW)) {
+
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+            action.setText("Retrieve a non-unique card with ability");
+            // Update usage limit(s)
+            action.appendUsage(
+                    new OncePerPhaseEffect(action));
+            // Perform result(s)
+            action.appendEffect(
+                    new RetrieveCardEffect(action, playerId, Filters.and(Filters.non_unique, Filters.hasAbilityOrHasPermanentPilotWithAbility)));
+            actions.add(action);
+        }
         return actions;
     }
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        String playerId = self.getOwner();
-
         // Check condition(s)
-        if (TriggerConditions.isBlownAwayLastStep(game, effectResult, Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Death_Star, true)))
-                || (TriggerConditions.isTableChanged(game, effectResult)
-                && (!GameConditions.canSpot(game, self, Filters.Shield_Gate)
-                || GameConditions.canSpot(game, self, Filters.and(Filters.blown_away, Filters.and(Filters.system, Filters.title(Title.Death_Star, true))))))) {
+        if (TriggerConditions.isTableChanged(game, effectResult)
+                && (!GameConditions.canSpot(game, self, Filters.Death_Star_system)
+                || !GameConditions.canSpot(game, self, Filters.Shield_Gate))) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Place out of play");
@@ -151,7 +170,7 @@ public class Card216_011_BACK extends AbstractObjective {
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
                 && GameConditions.canBeFlipped(game, self)
-                && !GameConditions.canSpot(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.and(Filters.your(self), Filters.leader, Filters.on(Title.Scarif)))) {
+                && !GameConditions.canSpot(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.and(Filters.your(self), Filters.leader, Filters.at(Filters.Scarif_battleground_site)))) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setSingletonTrigger(true);

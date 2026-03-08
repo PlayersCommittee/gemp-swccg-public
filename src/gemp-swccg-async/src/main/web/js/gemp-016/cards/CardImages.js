@@ -3446,7 +3446,7 @@ const fixedImages = {
 "219_16":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/noescape.png",
 "219_17":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/observationholocam.png",
 "219_18":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/surelyyoucandobetter.png",
-"219_19":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/theemperor.png",
+"219_19":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/theemperorrelentless.png",
 "219_20":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/thrawnsartcollection.png",
 "219_21":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/thrawnpincer.png",
 "219_22":"https://res.starwarsccg.org/cards/Virtual19-Dark/hires/thunderflare.png",
@@ -3768,6 +3768,8 @@ const fixedImages = {
 "226_27":"https://res.starwarsccg.org/cards/Virtual26-Light/hires/somethingaboutthisboy.png",
 "226_28":"https://res.starwarsccg.org/cards/Virtual26-Light/hires/thehiddenpath.png",
 "226_28_BACK":"https://res.starwarsccg.org/cards/Virtual26-Light/hires/gatheralliesandtrain.png",
+
+"227_1":"https://res.starwarsccg.org/cards/Virtual27-Light/hires/podraceprep.png",
 
 "301_1":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/ahsokatanowithlightsabers.gif",
 "301_2":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/cityintheclouds.gif",
