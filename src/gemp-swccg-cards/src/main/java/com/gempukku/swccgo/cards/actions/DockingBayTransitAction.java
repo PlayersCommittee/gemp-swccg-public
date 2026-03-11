@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.actions;
 
 import com.gempukku.swccgo.cards.effects.PayDockingBayTransitCostEffect;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -58,7 +59,7 @@ public class DockingBayTransitAction extends AbstractTopLevelRuleAction {
         final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
         // Get cards at docking bay
-        Filter cardFilter = Filters.and(Filters.your(playerId), Filters.hasNotPerformedRegularMove, Filters.or(Filters.character, Filters.vehicle, Filters.weapon), Filters.atLocation(location));
+        Filter cardFilter = Filters.and(Filters.your(playerId), Filters.hasNotPerformedRegularMove, Filters.or(Filters.character, Filters.vehicle, Filters.weapon_that_may_use_db_transit, Filters.movesLikeCharacter), Filters.atLocation(location));
         if (gameState.getCurrentPlayerId().equals(playerId)) {
             cardFilter = Filters.and(cardFilter, Filters.not(Filters.or(Filters.undercover_spy, Filters.deploysAndMovesLikeUndercoverSpy)));
         }

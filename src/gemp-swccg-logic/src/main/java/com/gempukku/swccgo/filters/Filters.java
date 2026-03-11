@@ -13186,7 +13186,7 @@ public class Filters {
      * Wrapper method to allow other static filters to access the wrapped filter.
      */
     private static Filter movesLikeStarfighter() {
-        return deploysLikeStarfighter;
+        return movesLikeStarfighter;
     }
 
     /**
@@ -19520,6 +19520,7 @@ public class Filters {
     public static final Filter weapon = Filters.type(CardType.WEAPON);
     public static final Filter Weapon_Levitation = Filters.title(Title.Weapon_Levitation);
     public static final Filter weapon_or_character_with_permanent_weapon = Filters.or(CardType.WEAPON, Filters.hasPermanentWeapon());
+    public static final Filter weapon_that_may_use_db_transit = Filters.keyword(Keyword.WEAPON_MAY_USE_DB_TRANSIT);
     public static final Filter Weather_Vane = Filters.title(Title.Weather_Vane);
     public static final Filter Wedge = Filters.persona(Persona.WEDGE);
     public static final Filter Weequay = Filters.species(Species.WEEQUAY);

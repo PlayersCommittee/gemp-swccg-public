@@ -200,6 +200,7 @@ public enum Keyword implements Filterable {
     VIBRO_AX("Vibro-Ax", true),
     WAMPA("Wampa", true),
     WAR_ROOM("War Room", true),
+    WEAPON_MAY_USE_DB_TRANSIT("Weapon that may use docking bay transit", false),
     XIZORS_PALACE_SITE("Xizor's Palace Site", false);
 
 
