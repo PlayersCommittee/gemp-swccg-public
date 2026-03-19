@@ -287,6 +287,12 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
     }
 
     @Override
+    public String getTitleAbbreviated() {
+        SwccgCardBlueprint blueprint = getBlueprint();
+        return blueprint.getTitleAbbreviated();
+    }
+
+    @Override
     public List<String> getTitles() {
         SwccgCardBlueprint blueprint = getBlueprint();
         if (blueprint.getCardCategory()==CardCategory.LOCATION) {

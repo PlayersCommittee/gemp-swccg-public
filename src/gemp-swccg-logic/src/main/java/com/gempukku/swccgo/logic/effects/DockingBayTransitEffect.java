@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.logic.effects;
 
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
@@ -78,7 +79,8 @@ public class DockingBayTransitEffect extends AbstractSubActionEffect {
                     protected void doPlayEffect(SwccgGame game) {
                         gameState.sendMessage(_playerId + " docking bay transits " + GameUtils.getAppendedNames(_movedCards) + " from " + GameUtils.getCardLink(_movedFrom) + " to " + GameUtils.getCardLink(_movedTo));
                         for (PhysicalCard movedCard : _movedCards) {
-                            gameState.moveCardToLocation(movedCard, _movedTo);
+                            if(movedCard.getBlueprint().hasKeyword(Keyword.ARTILLERY_WEAPON_MAY_USE_DB_TRANSIT)) gameState.moveCardToAttached(movedCard, _movedTo);
+                            else gameState.moveCardToLocation(movedCard, _movedTo);
                         }
                         game.getActionsEnvironment().emitEffectResult(new DockingBayTransitedResult(_movedCards, _playerId, _movedFrom, _movedTo));
                     }

@@ -64,6 +64,7 @@ public interface PhysicalCard extends Filterable, Snapshotable<PhysicalCard> {
     PhysicalCard clone() throws CloneNotSupportedException;
 
     String getTitle();
+    String getTitleAbbreviated();
     List<String> getTitles();
 
     void setZone(Zone zone);

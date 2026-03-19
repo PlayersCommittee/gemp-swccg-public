@@ -7774,7 +7774,9 @@ public class Filters {
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 PhysicalCard cardToMove = gameState.findCardByPermanentId(permCardToMoveCardId);
 
-                PhysicalCard currentDockingBay = cardToMove.getAtLocation();
+                PhysicalCard currentDockingBay;
+                if(cardToMove.getBlueprint().hasKeyword(Keyword.ARTILLERY_WEAPON_MAY_USE_DB_TRANSIT)) currentDockingBay = cardToMove.getAttachedTo();
+                else currentDockingBay = cardToMove.getAtLocation();
                 if (currentDockingBay == null || !Filters.docking_bay.accepts(gameState, modifiersQuerying, currentDockingBay)) {
                     return false;
                 }
@@ -14687,6 +14689,16 @@ public class Filters {
     }
 
     /**
+     * Filter that accepts cards that can move Medium Repeating Blaster Cannon alone (for free)
+     */
+    public static final Filter canMoveMediumRepeatingBlasterCannonAloneForFree = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return modifiersQuerying.mayMoveMediumRepeatingBlasterCannonAloneForFree(gameState, physicalCard);
+        }
+    };
+
+    /**
      * Gets a filter representing cards that a card may deploy to only based on presence and Force icons.
      * This is generally called by a getValidDeployTargetFilter and combined with other Filters to figure out
      * valid targets for a card to deploy to.
@@ -17796,6 +17808,7 @@ public class Filters {
     public static final Filter Armorer = Filters.persona(Persona.ARMORER);
     public static final Filter Arnet = Filters.title(Title.Arnet);
     public static final Filter artillery_weapon = Filters.and(CardType.WEAPON, CardSubtype.ARTILLERY);
+    public static final Filter artillery_weapon_that_may_use_db_transit = Filters.keyword(Keyword.ARTILLERY_WEAPON_MAY_USE_DB_TRANSIT);
     public static final Filter Arven = Filters.title(Title.Arven);
     public static final Filter Ascension_Guns = Filters.title(Title.Ascension_Guns);
     public static final Filter As_Good_As_Gone = Filters.title(Title.As_Good_As_Gone);
@@ -19520,7 +19533,6 @@ public class Filters {
     public static final Filter weapon = Filters.type(CardType.WEAPON);
     public static final Filter Weapon_Levitation = Filters.title(Title.Weapon_Levitation);
     public static final Filter weapon_or_character_with_permanent_weapon = Filters.or(CardType.WEAPON, Filters.hasPermanentWeapon());
-    public static final Filter weapon_that_may_use_db_transit = Filters.keyword(Keyword.WEAPON_MAY_USE_DB_TRANSIT);
     public static final Filter Weather_Vane = Filters.title(Title.Weather_Vane);
     public static final Filter Wedge = Filters.persona(Persona.WEDGE);
     public static final Filter Weequay = Filters.species(Species.WEEQUAY);

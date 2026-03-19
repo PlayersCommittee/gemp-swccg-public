@@ -329,4 +329,15 @@ public interface Weapons extends BaseQuery, Icons {
 	default boolean mayFireArtilleryWeaponWithoutWarriorPresent(GameState gameState, PhysicalCard artilleryWeapon) {
 		return (!getModifiersAffectingCard(gameState, ModifierType.MAY_FIRE_ARTILLERY_WEAPON_WITHOUT_WARRIOR_PRESENT, artilleryWeapon).isEmpty());
 	}
+
+	/**
+	 * Determines if the specified character may move a Medium Repeating Blaster Cannon alone (for free)
+	 * @param gameState the game state
+	 * @param character the character
+	 * @return true or false
+	 */
+	default boolean mayMoveMediumRepeatingBlasterCannonAloneForFree(GameState gameState, PhysicalCard character) {
+		return (!getModifiersAffectingCard(gameState, ModifierType.MAY_MOVE_MEDIUM_REPEATING_BLASTER_CANNON_ALONE_FOR_FREE, character).isEmpty());
+	}
+
 }

@@ -147,6 +147,11 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
     }
 
     @Override
+    public String getTitleAbbreviated() {
+        return getTitle();
+    }
+
+    @Override
     public List<String> getTitles() {
         if (!_comboCardTitles.isEmpty())
             return Collections.unmodifiableList(_comboCardTitles);

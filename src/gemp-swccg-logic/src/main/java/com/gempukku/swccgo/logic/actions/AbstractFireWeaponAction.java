@@ -118,6 +118,6 @@ public abstract class AbstractFireWeaponAction extends AbstractGameTextAction im
         if (_permanentWeapon != null)
             return _permanentWeapon.getTitle(game);
         else
-            return _weaponToFire.getTitle();
+            return _weaponToFire.getTitleAbbreviated();
     }
 }

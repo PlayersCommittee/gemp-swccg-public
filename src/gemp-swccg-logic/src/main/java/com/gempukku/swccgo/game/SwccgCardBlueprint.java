@@ -72,6 +72,13 @@ public interface SwccgCardBlueprint {
     String getTitle();
 
     /**
+     * Gets the abbreviated card title. Usually to work around action text truncation for long titles
+     * Individual cards can override this - otherwise, returns getTitle()
+     * @return the card title
+     */
+    String getTitleAbbreviated();
+
+    /**
      * Gets a list of the card's titles. Some combo cards have multiple card titles.
      * @return the card's titles
      */
