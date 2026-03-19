@@ -11,7 +11,6 @@ import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -27,14 +26,15 @@ public class Card_3_028_Tests {
 				new HashMap<>()
 				{{
                     put("remote", "3_028"); //artillery remote
-                    //put("atgar", "3_072"); //Atgar Laser Cannon
                     put("golan","3_075"); //Golan Laser Battery
+                    put("atgar", "3_072"); //Atgar Laser Cannon
                     put("talz","1_031"); //non-warrior
                     put("cantina","1_128");
                     put("eg4","4_013"); //power droid (power source for artillery)
 				}},
 				new HashMap<>()
 				{{
+                    put("walker","104_005"); //Imperial Walker
                     put("tat_db","1_291");
 				}},
 				10,
@@ -123,10 +123,10 @@ public class Card_3_028_Tests {
         assertEquals(2,scn.GetLSUsedPileCount()); //Test3: paid 2 to deploy
     }
 
-    //demonstrate https://github.com/PlayersCommittee/gemp-swccg-public/issues/362
-    @Test @Ignore
+    @Test
     public void ArtilleryRemoteAllowsFiringAtSameSystemWithoutWarriorPresent() {
         //Test1: warrior with remote can remotely fire artillery weapon in battle
+        //warrior with remote at cantina can fire golan into battle at docking bay
         var scn = GetScenario();
 
         var remote = scn.GetLSCard("remote");
@@ -149,9 +149,6 @@ public class Card_3_028_Tests {
         scn.MoveCardsToLocation(cantina, warrior);
         scn.AttachCardsTo(warrior,remote);
 
-        //UNCOMMENT for 'normal' firing (warrior at artillery weapon site), passes test
-        //scn.MoveCardsToLocation(tat_db,warrior);
-
         scn.MoveCardsToLSHand(golan);
 
         scn.SkipToLSTurn(Phase.DEPLOY);
@@ -170,7 +167,6 @@ public class Card_3_028_Tests {
         scn.LSInitiateBattle(tat_db);
 
         assertTrue(scn.AwaitingLSWeaponsSegmentActions());
-        //test fails here because FireWeaponActionBuilder doesn't see warrior as a possibleWeaponUser?
         assertTrue(scn.LSCardActionAvailable(golan)); //Test1: able to fire without warrior at site
         scn.LSUseCardAction(golan);
         assertTrue(scn.LSHasCardChoiceAvailable(warrior)); //Test1: able to choose firing character holding remote
@@ -179,8 +175,89 @@ public class Card_3_028_Tests {
         scn.LSChooseCard(trooper);
     }
 
+    @Test
+    public void ArtilleryRemoteUserMayFireDuringControlPhase() {
+        //Test1: warrior with remote can remotely fire artillery weapon during control phase
+        //Test2: normal cost of force paid
+        //Test3: cannot fire a second artillery weapon during control phase
+        //Test4: can fire same weapon again during battle
+        //Test5: cannot fire a different weapon during battle
+        var scn = GetScenario();
+
+        var remote = scn.GetLSCard("remote");
+        var warrior = scn.GetLSFiller(1); //rebel trooper
+        var talz = scn.GetLSCard("talz");
+        var cantina = scn.GetLSCard("cantina");
+        var eg4 = scn.GetLSCard("eg4");
+        var golan = scn.GetLSCard("golan");
+        var atgar = scn.GetLSCard("atgar");
+
+        var tat_db = scn.GetDSCard("tat_db");
+        var trooper1 = scn.GetDSFiller(1);
+        var trooper2 = scn.GetDSFiller(2);
+        var walker = scn.GetDSCard("walker");
+
+        scn.StartGame();
+
+        scn.MoveLocationToTable(tat_db);
+        scn.MoveLocationToTable(cantina);
+
+        scn.MoveCardsToLocation(tat_db, trooper1, trooper2, walker, talz, eg4);
+
+        scn.MoveCardsToLocation(cantina, warrior);
+        scn.AttachCardsTo(warrior,remote);
+
+        scn.AttachCardsTo(tat_db, golan, atgar);
+
+        scn.SkipToLSTurn(Phase.CONTROL);
+
+        assertTrue(scn.AwaitingLSControlPhaseActions());
+        assertTrue(scn.GetLSForcePileCount() >= 2); //enough to fire
+        assertTrue(scn.LSCardActionAvailable(remote,"Fire"));
+        scn.LSUseCardAction(remote,"Fire");
+
+        assertTrue(scn.LSHasCardChoiceAvailable(atgar));
+        assertTrue(scn.LSHasCardChoiceAvailable(golan));
+        scn.LSChooseCard(golan);
+
+        scn.LSDecisionAvailable("Choose character to fire");
+        assertTrue(scn.LSHasCardChoiceAvailable(warrior));
+        scn.LSChooseCard(warrior);
+
+        scn.LSDecisionAvailable("Choose target");
+        assertTrue(scn.LSHasCardChoiceAvailable(trooper1));
+        assertTrue(scn.LSHasCardChoiceAvailable(trooper2));
+        scn.LSChooseCard(trooper1);
+
+        scn.PassAllResponses();
+
+        assertTrue(scn.AwaitingDSControlPhaseActions());
+        assertFalse(scn.CardsAtLocation(tat_db,trooper1)); //in lost pile
+        assertTrue(scn.CardsAtLocation(tat_db,trooper2));
+        assertEquals(3,scn.GetLSUsedPileCount()); //2 cost paid, 1 destiny
+
+        scn.DSPass();
+
+        assertTrue(scn.AwaitingLSControlPhaseActions());
+        assertTrue(scn.GetLSForcePileCount() >= 2); //enough to fire
+        assertFalse(scn.LSCardActionAvailable(remote,"Fire")); //test3
+
+        scn.SkipToPhase(Phase.BATTLE);
+        assertTrue(scn.GetLSForcePileCount() >= 3); //enough to battle and fire
+        assertTrue(scn.LSCanInitiateBattle());
+        scn.LSInitiateBattle(tat_db);
+
+        assertTrue(scn.AwaitingLSWeaponsSegmentActions());
+        assertTrue(scn.LSCardActionAvailable(golan)); //Test4: able to fire same weapon again, remotely
+        assertFalse(scn.LSCardActionAvailable(atgar)); //Test5: can't fire a different weapon this turn
+        scn.LSUseCardAction(golan);
+        assertTrue(scn.LSHasCardChoiceAvailable(warrior)); //Test1: able to choose firing character holding remote
+        scn.LSChooseCard(warrior);
+        assertTrue(scn.LSHasCardChoiceAvailable(trooper2)); //target
+        scn.LSChooseCard(trooper2);
+    }
+
     //other tests:
     //planet restriction
-    //control phase firing
     //uses up firing action for the turn
 }

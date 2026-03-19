@@ -22,6 +22,7 @@ import com.gempukku.swccgo.logic.effects.FireWeaponEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.MayFireArtilleryWeaponWithoutWarriorPresentModifier;
+import com.gempukku.swccgo.logic.modifiers.MayUseWeaponModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collections;
@@ -65,6 +66,7 @@ public class Card3_028 extends AbstractCharacterDevice {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayFireArtilleryWeaponWithoutWarriorPresentModifier(self, weaponFilter));
+        modifiers.add(new MayUseWeaponModifier(self, Filters.hasAttached(self), weaponFilter));
         return modifiers;
     }
 
