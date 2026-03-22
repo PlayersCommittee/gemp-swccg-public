@@ -911,7 +911,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public float getUnmodifiableAbilityRequiredToDrawBattleDestiny(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying) {
+    public float getAbilityHardRequirementToDrawBattleDestiny(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying) {
         return 0;
     }
 

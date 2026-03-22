@@ -3,7 +3,6 @@ package com.gempukku.swccgo.rules.battle;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -202,7 +201,7 @@ public class BattleDestinyThresholdTests {
 		assertEquals(1,scn.GetLSBattleDestinyCount());
 	}
 
-	@Test @Ignore
+	@Test
 	public void IncreasedSpecialRequirementTo7NotMet() {
 		//Ability required to draw destiny: 7
 		//LS ability: 6
@@ -369,7 +368,7 @@ public class BattleDestinyThresholdTests {
 		assertEquals(2,scn.GetLSBattleDestinyCount());
 	}
 
-	@Test @Ignore
+	@Test
 	public void AddDestinyWithIncreasedThresholdTo5NotMet() {
 		//Ability required to draw destiny: 5
 		//LS ability: 4
@@ -469,7 +468,7 @@ public class BattleDestinyThresholdTests {
 		assertEquals(2,scn.GetLSBattleDestinyCount());
 	}
 
-	@Test @Ignore
+	@Test
 	public void AddDestinyWithIncreasedSpecialRequirementTo7NotMet() {
 		//Ability required to draw destiny: 7
 		//LS ability: 6

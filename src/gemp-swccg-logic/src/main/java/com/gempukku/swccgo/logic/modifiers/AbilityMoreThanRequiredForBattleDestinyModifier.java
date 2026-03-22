@@ -37,7 +37,7 @@ public class AbilityMoreThanRequiredForBattleDestinyModifier extends AbstractMod
      * @param playerId the player whose amount of ability required to draw battle destiny is modified
      */
     private AbilityMoreThanRequiredForBattleDestinyModifier(PhysicalCard source, Filterable locationFilter, Condition condition, Evaluator evaluator, String playerId) {
-        super(source, null, Filters.and(Filters.battleLocation, locationFilter), condition, ModifierType.UNMODIFIABLE_ABILITY_MORE_THAN_REQUIRED_FOR_BATTLE_DESTINY, true);
+        super(source, null, Filters.and(Filters.battleLocation, locationFilter), condition, ModifierType.ABILITY_MORE_THAN_HARD_REQUIREMENT_FOR_BATTLE_DESTINY, true);
         _evaluator = evaluator;
         _playerId = playerId;
     }
@@ -52,7 +52,7 @@ public class AbilityMoreThanRequiredForBattleDestinyModifier extends AbstractMod
     }
 
     @Override
-    public float getUnmodifiableAbilityRequiredToDrawBattleDestiny(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying) {
+    public float getAbilityHardRequirementToDrawBattleDestiny(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying) {
         if (_playerId.equals(playerId))
             return _evaluator.evaluateExpression(gameState, modifiersQuerying, null);
         else

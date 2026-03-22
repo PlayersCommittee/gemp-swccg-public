@@ -571,7 +571,7 @@ public interface Modifier {
 
     int getMinimumBattleDestinyDrawsModifier(GameState gameState, ModifiersQuerying modifiersQuerying);
     int getMaximumBattleDestinyDrawsModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying);
-    float getUnmodifiableAbilityRequiredToDrawBattleDestiny(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying);
+    float getAbilityHardRequirementToDrawBattleDestiny(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying);
     float getBattleDestinyAtLocationModifier(String playerId, GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard location);
 
     float getDestinyWhenDrawnForDestinyModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card);
