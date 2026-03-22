@@ -9,6 +9,7 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.PlayCardActionReason;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -44,21 +45,16 @@ public class Card210_006 extends AbstractAlien {
         setGameText("[Pilot] 3. If you have completed a Kessel Run, your total power here is +2. Once during battle, may use 1 Force to choose: Subtract 1 from an opponent's just drawn destiny or cancel an attempt to cancel and redraw a destiny. Immune to attrition < 3.");
         addIcons(Icon.PILOT, Icon.VIRTUAL_SET_10);
         addKeywords(Keyword.SMUGGLER);
-    }
-
-    @Override
-    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
-        UtinniEffectCompletedCondition KesselRunCompleted = new UtinniEffectCompletedCondition(self.getOwner(), Filters.Kessel_Run);
-
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new TotalPowerModifier(self, Filters.here(self), KesselRunCompleted, 2, self.getOwner()));
-        return modifiers;
+        addPersona(Persona.BOSHEK);
     }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        UtinniEffectCompletedCondition KesselRunCompleted = new UtinniEffectCompletedCondition(self.getOwner(), Filters.Kessel_Run);
+
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 3));
+        modifiers.add(new TotalPowerModifier(self, Filters.here(self), KesselRunCompleted, 2, self.getOwner()));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 3));
         return modifiers;
     }

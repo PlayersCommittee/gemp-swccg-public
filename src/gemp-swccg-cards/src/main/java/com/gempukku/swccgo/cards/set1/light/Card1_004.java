@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -29,6 +30,7 @@ public class Card1_004 extends AbstractAlien {
         setLore("Rogue pilot. Outlaw starship tech. Has secret lab in Mos Eisley. He bragged about beating Han Solo's Kessel Run record. Left fringe life behind after meeting Obi-Wan Kenobi.");
         setGameText("Adds 3 to power of anything he pilots. May make a Kessel Run in place of a smuggler. Immune to attrition < 3.");
         addIcons(Icon.PILOT);
+        addPersona(Persona.BOSHEK);
     }
 
     @Override
