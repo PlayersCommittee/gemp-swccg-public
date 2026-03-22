@@ -17,7 +17,6 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.LoseCardsFromTableEffect;
@@ -26,7 +25,6 @@ import com.gempukku.swccgo.logic.effects.PlaceDestinyCardOutOfPlayEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collection;
@@ -56,21 +54,6 @@ public class Card224_004 extends AbstractDarkJediMaster {
         modifiers.add(new DeployCostToLocationModifier(self, Filters.and(Filters.your(self), Filters.character, Filters.loreContains("Trade Federation")), new AloneCondition(self), -1, Filters.and(Icon.EPISODE_I, Filters.location)));
         modifiers.add(new ImmuneToAttritionModifier(self));
         return modifiers;
-    }
-
-    @Override
-    protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(final SwccgGame game, Effect effect, final PhysicalCard self, int gameTextSourceCardId) {
-        // Check condition(s)
-        if (TriggerConditions.isPlayingCard(game, effect, Filters.Blaster_Deflection)
-                && GameConditions.canCancelCardBeingPlayed(game, self, effect)
-                && GameConditions.isDuringWeaponFiringAtTarget(game, Filters.any, Filters.here(self))) {
-
-            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            // Build action using common utility
-            CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
-            return Collections.singletonList(action);
-        }
-        return null;
     }
 
     @Override

@@ -183,6 +183,7 @@ public enum Persona implements Filterable {
     WUHER("Wuher"),
     YODA("Yoda"),
     YULAREN("Yularen"),
+    YUTANI("Yutani"),
     ZEV("Zev Senesca"),
     ZUCKUSS("Zuckuss"),
 

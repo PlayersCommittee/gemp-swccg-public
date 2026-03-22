@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Statistic;
@@ -36,6 +37,7 @@ public class Card601_218 extends AbstractRebel {
         setGameText("Artillery weapons here are 'powered'. Permanent weapon is Blaster Cannon (may target a character, creature, or vehicle at same or adjacent site for free; draw destiny; target 'hit' and forfeit = 0 if destiny +1 > defense value).");
         addIcons(Icon.HOTH, Icon.WARRIOR, Icon.PERMANENT_WEAPON, Icon.LEGACY_BLOCK_7);
         addKeywords(Keyword.SCOUT, Keyword.CAPTAIN);
+        addPersona(Persona.YUTANI);
         setAsLegacy(true);
     }
 

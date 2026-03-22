@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -35,7 +36,8 @@ public class Card8_001 extends AbstractRebel {
         setLore("Scout and heavy weapons specialist. Carries custom repulsorlift compensators to allow fluid movement with light artillery weapons.");
         setGameText("Once during each of your deploy phases, may deploy one artillery weapon or Portable Fusion Generator to same site from Reserve Deck; reshuffle. May move Medium Repeating Blaster Cannon by himself (for free).");
         addIcons(Icon.ENDOR, Icon.WARRIOR);
-        addKeywords(Keyword.SCOUT);
+        addKeywords(Keyword.SCOUT, Keyword.CAPTAIN);
+        addPersona(Persona.YUTANI);
     }
 
     @Override
