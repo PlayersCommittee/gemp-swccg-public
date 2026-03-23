@@ -641,6 +641,13 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
             regularMoveActions.add(shuttleAction);
         }
 
+        // TODO: add other types of regular moves
+        // see https://github.com/PlayersCommittee/gemp-swccg-public/issues/954
+        // Docking bay transit
+        // using the movement text on a location
+        // moving a Death Star
+        // a Light side starfighter moving into the Death Star: Trench to start an Attack Run
+
         if (regularMoveActions.isEmpty())
             return null;
 

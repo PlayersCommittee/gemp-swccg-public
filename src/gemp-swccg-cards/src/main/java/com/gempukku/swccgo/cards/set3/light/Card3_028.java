@@ -38,7 +38,7 @@ public class Card3_028 extends AbstractCharacterDevice {
     public Card3_028() {
         super(Side.LIGHT, 4, "Artillery Remote", Uniqueness.UNRESTRICTED, ExpansionSet.HOTH, Rarity.R2);
         setLore("Although artillery weapons have a manual firing mechanism, this optional device allows weapons operation from a remote location. Uses coded signals.");
-        setGameText("Use 2 Force to deploy on any warrior. Your artillery weapons anywhere on same planet may fire without a warrior present. Also, once each turn during your control phase, one of your artillery weapons on same planet may be fired (at normal use of the Force).");
+        setGameText("Use 2 Force to deploy on your warrior. Warrior may fire artillery weapons anywhere on same planet regardless of being present. Once during your control phase, warrior may fire an artillery weapon on same planet.");
         addIcons(Icon.HOTH);
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
