@@ -85,7 +85,7 @@ public class Card5_059 extends AbstractLostInterrupt {
                                                                             }
 
                                                                             gameState.sendMessage("Destiny: " + GuiUtils.formatAsString(totalDestiny));
-                                                                            float charactersDestiny = game.getModifiersQuerying().getDestiny(game.getGameState(), character);
+                                                                            float charactersDestiny = game.getModifiersQuerying().getDestiny(game.getGameState(), finalCharacter);
                                                                             gameState.sendMessage("Character's destiny number: " + GuiUtils.formatAsString(charactersDestiny));
 
                                                                             if (totalDestiny > charactersDestiny) {
