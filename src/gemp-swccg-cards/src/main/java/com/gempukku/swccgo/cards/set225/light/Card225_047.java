@@ -199,7 +199,7 @@ public class Card225_047 extends AbstractEpicEventDeployable {
         // Check condition(s)
         if (GameConditions.isNumTimesPerTurn(game, self, playerId, 2, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.canTarget(game, self, orderAgendaFilter)
-                && GameConditions.isDuringYourPhase(game, playerId, Phase.MOVE)
+                && GameConditions.isDuringEitherPlayersPhase(game, Phase.MOVE)
                 && (GameConditions.hasReserveDeck(game, playerId) || GameConditions.hasReserveDeck(game, opponent))) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
