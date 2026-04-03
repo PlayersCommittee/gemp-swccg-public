@@ -1,43 +1,90 @@
 name: test-on-push
+
 on:
   push:
     branches:
       - master
       - main
-
   pull_request:
     types:
-    - opened
-    - edited
-    - synchronize
+      - opened
+      - edited
+      - synchronize
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@master
+      # Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: apt-get install OpenJDK
-        run:  |
-          which java ; true
-          java -version ; true
-          sudo apt-get update
-          sudo apt-get install -y openjdk-11-jdk-headless
-          java -version ; true
-      - name: mvn build
-        run: mvn clean install
+      # Set up Java properly (do NOT apt-get Java)
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
 
-      - name: mvn test
-        run: mvn test
+      # Maven build (IMPORTANT: run from src/)
+      - name: Maven build
+        working-directory: src
+        run: mvn clean verify
 
-      - name: Build the stack
+      # Build Docker stack
+      - name: Build Docker stack
+        working-directory: src
+        run: docker compose build
+
+      # Start Docker stack
+      - name: Start Docker stack
+        working-directory: src
         run: |
-          docker-compose build
-          docker-compose up -d
-      - name: Test
+          set -euxo pipefail
+          # Load env so we can reuse DB credentials/ports
+          set -a
+          source .env
+          set +a
+
+          # Start DB first
+          docker compose up -d db
+          # Wait for DB to be reachable
+          timeout 180 bash -c '
+            until docker compose exec -T db sh -c "mariadb-admin ping -uroot -p\"$MYSQL_ROOT_PASSWORD\" --silent"; do
+              echo "Waiting for DB to be ready..."
+              docker compose logs --tail=20 db || true
+              sleep 5
+            done
+          '
+          # Then start app
+          docker compose up -d build
+      
+        # Run integration tests
+      - name: Run integration tests
+        working-directory: src
+        timeout-minutes: 10
+        env:
+          PYTHONUNBUFFERED: "1"
         run: |
-          docker exec gemp curl -s --retry 10 --retry-connrefused http://127.0.0.1:8080/gemp-swccg/index.html
-          echo "Python3: $(which python3)"
-          echo "pip3...: $(which pip3)"
+          set -euxo pipefail
+          # Load ports from .env so we hit the mapped host port
+          set -a
+          source .env
+          set +a
+          APP_URL="http://127.0.0.1:${APP_PORT}/gemp-swccg/index.html"
+
+          # Wait (with visibility) for the app to start responding
+          timeout 240 bash -c '
+            url="$1"
+            until curl -fSs --max-time 10 --retry 30 --retry-delay 2 --retry-connrefused "$url"; do
+              echo "Waiting for app to respond at ${url}..."
+              docker compose ps
+              docker compose logs --tail=50 build || true
+              docker compose exec -T build sh -c "tail -n 50 /root/nohup.out || tail -n 50 /opt/gemp-swccg/src/nohup.out" || true
+              sleep 5
+            done
+          ' bash "${APP_URL}"
+          python3 -m pip install --upgrade pip
           pip3 install -r requirements.txt
-          python3 gemp_client_test.py
+          python3 -u gemp_client_test.py
