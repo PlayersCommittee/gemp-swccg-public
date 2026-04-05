@@ -302,7 +302,7 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
     @Override
     public Filter getValidTransferDeviceOrWeaponTargetFilter(String playerId, SwccgGame game, PhysicalCard self, PlayCardOption playCardOption, boolean forFree, Filter transferTargetFilter) {
         return Filters.and(Filters.your(self), Filters.or(Filters.character, Filters.starship, Filters.vehicle), Filters.not(Filters.hasAttached(self)),
-                Filters.not(Filters.attachedToWithRecursiveChecking(self)), Filters.presentWith(self), transferTargetFilter, getValidTransferTargetFilter(playerId, game, self, playCardOption, forFree));
+                Filters.not(Filters.attachedToWithRecursiveChecking(self)), Filters.presentWith(self, SpotOverride.INCLUDE_UNDERCOVER, Filters.hasAttached(self)), transferTargetFilter, getValidTransferTargetFilter(playerId, game, self, playCardOption, forFree));
     }
 
     /**
