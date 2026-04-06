@@ -41,14 +41,14 @@ public interface Presence extends BaseQuery, Keywords {
 				|| (attachedTo.getBlueprint().getCardCategory() == CardCategory.STARSHIP
 				&& physicalCard.getBlueprint().getCardSubtype() != CardSubtype.STARSHIP //(starship weapon)
 				&& physicalCard.getBlueprint().getCardCategory() != CardCategory.DEVICE
-				&& !hasKeyword(gameState, attachedTo, Keyword.PARASITE) //(parasite creature) other attached creatures (like Porg) are on/in
+				&& !hasKeyword(gameState, physicalCard, Keyword.PARASITE) //(parasite creature) other attached creatures (like Porg) are on/in
 				&& (physicalCard.getBlueprint().getCardCategory() != CardCategory.EFFECT || physicalCard.getBlueprint().isMovesLikeCharacter()))
 
 				//attached card is 'outside' an enclosed vehicle if: vehicle weapon, device, parasite creature, or effect that doesn't move like a character
 				|| (attachedTo.getBlueprint().getCardCategory() == CardCategory.VEHICLE && hasKeyword(gameState, attachedTo, Keyword.ENCLOSED)
 				&& physicalCard.getBlueprint().getCardSubtype() != CardSubtype.VEHICLE //(vehicle weapon)
 				&& physicalCard.getBlueprint().getCardCategory() != CardCategory.DEVICE
-				&& !hasKeyword(gameState, attachedTo, Keyword.PARASITE) //(parasite creature) other attached creatures (like Porg) are on/in
+				&& !hasKeyword(gameState, physicalCard, Keyword.PARASITE) //(parasite creature) other attached creatures (like Porg) are on/in
 				&& (physicalCard.getBlueprint().getCardCategory() != CardCategory.EFFECT || physicalCard.getBlueprint().isMovesLikeCharacter())))
 
 			return attachedTo; //"present" on/in that starship, vehicle, or location
