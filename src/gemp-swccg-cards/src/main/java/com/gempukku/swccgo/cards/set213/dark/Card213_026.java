@@ -11,6 +11,7 @@ import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -56,9 +57,9 @@ public class Card213_026 extends AbstractUniqueStarshipSite {
             // Move FROM here to another site
             if (GameConditions.canSpotLocation(game, otherSite)
                     && GameConditions.canSpot(game, self, crimsonDawnLeaderHere)
-                    && GameConditions.canPerformMovementUsingLocationText(playerOnDarkSideOfLocation, game, crimsonDawnLeaderHere, self, otherSite, false)) {
+                    && GameConditions.canPerformMovementUsingLocationText(playerOnDarkSideOfLocation, game, SpotOverride.INCLUDE_UNDERCOVER, crimsonDawnLeaderHere, self, otherSite, false)) {
 
-                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnDarkSideOfLocation, game, self, gameTextSourceCardId, crimsonDawnLeaderHere, self, otherSite, false);
+                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnDarkSideOfLocation, game, self, gameTextSourceCardId, SpotOverride.INCLUDE_UNDERCOVER, crimsonDawnLeaderHere, self, otherSite, false);
                 action.setText("Move from here to another site");
                 actions.add(action);
             }
@@ -66,9 +67,9 @@ public class Card213_026 extends AbstractUniqueStarshipSite {
             // Move TO this site from another site
             if (GameConditions.canSpotLocation(game, otherSite)
                     && GameConditions.canSpot(game, self, crimsonDawnLeaderOtherLocation)
-                    && GameConditions.canPerformMovementUsingLocationText(playerOnDarkSideOfLocation, game, crimsonDawnLeaderOtherLocation, otherSite, self, false)) {
+                    && GameConditions.canPerformMovementUsingLocationText(playerOnDarkSideOfLocation, game, SpotOverride.INCLUDE_UNDERCOVER, crimsonDawnLeaderOtherLocation, otherSite, self, false)) {
 
-                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnDarkSideOfLocation, game, self, gameTextSourceCardId, crimsonDawnLeaderOtherLocation, otherSite, self, false);
+                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnDarkSideOfLocation, game, self, gameTextSourceCardId, SpotOverride.INCLUDE_UNDERCOVER, crimsonDawnLeaderOtherLocation, otherSite, self, false);
                 action.setText("Move from another site to here");
                 actions.add(action);
             }

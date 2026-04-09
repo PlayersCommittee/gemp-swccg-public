@@ -9,6 +9,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -54,15 +55,15 @@ public class Card8_075 extends AbstractSite {
         // Check condition(s)
         if (GameConditions.isDuringYourPhase(game, playerOnLightSideOfLocation, Phase.MOVE)
                 && GameConditions.canSpotLocation(game, otherExteriorEndorSite)) {
-            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, Filters.scout, self, otherExteriorEndorSite, false)) {
+            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, SpotOverride.INCLUDE_UNDERCOVER, Filters.scout, self, otherExteriorEndorSite, false)) {
 
-                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, Filters.scout, self, otherExteriorEndorSite, false);
+                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, SpotOverride.INCLUDE_UNDERCOVER, Filters.scout, self, otherExteriorEndorSite, false);
                 action.setText("Move from here to exterior Endor site");
                 actions.add(action);
             }
-            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, Filters.scout, Filters.exterior_Endor_site, self, false)) {
+            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, SpotOverride.INCLUDE_UNDERCOVER, Filters.scout, Filters.exterior_Endor_site, self, false)) {
 
-                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, Filters.scout, otherExteriorEndorSite, self, false);
+                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, SpotOverride.INCLUDE_UNDERCOVER, Filters.scout, otherExteriorEndorSite, self, false);
                 action.setText("Move from exterior Endor site to here");
                 actions.add(action);
             }

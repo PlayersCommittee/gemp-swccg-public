@@ -10,6 +10,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -78,15 +79,15 @@ public class Card209_027 extends AbstractSite {
 
         if (GameConditions.isDuringYourPhase(game, playerOnLightSideOfLocation, Phase.MOVE)
                 && GameConditions.canSpotLocation(game, relatedSite)) {
-            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, Filters.any, self, relatedSite, true)) {
+            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, SpotOverride.INCLUDE_UNDERCOVER, Filters.any, self, relatedSite, true)) {
 
-                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, Filters.any, self, relatedSite, true);
+                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, SpotOverride.INCLUDE_UNDERCOVER, Filters.any, self, relatedSite, true);
                 action.setText("Move from here to related site");
                 actions.add(action);
             }
-            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, Filters.any, relatedSite, self, true)) {
+            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, SpotOverride.INCLUDE_UNDERCOVER, Filters.any, relatedSite, self, true)) {
 
-                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, Filters.any, relatedSite, self, true);
+                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, SpotOverride.INCLUDE_UNDERCOVER, Filters.any, relatedSite, self, true);
                 action.setText("Move from related site to here");
                 actions.add(action);
             }

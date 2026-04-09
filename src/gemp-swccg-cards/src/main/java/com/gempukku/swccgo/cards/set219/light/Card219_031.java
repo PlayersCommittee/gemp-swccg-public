@@ -10,6 +10,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -64,14 +65,14 @@ public class Card219_031 extends AbstractSite {
         // Check condition(s)
         if (GameConditions.isDuringYourPhase(game, playerOnLightSideOfLocation, Phase.MOVE)
                 && GameConditions.canSpotLocation(game, otherBattlegroundSites)) {
-            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, Filters.and(Icon.EPISODE_I, Filters.Jedi), self, otherBattlegroundSites, false)) {
-                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, Filters.and(Icon.EPISODE_I, Filters.Jedi), self, otherBattlegroundSites, false);
+            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, SpotOverride.INCLUDE_UNDERCOVER, Filters.and(Icon.EPISODE_I, Filters.Jedi), self, otherBattlegroundSites, false)) {
+                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, SpotOverride.INCLUDE_UNDERCOVER, Filters.and(Icon.EPISODE_I, Filters.Jedi), self, otherBattlegroundSites, false);
                 action.setText("Move from here to other site");
-                action.setActionMsg("Move an [Episode 1] Jedi from " + GameUtils.getCardLink(self) + " to other battleground (or Coruscant) site");
+                action.setActionMsg("Move an [Episode 1] Jedi from " + GameUtils.getCardLink(self) + " to other battleground site");
                 actions.add(action);
             }
-            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game,Filters.and(Icon.EPISODE_I, Filters.Jedi), otherBattlegroundSites, self, false)) {
-                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, Filters.and(Icon.EPISODE_I, Filters.Jedi), otherBattlegroundSites, self, false);
+            if (GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, SpotOverride.INCLUDE_UNDERCOVER, Filters.and(Icon.EPISODE_I, Filters.Jedi), otherBattlegroundSites, self, false)) {
+                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, SpotOverride.INCLUDE_UNDERCOVER, Filters.and(Icon.EPISODE_I, Filters.Jedi), otherBattlegroundSites, self, false);
                 action.setText("Move from other site to here");
                 action.setActionMsg("Move an [Episode 1] Jedi from other battleground site to " + GameUtils.getCardLink(self));
                 actions.add(action);

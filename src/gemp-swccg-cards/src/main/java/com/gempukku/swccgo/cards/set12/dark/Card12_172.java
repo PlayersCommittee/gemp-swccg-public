@@ -9,6 +9,7 @@ import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
@@ -45,9 +46,9 @@ public class Card12_172 extends AbstractSite {
         // Check condition(s)
         if (GameConditions.isDuringYourPhase(game, playerOnDarkSideOfLocation, Phase.MOVE)
                 && GameConditions.canSpotLocation(game, Filters.interior_Naboo_site)) {
-            if (GameConditions.canPerformMovementUsingLocationText(playerOnDarkSideOfLocation, game, Filters.character, self, Filters.interior_Naboo_site, false)) {
+            if (GameConditions.canPerformMovementUsingLocationText(playerOnDarkSideOfLocation, game, SpotOverride.INCLUDE_UNDERCOVER, Filters.character, self, Filters.interior_Naboo_site, false)) {
 
-                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnDarkSideOfLocation, game, self, gameTextSourceCardId, Filters.character, self, Filters.interior_Naboo_site, false);
+                MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnDarkSideOfLocation, game, self, gameTextSourceCardId, SpotOverride.INCLUDE_UNDERCOVER, Filters.character, self, Filters.interior_Naboo_site, false);
                 action.setText("Move from here to interior Naboo site");
                 actions.add(action);
             }

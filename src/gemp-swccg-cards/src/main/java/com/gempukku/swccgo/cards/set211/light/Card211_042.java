@@ -10,6 +10,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -51,9 +52,9 @@ public class Card211_042 extends AbstractSite {
 
         if (GameConditions.canSpotLocation(game, otherSiteYouOccupy)
             && GameConditions.isOnceDuringYourPhase(game, self, playerOnLightSideOfLocation, gameTextSourceCardId, Phase.DEPLOY)
-            && GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, Filters.clone, self, otherSiteYouOccupy, true))
+            && GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, SpotOverride.INCLUDE_UNDERCOVER, Filters.clone, self, otherSiteYouOccupy, true))
         {
-            MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, Filters.clone, self, otherSiteYouOccupy, true);
+            MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, SpotOverride.INCLUDE_UNDERCOVER, Filters.clone, self, otherSiteYouOccupy, true);
             action.setText("Move a clone");
             action.appendUsage(new OncePerPhaseEffect(action));
             actions.add(action);

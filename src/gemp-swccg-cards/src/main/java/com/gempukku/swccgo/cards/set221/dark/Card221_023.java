@@ -9,6 +9,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -46,8 +47,8 @@ public class Card221_023 extends AbstractSite {
 
         if (GameConditions.canSpotLocation(game, battleground)
             && GameConditions.isDuringYourPhase(game, playerOnDarkSideOfLocation, Phase.MOVE)
-            && GameConditions.canPerformMovementUsingLocationText(playerOnDarkSideOfLocation, game, character, self, battleground, false)) {
-            MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnDarkSideOfLocation, game, self, gameTextSourceCardId, character, self, battleground, false);
+            && GameConditions.canPerformMovementUsingLocationText(playerOnDarkSideOfLocation, game, SpotOverride.INCLUDE_UNDERCOVER, character, self, battleground, false)) {
+            MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnDarkSideOfLocation, game, self, gameTextSourceCardId, SpotOverride.INCLUDE_UNDERCOVER, character, self, battleground, false);
             action.setText("Move your [Episode VII] character");
             actions.add(action);
             return actions;

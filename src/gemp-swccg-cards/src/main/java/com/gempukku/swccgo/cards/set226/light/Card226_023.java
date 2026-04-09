@@ -11,6 +11,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -44,9 +45,9 @@ public class Card226_023 extends AbstractSite {
 
         // Check condition(s)
         if (GameConditions.isDuringYourPhase(game, playerOnLightSideOfLocation, Phase.MOVE)
-                && GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, jediSurvivorHere, self, destinationSite, false)) {
+                && GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, SpotOverride.INCLUDE_UNDERCOVER, jediSurvivorHere, self, destinationSite, false)) {
 
-            MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, jediSurvivorHere, self, destinationSite, false);
+            MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, SpotOverride.INCLUDE_UNDERCOVER, jediSurvivorHere, self, destinationSite, false);
             action.setText("Move Jedi Survivor here to a site");
             actions.add(action);
         }

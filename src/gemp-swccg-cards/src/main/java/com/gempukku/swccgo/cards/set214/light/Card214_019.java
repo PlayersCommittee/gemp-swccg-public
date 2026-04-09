@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -47,9 +48,9 @@ public class Card214_019 extends AbstractSite {
         
         if (GameConditions.canSpot(game, self, Filters.and(Filters.Imperial, Filters.at(Filters.Landing_Platform)))
                 && GameConditions.isOpponentsTurn(game, self)
-                && GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, character, self, destination, true)) {
+                && GameConditions.canPerformMovementUsingLocationText(playerOnLightSideOfLocation, game, SpotOverride.INCLUDE_UNDERCOVER, character, self, destination, true)) {
             
-            MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, character, self, destination, true);
+            MoveUsingLocationTextAction action = new MoveUsingLocationTextAction(playerOnLightSideOfLocation, game, self, gameTextSourceCardId, SpotOverride.INCLUDE_UNDERCOVER, character, self, destination, true);
             action.setText("Move Luke to Landing Platform");
             actions.add(action);
             return actions;
