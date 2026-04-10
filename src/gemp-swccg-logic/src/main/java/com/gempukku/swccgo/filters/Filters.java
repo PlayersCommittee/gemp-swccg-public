@@ -10600,7 +10600,8 @@ public class Filters {
                 if (cardCategory == CardCategory.CHARACTER || cardCategory == CardCategory.VEHICLE || cardCategory == CardCategory.STARSHIP
                         || (!checkingOnly && (cardCategory == CardCategory.DEVICE || cardCategory == CardCategory.WEAPON || cardCategory == CardCategory.EFFECT))) {
 
-                    if (!Filters.presentWith(creature).accepts(gameState, modifiersQuerying, physicalCard))
+                    if (!Filters.presentWith(creature).accepts(gameState, modifiersQuerying, physicalCard)
+                            && !Filters.aboardOrAboardCargoOf(Filters.presentWith(creature)).accepts(gameState, modifiersQuerying, physicalCard))
                         return false;
 
                     if (modifiersQuerying.isProhibitedFromAttackingTarget(gameState, physicalCard, creature))
