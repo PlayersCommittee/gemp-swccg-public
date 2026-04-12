@@ -69,7 +69,7 @@ public class Card219_019 extends AbstractDarkJediMasterImperial {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new SpecialFlagModifier(self, ModifierFlag.MAY_NOT_RETRIEVE_FORCE_FOR_INITIATING_BATTLE, playerId));
         modifiers.add(new SpecialFlagModifier(self, ModifierFlag.MAY_NOT_RETRIEVE_FORCE_FOR_INITIATING_BATTLE, opponent));
-        modifiers.add(new TotalBattleDestinyModifier(self, Filters.sameLocationAs(self, Filters.and(Filters.your(playerId), Filters.Black_Sun_agent)), agentsOfBlackSunOnTable, 1, playerId));
+        modifiers.add(new TotalBattleDestinyModifier(self, Filters.sameLocationAs(self, Filters.and(Filters.your(playerId), Filters.Black_Sun_agent)), agentsOfBlackSunOnTable, 1, playerId, true));
         modifiers.add(new ImmuneToAttritionModifier(self));
         return modifiers;
     }
