@@ -13,6 +13,7 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardsEffect;
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.results.ExchangedCardsInCardPileResult;
+import com.gempukku.swccgo.logic.timing.results.RaceDestinyStackedResult;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -101,6 +102,8 @@ public class ExchangeStackedCardWithTopCardOfCardPileEffect extends AbstractSubA
 
                             if(_isRaceDestiny) {
                                 topCardOfCardPile.setRaceDestinyForPlayer(_playerId);
+                                game.getActionsEnvironment().emitEffectResult(
+                                        new RaceDestinyStackedResult(subAction, topCardOfCardPile, stackedOn));
                             }
 
                             actionsEnvironment.emitEffectResult(
