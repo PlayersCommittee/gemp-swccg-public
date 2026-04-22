@@ -10,6 +10,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -74,8 +75,8 @@ public class Card221_048 extends AbstractSite {
 
                 final List<PhysicalCard> validSites = new LinkedList<>();
                 for(PhysicalCard site: Filters.filterTopLocationsOnTable(game, siteYouOccupy)) {
-                    if (Filters.sameLocationAs(self, Filters.and(Filters.and(characterFilter, Filters.canBeRelocatedToLocation(site, 1)),
-                            Filters.with(self, Filters.and(characterFilter, Filters.canBeRelocatedToLocation(site, 1))))).accepts(game, self)) {
+                    if (Filters.sameLocationAs(self, SpotOverride.INCLUDE_UNDERCOVER, Filters.and(Filters.and(characterFilter, Filters.canBeRelocatedToLocation(site, 1)),
+                            Filters.with(self, SpotOverride.INCLUDE_UNDERCOVER, Filters.and(characterFilter, Filters.canBeRelocatedToLocation(site, 1))))).accepts(game, self)) {
                         validSites.add(site);
                     }
                 }
@@ -90,7 +91,7 @@ public class Card221_048 extends AbstractSite {
                     action.appendTargeting(new TargetCardOnTableEffect(action, playerOnLightSideOfLocation, "Choose location to relocate to", Filters.in(validSites)) {
                         @Override
                         protected void cardTargeted(final int targetGroupIdSite, final PhysicalCard targetedSite) {
-                            action.appendTargeting(new TargetCardsOnTableEffect(action, playerOnLightSideOfLocation, "Choose characters to move", 2, 2, Filters.and(characterFilter, Filters.at(self), Filters.canBeRelocatedToLocation(targetedSite, 1))) {
+                            action.appendTargeting(new TargetCardsOnTableEffect(action, playerOnLightSideOfLocation, "Choose characters to move", 2, 2, SpotOverride.INCLUDE_UNDERCOVER, Filters.and(characterFilter, Filters.at(self), Filters.canBeRelocatedToLocation(targetedSite, 1))) {
                                 @Override
                                 protected void cardsTargeted(final int targetGroupIdCharacters, Collection<PhysicalCard> targetedCharacters) {
                                     action.appendCost(
@@ -118,8 +119,8 @@ public class Card221_048 extends AbstractSite {
 
                 final List<PhysicalCard> validSites = new LinkedList<>();
                 for(PhysicalCard site: Filters.filterTopLocationsOnTable(game, siteYouOccupy)) {
-                    if (Filters.sameLocationAs(self, Filters.and(Filters.and(characterFilter, Filters.canBeRelocatedToLocation(self, 1)),
-                            Filters.with(self, Filters.and(characterFilter, Filters.canBeRelocatedToLocation(self, 1))))).accepts(game, site)) {
+                    if (Filters.sameLocationAs(self, SpotOverride.INCLUDE_UNDERCOVER, Filters.and(Filters.and(characterFilter, Filters.canBeRelocatedToLocation(self, 1)),
+                            Filters.with(self, SpotOverride.INCLUDE_UNDERCOVER, Filters.and(characterFilter, Filters.canBeRelocatedToLocation(self, 1))))).accepts(game, site)) {
                         validSites.add(site);
                     }
                 }
@@ -134,7 +135,7 @@ public class Card221_048 extends AbstractSite {
                     action.appendTargeting(new TargetCardOnTableEffect(action, playerOnLightSideOfLocation, "Choose location to relocate from", Filters.in(validSites)) {
                         @Override
                         protected void cardTargeted(final int targetGroupIdSite, final PhysicalCard targetedSite) {
-                            action.appendTargeting(new TargetCardsOnTableEffect(action, playerOnLightSideOfLocation, "Choose characters to move", 2, 2, Filters.and(characterFilter, Filters.at(targetedSite), Filters.canBeRelocatedToLocation(self, 1))) {
+                            action.appendTargeting(new TargetCardsOnTableEffect(action, playerOnLightSideOfLocation, "Choose characters to move", 2, 2, SpotOverride.INCLUDE_UNDERCOVER, Filters.and(characterFilter, Filters.at(targetedSite), Filters.canBeRelocatedToLocation(self, 1))) {
                                 @Override
                                 protected void cardsTargeted(final int targetGroupIdCharacters, Collection<PhysicalCard> targetedCharacters) {
                                     action.appendCost(
@@ -156,7 +157,6 @@ public class Card221_048 extends AbstractSite {
                 }
             }
         }
-
 
         return actions;
     }
