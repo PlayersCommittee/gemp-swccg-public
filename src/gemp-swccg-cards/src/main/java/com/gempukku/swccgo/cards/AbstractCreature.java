@@ -293,7 +293,7 @@ public abstract class AbstractCreature extends AbstractDeployable {
                 && !GameConditions.isDuringBattle(game)) {
             GameState gameState = game.getGameState();
             ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-            if (!modifiersQuerying.hasParticipatedInAttackOnNonCreatureThisTurn(self)) {
+            if (!modifiersQuerying.hasParticipatedInBattlePhaseAttackOnNonCreatureThisTurn(self)) {
                 PhysicalCard location = modifiersQuerying.getLocationThatCardIsPresentAt(gameState, self);
                 if (location != null) {
                     if (!modifiersQuerying.mayNotInitiateAttacksAtLocation(gameState, location, playerId)
@@ -327,7 +327,7 @@ public abstract class AbstractCreature extends AbstractDeployable {
                 && self.getAttachedTo() == null) {
             GameState gameState = game.getGameState();
             ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-            if (!modifiersQuerying.hasParticipatedInAttackOnNonCreatureThisTurn(self)) {
+            if (!modifiersQuerying.hasParticipatedInBattlePhaseAttackOnNonCreatureThisTurn(self)) {
                 PhysicalCard location = modifiersQuerying.getLocationThatCardIsPresentAt(gameState, self);
                 if (location != null) {
                     if (!modifiersQuerying.mayNotInitiateAttacksAtLocation(gameState, location, playerId)

@@ -69,19 +69,19 @@ public interface ModifiersState {
 	boolean hasParticipatedInAttackOnCreatureThisTurn(PhysicalCard card);
 
 	/**
-	 * Records that the specified card has participated in an attack on a non-creature.
+	 * Records that the specified card has participated in an attack on a non-creature during Battle Phase.
 	 *
 	 * @param card the card
 	 */
-	void participatedInAttackOnNonCreature(PhysicalCard card);
+	void participatedInBattlePhaseAttackOnNonCreature(PhysicalCard card);
 
 	/**
-	 * Determines if the specified card has participated in an attack on a non-creature this turn.
+	 * Determines if the specified card has participated in an attack on a non-creature (during Battle Phase) this turn.
 	 *
 	 * @param card the card
 	 * @return true if card has participated, otherwise false
 	 */
-	boolean hasParticipatedInAttackOnNonCreatureThisTurn(PhysicalCard card);
+	boolean hasParticipatedInBattlePhaseAttackOnNonCreatureThisTurn(PhysicalCard card);
 
 	/**
 	 * Records that a battle was initiated at the specified location by the specified player.

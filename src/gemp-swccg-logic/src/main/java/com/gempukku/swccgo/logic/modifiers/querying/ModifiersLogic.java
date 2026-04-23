@@ -2019,21 +2019,21 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
     }
 
     /**
-     * Records that the specified card has participated in an attack on a non-creature.
+     * Records that the specified card has participated in an attack on a non-creature during Battle Phase.
      *
      * @param card the card
      */
-    public void participatedInAttackOnNonCreature(PhysicalCard card) {
+    public void participatedInBattlePhaseAttackOnNonCreature(PhysicalCard card) {
         _attackOnNonCreatureParticipationSet.add(card.getCardId());
     }
 
     /**
-     * Determines if the specified card has participated in an attack on a non-creature this turn.
+     * Determines if the specified card has participated in an attack on a non-creature (during Battle Phase) this turn.
      *
      * @param card the card
      * @return true if card has participated, otherwise false
      */
-    public boolean hasParticipatedInAttackOnNonCreatureThisTurn(PhysicalCard card) {
+    public boolean hasParticipatedInBattlePhaseAttackOnNonCreatureThisTurn(PhysicalCard card) {
         return _attackOnNonCreatureParticipationSet.contains(card.getCardId());
     }
 
