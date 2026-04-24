@@ -307,7 +307,7 @@ public class VirtualTableScenario implements TestBase, Actions, AdHocEffects, Ba
         }
 
         DSStartingInterrupts.Setup(this);
-        DSStartingInterrupts.Setup(this);
+        LSStartingInterrupts.Setup(this);
 
         // As a convenience, we want the tester to be able to stack their hand and other piles before the game begins.
         // However, since a new hand will be drawn, this tramples over the careful stacking, so we will reset the

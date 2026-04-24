@@ -2081,6 +2081,7 @@ public class GameState implements Snapshotable<GameState> {
             for (PhysicalCard cardAtLocation : atLocationCardList) {
                 cardAtLocation.atLocation(otherCard);
             }
+            startAffecting(_game, otherCard);
         }
 
         return retVal;
