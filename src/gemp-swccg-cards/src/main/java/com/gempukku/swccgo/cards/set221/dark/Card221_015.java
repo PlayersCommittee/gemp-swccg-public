@@ -18,7 +18,7 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.ForceDrainModifiersMayNotBeCanceledModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedBySpecificWeaponsModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collections;
@@ -51,7 +51,7 @@ public class Card221_015 extends AbstractImperial {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new MayNotBeTargetedByModifier(self, Filters.and(Filters.your(self), Filters.or(Filters.Lando, Filters.and(Icon.ENDOR, Filters.leader))), null, Filters.and(Filters.weapon, Filters.here(self))));
+        modifiers.add(new MayNotBeTargetedBySpecificWeaponsModifier(self, Filters.and(Filters.your(self), Filters.or(Filters.Lando, Filters.and(Icon.ENDOR, Filters.leader))), Filters.here(self)));
         modifiers.add(new ForceDrainModifiersMayNotBeCanceledModifier(self, new AtCondition(self, Filters.Cloud_City_site), Filters.any, Filters.here(self)));
         return modifiers;
     }

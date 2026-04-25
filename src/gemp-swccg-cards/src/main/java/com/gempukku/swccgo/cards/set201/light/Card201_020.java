@@ -12,6 +12,7 @@ import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -19,6 +20,7 @@ import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeTargetedByWeaponsModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.Collections;
@@ -36,7 +38,7 @@ public class Card201_020 extends AbstractCombatVehicle {
     public Card201_020() {
         super(Side.LIGHT, 2, 3, 5, null, 5, 4, 5, "Dash In Rogue 12", Uniqueness.UNIQUE, ExpansionSet.SET_1, Rarity.V);
         setLore("Enclosed.");
-        setGameText("May add 1 pilot. Permanent pilot is •Dash, who provides ability of 3. Unless 'hit', your other vehicles here may not be targeted by weapons, High-Speed Tactics, or Crash Landing. Immune to attrition < 4.");
+        setGameText("May add 1 pilot. Permanent pilot is •Dash, who provides ability of 3. Unless this card 'hit', other T-47s here may not be targeted by Crash Landing, High-speed Tactics, or weapons. Immune to attrition < 4.");
         addModelType(ModelType.T_47);
         addIcons(Icon.HOTH, Icon.PILOT, Icon.VIRTUAL_SET_1);
         addKeywords(Keyword.ENCLOSED, Keyword.SNOWSPEEDER, Keyword.ROGUE_SQUADRON);
@@ -50,10 +52,12 @@ public class Card201_020 extends AbstractCombatVehicle {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        final Filter otherT47s = Filters.and(Filters.other(self), Filters.T_47, Filters.here(self));
         Condition unlessHit = new UnlessCondition(new HitCondition(self));
+
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MayNotBeTargetedByModifier(self, Filters.and(Filters.your(self), Filters.other(self), Filters.T_47, Filters.here(self)),
-                unlessHit, Filters.or(Filters.weapon, Filters.Highspeed_Tactics, Filters.Crash_Landing)));
+        modifiers.add(new MayNotBeTargetedByWeaponsModifier(self, otherT47s, unlessHit));
+        modifiers.add(new MayNotBeTargetedByModifier(self, otherT47s, unlessHit, Filters.or(Filters.Highspeed_Tactics, Filters.Crash_Landing)));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, 4));
         return modifiers;
     }
