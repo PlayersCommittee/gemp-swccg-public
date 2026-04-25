@@ -246,7 +246,11 @@ public class BattlePowerSegmentAction extends SystemQueueAction {
             final SubAction subAction = new SubAction(_action, _playerId);
 
             // Determine how many destinies to attrition only player must draw
-            final int numDraws = modifiersQuerying.getNumDestinyDrawsToAttritionOnly(gameState, _playerId, false, false);
+            int numDraws = modifiersQuerying.getNumDestinyDrawsToAttritionOnly(gameState, _playerId, false, false);
+            if (numDraws > 0 && battleState.getNumBattleDestinyDrawn(_playerId) == 0) { //unless total battle destiny exists, numDraws for attrition destinies is an unmodifiable 0
+                numDraws = 0;
+                gameState.sendMessage("Number of attrition destiny draws for " + _playerId + " reduced to 0 due to not having a total battle destiny.");
+            }
             if (numDraws > 0) {
                 if (gameState.getReserveDeckSize(_playerId) > 0) {
                     battleState.setDrewDestinyToAttrition(_playerId, true);
