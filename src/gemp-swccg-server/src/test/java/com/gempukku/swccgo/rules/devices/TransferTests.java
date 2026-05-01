@@ -18,7 +18,6 @@ public class TransferTests {
 				{{
                     put("electrobinoculars", "1_035"); //electrobinoculars
                     put("jawa", "1_012");
-                    put("jawaIonGun", "2_078");
                     put("landspeeder","1_151"); //SoroSuub V-35 Landspeeder, enclosed vehicle
                     put("boushh", "110_001"); //undercover spy
                     put("kessel","1_126");
