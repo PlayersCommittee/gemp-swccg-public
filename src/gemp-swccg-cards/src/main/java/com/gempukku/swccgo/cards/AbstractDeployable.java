@@ -2173,6 +2173,7 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
                     Filters.or(Filters.samePersonaAs(permanentWeapon), Filters.hasPermanentWeapon(Filters.samePersonaAs(permanentWeapon))))) {
                 return null;
             }
+            // TODO: should add checking for isUniquenessOnTableLimitReached here?
         }
         // Determine the target and if character is not disallowed by own game text
         PhysicalCard characterToReplace = characterInPlay.iterator().next();

@@ -4,6 +4,8 @@ import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.conditions.HasAttachedCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -36,7 +38,9 @@ public class Card4_174 extends AbstractCharacterWeapon {
         super(Side.DARK, 2, Title._4LOMs_Concussion_Rifle, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("BlasTech LJ-90. Not as accurate as the E-11 Blaster Rifle, but uses the same scope mount and has much better range. Acquired by 4-LOM after teaming up with Zuckuss.");
         setGameText("Use 4 Force to deploy on your warrior, free on 4-LOM. May target a character or creature for free at same site or exterior site up to 2 sites away. Draw destiny. Add 1 if Blaster Scope attached. If total destiny - distance to target > defense value, target hit.");
+        addPersona(Persona._4LOMS_CONCUSSION_RIFLE);
         addIcons(Icon.DAGOBAH);
+        addKeywords(Keyword.RIFLE);
         setMatchingCharacterFilter(Filters._4_LOM);
     }
 

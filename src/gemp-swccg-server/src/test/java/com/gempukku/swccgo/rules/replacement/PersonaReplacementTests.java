@@ -29,6 +29,9 @@ public class PersonaReplacementTests {
 					put("chokevader", "7_175");
                     put("palp", "9_109");
                     put("palp_forseer", "205_012");
+					put("rifle", "4_174"); //4-LOM's Concussion Rifle
+					put("eppLom", "109_006"); //4-LOM With Concussion Rifle
+					put("Lom", "4_091"); //4-LOM
 				}},
 				10,
 				10,
@@ -201,6 +204,29 @@ public class PersonaReplacementTests {
 
 		assertEquals(1,scn.GetDSLostPileCount()); //replaced vader
 		assertEquals(0,scn.GetLSLostPileCount());
+	}
+
+	@Test
+	public void PersonaReplacePreventedByPermWeaponAlreadyInPlay() {
+		//persona with a permanent weapon persona cannot persona replace if the built-in weapon is on table
+		var scn = GetScenario();
+
+		var site = scn.GetLSStartingLocation();
+
+		var eppLom = scn.GetDSCard("eppLom");
+		var Lom = scn.GetDSCard("Lom");
+		var rifle = scn.GetDSCard("rifle");
+		var trooper = scn.GetDSFiller(1);
+
+		scn.StartGame();
+
+		scn.MoveCardsToDSHand(eppLom);
+
+		scn.MoveCardsToLocation(site, Lom, trooper);
+		scn.AttachCardsTo(trooper, rifle);
+
+		scn.SkipToDSTurn(Phase.DEPLOY);
+		assertFalse(scn.DSCardPlayAvailable(eppLom, "replace"));
 	}
 
 	//other tests to add

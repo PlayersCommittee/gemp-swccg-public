@@ -232,6 +232,7 @@ public enum Persona implements Filterable {
     JABBAS_SAIL_BARGE("Jabba's Sail Barge"),
 
     // Weapons
+    _4LOMS_CONCUSSION_RIFLE("4-LOM's Concussion Rifle"),
     AHSOKAS_LIGHTSABERS("Ahsoka's Lightsabers"),
     AHSOKAS_SHOTO_LIGHTSABER("Ahsoka's Shoto Lightsaber"),
     ANAKINS_LIGHTSABER("Anakin's Lightsaber"),
