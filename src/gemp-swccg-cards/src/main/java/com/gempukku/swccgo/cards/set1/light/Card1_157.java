@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -37,6 +38,7 @@ public class Card1_157 extends AbstractCharacterWeapon {
         setLore("'An elegant weapon for a more civilized time.' Miniaturized power cell. Uses rare crystals to focus the lightblade. This lightsaber was personally built by Obi-Wan.");
         setGameText("Deploy on Obi-Wan. May add 1 to Force drain where present. May target a character or creature for free. Draw two destiny. Target hit, and its forfeit = 0, if total destiny > defense value.");
         addKeywords(Keyword.LIGHTSABER);
+        addPersona(Persona.OBIWANS_LIGHTSABER);
         setMatchingCharacterFilter(Filters.ObiWan);
     }
 

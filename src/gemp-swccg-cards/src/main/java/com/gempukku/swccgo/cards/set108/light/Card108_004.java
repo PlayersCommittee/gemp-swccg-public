@@ -42,7 +42,7 @@ public class Card108_004 extends AbstractRebel {
     // Define "Obi-Wan's Lightsaber" permanent weapon
     @Override
     protected AbstractPermanentWeapon getGameTextPermanentWeapon() {
-        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Title.Obiwans_Lightsaber, Uniqueness.UNIQUE) {
+        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Persona.OBIWANS_LIGHTSABER, Title.Obiwans_Lightsaber) {
             @Override
             public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
                 FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, this, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)

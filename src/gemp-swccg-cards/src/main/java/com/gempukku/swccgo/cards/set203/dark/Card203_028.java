@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.conditions.RepCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
@@ -57,7 +58,7 @@ public class Card203_028 extends AbstractAlien {
     // Define "Ortugg's Ax" permanent weapon
     @Override
     protected AbstractPermanentWeapon getGameTextPermanentWeapon() {
-        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Title.Ortuggs_Ax, Uniqueness.UNIQUE) {
+        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Persona.ORTUGGS_AX, Title.Ortuggs_Ax) {
             @Override
             public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
                 FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, this, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)

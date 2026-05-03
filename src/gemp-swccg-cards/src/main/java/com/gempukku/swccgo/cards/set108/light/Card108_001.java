@@ -58,7 +58,7 @@ public class Card108_001 extends AbstractRebel {
     // Define "Han's Heavy Blaster Pistol" permanent weapon
     @Override
     protected AbstractPermanentWeapon getGameTextPermanentWeapon() {
-        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Title.Hans_Heavy_Blaster_Pistol, Uniqueness.UNIQUE) {
+        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Persona.HANS_HEAVY_BLASTER_PISTOL, Title.Hans_Heavy_Blaster_Pistol) {
             @Override
             public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
                 FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, this, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)

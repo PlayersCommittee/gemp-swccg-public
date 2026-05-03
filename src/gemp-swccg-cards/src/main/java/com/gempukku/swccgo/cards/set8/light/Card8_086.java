@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.conditions.AttachedCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -42,6 +43,7 @@ public class Card8_086 extends AbstractCharacterWeapon {
         setGameText("Deploy on Chewie, or use 4 Force to deploy on your other Wookiee. May target a character, creature or vehicle using 3 Force (for free if Chewie firing). Draw two destiny. Target hit if total destiny > defense value. If hit by Chewie, target's forfeit = 0.");
         addIcons(Icon.ENDOR);
         addKeyword(Keyword.BOWCASTER);
+        addPersona(Persona.CHEWBACCAS_BOWCASTER);
         setMatchingCharacterFilter(Filters.Chewie);
     }
 

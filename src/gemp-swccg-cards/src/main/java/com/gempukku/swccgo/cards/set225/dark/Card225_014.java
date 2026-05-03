@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.conditions.OnTableCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Statistic;
@@ -52,7 +53,7 @@ public class Card225_014 extends AbstractFirstOrder {
 
     @Override
     protected AbstractPermanentWeapon getGameTextPermanentWeapon() {
-        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon("Arm Cannon", Uniqueness.UNIQUE) {
+        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Persona.ARM_CANNON, "Arm Cannon") {
             @Override
             public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
                 FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, this, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)

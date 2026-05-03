@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -39,6 +40,7 @@ public class Card4_176 extends AbstractCharacterWeapon {
         setGameText("Use 1 Force to deploy on Dengar, 3 on your warrior. May target a character, creature or vehicle using 1 Force. Draw destiny. Target hit if destiny +1 > defense value. If hit by Dengar, target's forfeit = 0.");
         addIcons(Icon.DAGOBAH);
         addKeywords(Keyword.BLASTER);
+        addPersona(Persona.DENGARS_BLASTER_CARBINE);
         setMatchingCharacterFilter(Filters.Dengar);
     }
 

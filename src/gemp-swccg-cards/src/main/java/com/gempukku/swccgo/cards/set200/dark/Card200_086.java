@@ -57,7 +57,7 @@ public class Card200_086 extends AbstractAlienImperial {
     // Define "Mara Jade's Lightsaber" permanent weapon
     @Override
     protected AbstractPermanentWeapon getGameTextPermanentWeapon() {
-        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Persona.MARA_JADES_LIGHTSABER) {
+        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Persona.MARA_JADES_LIGHTSABER, "Mara Jade's Lightsaber") {
             @Override
             public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
                 FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, this, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)

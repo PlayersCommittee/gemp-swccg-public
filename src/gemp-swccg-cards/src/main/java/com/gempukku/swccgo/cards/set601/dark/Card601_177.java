@@ -51,7 +51,7 @@ public class Card601_177 extends AbstractDroid {
     // Define "4-LOM's Concussion Rifle" permanent weapon
     @Override
     protected AbstractPermanentWeapon getGameTextPermanentWeapon() {
-        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Title._4LOMs_Concussion_Rifle, Uniqueness.UNIQUE) {
+        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Persona._4LOMS_CONCUSSION_RIFLE, Title._4LOMs_Concussion_Rifle) {
             @Override
             public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
                 FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, this, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)
@@ -65,6 +65,7 @@ public class Card601_177 extends AbstractDroid {
                 return null;
             }
         };
+        permanentWeapon.addKeyword(Keyword.RIFLE);
         return permanentWeapon;
     }
 

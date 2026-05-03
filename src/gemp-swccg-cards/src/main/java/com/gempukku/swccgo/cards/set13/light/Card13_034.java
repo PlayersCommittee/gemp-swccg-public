@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -42,6 +43,7 @@ public class Card13_034 extends AbstractCharacterWeapon {
         setGameText("Deploy on [Episode I] Obi-Wan. May add 1 to Force drain if present at a Naboo battleground. May target a character or creature for free. Draw two destiny. Add 1 if targeting a Dark Jedi. Target hit, and its forfeit = 0, if total destiny > defense value.");
         addIcons(Icon.REFLECTIONS_III, Icon.EPISODE_I);
         addKeywords(Keyword.LIGHTSABER);
+        addPersona(Persona.OBIWANS_LIGHTSABER);
         setMatchingCharacterFilter(Filters.ObiWan);
     }
 

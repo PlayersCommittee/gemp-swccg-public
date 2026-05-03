@@ -9,6 +9,7 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
@@ -47,6 +48,7 @@ public class Card205_022 extends AbstractCharacterWeapon {
         setGameText("Deploy on your non-[Maintenance] bounty hunter. If on Boba Fett, once per game, during your move phase, may use 2 Force to relocate him (with any captive he is escorting) to a [Jabba's Palace] site. May target a character or vehicle for free. Draw destiny. Target hit if destiny + 2 > defense value.");
         addIcons(Icon.CLOUD_CITY, Icon.VIRTUAL_SET_5);
         addKeywords(Keyword.BLASTER_RIFLE);
+        addPersona(Persona.BOBA_FETTS_BLASTER_RIFLE);
         setMatchingCharacterFilter(Filters.Boba_Fett);
     }
 

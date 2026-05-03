@@ -51,7 +51,7 @@ public class Card110_005 extends AbstractAlien {
     // Define "Bossk's Mortar Gun" permanent weapon
     @Override
     protected AbstractPermanentWeapon getGameTextPermanentWeapon() {
-        return new AbstractPermanentWeapon(Title.Bossks_Mortar_Gun, Uniqueness.UNIQUE) {
+        return new AbstractPermanentWeapon(Persona.BOSSKS_MORTAR_GUN, Title.Bossks_Mortar_Gun) {
             @Override
             public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
                 FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, this, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)

@@ -56,10 +56,10 @@ public class Card225_049 extends AbstractAlienRebel {
         return modifiers;
     }
 
-    // Define "Blaster Pistol" permanent weapon
+    // Define "Lando's Blaster Rifle" permanent weapon
     @Override
     protected AbstractPermanentWeapon getGameTextPermanentWeapon() {
-        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Title.Landos_Blaster_Rifle, Uniqueness.UNIQUE) {
+        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Persona.LANDOS_BLASTER_RIFLE, Title.Landos_Blaster_Rifle) {
             @Override
             public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
                 FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, this, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)
@@ -73,7 +73,7 @@ public class Card225_049 extends AbstractAlienRebel {
                 return null;
             }
         };
-        permanentWeapon.addKeyword(Keyword.BLASTER);
+        permanentWeapon.addKeyword(Keyword.BLASTER_RIFLE);
         return permanentWeapon;
     }
 

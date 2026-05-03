@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -37,6 +38,7 @@ public class Card1_154 extends AbstractCharacterWeapon {
         setLore("BlasTech DL-44 heavy pistol. Short range, but relatively powerful. Carries energy for 25 shots. Illegal or restricted on most systems.");
         setGameText("Use 1 Force to deploy on Han, or 3 on your warrior. May target a character, creature or vehicle using 1 Force. Draw destiny. Target hit if destiny +1 > defense value. If hit by Han, target's forfeit = 0.");
         addKeywords(Keyword.BLASTER);
+        addPersona(Persona.HANS_HEAVY_BLASTER_PISTOL);
         setMatchingCharacterFilter(Filters.Han);
     }
 

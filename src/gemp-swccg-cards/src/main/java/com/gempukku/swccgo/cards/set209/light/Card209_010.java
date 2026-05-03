@@ -10,6 +10,7 @@ import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Statistic;
 import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -49,7 +50,7 @@ public class Card209_010 extends AbstractResistance {
     // Define Anakin's Lightsaber permanent weapon
     @Override
     protected AbstractPermanentWeapon getGameTextPermanentWeapon() {
-        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Persona.ANAKINS_LIGHTSABER) {
+        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Persona.ANAKINS_LIGHTSABER, Title.Anakins_Lightsaber) {
             @Override
             public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit)
             {

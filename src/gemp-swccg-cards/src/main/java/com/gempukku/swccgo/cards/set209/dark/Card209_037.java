@@ -49,7 +49,7 @@ public class Card209_037 extends AbstractFirstOrder {
     // Define Kylo's Lightsaber permanent weapon
     @Override
     protected AbstractPermanentWeapon getGameTextPermanentWeapon() {
-        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Persona.KYLOS_LIGHTSABER) {
+        AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Persona.KYLOS_LIGHTSABER, "Kylo's Lightsaber") {
             @Override
             public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit)
             {

@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -41,6 +42,7 @@ public class Card5_179 extends AbstractCharacterWeapon {
         setGameText("Use 1 Force to deploy on Boba Fett, or 3 on your other bounty hunter. May deploy as a 'react.' May target a character, creature or vehicle using 2 Force. Draw destiny. Add 1 if targeting a vehicle. Target hit if total destiny > defense value. May fire repeatedly for 1 Force each time.");
         addIcons(Icon.CLOUD_CITY);
         addKeywords(Keyword.BLASTER_RIFLE);
+        addPersona(Persona.BOBA_FETTS_BLASTER_RIFLE);
         setMatchingCharacterFilter(Filters.Boba_Fett);
     }
 

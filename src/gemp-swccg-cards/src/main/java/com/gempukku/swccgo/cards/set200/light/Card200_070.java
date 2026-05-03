@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
@@ -45,6 +46,7 @@ public class Card200_070 extends AbstractCharacterWeapon {
         setLore("BlasTech DL-44 heavy pistol. Short range, but relatively powerful. Carries energy for 25 shots. Illegal or restricted on most systems.");
         setGameText("Deploy on Han. Battles may not be canceled at same site. Greedo's game text is canceled here. May target a character. Draw destiny. Target hit, and its forfeit = 0, if destiny +2 > defense value. Once per game, if on Han, may fire during your control phase.");
         addKeywords(Keyword.BLASTER);
+        addPersona(Persona.HANS_HEAVY_BLASTER_PISTOL);
         setMatchingCharacterFilter(Filters.or(Filters.Han, Filters.Greedo));
         addIcons(Icon.VIRTUAL_SET_0);
     }

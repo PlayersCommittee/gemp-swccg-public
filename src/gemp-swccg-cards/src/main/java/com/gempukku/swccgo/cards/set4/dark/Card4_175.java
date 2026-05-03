@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set4.dark;
 import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -34,6 +35,7 @@ public class Card4_175 extends AbstractCharacterWeapon {
         setLore("Relby-v10 micro grenade launcher. Modified version of the limited range CSPL 'Caspel' Projectile Launcher. Blows lots of stuff up.");
         setGameText("Use 2 Force to deploy on Bossk, 4 on any other warrior. May fire using 2 Force. Draw destiny. If destiny > 0, one card with that destiny number at same site is lost (your choice). If destiny = 0, mortar gun explodes and warrior firing it is lost.");
         addIcons(Icon.DAGOBAH);
+        addPersona(Persona.BOSSKS_MORTAR_GUN);
         setMatchingCharacterFilter(Filters.Bossk);
     }
 
