@@ -48,7 +48,7 @@ public class Card221_062 extends AbstractSystem {
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new PowerModifier(self, Filters.and(Filters.your(playerOnLightSideOfLocation), Icon.CLONE_ARMY, Filters.starship, Filters.here(self)), 1));
-        modifiers.add(new MayMoveOtherCardsAsReactToLocationModifier(self, "Move starship as a react", playerOnLightSideOfLocation, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.starship, Filters.at(Filters.nearestRelatedAsteroidSector(self))), Filters.any));
+        modifiers.add(new MayMoveOtherCardsAsReactToLocationModifier(self, "Move starship as a react", playerOnLightSideOfLocation, Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.starship, Filters.at(Filters.nearestRelatedAsteroidSector(self))), Filters.here(self)));
         return modifiers;
     }
 }

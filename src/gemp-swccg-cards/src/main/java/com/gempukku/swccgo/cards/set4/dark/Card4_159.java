@@ -12,9 +12,8 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.modifiers.MayDeployAsReactToLocationModifier;
-import com.gempukku.swccgo.logic.modifiers.MayMoveAsReactFromLocationModifier;
-import com.gempukku.swccgo.logic.modifiers.MayMoveAsReactToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployOtherCardsAsReactToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayMoveOtherCardsAsReactToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
@@ -41,15 +40,15 @@ public class Card4_159 extends AbstractUniqueStarshipSite {
                 Filters.or(Filters.Tarkin, Filters.Piett, Filters.admiral));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MayDeployAsReactToLocationModifier(self, occupyWithTarkinPiettOrAnyAdmiral, Filters.sameSystemAs(self, Filters.Executor), 0));
-        modifiers.add(new MayMoveAsReactToLocationModifier(self, occupyWithTarkinPiettOrAnyAdmiral, Filters.sameSystemAs(self, Filters.Executor), 0));
+        modifiers.add(new MayDeployOtherCardsAsReactToLocationModifier(self, "Deploy starship as a 'react'", occupyWithTarkinPiettOrAnyAdmiral, playerOnDarkSideOfLocation, Filters.and(Filters.your(playerOnDarkSideOfLocation), Filters.starship), Filters.sameSystemAs(self, Filters.Executor)));
+        modifiers.add(new MayMoveOtherCardsAsReactToLocationModifier(self, "Move starship as a 'react'", occupyWithTarkinPiettOrAnyAdmiral, playerOnDarkSideOfLocation, Filters.and(Filters.your(playerOnDarkSideOfLocation), Filters.starship), Filters.sameSystemAs(self, Filters.Executor)));
         return modifiers;
     }
 
     @Override
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MayMoveAsReactFromLocationModifier(self, new ControlsCondition(playerOnLightSideOfLocation, self), Filters.sameSystemAs(self, Filters.Executor), 0));
+        modifiers.add(new MayMoveOtherCardsAsReactToLocationModifier(self, "Move starship as a 'react'", new ControlsCondition(playerOnLightSideOfLocation, self), playerOnLightSideOfLocation, Filters.and(Filters.starship, Filters.your(playerOnLightSideOfLocation), Filters.at(Filters.system), Filters.with(self, Filters.Executor)), Filters.any));
         return modifiers;
     }
 }
