@@ -38,7 +38,7 @@ public class Card225_032 extends AbstractObjective {
     public Card225_032() {
         super(Side.DARK, 0, "The First Order Reigns", ExpansionSet.SET_25, Rarity.V);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy Crait and D'Qar systems, a Crait (or Supremacy) battleground site, and Tracked Fleet. For remainder of game, you may not deploy cards with ability except [Episode VII] cards. Supremacy is deploy = 7 to [Episode VII] systems. Once per turn, may [download] a card with 'Supremacy' in title or an [Episode VII] battleground. While this side up, neither player loses more than 1 Force to Force drains at systems (unless Tracked Fleet there). Flip this card if Tracked Fleet is 'annihilated.'");
+        setGameText("Deploy Crait and D'Qar systems, Salt Plateau, and Tracked Fleet. For remainder of game, you may not deploy Bow To The First Order or cards with ability except [Episode VII] cards. Once per turn, may [download] a card with 'Supremacy' in title or an [Episode VII] battleground. While this side up, opponent loses no more than 1 Force to your Force drains at systems. Supremacy is deploy = 7 to [Episode VII] systems. Flip this card if Tracked Fleet is 'annihilated.'");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_25);
     }
 
@@ -60,10 +60,10 @@ public class Card225_032 extends AbstractObjective {
                         }
                 });
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.and(Filters.or(Filters.Crait_site, Filters.Supremacy_site), Filters.battleground), true, false) {
+                new DeployCardFromReserveDeckEffect(action, Filters.Crait_Salt_Plateau, true, false) {
                         @Override
                         public String getChoiceText() {
-                        return "Choose Crait (or Supremacy) battleground site to deploy";
+                        return "Choose Salt Plateau to deploy";
                         }
                 });
         action.appendRequiredEffect(
@@ -79,13 +79,10 @@ public class Card225_032 extends AbstractObjective {
     @Override
     protected RequiredGameTextTriggerAction getGameTextAfterDeploymentCompletedAction(String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-        Filter mayNotDeployRestrictionFilter = Filters.and(Filters.your(self), Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Icon.EPISODE_VII));
+        Filter yourCardsWithAbilityExceptEpisodeVII = Filters.and(Filters.your(self), Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Icon.EPISODE_VII));
         action.appendEffect(
                 new AddUntilEndOfGameModifierEffect(action,
-                        new MayNotDeployModifier(self, mayNotDeployRestrictionFilter, playerId), null));
-        action.appendEffect(
-                new AddUntilEndOfGameModifierEffect(action,
-                        new ResetDeployCostToLocationModifier(self, Filters.Supremacy, 7, Filters.and(Icon.EPISODE_VII, Filters.system)), null));
+                        new MayNotDeployModifier(self, Filters.or(Filters.Bow_To_The_First_Order, yourCardsWithAbilityExceptEpisodeVII), playerId), null));
         return action;
     }
 
@@ -118,8 +115,8 @@ public class Card225_032 extends AbstractObjective {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         String playerId = self.getOwner();
         String opponent = game.getOpponent(playerId);
-        modifiers.add(new LimitForceLossFromForceDrainModifier(self, Filters.and(Filters.system, Filters.not(Filters.hasAttached(Filters.Tracked_Fleet))), 1, playerId));
-        modifiers.add(new LimitForceLossFromForceDrainModifier(self, Filters.and(Filters.system, Filters.not(Filters.hasAttached(Filters.Tracked_Fleet))), 1, opponent));
+        modifiers.add(new LimitForceLossFromForceDrainModifier(self, Filters.system, 1, opponent));
+        modifiers.add(new ResetDeployCostToLocationModifier(self, Filters.Supremacy, 7, Filters.and(Icon.EPISODE_VII, Filters.system)));
         return modifiers;
     }
 

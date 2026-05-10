@@ -27,6 +27,7 @@ import com.gempukku.swccgo.logic.effects.BlowAwayEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.choose.StackOneCardFromLostPileEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.MovesFreeToLocationModifier;
@@ -46,7 +47,7 @@ import java.util.List;
 public class Card225_034 extends AbstractEpicEventDeployable {
     public Card225_034() {
         super(Side.DARK, PlayCardZoneOption.ATTACHED, Title.Tracked_Fleet, Uniqueness.UNIQUE, ExpansionSet.SET_25, Rarity.V);
-        setGameText("Deploy on D'Qar system (only at start of game). Tied To The End Of A String: You may not deploy starships here. Supremacy moves to here for free. There Will Be No Surrender: Three times per game, at start of opponent's move phase, opponent may stack a card from hand face down on this card to relocate it to an [Episode VII] system within 3 parsecs. Fire At Will!: At the start of your turn, if you control this system, Tracked Fleet is 'annihilated' (placed out of play).");
+        setGameText("Deploy on D'Qar system (only at start of game). Tied To The End Of A String: You may not deploy starships here. Supremacy moves to here for free. There Will Be No Surrender: Three times per game, at start of opponent's move phase, opponent may stack a card from hand (or from top of Lost Pile) face down on this card to relocate it to an [Episode VII] system within 3 parsecs. Fire At Will!: At the start of your turn, if you control this system, Tracked Fleet is 'annihilated' (placed out of play).");
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_25);
     }
 
@@ -93,6 +94,7 @@ public class Card225_034 extends AbstractEpicEventDeployable {
 
     @Override
     protected List<OptionalGameTextTriggerAction> getOpponentsCardGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        List<OptionalGameTextTriggerAction> actions = new LinkedList<>();
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
         Filter systemToRelocateTo = Filters.and(Icon.EPISODE_VII, Filters.system, Filters.withinParsecsOf(self, 3), Filters.not(Filters.here(self)));
 
@@ -100,36 +102,70 @@ public class Card225_034 extends AbstractEpicEventDeployable {
         if (TriggerConditions.isStartOfYourPhase(game, effectResult, Phase.MOVE, playerId)
                 && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.MOVE)
                 && GameConditions.canSpotLocation(game, systemToRelocateTo)
-                && !(GameConditions.hasStackedCards(game, self, 3))
-                && GameConditions.hasHand(game, playerId)) {
+                && !(GameConditions.hasStackedCards(game, self, 3))) {
 
-                final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-                action.setText("Relocate Tracked Fleet");
-                // Choose target(s)
-                action.appendUsage(new OncePerPhaseEffect(action));
-                action.appendTargeting(
-                        new ChooseCardOnTableEffect(action, playerId, "Choose system to relocate " + GameUtils.getCardLink(self) + " to", systemToRelocateTo) {
-                            @Override
-                            protected void cardSelected(final PhysicalCard systemSelected) {
-                                action.addAnimationGroup(self);
-                                action.addAnimationGroup(systemSelected);
-                                // Pay cost(s)
-                                action.appendCost(
-                                        new StackCardFromHandEffect(action, playerId, self, true));
-                                // Allow response(s)
-                                action.allowResponses("Relocate " + GameUtils.getCardLink(self) + " to " + GameUtils.getCardLink(systemSelected),
-                                        new UnrespondableEffect(action) {
-                                            @Override
-                                            protected void performActionResults(Action action) {
-                                                // Perform result(s)
-                                                action.appendEffect(
-                                                        new AttachCardFromTableEffect(action, self, systemSelected));
-                                            }
-                                        });
-                            }
-                        });
-                return Collections.singletonList(action);
+                //Stack card from hand action
+                if (GameConditions.hasHand(game, playerId)) {
+                    final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+                    action.setText("Stack card from hand");
+                    // Choose target(s)
+                    action.appendUsage(new OncePerPhaseEffect(action));
+                    action.appendTargeting(
+                            new ChooseCardOnTableEffect(action, playerId, "Choose system to relocate " + GameUtils.getCardLink(self) + " to", systemToRelocateTo) {
+                                @Override
+                                protected void cardSelected(final PhysicalCard systemSelected) {
+                                    action.addAnimationGroup(self);
+                                    action.addAnimationGroup(systemSelected);
+                                    // Pay cost(s)
+                                    action.appendCost(
+                                            new StackCardFromHandEffect(action, playerId, self, true));
+                                    // Allow response(s)
+                                    action.allowResponses("Relocate " + GameUtils.getCardLink(self) + " to " + GameUtils.getCardLink(systemSelected),
+                                            new UnrespondableEffect(action) {
+                                                @Override
+                                                protected void performActionResults(Action action) {
+                                                    // Perform result(s)
+                                                    action.appendEffect(
+                                                            new AttachCardFromTableEffect(action, self, systemSelected));
+                                                }
+                                            });
+                                }
+                            });
+                    actions.add(action);
+                }
+
+                //Stack card from Lost Pile action. Intentionally shared gameTextActionId so player can only use one, not both
+                if (GameConditions.hasLostPile(game, playerId)) {
+                    final OptionalGameTextTriggerAction action2 = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+                    action2.setText("Stack card from Lost Pile");
+                    // Choose target(s)
+                    action2.appendUsage(new OncePerPhaseEffect(action2));
+                    action2.appendTargeting(
+                            new ChooseCardOnTableEffect(action2, playerId, "Choose system to relocate " + GameUtils.getCardLink(self) + " to", systemToRelocateTo) {
+                                @Override
+                                protected void cardSelected(final PhysicalCard systemSelected) {
+                                    action2.addAnimationGroup(self);
+                                    action2.addAnimationGroup(systemSelected);
+                                    // Pay cost(s)
+                                    final PhysicalCard topCardOfLostPile = game.getGameState().getTopOfLostPile(playerId);
+                                    action2.appendCost(
+                                            new StackOneCardFromLostPileEffect(action2, topCardOfLostPile, self, true, false, false)
+                                    );
+                                    // Allow response(s)
+                                    action2.allowResponses("Relocate " + GameUtils.getCardLink(self) + " to " + GameUtils.getCardLink(systemSelected),
+                                            new UnrespondableEffect(action2) {
+                                                @Override
+                                                protected void performActionResults(Action action2) {
+                                                    // Perform result(s)
+                                                    action2.appendEffect(
+                                                            new AttachCardFromTableEffect(action2, self, systemSelected));
+                                                }
+                                            });
+                                }
+                            });
+                    actions.add(action2);
+                }
         }
-        return null;
+        return actions;
     }
 }
