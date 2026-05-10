@@ -241,7 +241,7 @@ public class HallServer extends AbstractServer {
      * @return If table created, otherwise <code>false</code> (if the user already
      *         is sitting at a table or playing).
      */
-    public void createNewTable(String type, Player player, String deckName, boolean sampleDeck, String tableDesc,
+    public AwaitingTable createNewTable(String type, Player player, String deckName, boolean sampleDeck, String tableDesc,
             boolean isPrivate, Player librarian, boolean playVsAi, String aiSkill, String aiDeckName, boolean aiDeckSample)
             throws HallException {
         if (_shutdown)
@@ -282,6 +282,11 @@ public class HallServer extends AbstractServer {
             verifyNotExceedingMaxTables(player, true);
 
             SwccgDeck swccgDeck = validateUserAndDeck(format, player, deckName, collectionType, sampleDeck, librarian);
+
+            // Lock-in league: replace deck with locked version if one exists
+            if (league != null) {
+                swccgDeck = applyDeckLockIn(league, player.getName(), swccgDeck);
+            }
 
             Side side = swccgDeck.getSide(_library);
 
@@ -348,6 +353,8 @@ public class HallServer extends AbstractServer {
 
             joinTableInternal(tableId, player.getName(), table, swccgDeck);
             hallChanged();
+
+            return table;
         } finally {
             _hallDataAccessLock.writeLock().unlock();
         }
@@ -572,6 +579,11 @@ public class HallServer extends AbstractServer {
 
             SwccgDeck swccgDeck = validateUserAndDeck(awaitingTable.getSwccgoFormat(), player, deckName,
                     awaitingTable.getCollectionType(), sampleDeck, librarian);
+
+            // Lock-in league: replace deck with locked version if one exists
+            if (awaitingTable.getLeague() != null) {
+                swccgDeck = applyDeckLockIn(awaitingTable.getLeague(), player.getName(), swccgDeck);
+            }
 
             joinTableInternal(tableId, player.getName(), awaitingTable, swccgDeck);
 
@@ -1013,10 +1025,27 @@ public class HallServer extends AbstractServer {
         return tournamentName;
     }
 
+    /**
+     * For each participant in a lock-in league, snapshot their deck if they
+     * don't already have one locked for that side.
+     */
+    private void snapshotDecksForLockIn(League league, Set<SwccgGameParticipant> participants) {
+        if (league == null || league.getLockedDeckType() == null)
+            return;
+
+        for (SwccgGameParticipant participant : participants) {
+            SwccgDeck deck = participant.getDeck();
+            Side side = deck.getSide(_library);
+            _leagueService.lockDeckIfNeeded(league, participant.getPlayerId(), side, deck);
+        }
+    }
+
     private void createGameFromAwaitingTable(String tableId, AwaitingTable awaitingTable) {
         Set<SwccgGameParticipant> players = awaitingTable.getPlayers();
         SwccgGameParticipant[] participants = players.toArray(new SwccgGameParticipant[players.size()]);
         final League league = awaitingTable.getLeague();
+        // Lock-in league: snapshot decks for any player who hasn't been locked yet
+        snapshotDecksForLockIn(league, players);
         final LeagueSeriesData leagueSerie = awaitingTable.getLeagueSeries();
 
         GameResultListener listener = null;
@@ -1140,6 +1169,28 @@ public class HallServer extends AbstractServer {
             hallChanged();
         }
     }
+
+    /**
+     * If the league has deck lock-in enabled and the player already has a locked
+     * deck for the given side, return the locked deck. Otherwise return the original.
+     */
+    private SwccgDeck applyDeckLockIn(League league, String playerName, SwccgDeck originalDeck) {
+        if (league == null || league.getLockedDeckType() == null)
+            return originalDeck;
+
+        Side side = originalDeck.getSide(_library);
+        SwccgDeck lockedDeck = _leagueService.getLockedDeck(league, playerName, side);
+        if (lockedDeck != null) {
+            // TODO: Surface notification to player that their deck was replaced.
+            // Something like a hall message: "Your deck was replaced by locked deck: " + lockedDeck.getDeckName()
+            System.out.println("Lock-in league: Replacing " + playerName + "'s deck '"
+                    + originalDeck.getDeckName() + "' with locked deck '" + lockedDeck.getDeckName() + "'");
+            return lockedDeck;
+        }
+        return originalDeck;
+    }
+
+
 
     private void joinTableInternal(String tableId, String player, AwaitingTable awaitingTable, SwccgDeck swccgDeck)
             throws HallException {

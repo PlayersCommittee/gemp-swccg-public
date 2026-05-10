@@ -1203,10 +1203,10 @@ var GempSwccgCommunication = Class.extend({
     },
 
 
-    previewConstructedLeague:function (name, cost, start, collectionType,  
-                              allowTimeExtensions, allowSpectators, showPlayerNames, 
-                              invitationOnly, registrationInfo, decisionTimeoutSeconds, 
-                              timePerPlayerMinutes, formats, serieDurations, maxMatches,
+    previewConstructedLeague:function (name, cost, start, collectionType,
+                              allowTimeExtensions, allowSpectators, showPlayerNames,
+                              invitationOnly, registrationInfo, decisionTimeoutSeconds,
+                              timePerPlayerMinutes, lockedDeckType, formats, serieDurations, maxMatches,
                               callback, errorMap) {
         $.ajax({
             type:"POST",
@@ -1225,6 +1225,7 @@ var GempSwccgCommunication = Class.extend({
                 registrationInfo:registrationInfo,
                 decisionTimeoutSeconds:decisionTimeoutSeconds,
                 timePerPlayerMinutes:timePerPlayerMinutes,
+                lockedDeckType:lockedDeckType,
                 formats:formats,
                 serieDurations:serieDurations,
                 maxMatches:maxMatches
@@ -1234,11 +1235,11 @@ var GempSwccgCommunication = Class.extend({
             dataType:"xml"
         });
     },
-    
-    addConstructedLeague:function (name, cost, start, collectionType,  
-                              allowTimeExtensions, allowSpectators, showPlayerNames, 
-                              invitationOnly, registrationInfo, decisionTimeoutSeconds, 
-                              timePerPlayerMinutes, formats, serieDurations, maxMatches,
+
+    addConstructedLeague:function (name, cost, start, collectionType,
+                              allowTimeExtensions, allowSpectators, showPlayerNames,
+                              invitationOnly, registrationInfo, decisionTimeoutSeconds,
+                              timePerPlayerMinutes, lockedDeckType, formats, serieDurations, maxMatches,
                               callback, errorMap) {
         $.ajax({
             type:"POST",
@@ -1257,6 +1258,7 @@ var GempSwccgCommunication = Class.extend({
                 registrationInfo:registrationInfo,
                 decisionTimeoutSeconds:decisionTimeoutSeconds,
                 timePerPlayerMinutes:timePerPlayerMinutes,
+                lockedDeckType:lockedDeckType,
                 formats:formats,
                 serieDurations:serieDurations,
                 maxMatches:maxMatches

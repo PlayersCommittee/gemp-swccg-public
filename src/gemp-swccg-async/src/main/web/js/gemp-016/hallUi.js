@@ -109,7 +109,19 @@ var GempSwccgHallUI = Class.extend({
                 if (deck != null) {
                     $(that.createTableButton).button("disable");
                     that.comm.createTable(format, deck, sampleDeck, tableDesc, isPrivate, playVsAi, aiSkill, aiDeckName, aiDeckSample, function (xml) {
-                        that.processResponse(xml);
+                        if (xml != null) {
+                            var root = xml.documentElement;
+                            if (root.tagName == "error") {
+                                var message = root.getAttribute("message");
+                                that.chat.appendMessage(message, "warningMessage");
+                            }
+                            else if (root.tagName == "response") {
+                                var message = root.getAttribute("message");
+                                that.chat.appendMessage(message, "warningMessage");
+                                that.showDialog("Info", message, 320);
+                            }
+                        }
+                        
                         // Re-enable the button after a short delay to prevent accidental double-clicks
                         setTimeout(function() {
                             $(that.createTableButton).button("enable");
@@ -473,6 +485,27 @@ var GempSwccgHallUI = Class.extend({
             buttons: buttons
         }).text(text);
     },
+    
+    showDialog:function(title, text, height) {
+        if(height == null)
+            height = 200
+        var dialog = $("<div></div>").dialog({
+            title: title,
+            resizable: true,
+            height: height,
+            modal: true,
+            closeOnEscape: true,
+            buttons: [
+                {
+                    text: "OK",
+                    click: function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+            ],
+            closeText: ''
+        }).html(text);  
+    },
 
     updateDecks:function () {
         var that = this;
@@ -548,7 +581,7 @@ var GempSwccgHallUI = Class.extend({
         }
     },
 
-       getSelectedDeckSide:function() {
+    getSelectedDeckSide:function() {
 
         var opt = this.decksSelect.find(":selected");
         if (opt == null || opt.length == 0)

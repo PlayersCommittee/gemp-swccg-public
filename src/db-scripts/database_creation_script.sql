@@ -128,6 +128,7 @@ CREATE  TABLE IF NOT EXISTS `gemp-swccg`.`league` (
   `decisionTimeoutSeconds` INT(11) DEFAULT 300 ,
   `timePerPlayerMinutes` INT(11) DEFAULT 50 ,
   `invitationOnly` BIT DEFAULT 0,
+  `lockedDeckType` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_bin' DEFAULT NULL,
   `registrationInfo` TEXT,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
@@ -162,6 +163,10 @@ CREATE  TABLE IF NOT EXISTS `gemp-swccg`.`league_participation` (
   `league_type` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL ,
   `player_name` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL ,
   `join_ip` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
+  `locked_ls_deck_name` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL ,
+  `locked_ls_deck` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL ,
+  `locked_ds_deck_name` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL ,
+  `locked_ds_deck` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `league_participation_league_type` (`league_type`) )
 ENGINE = InnoDB

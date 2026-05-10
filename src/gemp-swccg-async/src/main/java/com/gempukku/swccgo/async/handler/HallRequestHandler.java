@@ -46,6 +46,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -328,7 +329,7 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
             String tableDesc = getFormParameterSafely(postDecoder, "tableDesc");
 
             //if the private games doesn't have anything in the description they can't create the game
-            if(isPrivate&&tableDesc.length()==0) {
+            if(isPrivate && tableDesc.isEmpty()) {
                 responseWriter.writeXmlResponse(marshalException(new HallException("Private games must have your intended opponent in the description")));
                 return;
             }
@@ -339,7 +340,45 @@ public class HallRequestHandler extends SwccgoServerRequestHandler implements Ur
             Player librarian = (sampleDeck || playVsAi) ? getLibrarian() : null;
             
             try {
-                _hallServer.createNewTable(format, resourceOwner, deckName, sampleDeck, tableDesc, isPrivate, librarian, playVsAi, aiSkill, aiDeckName, aiDeckSample);
+                var table = _hallServer.createNewTable(format, resourceOwner, deckName, sampleDeck, tableDesc, isPrivate, librarian, playVsAi, aiSkill, aiDeckName, aiDeckSample);
+
+                // If this is a league that locks in the first deck used, then we will warn the player if
+                // A: they haven't locked in so that they can be aware that this will lock in, or
+                // B: their deck has been overwritten by a previously-locked-in deck
+                var league = _leagueService.getLeagueByType(format);
+                if(league != null && league.getLockedDeckType() != null) {
+                    String message = "";
+                    //We just created this empty league table so we know there's only 1 participant, this player
+                    var player = table.getPlayers().stream().findFirst().get();
+                    var deck = player.getDeck();
+                    var side = deck.getSide(_library);
+
+                    var lockedDeck = _leagueService.getLockedDeck(league, resourceOwner.getName(), side);
+
+                    if(lockedDeck == null) {
+                        message = league.getName() + " is a lock-in league.  Once a player joins this table, you will be locked in to using the '"
+                                + StringEscapeUtils.escapeHtml3(deck.getDeckName()) + "' deck for " + side + " Side for the rest of the league."
+                                + "<br/><br/>If this is not the deck you wish to use for the rest of the league, leave this table and recreate it with the correct one.";
+                    }
+                    else {
+                        message = "Your deck was automatically replaced with your previously locked-in deck '"
+                                + StringEscapeUtils.escapeHtml3(lockedDeck.getDeckName()) + "' for " + side
+                                + " Side, because " + league.getName() + " is a lock-in league. "
+                                + "<a target='_blank' href='/gemp-swccg-server/league/deck/html?leagueType="
+                                + league.getType() + "'>Review your locked-in decks here.</a>";
+                    }
+
+                    var documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+                    var doc = documentBuilder.newDocument();
+
+                    Element response = doc.createElement("response");
+                    response.setAttribute("message", message);
+                    doc.appendChild(response);
+                    responseWriter.writeXmlResponse(doc);
+
+                    return;
+                }
+
                 responseWriter.writeXmlResponse(null);
             } catch (HallException e) {
                 responseWriter.writeXmlResponse(marshalException(e));

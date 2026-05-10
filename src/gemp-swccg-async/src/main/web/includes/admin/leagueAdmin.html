@@ -48,6 +48,7 @@
 			var registrationInfo = league.getAttribute("registrationInfo");
 			var decisionTimeoutSeconds = league.getAttribute("decisionTimeoutSeconds");
 			var timePerPlayerMinutes = league.getAttribute("timePerPlayerMinutes");
+			var lockedDeckType = league.getAttribute("lockedDeckType");
 
 			previewDialog.append("<div class='leagueName'>" + leagueName + "</div>");
 
@@ -87,6 +88,10 @@
 			}
 			else {
 				previewDialog.append("Anonymous tables. ");
+			}
+
+			if(lockedDeckType === "when_first_played") {
+				previewDialog.append("<b>Decks locked after first game.</b> ");
 			}
 			
 			previewDialog.append("</div>");
@@ -353,6 +358,7 @@
                 data.registrationInfo[0],
                 data.decisionTimeoutSeconds[0],
                 data.timePerPlayerMinutes[0],
+                data.lockedDeckType[0],
                 //Per-serie data sends the full array
                 data.format,
                 data.serieDuration,
@@ -386,6 +392,7 @@
                 data.registrationInfo[0],
                 data.decisionTimeoutSeconds[0],
                 data.timePerPlayerMinutes[0],
+                data.lockedDeckType[0],
                 //Per-serie data sends the full array
                 data.format,
                 data.serieDuration,
@@ -495,6 +502,11 @@
 			Allow Spectators <input type="checkbox" name="allowSpectators" checked><br/>
 			Show Player Names in Hall <input type="checkbox" name="showPlayerNames"><br/>
 			Invite only: <input type="checkbox" name="invitationOnly"><br/>
+			Deck lock-in:
+			<select name="lockedDeckType">
+				<option value="">No deck locking</option>
+				<option value="when_first_played">Lock decks after first game</option>
+			</select><br/>
 			Registration info link: <input type="text" name="registrationInfo"><br/>
 			Decision Timeout (seconds) <input type="number" name="decisionTimeoutSeconds" min="1" value=300 style="min-width: 4em"><br/>
 			Time Per Player (minutes) <input type="number" name="timePerPlayerMinutes" min="1" value=50 style="min-width: 4em"><br/>

@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.league;
 
 import com.gempukku.swccgo.cache.Cached;
+import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.db.LeagueParticipationDAO;
 import com.gempukku.swccgo.game.Player;
 import org.apache.commons.collections4.map.LRUMap;
@@ -53,6 +54,23 @@ public class CachedLeagueParticipationDAO implements LeagueParticipationDAO, Cac
         } finally {
             _readWriteLock.readLock().unlock();
         }
+    }
+
+    /**
+     * Pass-through to DB. Locked deck operations are infrequent and
+     * not worth caching at this layer.
+     */
+    @Override
+    public String[] getLockedDeck(String leagueId, String playerName, Side side) {
+        return _leagueParticipationDAO.getLockedDeck(leagueId, playerName, side);
+    }
+
+    /**
+     * Pass-through to DB.
+     */
+    @Override
+    public void setLockedDeck(String leagueId, String playerName, Side side, String deckName, String deckContents) {
+        _leagueParticipationDAO.setLockedDeck(leagueId, playerName, side, deckName, deckContents);
     }
 
     private Collection<String> getLeagueParticipantsInWriteLock(String leagueId) {

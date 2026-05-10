@@ -5,6 +5,7 @@ import com.gempukku.swccgo.collection.CollectionsManager;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.competitive.PlayerStanding;
 import com.gempukku.swccgo.competitive.StandingsProducer;
+import com.gempukku.swccgo.db.DeckSerialization;
 import com.gempukku.swccgo.db.LeagueDAO;
 import com.gempukku.swccgo.db.LeagueMatchDAO;
 import com.gempukku.swccgo.db.LeagueParticipationDAO;
@@ -15,6 +16,7 @@ import com.gempukku.swccgo.draft2.SoloDraftDefinitions;
 import com.gempukku.swccgo.game.CardCollection;
 import com.gempukku.swccgo.game.Player;
 import com.gempukku.swccgo.game.SwccgCardBlueprintLibrary;
+import com.gempukku.swccgo.logic.vo.SwccgDeck;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -273,6 +275,44 @@ public class LeagueService {
                 return false;
             }
         }
+        return true;
+    }
+
+    // ---- Deck Lock-In Methods ----
+
+    private static String sideToDbKey(Side side) {
+        return side == Side.LIGHT ? "ls" : "ds";
+    }
+
+    /**
+     * Returns the locked deck for a player in a league for the given side,
+     * or null if no deck has been locked yet.
+     */
+    public synchronized SwccgDeck getLockedDeck(League league, String playerName, Side side) {
+        if (league.getLockedDeckType() == null)
+            return null;
+
+        String[] locked = _leagueParticipationDAO.getLockedDeck(league.getType(), playerName, side);
+        if (locked == null)
+            return null;
+
+        return DeckSerialization.buildDeckFromContents(locked[0], locked[1], _library);
+    }
+
+    /**
+     * If the league has deck lock-in enabled and the player does not yet have
+     * a locked deck for the given side, snapshot and store the deck.
+     */
+    public synchronized boolean lockDeckIfNeeded(League league, String playerName, Side side, SwccgDeck deck) {
+        if (league.getLockedDeckType() == null)
+            return false;
+
+        String[] existing = _leagueParticipationDAO.getLockedDeck(league.getType(), playerName, side);
+        if (existing != null)
+            return false; // Already locked
+
+        String contents = DeckSerialization.buildContentsFromDeck(deck);
+        _leagueParticipationDAO.setLockedDeck(league.getType(), playerName, side, deck.getDeckName(), contents);
         return true;
     }
 }

@@ -3,19 +3,25 @@ package com.gempukku.swccgo.async.handler;
 import com.gempukku.swccgo.DateUtils;
 import com.gempukku.swccgo.async.HttpProcessingException;
 import com.gempukku.swccgo.async.ResponseWriter;
+import com.gempukku.swccgo.collection.DeckRenderer;
+import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.competitive.PlayerStanding;
 import com.gempukku.swccgo.draft2.SoloDraftDefinitions;
 import com.gempukku.swccgo.db.vo.League;
 import com.gempukku.swccgo.db.vo.LeagueMatchResult;
-import com.gempukku.swccgo.game.Player;
+import com.gempukku.swccgo.game.*;
 import com.gempukku.swccgo.game.formats.SwccgoFormatLibrary;
 import com.gempukku.swccgo.league.LeagueData;
 import com.gempukku.swccgo.league.LeagueSeriesData;
 import com.gempukku.swccgo.league.LeagueService;
+import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.vo.SwccgDeck;
+import com.gempukku.swccgo.tournament.Tournament;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
+import org.apache.commons.text.StringEscapeUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -30,20 +36,30 @@ import java.util.Map;
 public class LeagueRequestHandler extends SwccgoServerRequestHandler implements UriRequestHandler {
     private final SoloDraftDefinitions _soloDraftDefinitions;
     private LeagueService _leagueService;
+    private final SwccgCardBlueprintLibrary _bpLibrary;
     private SwccgoFormatLibrary _formatLibrary;
+    private final SortAndFilterCards _sortAndFilterCards;
+    private final DeckRenderer _deckRenderer;
 
     public LeagueRequestHandler(Map<Type, Object> context) {
         super(context);
 
         _leagueService = extractObject(context, LeagueService.class);
+        _bpLibrary = extractObject(context, SwccgCardBlueprintLibrary.class);
         _formatLibrary = extractObject(context, SwccgoFormatLibrary.class);
+        _sortAndFilterCards = new SortAndFilterCards();
+
         _soloDraftDefinitions = extractObject(context, SoloDraftDefinitions.class);
+
+        _deckRenderer = new DeckRenderer(_bpLibrary, _formatLibrary, _sortAndFilterCards);
     }
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, String remoteIp) throws Exception {
         if ("".equals(uri) && request.getMethod() == HttpMethod.GET) {
             getNonExpiredLeagues(request, responseWriter);
+        } else if (uri.startsWith("/deck") && uri.endsWith("/html") && request.method() == HttpMethod.GET) {
+            getAutoLockedLeagueDeck(request, responseWriter);
         } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
             getLeagueInformation(request, uri.substring(1), responseWriter);
         } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
@@ -116,6 +132,7 @@ public class LeagueRequestHandler extends SwccgoServerRequestHandler implements 
         leagueElem.setAttribute("showPlayerNames", String.valueOf(league.getShowPlayerNames()));
         leagueElem.setAttribute("decisionTimeoutSeconds", String.valueOf(league.getDecisionTimeoutSeconds()));
         leagueElem.setAttribute("timePerPlayerMinutes", String.valueOf(league.getTimePerPlayerMinutes()));
+        leagueElem.setAttribute("lockedDeckType", league.getLockedDeckType() == null ? "" : league.getLockedDeckType().getCode());
 
         for (LeagueSeriesData serie : series) {
             Element serieElem = doc.createElement("serie");
@@ -191,6 +208,45 @@ public class LeagueRequestHandler extends SwccgoServerRequestHandler implements 
         doc.appendChild(leagues);
 
         responseWriter.writeXmlResponse(doc);
+    }
+
+    private void getAutoLockedLeagueDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        String participantId = getQueryParameterSafely(queryDecoder, "participantId");
+        var resourceOwner = getResourceOwnerSafely(request, participantId);
+        var player = resourceOwner.getName();
+
+        String leagueType = getQueryParameterSafely(queryDecoder, "leagueType");
+        League league = getLeagueByType(leagueType);
+
+        if (league == null)
+            throw new HttpProcessingException(404);
+
+        SwccgDeck lsDeck = _leagueService.getLockedDeck(league, player, Side.LIGHT);
+        SwccgDeck dsDeck = _leagueService.getLockedDeck(league, player, Side.DARK);
+
+        String ls = lsDeck == null ? "<h1>No Light Side deck locked in</h1>." : _deckRenderer.convertDeckToHTMLFragment(lsDeck, league.getName(), player);
+        String ds = dsDeck == null ? "<h1>No Dark Side deck locked in.</h1>" : _deckRenderer.convertDeckToHTMLFragment(dsDeck, league.getName(), player);
+
+        String preamble = "";
+
+        if(lsDeck != null) {
+            preamble += "<h1>Locked-in Light Side Deck: " + lsDeck.getDeckName() + "</h1>";
+        }
+        else {
+            preamble += "<h1>Locked-in Light Side Deck: None</h1>";
+        }
+
+        if(dsDeck != null) {
+            preamble += "<h1>Locked-in Dark Side Deck: " + dsDeck.getDeckName() + "</h1>";
+        }
+        else {
+            preamble += "<h1>Locked-in Dark Side Deck: None</h1>";
+        }
+
+        preamble += "<hr>";
+
+        responseWriter.writeHtmlResponse(_deckRenderer.AddDeckReadoutHeaderAndFooter(preamble, ls, ds));
     }
 
     public League getLeagueByType(String type) {
