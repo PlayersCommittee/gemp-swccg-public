@@ -49,6 +49,7 @@ show_help() {
     echo "  reset-db    - Reset the database (WARNING: deletes all data)"
     echo "  export-cards- Export all card data to JSON file"
     echo "  release-diff- Generate final diff for new release"
+    echo "  playtest-ids- List set 501 card ids and titles from blueprint comments"
     echo "  help        - Show this help message"
     echo ""
 }
@@ -396,6 +397,16 @@ case "$1" in
             diff -ruN src/gemp-swccg-cards/src/main/java/com/gempukku/swccgo/cards/set501/$oldid src/gemp-swccg-cards/src/main/java/com/gempukku/swccgo/cards/set$setid/$newid;
         done)
         [[ -n "$outFile" ]] && (echo $output > $outFile) || echo "$output"
+        ;;
+
+    playtest-ids)
+        SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+        cd "$SCRIPT_DIR/.."
+        find src/gemp-swccg-cards/src/main/java/com/gempukku/swccgo/cards/set501/ -type f -name 'Card501_*.java' | while IFS= read -r file ; do
+            id=$(basename "$file" .java | sed 's/^Card//')
+            title=$(awk '/^[[:space:]]*\*[[:space:]]*Title:/ { sub(/^[[:space:]]*\*[[:space:]]*Title:[[:space:]]*/, ""); print; exit }' "$file")
+            printf "%s\t%s\n" "$id" "$title"
+        done | sort -V
         ;;
 
     help|--help|-h|"")

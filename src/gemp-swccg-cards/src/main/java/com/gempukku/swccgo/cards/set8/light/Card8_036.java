@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card8_036 extends AbstractNormalEffect {
     public Card8_036() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Commando Training", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
+        super(Side.LIGHT, 4, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Commando_Training, Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
         setLore("Han's Rebel strike team on the forest moon of Endor was highly trained in the use of blasters and explosives.");
         setGameText("Deploy on your side of table. Each of your non-unique Rebels armed with a non-unique blaster is forfeit +2, adds 1 to his total weapon destiny and, where present, cumulatively adds 1 to total battle destiny. (Immune to Alter while your non-unique blaster is on table.)");
         addIcons(Icon.ENDOR);
