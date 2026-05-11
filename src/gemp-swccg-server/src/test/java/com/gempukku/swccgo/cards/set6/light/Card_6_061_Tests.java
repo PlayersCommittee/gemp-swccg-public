@@ -8,25 +8,16 @@ import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
-import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import com.gempukku.swccgo.game.PhysicalCardImpl;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.GoMissingEffect;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.gempukku.swccgo.framework.Assertions.assertAtLocation;
-import static com.gempukku.swccgo.framework.Assertions.assertInZone;
-import static com.gempukku.swccgo.framework.Assertions.assertNotAtLocation;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public class Card_6_061_Tests {
@@ -43,6 +34,10 @@ public class Card_6_061_Tests {
 					put("stormtrooper1", "1_194");
                     put("stormtrooper2", "1_194");
 					put("blaster", "1_317");
+					put("blasterRifleV", "200_141"); //Blaster Rifle (V)
+					put("bobasBlaster", "5_179"); //Boba Fett's Blaster Rifle
+					put("boba","5_091"); //Boba Fett
+					put("eppBoba","108_005"); //Boba Fett with Blaster Rifle
 				}},
 				10,
 				10,
@@ -128,7 +123,7 @@ public class Card_6_061_Tests {
 	}
 
     @Test @Ignore
-    public void BlasterDeflectionLostRetargetsTargeting() {
+    public void BlasterDeflectionLostRetargetsNonFreeBlaster() {
         //demonstrates bug https://github.com/PlayersCommittee/gemp-swccg-public/issues/859
 
         var scn = GetScenario();
@@ -160,10 +155,178 @@ public class Card_6_061_Tests {
         scn.LSPass(); //Use 1 Force - Optional responses
         scn.DSPass();
         assertTrue(scn.GetLSForcePileCount() >= 3);
+			///FAILS HERE
         assertTrue(scn.LSPlayLostInterruptAvailable(deflection));
-        scn.LSPlayLostInterrupt(deflection);
-        scn.PassAllResponses();
+		scn.LSPlayLostInterrupt(deflection);
+		assertTrue(scn.LSDecisionAvailable("Choose character to re-target from"));
+		assertTrue(scn.LSHasCardChoiceAvailable(luke));
+		assertFalse(scn.LSHasCardChoicesAvailable(rebeltrooper));
+		assertFalse(scn.LSHasCardChoicesAvailable(stormtrooper1));
+		assertFalse(scn.LSHasCardChoicesAvailable(stormtrooper2));
+		scn.LSChooseCard(luke);
+		assertTrue(scn.LSDecisionAvailable("Choose character to re-target to"));
+		assertTrue(scn.LSHasCardChoicesAvailable(stormtrooper1, stormtrooper2));
+		assertFalse(scn.LSHasCardChoiceAvailable(rebeltrooper));
+		scn.LSChooseCard(stormtrooper2);
+
+		scn.PassAllResponses();
     }
 
-    //add many more tests for both used and lost actions
+	@Test
+	public void BlasterDeflectionLostRetargetsFreeBlaster() {
+
+		var scn = GetScenario();
+
+		var deflection = scn.GetLSCard("deflection");
+		var luke = scn.GetLSCard("luke");
+		var rebeltrooper = scn.GetLSCard("rebeltrooper");
+		scn.MoveCardsToHand(deflection);
+
+		var site = scn.GetLSStartingLocation();
+
+		var stormtrooper1 = scn.GetDSCard("stormtrooper1");
+		var stormtrooper2 = scn.GetDSCard("stormtrooper2");
+		var blasterRifleV = scn.GetDSCard("blasterRifleV"); //fires for free
+
+		scn.StartGame();
+
+		scn.MoveCardsToLocation(site, luke, rebeltrooper, stormtrooper1,stormtrooper2);
+		scn.AttachCardsTo(stormtrooper1, blasterRifleV);
+
+		scn.SkipToDSTurn(Phase.BATTLE);
+		scn.DSInitiateBattle(site);
+		scn.PassAllResponses();
+
+		assertTrue(scn.AwaitingDSWeaponsSegmentActions());
+		assertTrue(scn.DSCardActionAvailable(blasterRifleV));
+		scn.DSUseCardAction(blasterRifleV);
+		scn.DSChooseCard(luke);
+		assertTrue(scn.GetLSForcePileCount() >= 3);
+		assertTrue(scn.LSPlayLostInterruptAvailable(deflection));
+		scn.LSPlayLostInterrupt(deflection);
+		assertTrue(scn.LSDecisionAvailable("Choose character to re-target from"));
+		assertTrue(scn.LSHasCardChoiceAvailable(luke));
+		assertFalse(scn.LSHasCardChoicesAvailable(rebeltrooper));
+		assertFalse(scn.LSHasCardChoicesAvailable(stormtrooper1));
+		assertFalse(scn.LSHasCardChoicesAvailable(stormtrooper2));
+		scn.LSChooseCard(luke);
+		assertTrue(scn.LSDecisionAvailable("Choose character to re-target to"));
+		assertTrue(scn.LSHasCardChoicesAvailable(stormtrooper1, stormtrooper2));
+		assertFalse(scn.LSHasCardChoiceAvailable(rebeltrooper));
+		scn.LSChooseCard(stormtrooper2);
+
+		scn.PassAllResponses();
+	}
+
+	@Test @Ignore
+	public void BlasterDeflectionLostRetargetsRepeatedBlaster() {
+
+		var scn = GetScenario();
+
+		var deflection = scn.GetLSCard("deflection");
+		var luke = scn.GetLSCard("luke");
+		var rebeltrooper = scn.GetLSCard("rebeltrooper");
+		scn.MoveCardsToHand(deflection);
+
+		var site = scn.GetLSStartingLocation();
+
+		var boba = scn.GetDSCard("boba");
+		var stormtrooper2 = scn.GetDSCard("stormtrooper2");
+		var bobasBlaster = scn.GetDSCard("bobasBlaster"); //can fire repeatedly
+
+		scn.StartGame();
+
+		scn.MoveCardsToLocation(site, luke, rebeltrooper, boba,stormtrooper2);
+		scn.AttachCardsTo(boba, bobasBlaster);
+
+		scn.SkipToDSTurn(Phase.BATTLE);
+		scn.DSInitiateBattle(site);
+		scn.PassAllResponses();
+
+		assertTrue(scn.AwaitingDSWeaponsSegmentActions());
+		assertTrue(scn.DSCardActionAvailable(bobasBlaster));
+		scn.DSUseCardAction(bobasBlaster);
+		scn.DSChooseCard(luke);
+		//assertTrue(scn.GetLSForcePileCount() >= 3);
+			///FAILS HERE on initial firing (because not free, but covered in other test)
+		//assertTrue(scn.LSPlayLostInterruptAvailable(deflection));
+		scn.PassAllResponses();
+
+		assertTrue(scn.DSDecisionAvailable("repeatedly fire"));
+		scn.DSChooseYes();
+		scn.DSChooseCard(luke);
+
+		assertTrue(scn.GetLSForcePileCount() >= 3);
+			///FAILS HERE on repeated firing
+		assertTrue(scn.LSPlayLostInterruptAvailable(deflection));
+		scn.LSPlayLostInterrupt(deflection);
+		assertTrue(scn.LSDecisionAvailable("Choose character to re-target from"));
+		assertTrue(scn.LSHasCardChoiceAvailable(luke));
+		assertFalse(scn.LSHasCardChoicesAvailable(rebeltrooper));
+		assertFalse(scn.LSHasCardChoicesAvailable(boba));
+		assertFalse(scn.LSHasCardChoicesAvailable(stormtrooper2));
+		scn.LSChooseCard(luke);
+		assertTrue(scn.LSDecisionAvailable("Choose character to re-target to"));
+		assertTrue(scn.LSHasCardChoicesAvailable(boba, stormtrooper2));
+		assertFalse(scn.LSHasCardChoiceAvailable(rebeltrooper));
+		scn.LSChooseCard(stormtrooper2);
+
+		scn.PassAllResponses();
+	}
+
+	@Test
+	public void BlasterDeflectionLostRetargetsBuiltInBlaster() {
+
+		var scn = GetScenario();
+
+		var deflection = scn.GetLSCard("deflection");
+		var luke = scn.GetLSCard("luke");
+		var rebeltrooper = scn.GetLSCard("rebeltrooper");
+		scn.MoveCardsToHand(deflection);
+
+		var site = scn.GetLSStartingLocation();
+
+		var eppBoba = scn.GetDSCard("eppBoba");
+		var stormtrooper2 = scn.GetDSCard("stormtrooper2");
+
+		scn.StartGame();
+
+		scn.MoveCardsToLocation(site, luke, rebeltrooper, eppBoba,stormtrooper2);
+
+		scn.SkipToDSTurn(Phase.BATTLE);
+		scn.DSInitiateBattle(site);
+		scn.PassAllResponses();
+
+		assertTrue(scn.AwaitingDSWeaponsSegmentActions());
+		assertTrue(scn.DSCardActionAvailable(eppBoba));
+		scn.DSUseCardAction(eppBoba);
+		scn.DSChooseCard(luke);
+		assertTrue(scn.GetLSForcePileCount() >= 3);
+		assertTrue(scn.LSPlayLostInterruptAvailable(deflection));
+		scn.LSPlayLostInterrupt(deflection);
+		assertTrue(scn.LSDecisionAvailable("Choose character to re-target from"));
+		assertTrue(scn.LSHasCardChoiceAvailable(luke));
+		assertFalse(scn.LSHasCardChoicesAvailable(rebeltrooper));
+		assertFalse(scn.LSHasCardChoicesAvailable(eppBoba));
+		assertFalse(scn.LSHasCardChoicesAvailable(stormtrooper2));
+		scn.LSChooseCard(luke);
+		assertTrue(scn.LSDecisionAvailable("Choose character to re-target to"));
+		assertTrue(scn.LSHasCardChoicesAvailable(eppBoba, stormtrooper2));
+		assertFalse(scn.LSHasCardChoiceAvailable(rebeltrooper));
+		scn.LSChooseCard(stormtrooper2);
+
+		scn.PassAllResponses();
+	}
+
+	//add more tests for both used and lost actions
+
+	//used:
+	// works with non-blaster
+	// does not work for ability 4
+	//lost:
+	// does not work with non-blaster
+	// does not work with < 3 force to pay cost
+	// works with multi-target ?
+	// does not work for ability 4
+	// check initial targeting of ability <= 4 into a repeated shot on ability > 4 works
 }
