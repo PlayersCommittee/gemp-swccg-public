@@ -23,7 +23,7 @@ public final class RandoConfig {
     public static final int HAND_SOFT_CAP = 12;
 
     /** Random action chance (0-100) - adds some unpredictability */
-    public static final int CHAOS_PERCENT = 0;  // Reduced from 25% for better strategic play
+    public static final int CHAOS_PERCENT = 25;
 
     // =========================================================================
     // Deploy Strategy
@@ -55,7 +55,7 @@ public final class RandoConfig {
     public static final int REACT_THREAT_THRESHOLD = 8;
 
     /** Minimum power floor for establish/early game (weak char buddy) */
-    public static final int MIN_ESTABLISH_POWER = 2;
+    public static final int MIN_ESTABLISH_POWER = 4;
 
     /** Maximum establish locations per plan (don't spread too thin) */
     public static final int MAX_ESTABLISH_LOCATIONS = 2;
@@ -69,14 +69,6 @@ public final class RandoConfig {
     /** Weak character power threshold (needs buddy to deploy) */
     public static final int WEAK_CHARACTER_POWER = 3;
 
-    /**
-     * Minimum power a solo character must have to establish at an opponent-icon
-     * location alone. Characters below this threshold must deploy as a group.
-     * Prevents lone Jango (4), Mara (5) etc. from being left isolated where
-     * the opponent can counter-deploy and initiate a winning battle.
-     */
-    public static final int MIN_SOLO_DEPLOY_POWER = 6;
-
     /** Power advantage beyond which we're safe (uncontested fortified) */
     public static final int UNCONTESTED_FORTIFIED_THRESHOLD = 6;
 
@@ -86,11 +78,8 @@ public final class RandoConfig {
     /** Matching pilot power bonus */
     public static final int MATCHING_PILOT_BONUS = 3;
 
-    /** Ability threshold for drawing battle destiny (SWCCG rule: need >= 4 at site) */
+    /** Ability threshold for drawing battle destiny */
     public static final int ABILITY_THRESHOLD = 4;
-
-    /** V33: Soft ability target — bonus for deploying to sites below this, penalty for moving away and dropping below */
-    public static final int ABILITY_BUDDY_THRESHOLD = 7;
 
     /** Extra power needed to compensate for no destiny draw */
     public static final int ABILITY_POWER_COMPENSATION = 3;
@@ -173,23 +162,4 @@ public final class RandoConfig {
 
     /** Whether to limit chat to one message per turn */
     public static final boolean CHAT_LIMIT_ONE_PER_TURN = true;
-
-    // =========================================================================
-    // V35: Hunt Down Inquisitor + Hatred Strategy
-    // =========================================================================
-
-    /** Bonus for Vader deploying/moving to a location with Jedi */
-    public static final int SCORE_VADER_SEEK_JEDI = 350;
-
-    /** Bonus for hatred placement when Inquisitor is at opponent location */
-    public static final int SCORE_HATRED_WITH_INQUISITOR = 400;
-
-    /** Bonus for deploying Inquisitor to location with hatted opponent */
-    public static final int SCORE_INQUISITOR_HATRED_SYNERGY = 300;
-
-    /** Bonus for FMFTD lost mode with full synergy (Inquisitor+Jedi+Hatred) */
-    public static final int SCORE_FMFTD_FULL_SYNERGY = 500;
-
-    /** Vader expendability multiplier (1.0 = normal, 0.3 = expendable in Hunt Down) */
-    public static final float VADER_EXPENDABILITY_FACTOR = 0.3f;
 }

@@ -10,8 +10,6 @@ import com.gempukku.swccgo.ai.models.rando.evaluators.CombinedEvaluator;
 import com.gempukku.swccgo.ai.models.rando.evaluators.DecisionContext;
 import com.gempukku.swccgo.ai.models.rando.evaluators.EvaluatedAction;
 import com.gempukku.swccgo.ai.models.rando.strategy.DeployPhasePlanner;
-import com.gempukku.swccgo.ai.models.rando.strategy.DeployPhaseScript;
-import com.gempukku.swccgo.ai.models.rando.strategy.ObjectiveAnalyzer;
 import com.gempukku.swccgo.ai.models.rando.strategy.ObjectiveHandler;
 import com.gempukku.swccgo.ai.models.rando.strategy.ShieldStrategy;
 import com.gempukku.swccgo.ai.models.rando.strategy.StrategyController;
@@ -65,22 +63,12 @@ public class RandoCalAi extends HeuristicAiBase {
 
     // Objective handler for starting card requirements
     private final ObjectiveHandler objectiveHandler;
-    private final ObjectiveAnalyzer objectiveAnalyzer;
 
     // Shield strategy for defensive shields
     private final ShieldStrategy shieldStrategy;
 
     // Deploy phase planner for holistic deployment plans
     private final DeployPhasePlanner deployPhasePlanner;
-
-    // V67ax DEPLOY PHASE SCRIPT (deterministic step ordering)
-    private final DeployPhaseScript deployPhaseScript;
-
-    // V22.6: DeckOracle for full deck knowledge
-    private final com.gempukku.swccgo.ai.models.rando.strategy.DeckOracle deckOracle;
-
-    // V24.7: OpponentDeckTracker for destiny intel from deck peeks
-    private final com.gempukku.swccgo.ai.models.rando.strategy.OpponentDeckTracker opponentDeckTracker;
 
     // Personality system (will be set via setter after construction)
     private AstrogatorPersonality personality;
@@ -97,14 +85,6 @@ public class RandoCalAi extends HeuristicAiBase {
     private Phase lastPhase;  // Track phase for battle message detection
     private boolean battleMessageSentThisBattle = false;  // Track if we already sent a battle message
     private boolean gameEndMessageSent = false;  // Track if game end message was sent
-    // V67aw (Steve, 2026-05-08): Concede defer flag.
-    // Steve's rule: 'Change Rando's Concede logic to only happen after the
-    // next battle phase has ended.' When concede conditions trigger
-    // (Lost-Pile deficit ≥ 30, etc.), set this flag instead of conceding
-    // immediately. trackGameState fires the actual concede when the next
-    // BATTLE → other-phase transition occurs.
-    private boolean pendingConcede = false;
-    private String pendingConcedeReason = null;
     private Side mySide;
     private String opponentName;
 
@@ -116,9 +96,6 @@ public class RandoCalAi extends HeuristicAiBase {
 
     // Bot stats DAO for record lookups (optional - set via setter)
     private com.gempukku.swccgo.db.BotStatsDAO botStatsDAO;
-
-    // V29.15: Deck name for saga-aware Epic Event choices
-    private String deckName;
 
     // =========================================================================
     // Keyword Weights - Higher than AdvancedAi for more aggressive play
@@ -216,12 +193,8 @@ public class RandoCalAi extends HeuristicAiBase {
         this.decisionTracker = new DecisionTracker();
         this.strategyController = new StrategyController();
         this.objectiveHandler = new ObjectiveHandler();
-        this.objectiveAnalyzer = new ObjectiveAnalyzer();
         this.shieldStrategy = new ShieldStrategy();
         this.deployPhasePlanner = new DeployPhasePlanner();
-        this.deployPhaseScript = new DeployPhaseScript();
-        this.deckOracle = new com.gempukku.swccgo.ai.models.rando.strategy.DeckOracle();
-        this.opponentDeckTracker = new com.gempukku.swccgo.ai.models.rando.strategy.OpponentDeckTracker();
         this.personality = new AstrogatorPersonality();
         this.holidayOverlay = HolidayOverlay.getInstance();
         LOG.info("RandoCalAi initialized with {} evaluators", combinedEvaluator.getEvaluators().size());
@@ -492,37 +465,6 @@ public class RandoCalAi extends HeuristicAiBase {
             // Track game/turn changes for chat
             trackGameState(playerId, gameState);
 
-            // V25: AUTO-CONCEDE when losing by 30+ in Lost Pile
-            // When the deficit is this large, the game is unwinnable. Conceding saves time
-            // for both players instead of dragging out a lost game.
-            //
-            // V67aw (Steve, 2026-05-08): DEFER concede until after the next battle phase.
-            // Steve's rule: 'Change Rando's Concede logic to only happen after the next
-            // battle phase has ended.' Reasons: lets the current turn's planned battle
-            // play out, lets opponent finish their attack cleanly, and avoids mid-decision
-            // concedes that look glitchy. The actual concede fires in trackGameState when
-            // the BATTLE → other-phase transition is observed.
-            if (gameState != null && currentGame != null && !pendingConcede) {
-                try {
-                    String opponentId = gameState.getOpponent(playerId);
-                    if (opponentId != null) {
-                        int myLostPile = gameState.getLostPile(playerId).size();
-                        int opponentLostPile = gameState.getLostPile(opponentId).size();
-                        int lostPileDeficit = myLostPile - opponentLostPile;
-                        if (lostPileDeficit >= 30) {
-                            pendingConcede = true;
-                            pendingConcedeReason = String.format(
-                                "Lost Pile deficit %d (mine=%d, opponent=%d)",
-                                lostPileDeficit, myLostPile, opponentLostPile);
-                            LOG.warn("V67aw CONCEDE PENDING: {} — will concede after next battle phase ends",
-                                pendingConcedeReason);
-                        }
-                    }
-                } catch (Exception e) {
-                    LOG.debug("V67aw CONCEDE PENDING: Error checking lost pile: {}", e.getMessage());
-                }
-            }
-
             // Update decision tracker state for loop detection
             updateDecisionTrackerState(gameState, playerId);
 
@@ -543,99 +485,6 @@ public class RandoCalAi extends HeuristicAiBase {
             Map<String, String[]> params = decision.getDecisionParameters();
             String[] actionIds = params != null ? params.get("actionId") : null;
             String[] cardIds = params != null ? params.get("cardId") : null;
-
-            // V45: NEVER forfeit when all cards are immune to attrition
-            {
-                String dtLower = decisionText.toLowerCase(java.util.Locale.ROOT);
-                if (dtLower.contains("forfeit") && dtLower.contains("if desired")) {
-                    LOG.warn("V45 IMMUNE FORFEIT: All cards immune — PASSING on optional forfeit! Text: '{}'", decisionText);
-                    return "";  // Empty = select nothing = pass
-                }
-            }
-
-            // V44/V67j: ALWAYS accept revert requests — never block the opponent
-            // from reverting. Steve's rule: "Rando must always allow a revert. If
-            // the gemp game has an error, I need to be able to always revert."
-            // V67j: Don't assume index 0 = Yes. Inspect the `results` param and
-            // find the actual "Yes/Allow/Accept" choice's index. Fallback to 0
-            // if the array isn't available or no clear positive option found.
-            if (decision.getDecisionType() == AwaitingDecisionType.MULTIPLE_CHOICE
-                    && decisionText.toLowerCase(java.util.Locale.ROOT).contains("revert")) {
-                int yesIndex = 0;
-                String yesText = "(default index 0)";
-                String[] revertResults = params != null ? params.get("results") : null;
-                if (revertResults != null && revertResults.length > 0) {
-                    for (int ri = 0; ri < revertResults.length; ri++) {
-                        String r = revertResults[ri] != null
-                            ? revertResults[ri].toLowerCase(java.util.Locale.ROOT) : "";
-                        if (r.equals("yes") || r.contains("allow") || r.contains("accept")
-                            || r.contains("ok") || r.equals("revert")) {
-                            yesIndex = ri;
-                            yesText = revertResults[ri];
-                            break;
-                        }
-                    }
-                }
-                LOG.warn("V44/V67j REVERT: Accepting revert request (index={} = '{}') text: '{}'",
-                    yesIndex, yesText, decisionText);
-                return String.valueOf(yesIndex);
-            }
-
-            // V61 EPIC EVENT SAGA CHOICE — "The Force Is Strong In My Family"
-            // FIXES Issue from is9j46shx6t0swby replay: Rando picked "My Father Has It"
-            // (for Anakin) in a Luke Saga Tatooine deck — Luke's power/defense boost was
-            // lost. The TFISMF decision surfaces as type=MULTIPLE_CHOICE with text
-            // 'Choose an option' (empty prompt) and the actual choices in the `results`
-            // param. The V29.15 ActionTextEvaluator check was looking in the prompt text
-            // instead of the options array, so it never triggered and Rando defaulted
-            // to index 0 = "My Father Has It".
-            //   Luke deck  → "I Have It"
-            //   Anakin deck → "My Father Has It"
-            //   Rey deck    → "You Have That Power, Too"
-            if (decision.getDecisionType() == AwaitingDecisionType.MULTIPLE_CHOICE) {
-                String[] results = params != null ? params.get("results") : null;
-                if (results != null && results.length > 0) {
-                    boolean isTfismfChoice = false;
-                    for (String r : results) {
-                        if (r == null) continue;
-                        String rLower = r.toLowerCase(java.util.Locale.ROOT);
-                        if (rLower.contains("i have it") || rLower.contains("my father has it")
-                            || rLower.contains("you have that power")) {
-                            isTfismfChoice = true;
-                            break;
-                        }
-                    }
-                    if (isTfismfChoice) {
-                        String deckLower = deckName != null
-                            ? deckName.toLowerCase(java.util.Locale.ROOT) : "";
-                        int luke = -1, anakin = -1, rey = -1;
-                        for (int i = 0; i < results.length; i++) {
-                            String rLower = results[i] != null
-                                ? results[i].toLowerCase(java.util.Locale.ROOT) : "";
-                            if (rLower.contains("my father has it")) anakin = i;
-                            else if (rLower.contains("you have that power")) rey = i;
-                            else if (rLower.contains("i have it")) luke = i;
-                        }
-                        int pick = -1;
-                        String why = "";
-                        if (deckLower.contains("luke") && luke >= 0) {
-                            pick = luke; why = "Luke deck → 'I Have It'";
-                        } else if (deckLower.contains("anakin") && anakin >= 0) {
-                            pick = anakin; why = "Anakin deck → 'My Father Has It'";
-                        } else if (deckLower.contains("rey") && rey >= 0) {
-                            pick = rey; why = "Rey deck → 'You Have That Power, Too'";
-                        } else if (luke >= 0) {
-                            // Default to Luke — most common, matches deck-name fallback in V29.15
-                            pick = luke; why = "Default (no deck match) → 'I Have It'";
-                        }
-                        if (pick >= 0) {
-                            LOG.warn("V61 EPIC EVENT SAGA: deck='{}' choices={} → {} (index {})",
-                                deckName, java.util.Arrays.asList(results), why, pick);
-                            return String.valueOf(pick);
-                        }
-                    }
-                }
-            }
 
             // Maybe apply chaos (random action)
             // CRITICAL: Never use chaos mode during DEPLOY phase - deploy decisions are strategic
@@ -941,61 +790,8 @@ public class RandoCalAi extends HeuristicAiBase {
         // Set strategy components so evaluators can use them
         evalContext.setStrategyController(strategyController);
         evalContext.setObjectiveHandler(objectiveHandler);
-        evalContext.setObjectiveAnalyzer(objectiveAnalyzer);
-
-        if (!objectiveAnalyzer.isAnalyzed() && currentGame != null && mySide != null) {
-            objectiveAnalyzer.analyze(currentGame, playerId, mySide);
-        } else if (objectiveAnalyzer.isAnalyzed() && currentGame != null) {
-            // V29.7: Refresh flip status each evaluation so we detect when objective actually flips
-            objectiveAnalyzer.refreshFlipStatus(currentGame.getGameState(), playerId);
-        }
         evalContext.setShieldStrategy(shieldStrategy);
-        deployPhasePlanner.setObjectiveAnalyzer(objectiveAnalyzer);
         evalContext.setDeployPhasePlanner(deployPhasePlanner);
-
-        // V22.6: DeckOracle — full deck knowledge
-        if (!deckOracle.isAnalyzed() && currentGame != null) {
-            deckOracle.analyze(currentGame, playerId, mySide);
-        }
-        deckOracle.refresh(gameState, playerId);
-        evalContext.setDeckOracle(deckOracle);
-
-        // V24.7: OpponentDeckTracker — destiny intel from deck peeks
-        evalContext.setOpponentDeckTracker(opponentDeckTracker);
-
-        // V29.15: Pass deck name for saga-aware Epic Event choices
-        evalContext.setDeckName(deckName);
-
-        // V67ax DEPLOY PHASE SCRIPT: deterministic step ordering during DEPLOY phase.
-        // Walk steps 1→5; restrict the evaluator pipeline to actions qualifying for
-        // the first non-empty step. Existing scoring (V67ai/aj/ak/al/aq/ar/as) picks
-        // within the qualifying set. Active only for CARD_ACTION_CHOICE during DEPLOY.
-        if (phase == Phase.DEPLOY
-                && "CARD_ACTION_CHOICE".equals(decisionType.name())
-                && currentGame != null) {
-            try {
-                DeployPhaseScript.Result dpsResult = deployPhaseScript.selectAllowedActions(
-                    decision, gameState, currentGame, playerId, objectiveAnalyzer);
-                if (dpsResult != null) {
-                    evalContext.setAllowedActionIds(dpsResult.allowedActionIds);
-                    evalContext.setAllowedActionsReason(dpsResult.reason);
-                    // V67bc: pass ordered hierarchy buckets so CombinedEvaluator
-                    // can walk top→bottom and pick the first action above the
-                    // bad threshold (instead of forcing PASS when STEP 1's only
-                    // candidate is hard-blocked).
-                    evalContext.setStepBuckets(dpsResult.stepBuckets);
-                    evalContext.setStepBucketLabels(dpsResult.stepBucketLabels);
-                    LOG.warn("V67bc DPS APPLIED: top-step={} buckets={} union={} reason='{}'",
-                        dpsResult.step,
-                        dpsResult.stepBucketLabels,
-                        dpsResult.allowedActionIds != null ? dpsResult.allowedActionIds.size() : 0,
-                        dpsResult.reason);
-                }
-            } catch (Exception e) {
-                LOG.warn("V67ax DPS error (non-fatal, falling through to scoring): {}",
-                    e.getMessage());
-            }
-        }
 
         return evalContext;
     }
@@ -1023,16 +819,6 @@ public class RandoCalAi extends HeuristicAiBase {
      */
     public void setBotStatsDAO(com.gempukku.swccgo.db.BotStatsDAO dao) {
         this.botStatsDAO = dao;
-    }
-
-    /**
-     * V29.15: Set the deck name for saga-aware decisions (Epic Event choices).
-     * @param deckName the deck name as stored in the database
-     */
-    @Override
-    public void setDeckName(String deckName) {
-        this.deckName = deckName;
-        LOG.info("V29.15 Deck name set: '{}'", deckName);
     }
 
     /**
@@ -1405,8 +1191,6 @@ public class RandoCalAi extends HeuristicAiBase {
         if (mySide == null || !newOpponent.equals(opponentName)) {
             lastTurn = -1;
             lastPhase = null;  // Reset phase tracking for new game
-            pendingConcede = false;  // V67aw: Reset concede defer flag for new game
-            pendingConcedeReason = null;
             battleMessageSentThisBattle = false;  // Reset battle message tracking
             gameEndMessageSent = false;  // Reset game end message tracking
             mySide = newSide;
@@ -1422,12 +1206,9 @@ public class RandoCalAi extends HeuristicAiBase {
             strategyController.setSide(mySide);
             strategyController.reset();
             objectiveHandler.reset();
-            objectiveAnalyzer.reset();
             shieldStrategy.setSide(mySide);
             shieldStrategy.reset();
             deployPhasePlanner.reset();
-            deckOracle.reset();  // V22.6: Reset deck knowledge for new game
-            opponentDeckTracker.reset();  // V24.7: Reset opponent intel for new game
             LOG.debug("[RandoCalAi] All strategy components reset for new game as {} side", mySide);
 
             // Run game-start verification
@@ -1475,7 +1256,6 @@ public class RandoCalAi extends HeuristicAiBase {
             lastTurn = currentTurn;
             chatManager.setCurrentTurn(currentTurn);
             strategyController.startNewTurn(currentTurn);
-
             LOG.info("🎲 Turn changed to {} (was {})", currentTurn, lastTurn - 1);
 
             // Queue turn message with route score
@@ -1527,20 +1307,6 @@ public class RandoCalAi extends HeuristicAiBase {
         if (lastPhase == Phase.BATTLE && currentPhase != Phase.BATTLE) {
             LOG.info("🗨️ Exiting BATTLE phase, resetting battle message flag");
             battleMessageSentThisBattle = false;
-
-            // V67aw: Battle phase just ended — fire any deferred concede now.
-            if (pendingConcede && currentGame != null) {
-                LOG.warn("V67aw CONCEDE FIRE: battle phase ended — conceding now ({})",
-                    pendingConcedeReason);
-                try {
-                    currentGame.playerLost(playerId,
-                        com.gempukku.swccgo.common.GameEndReason.LOSS__CONCEDED);
-                } catch (Exception e) {
-                    LOG.warn("V67aw CONCEDE FIRE: error during concede: {}", e.getMessage());
-                }
-                pendingConcede = false;
-                pendingConcedeReason = null;
-            }
         }
 
         // Try to send battle message when in BATTLE phase (BattleState might not exist on phase entry)

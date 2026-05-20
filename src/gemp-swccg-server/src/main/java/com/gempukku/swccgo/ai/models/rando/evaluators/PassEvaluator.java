@@ -1,7 +1,6 @@
 package com.gempukku.swccgo.ai.models.rando.evaluators;
 
 import com.gempukku.swccgo.common.Phase;
-import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
 
 import java.util.ArrayList;
@@ -149,19 +148,6 @@ public class PassEvaluator extends ActionEvaluator {
                 } else if (handSize < 7) {
                     float bonus = 4.0f * earlyGameMultiplier;
                     action.addReasoning("Hand below target (" + handSize + "/7) - conserve force", bonus);
-                } else if (handSize >= 10) {
-                    // V37.4: HAND BLOAT — 10+ cards in hand = hoarding. DEPLOY SOMETHING!
-                    // 15+ cards with 19 Force in pile = total paralysis. Must fix.
-                    if (phase == Phase.DEPLOY) {
-                        float bloatPenalty = -50.0f - (handSize - 10) * 20.0f;
-                        // Extra penalty if Force pile is also large (total paralysis)
-                        if (forcePile >= 8) bloatPenalty -= 100.0f;
-                        action.addReasoning(String.format(
-                            "V37.4 HAND BLOAT: %d cards in hand, %d Force — DEPLOY SOMETHING!",
-                            handSize, forcePile), bloatPenalty);
-                        logger.warn("V37.4 HAND BLOAT: hand={}, force={} — pass penalty {}",
-                            handSize, forcePile, (int)bloatPenalty);
-                    }
                 }
             }
 
@@ -169,85 +155,6 @@ public class PassEvaluator extends ActionEvaluator {
             if (phase == Phase.MOVE && forcePile <= 4 && handSize < 7) {
                 float bonus = 10.0f * earlyGameMultiplier;
                 action.addReasoning("Move phase + low force + small hand - pass to draw", bonus);
-            }
-
-            // === V27.1: DRAW THEIR FIRE — FORCE RESERVATION FOR BATTLE INTERRUPTS ===
-            // If opponent has "Draw Their Fire" on table, each interrupt we play during
-            // battles they initiate costs 1 extra Force. We MUST keep Force in reserve
-            // so Ghhhk and other battle interrupts remain playable. Without this,
-            // we take full attrition and lose cards from hand/reserve in every battle.
-            if (!isActivateDecision && !isInitiateBattleDecision) {
-                try {
-                    String opponentIdDtf = gameState.getOpponent(playerId);
-                    boolean dtfActive = false;
-                    for (PhysicalCard dtfCard : gameState.getAllPermanentCards()) {
-                        if (dtfCard == null) continue;
-                        if (opponentIdDtf != null && opponentIdDtf.equals(dtfCard.getOwner())
-                            && dtfCard.getBlueprint() != null
-                            && dtfCard.getBlueprint().getTitle() != null) {
-                            String dtfTitle = dtfCard.getBlueprint().getTitle().toLowerCase();
-                            if (dtfTitle.contains("draw their fire")) {
-                                com.gempukku.swccgo.common.Zone dtfZone = dtfCard.getZone();
-                                if (dtfZone != null && dtfZone.isInPlay()) {
-                                    dtfActive = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if (dtfActive) {
-                        // Need 3 Force minimum: 1 for DTF defender loss, 1 for interrupt tax, 1 for the interrupt
-                        int dtfReserveNeeded = 3;
-                        if (forcePile <= dtfReserveNeeded) {
-                            float dtfBonus = 20.0f;
-                            if (forcePile <= 1) dtfBonus = 40.0f;
-                            if (forcePile == 0) dtfBonus = 60.0f;
-                            action.addReasoning(String.format(
-                                "V27.1 DTF RESERVE: Draw Their Fire on table! Need %d Force for battle interrupts, only %d left — CONSERVE!",
-                                dtfReserveNeeded, forcePile), dtfBonus);
-                        }
-                    }
-                } catch (Exception e) {
-                    // Ignore
-                }
-            }
-
-            // === V27: MAINTENANCE FORCE RESERVATION ===
-            // If we have cards with MAINTENANCE icon in play (like Blizzard),
-            // we MUST keep enough Force to pay their upkeep at end of turn.
-            // Maintenance cost = card's deploy cost. If we can't pay, card is sacrificed.
-            // This check applies across ALL phases — not just Deploy phase.
-            if (!isActivateDecision) {
-                try {
-                    int maintenanceCostTotal = 0;
-                    java.util.List<PhysicalCard> allCards = gameState.getAllPermanentCards();
-                    if (allCards != null) {
-                        for (PhysicalCard mCard : allCards) {
-                            if (mCard == null) continue;
-                            if (!playerId.equals(mCard.getOwner())) continue;
-                            com.gempukku.swccgo.common.Zone mZone = mCard.getZone();
-                            if (mZone == null || !mZone.isInPlay()) continue;
-                            com.gempukku.swccgo.game.SwccgCardBlueprint mBp = mCard.getBlueprint();
-                            if (mBp != null && mBp.hasIcon(com.gempukku.swccgo.common.Icon.MAINTENANCE)) {
-                                Float mCost = mBp.getDeployCost();
-                                int cardMaint = (mCost != null) ? mCost.intValue() : 1;
-                                maintenanceCostTotal += cardMaint;
-                            }
-                        }
-                    }
-                    if (maintenanceCostTotal > 0 && forcePile <= maintenanceCostTotal + 1) {
-                        // Force pile is at or below maintenance requirement — STRONGLY prefer pass
-                        float maintBonus = 25.0f;
-                        if (forcePile < maintenanceCostTotal) {
-                            maintBonus = 50.0f; // Already can't pay — CRITICAL, don't spend more!
-                        }
-                        action.addReasoning(String.format(
-                            "V27 MAINTENANCE RESERVE: Need %d Force for maintenance, only %d in pile — CONSERVE!",
-                            maintenanceCostTotal, forcePile), maintBonus);
-                    }
-                } catch (Exception e) {
-                    // Ignore errors in maintenance check
-                }
             }
         }
 

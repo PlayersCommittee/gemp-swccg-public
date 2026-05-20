@@ -176,18 +176,6 @@ public class DrawEvaluator extends ActionEvaluator {
         // Get force generation for forward planning
         int forceGeneration = calculateForceGeneration(context);
 
-        // === V42: EMERGENCY DRAW — empty hand is a death spiral ===
-        // If hand is 0-2, we MUST draw regardless of other considerations.
-        // An empty hand means no deploys, no interrupts, no responses — game over.
-        if (handSize <= 2 && forcePile >= 1 && reserveDeck >= 2) {
-            float emergencyBonus = (3 - handSize) * 200.0f; // 0 cards = +600, 1 = +400, 2 = +200
-            action.addReasoning(String.format(
-                "V42 EMERGENCY DRAW: Hand has only %d cards — MUST draw to stay in the game!", handSize),
-                emergencyBonus);
-            logger.warn("V42 EMERGENCY DRAW: hand={}, force={}, reserve={} — bonus +{}",
-                handSize, forcePile, reserveDeck, emergencyBonus);
-        }
-
         // === CRITICAL: LIFE FORCE BASED HAND LIMIT ===
         if (remainingLifeForce < CRITICAL_LIFE_FORCE) {
             float penalty = VERY_BAD_DELTA * 0.8f;
@@ -237,32 +225,6 @@ public class DrawEvaluator extends ActionEvaluator {
             return;
         }
 
-        // === V24.10: DIG FOR PIETT — KEY ENGINE CARD ===
-        // Piett is THE critical pilot for TDIGWATT's Executor engine.
-        // If Piett isn't in hand or reserve, he's stuck in the force pile — draw to find him.
-        // The earlier we find Piett, the earlier Executor gets on the table via AMSD.
-        com.gempukku.swccgo.ai.models.rando.strategy.DeckOracle drawOracle = context.getDeckOracle();
-        if (drawOracle != null && drawOracle.isAnalyzed()) {
-            boolean piettInHand = drawOracle.isCardInHand("Admiral Piett") || drawOracle.isCardInHand("Piett");
-            boolean piettInReserve = drawOracle.isCardInReserve("Admiral Piett") || drawOracle.isCardInReserve("Piett");
-            boolean piettInPlay = drawOracle.isCardInPlay("Admiral Piett") || drawOracle.isCardInPlay("Piett");
-            boolean piettLost = drawOracle.isCardLost("Admiral Piett") || drawOracle.isCardLost("Piett");
-
-            if (!piettInHand && !piettInReserve && !piettInPlay && !piettLost) {
-                // Piett is in the force pile (or used pile cycling back) — DRAW to find him!
-                float piettBonus = 0.0f;
-                if (turnNumber <= 2) {
-                    piettBonus = 200.0f;  // Turns 1-2: maximum urgency — Executor MUST come out
-                } else if (turnNumber <= 4) {
-                    piettBonus = 150.0f;  // Turns 3-4: still very important
-                } else {
-                    piettBonus = 80.0f;   // Later turns: still worth finding
-                }
-                action.addReasoning("V24.10 DIG FOR PIETT: Not in hand/reserve — must be in force pile! Draw to find him!", piettBonus);
-                logger.warn("V24.10 PIETT DIG: Piett not in hand/reserve/play/lost — drawing aggressively to find him! (+{})", piettBonus);
-            }
-        }
-
         // === BASELINE: DRAW TOWARDS DYNAMIC SOFT CAP ===
         String phaseNote = turnNumber <= 3 ? "early" : (turnNumber <= 6 ? "mid" : "late");
 
@@ -286,24 +248,13 @@ public class DrawEvaluator extends ActionEvaluator {
         }
 
         // === FORCE RESERVATION FOR OPPONENT'S TURN ===
-        // V58: Reserve is now accurate (DTF, First Strike, maintenance,
-        // contested count). If force pile is ABOVE reserve, we should
-        // aggressively DRAW the surplus into hand — hoarding does nothing.
+        // Enhanced: Reserve more force if we have presence at contested locations
         int forceToReserve = calculateForceToReserve(context, handSize);
-        int drawableSurplus = Math.max(0, forcePile - forceToReserve);
-        if (drawableSurplus > 0 && handSize < effectiveMaxHand && reserveDeck > 2) {
-            // +80 per card of surplus, capped at +400. Beats most penalties.
-            float surplusBonus = Math.min(400.0f, 80.0f * drawableSurplus);
-            action.addReasoning(String.format(
-                "V58 DRAW-DOWN: force pile %d > reserve %d — draw %d surplus into hand!",
-                forcePile, forceToReserve, drawableSurplus), surplusBonus);
-            logger.warn("V58 DRAW-DOWN: pile={}, reserve={}, surplus={} → +{}",
-                forcePile, forceToReserve, drawableSurplus, (int)surplusBonus);
-        }
-        if (forcePile <= forceToReserve && turnNumber >= 4) {
-            action.addReasoning("V58 HOLD RESERVE: force pile " + forcePile +
-                " at/below reserve target " + forceToReserve + " — keep it",
-                BAD_DELTA * 1.5f);
+        if (turnNumber >= 4) {
+            if (forcePile <= forceToReserve) {
+                action.addReasoning("Turn " + turnNumber + ": reserve " + forceToReserve + " force for reactions/battles",
+                                   BAD_DELTA * 1.5f);
+            }
         }
 
         // Don't draw if low reserve (avoid decking)
@@ -395,132 +346,49 @@ public class DrawEvaluator extends ActionEvaluator {
 
     /**
      * Calculate force to reserve for opponent's turn.
-     *
-     * V58 FIX 20 (2026-04-16): Match Steve's actual reservation rules.
-     * After activating and deploying, draw MOST force into hand. Reserve
-     * only for specific threats:
-     *   +1 if opponent has Draw Their Fire (taxes our deploys/moves)
-     *   +1 if opponent has First Strike (weapon destiny trigger)
-     *   +1 mid/late game for battle interrupts during opponent's turn
-     *   +N for total maintenance cost of our on-table characters
-     *   +1 per contested location (battle interrupt headroom)
-     * Hard cap at 4 — hoarding more than 4 force in pile is wasted.
+     * Enhanced: Reserve more if we have contested locations.
      */
     private int calculateForceToReserve(DecisionContext context, int handSize) {
-        int forceToReserve = 0;
+        int forceToReserve = handSize < 6 ? 1 : 2;
+
         SwccgGame game = context.getGame();
         if (game == null) {
-            return 1;  // safe default
+            return forceToReserve;
         }
 
         GameState gameState = context.getGameState();
         String playerId = context.getPlayerId();
-        int turnNumber = context.getTurnNumber();
 
         try {
+            // Count contested locations (both players have presence)
             int contestedCount = 0;
-            int maintenanceCost = 0;
-            boolean opponentHasDTF = false;
-            boolean opponentHasFirstStrike = false;
-            boolean opponentHasIAO = false;  // V78: Imperial Arrest Order
-            boolean ourVergeNeedsDeathStarMove = false;  // V79: save 1 force for Death Star move
-
             Collection<PhysicalCard> locations = gameState.getLocationsInOrder();
             for (PhysicalCard loc : locations) {
                 if (loc == null) continue;
+
+                // Check if both players have cards at this location
                 Collection<PhysicalCard> cardsAtLoc = gameState.getCardsAtLocation(loc);
                 boolean weHavePresence = false;
                 boolean theyHavePresence = false;
+
                 for (PhysicalCard card : cardsAtLoc) {
-                    if (card.getOwner() != null && card.getOwner().equals(playerId)) {
+                    if (card.getOwner().equals(playerId)) {
                         weHavePresence = true;
                     } else {
                         theyHavePresence = true;
                     }
                 }
-                if (weHavePresence && theyHavePresence) contestedCount++;
-            }
 
-            // Scan ALL permanent cards for opponent's DTF / First Strike and
-            // our maintenance costs. Title-based detection keeps this robust
-            // across V-sets and variants.
-            for (PhysicalCard pc : gameState.getAllPermanentCards()) {
-                if (pc == null) continue;
-                String title = pc.getTitle();
-                if (title == null) continue;
-                String titleLower = title.toLowerCase(java.util.Locale.ROOT);
-                boolean isOurs = pc.getOwner() != null && pc.getOwner().equals(playerId);
-
-                if (!isOurs) {
-                    if (titleLower.contains("draw their fire"))  opponentHasDTF = true;
-                    if (titleLower.contains("first strike"))     opponentHasFirstStrike = true;
-                    // V78 (Steve, 2026-05-15): Imperial Arrest Order & Secret Plans
-                    // forces opponent to "use 1 Force OR retrieval canceled" every
-                    // retrieval attempt. Reserve +2 to absorb the tax and keep
-                    // retrieval interrupts viable.
-                    if (titleLower.contains("imperial arrest")
-                            || titleLower.contains("secret plans")) opponentHasIAO = true;
-                } else {
-                    // V67w (Steve, 2026-05-03): Use the engine's Icon.MAINTENANCE
-                    // instead of hand-rolled title matching. SWCCG marks every
-                    // maintenance character with this icon on the blueprint.
-                    // OLD code only matched "lando calrissian, scoundrel" — missed
-                    // every other maintenance card in the deck (Lando With Vibro-Ax,
-                    // Han With Heavy Blaster Pistol, etc.). Steve: 'on light side
-                    // he is still not saving enough force for maintenance cards
-                    // like lando.'
-                    try {
-                        if (pc.getBlueprint() != null
-                                && pc.getBlueprint().hasIcon(com.gempukku.swccgo.common.Icon.MAINTENANCE)) {
-                            maintenanceCost += 1;
-                        }
-                    } catch (Exception e) { /* ignore */ }
-                    // V79: detect Verge of Greatness on Rando's table + Death Star not at Scarif
-                    if (titleLower.contains("on the verge of greatness")
-                            || titleLower.contains("taking control of the weapon")) {
-                        // Verge active — check if Death Star is at Scarif yet
-                        boolean dsAtScarif = false;
-                        PhysicalCard rDeathStar = null;
-                        for (PhysicalCard pc2 : gameState.getAllPermanentCards()) {
-                            if (pc2 == null || !playerId.equals(pc2.getOwner())) continue;
-                            String t2 = pc2.getTitle() != null ? pc2.getTitle().toLowerCase(java.util.Locale.ROOT) : "";
-                            if (t2.contains("death star")
-                                    && pc2.getBlueprint() != null
-                                    && pc2.getBlueprint().getCardCategory() == CardCategory.LOCATION) {
-                                rDeathStar = pc2;
-                                PhysicalCard loc = pc2.getAtLocation();
-                                if (loc != null && loc.getTitle() != null
-                                        && loc.getTitle().toLowerCase(java.util.Locale.ROOT).contains("scarif")) {
-                                    dsAtScarif = true;
-                                }
-                                break;
-                            }
-                        }
-                        if (rDeathStar != null && !dsAtScarif) {
-                            ourVergeNeedsDeathStarMove = true;
-                        }
-                    }
+                if (weHavePresence && theyHavePresence) {
+                    contestedCount++;
                 }
             }
 
-            if (opponentHasDTF)        forceToReserve += 1;
-            if (opponentHasFirstStrike) forceToReserve += 1;
-            if (contestedCount > 0)     forceToReserve += 1;  // one battle-interrupt buffer
-            if (turnNumber >= 4)        forceToReserve += 1;  // mid/late-game interrupt buffer
-            if (opponentHasIAO)         forceToReserve += 2;  // V78: IAO retrieval-cancel tax
-            if (ourVergeNeedsDeathStarMove) forceToReserve += 1;  // V79: Death Star move reserve
-            forceToReserve += maintenanceCost;
-
-            // V67w: Bumped cap from 4 → 8. Multiple maintenance characters PLUS
-            // DTF/First Strike/contested can legitimately need 5-6 force reserved.
-            // V78: Bumped cap to 10 to accommodate IAO tax on top of existing reserves.
-            forceToReserve = Math.min(10, forceToReserve);
-
-            logger.debug("V58 RESERVE: DTF={}, FirstStrike={}, IAO={}, contested={}, maint={}, turn={}, total={}",
-                opponentHasDTF, opponentHasFirstStrike, opponentHasIAO, contestedCount, maintenanceCost, turnNumber, forceToReserve);
+            if (contestedCount > 0) {
+                forceToReserve = Math.max(forceToReserve, 2 + contestedCount);
+            }
         } catch (Exception e) {
-            logger.trace("V58 RESERVE: error calculating, using default 1: {}", e.getMessage());
-            return 1;
+            logger.trace("Error calculating contested locations: {}", e.getMessage());
         }
 
         return forceToReserve;

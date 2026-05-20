@@ -58,38 +58,4 @@ public abstract class ActionEvaluator {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-
-    // =========================================================================
-    // V35: Reusable card type detection helpers
-    // =========================================================================
-
-    /**
-     * Check if a card title (lowercase) is an Inquisitor character.
-     */
-    protected static boolean isInquisitor(String titleLower) {
-        return titleLower.contains("inquisitor")
-            || titleLower.contains("fifth brother")
-            || titleLower.contains("seventh sister")
-            || titleLower.contains("eighth brother")
-            || titleLower.contains("grand inquisitor")
-            || titleLower.contains("second sister")
-            || titleLower.contains("ninth sister")
-            || titleLower.contains("third sister");
-    }
-
-    /**
-     * Check if a card title (lowercase) is a Jedi or Padawan character.
-     */
-    protected static boolean isJediOrPadawan(String titleLower) {
-        return titleLower.contains("jedi")
-            || titleLower.contains("padawan")
-            || titleLower.contains("luke")
-            || titleLower.contains("obi-wan")
-            || titleLower.contains("yoda")
-            || titleLower.contains("ahsoka")
-            || titleLower.contains("ezra")
-            || titleLower.contains("kanan")
-            || titleLower.contains("rey")
-            || titleLower.contains("sabine");
-    }
 }

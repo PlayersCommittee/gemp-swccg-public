@@ -1,9 +1,6 @@
 package com.gempukku.swccgo.ai.models.rando.evaluators;
 
-import com.gempukku.swccgo.ai.models.rando.strategy.DeckOracle;
-import com.gempukku.swccgo.ai.models.rando.strategy.OpponentDeckTracker;
 import com.gempukku.swccgo.ai.models.rando.strategy.DeployPhasePlanner;
-import com.gempukku.swccgo.ai.models.rando.strategy.ObjectiveAnalyzer;
 import com.gempukku.swccgo.ai.models.rando.strategy.ObjectiveHandler;
 import com.gempukku.swccgo.ai.models.rando.strategy.ShieldStrategy;
 import com.gempukku.swccgo.ai.models.rando.strategy.StrategyController;
@@ -62,28 +59,11 @@ public class DecisionContext {
     // Blocked responses (for loop prevention)
     private Set<String> blockedResponses = new HashSet<>();
 
-    // V67ax DEPLOY PHASE SCRIPT: actions allowed for the current deploy step.
-    // When non-null, evaluators / CombinedEvaluator must restrict the final
-    // pick to this set. Null = no restriction (default).
-    private Set<String> allowedActionIds = null;
-    private String allowedActionsReason = null;
-
-    // V67bc DPS HIERARCHY: ordered list of step buckets, highest priority first.
-    // CombinedEvaluator walks these in order, picks first action above the bad
-    // threshold. PASS only when all buckets exhausted with all-bad scores.
-    // Null = no DPS hierarchy (legacy single-set or no DPS at all).
-    private java.util.List<Set<String>> stepBuckets = null;
-    private java.util.List<String> stepBucketLabels = null;
-
     // Strategy components (optional, set by AI)
     private StrategyController strategyController;
     private ObjectiveHandler objectiveHandler;
     private ShieldStrategy shieldStrategy;
     private DeployPhasePlanner deployPhasePlanner;
-    private ObjectiveAnalyzer objectiveAnalyzer;
-    private DeckOracle deckOracle;  // V22.6: Full deck knowledge
-    private OpponentDeckTracker opponentDeckTracker;  // V24.7: Opponent destiny intel
-    private String deckName;  // V29.15: Deck name for saga-aware Epic Event choices
 
     public DecisionContext(GameState gameState, String playerId, String decisionType,
                           String decisionText, String decisionId, Phase phase) {
@@ -337,74 +317,5 @@ public class DecisionContext {
 
     public void setDeployPhasePlanner(DeployPhasePlanner deployPhasePlanner) {
         this.deployPhasePlanner = deployPhasePlanner;
-    }
-
-    public ObjectiveAnalyzer getObjectiveAnalyzer() {
-        return objectiveAnalyzer;
-    }
-
-    public void setObjectiveAnalyzer(ObjectiveAnalyzer objectiveAnalyzer) {
-        this.objectiveAnalyzer = objectiveAnalyzer;
-    }
-
-    // V22.6: DeckOracle — full deck knowledge
-    public DeckOracle getDeckOracle() {
-        return deckOracle;
-    }
-
-    public void setDeckOracle(DeckOracle deckOracle) {
-        this.deckOracle = deckOracle;
-    }
-
-    // V24.7: OpponentDeckTracker — destiny intel from deck peeks
-    public OpponentDeckTracker getOpponentDeckTracker() {
-        return opponentDeckTracker;
-    }
-
-    public void setOpponentDeckTracker(OpponentDeckTracker opponentDeckTracker) {
-        this.opponentDeckTracker = opponentDeckTracker;
-    }
-
-    // V29.15: Deck name for saga-aware Epic Event choices
-    public String getDeckName() {
-        return deckName;
-    }
-
-    public void setDeckName(String deckName) {
-        this.deckName = deckName;
-    }
-
-    // V67ax DEPLOY PHASE SCRIPT
-    public Set<String> getAllowedActionIds() {
-        return allowedActionIds;
-    }
-
-    public void setAllowedActionIds(Set<String> allowedActionIds) {
-        this.allowedActionIds = allowedActionIds;
-    }
-
-    public String getAllowedActionsReason() {
-        return allowedActionsReason;
-    }
-
-    public void setAllowedActionsReason(String reason) {
-        this.allowedActionsReason = reason;
-    }
-
-    // V67bc DPS HIERARCHY accessors
-    public java.util.List<Set<String>> getStepBuckets() {
-        return stepBuckets;
-    }
-
-    public void setStepBuckets(java.util.List<Set<String>> buckets) {
-        this.stepBuckets = buckets;
-    }
-
-    public java.util.List<String> getStepBucketLabels() {
-        return stepBucketLabels;
-    }
-
-    public void setStepBucketLabels(java.util.List<String> labels) {
-        this.stepBucketLabels = labels;
     }
 }

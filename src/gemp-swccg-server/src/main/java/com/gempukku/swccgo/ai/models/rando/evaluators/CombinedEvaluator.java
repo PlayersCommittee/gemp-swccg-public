@@ -94,89 +94,6 @@ public class CombinedEvaluator {
             return null;
         }
 
-        // V67bc DPS HIERARCHY WALK: when DPS provided ordered step buckets,
-        // walk them top→bottom. For each bucket, pick the highest-scoring
-        // action. If that action's score is above the bad threshold, return
-        // it. Otherwise fall through to the next bucket. PASS only when ALL
-        // buckets exhausted with all-bad scores.
-        //
-        // This implements Steve's principle: "walk the full hierarchy every
-        // call, take first viable, only pass when nothing viable." Replaces
-        // the older single-set filter that wrongly forced PASS when STEP 1's
-        // only candidate was hard-blocked (e.g. K&D pull when no CC interior
-        // sites left in reserve → -9999 → PASS even though STEP 2/3 had 9
-        // viable character deploys).
-        java.util.List<java.util.Set<String>> buckets = context.getStepBuckets();
-        java.util.List<String> bucketLabels = context.getStepBucketLabels();
-        if (buckets != null && !buckets.isEmpty()) {
-            for (int b = 0; b < buckets.size(); b++) {
-                java.util.Set<String> bucket = buckets.get(b);
-                String label = (bucketLabels != null && b < bucketLabels.size()) ? bucketLabels.get(b) : ("step#" + b);
-                List<EvaluatedAction> bucketActions = new ArrayList<>();
-                for (EvaluatedAction ea : allActions) {
-                    if (bucket.contains(ea.getActionId())) {
-                        bucketActions.add(ea);
-                    }
-                }
-                if (bucketActions.isEmpty()) {
-                    LOG.warn("V67bc DPS WALK: step={} bucket has 0 scored actions, skipping", label);
-                    continue;
-                }
-                EvaluatedAction bestInBucket = bucketActions.stream()
-                    .max(Comparator.comparing(EvaluatedAction::getScore))
-                    .orElse(null);
-                if (bestInBucket == null) continue;
-                LOG.warn("V67bc DPS WALK: step={} best={} score={}",
-                    label, bestInBucket.getDisplayText(), bestInBucket.getScore());
-                if (bestInBucket.getScore() >= BAD_ACTION_THRESHOLD) {
-                    LOG.warn("V67bc DPS WALK: step={} viable → picking '{}' (score {})",
-                        label, bestInBucket.getDisplayText(), bestInBucket.getScore());
-                    return bestInBucket;
-                }
-                LOG.warn("V67bc DPS WALK: step={} all bad (best score {}) → falling through to next step",
-                    label, bestInBucket.getScore());
-            }
-            // All buckets exhausted with all-bad scores — true PASS time.
-            LOG.warn("V67bc DPS WALK: every bucket all-bad → PASS");
-            EvaluatedAction passAction = new EvaluatedAction(
-                "",
-                ActionType.PASS,
-                0.0f,
-                "V67bc DPS: every hierarchy step had only bad-scored actions, passing");
-            passAction.addReasoning(context.getAllowedActionsReason() != null
-                ? context.getAllowedActionsReason() : "DPS hierarchy exhausted");
-            return passAction;
-        }
-
-        // Legacy single-set filter (no DPS hierarchy provided).
-        java.util.Set<String> allowed = context.getAllowedActionIds();
-        if (allowed != null) {
-            int before = allActions.size();
-            List<EvaluatedAction> filtered = new ArrayList<>();
-            for (EvaluatedAction ea : allActions) {
-                if (allowed.contains(ea.getActionId())) {
-                    filtered.add(ea);
-                }
-            }
-            LOG.warn("V67ax DPS FILTER (legacy): {}/{} actions allowed (reason: {})",
-                filtered.size(), before, context.getAllowedActionsReason());
-            if (!filtered.isEmpty()) {
-                allActions = filtered;
-            } else if (allowed.isEmpty()) {
-                LOG.warn("V67ax DPS FILTER: empty allowed set → PASS");
-                EvaluatedAction passAction = new EvaluatedAction(
-                    "",
-                    ActionType.PASS,
-                    0.0f,
-                    "V67ax DPS: no step qualified, passing");
-                passAction.addReasoning(context.getAllowedActionsReason() != null
-                    ? context.getAllowedActionsReason() : "DPS empty allowed");
-                return passAction;
-            } else {
-                LOG.warn("V67ax DPS FILTER: allowed set non-empty but no scored action matched — falling back to unfiltered");
-            }
-        }
-
         // Pick the best action (highest merged score)
         EvaluatedAction bestAction = allActions.stream()
             .max(Comparator.comparing(EvaluatedAction::getScore))
@@ -190,8 +107,7 @@ public class CombinedEvaluator {
         if (bestAction.getScore() < BAD_ACTION_THRESHOLD) {
             boolean canPass = !context.isNoPass() && context.getMin() == 0;
 
-            // V24.5: No randomness — always pass when all actions are bad
-            if (canPass) {
+            if (canPass && random.nextFloat() < 0.5f) {
                 LOG.info("All actions bad (best: {}), choosing to PASS", bestAction.getScore());
                 EvaluatedAction passAction = new EvaluatedAction(
                     "",  // Empty = pass

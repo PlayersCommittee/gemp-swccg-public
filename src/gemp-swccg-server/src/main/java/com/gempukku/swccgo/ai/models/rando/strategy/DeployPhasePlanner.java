@@ -5,7 +5,6 @@ import com.gempukku.swccgo.ai.common.AiCardHelper;
 import com.gempukku.swccgo.ai.models.rando.RandoConfig;
 import com.gempukku.swccgo.ai.models.rando.RandoLogger;
 import com.gempukku.swccgo.common.CardCategory;
-import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgCardBlueprint;
@@ -51,10 +50,6 @@ public class DeployPhasePlanner {
     // Board state reference for scoring
     private SwccgGame currentGame;
     private String currentPlayerId;
-    private Side currentSide;
-
-    // V21: Objective awareness for location prioritization
-    private ObjectiveAnalyzer objectiveAnalyzer;
 
     public DeployPhasePlanner() {
         this(RandoConfig.DEPLOY_THRESHOLD, RandoConfig.BATTLE_FORCE_RESERVE);
@@ -73,13 +68,6 @@ public class DeployPhasePlanner {
         lastPlanTurn = -1;
         currentGame = null;
         currentPlayerId = null;
-    }
-
-    /**
-     * V21: Set the objective analyzer for location prioritization.
-     */
-    public void setObjectiveAnalyzer(ObjectiveAnalyzer analyzer) {
-        this.objectiveAnalyzer = analyzer;
     }
 
     /**
@@ -102,7 +90,6 @@ public class DeployPhasePlanner {
     public DeploymentPlan createPlan(SwccgGame game, String playerId, Side side) {
         this.currentGame = game;
         this.currentPlayerId = playerId;
-        this.currentSide = side;
 
         GameState gameState = game.getGameState();
         if (gameState == null) {
@@ -196,35 +183,7 @@ public class DeployPhasePlanner {
 
         // === GENERATE MULTIPLE PLANS ===
         List<ScoredPlan> allPlans = new ArrayList<>();
-        // V22.3: Reserve Force for maintenance cards already in play
-        // FIXED: Reserve the DEPLOY COST of each maintenance card, not just 1
-        // Maintenance cost in SWCCG = card's deploy cost. Reserving only 1 meant
-        // Rando would deploy expensive characters then lose them to maintenance.
-        int maintenanceReserve = 0;
-        try {
-            java.util.List<PhysicalCard> maintenanceCards = gameState.getAllPermanentCards();
-            if (allCards != null) {
-                for (PhysicalCard mCard : maintenanceCards) {
-                    if (mCard == null) continue;
-                    if (!playerId.equals(mCard.getOwner())) continue;
-                    com.gempukku.swccgo.common.Zone mZone = mCard.getZone();
-                    if (mZone == null || !mZone.isInPlay()) continue;
-                    SwccgCardBlueprint mBp = mCard.getBlueprint();
-                    if (mBp != null && mBp.hasIcon(com.gempukku.swccgo.common.Icon.MAINTENANCE)) {
-                        Float mCost = mBp.getDeployCost();
-                        int cardMaintenance = (mCost != null) ? mCost.intValue() : 1;
-                        maintenanceReserve += cardMaintenance;
-                        LOG.info("V22.3 MAINTENANCE: {} requires {} Force upkeep", mBp.getTitle(), cardMaintenance);
-                    }
-                }
-            }
-            if (maintenanceReserve > 0) {
-                LOG.warn("V22.3 MAINTENANCE: Reserving {} total Force for maintenance upkeep", maintenanceReserve);
-            }
-        } catch (Exception e) {
-            LOG.debug("V22.3 MAINTENANCE: Error counting maintenance cards: {}", e.getMessage());
-        }
-        int effectiveForce = forceAvailable - battleForceReserve - maintenanceReserve;
+        int effectiveForce = forceAvailable - battleForceReserve;
 
         // Track location deploys (apply to all plans)
         List<CardInfo> locationDeploys = planLocationDeploys(locations, effectiveForce);
@@ -590,62 +549,16 @@ public class DeployPhasePlanner {
 
     /**
      * Plan location deploys (always prioritized).
-     * V22: Sort objective-relevant locations first.
-     * V22: Throttle location deploys if force gen >= 15 AND reserve < 7.
      */
     private List<CardInfo> planLocationDeploys(List<CardInfo> locations, int forceAvailable) {
         List<CardInfo> deploys = new ArrayList<>();
-        if (locations.isEmpty()) return deploys;
-
-        // V22: Throttle check - skip ALL location deploys if already generating
-        // 15+ force AND reserve deck is dangerously low (< 7 cards)
-        if (currentGame != null && currentPlayerId != null) {
-            try {
-                GameState gs = currentGame.getGameState();
-                int reserveSize = gs.getReserveDeckSize(currentPlayerId);
-                int forceGen = gs.getForcePileSize(currentPlayerId)
-                    + gs.getReserveDeckSize(currentPlayerId); // rough proxy for generation capacity
-                // More accurate: count our force icons on locations we control
-                int ourForceIcons = 0;
-                String opponentId = gs.getOpponent(currentPlayerId);
-                List<AiBoardAnalyzer.LocationAnalysis> locs = AiBoardAnalyzer.analyzeAllLocations(
-                    currentGame, currentPlayerId, opponentId, currentSide);
-                for (AiBoardAnalyzer.LocationAnalysis la : locs) {
-                    ourForceIcons += la.ourForceIcons;
-                }
-                if (ourForceIcons >= 15 && reserveSize < 7) {
-                    LOG.warn("V22 LOCATION THROTTLE: Force icons={}, reserve={} - skipping location deploys to conserve reserve",
-                        ourForceIcons, reserveSize);
-                    return deploys;
-                }
-            } catch (Exception e) {
-                LOG.debug("V22 LOCATION THROTTLE: Error checking force/reserve: {}", e.getMessage());
-            }
-        }
-
-        // V22: Sort locations - objective-relevant first, then by cost (cheaper first)
-        List<CardInfo> sorted = new ArrayList<>(locations);
-        sorted.sort((a, b) -> {
-            boolean aRelevant = false;
-            boolean bRelevant = false;
-            if (objectiveAnalyzer != null && objectiveAnalyzer.isAnalyzed()) {
-                aRelevant = objectiveAnalyzer.isObjectiveRelevantLocation(a.name);
-                bRelevant = objectiveAnalyzer.isObjectiveRelevantLocation(b.name);
-            }
-            if (aRelevant && !bRelevant) return -1;
-            if (!aRelevant && bRelevant) return 1;
-            return Integer.compare(a.cost, b.cost);
-        });
-
         int remaining = forceAvailable;
-        for (CardInfo loc : sorted) {
+
+        for (CardInfo loc : locations) {
             if (loc.cost <= remaining) {
                 deploys.add(loc);
                 remaining -= loc.cost;
-                boolean objRelevant = objectiveAnalyzer != null && objectiveAnalyzer.isAnalyzed()
-                    && objectiveAnalyzer.isObjectiveRelevantLocation(loc.name);
-                LOG.info("   📍 Location deploy: {} (cost {}){}", loc.name, loc.cost,
-                    objRelevant ? " ⭐ OBJECTIVE-RELEVANT" : "");
+                LOG.info("   📍 Location deploy: {} (cost {})", loc.name, loc.cost);
             }
         }
 
@@ -790,22 +703,6 @@ public class DeployPhasePlanner {
         if (!repilotPlan.getInstructions().isEmpty()) {
             float score = scorePlan(repilotPlan, allLocations, turn);
             plans.add(new ScoredPlan(repilotPlan, score, "space_repilot"));
-        }
-
-        // V22: OBJECTIVE CAPITAL SHIP PRIORITY
-        // If the objective wants Bespin control, prioritize deploying a capital ship there.
-        if (objectiveAnalyzer != null && objectiveAnalyzer.isAnalyzed()) {
-            Set<String> fragments = objectiveAnalyzer.getFlipConditionLocationFragments();
-            boolean objectiveWantsBespin = fragments.contains("bespin") || fragments.contains("cloud city");
-            if (objectiveWantsBespin) {
-                DeploymentPlan executorPlan = generateObjectiveCapitalPlan(
-                    starships, characters, allLocations, forceAvailable, game, playerId);
-                if (!executorPlan.getInstructions().isEmpty()) {
-                    float score = scorePlan(executorPlan, allLocations, turn) + 200.0f;
-                    plans.add(new ScoredPlan(executorPlan, score, "objective_capital_bespin"));
-                    LOG.warn("📋 V22: Added objective capital ship plan for Bespin (score boost +200)");
-                }
-            }
         }
 
         return plans;
@@ -998,26 +895,8 @@ public class DeployPhasePlanner {
         DeploymentPlan plan = new DeploymentPlan(DeployStrategy.ESTABLISH,
             "Establish in " + domain);
 
-        // Sort by opponent icons (highest value first), with V22 objective bonus
-        establishTargets.sort((a, b) -> {
-            int scoreA = a.theirForceIcons;
-            int scoreB = b.theirForceIcons;
-            // V22: Objective-relevant locations get MAJOR boost in sort priority
-            // Changed from +5 to +50 - objective locations should be top establish targets
-            if (objectiveAnalyzer != null && objectiveAnalyzer.isAnalyzed()) {
-                String titleA = a.location.getTitle();
-                String titleB = b.location.getTitle();
-                if (objectiveAnalyzer.isObjectiveRelevantLocation(titleA)) {
-                    scoreA += 50;
-                    LOG.warn("📋 V22: Boosting {} in establish plan (objective-relevant, +50)", titleA);
-                }
-                if (objectiveAnalyzer.isObjectiveRelevantLocation(titleB)) {
-                    scoreB += 50;
-                    LOG.warn("📋 V22: Boosting {} in establish plan (objective-relevant, +50)", titleB);
-                }
-            }
-            return Integer.compare(scoreB, scoreA);
-        });
+        // Sort by opponent icons (highest value first)
+        establishTargets.sort((a, b) -> Integer.compare(b.theirForceIcons, a.theirForceIcons));
 
         int remaining = forceAvailable;
         int establishCount = 0;
@@ -1065,152 +944,17 @@ public class DeployPhasePlanner {
                     .orElse(null);
 
                 if (best != null) {
-                    // SOLO DEPLOY GUARD: Only send a character alone if they're powerful enough
-                    // to survive a counter-deploy + battle. Characters below MIN_SOLO_DEPLOY_POWER
-                    // (e.g., Jango at 4, Mara at 5) will get isolated and overwhelmed.
-                    // Instead, fall through to find an optimal multi-character combo.
-                    if (best.power >= RandoConfig.MIN_SOLO_DEPLOY_POWER) {
-                        addCardToPlan(plan, best.card, loc, 2,
-                            String.format("Establish at %s (%d icons, ability %d, power %d - solo OK)",
-                                loc.location.getTitle(), loc.theirForceIcons, best.ability, best.power));
-                        remaining -= best.cost;
-                        available.remove(best);
-                        establishCount++;
-                    } else {
-                        // Character is too weak to stand alone — try a group combo instead
-                        LOG.info("📋 SOLO GUARD: {} (power {}) below MIN_SOLO_DEPLOY_POWER {} at {} — seeking group",
-                            best.name, best.power, RandoConfig.MIN_SOLO_DEPLOY_POWER,
-                            loc.location.getTitle());
-                        OptimalCombination combo = findOptimalCombination(
-                            deployableHere, remaining, RandoConfig.MIN_SOLO_DEPLOY_POWER, false);
-                        if (!combo.isEmpty() && combo.totalPower >= RandoConfig.MIN_SOLO_DEPLOY_POWER) {
-                            for (PhysicalCard card : combo.cards) {
-                                CardInfo info = findCardInfo(available, card);
-                                if (info != null) {
-                                    addCardToPlan(plan, card, loc, 2,
-                                        String.format("Establish at %s (group, power %d)",
-                                            loc.location.getTitle(), combo.totalPower));
-                                    remaining -= info.cost;
-                                    available.removeIf(c -> c.card == card);
-                                }
-                            }
-                            establishCount++;
-                        } else {
-                            // V59 SOLO GUARD FALLBACK: Before giving up on this weak character,
-                            // try to route them to an OWN location where we already have a friendly.
-                            // Deploying alongside an existing friendly converts a "solo deploy"
-                            // into a reinforcement — the weak character arrives with backup.
-                            // FIXES Issue #5 from peaceful-pike replay: Obi-Wan (power 5) stayed
-                            // in hand all game because Mustafar was the only establish target
-                            // and no group could deploy there.
-                            PhysicalCard reinforcementSite = findFriendlyReinforcementSite(
-                                best.card, loc.location);
-                            if (reinforcementSite != null) {
-                                AiBoardAnalyzer.LocationAnalysis reinLoc = null;
-                                try {
-                                    String oppId = currentGame.getOpponent(currentPlayerId);
-                                    reinLoc = AiBoardAnalyzer.analyzeLocation(
-                                        currentGame, currentPlayerId, oppId,
-                                        reinforcementSite, currentSide);
-                                } catch (Exception e) { /* ignore */ }
-                                if (reinLoc != null) {
-                                    addCardToPlan(plan, best.card, reinLoc, 2,
-                                        String.format("V59 REINFORCE: %s joining friendlies at %s",
-                                            best.name, reinforcementSite.getTitle()));
-                                    remaining -= best.cost;
-                                    available.remove(best);
-                                    establishCount++;
-                                    LOG.warn("📋 V59 SOLO GUARD REROUTE: {} (power {}) → {} (own site with friendlies)",
-                                        best.name, best.power, reinforcementSite.getTitle());
-                                } else {
-                                    LOG.info("📋 SOLO GUARD: No valid group for {} — skipping location to avoid lone deployment",
-                                        loc.location.getTitle());
-                                }
-                            } else {
-                                LOG.info("📋 SOLO GUARD: No valid group for {} — skipping location to avoid lone deployment",
-                                    loc.location.getTitle());
-                                // Skip — deploying solo here is too risky
-                            }
-                        }
-                    }
+                    addCardToPlan(plan, best.card, loc, 2,
+                        String.format("Establish at %s (%d icons, ability %d)",
+                            loc.location.getTitle(), loc.theirForceIcons, best.ability));
+                    remaining -= best.cost;
+                    available.remove(best);
+                    establishCount++;
                 }
             }
         }
 
         return plan;
-    }
-
-    /**
-     * V59: Find an own location where we already have a friendly character,
-     * where `card` can legally deploy. Used as a fallback when SOLO GUARD
-     * fails at an establish target — reroute the weak character to where
-     * it auto-joins an existing group.
-     *
-     * @param card the card we want to deploy
-     * @param skipLocation skip this location (it's the failed establish target)
-     * @return an own location with friendly presence, or null
-     */
-    private PhysicalCard findFriendlyReinforcementSite(PhysicalCard card, PhysicalCard skipLocation) {
-        if (card == null || currentGame == null) return null;
-        try {
-            GameState gs = currentGame.getGameState();
-            List<PhysicalCard> tops = gs.getTopLocations();
-            if (tops == null) return null;
-            PhysicalCard best = null;
-            float bestOurPower = -1;
-            for (PhysicalCard loc : tops) {
-                if (loc == null || loc == skipLocation) continue;
-                // Only sites (not systems) make sense for character reinforcement
-                if (loc.getBlueprint() == null) continue;
-                if (loc.getBlueprint().getCardSubtype() == null) continue;
-                if (loc.getBlueprint().getCardSubtype() != com.gempukku.swccgo.common.CardSubtype.SITE) continue;
-                // Must have own friendly character here
-                float ourPower = 0;
-                boolean hasFriendly = false;
-                List<PhysicalCard> atLoc = gs.getCardsAtLocation(loc);
-                if (atLoc != null) {
-                    for (PhysicalCard c : atLoc) {
-                        if (c != null && currentPlayerId.equals(c.getOwner())
-                            && c.getBlueprint() != null
-                            && c.getBlueprint().getCardCategory() == CardCategory.CHARACTER) {
-                            hasFriendly = true;
-                            if (c.getBlueprint().hasPowerAttribute()) {
-                                Float p = c.getBlueprint().getPower();
-                                if (p != null) ourPower += p;
-                            }
-                        }
-                    }
-                }
-                if (!hasFriendly) continue;
-                // Verify the deploying card can actually reach this location
-                if (!canCardDeployHere(card, loc)) continue;
-                // Prefer site with highest own power (most-consolidated group)
-                if (ourPower > bestOurPower) {
-                    bestOurPower = ourPower;
-                    best = loc;
-                }
-            }
-            return best;
-        } catch (Exception e) {
-            LOG.debug("V59 findFriendlyReinforcementSite error: {}", e.getMessage());
-            return null;
-        }
-    }
-
-    /**
-     * V59 helper: best-effort check that `card` can deploy to `location`.
-     * Uses the same filter logic as filterDeployableCards but for a single card.
-     */
-    private boolean canCardDeployHere(PhysicalCard card, PhysicalCard location) {
-        try {
-            if (card == null || card.getBlueprint() == null) return false;
-            List<CardInfo> single = new ArrayList<>();
-            single.add(new CardInfo(card));
-            List<CardInfo> deployable = filterDeployableCards(single, location);
-            return !deployable.isEmpty();
-        } catch (Exception e) {
-            return false;
-        }
     }
 
     /**
@@ -1255,70 +999,6 @@ public class DeployPhasePlanner {
                     }
                 }
             }
-        }
-
-        return plan;
-    }
-
-    /**
-     * V22: Generate plan to deploy a capital ship to the objective-relevant system (e.g., Bespin).
-     * For TDIGWATT, getting the Executor to Bespin system is a top strategic priority.
-     */
-    private DeploymentPlan generateObjectiveCapitalPlan(List<CardInfo> starships,
-                                                         List<CardInfo> characters,
-                                                         List<AiBoardAnalyzer.LocationAnalysis> allLocations,
-                                                         int forceAvailable,
-                                                         SwccgGame game, String playerId) {
-        DeploymentPlan plan = new DeploymentPlan(DeployStrategy.ESTABLISH,
-            "Deploy capital ship to objective system (Bespin)");
-
-        // Find Bespin system on the board
-        AiBoardAnalyzer.LocationAnalysis bespinSystem = null;
-        for (AiBoardAnalyzer.LocationAnalysis loc : allLocations) {
-            String title = loc.location.getTitle();
-            if (title != null && (title.toLowerCase().contains("bespin") ||
-                                   title.toLowerCase().contains("cloud city")) && loc.isSpace()) {
-                bespinSystem = loc;
-                break;
-            }
-        }
-
-        if (bespinSystem == null) {
-            LOG.warn("📋 V22 CAPITAL: Bespin system not found on board yet - skipping capital plan");
-            return plan;
-        }
-
-        int remaining = forceAvailable;
-        final int budget = remaining;
-        List<CardInfo> affordable = starships.stream()
-            .filter(s -> s.cost <= budget)
-            .sorted(Comparator.comparingInt((CardInfo s) -> s.power).reversed())
-            .collect(Collectors.toList());
-
-        if (affordable.isEmpty()) {
-            LOG.warn("📋 V22 CAPITAL: No affordable capital ships in hand");
-            return plan;
-        }
-
-        CardInfo bestShip = affordable.get(0);
-        addCardToPlan(plan, bestShip.card, bespinSystem, 1,
-            String.format("V22: Deploy %s to Bespin for objective (power %d)", bestShip.name, bestShip.power));
-        remaining -= bestShip.cost;
-
-        // Try to add a pilot
-        final int pilotBudget = remaining;
-        List<CardInfo> affordablePilots = characters.stream()
-            .filter(c -> c.isPilot && c.cost <= pilotBudget)
-            .sorted(Comparator.comparingInt((CardInfo c) -> c.ability).reversed())
-            .collect(Collectors.toList());
-
-        if (!affordablePilots.isEmpty()) {
-            CardInfo pilot = affordablePilots.get(0);
-            addCardToPlan(plan, pilot.card, bespinSystem, 1,
-                String.format("V22: Deploy pilot %s for %s", pilot.name, bestShip.name));
-            LOG.warn("📋 V22 CAPITAL: Planning {} + pilot {} to Bespin", bestShip.name, pilot.name);
-        } else {
-            LOG.warn("📋 V22 CAPITAL: Planning {} to Bespin (no affordable pilot)", bestShip.name);
         }
 
         return plan;
@@ -1396,14 +1076,14 @@ public class DeployPhasePlanner {
             if (inst.getTargetLocationId() != null) {
                 powerByLocation.merge(inst.getTargetLocationId(), inst.getPowerContribution(), Integer::sum);
 
-                // V32: Use actual ability contribution instead of estimating from power.
-                // Previous code used MIN(power, 4) which is wrong — a character with
-                // power 7 and ability 1 would be estimated as ability 4, causing the
-                // planner to think it reached the battle destiny threshold when it didn't.
-                int ability = inst.getAbilityContribution();
-                if (ability == 0) {
-                    // Fallback: if ability wasn't set, use conservative estimate
-                    ability = Math.min(inst.getPowerContribution(), 3);
+                // Get ability from card lookup
+                int ability = 0;
+                for (AiBoardAnalyzer.LocationAnalysis loc : locations) {
+                    if (String.valueOf(loc.location.getCardId()).equals(inst.getTargetLocationId())) {
+                        // Estimate ability from power (rough heuristic)
+                        ability = inst.getPowerContribution() >= 4 ? 4 : inst.getPowerContribution();
+                        break;
+                    }
                 }
                 abilityByLocation.merge(inst.getTargetLocationId(), ability, Integer::sum);
             }
@@ -1425,16 +1105,6 @@ public class DeployPhasePlanner {
             }
 
             if (targetLoc == null) continue;
-
-            // V22: Objective-relevant location bonus for plan scoring
-            if (objectiveAnalyzer != null && objectiveAnalyzer.isAnalyzed()) {
-                String locTitle = targetLoc.location.getTitle();
-                if (locTitle != null && objectiveAnalyzer.isObjectiveRelevantLocation(locTitle)) {
-                    float objBonus = objectiveAnalyzer.getLocationObjectiveBonus(locTitle);
-                    score += objBonus;
-                    LOG.warn("V22 PLAN SCORE: {} is objective-relevant, +{} to plan score", locTitle, objBonus);
-                }
-            }
 
             if (targetLoc.theirPower > 0) {
                 // CONTESTED LOCATION

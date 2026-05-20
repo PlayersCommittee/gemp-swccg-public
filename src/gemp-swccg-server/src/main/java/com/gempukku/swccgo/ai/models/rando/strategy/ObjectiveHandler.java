@@ -153,21 +153,6 @@ public class ObjectiveHandler {
             "5_172"    // Security Tower
         ));
 
-        // This Deal Is Getting Worse All The Time / You've Got To Be Kidding (226_12)
-        // CRITICAL: Must start with Bespin system + Exterior Walkway.
-        // Exterior Walkway is required because TDIGWATT pulls other Cloud City sites
-        // only when Exterior is already in play. Without it, no location chain fires.
-        // Dark Deal (223_9) is NOT a starting card - pulled from Reserve via objective ability.
-        OBJECTIVE_REQUIREMENTS.put("226_12", Arrays.asList(
-            "223_8",                     // Bespin (V) system
-            "title:Cloud City: Exterior" // Exterior Walkway - MUST be starting location
-        ));
-        // Non-virtual / alternate blueprint variants
-        OBJECTIVE_REQUIREMENTS.put("7_295", Arrays.asList(
-            "5_164",                     // Bespin system (non-virtual)
-            "title:Cloud City: Exterior"
-        ));
-
         // Court Of The Vile Gangster / I Shall Enjoy Watching You Die (110_6)
         OBJECTIVE_REQUIREMENTS.put("110_6", Arrays.asList(
             "6_162",   // Audience Chamber
