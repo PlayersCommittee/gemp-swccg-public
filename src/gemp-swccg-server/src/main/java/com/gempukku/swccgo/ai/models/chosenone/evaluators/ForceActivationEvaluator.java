@@ -1,4 +1,4 @@
-package com.gempukku.swccgo.ai.models.rando.evaluators;
+package com.gempukku.swccgo.ai.models.chosenone.evaluators;
 
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;

@@ -1,6 +1,6 @@
-package com.gempukku.swccgo.ai.models.rando.evaluators;
+package com.gempukku.swccgo.ai.models.chosenone.evaluators;
 
-import com.gempukku.swccgo.ai.models.rando.RandoLogger;
+import com.gempukku.swccgo.ai.models.chosenone.ChosenOneLogger;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.Random;
  * Each applicable evaluator scores the actions, then we pick the best.
  */
 public class CombinedEvaluator {
-    private static final Logger LOG = RandoLogger.getEvaluatorLogger();
+    private static final Logger LOG = ChosenOneLogger.getEvaluatorLogger();
     private static final float BAD_ACTION_THRESHOLD = -100.0f;
 
     private final List<ActionEvaluator> evaluators;
@@ -94,18 +94,7 @@ public class CombinedEvaluator {
             return null;
         }
 
-        // V67bc DPS HIERARCHY WALK: when DPS provided ordered step buckets,
-        // walk them top→bottom. For each bucket, pick the highest-scoring
-        // action. If that action's score is above the bad threshold, return
-        // it. Otherwise fall through to the next bucket. PASS only when ALL
-        // buckets exhausted with all-bad scores.
-        //
-        // This implements Steve's principle: "walk the full hierarchy every
-        // call, take first viable, only pass when nothing viable." Replaces
-        // the older single-set filter that wrongly forced PASS when STEP 1's
-        // only candidate was hard-blocked (e.g. K&D pull when no CC interior
-        // sites left in reserve → -9999 → PASS even though STEP 2/3 had 9
-        // viable character deploys).
+        // V67bc DPS HIERARCHY WALK (mirrors Rando's V67bc)
         java.util.List<java.util.Set<String>> buckets = context.getStepBuckets();
         java.util.List<String> bucketLabels = context.getStepBucketLabels();
         if (buckets != null && !buckets.isEmpty()) {
@@ -136,7 +125,6 @@ public class CombinedEvaluator {
                 LOG.warn("V67bc DPS WALK: step={} all bad (best score {}) → falling through to next step",
                     label, bestInBucket.getScore());
             }
-            // All buckets exhausted with all-bad scores — true PASS time.
             LOG.warn("V67bc DPS WALK: every bucket all-bad → PASS");
             EvaluatedAction passAction = new EvaluatedAction(
                 "",
@@ -148,7 +136,7 @@ public class CombinedEvaluator {
             return passAction;
         }
 
-        // Legacy single-set filter (no DPS hierarchy provided).
+        // Legacy single-set filter
         java.util.Set<String> allowed = context.getAllowedActionIds();
         if (allowed != null) {
             int before = allActions.size();

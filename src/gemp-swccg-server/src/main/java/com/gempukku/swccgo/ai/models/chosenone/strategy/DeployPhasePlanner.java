@@ -1,9 +1,9 @@
-package com.gempukku.swccgo.ai.models.rando.strategy;
+package com.gempukku.swccgo.ai.models.chosenone.strategy;
 
 import com.gempukku.swccgo.ai.common.AiBoardAnalyzer;
 import com.gempukku.swccgo.ai.common.AiCardHelper;
-import com.gempukku.swccgo.ai.models.rando.RandoConfig;
-import com.gempukku.swccgo.ai.models.rando.RandoLogger;
+import com.gempukku.swccgo.ai.models.chosenone.ChosenOneConfig;
+import com.gempukku.swccgo.ai.models.chosenone.ChosenOneLogger;
 import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Side;
@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
  * 5. BUILD UP - reinforce winning positions (but not overkill)
  */
 public class DeployPhasePlanner {
-    private static final Logger LOG = RandoLogger.getStrategyLogger();
+    private static final Logger LOG = ChosenOneLogger.getStrategyLogger();
 
     // Config constants
     private final int deployThreshold;
@@ -57,7 +57,7 @@ public class DeployPhasePlanner {
     private ObjectiveAnalyzer objectiveAnalyzer;
 
     public DeployPhasePlanner() {
-        this(RandoConfig.DEPLOY_THRESHOLD, RandoConfig.BATTLE_FORCE_RESERVE);
+        this(ChosenOneConfig.DEPLOY_THRESHOLD, ChosenOneConfig.BATTLE_FORCE_RESERVE);
     }
 
     public DeployPhasePlanner(int deployThreshold, int battleForceReserve) {
@@ -255,14 +255,14 @@ public class DeployPhasePlanner {
         DeploymentPlan bestPlan = selectBestPlan(allPlans, locationDeploys, currentTurn, lifeForce);
 
         // === EARLY GAME HOLD-BACK CHECK (at the END, like Python) ===
-        if (currentTurn <= RandoConfig.DEPLOY_EARLY_GAME_TURNS && bestPlan != null) {
+        if (currentTurn <= ChosenOneConfig.DEPLOY_EARLY_GAME_TURNS && bestPlan != null) {
             float planScore = scorePlan(bestPlan, allLocations, currentTurn);
-            if (planScore < RandoConfig.DEPLOY_EARLY_GAME_THRESHOLD) {
+            if (planScore < ChosenOneConfig.DEPLOY_EARLY_GAME_THRESHOLD) {
                 LOG.info("📋 EARLY GAME HOLD: plan score {} < threshold {} - holding back",
-                    (int)planScore, RandoConfig.DEPLOY_EARLY_GAME_THRESHOLD);
+                    (int)planScore, ChosenOneConfig.DEPLOY_EARLY_GAME_THRESHOLD);
                 bestPlan = createHoldBackPlan(String.format(
                     "Early game (turn %d) - plan score %.0f below threshold %d",
-                    currentTurn, planScore, RandoConfig.DEPLOY_EARLY_GAME_THRESHOLD));
+                    currentTurn, planScore, ChosenOneConfig.DEPLOY_EARLY_GAME_THRESHOLD));
             }
         }
 
@@ -298,7 +298,7 @@ public class DeployPhasePlanner {
                 theirDrain += loc.ourForceIcons;
 
                 // Add to bleed locations if enemy power is low enough to contest
-                if (loc.theirPower <= RandoConfig.LOW_ENEMY_THRESHOLD) {
+                if (loc.theirPower <= ChosenOneConfig.LOW_ENEMY_THRESHOLD) {
                     bleedLocations.add(loc);
                     String domain = loc.isSpace() ? "space" : "ground";
                     LOG.debug("   🩸 BLEED ({}, contestable): {} - they drain {} icons, enemy power {}",
@@ -351,14 +351,14 @@ public class DeployPhasePlanner {
                 boolean hasReactThreat = false;
                 for (AiBoardAnalyzer.LocationAnalysis loc : locations) {
                     boolean matchesDomain = isSpace ? loc.isSpace() : loc.isGround();
-                    if (matchesDomain && loc.theirPower >= RandoConfig.REACT_THREAT_THRESHOLD) {
+                    if (matchesDomain && loc.theirPower >= ChosenOneConfig.REACT_THREAT_THRESHOLD) {
                         hasReactThreat = true;
                         break;
                     }
                 }
 
                 if (!hasReactThreat) {
-                    threshold = Math.max(RandoConfig.MIN_ESTABLISH_POWER, threshold - 2);
+                    threshold = Math.max(ChosenOneConfig.MIN_ESTABLISH_POWER, threshold - 2);
                     earlyGameRelaxed = true;
                 }
             }
@@ -368,13 +368,13 @@ public class DeployPhasePlanner {
         int lifeForceDecay = 0;
         if (lifeForce < 10) {
             lifeForceDecay = 2;
-            threshold = Math.max(RandoConfig.MIN_ESTABLISH_POWER - 1, threshold - lifeForceDecay);
+            threshold = Math.max(ChosenOneConfig.MIN_ESTABLISH_POWER - 1, threshold - lifeForceDecay);
         } else if (lifeForce < 20) {
             lifeForceDecay = 1;
-            threshold = Math.max(RandoConfig.MIN_ESTABLISH_POWER, threshold - lifeForceDecay);
+            threshold = Math.max(ChosenOneConfig.MIN_ESTABLISH_POWER, threshold - lifeForceDecay);
         } else if (lifeForce < 30) {
             lifeForceDecay = 1;
-            threshold = Math.max(RandoConfig.MIN_ESTABLISH_POWER, threshold - lifeForceDecay);
+            threshold = Math.max(ChosenOneConfig.MIN_ESTABLISH_POWER, threshold - lifeForceDecay);
         }
 
         LOG.debug("   📊 Dynamic threshold ({}): {} (early={}, life_decay={})",
@@ -406,19 +406,19 @@ public class DeployPhasePlanner {
                 } else if (loc.ourPower > loc.theirPower) {
                     cats.winningLocations.add(loc);
                     // Check if below reinforcement target
-                    if (loc.ourPower < RandoConfig.REINFORCE_TARGET_POWER) {
+                    if (loc.ourPower < ChosenOneConfig.REINFORCE_TARGET_POWER) {
                         cats.weakPresenceLocations.add(loc);
                     }
                 }
 
                 // Check if crushable (we have big advantage)
-                if (loc.getPowerAdvantage() >= RandoConfig.BATTLE_FAVORABLE_THRESHOLD) {
+                if (loc.getPowerAdvantage() >= ChosenOneConfig.BATTLE_FAVORABLE_THRESHOLD) {
                     cats.crushableLocations.add(loc);
                 }
             } else if (loc.theirPower > 0 && loc.ourPower == 0 && hasOurIcons) {
                 // BLEEDING - they have presence, we don't, but we have icons (they drain us)
                 cats.bleedLocations.add(loc);
-                if (loc.theirPower <= RandoConfig.LOW_ENEMY_THRESHOLD) {
+                if (loc.theirPower <= ChosenOneConfig.LOW_ENEMY_THRESHOLD) {
                     cats.attackTargets.add(loc);  // Low enemy = attack target
                 }
             } else if (loc.theirPower == 0 && loc.ourPower == 0 && hasTheirIcons) {
@@ -428,12 +428,12 @@ public class DeployPhasePlanner {
                 // DRAINING - we control and can drain them
                 cats.drainingLocations.add(loc);
                 // Check if we're below reinforcement target
-                if (loc.ourPower < RandoConfig.REINFORCE_TARGET_POWER) {
+                if (loc.ourPower < ChosenOneConfig.REINFORCE_TARGET_POWER) {
                     cats.weakPresenceLocations.add(loc);
                 }
             } else if (loc.ourPower > 0 && loc.theirPower == 0) {
                 // CONTROLLED - we have presence, they don't
-                if (loc.ourPower < RandoConfig.REINFORCE_TARGET_POWER) {
+                if (loc.ourPower < ChosenOneConfig.REINFORCE_TARGET_POWER) {
                     cats.weakPresenceLocations.add(loc);
                 }
             }
@@ -495,12 +495,12 @@ public class DeployPhasePlanner {
 
                 int totalPower = combo.stream().mapToInt(c -> c.power).sum();
                 int totalAbility = combo.stream().mapToInt(c -> c.ability).sum();
-                boolean hasAbility = totalAbility >= RandoConfig.ABILITY_THRESHOLD;
+                boolean hasAbility = totalAbility >= ChosenOneConfig.ABILITY_THRESHOLD;
 
                 // Ability compensation for battles
                 int effectiveGoal = powerGoal;
                 if (!hasAbility && mustExceed) {
-                    effectiveGoal = powerGoal + RandoConfig.ABILITY_POWER_COMPENSATION;
+                    effectiveGoal = powerGoal + ChosenOneConfig.ABILITY_POWER_COMPENSATION;
                 }
 
                 boolean achievesGoal = mustExceed ?
@@ -565,9 +565,9 @@ public class DeployPhasePlanner {
                 totalAbility += card.ability;
 
                 // Check if we've met the goal with ability
-                boolean hasAbility = totalAbility >= RandoConfig.ABILITY_THRESHOLD;
+                boolean hasAbility = totalAbility >= ChosenOneConfig.ABILITY_THRESHOLD;
                 int effectiveGoal = hasAbility ? powerGoal :
-                    powerGoal + (mustExceed ? RandoConfig.ABILITY_POWER_COMPENSATION : 0);
+                    powerGoal + (mustExceed ? ChosenOneConfig.ABILITY_POWER_COMPENSATION : 0);
 
                 if (mustExceed ? totalPower > effectiveGoal : totalPower >= effectiveGoal) {
                     break;  // Goal met
@@ -575,9 +575,9 @@ public class DeployPhasePlanner {
             }
         }
 
-        boolean hasAbility = totalAbility >= RandoConfig.ABILITY_THRESHOLD;
+        boolean hasAbility = totalAbility >= ChosenOneConfig.ABILITY_THRESHOLD;
         int effectiveGoal = hasAbility ? powerGoal :
-            powerGoal + (mustExceed ? RandoConfig.ABILITY_POWER_COMPENSATION : 0);
+            powerGoal + (mustExceed ? ChosenOneConfig.ABILITY_POWER_COMPENSATION : 0);
         boolean achievesGoal = mustExceed ? totalPower > effectiveGoal : totalPower >= effectiveGoal;
 
         return new OptimalCombination(selected, totalPower, totalCost,
@@ -792,22 +792,6 @@ public class DeployPhasePlanner {
             plans.add(new ScoredPlan(repilotPlan, score, "space_repilot"));
         }
 
-        // V22: OBJECTIVE CAPITAL SHIP PRIORITY
-        // If the objective wants Bespin control, prioritize deploying a capital ship there.
-        if (objectiveAnalyzer != null && objectiveAnalyzer.isAnalyzed()) {
-            Set<String> fragments = objectiveAnalyzer.getFlipConditionLocationFragments();
-            boolean objectiveWantsBespin = fragments.contains("bespin") || fragments.contains("cloud city");
-            if (objectiveWantsBespin) {
-                DeploymentPlan executorPlan = generateObjectiveCapitalPlan(
-                    starships, characters, allLocations, forceAvailable, game, playerId);
-                if (!executorPlan.getInstructions().isEmpty()) {
-                    float score = scorePlan(executorPlan, allLocations, turn) + 200.0f;
-                    plans.add(new ScoredPlan(executorPlan, score, "objective_capital_bespin"));
-                    LOG.warn("📋 V22: Added objective capital ship plan for Bespin (score boost +200)");
-                }
-            }
-        }
-
         return plans;
     }
 
@@ -838,7 +822,7 @@ public class DeployPhasePlanner {
             int remaining = forceAvailable;
 
             // Try ground first - must BEAT enemy power, not just have cards
-            int groundPowerNeeded = (int) bestGroundTarget.theirPower + RandoConfig.BATTLE_FAVORABLE_THRESHOLD;
+            int groundPowerNeeded = (int) bestGroundTarget.theirPower + ChosenOneConfig.BATTLE_FAVORABLE_THRESHOLD;
             OptimalCombination groundCombo = findOptimalCombination(
                 groundCards, remaining / 2, groundPowerNeeded, true);
 
@@ -852,7 +836,7 @@ public class DeployPhasePlanner {
             }
 
             // Then space - must BEAT enemy power
-            int spacePowerNeeded = (int) bestSpaceTarget.theirPower + RandoConfig.BATTLE_FAVORABLE_THRESHOLD;
+            int spacePowerNeeded = (int) bestSpaceTarget.theirPower + ChosenOneConfig.BATTLE_FAVORABLE_THRESHOLD;
             OptimalCombination spaceCombo = findOptimalCombination(
                 starships, remaining, spacePowerNeeded, true);
 
@@ -1025,7 +1009,7 @@ public class DeployPhasePlanner {
 
         for (AiBoardAnalyzer.LocationAnalysis loc : establishTargets) {
             if (remaining <= 0 || available.isEmpty()) break;
-            if (establishCount >= RandoConfig.MAX_ESTABLISH_LOCATIONS) break;
+            if (establishCount >= ChosenOneConfig.MAX_ESTABLISH_LOCATIONS) break;
             if (loc.theirForceIcons <= 0) continue;
 
             // CRITICAL: Filter cards to only those that can deploy to this location
@@ -1037,7 +1021,7 @@ public class DeployPhasePlanner {
 
             // Find cards with good ability (can defend against counter-deploy)
             List<CardInfo> withAbility = deployableHere.stream()
-                .filter(c -> c.ability >= RandoConfig.ABILITY_THRESHOLD)
+                .filter(c -> c.ability >= ChosenOneConfig.ABILITY_THRESHOLD)
                 .collect(Collectors.toList());
 
             if (withAbility.isEmpty()) {
@@ -1069,7 +1053,7 @@ public class DeployPhasePlanner {
                     // to survive a counter-deploy + battle. Characters below MIN_SOLO_DEPLOY_POWER
                     // (e.g., Jango at 4, Mara at 5) will get isolated and overwhelmed.
                     // Instead, fall through to find an optimal multi-character combo.
-                    if (best.power >= RandoConfig.MIN_SOLO_DEPLOY_POWER) {
+                    if (best.power >= ChosenOneConfig.MIN_SOLO_DEPLOY_POWER) {
                         addCardToPlan(plan, best.card, loc, 2,
                             String.format("Establish at %s (%d icons, ability %d, power %d - solo OK)",
                                 loc.location.getTitle(), loc.theirForceIcons, best.ability, best.power));
@@ -1079,11 +1063,11 @@ public class DeployPhasePlanner {
                     } else {
                         // Character is too weak to stand alone — try a group combo instead
                         LOG.info("📋 SOLO GUARD: {} (power {}) below MIN_SOLO_DEPLOY_POWER {} at {} — seeking group",
-                            best.name, best.power, RandoConfig.MIN_SOLO_DEPLOY_POWER,
+                            best.name, best.power, ChosenOneConfig.MIN_SOLO_DEPLOY_POWER,
                             loc.location.getTitle());
                         OptimalCombination combo = findOptimalCombination(
-                            deployableHere, remaining, RandoConfig.MIN_SOLO_DEPLOY_POWER, false);
-                        if (!combo.isEmpty() && combo.totalPower >= RandoConfig.MIN_SOLO_DEPLOY_POWER) {
+                            deployableHere, remaining, ChosenOneConfig.MIN_SOLO_DEPLOY_POWER, false);
+                        if (!combo.isEmpty() && combo.totalPower >= ChosenOneConfig.MIN_SOLO_DEPLOY_POWER) {
                             for (PhysicalCard card : combo.cards) {
                                 CardInfo info = findCardInfo(available, card);
                                 if (info != null) {
@@ -1239,7 +1223,7 @@ public class DeployPhasePlanner {
             }
 
             // Need to beat enemy power with favorable threshold
-            int powerNeeded = (int) loc.theirPower + RandoConfig.BATTLE_FAVORABLE_THRESHOLD;
+            int powerNeeded = (int) loc.theirPower + ChosenOneConfig.BATTLE_FAVORABLE_THRESHOLD;
 
             OptimalCombination combo = findOptimalCombination(deployableHere, remaining, powerNeeded, true);
 
@@ -1255,70 +1239,6 @@ public class DeployPhasePlanner {
                     }
                 }
             }
-        }
-
-        return plan;
-    }
-
-    /**
-     * V22: Generate plan to deploy a capital ship to the objective-relevant system (e.g., Bespin).
-     * For TDIGWATT, getting the Executor to Bespin system is a top strategic priority.
-     */
-    private DeploymentPlan generateObjectiveCapitalPlan(List<CardInfo> starships,
-                                                         List<CardInfo> characters,
-                                                         List<AiBoardAnalyzer.LocationAnalysis> allLocations,
-                                                         int forceAvailable,
-                                                         SwccgGame game, String playerId) {
-        DeploymentPlan plan = new DeploymentPlan(DeployStrategy.ESTABLISH,
-            "Deploy capital ship to objective system (Bespin)");
-
-        // Find Bespin system on the board
-        AiBoardAnalyzer.LocationAnalysis bespinSystem = null;
-        for (AiBoardAnalyzer.LocationAnalysis loc : allLocations) {
-            String title = loc.location.getTitle();
-            if (title != null && (title.toLowerCase().contains("bespin") ||
-                                   title.toLowerCase().contains("cloud city")) && loc.isSpace()) {
-                bespinSystem = loc;
-                break;
-            }
-        }
-
-        if (bespinSystem == null) {
-            LOG.warn("📋 V22 CAPITAL: Bespin system not found on board yet - skipping capital plan");
-            return plan;
-        }
-
-        int remaining = forceAvailable;
-        final int budget = remaining;
-        List<CardInfo> affordable = starships.stream()
-            .filter(s -> s.cost <= budget)
-            .sorted(Comparator.comparingInt((CardInfo s) -> s.power).reversed())
-            .collect(Collectors.toList());
-
-        if (affordable.isEmpty()) {
-            LOG.warn("📋 V22 CAPITAL: No affordable capital ships in hand");
-            return plan;
-        }
-
-        CardInfo bestShip = affordable.get(0);
-        addCardToPlan(plan, bestShip.card, bespinSystem, 1,
-            String.format("V22: Deploy %s to Bespin for objective (power %d)", bestShip.name, bestShip.power));
-        remaining -= bestShip.cost;
-
-        // Try to add a pilot
-        final int pilotBudget = remaining;
-        List<CardInfo> affordablePilots = characters.stream()
-            .filter(c -> c.isPilot && c.cost <= pilotBudget)
-            .sorted(Comparator.comparingInt((CardInfo c) -> c.ability).reversed())
-            .collect(Collectors.toList());
-
-        if (!affordablePilots.isEmpty()) {
-            CardInfo pilot = affordablePilots.get(0);
-            addCardToPlan(plan, pilot.card, bespinSystem, 1,
-                String.format("V22: Deploy pilot %s for %s", pilot.name, bestShip.name));
-            LOG.warn("📋 V22 CAPITAL: Planning {} + pilot {} to Bespin", bestShip.name, pilot.name);
-        } else {
-            LOG.warn("📋 V22 CAPITAL: Planning {} to Bespin (no affordable pilot)", bestShip.name);
         }
 
         return plan;
@@ -1398,8 +1318,7 @@ public class DeployPhasePlanner {
 
                 // V32: Use actual ability contribution instead of estimating from power.
                 // Previous code used MIN(power, 4) which is wrong — a character with
-                // power 7 and ability 1 would be estimated as ability 4, causing the
-                // planner to think it reached the battle destiny threshold when it didn't.
+                // power 7 and ability 1 would be estimated as ability 4.
                 int ability = inst.getAbilityContribution();
                 if (ability == 0) {
                     // Fallback: if ability wasn't set, use conservative estimate
@@ -1452,7 +1371,7 @@ public class DeployPhasePlanner {
                     winControlBonus = targetLoc.theirForceIcons * 15;
                 }
 
-                if (powerAdvantage >= RandoConfig.BATTLE_FAVORABLE_THRESHOLD) {
+                if (powerAdvantage >= ChosenOneConfig.BATTLE_FAVORABLE_THRESHOLD) {
                     // FAVORABLE FIGHT
                     score += 50 + (powerAdvantage * 10) + denyDrainBonus + winControlBonus;
                 } else if (powerAdvantage > 0) {
@@ -1464,7 +1383,7 @@ public class DeployPhasePlanner {
                 }
 
                 // Ability bonus/penalty
-                if (ourAbility >= RandoConfig.ABILITY_THRESHOLD) {
+                if (ourAbility >= ChosenOneConfig.ABILITY_THRESHOLD) {
                     score += 25;  // Can draw destiny
                 } else {
                     score -= 20 + (ourPower * 2);  // Vulnerable
@@ -1482,7 +1401,7 @@ public class DeployPhasePlanner {
                 }
 
                 // Ability check for establish safety
-                if (ourAbility >= RandoConfig.ABILITY_THRESHOLD) {
+                if (ourAbility >= ChosenOneConfig.ABILITY_THRESHOLD) {
                     establishBonus += 25;
                 } else if (ourPower < 5) {
                     establishBonus -= 500;  // BLOCKED - easy crush target

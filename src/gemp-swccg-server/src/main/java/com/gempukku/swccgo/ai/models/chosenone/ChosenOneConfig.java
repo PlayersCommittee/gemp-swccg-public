@@ -1,14 +1,14 @@
-package com.gempukku.swccgo.ai.models.rando;
+package com.gempukku.swccgo.ai.models.chosenone;
 
 /**
- * Configuration constants for Rando Cal AI.
+ * Configuration constants for The Chosen One AI.
  *
  * Based on Python bot config.py values. These are hardcoded constants
  * as agreed in the implementation plan - no external config files needed.
  */
-public final class RandoConfig {
+public final class ChosenOneConfig {
 
-    private RandoConfig() {
+    private ChosenOneConfig() {
         // Static constants only - no instantiation
     }
 

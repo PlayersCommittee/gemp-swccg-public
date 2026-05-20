@@ -1,6 +1,6 @@
-package com.gempukku.swccgo.ai.models.rando.evaluators;
+package com.gempukku.swccgo.ai.models.chosenone.evaluators;
 
-import com.gempukku.swccgo.ai.models.rando.RandoLogger;
+import com.gempukku.swccgo.ai.models.chosenone.ChosenOneLogger;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 public abstract class ActionEvaluator {
     protected final String name;
     protected boolean enabled = true;
-    protected final Logger logger = RandoLogger.getEvaluatorLogger();
+    protected final Logger logger = ChosenOneLogger.getEvaluatorLogger();
 
     protected ActionEvaluator(String name) {
         this.name = name;

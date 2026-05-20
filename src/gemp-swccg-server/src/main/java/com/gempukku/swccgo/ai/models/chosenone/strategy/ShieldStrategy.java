@@ -1,6 +1,6 @@
-package com.gempukku.swccgo.ai.models.rando.strategy;
+package com.gempukku.swccgo.ai.models.chosenone.strategy;
 
-import com.gempukku.swccgo.ai.models.rando.RandoLogger;
+import com.gempukku.swccgo.ai.models.chosenone.ChosenOneLogger;
 import com.gempukku.swccgo.common.Side;
 
 import org.apache.logging.log4j.Logger;
@@ -19,7 +19,7 @@ import java.util.*;
  * Ported from Python shield_strategy.py
  */
 public class ShieldStrategy {
-    private static final Logger LOG = RandoLogger.getStrategyLogger();
+    private static final Logger LOG = ChosenOneLogger.getStrategyLogger();
 
     // =========================================================================
     // Shield Category Enum
@@ -119,14 +119,12 @@ public class ShieldStrategy {
             "Makes retrieval cost 1 force per card", 3));
 
         // V53: Battle Order downgraded from IMMEDIATE to SITUATIONAL_HIGH (mirrors Battle Plan).
-        // Only deploy Turn 2+ if opponent drains 2+ but lacks both theaters.
         DARK_SHIELDS.put("Battle Order", new ShieldInfo(
             "Battle Order", Collections.singletonList("13_54"), ShieldCategory.SITUATIONAL_HIGH,
             "Opponent pays 3 to drain — only if they lack both theaters",
             null, null, null, 10, 2));
 
-        // V53: Come Here You Big Coward — deploy if opponent drains at non-battleground
-        // via lightsaber, objective, or other card adding drain to non-BG location.
+        // V53: Come Here You Big Coward — deploy when opponent drains at non-battleground.
         DARK_SHIELDS.put("Come Here You Big Coward", new ShieldInfo(
             "Come Here You Big Coward", Arrays.asList("13_61", "225_3"),
             ShieldCategory.SITUATIONAL_HIGH,
@@ -214,19 +212,14 @@ public class ShieldStrategy {
             "Aim High", "13_4", ShieldCategory.AUTO_PLAY_IMMEDIATE,
             "Makes retrieval cost 1 force per card — ALWAYS SECOND", 3));
 
-        // === SITUATIONAL HIGH ===
         // V53: Battle Plan downgraded from IMMEDIATE to SITUATIONAL_HIGH.
-        // Only deploy if opponent occupies a location where they can drain for 2+
-        // BUT does NOT control both a space location and a land site.
-        // If opponent controls both theaters, Battle Plan does nothing (they can afford the cost).
-        // minTurnToPlay=2 — never before Turn 2.
+        // Only deploy if opponent occupies a drain 2+ location but lacks both theaters.
         LIGHT_SHIELDS.put("Battle Plan", new ShieldInfo(
             "Battle Plan", Collections.singletonList("13_8"), ShieldCategory.SITUATIONAL_HIGH,
             "Opponent pays 3 to drain — only if they lack both theaters",
             null, null, null, 10, 2));
 
-        // V53: Simple Tricks And Nonsense — Light mirror of Come Here You Big Coward.
-        // Deploy when opponent drains at non-battleground location.
+        // V53: Simple Tricks — Light mirror of Come Here You Big Coward.
         LIGHT_SHIELDS.put("Simple Tricks And Nonsense", new ShieldInfo(
             "Simple Tricks And Nonsense", Collections.singletonList("200_28"), ShieldCategory.SITUATIONAL_HIGH,
             "Cancels non-BG drains — deploy when opponent drains at non-battleground",
@@ -299,18 +292,11 @@ public class ShieldStrategy {
     private String opponentObjective = null;
 
     // V29.1: Shield pacing — don't burn all 4 shield slots immediately.
-    // Play 2 shields on turn 1 for basic protection, then WAIT to see what the
-    // opponent is running before committing remaining slots. This lets us pick
-    // targeted counters (e.g. anti-drain, anti-retrieval) instead of generic shields.
-    // The pacing cap is checked by ActionTextEvaluator to gate K&D "Play a Defensive
-    // Shield" actions, AND by scoreShield() to rank individual shield picks.
-    // Turn 0 = PLAY_STARTING_CARDS (setup) — shields from K&D aren't played here,
-    // but allow 4 in case other starting effects deploy shields directly.
     private static final Map<Integer, Integer> SHIELD_PACING = new LinkedHashMap<>();
     static {
-        SHIELD_PACING.put(0, 4);  // Setup phase: no limit (K&D shields aren't played here)
-        SHIELD_PACING.put(1, 2);  // Turn 1: play 2 shields max — scout opponent first
-        SHIELD_PACING.put(2, 3);  // Turn 2: play 1 more (now we've seen opponent's cards)
+        SHIELD_PACING.put(0, 4);  // Setup phase: no limit
+        SHIELD_PACING.put(1, 2);  // Turn 1: play 2 shields max
+        SHIELD_PACING.put(2, 3);  // Turn 2: play 1 more
         SHIELD_PACING.put(3, 4);  // Turn 3+: fill remaining slots
     }
 
@@ -484,7 +470,6 @@ public class ShieldStrategy {
      * V29: Smart shield selection — don't always play the same 4 shields.
      * - Auto-play shields are capped at 3 slots (reserve 1 for situational)
      * - Situational shields get a massive boost when their conditions are met
-     *   (opponent plays specific cards/objective), outscoring auto-play shields
      * - Reserved slot is released on turn 4+ if no situational conditions are met
      */
     public float scoreShield(String blueprintId, String cardTitle, int turnNumber) {
@@ -547,7 +532,6 @@ public class ShieldStrategy {
                                  shieldInfo.category == ShieldCategory.SITUATIONAL_MEDIUM);
 
         // V29: Check if auto-play shields have used their allocation
-        // Reserve 1 slot for situational shields (until turn 4+ when we give up waiting)
         if (isAutoPlay && autoPlayShieldsUsed >= MAX_AUTO_PLAY_SHIELDS && turnNumber < 4) {
             LOG.info("V29 {}: Auto-play cap reached ({}/{}), reserving slot for situational shield",
                 cardTitle, autoPlayShieldsUsed, MAX_AUTO_PLAY_SHIELDS);
@@ -571,10 +555,10 @@ public class ShieldStrategy {
                 score = 150.0f;
                 break;
             case SITUATIONAL_HIGH:
-                score = conditionsMet ? 250.0f : 80.0f;  // V29: Outscores auto-play when triggered
+                score = conditionsMet ? 250.0f : 80.0f;
                 break;
             case SITUATIONAL_MEDIUM:
-                score = conditionsMet ? 200.0f : 50.0f;  // V29: Matches auto-play when triggered
+                score = conditionsMet ? 200.0f : 50.0f;
                 break;
             case LOW_PRIORITY:
                 score = conditionsMet ? 120.0f : 25.0f;
@@ -603,9 +587,6 @@ public class ShieldStrategy {
         }
 
         // V53: SHIELD PRIORITY ORDER — Grabber first, retrieval tax second.
-        // Both sides follow the same pattern:
-        // Light: A Tragedy (grabber) → Aim High (retrieval tax) → Battle Plan (conditional)
-        // Dark: Allegations of Corruption (grabber) → Secret Plans (retrieval tax) → Battle Order (conditional)
         String shieldNameLower = shieldInfo.name.toLowerCase(Locale.ROOT);
         if (mySide == Side.LIGHT) {
             if (shieldNameLower.contains("tragedy")) {
@@ -628,12 +609,12 @@ public class ShieldStrategy {
         // V29: Last shield slot — prefer situational with conditions met
         if (shieldsRemaining() <= 1) {
             if (isSituational && conditionsMet) {
-                score += 50.0f;  // Extra urgency — last chance to play a targeted counter
+                score += 50.0f;
                 LOG.info("V29 {}: Last slot + conditions met — extra +50", cardTitle);
             } else if (shieldInfo.category == ShieldCategory.LOW_PRIORITY) {
                 score -= 30.0f;
             } else if (isSituational && !conditionsMet) {
-                score -= 40.0f;  // Don't waste last slot on untriggered situational
+                score -= 40.0f;
             }
         }
 

@@ -1,0 +1,270 @@
+You're starting a game of Open
+Players in the game are: asdf, ~Rando_Cal
+~Rando_Cal targets to deploy •Knowledge And Defense (V) from Reserve Deck
+~Rando_Cal deploys •Knowledge And Defense (V) from Reserve Deck
+~Rando_Cal stacks 22 cards from outside of deck face down under •Knowledge And Defense (V)
+asdf targets to deploy •Anger, Fear, Aggression (V) from Reserve Deck
+asdf deploys •Anger, Fear, Aggression (V) from Reserve Deck
+asdf stacks 28 cards from outside of deck face down under •Anger, Fear, Aggression (V)
+~Rando_Cal reveals Objective This Deal Is Getting Worse All The Time (V)
+asdf deploys •Endor: Anakin's Funeral Pyre from Reserve Deck
+~Rando_Cal deploys This Deal Is Getting Worse All The Time (V) from Reserve Deck
+~Rando_Cal deploys •Cloud City: Upper Walkway from Reserve Deck
+~Rando_Cal targets to deploy •I'm Sorry (V) from Reserve Deck
+~Rando_Cal deploys •I'm Sorry (V) from Reserve Deck
+~Rando_Cal reveals Starting Interrupt •Slip Sliding Away (V)
+asdf reveals Starting Interrupt •The Rise Of Skywalker
+~Rando_Cal initiates playing •Slip Sliding Away (V) from Reserve Deck
+~Rando_Cal plays •Slip Sliding Away (V) as Starting Interrupt to deploy a Cloud City battleground site and Effects from Reserve Deck
+~Rando_Cal deploys •Cloud City: Carbonite Chamber from Reserve Deck
+~Rando_Cal targets to deploy •Endor Shield (V) from Reserve Deck
+~Rando_Cal deploys •Endor Shield (V) from Reserve Deck
+~Rando_Cal targets to deploy Alert My Star Destroyer! (V) from Reserve Deck
+~Rando_Cal deploys Alert My Star Destroyer! (V) from Reserve Deck
+~Rando_Cal targets to deploy •Fighters Straight Ahead from Reserve Deck
+~Rando_Cal deploys •Fighters Straight Ahead from Reserve Deck
+~Rando_Cal puts •Slip Sliding Away (V) in Lost Pile
+asdf initiates playing •The Rise Of Skywalker from Reserve Deck
+asdf plays •The Rise Of Skywalker as Starting Interrupt to deploy The Force Is Strong In My Family and two Effects that deploy for free and are always immune to Alter from Reserve Deck
+asdf targets to deploy The Force Is Strong In My Family from Reserve Deck
+asdf deploys The Force Is Strong In My Family from Reserve Deck
+The Force Is Strong In My Family required response is initiated
+asdf chooses I Have It
+•Endor: Anakin's Funeral Pyre required response is initiated
+asdf targets to deploy Like My Father Before Me using •Endor: Anakin's Funeral Pyre
+asdf targets to deploy •Like My Father Before Me from Reserve Deck
+asdf deploys •Like My Father Before Me from Reserve Deck
+asdf targets to deploy •I Must Be Allowed To Speak (V) from Reserve Deck
+asdf deploys •I Must Be Allowed To Speak (V) from Reserve Deck
+asdf targets to deploy •Wokling (V) from Reserve Deck
+asdf deploys •Wokling (V) from Reserve Deck
+asdf puts •The Rise Of Skywalker in Reserve Deck
+Dark Side goes first
+~Rando_Cal shuffles ~Rando_Cal's Reserve Deck
+~Rando_Cal draws 8 cards into hand
+asdf shuffles asdf's Reserve Deck
+asdf draws 8 cards into hand
+Start of ~Rando_Cal's turn #1
+~Rando_Cal's Force generation for this turn is 5
+asdf's Force generation for this turn is 7
+~Rando_Cal activated 1 Force (1 total Force activated from Force generation)
+~Rando_Cal activated 1 Force (2 total Force activated from Force generation)
+~Rando_Cal activated 1 Force (3 total Force activated from Force generation)
+~Rando_Cal activated 1 Force (4 total Force activated from Force generation)
+~Rando_Cal activated 1 Force (5 total Force activated from Force generation)
+~Rando_Cal initiates This Deal Is Getting Worse All The Time (V) top-level action
+~Rando_Cal targets to take Cloud City Occupation, Dark Deal, Vader's Bounty, or [Special Edition] Bespin into hand from Reserve Deck using This Deal Is Getting Worse All The Time (V)
+~Rando_Cal takes •Cloud City Occupation into hand from Reserve Deck
+~Rando_Cal shuffles Reserve Deck
+~Rando_Cal initiates •Endor Shield (V) top-level action
+~Rando_Cal targets to take an Imperial admiral into hand from Reserve Deck using •Endor Shield (V)
+asdf verifies ~Rando_Cal's Reserve Deck
+~Rando_Cal shuffles Reserve Deck
+~Rando_Cal initiates •Knowledge And Defense (V) top-level action
+~Rando_Cal targets to play a card using •Knowledge And Defense (V)
+~Rando_Cal plays •Oppressive Enforcement from stacked
+~Rando_Cal initiates •Knowledge And Defense (V) top-level action
+~Rando_Cal targets to play a card using •Knowledge And Defense (V)
+~Rando_Cal plays •Resistance from stacked
+~Rando_Cal initiates •Knowledge And Defense (V) top-level action
+~Rando_Cal targets to play a card using •Knowledge And Defense (V)
+~Rando_Cal plays •Secret Plans from stacked
+~Rando_Cal initiates •Knowledge And Defense (V) top-level action
+~Rando_Cal targets to play a card using •Knowledge And Defense (V)
+~Rando_Cal plays •There Is No Try from stacked
+~Rando_Cal draws a card into hand from Force Pile
+~Rando_Cal draws a card into hand from Force Pile
+~Rando_Cal draws a card into hand from Force Pile
+Start of asdf's turn #1
+asdf's Force generation for this turn is 7
+~Rando_Cal's Force generation for this turn is 5
+asdf activated 1 Force (1 total Force activated from Force generation)
+asdf activated 1 Force (2 total Force activated from Force generation)
+asdf activated 1 Force (3 total Force activated from Force generation)
+asdf activated 1 Force (4 total Force activated from Force generation)
+asdf activated 1 Force (5 total Force activated from Force generation)
+asdf activated 1 Force (6 total Force activated from Force generation)
+asdf activated 1 Force (7 total Force activated from Force generation)
+~Rando_Cal initiates This Deal Is Getting Worse All The Time (V) top-level action
+~Rando_Cal targets to take Cloud City Occupation, Dark Deal, Vader's Bounty, or [Special Edition] Bespin into hand from Reserve Deck using This Deal Is Getting Worse All The Time (V)
+~Rando_Cal takes •Dark Deal (V) into hand from Reserve Deck
+~Rando_Cal shuffles Reserve Deck
+~Rando_Cal initiates •Endor Shield (V) top-level action
+~Rando_Cal targets to take an Imperial admiral into hand from Reserve Deck using •Endor Shield (V)
+asdf verifies ~Rando_Cal's Reserve Deck
+~Rando_Cal shuffles Reserve Deck
+asdf deploys •Tatooine: Cantina from hand
+asdf targets to deploy •Yarna d'al' Gargan (V) from hand
+asdf deploys •Yarna d'al' Gargan (V) from hand
+asdf initiates •Yarna d'al' Gargan (V) top-level action
+asdf targets to deploy Arleil, Doallyn, Tessek, Wild Karrde, or a Tatooine battleground from Reserve Deck using •Yarna d'al' Gargan (V)
+asdf deploys •Tatooine: Mos Eisley from Reserve Deck
+asdf initiates •I Must Be Allowed To Speak (V) top-level action
+asdf targets to deploy a farm from Reserve Deck using •I Must Be Allowed To Speak (V)
+asdf deploys •Tatooine: Lars' Moisture Farm (V) from Reserve Deck
+asdf draws a card into hand from Force Pile
+asdf draws a card into hand from Force Pile
+asdf draws a card into hand from Force Pile
+asdf draws a card into hand from Force Pile
+asdf draws a card into hand from Force Pile
+asdf draws a card into hand from Force Pile
+asdf draws a card into hand from Force Pile
+asdf initiates •Anger, Fear, Aggression (V) top-level action
+asdf targets to play a card using •Anger, Fear, Aggression (V)
+asdf plays •A Tragedy Has Occurred from stacked
+asdf initiates •Anger, Fear, Aggression (V) top-level action
+asdf targets to play a card using •Anger, Fear, Aggression (V)
+asdf plays •Aim High from stacked
+Start of ~Rando_Cal's turn #2
+~Rando_Cal's Force generation for this turn is 9
+asdf's Force generation for this turn is 13
+~Rando_Cal activated 1 Force (1 total Force activated from Force generation)
+~Rando_Cal activated 1 Force (2 total Force activated from Force generation)
+~Rando_Cal activated 1 Force (3 total Force activated from Force generation)
+~Rando_Cal activated 1 Force (4 total Force activated from Force generation)
+~Rando_Cal activated 1 Force (5 total Force activated from Force generation)
+~Rando_Cal activated 1 Force (6 total Force activated from Force generation)
+~Rando_Cal activated 1 Force (7 total Force activated from Force generation)
+~Rando_Cal activated 1 Force (8 total Force activated from Force generation)
+~Rando_Cal activated 1 Force (9 total Force activated from Force generation)
+asdf initiates playing •Mandalorian Mishap (V) from hand
+asdf plays •Mandalorian Mishap (V) from hand to take Sabine, Under Attack, or a blaster into hand from Reserve Deck
+asdf takes •Sabine, Padawan Learner into hand from Reserve Deck
+asdf shuffles Reserve Deck
+asdf puts •Mandalorian Mishap (V) in Used Pile
+~Rando_Cal initiates This Deal Is Getting Worse All The Time (V) top-level action
+~Rando_Cal targets to take Cloud City Occupation, Dark Deal, Vader's Bounty, or [Special Edition] Bespin into hand from Reserve Deck using This Deal Is Getting Worse All The Time (V)
+asdf verifies ~Rando_Cal's Reserve Deck
+~Rando_Cal shuffles Reserve Deck
+asdf initiates playing •I Don't Need Their Scum, Either (V) from hand
+asdf plays •I Don't Need Their Scum, Either (V) from hand as Used Interrupt to take Houjix, Ounee Ta, or Scanner Techs into hand from Reserve Deck
+asdf takes Houjix & Out Of Nowhere into hand from Reserve Deck
+asdf shuffles Reserve Deck
+asdf puts •I Don't Need Their Scum, Either (V) in Used Pile
+~Rando_Cal deploys •Cloud City: Security Tower (V) from hand
+~Rando_Cal deploys •Executor: Meditation Chamber from hand
+~Rando_Cal deploys •Bespin (V) from hand
+Reverted to previous game state
+Reverted to previous game state
+~Rando_Cal initiates •I'm Sorry (V) top-level action
+~Rando_Cal targets to deploy an interior Cloud City site from Reserve Deck using •I'm Sorry (V)
+~Rando_Cal deploys •Cloud City: Dining Room (V) from Reserve Deck
+Reverted to previous game state
+Reverted to previous game state
+Reverted to previous game state
+Reverted to previous game state
+~Rando_Cal uses 4 Force
+~Rando_Cal deploys •Keder The Black from hand to •Cloud City: Carbonite Chamber as an Undercover spy
+asdf attempts to revert game to a previous state
+~Rando_Cal denies attempt to revert game to a previous state
+asdf attempts to revert game to a previous state
+~Rando_Cal denies attempt to revert game to a previous state
+asdf attempts to revert game to a previous state
+~Rando_Cal denies attempt to revert game to a previous state
+~Rando_Cal uses 6 Force
+~Rando_Cal deploys •Darth Vader With Lightsaber from hand to •Cloud City: Carbonite Chamber
+~Rando_Cal initiates Alert My Star Destroyer! (V) top-level action
+~Rando_Cal targets to take •Admiral Chiraneau's matching Star Destroyer from Reserve Deck and deploy both simultaneously using Alert My Star Destroyer! (V)
+asdf verifies ~Rando_Cal's Reserve Deck
+~Rando_Cal shuffles Reserve Deck
+~Rando_Cal draws a card into hand from Force Pile
+~Rando_Cal re-circulates
+asdf re-circulates
+Start of asdf's turn #2
+asdf's Force generation for this turn is 15
+~Rando_Cal's Force generation for this turn is 17
+asdf activated 1 Force (1 total Force activated from Force generation)
+asdf activated 1 Force (2 total Force activated from Force generation)
+asdf activated 1 Force (3 total Force activated from Force generation)
+asdf activated 1 Force (4 total Force activated from Force generation)
+asdf activated 1 Force (5 total Force activated from Force generation)
+asdf activated 1 Force (6 total Force activated from Force generation)
+asdf activated 1 Force (7 total Force activated from Force generation)
+asdf activated 1 Force (8 total Force activated from Force generation)
+asdf activated 1 Force (9 total Force activated from Force generation)
+asdf activated 1 Force (10 total Force activated from Force generation)
+asdf activated 1 Force (11 total Force activated from Force generation)
+asdf activated 1 Force (12 total Force activated from Force generation)
+asdf activated 1 Force (13 total Force activated from Force generation)
+asdf activated 1 Force (14 total Force activated from Force generation)
+asdf activated 1 Force (15 total Force activated from Force generation)
+~Rando_Cal initiates This Deal Is Getting Worse All The Time (V) top-level action
+~Rando_Cal targets to take Cloud City Occupation, Dark Deal, Vader's Bounty, or [Special Edition] Bespin into hand from Reserve Deck using This Deal Is Getting Worse All The Time (V)
+asdf verifies ~Rando_Cal's Reserve Deck
+~Rando_Cal shuffles Reserve Deck
+asdf initiates playing •A Jedi's Focus (V) from hand
+asdf plays •A Jedi's Focus (V) from hand to take a card from Force Pile into hand
+asdf takes a card into hand from Force Pile
+asdf shuffles Force Pile
+asdf puts •A Jedi's Focus (V) in Lost Pile
+asdf uses 6 Force
+asdf deploys •Young Skywalker from hand to •Cloud City: Carbonite Chamber
+asdf deploys •Tatooine from hand
+asdf initiates •Like My Father Before Me top-level action
+asdf targets to deploy Luke's Lightsaber from Reserve Deck using •Like My Father Before Me
+asdf shuffles Reserve Deck
+asdf deploys •Luke's Lightsaber from Reserve Deck on •Young Skywalker
+asdf uses 5 Force
+asdf deploys •Lando Calrissian, Scoundrel from hand to •Cloud City: Carbonite Chamber
+asdf uses 1 Force
+asdf initiates battle at •Cloud City: Carbonite Chamber
+asdf initiates The Force Is Strong In My Family optional response
+asdf targets to retrieve 1 Force using The Force Is Strong In My Family
+asdf's Force retrieval amount is 1
+•Secret Plans required response is initiated
+•Secret Plans targets to make asdf use 1 Force or Force retrieval is canceled
+asdf uses 1 Force
+asdf retrieves •A Jedi's Focus (V) (1 Force retrieved)
+asdf targets to fire •Luke's Lightsaber at •Darth Vader With Lightsaber using •Luke's Lightsaber
+~Rando_Cal initiates playing •Force Field (V) from hand
+~Rando_Cal plays •Force Field (V) from hand as Used Interrupt to cancel weapon targeting
+asdf initiates •A Tragedy Has Occurred optional response
+asdf uses 1 Force
+asdf targets to 'grab' •Force Field (V) using •A Tragedy Has Occurred
+asdf stacks •Force Field (V) on •A Tragedy Has Occurred
+~Rando_Cal cancels weapon targeting using •Force Field (V)
+~Rando_Cal targets to fire •Darth Vader With Lightsaber at •Young Skywalker using •Darth Vader With Lightsaber
+~Rando_Cal draws •Lord Maul With Lightsaber as a 1 for weapon destiny
+~Rando_Cal initiates playing •Sith Fury (V) from hand
+~Rando_Cal plays •Sith Fury (V) from hand as Used Interrupt to take destiny card into hand
+~Rando_Cal takes just drawn destiny card, •Lord Maul With Lightsaber, into hand
+~Rando_Cal puts •Sith Fury (V) in Used Pile
+~Rando_Cal draws •Lando Calrissian, Vader's Broker as a 1 for weapon destiny
+~Rando_Cal's total weapon destiny is 2
+Total destiny: 2
+Defense value: 7
+Result: Failed
+asdf draws Surprise Assault as a 4 for battle destiny
+asdf draws •Ahsoka's Shoto Lightsaber as a 6 for battle destiny
+asdf's total battle destiny is 10
+~Rando_Cal draws •Flagship Executor as a 4 for battle destiny
+~Rando_Cal's total battle destiny is 4
+Dark side total power: 10
+Light side total power: 24
+Light side wins battle
+asdf has 4 attrition remaining to satisfy
+asdf choose to forfeit •Lando Calrissian, Scoundrel
+asdf forfeits •Lando Calrissian, Scoundrel from table
+asdf puts •Lando Calrissian, Scoundrel on Lost Pile
+~Rando_Cal has 10 attrition and 14 battle damage remaining to satisfy
+~Rando_Cal choose to forfeit •Darth Vader With Lightsaber
+~Rando_Cal forfeits •Darth Vader With Lightsaber from table
+~Rando_Cal puts •Darth Vader With Lightsaber on Lost Pile
+~Rando_Cal has 7 battle damage remaining to satisfy
+~Rando_Cal loses a Force, •Dark Deal (V), from hand
+~Rando_Cal has 6 battle damage remaining to satisfy
+~Rando_Cal loses a Force, •Admiral Chiraneau, from hand
+~Rando_Cal has 5 battle damage remaining to satisfy
+~Rando_Cal loses a Force, •Lord Maul With Lightsaber, from hand
+~Rando_Cal has 4 battle damage remaining to satisfy
+~Rando_Cal loses a Force, •No Escape (V), from hand
+~Rando_Cal has 3 battle damage remaining to satisfy
+~Rando_Cal loses a Force, •Dr. Evazan & •Ponda Baba, from hand
+~Rando_Cal has 2 battle damage remaining to satisfy
+~Rando_Cal loses a Force, •Aurra Sing With Blaster Rifle, from hand
+~Rando_Cal has 1 battle damage remaining to satisfy
+~Rando_Cal loses a Force, •Cloud City Occupation, from hand
+Battle at •Cloud City: Carbonite Chamber ends
+asdf has requested the game to be canceled. Game will be canceled if requested by all players
+~Rando_Cal has requested the game to be canceled. Game will be canceled if requested by all players
+Game was cancelled, as requested by all parties.

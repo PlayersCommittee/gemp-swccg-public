@@ -1,6 +1,6 @@
-package com.gempukku.swccgo.ai.models.rando.strategy;
+package com.gempukku.swccgo.ai.models.chosenone.strategy;
 
-import com.gempukku.swccgo.ai.models.rando.RandoLogger;
+import com.gempukku.swccgo.ai.models.chosenone.ChosenOneLogger;
 import org.apache.logging.log4j.Logger;
 
 import java.util.*;
@@ -17,7 +17,7 @@ import java.util.*;
  * Ported from Python objective_handler.py
  */
 public class ObjectiveHandler {
-    private static final Logger LOG = RandoLogger.getStrategyLogger();
+    private static final Logger LOG = ChosenOneLogger.getStrategyLogger();
 
     // =============================================================================
     // OBJECTIVE REQUIREMENTS DATABASE
@@ -151,21 +151,6 @@ public class ObjectiveHandler {
             "5_166",   // Carbonite Chamber
             "5_107",   // Carbonite Chamber Console
             "5_172"    // Security Tower
-        ));
-
-        // This Deal Is Getting Worse All The Time / You've Got To Be Kidding (226_12)
-        // CRITICAL: Must start with Bespin system + Exterior Walkway.
-        // Exterior Walkway is required because TDIGWATT pulls other Cloud City sites
-        // only when Exterior is already in play. Without it, no location chain fires.
-        // Dark Deal (223_9) is NOT a starting card - pulled from Reserve via objective ability.
-        OBJECTIVE_REQUIREMENTS.put("226_12", Arrays.asList(
-            "223_8",                     // Bespin (V) system
-            "title:Cloud City: Exterior" // Exterior Walkway - MUST be starting location
-        ));
-        // Non-virtual / alternate blueprint variants
-        OBJECTIVE_REQUIREMENTS.put("7_295", Arrays.asList(
-            "5_164",                     // Bespin system (non-virtual)
-            "title:Cloud City: Exterior"
         ));
 
         // Court Of The Vile Gangster / I Shall Enjoy Watching You Die (110_6)

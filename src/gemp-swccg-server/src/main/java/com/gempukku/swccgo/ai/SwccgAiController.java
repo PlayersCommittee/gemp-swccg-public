@@ -16,6 +16,15 @@ public interface SwccgAiController {
     }
 
     /**
+     * Set the deck name this AI is playing with.
+     * Called after AI creation so evaluators can make deck-aware decisions.
+     * Default implementation does nothing for backward compatibility.
+     */
+    default void setDeckName(String deckName) {
+        // Default: no-op for AIs that don't need deck name awareness
+    }
+
+    /**
      * Get the next chat message to send, if any.
      * Default implementation returns null (no chat).
      *

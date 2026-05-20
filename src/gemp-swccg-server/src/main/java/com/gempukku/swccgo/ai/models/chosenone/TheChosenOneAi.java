@@ -1,4 +1,4 @@
-package com.gempukku.swccgo.ai.models.rando;
+package com.gempukku.swccgo.ai.models.chosenone;
 
 import com.gempukku.swccgo.ai.models.HeuristicAiBase;
 import com.gempukku.swccgo.ai.common.AiBoardAnalyzer;
@@ -6,15 +6,15 @@ import com.gempukku.swccgo.ai.common.AiBoardAnalyzer.ContestStatus;
 import com.gempukku.swccgo.ai.common.AiBoardAnalyzer.LocationAnalysis;
 import com.gempukku.swccgo.ai.common.AiChatManager;
 import com.gempukku.swccgo.ai.common.AiPriorityCards;
-import com.gempukku.swccgo.ai.models.rando.evaluators.CombinedEvaluator;
-import com.gempukku.swccgo.ai.models.rando.evaluators.DecisionContext;
-import com.gempukku.swccgo.ai.models.rando.evaluators.EvaluatedAction;
-import com.gempukku.swccgo.ai.models.rando.strategy.DeployPhasePlanner;
-import com.gempukku.swccgo.ai.models.rando.strategy.DeployPhaseScript;
-import com.gempukku.swccgo.ai.models.rando.strategy.ObjectiveAnalyzer;
-import com.gempukku.swccgo.ai.models.rando.strategy.ObjectiveHandler;
-import com.gempukku.swccgo.ai.models.rando.strategy.ShieldStrategy;
-import com.gempukku.swccgo.ai.models.rando.strategy.StrategyController;
+import com.gempukku.swccgo.ai.models.chosenone.evaluators.CombinedEvaluator;
+import com.gempukku.swccgo.ai.models.chosenone.evaluators.DecisionContext;
+import com.gempukku.swccgo.ai.models.chosenone.evaluators.EvaluatedAction;
+import com.gempukku.swccgo.ai.models.chosenone.strategy.DeployPhasePlanner;
+import com.gempukku.swccgo.ai.models.chosenone.strategy.DeployPhaseScript;
+import com.gempukku.swccgo.ai.models.chosenone.strategy.ObjectiveAnalyzer;
+import com.gempukku.swccgo.ai.models.chosenone.strategy.ObjectiveHandler;
+import com.gempukku.swccgo.ai.models.chosenone.strategy.ShieldStrategy;
+import com.gempukku.swccgo.ai.models.chosenone.strategy.StrategyController;
 import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Side;
@@ -36,7 +36,7 @@ import java.util.Set;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Rando Cal AI - An advanced AI with personality.
+ * The Chosen One AI - An advanced AI with personality.
  *
  * Features:
  * - Enhanced heuristics beyond AdvancedAi
@@ -45,11 +45,11 @@ import org.apache.logging.log4j.Logger;
  * - Astrogator personality via chat messages
  * - Holiday message overlays
  *
- * Based on Python Rando Cal bot architecture, ported to GEMP Java.
+ * Based on Python Chosen One bot architecture, ported to GEMP Java.
  */
-public class RandoCalAi extends HeuristicAiBase {
+public class TheChosenOneAi extends HeuristicAiBase {
 
-    private static final Logger LOG = RandoLogger.getLogger();
+    private static final Logger LOG = ChosenOneLogger.getLogger();
 
     // Chat manager for personality messages
     private final AiChatManager chatManager;
@@ -77,10 +77,10 @@ public class RandoCalAi extends HeuristicAiBase {
     private final DeployPhaseScript deployPhaseScript;
 
     // V22.6: DeckOracle for full deck knowledge
-    private final com.gempukku.swccgo.ai.models.rando.strategy.DeckOracle deckOracle;
+    private final com.gempukku.swccgo.ai.models.chosenone.strategy.DeckOracle deckOracle;
 
     // V24.7: OpponentDeckTracker for destiny intel from deck peeks
-    private final com.gempukku.swccgo.ai.models.rando.strategy.OpponentDeckTracker opponentDeckTracker;
+    private final com.gempukku.swccgo.ai.models.chosenone.strategy.OpponentDeckTracker opponentDeckTracker;
 
     // Personality system (will be set via setter after construction)
     private AstrogatorPersonality personality;
@@ -210,7 +210,7 @@ public class RandoCalAi extends HeuristicAiBase {
     // Constructor
     // =========================================================================
 
-    public RandoCalAi() {
+    public TheChosenOneAi() {
         this.chatManager = new AiChatManager();
         this.combinedEvaluator = new CombinedEvaluator();
         this.decisionTracker = new DecisionTracker();
@@ -220,11 +220,11 @@ public class RandoCalAi extends HeuristicAiBase {
         this.shieldStrategy = new ShieldStrategy();
         this.deployPhasePlanner = new DeployPhasePlanner();
         this.deployPhaseScript = new DeployPhaseScript();
-        this.deckOracle = new com.gempukku.swccgo.ai.models.rando.strategy.DeckOracle();
-        this.opponentDeckTracker = new com.gempukku.swccgo.ai.models.rando.strategy.OpponentDeckTracker();
+        this.deckOracle = new com.gempukku.swccgo.ai.models.chosenone.strategy.DeckOracle();
+        this.opponentDeckTracker = new com.gempukku.swccgo.ai.models.chosenone.strategy.OpponentDeckTracker();
         this.personality = new AstrogatorPersonality();
         this.holidayOverlay = HolidayOverlay.getInstance();
-        LOG.info("RandoCalAi initialized with {} evaluators", combinedEvaluator.getEvaluators().size());
+        LOG.info("TheChosenOneAi initialized with {} evaluators", combinedEvaluator.getEvaluators().size());
 
         // Run startup self-tests
         runStartupSelfTests();
@@ -276,11 +276,11 @@ public class RandoCalAi extends HeuristicAiBase {
 
         // Test 5: Configuration values
         LOG.info("🔧 Test 5: Configuration Values");
-        LOG.info("   ✅ DEPLOY_THRESHOLD: {}", RandoConfig.DEPLOY_THRESHOLD);
-        LOG.info("   ✅ BATTLE_FAVORABLE_THRESHOLD: {}", RandoConfig.BATTLE_FAVORABLE_THRESHOLD);
-        LOG.info("   ✅ BATTLE_DANGER_THRESHOLD: {}", RandoConfig.BATTLE_DANGER_THRESHOLD);
-        LOG.info("   ✅ CHAOS_PERCENT: {}", RandoConfig.CHAOS_PERCENT);
-        LOG.info("   ✅ CHAT_ENABLED: {}", RandoConfig.CHAT_ENABLED);
+        LOG.info("   ✅ DEPLOY_THRESHOLD: {}", ChosenOneConfig.DEPLOY_THRESHOLD);
+        LOG.info("   ✅ BATTLE_FAVORABLE_THRESHOLD: {}", ChosenOneConfig.BATTLE_FAVORABLE_THRESHOLD);
+        LOG.info("   ✅ BATTLE_DANGER_THRESHOLD: {}", ChosenOneConfig.BATTLE_DANGER_THRESHOLD);
+        LOG.info("   ✅ CHAOS_PERCENT: {}", ChosenOneConfig.CHAOS_PERCENT);
+        LOG.info("   ✅ CHAT_ENABLED: {}", ChosenOneConfig.CHAT_ENABLED);
 
         LOG.info("========================================");
         LOG.info("🔧 SELF-TESTS COMPLETE - AI READY");
@@ -483,7 +483,7 @@ public class RandoCalAi extends HeuristicAiBase {
         String decisionText = decision.getText() != null ? decision.getText() : "";
         Phase phase = gameState != null ? gameState.getCurrentPhase() : null;
 
-        LOG.info("[RandoCalAi] decide() called: type={}, phase={}, text='{}'",
+        LOG.info("[TheChosenOneAi] decide() called: type={}, phase={}, text='{}'",
             decisionType, phase,
             decisionText.length() > 50 ? decisionText.substring(0, 50) + "..." : decisionText);
 
@@ -492,16 +492,11 @@ public class RandoCalAi extends HeuristicAiBase {
             // Track game/turn changes for chat
             trackGameState(playerId, gameState);
 
-            // V25: AUTO-CONCEDE when losing by 30+ in Lost Pile
-            // When the deficit is this large, the game is unwinnable. Conceding saves time
-            // for both players instead of dragging out a lost game.
-            //
+            // V25: AUTO-CONCEDE when losing by 20+ in Lost Pile
             // V67aw (Steve, 2026-05-08): DEFER concede until after the next battle phase.
-            // Steve's rule: 'Change Rando's Concede logic to only happen after the next
-            // battle phase has ended.' Reasons: lets the current turn's planned battle
-            // play out, lets opponent finish their attack cleanly, and avoids mid-decision
-            // concedes that look glitchy. The actual concede fires in trackGameState when
-            // the BATTLE → other-phase transition is observed.
+            // Sets pendingConcede flag instead of calling playerLost() immediately. The
+            // actual concede fires in trackGameState when the BATTLE → other-phase
+            // transition is observed.
             if (gameState != null && currentGame != null && !pendingConcede) {
                 try {
                     String opponentId = gameState.getOpponent(playerId);
@@ -509,7 +504,7 @@ public class RandoCalAi extends HeuristicAiBase {
                         int myLostPile = gameState.getLostPile(playerId).size();
                         int opponentLostPile = gameState.getLostPile(opponentId).size();
                         int lostPileDeficit = myLostPile - opponentLostPile;
-                        if (lostPileDeficit >= 30) {
+                        if (lostPileDeficit >= 20) {
                             pendingConcede = true;
                             pendingConcedeReason = String.format(
                                 "Lost Pile deficit %d (mine=%d, opponent=%d)",
@@ -531,11 +526,11 @@ public class RandoCalAi extends HeuristicAiBase {
             boolean inLoop = loopCheck[0] == 1;
 
             if (inLoop) {
-                RandoLogger.loopDetected("In potential loop ({} repeats), checking blocked responses", loopCheck[1]);
+                ChosenOneLogger.loopDetected("In potential loop ({} repeats), checking blocked responses", loopCheck[1]);
 
                 // Check if we should force a different choice or consider conceding
                 if (decisionTracker.shouldConsiderConcede()) {
-                    RandoLogger.critical("Loop critical threshold reached! Consider conceding.");
+                    ChosenOneLogger.critical("Loop critical threshold reached! Consider conceding.");
                 }
             }
 
@@ -554,11 +549,7 @@ public class RandoCalAi extends HeuristicAiBase {
             }
 
             // V44/V67j: ALWAYS accept revert requests — never block the opponent
-            // from reverting. Steve's rule: "Rando must always allow a revert. If
-            // the gemp game has an error, I need to be able to always revert."
-            // V67j: Don't assume index 0 = Yes. Inspect the `results` param and
-            // find the actual "Yes/Allow/Accept" choice's index. Fallback to 0
-            // if the array isn't available or no clear positive option found.
+            // from reverting. V67j: don't assume index 0 = Yes; inspect results.
             if (decision.getDecisionType() == AwaitingDecisionType.MULTIPLE_CHOICE
                     && decisionText.toLowerCase(java.util.Locale.ROOT).contains("revert")) {
                 int yesIndex = 0;
@@ -582,13 +573,9 @@ public class RandoCalAi extends HeuristicAiBase {
             }
 
             // V61 EPIC EVENT SAGA CHOICE — "The Force Is Strong In My Family"
-            // FIXES Issue from is9j46shx6t0swby replay: Rando picked "My Father Has It"
-            // (for Anakin) in a Luke Saga Tatooine deck — Luke's power/defense boost was
-            // lost. The TFISMF decision surfaces as type=MULTIPLE_CHOICE with text
-            // 'Choose an option' (empty prompt) and the actual choices in the `results`
-            // param. The V29.15 ActionTextEvaluator check was looking in the prompt text
-            // instead of the options array, so it never triggered and Rando defaulted
-            // to index 0 = "My Father Has It".
+            // The TFISMF decision surfaces as type=MULTIPLE_CHOICE with prompt text
+            // 'Choose an option' and the actual choices in the `results` param.
+            // Match deck name to correct saga choice.
             //   Luke deck  → "I Have It"
             //   Anakin deck → "My Father Has It"
             //   Rey deck    → "You Have That Power, Too"
@@ -625,7 +612,6 @@ public class RandoCalAi extends HeuristicAiBase {
                         } else if (deckLower.contains("rey") && rey >= 0) {
                             pick = rey; why = "Rey deck → 'You Have That Power, Too'";
                         } else if (luke >= 0) {
-                            // Default to Luke — most common, matches deck-name fallback in V29.15
                             pick = luke; why = "Default (no deck match) → 'I Have It'";
                         }
                         if (pick >= 0) {
@@ -643,7 +629,7 @@ public class RandoCalAi extends HeuristicAiBase {
             Phase currentPhase = gameState != null ? gameState.getCurrentPhase() : null;
             boolean isSafeForChaos = currentPhase != Phase.DEPLOY && currentPhase != Phase.BATTLE;
             if (isSafeForChaos && shouldApplyChaos()) {
-                RandoLogger.debug("Chaos mode: selecting random action");
+                ChosenOneLogger.debug("Chaos mode: selecting random action");
                 result = super.decide(playerId, decision, gameState);
             } else {
                 // Try evaluator system for supported decision types
@@ -692,7 +678,7 @@ public class RandoCalAi extends HeuristicAiBase {
             // Track strategic events for learning
             trackStrategicEvents(decision, decisionText, result);
 
-            LOG.info("[RandoCalAi] decide() result: '{}' ✅", result != null ? result : "(pass)");
+            LOG.info("[TheChosenOneAi] decide() result: '{}' ✅", result != null ? result : "(pass)");
             return result;
         } finally {
             context = null;
@@ -945,9 +931,6 @@ public class RandoCalAi extends HeuristicAiBase {
 
         if (!objectiveAnalyzer.isAnalyzed() && currentGame != null && mySide != null) {
             objectiveAnalyzer.analyze(currentGame, playerId, mySide);
-        } else if (objectiveAnalyzer.isAnalyzed() && currentGame != null) {
-            // V29.7: Refresh flip status each evaluation so we detect when objective actually flips
-            objectiveAnalyzer.refreshFlipStatus(currentGame.getGameState(), playerId);
         }
         evalContext.setShieldStrategy(shieldStrategy);
         deployPhasePlanner.setObjectiveAnalyzer(objectiveAnalyzer);
@@ -966,10 +949,7 @@ public class RandoCalAi extends HeuristicAiBase {
         // V29.15: Pass deck name for saga-aware Epic Event choices
         evalContext.setDeckName(deckName);
 
-        // V67ax DEPLOY PHASE SCRIPT: deterministic step ordering during DEPLOY phase.
-        // Walk steps 1→5; restrict the evaluator pipeline to actions qualifying for
-        // the first non-empty step. Existing scoring (V67ai/aj/ak/al/aq/ar/as) picks
-        // within the qualifying set. Active only for CARD_ACTION_CHOICE during DEPLOY.
+        // V67ax DEPLOY PHASE SCRIPT — deterministic step ordering during DEPLOY phase.
         if (phase == Phase.DEPLOY
                 && "CARD_ACTION_CHOICE".equals(decisionType.name())
                 && currentGame != null) {
@@ -979,10 +959,6 @@ public class RandoCalAi extends HeuristicAiBase {
                 if (dpsResult != null) {
                     evalContext.setAllowedActionIds(dpsResult.allowedActionIds);
                     evalContext.setAllowedActionsReason(dpsResult.reason);
-                    // V67bc: pass ordered hierarchy buckets so CombinedEvaluator
-                    // can walk top→bottom and pick the first action above the
-                    // bad threshold (instead of forcing PASS when STEP 1's only
-                    // candidate is hard-blocked).
                     evalContext.setStepBuckets(dpsResult.stepBuckets);
                     evalContext.setStepBucketLabels(dpsResult.stepBucketLabels);
                     LOG.warn("V67bc DPS APPLIED: top-step={} buckets={} union={} reason='{}'",
@@ -1053,7 +1029,7 @@ public class RandoCalAi extends HeuristicAiBase {
 
     @Override
     protected int getPassPenalty() {
-        return RandoConfig.SCORE_PENALTY_PASS;
+        return ChosenOneConfig.SCORE_PENALTY_PASS;
     }
 
     @Override
@@ -1143,7 +1119,7 @@ public class RandoCalAi extends HeuristicAiBase {
 
         // Deploying locations is high priority (opens options)
         if (actionText.contains("deploy") && actionText.contains("location")) {
-            score += RandoConfig.SCORE_DEPLOY_LOCATION;
+            score += ChosenOneConfig.SCORE_DEPLOY_LOCATION;
         }
 
         // Use board analyzer if game is available
@@ -1156,7 +1132,7 @@ public class RandoCalAi extends HeuristicAiBase {
                 for (LocationAnalysis loc : losingLocations) {
                     String locName = loc.location.getTitle();
                     if (locName != null && actionText.contains(locName.toLowerCase(Locale.ROOT))) {
-                        score += RandoConfig.SCORE_REINFORCE_LOSING;
+                        score += ChosenOneConfig.SCORE_REINFORCE_LOSING;
 
                         // Extra bonus based on how badly we're losing (use power advantage)
                         float powerDiff = loc.getPowerAdvantage();
@@ -1182,7 +1158,7 @@ public class RandoCalAi extends HeuristicAiBase {
                 if (locName != null && actionText.contains(locName.toLowerCase(Locale.ROOT))) {
                     // Only if location has opponent force icons (worth fighting for)
                     if (loc.theirForceIcons > 0) {
-                        score += RandoConfig.SCORE_GAIN_GROUND;
+                        score += ChosenOneConfig.SCORE_GAIN_GROUND;
 
                         // More valuable if battleground (can force drain after control)
                         if (loc.isBattleground) {
@@ -1227,7 +1203,7 @@ public class RandoCalAi extends HeuristicAiBase {
 
         // Matching pilot bonus
         if (actionText.contains("pilot") && actionText.contains("matching")) {
-            score += RandoConfig.SCORE_MATCHING_PILOT;
+            score += ChosenOneConfig.SCORE_MATCHING_PILOT;
         }
 
         return score;
@@ -1238,7 +1214,7 @@ public class RandoCalAi extends HeuristicAiBase {
 
         // Force drain is primary control phase action
         if (actionText.contains("force drain")) {
-            score += RandoConfig.SCORE_FORCE_DRAIN;
+            score += ChosenOneConfig.SCORE_FORCE_DRAIN;
 
             // Extra bonus if we control battlegrounds
             if (currentGame != null && context != null && mySide != null) {
@@ -1273,8 +1249,8 @@ public class RandoCalAi extends HeuristicAiBase {
                     // Use LocationAnalysis to determine if battle is favorable
                     float powerAdvantage = loc.getPowerAdvantage();
 
-                    if (powerAdvantage >= RandoConfig.BATTLE_FAVORABLE_THRESHOLD) {
-                        score += RandoConfig.SCORE_INITIATE_BATTLE;
+                    if (powerAdvantage >= ChosenOneConfig.BATTLE_FAVORABLE_THRESHOLD) {
+                        score += ChosenOneConfig.SCORE_INITIATE_BATTLE;
 
                         // Extra bonus for big power advantage (likely to win)
                         if (powerAdvantage >= 8) {
@@ -1285,7 +1261,7 @@ public class RandoCalAi extends HeuristicAiBase {
                         if (loc.isBattleground) {
                             score += 10;
                         }
-                    } else if (powerAdvantage <= RandoConfig.BATTLE_DANGER_THRESHOLD) {
+                    } else if (powerAdvantage <= ChosenOneConfig.BATTLE_DANGER_THRESHOLD) {
                         score -= 60;  // Avoid unfavorable battles
                     } else {
                         // Close battle - moderate bonus
@@ -1304,9 +1280,9 @@ public class RandoCalAi extends HeuristicAiBase {
                     float boardAdvantage = AiBoardAnalyzer.calculateBoardAdvantage(
                         currentGame, context.playerId, context.opponentId, mySide);
 
-                    if (boardAdvantage >= RandoConfig.BATTLE_FAVORABLE_THRESHOLD) {
-                        score += RandoConfig.SCORE_INITIATE_BATTLE;
-                    } else if (boardAdvantage <= RandoConfig.BATTLE_DANGER_THRESHOLD) {
+                    if (boardAdvantage >= ChosenOneConfig.BATTLE_FAVORABLE_THRESHOLD) {
+                        score += ChosenOneConfig.SCORE_INITIATE_BATTLE;
+                    } else if (boardAdvantage <= ChosenOneConfig.BATTLE_DANGER_THRESHOLD) {
                         score -= 60;  // Avoid unfavorable battles
                     }
                 }
@@ -1327,14 +1303,14 @@ public class RandoCalAi extends HeuristicAiBase {
         // Damage cancel cards (Houjix/Ghhhk) - very high priority when appropriate
         if (actionText.contains("houjix") || actionText.contains("ghhhk")) {
             if (decisionText.contains("battle damage") || decisionText.contains("cancel")) {
-                score += RandoConfig.SCORE_DAMAGE_CANCEL;
+                score += ChosenOneConfig.SCORE_DAMAGE_CANCEL;
             }
         }
 
         // Barrier usage
         if (actionText.contains("barrier")) {
             if (decisionText.contains("deploy") || decisionText.contains("character")) {
-                score += RandoConfig.SCORE_BARRIER_USE;
+                score += ChosenOneConfig.SCORE_BARRIER_USE;
             }
         }
 
@@ -1346,7 +1322,7 @@ public class RandoCalAi extends HeuristicAiBase {
             if (senseResult.isHighValue) {
                 score += senseResult.score;
             } else {
-                score += RandoConfig.SCORE_SENSE_USE / 2;
+                score += ChosenOneConfig.SCORE_SENSE_USE / 2;
             }
         }
 
@@ -1405,10 +1381,10 @@ public class RandoCalAi extends HeuristicAiBase {
         if (mySide == null || !newOpponent.equals(opponentName)) {
             lastTurn = -1;
             lastPhase = null;  // Reset phase tracking for new game
-            pendingConcede = false;  // V67aw: Reset concede defer flag for new game
-            pendingConcedeReason = null;
             battleMessageSentThisBattle = false;  // Reset battle message tracking
             gameEndMessageSent = false;  // Reset game end message tracking
+            pendingConcede = false;  // V67aw: Reset concede defer flag for new game
+            pendingConcedeReason = null;
             mySide = newSide;
             opponentName = newOpponent;
             currentGameId = playerId + "_" + System.currentTimeMillis();
@@ -1428,13 +1404,13 @@ public class RandoCalAi extends HeuristicAiBase {
             deployPhasePlanner.reset();
             deckOracle.reset();  // V22.6: Reset deck knowledge for new game
             opponentDeckTracker.reset();  // V24.7: Reset opponent intel for new game
-            LOG.debug("[RandoCalAi] All strategy components reset for new game as {} side", mySide);
+            LOG.debug("[TheChosenOneAi] All strategy components reset for new game as {} side", mySide);
 
             // Run game-start verification
             runGameStartVerification(playerId, gameState);
 
             // Queue welcome message
-            if (personality != null && RandoConfig.CHAT_ENABLED) {
+            if (personality != null && ChosenOneConfig.CHAT_ENABLED) {
                 // Try to get current records for welcome message
                 String damageRecordHolder = null;
                 int damageRecordValue = 0;
@@ -1480,8 +1456,8 @@ public class RandoCalAi extends HeuristicAiBase {
 
             // Queue turn message with route score
             LOG.info("🗨️ Turn message check: personality={}, CHAT_ENABLED={}, turn={}",
-                personality != null, RandoConfig.CHAT_ENABLED, currentTurn);
-            if (personality != null && RandoConfig.CHAT_ENABLED && currentTurn >= 2) {
+                personality != null, ChosenOneConfig.CHAT_ENABLED, currentTurn);
+            if (personality != null && ChosenOneConfig.CHAT_ENABLED && currentTurn >= 2) {
                 // Get life force for route score calculation
                 int myLifeForce = 0;
                 int opponentLifeForce = 0;
@@ -1656,7 +1632,7 @@ public class RandoCalAi extends HeuristicAiBase {
      * Uses power totals to generate appropriate commentary.
      */
     private void sendBattleMessage(String playerId, GameState gameState) {
-        if (personality == null || !RandoConfig.CHAT_ENABLED) {
+        if (personality == null || !ChosenOneConfig.CHAT_ENABLED) {
             return;
         }
 
@@ -1728,7 +1704,7 @@ public class RandoCalAi extends HeuristicAiBase {
      * Calculates route score and sends personality-based message.
      */
     private void sendGameEndMessage(String playerId, GameState gameState, String winner) {
-        if (personality == null || !RandoConfig.CHAT_ENABLED) {
+        if (personality == null || !ChosenOneConfig.CHAT_ENABLED) {
             return;
         }
 
@@ -1810,7 +1786,7 @@ public class RandoCalAi extends HeuristicAiBase {
     }
 
     private boolean shouldApplyChaos() {
-        return random.nextInt(100) < RandoConfig.CHAOS_PERCENT;
+        return random.nextInt(100) < ChosenOneConfig.CHAOS_PERCENT;
     }
 
     // =========================================================================

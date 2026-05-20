@@ -1,12 +1,12 @@
-package com.gempukku.swccgo.ai.models.rando.evaluators;
+package com.gempukku.swccgo.ai.models.chosenone.evaluators;
 
-import com.gempukku.swccgo.ai.models.rando.strategy.DeckOracle;
-import com.gempukku.swccgo.ai.models.rando.strategy.OpponentDeckTracker;
-import com.gempukku.swccgo.ai.models.rando.strategy.DeployPhasePlanner;
-import com.gempukku.swccgo.ai.models.rando.strategy.ObjectiveAnalyzer;
-import com.gempukku.swccgo.ai.models.rando.strategy.ObjectiveHandler;
-import com.gempukku.swccgo.ai.models.rando.strategy.ShieldStrategy;
-import com.gempukku.swccgo.ai.models.rando.strategy.StrategyController;
+import com.gempukku.swccgo.ai.models.chosenone.strategy.DeckOracle;
+import com.gempukku.swccgo.ai.models.chosenone.strategy.OpponentDeckTracker;
+import com.gempukku.swccgo.ai.models.chosenone.strategy.DeployPhasePlanner;
+import com.gempukku.swccgo.ai.models.chosenone.strategy.ObjectiveAnalyzer;
+import com.gempukku.swccgo.ai.models.chosenone.strategy.ObjectiveHandler;
+import com.gempukku.swccgo.ai.models.chosenone.strategy.ShieldStrategy;
+import com.gempukku.swccgo.ai.models.chosenone.strategy.StrategyController;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -62,16 +62,11 @@ public class DecisionContext {
     // Blocked responses (for loop prevention)
     private Set<String> blockedResponses = new HashSet<>();
 
-    // V67ax DEPLOY PHASE SCRIPT: actions allowed for the current deploy step.
-    // When non-null, evaluators / CombinedEvaluator must restrict the final
-    // pick to this set. Null = no restriction (default).
+    // V67ax DEPLOY PHASE SCRIPT
     private Set<String> allowedActionIds = null;
     private String allowedActionsReason = null;
 
-    // V67bc DPS HIERARCHY: ordered list of step buckets, highest priority first.
-    // CombinedEvaluator walks these in order, picks first action above the bad
-    // threshold. PASS only when all buckets exhausted with all-bad scores.
-    // Null = no DPS hierarchy (legacy single-set or no DPS at all).
+    // V67bc DPS HIERARCHY
     private java.util.List<Set<String>> stepBuckets = null;
     private java.util.List<String> stepBucketLabels = null;
 
@@ -391,7 +386,6 @@ public class DecisionContext {
         this.allowedActionsReason = reason;
     }
 
-    // V67bc DPS HIERARCHY accessors
     public java.util.List<Set<String>> getStepBuckets() {
         return stepBuckets;
     }

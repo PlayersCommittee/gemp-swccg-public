@@ -1,9 +1,9 @@
-package com.gempukku.swccgo.ai.models.rando.evaluators;
+package com.gempukku.swccgo.ai.models.chosenone.evaluators;
 
-import com.gempukku.swccgo.ai.models.rando.RandoConfig;
-import com.gempukku.swccgo.ai.models.rando.strategy.DeployPhasePlanner;
-import com.gempukku.swccgo.ai.models.rando.strategy.DeployStrategy;
-import com.gempukku.swccgo.ai.models.rando.strategy.DeploymentPlan;
+import com.gempukku.swccgo.ai.models.chosenone.ChosenOneConfig;
+import com.gempukku.swccgo.ai.models.chosenone.strategy.DeployPhasePlanner;
+import com.gempukku.swccgo.ai.models.chosenone.strategy.DeployStrategy;
+import com.gempukku.swccgo.ai.models.chosenone.strategy.DeploymentPlan;
 import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -206,11 +206,11 @@ public class DrawEvaluator extends ActionEvaluator {
         }
 
         // Effective max hand based on life force
-        int effectiveMaxHand = RandoConfig.MAX_HAND_SIZE;
-        if (remainingLifeForce < RandoConfig.MAX_HAND_SIZE) {
+        int effectiveMaxHand = ChosenOneConfig.MAX_HAND_SIZE;
+        if (remainingLifeForce < ChosenOneConfig.MAX_HAND_SIZE) {
             effectiveMaxHand = Math.max(2, remainingLifeForce);
             logger.trace("Life force {} < {}: effective max hand = {}",
-                        remainingLifeForce, RandoConfig.MAX_HAND_SIZE, effectiveMaxHand);
+                        remainingLifeForce, ChosenOneConfig.MAX_HAND_SIZE, effectiveMaxHand);
         }
 
         // If hand already exceeds effective max, STRONGLY penalize drawing
@@ -241,7 +241,7 @@ public class DrawEvaluator extends ActionEvaluator {
         // Piett is THE critical pilot for TDIGWATT's Executor engine.
         // If Piett isn't in hand or reserve, he's stuck in the force pile — draw to find him.
         // The earlier we find Piett, the earlier Executor gets on the table via AMSD.
-        com.gempukku.swccgo.ai.models.rando.strategy.DeckOracle drawOracle = context.getDeckOracle();
+        com.gempukku.swccgo.ai.models.chosenone.strategy.DeckOracle drawOracle = context.getDeckOracle();
         if (drawOracle != null && drawOracle.isAnalyzed()) {
             boolean piettInHand = drawOracle.isCardInHand("Admiral Piett") || drawOracle.isCardInHand("Piett");
             boolean piettInReserve = drawOracle.isCardInReserve("Admiral Piett") || drawOracle.isCardInReserve("Piett");
@@ -269,11 +269,11 @@ public class DrawEvaluator extends ActionEvaluator {
         // Dynamic soft cap based on turn
         int effectiveSoftCap;
         if (turnNumber <= 3) {
-            effectiveSoftCap = RandoConfig.HAND_SOFT_CAP + 4;  // 16
+            effectiveSoftCap = ChosenOneConfig.HAND_SOFT_CAP + 4;  // 16
         } else if (turnNumber <= 6) {
-            effectiveSoftCap = RandoConfig.HAND_SOFT_CAP;  // 12
+            effectiveSoftCap = ChosenOneConfig.HAND_SOFT_CAP;  // 12
         } else {
-            effectiveSoftCap = RandoConfig.HAND_SOFT_CAP - 4;  // 8
+            effectiveSoftCap = ChosenOneConfig.HAND_SOFT_CAP - 4;  // 8
         }
 
         if (handSize < effectiveSoftCap && remainingLifeForce >= LATE_GAME_LIFE_FORCE) {
@@ -286,13 +286,11 @@ public class DrawEvaluator extends ActionEvaluator {
         }
 
         // === FORCE RESERVATION FOR OPPONENT'S TURN ===
-        // V58: Reserve is now accurate (DTF, First Strike, maintenance,
-        // contested count). If force pile is ABOVE reserve, we should
-        // aggressively DRAW the surplus into hand — hoarding does nothing.
+        // V58: Reserve accurate to Steve's rules (DTF, First Strike,
+        // maintenance, contested). Aggressively draw the surplus.
         int forceToReserve = calculateForceToReserve(context, handSize);
         int drawableSurplus = Math.max(0, forcePile - forceToReserve);
         if (drawableSurplus > 0 && handSize < effectiveMaxHand && reserveDeck > 2) {
-            // +80 per card of surplus, capped at +400. Beats most penalties.
             float surplusBonus = Math.min(400.0f, 80.0f * drawableSurplus);
             action.addReasoning(String.format(
                 "V58 DRAW-DOWN: force pile %d > reserve %d — draw %d surplus into hand!",
@@ -397,21 +395,17 @@ public class DrawEvaluator extends ActionEvaluator {
      * Calculate force to reserve for opponent's turn.
      *
      * V58 FIX 20 (2026-04-16): Match Steve's actual reservation rules.
-     * After activating and deploying, draw MOST force into hand. Reserve
-     * only for specific threats:
-     *   +1 if opponent has Draw Their Fire (taxes our deploys/moves)
-     *   +1 if opponent has First Strike (weapon destiny trigger)
-     *   +1 mid/late game for battle interrupts during opponent's turn
+     *   +1 if opponent has Draw Their Fire on table
+     *   +1 if opponent has First Strike on table
+     *   +1 mid/late game for battle interrupts
      *   +N for total maintenance cost of our on-table characters
-     *   +1 per contested location (battle interrupt headroom)
-     * Hard cap at 4 — hoarding more than 4 force in pile is wasted.
+     *   +1 per contested location (at least one)
+     *   Hard cap at 4.
      */
     private int calculateForceToReserve(DecisionContext context, int handSize) {
         int forceToReserve = 0;
         SwccgGame game = context.getGame();
-        if (game == null) {
-            return 1;  // safe default
-        }
+        if (game == null) return 1;
 
         GameState gameState = context.getGameState();
         String playerId = context.getPlayerId();
@@ -423,7 +417,7 @@ public class DrawEvaluator extends ActionEvaluator {
             boolean opponentHasDTF = false;
             boolean opponentHasFirstStrike = false;
             boolean opponentHasIAO = false;  // V78: Imperial Arrest Order
-            boolean ourVergeNeedsDeathStarMove = false;  // V79: save 1 force for Death Star move
+            boolean ourVergeNeedsDeathStarMove = false;  // V79
 
             Collection<PhysicalCard> locations = gameState.getLocationsInOrder();
             for (PhysicalCard loc : locations) {
@@ -441,34 +435,23 @@ public class DrawEvaluator extends ActionEvaluator {
                 if (weHavePresence && theyHavePresence) contestedCount++;
             }
 
-            // Scan ALL permanent cards for opponent's DTF / First Strike and
-            // our maintenance costs. Title-based detection keeps this robust
-            // across V-sets and variants.
             for (PhysicalCard pc : gameState.getAllPermanentCards()) {
                 if (pc == null) continue;
                 String title = pc.getTitle();
                 if (title == null) continue;
                 String titleLower = title.toLowerCase(java.util.Locale.ROOT);
                 boolean isOurs = pc.getOwner() != null && pc.getOwner().equals(playerId);
-
                 if (!isOurs) {
-                    if (titleLower.contains("draw their fire"))  opponentHasDTF = true;
-                    if (titleLower.contains("first strike"))     opponentHasFirstStrike = true;
-                    // V78 (Steve, 2026-05-15): Imperial Arrest Order & Secret Plans
-                    // forces opponent to "use 1 Force OR retrieval canceled" every
-                    // retrieval attempt. Reserve +2 to absorb the tax and keep
-                    // retrieval interrupts viable.
+                    if (titleLower.contains("draw their fire"))   opponentHasDTF = true;
+                    if (titleLower.contains("first strike"))      opponentHasFirstStrike = true;
+                    // V78 (Steve, 2026-05-15): Imperial Arrest Order awareness.
                     if (titleLower.contains("imperial arrest")
                             || titleLower.contains("secret plans")) opponentHasIAO = true;
                 } else {
                     // V67w (Steve, 2026-05-03): Use the engine's Icon.MAINTENANCE
                     // instead of hand-rolled title matching. SWCCG marks every
-                    // maintenance character with this icon on the blueprint.
-                    // OLD code only matched "lando calrissian, scoundrel" — missed
-                    // every other maintenance card in the deck (Lando With Vibro-Ax,
-                    // Han With Heavy Blaster Pistol, etc.). Steve: 'on light side
-                    // he is still not saving enough force for maintenance cards
-                    // like lando.'
+                    // maintenance character with this icon. OLD code only matched
+                    // "lando calrissian, scoundrel" — missed everything else.
                     try {
                         if (pc.getBlueprint() != null
                                 && pc.getBlueprint().hasIcon(com.gempukku.swccgo.common.Icon.MAINTENANCE)) {
@@ -478,7 +461,6 @@ public class DrawEvaluator extends ActionEvaluator {
                     // V79: detect Verge of Greatness on Rando's table + Death Star not at Scarif
                     if (titleLower.contains("on the verge of greatness")
                             || titleLower.contains("taking control of the weapon")) {
-                        // Verge active — check if Death Star is at Scarif yet
                         boolean dsAtScarif = false;
                         PhysicalCard rDeathStar = null;
                         for (PhysicalCard pc2 : gameState.getAllPermanentCards()) {
@@ -503,23 +485,20 @@ public class DrawEvaluator extends ActionEvaluator {
                 }
             }
 
-            if (opponentHasDTF)        forceToReserve += 1;
+            if (opponentHasDTF)         forceToReserve += 1;
             if (opponentHasFirstStrike) forceToReserve += 1;
-            if (contestedCount > 0)     forceToReserve += 1;  // one battle-interrupt buffer
-            if (turnNumber >= 4)        forceToReserve += 1;  // mid/late-game interrupt buffer
-            if (opponentHasIAO)         forceToReserve += 2;  // V78: IAO retrieval-cancel tax
-            if (ourVergeNeedsDeathStarMove) forceToReserve += 1;  // V79: Death Star move reserve
+            if (contestedCount > 0)     forceToReserve += 1;
+            if (turnNumber >= 4)        forceToReserve += 1;
+            if (opponentHasIAO)         forceToReserve += 2;  // V78
+            if (ourVergeNeedsDeathStarMove) forceToReserve += 1;  // V79
             forceToReserve += maintenanceCost;
-
-            // V67w: Bumped cap from 4 → 8. Multiple maintenance characters PLUS
-            // DTF/First Strike/contested can legitimately need 5-6 force reserved.
-            // V78: Bumped cap to 10 to accommodate IAO tax on top of existing reserves.
+            // V78: Bumped cap 8 → 10 to accommodate IAO tax.
             forceToReserve = Math.min(10, forceToReserve);
 
             logger.debug("V58 RESERVE: DTF={}, FirstStrike={}, IAO={}, contested={}, maint={}, turn={}, total={}",
                 opponentHasDTF, opponentHasFirstStrike, opponentHasIAO, contestedCount, maintenanceCost, turnNumber, forceToReserve);
         } catch (Exception e) {
-            logger.trace("V58 RESERVE: error calculating, using default 1: {}", e.getMessage());
+            logger.trace("V58 RESERVE error: {}", e.getMessage());
             return 1;
         }
 
@@ -556,7 +535,7 @@ public class DrawEvaluator extends ActionEvaluator {
             // This is a "couldn't deploy" hold - check if we should draw
             if (forcePile > HOLD_BACK_DRAW_FORCE_THRESHOLD &&
                 remainingLifeForce > HOLD_BACK_DRAW_LIFE_THRESHOLD &&
-                handSize < RandoConfig.MAX_HAND_SIZE) {
+                handSize < ChosenOneConfig.MAX_HAND_SIZE) {
 
                 // Calculate how many draws we can afford while keeping force floor
                 int drawsAffordable = forcePile - HOLD_BACK_DRAW_FORCE_FLOOR;
