@@ -362,14 +362,11 @@ public class DefaultSwccgGame implements SwccgGame {
     @Override
     public void checkLifeForceDepleted() {
         GameState gameState = getGameState();
-        if (gameState != null && gameState.getCurrentPhase() != Phase.PLAY_STARTING_CARDS && gameState.getCurrentPhase() != Phase.BETWEEN_TURNS) {
+        if (gameState != null) {
             // No remaining life force
-            // Check current player first
-            if (gameState.getPlayerLifeForce(gameState.getCurrentPlayerId()) <= 0)
-                playerLost(getGameState().getCurrentPlayerId(), GameEndReason.LOSS__FORCE_DEPLETED);
-            else if (gameState.getCurrentPlayerId().equals(_lightPlayerId) && gameState.getPlayerLifeForce(_darkPlayerId) <= 0)
+            if (gameState.getPlayerLifeForce(_darkPlayerId) <= 0)
                 playerLost(_darkPlayerId, GameEndReason.LOSS__FORCE_DEPLETED);
-            else if (gameState.getCurrentPlayerId().equals(_darkPlayerId) && gameState.getPlayerLifeForce(_lightPlayerId) <= 0)
+            else if (gameState.getPlayerLifeForce(_lightPlayerId) <= 0)
                 playerLost(_lightPlayerId, GameEndReason.LOSS__FORCE_DEPLETED);
         }
     }

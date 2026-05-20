@@ -7,11 +7,31 @@ import com.gempukku.swccgo.game.PhysicalCardImpl;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+
 public interface GameProperties extends TestBase {
 	/**
 	 * @return Whether the game has finished one way or another.
 	 */
 	default boolean GameIsFinished() { return game().isFinished(); }
+
+	/**
+	 * @return string for player that won the game
+	 */
+	default String GetGameWinner() {
+		assertTrue("Game is not finished, winner is not determined",GameIsFinished());
+		return game().getWinner();
+	}
+
+	/**
+	 * @return Whether Light Side won the game
+	 */
+	default boolean LSWonGame() { return (LS.equals(GetGameWinner())); }
+
+	/**
+	 * @return Whether Dark Side won the game
+	 */
+	default boolean DSWonGame() { return (DS.equals(GetGameWinner())); }
 
 	/**
 	 * @return Gets the current game phase
