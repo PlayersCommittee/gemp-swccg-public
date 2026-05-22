@@ -18214,6 +18214,7 @@ public class Filters {
     public static final Filter Dopra_Doompa= Filters.title(Title.Dobra_Doompa);
     public static final Filter Double_Agent = Filters.title(Title.Double_Agent);
     public static final Filter Double_Back = Filters.title(Title.Double_Back);
+    public static final Filter Double_Crossing_No_Good_Swindler = Filters.title(Title.Double_Crossing_No_Good_Swindler);
     public static final Filter Downtown_Plaza = Filters.title(Title.Downtown_Plaza);
     public static final Filter DQar_location = Filters.and(CardCategory.LOCATION, Filters.partOfSystem(Title.Dqar));
     public static final Filter Dqar_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Dqar));

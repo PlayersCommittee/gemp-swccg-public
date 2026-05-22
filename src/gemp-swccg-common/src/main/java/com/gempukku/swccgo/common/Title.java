@@ -341,6 +341,7 @@ public interface Title {
     String Dont_Underestimate_Our_Chances = "Don't Underestimate Our Chances";
     String Double_Agent = "Double Agent";
     String Double_Back = "Double Back";
+    String Double_Crossing_No_Good_Swindler = "Double-Crossing, No-Good Swindler";
     String Double_Laser_Cannon = "Double Laser Cannon";
     String Downtown_Plaza = "Cloud City: Downtown Plaza";
     String Duel_Of_The_Fates = "Duel Of The Fates";
@@ -838,6 +839,7 @@ public interface Title {
     String Oh_Switch_Off = "Oh, Switch Off";
     String Old_Allies = "Old Allies";
     String Old_Ben = "Old Ben";
+    String Old_Pirates = "Old Pirates";
     String Ominous_Rumors = "Ominous Rumors";
     String Ommni_Box = "Ommni Box";
     String Ommni_Box_Its_Worse = "Ommni Box & It's Worse";

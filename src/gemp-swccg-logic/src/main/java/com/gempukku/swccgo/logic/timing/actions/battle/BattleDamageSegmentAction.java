@@ -14,6 +14,7 @@ import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
 import com.gempukku.swccgo.logic.effects.ForfeitCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.LoseOneForceEffect;
+import com.gempukku.swccgo.logic.modifiers.ModifierFlag;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.*;
 import com.gempukku.swccgo.logic.timing.results.AboutToLoseOrForfeitDuringDamageSegmentResult;
@@ -275,22 +276,26 @@ public class BattleDamageSegmentAction extends SystemQueueAction {
 
                             // Battle damage remaining
                             if (battleDamageRemaining > 0) {
+                                //Add cards from Hand that can be lost to satisfy battle damage
+                                selectableCards.addAll(gameState.getHand(_playerId));
 
                                 // Add cards from Life Force that can be lost to satisfy battle damage
-                                selectableCards.addAll(gameState.getHand(_playerId));
-                                selectableCards.addAll(gameState.getSabaccHand(_playerId));
-                                PhysicalCard topOfReserveDeck = gameState.getTopOfReserveDeck(_playerId);
-                                if (topOfReserveDeck != null)
-                                    selectableCards.add(topOfReserveDeck);
-                                PhysicalCard topOfForcePile = gameState.getTopOfForcePile(_playerId);
-                                if (topOfForcePile != null)
-                                    selectableCards.add(topOfForcePile);
-                                PhysicalCard topOfUsedPile = gameState.getTopOfUsedPile(_playerId);
-                                if (topOfUsedPile != null)
-                                    selectableCards.add(topOfUsedPile);
-                                PhysicalCard topOfUnresolvedDestinyPile = gameState.getTopOfUnresolvedDestinyDraws(_playerId);
-                                if (topOfUnresolvedDestinyPile != null)
-                                    selectableCards.add(topOfUnresolvedDestinyPile);
+                                if(!game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.BATTLE_DAMAGE_NOT_PAYABLE_FROM_LIFE_FORCE_UNLESS_HAND_EMPTY)
+                                        || game.getGameState().getHand(_playerId).isEmpty()) {
+                                    selectableCards.addAll(gameState.getSabaccHand(_playerId));
+                                    PhysicalCard topOfReserveDeck = gameState.getTopOfReserveDeck(_playerId);
+                                    if (topOfReserveDeck != null)
+                                        selectableCards.add(topOfReserveDeck);
+                                    PhysicalCard topOfForcePile = gameState.getTopOfForcePile(_playerId);
+                                    if (topOfForcePile != null)
+                                        selectableCards.add(topOfForcePile);
+                                    PhysicalCard topOfUsedPile = gameState.getTopOfUsedPile(_playerId);
+                                    if (topOfUsedPile != null)
+                                        selectableCards.add(topOfUsedPile);
+                                    PhysicalCard topOfUnresolvedDestinyPile = gameState.getTopOfUnresolvedDestinyDraws(_playerId);
+                                    if (topOfUnresolvedDestinyPile != null)
+                                        selectableCards.add(topOfUnresolvedDestinyPile);
+                                }
 
                                 // Add cards that may be forfeited
                                 selectableCards.addAll(cardsThatMayBeForfeited);
