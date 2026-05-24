@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -67,16 +68,16 @@ public class Card1_162 extends AbstractAutomatedWeapon {
                             if (totalDestiny != null) {
                                 int numCharacters = (int) Math.floor(totalDestiny);
                                 if (numCharacters > 0) {
-                                    Collection<PhysicalCard> characters = Filters.filterAllOnTable(game, Filters.and(Filters.opponents(self), Filters.character, Filters.present(self)));
+                                    Collection<PhysicalCard> characters = Filters.filterActive(game, self, SpotOverride.INCLUDE_UNDERCOVER, Filters.and(Filters.opponents(self), Filters.character, Filters.present(self)));
                                     if (!characters.isEmpty()) {
                                         numCharacters = Math.min(characters.size(), numCharacters);
                                         action.appendEffect(
-                                                new ChooseCardsToLoseFromTableEffect(action, opponent, numCharacters, numCharacters, true, Filters.in(characters)));
+                                                new ChooseCardsToLoseFromTableEffect(action, opponent, numCharacters, numCharacters, false, Filters.in(characters)));
                                     }
                                 }
                             }
                             action.appendEffect(
-                                    new LoseCardFromTableEffect(action, self, true));
+                                    new LoseCardFromTableEffect(action, self, false));
                         }
                     }
             );
