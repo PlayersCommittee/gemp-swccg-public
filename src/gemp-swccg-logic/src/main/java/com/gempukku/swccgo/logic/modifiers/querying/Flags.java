@@ -415,4 +415,8 @@ public interface Flags extends BaseQuery {
 	default boolean passengerAppliesAbilityForBattleDestiny(GameState gameState, PhysicalCard card) {
 		return !getModifiersAffectingCard(gameState, ModifierType.PASSENGER_APPLIES_ABILITY_FOR_BATTLE_DESTINY, card).isEmpty();
 	}
+
+	default boolean loseForceIfLostToAsteroidDestiny(GameState gameState, PhysicalCard card) {
+		return (!getModifiersAffectingCard(gameState, ModifierType.LOSE_FORCE_IF_LOST_TO_ASTEROID_DESTINY, card).isEmpty());
+	}
 }

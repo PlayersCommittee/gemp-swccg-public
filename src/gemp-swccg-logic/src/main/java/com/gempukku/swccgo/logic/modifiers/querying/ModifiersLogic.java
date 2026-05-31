@@ -1967,6 +1967,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
         return (starshipCardIds != null && starshipCardIds.contains(starshipCardId));
     }
 
+    /**
+     * Determines if any asteroid destiny has been drawn this turn.
+     * @return true if any asteroid destiny has been drawn this turn
+     */
+    public boolean wasAsteroidDestinyDrawnThisTurn() {
+        return !_asteroidDestinyDrawnAgainstMap.isEmpty();
+    }
+
     public void participatedInForceDrain(PhysicalCard card) {
         final int cardId = card.getCardId();
         final Integer value = _forceDrainParticipationMap.get(cardId);

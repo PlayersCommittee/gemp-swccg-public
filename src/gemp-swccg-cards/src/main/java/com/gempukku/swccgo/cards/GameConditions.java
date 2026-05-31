@@ -4634,6 +4634,11 @@ public class GameConditions {
         return game.getGameState().isCardInPlayActive(starship, false, false, false, false, false, false, false, false);
     }
 
+    // Checks if any asteroid destiny was drawn this turn
+    public static boolean wasAsteroidDestinyDrawnThisTurn(SwccgGame game) {
+        return game.getModifiersQuerying().wasAsteroidDestinyDrawnThisTurn();
+    }
+
     /**
      * Determines if characters can be 'revived'.
      *

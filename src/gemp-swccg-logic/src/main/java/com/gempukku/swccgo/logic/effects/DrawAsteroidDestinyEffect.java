@@ -50,6 +50,9 @@ public class DrawAsteroidDestinyEffect extends AbstractSubActionEffect {
         subAction.appendEffect(
                 new RecordDrawAsteroidDestinyEffect(subAction, _starship, location));
 
+        final boolean alsoLoseForceIfLost = game.getModifiersQuerying().loseForceIfLostToAsteroidDestiny(gameState, _starship);
+        final float forceToLose = game.getModifiersQuerying().getForfeit(gameState, _starship);
+
         // 2) Draw the asteroid destiny and carry out the results
         subAction.appendEffect(
                 new PassthruEffect(subAction) {
@@ -62,6 +65,7 @@ public class DrawAsteroidDestinyEffect extends AbstractSubActionEffect {
                                     protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
                                         return Collections.singletonList(_starship);
                                     }
+
                                     @Override
                                     protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                                         if (totalDestiny == null) {
@@ -99,7 +103,23 @@ public class DrawAsteroidDestinyEffect extends AbstractSubActionEffect {
                     }
                 });
 
-        // 3) End of asteroid destiny draw
+        // 3) Check if additional force must be lost
+        if (alsoLoseForceIfLost) {
+            subAction.appendEffect(
+                    new PassthruEffect(subAction) {
+                        @Override
+                        protected void doPlayEffect(SwccgGame game) {
+                            if (Filters.present(location).accepts(game, _starship)) return; //starship was not lost to asteroid destiny
+
+                            gameState.sendMessage("Additional force loss (starship's forfeit value): " + GuiUtils.formatAsString(forceToLose));
+                            subAction.appendEffect(
+                                    new LoseForceEffect(subAction, _starship.getOwner(), forceToLose));
+                        }
+                    }
+            );
+        }
+
+        // 4) End of asteroid destiny draw
         subAction.appendEffect(
                 new PassthruEffect(subAction) {
                     @Override

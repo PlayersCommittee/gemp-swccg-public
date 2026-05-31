@@ -507,6 +507,12 @@ public interface ModifiersState {
 	boolean hadAsteroidDestinyDrawnAgainstThisTurn(PhysicalCard starship, PhysicalCard location);
 
 	/**
+	 * Determines if any asteroid destiny has been drawn this turn.
+	 * @return true if any asteroid destiny has been drawn this turn
+	 */
+	boolean wasAsteroidDestinyDrawnThisTurn();
+
+	/**
 	 * Gets all the cards that are targeting the specified card. This is used for the card info screen on the user interface.
 	 * @param gameState the game state
 	 * @param card the card

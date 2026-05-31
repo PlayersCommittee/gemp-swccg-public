@@ -50,6 +50,7 @@ show_help() {
     echo "  export-cards- Export all card data to JSON file"
     echo "  release-diff- Generate final diff for new release"
     echo "  playtest-ids- List set 501 card ids and titles from blueprint comments"
+    echo "  validate-cardimages - Find card Java files missing from CardImages.js"
     echo "  help        - Show this help message"
     echo ""
 }
@@ -407,6 +408,52 @@ case "$1" in
             title=$(awk '/^[[:space:]]*\*[[:space:]]*Title:/ { sub(/^[[:space:]]*\*[[:space:]]*Title:[[:space:]]*/, ""); print; exit }' "$file")
             printf "%s\t%s\n" "$id" "$title"
         done | sort -V
+        ;;
+
+    validate-cardimages)
+        SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+        cd "$SCRIPT_DIR/.."
+        CARD_IMAGES_JS="src/gemp-swccg-async/src/main/web/js/gemp-016/cards/CardImages.js"
+        CARDS_ROOT="src/gemp-swccg-cards/src/main/java/com/gempukku/swccgo/cards"
+        print_status "Checking for card Java files missing from CardImages.js..."
+
+        # Stream both inputs through a single awk process:
+        #   Pass 1 (FNR==NR): read CardImages.js, extract all "setNo_cardNo" keys into a hash set
+        #   Pass 2:           read card file paths from find via stdin, check each against the set
+        # No subshells, no per-card greps, no glob expansion.
+        missing=$(find "$CARDS_ROOT" -path "*/set*/Card*.java" | sort | awk -v js="$CARD_IMAGES_JS" '
+            BEGIN {
+                while ((getline line < js) > 0) {
+                    # Match keys like "1_324" at the start of an entry
+                    if (match(line, /"([0-9]+_[0-9]+)"/))
+                        registered[substr(line, RSTART+1, RLENGTH-2)] = 1
+                }
+                close(js)
+            }
+            {
+                # Extract basename: .../Card1_324.java -> Card1_324.java
+                n = split($0, parts, "/")
+                basename = parts[n]
+                # Strip "Card" prefix and ".java" suffix
+                sub(/^Card/, "", basename)
+                sub(/\.java$/, "", basename)
+                # Split into setNo and cardNo on "_"
+                split(basename, id, "_")
+                setNo  = id[1]
+                cardNo = id[2] + 0   # coerce to number to drop leading zeros
+                key = setNo "_" cardNo
+                if (!(key in registered))
+                    print $0
+            }
+        ')
+
+        if [[ -z "$missing" ]]; then
+            print_success "All card Java files are present in CardImages.js"
+        else
+            count=$(echo "$missing" | wc -l)
+            print_error "$count card file(s) missing from CardImages.js:"
+            echo "$missing" | sed 's/^/  /'
+        fi
         ;;
 
     help|--help|-h|"")

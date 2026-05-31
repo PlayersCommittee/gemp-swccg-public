@@ -54,7 +54,7 @@ public class Card601_098 extends AbstractUsedOrLostInterrupt {
     public Card601_098() {
         super(Side.DARK, 4, "Weapon Levitation & The Empire's Back", Uniqueness.UNIQUE, ExpansionSet.LEGACY, Rarity.V);
         addComboCardTitles("Weapon Levitation", "The Empire's Back");
-        setGameText("USED: Cancel Disarmed or Wookie Strangle. OR Once per battle involving Vader, reveal a device or character weapon from Used Pile and add its printed destiny number to your total power; reshuffle. \n" +
+        setGameText("USED: Cancel Disarmed or Wookiee Strangle. OR Once per battle involving Vader, reveal a device or character weapon from Used Pile and add its printed destiny number to your total power; reshuffle. \n" +
                 "LOST: Use 1 Force to deploy (or retrieve) Vader from Reserve Deck; reshuffle. OR If opponent just initiated a battle against Vader defending alone at a site, his forfeit cannot be reduced.");
         addIcons(Icon.CLOUD_CITY, Icon.LEGACY_BLOCK_6);
         setAsLegacy(true);
