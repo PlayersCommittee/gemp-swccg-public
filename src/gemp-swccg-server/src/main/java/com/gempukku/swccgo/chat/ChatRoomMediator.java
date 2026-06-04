@@ -21,7 +21,6 @@ public class ChatRoomMediator {
     private Set<String> _allowedPlayers;
     private boolean _allowSpectatorsToChat;
     private boolean _playtesting;
-    private boolean _destroyed;
 
     private ReadWriteLock _lock = new ReentrantReadWriteLock();
 
@@ -42,25 +41,17 @@ public class ChatRoomMediator {
     }
 
     public List<ChatMessage> joinUser(String playerId, boolean admin, boolean playtester) throws PrivateInformationException {
-        return joinUser(playerId, admin, playtester, new ChatCommunicationChannel());
-    }
-
-    public List<ChatMessage> joinUser(String playerId, boolean admin, boolean playtester, ChatCommunicationChannel listener) throws PrivateInformationException {
         _lock.writeLock().lock();
         try {
-            if (_destroyed)
-                throw new PrivateInformationException();
             if(_allowedPlayers != null && !_allowedPlayers.contains(playerId) && _privateRoom)
                 throw new PrivateInformationException();
             if(_allowedPlayers != null && !_allowedPlayers.contains(playerId) && _playtesting && !admin && !playtester)
                 throw new PrivateInformationException();
 
-            ChatCommunicationChannel replacedListener = _listeners.put(playerId, listener);
-            _chatRoom.joinChatRoom(playerId, _allowedPlayers != null && !_allowedPlayers.contains(playerId) && !_allowSpectatorsToChat, listener);
-            if (replacedListener != null && replacedListener != listener) {
-                replacedListener.replacedByAnotherConnection();
-            }
-            return listener.consumeMessages(0);
+            ChatCommunicationChannel value = new ChatCommunicationChannel();
+            _listeners.put(playerId, value);
+            _chatRoom.joinChatRoom(playerId, _allowedPlayers != null && !_allowedPlayers.contains(playerId) && !_allowSpectatorsToChat, value);
+            return value.consumeMessages(0);
         } finally {
             _lock.writeLock().unlock();
         }
@@ -69,8 +60,6 @@ public class ChatRoomMediator {
     public ChatCommunicationChannel getChatRoomListener(String playerId) throws SubscriptionExpiredException {
         _lock.readLock().lock();
         try {
-            if (_destroyed)
-                throw new SubscriptionExpiredException();
             ChatCommunicationChannel gatheringChatRoomListener = _listeners.get(playerId);
             if (gatheringChatRoomListener == null)
                 throw new SubscriptionExpiredException();
@@ -81,14 +70,8 @@ public class ChatRoomMediator {
     }
 
     public void partUser(String playerId) {
-        partUser(playerId, null);
-    }
-
-    public void partUser(String playerId, ChatCommunicationChannel listener) {
         _lock.writeLock().lock();
         try {
-            if (listener != null && _listeners.get(playerId) != listener)
-                return;
             _chatRoom.partChatRoom(playerId);
             _listeners.remove(playerId);
         } finally {
@@ -97,21 +80,11 @@ public class ChatRoomMediator {
     }
 
     public void sendMessage(String playerId, String message, boolean admin) throws PrivateInformationException, ChatCommandErrorException {
-        _lock.readLock().lock();
-        try {
-            if (_destroyed)
-                return;
-        } finally {
-            _lock.readLock().unlock();
-        }
-
         if (processIfKnownCommand(playerId, message, admin))
             return;
 
         _lock.writeLock().lock();
         try {
-            if (_destroyed)
-                return;
             if (admin || _allowedPlayers == null || _allowedPlayers.contains(playerId) || _allowSpectatorsToChat) {
                 _logger.trace(playerId + ": " + message);
                 _chatRoom.postMessage(playerId, message);
@@ -149,8 +122,6 @@ public class ChatRoomMediator {
     public void cleanup() {
         _lock.writeLock().lock();
         try {
-            if (_destroyed)
-                return;
             long currentTime = System.currentTimeMillis();
             Map<String, ChatCommunicationChannel> copy = new HashMap<String, ChatCommunicationChannel>(_listeners);
             for (Map.Entry<String, ChatCommunicationChannel> playerListener : copy.entrySet()) {
@@ -169,29 +140,9 @@ public class ChatRoomMediator {
     public Collection<String> getUsersInRoom() {
         _lock.readLock().lock();
         try {
-            if (_destroyed)
-                return Collections.emptyList();
             return _chatRoom.getUsersInRoom();
         } finally {
             _lock.readLock().unlock();
         }
-    }
-
-    public void destroy() {
-        List<ChatCommunicationChannel> listeners;
-        _lock.writeLock().lock();
-        try {
-            if (_destroyed)
-                return;
-            _destroyed = true;
-            listeners = new ArrayList<ChatCommunicationChannel>(_listeners.values());
-            _listeners.clear();
-            _chatRoom.close();
-        } finally {
-            _lock.writeLock().unlock();
-        }
-
-        for (ChatCommunicationChannel listener : listeners)
-            listener.closedByServer();
     }
 }

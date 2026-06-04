@@ -131,7 +131,6 @@ var GempSwccgGameUI = Class.extend({
     replayPlay: false,
     
     awaitActionSound: "awaitAction",
-    authConflictShown: false,
 
     init: function (url, replayMode) {
         this.replayMode = replayMode;
@@ -158,7 +157,6 @@ var GempSwccgGameUI = Class.extend({
                     that.chatBox.appendMessage("Refresh the page (press F5) to resume the game, or press back on your browser to get back to the Game Hall.", "warningMessage");
                 }
             });
-        this.bindAuthConflictGuard();
 
         $.expr[':'].cardId = function (obj, index, meta, stack) {
             var cardIds = meta[3].split(",");
@@ -2000,9 +1998,6 @@ var GempSwccgGameUI = Class.extend({
             "403": function () {
                 that.showErrorDialog("Game access forbidden", "This game is private and does not allow spectators.", false, false, true);
             },
-            "404": function () {
-                that.showErrorDialog("Game removed", "This game has finished and has been removed. Go to the Game Hall to continue.", false, false, true);
-            },
             "409": function () {
                 that.showErrorDialog("Concurrent access error", "You are observing this Game Hall from another browser or window. Close this window or if you wish to observe it here, click \"Refresh page\".", true, false, false);
             },
@@ -2214,34 +2209,10 @@ var GempSwccgGameUI = Class.extend({
                 this.animations.updateGameState(animate);
             } else {
                 this.startAnimatingTitle();
-                this.animations.updateGameState(animate);
             }
         } catch (e) {
             this.showErrorDialog("Game error", "There was an error while processing game events in your browser. Reload the game to continue", true, false, false);
         }
-    },
-    bindAuthConflictGuard: function () {
-        var that = this;
-        if (this.replayMode)
-            return;
-
-        this.communication.watchAuthTokenChanges(function (oldToken, currentToken, oldSubject, currentSubject) {
-            if (that.authConflictShown)
-                return;
-            if (oldSubject != null && currentSubject != null && oldSubject === currentSubject)
-                return;
-
-            that.authConflictShown = true;
-            that.communication.closeRealtimeConnections();
-            if (that.chatBox != null && that.chatBox.communication != null)
-                that.chatBox.communication.closeRealtimeConnections();
-
-            if (currentToken == null || currentToken === "") {
-                that.showErrorDialog("Authentication error", "You are not logged in", false, true, false);
-                return;
-            }
-            that.showErrorDialog("Concurrent access error", "You are observing this Game Hall from another browser or window. Close this window or if you wish to observe it here, click \"Refresh page\".", true, false, false);
-        });
     },
 
     keepAnimating: false,
@@ -3513,3 +3484,5 @@ function gameBackgroundSettingChange () {
     }).appendTo("head");
 
 }
+
+

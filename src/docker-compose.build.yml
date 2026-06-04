@@ -32,22 +32,22 @@ services:
        - type: bind
          source: ../logs
          target: /logs
+       - type: bind
+         source: ../logs/nohup.out
+         target: /opt/gemp-swccg/src/nohup.out
     networks:
       gemp_net_1:
         ipv4_address: ${APP_IP}
     tty: true
     # Command section commented out for initial build (web.jar doesn't exist yet)
     # This file is used by dev.sh initialize command
-    #command:
-    #  - sh
-    #  - -lc
-    #  - >
-    #    exec java -Xmx4g
-    #    -Dlog4j.debug
-    #    -Dlog4j.configurationFile=/opt/gemp-swccg/src/gemp-swccg-async/src/main/resources/prod-log4j.xml
-    #    -jar /opt/gemp-swccg/src/gemp-swccg-async/target/web.jar
-    #    com.gempukku.swccgo.async.SwccgoAsyncServer
-    #    >> /logs/nohup.out 2>&1
+    #command: >
+    #  nohup
+    #  java -Xmx4g
+    #  -Dlog4j.debug
+    #  -Dlog4j.configurationFile=/opt/gemp-swccg/src/gemp-swccg-async/src/main/resources/prod-log4j.xml
+    #  -jar /opt/gemp-swccg/src/gemp-swccg-async/target/web.jar
+    #  com.gempukku.swccgo.async.SwccgoAsyncServer &
 
 
   db:
