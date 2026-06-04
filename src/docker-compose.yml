@@ -36,6 +36,9 @@ services:
       gemp_net_1:
         ipv4_address: ${APP_IP}
     tty: true
+    environment:
+      - APP_ENV=production
+      - DEBUG_ERRORS=false
     command:
       - sh
       - -lc
