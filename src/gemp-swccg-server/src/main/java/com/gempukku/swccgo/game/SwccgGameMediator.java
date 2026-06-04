@@ -118,7 +118,17 @@ public class SwccgGameMediator {
     }
 
     public void destroy() {
-        _destroyed = true;
+        _writeLock.lock();
+        try {
+            if (_destroyed)
+                return;
+            _destroyed = true;
+            for (GameCommunicationChannel channel : _communicationChannels.values())
+                _swccgoGame.removeGameStateListener(channel);
+            _communicationChannels.clear();
+        } finally {
+            _writeLock.unlock();
+        }
     }
 
     public String getGameId() {

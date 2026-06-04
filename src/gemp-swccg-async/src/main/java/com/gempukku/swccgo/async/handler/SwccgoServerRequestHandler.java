@@ -3,8 +3,10 @@ package com.gempukku.swccgo.async.handler;
 import com.gempukku.swccgo.DateUtils;
 import com.gempukku.swccgo.PlayerLock;
 import com.gempukku.swccgo.async.HttpProcessingException;
+import com.gempukku.swccgo.auth.JwtService;
 import com.gempukku.swccgo.collection.CollectionsManager;
 import com.gempukku.swccgo.collection.TransferDAO;
+import com.gempukku.swccgo.common.ApplicationConfiguration;
 import com.gempukku.swccgo.db.DeckDAO;
 import com.gempukku.swccgo.db.GempSettingDAO;
 import com.gempukku.swccgo.db.PlayerDAO;
@@ -13,9 +15,10 @@ import com.gempukku.swccgo.game.CardCollection;
 import com.gempukku.swccgo.game.Player;
 import com.gempukku.swccgo.packagedProduct.ProductName;
 import com.gempukku.swccgo.service.LoggedUserHolder;
+import io.netty.handler.codec.http.cookie.DefaultCookie;
 import io.netty.handler.codec.http.cookie.Cookie;
-import io.netty.handler.codec.http.cookie.ServerCookieDecoder;
 import io.netty.handler.codec.http.cookie.ServerCookieEncoder;
+import io.netty.handler.codec.http.cookie.ServerCookieDecoder;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import io.netty.handler.codec.http.*;
 import io.netty.handler.codec.http.multipart.Attribute;
@@ -36,6 +39,7 @@ public class SwccgoServerRequestHandler {
     private final CollectionsManager _collectionManager;
     protected DeckDAO _deckDao;
     protected GempSettingDAO _gempSettingDAO;
+    protected final JwtService _jwtService;
 
     public SwccgoServerRequestHandler(Map<Type, Object> context) {
         _playerDao = extractObject(context, PlayerDAO.class);
@@ -44,6 +48,7 @@ public class SwccgoServerRequestHandler {
         _collectionManager = extractObject(context, CollectionsManager.class);
         _deckDao = extractObject(context, DeckDAO.class);
         _gempSettingDAO = extractObject(context, GempSettingDAO.class);
+        _jwtService = extractObject(context, JwtService.class);
     }
 
     private boolean isTest() {
@@ -79,17 +84,74 @@ public class SwccgoServerRequestHandler {
     }
 
     private String getLoggedUser(HttpRequest request) {
-        ServerCookieDecoder cookieDecoder = ServerCookieDecoder.STRICT;
+        // Keep legacy session cookie lookup first so existing pages behave exactly as before.
         String cookieHeader = request.headers().get(HttpHeaderNames.COOKIE);
         if (cookieHeader != null) {
-            Set<Cookie> cookies = cookieDecoder.decode(cookieHeader);
-            for (Cookie cookie : cookies) {
-                if (cookie.name().equals("loggedUser")) {
-                    String value = cookie.value();
-                    if (value != null) {
-                        return _loggedUserHolder.getLoggedUser(value);
+            String[] parts = cookieHeader.split(";");
+            for (int i = parts.length - 1; i >= 0; i--) {
+                String part = parts[i].trim();
+                if (part.startsWith("loggedUser=")) {
+                    String value = part.substring("loggedUser=".length());
+                    if (!value.isEmpty()) {
+                        String loggedUser = _loggedUserHolder.getLoggedUser(value);
+                        if (loggedUser != null) {
+                            return loggedUser;
+                        }
                     }
                 }
+            }
+        }
+
+        // JWT is a fallback for API/WS calls that do not carry the legacy loggedUser session.
+        String jwtSubject = getJwtSubject(request);
+        if (jwtSubject != null && !jwtSubject.isEmpty()) {
+            return jwtSubject;
+        }
+        return null;
+    }
+
+    private String getJwtSubject(HttpRequest request) {
+        String token = getJwtTokenFromRequest(request);
+        if (token == null || token.isEmpty()) {
+            return null;
+        }
+        JwtService.JwtToken jwtToken = _jwtService.verifyToken(token);
+        if (jwtToken == null) {
+            return null;
+        }
+        return jwtToken.getSubject();
+    }
+
+    private String getJwtTokenFromRequest(HttpRequest request) {
+        String authHeader = request.headers().get(HttpHeaderNames.AUTHORIZATION);
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            return authHeader.substring("Bearer ".length()).trim();
+        }
+
+        String cookieToken = getJwtTokenFromCookies(request);
+        if (cookieToken != null && !cookieToken.isEmpty()) {
+            return cookieToken;
+        }
+
+        // Keep query-string JWTs only as a compatibility fallback for non-cookie clients.
+        QueryStringDecoder decoder = new QueryStringDecoder(request.uri());
+        String queryToken = getQueryParameterSafely(decoder, "token");
+        if (queryToken != null && !queryToken.isEmpty()) {
+            return queryToken;
+        }
+
+        return null;
+    }
+
+    private String getJwtTokenFromCookies(HttpRequest request) {
+        String cookieHeader = request.headers().get(HttpHeaderNames.COOKIE);
+        if (cookieHeader == null || cookieHeader.isEmpty()) {
+            return null;
+        }
+        Set<Cookie> cookies = ServerCookieDecoder.STRICT.decode(cookieHeader);
+        for (Cookie cookie : cookies) {
+            if (JwtService.JWT_COOKIE_NAME.equals(cookie.name())) {
+                return cookie.value();
             }
         }
         return null;
@@ -189,7 +251,39 @@ public class SwccgoServerRequestHandler {
         _playerDao.updateLastLoginIp(login, remoteIp);
 
         String sessionId = _loggedUserHolder.logUser(login);
+        DefaultCookie cookie = new DefaultCookie("loggedUser", sessionId);
+        cookie.setPath("/");
+        applyLegacyCookieAttributes(cookie);
         return Collections.singletonMap(
-                HttpHeaderNames.SET_COOKIE.toString(), ServerCookieEncoder.STRICT.encode("loggedUser", sessionId));
+                HttpHeaderNames.SET_COOKIE.toString(), encodeLegacyCookie(cookie));
+    }
+
+    private void applyLegacyCookieAttributes(DefaultCookie cookie) {
+        String domain = getCookieConfig("auth.cookie.domain", "AUTH_COOKIE_DOMAIN");
+        if (domain != null && !domain.isEmpty()) {
+            cookie.setDomain(domain);
+        }
+        String sameSite = getCookieConfig("auth.cookie.sameSite", "AUTH_COOKIE_SAMESITE");
+        boolean secure = "true".equalsIgnoreCase(getCookieConfig("auth.cookie.secure", "AUTH_COOKIE_SECURE"));
+        if ("none".equalsIgnoreCase(sameSite) || secure) {
+            cookie.setSecure(true);
+        }
+    }
+
+    private String encodeLegacyCookie(DefaultCookie cookie) {
+        String header = ServerCookieEncoder.STRICT.encode(cookie);
+        String sameSite = getCookieConfig("auth.cookie.sameSite", "AUTH_COOKIE_SAMESITE");
+        if (sameSite != null && !sameSite.isEmpty()) {
+            header = header + "; SameSite=" + sameSite;
+        }
+        return header;
+    }
+
+    private String getCookieConfig(String propertyName, String envName) {
+        String envValue = System.getenv(envName);
+        if (envValue != null && !envValue.isEmpty()) {
+            return envValue;
+        }
+        return ApplicationConfiguration.getProperty(propertyName);
     }
 }

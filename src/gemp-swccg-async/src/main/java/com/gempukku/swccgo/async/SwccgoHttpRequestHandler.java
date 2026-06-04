@@ -1,11 +1,25 @@
 package com.gempukku.swccgo.async;
 
+import com.gempukku.swccgo.auth.JwtService;
 import com.gempukku.swccgo.async.handler.UriRequestHandler;
-import com.gempukku.swccgo.common.ApplicationConfiguration;
-
+import com.gempukku.swccgo.async.ws.ChatWebSocketSession;
+import com.gempukku.swccgo.async.ws.GameWebSocketSession;
+import com.gempukku.swccgo.async.ws.HallWebSocketSession;
+import com.gempukku.swccgo.async.ws.SwccgoWebSocketFrameHandler;
+import com.gempukku.swccgo.async.ws.WebSocketSession;
+import com.gempukku.swccgo.chat.ChatRoomMediator;
+import com.gempukku.swccgo.chat.ChatServer;
 import com.gempukku.swccgo.db.IpBanDAO;
+import com.gempukku.swccgo.db.PlayerDAO;
+import com.gempukku.swccgo.game.Player;
+import com.gempukku.swccgo.game.SwccgoServer;
+import com.gempukku.swccgo.hall.HallServer;
 import io.netty.buffer.Unpooled;
 import io.netty.handler.codec.http.*;
+import io.netty.handler.codec.http.cookie.Cookie;
+import io.netty.handler.codec.http.cookie.ServerCookieDecoder;
+import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
+import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import io.netty.channel.ChannelFutureListener;
@@ -28,6 +42,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 
 import static io.netty.handler.codec.http.HttpHeaderNames.CONNECTION;
@@ -39,6 +54,10 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 public class SwccgoHttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
     private static final long SIX_MONTHS = 1000L*60L*60L*24L*30L*6L;
+    private static final String WEBSOCKET_PATH = "/gemp-swccg-server/ws";
+    private static final String REWRITTEN_WEBSOCKET_PATH = "/ws";
+    private static final String X_FORWARDED_HOST = "X-Forwarded-Host";
+    private static final String X_FORWARDED_PROTO = "X-Forwarded-Proto";
     private final Logger _log = LogManager.getLogger(SwccgoHttpRequestHandler.class);
     private static final Logger _accesslog = LogManager.getLogger("access");
     private final Map<String, byte[]> _fileCache = Collections.synchronizedMap(new HashMap<>());
@@ -46,11 +65,15 @@ public class SwccgoHttpRequestHandler extends SimpleChannelInboundHandler<FullHt
     private final UriRequestHandler _uriRequestHandler;
 
     private final IpBanDAO _ipBanDAO;
+    private final JwtService _jwtService;
 
     public SwccgoHttpRequestHandler(Map<Type, Object> objects, UriRequestHandler uriRequestHandler) {
         _objects = objects;
         _uriRequestHandler = uriRequestHandler;
         _ipBanDAO = (IpBanDAO) _objects.get(IpBanDAO.class);
+        _jwtService = (JwtService) _objects.get(JwtService.class);
+        if (_jwtService == null)
+            throw new IllegalStateException("JwtService not registered in server context");
     }
 
 
@@ -75,11 +98,6 @@ public class SwccgoHttpRequestHandler extends SimpleChannelInboundHandler<FullHt
         if (HttpUtil.is100ContinueExpected(httpRequest))
             send100Continue(ctx);
 
-        String uri = httpRequest.uri();
-
-        if (uri.contains("?"))
-            uri = uri.substring(0, uri.indexOf("?"));
-
         String ip = httpRequest.headers().get("X-Forwarded-For");
 
         if(ip == null)
@@ -91,13 +109,21 @@ public class SwccgoHttpRequestHandler extends SimpleChannelInboundHandler<FullHt
 
         ResponseSender responseSender = new ResponseSender(ctx, httpRequest);
 
+        String uri = null;
         try {
             if (isBanned(requestInformation.remoteIp)) {
                 responseSender.writeError(401);
                 _log.info("Denying entry to user from banned IP " + requestInformation.remoteIp);
             }
             else {
-                _uriRequestHandler.handleRequest(uri, httpRequest, _objects, responseSender, requestInformation.remoteIp);
+                if (isWebSocketRequest(httpRequest)) {
+                    handleWebSocketRequest(ctx, httpRequest, responseSender);
+                } else {
+                    uri = httpRequest.uri();
+                    if (uri.contains("?"))
+                        uri = uri.substring(0, uri.indexOf("?"));
+                    _uriRequestHandler.handleRequest(uri, httpRequest, _objects, responseSender, requestInformation.remoteIp);
+                }
             }
         } catch (HttpProcessingException exp) {
             int code = exp.getStatus();
@@ -110,16 +136,162 @@ public class SwccgoHttpRequestHandler extends SimpleChannelInboundHandler<FullHt
                 _log.error("HTTP code " + code + " response for " + requestInformation.remoteIp + ": " + requestInformation.uri, exp);
             }
 
-            if(exp.getMessage() != null) {
+            if (exp.getMessage() != null) {
                 responseSender.writeError(exp.getStatus(), Collections.singletonMap("message", exp.getMessage()));
-            }
-            else {
+            } else {
                 responseSender.writeError(exp.getStatus());
             }
         } catch (Exception exp) {
             _log.error("Error response for " + uri, exp);
             responseSender.writeError(500);
         }
+    }
+
+    static boolean isWebSocketRequest(HttpRequest request) {
+        String upgrade = request.headers().get(HttpHeaderNames.UPGRADE);
+        if (upgrade != null && "websocket".equalsIgnoreCase(upgrade))
+            return true;
+
+        return request.headers().contains(HttpHeaderNames.SEC_WEBSOCKET_KEY)
+                && request.headers().contains(HttpHeaderNames.SEC_WEBSOCKET_VERSION);
+    }
+
+    private boolean respondWithError(ResponseSender responseSender, int status) {
+        responseSender.writeError(status);
+        return false;
+    }
+
+    private boolean handleWebSocketRequest(ChannelHandlerContext ctx, FullHttpRequest request, ResponseSender responseSender) {
+        if (request.method() != HttpMethod.GET) {
+            return respondWithError(responseSender, 405);
+        }
+
+        QueryStringDecoder decoder = new QueryStringDecoder(request.uri());
+        String path = decoder.path();
+        if (!isSupportedWebSocketPath(path)) {
+            return respondWithError(responseSender, 404);
+        }
+
+        normalizeWebSocketHandshakeHeaders(request);
+
+        String token = getTokenFromCookies(request);
+        if (token == null || token.isEmpty())
+            token = getQueryParameter(decoder, "token");
+        if (token == null || token.isEmpty()) {
+            return respondWithError(responseSender, 401);
+        }
+
+        JwtService.JwtToken jwtToken = _jwtService.verifyToken(token);
+        if (jwtToken == null) {
+            return respondWithError(responseSender, 401);
+        }
+        long tokenExpiresAt = jwtToken.getExpiresAt();
+
+        PlayerDAO playerDAO = (PlayerDAO) _objects.get(PlayerDAO.class);
+        Player player = playerDAO.getPlayer(jwtToken.getSubject());
+        if (player == null) {
+            return respondWithError(responseSender, 401);
+        }
+
+        String channel = getQueryParameter(decoder, "channel");
+        if (channel == null || channel.isEmpty()) {
+            return respondWithError(responseSender, 400);
+        }
+
+        WebSocketSession session = null;
+        if ("hall".equals(channel)) {
+            HallServer hallServer = (HallServer) _objects.get(HallServer.class);
+            session = new HallWebSocketSession(ctx, hallServer, player, tokenExpiresAt);
+        } else if ("chat".equals(channel)) {
+            String room = getQueryParameter(decoder, "room");
+            if (room == null || room.isEmpty()) {
+                return respondWithError(responseSender, 400);
+            }
+            ChatServer chatServer = (ChatServer) _objects.get(ChatServer.class);
+            ChatRoomMediator chatRoom = chatServer != null ? chatServer.getChatRoom(room) : null;
+            if (chatRoom == null) {
+                return respondWithError(responseSender, 404);
+            }
+            session = new ChatWebSocketSession(ctx, chatRoom, player, playerDAO, room, tokenExpiresAt);
+        } else if ("game".equals(channel)) {
+            String gameId = getQueryParameter(decoder, "gameId");
+            if (gameId == null || gameId.isEmpty()) {
+                return respondWithError(responseSender, 400);
+            }
+            String participantId = getQueryParameter(decoder, "participantId");
+            String channelNumberParam = getQueryParameter(decoder, "channelNumber");
+            Integer channelNumber = null;
+            if (channelNumberParam != null && !channelNumberParam.isEmpty()) {
+                try {
+                    channelNumber = Integer.valueOf(channelNumberParam);
+                } catch (NumberFormatException exp) {
+                    return respondWithError(responseSender, 400);
+                }
+            }
+            SwccgoServer swccgoServer = (SwccgoServer) _objects.get(SwccgoServer.class);
+            if (swccgoServer == null) {
+                return respondWithError(responseSender, 500);
+            }
+            session = new GameWebSocketSession(ctx, swccgoServer, playerDAO, player, gameId, participantId, channelNumber, tokenExpiresAt);
+        }
+
+        if (session == null) {
+            return respondWithError(responseSender, 400);
+        }
+
+        WebSocketServerHandshakerFactory wsFactory =
+                new WebSocketServerHandshakerFactory(getWebSocketLocation(request), null, true);
+        WebSocketServerHandshaker handshaker = wsFactory.newHandshaker(request);
+        if (handshaker == null) {
+            WebSocketServerHandshakerFactory.sendUnsupportedVersionResponse(ctx.channel());
+            return false;
+        }
+
+        handshaker.handshake(ctx.channel(), request);
+        ctx.pipeline().addLast(new SwccgoWebSocketFrameHandler(session, handshaker));
+        session.onOpen();
+        return true;
+    }
+
+    static String getWebSocketLocation(HttpRequest request) {
+        String host = request.headers().get(X_FORWARDED_HOST);
+        if (host == null || host.isEmpty())
+            host = request.headers().get(HttpHeaderNames.HOST);
+
+        String forwardedProto = request.headers().get(X_FORWARDED_PROTO);
+        String scheme = forwardedProto != null && forwardedProto.toLowerCase().startsWith("https")
+                ? "wss://"
+                : "ws://";
+
+        return scheme + host + WEBSOCKET_PATH;
+    }
+
+    static boolean isSupportedWebSocketPath(String path) {
+        return WEBSOCKET_PATH.equals(path) || REWRITTEN_WEBSOCKET_PATH.equals(path);
+    }
+
+    static void normalizeWebSocketHandshakeHeaders(HttpRequest request) {
+        request.headers().set(HttpHeaderNames.UPGRADE, HttpHeaderValues.WEBSOCKET);
+        request.headers().set(HttpHeaderNames.CONNECTION, HttpHeaderValues.UPGRADE);
+    }
+
+    private String getQueryParameter(QueryStringDecoder decoder, String parameterName) {
+        java.util.List<String> values = decoder.parameters().get(parameterName);
+        if (values != null && !values.isEmpty())
+            return values.get(0);
+        return null;
+    }
+
+    private String getTokenFromCookies(HttpRequest request) {
+        String cookieHeader = request.headers().get(HttpHeaderNames.COOKIE);
+        if (cookieHeader == null || cookieHeader.isEmpty())
+            return null;
+        Set<Cookie> cookies = ServerCookieDecoder.STRICT.decode(cookieHeader);
+        for (Cookie cookie : cookies) {
+            if (JwtService.JWT_COOKIE_NAME.equals(cookie.name()))
+                return cookie.value();
+        }
+        return null;
     }
 
     private void sendResponse(ChannelHandlerContext ctx, HttpRequest request, FullHttpResponse response) {

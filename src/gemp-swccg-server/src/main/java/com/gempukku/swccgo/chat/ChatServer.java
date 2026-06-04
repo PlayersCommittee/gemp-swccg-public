@@ -52,7 +52,9 @@ public class ChatServer extends AbstractServer {
     }
 
     public void destroyChatRoom(String name) {
-        _chatRooms.remove(name);
+        ChatRoomMediator chatRoom = _chatRooms.remove(name);
+        if (chatRoom != null)
+            chatRoom.destroy();
     }
 
     protected void cleanup() {

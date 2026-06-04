@@ -68,6 +68,9 @@ function deliveryService(xml) {
 
             openSizeDialog(deliveryDialogs[collectionName]);
             deliveryDialogResize();
+
+            if (window.onDeliveryReceived != null)
+                window.onDeliveryReceived(collectionName);
         }
     }
 }

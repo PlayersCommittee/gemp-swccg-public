@@ -22,10 +22,12 @@ var GempSwccgHallUI = Class.extend({
     isPrivateCheckbox:null,
     adminTab:null,
     userInfo:null,
+    deckBuilderLink:null,
 
     pocketDiv:null,
     pocketValue:null,
     hallChannelId: null,
+    authConflictShown:false,
 
     init:function (div, url, chat) {
         this.div = div;
@@ -45,6 +47,7 @@ var GempSwccgHallUI = Class.extend({
                 chat.appendMessage("Reload the browser page (press F5) to resume the game hall functionality.", "warningMessage");
             }
         });
+        this.bindAuthConflictGuard();
         this.chat = chat;
 
         var width = $(div).width();
@@ -80,8 +83,12 @@ var GempSwccgHallUI = Class.extend({
         this.buttonsDiv.append(this.controlsLeft);
         this.buttonsDiv.append(this.controlsRight);
 
-        this.controlsLeft.append("<a href='deckBuild.html' target='_blank'>Deck Builder</a>");
-        this.controlsLeft.append(" | ");
+        this.deckBuilderLink = $("<a href='deckBuild.html' target='_blank'>Deck Builder</a>");
+        this.deckBuilderLink.click(function () {
+            that.markDeckBuilderDeliveryPending(false);
+        });
+        this.controlsLeft.append(this.deckBuilderLink);
+        this.controlsLeft.append(" | " );
 
 //        this.buttonsDiv.append("<a href='merchant.html'>Merchant</a>");
 //        this.buttonsDiv.append(" | ");
@@ -186,6 +193,10 @@ var GempSwccgHallUI = Class.extend({
                 }
             });
 
+
+        window.onDeliveryReceived = function() {
+            that.markDeckBuilderDeliveryPending(true);
+        };
         this.updateCreateTableLabel();
         this.div.append(this.buttonsDiv);
         this.hallResized(width, height);
@@ -193,6 +204,18 @@ var GempSwccgHallUI = Class.extend({
         this.getHall();
         this.updateDecks();
     },
+
+
+    markDeckBuilderDeliveryPending:function (pending) {
+        if (this.deckBuilderLink == null)
+            return;
+
+        if (pending)
+            this.deckBuilderLink.css({color:"#ffd54f", "font-weight":"bold"}).attr("title", "New items available in Deck Builder");
+        else
+            this.deckBuilderLink.css({color:"", "font-weight":""}).attr("title", "");
+    },
+
 
 
     addQueuesTable: function(displayed) {
@@ -460,6 +483,26 @@ var GempSwccgHallUI = Class.extend({
                 that.showErrorDialog("Inactivity error", "You were inactive for too long and have been removed from the Game Hall. If you wish to re-enter, click \"Refresh page\".", true, false);
             }
         };
+    },
+    bindAuthConflictGuard:function () {
+        var that = this;
+        this.comm.watchAuthTokenChanges(function (oldToken, currentToken, oldSubject, currentSubject) {
+            if (that.authConflictShown)
+                return;
+            if (oldSubject != null && currentSubject != null && oldSubject === currentSubject)
+                return;
+
+            that.authConflictShown = true;
+            that.comm.closeRealtimeConnections();
+            if (that.chat != null && that.chat.communication != null)
+                that.chat.communication.closeRealtimeConnections();
+
+            if (currentToken == null || currentToken === "") {
+                that.showErrorDialog("Authentication error", "You are not logged in", false, true);
+                return;
+            }
+            that.showErrorDialog("Concurrent access error", "You are accessing Game Hall from another browser or window. Close this window or if you wish to access Game Hall from here, click \"Refresh page\".", true, false);
+        });
     },
 
     showErrorDialog:function(title, text, reloadButton, mainPageButton) {

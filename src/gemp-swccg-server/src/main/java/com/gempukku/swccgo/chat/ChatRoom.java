@@ -67,6 +67,11 @@ public class ChatRoom {
         return users;
     }
 
+    public void close() {
+        _chatRoomListeners.clear();
+        _usersToMute.clear();
+    }
+
     private void shrinkLastMessages() {
         while (_lastMessages.size() > _maxMessageHistoryCount) {
             _lastMessages.removeFirst();

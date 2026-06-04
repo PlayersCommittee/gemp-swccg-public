@@ -306,6 +306,10 @@ var ChatBoxUI = Class.extend({
                 that.chatMalfunction();
                 that.appendMessage("You have no permission to participate in this chat.", "warningMessage");
             },
+            "409": function() {
+                that.chatMalfunction();
+                that.appendMessage("This chat is open in another browser or window. Close this window or refresh the page if you wish to use chat here.", "warningMessage");
+            },
             "404": function() {
                 that.chatMalfunction();
                 that.appendMessage("Chat room is closed.", "warningMessage");
