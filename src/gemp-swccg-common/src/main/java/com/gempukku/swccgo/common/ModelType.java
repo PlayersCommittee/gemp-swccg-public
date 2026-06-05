@@ -127,6 +127,7 @@ public enum ModelType implements Filterable {
     VT_49_DECIMATOR("VT-49 Decimator"),
     WTK_85A_INTERSTELLAR_TRANSPORT("WTK-85A Interstellar Transport"),
     X_WING("X-wing"),
+    Y_45_ARMORED_TRANSPORT("Y-45 Armored Transport"),
     Y_WING("Y-wing"),
     YV_CLASS_FREIGHTER("YV-Class Freighter"),
     Z_95_HEADHUNTER("Z-95 Headhunter"),

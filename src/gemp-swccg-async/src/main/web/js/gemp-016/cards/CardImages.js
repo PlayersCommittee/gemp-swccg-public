@@ -3869,6 +3869,7 @@ const fixedImages = {
 "501_213":"https://res.starwarsccg.org/cards/Premiere-Light/large/noblesacrifice.gif",
 "501_214":"https://res.starwarsccg.org/cards/EnhancedJabbasPalace-Light/large/seethreepio.gif",
 "501_215":"https://res.starwarsccg.org/cards/Endor-Light/large/orrimaarko.gif",
+"501_216":"https://res.starwarsccg.org/cards/Endor-Light/large/yt1300transport.gif",
 
 //legacy
 "601_1":"https://res.starwarsccg.org/cards/legacy/VirtualBlock4-Dark/large/knowledgeanddefense.gif",
