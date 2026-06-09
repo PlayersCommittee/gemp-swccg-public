@@ -245,6 +245,7 @@ public interface Title {
     String Coruscant = "Coruscant";
     String Coruscant_Guard = "Coruscant Guard";
     String Coruscant_Imperial_Square = "Coruscant: Imperial Square";
+    String Coruscant_Jedi_Temple = "Coruscant: Jedi Temple";
     String Coruscant_Celebration = "Coruscant Celebration";
     String Coruscant_The_Works = "Coruscant: The Works";
     String Count_Me_In = "Count Me In";

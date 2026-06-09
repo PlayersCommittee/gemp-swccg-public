@@ -18051,6 +18051,7 @@ public class Filters {
     public static final Filter Coruscant_battleground_site = Filters.and(Filters.partOfSystem(Title.Coruscant), CardSubtype.SITE, Filters.battleground());
     public static final Filter Coruscant_Celebration = Filters.title(Title.Coruscant_Celebration);
     public static final Filter Coruscant_Guard = Filters.keyword(Keyword.CORUSCANT_GUARD);
+    public static final Filter Coruscant_Jedi_Temple = Filters.title(Title.Coruscant_Jedi_Temple);
     public static final Filter Coruscant_location = Filters.partOfSystem(Title.Coruscant);
     public static final Filter Coruscant_site = Filters.and(Filters.partOfSystem(Title.Coruscant), CardSubtype.SITE);
     public static final Filter Coruscant_Imperial_Square = Filters.title(Title.Coruscant_Imperial_Square);

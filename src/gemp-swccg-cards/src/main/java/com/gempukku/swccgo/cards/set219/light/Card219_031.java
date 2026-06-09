@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class Card219_031 extends AbstractSite {
     public Card219_031() {
-        super(Side.LIGHT, "Coruscant: Jedi Temple", Title.Coruscant, Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
+        super(Side.LIGHT, Title.Coruscant_Jedi_Temple, Title.Coruscant, Uniqueness.UNIQUE, ExpansionSet.SET_19, Rarity.V);
         setLocationDarkSideGameText("");
         setLocationLightSideGameText("During your move phase, [Episode I] Jedi may move between here and a battleground site. " +
                                      "While a Jedi here, opponent's characters deploy +2 here and cancels Force drains at Jedi Council Chamber.");
