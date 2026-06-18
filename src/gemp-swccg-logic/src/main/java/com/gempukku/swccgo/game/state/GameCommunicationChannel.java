@@ -12,7 +12,7 @@ import java.util.*;
 import static com.gempukku.swccgo.game.state.GameEvent.Type.*;
 
 public class GameCommunicationChannel implements GameStateListener, LongPollableResource {
-    private List<GameEvent> _events = Collections.synchronizedList(new LinkedList<GameEvent>());
+    private List<GameEvent> _events = new LinkedList<GameEvent>();
     private String _self;
     private long _lastConsumed = System.currentTimeMillis();
     private int _channelNumber;
@@ -52,11 +52,20 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
         return false;
     }
 
-    private synchronized void appendEvent(GameEvent event) {
-        _events.add(event);
-        if (_waitingRequest != null) {
-            _waitingRequest.processRequest();
-            _waitingRequest = null;
+    private void appendEvent(GameEvent event) {
+        WaitingRequest waitingRequestToProcess = null;
+        synchronized (this) {
+            _events.add(event);
+            if (_waitingRequest != null) {
+                waitingRequestToProcess = _waitingRequest;
+                _waitingRequest = null;
+            }
+        }
+
+        // Dispatch callback asynchronously and outside channel lock so game-state mutations
+        // do not serialize websocket update work per participant.
+        if (waitingRequestToProcess != null) {
+            Thread.startVirtualThread(waitingRequestToProcess::processRequest);
         }
     }
 
@@ -234,10 +243,10 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
             appendEvent(new GameEvent(D).awaitingDecision(decision).participantId(playerId));
     }
 
-    public List<GameEvent> consumeGameEvents() {
+    public synchronized List<GameEvent> consumeGameEvents() {
         updateLastAccess();
         List<GameEvent> result = _events;
-        _events = Collections.synchronizedList(new LinkedList<GameEvent>());
+        _events = new LinkedList<GameEvent>();
         return result;
     }
 

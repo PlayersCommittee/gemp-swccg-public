@@ -4,8 +4,8 @@
     <Console name="stdout" target="SYSTEM_OUT">
       <PatternLayout pattern="%m%n"/>
     </Console>
-    <RollingFile name="mainlog" fileName="../logs/gemp-swccg.log"
-                 filePattern="../logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+    <RollingFile name="mainlog" fileName="/logs/gemp-swccg.log"
+                 filePattern="/logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
         <PatternLayout>
             <Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n</Pattern>
         </PatternLayout>
@@ -15,8 +15,8 @@
         </Policies>
         <DefaultRolloverStrategy max="20"/>
     </RollingFile>
-    <RollingFile name="chat" fileName="../logs/swccg_chat.log"
-                 filePattern="../logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+    <RollingFile name="chat" fileName="/logs/swccg_chat.log"
+                 filePattern="/logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
         <PatternLayout>
             <Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n</Pattern>
         </PatternLayout>

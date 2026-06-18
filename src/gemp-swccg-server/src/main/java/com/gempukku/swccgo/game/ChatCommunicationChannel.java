@@ -69,4 +69,10 @@ public class ChatCommunicationChannel implements ChatRoomListener, LongPollableR
     public synchronized long getLastAccessed() {
         return _lastConsumed;
     }
+
+    public void replacedByAnotherConnection() {
+    }
+
+    public void closedByServer() {
+    }
 }
