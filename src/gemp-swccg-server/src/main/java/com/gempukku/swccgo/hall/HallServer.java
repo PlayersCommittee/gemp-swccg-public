@@ -37,7 +37,6 @@ import com.gempukku.util.SwccgUuid;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -82,7 +81,6 @@ public class HallServer extends AbstractServer {
     private Map<String, RunningTable> _runningTables = new LinkedHashMap<>();
 
     private Map<Player, HallCommunicationChannel> _playerChannelCommunication = new ConcurrentHashMap<Player, HallCommunicationChannel>();
-    private final List<HallUpdateListener> _hallUpdateListeners = new CopyOnWriteArrayList<HallUpdateListener>();
     private int _nextChannelNumber = 0;
 
     private Map<String, Tournament> _runningTournaments = new LinkedHashMap<String, Tournament>();
@@ -161,18 +159,6 @@ public class HallServer extends AbstractServer {
     private void hallChanged() {
         for (HallCommunicationChannel hallCommunicationChannel : _playerChannelCommunication.values())
             hallCommunicationChannel.hallChanged();
-        for (HallUpdateListener hallUpdateListener : _hallUpdateListeners)
-            hallUpdateListener.hallChanged();
-    }
-
-    public void addHallUpdateListener(HallUpdateListener listener) {
-        if (listener != null)
-            _hallUpdateListeners.add(listener);
-    }
-
-    public void removeHallUpdateListener(HallUpdateListener listener) {
-        if (listener != null)
-            _hallUpdateListeners.remove(listener);
     }
 
     @Override
@@ -738,20 +724,13 @@ public class HallServer extends AbstractServer {
     }
 
     public void signupUserForHall(Player player, HallChannelVisitor hallChannelVisitor) {
-        signupUserForHall(player, new HallCommunicationChannel(), hallChannelVisitor);
-    }
-
-    public void signupUserForHall(Player player, HallCommunicationChannel channel, HallChannelVisitor hallChannelVisitor) {
-        _hallDataAccessLock.writeLock().lock();
+        _hallDataAccessLock.readLock().lock();
         try {
-            channel.setChannelNumber(_nextChannelNumber++);
+            HallCommunicationChannel channel = new HallCommunicationChannel(_nextChannelNumber++);
             channel.processCommunicationChannel(this, player, hallChannelVisitor);
-            HallCommunicationChannel previousChannel = _playerChannelCommunication.put(player, channel);
-            if (previousChannel != null && previousChannel != channel) {
-                previousChannel.replacedByAnotherConnection();
-            }
+            _playerChannelCommunication.put(player, channel);
         } finally {
-            _hallDataAccessLock.writeLock().unlock();
+            _hallDataAccessLock.readLock().unlock();
         }
     }
 

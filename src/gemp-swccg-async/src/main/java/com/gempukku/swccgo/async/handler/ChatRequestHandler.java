@@ -6,7 +6,6 @@ import com.gempukku.swccgo.PrivateInformationException;
 import com.gempukku.swccgo.SubscriptionExpiredException;
 import com.gempukku.swccgo.async.HttpProcessingException;
 import com.gempukku.swccgo.async.ResponseWriter;
-import com.gempukku.swccgo.async.util.ChatUserListFormatter;
 import com.gempukku.swccgo.chat.ChatCommandErrorException;
 import com.gempukku.swccgo.chat.ChatMessage;
 import com.gempukku.swccgo.chat.ChatRoomMediator;
@@ -170,7 +169,13 @@ public class ChatRequestHandler extends SwccgoServerRequestHandler implements Ur
             chatElem.appendChild(message);
         }
 
-        List<String> users = ChatUserListFormatter.formatAndSortUsers(usersInRoom, _playerDao);
+        Set<String> users = new TreeSet<String>(new CaseInsensitiveStringComparator());
+        for (String userInRoom : usersInRoom) {
+            String formattedName = formatPlayerNameForChatList(userInRoom);
+            if (!formattedName.isEmpty()) {
+                users.add(formattedName);
+            }
+        }
 
         for (String userInRoom : users) {
             Element user = doc.createElement("user");
@@ -179,4 +184,82 @@ public class ChatRequestHandler extends SwccgoServerRequestHandler implements Ur
         }
     }
 
+    private class CaseInsensitiveStringComparator implements Comparator<String> {
+        @Override
+        public int compare(String o1, String o2) {
+            //put users with specific roles at the top of the list
+            if(o1.contains(" ")&&!o2.contains(" ")) {
+                return -1;
+            }
+            if(!o1.contains(" ")&&o2.contains(" ")) {
+                return 1;
+            }
+
+            //normal sorting for users without specific roles
+            if(!o1.contains(" ")&&!o2.contains(" ")) {
+                return o1.toLowerCase().compareTo(o2.toLowerCase());
+            }
+
+            //replace the symbols with letters to be able to just use a standard compareTo
+            String oneWithSubstitutions = o1.replace("*","a").replace("+","b").replace("&beta;","c").replace("&#231;","d").replace(" ","z");
+            String twoWithSubstitutions = o2.replace("*","a").replace("+","b").replace("&beta;","c").replace("&#231;","d").replace(" ","z");
+
+            return oneWithSubstitutions.toLowerCase().compareTo(twoWithSubstitutions.toLowerCase());
+        }
+    }
+
+    private String formatPlayerNameForChatList(String userInRoom) {
+        StringBuilder sb = new StringBuilder(userInRoom);
+
+        final Player player = _playerDao.getPlayer(userInRoom);
+        if (player != null) {
+            final List<Player.Type> playerTypes = Player.Type.getTypes(player.getType());
+            if (playerTypes.contains(Player.Type.ADMIN)) {
+                sb.insert(0, "* ");
+            }
+            else {
+                if (playerTypes.contains(Player.Type.LEAGUE_ADMIN) || playerTypes.contains(Player.Type.PLAYTESTING_ADMIN)) {
+                    sb.insert(0, " ");
+                    if (playerTypes.contains(Player.Type.COMMENTATOR)) {
+                        sb.insert(0,"&#231;");
+                    }
+                    if (playerTypes.contains(Player.Type.PLAYTESTER)) {
+                        sb.insert(0, "&beta;");
+                    }
+                    sb.insert(0, "+");
+                }
+                else {
+                    if(playerTypes.contains(Player.Type.PLAYTESTER)||playerTypes.contains(Player.Type.COMMENTATOR)) {
+                        sb.insert(0, " ");
+                        if (playerTypes.contains(Player.Type.COMMENTATOR)) {
+                            sb.insert(0, "&#231;");
+                        }
+                        if (playerTypes.contains(Player.Type.PLAYTESTER)) {
+                            sb.insert(0, "&beta;");
+                        }
+                    }
+                    sb.append(" ");
+
+                    //This was intended to make suspicious similar players stick out.  However, it was built while
+                    //the similar-player detection was kneecapped and not including IP address comparison.  Now that
+                    //players have been recording the server IP for 5 years instead of their actual IP, automatic detection
+                    //like this is all but unusable.
+
+//                    List<Player> similarPlayers = _playerDao.findSimilarAccounts(player);
+//                    int count = 1;
+//                    for (Player similarPlayer : similarPlayers) {
+//                        if (count % 5 == 0) {
+//                            sb.append("!!");
+//                        }
+//                        if (!similarPlayer.hasType(Player.Type.UNBANNED) && similarPlayer.getBannedUntil() == null) {
+//                            sb.append("!!!!!");
+//                        }
+//                        count++;
+//                    }
+                }
+            }
+        }
+        sb.setLength(Math.min(sb.length(), 40));
+        return sb.toString().trim();
+    }
 }

@@ -3,7 +3,6 @@ package com.gempukku.swccgo.async.handler;
 import com.gempukku.polling.LongPollingSystem;
 import com.gempukku.swccgo.async.HttpProcessingException;
 import com.gempukku.swccgo.async.ResponseWriter;
-import com.gempukku.swccgo.async.handler.api.ApiRootRequestHandler;
 import com.gempukku.swccgo.common.ApplicationConfiguration;
 import io.netty.handler.codec.http.HttpRequest;
 
@@ -33,7 +32,6 @@ public class RootUriRequestHandler implements UriRequestHandler {
     private final ServerStatsRequestHandler _serverStatsRequestHandler;
     private final PlayerStatsRequestHandler _playerStatsRequestHandler;
     private final TournamentRequestHandler _tournamentRequestHandler;
-    private final ApiRootRequestHandler _apiRequestHandler;
     private SoloDraftRequestHandler _soloDraftRequestHandler;
 
     private final Pattern originPattern;
@@ -60,7 +58,6 @@ public class RootUriRequestHandler implements UriRequestHandler {
         _serverStatsRequestHandler = new ServerStatsRequestHandler(context);
         _playerStatsRequestHandler = new PlayerStatsRequestHandler(context);
         _tournamentRequestHandler = new TournamentRequestHandler(context);
-        _apiRequestHandler = new ApiRootRequestHandler(context);
         _soloDraftRequestHandler = new SoloDraftRequestHandler(context);
     }
 
@@ -133,8 +130,6 @@ public class RootUriRequestHandler implements UriRequestHandler {
                         context, responseWriter, remoteIp);
             } else if (uri.startsWith(_serverContextPath + "soloDraft")) {
                 _soloDraftRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 9), request, context, responseWriter, remoteIp);
-            } else if (uri.startsWith(_serverContextPath + "api")) {
-                _apiRequestHandler.handleRequest(uri.substring(_serverContextPath.length() + 3), request, context, responseWriter, remoteIp);
             } else {
                 responseWriter.writeError(404);
             }

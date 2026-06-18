@@ -25,10 +25,6 @@ public class HallCommunicationChannel implements LongPollableResource {
         _channelNumber = channelNumber;
     }
 
-    public HallCommunicationChannel() {
-        this(0);
-    }
-
     @Override
     public synchronized void unregisterRequest(WaitingRequest waitingRequest) {
         _waitingRequest = null;
@@ -55,19 +51,12 @@ public class HallCommunicationChannel implements LongPollableResource {
         return _channelNumber;
     }
 
-    public void setChannelNumber(int channelNumber) {
-        _channelNumber = channelNumber;
-    }
-
     private void updateLastAccess() {
         _lastConsumed = System.currentTimeMillis();
     }
 
     public long getLastAccessed() {
         return _lastConsumed;
-    }
-
-    public void replacedByAnotherConnection() {
     }
 
     public void processCommunicationChannel(HallServer hallServer, final Player player, final HallChannelVisitor hallChannelVisitor) {
