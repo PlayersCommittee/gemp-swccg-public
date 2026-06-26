@@ -809,8 +809,12 @@ public class HallServer extends AbstractServer {
                                 runningTable.getTableDesc(), swccgGameMediator.getPlayersPlaying(), deckArchetypeMap,
                                 swccgGameMediator.isPlayerPlaying(player.getName()), swccgGameMediator.getWinner(),
                                 false, _library, swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible,
+
+                                //conditions that cause Deck Archetypes to be hidden ("hideDecks"): Private, Playtesting, or No Spectators
                                 swccgGameMediator.isPrivate()
-                                        || (swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible),
+                                        || (swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible)
+                                        || !swccgGameMediator.isAllowSpectators(),
+
                                 swccgGameMediator.isPrivate());
                     } else {
                         finishedTables.put(runningGame.getKey(), runningTable);
@@ -836,8 +840,12 @@ public class HallServer extends AbstractServer {
                             swccgGameMediator.getPlayersPlaying(), deckArchetypeMap,
                             swccgGameMediator.isPlayerPlaying(player.getName()), swccgGameMediator.getWinner(), false,
                             _library, swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible,
+
+                            //conditions that cause Deck Archetypes to be hidden ("hideDecks"): Private, Playtesting, or No Spectators
                             swccgGameMediator.isPrivate()
-                                    || (swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible),
+                                    || (swccgGameMediator.getFormat().isPlaytesting() && !playtestingVisible)
+                                    || !swccgGameMediator.isAllowSpectators(),
+
                             swccgGameMediator.isPrivate());
                 }
             }
