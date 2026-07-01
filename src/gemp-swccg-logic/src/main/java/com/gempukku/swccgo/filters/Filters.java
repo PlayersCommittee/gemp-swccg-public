@@ -197,6 +197,28 @@ public class Filters {
     }
 
     /**
+     * Filter that accepts cards that are restricted 6.
+     */
+    public static final Filter restricted_6 = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            Uniqueness uniqueness = modifiersQuerying.getUniqueness(gameState, physicalCard);
+            return uniqueness!=null && !uniqueness.isPerSystem() && uniqueness.getValue()==6;
+        }
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, SwccgBuiltInCardBlueprint builtInCardBlueprint) {
+            Uniqueness uniqueness = builtInCardBlueprint.getUniqueness();
+            return uniqueness!=null && !uniqueness.isPerSystem() && uniqueness.getValue()==6;
+        }
+    };
+    /**
+     * Wrapper method to allow other static filters to access the wrapped filter.
+     */
+    private static Filter restricted_6() {
+        return restricted_6;
+    }
+
+    /**
      * Filter that accepts cards that are non-unique.
      */
     public static final Filter non_unique = new Filter() {
@@ -19179,6 +19201,7 @@ public class Filters {
     public static final Filter Senate_Hovercam = Filters.title(Title.Senate_Hovercam);
     public static final Filter senator = Filters.keyword(Keyword.SENATOR);
     public static final Filter Sense = Filters.title(Title.Sense);
+    public static final Filter Separatist_Command_Center = Filters.title(Title.Separatist_Command_Center);
     public static final Filter Set_For_Stun = Filters.title(Title.Set_For_Stun);
     public static final Filter Set_Your_Course_For_Alderaan = Filters.title(Title.Set_Your_Course_For_Alderaan);
     public static final Filter Seventh_Marker = Filters.keyword(Keyword.MARKER_7);

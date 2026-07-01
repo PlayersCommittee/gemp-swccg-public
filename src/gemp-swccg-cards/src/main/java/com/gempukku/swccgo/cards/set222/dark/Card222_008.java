@@ -80,7 +80,7 @@ public class Card222_008 extends AbstractNormalEffect {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
-                && GameConditions.hasStackedCards(game, self, Filters.and(Filters.droid, Filters.deployable(self, null, true, 0)))) {
+                && GameConditions.hasStackedCards(game, self, Filters.and(Filters.droid, Filters.deployable(self, null, false, 0)))) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy a droid stacked here");

@@ -1044,6 +1044,7 @@ public interface Title {
     String Senate_Hovercam = "Senate Hovercam";
     String Send_A_Detachment_Down = "Send A Detachment Down";
     String Sense = "Sense";
+    String Separatist_Command_Center = "Separatist Command Center";
     String Set_For_Stun = "Set For Stun";
     String Set_Your_Course_For_Alderaan = "Set Your Course For Alderaan";
     String Starship_Levitation = "Starship Levitation";
