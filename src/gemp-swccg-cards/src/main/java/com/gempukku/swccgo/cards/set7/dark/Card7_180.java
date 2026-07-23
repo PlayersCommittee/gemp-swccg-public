@@ -72,7 +72,7 @@ public class Card7_180 extends AbstractAlien {
 
         // Check condition(s)
         if (TriggerConditions.isCalculatingSabaccTotals(game, effectResult)
-                && GameConditions.isPlayingSabacc(game, self, Filters.title(Title.Dune_Sea_Sabacc))) {
+                && GameConditions.isPlayingSabacc(game, self, Filters.Dune_Sea_Sabacc)) {
 
             final OptionalGameTextTriggerAction action1 = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action1.setText("Add 1 to Sabacc total");

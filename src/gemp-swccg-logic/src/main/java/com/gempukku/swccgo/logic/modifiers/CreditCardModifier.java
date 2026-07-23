@@ -15,7 +15,7 @@ public class CreditCardModifier extends AbstractModifier {
      * @param affectFilter the filter for affected cards
      */
     public CreditCardModifier(PhysicalCard source, Filterable affectFilter) {
-        super(source, "Is a 'conflict' card", affectFilter, ModifierType.CREDIT_CARD);
+        super(source, "Is a 'credit' card", affectFilter, ModifierType.CREDIT_CARD);
     }
 
     /**

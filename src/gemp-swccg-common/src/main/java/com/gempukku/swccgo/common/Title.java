@@ -931,6 +931,7 @@ public interface Title {
     String QuiGon_Jinn = "Qui-Gon Jinn";
     String Quite_A_Mercenary = "Quite A Mercenary";
     String Quiggold = "Quiggold";
+    String R_kik_D_nec = "R'kik D'nec, Hero Of The Dune Sea";
     String Radar_Scanner = "Radar Scanner";
     String Raithal = "Raithal";
     String Ralltiir = "Ralltiir";

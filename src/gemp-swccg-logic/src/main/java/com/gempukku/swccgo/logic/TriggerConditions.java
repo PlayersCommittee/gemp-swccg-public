@@ -3882,6 +3882,21 @@ public class TriggerConditions {
     }
 
     /**
+     * Determines if drawing weapon destiny is about to complete. This is when the weapon destiny total
+     * can be modified.
+     * @param game the game
+     * @param effectResult the effect result
+     * @return true or false
+     */
+    public static boolean isAboutToCompleteWeaponDestinyDraw(SwccgGame game, EffectResult effectResult) {
+        if (effectResult.getType() == EffectResult.Type.DRAWING_DESTINY_COMPLETE) {
+            AboutToCompleteDrawingDestinyResult result = (AboutToCompleteDrawingDestinyResult) effectResult;
+            return result.getDestinyType() == DestinyType.WEAPON_DESTINY;
+        }
+        return false;
+    }
+
+    /**
      * Determines if a duel destiny was just drawn (and was not canceled).
      * @param game the game
      * @param effectResult the effect result

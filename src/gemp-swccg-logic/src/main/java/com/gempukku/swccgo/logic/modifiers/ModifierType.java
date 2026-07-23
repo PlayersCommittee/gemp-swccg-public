@@ -345,6 +345,7 @@ public enum ModifierType {
 
     // Sabacc
     SABACC_TOTAL, MAY_CLONE_DESTINY_IN_SABACC,
+    WINS_DOUBLE_AT_SABACC,
 
     // Addition actions
     MAY_PLAY_TO_INITIATE_EPIC_DUEL,

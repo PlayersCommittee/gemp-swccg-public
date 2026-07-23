@@ -18279,6 +18279,7 @@ public class Filters {
     public static final Filter DS_61_5 = Filters.title(Title.DS_61_5);
     public static final Filter Dual_Laser_Cannon = Filters.title(Title.Dual_Laser_Cannon);
     public static final Filter Dune_Sea = Filters.title(Title.Dune_Sea);
+    public static final Filter Dune_Sea_Sabacc = Filters.title(Title.Dune_Sea_Sabacc);
     public static final Filter Dungeon = Filters.title(Title.Dungeon);
     public static final Filter Dutch = Filters.persona(Persona.DUTCH);
     public static final Filter Dyer = Filters.title(Title.Dyer);
@@ -19046,6 +19047,7 @@ public class Filters {
     public static final Filter Quietly_Observing = Filters.title(Title.Quietly_Observing);
     public static final Filter Quiggold = Filters.title(Title.Quiggold);
     public static final Filter QuiGon = Filters.persona(Persona.QUIGON);
+    public static final Filter R_kik_D_nec = Filters.title(Title.R_kik_D_nec);
     public static final Filter Rancor = Filters.title(Title.Rancor);
     public static final Filter Rayc = Filters.persona(Persona.RAYC);
     public static final Filter R_unit = Filters.or(ModelType.ASTROMECH, ModelType.VEHICLE);

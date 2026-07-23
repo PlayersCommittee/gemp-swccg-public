@@ -279,7 +279,7 @@ public class PlaySabaccEffect extends AbstractSubActionEffect {
                                             else {
                                                 String winner = playerHasPerfectSabacc ? _playerId : _opponent;
                                                 PhysicalCard winningCharacter = playerHasPerfectSabacc ? _sabaccPlayer : _opponentSabaccPlayer;
-                                                gameState.sendMessage(winner + " wins with a perfect sabacc!");
+                                                gameState.sendMessage(winner + " 'wins double' with a perfect sabacc!");
 
                                                 checkForPerfectAction.appendEffect(
                                                         new SabaccVictoryEffect(checkForPerfectAction, winner, winningCharacter, true));
@@ -477,9 +477,15 @@ public class PlaySabaccEffect extends AbstractSubActionEffect {
                             }
                             PhysicalCard winningCharacter = winningPlayer.equals(_playerId) ? _sabaccPlayer : _opponentSabaccPlayer;
 
+                            boolean winsDouble = false;
+                            if(winningCharacter != null) {
+                                winsDouble = modifiersQuerying.winsDoubleAtSabacc(gameState, winningCharacter);
+                                if(winsDouble) gameState.sendMessage(winningPlayer + " 'wins double' using " + GameUtils.getCardLink(winningCharacter));
+                            }
+
                             final SubAction determineWinnerAction = new SubAction(subAction);
                             determineWinnerAction.appendEffect(
-                                    new SabaccVictoryEffect(determineWinnerAction, winningPlayer, winningCharacter, false));
+                                    new SabaccVictoryEffect(determineWinnerAction, winningPlayer, winningCharacter, winsDouble));
                             subAction.stackSubAction(determineWinnerAction);
                         }
                         else {
@@ -802,20 +808,20 @@ public class PlaySabaccEffect extends AbstractSubActionEffect {
     private class SabaccVictoryEffect extends AbstractSubActionEffect {
         private String _winningPlayerId;
         private PhysicalCard _characterToWin;
-        private boolean _perfectSabacc;
+        private boolean _winsDouble;
 
         /**
          * Creates an effect that performs the steps for a sabacc victory.
          * @param action the action performing this effect
          * @param winningPlayerId the sabacc winner
          * @param characterToWin the sabacc winning character, or null
-         * @param perfectSabacc true if victory was from a perfect sabacc, otherwise false
+         * @param winsDouble true if 'wins double' (typically, from a perfect sabacc), otherwise false
          */
-        public SabaccVictoryEffect(Action action, String winningPlayerId, PhysicalCard characterToWin, boolean perfectSabacc) {
+        public SabaccVictoryEffect(Action action, String winningPlayerId, PhysicalCard characterToWin, boolean winsDouble) {
             super(action);
             _winningPlayerId = winningPlayerId;
             _characterToWin = characterToWin;
-            _perfectSabacc = perfectSabacc;
+            _winsDouble = winsDouble;
         }
 
         @Override
@@ -841,7 +847,7 @@ public class PlaySabaccEffect extends AbstractSubActionEffect {
                         protected void doPlayEffect(SwccgGame game) {
                             final String losingPlayerId = game.getOpponent(_winningPlayerId);
                             Collection<PhysicalCard> losersSabaccHand = game.getGameState().getSabaccHand(losingPlayerId);
-                            int numberOfCardsAffected = _perfectSabacc ? 2 : 1;
+                            int numberOfCardsAffected = _winsDouble ? 2 : 1;
                             Collection<PhysicalCard> cardsToStealFrom = Filters.filter(losersSabaccHand, game, _stakes);
                             Collection<PhysicalCard> cardsToLoseFrom = Filters.filter(losersSabaccHand, game, Filters.not(Filters.and(_stakes)));
 

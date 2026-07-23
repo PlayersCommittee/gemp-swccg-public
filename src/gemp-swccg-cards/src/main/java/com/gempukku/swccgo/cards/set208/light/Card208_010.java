@@ -13,6 +13,7 @@ import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -37,7 +38,7 @@ import java.util.List;
  */
 public class Card208_010 extends AbstractAlien {
     public Card208_010() {
-        super(Side.LIGHT, 1, 3, 3, 1, 3, "R'kik D'nec, Hero Of The Dune Sea", Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
+        super(Side.LIGHT, 1, 3, 3, 1, 3, Title.R_kik_D_nec, Uniqueness.UNIQUE, ExpansionSet.SET_8, Rarity.V);
         setVirtualSuffix(true);
         setLore("A tribe of Tusken Raiders, a herd of angry banthas, a raging Krayt Dragon and R'kik. Minutes later, the Jawa emerged from the Dune Sea, a bantha tusk over his shoulder.");
         setGameText("Deploys only on Tatooine. Once per game, may [download] Jawa Ion Gun (for free) on R'kik. When defending a battle at Dune Sea or a desert, and all your ability here is provided by Jawas, opponent may not draw battle destiny here.");
