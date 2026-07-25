@@ -63,6 +63,17 @@ public class MayNotDrawMoreThanBattleDestinyModifier extends AbstractModifier {
      * Creates a "May not draw more than X battle destiny" modifier.
      * @param source the source of the modifier
      * @param locationFilter the filter for battle locations
+     * @param evaluator the evaluator that calculates the number of destiny
+     * @param playerId the player that may not draw more than specified number of battle destiny
+     */
+    public MayNotDrawMoreThanBattleDestinyModifier(PhysicalCard source, Filterable locationFilter, Evaluator evaluator, String playerId) {
+        this(source, locationFilter, null, evaluator, playerId);
+    }
+
+    /**
+     * Creates a "May not draw more than X battle destiny" modifier.
+     * @param source the source of the modifier
+     * @param locationFilter the filter for battle locations
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      * @param evaluator the evaluator that calculates the number of destiny
      * @param playerId the player that may not draw more than specified number of battle destiny
