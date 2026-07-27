@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.cards.AbstractUtinniEffect;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.ClearForRemainderOfGameDataEffect;
 import com.gempukku.swccgo.cards.evaluators.CalculateCardVariableEvaluator;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
@@ -18,6 +19,7 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.ForRemainderOfGameData;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.GameUtils;
@@ -28,6 +30,7 @@ import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.RecordUtinniEffectCompletedEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -149,6 +152,9 @@ public class Card1_052 extends AbstractUtinniEffect {
                                     @Override
                                     protected void doPlayEffect(SwccgGame game) {
                                         self.setUtinniEffectStatus(UtinniEffectStatus.COMPLETED);
+                                        if(GameConditions.hasGameTextModification(game, self, ModifyGameTextType.KESSEL_RUN__RETRIEVE_FORCE_INTO_HAND))
+                                            //record at time of completion and evaluate later during retrieval
+                                            self.setForRemainderOfGameData(self.getCardId(), new ForRemainderOfGameData());
                                     }
                                 }
                         );
@@ -161,9 +167,15 @@ public class Card1_052 extends AbstractUtinniEffect {
                                     public Collection<PhysicalCard> getAdditionalCardsInvolvedInForceRetrieval() {
                                         return Collections.singletonList(target);
                                     }
+                                    @Override
+                                    public boolean mayBeTakenIntoHand() {
+                                        return GameConditions.cardHasAnyForRemainderOfGameDataSet(self);
+                                    }
                                 });
                         action.appendEffect(
                                 new LoseCardFromTableEffect(action, self));
+                        action.appendEffect(
+                                new ClearForRemainderOfGameDataEffect(action, self, true));
                         return Collections.singletonList(action);
                     }
                 }

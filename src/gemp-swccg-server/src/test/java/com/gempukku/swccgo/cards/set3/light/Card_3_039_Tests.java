@@ -33,6 +33,9 @@ public class Card_3_039_Tests {
 					put("hoth","3_055");
 					put("ord","3_064"); //ord mantell
 					put("hoth_db","3_059"); //hoth: echo docking bay
+					put("han","1_011"); //(smuggler)
+					put("rycar","1_063"); //Rycar Ryjerd
+					put("blues","4_038"); //Smuggler's Blues
 				}},
 				new HashMap<>() {{
 					put("something_special","9_132"); //something special planned for them
@@ -157,6 +160,121 @@ public class Card_3_039_Tests {
 
 		assertEquals(1,scn.GetLSLostPileCount()); //retrieved 2 (X = 2 * 1 passenger)
 		assertTrue(scn.IsAttachedTo(hoth,first));
+	}
+
+	@Test
+	public void TheFirstTransportIsAwayRetrievesXForceToHandWithSmugglersBlues() {
+		//with Smuggler's Blues conditions met, player has option to decide for each force retrieved
+		//whether it goes to hand or used pile.
+		//test1: retrieved force can be taken into hand
+		//test2: retrieved force can be sent to used pile
+		var scn = GetScenario();
+
+		var first = scn.GetLSCard("first");
+		var luminous = scn.GetLSCard("luminous");
+		var hoth = scn.GetLSCard("hoth");
+		var ord = scn.GetLSCard("ord");
+		var hoth_db = scn.GetLSCard("hoth_db");
+		var rebelTrooper = scn.GetLSFiller(1);
+		var blues = scn.GetLSCard("blues");
+		var han = scn.GetLSCard("han");
+		var rycar = scn.GetLSCard("rycar");
+
+		scn.StartGame();
+
+		scn.MoveCardsToLSHand(first,rebelTrooper, blues, rycar);
+
+		scn.MoveLocationToTable(hoth_db);
+		scn.MoveLocationToTable(hoth);
+		scn.MoveLocationToTable(ord);
+
+		scn.MoveCardsToLocation(hoth_db,luminous,han);
+		scn.AttachCardsTo(han, rycar);
+
+		//some cards in lost pile so we can confirm retrieval works
+		scn.MoveCardsToTopOfLSLostPile(scn.GetTopOfLSReserveDeck());
+		scn.MoveCardsToTopOfLSLostPile(scn.GetTopOfLSReserveDeck());
+		scn.MoveCardsToTopOfLSLostPile(scn.GetTopOfLSReserveDeck());
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		scn.LSDeployCard(rebelTrooper);
+		scn.LSChooseCard(luminous); //as passenger
+		scn.PassAllResponses();
+		scn.DSPass();
+
+		scn.LSDeployCard(blues);
+		scn.LSChooseCard(han);
+		scn.PassAllResponses();
+		scn.DSPass();
+
+		assertTrue(scn.LSCardPlayAvailable(first));
+		scn.LSPlayCard(first);
+
+		assertTrue(scn.LSHasCardChoiceAvailable(ord)); //a non-hoth system
+		assertFalse(scn.LSHasCardChoiceAvailable(hoth));
+		scn.LSChooseCard(ord);
+
+		assertTrue(scn.LSHasCardChoiceAvailable(luminous)); //a medium transport at hoth
+		scn.LSChooseCard(luminous);
+
+		scn.PassAllResponses();
+		assertTrue(scn.IsAttachedTo(ord,first));
+		assertTrue(scn.AwaitingDSDeployPhaseActions());
+
+		scn.SkipToPhase(Phase.MOVE);
+		scn.LSUseCardAction(han, "Embark");
+		scn.LSChoose("Pilot");
+		scn.PassAllResponses();
+		scn.DSPass();
+		assertTrue(scn.IsAboardAsPilot(luminous, han));
+
+		scn.LSUseCardAction(luminous,"Take off");
+		assertTrue(scn.LSDecisionAvailable("Choose"));
+		scn.LSChooseCard(hoth);
+		scn.PassAllResponses();
+		assertTrue(scn.CardsAtLocation(hoth,luminous));
+
+		scn.SkipToDSTurn();
+		scn.SkipToLSTurn(Phase.MOVE);
+		scn.LSUseCardAction(luminous,"hyperspeed");
+		scn.LSChooseCard(ord);
+
+		assertEquals(3,scn.GetLSLostPileCount());
+
+		scn.DSPass(); //Use 1 Force - Optional responses
+		scn.LSPass();
+
+		scn.DSPass(); //MOVING_USING_HYPERSPEED - Optional responses
+		scn.LSPass();
+
+		scn.DSPass(); //UTINNI_EFFECT_COMPLETED - Optional responses
+		scn.LSPass();
+
+		scn.DSPass(); //FORCE_RETRIEVAL_INITIATED - Optional responses
+		scn.LSPass();
+
+		scn.DSPass(); //FORCE_RETRIEVAL_ABOUT_TO_RETRIEVE - Optional responses
+		scn.LSPass();
+
+		assertEquals(0, scn.GetLSHandCount());
+		assertEquals(1, scn.GetLSUsedPileCount());
+
+		assertTrue(scn.LSDecisionAvailable("Choose where to retrieve"));
+		assertTrue(scn.LSChoiceAvailable("Used Pile"));
+		assertTrue(scn.LSChoiceAvailable("Hand"));
+		scn.LSChoose("Hand");
+		assertEquals(1, scn.GetLSHandCount()); //test1
+		assertEquals(1, scn.GetLSUsedPileCount());
+
+		scn.DSPass(); //RETRIEVED_FORCE - Optional responses
+		scn.LSPass();
+
+		assertTrue(scn.LSDecisionAvailable("Choose where to retrieve"));
+		assertTrue(scn.LSChoiceAvailable("Used Pile"));
+		assertTrue(scn.LSChoiceAvailable("Hand"));
+		scn.LSChoose("Used Pile");
+		assertEquals(1, scn.GetLSHandCount());
+		assertEquals(2, scn.GetLSUsedPileCount()); //test2
 	}
 
 	@Test

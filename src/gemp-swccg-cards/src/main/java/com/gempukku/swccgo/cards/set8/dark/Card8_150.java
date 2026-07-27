@@ -36,7 +36,7 @@ public class Card8_150 extends AbstractUsedInterrupt {
     public Card8_150() {
         super(Side.DARK, 6, "Outflank", Uniqueness.UNIQUE, ExpansionSet.ENDOR, Rarity.C);
         setLore("Commander Igar's defense of Endor called for the use of speeder bikes to harass any attacking Rebels.");
-        setGameText("During a battle, if you have weapons at both sites adjacent to that battle, add 3 to your total power and add one battle destiny. OR For remainder of turn, your biker scout at an exterior site is power +1 and adds 1 to each of that character's weapon destiny draws.");
+        setGameText("During a battle, if you have weapons at at least 2 sites adjacent to that battle, add 3 to your total power and add one battle destiny. OR For remainder of turn, your biker scout at an exterior site is power +1 and adds 1 to each of that character's weapon destiny draws.");
         addIcons(Icon.ENDOR);
     }
 
