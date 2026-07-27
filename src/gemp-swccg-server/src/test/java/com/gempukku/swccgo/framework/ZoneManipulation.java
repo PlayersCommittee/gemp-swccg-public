@@ -392,6 +392,20 @@ public interface ZoneManipulation extends TestBase{
 	}
 
 	/**
+	 * 'Crashes' a card (must be a vehicle)
+	 * @param vehicle The card to make 'crashed'.
+	 */
+	default void CrashCard(PhysicalCardImpl vehicle) {
+		//add assert that vehicle has blueprint card type vehicle?
+
+		//contents copied from CrashVehicleEffect
+		vehicle.setCrashed(true);
+		if (!vehicle.isSideways()) {
+			gameState().turnCardSideways(game(), vehicle, false);
+		}
+	}
+
+	/**
 	 * Freezes a given card in carbonite, rending it immobile, insensate, and inactive for most purposes.
 	 * @param captive The card to freeze.
 	 */

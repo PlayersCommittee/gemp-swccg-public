@@ -163,6 +163,10 @@ public interface Piloting extends BaseQuery, Icons, Locations, Prohibited {
 	default boolean isPiloted(GameState gameState, PhysicalCard card, boolean forStarshipTakeoff) {
 		SwccgCardBlueprint blueprint = card.getBlueprint();
 
+		// Creature vehicles and Lift Tubes are never unpiloted
+		if (blueprint.getCardSubtype()==CardSubtype.CREATURE || card.getTitle().equals(Title.Lift_Tube))
+			return true;
+
 		// Crashed vehicle is not piloted
 		if (card.isCrashed())
 			return false;
@@ -170,10 +174,6 @@ public interface Piloting extends BaseQuery, Icons, Locations, Prohibited {
 		// Pilots of landed vehicles are considered passengers.
 		if (blueprint.getCardCategory() == CardCategory.VEHICLE && card.isInCargoHoldAsVehicle())
 			return false;
-
-		// Creature vehicles and Lift Tubes are piloted
-		if (blueprint.getCardSubtype()==CardSubtype.CREATURE || card.getTitle().equals(Title.Lift_Tube))
-			return true;
 
 		// Landed starships are not piloted (except for takeoff)
 		if (blueprint.getCardCategory() == CardCategory.STARSHIP

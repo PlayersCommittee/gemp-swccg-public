@@ -275,10 +275,11 @@ public interface Prohibited extends BaseQuery, Flags {
 			return true;
 		}
 
-		// Check if attached to "crashed vehicle"
+		// Check if attached to enclosed "crashed vehicle"
 		if (card.getBlueprint().getCardCategory()==CardCategory.CHARACTER
 				&& card.getAttachedTo() != null
-				&& card.getAttachedTo().isCrashed()) {
+				&& card.getAttachedTo().isCrashed()
+				&& card.getAttachedTo().getBlueprint().hasKeyword(Keyword.ENCLOSED) ) {
 			return true;
 		}
 

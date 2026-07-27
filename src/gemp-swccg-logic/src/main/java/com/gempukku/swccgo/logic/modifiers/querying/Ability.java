@@ -226,7 +226,6 @@ public interface Ability extends BaseQuery, Destiny, Icons, JediTests, Piloting,
 
 		if (includePermPilots
 				&& (blueprint.getCardCategory()==CardCategory.STARSHIP || blueprint.getCardCategory()==CardCategory.VEHICLE)
-				&& !physicalCard.isCrashed()
 				&& hasIcon(gameState, physicalCard, Icon.PILOT)) {
 			List<SwccgBuiltInCardBlueprint> permPilots = getPermanentPilotsAboard(gameState, physicalCard);
 			if (permPilots != null) {
