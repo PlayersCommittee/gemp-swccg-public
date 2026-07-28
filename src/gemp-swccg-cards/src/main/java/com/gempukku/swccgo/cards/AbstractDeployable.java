@@ -456,32 +456,34 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
             moveAsReactActions.add(new MoveAsReactAction(playerId, self, reactActionOption, Effect.Type.MOVING_AS_REACT_USING_SECTOR_MOVEMENT, moveUsingSectorMovementTargetFilter));
         }
 
-        // Move as 'react' by landing
-        Action landAction = getLandAction(playerId, game, self, isReactForFree, true, true, false, false, completeMoveTargetFilter);
-        if (landAction != null) {
-            Filter landTargetFilter = getLandFilter(playerId, game, self, isReactForFree, true, completeMoveTargetFilter);
-            moveAsReactActions.add(new MoveAsReactAction(playerId, self, reactActionOption, Effect.Type.LANDING_AS_REACT, landTargetFilter));
-        }
+        if (!asReactAway) {
+            // Move as 'react' by landing
+            Action landAction = getLandAction(playerId, game, self, isReactForFree, true, true, false, false, completeMoveTargetFilter);
+            if (landAction != null) {
+                Filter landTargetFilter = getLandFilter(playerId, game, self, isReactForFree, true, completeMoveTargetFilter);
+                moveAsReactActions.add(new MoveAsReactAction(playerId, self, reactActionOption, Effect.Type.LANDING_AS_REACT, landTargetFilter));
+            }
 
-        // Move as 'react' by taking off
-        Action takeOffAction = getTakeOffAction(playerId, game, self, isReactForFree, true, true, false, false, completeMoveTargetFilter);
-        if (takeOffAction != null) {
-            Filter takeOffTargetFilter = getTakeOffFilter(playerId, game, self, isReactForFree, true, completeMoveTargetFilter);
-            moveAsReactActions.add(new MoveAsReactAction(playerId, self, reactActionOption, Effect.Type.TAKING_OFF_AS_REACT, takeOffTargetFilter));
-        }
+            // Move as 'react' by taking off
+            Action takeOffAction = getTakeOffAction(playerId, game, self, isReactForFree, true, true, false, false, completeMoveTargetFilter);
+            if (takeOffAction != null) {
+                Filter takeOffTargetFilter = getTakeOffFilter(playerId, game, self, isReactForFree, true, completeMoveTargetFilter);
+                moveAsReactActions.add(new MoveAsReactAction(playerId, self, reactActionOption, Effect.Type.TAKING_OFF_AS_REACT, takeOffTargetFilter));
+            }
 
-        // Move as 'react' by entering starship or vehicle site
-        Action enterAction = getEnterStarshipOrVehicleSiteAction(playerId, game, self, isReactForFree, true, true, false, completeMoveTargetFilter);
-        if (enterAction != null) {
-            Filter enterTargetFilter = getEnterStarshipOrVehicleSiteFilter(playerId, game, self, isReactForFree, true, completeMoveTargetFilter);
-            moveAsReactActions.add(new MoveAsReactAction(playerId, self, reactActionOption, Effect.Type.ENTERING_STARSHIP_VEHICLE_SITE_AS_REACT, enterTargetFilter));
-        }
+            // Move as 'react' by entering starship or vehicle site
+            Action enterAction = getEnterStarshipOrVehicleSiteAction(playerId, game, self, isReactForFree, true, true, false, completeMoveTargetFilter);
+            if (enterAction != null) {
+                Filter enterTargetFilter = getEnterStarshipOrVehicleSiteFilter(playerId, game, self, isReactForFree, true, completeMoveTargetFilter);
+                moveAsReactActions.add(new MoveAsReactAction(playerId, self, reactActionOption, Effect.Type.ENTERING_STARSHIP_VEHICLE_SITE_AS_REACT, enterTargetFilter));
+            }
 
-        // Move as 'react' by exiting starship or vehicle site
-        Action exitAction = getExitStarshipOrVehicleSiteAction(playerId, game, self, isReactForFree, true, true, false, completeMoveTargetFilter);
-        if (exitAction != null) {
-            Filter exitTargetFilter = getExitStarshipOrVehicleSiteFilter(playerId, game, self, isReactForFree, true, completeMoveTargetFilter);
-            moveAsReactActions.add(new MoveAsReactAction(playerId, self, reactActionOption, Effect.Type.EXITING_STARSHIP_VEHICLE_SITE_AS_REACT, exitTargetFilter));
+            // Move as 'react' by exiting starship or vehicle site
+            Action exitAction = getExitStarshipOrVehicleSiteAction(playerId, game, self, isReactForFree, true, true, false, completeMoveTargetFilter);
+            if (exitAction != null) {
+                Filter exitTargetFilter = getExitStarshipOrVehicleSiteFilter(playerId, game, self, isReactForFree, true, completeMoveTargetFilter);
+                moveAsReactActions.add(new MoveAsReactAction(playerId, self, reactActionOption, Effect.Type.EXITING_STARSHIP_VEHICLE_SITE_AS_REACT, exitTargetFilter));
+            }
         }
 
         if (moveAsReactActions.isEmpty())
