@@ -102,7 +102,7 @@ public class Card8_051 extends AbstractUsedOrLostInterrupt {
                                         @Override
                                         protected void cardSelected(SwccgGame game, PhysicalCard selectedCard) {
                                             PlayCardAction playCardAction = selectedCard.getBlueprint().getPlayCardAction(playerId, game, selectedCard, self, false,
-                                                    Filters.starship.accepts(game, selectedCard) ? -1 : 0, null, deploymentRestrictionsOption, null, null, null, false, 0, Filters.system, null);
+                                                    Filters.starship.accepts(game, selectedCard) ? -1 : 0, null, deploymentRestrictionsOption, null, null, null, false, 0, Filters.locationAndCardsAtLocation(Filters.system), null);
                                             if (playCardAction != null) {
                                                 action.appendEffect(
                                                         new StackActionEffect(action, playCardAction));
