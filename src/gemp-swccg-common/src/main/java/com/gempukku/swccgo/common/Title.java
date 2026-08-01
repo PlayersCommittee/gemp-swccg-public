@@ -834,6 +834,7 @@ public interface Title {
     String ObiWans_Hut = "Tatooine: Obi-Wan's Hut";
     String ObiWans_Journal = "Obi-Wan's Journal";
     String Obiwans_Lightsaber = "Obi-Wan's Lightsaber";
+    String Observation_Platform = "Invisible Hand: Observation Platform";
     String Obsidian_10 = "Obsidian 10";
     String Odin_Nesloor = "Odin Nesloor";
     String Off_The_Edge = "Off The Edge";

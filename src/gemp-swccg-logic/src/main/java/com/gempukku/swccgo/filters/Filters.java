@@ -18926,6 +18926,7 @@ public class Filters {
     public static final Filter ObiWan = Filters.persona(Persona.OBIWAN);
     public static final Filter ObiWans_Journal = Filters.title(Title.ObiWans_Journal);
     public static final Filter Objective = Filters.type(CardType.OBJECTIVE);
+    public static final Filter Observation_Platform = Filters.title(Title.Observation_Platform);
     public static final Filter Obsidian_10 = Filters.title(Title.Obsidian_10);
     public static final Filter Ochi = Filters.persona(Persona.OCHI);
     public static final Filter Odin_Nesloor = Filters.title(Title.Odin_Nesloor);

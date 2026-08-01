@@ -27,12 +27,14 @@ import com.gempukku.swccgo.logic.effects.FlipCardEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.PutCardFromCardPileOnBottomOfCardPileEffect;
+import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.effects.ShuffleForcePileEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromForcePileEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromForcePileEffect;
 import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionLimitedToModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.LinkedList;
@@ -143,6 +145,10 @@ public class Card211_026_BACK extends AbstractObjective {
                                                         gameState.sendMessage(opponent + " chooses to place card in opponent's hand");
                                                         action.appendEffect(
                                                                 new TakeCardIntoHandFromForcePileEffect(action, playerId, selectedCard, false));
+                                                                if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.A_VALUABLE_HOSTAGE__RETRIEVE_FORCE_AFTER_TAKING_CARD)) {
+                                                                    action.appendEffect(
+                                                                            new RetrieveForceEffect(action, playerId, 1));
+                                                                }
                                                     }
                                                 }
                                             }
