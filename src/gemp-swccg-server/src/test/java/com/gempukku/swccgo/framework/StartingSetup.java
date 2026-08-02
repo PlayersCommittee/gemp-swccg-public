@@ -186,6 +186,31 @@ public interface StartingSetup {
 	};
 
 	/**
+	 * The Dark Side objective Shadow Collective / You Know Who I Answer To and associated cards.
+	 */
+	StartingSetup ShadowCollectiveObjective = new StartingSetup() {
+		@Override
+		public HashMap<String, String> Cards() {
+			return new HashMap<>() {{
+				put("shadow", "213_032"); // Shadow Collective / You Know Who I Answer To
+				put("chambers", "213_023"); // Dathomir: Maul's Chambers
+			}};
+		}
+
+		@Override
+		public void Setup(VirtualTableScenario scn) {
+//			if(scn.DSDecisionAvailable("On which side")) {
+//				scn.DSChoose("Left");
+//			}
+//
+//			if(scn.DSDecisionAvailable("Choose a location to deploy ")) {
+//				scn.DSChooseCard(scn.GetDSCard("chamber"));
+//				scn.DSChoose("Left");
+//			}
+		}
+	};
+
+	/**
 	 * The Light Side objective You Can Either Profit By This... / Or Be Destroyed and associated cards.
 	 */
 	StartingSetup ProfitObjective = new StartingSetup() {

@@ -2498,11 +2498,11 @@ public class GameState implements Snapshotable<GameState> {
             }
 
             // Special rule:
-            // For 'undercover' if source card is owner's Effect, weapon, or device and targeting reason includes TO_BE_DEPLOYED_ON,
+            // For 'undercover' if source card is owner's card and targeting reason includes TO_BE_DEPLOYED_ON,
             // then 'undercover' cards can be spotted.
             if (source != null
                     && targetFiltersMap != null && targetFiltersMap.get(TargetingReason.TO_BE_DEPLOYED_ON) != null && Filters.and(targetFiltersMap.get(TargetingReason.TO_BE_DEPLOYED_ON)).accepts(this, modifiersQuerying, physicalCard)
-                    && Filters.and(Filters.owner(physicalCard.getOwner()), Filters.or(Filters.Effect_of_any_Kind, Filters.weapon, Filters.device)).accepts(this, modifiersQuerying, source)) {
+                    && Filters.owner(physicalCard.getOwner()).accepts(this, modifiersQuerying, source)) {
                 includeUndercoverForThisCard = true;
             }
 
