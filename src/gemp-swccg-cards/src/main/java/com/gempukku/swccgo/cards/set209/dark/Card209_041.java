@@ -69,8 +69,8 @@ public class Card209_041 extends AbstractNormalEffect {
         GameTextActionId gameTextActionId2 = GameTextActionId.AN_INKLING_OF_ITS_DESTRUCTIVE_POWER__FLIP_SYCFA;
         if (GameConditions.isDuringYourPhase(game, playerId, Phase.DEPLOY)
                 && GameConditions.canSpot(game, self, Filters.Set_Your_Course_For_Alderaan)) {
-            final Filter krennicAtDeathStarLocation = Filters.and(Filters.Krennic, Filters.at(Filters.Death_Star_location));
-            if (GameConditions.canSpot(game, self, krennicAtDeathStarLocation)) {
+            final Filter krennicOnDeathStar = Filters.and(Filters.Krennic, Filters.on(Title.Death_Star));
+            if (GameConditions.canSpot(game, self, krennicOnDeathStar)) {
                 PhysicalCard sycfa = Filters.findFirstActive(game, self, Filters.Set_Your_Course_For_Alderaan);
 
                 if (sycfa != null && GameConditions.canBeFlipped(game, sycfa)) {
