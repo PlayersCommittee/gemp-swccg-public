@@ -41,7 +41,7 @@ public class Card14_043 extends AbstractLostInterrupt {
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
         // Check condition(s)
-        if (TriggerConditions.justLost(game, effectResult, playerId, Filters.Gungan)) {
+        if (TriggerConditions.justLost(game, effectResult, Filters.and(Filters.your(playerId),Filters.Gungan))) {
             final PhysicalCard justLostCard = ((LostFromTableResult) effectResult).getCard();
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);

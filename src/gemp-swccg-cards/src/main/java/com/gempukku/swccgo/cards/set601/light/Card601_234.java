@@ -66,7 +66,7 @@ public class Card601_234 extends AbstractNormalEffect {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        if (TriggerConditions.justLost(game, effectResult, opponent, Filters.Dark_Jedi)
+        if (TriggerConditions.justLost(game, effectResult, Filters.and(Filters.opponents(self),Filters.Dark_Jedi))
                 || TriggerConditions.lostBattle(game, effectResult, opponent)) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);

@@ -2360,29 +2360,6 @@ public class TriggerConditions {
     }
 
     /**
-     * Determines if a card accepted by the filter was just lost (and still in Lost Pile).
-     * @param game the game
-     * @param effectResult the effect result
-     * @param playerId the player
-     * @param filter the filter
-     * @return true or false
-     */
-    public static boolean justLost(SwccgGame game, EffectResult effectResult, String playerId, Filterable filter) {
-        if (effectResult.getType() == EffectResult.Type.LOST_FROM_TABLE
-                || effectResult.getType() == EffectResult.Type.CANCELED_ON_TABLE
-                || effectResult.getType() == EffectResult.Type.FORFEITED_TO_LOST_PILE_FROM_TABLE) {
-            PhysicalCard cardLost = ((LostFromTableResult) effectResult).getCard();
-            if (playerId.equals(effectResult.getPerformingPlayerId())
-                || (effectResult.getPerformingPlayerId() == null && playerId.equals(cardLost.getOwner()))) {
-                return GameUtils.getZoneFromZoneTop(cardLost.getZone()) == Zone.LOST_PILE
-                        && (cardLost.getPreviousCardState() == CardState.ACTIVE || cardLost.getPreviousCardState() == CardState.INACTIVE)
-                        && Filters.and(filter).accepts(game.getGameState(), game.getModifiersQuerying(), cardLost);
-            }
-        }
-        return false;
-    }
-
-    /**
      * Determines if a card accepted by the card filter was just lost (and still in Lost Pile) and was present with a card
      * accepted by the present with filter when it was lost.
      * @param game the game

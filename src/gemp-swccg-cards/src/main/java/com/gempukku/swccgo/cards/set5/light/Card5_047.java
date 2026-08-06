@@ -42,7 +42,7 @@ public class Card5_047 extends AbstractUsedInterrupt {
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
         // Check condition(s)
-        if (TriggerConditions.justLost(game, effectResult, playerId, Filters.character)
+        if (TriggerConditions.justLost(game, effectResult, Filters.and(Filters.your(playerId),Filters.character))
                 && (GameConditions.isDuringBattleAt(game, Filters.Cloud_City_site) || GameConditions.isDuringDuelAt(game, Filters.Cloud_City_site))
                 && GameConditions.canUseForceToPlayInterrupt(game, playerId, self, 2)
                 && GameConditions.canSpot(game, self, Filters.Weather_Vane)) {

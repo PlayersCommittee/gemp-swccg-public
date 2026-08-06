@@ -99,7 +99,7 @@ public class Card214_010 extends AbstractImperial {
 
         // Check condition(s)
         if (GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && TriggerConditions.justLost(game, effectResult, playerId, Filters.bounty_hunter)
+                && TriggerConditions.justLost(game, effectResult, Filters.and(Filters.your(playerId),Filters.bounty_hunter))
                 && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionId);
