@@ -18026,6 +18026,7 @@ public class Filters {
     public static final Filter character_with_permanent_character_weapon = Filters.and(Filters.character, Filters.hasPermanentWeapon());
     public static final Filter character_weapon_or_character_with_permanent_character_weapon = Filters.or(Filters.character_weapon(), Filters.and(Filters.character, Filters.hasPermanentWeapon()));
     public static final Filter Chasm_Walkway = Filters.title(Title.Chasm_Walkway);
+    public static final Filter Chewbaccas_Bowcaster = Filters.persona(Persona.CHEWBACCAS_BOWCASTER);
     public static final Filter Chewie = Filters.persona(Persona.CHEWIE);
     public static final Filter Chief_Bast = Filters.title(Title.Chief_Bast);
     public static final Filter Chief_Chirpa = Filters.title(Title.Chief_Chirpa);
