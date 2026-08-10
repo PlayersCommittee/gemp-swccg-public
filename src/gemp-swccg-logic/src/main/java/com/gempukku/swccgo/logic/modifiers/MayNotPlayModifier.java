@@ -20,6 +20,16 @@ public class MayNotPlayModifier extends AbstractModifier {
     }
 
     /**
+     * Creates a modifier that prevents both players from playing cards accepted by the filter.
+     * @param source the source of the modifier
+     * @param affectFilter the filter
+     * @param condition the condition that must be fulfilled for the modifier to be in effect
+     */
+    public MayNotPlayModifier(PhysicalCard source, Filterable affectFilter, Condition condition) {
+        super(source, "May not be played", Filters.and(affectFilter, Filters.not(Filters.in_play), Filters.canBeTargetedBy(source)), condition, ModifierType.MAY_NOT_PLAY);
+    }
+
+    /**
      * Creates a modifier that prevents the specified player from playing cards accepted by the filter.
      * @param source the source of the modifier
      * @param affectFilter the filter

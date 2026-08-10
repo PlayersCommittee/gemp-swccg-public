@@ -18938,6 +18938,7 @@ public class Filters {
     public static final Filter Ominous_Rumors = Filters.title(Title.Ominous_Rumors);
     public static final Filter Ommni_Box = Filters.title(Title.Ommni_Box);
     public static final Filter on_Cloud_City = Filters.locationAndCardsAtLocation(Filters.Cloud_City_site);
+    public static final Filter On_Coruscant = Filters.on(Title.Coruscant);
     public static final Filter On_Dagobah = Filters.on(Title.Dagobah);
     public static final Filter On_Endor = Filters.on(Title.Endor);
     public static final Filter On_Hoth = Filters.on(Title.Hoth);
