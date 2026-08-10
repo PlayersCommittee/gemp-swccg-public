@@ -17809,6 +17809,7 @@ public class Filters {
     public static final Filter AhchTo_location = Filters.partOfSystem(Title.Ahch_To);
     public static final Filter Ahsoka = Filters.persona(Persona.AHSOKA);
     public static final Filter Aiiii_Aaa_Agggggggggg = Filters.title(Title.Aiiii_Aaa_Agggggggggg);
+    public static final Filter Alderaan_location = Filters.partOfSystem(Title.Alderaan);
     public static final Filter Alderaan_site = Filters.and(Filters.partOfSystem(Title.Alderaan), CardSubtype.SITE);
     public static final Filter Alderaan_system = Filters.and(CardSubtype.SYSTEM, Filters.title(Title.Alderaan));
     public static final Filter Alderaanian = Filters.species(Species.ALDERAANIAN);
