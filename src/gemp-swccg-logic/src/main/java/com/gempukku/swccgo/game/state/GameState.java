@@ -3659,6 +3659,7 @@ public class GameState implements Snapshotable<GameState> {
 
     public boolean isParticipatingInAttack(PhysicalCard physicalCard) {
         return (_attackState != null
+                && _attackState.canContinue()
                 && (_attackState.isCardParticipatingInAttack(physicalCard)));
     }
 
@@ -3740,6 +3741,7 @@ public class GameState implements Snapshotable<GameState> {
 
     public boolean isParticipatingInBattle(PhysicalCard physicalCard) {
         return (_battleState !=null
+                && _battleState.canContinue(_game)
                 && (_battleState.getDarkCardsParticipating().contains(physicalCard)
                     || _battleState.getLightCardsParticipating().contains(physicalCard)));
     }

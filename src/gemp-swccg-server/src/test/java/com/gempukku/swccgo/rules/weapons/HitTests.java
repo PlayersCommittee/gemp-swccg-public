@@ -1,9 +1,9 @@
 package com.gempukku.swccgo.rules.weapons;
 
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -40,12 +40,11 @@ public class HitTests {
     //participating in a battle or an attack (e.g., a weapon is fired using an Interrupt such as Sniper, or the
     //character is excluded) is immediately lost.
 
-    //shows issues:
-    //https://github.com/PlayersCommittee/gemp-swccg-public/issues/691
-    //https://github.com/PlayersCommittee/gemp-swccg-public/issues/807
-    //https://github.com/PlayersCommittee/gemp-swccg-public/issues/806
-    @Test @Ignore
+    @Test
     public void HitCharacterLostIfBattleCancelledBeforeWeaponsSegment() {
+        //shows resolved https://github.com/PlayersCommittee/gemp-swccg-public/issues/691 (and related issues)
+        //test1: hit character is lost immediately after battle is canceled
+        //test2: hit character is lost before the card canceling the battle is fully resolved (It's A Trap! sent to Lost)
 
         var scn = GetScenario();
 
@@ -114,8 +113,16 @@ public class HitTests {
         scn.DSPass(); //Playing •It's A Trap! - Optional responses
         scn.LSPass();
 
-            /// at this point, battleCanceled result becomes true and trigger checking in
-            /// HitCardOutsideOfAttackOrBattleRule happens (but characters are still participating)
+        assertTrue(scn.DSDecisionAvailable("ABOUT_TO_BE_LOST_FROM_TABLE"));
+        scn.DSPass();
+        scn.LSPass();
+
+        assertEquals(Zone.TOP_OF_LOST_PILE,trooper1.getZone()); //test1
+        assertEquals(0,scn.GetLSLostPileCount()); //test2
+
+        scn.DSPass(); //LOST_FROM_TABLE - Optional responses
+        scn.LSPass();
+
         scn.DSPass(); //BATTLE_CANCELED - Optional responses
         scn.LSPass();
 

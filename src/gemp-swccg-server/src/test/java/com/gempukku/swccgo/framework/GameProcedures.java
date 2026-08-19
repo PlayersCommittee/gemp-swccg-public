@@ -77,13 +77,19 @@ public interface GameProcedures extends Actions, Decisions, GameProperties, Pile
 	 * This is done out of turn and does not require that it be the appropriate phase.
 	 * @param amount
 	 */
-	default void DSActivateForceCheat(int amount) { ActivateForceCheat(DS, amount); }
+	default void DSActivateForceCheat(int amount) {
+		assertTrue(GetDSReserveDeckCount() >= amount);
+		ActivateForceCheat(DS, amount);
+	}
 	/**
 	 * Forces the Light Side player to move the given amount of cards from their Reserve Deck to their Force Pile.
 	 * This is done out of turn and does not require that it be the appropriate phase.
 	 * @param amount
 	 */
-	default void LSActivateForceCheat(int amount) { ActivateForceCheat(LS, amount); }
+	default void LSActivateForceCheat(int amount) {
+		assertTrue(GetLSReserveDeckCount() >= amount);
+		ActivateForceCheat(LS, amount);
+	}
 
 	/**
 	 * Forces the given player to move the given amount of cards from their Reserve Deck to their Force Pile.
