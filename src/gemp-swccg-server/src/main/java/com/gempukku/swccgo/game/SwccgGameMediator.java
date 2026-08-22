@@ -314,6 +314,12 @@ public class SwccgGameMediator {
                 return sb.toString();
             }
 
+            boolean visible = cardZone.isPublic()
+                    || (player.getName().equals(card.getOwner()) && cardZone.isVisibleByOwner());
+            if (!visible) {
+                return sb.toString();
+            }
+
             // Show special card indicators
             if (card.isBluffCard()) {
                 sb.append("<div>").append("Bluff card").append("</div>");
