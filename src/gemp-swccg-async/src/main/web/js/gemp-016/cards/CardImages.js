@@ -3770,6 +3770,12 @@ const fixedImages = {
 "226_28_BACK":"https://res.starwarsccg.org/cards/Virtual26-Light/hires/gatheralliesandtrain.png",
 
 "227_1":"https://res.starwarsccg.org/cards/Virtual27-Light/hires/podraceprep.png",
+"227_2":"https://res.starwarsccg.org/cards/Virtual27-Dark/hires/behindeverything.png",
+"227_3":"https://res.starwarsccg.org/cards/Virtual27-Dark/hires/invisiblehandobservationplatform.png",
+"227_4":"https://res.starwarsccg.org/cards/Virtual27-Light/hires/anewhope.png",
+"227_5":"https://res.starwarsccg.org/cards/Virtual27-Light/hires/chewbaccaofkashyyyk.png",
+"227_6":"https://res.starwarsccg.org/cards/Virtual27-Light/hires/commandotraining.png",
+
 
 "301_1":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/ahsokatanowithlightsabers.gif",
 "301_2":"https://res.starwarsccg.org/cards/VirtualPremium-Light/large/cityintheclouds.gif",
