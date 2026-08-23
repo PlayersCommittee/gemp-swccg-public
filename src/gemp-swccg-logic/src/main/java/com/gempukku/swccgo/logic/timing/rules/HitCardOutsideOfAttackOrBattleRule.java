@@ -56,7 +56,7 @@ public class HitCardOutsideOfAttackOrBattleRule implements Rule {
                                 RequiredRuleTriggerAction action = new RequiredRuleTriggerAction(_that);
                                 action.setSingletonTrigger(true);
                                 action.appendEffect(
-                                        new LoseCardsFromTableSimultaneouslyEffect(action, hitAndNotInAttackOrBattle, true, true));
+                                        new LoseCardsFromTableSimultaneouslyEffect(action, hitAndNotInAttackOrBattle, false, true));
                                 return Collections.singletonList((TriggerAction) action);
                             }
                         }
