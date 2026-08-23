@@ -97,6 +97,11 @@ public abstract class AbstractLocationLayout implements LocationLayout {
         List<LocationPlacement> placesToDeploy = new LinkedList<LocationPlacement>();
         GameState gameState = game.getGameState();
 
+        // Check that this location has not been 'blown away'
+        if (modifiersQuerying.isBlownAway(gameState, Filters.sameTitleAs(cardToDeploy))) {
+            return placesToDeploy;
+        }
+
         // Get the system name, starship or vehicle persona, or starship or vehicle card to be the parent
         String parentNameOfCardToDeploy = cardToDeploy.getPartOfSystem() != null ? cardToDeploy.getPartOfSystem() : cardToDeploy.getSystemOrbited();
         Persona parentPersonaOfCardToDeploy = cardToDeploy.getBlueprint().getRelatedStarshipOrVehiclePersona();
