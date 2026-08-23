@@ -447,7 +447,7 @@ public abstract class AbstractStarship extends AbstractDeployable {
                         && Filters.canSpot(game, self, Filters.and(deployTargetFilter, getValidDeployTargetWithPilotOrPassengerFilter(playerId, game, self, sourceCard, forFree, changeInCost, cardToDeployWith, cardToDeployWithForFree, cardToDeployWithChangeInCost, deploymentRestrictionsOption, null)))) {
 
                     // If they can be deployed simultaneously with starship, then include that filter.
-                    deployWithSeparatePilotTargetFilter = getValidDeployTargetWithPilotOrPassengerFilter(playerId, game, self, sourceCard, forFree, changeInCost, cardToDeployWith, cardToDeployWithForFree, cardToDeployWithChangeInCost, deploymentRestrictionsOption, null);
+                    deployWithSeparatePilotTargetFilter = Filters.and(deployTargetFilter, getValidDeployTargetWithPilotOrPassengerFilter(playerId, game, self, sourceCard, forFree, changeInCost, cardToDeployWith, cardToDeployWithForFree, cardToDeployWithChangeInCost, deploymentRestrictionsOption, null));
                     playCardActions.add(new PlayStarshipOrVehicleSimultaneouslyWithPilotOrPassengerAction(game, sourceCard, self, forFree, changeInCost, deployWithSeparatePilotTargetFilter, cardToDeployWith, cardToDeployWithForFree, cardToDeployWithChangeInCost, deploymentRestrictionsOption));
                 }
             }

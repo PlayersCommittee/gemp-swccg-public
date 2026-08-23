@@ -37,6 +37,21 @@ public class DeployCardsSimultaneouslyEffect extends AbstractSubActionEffect {
      * @param cardToDeployWithChangeInCost change in amount of Force (can be positive or negative) required for card to deploy with
      */
     public DeployCardsSimultaneouslyEffect(Action action, PhysicalCard cardToDeploy, boolean forFree, float changeInCost, PhysicalCard cardToDeployWith, boolean cardToDeployWithForFree, float cardToDeployWithChangeInCost) {
+        this(action, cardToDeploy, forFree, changeInCost, cardToDeployWith, cardToDeployWithForFree, cardToDeployWithChangeInCost, Filters.any);
+    }
+
+    /**
+     * Creates an effect that causes the player performing the action to deploy the specified cards simultaneously to a card accepted by the target filter.
+     * @param action the action performing this effect
+     * @param cardToDeploy the card to deploy with simultaneously
+     * @param forFree true if deploying card for free, otherwise false
+     * @param changeInCost change in amount of Force (can be positive or negative) required to deploy card
+     * @param cardToDeployWith the card to deploy with
+     * @param cardToDeployWithForFree true if card to deploy with deploys for free, otherwise false
+     * @param cardToDeployWithChangeInCost change in amount of Force (can be positive or negative) required for card to deploy with
+     * @param targetFilter specifies the destination where the simultaneous deployment is allowed
+     */
+    public DeployCardsSimultaneouslyEffect(Action action, PhysicalCard cardToDeploy, boolean forFree, float changeInCost, PhysicalCard cardToDeployWith, boolean cardToDeployWithForFree, float cardToDeployWithChangeInCost, Filter targetFilter) {
         super(action);
         _cardToDeploy = cardToDeploy;
         _forFree = forFree;
@@ -44,7 +59,7 @@ public class DeployCardsSimultaneouslyEffect extends AbstractSubActionEffect {
         _cardToDeployWith = cardToDeployWith;
         _cardToDeployWithForFree = cardToDeployWithForFree;
         _cardToDeployWithChangeInCost = cardToDeployWithChangeInCost;
-        _targetFilter = Filters.any;
+        _targetFilter = targetFilter;
         _deploymentOption = null;
         _deploymentRestrictionsOption = null;
     }
