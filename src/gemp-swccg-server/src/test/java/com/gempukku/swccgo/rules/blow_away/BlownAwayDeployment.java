@@ -11,30 +11,30 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class BlownAwayDeployment {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                     put("deactivate","8_043"); //Deactivate The Shield Generator
                     put("bunker","8_070"); //Endor: Bunker
                     put("ls_bunker","8_070"); //Endor: Bunker (2nd copy)
                     put("endor","8_068"); //Endor (system)
                 }},
-				new HashMap<>()
-				{{
+                new HashMap<>()
+                {{
                     put("ds_bunker","8_160"); //Endor: Bunker
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
     //AR Appendix C: Blown Away
     //Certain cards will cause locations to be 'blown away.'

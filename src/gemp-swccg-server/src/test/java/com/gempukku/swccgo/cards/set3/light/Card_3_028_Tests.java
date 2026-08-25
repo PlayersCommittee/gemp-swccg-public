@@ -21,82 +21,82 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_3_028_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                     put("remote", "3_028"); //artillery remote
                     put("golan","3_075"); //Golan Laser Battery
                     put("atgar", "3_072"); //Atgar Laser Cannon
                     put("talz","1_031"); //non-warrior
                     put("cantina","1_128");
                     put("eg4","4_013"); //power droid (power source for artillery)
-				}},
-				new HashMap<>()
-				{{
+                }},
+                new HashMap<>()
+                {{
                     put("walker","104_005"); //Imperial Walker
                     put("tat_db","1_291");
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void ArtilleryRemoteStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: Artillery Remote
-		 * Uniqueness: Unrestricted
-		 * Side: Light
-		 * Type: Device
-		 * Destiny: 4
-		 * Icons: Hoth, Device
-		 * Game Text: Use 2 Force to deploy on your warrior. Warrior may fire artillery weapons anywhere on same
+    @Test
+    public void ArtilleryRemoteStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Artillery Remote
+         * Uniqueness: Unrestricted
+         * Side: Light
+         * Type: Device
+         * Destiny: 4
+         * Icons: Hoth, Device
+         * Game Text: Use 2 Force to deploy on your warrior. Warrior may fire artillery weapons anywhere on same
          *      planet regardless of being present. Once during your control phase, warrior may fire an artillery
          *      weapon on same planet.
-		 * Lore: Although artillery weapons have a manual firing mechanism, this optional device allows weapons
+         * Lore: Although artillery weapons have a manual firing mechanism, this optional device allows weapons
          *      operation from a remote location. Uses coded signals.
-		 * Set: Hoth
-		 * Rarity: R2
-		 */
+         * Set: Hoth
+         * Rarity: R2
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetLSCard("remote").getBlueprint();
+        var card = scn.GetLSCard("remote").getBlueprint();
 
-		assertEquals("Artillery Remote", card.getTitle());
-		assertFalse(card.hasVirtualSuffix());
-		assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
-		assertEquals(Side.LIGHT, card.getSide());
-		assertEquals(4, card.getDestiny(), scn.epsilon);
-		scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
-			add(CardType.DEVICE);
-		}});
+        assertEquals("Artillery Remote", card.getTitle());
+        assertFalse(card.hasVirtualSuffix());
+        assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
+        assertEquals(Side.LIGHT, card.getSide());
+        assertEquals(4, card.getDestiny(), scn.epsilon);
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.DEVICE);
+        }});
         //assertEquals(null, card.getCardSubtype());
         scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
             add(Keyword.DEPLOYS_ON_CHARACTERS);
-		}});
-		scn.BlueprintIconCheck(card, new ArrayList<>() {{
-			add(Icon.HOTH);
-			add(Icon.DEVICE);
-		}});
-		assertEquals(ExpansionSet.HOTH,card.getExpansionSet());
-		assertEquals(Rarity.R2,card.getRarity());
-	}
+        }});
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.HOTH);
+            add(Icon.DEVICE);
+        }});
+        assertEquals(ExpansionSet.HOTH,card.getExpansionSet());
+        assertEquals(Rarity.R2,card.getRarity());
+    }
 
-	@Test
-	public void ArtilleryRemoteDeployCost() {
+    @Test
+    public void ArtilleryRemoteDeployCost() {
         //Test1: deploys on warrior
         //Test2: does not deploy on non-warrior
         //Test3: deploys for 2 force
-		var scn = GetScenario();
+        var scn = GetScenario();
 
         var remote = scn.GetLSCard("remote");
         var warrior = scn.GetLSFiller(1); //rebel trooper
@@ -107,7 +107,7 @@ public class Card_3_028_Tests {
 
         scn.MoveLocationToTable(cantina);
 
-		scn.MoveCardsToLocation(cantina, talz, warrior);
+        scn.MoveCardsToLocation(cantina, talz, warrior);
 
         scn.MoveCardsToLSHand(remote);
 

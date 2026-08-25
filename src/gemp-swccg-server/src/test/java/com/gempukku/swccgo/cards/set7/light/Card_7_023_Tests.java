@@ -24,17 +24,17 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public class Card_7_023_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-					put("joh", "7_023"); //joh yowza
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
+                    put("joh", "7_023"); //joh yowza
                     put("endor_site", "8_071"); //chirpa's hut
-					put("musician_ls", "6_028"); //max rebo
+                    put("musician_ls", "6_028"); //max rebo
                     put("sense","1_109");
-				}},
-				new HashMap<>()
-				{{
+                }},
+                new HashMap<>()
+                {{
                     put("musician_ds", "7_188"); //lyn me
                     put("bane","6_095"); //bane malar
                     put("sando","13_085"); //sando aqua monster
@@ -44,76 +44,76 @@ public class Card_7_023_Tests {
                     put("echuta","5_138"); //e chu ta (cancel game text)
                     put("assault","5_159"); //trooper assault
                     put("comeback","3_126"); //he hasn't come back yet
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void JohYowzaStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: Joh Yowza
-		 * Uniqueness: Unique
-		 * Side: Light
-		 * Type: Character
-		 * Subtype: Alien
-		 * Destiny: 3
-		 * Deploy: 2
-		 * Power: 2
-		 * Ability: 1
-		 * Forfeit: 3
-		 * Icons: Special Edition
+    @Test
+    public void JohYowzaStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Joh Yowza
+         * Uniqueness: Unique
+         * Side: Light
+         * Type: Character
+         * Subtype: Alien
+         * Destiny: 3
+         * Deploy: 2
+         * Power: 2
+         * Ability: 1
+         * Forfeit: 3
+         * Icons: Special Edition
          * Keywords: Musician, Thief
          * Species: Yuzzum
-		 * Persona:
+         * Persona:
          * Game Text: Power +2 on Endor or when present with your musician. When opponent draws destiny, may 'jam'
          *      (place that card face down under Joh). Holds one 'jammed' card at a time. If Joh about to leave table,
          *      place 'jammed' card under Joh in owner's Used Pile
-		 * Lore: Yuzzum musician and thief. Singer for The Max Rebo Band. Stage name given to him by Sy Snootles.
+         * Lore: Yuzzum musician and thief. Singer for The Max Rebo Band. Stage name given to him by Sy Snootles.
          *      Jabba likes his performance, even though the Hutt despises Yuzzum.
-		 * Set: Special Edition
-		 * Rarity: R
-		 */
+         * Set: Special Edition
+         * Rarity: R
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetLSCard("joh").getBlueprint();
+        var card = scn.GetLSCard("joh").getBlueprint();
 
-		assertEquals("Joh Yowza", card.getTitle());
-		assertFalse(card.hasVirtualSuffix());
-		assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
-		assertEquals(Side.LIGHT, card.getSide());
-		assertEquals(3, card.getDestiny(), scn.epsilon);
-		assertEquals(2, card.getDeployCost(), scn.epsilon);
-		assertEquals(2, card.getPower(), scn.epsilon);
-		assertEquals(1, card.getAbility(), scn.epsilon);
-		assertEquals(3, card.getForfeit(), scn.epsilon);
-		scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
-			add(CardType.ALIEN);
-		}});
+        assertEquals("Joh Yowza", card.getTitle());
+        assertFalse(card.hasVirtualSuffix());
+        assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
+        assertEquals(Side.LIGHT, card.getSide());
+        assertEquals(3, card.getDestiny(), scn.epsilon);
+        assertEquals(2, card.getDeployCost(), scn.epsilon);
+        assertEquals(2, card.getPower(), scn.epsilon);
+        assertEquals(1, card.getAbility(), scn.epsilon);
+        assertEquals(3, card.getForfeit(), scn.epsilon);
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.ALIEN);
+        }});
         assertEquals(Species.YUZZUM,card.getSpecies());
         scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
             add(Keyword.MUSICIAN);
             add(Keyword.THIEF);
             //null
-		}});
-		scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
-		}});
-		scn.BlueprintIconCheck(card, new ArrayList<>() {{
-			add(Icon.ALIEN);
-			add(Icon.SPECIAL_EDITION);
-		}});
-		assertEquals(ExpansionSet.SPECIAL_EDITION,card.getExpansionSet());
-		assertEquals(Rarity.R,card.getRarity());
-	}
+        }});
+        scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
+        }});
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.ALIEN);
+            add(Icon.SPECIAL_EDITION);
+        }});
+        assertEquals(ExpansionSet.SPECIAL_EDITION,card.getExpansionSet());
+        assertEquals(Rarity.R,card.getRarity());
+    }
 
     @Test
     public void JohYowzaPowerBonusWhenOnEndor() {

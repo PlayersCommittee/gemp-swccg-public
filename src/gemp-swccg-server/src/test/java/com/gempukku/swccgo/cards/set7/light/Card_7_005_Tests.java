@@ -24,11 +24,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_7_005_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-					put("spy", "7_005"); //bothan spy
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
+                    put("spy", "7_005"); //bothan spy
                     put("droid", "1_024"); // r2-x2
                     put("plans", "1_046"); //death star plans
                     put("ds_site", "1_125"); // death star: trash compactor
@@ -36,77 +36,77 @@ public class Card_7_005_Tests {
                     put("yavin_db", "1_136"); // yavin 4: docking bay
                     put("nabrun", "1_097");
                 }},
-				new HashMap<>()
-				{{
+                new HashMap<>()
+                {{
                     put("alter", "1_234");
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void BothanSpyStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: Bothan Spy
-		 * Uniqueness: Unrestricted
-		 * Side: Light
-		 * Type: Character
-		 * Subtype: Alien
-		 * Destiny: 3
-		 * Deploy: 2
-		 * Power: 1
-		 * Ability: 2
-		 * Forfeit: 3
-		 * Icons: Alien, Special Edition
+    @Test
+    public void BothanSpyStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Bothan Spy
+         * Uniqueness: Unrestricted
+         * Side: Light
+         * Type: Character
+         * Subtype: Alien
+         * Destiny: 3
+         * Deploy: 2
+         * Power: 1
+         * Ability: 2
+         * Forfeit: 3
+         * Icons: Alien, Special Edition
          * Species: Bothan
          * Keywords: Spy
-		 * Game Text: May be targeted (instead of a droid) by Death Star Plans. When targeted by Death Star Plans,
+         * Game Text: May be targeted (instead of a droid) by Death Star Plans. When targeted by Death Star Plans,
          *      makes that Effect immune to Alter and adds one destiny to Force retrieved with Death Star Plans.
          *      May not be targeted by Nabrun Leids.
-		 * Lore: Bothans operate the most complex spy network in the galaxy. Discovered the location of the second
+         * Lore: Bothans operate the most complex spy network in the galaxy. Discovered the location of the second
          *      Death Star. Ambitious. Resourceful. Furry. Tend to die in large numbers.
-		 * Set: Special Edition
-		 * Rarity: C
-		 */
+         * Set: Special Edition
+         * Rarity: C
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetLSCard("spy").getBlueprint();
+        var card = scn.GetLSCard("spy").getBlueprint();
 
-		assertEquals("Bothan Spy", card.getTitle());
-		assertFalse(card.hasVirtualSuffix());
-		assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
-		assertEquals(Side.LIGHT, card.getSide());
+        assertEquals("Bothan Spy", card.getTitle());
+        assertFalse(card.hasVirtualSuffix());
+        assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
+        assertEquals(Side.LIGHT, card.getSide());
         assertFalse(card.hasAlternateImageSuffix());
-		assertEquals(3, card.getDestiny(), scn.epsilon);
-		assertEquals(2, card.getDeployCost(), scn.epsilon);
-		assertEquals(1, card.getPower(), scn.epsilon);
-		assertEquals(2, card.getAbility(), scn.epsilon);
-		assertEquals(3, card.getForfeit(), scn.epsilon);
-		scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
-			add(CardType.ALIEN);
-		}});
+        assertEquals(3, card.getDestiny(), scn.epsilon);
+        assertEquals(2, card.getDeployCost(), scn.epsilon);
+        assertEquals(1, card.getPower(), scn.epsilon);
+        assertEquals(2, card.getAbility(), scn.epsilon);
+        assertEquals(3, card.getForfeit(), scn.epsilon);
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.ALIEN);
+        }});
         assertEquals(Species.BOTHAN,card.getSpecies());
-		scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
-			add(Keyword.SPY);
-		}});
-		scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
-		}});
-		scn.BlueprintIconCheck(card, new ArrayList<>() {{
-			add(Icon.ALIEN);
-			add(Icon.SPECIAL_EDITION);
-		}});
-		assertEquals(ExpansionSet.SPECIAL_EDITION,card.getExpansionSet());
-		assertEquals(Rarity.C,card.getRarity());
-	}
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+            add(Keyword.SPY);
+        }});
+        scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
+        }});
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.ALIEN);
+            add(Icon.SPECIAL_EDITION);
+        }});
+        assertEquals(ExpansionSet.SPECIAL_EDITION,card.getExpansionSet());
+        assertEquals(Rarity.C,card.getRarity());
+    }
 
     @Test
     public void BothanSpyMayBeTargetedByDeathStarPlans() {
@@ -138,8 +138,8 @@ public class Card_7_005_Tests {
 
     //demonstrates 'bug 1' from: https://github.com/PlayersCommittee/gemp-swccg-public/issues/770
     @Test @Ignore
-	public void BothanSpyMakesDeathStarPlansTargetingSelfImmuneToAlter() {
-		var scn = GetScenario();
+    public void BothanSpyMakesDeathStarPlansTargetingSelfImmuneToAlter() {
+        var scn = GetScenario();
 
         var spy = scn.GetLSCard("spy");
         var plans = scn.GetLSCard("plans");

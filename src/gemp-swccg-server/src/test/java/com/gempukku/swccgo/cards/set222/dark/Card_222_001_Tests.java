@@ -21,65 +21,65 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_222_001_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-				}},
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
+                }},
+                new HashMap<>()
+                {{
                     put("collection", "222_001"); //A Fine Addition To My Collection
-					put("grievous", "203_027");
+                    put("grievous", "203_027");
                     put("vader_saber", "1_324");
                     put("mara_saber", "110_011");
                     put("dark_jedi_saber", "1_314");
                     put("vader","1_168");
                     put("blaster","1_317");
                     put("parry","11_083"); //Lightsaber Parry
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void AFineAdditionToMyCollectionStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: A Fine Addition To My Collection
-		 * Uniqueness: UNIQUE
-		 * Side: DARK
-		 * Type: Interrupt
-		 * Subtype: Lost
-		 * Destiny: 5
-		 * Icons: Episode I, V Set 22
-		 * Game Text: If Grievous just swung a lightsaber, add one battle destiny. OR
+    @Test
+    public void AFineAdditionToMyCollectionStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: A Fine Addition To My Collection
+         * Uniqueness: UNIQUE
+         * Side: DARK
+         * Type: Interrupt
+         * Subtype: Lost
+         * Destiny: 5
+         * Icons: Episode I, V Set 22
+         * Game Text: If Grievous just swung a lightsaber, add one battle destiny. OR
          *      Cancel an attempt to target Grievous with a lightsaber. OR
          *      Deploy any lightsaber from your Lost Pile on Grievous (he may use it until he is no longer carrying it).
-		 * Lore:
-		 * Set: 22
-		 * Rarity: V
-		 */
+         * Lore:
+         * Set: 22
+         * Rarity: V
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetDSCard("collection").getBlueprint();
+        var card = scn.GetDSCard("collection").getBlueprint();
 
-		assertEquals("A Fine Addition To My Collection", card.getTitle());
+        assertEquals("A Fine Addition To My Collection", card.getTitle());
         assertFalse(card.hasVirtualSuffix());
-		assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
-		assertEquals(Side.DARK, card.getSide());
+        assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
+        assertEquals(Side.DARK, card.getSide());
         scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
             add(CardType.INTERRUPT);
         }});
         assertEquals(CardSubtype.LOST, card.getCardSubtype());
-		assertEquals(5, card.getDestiny(), scn.epsilon);
+        assertEquals(5, card.getDestiny(), scn.epsilon);
         scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
             //null
         }});
@@ -88,21 +88,21 @@ public class Card_222_001_Tests {
             add(Icon.EPISODE_I);
             add(Icon.VIRTUAL_SET_22);
         }});
-	}
+    }
 
-	@Test
-	public void AFineAdditionToMyCollectionAction3DeploysASaberFromLostPile() {
+    @Test
+    public void AFineAdditionToMyCollectionAction3DeploysASaberFromLostPile() {
         //test1: collection can't be played without grievous on table
         //test2: collection can't deploy from lost outside of deploy phase
         //test3: collection can't choose non-lightsabers from lost pile
         //test4: collection can choose from multiple lightsabers in lost pile
         //test5: collection deploys selected lightsaber on grievous
         //tets6: collection deploys selected lightsaber at normal cost
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var site = scn.GetLSStartingLocation();
+        var site = scn.GetLSStartingLocation();
 
-		var grievous = scn.GetDSCard("grievous");
+        var grievous = scn.GetDSCard("grievous");
         var collection = scn.GetDSCard("collection");
         var vader = scn.GetDSCard("vader");
         var vader_saber = scn.GetDSCard("vader_saber");
@@ -111,15 +111,15 @@ public class Card_222_001_Tests {
         var blaster = scn.GetDSCard("blaster");
         var parry = scn.GetDSCard("parry");
 
-		scn.StartGame();
+        scn.StartGame();
 
-		scn.MoveCardsToLocation(site, vader);
+        scn.MoveCardsToLocation(site, vader);
 
         scn.MoveCardsToDSHand(collection,grievous);
 
         scn.MoveCardsToTopOfDSLostPile(vader_saber,mara_saber,dark_jedi_saber,parry);
 
-		scn.SkipToPhase(Phase.DEPLOY);
+        scn.SkipToPhase(Phase.DEPLOY);
         assertFalse(scn.DSCardPlayAvailable(collection)); //test1
 
         scn.MoveCardsToLocation(site,grievous);
@@ -141,7 +141,7 @@ public class Card_222_001_Tests {
         assertTrue(scn.IsAttachedTo(grievous,dark_jedi_saber)); //test5
         assertEquals(3,scn.GetDSUsedPileCount()); //test6
         assertEquals(Zone.TOP_OF_LOST_PILE,collection.getZone());
-	}
+    }
 
     @Test
     public void AFineAdditionToMyCollectionAction3MayUseDeployedDarkJediSaber() {

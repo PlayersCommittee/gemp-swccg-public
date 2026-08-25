@@ -12,104 +12,104 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class Card_219_007_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-					put("ebt", "222_20"); //Rebel
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
+                    put("ebt", "222_20"); //Rebel
 
-				}},
-				new HashMap<>()
-				{{
-					put("pryce", "219_7");
-					put("ig88", "109_11"); //EPP IG-88
-				}},
-				40,
-				40,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
-
-
-	@Test
-	public void PryceActionAfterRebelSeizedTest() {
-		var scn = GetScenario();
-
-		var ebt = scn.GetLSCard("ebt");
+                }},
+                new HashMap<>()
+                {{
+                    put("pryce", "219_7");
+                    put("ig88", "109_11"); //EPP IG-88
+                }},
+                40,
+                40,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
 
-		var ig88 = scn.GetDSCard("ig88");
-		var pryce = scn.GetDSCard("pryce");
+    @Test
+    public void PryceActionAfterRebelSeizedTest() {
+        var scn = GetScenario();
+
+        var ebt = scn.GetLSCard("ebt");
 
 
-		var site = scn.GetDSStartingLocation();
-
-		scn.StartGame();
-		scn.MoveCardsToLocation(site, ebt, ig88, pryce);
-
-		assertEquals(Phase.ACTIVATE, scn.GetCurrentPhase());
-		scn.DSActivateMaxForceAndPass();
-
-		scn.PrepareDSDestiny(7);
-
-		scn.SkipToPhase(Phase.BATTLE);
-		scn.DSInitiateBattle(site);
-		scn.PassAllResponses();
-
-		assertTrue(scn.DSCardActionAvailable(ig88));
-
-		scn.DSChooseAction("Fire riot gun");
-		scn.DSChooseCardIDFromSelection(ebt);
-
-		scn.PassAllResponses();
-		scn.DSChooseOption("Seize");
-		scn.LSPass();
-
-		assertTrue(scn.DSCardActionAvailable(pryce));
-	}
+        var ig88 = scn.GetDSCard("ig88");
+        var pryce = scn.GetDSCard("pryce");
 
 
-	@Test @Ignore
-	public void PryceActionAfterRebelEscapesTest() {
-		var scn = GetScenario();
+        var site = scn.GetDSStartingLocation();
 
-		var ebt = scn.GetLSCard("ebt");
+        scn.StartGame();
+        scn.MoveCardsToLocation(site, ebt, ig88, pryce);
+
+        assertEquals(Phase.ACTIVATE, scn.GetCurrentPhase());
+        scn.DSActivateMaxForceAndPass();
+
+        scn.PrepareDSDestiny(7);
+
+        scn.SkipToPhase(Phase.BATTLE);
+        scn.DSInitiateBattle(site);
+        scn.PassAllResponses();
+
+        assertTrue(scn.DSCardActionAvailable(ig88));
+
+        scn.DSChooseAction("Fire riot gun");
+        scn.DSChooseCardIDFromSelection(ebt);
+
+        scn.PassAllResponses();
+        scn.DSChooseOption("Seize");
+        scn.LSPass();
+
+        assertTrue(scn.DSCardActionAvailable(pryce));
+    }
 
 
-		var ig88 = scn.GetDSCard("ig88");
-		var pryce = scn.GetDSCard("pryce");
+    @Test @Ignore
+    public void PryceActionAfterRebelEscapesTest() {
+        var scn = GetScenario();
+
+        var ebt = scn.GetLSCard("ebt");
 
 
-		var site = scn.GetDSStartingLocation();
+        var ig88 = scn.GetDSCard("ig88");
+        var pryce = scn.GetDSCard("pryce");
 
-		scn.StartGame();
-		scn.MoveCardsToLocation(site, ebt, ig88, pryce);
 
-		assertEquals(Phase.ACTIVATE, scn.GetCurrentPhase());
-		scn.DSActivateMaxForceAndPass();
+        var site = scn.GetDSStartingLocation();
 
-		scn.PrepareDSDestiny(7);
+        scn.StartGame();
+        scn.MoveCardsToLocation(site, ebt, ig88, pryce);
 
-		scn.SkipToPhase(Phase.BATTLE);
-		scn.DSInitiateBattle(site);
-		scn.PassAllResponses();
+        assertEquals(Phase.ACTIVATE, scn.GetCurrentPhase());
+        scn.DSActivateMaxForceAndPass();
 
-		assertTrue(scn.DSCardActionAvailable(ig88));
+        scn.PrepareDSDestiny(7);
 
-		scn.DSChooseAction("Fire riot gun");
-		scn.DSChooseCardIDFromSelection(ebt);
+        scn.SkipToPhase(Phase.BATTLE);
+        scn.DSInitiateBattle(site);
+        scn.PassAllResponses();
 
-		scn.PassAllResponses();
-		scn.DSChooseOption("Escape");
-		scn.PassResponses();
-		scn.LSPass();
+        assertTrue(scn.DSCardActionAvailable(ig88));
 
-		assertTrue(scn.DSCardActionAvailable(pryce));
-	}
+        scn.DSChooseAction("Fire riot gun");
+        scn.DSChooseCardIDFromSelection(ebt);
+
+        scn.PassAllResponses();
+        scn.DSChooseOption("Escape");
+        scn.PassResponses();
+        scn.LSPass();
+
+        assertTrue(scn.DSCardActionAvailable(pryce));
+    }
 }

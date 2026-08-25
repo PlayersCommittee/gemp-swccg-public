@@ -21,15 +21,15 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_3_159_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                     put("ywing","1_147");
                     put("snowspeeder","3_069");
                 }},
-				new HashMap<>()
-				{{
+                new HashMap<>()
+                {{
                     put("eweb", "3_159"); //E-web Blaster
                     put("eg6","1_175"); //power droid (power source for artillery)
                     put("barrier","1_249");
@@ -37,69 +37,69 @@ public class Card_3_159_Tests {
                     put("kessel","1_288");
                     put("db_94","1_291"); //tatooine: docking bay 94
                 }},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void EwebBlasterStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: E-web Blaster
-		 * Uniqueness: Unrestricted
-		 * Side: Dark
-		 * Type: Weapon
+    @Test
+    public void EwebBlasterStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: E-web Blaster
+         * Uniqueness: Unrestricted
+         * Side: Dark
+         * Type: Weapon
          * Subtype: Artillery
-		 * Destiny: 5
-		 * Icons: Hoth, Weapon
-		 * Game Text: Deploy on any site. May be moved with two warriors for 1 additional Force.
+         * Destiny: 5
+         * Icons: Hoth, Weapon
+         * Game Text: Deploy on any site. May be moved with two warriors for 1 additional Force.
          *      Your warrior present may target a starfighter (use 5 as defense value), character, creature
          *      or vehicle using 2 Force. Draw destiny. Target hit if destiny +1 > defense value.
-		 * Lore: Massive infantry weapon powerful enough to damage even starfighters.
-		 * Set: Hoth
-		 * Rarity: C1
-		 */
+         * Lore: Massive infantry weapon powerful enough to damage even starfighters.
+         * Set: Hoth
+         * Rarity: C1
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetDSCard("eweb").getBlueprint();
+        var card = scn.GetDSCard("eweb").getBlueprint();
 
-		assertEquals("E-web Blaster", card.getTitle());
-		assertFalse(card.hasVirtualSuffix());
-		assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
-		assertEquals(Side.DARK, card.getSide());
-		assertEquals(5, card.getDestiny(), scn.epsilon);
-		scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
-			add(CardType.WEAPON);
-		}});
+        assertEquals("E-web Blaster", card.getTitle());
+        assertFalse(card.hasVirtualSuffix());
+        assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
+        assertEquals(Side.DARK, card.getSide());
+        assertEquals(5, card.getDestiny(), scn.epsilon);
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.WEAPON);
+        }});
         assertEquals(CardSubtype.ARTILLERY, card.getCardSubtype());
         scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
             add(Keyword.BLASTER);
             add(Keyword.ARTILLERY_WEAPON_MAY_USE_DB_TRANSIT);
-		}});
-		scn.BlueprintIconCheck(card, new ArrayList<>() {{
-			add(Icon.HOTH);
-			add(Icon.WEAPON);
-		}});
-		assertEquals(ExpansionSet.HOTH,card.getExpansionSet());
-		assertEquals(Rarity.C1,card.getRarity());
-	}
+        }});
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.HOTH);
+            add(Icon.WEAPON);
+        }});
+        assertEquals(ExpansionSet.HOTH,card.getExpansionSet());
+        assertEquals(Rarity.C1,card.getRarity());
+    }
 
-	@Test
-	public void EwebDeployCostTest() {
+    @Test
+    public void EwebDeployCostTest() {
         //Test1: deploys on a site (yours, interior)
         //Test2: deploys on a site (opponent's, exterior)
         //Test3: does not deploy on a system
         //Test4: does not deploy on your warrior
         //Test5: deploys for 3 force
-		var scn = GetScenario();
+        var scn = GetScenario();
 
         var eweb = scn.GetDSCard("eweb");
         var cantina = scn.GetDSCard("cantina");

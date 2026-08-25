@@ -23,10 +23,10 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public class Card_1_245_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                     put("ls_cantina","1_128"); //tatooine cantina (planet site)
                     put("ls_yavin_db","1_136"); //yavin docking bay (planet site)
                     put("ls_cc_db","5_083"); //cloud city docking bay (non-planet site)
@@ -35,9 +35,9 @@ public class Card_1_245_Tests {
                     put("liberty", "9_076");
                     put("barrier","1_105"); //rebel barrier
                     put("badFeeling","4_052"); //i have a bad feeling about this
-				}},
-				new HashMap<>()
-				{{
+                }},
+                new HashMap<>()
+                {{
                     put("evac", "1_245"); //evacuate?
                     put("pilot", "1_180"); // imperial pilot
                     put("guard", "1_181"); // imperial guard (may not move)
@@ -61,48 +61,48 @@ public class Card_1_245_Tests {
                     put("astromech", "1_192"); // r1-g4
                     put("lostartoo", "1_218"); // i've lost artoo
                 }},
-				10,
-				10,
-				StartingSetup.DefaultLSSpaceSystem, //parsec 2
-				StartingSetup.DefaultDSSpaceSystem, //parsec 5
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                10,
+                10,
+                StartingSetup.DefaultLSSpaceSystem, //parsec 2
+                StartingSetup.DefaultDSSpaceSystem, //parsec 5
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void EvacuateStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: Evacuate?
-		 * Uniqueness: Unrestricted
-		 * Side: Dark
-		 * Type: Interrupt
-		 * Subtype: Used
-		 * Destiny: 6
-		 * Icons: Interrupt
-		 * Game Text: If your capital starship is about to be lost, unless Tarkin aboard, relocate your characters
+    @Test
+    public void EvacuateStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Evacuate?
+         * Uniqueness: Unrestricted
+         * Side: Dark
+         * Type: Interrupt
+         * Subtype: Used
+         * Destiny: 6
+         * Icons: Interrupt
+         * Game Text: If your capital starship is about to be lost, unless Tarkin aboard, relocate your characters
          *      aboard to any one planet site or to one of your capital starships.
-		 * Lore: Escape pods are on many starships allowing those in peril to flee, an act considered cowardly
+         * Lore: Escape pods are on many starships allowing those in peril to flee, an act considered cowardly
          *      by Imperial officers. 'We've analyzed their attack, sir, and there is a danger.'
-		 * Set: Premiere
-		 * Rarity: U2
-		 */
+         * Set: Premiere
+         * Rarity: U2
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetDSCard("evac").getBlueprint();
+        var card = scn.GetDSCard("evac").getBlueprint();
 
-		assertEquals("Evacuate?", card.getTitle());
-		assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
-		assertEquals(Side.DARK, card.getSide());
+        assertEquals("Evacuate?", card.getTitle());
+        assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
+        assertEquals(Side.DARK, card.getSide());
         scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
             add(CardType.INTERRUPT);
         }});
-		assertEquals(CardSubtype.USED, card.getCardSubtype());
-		assertEquals(6, card.getDestiny(), scn.epsilon);
+        assertEquals(CardSubtype.USED, card.getCardSubtype());
+        assertEquals(6, card.getDestiny(), scn.epsilon);
         scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
         }});
         scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
@@ -113,16 +113,16 @@ public class Card_1_245_Tests {
         assertEquals(ExpansionSet.PREMIERE,card.getExpansionSet());
         assertEquals(Rarity.U2,card.getRarity());
 
-	}
+    }
 
-	@Test
-	public void EvacuateMayBePlayedWhenYourCapitalShipAboutToBeLost() {
+    @Test
+    public void EvacuateMayBePlayedWhenYourCapitalShipAboutToBeLost() {
         //test1: evacuate can be played when your capital ship is about to be lost
         //  with basic conditions met: your character on board that can relocate
         //  planet site that can be relocated to
         //test2: character aboard relocates to target planet site
         //test3: evacuate goes to used pile
-		var scn = GetScenario();
+        var scn = GetScenario();
 
         var ls_cantina = scn.GetLSCard("ls_cantina");
         var homeone = scn.GetLSCard("homeone");
@@ -131,18 +131,18 @@ public class Card_1_245_Tests {
         var vcsd = scn.GetDSCard("vcsd");
         var pilot = scn.GetDSCard("pilot");
 
-		var system = scn.GetDSStartingLocation();
+        var system = scn.GetDSStartingLocation();
 
-		scn.StartGame();
+        scn.StartGame();
 
-		scn.MoveCardsToDSHand(evac);
+        scn.MoveCardsToDSHand(evac);
 
         scn.MoveLocationToTable(ls_cantina);
 
         scn.MoveCardsToLocation(system,vcsd,homeone);
         scn.BoardAsPilot(vcsd,pilot);
 
-		scn.SkipToPhase(Phase.BATTLE);
+        scn.SkipToPhase(Phase.BATTLE);
         assertTrue(pilot.isPilotOf());
 
         scn.DSInitiateBattle(system);
@@ -164,7 +164,7 @@ public class Card_1_245_Tests {
 
         assertTrue(scn.CardsAtLocation(ls_cantina,pilot)); //test2
         assertSame(Zone.TOP_OF_USED_PILE,evac.getZone()); //test3
-	}
+    }
 
     @Test
     public void EvacuateMayNotBePlayedIfTarkinAboard() {

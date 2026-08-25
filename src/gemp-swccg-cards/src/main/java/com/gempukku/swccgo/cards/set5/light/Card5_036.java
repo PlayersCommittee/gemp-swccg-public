@@ -140,12 +140,12 @@ public class Card5_036 extends AbstractUsedOrLostInterrupt {
         return captives.stream().filter(card -> {
             var location = card.getCardAttachedToAtLocation().getAtLocation();
             var player = card.getOwner();
-			return !GameConditions.hasParticipatedInBattleThisTurn(game, card) &&
+            return !GameConditions.hasParticipatedInBattleThisTurn(game, card) &&
                     (
                         GameConditions.canInitiateBattleAtLocation(player, game, location, false, true, true)
                         || GameConditions.canInitiateBattleAtLocation(player, game, location, true, true, true)
                     );
-		}).toList();
+        }).toList();
     }
 
     private static void chooseCaptives(PlayInterruptAction action, String playerId, List<PhysicalCard> initialTargets, List<PhysicalCard> selectedCaptives) {

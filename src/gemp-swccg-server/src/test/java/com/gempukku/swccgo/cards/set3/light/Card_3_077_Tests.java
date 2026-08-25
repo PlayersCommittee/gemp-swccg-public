@@ -22,10 +22,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_3_077_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                     put("mrbc", "3_077"); //Medium Repeating Blaster Cannon
                     put("nonwarrior","1_031"); //talz
                     put("cantina","1_128");
@@ -38,75 +38,75 @@ public class Card_3_077_Tests {
                     put("mando2","216_030");
                     put("yutani","8_001"); //captain yutani
                 }},
-				new HashMap<>()
-				{{
+                new HashMap<>()
+                {{
                     put("barrier","1_249");
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void MRBCStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: Medium Repeating Blaster Cannon
-		 * Uniqueness: Unrestricted
-		 * Side: Light
-		 * Type: Weapon
+    @Test
+    public void MRBCStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Medium Repeating Blaster Cannon
+         * Uniqueness: Unrestricted
+         * Side: Light
+         * Type: Weapon
          * Subtype: Artillery
-		 * Destiny: 1
-		 * Icons: Hoth, Weapon
-		 * Game Text: Deploy on a site. May be moved by two warriors for 1 additional Force. Your warrior present
+         * Destiny: 1
+         * Icons: Hoth, Weapon
+         * Game Text: Deploy on a site. May be moved by two warriors for 1 additional Force. Your warrior present
          *      may target up to two characters or two creatures at same or adjacent site using 2 Force.
          *      Draw two destiny. Target(s) hit if total destiny > total defense value.
-		 * Lore: Merr-Sonn Mark II repeating blaster. Accepts power cells from a very wide variety of sources,
+         * Lore: Merr-Sonn Mark II repeating blaster. Accepts power cells from a very wide variety of sources,
          *      a benefit for Rebels accustomed to scavenging for supplies.
-		 * Set: Hoth
-		 * Rarity: C1
-		 */
+         * Set: Hoth
+         * Rarity: C1
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetLSCard("mrbc").getBlueprint();
+        var card = scn.GetLSCard("mrbc").getBlueprint();
 
-		assertEquals("Medium Repeating Blaster Cannon", card.getTitle());
-		assertFalse(card.hasVirtualSuffix());
-		assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
-		assertEquals(Side.LIGHT, card.getSide());
-		assertEquals(1, card.getDestiny(), scn.epsilon);
-		scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
-			add(CardType.WEAPON);
-		}});
+        assertEquals("Medium Repeating Blaster Cannon", card.getTitle());
+        assertFalse(card.hasVirtualSuffix());
+        assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
+        assertEquals(Side.LIGHT, card.getSide());
+        assertEquals(1, card.getDestiny(), scn.epsilon);
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.WEAPON);
+        }});
         assertEquals(CardSubtype.ARTILLERY, card.getCardSubtype());
         scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
             add(Keyword.BLASTER);
             add(Keyword.CANNON);
             add(Keyword.ARTILLERY_WEAPON_MAY_USE_DB_TRANSIT);
-		}});
-		scn.BlueprintIconCheck(card, new ArrayList<>() {{
-			add(Icon.HOTH);
-			add(Icon.WEAPON);
-		}});
-		assertEquals(ExpansionSet.HOTH,card.getExpansionSet());
-		assertEquals(Rarity.C1,card.getRarity());
-	}
+        }});
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.HOTH);
+            add(Icon.WEAPON);
+        }});
+        assertEquals(ExpansionSet.HOTH,card.getExpansionSet());
+        assertEquals(Rarity.C1,card.getRarity());
+    }
 
-	@Test
-	public void MRBCDeployCostTest() {
+    @Test
+    public void MRBCDeployCostTest() {
         //Test1: deploys on a site (yours, interior)
         //Test2: deploys on a site (opponent's, exterior)
         //Test3: does not deploy on a system
         //Test4: does not deploy on your warrior
         //Test5: deploys for 3 force
-		var scn = GetScenario();
+        var scn = GetScenario();
 
         var mrbc = scn.GetLSCard("mrbc");
         var cantina = scn.GetLSCard("cantina");

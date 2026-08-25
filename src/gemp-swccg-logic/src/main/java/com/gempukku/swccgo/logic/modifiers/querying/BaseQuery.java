@@ -15,29 +15,29 @@ import java.util.*;
  * The basic shared functionality that is used by nearly all subinterfaces of ModifiersQuerying.
  */
 public interface BaseQuery extends ModifiersState {
-	ModifiersQuerying query();
-	SwccgGame game();
+    ModifiersQuerying query();
+    SwccgGame game();
 
-	default Collection<PhysicalCard> getActiveCardsAffectedByModifier(GameState gameState, ModifierType modifierType) {
-		Collection<PhysicalCard> allCards = Filters.filterActive(gameState.getGame(), null, Filters.any);
-		Collection<PhysicalCard> subset = new HashSet<PhysicalCard>();
-		for(PhysicalCard card: allCards) {
-			if (!getModifiersAffectingCard(gameState, modifierType, card).isEmpty())
-				subset.add(card);
-		}
-		return subset;
-	}
+    default Collection<PhysicalCard> getActiveCardsAffectedByModifier(GameState gameState, ModifierType modifierType) {
+        Collection<PhysicalCard> allCards = Filters.filterActive(gameState.getGame(), null, Filters.any);
+        Collection<PhysicalCard> subset = new HashSet<PhysicalCard>();
+        for(PhysicalCard card: allCards) {
+            if (!getModifiersAffectingCard(gameState, modifierType, card).isEmpty())
+                subset.add(card);
+        }
+        return subset;
+    }
 
-	default boolean isDoubled(GameState gameState, PhysicalCard physicalCard) {
-		return isDoubled(gameState, physicalCard, new ModifierCollectorImpl());
-	}
+    default boolean isDoubled(GameState gameState, PhysicalCard physicalCard) {
+        return isDoubled(gameState, physicalCard, new ModifierCollectorImpl());
+    }
 
-	default boolean isDoubled(GameState gameState, PhysicalCard physicalCard, ModifierCollector modifierCollector) {
-		boolean retVal = false;
-		for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.IS_DOUBLED, physicalCard)) {
-			retVal = true;
-			modifierCollector.addModifier(modifier);
-		}
-		return retVal;
-	}
+    default boolean isDoubled(GameState gameState, PhysicalCard physicalCard, ModifierCollector modifierCollector) {
+        boolean retVal = false;
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.IS_DOUBLED, physicalCard)) {
+            retVal = true;
+            modifierCollector.addModifier(modifier);
+        }
+        return retVal;
+    }
 }

@@ -21,30 +21,30 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class Card_203_033_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                     put("xwing1", "1_146");
                     put("xwing2", "1_146");
-				}},
-				new HashMap<>()
-				{{
+                }},
+                new HashMap<>()
+                {{
                     put("tat", "203_033"); //tatooine (v)
                     put("devastator", "1_301"); //dark starship
                     put("tie","1_304");
-				}},
-				40,
-				40,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                40,
+                40,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
 
     @Test
@@ -95,23 +95,23 @@ public class Card_203_033_Tests {
     }
 
 
-	@Test
-	public void TatooineVUncontrolledAddsNoPowerTest() {
+    @Test
+    public void TatooineVUncontrolledAddsNoPowerTest() {
         //test for no power bonus when Tatooine system is unoccupied
         //test for no power bonus when Tatooine system is occupied but not controlled
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var rebeltrooper = scn.GetLSFiller(1);
+        var rebeltrooper = scn.GetLSFiller(1);
         var xwing1 = scn.GetLSCard("xwing1");
         var xwing2 = scn.GetLSCard("xwing2");
 
         var tat = scn.GetDSCard("tat");
-		var tat_site = scn.GetDSStartingLocation();
+        var tat_site = scn.GetDSStartingLocation();
         var stormtrooper = scn.GetDSFiller(1);
         var devastator = scn.GetDSCard("devastator");
 
-		scn.StartGame();
-		scn.MoveCardsToLocation(tat_site, rebeltrooper, stormtrooper);
+        scn.StartGame();
+        scn.MoveCardsToLocation(tat_site, rebeltrooper, stormtrooper);
         scn.MoveCardsToDSHand(tat,devastator);
         scn.MoveCardsToLSHand(xwing1,xwing2);
 
@@ -139,7 +139,7 @@ public class Card_203_033_Tests {
             //test no power bonus with Tatooine system occupied but not controlled
         assertEquals(1,scn.GetLSTotalPower());
         assertEquals(1,scn.GetDSTotalPower());
-	}
+    }
 
     @Test
     public void TatooineVControlByDSAddsPowerTest() {

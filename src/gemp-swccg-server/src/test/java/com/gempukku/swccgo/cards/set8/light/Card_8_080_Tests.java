@@ -21,60 +21,60 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_8_080_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                     put("yt1300","8_080"); //YT-1300 Transport
                     put("cannon", "3_080"); //surface defense cannon
-				}},
-				new HashMap<>()
-				{{
+                }},
+                new HashMap<>()
+                {{
                     put("tat_db","1_291");
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void YT1300TransportStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: YT-1300 Transport
-		 * Uniqueness: Unrestricted
-		 * Side: Light
-		 * Type: Starship
-		 * Subtype: Starfighter
-		 * Destiny: 3
+    @Test
+    public void YT1300TransportStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: YT-1300 Transport
+         * Uniqueness: Unrestricted
+         * Side: Light
+         * Type: Starship
+         * Subtype: Starfighter
+         * Destiny: 3
          * Deploy: 3
          * Power: 2
          * Maneuver: 3
          * Hyperspeed: 5
          * Forfeit: 5
-		 * Icons: Endor, Starship, Scomp Link, Nav Comp, Pilot, Independent
-		 * Game Text: May add 1 pilot, 2 passengers and 1 vehicle. Has ship-docking capability. Permanent pilot
+         * Icons: Endor, Starship, Scomp Link, Nav Comp, Pilot, Independent
+         * Game Text: May add 1 pilot, 2 passengers and 1 vehicle. Has ship-docking capability. Permanent pilot
          *      provides ability of 1. Quad Laser Cannon and Surface Defense Cannon may deploy (and fire free) aboard.
-		 * Lore: Reliable and durable. Widely used freighter made by Corellian Engineering Corporation. Sales have
+         * Lore: Reliable and durable. Widely used freighter made by Corellian Engineering Corporation. Sales have
          *      dramatically increased in proportion to the fame of Han Solo's ship.
-		 * Set: Endor
-		 * Rarity: C
-		 */
+         * Set: Endor
+         * Rarity: C
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetLSCard("yt1300").getBlueprint();
+        var card = scn.GetLSCard("yt1300").getBlueprint();
 
-		assertEquals("YT-1300 Transport", card.getTitle());
-		assertFalse(card.hasVirtualSuffix());
-		assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
-		assertEquals(Side.LIGHT, card.getSide());
+        assertEquals("YT-1300 Transport", card.getTitle());
+        assertFalse(card.hasVirtualSuffix());
+        assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
+        assertEquals(Side.LIGHT, card.getSide());
         assertEquals(3, card.getDestiny(), scn.epsilon);
         assertEquals(3, card.getDeployCost(), scn.epsilon);
         assertEquals(2, card.getPower(), scn.epsilon);
@@ -82,32 +82,32 @@ public class Card_8_080_Tests {
         assertEquals(5, card.getHyperspeed(), scn.epsilon);
         assertEquals(5, card.getForfeit(), scn.epsilon);
         scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
-			add(CardType.STARSHIP);
-		}});
+            add(CardType.STARSHIP);
+        }});
         assertEquals(CardSubtype.STARFIGHTER, card.getCardSubtype());
         scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
             add(Keyword.SHIP_DOCKING_CAPABILITY);
             add(Keyword.TRANSPORT_SHIP);
-		}});
+        }});
         assertEquals(1,card.getPilotCapacity());
         assertEquals(2,card.getPassengerCapacity());
         assertEquals(1,card.getVehicleCapacity());
-		scn.BlueprintIconCheck(card, new ArrayList<>() {{
-			add(Icon.ENDOR);
-			add(Icon.STARSHIP);
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.ENDOR);
+            add(Icon.STARSHIP);
             add(Icon.SCOMP_LINK);
             add(Icon.INDEPENDENT);
             add(Icon.PILOT);
             add(Icon.NAV_COMPUTER);
-		}});
-		assertEquals(ExpansionSet.ENDOR,card.getExpansionSet());
-		assertEquals(Rarity.C,card.getRarity());
-	}
+        }});
+        assertEquals(ExpansionSet.ENDOR,card.getExpansionSet());
+        assertEquals(Rarity.C,card.getRarity());
+    }
 
-	@Test
-	public void YT1300TransportSDCDeployCost() {
+    @Test
+    public void YT1300TransportSDCDeployCost() {
         //Tets1: surface defense cannon deploys free
-		var scn = GetScenario();
+        var scn = GetScenario();
 
         var cannon = scn.GetLSCard("cannon");
         var yt1300 = scn.GetLSCard("yt1300");
@@ -118,7 +118,7 @@ public class Card_8_080_Tests {
 
         scn.MoveLocationToTable(tat_db);
 
-		scn.MoveCardsToLocation(tat_db, yt1300);
+        scn.MoveCardsToLocation(tat_db, yt1300);
 
         scn.MoveCardsToLSHand(cannon);
 

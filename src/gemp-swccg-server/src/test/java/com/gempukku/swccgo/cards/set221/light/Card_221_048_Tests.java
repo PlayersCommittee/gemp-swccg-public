@@ -21,30 +21,30 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_221_048_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                     put("assembly", "221_048"); //Assembly Area
                     put("rex", "200_003"); //(clone army)
                     put("fives", "203_002"); //(clone army, spy)
                     put("undercover", "2_040");
                     put("tatooine", "1_127");
-				}},
-				new HashMap<>()
-				{{
-				}},
-				40,
-				40,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                new HashMap<>()
+                {{
+                }},
+                40,
+                40,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
     @Test
     public void AssemblyAreaStatsAndKeywordsAreCorrect() {
@@ -102,14 +102,14 @@ public class Card_221_048_Tests {
     /// Clone Command Center requirement in Assembly Area and confirm tests work...
 
     //manually tested and passes (see above)
-	@Test @Ignore
-	public void AssemblyAreaPairMayMoveToOtherSiteTest() {
+    @Test @Ignore
+    public void AssemblyAreaPairMayMoveToOtherSiteTest() {
         //test1: site movement action available to move 2 clone army characters at this site to another site you occupy
         //test2: can select two clone army characters to move
         //test3: two clone army characters completed the move to the occupied site
         var scn = GetScenario();
 
-		var rex = scn.GetLSCard("rex");
+        var rex = scn.GetLSCard("rex");
         var fives = scn.GetLSCard("fives");
         var assembly = scn.GetLSCard("assembly");
         var trooper = scn.GetLSFiller(1);

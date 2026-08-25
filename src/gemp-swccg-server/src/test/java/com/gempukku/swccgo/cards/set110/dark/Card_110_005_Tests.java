@@ -22,100 +22,100 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_110_005_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-				}},
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
+                }},
+                new HashMap<>()
+                {{
                     put("bossk", "110_005"); //bossk with mortar gun
                     put("bounty","5_113");
                     put("sniper","2_139");
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void BosskWithMortarGunStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: Bossk With Mortar Gun
-		 * Uniqueness: Unique
-		 * Side: Dark
-		 * Type: Character
-		 * Subtype: Alien
-		 * Destiny: 1
-		 * Deploy: 5
-		 * Power: 4
-		 * Ability: 2
-		 * Forfeit: 3
-		 * Icons: Premium
-		 * Persona: Bossk
-		 * Game Text: Adds 2 to power of anything he pilots. Permanent weapon is •Bossk's Mortar Gun
+    @Test
+    public void BosskWithMortarGunStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Bossk With Mortar Gun
+         * Uniqueness: Unique
+         * Side: Dark
+         * Type: Character
+         * Subtype: Alien
+         * Destiny: 1
+         * Deploy: 5
+         * Power: 4
+         * Ability: 2
+         * Forfeit: 3
+         * Icons: Premium
+         * Persona: Bossk
+         * Game Text: Adds 2 to power of anything he pilots. Permanent weapon is •Bossk's Mortar Gun
          *      (may fire for free; draw destiny; may subtract or add 1 if at same site as a bounty;
          *      choose one character with that destiny number present to be captured.)
-		 * Lore: Trandoshan bounty hunter. Modified his mortar gun to fire stun cartridges for live captures.
+         * Lore: Trandoshan bounty hunter. Modified his mortar gun to fire stun cartridges for live captures.
          *      Uses non-fragmentary capture rounds to minimize collateral damage.
-		 * Set: Enhanced Jabba's Palace
-		 * Rarity: PM
-		 */
+         * Set: Enhanced Jabba's Palace
+         * Rarity: PM
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetDSCard("bossk").getBlueprint();
+        var card = scn.GetDSCard("bossk").getBlueprint();
 
-		assertEquals("Bossk With Mortar Gun", card.getTitle());
-		assertFalse(card.hasVirtualSuffix());
-		assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
-		assertEquals(Side.DARK, card.getSide());
-		assertEquals(1, card.getDestiny(), scn.epsilon);
-		assertEquals(5, card.getDeployCost(), scn.epsilon);
-		assertEquals(4, card.getPower(), scn.epsilon);
-		assertEquals(2, card.getAbility(), scn.epsilon);
-		assertEquals(3, card.getForfeit(), scn.epsilon);
-		scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
-			add(CardType.ALIEN);
-		}});
-		scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+        assertEquals("Bossk With Mortar Gun", card.getTitle());
+        assertFalse(card.hasVirtualSuffix());
+        assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
+        assertEquals(Side.DARK, card.getSide());
+        assertEquals(1, card.getDestiny(), scn.epsilon);
+        assertEquals(5, card.getDeployCost(), scn.epsilon);
+        assertEquals(4, card.getPower(), scn.epsilon);
+        assertEquals(2, card.getAbility(), scn.epsilon);
+        assertEquals(3, card.getForfeit(), scn.epsilon);
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.ALIEN);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
             add(Keyword.BOUNTY_HUNTER);
-		}});
+        }});
         assertEquals(Species.TRANDOSHAN,card.getSpecies());
-		scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
+        scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
             add(Persona.BOSSK);
-		}});
-		scn.BlueprintIconCheck(card, new ArrayList<>() {{
-			add(Icon.ALIEN);
-			add(Icon.PREMIUM);
+        }});
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.ALIEN);
+            add(Icon.PREMIUM);
             add(Icon.PILOT);
             add(Icon.WARRIOR);
             add(Icon.PERMANENT_WEAPON);
-		}});
-		assertEquals(ExpansionSet.ENHANCED_JABBAS_PALACE,card.getExpansionSet());
-		assertEquals(Rarity.PM,card.getRarity());
-	}
+        }});
+        assertEquals(ExpansionSet.ENHANCED_JABBAS_PALACE,card.getExpansionSet());
+        assertEquals(Rarity.PM,card.getRarity());
+    }
 
-	@Test
-	public void BosskWithMortarGunCanCaptureInBattle() {
+    @Test
+    public void BosskWithMortarGunCanCaptureInBattle() {
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var rebelTrooper = scn.GetLSFiller(1);
+        var rebelTrooper = scn.GetLSFiller(1);
         var site = scn.GetLSStartingLocation();
 
         var bossk = scn.GetDSCard("bossk");
 
         scn.StartGame();
 
-		scn.MoveLocationToTable(site);
+        scn.MoveLocationToTable(site);
         scn.MoveCardsToLocation(site,bossk,rebelTrooper);
 
         scn.SkipToPhase(Phase.BATTLE);

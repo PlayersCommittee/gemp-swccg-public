@@ -23,17 +23,17 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public class Card_3_042_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-					put("fallback", "3_042"); //Fall Back!
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
+                    put("fallback", "3_042"); //Fall Back!
                     put("rogue1", "3_066"); //(enclosed vehicle)
                     put("guard","1_026"); //rebel guard
                     put("landspeeder","1_149"); //luke's x34 landspeeder
                 }},
-				new HashMap<>()
-				{{
+                new HashMap<>()
+                {{
                     put("hothsite1","3_150"); //Hoth: Wampa Cave (7th marker)
                     put("hothsite2","3_148"); //Hoth: Ice Plains (5th marker)
                     put("hothsite3","3_149"); //Hoth: North Ridge (4th marker)
@@ -42,49 +42,49 @@ public class Card_3_042_Tests {
                     put("droid","1_192"); //R1-G4 (no presence)
                     put("blizzard2","3_155");
                     put("surprise","5_156");
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void FallBackStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: Fall Back!
-		 * Uniqueness: Unrestricted
-		 * Side: Light
-		 * Type: Interrupt
-		 * Subtype: Lost
-		 * Destiny: 5
-		 * Icons: Interrupt, Hoth
-		 * Game Text: If opponent just initiated a battle at an exterior site with more than double your total power,
+    @Test
+    public void FallBackStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Fall Back!
+         * Uniqueness: Unrestricted
+         * Side: Light
+         * Type: Interrupt
+         * Subtype: Lost
+         * Destiny: 5
+         * Icons: Interrupt, Hoth
+         * Game Text: If opponent just initiated a battle at an exterior site with more than double your total power,
          *      use 1 Force to target an adjacent site where opponent has no presence.
          *      All your characters present in battle move away (for free) to the target site. The battle is canceled.
-		 * Lore: 'K-one zero...all troops disengage.'
-		 * Set: Hoth
-		 * Rarity: C2
-		 */
+         * Lore: 'K-one zero...all troops disengage.'
+         * Set: Hoth
+         * Rarity: C2
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetLSCard("fallback").getBlueprint();
+        var card = scn.GetLSCard("fallback").getBlueprint();
 
-		assertEquals("Fall Back!", card.getTitle());
-		assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
-		assertEquals(Side.LIGHT, card.getSide());
+        assertEquals("Fall Back!", card.getTitle());
+        assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
+        assertEquals(Side.LIGHT, card.getSide());
         scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
             add(CardType.INTERRUPT);
         }});
-		assertEquals(CardSubtype.LOST, card.getCardSubtype());
-		assertEquals(5, card.getDestiny(), scn.epsilon);
+        assertEquals(CardSubtype.LOST, card.getCardSubtype());
+        assertEquals(5, card.getDestiny(), scn.epsilon);
         scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
         }});
         scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
@@ -96,18 +96,18 @@ public class Card_3_042_Tests {
         assertEquals(ExpansionSet.HOTH,card.getExpansionSet());
         assertEquals(Rarity.C2,card.getRarity());
 
-	}
+    }
 
-	@Test
-	public void FallBackBasicFunctionalTest() {
+    @Test
+    public void FallBackBasicFunctionalTest() {
         //this tests the basic working conditions for the card in a simple case
         //other tests change specific parts of this setup to demonstrate restrictions are working
         //test1: character moves away from battle location to target adjacent site
         //test2: cost of 1 force was paid
         //test3: card goes to lost pile after being played
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var fallback = scn.GetLSCard("fallback");
+        var fallback = scn.GetLSCard("fallback");
         var rebelTrooper1 = scn.GetLSFiller(1);
 
         var hothsite1 = scn.GetDSCard("hothsite1");
@@ -118,9 +118,9 @@ public class Card_3_042_Tests {
         var trooper2 = scn.GetDSFiller(2);
         var trooper3 = scn.GetDSFiller(3);
 
-		scn.StartGame();
+        scn.StartGame();
 
-		scn.MoveCardsToLSHand(fallback);
+        scn.MoveCardsToLSHand(fallback);
 
         scn.MoveLocationToTable(hothsite1);
         scn.MoveLocationToTable(hothsite2);
@@ -131,7 +131,7 @@ public class Card_3_042_Tests {
 
         scn.LSActivateForceCheat(1); //enough to pay Fall Back! cost
 
-		scn.SkipToPhase(Phase.BATTLE);
+        scn.SkipToPhase(Phase.BATTLE);
         scn.DSInitiateBattle(hothsite2);
 
         assertTrue(scn.LSDecisionAvailable("Battle just initiated")); //Battle just initiated at - Optional responses
@@ -171,7 +171,7 @@ public class Card_3_042_Tests {
         assertTrue(scn.CardsAtLocation(hothsite3,rebelTrooper1)); //test1: successfully moved away
         assertEquals(1,scn.GetLSUsedPileCount()); //test2: used 1 force to play Fall Back!
         assertSame(Zone.TOP_OF_LOST_PILE,fallback.getZone()); //test3: placed in lost pile
-	}
+    }
 
     @Test
     public void FallBackCancelsBattleIfPresenceRemains() {

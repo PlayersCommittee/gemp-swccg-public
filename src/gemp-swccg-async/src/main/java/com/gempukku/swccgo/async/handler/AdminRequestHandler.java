@@ -134,7 +134,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
             setNewAccountRegistration(request, responseWriter);
         } else if (uri.equals("/settings/purgestattrackers") && request.method() == HttpMethod.POST) {
             purgeInGameStatisticListeners(request, responseWriter);
-		} else if (uri.equals("/league/deckcheck") && request.method() == HttpMethod.POST) {
+        } else if (uri.equals("/league/deckcheck") && request.method() == HttpMethod.POST) {
             deckCheck(request, responseWriter);
         } else {
             responseWriter.writeError(404);
@@ -1230,7 +1230,7 @@ public class AdminRequestHandler extends SwccgoServerRequestHandler implements U
 
         if(values == null || values.isEmpty())
             throw new HttpProcessingException(400, "Parameter '" + paramName + "' must have values set.");
-        
+
         for(String value : values) {
             if(StringUtils.isEmpty(value)) {
                 throw new HttpProcessingException(400, "Parameter '" + paramName + "' cannot be blank.");

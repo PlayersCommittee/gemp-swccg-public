@@ -20,98 +20,98 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_5_002_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-					put("tech", "5_002"); //Cloud City Technician
-					put("jp_ls", "7_131"); //Tatooine: Jabba's Palace (Light)
-				}},
-				new HashMap<>()
-				{{
-					put("jp_ds", "6_171"); //Tatooine: Jabba's Palace (Dark)
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
+                    put("tech", "5_002"); //Cloud City Technician
+                    put("jp_ls", "7_131"); //Tatooine: Jabba's Palace (Light)
+                }},
+                new HashMap<>()
+                {{
+                    put("jp_ds", "6_171"); //Tatooine: Jabba's Palace (Dark)
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void CloudCityTechnicianStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: Cloud City Technician
-		 * Uniqueness: Restricted 3
-		 * Side: Light
-		 * Type: Character
-		 * Subtype: Alien
-		 * Destiny: 2
-		 * Deploy: 2
-		 * Power: 1
-		 * Ability: 1
-		 * Forfeit: 2
-		 * Icons: Cloud City
-		 * Persona:
+    @Test
+    public void CloudCityTechnicianStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Cloud City Technician
+         * Uniqueness: Restricted 3
+         * Side: Light
+         * Type: Character
+         * Subtype: Alien
+         * Destiny: 2
+         * Deploy: 2
+         * Power: 1
+         * Ability: 1
+         * Forfeit: 2
+         * Icons: Cloud City
+         * Persona:
          * Keywords:
-		 * Game Text: When present at a converted site, may use 2 Force to raise your site to the top. Also,
+         * Game Text: When present at a converted site, may use 2 Force to raise your site to the top. Also,
          *      when present at an opponent's site that has a Scomp link, your Force drains are +1 there.
-		 * Lore: Former Imperial technician disenchanted with the New Order. Sympathetic to the Alliance. His knowledge
+         * Lore: Former Imperial technician disenchanted with the New Order. Sympathetic to the Alliance. His knowledge
          *      of Imperial computer systems makes him a valuable ally.
-		 * Set: Cloud City
-		 * Rarity: C
-		 */
+         * Set: Cloud City
+         * Rarity: C
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetLSCard("tech").getBlueprint();
+        var card = scn.GetLSCard("tech").getBlueprint();
 
-		assertEquals("Cloud City Technician", card.getTitle());
-		assertFalse(card.hasVirtualSuffix());
-		assertEquals(Uniqueness.RESTRICTED_3, card.getUniqueness());
-		assertEquals(Side.LIGHT, card.getSide());
-		assertEquals(2, card.getDestiny(), scn.epsilon);
-		assertEquals(2, card.getDeployCost(), scn.epsilon);
-		assertEquals(1, card.getPower(), scn.epsilon);
-		assertEquals(1, card.getAbility(), scn.epsilon);
-		assertEquals(2, card.getForfeit(), scn.epsilon);
-		scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
-			add(CardType.ALIEN);
-		}});
-		scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
-		}});
-		scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
-		}});
-		scn.BlueprintIconCheck(card, new ArrayList<>() {{
+        assertEquals("Cloud City Technician", card.getTitle());
+        assertFalse(card.hasVirtualSuffix());
+        assertEquals(Uniqueness.RESTRICTED_3, card.getUniqueness());
+        assertEquals(Side.LIGHT, card.getSide());
+        assertEquals(2, card.getDestiny(), scn.epsilon);
+        assertEquals(2, card.getDeployCost(), scn.epsilon);
+        assertEquals(1, card.getPower(), scn.epsilon);
+        assertEquals(1, card.getAbility(), scn.epsilon);
+        assertEquals(2, card.getForfeit(), scn.epsilon);
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.ALIEN);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+        }});
+        scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
+        }});
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
             add(Icon.ALIEN);
-			add(Icon.CLOUD_CITY);
-		}});
-		assertEquals(ExpansionSet.CLOUD_CITY,card.getExpansionSet());
-		assertEquals(Rarity.C,card.getRarity());
-	}
+            add(Icon.CLOUD_CITY);
+        }});
+        assertEquals(ExpansionSet.CLOUD_CITY,card.getExpansionSet());
+        assertEquals(Rarity.C,card.getRarity());
+    }
 
-	@Test
-	public void CloudCityTechnicianCanRaiseConvertedSite() {
+    @Test
+    public void CloudCityTechnicianCanRaiseConvertedSite() {
         //test1: cannot raise converted site without 2 force available
         //test2: can raise converted site with 2 force available
         //test3: raise action costs 2 force
         //test4: raise action completes
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var tech = scn.GetLSCard("tech");
-		var jp_ls = scn.GetLSCard("jp_ls");
+        var tech = scn.GetLSCard("tech");
+        var jp_ls = scn.GetLSCard("jp_ls");
 
-		var jp_ds = scn.GetDSCard("jp_ds");
+        var jp_ds = scn.GetDSCard("jp_ds");
 
-		scn.StartGame();
+        scn.StartGame();
 
         scn.MoveLocationToTable(jp_ls);
-		scn.MoveCardsToLocation(jp_ls, tech);
+        scn.MoveCardsToLocation(jp_ls, tech);
 
         scn.MoveCardsToDSHand(jp_ds);
 

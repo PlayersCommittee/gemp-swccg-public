@@ -12,10 +12,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 
 public class TransferTests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                     put("blaster", "1_152");
                     put("jawa", "1_012");
                     put("jawaIonGun", "2_078");
@@ -27,23 +27,23 @@ public class TransferTests {
                     put("kessel","1_126");
                     put("skiff","6_088"); //open vehicle
                 }},
-				new HashMap<>()
-				{{
+                new HashMap<>()
+                {{
                     put("laser","6_174"); //Antipersonnel Laser Cannon
                     put("sandcrawler","1_309"); //(enclosed transport vehicle)
                     put("skiff","6_173"); //(open transport vehicle)
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
     //AR: P95 Weapons - Transferring
     //During your deploy phase, you may transfer your

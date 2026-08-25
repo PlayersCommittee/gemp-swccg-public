@@ -23,84 +23,84 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_1_322_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                     put("miningDroidLS","1_018"); //LIN-V8K
                     put("boushh","110_001");
                 }},
-				new HashMap<>()
-				{{
+                new HashMap<>()
+                {{
                     put("timer","1_322");
                     put("timer2","1_322");
                     put("miningDroid","1_186"); //LIN-V8M
                     put("miningDroid2","1_186");
                     put("comlink","1_201");
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void TimerMineStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: Timer Mine
-		 * Uniqueness: Unrestricted
-		 * Side: Dark
-		 * Type: Weapon
+    @Test
+    public void TimerMineStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Timer Mine
+         * Uniqueness: Unrestricted
+         * Side: Dark
+         * Type: Weapon
          * Subtype: Automated
-		 * Destiny: 2
-		 * Icons: Weapon
-		 * Game Text: Deploy on opponent's side at same site as one of your mining droids. 'Explodes' at beginning
+         * Destiny: 2
+         * Icons: Weapon
+         * Game Text: Deploy on opponent's side at same site as one of your mining droids. 'Explodes' at beginning
          *      of your next turn. Draw destiny. That number of opponent's characters there are immediately lost
          *      (owner's choice). Timer Mine is also lost.
-		 * Lore: A timer-activated explosive device designed to be placed by a mining droid. Originally used in ore
+         * Lore: A timer-activated explosive device designed to be placed by a mining droid. Originally used in ore
          *      and spice mines for demolition. Altered for military use.
-		 * Set: Premiere
-		 * Rarity: C2
-		 */
+         * Set: Premiere
+         * Rarity: C2
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetDSCard("timer").getBlueprint();
+        var card = scn.GetDSCard("timer").getBlueprint();
 
-		assertEquals("Timer Mine", card.getTitle());
-		assertFalse(card.hasVirtualSuffix());
-		assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
-		assertEquals(Side.DARK, card.getSide());
-		assertEquals(2, card.getDestiny(), scn.epsilon);
-		scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
-			add(CardType.WEAPON);
-		}});
+        assertEquals("Timer Mine", card.getTitle());
+        assertFalse(card.hasVirtualSuffix());
+        assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
+        assertEquals(Side.DARK, card.getSide());
+        assertEquals(2, card.getDestiny(), scn.epsilon);
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.WEAPON);
+        }});
         assertEquals(CardSubtype.AUTOMATED, card.getCardSubtype());
         scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
             add(Keyword.MINE);
-		}});
-		scn.BlueprintIconCheck(card, new ArrayList<>() {{
-			add(Icon.WEAPON);
-		}});
-		assertEquals(ExpansionSet.PREMIERE,card.getExpansionSet());
-		assertEquals(Rarity.C2,card.getRarity());
-	}
+        }});
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.WEAPON);
+        }});
+        assertEquals(ExpansionSet.PREMIERE,card.getExpansionSet());
+        assertEquals(Rarity.C2,card.getRarity());
+    }
 
-	@Test
-	public void TimerMineCanDeployAtSameSiteAsMiningDroidTest() {
+    @Test
+    public void TimerMineCanDeployAtSameSiteAsMiningDroidTest() {
         //test1: timer mine cannot be played during your non-deploy phase
         //test2: timer mine can be played during your deploy phase
         //test3: timer mine cannot be deployed to site without your mining droid
         //test4: timer mine can be deployed to site with your mining droid
         //test5: timer mine has no deploy cost
         //test6: timer mine is at the site after deploying
-		var scn = GetScenario();
+        var scn = GetScenario();
 
         var timer = scn.GetDSCard("timer");
         var miningDroid = scn.GetDSCard("miningDroid");

@@ -44,13 +44,13 @@ public class Card8_108 extends AbstractImperial {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
 
-        modifiers.add(new DeployCostToLocationModifier(self, 
-                		Filters.and(Filters.opponents(self), Filters.character, Filters.except(Filters.or(Filters.Ewok,Filters.spy,Filters.scout))),
-                		atBunker, 
-                		2, 
-                		Filters.and(Filters.Endor_site, Filters.except(Filters.Rebel_Landing_Site))
-        			));
-                
+        modifiers.add(new DeployCostToLocationModifier(self,
+                        Filters.and(Filters.opponents(self), Filters.character, Filters.except(Filters.or(Filters.Ewok,Filters.spy,Filters.scout))),
+                        atBunker,
+                        2,
+                        Filters.and(Filters.Endor_site, Filters.except(Filters.Rebel_Landing_Site))
+                    ));
+
         modifiers.add(new ForceRetrievalModifier(self, new CardMatchesEvaluator(0, -3, Filters.title("On The Edge")), opponent));
         modifiers.add(new ForceRetrievalModifier(self, new CardMatchesEvaluator(0, -3, Filters.title("Off The Edge")), opponent));
 

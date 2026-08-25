@@ -22,53 +22,53 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_6_117_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                     put("rebeltrooper","1_028");
-				}},
-				new HashMap<>()
-				{{
-					put("nysad", "6_117");
+                }},
+                new HashMap<>()
+                {{
+                    put("nysad", "6_117");
                     put("jp_site", "6_162"); //audience chamber
                     put("tat_site", "1_292"); //non-jp tatooine site (jawa camp)
                     put("hoth_site","3_144"); //non-tat site
                     put("bantha", "1_307"); //non-enclosed vehicle
-					put("walker", "3_157"); //enclosed vehicle
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                    put("walker", "3_157"); //enclosed vehicle
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void NysadStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: Nysad
-		 * Uniqueness: Unique
-		 * Side: Dark
-		 * Type: Character
-		 * Subtype: Alien
-		 * Destiny: 3
-		 * Game Text: Deploys only on Tatooine. May deploy as a 'react' to a Jabba's Palace site or aboard a vehicle
+    @Test
+    public void NysadStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Nysad
+         * Uniqueness: Unique
+         * Side: Dark
+         * Type: Character
+         * Subtype: Alien
+         * Destiny: 3
+         * Game Text: Deploys only on Tatooine. May deploy as a 'react' to a Jabba's Palace site or aboard a vehicle
          *      at a Tatooine site. Power +3 when defending a battle at a Jabba's Palace site.
-		 * Lore: Kajain'sa'Nikto. Fiercely loyal to Jabba. Stands guard over the sail barge during the Hutt's many
+         * Lore: Kajain'sa'Nikto. Fiercely loyal to Jabba. Stands guard over the sail barge during the Hutt's many
          *      trips to Mos Eisley.
-		 * Set: Jabba's Palace
-		 * Rarity: R
-		 */
+         * Set: Jabba's Palace
+         * Rarity: R
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetDSCard("nysad").getBlueprint();
+        var card = scn.GetDSCard("nysad").getBlueprint();
 
         assertEquals("Nysad", card.getTitle());
         assertFalse(card.hasVirtualSuffix());
@@ -97,27 +97,27 @@ public class Card_6_117_Tests {
         }});
         assertEquals(ExpansionSet.JABBAS_PALACE,card.getExpansionSet());
         assertEquals(Rarity.R,card.getRarity());
-	}
+    }
 
     @Test
-	public void NysadDeploysOnlyOnTatooine() {
+    public void NysadDeploysOnlyOnTatooine() {
         //test coverage:
         // test1: can deploy to a Tatooine site
         // test2: cannot deploy to a non-Tatooine site
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var tat_site = scn.GetDSCard("tat_site");
+        var tat_site = scn.GetDSCard("tat_site");
         var hoth_site = scn.GetDSCard("hoth_site");
-		var nysad = scn.GetDSCard("nysad");
+        var nysad = scn.GetDSCard("nysad");
 
-		scn.StartGame();
+        scn.StartGame();
 
         scn.MoveLocationToTable(tat_site);
         scn.MoveLocationToTable(hoth_site);
 
         scn.MoveCardsToHand(nysad);
 
-		scn.SkipToDSTurn(Phase.DEPLOY);
+        scn.SkipToDSTurn(Phase.DEPLOY);
         assertTrue(scn.GetDSForcePileCount() >= nysad.getBlueprint().getDeployCost()); //enough to deploy
         assertTrue(scn.DSDeployAvailable(nysad));
         scn.DSDeployCard(nysad);
@@ -126,7 +126,7 @@ public class Card_6_117_Tests {
         scn.DSChooseCard(tat_site);
         scn.PassAllResponses();
         assertTrue(scn.CardsAtLocation(tat_site,nysad));
-	}
+    }
 
     @Test
     public void NysadDeployAsReactToJP() {

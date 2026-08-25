@@ -3066,8 +3066,8 @@ public class GameState implements Snapshotable<GameState> {
 
     public List<PhysicalCard> getInactiveCaptivesOfEscort(SwccgGame game, PhysicalCard card) {
         return card.getCardsEscorting().stream().filter(captive -> {
-			return !game.getModifiersQuerying().captiveMayParticipateInBattle(game.getGameState(), captive);
-		}).toList();
+            return !game.getModifiersQuerying().captiveMayParticipateInBattle(game.getGameState(), captive);
+        }).toList();
     }
 
     public List<PhysicalCard> getCaptivesInPrison(PhysicalCard prison) {
@@ -3617,7 +3617,7 @@ public class GameState implements Snapshotable<GameState> {
         }
 
         _attackState.attackStarted();
-        
+
         if (_attackState.isNonCreatureAttackingCreature()) {
             _game.getModifiersQuerying().attackOnCreatureInitiatedAtLocation(location);
             Collection<PhysicalCard> allCardsAttacking = _attackState.getCardsAttacking();

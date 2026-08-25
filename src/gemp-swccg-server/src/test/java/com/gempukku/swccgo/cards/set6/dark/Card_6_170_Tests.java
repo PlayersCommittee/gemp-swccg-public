@@ -23,27 +23,27 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_6_170_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-				}},
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
+                }},
+                new HashMap<>()
+                {{
                     put("greatpit", "6_170"); //Tatooine: Great Pit Of Carkoon
                     put("sarlacc", "107_005");
-				}},
-				40,
-				40,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                40,
+                40,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
 
     @Test
@@ -94,16 +94,16 @@ public class Card_6_170_Tests {
     }
 
 
-	@Test
-	public void TatooineGreatPitOfCarkoonSarlaccDeploysHere() {
+    @Test
+    public void TatooineGreatPitOfCarkoonSarlaccDeploysHere() {
         //test1: pit is a valid target to deploy sarlacc to
         //test2: sarlacc successfully deploys to pit and stays on table (within habitat)
-		var scn = GetScenario();
+        var scn = GetScenario();
 
         var greatpit = scn.GetDSCard("greatpit");
         var sarlacc = scn.GetDSCard("sarlacc");
 
-		scn.StartGame();
+        scn.StartGame();
 
         scn.MoveLocationToTable(greatpit);
         scn.MoveCardsToDSHand(sarlacc);
@@ -118,7 +118,7 @@ public class Card_6_170_Tests {
 
         assertTrue(scn.AwaitingLSDeployPhaseActions());
         assertTrue(scn.CardsAtLocation(greatpit, sarlacc)); //test2
-	}
+    }
 
     @Test
     public void TatooineGreatPitOfCarkoonSarlaccCanAttackCaptiveDuringControlPhase() {

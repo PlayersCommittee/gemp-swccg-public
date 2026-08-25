@@ -12,33 +12,33 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class HitTests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                     put("beckett","213_042");
                     put("blaster","1_152");
                     put("trap","5_055"); //It's A Trap
                     put("boushh","110_001");
                     put("satm","2_057"); //Sorry About The Mess
                 }},
-				new HashMap<>()
-				{{
+                new HashMap<>()
+                {{
                     put("sniper","2_139");
                     put("yab","5_163"); //You Are Beaten
                     put("eppVader","108_006");
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
     //AR: P96 Weapons - Hit
     //If the battle ends before the damage segment, then "hit" cards are immediately lost.  Any card "hit" but not

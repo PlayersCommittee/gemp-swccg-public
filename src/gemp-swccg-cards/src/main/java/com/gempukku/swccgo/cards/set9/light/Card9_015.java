@@ -49,19 +49,19 @@ public class Card9_015 extends AbstractRebel {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         modifiers.add(new DrawsBattleDestinyIfUnableToOtherwiseModifier(self, pilotingYwing, 1));
-        
+
         return modifiers;
    }
-   
-    
+
+
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
-        
+
         PhysicalCard starshipPiloting = Filters.findFirstActive(game,self,Filters.and(Filters.hasPiloting(self),Filters.starship));
-        
+
         if (starshipPiloting!=null
-        		&& TriggerConditions.isAboutToDrawWeaponDestiny(game, effectResult, playerId, Filters.ion_cannon)
+                && TriggerConditions.isAboutToDrawWeaponDestiny(game, effectResult, playerId, Filters.ion_cannon)
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isDuringWeaponFiringAtTarget(game, Filters.weaponBeingFiredBy(starshipPiloting), Filters.any)
                 && GameConditions.canDrawDestinyAndChoose(game, 2)

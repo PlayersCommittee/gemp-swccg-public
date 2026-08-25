@@ -25,96 +25,96 @@ import static org.junit.Assert.assertTrue;
 //mirror changes to Card_14_079_Tests (AI)
 
 public class Card_14_078_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-					put("luke", "9_024"); //LSJK
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
+                    put("luke", "9_024"); //LSJK
                     put("insight_shield","200_032"); //Insight defensive shield
-				}},
-				new HashMap<>()
-				{{
+                }},
+                new HashMap<>()
+                {{
                     put("sidious", "14_078"); //darth sidious
-					put("vader", "9_113"); //lord vader
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                    put("vader", "9_113"); //lord vader
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void DarthSidiousStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: Darth Sidious
-		 * Uniqueness: Unique
-		 * Side: Dark
-		 * Type: Character
-		 * Subtype: Dark Jedi Master
-		 * Destiny: 1
-		 * Deploy: 6
-		 * Power: 5
-		 * Ability: 7
-		 * Forfeit: 8
-		 * Icons: Pilot, Theed Palace, Episode 1
-		 * Persona: Sidious
-		 * Game Text: While no other characters present, if opponent just lost a Jedi from table, may lose 1 Force
+    @Test
+    public void DarthSidiousStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Darth Sidious
+         * Uniqueness: Unique
+         * Side: Dark
+         * Type: Character
+         * Subtype: Dark Jedi Master
+         * Destiny: 1
+         * Deploy: 6
+         * Power: 5
+         * Ability: 7
+         * Forfeit: 8
+         * Icons: Pilot, Theed Palace, Episode 1
+         * Persona: Sidious
+         * Game Text: While no other characters present, if opponent just lost a Jedi from table, may lose 1 Force
          *      to place that Jedi out of play. While on Coruscant, may use 1 Force to add one battle destiny
          *      in a battle your Neimoidian is in. Immune to attrition.
-		 * Lore: Mysterious Sith Master who is manipulating the Trade Federation for his own nefarious ends.
+         * Lore: Mysterious Sith Master who is manipulating the Trade Federation for his own nefarious ends.
          *      Shrouded in mystery, his identity and agenda remain unclear.
-		 * Set: Theed Palace
-		 * Rarity: R
-		 */
+         * Set: Theed Palace
+         * Rarity: R
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetDSCard("sidious").getBlueprint();
+        var card = scn.GetDSCard("sidious").getBlueprint();
 
-		assertEquals("Darth Sidious", card.getTitle());
-		assertFalse(card.hasVirtualSuffix());
-		assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
-		assertEquals(Side.DARK, card.getSide());
+        assertEquals("Darth Sidious", card.getTitle());
+        assertFalse(card.hasVirtualSuffix());
+        assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
+        assertEquals(Side.DARK, card.getSide());
         assertFalse(card.hasAlternateImageSuffix());
-		assertEquals(1, card.getDestiny(), scn.epsilon);
-		assertEquals(6, card.getDeployCost(), scn.epsilon);
-		assertEquals(5, card.getPower(), scn.epsilon);
-		assertEquals(7, card.getAbility(), scn.epsilon);
-		assertEquals(8, card.getForfeit(), scn.epsilon);
-		scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
-			add(CardType.DARK_JEDI_MASTER);
-		}});
-		scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
-			//null
-		}});
-		scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
-			add(Persona.SIDIOUS);
-		}});
-		scn.BlueprintIconCheck(card, new ArrayList<>() {{
-			add(Icon.DARK_JEDI_MASTER);
-			add(Icon.WARRIOR);
-			add(Icon.THEED_PALACE);
-			add(Icon.EPISODE_I);
-		}});
-		assertEquals(ExpansionSet.THEED_PALACE,card.getExpansionSet());
-		assertEquals(Rarity.R,card.getRarity());
-	}
+        assertEquals(1, card.getDestiny(), scn.epsilon);
+        assertEquals(6, card.getDeployCost(), scn.epsilon);
+        assertEquals(5, card.getPower(), scn.epsilon);
+        assertEquals(7, card.getAbility(), scn.epsilon);
+        assertEquals(8, card.getForfeit(), scn.epsilon);
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.DARK_JEDI_MASTER);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+            //null
+        }});
+        scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
+            add(Persona.SIDIOUS);
+        }});
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.DARK_JEDI_MASTER);
+            add(Icon.WARRIOR);
+            add(Icon.THEED_PALACE);
+            add(Icon.EPISODE_I);
+        }});
+        assertEquals(ExpansionSet.THEED_PALACE,card.getExpansionSet());
+        assertEquals(Rarity.R,card.getRarity());
+    }
 
-	@Test
-	public void DarthSidiousMayPlaceLostJediOutOfPlay() {
+    @Test
+    public void DarthSidiousMayPlaceLostJediOutOfPlay() {
         //tests basic functionality of action1
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var luke = scn.GetLSCard("luke");
+        var luke = scn.GetLSCard("luke");
 
-		var vader = scn.GetDSCard("vader");
+        var vader = scn.GetDSCard("vader");
         var sidious = scn.GetDSCard("sidious");
 
         var site1 = scn.GetDSStartingLocation();
@@ -122,7 +122,7 @@ public class Card_14_078_Tests {
 
         scn.StartGame();
 
-		scn.MoveCardsToLocation(site1, sidious);
+        scn.MoveCardsToLocation(site1, sidious);
         scn.MoveCardsToLocation(site2, vader, luke);
 
         scn.SkipToPhase(Phase.BATTLE);

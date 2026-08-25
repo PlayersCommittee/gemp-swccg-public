@@ -20,83 +20,83 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_8_110_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                     put("odds", "4_027"); //never tell me the odds
-				}},
-				new HashMap<>()
-				{{
+                }},
+                new HashMap<>()
+                {{
                     put("vesden", "8_110"); //navy trooper vesden
                     put("u3p0", "2_107");
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void NavyTrooperVesdenStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: Navy Trooper Vesden
-		 * Uniqueness: Unique
-		 * Side: Dark
-		 * Type: Character
-		 * Subtype: Imperial
-		 * Destiny: 3
-		 * Deploy: 2
-		 * Power: 2
-		 * Ability: 1
-		 * Forfeit: 3
-		 * Icons: Endor
+    @Test
+    public void NavyTrooperVesdenStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Navy Trooper Vesden
+         * Uniqueness: Unique
+         * Side: Dark
+         * Type: Character
+         * Subtype: Imperial
+         * Destiny: 3
+         * Deploy: 2
+         * Power: 2
+         * Ability: 1
+         * Forfeit: 3
+         * Icons: Endor
          * Keywords:
-		 * Persona:
+         * Persona:
          * Game Text: If present with a Scomp link when Never Tell Me The Odds just reached the top of your
          *      Reserve Deck, may 'shield' (add 3 to destiny number of) one of your characters at each location
          *      for remainder of turn.
-		 * Lore: Counterintelligence agent assigned by ISB. Operates sensors designed to protect the control bunker
+         * Lore: Counterintelligence agent assigned by ISB. Operates sensors designed to protect the control bunker
          *      from infiltration.
-		 * Set: Endor
-		 * Rarity: U
-		 */
+         * Set: Endor
+         * Rarity: U
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetDSCard("vesden").getBlueprint();
+        var card = scn.GetDSCard("vesden").getBlueprint();
 
-		assertEquals("Navy Trooper Vesden", card.getTitle());
-		assertFalse(card.hasVirtualSuffix());
-		assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
-		assertEquals(Side.DARK, card.getSide());
-		assertEquals(3, card.getDestiny(), scn.epsilon);
-		assertEquals(2, card.getDeployCost(), scn.epsilon);
-		assertEquals(2, card.getPower(), scn.epsilon);
-		assertEquals(1, card.getAbility(), scn.epsilon);
-		assertEquals(3, card.getForfeit(), scn.epsilon);
-		scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
-			add(CardType.IMPERIAL);
-		}});
+        assertEquals("Navy Trooper Vesden", card.getTitle());
+        assertFalse(card.hasVirtualSuffix());
+        assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
+        assertEquals(Side.DARK, card.getSide());
+        assertEquals(3, card.getDestiny(), scn.epsilon);
+        assertEquals(2, card.getDeployCost(), scn.epsilon);
+        assertEquals(2, card.getPower(), scn.epsilon);
+        assertEquals(1, card.getAbility(), scn.epsilon);
+        assertEquals(3, card.getForfeit(), scn.epsilon);
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.IMPERIAL);
+        }});
         scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
             add(Keyword.TROOPER);
-		}});
-		scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
-		}});
-		scn.BlueprintIconCheck(card, new ArrayList<>() {{
+        }});
+        scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
+        }});
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
             add(Icon.WARRIOR);
-			add(Icon.IMPERIAL);
-			add(Icon.ENDOR);
-		}});
-		assertEquals(ExpansionSet.ENDOR,card.getExpansionSet());
-		assertEquals(Rarity.U,card.getRarity());
-	}
+            add(Icon.IMPERIAL);
+            add(Icon.ENDOR);
+        }});
+        assertEquals(ExpansionSet.ENDOR,card.getExpansionSet());
+        assertEquals(Rarity.U,card.getRarity());
+    }
 
     @Test
     public void NavyTrooperVesdenMayShieldWhenOddsRevealed() {

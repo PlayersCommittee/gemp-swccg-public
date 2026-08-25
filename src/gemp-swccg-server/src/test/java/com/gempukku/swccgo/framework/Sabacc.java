@@ -17,13 +17,13 @@ public interface Sabacc extends TestBase {
     }
 
     /**
-	 * Checks current Sabacc hand total for DS player.  Unassigned value cards (wild and clone)
-	 * have a value of -1 each.
-	 * @return int value of DS Sabacc total
-	 */
-	default int GetDSSabaccTotal() {
+     * Checks current Sabacc hand total for DS player.  Unassigned value cards (wild and clone)
+     * have a value of -1 each.
+     * @return int value of DS Sabacc total
+     */
+    default int GetDSSabaccTotal() {
         return GetSabaccTotal(DS);
-	}
+    }
 
     /**
      * Checks current Sabacc hand total for LS player.  Unassigned value cards (wild and clone)

@@ -25,105 +25,105 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_110_003_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-					put("seethree", "110_003");
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
+                    put("seethree", "110_003");
                     put("seethree_2", "110_003");
-					put("c3p0", "1_005"); //premiere
+                    put("c3p0", "1_005"); //premiere
                     put("c3p0_2", "1_005"); //premiere
                     put("agift", "6_052");
                     put("jp", "7_131"); //jabba's palace
                     put("jp_ac", "6_081"); //audience chamber
-				}},
-				new HashMap<>()
-				{{
+                }},
+                new HashMap<>()
+                {{
                     put("stormtrooper", "1_194");
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void SeeThreepioStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: See-Threepio
-		 * Uniqueness: Unique
-		 * Side: Light
-		 * Type: Character
-		 * Subtype: Droid
-		 * Destiny: 2
-		 * Deploy: 3
-		 * Power: 1
-		 * Ability: 0
-		 * Forfeit: 4
-		 * Icons: Premium
-		 * Persona: C-3P0
-		 * Game Text: Deploys only to a Jabba's Palace site. Once per game, when replacing another C-3PO,
+    @Test
+    public void SeeThreepioStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: See-Threepio
+         * Uniqueness: Unique
+         * Side: Light
+         * Type: Character
+         * Subtype: Droid
+         * Destiny: 2
+         * Deploy: 3
+         * Power: 1
+         * Ability: 0
+         * Forfeit: 4
+         * Icons: Premium
+         * Persona: C-3P0
+         * Game Text: Deploys only to a Jabba's Palace site. Once per game, when replacing another C-3PO,
          *      retrieve 3 Force. When in battle with your other droid and a Rebel, adds one battle destiny.
          *      R2-D2 deploys and moves for free to same location.
-		 * Lore: C-3PO was Jabba's 'khan chita,' or translator. Survived more battles than most members of the Alliance.
+         * Lore: C-3PO was Jabba's 'khan chita,' or translator. Survived more battles than most members of the Alliance.
          *      Wasn't informed of R2-D2's role in the rescue of Han.
-		 * Set: Enhanced Jabba's Palace
-		 * Rarity: PM
-		 */
+         * Set: Enhanced Jabba's Palace
+         * Rarity: PM
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetLSCard("seethree").getBlueprint();
+        var card = scn.GetLSCard("seethree").getBlueprint();
 
-		assertEquals("See-Threepio", card.getTitle());
-		assertFalse(card.hasVirtualSuffix());
-		assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
-		assertEquals(Side.LIGHT, card.getSide());
-		assertEquals(2, card.getDestiny(), scn.epsilon);
-		assertEquals(3, card.getDeployCost(), scn.epsilon);
-		assertEquals(1, card.getPower(), scn.epsilon);
-		assertEquals(0, card.getAbility(), scn.epsilon);
-		assertEquals(4, card.getForfeit(), scn.epsilon);
-		scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
-			add(CardType.DROID);
-		}});
-		scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+        assertEquals("See-Threepio", card.getTitle());
+        assertFalse(card.hasVirtualSuffix());
+        assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
+        assertEquals(Side.LIGHT, card.getSide());
+        assertEquals(2, card.getDestiny(), scn.epsilon);
+        assertEquals(3, card.getDeployCost(), scn.epsilon);
+        assertEquals(1, card.getPower(), scn.epsilon);
+        assertEquals(0, card.getAbility(), scn.epsilon);
+        assertEquals(4, card.getForfeit(), scn.epsilon);
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.DROID);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
             //null
-		}});
+        }});
         scn.BlueprintModelTypeCheck(card, new ArrayList<>() {{
             add(ModelType.PROTOCOL);
         }});
-		scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
+        scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
             add(Persona.C3PO);
-		}});
-		scn.BlueprintIconCheck(card, new ArrayList<>() {{
-			add(Icon.DROID);
-			add(Icon.PREMIUM);
-		}});
-		assertEquals(ExpansionSet.ENHANCED_JABBAS_PALACE,card.getExpansionSet());
-		assertEquals(Rarity.PM,card.getRarity());
-	}
+        }});
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.DROID);
+            add(Icon.PREMIUM);
+        }});
+        assertEquals(ExpansionSet.ENHANCED_JABBAS_PALACE,card.getExpansionSet());
+        assertEquals(Rarity.PM,card.getRarity());
+    }
 
     //this test demonstrates bug https://github.com/PlayersCommittee/gemp-swccg-public/issues/894
-	@Test @Ignore
-	public void SeeThreepioRetrieves3Force() {
+    @Test @Ignore
+    public void SeeThreepioRetrieves3Force() {
         //Test1: persona replace C-3P0 and verify retrieval works
         //Test2: retrieval occurs before persona replacement (CURRENTLY FAILS)
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var seethree = scn.GetLSCard("seethree");
-		var c3p0 = scn.GetLSCard("c3p0");
-		var jp_ac = scn.GetLSCard("jp_ac");
+        var seethree = scn.GetLSCard("seethree");
+        var c3p0 = scn.GetLSCard("c3p0");
+        var jp_ac = scn.GetLSCard("jp_ac");
 
-		scn.StartGame();
+        scn.StartGame();
 
-		scn.MoveLocationToTable(jp_ac);
+        scn.MoveLocationToTable(jp_ac);
         scn.MoveCardsToLocation(jp_ac,c3p0);
 
         scn.MoveCardsToLSHand(seethree);

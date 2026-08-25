@@ -21,10 +21,10 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class Card_7_127_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                     put("spaceport_street", "7_127");
                     put("spaceport_db", "7_126");
                     put("spaceport_city", "7_125");
@@ -32,22 +32,22 @@ public class Card_7_127_Tests {
                     put("kessel","1_126");
                     put("lars_farm","1_132");
                     put("boushh","110_001");
-				}},
-				new HashMap<>()
-				{{
+                }},
+                new HashMap<>()
+                {{
                     put("spaceport_prefect", "7_290");
-				}},
-				40,
-				40,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                40,
+                40,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
 
     @Test
@@ -97,8 +97,8 @@ public class Card_7_127_Tests {
         assertEquals(Rarity.F, card.getRarity());
     }
 
-	@Test
-	public void SpaceportStreetLSCanRelocateToRelatedSpaceportSiteTest() {
+    @Test
+    public void SpaceportStreetLSCanRelocateToRelatedSpaceportSiteTest() {
         //test1: Can use LS text to target to relocate to related spaceport site
         //test2: Cannot use LS text to target to relocate to same site
         //test3: Cannot use LS text to target to relocate to unrelated spaceport site
@@ -107,7 +107,7 @@ public class Card_7_127_Tests {
         //test6: Relocation is free
         var scn = GetScenario();
 
-		var rebeltrooper = scn.GetLSFiller(1);
+        var rebeltrooper = scn.GetLSFiller(1);
         var tat = scn.GetLSCard("tat");
         var kessel = scn.GetLSCard("kessel");
         var spaceport_street = scn.GetLSCard("spaceport_street");

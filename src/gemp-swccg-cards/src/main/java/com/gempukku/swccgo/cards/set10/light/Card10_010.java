@@ -60,65 +60,65 @@ public class Card10_010 extends AbstractRebel {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-    	Filter vehicleHereFilter = Filters.and(Filters.vehicle, Filters.here(self), Filters.hasAnyImmunityToAttrition);
-    	if (GameConditions.canTarget(game, self, vehicleHereFilter)) {
+        Filter vehicleHereFilter = Filters.and(Filters.vehicle, Filters.here(self), Filters.hasAnyImmunityToAttrition);
+        if (GameConditions.canTarget(game, self, vehicleHereFilter)) {
 
-    		final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-    		action.setText("Cancel immunity to attrition of a vehicle");
-    		// Choose target(s)
-    		action.appendTargeting(
-    				new TargetCardOnTableEffect(action, playerId, "Choose vehicle", vehicleHereFilter) {
-    					@Override
-    					protected void cardTargeted(final int targetGroupId, final PhysicalCard cardTargeted) {
-    						action.addAnimationGroup(cardTargeted);
-    						// Allow response(s)
-    						action.allowResponses("Cancel " + GameUtils.getCardLink(cardTargeted) + "'s immunity to attrition",
-    								new UnrespondableEffect(action) {
-    							@Override
-    							protected void performActionResults(Action targetingAction) {
-    								// Perform result(s)
-    								action.appendEffect(
-    										new AddUntilEndOfGameModifierEffect (action,
-    												new CancelImmunityToAttritionModifier(self, cardTargeted),
-    												"Cancels " + GameUtils.getCardLink(cardTargeted) + "'s immunity to attrition")
-    										);
-    							}
-    						}
-    						);
-    					}
-    				}
-    				);
-    		return Collections.singletonList(action);
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
+            action.setText("Cancel immunity to attrition of a vehicle");
+            // Choose target(s)
+            action.appendTargeting(
+                    new TargetCardOnTableEffect(action, playerId, "Choose vehicle", vehicleHereFilter) {
+                        @Override
+                        protected void cardTargeted(final int targetGroupId, final PhysicalCard cardTargeted) {
+                            action.addAnimationGroup(cardTargeted);
+                            // Allow response(s)
+                            action.allowResponses("Cancel " + GameUtils.getCardLink(cardTargeted) + "'s immunity to attrition",
+                                    new UnrespondableEffect(action) {
+                                @Override
+                                protected void performActionResults(Action targetingAction) {
+                                    // Perform result(s)
+                                    action.appendEffect(
+                                            new AddUntilEndOfGameModifierEffect (action,
+                                                    new CancelImmunityToAttritionModifier(self, cardTargeted),
+                                                    "Cancels " + GameUtils.getCardLink(cardTargeted) + "'s immunity to attrition")
+                                            );
+                                }
+                            }
+                            );
+                        }
+                    }
+                    );
+            return Collections.singletonList(action);
 
-    	}
-    	return null;
+        }
+        return null;
     }
 
-    
+
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActionsWhenInactiveInPlay(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
-    	if(!GameConditions.isOnlyCaptured(game, self))
-    		return null;
-    	
-    	
-    	GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_DEFAULT;
-    	
-    	final PhysicalCard escortedBy = Filters.findFirstActive(game, self, Filters.and(Filters.Vader,Filters.escort,Filters.escorting(self)));
-    	final PhysicalCard dsIIThroneRoom = Filters.findFirstFromTopLocationsOnTable(game, Filters.title("Death Star II: Throne Room"));
-    	
-    	
-    	if(escortedBy!=null
-    			&& dsIIThroneRoom!=null
-    			&& GameConditions.isDuringYourPhase(game, self, Phase.MOVE)
-    			&& GameConditions.canSpot(game, self, Filters.Take_Your_Fathers_Place)
-    			&& GameConditions.canSpot(game, self, Filters.title("Death Star II: Throne Room"))
-    			&& GameConditions.canTarget(game, self, escortedBy)
-    			&& Filters.canBeRelocatedToLocation(dsIIThroneRoom, false, true, true, 0, false).accepts(game, escortedBy)
-    			&& Filters.canBeRelocatedToLocation(dsIIThroneRoom, false, true, true, 0, false).accepts(game, self)
-    			) {
+        if(!GameConditions.isOnlyCaptured(game, self))
+            return null;
 
-    		final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
-    		action.setText("Relocate Vader and Luke to Throne Room");
+
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_DEFAULT;
+
+        final PhysicalCard escortedBy = Filters.findFirstActive(game, self, Filters.and(Filters.Vader,Filters.escort,Filters.escorting(self)));
+        final PhysicalCard dsIIThroneRoom = Filters.findFirstFromTopLocationsOnTable(game, Filters.title("Death Star II: Throne Room"));
+
+
+        if(escortedBy!=null
+                && dsIIThroneRoom!=null
+                && GameConditions.isDuringYourPhase(game, self, Phase.MOVE)
+                && GameConditions.canSpot(game, self, Filters.Take_Your_Fathers_Place)
+                && GameConditions.canSpot(game, self, Filters.title("Death Star II: Throne Room"))
+                && GameConditions.canTarget(game, self, escortedBy)
+                && Filters.canBeRelocatedToLocation(dsIIThroneRoom, false, true, true, 0, false).accepts(game, escortedBy)
+                && Filters.canBeRelocatedToLocation(dsIIThroneRoom, false, true, true, 0, false).accepts(game, self)
+                ) {
+
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Relocate Vader and Luke to Throne Room");
             action.allowResponses("Relocate " + GameUtils.getCardLink(escortedBy) + " to " + GameUtils.getCardLink(dsIIThroneRoom),
                     new UnrespondableEffect(action) {
                         @Override
@@ -129,9 +129,9 @@ public class Card10_010 extends AbstractRebel {
                         }
                     }
             );
-   		
-    		return Collections.singletonList(action);
-    	}
-    	return null;
+
+            return Collections.singletonList(action);
+        }
+        return null;
     }
 }

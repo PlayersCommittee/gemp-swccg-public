@@ -12,42 +12,42 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ReactAwayTests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-					put("arcona", "2_001");
-					put("planetary", "13_038"); //planetary defenses
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
+                    put("arcona", "2_001");
+                    put("planetary", "13_038"); //planetary defenses
                     put("cantina","1_128");
-				}},
-				new HashMap<>()
-				{{
+                }},
+                new HashMap<>()
+                {{
                     put("barge","6_172"); //Jabba's Sail Barge
                     put("deck","6_167"); //Jabba's Sail Barge: Passenger Deck
                 }},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void ReactAwayFromBattle() {
-		var scn = GetScenario();
+    @Test
+    public void ReactAwayFromBattle() {
+        var scn = GetScenario();
 
-		var arcona = scn.GetLSCard("arcona");
+        var arcona = scn.GetLSCard("arcona");
         var cantina = scn.GetLSCard("cantina");
 
         var adjacentsite = scn.GetDSStartingLocation(); //tatooine site
         var trooper = scn.GetDSFiller(1);
 
-		scn.StartGame();
+        scn.StartGame();
 
         scn.MoveLocationToTable(cantina);
 
@@ -65,7 +65,7 @@ public class ReactAwayTests {
         scn.PassAllResponses();
         assertAtLocation(adjacentsite,arcona);
         assertTrue(scn.AwaitingLSBattlePhaseActions());
-	}
+    }
 
     @Test
     public void ReactAwayFromBattleWithDefensiveShield() {

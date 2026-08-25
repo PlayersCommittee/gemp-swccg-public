@@ -26,101 +26,101 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 public class Card_6_022_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-					put("kalit", "6_022");
-					put("siesta1", "1_051"); //jawa siesta
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
+                    put("kalit", "6_022");
+                    put("siesta1", "1_051"); //jawa siesta
                     put("siesta2", "1_051"); //jawa siesta
                     put("rebeltrooper", "1_028");
-					put("cantina", "1_128");  //tatooine: cantina
-				}},
-				new HashMap<>()
-				{{
-					put("stunning_leader", "2_140");
+                    put("cantina", "1_128");  //tatooine: cantina
+                }},
+                new HashMap<>()
+                {{
+                    put("stunning_leader", "2_140");
                     put("stormtrooper", "1_194");
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void KalitStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: Kalit
-		 * Uniqueness: Unique
-		 * Side: Light
-		 * Type: Character
-		 * Subtype: Alien
-		 * Destiny: 2
-		 * Deploy: 3
-		 * Power: 2
-		 * Ability: 2
-		 * Forfeit: 3
-		 * Icons: Jabba's Palace
-		 * Persona: none
-		 * Game Text: Deploys only on Tatooine. Your Jawa Siesta is not unique (•), is doubled, deploys free
+    @Test
+    public void KalitStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Kalit
+         * Uniqueness: Unique
+         * Side: Light
+         * Type: Character
+         * Subtype: Alien
+         * Destiny: 2
+         * Deploy: 3
+         * Power: 2
+         * Ability: 2
+         * Forfeit: 3
+         * Icons: Jabba's Palace
+         * Persona: none
+         * Game Text: Deploys only on Tatooine. Your Jawa Siesta is not unique (•), is doubled, deploys free
          *      (or for 6 Force from each player) and cumulatively affects your Jawas' forfeit. While at Audience
          *      Chamber or Jawa Camp, all your other Jawas are power +2.
-		 * Lore: Jawa leader. Seeking to peacefully settle a long standing disagreement with his rival, Wittin.
+         * Lore: Jawa leader. Seeking to peacefully settle a long standing disagreement with his rival, Wittin.
          *      Wants Jabba to mediate their talks.
-		 * Set: Jabba's Palace
-		 * Rarity: R
-		 */
+         * Set: Jabba's Palace
+         * Rarity: R
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetLSCard("kalit").getBlueprint();
+        var card = scn.GetLSCard("kalit").getBlueprint();
 
-		assertEquals("Kalit", card.getTitle());
-		assertFalse(card.hasVirtualSuffix());
-		assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
-		assertEquals(Side.LIGHT, card.getSide());
-		assertEquals(2, card.getDestiny(), scn.epsilon);
-		assertEquals(3, card.getDeployCost(), scn.epsilon);
-		assertEquals(2, card.getPower(), scn.epsilon);
-		assertEquals(2, card.getAbility(), scn.epsilon);
-		assertEquals(3, card.getForfeit(), scn.epsilon);
-		scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
-			add(CardType.ALIEN);
-		}});
-		scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+        assertEquals("Kalit", card.getTitle());
+        assertFalse(card.hasVirtualSuffix());
+        assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
+        assertEquals(Side.LIGHT, card.getSide());
+        assertEquals(2, card.getDestiny(), scn.epsilon);
+        assertEquals(3, card.getDeployCost(), scn.epsilon);
+        assertEquals(2, card.getPower(), scn.epsilon);
+        assertEquals(2, card.getAbility(), scn.epsilon);
+        assertEquals(3, card.getForfeit(), scn.epsilon);
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.ALIEN);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
             add(Keyword.LEADER);
-		}});
+        }});
         assertEquals(Species.JAWA,card.getSpecies());
-		scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
+        scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
             //null
-		}});
-		scn.BlueprintIconCheck(card, new ArrayList<>() {{
-			add(Icon.ALIEN);
-			add(Icon.JABBAS_PALACE);
-		}});
-		assertEquals(ExpansionSet.JABBAS_PALACE,card.getExpansionSet());
-		assertEquals(Rarity.R,card.getRarity());
-	}
+        }});
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.ALIEN);
+            add(Icon.JABBAS_PALACE);
+        }});
+        assertEquals(ExpansionSet.JABBAS_PALACE,card.getExpansionSet());
+        assertEquals(Rarity.R,card.getRarity());
+    }
 
-	@Test
-	public void KalitMakesJawaSiestaNotUnique() {
-		var scn = GetScenario();
+    @Test
+    public void KalitMakesJawaSiestaNotUnique() {
+        var scn = GetScenario();
 
-		var kalit = scn.GetLSCard("kalit");
-		var cantina = scn.GetLSCard("cantina");
+        var kalit = scn.GetLSCard("kalit");
+        var cantina = scn.GetLSCard("cantina");
 
-		var siesta1 = scn.GetLSCard("siesta1");
+        var siesta1 = scn.GetLSCard("siesta1");
         var siesta2 = scn.GetLSCard("siesta2");
 
-		scn.StartGame();
+        scn.StartGame();
 
-		scn.MoveLocationToTable(cantina);
+        scn.MoveLocationToTable(cantina);
         scn.MoveCardsToLSSideOfTable(siesta1);
 
         scn.MoveCardsToLSHand(kalit,siesta2);

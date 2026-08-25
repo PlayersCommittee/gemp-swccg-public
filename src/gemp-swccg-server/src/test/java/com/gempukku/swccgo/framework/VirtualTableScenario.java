@@ -107,7 +107,7 @@ public class VirtualTableScenario implements TestBase, Actions, AdHocEffects, Ba
         LSCards.putAll(LSDestinyPack);
         DSCards.putAll(DSDestinyPack);
 
-		LSCards.putAll(this.LSObjectiveOrLocation.Cards());
+        LSCards.putAll(this.LSObjectiveOrLocation.Cards());
         DSCards.putAll(this.DSObjectiveOrLocation.Cards());
 
         // Now that all the helper parameters have been stuffed into the decklist, we now populate an actual deck for each player.

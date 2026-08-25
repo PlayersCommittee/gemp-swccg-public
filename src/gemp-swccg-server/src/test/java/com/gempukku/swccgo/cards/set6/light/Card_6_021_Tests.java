@@ -25,101 +25,101 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_6_021_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-					put("jess", "6_021");
-					put("chewie", "2_003"); //ls alien - ability 2
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
+                    put("jess", "6_021");
+                    put("chewie", "2_003"); //ls alien - ability 2
                     put("corellian", "2_006"); //ls female alien - ability 1
-				}},
-				new HashMap<>()
-				{{
-					put("drE", "1_172"); //ds alien - ability 2
+                }},
+                new HashMap<>()
+                {{
+                    put("drE", "1_172"); //ds alien - ability 2
                     put("dannik", "2_084"); //ds alien - ability 3
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void JessStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: Jess
-		 * Uniqueness: Unique
-		 * Side: Light
-		 * Type: Character
-		 * Subtype: Alien
-		 * Destiny: 1
-		 * Deploy: 3
-		 * Power: 1
-		 * Ability: 2
-		 * Forfeit: 3
-		 * Icons: Warrior, Jabba's Palace
-		 * Persona:
+    @Test
+    public void JessStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Jess
+         * Uniqueness: Unique
+         * Side: Light
+         * Type: Character
+         * Subtype: Alien
+         * Destiny: 1
+         * Deploy: 3
+         * Power: 1
+         * Ability: 2
+         * Forfeit: 3
+         * Icons: Warrior, Jabba's Palace
+         * Persona:
          * Keywords: Musician, Female
-		 * Game Text: May retrieve 1 Force each time you deploy a musician to same site. During your turn,
+         * Game Text: May retrieve 1 Force each time you deploy a musician to same site. During your turn,
          *      may use 1 Force to 'charm' one male alien of ability < 3 present; that male is forfeit = 0
          *      for remainder of turn.
-		 * Lore: Popular musician. Often seen with Bib Fortuna. Captivates those around her.
+         * Lore: Popular musician. Often seen with Bib Fortuna. Captivates those around her.
          *      Hoping to join a band and leave Jabba's palace.
-		 * Set: Jabba's Palace
-		 * Rarity: R
-		 */
+         * Set: Jabba's Palace
+         * Rarity: R
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetLSCard("jess").getBlueprint();
+        var card = scn.GetLSCard("jess").getBlueprint();
 
-		assertEquals("Jess", card.getTitle());
-		assertFalse(card.hasVirtualSuffix());
-		assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
-		assertEquals(Side.LIGHT, card.getSide());
-		assertEquals(1, card.getDestiny(), scn.epsilon);
-		assertEquals(3, card.getDeployCost(), scn.epsilon);
-		assertEquals(1, card.getPower(), scn.epsilon);
-		assertEquals(2, card.getAbility(), scn.epsilon);
-		assertEquals(3, card.getForfeit(), scn.epsilon);
-		scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
-			add(CardType.ALIEN);
-		}});
-		scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
-			add(Keyword.MUSICIAN);
+        assertEquals("Jess", card.getTitle());
+        assertFalse(card.hasVirtualSuffix());
+        assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
+        assertEquals(Side.LIGHT, card.getSide());
+        assertEquals(1, card.getDestiny(), scn.epsilon);
+        assertEquals(3, card.getDeployCost(), scn.epsilon);
+        assertEquals(1, card.getPower(), scn.epsilon);
+        assertEquals(2, card.getAbility(), scn.epsilon);
+        assertEquals(3, card.getForfeit(), scn.epsilon);
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.ALIEN);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+            add(Keyword.MUSICIAN);
             add(Keyword.FEMALE);
-		}});
-		scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
-			//null
-		}});
-		scn.BlueprintIconCheck(card, new ArrayList<>() {{
+        }});
+        scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
+            //null
+        }});
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
             add(Icon.ALIEN);
-			add(Icon.WARRIOR);
-			add(Icon.JABBAS_PALACE);
-		}});
-		assertEquals(ExpansionSet.JABBAS_PALACE,card.getExpansionSet());
-		assertEquals(Rarity.R,card.getRarity());
-	}
+            add(Icon.WARRIOR);
+            add(Icon.JABBAS_PALACE);
+        }});
+        assertEquals(ExpansionSet.JABBAS_PALACE,card.getExpansionSet());
+        assertEquals(Rarity.R,card.getRarity());
+    }
 
-	@Test
-	public void JessCanCharmMaleAlienWithAbilityLessThan3() {
-		var scn = GetScenario();
+    @Test
+    public void JessCanCharmMaleAlienWithAbilityLessThan3() {
+        var scn = GetScenario();
 
-		var jess = scn.GetLSCard("jess");
-		var chewie = scn.GetLSCard("chewie");
+        var jess = scn.GetLSCard("jess");
+        var chewie = scn.GetLSCard("chewie");
         var site = scn.GetLSStartingLocation();
 
-		var drE = scn.GetDSCard("drE");
+        var drE = scn.GetDSCard("drE");
 
-		scn.StartGame();
+        scn.StartGame();
 
-		scn.MoveCardsToLocation(site, jess, chewie,drE);
+        scn.MoveCardsToLocation(site, jess, chewie,drE);
 
         scn.SkipToLSTurn(Phase.CONTROL);
         assertTrue(scn.GetLSForcePileCount() >= 1); //enough to use game text
@@ -127,7 +127,7 @@ public class Card_6_021_Tests {
         scn.LSUseCardAction(jess);
         assertTrue(scn.LSHasCardChoiceAvailable(drE)); //can target opponent male alien, ability < 3
         assertTrue(scn.LSHasCardChoiceAvailable(chewie)); //can target self's male alien, ability < 3
-	}
+    }
 
     @Test
     public void JessCannotCharmDuringOpponentTurn() {

@@ -21,72 +21,72 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_5_060_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                     put("pirates","5_060"); //Old Pirates
                     put("han","1_011");
                     put("ls_lando","5_005");
                 }},
-				new HashMap<>()
-				{{
+                new HashMap<>()
+                {{
                     put("ds_lando", "5_099");
                     put("barrier","1_249");
                     //put("swindler","5_137"); //Double-Crossing, No-Good Swindler (not implemented yet)
                 }},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void OldPiratesStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: Old Pirates
-		 * Uniqueness: Unique
-		 * Side: Light
-		 * Type: Interrupt
+    @Test
+    public void OldPiratesStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Old Pirates
+         * Uniqueness: Unique
+         * Side: Light
+         * Type: Interrupt
          * Subtype: Lost
-		 * Destiny: 5
-		 * Icons: Cloud City
-		 * Game Text: If a battle was just initiated involving Han and any Lando, the eventual loser of the battle
+         * Destiny: 5
+         * Icons: Cloud City
+         * Game Text: If a battle was just initiated involving Han and any Lando, the eventual loser of the battle
          *      may not lose cards from Life Force to satisfy battle damage while that player has any cards in hand.
          *      OR Cancel Double-Crossing, No-Good Swindler.
-		 * Lore: 'How you doing, you old pirate? So good to see you.'
-		 * Set: Cloud City
-		 * Rarity: R
-		 */
+         * Lore: 'How you doing, you old pirate? So good to see you.'
+         * Set: Cloud City
+         * Rarity: R
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetLSCard("pirates").getBlueprint();
+        var card = scn.GetLSCard("pirates").getBlueprint();
 
-		assertEquals("Old Pirates", card.getTitle());
-		assertFalse(card.hasVirtualSuffix());
-		assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
-		assertEquals(Side.LIGHT, card.getSide());
-		assertEquals(5, card.getDestiny(), scn.epsilon);
-		scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
-			add(CardType.INTERRUPT);
-		}});
+        assertEquals("Old Pirates", card.getTitle());
+        assertFalse(card.hasVirtualSuffix());
+        assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
+        assertEquals(Side.LIGHT, card.getSide());
+        assertEquals(5, card.getDestiny(), scn.epsilon);
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.INTERRUPT);
+        }});
         assertEquals(CardSubtype.LOST, card.getCardSubtype());
         scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
-		}});
-		scn.BlueprintIconCheck(card, new ArrayList<>() {{
-			add(Icon.CLOUD_CITY);
-			add(Icon.INTERRUPT);
-		}});
-		assertEquals(ExpansionSet.CLOUD_CITY,card.getExpansionSet());
-		assertEquals(Rarity.R,card.getRarity());
-	}
+        }});
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.CLOUD_CITY);
+            add(Icon.INTERRUPT);
+        }});
+        assertEquals(ExpansionSet.CLOUD_CITY,card.getExpansionSet());
+        assertEquals(Rarity.R,card.getRarity());
+    }
 
     @Test
     public void OldPiratesCanPlayIfBattleInitiatedWithHanAndLightLando() {
@@ -113,9 +113,9 @@ public class Card_5_060_Tests {
     }
 
     @Test
-	public void OldPiratesCanPlayIfBattleInitiatedWithHanAndDarkLando() {
+    public void OldPiratesCanPlayIfBattleInitiatedWithHanAndDarkLando() {
         //playable when DS initiates battle with LS Han, DS Lando in battle
-		var scn = GetScenario();
+        var scn = GetScenario();
 
         var pirates = scn.GetLSCard("pirates");
         var han = scn.GetLSCard("han");

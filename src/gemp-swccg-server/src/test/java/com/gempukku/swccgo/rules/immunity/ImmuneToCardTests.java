@@ -13,12 +13,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ImmuneToCardTests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-					put("demotion", "1_047");
-					put("revolution", "1_062");
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
+                    put("demotion", "1_047");
+                    put("revolution", "1_062");
                     put("fury","5_029"); //uncontrollable fury
                     put("yavin","1_135");
                     put("yavin_db","1_136");
@@ -26,39 +26,39 @@ public class ImmuneToCardTests {
                     put("corvette","1_140");
                     put("r2d2","2_014");
                     put("r3a2_v","217_045");
-				}},
-				new HashMap<>()
-				{{
-					put("weakvader", "101_005"); //power 4
-					put("lordvader", "9_113"); //immune to uncontrollable fury
+                }},
+                new HashMap<>()
+                {{
+                    put("weakvader", "101_005"); //power 4
+                    put("lordvader", "9_113"); //immune to uncontrollable fury
                     put("promotion", "4_121"); //field promotion (target is immune to demotion)
                     put("justice", "2_121"); //imperial justice (target is immune to revolution)
                     put("ozzel", "3_082");
                     put("war_room","1_287");
                     put("lateral_damage","1_222");
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void MayNotDeployOnImmuneTarget() {
-		//verifies:
-		//card A cannot be deployed on card B that already has immunity to card A
+    @Test
+    public void MayNotDeployOnImmuneTarget() {
+        //verifies:
+        //card A cannot be deployed on card B that already has immunity to card A
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var site = scn.GetLSStartingLocation();
+        var site = scn.GetLSStartingLocation();
 
-		var demotion = scn.GetLSCard("demotion");
+        var demotion = scn.GetLSCard("demotion");
 
         var ozzel = scn.GetDSCard("ozzel");
         var promotion = scn.GetDSCard("promotion");
@@ -66,10 +66,10 @@ public class ImmuneToCardTests {
 
         scn.StartGame();
 
-		scn.MoveCardsToLSHand(demotion);
+        scn.MoveCardsToLSHand(demotion);
         scn.MoveCardsToDSHand(promotion);
 
-		scn.MoveCardsToLocation(site,ozzel,lordvader);
+        scn.MoveCardsToLocation(site,ozzel,lordvader);
 
         scn.SkipToPhase(Phase.DEPLOY);
         assertTrue(scn.DSDeployAvailable(promotion));
@@ -81,11 +81,11 @@ public class ImmuneToCardTests {
         assertTrue(scn.IsAttachedTo(ozzel, promotion));
         assertEquals(4,scn.GetPower(ozzel)); //3 + 1 from promotion
 
-		scn.SkipToLSTurn(Phase.DEPLOY);
+        scn.SkipToLSTurn(Phase.DEPLOY);
 
         assertTrue(scn.GetLSForcePileCount() >= 2); //enough to play demotion
         assertFalse(scn.LSCardPlayAvailable(demotion)); //because ozzel is immune
-	}
+    }
 
     //shows fixed: https://github.com/PlayersCommittee/gemp-swccg-public/issues/845
     @Test

@@ -10,46 +10,46 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class SabaccTests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-					put("ls_trooper_sabacc", "7_109");
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
+                    put("ls_trooper_sabacc", "7_109");
                     put("ls_destiny5", "2_054"); //out of commision
                     put("ls_destiny3", "1_047"); //demotion
                     put("ls_clone", "1_005"); //c-3po (droid = clone card)
                 }},
-				new HashMap<>()
-				{{
-					put("ds_destiny5", "200_120"); //force push (V)
-					put("ds_destiny3", "209_035"); //dr. chelli
+                new HashMap<>()
+                {{
+                    put("ds_destiny5", "200_120"); //force push (V)
+                    put("ds_destiny3", "209_035"); //dr. chelli
                     put("ds_clone", "12_114"); //p-59 (droid = clone card)
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
     //unable to reproduce: https://github.com/PlayersCommittee/gemp-swccg-public/issues/58
-	@Test
-	public void SabaccCloneCardTarget() {
-		//verifies:
-		//clone card lets user choose a card to duplicate destiny value
+    @Test
+    public void SabaccCloneCardTarget() {
+        //verifies:
+        //clone card lets user choose a card to duplicate destiny value
         //clone card correctly duplicates target card's sabacc destiny value
         //able to complete sabacc game after resolving clone card value
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var site = scn.GetLSStartingLocation();
+        var site = scn.GetLSStartingLocation();
 
-		var ls_trooper_sabacc = scn.GetLSCard("ls_trooper_sabacc");
+        var ls_trooper_sabacc = scn.GetLSCard("ls_trooper_sabacc");
         var ls_clone = scn.GetLSCard("ls_clone");
         var ls_destiny3 = scn.GetLSCard("ls_destiny3");
         var ls_destiny5 = scn.GetLSCard("ls_destiny5");
@@ -61,7 +61,7 @@ public class SabaccTests {
 
         scn.StartGame();
 
-		scn.MoveCardsToLSHand(ls_clone); //prevent drawing for sabacc
+        scn.MoveCardsToLSHand(ls_clone); //prevent drawing for sabacc
         scn.MoveCardsToLSHand(ls_trooper_sabacc);
 
         //prepare sabacc draws:

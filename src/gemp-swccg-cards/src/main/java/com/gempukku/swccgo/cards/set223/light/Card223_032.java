@@ -66,8 +66,8 @@ public class Card223_032 extends AbstractRebel {
         if (TriggerConditions.justDeployedToLocation(game, effectResult, self, Filters.sameSiteAs(self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Filters.frozenCaptive, Filters.Han)))) {
             String playerId = self.getOwner();
 
-			final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-			action.setText("Leia may not battle");
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setText("Leia may not battle");
             action.setActionMsg("Prevent Leia from battling until the start of " + playerId + "'s next turn.");
             // Perform result(s)
             action.appendEffect(
@@ -77,7 +77,7 @@ public class Card223_032 extends AbstractRebel {
         }
         return actions;
     }
-	
+
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();

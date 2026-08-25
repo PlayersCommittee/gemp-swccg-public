@@ -21,30 +21,30 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class Card_218_017_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                     put("lev6", "218_017"); //Death Star: Level 6 Core Shaft Corridor (V)
                     put("ds_db", "1_124"); //Death Star: Docking Bay
                     put("finn", "204_006"); //(stormtrooper)
                     put("tk422v", "215_020"); //(spy, stormtrooper)
                     put("undercover", "2_040");
-				}},
-				new HashMap<>()
-				{{
-				}},
-				40,
-				40,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                new HashMap<>()
+                {{
+                }},
+                40,
+                40,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
     @Test
     public void DeathStarLevel6CoreShaftCorridorVStatsAndKeywordsAreCorrect() {
@@ -93,15 +93,15 @@ public class Card_218_017_Tests {
         assertEquals(Rarity.V, card.getRarity());
     }
 
-	@Test
-	public void DeathStarLevel6CoreShaftCorridorVStormtrooperMayReactToAdjacentTest() {
+    @Test
+    public void DeathStarLevel6CoreShaftCorridorVStormtrooperMayReactToAdjacentTest() {
         //test1: site action available to move stormtrooper (tk422v) at this site as a react to a force drain at adjacent site
         //test2: can select a stormtrooper to move over
         //test3: stormtrooper completed the move to the adjacent site
         //test4: force drain canceled
         var scn = GetScenario();
 
-		var tk422v = scn.GetLSCard("tk422v");
+        var tk422v = scn.GetLSCard("tk422v");
         var lev6 = scn.GetLSCard("lev6");
         var ds_db = scn.GetLSCard("ds_db");
 

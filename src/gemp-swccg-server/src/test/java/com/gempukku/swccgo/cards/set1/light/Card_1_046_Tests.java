@@ -22,64 +22,64 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_1_046_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-					put("plans", "1_046"); //death star plans
-					put("droid", "1_024"); // r2-x2
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
+                    put("plans", "1_046"); //death star plans
+                    put("droid", "1_024"); // r2-x2
                     put("droid2", "1_024"); // r2-x2
-					put("ds_site", "1_125"); // death star: trash compactor
+                    put("ds_site", "1_125"); // death star: trash compactor
                     put("ds_db", "1_124"); // death star: docking bay
                     put("yavin_db", "1_136"); // yavin 4: docking bay
                     put("ronto", "7_155"); // ronto (creature vehicle)
-				}},
-				new HashMap<>()
-				{{
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                new HashMap<>()
+                {{
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void DeathStarPlansStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: Death Star Plans
-		 * Uniqueness: Unique
-		 * Side: Light
-		 * Type: Effect
-		 * Subtype: Utinni
-		 * Destiny: 6
-		 * Icons: Effect
-		 * Game Text: Deploy on any Death Star site(except docking bay). Target one of your droids(not on Death Star).
+    @Test
+    public void DeathStarPlansStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Death Star Plans
+         * Uniqueness: Unique
+         * Side: Light
+         * Type: Effect
+         * Subtype: Utinni
+         * Destiny: 6
+         * Icons: Effect
+         * Game Text: Deploy on any Death Star site(except docking bay). Target one of your droids(not on Death Star).
          *      When target reaches Utinni Effect, 'steal' plans. If target then moves to any Yavin 4 site,
          *      draw 3 destiny. Retrieve that much lost Force. Lose Utinni Effect.
-		 * Lore: 'What's so important? What's he carrying?' 'The technical readouts of that battle station.
+         * Lore: 'What's so important? What's he carrying?' 'The technical readouts of that battle station.
          *      I only hope that when the data is analyzed, a weakness can be found.'
-		 * Set: Premiere
-		 * Rarity: R1
-		 */
+         * Set: Premiere
+         * Rarity: R1
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetLSCard("plans").getBlueprint();
+        var card = scn.GetLSCard("plans").getBlueprint();
 
-		assertEquals("Death Star Plans", card.getTitle());
-		assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
-		assertEquals(Side.LIGHT, card.getSide());
+        assertEquals("Death Star Plans", card.getTitle());
+        assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
+        assertEquals(Side.LIGHT, card.getSide());
         scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
             add(CardType.EFFECT);
         }});
-		assertEquals(CardSubtype.UTINNI, card.getCardSubtype());
-		assertEquals(6, card.getDestiny(), scn.epsilon);
+        assertEquals(CardSubtype.UTINNI, card.getCardSubtype());
+        assertEquals(6, card.getDestiny(), scn.epsilon);
         scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
             add(Keyword.UTINNI_EFFECT_THAT_RETRIEVES_FORCE);
         }});
@@ -91,23 +91,23 @@ public class Card_1_046_Tests {
         assertEquals(ExpansionSet.PREMIERE,card.getExpansionSet());
         assertEquals(Rarity.R1,card.getRarity());
 
-	}
+    }
 
-	@Test
-	public void DeathStarPlansDeploysOnDeathStarNonDockingBay() {
-		var scn = GetScenario();
+    @Test
+    public void DeathStarPlansDeploysOnDeathStarNonDockingBay() {
+        var scn = GetScenario();
 
-		var plans = scn.GetLSCard("plans");
+        var plans = scn.GetLSCard("plans");
         var ds_site = scn.GetLSCard("ds_site");
         var ds_db = scn.GetLSCard("ds_db");
         var yavin_db = scn.GetLSCard("yavin_db");
         var droid = scn.GetLSCard("droid");
 
-		var site = scn.GetLSStartingLocation();
+        var site = scn.GetLSStartingLocation();
 
-		scn.StartGame();
+        scn.StartGame();
 
-		scn.MoveCardsToLSHand(plans);
+        scn.MoveCardsToLSHand(plans);
 
         scn.MoveLocationToTable(ds_db);
         scn.MoveLocationToTable(ds_site);
@@ -115,7 +115,7 @@ public class Card_1_046_Tests {
 
         scn.MoveCardsToLocation(yavin_db,droid);
 
-		scn.SkipToLSTurn(Phase.DEPLOY);
+        scn.SkipToLSTurn(Phase.DEPLOY);
         assertTrue(scn.LSCardPlayAvailable(plans));
 
         scn.LSPlayCard(plans);
@@ -123,7 +123,7 @@ public class Card_1_046_Tests {
         assertFalse(scn.LSHasCardChoiceAvailable(ds_db));
         assertFalse(scn.LSHasCardChoiceAvailable(yavin_db));
         assertFalse(scn.LSHasCardChoiceAvailable(site));
-	}
+    }
 
     @Test
     public void DeathStarPlansTargetsDroidNotOnDeathStar() {

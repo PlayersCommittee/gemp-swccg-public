@@ -12,13 +12,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class NonCreatureAttackOnCreatureTests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                 }},
-				new HashMap<>()
-				{{
+                new HashMap<>()
+                {{
                     put("mynock", "4_110");
                     //put("mynock2", "4_110");
                     put("myo", "1_189"); //power 3, ability 1
@@ -30,20 +30,20 @@ public class NonCreatureAttackOnCreatureTests {
                     put("tiescout3","1_305");
                     put("tiescout4","1_305");
                 }},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void InitiateAttackTimingTest() {
+    @Test
+    public void InitiateAttackTimingTest() {
         //Test1: self (creature owner) cannot attack during their turn in non-battle phase
         //Test2: self (creature owner) can attack during battle phase
         //Test3: opponent cannot attack during self battle phase

@@ -21,33 +21,33 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class Card_4_159_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
                     put("tat","1_127");
                     put("kessel","1_126");
                     put("corvette","1_140"); //Corellian Corvette
                     put("ywing","1_147");
-				}},
-				new HashMap<>()
-				{{
+                }},
+                new HashMap<>()
+                {{
                     put("comm", "4_159"); //Executor: Comm Station
                     put("executor", "4_167"); //Executor
                     put("vcsd", "2_155"); //Victory-Class Star Destroyer
                     put("tarkin","1_179"); //Grand Moff Tarkin
-				}},
-				40,
-				40,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                40,
+                40,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
 
     @Test
@@ -96,15 +96,15 @@ public class Card_4_159_Tests {
         assertEquals(Rarity.U, card.getRarity());
     }
 
-	@Test
-	public void ExecutorCommStationDSCanMoveAsReactToExecutorsSystemTest() {
+    @Test
+    public void ExecutorCommStationDSCanMoveAsReactToExecutorsSystemTest() {
         //test1: Can use DS text to have starship move as react to Executor's system
         //test2: Can choose a starship in range to react
         //test3: Selected starship completed movement
         //test4: Movement was not free (regular move cost)
         var scn = GetScenario();
 
-		var corvette = scn.GetLSCard("corvette");
+        var corvette = scn.GetLSCard("corvette");
         var tat = scn.GetLSCard("tat");
         var kessel = scn.GetLSCard("kessel");
 

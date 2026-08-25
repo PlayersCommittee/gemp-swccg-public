@@ -21,66 +21,66 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_4_056_Tests {
-	protected VirtualTableScenario GetScenario() {
-		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-					put("relay", "4_056"); //Lost Relay
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>()
+                {{
+                    put("relay", "4_056"); //Lost Relay
                     put("relay2", "4_056"); //Lost Relay
                     put("corvette", "1_140"); //corellian corvette
                     put("kessel","1_126"); //rebel guard
                     put("asteroid","4_081"); //asteroid sector
                     put("asteroid2","4_081"); //asteroid sector
                 }},
-				new HashMap<>()
-				{{
+                new HashMap<>()
+                {{
                     put("tie","1_304");
                     put("tie_scout","1_305");
                     put("vengeance","7_310"); //star destroyer with +tie forfeit
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
-		);
-	}
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
 
-	@Test
-	public void LostRelayStatsAndKeywordsAreCorrect() {
-		/**
-		 * Title: Lost Relay
-		 * Uniqueness: Unrestricted
-		 * Side: Light
-		 * Type: Interrupt
-		 * Subtype: Used
-		 * Destiny: 5
-		 * Icons: Interrupt, Hoth
-		 * Game Text: Target one opponent's starfighter present with one of your starships at an asteroid sector,
+    @Test
+    public void LostRelayStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Lost Relay
+         * Uniqueness: Unrestricted
+         * Side: Light
+         * Type: Interrupt
+         * Subtype: Used
+         * Destiny: 5
+         * Icons: Interrupt, Hoth
+         * Game Text: Target one opponent's starfighter present with one of your starships at an asteroid sector,
          *      before asteroid destiny is drawn this turn. If target lost this turn due to asteroid destiny,
          *      opponent also loses Force equal to target's forfeit value.
-		 * Lore: Asteroid fields require starfighters to act as comm relays, forwarding orders to the squadron via
+         * Lore: Asteroid fields require starfighters to act as comm relays, forwarding orders to the squadron via
          *      subspace AE-35 Transceivers. If ships are lost, communications break down.
-		 * Set: Dagobah
-		 * Rarity: C
-		 */
+         * Set: Dagobah
+         * Rarity: C
+         */
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var card = scn.GetLSCard("relay").getBlueprint();
+        var card = scn.GetLSCard("relay").getBlueprint();
 
-		assertEquals("Lost Relay", card.getTitle());
-		assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
-		assertEquals(Side.LIGHT, card.getSide());
+        assertEquals("Lost Relay", card.getTitle());
+        assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
+        assertEquals(Side.LIGHT, card.getSide());
         scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
             add(CardType.INTERRUPT);
         }});
-		assertEquals(CardSubtype.USED, card.getCardSubtype());
-		assertEquals(5, card.getDestiny(), scn.epsilon);
+        assertEquals(CardSubtype.USED, card.getCardSubtype());
+        assertEquals(5, card.getDestiny(), scn.epsilon);
         scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
         }});
         scn.BlueprintPersonaCheck(card, new ArrayList<>() {{
@@ -92,28 +92,28 @@ public class Card_4_056_Tests {
         assertEquals(ExpansionSet.DAGOBAH,card.getExpansionSet());
         assertEquals(Rarity.C,card.getRarity());
 
-	}
+    }
 
-	@Test
-	public void LostRelayBasicFunctionalTest() {
+    @Test
+    public void LostRelayBasicFunctionalTest() {
         //this tests the basic working conditions for the card
         //test1: able to play before asteroid destiny is drawn
         //test2: able to target eligible starfighter
         //test3: after target lost to asteroid destiny, force must be lost
         //test4: total force loss = starship's forfeit (2)
 
-		var scn = GetScenario();
+        var scn = GetScenario();
 
-		var relay = scn.GetLSCard("relay");
+        var relay = scn.GetLSCard("relay");
         var corvette = scn.GetLSCard("corvette");
         var kessel = scn.GetLSCard("kessel");
         var asteroid = scn.GetLSCard("asteroid");
 
         var tie = scn.GetDSCard("tie");
 
-		scn.StartGame();
+        scn.StartGame();
 
-		scn.MoveCardsToLSHand(relay);
+        scn.MoveCardsToLSHand(relay);
 
         scn.MoveLocationToTable(kessel);
         scn.MoveLocationToTable(asteroid);
