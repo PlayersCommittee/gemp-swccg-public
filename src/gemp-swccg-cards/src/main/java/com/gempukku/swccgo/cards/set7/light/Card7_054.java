@@ -55,7 +55,7 @@ public class Card7_054 extends AbstractCharacterDevice {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayMoveOtherCardsAsReactToLocationModifier(self, "Move character or vehicle as a 'react'", self.getOwner(),
                 Filters.and(Filters.your(self), Filters.or(Filters.character, Filters.vehicle), Filters.at(Filters.relatedSite(self))),
-                Filters.sameOrRelatedSite(self)));
+                Filters.sameOrAdjacentSite(self)));
         return modifiers;
     }
 }
