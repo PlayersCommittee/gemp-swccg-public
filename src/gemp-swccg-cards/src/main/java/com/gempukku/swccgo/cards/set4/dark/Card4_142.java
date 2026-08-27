@@ -4,7 +4,6 @@ import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtOpponentsHandEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
-import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
@@ -20,15 +19,16 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.RequiredRuleTriggerAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfPlayersNextTurnActionProxyEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameActionProxyEffect;
 import com.gempukku.swccgo.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.rules.Rule;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -90,19 +90,21 @@ public class Card4_142 extends AbstractLostInterrupt {
                                                             }
                                                             final String targetedTitle = targetedCard.getTitle();
                                                             final int permCardId = self.getPermanentCardId();
-                                                            final int gameTextSourceCardId = self.getCardId();
+                                                            // Capture this play's card id so overlapping Frustration plays stay distinct
+                                                            // even if the unique copy is retrieved and played again.
+                                                            final int playCardId = self.getCardId();
                                                             final int nextTurnNumber = game.getGameState().getPlayersLatestTurnNumber(playerId) + 1;
                                                             // Track the obligation on the proxy itself. Frustration is a Lost Interrupt, so
                                                             // ForRemainderOfGameData on the card is not reliable after it hits the Lost Pile.
+                                                            // Each play gets its own proxy + stillPending flag so a later play cannot replace this one.
                                                             final boolean[] stillPending = new boolean[] { true };
                                                             game.getGameState().sendMessage(playerId + " targets " + GameUtils.getCardLink(targetedCard)
                                                                     + ". " + opponent + " must deploy a card of that title by the end of " + playerId + "'s next turn, or lose a card of that title from hand (if possible)");
 
-                                                            // Delayed obligation lasts until the end of the playing player's next turn.
-                                                            // "Your next turn" is the next full turn of the Frustration player (turn number captured here),
-                                                            // not the remainder of the current turn. Pattern matches Jedi Test #5 (Card4_078).
+                                                            // Until-end-of-game proxy so overlapping plays are not collapsed when the
+                                                            // unique copy is replayed, and so "your next turn" is per-instance.
                                                             action.appendEffect(
-                                                                    new AddUntilEndOfPlayersNextTurnActionProxyEffect(action, new AbstractActionProxy() {
+                                                                    new AddUntilEndOfGameActionProxyEffect(action, new AbstractActionProxy() {
                                                                         @Override
                                                                         public List<TriggerAction> getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult) {
                                                                             List<TriggerAction> actions = new LinkedList<TriggerAction>();
@@ -110,7 +112,7 @@ public class Card4_142 extends AbstractLostInterrupt {
                                                                                 return actions;
                                                                             }
 
-                                                                            // Opponent deployed a card of the targeted title, which satisfies Frustration
+                                                                            // Opponent deployed a card of the targeted title, which satisfies this Frustration play
                                                                             if (TriggerConditions.justDeployed(game, effectResult, opponent, Filters.title(targetedTitle))) {
                                                                                 stillPending[0] = false;
                                                                                 return actions;
@@ -118,12 +120,19 @@ public class Card4_142 extends AbstractLostInterrupt {
 
                                                                             // At the end of that next turn, lose a card of the title from hand if possible
                                                                             if (TriggerConditions.isEndOfYourTurn(game, effectResult, playerId)
-                                                                                    && GameConditions.isTurnNumber(game, nextTurnNumber)) {
+                                                                                    && game.getGameState().getPlayersLatestTurnNumber(playerId) == nextTurnNumber) {
                                                                                 stillPending[0] = false;
                                                                                 final PhysicalCard source = game.findCardByPermanentId(permCardId);
                                                                                 Collection<PhysicalCard> inHand = Filters.filter(game.getGameState().getHand(opponent), game, Filters.title(targetedTitle));
-                                                                                if (source != null && !inHand.isEmpty()) {
-                                                                                    RequiredGameTextTriggerAction action1 = new RequiredGameTextTriggerAction(source, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_1);
+                                                                                if (!inHand.isEmpty()) {
+                                                                                    // Rule trigger with a per-play id so retrieving/replaying unique Frustration
+                                                                                    // cannot swallow an earlier play's obligation.
+                                                                                    RequiredRuleTriggerAction action1 = new RequiredRuleTriggerAction(new Rule() {}, source) {
+                                                                                        @Override
+                                                                                        public String getTriggerIdentifier(boolean useBlueprintId) {
+                                                                                            return "FrustrationObligation|" + targetedTitle + "|" + nextTurnNumber + "|" + playCardId;
+                                                                                        }
+                                                                                    };
                                                                                     action1.setText("Make " + opponent + " lose a " + targetedTitle + " from hand");
                                                                                     action1.appendEffect(
                                                                                             new LoseCardFromHandEffect(action1, inHand.iterator().next()));
@@ -132,7 +141,7 @@ public class Card4_142 extends AbstractLostInterrupt {
                                                                             }
                                                                             return actions;
                                                                         }
-                                                                    }, playerId)
+                                                                    })
                                                             );
                                                         }
                                                     }

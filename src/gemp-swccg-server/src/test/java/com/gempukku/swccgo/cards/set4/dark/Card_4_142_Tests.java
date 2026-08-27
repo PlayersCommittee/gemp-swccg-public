@@ -30,10 +30,12 @@ public class Card_4_142_Tests {
 					put("luke", "1_19");
 					put("protector", "5_63");
 					put("walkway", "5_79");
+					put("mosEisley", "1_133");
 				}},
 				new HashMap<>()
 				{{
 					put("frustration", "4_142");
+					put("frustration2", "4_142");
 				}},
 				10,
 				10,
@@ -318,5 +320,95 @@ public class Card_4_142_Tests {
 
 		assertEquals(Zone.HAND, trooper.getZone());
 		assertEquals(Zone.TOP_OF_LOST_PILE, protector.getZone());
+	}
+
+	@Test
+	public void FrustrationKeepsFirstObligationWhenPlayedAgain() {
+		// Unique Frustration can be retrieved and replayed (or a second copy played)
+		// while the first play's "end of your next turn" obligation is still pending.
+		var scn = GetScenario();
+
+		var frustration = scn.GetDSCard("frustration");
+		var frustration2 = scn.GetDSCard("frustration2");
+		var trooper = scn.GetLSCard("trooper");
+		var mosEisley = scn.GetLSCard("mosEisley");
+
+		scn.MoveCardsToDSHand(frustration, frustration2);
+		scn.MoveCardsToLSHand(trooper, mosEisley);
+
+		scn.StartGame();
+
+		PlayFrustrationTargetingTrooper(scn);
+		assertEquals(Zone.HAND, trooper.getZone());
+		assertEquals(Zone.HAND, mosEisley.getZone());
+
+		// Next DS control phase: play the second copy targeting Mos Eisley
+		scn.SkipToLSTurn();
+		scn.SkipToDSTurn(Phase.CONTROL);
+		assertTrue(scn.DSCardPlayAvailable(frustration2));
+		scn.DSPlayCard(frustration2);
+		scn.PassAllResponses();
+		if (scn.DSAnyDecisionsAvailable() && scn.DSGetDecision().getText().toLowerCase().contains("hand")) {
+			scn.DSDismissRevealedCards();
+		}
+		scn.DSChooseCard(mosEisley);
+		scn.PassAllResponses();
+
+		// End of THIS DS turn is the first play's deadline. Trooper should be lost.
+		// Mos Eisley belongs to the second play and is not due until the following DS turn.
+		scn.SkipToPhase(Phase.DRAW);
+		scn.PassDrawActions();
+		DrainPendingDecisions(scn, 30);
+
+		assertEquals(Zone.TOP_OF_LOST_PILE, trooper.getZone());
+		assertEquals(Zone.HAND, mosEisley.getZone());
+
+		scn.SkipToDSTurn(Phase.DRAW);
+		scn.PassDrawActions();
+		DrainPendingDecisions(scn, 30);
+
+		assertEquals(Zone.TOP_OF_LOST_PILE, mosEisley.getZone());
+	}
+
+	@Test
+	public void FrustrationKeepsFirstObligationWhenSameCopyIsRetrievedAndReplayed() {
+		var scn = GetScenario();
+
+		var frustration = scn.GetDSCard("frustration");
+		var trooper = scn.GetLSCard("trooper");
+		var mosEisley = scn.GetLSCard("mosEisley");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(trooper, mosEisley);
+
+		scn.StartGame();
+
+		PlayFrustrationTargetingTrooper(scn);
+		// Retrieve the same unique copy (Brangus Glee style)
+		scn.MoveCardsToDSHand(frustration);
+
+		scn.SkipToLSTurn();
+		scn.SkipToDSTurn(Phase.CONTROL);
+		assertTrue(scn.DSCardPlayAvailable(frustration));
+		scn.DSPlayCard(frustration);
+		scn.PassAllResponses();
+		if (scn.DSAnyDecisionsAvailable() && scn.DSGetDecision().getText().toLowerCase().contains("hand")) {
+			scn.DSDismissRevealedCards();
+		}
+		scn.DSChooseCard(mosEisley);
+		scn.PassAllResponses();
+
+		scn.SkipToPhase(Phase.DRAW);
+		scn.PassDrawActions();
+		DrainPendingDecisions(scn, 30);
+
+		assertEquals(Zone.TOP_OF_LOST_PILE, trooper.getZone());
+		assertEquals(Zone.HAND, mosEisley.getZone());
+
+		scn.SkipToDSTurn(Phase.DRAW);
+		scn.PassDrawActions();
+		DrainPendingDecisions(scn, 30);
+
+		assertEquals(Zone.TOP_OF_LOST_PILE, mosEisley.getZone());
 	}
 }
