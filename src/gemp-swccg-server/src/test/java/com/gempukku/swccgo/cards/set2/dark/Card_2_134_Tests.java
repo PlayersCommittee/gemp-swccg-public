@@ -29,6 +29,7 @@ public class Card_2_134_Tests {
                 put("rebel", "1_28"); // Rebel Trooper
                 put("lsSpy", "7_5"); // Bothan Spy
                 put("lsMover", "1_28");
+                put("navander", "3_18"); // Romas "Lock" Navander, blocks reacts
             }},
             new HashMap<>() {{
                 put("informant", "2_134");
@@ -493,5 +494,43 @@ public class Card_2_134_Tests {
             // Framework offered both as the required first target even if only one additional react followed.
             assertTrue(scn.DSHasCardChoiceAvailable(mover2) || adj2 == mover2.getAtLocation() || marketplace == mover2.getAtLocation());
         }
+    }
+    @Test
+    public void NavanderAtBattleSiteBlocksInformantReactToThatLocation() {
+        // Romas "Lock" Navander: opponent may not 'react' to or from same location.
+        var scn = GetScenario();
+        var informant = scn.GetDSCard("informant");
+        var marketplace = scn.GetDSStartingLocation();
+        var cantina = scn.GetDSCard("cantina");
+        var mover = scn.GetDSCard("mover");
+        var navander = scn.GetLSCard("navander");
+
+        SetupStandardBattle(scn);
+        scn.MoveCardsToLocation(marketplace, navander);
+
+        scn.SkipToLSTurn(Phase.BATTLE);
+        InitiateLsBattleKeepReactWindow(scn, marketplace);
+        assertFalse("Navander at the battle site blocks reacting TO that location",
+                DsCardPlayAvailableSafe(scn, informant));
+        assertEquals(cantina, mover.getAtLocation());
+    }
+
+    @Test
+    public void NavanderAtAdjacentSiteBlocksInformantReactFromThatLocation() {
+        var scn = GetScenario();
+        var informant = scn.GetDSCard("informant");
+        var marketplace = scn.GetDSStartingLocation();
+        var cantina = scn.GetDSCard("cantina");
+        var mover = scn.GetDSCard("mover");
+        var navander = scn.GetLSCard("navander");
+
+        SetupStandardBattle(scn);
+        scn.MoveCardsToLocation(cantina, navander);
+
+        scn.SkipToLSTurn(Phase.BATTLE);
+        InitiateLsBattleKeepReactWindow(scn, marketplace);
+        assertFalse("Navander at the adjacent site blocks reacting FROM that location",
+                DsCardPlayAvailableSafe(scn, informant));
+        assertEquals(cantina, mover.getAtLocation());
     }
 }
