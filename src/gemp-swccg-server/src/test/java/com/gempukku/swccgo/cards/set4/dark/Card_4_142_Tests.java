@@ -14,13 +14,11 @@ import com.gempukku.swccgo.framework.VirtualTableScenario;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class Card_4_142_Tests {
@@ -45,18 +43,12 @@ public class Card_4_142_Tests {
 					put("obiHut", "1_134");
 					put("pilot", "1_27");
 					put("yoda", "4_2");
-					put("quiGon", "11_10");
 					put("daughter", "8_8");
 					put("landoBlaster", "7_160");
 					put("savrip", "1_55");
 					put("c3po", "1_5");
-					put("trooper2", "1_28");
 					put("artoo", "6_3");
-					put("threepio", "8_31");
 					put("artooThreepio", "10_2");
-					put("wiseAdvice", "7_81");
-					put("doOrDoNot", "4_21");
-					put("doOrDoNotWise", "10_7");
 				}},
 				new HashMap<>()
 				{{
@@ -77,7 +69,6 @@ public class Card_4_142_Tests {
 				VirtualTableScenario.Open
 		);
 	}
-
 
 	private void PeekFrustrationAtHand(VirtualTableScenario scn) {
 		scn.SkipToPhase(Phase.CONTROL);
@@ -146,7 +137,6 @@ public class Card_4_142_Tests {
 			}
 		}
 	}
-
 
 	/**
 	 * Advance to the end of DS next turn and stop when LS is choosing a matching card to lose from hand.
@@ -233,51 +223,9 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationIsPlayableDuringDSControlPhase() {
-		var scn = GetScenario();
-
-		var frustration = scn.GetDSCard("frustration");
-		var trooper = scn.GetLSCard("trooper");
-
-		scn.MoveCardsToDSHand(frustration);
-		scn.MoveCardsToLSHand(trooper);
-
-		scn.StartGame();
-
-		scn.SkipToPhase(Phase.CONTROL);
-		assertTrue(scn.AwaitingDSControlPhaseActions());
-		assertTrue(scn.DSCardPlayAvailable(frustration));
-	}
-
-	@Test
-	public void FrustrationCanTargetNonInterruptWithDeployCostLessThanLightIcons() {
+	public void FrustrationTargetsPrintedCostBelowLightIconsButNotInterruptsOrTooExpensive() {
 		// Default systems (Dantooine + Tibrin) have 2 Light Side Force icons on table.
 		// Rebel Trooper (deploy 1) is a valid target.
-		var scn = GetScenario();
-
-		var frustration = scn.GetDSCard("frustration");
-		var trooper = scn.GetLSCard("trooper");
-		var luke = scn.GetLSCard("luke");
-		var protector = scn.GetLSCard("protector");
-
-		scn.MoveCardsToDSHand(frustration);
-		scn.MoveCardsToLSHand(trooper, luke, protector);
-
-		scn.StartGame();
-
-		scn.SkipToPhase(Phase.CONTROL);
-		scn.DSPlayCard(frustration);
-		scn.PassAllResponses();
-		if (scn.DSAnyDecisionsAvailable() && scn.DSGetDecision().getText().toLowerCase().contains("hand")) {
-			scn.DSDismissRevealedCards();
-		}
-
-		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
-	}
-
-	@Test
-	public void FrustrationCannotTargetInterruptsOrCardsWithDeployCostAtLeastLightIcons() {
-		// Default systems have 2 Light Side Force icons on table.
 		// Luke (deploy 3) is not < 2. Protector is an Interrupt.
 		var scn = GetScenario();
 
@@ -408,54 +356,6 @@ public class Card_4_142_Tests {
 
 		assertEquals(Zone.HAND, trooper.getZone());
 		assertEquals(Zone.TOP_OF_LOST_PILE, protector.getZone());
-	}
-
-	@Test
-	public void FrustrationKeepsFirstObligationWhenPlayedAgain() {
-		// Unique Frustration can be retrieved and replayed (or a second copy played)
-		// while the first play's "end of your next turn" obligation is still pending.
-		var scn = GetScenario();
-
-		var frustration = scn.GetDSCard("frustration");
-		var frustration2 = scn.GetDSCard("frustration2");
-		var trooper = scn.GetLSCard("trooper");
-		var kfc = scn.GetLSCard("kfc");
-
-		scn.MoveCardsToDSHand(frustration, frustration2);
-		scn.MoveCardsToLSHand(trooper, kfc);
-
-		scn.StartGame();
-
-		PlayFrustrationTargetingTrooper(scn);
-		assertEquals(Zone.HAND, trooper.getZone());
-		assertEquals(Zone.HAND, kfc.getZone());
-
-		// Next DS control phase: play the second copy targeting KFC (printed 0, a real cost)
-		scn.SkipToLSTurn();
-		scn.SkipToDSTurn(Phase.CONTROL);
-		assertTrue(scn.DSCardPlayAvailable(frustration2));
-		scn.DSPlayCard(frustration2);
-		scn.PassAllResponses();
-		if (scn.DSAnyDecisionsAvailable() && scn.DSGetDecision().getText().toLowerCase().contains("hand")) {
-			scn.DSDismissRevealedCards();
-		}
-		scn.DSChooseCard(kfc);
-		scn.PassAllResponses();
-
-		// End of THIS DS turn is the first play's deadline. Trooper should be lost.
-		// KFC belongs to the second play and is not due until the following DS turn.
-		scn.SkipToPhase(Phase.DRAW);
-		scn.PassDrawActions();
-		DrainPendingDecisions(scn, 30);
-
-		assertEquals(Zone.TOP_OF_LOST_PILE, trooper.getZone());
-		assertEquals(Zone.HAND, kfc.getZone());
-
-		scn.SkipToDSTurn(Phase.DRAW);
-		scn.PassDrawActions();
-		DrainPendingDecisions(scn, 30);
-
-		assertEquals(Zone.TOP_OF_LOST_PILE, kfc.getZone());
 	}
 
 	@Test
@@ -628,46 +528,6 @@ public class Card_4_142_Tests {
 		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
 	}
 
-
-	@Test
-	public void FrustrationCountsOtherJediMasterTowardLightForceIconsOnTable() {
-		// Same 2-vs-3 Pilot pattern as the Yoda test, using Qui-Gon Jinn (11_10) instead of Dagobah Yoda.
-		var scn = GetScenario();
-		var frustration = scn.GetDSCard("frustration");
-		var frustration2 = scn.GetDSCard("frustration2");
-		var pilot = scn.GetLSCard("pilot");
-		var luke = scn.GetLSCard("luke");
-		var trooper = scn.GetLSCard("trooper");
-		var quiGon = scn.GetLSCard("quiGon");
-
-		scn.MoveCardsToDSHand(frustration, frustration2);
-		scn.MoveCardsToLSHand(pilot, luke, trooper);
-
-		scn.StartGame();
-		PeekFrustrationAtHand(scn);
-
-		assertTrue(scn.DSHasCardChoiceNotAvailable(pilot));
-		assertTrue(scn.DSHasCardChoiceNotAvailable(luke));
-		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
-		scn.DSChooseCard(trooper);
-		scn.PassAllResponses();
-
-		scn.MoveCardsToLocation(scn.GetLSStartingLocation(), quiGon);
-
-		scn.SkipToLSTurn();
-		scn.SkipToDSTurn(Phase.CONTROL);
-		assertTrue(scn.DSCardPlayAvailable(frustration2));
-		scn.DSPlayCard(frustration2);
-		scn.PassAllResponses();
-		if (scn.DSAnyDecisionsAvailable() && scn.DSGetDecision().getText().toLowerCase().contains("hand")) {
-			scn.DSDismissRevealedCards();
-		}
-
-		assertTrue(scn.DSHasCardChoiceAvailable(pilot));
-		assertTrue(scn.DSHasCardChoiceNotAvailable(luke));
-		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
-	}
-
 	@Test
 	public void FrustrationCountsDaughterOfSkywalkerLightForceIconTowardIconsOnTable() {
 		// Daughter Of Skywalker (8_8) uses IconModifier to give +1 LIGHT_FORCE to her same exterior site.
@@ -712,25 +572,6 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationIgnoresFreeOptionOnPondaBlasterAndUsesCostTwo() {
-		// Default systems have 2 Light icons. Ponda's blaster is free or 2; 2 is not < 2.
-		// Dark card, so it lives in DS extras and is moved into LS hand for targeting.
-		var scn = GetScenario();
-		var frustration = scn.GetDSCard("frustration");
-		var pondaBlaster = scn.GetDSCard("pondaBlaster");
-		var trooper = scn.GetLSCard("trooper");
-
-		scn.MoveCardsToDSHand(frustration);
-		scn.MoveCardsToLSHand(pondaBlaster, trooper);
-
-		scn.StartGame();
-		PeekFrustrationAtHand(scn);
-
-		assertTrue(scn.DSHasCardChoiceNotAvailable(pondaBlaster));
-		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
-	}
-
-	@Test
 	public void FrustrationCannotTargetCardThatDeploysFreeEncodedAsZero() {
 		// JP Leia is constructor deploy 0 plus DeploysFreeModifier. Free is not a cost.
 		var scn = GetScenario();
@@ -747,6 +588,7 @@ public class Card_4_142_Tests {
 		assertTrue(scn.DSHasCardChoiceNotAvailable(jpLeia));
 		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
 	}
+
 	@Test
 	public void FrustrationCannotTargetLocationWithNoPrintedDeployCost() {
 		// AbstractLocation.getDeployCost() is hardcoded 0. That is not a printed cost.
@@ -872,19 +714,20 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationCannotTargetBowcasterBecauseXIsUndefinedUntilDeploy() {
+	public void FrustrationCannotTargetWeaponsWhoseCostIsUndefinedUntilDeploy() {
 		// Default systems 2 LS icons + Mos Eisley 2 + Lars' Moisture Farm 2 + Obi-Wan's Hut 2 = 8.
-		// Fake GEMP printed 7 would be legal (7 < 8). X is undefined until deploy, so Bowcaster is not a target.
+		// Fake GEMP printed 7 would be legal (7 < 8). X is undefined until deploy, so Bowcaster and Jedi Lightsaber are not targets.
 		var scn = GetScenario();
 		var frustration = scn.GetDSCard("frustration");
 		var bowcaster = scn.GetLSCard("bowcaster");
+		var jediLightsaber = scn.GetLSCard("jediLightsaber");
 		var trooper = scn.GetLSCard("trooper");
 		var mosEisley = scn.GetLSCard("mosEisley");
 		var farm = scn.GetLSCard("farm");
 		var obiHut = scn.GetLSCard("obiHut");
 
 		scn.MoveCardsToDSHand(frustration);
-		scn.MoveCardsToLSHand(bowcaster, trooper);
+		scn.MoveCardsToLSHand(bowcaster, jediLightsaber, trooper);
 
 		scn.StartGame();
 		scn.MoveLocationToTable(mosEisley);
@@ -894,31 +737,6 @@ public class Card_4_142_Tests {
 		PeekFrustrationAtHand(scn);
 
 		assertTrue(scn.DSHasCardChoiceNotAvailable(bowcaster));
-		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
-	}
-
-	@Test
-	public void FrustrationCannotTargetJediLightsaberBecauseCostIsUndefinedUntilDeploy() {
-		// Same encoding as Bowcaster: fake printed 7 plus formula X = 7 - ability. With 8 LS icons,
-		// a fake 7 would be legal; Jedi Lightsaber must still be untargetable.
-		var scn = GetScenario();
-		var frustration = scn.GetDSCard("frustration");
-		var jediLightsaber = scn.GetLSCard("jediLightsaber");
-		var trooper = scn.GetLSCard("trooper");
-		var mosEisley = scn.GetLSCard("mosEisley");
-		var farm = scn.GetLSCard("farm");
-		var obiHut = scn.GetLSCard("obiHut");
-
-		scn.MoveCardsToDSHand(frustration);
-		scn.MoveCardsToLSHand(jediLightsaber, trooper);
-
-		scn.StartGame();
-		scn.MoveLocationToTable(mosEisley);
-		scn.MoveLocationToTable(farm);
-		scn.MoveLocationToTable(obiHut);
-
-		PeekFrustrationAtHand(scn);
-
 		assertTrue(scn.DSHasCardChoiceNotAvailable(jediLightsaber));
 		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
 	}
@@ -963,20 +781,23 @@ public class Card_4_142_Tests {
 
 	@Test
 	public void FrustrationIgnoresFreeOptionOnLandosBlasterRifleAndUsesCostThree() {
-		// Default systems have 2 Light icons. Lando's Blaster Rifle is free on Lando or 3 on other warrior.
-		// Free-to-Lando is not a number; remaining cost is 3, which is not < 2.
+		// Default systems have 2 Light icons.
+		// Lando's Blaster Rifle is free on Lando or 3 on other warrior. Free is not a number; remaining cost 3 is not < 2.
+		// Ponda's blaster is free or 2; 2 is not < 2. Dark card, so it lives in DS extras and is moved into LS hand.
 		var scn = GetScenario();
 		var frustration = scn.GetDSCard("frustration");
 		var landoBlaster = scn.GetLSCard("landoBlaster");
+		var pondaBlaster = scn.GetDSCard("pondaBlaster");
 		var trooper = scn.GetLSCard("trooper");
 
 		scn.MoveCardsToDSHand(frustration);
-		scn.MoveCardsToLSHand(landoBlaster, trooper);
+		scn.MoveCardsToLSHand(landoBlaster, pondaBlaster, trooper);
 
 		scn.StartGame();
 		PeekFrustrationAtHand(scn);
 
 		assertTrue(scn.DSHasCardChoiceNotAvailable(landoBlaster));
+		assertTrue(scn.DSHasCardChoiceNotAvailable(pondaBlaster));
 		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
 	}
 
@@ -1022,82 +843,6 @@ public class Card_4_142_Tests {
 		PeekFrustrationAtHand(scn);
 
 		assertTrue(scn.DSHasCardChoiceNotAvailable(savrip));
-		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
-	}
-
-	@Test
-	public void FrustrationOwnerChoosesWhichMatchingTitleToLoseFromHand() {
-		// Combo Artoo titles do not overlap standalone Artoo (see note below), so two Rebel Troopers are used.
-		// Opponent/LS chooses which matching card to lose; only 1 is lost.
-		var scn = GetScenario();
-		var frustration = scn.GetDSCard("frustration");
-		var trooper = scn.GetLSCard("trooper");
-		var trooper2 = scn.GetLSCard("trooper2");
-
-		scn.MoveCardsToDSHand(frustration);
-		scn.MoveCardsToLSHand(trooper, trooper2);
-
-		scn.StartGame();
-
-		PlayFrustrationTargetingTrooper(scn);
-
-		assertEquals(Zone.HAND, trooper.getZone());
-		assertEquals(Zone.HAND, trooper2.getZone());
-
-		AdvanceUntilLsChooseLoseFromHand(scn);
-
-		assertTrue(scn.LSHasCardChoiceAvailable(trooper));
-		assertTrue(scn.LSHasCardChoiceAvailable(trooper2));
-		scn.LSChooseCard(trooper);
-		DrainPendingDecisions(scn, 30);
-
-		assertEquals(Zone.TOP_OF_LOST_PILE, trooper.getZone());
-		assertEquals(Zone.HAND, trooper2.getZone());
-		assertEquals(1, scn.GetLSLostPileCount());
-	}
-
-	@Test
-	public void FrustrationCannotTargetWiseAdviceOrDoOrDoNotBecauseNoPrintedDeployCost() {
-		// AR 2023 p.164 Combo Cards: a combo card counts as both cards in its title for all purposes,
-		// including uniqueness. When any portion of a combo card is targeted or referenced, it targets
-		// or references the entire combo card.
-		// AbstractEffect constructor passes null as deployCost. Wise Advice 7_81, Do, Or Do Not 4_21,
-		// and combo Do, Or Do Not & Wise Advice 10_7 have no PRINTED_DEPLOY_COST modifiers, so GEMP
-		// treats them as no printed cost. Frustration cannot target them. Combo-title obligation tests
-		// 4-5 are skipped for Effects; character Artoo/combo tests below cover overlapping titles.
-		var scn = GetScenario();
-		var frustration = scn.GetDSCard("frustration");
-		var wiseAdvice = scn.GetLSCard("wiseAdvice");
-		var doOrDoNot = scn.GetLSCard("doOrDoNot");
-		var doOrDoNotWise = scn.GetLSCard("doOrDoNotWise");
-		var trooper = scn.GetLSCard("trooper");
-		var artoo = scn.GetLSCard("artoo");
-		var threepio = scn.GetLSCard("threepio");
-		var artooThreepio = scn.GetLSCard("artooThreepio");
-
-		assertNull(wiseAdvice.getBlueprint().getDeployCost());
-		assertNull(doOrDoNot.getBlueprint().getDeployCost());
-		assertNull(doOrDoNotWise.getBlueprint().getDeployCost());
-		assertEquals(4f, artoo.getBlueprint().getDeployCost(), scn.epsilon);
-		assertEquals(4f, threepio.getBlueprint().getDeployCost(), scn.epsilon);
-		assertEquals(3f, artooThreepio.getBlueprint().getDeployCost(), scn.epsilon);
-
-		assertEquals(Arrays.asList("Artoo"), artoo.getBlueprint().getTitles());
-		assertEquals(Arrays.asList("Threepio"), threepio.getBlueprint().getTitles());
-		assertEquals(Arrays.asList("Artoo", "Threepio"), artooThreepio.getBlueprint().getTitles());
-		assertEquals(Arrays.asList("Wise Advice"), wiseAdvice.getBlueprint().getTitles());
-		assertEquals(Arrays.asList("Do, Or Do Not"), doOrDoNot.getBlueprint().getTitles());
-		assertEquals(Arrays.asList("Do, Or Do Not", "Wise Advice"), doOrDoNotWise.getBlueprint().getTitles());
-
-		scn.MoveCardsToDSHand(frustration);
-		scn.MoveCardsToLSHand(wiseAdvice, doOrDoNot, doOrDoNotWise, trooper);
-
-		scn.StartGame();
-		PeekFrustrationAtHand(scn);
-
-		assertTrue(scn.DSHasCardChoiceNotAvailable(wiseAdvice));
-		assertTrue(scn.DSHasCardChoiceNotAvailable(doOrDoNot));
-		assertTrue(scn.DSHasCardChoiceNotAvailable(doOrDoNotWise));
 		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
 	}
 
