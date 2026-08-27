@@ -12,7 +12,6 @@ import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -248,27 +247,6 @@ public class Card_2_056_Tests {
 		scn.PassCardLeavingTable();
 		assertEquals(Zone.TOP_OF_LOST_PILE, blaster2.getZone());
 		assertEquals(scn.DS, blaster2.getOwner());
-	}
-
-	@Test
-	@Ignore("Informant unimplemented; rework when Informant exists")
-	public void CancelInformantIsWiredButInformantIsUnimplemented() {
-		// Informant (ANH Dark Used Interrupt) is not in GEMP yet, so the on-table cancel
-		// action cannot appear. The being-played cancel is Houjix-style Filters.title("Informant").
-		var scn = GetScenario();
-		var sabotage = scn.GetLSCard("sabotage");
-		var blaster = scn.GetDSCard("blaster");
-		var trooper = scn.GetDSCard("trooper");
-
-		scn.MoveCardsToLSHand(sabotage);
-		scn.StartGame();
-		SetupSpyAndDarkTargetAtSite(scn);
-		scn.AttachCardsTo(trooper, blaster);
-
-		scn.SkipToLSTurn(Phase.CONTROL);
-		assertTrue(scn.LSCardPlayAvailable(sabotage));
-		assertFalse(scn.LSCardPlayAvailable(sabotage, "Cancel Informant"));
-		assertTrue(scn.LSCardPlayAvailable(sabotage, "Target weapon"));
 	}
 
 	@Test
