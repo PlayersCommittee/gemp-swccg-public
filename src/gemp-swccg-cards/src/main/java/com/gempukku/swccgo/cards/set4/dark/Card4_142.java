@@ -165,7 +165,7 @@ public class Card4_142 extends AbstractLostInterrupt {
 
 
     /**
-     * Frustration AR: target a card and any one of its deploy costs. \"Free\" is not a deploy cost.
+     * Frustration AR: target a card and any one of its deploy costs. "Free" is not a deploy cost.
      * Ignore modifiers except global DEPLOY_COST changes (Bad Feeling Have I, Max Rebo).
      * Uses the lowest remaining printed cost. Undefined / no printed cost cannot be targeted.
      */
@@ -192,7 +192,7 @@ public class Card4_142 extends AbstractLostInterrupt {
             printed = null;
         }
 
-        // GEMP encodes some \"deploys free\" cards as constructor deploy 0 plus DeploysFreeModifier
+        // GEMP encodes some "deploys free" cards as constructor deploy 0 plus DeploysFreeModifier
         // (Princess Leia Organa JP). Free is not a deploy cost, so drop that 0.
         boolean deploysFreeByOwnText = false;
         for (Modifier modifier : modifiersQuerying.getModifiersAffectingCard(gameState, ModifierType.DEPLOYS_FREE, card)) {
