@@ -26,6 +26,7 @@ import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameActionProxyEffect;
 import com.gempukku.swccgo.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostToTargetModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifierType;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
@@ -215,22 +216,39 @@ public class Card4_142 extends AbstractLostInterrupt {
             printed = null;
         }
 
+        Float printedDeployCost = null;
         for (Modifier modifier : modifiersQuerying.getModifiersAffectingCard(gameState, ModifierType.PRINTED_DEPLOY_COST, card)) {
             if (!isModifierFromThisCard(gameState, modifier, card)) {
                 continue;
             }
             float value = modifier.getPrintedValueDefinedByGameText(gameState, modifiersQuerying, card);
-            printed = printed == null ? value : Math.min(printed, value);
+            printedDeployCost = printedDeployCost == null ? value : Math.min(printedDeployCost, value);
         }
 
         // Split printed costs such as Luke's Hunting Rifle (1 or 3) and Ponda's blaster (free or 2).
         // Take the numeric values even with no matching target in play; free-to-target is not a number.
+        // Formula X (Bowcaster, Jedi Lightsaber) is undefined until deploy: skip that evaluator and
+        // also skip this card's paired PRINTED_DEPLOY_COST (GEMP's fake constant for the same X).
+        Float printedDeployCostToTarget = null;
+        boolean hasVariableCostToTarget = false;
         for (Modifier modifier : modifiersQuerying.getModifiersAffectingCard(gameState, ModifierType.PRINTED_DEPLOY_COST_TO_TARGET, card)) {
             if (!isModifierFromThisCard(gameState, modifier, card)) {
                 continue;
             }
+            if (modifier instanceof DefinedByGameTextDeployCostToTargetModifier
+                    && ((DefinedByGameTextDeployCostToTargetModifier) modifier).isVariableCostDefinedByGameText()) {
+                hasVariableCostToTarget = true;
+                continue;
+            }
             float value = modifier.getDefinedDeployCostToTarget(gameState, modifiersQuerying, card);
-            printed = printed == null ? value : Math.min(printed, value);
+            printedDeployCostToTarget = printedDeployCostToTarget == null ? value : Math.min(printedDeployCostToTarget, value);
+        }
+
+        if (!hasVariableCostToTarget && printedDeployCost != null) {
+            printed = printed == null ? printedDeployCost : Math.min(printed, printedDeployCost);
+        }
+        if (printedDeployCostToTarget != null) {
+            printed = printed == null ? printedDeployCostToTarget : Math.min(printed, printedDeployCostToTarget);
         }
 
         if (printed == null) {

@@ -36,6 +36,11 @@ public class Card_4_142_Tests {
 					put("kfc", "1_15");
 					put("jpLeia", "6_32");
 					put("ihabfat", "4_052");
+					put("bowcaster", "2_77");
+					put("chewieBowcaster", "8_86");
+					put("jediLightsaber", "1_155");
+					put("farm", "1_132");
+					put("obiHut", "1_134");
 				}},
 				new HashMap<>()
 				{{
@@ -674,5 +679,95 @@ public class Card_4_142_Tests {
 
 		AdvanceThroughEndOfDSNextTurn(scn);
 		assertEquals(Zone.TOP_OF_LOST_PILE, trooper.getZone());
+	}
+
+	@Test
+	public void FrustrationCannotTargetBowcasterBecauseXIsUndefinedUntilDeploy() {
+		// Default systems 2 LS icons + Mos Eisley 2 + Lars' Moisture Farm 2 + Obi-Wan's Hut 2 = 8.
+		// Fake GEMP printed 7 would be legal (7 < 8). X is undefined until deploy, so Bowcaster is not a target.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var bowcaster = scn.GetLSCard("bowcaster");
+		var trooper = scn.GetLSCard("trooper");
+		var mosEisley = scn.GetLSCard("mosEisley");
+		var farm = scn.GetLSCard("farm");
+		var obiHut = scn.GetLSCard("obiHut");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(bowcaster, trooper);
+
+		scn.StartGame();
+		scn.MoveLocationToTable(mosEisley);
+		scn.MoveLocationToTable(farm);
+		scn.MoveLocationToTable(obiHut);
+
+		PeekFrustrationAtHand(scn);
+
+		assertTrue(scn.DSHasCardChoiceNotAvailable(bowcaster));
+		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
+	}
+
+	@Test
+	public void FrustrationCannotTargetJediLightsaberBecauseCostIsUndefinedUntilDeploy() {
+		// Same encoding as Bowcaster: fake printed 7 plus formula X = 7 - ability. With 8 LS icons,
+		// a fake 7 would be legal; Jedi Lightsaber must still be untargetable.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var jediLightsaber = scn.GetLSCard("jediLightsaber");
+		var trooper = scn.GetLSCard("trooper");
+		var mosEisley = scn.GetLSCard("mosEisley");
+		var farm = scn.GetLSCard("farm");
+		var obiHut = scn.GetLSCard("obiHut");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(jediLightsaber, trooper);
+
+		scn.StartGame();
+		scn.MoveLocationToTable(mosEisley);
+		scn.MoveLocationToTable(farm);
+		scn.MoveLocationToTable(obiHut);
+
+		PeekFrustrationAtHand(scn);
+
+		assertTrue(scn.DSHasCardChoiceNotAvailable(jediLightsaber));
+		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
+	}
+
+	@Test
+	public void FrustrationCanTargetChewbaccasBowcasterUsingCostFour() {
+		// Default systems 2 LS icons: cost 4 is not < 2, so Chewie's Bowcaster is not a target.
+		// Mos Eisley 2 + Chasm Walkway 1 = 5 total; 4 < 5, so it becomes targetable.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var frustration2 = scn.GetDSCard("frustration2");
+		var chewieBowcaster = scn.GetLSCard("chewieBowcaster");
+		var trooper = scn.GetLSCard("trooper");
+		var mosEisley = scn.GetLSCard("mosEisley");
+		var walkway = scn.GetLSCard("walkway");
+
+		scn.MoveCardsToDSHand(frustration, frustration2);
+		scn.MoveCardsToLSHand(chewieBowcaster, trooper);
+
+		scn.StartGame();
+		PeekFrustrationAtHand(scn);
+
+		assertTrue(scn.DSHasCardChoiceNotAvailable(chewieBowcaster));
+		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
+		scn.DSChooseCard(trooper);
+		scn.PassAllResponses();
+
+		scn.MoveLocationToTable(mosEisley);
+		scn.MoveLocationToTable(walkway);
+
+		scn.SkipToLSTurn();
+		scn.SkipToDSTurn(Phase.CONTROL);
+		assertTrue(scn.DSCardPlayAvailable(frustration2));
+		scn.DSPlayCard(frustration2);
+		scn.PassAllResponses();
+		if (scn.DSAnyDecisionsAvailable() && scn.DSGetDecision().getText().toLowerCase().contains("hand")) {
+			scn.DSDismissRevealedCards();
+		}
+
+		assertTrue(scn.DSHasCardChoiceAvailable(chewieBowcaster));
 	}
 }
