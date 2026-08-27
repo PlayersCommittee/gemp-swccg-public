@@ -25,43 +25,45 @@ import static org.junit.Assert.assertTrue;
 public class Card_2_056_Tests {
 	protected VirtualTableScenario GetScenario() {
 		return new VirtualTableScenario(
-				new HashMap<>()
-				{{
-					put("sabotage", "2_56");
-					put("spy", "7_5"); // Bothan Spy
-					put("merc", "2_36"); // Merc Sunlet (thief skill)
-				}},
-				new HashMap<>()
-				{{
-					put("trooper", "1_194"); // Stormtrooper
-					put("blaster", "1_317"); // Imperial Blaster (Use 1)
-					put("blaster2", "1_317");
-					put("vader", "1_168");
-					put("saber", "1_314"); // Dark Jedi Lightsaber
-					put("saber2", "1_314");
-					put("liftTube", "1_308"); // vehicle, deploy 1
-					put("droid", "1_163"); // 5D6-RA-7
-					put("bolt", "1_205"); // Restraining Bolt (no Use X)
-					put("pondaBlaster", "7_323"); // free on smuggler / 2 on warrior
-					put("ponda", "1_190"); // Ponda Baba, smuggler+warrior
-					put("dsSpy", "1_177"); // Garindan
-					put("mountains", "104_4"); // Hoth: Mountains, combat vehicles -1
-					put("scout", "3_156"); // Blizzard Scout 1, deploy 3
-					put("atat", "3_154"); // Blizzard 1 AT-AT, deploy 6
-					put("cannon", "3_158"); // AT-AT Cannon, Use 2
-					put("cannonV", "222_3"); // AT-AT Cannon (V), Immune to Sabotage
-					put("pfasa", "209_42"); // Prepare For A Surface Attack (V), AT-AT Cannons -1
-					put("swilla", "2_126"); // Swilla Corey, prevent theft on weapon
-				}},
-				10,
-				10,
-				StartingSetup.DefaultLSGroundLocation,
-				StartingSetup.DefaultDSGroundLocation,
-				StartingSetup.NoLSStartingInterrupts,
-				StartingSetup.NoDSStartingInterrupts,
-				StartingSetup.NoLSShields,
-				StartingSetup.NoDSShields,
-				VirtualTableScenario.Open
+			new HashMap<>()
+			{{
+				put("sabotage", "2_56");
+				put("spy", "7_5"); // Bothan Spy
+				put("merc", "2_36"); // Merc Sunlet (thief skill)
+			}},
+			new HashMap<>()
+			{{
+				put("trooper", "1_194"); // Stormtrooper
+				put("blaster", "1_317"); // Imperial Blaster (Use 1)
+				put("blaster2", "1_317");
+				put("vader", "1_168");
+				put("saber", "1_314"); // Dark Jedi Lightsaber
+				put("saber2", "1_314");
+				put("liftTube", "1_308"); // vehicle, deploy 1
+				put("droid", "1_163"); // 5D6-RA-7
+				put("bolt", "1_205"); // Restraining Bolt (no Use X)
+				put("pondaBlaster", "7_323"); // free on smuggler / 2 on warrior
+				put("ponda", "1_190"); // Ponda Baba, smuggler+warrior
+				put("dsSpy", "1_177"); // Garindan
+				put("mountains", "104_4"); // Hoth: Mountains, combat vehicles -1
+				put("scout", "3_156"); // Blizzard Scout 1, deploy 3
+				put("atat", "3_154"); // Blizzard 1 AT-AT, deploy 6, no permanent pilot
+				put("blizzard2", "3_155"); // Blizzard 2 AT-AT, permanent pilot ability 2
+				put("speeder", "8_169"); // Speeder Bike, jump off if lost
+				put("cannon", "3_158"); // AT-AT Cannon, Use 2
+				put("cannonV", "222_3"); // AT-AT Cannon (V), Immune to Sabotage
+				put("pfasa", "209_42"); // Prepare For A Surface Attack (V), AT-AT Cannons -1
+				put("swilla", "2_126"); // Swilla Corey, prevent theft on weapon
+			}},
+			10,
+			10,
+			StartingSetup.DefaultLSGroundLocation,
+			StartingSetup.DefaultDSGroundLocation,
+			StartingSetup.NoLSStartingInterrupts,
+			StartingSetup.NoDSStartingInterrupts,
+			StartingSetup.NoLSShields,
+			StartingSetup.NoDSShields,
+			VirtualTableScenario.Open
 		);
 	}
 
@@ -74,6 +76,17 @@ public class Card_2_056_Tests {
 		if (extraAtSite.length > 0) {
 			scn.MoveCardsToLocation(site, extraAtSite);
 		}
+	}
+
+
+	private void GrantThiefToSpyAndGoUndercover(VirtualTableScenario scn) {
+		var merc = scn.GetLSCard("merc");
+		var spy = scn.GetLSCard("spy");
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		scn.LSPlayCard(merc, "non-thief");
+		scn.LSChooseCard(spy);
+		scn.PassAllResponses();
+		scn.MakeCardGoUndercover(spy);
 	}
 
 	@Test
@@ -440,4 +453,174 @@ public class Card_2_056_Tests {
 		assertNotEquals(trooper, blaster.getAttachedTo());
 		assertNotEquals(spy, blaster.getAttachedTo());
 	}
+
+	@Test
+	public void EmptyPermanentPilotAtAtMayBeStolen() {
+		// AR p.173: permanent pilots are not characters and do not block steal.
+		// Blizzard 2 has a permanent pilot and nobody else aboard.
+		var scn = GetScenario();
+		var sabotage = scn.GetLSCard("sabotage");
+		var spy = scn.GetLSCard("spy");
+		var merc = scn.GetLSCard("merc");
+		var blizzard2 = scn.GetDSCard("blizzard2");
+		var site = scn.GetLSCard("starting-location");
+
+		scn.MoveCardsToLSHand(sabotage, merc);
+		scn.StartGame();
+		scn.MoveCardsToLocation(site, spy, blizzard2);
+		GrantThiefToSpyAndGoUndercover(scn);
+
+		scn.SkipToLSTurn(Phase.CONTROL);
+		scn.PrepareLSDestiny(7); // 7 > Blizzard 2 deploy 6
+		assertTrue(scn.LSCardPlayAvailable(sabotage));
+		scn.LSPlayCard(sabotage);
+		scn.LSChooseCard(blizzard2);
+		scn.PassAllResponses();
+
+		assertTrue(scn.LSAnyDecisionsAvailable());
+		assertTrue(scn.LSGetDecision().getText().toLowerCase().contains("steal"));
+		scn.LSChooseYes();
+		scn.PassAllResponses();
+
+		assertEquals(scn.LS, blizzard2.getOwner());
+		assertEquals(Zone.AT_LOCATION, blizzard2.getZone());
+		assertEquals(site, blizzard2.getAtLocation());
+		assertNotEquals(spy, blizzard2.getAttachedTo());
+	}
+
+
+	@Test
+	public void ThiefMayStealOrDestroyEmptyVehicle() {
+		// Empty vehicle: thief spy gets steal-or-destroy. Choose destroy here; steal is covered by the AT-AT test.
+		var scn = GetScenario();
+		var sabotage = scn.GetLSCard("sabotage");
+		var spy = scn.GetLSCard("spy");
+		var merc = scn.GetLSCard("merc");
+		var liftTube = scn.GetDSCard("liftTube");
+		var site = scn.GetLSCard("starting-location");
+
+		scn.MoveCardsToLSHand(sabotage, merc);
+		scn.StartGame();
+		scn.MoveCardsToLocation(site, spy, liftTube);
+		GrantThiefToSpyAndGoUndercover(scn);
+
+		scn.SkipToLSTurn(Phase.CONTROL);
+		scn.PrepareLSDestiny(2);
+		assertTrue(scn.LSCardPlayAvailable(sabotage));
+		scn.LSPlayCard(sabotage);
+		scn.LSChooseCard(liftTube);
+		scn.PassAllResponses();
+		assertTrue(scn.LSAnyDecisionsAvailable());
+		assertTrue(scn.LSGetDecision().getText().toLowerCase().contains("steal"));
+		scn.LSChooseNo();
+		scn.PassAllResponses();
+		scn.PassCardLeavingTable();
+		assertEquals(Zone.TOP_OF_LOST_PILE, liftTube.getZone());
+		assertEquals(scn.DS, liftTube.getOwner());
+	}
+
+	@Test
+	public void OccupiedSpeederBikeIsDestroyOnlyAndRiderJumpsOff() {
+		// Occupied vehicle cannot be stolen (AR p.173). Speeder Bike riders may jump off when it is lost.
+		var scn = GetScenario();
+		var sabotage = scn.GetLSCard("sabotage");
+		var spy = scn.GetLSCard("spy");
+		var merc = scn.GetLSCard("merc");
+		var speeder = scn.GetDSCard("speeder");
+		var trooper = scn.GetDSCard("trooper");
+		var site = scn.GetLSCard("starting-location");
+
+		scn.MoveCardsToLSHand(sabotage, merc);
+		scn.StartGame();
+		scn.MoveCardsToLocation(site, spy, speeder, trooper);
+		scn.BoardAsPilot(speeder, trooper);
+		GrantThiefToSpyAndGoUndercover(scn);
+
+		scn.SkipToLSTurn(Phase.CONTROL);
+		scn.PrepareLSDestiny(2); // 2 > Speeder Bike deploy 1
+		assertTrue(scn.LSCardPlayAvailable(sabotage));
+		scn.LSPlayCard(sabotage);
+		scn.LSChooseCard(speeder);
+
+		for (int i = 0; i < 20; i++) {
+			if (scn.DSCardActionAvailable(trooper, "Jump off") || scn.DSActionAvailable("Jump off")) {
+				break;
+			}
+			if (scn.LSAnyDecisionsAvailable() && scn.LSGetDecision().getText().toLowerCase().contains("steal")) {
+				break;
+			}
+			if (scn.GetCurrentDecision() == null || !scn.GetCurrentDecision().getText().toLowerCase().contains("optional response")) {
+				break;
+			}
+			scn.PassResponses("optional");
+		}
+
+		if (scn.LSAnyDecisionsAvailable()) {
+			assertFalse(scn.LSGetDecision().getText().toLowerCase().contains("steal"));
+		}
+		assertTrue(scn.DSCardActionAvailable(trooper, "Jump off"));
+		scn.DSUseCardAction(trooper, "Jump off");
+		scn.PassAllResponses();
+		scn.PassCardLeavingTable();
+
+		assertEquals(Zone.TOP_OF_LOST_PILE, speeder.getZone());
+		assertEquals(scn.DS, speeder.getOwner());
+		assertEquals(Zone.AT_LOCATION, trooper.getZone());
+		assertEquals(site, trooper.getAtLocation());
+	}
+
+	@Test
+	public void OccupiedAtAtIsDestroyOnlyAndOccupantIsLost() {
+		// Occupied AT-AT cannot be stolen. Occupants are lost with the vehicle (no jump-off).
+		var scn = GetScenario();
+		var sabotage = scn.GetLSCard("sabotage");
+		var spy = scn.GetLSCard("spy");
+		var merc = scn.GetLSCard("merc");
+		var atat = scn.GetDSCard("atat");
+		var droid = scn.GetDSCard("droid");
+		var site = scn.GetLSCard("starting-location");
+
+		scn.MoveCardsToLSHand(sabotage, merc);
+		scn.StartGame();
+		scn.MoveCardsToLocation(site, spy, atat, droid);
+		scn.BoardAsPassenger(atat, droid);
+		GrantThiefToSpyAndGoUndercover(scn);
+
+		scn.SkipToLSTurn(Phase.CONTROL);
+		scn.PrepareLSDestiny(7); // 7 > Blizzard 1 deploy 6
+		assertTrue(scn.LSCardPlayAvailable(sabotage));
+		scn.LSPlayCard(sabotage);
+		scn.LSChooseCard(atat);
+
+		for (int i = 0; i < 20; i++) {
+			if (scn.DSHasCardChoiceAvailable(atat) || scn.DSHasCardChoiceAvailable(droid)) {
+				break;
+			}
+			if (scn.LSAnyDecisionsAvailable() && scn.LSGetDecision().getText().toLowerCase().contains("steal")) {
+				break;
+			}
+			if (scn.GetCurrentDecision() == null || !scn.GetCurrentDecision().getText().toLowerCase().contains("optional response")) {
+				break;
+			}
+			scn.PassResponses("optional");
+		}
+
+		if (scn.LSAnyDecisionsAvailable()) {
+			assertFalse(scn.LSGetDecision().getText().toLowerCase().contains("steal"));
+		}
+		// Two cards leave together: owner chooses Lost Pile order. Last chosen sits on top.
+		if (scn.DSHasCardChoiceAvailable(droid)) {
+			scn.DSChooseCard(droid);
+		}
+		if (scn.DSHasCardChoiceAvailable(atat)) {
+			scn.DSChooseCard(atat);
+		}
+		scn.PassAllResponses();
+		scn.PassCardLeavingTable();
+		assertEquals(Zone.TOP_OF_LOST_PILE, atat.getZone());
+		assertEquals(Zone.LOST_PILE, droid.getZone());
+		assertEquals(scn.DS, atat.getOwner());
+		assertEquals(scn.DS, droid.getOwner());
+	}
+
 }

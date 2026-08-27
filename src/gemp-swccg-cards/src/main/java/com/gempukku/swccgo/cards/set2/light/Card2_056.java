@@ -27,6 +27,7 @@ import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.StealCardAndAttachFromTableEffect;
+import com.gempukku.swccgo.logic.effects.choose.StealCardToLocationEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifierType;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
@@ -109,16 +110,24 @@ public class Card2_056 extends AbstractUsedInterrupt {
 																gameState.sendMessage("Result: Succeeded");
 																PhysicalCard thiefSpy = Filters.findFirstActive(game, self, SpotOverride.INCLUDE_UNDERCOVER,
 																		Filters.and(Filters.your(self), Filters.undercover_spy, Filters.thief,
-																				Filters.atSameSite(finalTarget), Filters.canStealAndCarry(finalTarget)));
-																if (thiefSpy != null) {
+																				Filters.atSameSite(finalTarget)));
+																boolean stealInstead = canStealInsteadOfLose(game, self, thiefSpy, finalTarget);
+																if (stealInstead) {
 																	final PhysicalCard spyToAttachTo = thiefSpy;
+																	final boolean stealVehicleToLocation = Filters.vehicle.accepts(game, finalTarget);
 																	action.appendEffect(
 																			new PlayoutDecisionEffect(action, playerId,
 																					new YesNoDecision("Do you want to steal " + GameUtils.getCardLink(finalTarget) + " instead of making it lost?") {
 																						@Override
 																						protected void yes() {
-																							action.appendEffect(
-																									new StealCardAndAttachFromTableEffect(action, finalTarget, spyToAttachTo));
+																							if (stealVehicleToLocation) {
+																								action.appendEffect(
+																										new StealCardToLocationEffect(action, finalTarget));
+																							}
+																							else {
+																								action.appendEffect(
+																										new StealCardAndAttachFromTableEffect(action, finalTarget, spyToAttachTo));
+																							}
 																						}
 																						@Override
 																						protected void no() {
@@ -172,6 +181,22 @@ public class Card2_056 extends AbstractUsedInterrupt {
 			return Collections.singletonList(action);
 		}
 		return null;
+	}
+
+	/**
+	 * Weapons/devices: thief must be able to steal and carry them.
+	 * Vehicles: steal relocates to the new owner's side of the location (not carried).
+	 * Occupied vehicles cannot be stolen (AR Stealing Vehicles); permanent pilots are not characters.
+	 */
+	static boolean canStealInsteadOfLose(SwccgGame game, PhysicalCard self, PhysicalCard thiefSpy, PhysicalCard target) {
+		if (thiefSpy == null) {
+			return false;
+		}
+		if (Filters.vehicle.accepts(game, target)) {
+			return game.getModifiersQuerying().canBeTargetedBy(game.getGameState(), target, self,
+					Collections.singleton(TargetingReason.TO_BE_STOLEN));
+		}
+		return Filters.canStealAndCarry(target).accepts(game, thiefSpy);
 	}
 
 	/**
