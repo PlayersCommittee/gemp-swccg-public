@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set4.dark;
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PeekAtOpponentsHandEffect;
+import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
@@ -36,6 +37,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 /**
@@ -99,7 +101,8 @@ public class Card4_142 extends AbstractLostInterrupt {
                                                             // Track the obligation on the proxy itself. Frustration is a Lost Interrupt, so
                                                             // ForRemainderOfGameData on the card is not reliable after it hits the Lost Pile.
                                                             // Each play gets its own proxy + stillPending flag so a later play cannot replace this one.
-                                                            final boolean[] stillPending = new boolean[] { true };
+                                                            // AtomicBoolean so the anonymous proxy can mutate a final captured flag.
+                                                            final AtomicBoolean stillPending = new AtomicBoolean(true);
                                                             game.getGameState().sendMessage(playerId + " targets " + GameUtils.getCardLink(targetedCard)
                                                                     + ". " + opponent + " must deploy a card of that title by the end of " + playerId + "'s next turn, or lose a card of that title from hand (if possible)");
 
@@ -110,20 +113,20 @@ public class Card4_142 extends AbstractLostInterrupt {
                                                                         @Override
                                                                         public List<TriggerAction> getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult) {
                                                                             List<TriggerAction> actions = new LinkedList<TriggerAction>();
-                                                                            if (!stillPending[0]) {
+                                                                            if (!stillPending.get()) {
                                                                                 return actions;
                                                                             }
 
                                                                             // Opponent deployed a card of the targeted title, which satisfies this Frustration play
                                                                             if (TriggerConditions.justDeployed(game, effectResult, opponent, Filters.title(targetedTitle))) {
-                                                                                stillPending[0] = false;
+                                                                                stillPending.set(false);
                                                                                 return actions;
                                                                             }
 
                                                                             // At the end of that next turn, lose a card of the title from hand if possible
                                                                             if (TriggerConditions.isEndOfYourTurn(game, effectResult, playerId)
                                                                                     && game.getGameState().getPlayersLatestTurnNumber(playerId) == nextTurnNumber) {
-                                                                                stillPending[0] = false;
+                                                                                stillPending.set(false);
                                                                                 final PhysicalCard source = game.findCardByPermanentId(permCardId);
                                                                                 Collection<PhysicalCard> inHand = Filters.filter(game.getGameState().getHand(opponent), game, Filters.title(targetedTitle));
                                                                                 if (!inHand.isEmpty()) {
@@ -192,6 +195,12 @@ public class Card4_142 extends AbstractLostInterrupt {
      */
     private Float getFrustrationDeployCost(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
         Float printed = card.getBlueprint().getDeployCost();
+
+        // Locations always report 0 from AbstractLocation.getDeployCost(). That is not a printed cost
+        // (Mos Eisley, etc.). Real location costs come from this card's PRINTED_DEPLOY_COST modifiers.
+        if (card.getBlueprint().getCardCategory() == CardCategory.LOCATION) {
+            printed = null;
+        }
 
         // GEMP encodes some "deploys free" cards as constructor deploy 0 plus DeploysFreeModifier
         // (Princess Leia Organa JP). Free is not a deploy cost, so drop that 0.

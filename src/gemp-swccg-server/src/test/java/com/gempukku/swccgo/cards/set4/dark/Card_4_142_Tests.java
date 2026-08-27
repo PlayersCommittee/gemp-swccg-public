@@ -347,18 +347,18 @@ public class Card_4_142_Tests {
 		var frustration = scn.GetDSCard("frustration");
 		var frustration2 = scn.GetDSCard("frustration2");
 		var trooper = scn.GetLSCard("trooper");
-		var mosEisley = scn.GetLSCard("mosEisley");
+		var kfc = scn.GetLSCard("kfc");
 
 		scn.MoveCardsToDSHand(frustration, frustration2);
-		scn.MoveCardsToLSHand(trooper, mosEisley);
+		scn.MoveCardsToLSHand(trooper, kfc);
 
 		scn.StartGame();
 
 		PlayFrustrationTargetingTrooper(scn);
 		assertEquals(Zone.HAND, trooper.getZone());
-		assertEquals(Zone.HAND, mosEisley.getZone());
+		assertEquals(Zone.HAND, kfc.getZone());
 
-		// Next DS control phase: play the second copy targeting Mos Eisley
+		// Next DS control phase: play the second copy targeting KFC (printed 0, a real cost)
 		scn.SkipToLSTurn();
 		scn.SkipToDSTurn(Phase.CONTROL);
 		assertTrue(scn.DSCardPlayAvailable(frustration2));
@@ -367,23 +367,23 @@ public class Card_4_142_Tests {
 		if (scn.DSAnyDecisionsAvailable() && scn.DSGetDecision().getText().toLowerCase().contains("hand")) {
 			scn.DSDismissRevealedCards();
 		}
-		scn.DSChooseCard(mosEisley);
+		scn.DSChooseCard(kfc);
 		scn.PassAllResponses();
 
 		// End of THIS DS turn is the first play's deadline. Trooper should be lost.
-		// Mos Eisley belongs to the second play and is not due until the following DS turn.
+		// KFC belongs to the second play and is not due until the following DS turn.
 		scn.SkipToPhase(Phase.DRAW);
 		scn.PassDrawActions();
 		DrainPendingDecisions(scn, 30);
 
 		assertEquals(Zone.TOP_OF_LOST_PILE, trooper.getZone());
-		assertEquals(Zone.HAND, mosEisley.getZone());
+		assertEquals(Zone.HAND, kfc.getZone());
 
 		scn.SkipToDSTurn(Phase.DRAW);
 		scn.PassDrawActions();
 		DrainPendingDecisions(scn, 30);
 
-		assertEquals(Zone.TOP_OF_LOST_PILE, mosEisley.getZone());
+		assertEquals(Zone.TOP_OF_LOST_PILE, kfc.getZone());
 	}
 
 	@Test
@@ -392,10 +392,10 @@ public class Card_4_142_Tests {
 
 		var frustration = scn.GetDSCard("frustration");
 		var trooper = scn.GetLSCard("trooper");
-		var mosEisley = scn.GetLSCard("mosEisley");
+		var kfc = scn.GetLSCard("kfc");
 
 		scn.MoveCardsToDSHand(frustration);
-		scn.MoveCardsToLSHand(trooper, mosEisley);
+		scn.MoveCardsToLSHand(trooper, kfc);
 
 		scn.StartGame();
 
@@ -411,7 +411,7 @@ public class Card_4_142_Tests {
 		if (scn.DSAnyDecisionsAvailable() && scn.DSGetDecision().getText().toLowerCase().contains("hand")) {
 			scn.DSDismissRevealedCards();
 		}
-		scn.DSChooseCard(mosEisley);
+		scn.DSChooseCard(kfc);
 		scn.PassAllResponses();
 
 		scn.SkipToPhase(Phase.DRAW);
@@ -419,13 +419,13 @@ public class Card_4_142_Tests {
 		DrainPendingDecisions(scn, 30);
 
 		assertEquals(Zone.TOP_OF_LOST_PILE, trooper.getZone());
-		assertEquals(Zone.HAND, mosEisley.getZone());
+		assertEquals(Zone.HAND, kfc.getZone());
 
 		scn.SkipToDSTurn(Phase.DRAW);
 		scn.PassDrawActions();
 		DrainPendingDecisions(scn, 30);
 
-		assertEquals(Zone.TOP_OF_LOST_PILE, mosEisley.getZone());
+		assertEquals(Zone.TOP_OF_LOST_PILE, kfc.getZone());
 	}
 
 	@Test
@@ -550,5 +550,91 @@ public class Card_4_142_Tests {
 
 		assertTrue(scn.DSHasCardChoiceNotAvailable(jpLeia));
 		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
+	}
+	@Test
+	public void FrustrationCannotTargetLocationWithNoPrintedDeployCost() {
+		// AbstractLocation.getDeployCost() is hardcoded 0. That is not a printed cost.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var mosEisley = scn.GetLSCard("mosEisley");
+		var trooper = scn.GetLSCard("trooper");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(mosEisley, trooper);
+
+		scn.StartGame();
+		PeekFrustrationAtHand(scn);
+
+		assertTrue(scn.DSHasCardChoiceNotAvailable(mosEisley));
+		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
+	}
+
+	@Test
+	public void FrustrationRevertUndoesObligation() {
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var trooper = scn.GetLSCard("trooper");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(trooper);
+
+		scn.StartGame();
+		PlayFrustrationTargetingTrooper(scn);
+		assertEquals(Zone.HAND, trooper.getZone());
+
+		scn.IssueRevert("Start of Dark Side Player's control phase #1");
+		frustration = scn.GetPostRevertCard(frustration);
+		trooper = scn.GetPostRevertCard(trooper);
+
+		assertEquals(Zone.HAND, frustration.getZone());
+		assertEquals(Zone.HAND, trooper.getZone());
+
+		AdvanceThroughEndOfDSNextTurn(scn);
+		trooper = scn.GetPostRevertCard(trooper);
+		assertEquals(Zone.HAND, trooper.getZone());
+	}
+
+	@Test
+	public void FrustrationRevertAfterFirstPlayKeepsFirstObligation() {
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var frustration2 = scn.GetDSCard("frustration2");
+		var trooper = scn.GetLSCard("trooper");
+		var kfc = scn.GetLSCard("kfc");
+
+		scn.MoveCardsToDSHand(frustration, frustration2);
+		scn.MoveCardsToLSHand(trooper, kfc);
+
+		scn.StartGame();
+		PlayFrustrationTargetingTrooper(scn);
+
+		scn.SkipToLSTurn();
+		scn.SkipToDSTurn(Phase.CONTROL);
+		assertTrue(scn.DSCardPlayAvailable(frustration2));
+		scn.DSPlayCard(frustration2);
+		scn.PassAllResponses();
+		if (scn.DSAnyDecisionsAvailable() && scn.DSGetDecision().getText().toLowerCase().contains("hand")) {
+			scn.DSDismissRevealedCards();
+		}
+		scn.DSChooseCard(kfc);
+		scn.PassAllResponses();
+
+		scn.IssueRevert("Start of Dark Side Player's control phase #2");
+		frustration2 = scn.GetPostRevertCard(frustration2);
+		trooper = scn.GetPostRevertCard(trooper);
+		kfc = scn.GetPostRevertCard(kfc);
+
+		assertEquals(Zone.HAND, frustration2.getZone());
+		assertEquals(Zone.HAND, trooper.getZone());
+		assertEquals(Zone.HAND, kfc.getZone());
+
+		scn.SkipToPhase(Phase.DRAW);
+		scn.PassDrawActions();
+		DrainPendingDecisions(scn, 30);
+
+		trooper = scn.GetPostRevertCard(trooper);
+		kfc = scn.GetPostRevertCard(kfc);
+		assertEquals(Zone.TOP_OF_LOST_PILE, trooper.getZone());
+		assertEquals(Zone.HAND, kfc.getZone());
 	}
 }
