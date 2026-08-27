@@ -25,6 +25,8 @@ import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameActionProxyEffect;
 import com.gempukku.swccgo.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardFromHandEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifierType;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -73,7 +75,7 @@ public class Card4_142 extends AbstractLostInterrupt {
                                             final int lightForceIcons = getLightSideForceIconsOnTable(game);
                                             final Filter validTargetFilter = Filters.and(
                                                     Filters.not(Filters.Interrupt),
-                                                    deployCostLessThan(lightForceIcons));
+                                                    frustrationDeployCostLessThan(lightForceIcons));
                                             Collection<PhysicalCard> validTargets = Filters.filter(peekedAtCards, game, validTargetFilter);
                                             if (validTargets.isEmpty()) {
                                                 return;
@@ -170,17 +172,71 @@ public class Card4_142 extends AbstractLostInterrupt {
     }
 
     /**
-     * Filter that accepts cards whose deploy cost is strictly less than the specified value.
+     * Frustration AR: target a card and any one of its deploy costs. "Free" is not a deploy cost.
+     * Ignore modifiers except global DEPLOY_COST changes (Bad Feeling Have I, Max Rebo).
+     * Uses the lowest remaining printed cost. Undefined / no printed cost cannot be targeted.
      */
-    private Filter deployCostLessThan(final float cost) {
+    private Filter frustrationDeployCostLessThan(final float lightForceIcons) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                if (!modifiersQuerying.hasDeployCostAttribute(physicalCard)) {
-                    return false;
-                }
-                return modifiersQuerying.getDeployCost(gameState, physicalCard) < cost;
+                Float cost = getFrustrationDeployCost(gameState, modifiersQuerying, physicalCard);
+                return cost != null && cost < lightForceIcons;
             }
         };
+    }
+
+    /**
+     * Printed deploy costs of this card, then global DEPLOY_COST modifiers.
+     * Does not use getDeployCost(), which collapses an undefined cost to 0.
+     */
+    private Float getFrustrationDeployCost(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+        Float printed = card.getBlueprint().getDeployCost();
+
+        // GEMP encodes some "deploys free" cards as constructor deploy 0 plus DeploysFreeModifier
+        // (Princess Leia Organa JP). Free is not a deploy cost, so drop that 0.
+        boolean deploysFreeByOwnText = false;
+        for (Modifier modifier : modifiersQuerying.getModifiersAffectingCard(gameState, ModifierType.DEPLOYS_FREE, card)) {
+            if (isModifierFromThisCard(gameState, modifier, card)) {
+                deploysFreeByOwnText = true;
+                break;
+            }
+        }
+        if (printed != null && printed == 0 && deploysFreeByOwnText) {
+            printed = null;
+        }
+
+        for (Modifier modifier : modifiersQuerying.getModifiersAffectingCard(gameState, ModifierType.PRINTED_DEPLOY_COST, card)) {
+            if (!isModifierFromThisCard(gameState, modifier, card)) {
+                continue;
+            }
+            float value = modifier.getPrintedValueDefinedByGameText(gameState, modifiersQuerying, card);
+            printed = printed == null ? value : Math.min(printed, value);
+        }
+
+        // Split printed costs such as Luke's Hunting Rifle (1 or 3) and Ponda's blaster (free or 2).
+        // Take the numeric values even with no matching target in play; free-to-target is not a number.
+        for (Modifier modifier : modifiersQuerying.getModifiersAffectingCard(gameState, ModifierType.PRINTED_DEPLOY_COST_TO_TARGET, card)) {
+            if (!isModifierFromThisCard(gameState, modifier, card)) {
+                continue;
+            }
+            float value = modifier.getDefinedDeployCostToTarget(gameState, modifiersQuerying, card);
+            printed = printed == null ? value : Math.min(printed, value);
+        }
+
+        if (printed == null) {
+            return null;
+        }
+
+        for (Modifier modifier : modifiersQuerying.getModifiersAffectingCard(gameState, ModifierType.DEPLOY_COST, card)) {
+            printed += modifier.getDeployCostModifier(gameState, modifiersQuerying, card);
+        }
+
+        return Math.max(0, printed);
+    }
+
+    private boolean isModifierFromThisCard(GameState gameState, Modifier modifier, PhysicalCard card) {
+        PhysicalCard source = modifier.getSource(gameState);
+        return source != null && source.getCardId() == card.getCardId();
     }
 }

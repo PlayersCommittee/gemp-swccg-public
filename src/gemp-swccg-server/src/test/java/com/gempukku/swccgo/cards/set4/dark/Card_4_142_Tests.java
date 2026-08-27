@@ -31,11 +31,17 @@ public class Card_4_142_Tests {
 					put("protector", "5_63");
 					put("walkway", "5_79");
 					put("mosEisley", "1_133");
+					put("rifle", "2_79");
+					put("electropole", "14_64");
+					put("kfc", "1_15");
+					put("jpLeia", "6_32");
 				}},
 				new HashMap<>()
 				{{
 					put("frustration", "4_142");
 					put("frustration2", "4_142");
+					put("badFeeling", "4_116");
+					put("pondaBlaster", "7_323");
 				}},
 				10,
 				10,
@@ -47,6 +53,16 @@ public class Card_4_142_Tests {
 				StartingSetup.NoDSShields,
 				VirtualTableScenario.Open
 		);
+	}
+
+
+	private void PeekFrustrationAtHand(VirtualTableScenario scn) {
+		scn.SkipToPhase(Phase.CONTROL);
+		scn.DSPlayCard(scn.GetDSCard("frustration"));
+		scn.PassAllResponses();
+		if (scn.DSAnyDecisionsAvailable() && scn.DSGetDecision().getText().toLowerCase().contains("hand")) {
+			scn.DSDismissRevealedCards();
+		}
 	}
 
 	private void PlayFrustrationTargetingTrooper(VirtualTableScenario scn) {
@@ -410,5 +426,129 @@ public class Card_4_142_Tests {
 		DrainPendingDecisions(scn, 30);
 
 		assertEquals(Zone.TOP_OF_LOST_PILE, mosEisley.getZone());
+	}
+
+	@Test
+	public void FrustrationCanTargetHuntingRifleUsingLowerPrintedCost() {
+		// Default systems have 2 Light Side Force icons. Rifle is 1 or 3; lowest 1 is < 2.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var rifle = scn.GetLSCard("rifle");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(rifle);
+
+		scn.StartGame();
+		PeekFrustrationAtHand(scn);
+
+		assertTrue(scn.DSHasCardChoiceAvailable(rifle));
+	}
+
+	@Test
+	public void FrustrationCannotTargetElectropoleWithNoPrintedDeployCost() {
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var electropole = scn.GetLSCard("electropole");
+		var trooper = scn.GetLSCard("trooper");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(electropole, trooper);
+
+		scn.StartGame();
+		PeekFrustrationAtHand(scn);
+
+		assertTrue(scn.DSHasCardChoiceNotAvailable(electropole));
+		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
+	}
+
+	@Test
+	public void FrustrationCanTargetPrintedZeroDeployCost() {
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var kfc = scn.GetLSCard("kfc");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(kfc);
+
+		scn.StartGame();
+		PeekFrustrationAtHand(scn);
+
+		assertTrue(scn.DSHasCardChoiceAvailable(kfc));
+	}
+
+	@Test
+	public void FrustrationAppliesGlobalDeployCostModifierFromBadFeelingHaveI() {
+		// Default systems 2 LS icons + Mos Eisley 2 = 4. Luke is 3, or 5 with Bad Feeling Have I.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var frustration2 = scn.GetDSCard("frustration2");
+		var badFeeling = scn.GetDSCard("badFeeling");
+		var luke = scn.GetLSCard("luke");
+		var trooper = scn.GetLSCard("trooper");
+		var mosEisley = scn.GetLSCard("mosEisley");
+
+		scn.MoveCardsToDSHand(frustration, frustration2);
+		scn.MoveCardsToLSHand(luke, trooper);
+
+		scn.StartGame();
+		scn.MoveLocationToTable(mosEisley);
+
+		PeekFrustrationAtHand(scn);
+		assertTrue(scn.DSHasCardChoiceAvailable(luke));
+		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
+		scn.DSChooseCard(trooper);
+		scn.PassAllResponses();
+
+		scn.MoveCardsToDSSideOfTable(badFeeling);
+		scn.PassAllResponses();
+
+		scn.SkipToLSTurn();
+		scn.SkipToDSTurn(Phase.CONTROL);
+		assertTrue(scn.DSCardPlayAvailable(frustration2));
+		scn.DSPlayCard(frustration2);
+		scn.PassAllResponses();
+		if (scn.DSAnyDecisionsAvailable() && scn.DSGetDecision().getText().toLowerCase().contains("hand")) {
+			scn.DSDismissRevealedCards();
+		}
+
+		assertTrue(scn.DSHasCardChoiceNotAvailable(luke));
+		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
+	}
+
+	@Test
+	public void FrustrationIgnoresFreeOptionOnPondaBlasterAndUsesCostTwo() {
+		// Default systems have 2 Light icons. Ponda's blaster is free or 2; 2 is not < 2.
+		// Dark card, so it lives in DS extras and is moved into LS hand for targeting.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var pondaBlaster = scn.GetDSCard("pondaBlaster");
+		var trooper = scn.GetLSCard("trooper");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(pondaBlaster, trooper);
+
+		scn.StartGame();
+		PeekFrustrationAtHand(scn);
+
+		assertTrue(scn.DSHasCardChoiceNotAvailable(pondaBlaster));
+		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
+	}
+
+	@Test
+	public void FrustrationCannotTargetCardThatDeploysFreeEncodedAsZero() {
+		// JP Leia is constructor deploy 0 plus DeploysFreeModifier. Free is not a cost.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var jpLeia = scn.GetLSCard("jpLeia");
+		var trooper = scn.GetLSCard("trooper");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(jpLeia, trooper);
+
+		scn.StartGame();
+		PeekFrustrationAtHand(scn);
+
+		assertTrue(scn.DSHasCardChoiceNotAvailable(jpLeia));
+		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
 	}
 }
