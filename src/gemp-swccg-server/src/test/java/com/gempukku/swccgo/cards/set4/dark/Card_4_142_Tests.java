@@ -35,6 +35,7 @@ public class Card_4_142_Tests {
 					put("electropole", "14_64");
 					put("kfc", "1_15");
 					put("jpLeia", "6_32");
+					put("ihabfat", "4_052");
 				}},
 				new HashMap<>()
 				{{
@@ -636,5 +637,42 @@ public class Card_4_142_Tests {
 		kfc = scn.GetPostRevertCard(kfc);
 		assertEquals(Zone.TOP_OF_LOST_PILE, trooper.getZone());
 		assertEquals(Zone.HAND, kfc.getZone());
+	}
+
+	@Test
+	public void IHaveABadFeelingAboutThisCannotRetargetFrustrationBecauseTargetIsChosenInResultStep() {
+		// ScompLink Extra Card Data: IHABFAT may not retarget something that isn't chosen until
+		// the result step (e.g. Twi'lek Advisor taking a card into hand from Reserve Deck).
+		// Frustration currently chooses its target in the result step (after peek), not as a
+		// targeting-step primary target, so Light Side cannot play IHABFAT as a response.
+		var scn = GetScenario();
+
+		var frustration = scn.GetDSCard("frustration");
+		var ihabfat = scn.GetLSCard("ihabfat");
+		var trooper = scn.GetLSCard("trooper");
+		var kfc = scn.GetLSCard("kfc");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(ihabfat, trooper, kfc);
+
+		scn.StartGame();
+
+		scn.LSActivateForceCheat(3);
+
+		scn.SkipToPhase(Phase.CONTROL);
+		scn.DSPlayCard(frustration);
+
+		// Optional-response window is open; peek has not happened and there are no primary target groups.
+		assertFalse(scn.LSCardPlayAvailable(ihabfat));
+
+		scn.PassAllResponses();
+		if (scn.DSAnyDecisionsAvailable() && scn.DSGetDecision().getText().toLowerCase().contains("hand")) {
+			scn.DSDismissRevealedCards();
+		}
+		scn.DSChooseCard(trooper);
+		scn.PassAllResponses();
+
+		AdvanceThroughEndOfDSNextTurn(scn);
+		assertEquals(Zone.TOP_OF_LOST_PILE, trooper.getZone());
 	}
 }
