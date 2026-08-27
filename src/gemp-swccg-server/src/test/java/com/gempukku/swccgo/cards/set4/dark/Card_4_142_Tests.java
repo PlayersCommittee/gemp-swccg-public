@@ -14,11 +14,13 @@ import com.gempukku.swccgo.framework.VirtualTableScenario;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class Card_4_142_Tests {
@@ -49,8 +51,12 @@ public class Card_4_142_Tests {
 					put("savrip", "1_55");
 					put("c3po", "1_5");
 					put("trooper2", "1_28");
-					put("artoo", "2_14");
+					put("artoo", "6_3");
+					put("threepio", "8_31");
 					put("artooThreepio", "10_2");
+					put("wiseAdvice", "7_81");
+					put("doOrDoNot", "4_21");
+					put("doOrDoNotWise", "10_7");
 				}},
 				new HashMap<>()
 				{{
@@ -1050,22 +1056,183 @@ public class Card_4_142_Tests {
 		assertEquals(1, scn.GetLSLostPileCount());
 	}
 
-	/*
-	 * Combo vs standalone Artoo tests are omitted because titles do not overlap.
-	 * sameTitleAs uses cardTitlesMatch on getTitles():
-	 *   Card2_014 R2-D2 (Artoo-Detoo) getTitles() = ["R2-D2 (Artoo-Detoo)"]
-	 *   Card10_002 Artoo & Threepio addComboCardTitles("Artoo", "Threepio") and getTitles()
-	 *   returns only those combo titles when non-empty: ["Artoo", "Threepio"]
-	 *   (main title is not included). They do not share a string.
-	 * Do not silently switch to persona matching; ask VHD.
-	 *
-	 * If titles overlap, restore as @Test:
-	 * FrustrationDeployingComboSatisfiesStandaloneTitleObligation
-	 *   Target Artoo (constructor deploy 3; Mos Eisley so 4 LS icons). LS deploys combo at walkway.
-	 *   AdvanceThroughEndOfDSNextTurn. Combo on table, Artoo still in hand, lost pile 0.
-	 * FrustrationLosesComboThatEnteredHandAfterStandaloneWasRemoved
-	 *   Target Artoo, MoveCardsToTopOfLSUsedPile(artoo), MoveCardsToLSHand(combo),
-	 *   AdvanceThroughEndOfDSNextTurn, combo lost.
-	 */
+	@Test
+	public void FrustrationCannotTargetWiseAdviceOrDoOrDoNotBecauseNoPrintedDeployCost() {
+		// AR 2023 p.164 Combo Cards: a combo card counts as both cards in its title for all purposes,
+		// including uniqueness. When any portion of a combo card is targeted or referenced, it targets
+		// or references the entire combo card.
+		// AbstractEffect constructor passes null as deployCost. Wise Advice 7_81, Do, Or Do Not 4_21,
+		// and combo Do, Or Do Not & Wise Advice 10_7 have no PRINTED_DEPLOY_COST modifiers, so GEMP
+		// treats them as no printed cost. Frustration cannot target them. Combo-title obligation tests
+		// 4-5 are skipped for Effects; character Artoo/combo tests below cover overlapping titles.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var wiseAdvice = scn.GetLSCard("wiseAdvice");
+		var doOrDoNot = scn.GetLSCard("doOrDoNot");
+		var doOrDoNotWise = scn.GetLSCard("doOrDoNotWise");
+		var trooper = scn.GetLSCard("trooper");
+		var artoo = scn.GetLSCard("artoo");
+		var threepio = scn.GetLSCard("threepio");
+		var artooThreepio = scn.GetLSCard("artooThreepio");
+
+		assertNull(wiseAdvice.getBlueprint().getDeployCost());
+		assertNull(doOrDoNot.getBlueprint().getDeployCost());
+		assertNull(doOrDoNotWise.getBlueprint().getDeployCost());
+		assertEquals(4f, artoo.getBlueprint().getDeployCost(), scn.epsilon);
+		assertEquals(4f, threepio.getBlueprint().getDeployCost(), scn.epsilon);
+		assertEquals(3f, artooThreepio.getBlueprint().getDeployCost(), scn.epsilon);
+
+		assertEquals(Arrays.asList("Artoo"), artoo.getBlueprint().getTitles());
+		assertEquals(Arrays.asList("Threepio"), threepio.getBlueprint().getTitles());
+		assertEquals(Arrays.asList("Artoo", "Threepio"), artooThreepio.getBlueprint().getTitles());
+		assertEquals(Arrays.asList("Wise Advice"), wiseAdvice.getBlueprint().getTitles());
+		assertEquals(Arrays.asList("Do, Or Do Not"), doOrDoNot.getBlueprint().getTitles());
+		assertEquals(Arrays.asList("Do, Or Do Not", "Wise Advice"), doOrDoNotWise.getBlueprint().getTitles());
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(wiseAdvice, doOrDoNot, doOrDoNotWise, trooper);
+
+		scn.StartGame();
+		PeekFrustrationAtHand(scn);
+
+		assertTrue(scn.DSHasCardChoiceNotAvailable(wiseAdvice));
+		assertTrue(scn.DSHasCardChoiceNotAvailable(doOrDoNot));
+		assertTrue(scn.DSHasCardChoiceNotAvailable(doOrDoNotWise));
+		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
+	}
+
+	@Test
+	public void FrustrationDeployingArtooAndThreepioSatisfiesArtooTitleObligation() {
+		// Target JP Artoo 6_3 (titles ["Artoo"]). Deploying combo 10_2 (titles ["Artoo","Threepio"])
+		// satisfies the obligation because sameTitleAs matches overlapping combo titles.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var artoo = scn.GetLSCard("artoo");
+		var artooThreepio = scn.GetLSCard("artooThreepio");
+		var mosEisley = scn.GetLSCard("mosEisley");
+		var walkway = scn.GetLSCard("walkway");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(artoo, artooThreepio);
+
+		scn.StartGame();
+		// Artoo printed 4. Default systems 2 + Mos Eisley 2 + walkway 1 = 5, so 4 < 5 at peek.
+		scn.MoveLocationToTable(mosEisley);
+		scn.MoveLocationToTable(walkway);
+
+		PeekFrustrationAtHand(scn);
+		assertTrue(scn.DSHasCardChoiceAvailable(artoo));
+		scn.DSChooseCard(artoo);
+		scn.PassAllResponses();
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		assertTrue(scn.LSDeployAvailable(artooThreepio));
+		scn.LSDeployCardAndPassResponses(artooThreepio, walkway);
+		assertEquals(Zone.AT_LOCATION, artooThreepio.getZone());
+
+		AdvanceThroughEndOfDSNextTurn(scn);
+		assertEquals(Zone.AT_LOCATION, artooThreepio.getZone());
+		assertEquals(Zone.HAND, artoo.getZone());
+		assertEquals(0, scn.GetLSLostPileCount());
+	}
+
+	@Test
+	public void FrustrationLosesArtooAndThreepioThatEnteredHandAfterArtooRemoved() {
+		// Target Artoo, remove it from hand, combo of that title enters hand, combo is lost at deadline.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var artoo = scn.GetLSCard("artoo");
+		var artooThreepio = scn.GetLSCard("artooThreepio");
+		var mosEisley = scn.GetLSCard("mosEisley");
+		var walkway = scn.GetLSCard("walkway");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(artoo);
+
+		scn.StartGame();
+		scn.MoveLocationToTable(mosEisley);
+		scn.MoveLocationToTable(walkway);
+
+		PeekFrustrationAtHand(scn);
+		scn.DSChooseCard(artoo);
+		scn.PassAllResponses();
+
+		scn.MoveCardsToTopOfLSUsedPile(artoo);
+		scn.MoveCardsToLSHand(artooThreepio);
+
+		AdvanceThroughEndOfDSNextTurn(scn);
+
+		assertEquals(Zone.TOP_OF_LOST_PILE, artooThreepio.getZone());
+		assertEquals(1, scn.GetLSLostPileCount());
+	}
+
+	@Test
+	public void FrustrationOwnerChoosesBetweenArtooAndComboToLoseFromHand() {
+		// Both JP Artoo and combo Artoo & Threepio in hand at deadline. LS chooses which matching title to lose.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var artoo = scn.GetLSCard("artoo");
+		var artooThreepio = scn.GetLSCard("artooThreepio");
+		var mosEisley = scn.GetLSCard("mosEisley");
+		var walkway = scn.GetLSCard("walkway");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(artoo, artooThreepio);
+
+		scn.StartGame();
+		scn.MoveLocationToTable(mosEisley);
+		scn.MoveLocationToTable(walkway);
+
+		PeekFrustrationAtHand(scn);
+		scn.DSChooseCard(artoo);
+		scn.PassAllResponses();
+
+		AdvanceUntilLsChooseLoseFromHand(scn);
+
+		assertTrue(scn.LSHasCardChoiceAvailable(artoo));
+		assertTrue(scn.LSHasCardChoiceAvailable(artooThreepio));
+		scn.LSChooseCard(artooThreepio);
+		DrainPendingDecisions(scn, 30);
+
+		assertEquals(Zone.TOP_OF_LOST_PILE, artooThreepio.getZone());
+		assertEquals(Zone.HAND, artoo.getZone());
+		assertEquals(1, scn.GetLSLostPileCount());
+	}
+
+	@Test
+	public void FrustrationDeployingArtooSatisfiesArtooAndThreepioTitleObligation() {
+		// Vice versa: target combo 10_2, deploying standalone JP Artoo 6_3 satisfies the overlapping title.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var artoo = scn.GetLSCard("artoo");
+		var artooThreepio = scn.GetLSCard("artooThreepio");
+		var mosEisley = scn.GetLSCard("mosEisley");
+		var walkway = scn.GetLSCard("walkway");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(artoo, artooThreepio);
+
+		scn.StartGame();
+		// Combo printed 3. Default systems 2 + Mos Eisley 2 = 4, so 3 < 4 at peek.
+		scn.MoveLocationToTable(mosEisley);
+
+		PeekFrustrationAtHand(scn);
+		assertTrue(scn.DSHasCardChoiceAvailable(artooThreepio));
+		scn.DSChooseCard(artooThreepio);
+		scn.PassAllResponses();
+
+		// Walkway after targeting so icon count at peek stays 4; needed as a deploy site for Artoo.
+		scn.MoveLocationToTable(walkway);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		assertTrue(scn.LSDeployAvailable(artoo));
+		scn.LSDeployCardAndPassResponses(artoo, walkway);
+		assertEquals(Zone.AT_LOCATION, artoo.getZone());
+
+		AdvanceThroughEndOfDSNextTurn(scn);
+		assertEquals(Zone.AT_LOCATION, artoo.getZone());
+		assertEquals(Zone.HAND, artooThreepio.getZone());
+		assertEquals(0, scn.GetLSLostPileCount());
+	}
 
 }
