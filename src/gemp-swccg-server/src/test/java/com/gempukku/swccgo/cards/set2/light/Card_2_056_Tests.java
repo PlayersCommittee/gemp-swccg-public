@@ -12,6 +12,7 @@ import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public class Card_2_056_Tests {
 				put("sabotage", "2_56");
 				put("spy", "7_5"); // Bothan Spy
 				put("merc", "2_36"); // Merc Sunlet (thief skill)
+				put("lsBlaster", "1_152"); // LS Blaster, Use 1
+				put("lsTrooper", "1_28"); // Rebel Trooper, warrior
 			}},
 			new HashMap<>()
 			{{
@@ -54,6 +57,8 @@ public class Card_2_056_Tests {
 				put("cannonV", "222_3"); // AT-AT Cannon (V), Immune to Sabotage
 				put("pfasa", "209_42"); // Prepare For A Surface Attack (V), AT-AT Cannons -1
 				put("swilla", "2_126"); // Swilla Corey, prevent theft on weapon
+				put("surprise", "5_156"); // Dark Surprise, retarget interrupt
+				put("disruptor", "7_319"); // Disruptor Pistol: 2 / 1 on non-unique warrior
 			}},
 			10,
 			10,
@@ -246,6 +251,7 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
+	@Ignore("Informant unimplemented; rework when Informant exists")
 	public void CancelInformantIsWiredButInformantIsUnimplemented() {
 		// Informant (ANH Dark Used Interrupt) is not in GEMP yet, so the on-table cancel
 		// action cannot appear. The being-played cancel is Houjix-style Filters.title("Informant").
@@ -303,7 +309,7 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
-	public void FreeOrNoCostEwdvIsNotATargetPondaOnWarriorUsesCostTwo() {
+	public void FreeOrNoCostWeaponIsNotATargetPondaOnWarriorUsesCostTwo() {
 		// Free is not a cost. No numeric cost after modifiers is ineligible.
 		// Ponda Baba's Hold-out Blaster is unique: free on smuggler, 2 on warrior (lowest non-free, no prompt).
 		// Restraining Bolt has no Use X / printed number.
@@ -621,6 +627,132 @@ public class Card_2_056_Tests {
 		assertEquals(Zone.LOST_PILE, droid.getZone());
 		assertEquals(scn.DS, atat.getOwner());
 		assertEquals(scn.DS, droid.getOwner());
+	}
+
+
+	@Test
+	public void LsMayTargetOwnLsWeaponDestroyButCannotStealEvenWithThief() {
+		// Sabotage may target a LS weapon/device/vehicle at the spy's site, not only opponent's.
+		// Steal takes the opponent's card: own card may be lost, but steal must not be offered even if spy is a thief.
+		var scn = GetScenario();
+		var sabotage = scn.GetLSCard("sabotage");
+		var spy = scn.GetLSCard("spy");
+		var merc = scn.GetLSCard("merc");
+		var lsBlaster = scn.GetLSCard("lsBlaster");
+		var lsTrooper = scn.GetLSCard("lsTrooper");
+		var site = scn.GetLSCard("starting-location");
+
+		scn.MoveCardsToLSHand(sabotage, merc);
+		scn.StartGame();
+		scn.MoveCardsToLocation(site, spy, lsTrooper);
+		scn.AttachCardsTo(lsTrooper, lsBlaster);
+		GrantThiefToSpyAndGoUndercover(scn);
+
+		float cost = Card2_056.getOnTableDeployCost(scn.game(), sabotage, lsBlaster);
+		assertEquals(1f, cost, scn.epsilon);
+
+		scn.SkipToLSTurn(Phase.CONTROL);
+		scn.PrepareLSDestiny(2); // 2 > LS Blaster Use 1
+		assertTrue(scn.LSCardPlayAvailable(sabotage));
+		scn.LSPlayCard(sabotage);
+		assertTrue(scn.LSHasCardChoiceAvailable(lsBlaster));
+		scn.LSChooseCard(lsBlaster);
+		scn.PassAllResponses();
+
+		if (scn.LSAnyDecisionsAvailable()) {
+			String decision = scn.LSGetDecision().getText();
+			assertFalse("Steal must not be offered on own LS card: " + decision, decision.toLowerCase().contains("steal"));
+		}
+		scn.PassCardLeavingTable();
+		assertEquals(Zone.TOP_OF_LOST_PILE, lsBlaster.getZone());
+		assertEquals(scn.LS, lsBlaster.getOwner());
+		assertNotEquals(spy, lsBlaster.getAttachedTo());
+	}
+
+	@Test
+	public void DisruptorPistolOnNonUniqueWarriorUsesLowestCostOne() {
+		// Disruptor Pistol: Use 2 on warrior, 1 on non-unique warrior. getOnTableDeployCost auto-picks lowest valid cost.
+		var scn = GetScenario();
+		var sabotage = scn.GetLSCard("sabotage");
+		var disruptor = scn.GetDSCard("disruptor");
+		var trooper = scn.GetDSCard("trooper");
+		var vader = scn.GetDSCard("vader");
+
+		scn.MoveCardsToLSHand(sabotage);
+		scn.StartGame();
+		SetupSpyAndDarkTargetAtSite(scn, vader);
+
+		scn.AttachCardsTo(vader, disruptor);
+		float onVader = Card2_056.getOnTableDeployCost(scn.game(), sabotage, disruptor);
+		assertEquals(2f, onVader, scn.epsilon);
+
+		scn.AttachCardsTo(trooper, disruptor);
+		float onTrooper = Card2_056.getOnTableDeployCost(scn.game(), sabotage, disruptor);
+		assertEquals(1f, onTrooper, scn.epsilon);
+
+		scn.SkipToLSTurn(Phase.CONTROL);
+		scn.PrepareLSDestiny(2); // 2 > modified 1; would fail vs unmodified Use 2
+		assertTrue(scn.LSCardPlayAvailable(sabotage));
+		scn.LSPlayCard(sabotage);
+		assertTrue(scn.LSHasCardChoiceAvailable(disruptor));
+		scn.LSChooseCard(disruptor);
+		scn.PassAllResponses();
+		scn.PassCardLeavingTable();
+		assertEquals(Zone.TOP_OF_LOST_PILE, disruptor.getZone());
+	}
+
+	@Test
+	public void DarkSurpriseCanRetargetSabotageToAnotherDarkWeaponAtSite() {
+		// After LS chooses a Sabotage target, DS may play Surprise as an optional-before response and retarget
+		// to another appropriate Dark card on the same side of the Force (not a LS card).
+		var scn = GetScenario();
+		var sabotage = scn.GetLSCard("sabotage");
+		var blaster = scn.GetDSCard("blaster");
+		var blaster2 = scn.GetDSCard("blaster2");
+		var trooper = scn.GetDSCard("trooper");
+		var vader = scn.GetDSCard("vader");
+		var surprise = scn.GetDSCard("surprise");
+
+		scn.MoveCardsToLSHand(sabotage);
+		scn.MoveCardsToDSHand(surprise);
+		scn.StartGame();
+		SetupSpyAndDarkTargetAtSite(scn, vader);
+		scn.AttachCardsTo(trooper, blaster);
+		scn.AttachCardsTo(vader, blaster2);
+
+		scn.SkipToLSTurn(Phase.CONTROL);
+		scn.PrepareLSDestiny(2); // 2 > Imperial Blaster Use 1, either original or retarget succeeds
+		assertTrue(scn.LSCardPlayAvailable(sabotage));
+		scn.LSPlayCard(sabotage);
+		assertTrue(scn.LSHasCardChoiceAvailable(blaster));
+		assertTrue(scn.LSHasCardChoiceAvailable(blaster2));
+		scn.LSChooseCard(blaster);
+
+		if (scn.LSAnyDecisionsAvailable() && scn.LSGetDecision().getText().toLowerCase().contains("optional")) {
+			scn.PassResponses("optional");
+		}
+
+		if (!scn.DSCardPlayAvailable(surprise)) {
+			String decision = scn.GetCurrentDecision() == null ? "null" : scn.GetCurrentDecision().getText();
+			assertTrue("Surprise not offered as optional response; decision=" + decision
+					+ " dsActions=" + scn.GetDSAvailableActions()
+					+ " lsDecision=" + (scn.LSAnyDecisionsAvailable() ? scn.LSGetDecision().getText() : "none"),
+					false);
+		}
+		scn.DSPlayCard(surprise);
+		if (scn.DSHasCardChoiceAvailable(sabotage)) {
+			scn.DSChooseCard(sabotage);
+		}
+		assertTrue(scn.DSHasCardChoiceAvailable(blaster));
+		scn.DSChooseCard(blaster);
+		assertTrue(scn.DSHasCardChoiceAvailable(blaster2));
+		scn.DSChooseCard(blaster2);
+		scn.PassAllResponses();
+		scn.PassCardLeavingTable();
+
+		assertEquals(Zone.ATTACHED, blaster.getZone());
+		assertEquals(trooper, blaster.getAttachedTo());
+		assertEquals(Zone.TOP_OF_LOST_PILE, blaster2.getZone());
 	}
 
 }
