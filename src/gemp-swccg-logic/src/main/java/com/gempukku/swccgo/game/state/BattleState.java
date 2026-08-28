@@ -202,6 +202,15 @@ public class BattleState implements Snapshotable<BattleState> {
         _localTroubleParticipants.addAll(cards);
     }
 
+    public boolean isLocalTroubleParticipant(PhysicalCard card) {
+        for (PhysicalCard ltCard : _localTroubleParticipants) {
+            if (ltCard.getCardId() == card.getCardId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addParticipant(GameState gameState, PhysicalCard card) {
         if (card.getOwner().equals(gameState.getDarkPlayer()))
             _darkCardsParticipants.add(card);
@@ -328,6 +337,11 @@ public class BattleState implements Snapshotable<BattleState> {
 
         if (isReachedDamageSegment())
             return true;
+
+        // Local Trouble is still a battle: if a side has no remaining participants, it ends.
+        if (_isLocalTrouble && (_darkCardsParticipants.isEmpty() || _lightCardsParticipants.isEmpty())) {
+            return false;
+        }
 
         boolean foundMayInitiateBattle = Filters.canSpot(game, null, Filters.and(Filters.owner(_playerInitiatedBattle), Filters.mayInitiateBattle, Filters.canParticipateInBattleAt(_location, _playerInitiatedBattle)));
         boolean foundMayBeBattled = Filters.canSpot(game, null, Filters.and(Filters.owner(game.getOpponent(_playerInitiatedBattle)), Filters.mayBeBattled, Filters.canParticipateInBattleAt(_location, _playerInitiatedBattle)));
