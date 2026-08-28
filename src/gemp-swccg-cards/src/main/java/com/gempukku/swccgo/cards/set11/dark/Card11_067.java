@@ -6,7 +6,6 @@ import com.gempukku.swccgo.cards.effects.PeekAtTopCardOfForcePileEffect;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -40,7 +39,6 @@ public class Card11_067 extends AbstractCharacterDevice {
         setLore("Advanced optics used by Darth Maul to help track Queen Amidala. Image enhancement features allow for better sensor readings.");
         setGameText("Use 2 Force to deploy on Maul. At any time you may use 1 Force to peek at the top card of your Force Pile. You may move that card to the top of your Reserve Deck.");
         addIcons(Icon.TATOOINE, Icon.EPISODE_I);
-        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

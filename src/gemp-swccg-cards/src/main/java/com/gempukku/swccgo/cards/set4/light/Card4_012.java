@@ -4,7 +4,6 @@ import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.conditions.HasAttachedCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -33,7 +32,6 @@ public class Card4_012 extends AbstractCharacterDevice {
         setLore("Made on Dantooine. Luke used the many pockets in his gundark-skin backpack to carry supplies while on patrol.");
         setGameText("Deploy on any character. May carry and use any number of devices. May also carry Yoda, Kabe or any one Jawa or Ewok (as if riding a creature vehicle). Adds 1 to training destiny when carrying the Mentor.");
         addIcons(Icon.DAGOBAH);
-        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

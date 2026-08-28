@@ -6,7 +6,6 @@ import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
@@ -40,7 +39,6 @@ public class Card3_028 extends AbstractCharacterDevice {
         setLore("Although artillery weapons have a manual firing mechanism, this optional device allows weapons operation from a remote location. Uses coded signals.");
         setGameText("Use 2 Force to deploy on your warrior. Warrior may fire artillery weapons anywhere on same planet regardless of being present. Once during your control phase, warrior may fire an artillery weapon on same planet.");
         addIcons(Icon.HOTH);
-        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

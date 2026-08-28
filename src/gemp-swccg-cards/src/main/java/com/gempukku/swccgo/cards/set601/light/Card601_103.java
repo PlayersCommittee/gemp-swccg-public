@@ -3,7 +3,6 @@ package com.gempukku.swccgo.cards.set601.light;
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -37,7 +36,6 @@ public class Card601_103 extends AbstractCharacterDevice {
         setVirtualSuffix(true);
         setLore("Survival gear, food and tools are stored in small compartments. Made from bantha hide. Used by Luke and other Tatooine inhabitants.");
         setGameText("Deploy on Han or a Lars. Character cannot be targeted by [Permanent Weapon] weapons or be captured. If just lost, place this device in Used Pile. Force loss from ...Or Be Destroyed must come from Reserve Deck (if possible) and may not be reduced below 2.");
-        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.LEGACY_BLOCK_1);
         setAsLegacy(true);
     }

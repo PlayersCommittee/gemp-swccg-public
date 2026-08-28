@@ -5,7 +5,6 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -44,7 +43,6 @@ public class Card10_015 extends AbstractCharacterDevice {
         setLore("Written by Obi-Wan Kenobi. Used by Luke to construct his lightsaber. Contained instructions on building required tools as well. Keyed to self-destruct if not opened by Luke.");
         setGameText("Deploy on Luke or Obi-Wan. Your characters present armed with a unique (•) lightsaber Weapon card may not be Disarmed, once per battle may cancel a weapon destiny just drawn, and that lightsaber's Force drain modifiers may not be canceled. Lost if about to be stolen.");
         addIcons(Icon.REFLECTIONS_II);
-        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override
