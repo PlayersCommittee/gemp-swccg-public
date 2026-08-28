@@ -6,6 +6,7 @@ import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,6 +19,9 @@ import static org.junit.Assert.assertTrue;
  * Issue 990: that "may" is optional, so Grappling Hook / Immediate Effects get two
  * deploy actions (printed cost and free) when Wise Advice is on table and the player
  * has enough Force. Same coding as Battle Plan's two initiate-battle actions.
+ *
+ * UX: free deploy is offered first; the paid action states the Force cost
+ * (Use X Force Immediate Effects via DefinedByGameTextDeployCostModifier).
  */
 public class Card_7_081_Tests {
 	protected VirtualTableScenario GetScenario() {
@@ -48,14 +52,17 @@ public class Card_7_081_Tests {
 	}
 
 	private int countGrabActions(VirtualTableScenario scn) {
-		List<String> actions = scn.GetLSAvailableActions();
-		int count = 0;
-		for (String text : actions) {
+		return grabActionTexts(scn).size();
+	}
+
+	private List<String> grabActionTexts(VirtualTableScenario scn) {
+		List<String> grabActions = new ArrayList<>();
+		for (String text : scn.GetLSAvailableActions()) {
 			if (text != null && text.toLowerCase().contains("grab")) {
-				count++;
+				grabActions.add(text);
 			}
 		}
-		return count;
+		return grabActions;
 	}
 
 	/**
@@ -80,7 +87,7 @@ public class Card_7_081_Tests {
 		scn.StartGame();
 		scn.MoveLocationToTable(site);
 		scn.MoveCardsToLocation(site, trooper);
-		scn.LSActivateForceCheat(5);
+		scn.LSActivateForceCheat(8);
 		scn.DSActivateForceCheat(2);
 
 		if (wiseAdviceOnTable) {
@@ -115,15 +122,19 @@ public class Card_7_081_Tests {
 	@Test
 	public void GrapplingHookHasFreeAndPrintedActionsWhenWiseAdviceIsOnTable() {
 		// Issue 990 repro: Wise Advice in play, Grappling Hook in hand, enough Force
-		// for printed cost 1. Expect two actions (free and printed), not only free.
+		// for printed cost 1. Expect two actions (free first, then paid with Force cost).
 		var scn = GetScenario();
 		var grapplingHook = scn.GetLSCard("grapplingHook");
 
 		StartInterruptSoGrabberCanRespond(scn, true, "grapplingHook");
 
 		assertTrue(scn.LSCardActionAvailable(grapplingHook) || scn.LSCardPlayAvailable(grapplingHook));
-		assertEquals(2, countGrabActions(scn));
+		List<String> grabs = grabActionTexts(scn);
+		assertEquals("grab actions: " + grabs, 2, grabs.size());
+		assertTrue("first action should be free: " + grabs, grabs.get(0).toLowerCase().contains("for free"));
+		assertTrue("second action should state 1 Force: " + grabs, grabs.get(1).contains("for 1 Force"));
 		assertTrue(scn.LSCardActionAvailable(grapplingHook, "for free"));
+		assertTrue(scn.LSCardActionAvailable(grapplingHook, "for 1 Force"));
 	}
 
 	@Test
@@ -136,9 +147,9 @@ public class Card_7_081_Tests {
 		int forceBefore = scn.GetLSForcePileCount();
 		assertTrue(forceBefore >= 1);
 		assertEquals(2, countGrabActions(scn));
+		assertTrue(scn.LSCardActionAvailable(grapplingHook, "for 1 Force"));
 
-		// Paid action is collected first and does not include "for free" in its text.
-		scn.LSPlayCard(grapplingHook);
+		scn.LSPlayCard(grapplingHook, "for 1 Force");
 		scn.PassAllResponses();
 
 		assertEquals(Zone.SIDE_OF_TABLE, grapplingHook.getZone());
@@ -171,7 +182,30 @@ public class Card_7_081_Tests {
 		StartInterruptSoGrabberCanRespond(scn, true, "wyttpou");
 
 		assertTrue(scn.LSCardActionAvailable(wyttpou) || scn.LSCardPlayAvailable(wyttpou));
-		assertEquals(2, countGrabActions(scn));
+		List<String> grabs = grabActionTexts(scn);
+		assertEquals("grab actions: " + grabs, 2, grabs.size());
+		assertTrue("first action should be free: " + grabs, grabs.get(0).toLowerCase().contains("for free"));
+		assertTrue("second action should state 3 Force: " + grabs, grabs.get(1).contains("for 3 Force"));
 		assertTrue(scn.LSCardActionAvailable(wyttpou, "for free"));
+		assertTrue(scn.LSCardActionAvailable(wyttpou, "for 3 Force"));
+	}
+
+	@Test
+	public void WhatreYouTryinToPushOnUsPrintedActionWithWiseAdvicePaysThreeForce() {
+		var scn = GetScenario();
+		var wyttpou = scn.GetLSCard("wyttpou");
+
+		StartInterruptSoGrabberCanRespond(scn, true, "wyttpou");
+
+		int forceBefore = scn.GetLSForcePileCount();
+		assertTrue(forceBefore >= 3);
+		assertEquals(2, countGrabActions(scn));
+		assertTrue(scn.LSCardActionAvailable(wyttpou, "for 3 Force"));
+
+		scn.LSPlayCard(wyttpou, "for 3 Force");
+		scn.PassAllResponses();
+
+		assertEquals(Zone.SIDE_OF_TABLE, wyttpou.getZone());
+		assertEquals(forceBefore - 3, scn.GetLSForcePileCount());
 	}
 }
