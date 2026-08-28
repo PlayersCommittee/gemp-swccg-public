@@ -215,7 +215,7 @@ public class Card1_039 extends AbstractDevice {
                 game.getGameState(), soc.getCardFiringWeapon(), weapon, null,
                 Collections.singletonList(target), combined);
         soc.markResolved();
-        game.getGameState().sendMessage("Combined total weapon destiny (completed firings only): " + GuiUtils.formatAsString(totalDestiny));
+        game.getGameState().sendMessage(soc.getCombinedTotalDestinyMessage(GuiUtils.formatAsString(totalDestiny)));
         float defenseValue = game.getModifiersQuerying().getDefenseValue(game.getGameState(), target);
         game.getGameState().sendMessage("Defense value: " + GuiUtils.formatAsString(defenseValue));
         if (totalDestiny > defenseValue) {

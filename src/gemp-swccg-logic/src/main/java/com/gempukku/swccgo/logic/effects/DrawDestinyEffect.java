@@ -713,7 +713,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                             if (gameState.getWeaponFiringState() != null) {
                                 soc.setCardFiringWeapon(gameState.getWeaponFiringState().getCardFiringWeapon());
                             }
-                            gameState.sendMessage("Combined firing weapon destiny (draw modifiers only): " + GuiUtils.formatAsString(firingDestiny));
+                            gameState.sendMessage("Combined " + soc.getFiringLabel().toLowerCase() + " weapon destiny (draw modifiers only): " + GuiUtils.formatAsString(firingDestiny));
 
                             if (!soc.hasCompletedExpectedFirings()) {
                                 // Defer hit resolution until remaining combined firings complete.
@@ -725,7 +725,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                             float combined = soc.getCombinedFiringDestinySum();
                             totalDestiny = game.getModifiersQuerying().getTotalWeaponDestiny(gameState, _performingPlayerId, combined);
                             soc.markResolved();
-                            gameState.sendMessage("Combined total weapon destiny: " + GuiUtils.formatAsString(totalDestiny));
+                            gameState.sendMessage(soc.getCombinedTotalDestinyMessage(GuiUtils.formatAsString(totalDestiny)));
                         }
 
                         // Callback
@@ -1447,7 +1447,13 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                                 return;
 
                             if (_destinyType != DestinyType.RACE_DESTINY) {
-                                game.getGameState().sendMessage(_performingPlayerId + "'s total " + _destinyType.getHumanReadable() + " is " + GuiUtils.formatAsString(totalDestiny));
+                                String totalMsg = _performingPlayerId + "'s total " + _destinyType.getHumanReadable() + " is " + GuiUtils.formatAsString(totalDestiny);
+                                SeparatelyOrCombinedFiringState soc = game.getGameState().getSeparatelyOrCombinedFiringState();
+                                if (soc != null && soc.getCurrentFiringNumber() > 0
+                                        && (_destinyType == DestinyType.WEAPON_DESTINY || _destinyType == DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY)) {
+                                    totalMsg = soc.getFiringLabel() + ": " + totalMsg;
+                                }
+                                game.getGameState().sendMessage(totalMsg);
                             }
 
                             actionsEnvironment.emitEffectResult(

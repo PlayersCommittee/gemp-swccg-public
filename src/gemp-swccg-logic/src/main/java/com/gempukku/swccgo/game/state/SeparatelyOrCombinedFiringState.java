@@ -27,6 +27,7 @@ public class SeparatelyOrCombinedFiringState {
     private PhysicalCard _combinedTarget;
     private final List<Float> _firingDestinies = new ArrayList<Float>();
     private boolean _resolved;
+    private int _firingsInitiated;
 
     public SeparatelyOrCombinedFiringState(PhysicalCard device, PhysicalCard weapon, boolean combined) {
         _device = device;
@@ -95,5 +96,24 @@ public class SeparatelyOrCombinedFiringState {
 
     public boolean isResolved() {
         return _resolved;
+    }
+
+    public void markFiringInitiated() {
+        _firingsInitiated++;
+    }
+
+    public int getCurrentFiringNumber() {
+        return _firingsInitiated;
+    }
+
+    public String getFiringLabel() {
+        return "Firing " + _firingsInitiated;
+    }
+
+    public String getCombinedTotalDestinyMessage(String totalFormatted) {
+        if (getCompletedFiringCount() <= 1) {
+            return "Combined total weapon destiny (firing 1 only): " + totalFormatted;
+        }
+        return "Combined total weapon destiny (firing 1 + firing 2): " + totalFormatted;
     }
 }

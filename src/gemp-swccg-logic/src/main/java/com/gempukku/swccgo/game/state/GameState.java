@@ -4346,6 +4346,9 @@ public class GameState implements Snapshotable<GameState> {
     //
     public void beginWeaponFiring(PhysicalCard weaponFiring, SwccgBuiltInCardBlueprint permanentWeapon) {
         _weaponFiringState = new WeaponFiringState(_game, weaponFiring, permanentWeapon);
+        if (_separatelyOrCombinedFiringState != null) {
+            _separatelyOrCombinedFiringState.markFiringInitiated();
+        }
     }
 
     public void beginCombinedWeaponFiring() {
