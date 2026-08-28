@@ -96,6 +96,7 @@ public class GameState implements Snapshotable<GameState> {
     private SabaccState _sabaccState;
     private SearchPartyState _searchPartyState;
     private WeaponFiringState _weaponFiringState;
+    private SeparatelyOrCombinedFiringState _separatelyOrCombinedFiringState;
     private UsingTractorBeamState _usingTractorBeamState;
     private Stack<ForceLossState> _forceLossState = new Stack<ForceLossState>();
     private Stack<ForceRetrievalState> _forceRetrievalState = new Stack<ForceRetrievalState>();
@@ -297,6 +298,9 @@ public class GameState implements Snapshotable<GameState> {
         }
         if (_weaponFiringState != null) {
             throw new UnsupportedOperationException("Cannot generate snapshot of " + getClass().getSimpleName() + " with WeaponFiringState");
+        }
+        if (_separatelyOrCombinedFiringState != null) {
+            throw new UnsupportedOperationException("Cannot generate snapshot of " + getClass().getSimpleName() + " with SeparatelyOrCombinedFiringState");
         }
         if (!_forceLossState.isEmpty()) {
             throw new UnsupportedOperationException("Cannot generate snapshot of " + getClass().getSimpleName() + " with ForceLossState");
@@ -4362,6 +4366,22 @@ public class GameState implements Snapshotable<GameState> {
             _game.getActionsEnvironment().removeEndOfWeaponFiringActionProxies();
             _weaponFiringState = null;
         }
+    }
+
+    /**
+     * Begins a Targeting Computer-style fire-twice separately-or-combined action.
+     * Both shots are one overall action (no top-level actions between shots).
+     */
+    public void beginSeparatelyOrCombinedFiring(PhysicalCard device, PhysicalCard weapon, boolean combined) {
+        _separatelyOrCombinedFiringState = new SeparatelyOrCombinedFiringState(device, weapon, combined);
+    }
+
+    public SeparatelyOrCombinedFiringState getSeparatelyOrCombinedFiringState() {
+        return _separatelyOrCombinedFiringState;
+    }
+
+    public void finishSeparatelyOrCombinedFiring() {
+        _separatelyOrCombinedFiringState = null;
     }
 
     //

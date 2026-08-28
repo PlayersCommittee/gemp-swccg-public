@@ -9,6 +9,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.DrawDestinyState;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.SeparatelyOrCombinedFiringState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.SubAction;
@@ -503,7 +504,11 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
 
         // Add modifiers to total weapon destiny (unless this is combined firing)
         if (_destinyType==DestinyType.WEAPON_DESTINY || _destinyType==DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY) {
-            totalDestiny = game.getModifiersQuerying().getTotalWeaponDestiny(gameState, _performingPlayerId, totalDestiny);
+            SeparatelyOrCombinedFiringState soc = gameState.getSeparatelyOrCombinedFiringState();
+            // Combined: each firing is a single weapon destiny (draw modifiers only), not a weapon destiny total.
+            if (soc == null || !soc.isCombined()) {
+                totalDestiny = game.getModifiersQuerying().getTotalWeaponDestiny(gameState, _performingPlayerId, totalDestiny);
+            }
         }
         else if (_destinyType==DestinyType.BATTLE_DESTINY) {
             totalDestiny = game.getModifiersQuerying().getTotalBattleDestiny(gameState, _performingPlayerId, totalDestiny);
@@ -694,6 +699,33 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                         Float totalDestiny = getTotalDestiny(game);
 
                         gameState.endDrawDestiny();
+
+                        SeparatelyOrCombinedFiringState soc = gameState.getSeparatelyOrCombinedFiringState();
+                        if (soc != null && soc.isCombined()
+                                && (_destinyType == DestinyType.WEAPON_DESTINY || _destinyType == DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY)) {
+                            float firingDestiny = 0f;
+                            for (Float value : _destinyDrawValues) {
+                                if (value != null) {
+                                    firingDestiny += value;
+                                }
+                            }
+                            soc.addFiringDestiny(firingDestiny);
+                            if (gameState.getWeaponFiringState() != null) {
+                                soc.setCardFiringWeapon(gameState.getWeaponFiringState().getCardFiringWeapon());
+                            }
+                            gameState.sendMessage("Combined firing weapon destiny (draw modifiers only): " + GuiUtils.formatAsString(firingDestiny));
+
+                            if (!soc.hasCompletedExpectedFirings()) {
+                                // Defer hit resolution until remaining combined firings complete.
+                                // Pending rules: costs paid as each shot initiates; completed firings still combine.
+                                return;
+                            }
+
+                            float combined = soc.getCombinedFiringDestinySum();
+                            totalDestiny = game.getModifiersQuerying().getTotalWeaponDestiny(gameState, _performingPlayerId, combined);
+                            soc.markResolved();
+                            gameState.sendMessage("Combined total weapon destiny: " + GuiUtils.formatAsString(totalDestiny));
+                        }
 
                         // Callback
                         destinyDraws(game, _destinyCardDraws, _destinyDrawValues, totalDestiny);
