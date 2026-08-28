@@ -51,12 +51,12 @@ public class Card4_142 extends AbstractLostInterrupt {
     public Card4_142() {
         super(Side.DARK, 3, Title.Frustration, Uniqueness.UNIQUE, ExpansionSet.DAGOBAH, Rarity.R);
         setLore("'Rrraaaarrr!'");
-        setGameText("During your control phase, peek at opponent's hand and target one non-Interrupt card you find there that has a deploy cost \u003c total number of Light Side Force icons on table. Opponent must deploy a card of that title by the end of your next turn, or lose a card of that title from hand (if possible).");
+        setGameText("During your control phase, peek at opponent's hand and target one non-Interrupt card you find there that has a deploy cost < total number of Light Side Force icons on table. Opponent must deploy a card of that title by the end of your next turn, or lose a card of that title from hand (if possible).");
         addIcons(Icon.DAGOBAH);
     }
 
     @Override
-    protected List\u003cPlayInterruptAction\u003e getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
+    protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         final String opponent = game.getOpponent(playerId);
 
         // Check condition(s)
@@ -74,21 +74,21 @@ public class Card4_142 extends AbstractLostInterrupt {
                             action.appendEffect(
                                     new PeekAtOpponentsHandEffect(action, playerId) {
                                         @Override
-                                        protected void cardsPeekedAt(List\u003cPhysicalCard\u003e peekedAtCards) {
+                                        protected void cardsPeekedAt(List<PhysicalCard> peekedAtCards) {
                                             final int lightForceIcons = (int) game.getModifiersQuerying().getTotalForceIconCount(game.getGameState(), game.getLightPlayer());
                                             final Filter validTargetFilter = Filters.and(
                                                     Filters.not(Filters.Interrupt),
                                                     frustrationDeployCostLessThan(lightForceIcons));
-                                            Collection\u003cPhysicalCard\u003e validTargets = Filters.filter(peekedAtCards, game, validTargetFilter);
+                                            Collection<PhysicalCard> validTargets = Filters.filter(peekedAtCards, game, validTargetFilter);
                                             if (validTargets.isEmpty()) {
                                                 return;
                                             }
 
                                             action.appendEffect(
-                                                    new ChooseArbitraryCardsEffect(action, playerId, "Target a non-Interrupt card with deploy cost \u003c " + lightForceIcons + " Light Side Force icons",
+                                                    new ChooseArbitraryCardsEffect(action, playerId, "Target a non-Interrupt card with deploy cost < " + lightForceIcons + " Light Side Force icons",
                                                             validTargets, Filters.any, 1, 1, false) {
                                                         @Override
-                                                        protected void cardsSelected(SwccgGame game, Collection\u003cPhysicalCard\u003e selectedCards) {
+                                                        protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
                                                             final PhysicalCard targetedCard = selectedCards.iterator().next();
                                                             if (targetedCard == null) {
                                                                 return;
@@ -112,8 +112,8 @@ public class Card4_142 extends AbstractLostInterrupt {
                                                             action.appendEffect(
                                                                     new AddUntilEndOfGameActionProxyEffect(action, new AbstractActionProxy() {
                                                                         @Override
-                                                                        public List\u003cTriggerAction\u003e getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult) {
-                                                                            List\u003cTriggerAction\u003e actions = new LinkedList\u003cTriggerAction\u003e();
+                                                                        public List<TriggerAction> getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult) {
+                                                                            List<TriggerAction> actions = new LinkedList<TriggerAction>();
                                                                             if (!stillPending.get()) {
                                                                                 return actions;
                                                                             }
@@ -129,7 +129,7 @@ public class Card4_142 extends AbstractLostInterrupt {
                                                                                     && game.getGameState().getPlayersLatestTurnNumber(playerId) == nextTurnNumber) {
                                                                                 stillPending.set(false);
                                                                                 final PhysicalCard source = game.findCardByPermanentId(permCardId);
-                                                                                Collection\u003cPhysicalCard\u003e inHand = Filters.filter(game.getGameState().getHand(opponent), game, Filters.sameTitleAs(targetedCard, true));
+                                                                                Collection<PhysicalCard> inHand = Filters.filter(game.getGameState().getHand(opponent), game, Filters.sameTitleAs(targetedCard, true));
                                                                                 if (!inHand.isEmpty()) {
                                                                                     // Rule trigger with a per-play id so retrieving/replaying unique Frustration
                                                                                     // cannot swallow an earlier play's obligation.
@@ -175,7 +175,7 @@ public class Card4_142 extends AbstractLostInterrupt {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 Float cost = getFrustrationDeployCost(gameState, modifiersQuerying, physicalCard);
-                return cost != null && cost \u003c lightForceIcons;
+                return cost != null && cost < lightForceIcons;
             }
         };
     }
