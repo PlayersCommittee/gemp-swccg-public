@@ -105,7 +105,7 @@ public class Card_1_75_Tests {
         setupOneXwingLaser(scn);
         scn.MoveCardsToHand(ca);
 
-        startWeaponsSegment(scn);
+        scn.StartBattleAndSkipToWeaponsSegment();
         assertFalse("Combined Attack requires two or more legal starship weapons", scn.LSCardPlayAvailable(ca));
     }
 
@@ -121,7 +121,7 @@ public class Card_1_75_Tests {
         setupTwoXwingLasers(scn);
         scn.MoveCardsToHand(ca);
 
-        startWeaponsSegment(scn);
+        scn.StartBattleAndSkipToWeaponsSegment();
         assertTrue(scn.LSCardPlayAvailable(ca));
         playCombinedAttack(scn, tie, xwlc, xwlc2);
 
@@ -154,7 +154,7 @@ public class Card_1_75_Tests {
         setupEptAndTwoIntruderMissiles(scn, false);
         scn.MoveCardsToHand(ca);
 
-        startWeaponsSegment(scn);
+        scn.StartBattleAndSkipToWeaponsSegment();
         playCombinedAttack(scn, stalker, ept, im, im2);
         stackCombinedAttackDestinies(scn, 1, 2, 3);
 
@@ -179,7 +179,7 @@ public class Card_1_75_Tests {
         setupEptAndTwoIntruderMissiles(scn, true);
         scn.MoveCardsToHand(ca);
 
-        startWeaponsSegment(scn);
+        scn.StartBattleAndSkipToWeaponsSegment();
         playCombinedAttack(scn, executor, ept, im, im2);
         stackCombinedAttackDestinies(scn, 1, 2, 3);
 
@@ -205,7 +205,7 @@ public class Card_1_75_Tests {
         setupTwoXwingLasersWithTcOnFirst(scn);
         scn.MoveCardsToHand(ca);
 
-        startWeaponsSegment(scn);
+        scn.StartBattleAndSkipToWeaponsSegment();
         playCombinedAttack(scn, tie, xwlc, xwlc2);
         chooseUseTargetingComputer(scn, true);
 
@@ -218,7 +218,7 @@ public class Card_1_75_Tests {
         finishCombinedAttack(scn);
         assertTrue(tie.isHit());
 
-        passOptionalResponses(scn);
+        scn.PassAllResponses();
         if (scn.AwaitingLSWeaponsSegmentActions()) {
             assertFalse("Both TC shots were inside Combined Attack; TC cannot be used again this battle",
                     scn.LSCardActionAvailable(tc, "Fire a weapon twice"));
@@ -238,7 +238,7 @@ public class Card_1_75_Tests {
         setupTwoXwingLasersWithTcOnFirst(scn);
         scn.MoveCardsToHand(ca);
 
-        startWeaponsSegment(scn);
+        scn.StartBattleAndSkipToWeaponsSegment();
         playCombinedAttack(scn, tie, xwlc, xwlc2);
         chooseUseTargetingComputer(scn, true);
 
@@ -248,7 +248,7 @@ public class Card_1_75_Tests {
         finishCombinedAttack(scn);
         assertTrue(tie.isHit());
 
-        passOptionalResponses(scn);
+        scn.PassAllResponses();
         if (scn.AwaitingLSWeaponsSegmentActions()) {
             assertFalse("Cannot fire the leftover TC shot outside Combined Attack",
                     scn.LSCardActionAvailable(tc, "Fire a weapon twice"));
@@ -317,13 +317,6 @@ public class Card_1_75_Tests {
         scn.AttachCardsTo(bwing2, im2);
     }
 
-    private void startWeaponsSegment(VirtualTableScenario scn) {
-        scn.SkipToLSTurn(Phase.BATTLE);
-        scn.LSInitiateBattle(scn.GetLSStartingLocation());
-        passOptionalResponses(scn);
-        assertTrue(scn.AwaitingLSWeaponsSegmentActions());
-    }
-
     private void playCombinedAttack(VirtualTableScenario scn, PhysicalCardImpl target, PhysicalCardImpl... weapons) {
         var ca = scn.GetLSCard("ca");
         if (scn.LSCardPlayAvailable(ca)) {
@@ -338,17 +331,15 @@ public class Card_1_75_Tests {
         if (weapons.length > 0 && scn.LSGetDecision() != null) {
             scn.LSChooseCards(weapons);
         }
-        passOptionalResponses(scn);
+        scn.PassAllResponses();
     }
 
     private void chooseUseTargetingComputer(VirtualTableScenario scn, boolean use) {
-        if (scn.LSGetDecision() == null || scn.LSGetDecision().getText() == null) {
-            return;
-        }
-        String text = scn.LSGetDecision().getText();
-        if (text.contains("Targeting Computer") || text.contains("fire") && text.contains("twice")) {
-            scn.LSChoose(use ? "Yes" : "No");
-        }
+        String text = scn.LSGetDecision() == null ? "null" : scn.LSGetDecision().getText();
+        assertTrue("Expected Targeting Computer fire-twice prompt, got: " + text,
+                text != null && (text.contains("Targeting Computer")
+                        || (text.toLowerCase().contains("fire") && text.toLowerCase().contains("twice"))));
+        scn.LSChoose(use ? "Yes" : "No");
     }
 
     private void fireOneShot(VirtualTableScenario scn, PhysicalCardImpl target, int destiny) {
@@ -383,12 +374,6 @@ public class Card_1_75_Tests {
         }
         int amount = forceToUse != null ? forceToUse : scn.LSGetChoiceMin();
         scn.LSDecided(amount);
-    }
-
-    private void passOptionalResponses(VirtualTableScenario scn) {
-        if (scn.GetCurrentDecision() != null) {
-            scn.PassAllResponses();
-        }
     }
 
     private void passPostFiringResponses(VirtualTableScenario scn) {
