@@ -2431,7 +2431,7 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
      * @return the trigger actions
      */
     @Override
-    public final List<Action> getOptionalAfterActions(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<Action> getOptionalAfterActions(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
         List<Action> actions = super.getOptionalAfterActions(playerId, game, effectResult, self);
 
         // Check for 'react' actions
