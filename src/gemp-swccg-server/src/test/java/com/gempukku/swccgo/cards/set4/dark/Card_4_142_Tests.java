@@ -52,6 +52,9 @@ public class Card_4_142_Tests {
 					put("c3po", "1_5");
 					put("artoo", "6_3");
 					put("artooThreepio", "10_2");
+					put("quads", "1_159");
+					put("cec", "7_56");
+					put("corellia", "2_61");
 				}},
 				new HashMap<>()
 				{{
@@ -1076,6 +1079,67 @@ public class Card_4_142_Tests {
 
 		assertTrue(scn.DSHasCardChoiceAvailable(pilot));
 		assertTrue(scn.DSHasCardChoiceNotAvailable(luke));
+		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
+	}
+
+
+	/**
+	 * Corellian Engineering Corporation (7_56) gives your Quad Laser Cannons DeploysFreeModifier
+	 * while attached to Corellia. Frustration must treat that always-free deploy as not a cost.
+	 */
+	@Test
+	public void FrustrationCanTargetQuadLaserCannonsWithoutCEC() {
+		// Quads printed cost 2 via DefinedByGameTextDeployCostModifier.
+		// Default systems 2 LS icons + Corellia 1 = 3, so 2 is less than 3.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var quads = scn.GetLSCard("quads");
+		var trooper = scn.GetLSCard("trooper");
+		var corellia = scn.GetLSCard("corellia");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(quads, trooper);
+
+		scn.StartGame();
+		scn.MoveLocationToTable(corellia);
+
+		PeekFrustrationAtHand(scn);
+
+		assertTrue(scn.DSHasCardChoiceAvailable(quads));
+		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
+	}
+
+	@Test
+	public void FrustrationCannotTargetQuadLaserCannonsWhenCECIsAttachedToCorellia() {
+		// Same 3 Light icons. CEC on Corellia makes Quads deploy free. Free is not a deploy cost.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var quads = scn.GetLSCard("quads");
+		var trooper = scn.GetLSCard("trooper");
+		var cec = scn.GetLSCard("cec");
+		var corellia = scn.GetLSCard("corellia");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(quads, trooper, cec);
+
+		scn.StartGame();
+		scn.MoveLocationToTable(corellia);
+		scn.LSActivateForceCheat(5);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		assertTrue(scn.LSDeployAvailable(cec) || scn.LSCardPlayAvailable(cec));
+		scn.LSDeployCardAndPassResponses(cec, corellia);
+		assertEquals(Zone.ATTACHED, cec.getZone());
+
+		scn.SkipToDSTurn(Phase.CONTROL);
+		assertTrue(scn.DSCardPlayAvailable(frustration) || scn.DSCardActionAvailable(frustration));
+		scn.DSPlayCard(frustration);
+		scn.PassAllResponses();
+		if (scn.DSAnyDecisionsAvailable() && scn.DSGetDecision().getText().toLowerCase().contains("hand")) {
+			scn.DSDismissRevealedCards();
+		}
+
+		assertTrue(scn.DSHasCardChoiceNotAvailable(quads));
 		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
 	}
 
