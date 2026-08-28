@@ -516,6 +516,55 @@ public class Card_1_256_Tests {
     }
 
     @Test
+    public void BystanderAtCantinaDoesNotKeepBattleAliveAfterLukeExcluded() {
+        var scn = GetScenario();
+        var cantina = scn.GetDSCard("cantina");
+        var st1 = scn.GetDSCard("st1");
+        var st2 = scn.GetDSCard("st2");
+        var luke = scn.GetLSCard("luke");
+        var rebel = scn.GetLSCard("rebel");
+        var garindan = scn.GetDSCard("garindan");
+        var stunningLeader = scn.GetDSCard("stunningLeader");
+
+        SetupCantina(scn);
+        scn.MoveCardsToDSHand(stunningLeader);
+        scn.MoveCardsToLocation(cantina, st1, st2, luke, rebel, garindan);
+
+        SkipToLocalTroubleWindow(scn);
+        StartLocalTrouble(scn, st1, st2, luke);
+
+        assertTrue(scn.IsParticipatingInBattle(st1, st2, luke));
+        assertFalse(scn.IsParticipatingInBattle(rebel));
+        assertFalse(scn.IsParticipatingInBattle(garindan));
+
+        assertTrue(decisionSnapshot(scn),
+                dsHasCard(scn, stunningLeader) || dsHasAction(scn, "Exclude characters from battle"));
+        if (dsHasCard(scn, stunningLeader)) {
+            scn.DSPlayCard(stunningLeader);
+        } else {
+            scn.DSChooseAction("Exclude characters from battle");
+        }
+        scn.PassAllResponses();
+        if (scn.DSDecisionAvailable("BATTLE_INITIATED") || scn.LSDecisionAvailable("BATTLE_INITIATED")) {
+            scn.PassBattleStartResponses();
+        }
+        scn.PassAllResponses();
+
+        // Rebel/Garindan are inactive bystanders, so they do not provide presence after Luke is excluded.
+        assertFalse(scn.IsParticipatingInBattle(luke));
+        assertFalse(scn.IsParticipatingInBattle(rebel));
+        assertFalse(scn.IsParticipatingInBattle(garindan));
+        boolean battleOver = !scn.gameState().isDuringBattle()
+                || scn.gameState().getBattleState() == null
+                || !scn.gameState().getBattleState().canContinue(scn.game());
+        assertTrue(battleOver);
+        assertFalse(scn.AwaitingDSWeaponsSegmentActions());
+        if (scn.gameState().isDuringBattle() && scn.gameState().getBattleState() != null) {
+            assertFalse(scn.gameState().getBattleState().isReachedPowerSegment());
+        }
+    }
+
+    @Test
     public void CannotPlayWithOnlyOneStormtrooper() {
         var scn = GetScenario();
         var localTrouble = scn.GetDSCard("localTrouble");

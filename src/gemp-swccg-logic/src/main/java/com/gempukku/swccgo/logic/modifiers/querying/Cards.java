@@ -13,6 +13,13 @@ import com.gempukku.swccgo.logic.GameUtils;
 public interface Cards extends BaseQuery, Captives, Battle {
     default CardState getCardState(GameState gameState, PhysicalCard physicalCard, boolean includeExcludedFromBattle, boolean includeUndercover, boolean includeCaptives,
             boolean includeConcealed, boolean includeWeaponsForStealing, boolean includeMissing, boolean includeBinaryOff, boolean includeSuspended) {
+        return getCardState(gameState, physicalCard, includeExcludedFromBattle, includeUndercover, includeCaptives,
+                includeConcealed, includeWeaponsForStealing, includeMissing, includeBinaryOff, includeSuspended, false);
+    }
+
+    default CardState getCardState(GameState gameState, PhysicalCard physicalCard, boolean includeExcludedFromBattle, boolean includeUndercover, boolean includeCaptives,
+            boolean includeConcealed, boolean includeWeaponsForStealing, boolean includeMissing, boolean includeBinaryOff, boolean includeSuspended,
+            boolean includeLocalTroubleNonParticipant) {
         Zone zone = GameUtils.getZoneFromZoneTop(physicalCard.getZone());
         CardCategory cardCategory = physicalCard.getBlueprint().getCardCategory();
         CardSubtype cardSubtype = physicalCard.getBlueprint().getCardSubtype();
@@ -53,6 +60,10 @@ public interface Cards extends BaseQuery, Captives, Battle {
         if (!includeExcludedFromBattle && zone.isInPlay() && gameState.isDuringBattle() && isExcludedFromBattle(gameState, physicalCard))
             return CardState.INACTIVE;
 
+        if (!includeLocalTroubleNonParticipant && zone.isInPlay() && gameState.isDuringLocalTroubleBattle()
+                && gameState.getBattleState().isInactiveAsLocalTroubleNonParticipant(physicalCard))
+            return CardState.INACTIVE;
+
         if (!includeConcealed && physicalCard.isConcealed())
             return CardState.INACTIVE;
 
@@ -72,10 +83,10 @@ public interface Cards extends BaseQuery, Captives, Battle {
         if (physicalCard.getAttachedTo() != null) {
             //While a parasite is attached to an inactive host, the parasite remains active. This is a specific exception to the Inactive rules.
             if(physicalCard.getBlueprint().hasKeyword(Keyword.PARASITE) &&
-                    getCardState(gameState, physicalCard.getAttachedTo(), includeExcludedFromBattle, true, includeCaptives, includeConcealed, includeWeaponsForStealing, includeMissing, includeBinaryOff, includeSuspended) == CardState.INACTIVE) {
+                    getCardState(gameState, physicalCard.getAttachedTo(), includeExcludedFromBattle, true, includeCaptives, includeConcealed, includeWeaponsForStealing, includeMissing, includeBinaryOff, includeSuspended, includeLocalTroubleNonParticipant) == CardState.INACTIVE) {
                 return CardState.ACTIVE;
             }
-            return getCardState(gameState, physicalCard.getAttachedTo(), includeExcludedFromBattle, true, includeCaptives, includeConcealed, includeWeaponsForStealing, includeMissing, includeBinaryOff, includeSuspended);
+            return getCardState(gameState, physicalCard.getAttachedTo(), includeExcludedFromBattle, true, includeCaptives, includeConcealed, includeWeaponsForStealing, includeMissing, includeBinaryOff, includeSuspended, includeLocalTroubleNonParticipant);
         }
 
         if (zone.isInPlay() && !physicalCard.getBlueprint().isInactiveInsteadOfActive(gameState.getGame(), physicalCard))
