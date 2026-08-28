@@ -18,14 +18,14 @@ import static org.junit.Assert.assertTrue;
 public class Card_4_142_CEC_Tests {
 	protected VirtualTableScenario GetScenario() {
 		return new VirtualTableScenario(
-				new HashMap\u003c\u003e()
+				new HashMap()
 				{{
 					put("trooper", "1_28");
 					put("quads", "1_159");
 					put("cec", "7_56");
 					put("corellia", "2_61");
 				}},
-				new HashMap\u003c\u003e()
+				new HashMap()
 				{{
 					put("frustration", "4_142");
 				}},
@@ -53,7 +53,7 @@ public class Card_4_142_CEC_Tests {
 	@Test
 	public void FrustrationCanTargetQuadLaserCannonsWithoutCEC() {
 		// Quads printed cost 2 via DefinedByGameTextDeployCostModifier.
-		// Default systems 2 LS icons + Corellia 1 = 3, so 2 \u003c 3.
+		// Default systems 2 LS icons + Corellia 1 = 3, so 2 is less than 3.
 		var scn = GetScenario();
 		var frustration = scn.GetDSCard("frustration");
 		var quads = scn.GetLSCard("quads");
