@@ -23,6 +23,10 @@ import static org.junit.Assert.assertTrue;
 
 public class Card_1_256_Tests {
     protected VirtualTableScenario GetScenario() {
+        return GetScenario(new HashMap<>(), new HashMap<>());
+    }
+
+    protected VirtualTableScenario GetScenario(HashMap<String, String> extraLS, HashMap<String, String> extraDS) {
         return new VirtualTableScenario(
                 new HashMap<>() {{
                     put("rebel", "1_28");
@@ -33,6 +37,7 @@ public class Card_1_256_Tests {
                     put("runLukeRun", "101_003");
                     put("captiveFury", "5_036");
                     put("chewie", "2_003");
+                    putAll(extraLS);
                 }},
                 new HashMap<>() {{
                     put("localTrouble", "1_256");
@@ -44,6 +49,7 @@ public class Card_1_256_Tests {
                     put("cantina", "1_290");
                     put("wallen", "8_115");
                     put("stunningLeader", "2_140");
+                    putAll(extraDS);
                 }},
                 10,
                 10,
@@ -557,7 +563,7 @@ public class Card_1_256_Tests {
         boolean battleOver = !scn.gameState().isDuringBattle()
                 || scn.gameState().getBattleState() == null
                 || !scn.gameState().getBattleState().canContinue(scn.game());
-        assertTrue(battleOver);
+        assertTrue(decisionSnapshot(scn), battleOver);
         assertFalse(scn.AwaitingDSWeaponsSegmentActions());
         if (scn.gameState().isDuringBattle() && scn.gameState().getBattleState() != null) {
             assertFalse(scn.gameState().getBattleState().isReachedPowerSegment());
@@ -680,7 +686,23 @@ public class Card_1_256_Tests {
         }
 
         scn.PassForceUseResponses();
-        assertTrue(scn.LSActionAvailable("Cancel Local Trouble") || scn.LSCardActionAvailable(derlin));
+        for (int i = 0; i < 6 && !(scn.LSAnyDecisionsAvailable()
+                && (scn.LSActionAvailable("Cancel Local Trouble") || scn.LSCardActionAvailable(derlin))); i++) {
+            var decision = scn.GetCurrentDecision();
+            if (decision == null) {
+                break;
+            }
+            String text = decision.getText().toLowerCase();
+            if (text.contains("force")) {
+                scn.PassForceUseResponses();
+            } else if (text.contains("optional")) {
+                scn.PassResponses("optional");
+            } else {
+                break;
+            }
+        }
+        assertTrue(decisionSnapshot(scn),
+                scn.LSActionAvailable("Cancel Local Trouble") || scn.LSCardActionAvailable(derlin));
         if (scn.LSActionAvailable("Cancel Local Trouble")) {
             scn.LSChooseAction("Cancel Local Trouble");
         } else {
@@ -719,5 +741,201 @@ public class Card_1_256_Tests {
         // Stormtrooper 1 + Avarik 2 + destiny 5 = 8 (battle destiny not drawn yet if we skipped to power segment)
         assertTrue(scn.GetDSTotalPower() >= 3);
         assertTrue(scn.gameState().isDuringLocalTroubleBattle());
+    }
+
+    @Test
+    public void ArtooAndThreepioMakesADroidALegalLocalTroubleTarget() {
+        var scn = GetScenario(new HashMap<>() {{ put("cz3", "1_006"); put("artooThreepio", "10_002"); }}, new HashMap<>());
+        var cantina = scn.GetDSCard("cantina");
+        var marketplace = scn.GetDSStartingLocation();
+        var st1 = scn.GetDSCard("st1");
+        var st2 = scn.GetDSCard("st2");
+        var cz3 = scn.GetLSCard("cz3");
+        var artooThreepio = scn.GetLSCard("artooThreepio");
+
+        SetupCantina(scn);
+        scn.MoveCardsToLocation(cantina, st1, st2, cz3);
+        scn.MoveCardsToLocation(marketplace, artooThreepio);
+
+        SkipToLocalTroubleWindow(scn);
+        assertTrue(decisionSnapshot(scn), LocalTroubleOffered(scn));
+        PlayLocalTrouble(scn, st1, st2, cz3);
+
+        assertTrue(scn.gameState().isDuringLocalTroubleBattle());
+        assertTrue(scn.IsParticipatingInBattle(st1, st2, cz3));
+    }
+
+    @Test
+    public void K3POIsALegalLocalTroubleTarget() {
+        var scn = GetScenario(new HashMap<>() {{ put("k3po", "3_012"); }}, new HashMap<>());
+        var cantina = scn.GetDSCard("cantina");
+        var st1 = scn.GetDSCard("st1");
+        var st2 = scn.GetDSCard("st2");
+        var k3po = scn.GetLSCard("k3po");
+
+        SetupCantina(scn);
+        scn.MoveCardsToLocation(cantina, st1, st2, k3po);
+
+        SkipToLocalTroubleWindow(scn);
+        assertTrue(decisionSnapshot(scn), LocalTroubleOffered(scn));
+        PlayLocalTrouble(scn, st1, st2, k3po);
+
+        assertTrue(scn.gameState().isDuringLocalTroubleBattle());
+        assertTrue(scn.IsParticipatingInBattle(st1, st2, k3po));
+    }
+
+    @Test
+    public void StolenBattleDroidWithPresenceIsALegalLocalTroubleTarget() {
+        var scn = GetScenario(new HashMap<>(), new HashMap<>() {{ put("battleDroid", "14_080"); }});
+        var cantina = scn.GetDSCard("cantina");
+        var st1 = scn.GetDSCard("st1");
+        var st2 = scn.GetDSCard("st2");
+        var battleDroid = scn.GetDSCard("battleDroid");
+
+        SetupCantina(scn);
+        scn.MoveCardsToLocation(cantina, st1, st2, battleDroid);
+        battleDroid.setOwner(scn.gameState().getLightPlayer());
+        battleDroid.setZoneOwner(scn.gameState().getLightPlayer());
+        assertTrue(battleDroid.isStolen());
+
+        SkipToLocalTroubleWindow(scn);
+        assertTrue(decisionSnapshot(scn), LocalTroubleOffered(scn));
+        PlayLocalTrouble(scn, st1, st2, battleDroid);
+
+        assertTrue(scn.gameState().isDuringLocalTroubleBattle());
+        assertTrue(scn.IsParticipatingInBattle(st1, st2, battleDroid));
+    }
+
+    @Test
+    public void CalderaPreventsLocalTroubleWhenDSAbilityIsNotLessThan8() {
+        var scn = GetScenario(new HashMap<>() {{ put("caldera", "11_001"); }}, new HashMap<>() {{ put("vader", "1_168"); }});
+        var cantina = scn.GetDSCard("cantina");
+        var st1 = scn.GetDSCard("st1");
+        var st2 = scn.GetDSCard("st2");
+        var vader = scn.GetDSCard("vader");
+        var caldera = scn.GetLSCard("caldera");
+        var rebel = scn.GetLSCard("rebel");
+
+        SetupCantina(scn);
+        // Caldera: unless Great Warrior on table, opponent needs total ability < 8 to initiate
+        // battle at same site. Vader 6 + two stormtroopers 1+1 = 8, so initiation is blocked.
+        scn.MoveCardsToLocation(cantina, st1, st2, vader, caldera, rebel);
+
+        SkipToLocalTroubleWindow(scn);
+        assertFalse(decisionSnapshot(scn), LocalTroubleOffered(scn));
+        assertFalse(dsHasCard(scn, scn.GetDSCard("localTrouble")));
+    }
+
+    @Test
+    public void FeltipernAddsInitiateBattleCostToLocalTrouble() {
+        var scn = GetScenario(new HashMap<>(), new HashMap<>() {{ put("feltipern", "1_176"); }});
+        var cantina = scn.GetDSCard("cantina");
+        var st1 = scn.GetDSCard("st1");
+        var st2 = scn.GetDSCard("st2");
+        var feltipern = scn.GetDSCard("feltipern");
+        var rebel = scn.GetLSCard("rebel");
+
+        SetupCantina(scn);
+        // Feltipern at Cantina with no droid present resets initiate-battle cost to
+        // Force icons present (Cantina: 2 Dark + 2 Light = 4), plus LT's 1 Force interrupt.
+        scn.MoveCardsToLocation(cantina, st1, st2, feltipern, rebel);
+        scn.DSActivateForceCheat(8);
+
+        SkipToLocalTroubleWindow(scn);
+        assertTrue(decisionSnapshot(scn), LocalTroubleOffered(scn));
+        int forceBefore = scn.GetDSForcePileCount();
+        PlayLocalTrouble(scn, st1, st2, rebel);
+        int used = forceBefore - scn.GetDSForcePileCount();
+        assertTrue("Feltipern should reset LT initiation cost to Cantina icons (4); used=" + used, used >= 4);
+        assertTrue(scn.gameState().isDuringLocalTroubleBattle());
+        assertTrue(scn.IsParticipatingInBattle(st1, st2, rebel));
+        assertFalse(scn.IsParticipatingInBattle(feltipern));
+    }
+
+    @Test
+    public void IHaveABadFeelingAboutThisCanRetargetLocalTrouble() {
+        var scn = GetScenario(new HashMap<>() {{ put("badFeeling", "4_052"); }},
+                new HashMap<>() {{ put("st3", "1_194"); put("st4", "1_194"); }});
+        var cantina = scn.GetDSCard("cantina");
+        var st1 = scn.GetDSCard("st1");
+        var st2 = scn.GetDSCard("st2");
+        var st3 = scn.GetDSCard("st3");
+        var st4 = scn.GetDSCard("st4");
+        var rebel = scn.GetLSCard("rebel");
+        var luke = scn.GetLSCard("luke");
+        var badFeeling = scn.GetLSCard("badFeeling");
+        var localTrouble = scn.GetDSCard("localTrouble");
+
+        SetupCantina(scn);
+        scn.MoveCardsToLSHand(badFeeling);
+        scn.LSActivateForceCheat(3);
+        scn.MoveCardsToLocation(cantina, st1, st2, st3, st4, rebel, luke);
+
+        SkipToLocalTroubleWindow(scn);
+        assertTrue(LocalTroubleOffered(scn));
+        if (dsHasCard(scn, localTrouble)) {
+            scn.DSPlayCard(localTrouble);
+        } else {
+            scn.DSUseCardAction(localTrouble);
+        }
+        if (scn.DSHasCardChoiceAvailable(st1) || scn.DSHasCardChoiceAvailable(st2)) {
+            scn.DSChooseCards(st1, st2);
+        }
+        if (scn.DSHasCardChoiceAvailable(rebel)) {
+            scn.DSChooseCard(rebel);
+        }
+
+        for (int i = 0; i < 12 && !lsHasCard(scn, badFeeling) && !lsHasAction(scn, "Retarget")
+                && !(scn.LSAnyDecisionsAvailable() && scn.LSCardPlayAvailable(badFeeling)); i++) {
+            var decision = scn.GetCurrentDecision();
+            if (decision == null) {
+                break;
+            }
+            String text = decision.getText().toLowerCase();
+            if (text.contains("use 1 force") || text.contains("use force")) {
+                scn.PassForceUseResponses();
+                continue;
+            }
+            if (text.contains("optional") && !lsHasCard(scn, badFeeling)
+                    && !(scn.LSAnyDecisionsAvailable() && scn.LSCardPlayAvailable(badFeeling))) {
+                scn.PassResponses("optional");
+                continue;
+            }
+            break;
+        }
+
+        assertTrue(decisionSnapshot(scn), lsHasCard(scn, badFeeling) || lsHasAction(scn, "Retarget")
+                || (scn.LSAnyDecisionsAvailable() && scn.LSCardPlayAvailable(badFeeling)));
+        if (lsHasCard(scn, badFeeling) || scn.LSCardPlayAvailable(badFeeling)) {
+            scn.LSPlayCard(badFeeling);
+        } else {
+            scn.LSChooseAction("Retarget");
+        }
+
+        // Both targeting groups must be retargetable (2 stormtroopers and the LS character).
+        assertTrue(decisionSnapshot(scn),
+                scn.LSHasCardChoiceAvailable(st1) || scn.LSHasCardChoiceAvailable(st2));
+        assertTrue(scn.LSHasCardChoiceAvailable(rebel));
+
+        // Retarget the stormtrooper group from A+B to C+D.
+        if (scn.LSHasCardChoiceAvailable(st1)) {
+            scn.LSChooseCard(st1);
+        } else {
+            scn.LSChooseCard(st2);
+        }
+        assertTrue(decisionSnapshot(scn), scn.LSHasCardChoicesAvailable(st3, st4));
+        assertFalse(scn.LSHasCardChoiceAvailable(st1) && scn.LSHasCardChoiceAvailable(st2));
+        scn.LSChooseCards(st3, st4);
+        scn.PassAllResponses();
+        PassUntilBattleInitiated(scn);
+        if (scn.DSDecisionAvailable("BATTLE_INITIATED") || scn.LSDecisionAvailable("BATTLE_INITIATED")) {
+            scn.PassBattleStartResponses();
+        }
+
+        assertTrue(scn.gameState().isDuringLocalTroubleBattle());
+        assertTrue(scn.IsParticipatingInBattle(st3, st4, rebel));
+        assertFalse(scn.IsParticipatingInBattle(st1));
+        assertFalse(scn.IsParticipatingInBattle(st2));
+        assertFalse(scn.IsParticipatingInBattle(luke));
     }
 }
