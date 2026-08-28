@@ -11,16 +11,19 @@ import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.SeparatelyOrCombinedFiringState;
 import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.FireWeaponEffect;
 import com.gempukku.swccgo.logic.effects.HitCardEffect;
+import com.gempukku.swccgo.logic.effects.IonizeStarshipEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
@@ -131,8 +134,11 @@ public class Card1_039 extends AbstractDevice {
 
     /**
      * Fires the chosen weapon twice as sub-actions of this device action (no top-level action between shots).
-     * Pending rules: pay each firing's Force when that shot initiates. If the second shot cannot pay, the first
-     * still resolved when separately; when combined, completed firings still combine.
+     * Appendix B option A: Force is used for BOTH firings, but costs are paid as EACH shot initiates
+     * (not all upfront). After shot 1 completes, attempt shot 2; if the fire action cannot be built
+     * (typically remaining Force cannot pay that shot's cost), skip shot 2. Do not rewind shot 1 and
+     * do not fail the overall action. Combined: destinies from completed firings still combine, with
+     * total-modifiers applied once vs the single target.
      */
     private void appendFireTwice(final TopLevelGameTextAction action, final SwccgGame game, final PhysicalCard self,
                                  final PhysicalCard weapon, final boolean combined) {
@@ -145,6 +151,15 @@ public class Card1_039 extends AbstractDevice {
                         SeparatelyOrCombinedFiringState soc = game.getGameState().getSeparatelyOrCombinedFiringState();
                         if (combined && soc != null && soc.getCombinedTarget() != null) {
                             secondTargetFilter = Filters.sameCardId(soc.getCombinedTarget());
+                        }
+                        // Same check FireWeaponEffect uses: builder returns null when this shot cannot initiate.
+                        // Nested FireWeaponEffect already no-ops in that case (does not abort the parent);
+                        // skip appending shot 2 so combined can resolve from completed firings only.
+                        if (!canInitiateSocShot(game, self, weapon, secondTargetFilter)) {
+                            game.getGameState().sendMessage("Second firing does not initiate (cannot pay fire cost). Completed firings still count.");
+                            resolveCombinedIfStillPending(action, game, weapon);
+                            game.getGameState().finishSeparatelyOrCombinedFiring();
+                            return;
                         }
                         action.appendEffect(createFireTwiceShotEffect(action, weapon, secondTargetFilter));
                         action.appendEffect(
@@ -159,6 +174,17 @@ public class Card1_039 extends AbstractDevice {
                     }
                 }
         );
+    }
+
+    /**
+     * True if the weapon can currently begin a fire-weapon action for this SOC shot
+     * (Force remaining, legal target, per-battle limit ignored).
+     */
+    private boolean canInitiateSocShot(SwccgGame game, PhysicalCard self, PhysicalCard weapon, Filter fireAtTargetFilter) {
+        FireWeaponAction fireWeaponAction = weapon.getBlueprint().getFireWeaponAction(
+                weapon.getOwner(), game, weapon, false, 0, self, false,
+                Filters.none, null, fireAtTargetFilter, true);
+        return fireWeaponAction != null;
     }
 
     private FireWeaponEffect createFireTwiceShotEffect(Action action, PhysicalCard weapon, Filter fireAtTargetFilter) {
@@ -194,7 +220,13 @@ public class Card1_039 extends AbstractDevice {
         game.getGameState().sendMessage("Defense value: " + GuiUtils.formatAsString(defenseValue));
         if (totalDestiny > defenseValue) {
             game.getGameState().sendMessage("Result: Succeeded");
-            action.appendEffect(new HitCardEffect(action, target, weapon));
+            // Apply the weapon's actual result (Ion Cannon ionizes; most starship weapons hit).
+            if (weapon.getBlueprint().hasKeyword(Keyword.ION_CANNON)) {
+                action.appendEffect(new IonizeStarshipEffect(action, target, weapon, false, true, true));
+            }
+            else {
+                action.appendEffect(new HitCardEffect(action, target, weapon));
+            }
         }
         else {
             game.getGameState().sendMessage("Result: Failed");

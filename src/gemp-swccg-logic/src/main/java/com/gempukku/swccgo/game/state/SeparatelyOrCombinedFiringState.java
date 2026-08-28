@@ -13,9 +13,10 @@ import java.util.List;
  * Combined: treat each firing as a single weapon destiny (draw modifiers only, even if
  * multiple draws), add them, then apply total weapon destiny modifiers once and resolve.
  *
- * Pending rules (sensible AR reading, coded here): Force for each shot is paid when that
- * shot initiates, not all upfront. If the second shot cannot pay, the first still resolved
- * when firing separately; when combined, completed firings still combine.
+ * Appendix B option A (coded here): Force is used for BOTH firings, but each shot's cost
+ * is paid when THAT shot initiates (not all upfront). If the second shot cannot pay, skip
+ * it; do not rewind the first shot and do not fail the overall action. Combined: destinies
+ * from completed firings still combine (total-modifiers applied once) vs the single target.
  */
 public class SeparatelyOrCombinedFiringState {
     private final PhysicalCard _device;

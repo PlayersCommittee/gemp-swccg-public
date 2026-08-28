@@ -717,7 +717,8 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
 
                             if (!soc.hasCompletedExpectedFirings()) {
                                 // Defer hit resolution until remaining combined firings complete.
-                                // Pending rules: costs paid as each shot initiates; completed firings still combine.
+                                // Appendix B option A: if a later shot cannot initiate, completed firings still combine
+                                // (Card1_039 skips unpaid shot 2 and resolves combined from completed firings only).
                                 return;
                             }
 
