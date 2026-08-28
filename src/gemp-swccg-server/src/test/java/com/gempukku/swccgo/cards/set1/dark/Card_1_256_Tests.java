@@ -767,6 +767,45 @@ public class Card_1_256_Tests {
     }
 
     @Test
+    public void ArtooAndThreepioAtCantinaMakesMiningDroidBattleEndWhenTheyGoInactive() {
+        var scn = GetScenario(new HashMap<>() {{ put("miningDroid", "1_018"); put("artooThreepio", "10_002"); }}, new HashMap<>());
+        var cantina = scn.GetDSCard("cantina");
+        var st1 = scn.GetDSCard("st1");
+        var st2 = scn.GetDSCard("st2");
+        var miningDroid = scn.GetLSCard("miningDroid");
+        var artooThreepio = scn.GetLSCard("artooThreepio");
+        var localTrouble = scn.GetDSCard("localTrouble");
+
+        SetupCantina(scn);
+        scn.MoveCardsToLocation(cantina, st1, st2, miningDroid, artooThreepio);
+
+        SkipToLocalTroubleWindow(scn);
+        assertTrue(decisionSnapshot(scn), LocalTroubleOffered(scn));
+
+        // Targeting while A&T is still active: mining droid has no ability, so A&T "droids may be battled" makes it legal.
+        StartLocalTrouble(scn, st1, st2, miningDroid);
+        assertFalse(scn.IsParticipatingInBattle(artooThreepio));
+
+        if (scn.DSDecisionAvailable("BATTLE_INITIATED") || scn.LSDecisionAvailable("BATTLE_INITIATED")) {
+            scn.PassBattleStartResponses();
+        }
+        scn.PassAllResponses();
+
+        // After initiation, bystanders are inactive; A&T game text no longer applies, so the droid cannot be battled
+        // and the battle ends immediately (not Sense-style canceled).
+        boolean battleOver = !scn.gameState().isDuringBattle()
+                || scn.gameState().getBattleState() == null
+                || !scn.gameState().getBattleState().canContinue(scn.game());
+        assertTrue(decisionSnapshot(scn), battleOver);
+        assertFalse(scn.AwaitingDSWeaponsSegmentActions());
+        if (scn.gameState().isDuringBattle() && scn.gameState().getBattleState() != null) {
+            assertFalse(scn.gameState().getBattleState().isReachedPowerSegment());
+            assertTrue(scn.IsParticipatingInBattle(miningDroid));
+        }
+        assertFalse(decisionSnapshot(scn), localTrouble.getZone() == Zone.HAND);
+    }
+
+    @Test
     public void K3POIsALegalLocalTroubleTarget() {
         var scn = GetScenario(new HashMap<>() {{ put("k3po", "3_012"); }}, new HashMap<>());
         var cantina = scn.GetDSCard("cantina");
