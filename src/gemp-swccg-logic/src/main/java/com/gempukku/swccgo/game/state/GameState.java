@@ -97,6 +97,7 @@ public class GameState implements Snapshotable<GameState> {
     private SearchPartyState _searchPartyState;
     private WeaponFiringState _weaponFiringState;
     private SeparatelyOrCombinedFiringState _separatelyOrCombinedFiringState;
+    private CombinedAttackFiringState _combinedAttackFiringState;
     private UsingTractorBeamState _usingTractorBeamState;
     private Stack<ForceLossState> _forceLossState = new Stack<ForceLossState>();
     private Stack<ForceRetrievalState> _forceRetrievalState = new Stack<ForceRetrievalState>();
@@ -301,6 +302,9 @@ public class GameState implements Snapshotable<GameState> {
         }
         if (_separatelyOrCombinedFiringState != null) {
             throw new UnsupportedOperationException("Cannot generate snapshot of " + getClass().getSimpleName() + " with SeparatelyOrCombinedFiringState");
+        }
+        if (_combinedAttackFiringState != null) {
+            throw new UnsupportedOperationException("Cannot generate snapshot of " + getClass().getSimpleName() + " with CombinedAttackFiringState");
         }
         if (!_forceLossState.isEmpty()) {
             throw new UnsupportedOperationException("Cannot generate snapshot of " + getClass().getSimpleName() + " with ForceLossState");
@@ -4407,6 +4411,23 @@ public class GameState implements Snapshotable<GameState> {
 
     public void finishSeparatelyOrCombinedFiring() {
         _separatelyOrCombinedFiringState = null;
+    }
+
+    /**
+     * Begins Premiere Combined Attack (1_75): two or more starship weapons fire as one interrupt action.
+     * Destiny DRAWS are added together; each weapon then applies that shared total with its own
+     * total-weapon-destiny modifiers. Results are applied only after all participating weapons have fired.
+     */
+    public void beginCombinedAttackFiring(PhysicalCard source, PhysicalCard target, java.util.List<PhysicalCard> weaponsInOrder) {
+        _combinedAttackFiringState = new CombinedAttackFiringState(source, target, weaponsInOrder);
+    }
+
+    public CombinedAttackFiringState getCombinedAttackFiringState() {
+        return _combinedAttackFiringState;
+    }
+
+    public void finishCombinedAttackFiring() {
+        _combinedAttackFiringState = null;
     }
 
     //

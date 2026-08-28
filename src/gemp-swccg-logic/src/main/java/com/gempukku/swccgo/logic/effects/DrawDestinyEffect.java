@@ -9,6 +9,7 @@ import com.gempukku.swccgo.game.ActionsEnvironment;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.CombinedAttackFiringState;
 import com.gempukku.swccgo.game.state.DrawDestinyState;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.game.state.SeparatelyOrCombinedFiringState;
@@ -511,8 +512,9 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
         // Add modifiers to total weapon destiny (unless this is combined firing)
         if (_destinyType==DestinyType.WEAPON_DESTINY || _destinyType==DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY) {
             SeparatelyOrCombinedFiringState soc = gameState.getSeparatelyOrCombinedFiringState();
-            // TC-combined: each firing is draw modifiers only, not a weapon destiny total.
-            if (soc == null || !soc.isCombined()) {
+            CombinedAttackFiringState ca = gameState.getCombinedAttackFiringState();
+            // Combined Attack and TC-combined: each firing is draw modifiers only, not a weapon destiny total.
+            if ((soc == null || !soc.isCombined()) && ca == null) {
                 totalDestiny = game.getModifiersQuerying().getTotalWeaponDestiny(gameState, _performingPlayerId, totalDestiny);
             }
         }
@@ -705,6 +707,32 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                         Float totalDestiny = getTotalDestiny(game);
 
                         gameState.endDrawDestiny();
+
+                        CombinedAttackFiringState ca = gameState.getCombinedAttackFiringState();
+                        if (ca != null
+                                && (_destinyType == DestinyType.WEAPON_DESTINY || _destinyType == DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY)) {
+                            float firingDestiny = 0f;
+                            for (Float value : _destinyDrawValues) {
+                                if (value != null) {
+                                    firingDestiny += value;
+                                }
+                            }
+                            com.gempukku.swccgo.game.state.WeaponFiringState wfs = gameState.getWeaponFiringState();
+                            PhysicalCard weapon = wfs != null ? wfs.getCardFiring() : null;
+                            PhysicalCard cardFiring = wfs != null ? wfs.getCardFiringWeapon() : null;
+                            com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint perm = wfs != null ? wfs.getPermanentWeaponFiring() : null;
+                            float totalMod = 0f;
+                            if (wfs != null) {
+                                totalMod = game.getModifiersQuerying().getTotalWeaponDestiny(
+                                        gameState, cardFiring, weapon, perm, wfs.getTargets(), 0f);
+                            }
+                            ca.addFiring(weapon, cardFiring, perm, firingDestiny, totalMod);
+                            String weaponLink = weapon != null ? GameUtils.getCardLink(weapon) : "weapon";
+                            gameState.sendMessage("Combined Attack weapon destiny (draw modifiers only) for "
+                                    + weaponLink + ": " + GuiUtils.formatAsString(firingDestiny));
+                            // Defer hit/ionize until all Combined Attack weapons have fired (Gergall).
+                            return;
+                        }
 
                         SeparatelyOrCombinedFiringState soc = gameState.getSeparatelyOrCombinedFiringState();
                         if (soc != null && soc.isCombined()
