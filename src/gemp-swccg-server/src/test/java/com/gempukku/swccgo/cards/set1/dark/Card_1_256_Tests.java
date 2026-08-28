@@ -763,6 +763,7 @@ public class Card_1_256_Tests {
 
         assertTrue(scn.gameState().isDuringLocalTroubleBattle());
         assertTrue(scn.IsParticipatingInBattle(st1, st2, cz3));
+        assertFalse(scn.IsParticipatingInBattle(artooThreepio));
     }
 
     @Test
@@ -782,6 +783,49 @@ public class Card_1_256_Tests {
 
         assertTrue(scn.gameState().isDuringLocalTroubleBattle());
         assertTrue(scn.IsParticipatingInBattle(st1, st2, k3po));
+    }
+
+    @Test
+    public void K3POOnTableDoesNotMakeC3POALegalLocalTroubleTarget() {
+        var scn = GetScenario(new HashMap<>() {{ put("k3po", "3_012"); }}, new HashMap<>());
+        var cantina = scn.GetDSCard("cantina");
+        var marketplace = scn.GetDSStartingLocation();
+        var st1 = scn.GetDSCard("st1");
+        var st2 = scn.GetDSCard("st2");
+        var k3po = scn.GetLSCard("k3po");
+        var c3po = scn.GetLSCard("c3po");
+
+        SetupCantina(scn);
+        // K-3PO game text: "May initiate battle and be battled" is self-only while in play
+        // (not "all droids", unlike Artoo & Threepio). Place him at Marketplace so he is
+        // on table but not the Cantina target; C-3PO (1_005) still has no presence.
+        scn.MoveCardsToLocation(cantina, st1, st2, c3po);
+        scn.MoveCardsToLocation(marketplace, k3po);
+
+        SkipToLocalTroubleWindow(scn);
+        assertFalse(decisionSnapshot(scn), LocalTroubleOffered(scn));
+        assertFalse(dsHasCard(scn, scn.GetDSCard("localTrouble")));
+    }
+
+    @Test
+    public void K3POAtCantinaDoesNotMakeC3POALegalLocalTroubleTarget() {
+        var scn = GetScenario(new HashMap<>() {{ put("k3po", "3_012"); }}, new HashMap<>());
+        var cantina = scn.GetDSCard("cantina");
+        var st1 = scn.GetDSCard("st1");
+        var st2 = scn.GetDSCard("st2");
+        var k3po = scn.GetLSCard("k3po");
+        var c3po = scn.GetLSCard("c3po");
+
+        SetupCantina(scn);
+        scn.MoveCardsToLocation(cantina, st1, st2, k3po, c3po);
+
+        SkipToLocalTroubleWindow(scn);
+        assertTrue(decisionSnapshot(scn), LocalTroubleOffered(scn));
+        PlayLocalTrouble(scn, st1, st2, k3po);
+
+        assertTrue(scn.gameState().isDuringLocalTroubleBattle());
+        assertTrue(scn.IsParticipatingInBattle(st1, st2, k3po));
+        assertFalse(scn.IsParticipatingInBattle(c3po));
     }
 
     @Test
