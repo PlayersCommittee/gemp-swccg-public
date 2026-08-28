@@ -122,7 +122,14 @@ public class Card2_134 extends AbstractUsedInterrupt {
     }
 
     private Filter getReactCharacterFilter(PhysicalCard self, PhysicalCard battleSite) {
-        return Filters.and(Filters.your(self), Filters.character, Filters.at(Filters.adjacentSite(battleSite)),
+        // AR 2023: while a starship/vehicle is at a site, its sites are adjacent to that site.
+        // Filters.adjacentSite already includes this via isAdjacentSites. Also union
+        // siteOfStarshipOrVehicle (filterAllOnTable) so a related vehicle at the battle site
+        // is found even if findFirstActive would skip it.
+        Filter adjacentSites = Filters.or(
+                Filters.adjacentSite(battleSite),
+                Filters.siteOfStarshipOrVehicle(Filters.and(Filters.or(Filters.starship, Filters.vehicle), Filters.at(battleSite))));
+        return Filters.and(Filters.your(self), Filters.character, Filters.at(adjacentSites),
                 Filters.canMoveAsReactAsActionFromOtherCard(self, true, 0, false));
     }
 

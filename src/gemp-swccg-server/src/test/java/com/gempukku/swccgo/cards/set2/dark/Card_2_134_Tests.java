@@ -41,6 +41,10 @@ public class Card_2_134_Tests {
                 put("db94", "1_291"); // Tatooine: Docking Bay 94
                 put("lars", "1_294"); // Tatooine: Lars' Moisture Farm
                 put("blaster", "1_317"); // Imperial Blaster
+                put("barge", "6_172"); // Jabba's Sail Barge
+                put("deck", "6_167"); // Jabba's Sail Barge: Passenger Deck
+                put("palace", "6_171"); // Tatooine: Jabba's Palace (Dark)
+                put("abyssin", "6_091"); // Abyssin
             }},
             10,
             10,
@@ -532,5 +536,118 @@ public class Card_2_134_Tests {
         assertFalse("Navander at the adjacent site blocks reacting FROM that location",
                 DsCardPlayAvailableSafe(scn, informant));
         assertEquals(cantina, mover.getAtLocation());
+    }
+
+    /**
+     * AR 2023: vehicle sites are adjacent to the planet site where the vehicle is located.
+     * Characters at Passenger Deck may Informant-react into a battle at Palace when the barge is there.
+     */
+    private void SetupBargeAtPalaceBattle(VirtualTableScenario scn, boolean bargeAtPalace) {
+        var informant = scn.GetDSCard("informant");
+        var palace = scn.GetDSCard("palace");
+        var barge = scn.GetDSCard("barge");
+        var deck = scn.GetDSCard("deck");
+        var spy = scn.GetDSCard("spy");
+        var presence = scn.GetDSCard("presence");
+        var driver = scn.GetDSCard("mover");
+        var abyssin = scn.GetDSCard("abyssin");
+        var rebel = scn.GetLSCard("rebel");
+
+        scn.MoveCardsToDSHand(informant);
+        scn.StartGame();
+        scn.MoveLocationToTable(palace);
+        scn.MoveLocationToTable(deck);
+
+        var bargeSite = bargeAtPalace ? palace : scn.GetDSStartingLocation();
+        scn.MoveCardsToLocation(bargeSite, barge);
+        scn.BoardAsPilot(barge, driver);
+        scn.MoveCardsToLocation(palace, spy, presence, rebel);
+        scn.MoveCardsToLocation(deck, abyssin);
+        scn.MakeCardGoUndercover(spy);
+    }
+
+    @Test
+    public void CharacterAtPassengerDeckReactsForFreeIntoBattleAtPalaceWhenBargeIsThere() {
+        var scn = GetScenario();
+        var informant = scn.GetDSCard("informant");
+        var palace = scn.GetDSCard("palace");
+        var deck = scn.GetDSCard("deck");
+        var barge = scn.GetDSCard("barge");
+        var abyssin = scn.GetDSCard("abyssin");
+        var presence = scn.GetDSCard("presence");
+        var spy = scn.GetDSCard("spy");
+        var rebel = scn.GetLSCard("rebel");
+
+        SetupBargeAtPalaceBattle(scn, true);
+
+        assertTrue("Passenger Deck is adjacent to Palace while the barge is at Palace",
+                scn.IsAdjacentTo(deck, palace));
+        assertTrue(scn.IsAdjacentTo(palace, deck));
+
+        scn.SkipToLSTurn(Phase.BATTLE);
+        int dsForceBefore = scn.GetDSForcePileCount();
+        InitiateLsBattleKeepReactWindow(scn, palace);
+
+        AssertDsCanPlayInformant(scn, informant);
+        scn.DSPlayCard(informant);
+        assertTrue("Abyssin at Passenger Deck must be a legal first Informant react",
+                scn.DSHasCardChoiceAvailable(abyssin));
+        assertFalse(scn.DSHasCardChoiceAvailable(presence));
+        assertFalse(scn.DSHasCardChoiceAvailable(spy));
+        assertFalse(scn.DSHasCardChoiceAvailable(rebel));
+        scn.DSChooseCard(abyssin);
+        if (scn.GetCurrentDecision() != null) {
+            scn.PassAllResponses();
+        }
+
+        assertEquals("Abyssin should exit Passenger Deck to Palace as a free react, was at "
+                        + (abyssin.getAtLocation() == null ? "null" : abyssin.getAtLocation().getTitle()),
+                palace, abyssin.getAtLocation());
+        assertTrue(scn.IsParticipatingInBattle(abyssin));
+        assertTrue(scn.IsParticipatingInBattle(presence, rebel));
+        assertFalse(scn.IsParticipatingInBattle(spy));
+        assertEquals(dsForceBefore, scn.GetDSForcePileCount());
+        assertNotEquals(deck, abyssin.getAtLocation());
+        assertEquals(palace, barge.getAtLocation());
+    }
+
+    @Test
+    public void CharacterAtVehicleSiteOfVehicleElsewhereIsNotALegalInformantTarget() {
+        var scn = GetScenario();
+        var informant = scn.GetDSCard("informant");
+        var palace = scn.GetDSCard("palace");
+        var deck = scn.GetDSCard("deck");
+        var marketplace = scn.GetDSStartingLocation();
+        var abyssin = scn.GetDSCard("abyssin");
+        var cantina = scn.GetDSCard("cantina");
+        var mover2 = scn.GetDSCard("mover2");
+
+        SetupBargeAtPalaceBattle(scn, false);
+        scn.MoveLocationToTable(cantina);
+        scn.MoveCardsToLocation(cantina, mover2);
+
+        assertTrue("Passenger Deck is adjacent to where the barge is (Marketplace), not Palace",
+                scn.IsAdjacentTo(deck, marketplace));
+        assertFalse("Passenger Deck is not adjacent to Palace when the barge is elsewhere",
+                scn.IsAdjacentTo(deck, palace));
+
+        scn.SkipToLSTurn(Phase.BATTLE);
+        InitiateLsBattleKeepReactWindow(scn, palace);
+
+        boolean informantPlayable = DsCardPlayAvailableSafe(scn, informant);
+        if (informantPlayable) {
+            scn.DSPlayCard(informant);
+            assertFalse("Abyssin at an unrelated vehicle site must not be a legal Informant react",
+                    scn.DSHasCardChoiceAvailable(abyssin));
+            if (scn.DSHasCardChoiceAvailable(mover2)) {
+                scn.DSChooseCard(mover2);
+                scn.PassAllResponses();
+            }
+            else {
+                scn.DSPass();
+            }
+        }
+        assertEquals(deck, abyssin.getAtLocation());
+        assertFalse(scn.IsParticipatingInBattle(abyssin));
     }
 }
