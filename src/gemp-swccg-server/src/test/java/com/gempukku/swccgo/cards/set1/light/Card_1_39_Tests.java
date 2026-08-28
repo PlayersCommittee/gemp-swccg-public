@@ -1,7 +1,6 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.common.CardType;
-import com.gempukku.swccgo.common.IonizationType;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -126,16 +125,15 @@ public class Card_1_39_Tests {
         var stalker = scn.GetDSCard("stalker");
         setupRed7(scn, true);
 
-        startWeaponsSegment(scn);
+        scn.StartBattleAndSkipToWeaponsSegment();
 
         assertTrue(scn.LSCardActionAvailable(tc, "Fire a weapon twice"));
         scn.LSUseCardAction(tc, "Fire a weapon twice");
-        chooseWeaponIfPrompted(scn, ept);
-        scn.LSChoose("Separately");
+        chooseSeparatelyOrCombined(scn, "Separately");
         fireOneShot(scn, stalker, 1);
         fireOneShot(scn, stalker, 1);
 
-        passOptionalResponses(scn);
+        scn.PassAllResponses();
         // After the weapon has been fired twice, LS may have no remaining weapons actions
         // and the engine auto-passes to DS. Either way the device must not be usable again.
         if (scn.AwaitingLSWeaponsSegmentActions()) {
@@ -158,13 +156,12 @@ public class Card_1_39_Tests {
         var tie2 = scn.GetDSCard("tie2");
         setupXwing(scn);
 
-        startWeaponsSegment(scn);
+        scn.StartBattleAndSkipToWeaponsSegment();
 
         int forceBefore = scn.GetLSForcePileCount();
         assertTrue(scn.LSCardActionAvailable(tc, "Fire a weapon twice"));
         scn.LSUseCardAction(tc, "Fire a weapon twice");
-        chooseWeaponIfPrompted(scn, ept);
-        scn.LSChoose("Separately");
+        chooseSeparatelyOrCombined(scn, "Separately");
 
         // Without Karie, dest 7 vs TIE: 7 -1 TC -1 EPT (non-capital) = 5 vs maneuver 3 = hit.
         fireOneShot(scn, tie, 7);
@@ -193,11 +190,10 @@ public class Card_1_39_Tests {
         var stalker = scn.GetDSCard("stalker");
         setupRed7(scn, true);
 
-        startWeaponsSegment(scn);
+        scn.StartBattleAndSkipToWeaponsSegment();
 
         scn.LSUseCardAction(tc, "Fire a weapon twice");
-        chooseWeaponIfPrompted(scn, ept);
-        scn.LSChoose("Combined");
+        chooseSeparatelyOrCombined(scn, "Combined");
 
         fireOneShot(scn, stalker, 4);
         assertFalse("First combined shot must not resolve a hit by itself", stalker.isHit());
@@ -218,11 +214,10 @@ public class Card_1_39_Tests {
         var stalker = scn.GetDSCard("stalker");
         setupRed7(scn, false);
 
-        startWeaponsSegment(scn);
+        scn.StartBattleAndSkipToWeaponsSegment();
 
         scn.LSUseCardAction(tc, "Fire a weapon twice");
-        chooseWeaponIfPrompted(scn, ept);
-        scn.LSChoose("Combined");
+        chooseSeparatelyOrCombined(scn, "Combined");
 
         fireOneShot(scn, stalker, 4);
         fireOneShot(scn, stalker, 4);
@@ -241,11 +236,10 @@ public class Card_1_39_Tests {
         var stalker = scn.GetDSCard("stalker");
         setupRed7(scn, true);
 
-        startWeaponsSegment(scn);
+        scn.StartBattleAndSkipToWeaponsSegment();
 
         scn.LSUseCardAction(tc, "Fire a weapon twice");
-        chooseWeaponIfPrompted(scn, ept);
-        scn.LSChoose("Combined");
+        chooseSeparatelyOrCombined(scn, "Combined");
 
         fireOneShot(scn, stalker, 4);
         assertFalse(stalker.isHit());
@@ -265,12 +259,11 @@ public class Card_1_39_Tests {
         var tie2 = scn.GetDSCard("tie2");
         setupXwingLaser(scn);
 
-        startWeaponsSegment(scn);
+        scn.StartBattleAndSkipToWeaponsSegment();
 
         assertTrue(scn.LSCardActionAvailable(tc, "Fire a weapon twice"));
         scn.LSUseCardAction(tc, "Fire a weapon twice");
-        chooseWeaponIfPrompted(scn, xwlc);
-        scn.LSChoose("Separately");
+        chooseSeparatelyOrCombined(scn, "Separately");
 
         fireOneShot(scn, tie, 5, 0);
         assertTrue(tie.isHit());
@@ -290,11 +283,10 @@ public class Card_1_39_Tests {
         var tie = scn.GetDSCard("tie");
         setupXwingLaser(scn);
 
-        startWeaponsSegment(scn);
+        scn.StartBattleAndSkipToWeaponsSegment();
 
         scn.LSUseCardAction(tc, "Fire a weapon twice");
-        chooseWeaponIfPrompted(scn, xwlc);
-        scn.LSChoose("Combined");
+        chooseSeparatelyOrCombined(scn, "Combined");
 
         fireOneShot(scn, tie, 4, 0);
         assertFalse("First combined X-wing Laser Cannon shot must not resolve a hit by itself", tie.isHit());
@@ -315,20 +307,19 @@ public class Card_1_39_Tests {
         var tie2 = scn.GetDSCard("tie2");
         setupYwingIon(scn);
 
-        startWeaponsSegment(scn);
+        scn.StartBattleAndSkipToWeaponsSegment();
 
         int forceBefore = scn.GetLSForcePileCount();
         scn.LSUseCardAction(tc, "Fire a weapon twice");
-        chooseWeaponIfPrompted(scn, sw4);
-        scn.LSChoose("Separately");
+        chooseSeparatelyOrCombined(scn, "Separately");
 
         fireOneShot(scn, tie, 5);
-        assertTrue(isIonized(tie));
+        assertTrue(scn.IsIonized(tie));
         assertFalse(tie.isHit());
-        assertFalse(isIonized(tie2));
+        assertFalse(scn.IsIonized(tie2));
 
         fireOneShot(scn, tie2, 5);
-        assertTrue(isIonized(tie2));
+        assertTrue(scn.IsIonized(tie2));
         assertFalse(tie2.isHit());
         assertEquals(forceBefore - 2, scn.GetLSForcePileCount());
     }
@@ -342,18 +333,17 @@ public class Card_1_39_Tests {
         var tie = scn.GetDSCard("tie");
         setupYwingIon(scn);
 
-        startWeaponsSegment(scn);
+        scn.StartBattleAndSkipToWeaponsSegment();
 
         scn.LSUseCardAction(tc, "Fire a weapon twice");
-        chooseWeaponIfPrompted(scn, sw4);
-        scn.LSChoose("Combined");
+        chooseSeparatelyOrCombined(scn, "Combined");
 
         fireOneShot(scn, tie, 4);
-        assertFalse(isIonized(tie));
+        assertFalse(scn.IsIonized(tie));
         assertFalse(tie.isHit());
 
         fireOneShot(scn, tie, 4);
-        assertTrue(isIonized(tie));
+        assertTrue(scn.IsIonized(tie));
         assertFalse("Ion Cannon must ionize, not hit", tie.isHit());
     }
 
@@ -368,28 +358,27 @@ public class Card_1_39_Tests {
         var tie2 = scn.GetDSCard("tie2");
         setupYwingIon(scn);
 
-        startWeaponsSegment(scn);
-        drainLSForcePileTo(scn, 1);
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.DrainLSForcePileTo(1);
         assertEquals(1, scn.GetLSForcePileCount());
 
         scn.LSUseCardAction(tc, "Fire a weapon twice");
-        chooseWeaponIfPrompted(scn, sw4);
-        scn.LSChoose("Separately");
+        chooseSeparatelyOrCombined(scn, "Separately");
 
         fireOneShot(scn, tie, 5);
-        assertTrue(isIonized(tie));
+        assertTrue(scn.IsIonized(tie));
         assertFalse(tie.isHit());
-        assertFalse(isIonized(tie2));
+        assertFalse(scn.IsIonized(tie2));
         assertEquals(0, scn.GetLSForcePileCount());
 
-        passOptionalResponses(scn);
+        scn.PassAllResponses();
         if (scn.AwaitingLSWeaponsSegmentActions()) {
             assertFalse(scn.LSCardActionAvailable(tc, "Fire a weapon twice"));
         }
         else {
             assertTrue(scn.AwaitingDSWeaponsSegmentActions() || scn.GetCurrentDecision() != null);
         }
-        assertFalse("Second TIE must not be ionized when shot 2 cannot pay", isIonized(tie2));
+        assertFalse("Second TIE must not be ionized when shot 2 cannot pay", scn.IsIonized(tie2));
     }
 
     @Test
@@ -402,18 +391,17 @@ public class Card_1_39_Tests {
         var tie = scn.GetDSCard("tie");
         setupYwingIon(scn);
 
-        startWeaponsSegment(scn);
-        drainLSForcePileTo(scn, 1);
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.DrainLSForcePileTo(1);
         assertEquals(1, scn.GetLSForcePileCount());
 
         scn.LSUseCardAction(tc, "Fire a weapon twice");
-        chooseWeaponIfPrompted(scn, sw4);
-        scn.LSChoose("Combined");
+        chooseSeparatelyOrCombined(scn, "Combined");
 
         fireOneShot(scn, tie, 5);
-        passOptionalResponses(scn);
+        scn.PassAllResponses();
 
-        assertTrue("Completed combined firing must still apply vs the target", isIonized(tie));
+        assertTrue("Completed combined firing must still apply vs the target", scn.IsIonized(tie));
         assertFalse(tie.isHit());
         assertEquals(0, scn.GetLSForcePileCount());
         if (scn.AwaitingLSWeaponsSegmentActions()) {
@@ -431,11 +419,10 @@ public class Card_1_39_Tests {
         var stalker = scn.GetDSCard("stalker");
         setupHomeOne(scn);
 
-        startWeaponsSegment(scn);
+        scn.StartBattleAndSkipToWeaponsSegment();
 
         scn.LSUseCardAction(tc, "Fire a weapon twice");
-        chooseWeaponIfPrompted(scn, htb);
-        scn.LSChoose("Separately");
+        chooseSeparatelyOrCombined(scn, "Separately");
 
         fireTwoDestinyShot(scn, stalker, 7, 7);
         assertTrue(stalker.isHit());
@@ -451,12 +438,11 @@ public class Card_1_39_Tests {
         var stalker = scn.GetDSCard("stalker");
         setupHomeOne(scn);
 
-        startWeaponsSegment(scn);
-        ensureLSForcePile(scn, 4);
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.EnsureLSForcePile(4);
 
         scn.LSUseCardAction(tc, "Fire a weapon twice");
-        chooseWeaponIfPrompted(scn, htb);
-        scn.LSChoose("Combined");
+        chooseSeparatelyOrCombined(scn, "Combined");
 
         fireTwoDestinyShot(scn, stalker, 4, 4);
         assertFalse("First combined HTB firing must not resolve a hit by itself", stalker.isHit());
@@ -499,17 +485,13 @@ public class Card_1_39_Tests {
         scn.AttachCardsTo(xwing, ept, tc);
     }
 
-    private void startWeaponsSegment(VirtualTableScenario scn) {
-        scn.SkipToLSTurn(Phase.BATTLE);
-        scn.LSInitiateBattle(scn.GetLSStartingLocation());
-        passOptionalResponses(scn);
-        assertTrue(scn.AwaitingLSWeaponsSegmentActions());
-    }
-
-    private void chooseWeaponIfPrompted(VirtualTableScenario scn, PhysicalCardImpl weapon) {
-        if (scn.LSDecisionAvailable("Choose weapon")) {
-            scn.LSChooseCard(weapon);
-        }
+    private void chooseSeparatelyOrCombined(VirtualTableScenario scn, String mode) {
+        assertFalse("These setups attach one legal weapon; GEMP must auto-select it instead of prompting",
+                scn.LSDecisionAvailable("Choose weapon"));
+        assertTrue("Expected Separately/Combined prompt, got: "
+                        + (scn.GetCurrentDecision() == null ? "null" : scn.GetCurrentDecision().getText()),
+                scn.LSDecisionAvailable("separately or combined"));
+        scn.LSChoose(mode);
     }
 
     private void setupXwingLaser(VirtualTableScenario scn) {
@@ -597,30 +579,6 @@ public class Card_1_39_Tests {
         }
         int amount = forceToUse != null ? forceToUse : scn.LSGetChoiceMin();
         scn.LSDecided(amount);
-    }
-
-    private void ensureLSForcePile(VirtualTableScenario scn, int min) {
-        while (scn.GetLSForcePileCount() < min && scn.GetLSReserveDeckCount() > 2) {
-            scn.MoveCardsToTopOfLSForcePile(scn.GetTopOfLSReserveDeck());
-        }
-    }
-
-    private void drainLSForcePileTo(VirtualTableScenario scn, int remaining) {
-        while (scn.GetLSForcePileCount() > remaining) {
-            scn.MoveCardsToHand(scn.GetTopOfLSForcePile());
-        }
-    }
-
-    private boolean isIonized(PhysicalCardImpl card) {
-        return card.getIonization() != null
-                && (card.getIonization().contains(IonizationType.DEFENSE_IONIZED)
-                || card.getIonization().contains(IonizationType.HYPERSPEED_IONIZED));
-    }
-
-    private void passOptionalResponses(VirtualTableScenario scn) {
-        if (scn.GetCurrentDecision() != null) {
-            scn.PassAllResponses();
-        }
     }
 
     private void passPostFiringResponses(VirtualTableScenario scn) {
