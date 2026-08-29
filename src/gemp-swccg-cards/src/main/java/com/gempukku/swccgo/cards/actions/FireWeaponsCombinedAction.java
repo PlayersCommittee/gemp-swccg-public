@@ -12,29 +12,30 @@ import com.gempukku.swccgo.game.state.CombinedAttackFiringState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.SubAction;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
+import com.gempukku.swccgo.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.swccgo.logic.effects.FireWeaponEffect;
 import com.gempukku.swccgo.logic.effects.HitCardEffect;
 import com.gempukku.swccgo.logic.effects.IonizeStarshipEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 /**
  * Combined Attack result: fire the chosen starship weapons one at a time at the shared target, collect destiny
- * DRAWS, then apply the added total separately for each weapon (AR per-weapon total modifiers).
- *
- * The old stub applied one combined total-modifier pass and reused that number for every weapon. That is weaker
- * than AR (Heavy Turbolaser -6 vs starfighter must apply only when resolving HT). This rewrite prefers AR:
- * shared draw-sum + each weapon's own total modifiers, applied after all fire (Gergall).
+ * DRAWS, then apply the added total separately for each weapon (AR per-weapon total modifiers) using each
+ * weapon's own destinyDraws path (X-wing Laser Cannon can lose the target; Ion Cannon ionizes; others hit).
  *
  * Pending option A: costs paid as each shot initiates; if a later weapon cannot pay, skip it; completed
  * destinies still combine and still get applied to the weapons that did fire.
+ *
+ * After all destinies: if 2+ weapons completed, the player chooses which weapon result applies first.
  */
 public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
     private final PhysicalCard _source;
@@ -60,6 +61,8 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
                 new PassthruEffect(subAction) {
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
+                        game.getGameState().sendMessage(_source.getOwner() + " plays Combined Attack targeting "
+                                + GameUtils.getCardLink(_target) + " with " + GameUtils.getAppendedNames(_weaponsInOrder));
                         game.getGameState().beginCombinedAttackFiring(_source, _target, _weaponsInOrder);
                         appendNextWeapon(subAction, game, 0);
                     }
@@ -91,8 +94,6 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
                         if (targetingComputer != null) {
-                            // Both TC shots consecutive and both inside Combined Attack (forum p=1111897).
-                            // Cannot split one TC shot in CA and one outside.
                             subAction.appendEffect(
                                     new PlayoutDecisionEffect(subAction, _source.getOwner(),
                                             new YesNoDecision("Use " + GameUtils.getCardLink(targetingComputer)
@@ -155,8 +156,8 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
     }
 
     /**
-     * After all fire: shared draw-sum applied separately per completed weapon, with that weapon's snapshotted
-     * total modifiers. Hits/ionize happen now, not during the individual destiny draws.
+     * After all fire: shared draw-sum applied separately per completed weapon via that weapon's own
+     * destinyDraws path. Player chooses apply order when 2+ weapons completed.
      */
     private void resolveCombinedAttack(Action action, SwccgGame game) {
         CombinedAttackFiringState ca = game.getGameState().getCombinedAttackFiringState();
@@ -169,27 +170,85 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
         }
         float drawSum = ca.getDrawSum();
         game.getGameState().sendMessage(ca.getAddedDestiniesMessage(GuiUtils.formatAsString(drawSum)));
-        float defenseValue = game.getModifiersQuerying().getDefenseValue(game.getGameState(), target);
-        game.getGameState().sendMessage("Defense value: " + GuiUtils.formatAsString(defenseValue));
+        List<CombinedAttackFiringState.WeaponRecord> records =
+                new ArrayList<CombinedAttackFiringState.WeaponRecord>(ca.getCompletedWeaponRecordsInOrder());
+        ca.markResolved();
+        promptApplyOrder(action, game, records, drawSum, target);
+    }
 
-        for (CombinedAttackFiringState.WeaponRecord record : ca.getCompletedWeaponRecordsInOrder()) {
-            PhysicalCard weapon = record.getWeapon();
-            float total = Math.max(0, drawSum + record.getTotalModifierSnapshot());
-            game.getGameState().sendMessage(ca.getPerWeaponTotalMessage(weapon, GuiUtils.formatAsString(total)));
+    private void promptApplyOrder(final Action action, final SwccgGame game,
+                                  final List<CombinedAttackFiringState.WeaponRecord> remaining,
+                                  final float drawSum, final PhysicalCard target) {
+        if (remaining.isEmpty()) {
+            return;
+        }
+        if (remaining.size() == 1) {
+            applyWeaponRecord(action, game, remaining.get(0), drawSum, target);
+            return;
+        }
+        List<PhysicalCard> weapons = new ArrayList<PhysicalCard>();
+        for (CombinedAttackFiringState.WeaponRecord record : remaining) {
+            weapons.add(record.getWeapon());
+        }
+        action.appendEffect(
+                new ChooseArbitraryCardsEffect(action, _source.getOwner(),
+                        "Choose which weapon result applies first", weapons, 1, 1) {
+                    @Override
+                    protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
+                        PhysicalCard chosen = selectedCards.iterator().next();
+                        CombinedAttackFiringState.WeaponRecord chosenRecord = null;
+                        List<CombinedAttackFiringState.WeaponRecord> leftover =
+                                new ArrayList<CombinedAttackFiringState.WeaponRecord>();
+                        for (CombinedAttackFiringState.WeaponRecord record : remaining) {
+                            if (chosenRecord == null && record.getWeapon().getCardId() == chosen.getCardId()) {
+                                chosenRecord = record;
+                            }
+                            else {
+                                leftover.add(record);
+                            }
+                        }
+                        if (chosenRecord != null) {
+                            applyWeaponRecord(action, game, chosenRecord, drawSum, target);
+                        }
+                        if (!leftover.isEmpty()) {
+                            promptApplyOrder(action, game, leftover, drawSum, target);
+                        }
+                    }
+                }
+        );
+    }
+
+    private void applyWeaponRecord(Action action, SwccgGame game, CombinedAttackFiringState.WeaponRecord record,
+                                   float drawSum, PhysicalCard target) {
+        PhysicalCard weapon = record.getWeapon();
+        float total = Math.max(0, drawSum + record.getTotalModifierSnapshot());
+        game.getGameState().sendMessage(CombinedAttackFiringState.getPerWeaponTotalMessage(
+                weapon, drawSum, record.getTotalModifierSnapshot(), total));
+        boolean queued = false;
+        if (record.getDrawDestinyEffect() != null) {
+            queued = record.getDrawDestinyEffect().applyDeferredWeaponResult(game, action, weapon,
+                    record.getCardFiringWeapon(), record.getPermanentWeapon(), target,
+                    record.getVariableXSnapshot(), total);
+        }
+        if (!queued) {
+            float defenseValue = game.getModifiersQuerying().getDefenseValue(game.getGameState(), target);
             if (total > defenseValue) {
-                game.getGameState().sendMessage("Result for " + GameUtils.getCardLink(weapon) + ": Succeeded");
+                game.getGameState().sendMessage("Result: Succeeded");
                 if (weapon.getBlueprint().hasKeyword(Keyword.ION_CANNON)) {
                     action.appendEffect(new IonizeStarshipEffect(action, target, weapon, false, true, true));
                 }
+                else if (record.getVariableXSnapshot() == 3f) {
+                    action.appendEffect(new LoseCardFromTableEffect(action, target));
+                }
                 else {
-                    action.appendEffect(new HitCardEffect(action, target, weapon, record.getPermanentWeapon(), record.getCardFiringWeapon()));
+                    action.appendEffect(new HitCardEffect(action, target, weapon,
+                            record.getPermanentWeapon(), record.getCardFiringWeapon()));
                 }
             }
             else {
-                game.getGameState().sendMessage("Result for " + GameUtils.getCardLink(weapon) + ": Failed");
+                game.getGameState().sendMessage("Result: Failed");
             }
         }
-        ca.markResolved();
     }
 
     @Override

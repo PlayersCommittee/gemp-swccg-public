@@ -164,6 +164,34 @@ public class SeparatelyOrCombinedFiringState {
         return sb.toString();
     }
 
+    public String getCombinedDrawModifiersOnlyMessage(PhysicalCard weapon, float firingDestiny) {
+        String weaponLink = weapon != null ? GameUtils.getCardLink(weapon) : "weapon";
+        return "Combined firing " + getCompletedFiringCount() + ": " + weaponLink
+                + " destiny " + GuiUtils.formatAsString(firingDestiny) + " (draw modifiers only)";
+    }
+
+    public String getCombinedDestiniesMathMessage(String drawSumFormatted, String totalFormatted, String defenseFormatted) {
+        String addends = formatAddends(_firingDestinies);
+        String deviceTitle = _device != null ? _device.getTitle() : "Targeting Computer";
+        return deviceTitle + " combined destinies: " + addends + " = " + drawSumFormatted
+                + ". Total weapon destiny " + totalFormatted + " vs defense value " + defenseFormatted;
+    }
+
+    private static String formatAddends(List<Float> values) {
+        if (values == null || values.isEmpty()) {
+            return "0";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < values.size(); i++) {
+            if (i > 0) {
+                sb.append(" + ");
+            }
+            Float value = values.get(i);
+            sb.append(GuiUtils.formatAsString(value != null ? value : 0f));
+        }
+        return sb.toString();
+    }
+
     public String getCombinedTotalDestinyMessage(String totalFormatted) {
         if (getCompletedFiringCount() <= 1) {
             return "Combined total weapon destiny (firing 1 only): " + totalFormatted;

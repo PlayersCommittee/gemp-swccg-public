@@ -726,11 +726,12 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                                 totalMod = game.getModifiersQuerying().getTotalWeaponDestiny(
                                         gameState, cardFiring, weapon, perm, wfs.getTargets(), 0f);
                             }
-                            ca.addFiring(weapon, cardFiring, perm, firingDestiny, totalMod);
-                            String weaponLink = weapon != null ? GameUtils.getCardLink(weapon) : "weapon";
-                            gameState.sendMessage("Combined Attack weapon destiny (draw modifiers only) for "
-                                    + weaponLink + ": " + GuiUtils.formatAsString(firingDestiny));
-                            // Defer hit/ionize until all Combined Attack weapons have fired (Gergall).
+                            float variableX = weapon != null
+                                    ? game.getModifiersQuerying().getVariableValue(gameState, weapon, Variable.X, 0f)
+                                    : 0f;
+                            ca.addFiring(weapon, cardFiring, perm, firingDestiny, totalMod, variableX, _drawDestinyEffect);
+                            gameState.sendMessage(ca.getDrawModifiersOnlyMessage(weapon, firingDestiny));
+                            // Defer hit/lost/ionize until all Combined Attack weapons have fired (Gergall).
                             return;
                         }
 
@@ -814,7 +815,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
     protected abstract void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny);
 
     /**
-     * After unpaid TC-combined destinies are collected, run this firing's
+     * After Combined Attack / unpaid TC-combined destinies are collected, run this firing's
      * weapon-specific destinyDraws (hit, lost if X=3, ionize, etc.) against the combined total.
      * Restores Variable X and a short-lived WeaponFiringState because those last only until
      * the original fire action ended. Result effects are moved onto applyToAction.
@@ -1551,13 +1552,21 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
 
                             if (_destinyType != DestinyType.RACE_DESTINY) {
                                 GameState gameState = game.getGameState();
+                                CombinedAttackFiringState ca = gameState.getCombinedAttackFiringState();
                                 SeparatelyOrCombinedFiringState soc = gameState.getSeparatelyOrCombinedFiringState();
-                                String totalMsg = _performingPlayerId + "'s total " + _destinyType.getHumanReadable() + " is " + GuiUtils.formatAsString(totalDestiny);
-                                if (soc != null && soc.getCurrentFiringNumber() > 0
-                                        && (_destinyType == DestinyType.WEAPON_DESTINY || _destinyType == DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY)) {
-                                    totalMsg = soc.getFiringLabel() + ": " + totalMsg;
+                                boolean combinedDrawModsOnly = ca != null
+                                        || (soc != null && soc.isCombined());
+                                // Combined Attack / TC-combined: do not print a finished-looking
+                                // "total weapon destiny" per shot. Draw-modifiers-only lines plus
+                                // the combined math block are the resolve log.
+                                if (!combinedDrawModsOnly) {
+                                    String totalMsg = _performingPlayerId + "'s total " + _destinyType.getHumanReadable() + " is " + GuiUtils.formatAsString(totalDestiny);
+                                    if (soc != null && soc.getCurrentFiringNumber() > 0
+                                            && (_destinyType == DestinyType.WEAPON_DESTINY || _destinyType == DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY)) {
+                                        totalMsg = soc.getFiringLabel() + ": " + totalMsg;
+                                    }
+                                    gameState.sendMessage(totalMsg);
                                 }
-                                gameState.sendMessage(totalMsg);
                             }
 
                             actionsEnvironment.emitEffectResult(

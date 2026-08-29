@@ -6,12 +6,14 @@ import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -258,6 +260,34 @@ public class Card_1_75_Tests {
         assertFalse("Second TIE must not be hit by a split leftover TC shot", tie2.isHit());
     }
 
+    @Test
+    public void CombinedAttackXwingLaserCannonX3LosesTieNotMerelyHit() {
+        // Playtest: Combined Attack, pay 3 Force to fire X-wing Laser Cannon. Combined destinies
+        // succeed vs TIE DV 3, but XWLC game text is "lost if destiny + X > DV" when X=3.
+        // Must use the weapon's own result path, not HitCardEffect for every non-ion weapon.
+        var scn = GetScenario();
+        var ca = scn.GetLSCard("ca");
+        var xwlc = scn.GetLSCard("xwlc");
+        var xwlc2 = scn.GetLSCard("xwlc2");
+        var tie = scn.GetDSCard("tie");
+        setupTwoXwingLasers(scn);
+        scn.MoveCardsToHand(ca);
+        scn.EnsureLSForcePile(6);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        playCombinedAttack(scn, tie, xwlc, xwlc2);
+
+        fireOneShot(scn, tie, 4, 3);
+        assertFalse("First Combined Attack destiny must not resolve a hit or loss by itself", tie.isHit());
+        assertEquals(Zone.AT_LOCATION, tie.getZone());
+
+        fireOneShot(scn, tie, 4, 0);
+        finishCombinedAttack(scn);
+
+        assertTrue("X-wing Laser Cannon at X=3 must lose the TIE, not merely hit",
+                tie.getZone() == Zone.LOST_PILE || tie.getZone() == Zone.TOP_OF_LOST_PILE);
+        assertFalse("TIE must not remain at the location as merely hit", tie.getZone() == Zone.AT_LOCATION);
+    }
 
 
     private void setupTwoXwingLasers(VirtualTableScenario scn) {
@@ -379,18 +409,42 @@ public class Card_1_75_Tests {
     private void passPostFiringResponses(VirtualTableScenario scn) {
         scn.PassResponses("ATTRIBUTE_RESET_OR_MODIFIED");
         scn.PassResponses("Ionized");
+        scn.PassResponses("ABOUT_TO_BE_LOST");
         scn.PassResponses("ABOUT_TO_BE_HIT");
         scn.PassResponses("HIT -");
         scn.PassResponses("FIRED_WEAPON");
         scn.PassResponses("PLACE_IN_CARD_PILE");
     }
 
+    private void chooseResultApplyOrderIfPrompted(VirtualTableScenario scn) {
+        int safety = 0;
+        while (safety++ < 8 && scn.LSGetDecision() != null && scn.LSGetDecision().getText() != null) {
+            String text = scn.LSGetDecision().getText().toLowerCase();
+            if (!(text.contains("applies first") || text.contains("weapon result"))) {
+                break;
+            }
+            // ChooseArbitraryCardsEffect uses temp0/temp1 indexes, not in-play card IDs.
+            List<String> ids = scn.LSGetCardChoices();
+            if (ids == null || ids.isEmpty()) {
+                break;
+            }
+            scn.PlayerDecided("Light Side Player", ids.get(0));
+        }
+    }
+
     private void finishCombinedAttack(VirtualTableScenario scn) {
+        chooseResultApplyOrderIfPrompted(scn);
         scn.PassResponses("PLACE_IN_CARD_PILE");
         scn.PassAllResponses();
+        scn.PassResponses("ABOUT_TO_BE_LOST");
         scn.PassResponses("ABOUT_TO_BE_HIT");
         scn.PassResponses("HIT -");
         scn.PassResponses("FIRED_WEAPON");
+        chooseResultApplyOrderIfPrompted(scn);
+        scn.PassResponses("ABOUT_TO_BE_LOST");
+        scn.PassAllResponses();
+        chooseResultApplyOrderIfPrompted(scn);
+        scn.PassResponses("ABOUT_TO_BE_LOST");
         scn.PassAllResponses();
     }
 }

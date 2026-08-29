@@ -3,6 +3,8 @@ package com.gempukku.swccgo.game.state;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.timing.GuiUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -14,7 +16,8 @@ import java.util.Map;
  *
  * AR 2023 Appendix A: add all weapon destiny DRAWS together, then apply that shared draw-sum separately
  * for each participating weapon (each weapon brings its own total-weapon-destiny modifiers).
- * Results (hit / ionize) are applied only after all participating weapons have fired (Gergall / forum t=58557).
+ * Results are applied only after all participating weapons have fired (Gergall / forum t=58557),
+ * via each weapon's own destinyDraws path (hit, lost, ionize, etc.).
  *
  * This is NOT Targeting Computer fire-twice. When Targeting Computer is used inside Combined Attack,
  * those extra destinies are additional draws in this pool; the TC weapon is still one weapon when applying.
@@ -47,12 +50,13 @@ public class CombinedAttackFiringState {
 
     /**
      * Record one weapon-destiny firing (draw modifiers only). Snapshot that weapon's total-modifier
-     * contribution now, while the weapon is still in play / WeaponFiringState is active (Intruder Missile
-     * is placed in Used Pile after firing, which would otherwise drop its +3).
+     * contribution and Variable X now, while WeaponFiringState is still active (Intruder Missile
+     * is placed in Used Pile after firing; X is until-end-of-weapon-firing).
      */
     public void addFiring(PhysicalCard weapon, PhysicalCard cardFiringWeapon,
                           SwccgBuiltInCardBlueprint permanentWeapon, float drawModifiedDestiny,
-                          float totalModifierSnapshot) {
+                          float totalModifierSnapshot, float variableXSnapshot,
+                          DrawDestinyEffect drawDestinyEffect) {
         if (weapon == null) {
             return;
         }
@@ -65,8 +69,12 @@ public class CombinedAttackFiringState {
         }
         record._drawCount++;
         record._totalModifierSnapshot = totalModifierSnapshot;
+        record._variableXSnapshot = variableXSnapshot;
         record._cardFiringWeapon = cardFiringWeapon != null ? cardFiringWeapon : record._cardFiringWeapon;
         record._permanentWeapon = permanentWeapon != null ? permanentWeapon : record._permanentWeapon;
+        if (drawDestinyEffect != null) {
+            record._drawDestinyEffect = drawDestinyEffect;
+        }
     }
 
     public int getCompletedDrawCount() {
@@ -91,7 +99,6 @@ public class CombinedAttackFiringState {
                 ordered.add(record);
             }
         }
-        // Include any completed weapon that was not in the original list (should not happen).
         for (WeaponRecord record : _recordsByWeaponId.values()) {
             if (!ordered.contains(record)) {
                 ordered.add(record);
@@ -101,12 +108,39 @@ public class CombinedAttackFiringState {
     }
 
     public String getAddedDestiniesMessage(String drawSumFormatted) {
-        return "Combined Attack destinies added together: " + drawSumFormatted
-                + " (" + _destinyDraws.size() + " weapon destin" + (_destinyDraws.size() == 1 ? "y" : "ies") + ")";
+        return "Combined Attack destinies: " + formatAddends(_destinyDraws) + " = " + drawSumFormatted
+                + ". Apply that total to each weapon in an order of your choosing.";
     }
 
-    public String getPerWeaponTotalMessage(PhysicalCard weapon, String totalFormatted) {
-        return "Combined Attack total for " + GameUtils.getCardLink(weapon) + ": " + totalFormatted;
+    public static String getPerWeaponTotalMessage(PhysicalCard weapon, float drawSum, float totalModifier, float total) {
+        String weaponLink = GameUtils.getCardLink(weapon);
+        if (totalModifier == 0f) {
+            return "Combined Attack total for " + weaponLink + ": " + GuiUtils.formatAsString(total);
+        }
+        String sign = totalModifier > 0f ? "+" : "";
+        return "Combined Attack total for " + weaponLink + ": " + GuiUtils.formatAsString(drawSum)
+                + sign + GuiUtils.formatAsString(totalModifier) + "=" + GuiUtils.formatAsString(total);
+    }
+
+    public String getDrawModifiersOnlyMessage(PhysicalCard weapon, float firingDestiny) {
+        String weaponLink = weapon != null ? GameUtils.getCardLink(weapon) : "weapon";
+        return "Combined Attack: " + weaponLink + " destiny " + GuiUtils.formatAsString(firingDestiny)
+                + " (draw modifiers only)";
+    }
+
+    public static String formatAddends(List<Float> values) {
+        if (values == null || values.isEmpty()) {
+            return "0";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < values.size(); i++) {
+            if (i > 0) {
+                sb.append(" + ");
+            }
+            Float value = values.get(i);
+            sb.append(GuiUtils.formatAsString(value != null ? value : 0f));
+        }
+        return sb.toString();
     }
 
     public void markResolved() {
@@ -123,6 +157,8 @@ public class CombinedAttackFiringState {
         private SwccgBuiltInCardBlueprint _permanentWeapon;
         private int _drawCount;
         private float _totalModifierSnapshot;
+        private float _variableXSnapshot;
+        private DrawDestinyEffect _drawDestinyEffect;
 
         private WeaponRecord(PhysicalCard weapon, PhysicalCard cardFiringWeapon, SwccgBuiltInCardBlueprint permanentWeapon) {
             _weapon = weapon;
@@ -148,6 +184,14 @@ public class CombinedAttackFiringState {
 
         public float getTotalModifierSnapshot() {
             return _totalModifierSnapshot;
+        }
+
+        public float getVariableXSnapshot() {
+            return _variableXSnapshot;
+        }
+
+        public DrawDestinyEffect getDrawDestinyEffect() {
+            return _drawDestinyEffect;
         }
     }
 }

@@ -72,7 +72,7 @@ public class Card1_075 extends AbstractLostInterrupt {
                         final Filter weaponFilter = getStarshipWeaponFilter(self, targetedStarship);
                         action.appendTargeting(
                                 new ChooseCardsOnTableEffect(action, playerId,
-                                        "Choose two or more starship weapons (selection order is fire/apply order)",
+                                        "Choose two or more starship weapons",
                                         2, Integer.MAX_VALUE, weaponFilter) {
                                     @Override
                                     protected void cardsSelected(final Collection<PhysicalCard> selectedWeapons) {
