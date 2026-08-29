@@ -626,6 +626,10 @@ public class GameState implements Snapshotable<GameState> {
             listener.sendMessage(message);
     }
 
+    public java.util.List<String> getLastMessages() {
+        return java.util.Collections.unmodifiableList(_lastMessages);
+    }
+
     public void playerDecisionStarted(String playerId, AwaitingDecision awaitingDecision) {
         _playerDecisions.put(playerId, awaitingDecision);
         for (GameStateListener listener : getAllGameStateListeners())

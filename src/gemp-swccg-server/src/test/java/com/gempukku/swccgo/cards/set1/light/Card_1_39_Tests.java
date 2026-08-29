@@ -11,7 +11,10 @@ import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -33,12 +36,14 @@ public class Card_1_39_Tests {
                     put("homeone", "9_74");
                     put("htb", "9_89");
                     put("ept", "9_88");
+                    put("defiance", "9_67");
                 }},
                 new HashMap<>()
                 {{
                     put("stalker", "3_152");
                     put("tie", "1_304");
                     put("tie2", "1_304");
+                    put("vsd", "2_155");
                 }},
                 10,
                 10,
@@ -458,6 +463,84 @@ public class Card_1_39_Tests {
     }
 
     @Test
+    public void TargetingComputerDontFireLeavesDeviceUnusedSoItCanBeUsedLaterThisBattle() {
+        var scn = GetScenario();
+        var tc = scn.GetLSCard("tc");
+        var tie = scn.GetDSCard("tie");
+        setupXwingLaser(scn);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+
+        assertTrue(scn.LSCardActionAvailable(tc, "Fire a weapon twice"));
+        scn.LSUseCardAction(tc, "Fire a weapon twice");
+        chooseSeparatelyOrCombined(scn, "Don't Fire (Cancel)");
+
+        assertTrue("Don't Fire must return to weapons-segment actions, got: "
+                        + (scn.GetCurrentDecision() == null ? "null" : scn.GetCurrentDecision().getText()),
+                scn.AwaitingLSWeaponsSegmentActions());
+        assertTrue("Don't Fire must not consume Targeting Computer",
+                scn.LSCardActionAvailable(tc, "Fire a weapon twice"));
+
+        scn.LSUseCardAction(tc, "Fire a weapon twice");
+        chooseSeparatelyOrCombined(scn, "Separately");
+        fireOneShot(scn, tie, 5, 0);
+        assertTrue(tie.isHit());
+    }
+
+    @Test
+    public void DefianceHeavyTurbolaserVsVictoryClassAddsTwoToEachDraw() {
+        // HTB draws two destinies. Defiance +2 each. Vs VSD (capital) HTB -1 total, not -6 vs starfighter.
+        // Printed 2,2 without +2: 2+2-1=3 vs armor 5 miss. With +2: 4+4-1=7 vs 5 hit.
+        var scn = GetScenario();
+        var htb = scn.GetLSCard("htb");
+        var vsd = scn.GetDSCard("vsd");
+        setupDefiance(scn, false);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.EnsureLSForcePile(4);
+
+        assertTrue(scn.LSCardActionAvailable(htb, "Fire"));
+        scn.LSUseCardAction(htb, "Fire");
+        fireTwoDestinyShot(scn, vsd, 2, 2);
+
+        assertEquals(5, scn.GetDefense(vsd));
+        assertTrue("Each HTB draw from Defiance must include +2 (2+2 + 2+2 -1 vs VSD 5)", vsd.isHit());
+        assertWeaponDestinyDrawValues(scn, 4, 4);
+        assertFalse("Ordinary non-TC shots stay unlabeled", gameLog(scn).contains("firing 1"));
+    }
+
+    @Test
+    public void DefianceTargetingComputerCombinedAppliesMinusOneAndPlusTwoPerDraw() {
+        // TC -1 and Defiance +2 per draw (net +1 vs printed). HTB two draws per firing.
+        // Printed 2,2 then 2,2: each firing (2-1+2)*2=6. Combined 12, HTB -1 vs capital = 11 vs VSD 5 hit.
+        // Without Defiance +2: (2-1)*2 per firing, combined 4, -1 = 3 vs 5 miss.
+        var scn = GetScenario();
+        var tc = scn.GetLSCard("tc");
+        var vsd = scn.GetDSCard("vsd");
+        setupDefiance(scn, true);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.EnsureLSForcePile(4);
+
+        scn.LSUseCardAction(tc, "Fire a weapon twice");
+        chooseSeparatelyOrCombined(scn, "Combined");
+
+        fireTwoDestinyShot(scn, vsd, 2, 2);
+        assertFalse("First combined HTB firing must not resolve a hit by itself", vsd.isHit());
+
+        fireTwoDestinyShot(scn, vsd, 2, 2);
+        assertTrue("TC -1 and Defiance +2 must both apply per draw", vsd.isHit());
+        assertWeaponDestinyDrawValues(scn, 3, 3, 3, 3);
+
+        String log = gameLog(scn);
+        assertTrue(log.contains("twice: combined"));
+        assertTrue(log.contains("Targeting Computer Combined firing 1"));
+        assertTrue(log.contains("Targeting Computer Combined firing 2"));
+        assertFalse("No parentheses around the weapon name", log.contains("firing 1 ("));
+        assertFalse(log.contains("firing 2 ("));
+    }
+
+    @Test
     public void TargetingComputerFiresHeavyTurbolaserFromHomeOneCombined() {
         // Combined HTB vs Stalker: each firing is one weapon destiny (sum of two TC-modified draws).
         // dest 4,4 => (4-1)+(4-1)=6 stored, not a hit yet. Second firing 4,4 => 6. Combined 12, total -1 = 11 vs 7 hit.
@@ -517,9 +600,12 @@ public class Card_1_39_Tests {
     private void chooseSeparatelyOrCombined(VirtualTableScenario scn, String mode) {
         assertFalse("These setups attach one legal weapon; GEMP must auto-select it instead of prompting",
                 scn.LSDecisionAvailable("Choose weapon"));
-        assertTrue("Expected Separately/Combined prompt, got: "
+        assertTrue("Expected Fire a weapon twice prompt, got: "
                         + (scn.GetCurrentDecision() == null ? "null" : scn.GetCurrentDecision().getText()),
-                scn.LSDecisionAvailable("separately or combined"));
+                scn.LSDecisionAvailable("Fire a weapon twice"));
+        assertTrue(scn.LSChoiceAvailable("Separately"));
+        assertTrue(scn.LSChoiceAvailable("Combined"));
+        assertTrue(scn.LSChoiceAvailable("Don't Fire (Cancel)"));
         scn.LSChoose(mode);
     }
 
@@ -547,6 +633,42 @@ public class Card_1_39_Tests {
         var tie2 = scn.GetDSCard("tie2");
         scn.MoveCardsToLocation(system, ywing, stalker, tie, tie2);
         scn.AttachCardsTo(ywing, sw4, tc);
+    }
+
+    private void setupDefiance(VirtualTableScenario scn, boolean withTc) {
+        scn.StartGame();
+        var system = scn.GetLSStartingLocation();
+        var defiance = scn.GetLSCard("defiance");
+        var htb = scn.GetLSCard("htb");
+        var vsd = scn.GetDSCard("vsd");
+        scn.MoveCardsToLocation(system, defiance, vsd);
+        if (withTc) {
+            scn.AttachCardsTo(defiance, htb, scn.GetLSCard("tc"));
+        }
+        else {
+            scn.AttachCardsTo(defiance, htb);
+        }
+    }
+
+    private String gameLog(VirtualTableScenario scn) {
+        return String.join("\n", scn.gameState().getLastMessages());
+    }
+
+    private void assertWeaponDestinyDrawValues(VirtualTableScenario scn, int... expected) {
+        List<Integer> actual = new ArrayList<>();
+        for (String msg : scn.gameState().getLastMessages()) {
+            int idx = msg.indexOf(" as a ");
+            int destIdx = msg.indexOf(" for weapon destiny");
+            if (idx >= 0 && destIdx > idx) {
+                actual.add((int) Float.parseFloat(msg.substring(idx + " as a ".length(), destIdx).trim()));
+            }
+        }
+        assertTrue("Expected last weapon destiny draws " + Arrays.toString(expected) + " but saw " + actual,
+                actual.size() >= expected.length);
+        List<Integer> last = actual.subList(actual.size() - expected.length, actual.size());
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals("weapon destiny draw " + (i + 1) + " of " + last, expected[i], last.get(i).intValue());
+        }
     }
 
     private void setupHomeOne(VirtualTableScenario scn) {

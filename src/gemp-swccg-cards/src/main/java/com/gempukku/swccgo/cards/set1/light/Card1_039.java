@@ -24,15 +24,16 @@ import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.FireWeaponEffect;
 import com.gempukku.swccgo.logic.effects.HitCardEffect;
 import com.gempukku.swccgo.logic.effects.IonizeStarshipEffect;
-import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.EachWeaponDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.ManeuverModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.timing.AbstractStandardEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.TargetingEffect;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -101,28 +102,45 @@ public class Card1_039 extends AbstractDevice {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
             action.setText("Fire a weapon twice");
-            action.setActionMsg("Use " + GameUtils.getCardLink(self) + " to fire a weapon twice, separately or combined");
-            action.appendUsage(
-                    new OncePerBattleEffect(action));
-            action.appendUsage(
-                    new UseDeviceEffect(action, self));
-            action.appendEffect(
+            action.setActionMsg("use " + GameUtils.getCardLink(self) + " to fire a weapon twice");
+            // OncePerBattle / UseDevice wait until Separately or Combined so Don't Fire can abort unused.
+            action.appendTargeting(
                     new ChooseCardOnTableEffect(action, playerId, "Choose weapon to fire twice", weaponFilter) {
                         @Override
+                        protected boolean getUseShortcut() {
+                            // Auto-select the only legal weapon even though top-level actions allow abort.
+                            return true;
+                        }
+                        @Override
                         protected void cardSelected(final PhysicalCard weapon) {
-                            action.appendEffect(
-                                    new PlayoutDecisionEffect(action, playerId,
-                                            new MultipleChoiceAwaitingDecision("Fire twice separately or combined?", new String[]{"Separately", "Combined"}) {
-                                                @Override
-                                                protected void validDecisionMade(int index, String result) {
-                                                    final boolean combined = "Combined".equals(result);
-                                                    game.getGameState().beginSeparatelyOrCombinedFiring(self, weapon, combined);
-                                                    game.getGameState().sendMessage(playerId + " uses " + GameUtils.getCardLink(self)
-                                                            + " to fire " + GameUtils.getCardLink(weapon) + " twice " + result);
-                                                    appendFireTwice(action, game, self, weapon, combined);
-                                                }
+                            action.appendTargeting(
+                                    new FireTwiceModeEffect(action, playerId) {
+                                        @Override
+                                        protected void modeChosen(String result) {
+                                            if (result != null && result.startsWith("Don't Fire")) {
+                                                action.setActionMsg(null);
+                                                cancel();
+                                                return;
                                             }
-                                    )
+                                            final boolean combined = "Combined".equals(result);
+                                            action.appendUsage(
+                                                    new OncePerBattleEffect(action));
+                                            action.appendUsage(
+                                                    new UseDeviceEffect(action, self));
+                                            game.getGameState().beginSeparatelyOrCombinedFiring(self, weapon, combined);
+                                            final String mode = result.toLowerCase();
+                                            action.appendEffect(
+                                                    new PassthruEffect(action) {
+                                                        @Override
+                                                        protected void doPlayEffect(SwccgGame game) {
+                                                            game.getGameState().sendMessage(playerId + " uses " + GameUtils.getCardLink(self)
+                                                                    + " to fire " + GameUtils.getCardLink(weapon) + " twice: " + mode);
+                                                        }
+                                                    }
+                                            );
+                                            appendFireTwice(action, game, self, weapon, combined);
+                                        }
+                                    }
                             );
                         }
                     }
@@ -234,6 +252,48 @@ public class Card1_039 extends AbstractDevice {
         }
         else {
             game.getGameState().sendMessage("Result: Failed");
+        }
+    }
+
+    /**
+     * Targeting decision for Separately / Combined / Don't Fire.
+     * Don't Fire fails this cost so the parent action aborts unused (same as clicking Done).
+     */
+    private abstract static class FireTwiceModeEffect extends AbstractStandardEffect implements TargetingEffect {
+        private final String _playerId;
+        private boolean _cancelled;
+
+        private FireTwiceModeEffect(Action action, String playerId) {
+            super(action);
+            _playerId = playerId;
+        }
+
+        protected void cancel() {
+            _cancelled = true;
+        }
+
+        protected abstract void modeChosen(String result);
+
+        @Override
+        public boolean isPlayableInFull(SwccgGame game) {
+            return true;
+        }
+
+        @Override
+        public boolean wasCarriedOut() {
+            return super.wasCarriedOut() && !_cancelled;
+        }
+
+        @Override
+        protected FullEffectResult playEffectReturningResult(SwccgGame game) {
+            game.getUserFeedback().sendAwaitingDecision(_playerId,
+                    new MultipleChoiceAwaitingDecision("Fire a weapon twice", new String[]{"Separately", "Combined", "Don't Fire (Cancel)"}) {
+                        @Override
+                        protected void validDecisionMade(int index, String result) {
+                            modeChosen(result);
+                        }
+                    });
+            return new FullEffectResult(true);
         }
     }
 }
