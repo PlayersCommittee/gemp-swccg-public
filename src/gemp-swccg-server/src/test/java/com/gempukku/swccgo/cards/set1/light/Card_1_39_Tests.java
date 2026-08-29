@@ -489,8 +489,10 @@ public class Card_1_39_Tests {
 
     @Test
     public void DefianceHeavyTurbolaserVsVictoryClassAddsTwoToEachDraw() {
-        // HTB draws two destinies. Defiance +2 each. Vs VSD (capital) HTB -1 total, not -6 vs starfighter.
-        // Printed 2,2 without +2: 2+2-1=3 vs armor 5 miss. With +2: 4+4-1=7 vs 5 hit.
+        // HTB draws two destinies vs VSD (capital): HTB -1 total, not -6 vs starfighter. No Targeting Computer.
+        // Printed destinies 2 and 2. No bonus: 2+2-1=3 vs armor 5 miss.
+        // +1 each would be (2+1)+(2+1)-1=5 vs 5 miss (equal fails).
+        // +2 each is (2+2)+(2+2)-1=7 vs 5 hit. +2 per draw is required; a hypothetical +1 cannot pass.
         var scn = GetScenario();
         var htb = scn.GetLSCard("htb");
         var vsd = scn.GetDSCard("vsd");
@@ -506,6 +508,8 @@ public class Card_1_39_Tests {
         assertEquals(5, scn.GetDefense(vsd));
         assertTrue("Each HTB draw from Defiance must include +2 (2+2 + 2+2 -1 vs VSD 5)", vsd.isHit());
         assertWeaponDestinyDrawValues(scn, 4, 4);
+        assertEquals("total weapon destiny must be 7 so +1 each (5 vs 5 miss) cannot pass",
+                7, lastTotalWeaponDestiny(scn));
         assertFalse("Ordinary non-TC shots stay unlabeled", gameLog(scn).contains("firing 1"));
     }
 
@@ -652,6 +656,26 @@ public class Card_1_39_Tests {
 
     private String gameLog(VirtualTableScenario scn) {
         return String.join("\n", scn.gameState().getLastMessages());
+    }
+
+    private int lastTotalWeaponDestiny(VirtualTableScenario scn) {
+        Integer last = null;
+        for (String msg : scn.gameState().getLastMessages()) {
+            String lower = msg.toLowerCase();
+            int idx = lower.lastIndexOf("total weapon destiny is ");
+            if (idx >= 0) {
+                String rest = msg.substring(idx + "total weapon destiny is ".length()).trim();
+                last = (int) Float.parseFloat(rest.split("[^0-9.]")[0]);
+                continue;
+            }
+            idx = msg.indexOf("Total destiny: ");
+            if (idx >= 0) {
+                String rest = msg.substring(idx + "Total destiny: ".length()).trim();
+                last = (int) Float.parseFloat(rest.split("[^0-9.]")[0]);
+            }
+        }
+        assertTrue("Expected a total weapon destiny log, got: " + gameLog(scn), last != null);
+        return last;
     }
 
     private void assertWeaponDestinyDrawValues(VirtualTableScenario scn, int... expected) {
