@@ -287,7 +287,7 @@ public class Card1_039 extends AbstractDevice {
         @Override
         protected FullEffectResult playEffectReturningResult(SwccgGame game) {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new MultipleChoiceAwaitingDecision("Fire a weapon twice", new String[]{"Separately", "Combined", "Don't Fire (Cancel)"}) {
+                    new MultipleChoiceAwaitingDecision("Fire a weapon twice", new String[]{"Separately", "Combined", "Don't Fire (Cancel)"}, true) {
                         @Override
                         protected void validDecisionMade(int index, String result) {
                             modeChosen(result);
