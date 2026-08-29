@@ -1554,17 +1554,15 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                                 GameState gameState = game.getGameState();
                                 CombinedAttackFiringState ca = gameState.getCombinedAttackFiringState();
                                 SeparatelyOrCombinedFiringState soc = gameState.getSeparatelyOrCombinedFiringState();
-                                boolean combinedDrawModsOnly = ca != null
-                                        || (soc != null && soc.isCombined());
-                                // Combined Attack / TC-combined: do not print a finished-looking
-                                // "total weapon destiny" per shot. Draw-modifiers-only lines plus
-                                // the combined math block are the resolve log.
-                                if (!combinedDrawModsOnly) {
-                                    String totalMsg = _performingPlayerId + "'s total " + _destinyType.getHumanReadable() + " is " + GuiUtils.formatAsString(totalDestiny);
-                                    if (soc != null && soc.getCurrentFiringNumber() > 0
-                                            && (_destinyType == DestinyType.WEAPON_DESTINY || _destinyType == DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY)) {
-                                        totalMsg = soc.getFiringLabel() + ": " + totalMsg;
-                                    }
+                                String totalMsg = _performingPlayerId + "'s total " + _destinyType.getHumanReadable() + " is " + GuiUtils.formatAsString(totalDestiny);
+                                if (soc != null && soc.getCurrentFiringNumber() > 0
+                                        && (_destinyType == DestinyType.WEAPON_DESTINY || _destinyType == DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY)) {
+                                    totalMsg = soc.getFiringLabel() + ": " + totalMsg;
+                                }
+                                // Combined Attack non-TC shots stay unlabeled; CA math is the resolve log.
+                                // TC separately/combined (including TC-in-CA) print the firing 1/2 line.
+                                boolean unlabeledCaShot = ca != null && (soc == null || soc.getCurrentFiringNumber() <= 0);
+                                if (!unlabeledCaShot) {
                                     gameState.sendMessage(totalMsg);
                                 }
                             }
