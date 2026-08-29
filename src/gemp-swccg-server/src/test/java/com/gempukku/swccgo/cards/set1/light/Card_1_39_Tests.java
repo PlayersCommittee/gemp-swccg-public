@@ -5,6 +5,7 @@ import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
@@ -293,6 +294,34 @@ public class Card_1_39_Tests {
 
         fireOneShot(scn, tie, 4, 0);
         assertTrue(tie.isHit());
+    }
+
+    @Test
+    public void TargetingComputerCombinedXwingLaserCannonX3LosesTieNotMerelyHit() {
+        // Combined twice at X=3: destinies 4 then 4, TC -1 each => 3+3=6, then +X=3 > TIE DV 3.
+        // XWLC must lose the TIE (not HitCardEffect).
+        var scn = GetScenario();
+        var tc = scn.GetLSCard("tc");
+        var xwlc = scn.GetLSCard("xwlc");
+        var tie = scn.GetDSCard("tie");
+        setupXwingLaser(scn);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.EnsureLSForcePile(6);
+
+        scn.LSUseCardAction(tc, "Fire a weapon twice");
+        chooseSeparatelyOrCombined(scn, "Combined");
+
+        fireOneShot(scn, tie, 4, 3);
+        assertFalse("First combined XWLC shot must not resolve a hit or loss by itself", tie.isHit());
+        assertEquals(Zone.AT_LOCATION, tie.getZone());
+
+        fireOneShot(scn, tie, 4, 3);
+        scn.PassResponses("ABOUT_TO_BE_LOST");
+        scn.PassAllResponses();
+        assertTrue("Combined X-wing Laser Cannon at X=3 must lose the TIE, not merely hit",
+                tie.getZone() == Zone.LOST_PILE || tie.getZone() == Zone.TOP_OF_LOST_PILE);
+        assertFalse(tie.getZone() == Zone.AT_LOCATION);
     }
 
     @Test
@@ -585,6 +614,9 @@ public class Card_1_39_Tests {
         // Ion Cannon resets attributes then ionizes; do not PassAllResponses or combined shot 2's Fire window is consumed.
         scn.PassResponses("ATTRIBUTE_RESET_OR_MODIFIED");
         scn.PassResponses("Ionized");
+        scn.PassResponses("ABOUT_TO_BE_LOST");
+        scn.PassResponses("ABOUT_TO_BE_HIT");
+        scn.PassResponses("HIT -");
         scn.PassResponses("FIRED_WEAPON");
     }
 }

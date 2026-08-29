@@ -1,6 +1,9 @@
 package com.gempukku.swccgo.game.state;
 
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
+import com.gempukku.swccgo.logic.timing.GuiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,8 @@ public class SeparatelyOrCombinedFiringState {
     private final List<Float> _firingDestinies = new ArrayList<Float>();
     private boolean _resolved;
     private int _firingsInitiated;
+    private DrawDestinyEffect _drawDestinyEffect;
+    private float _variableXSnapshot;
 
     public SeparatelyOrCombinedFiringState(PhysicalCard device, PhysicalCard weapon, boolean combined) {
         _device = device;
@@ -90,6 +95,24 @@ public class SeparatelyOrCombinedFiringState {
         return total;
     }
 
+    public void setDrawDestinyEffect(DrawDestinyEffect drawDestinyEffect) {
+        if (drawDestinyEffect != null) {
+            _drawDestinyEffect = drawDestinyEffect;
+        }
+    }
+
+    public DrawDestinyEffect getDrawDestinyEffect() {
+        return _drawDestinyEffect;
+    }
+
+    public void setVariableXSnapshot(float variableXSnapshot) {
+        _variableXSnapshot = variableXSnapshot;
+    }
+
+    public float getVariableXSnapshot() {
+        return _variableXSnapshot;
+    }
+
     public void markResolved() {
         _resolved = true;
     }
@@ -108,6 +131,34 @@ public class SeparatelyOrCombinedFiringState {
 
     public String getFiringLabel() {
         return "Firing " + _firingsInitiated;
+    }
+
+    public String getCombinedDrawModifiersOnlyMessage(PhysicalCard weapon, float firingDestiny) {
+        String weaponLink = weapon != null ? GameUtils.getCardLink(weapon) : "weapon";
+        return "Combined firing " + getCompletedFiringCount() + ": " + weaponLink
+                + " destiny " + GuiUtils.formatAsString(firingDestiny) + " (draw modifiers only)";
+    }
+
+    public String getCombinedDestiniesMathMessage(String drawSumFormatted, String totalFormatted, String defenseFormatted) {
+        String addends = formatAddends(_firingDestinies);
+        String deviceTitle = _device != null ? _device.getTitle() : "Targeting Computer";
+        return deviceTitle + " combined destinies: " + addends + " = " + drawSumFormatted
+                + ". Total weapon destiny " + totalFormatted + " vs defense value " + defenseFormatted;
+    }
+
+    private static String formatAddends(List<Float> values) {
+        if (values == null || values.isEmpty()) {
+            return "0";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < values.size(); i++) {
+            if (i > 0) {
+                sb.append(" + ");
+            }
+            Float value = values.get(i);
+            sb.append(GuiUtils.formatAsString(value != null ? value : 0f));
+        }
+        return sb.toString();
     }
 
     public String getCombinedTotalDestinyMessage(String totalFormatted) {

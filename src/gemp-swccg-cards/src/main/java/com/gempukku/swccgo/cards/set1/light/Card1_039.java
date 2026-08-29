@@ -118,7 +118,7 @@ public class Card1_039 extends AbstractDevice {
                                                     final boolean combined = "Combined".equals(result);
                                                     game.getGameState().beginSeparatelyOrCombinedFiring(self, weapon, combined);
                                                     game.getGameState().sendMessage(playerId + " uses " + GameUtils.getCardLink(self)
-                                                            + " to fire " + GameUtils.getCardLink(weapon) + " twice " + result.toLowerCase());
+                                                            + " to fire " + GameUtils.getCardLink(weapon) + " twice " + result);
                                                     appendFireTwice(action, game, self, weapon, combined);
                                                 }
                                             }
@@ -215,12 +215,16 @@ public class Card1_039 extends AbstractDevice {
                 game.getGameState(), soc.getCardFiringWeapon(), weapon, null,
                 Collections.singletonList(target), combined);
         soc.markResolved();
-        game.getGameState().sendMessage(soc.getCombinedTotalDestinyMessage(GuiUtils.formatAsString(totalDestiny)));
         float defenseValue = game.getModifiersQuerying().getDefenseValue(game.getGameState(), target);
-        game.getGameState().sendMessage("Defense value: " + GuiUtils.formatAsString(defenseValue));
-        if (totalDestiny > defenseValue) {
+        game.getGameState().sendMessage(soc.getCombinedDestiniesMathMessage(
+                GuiUtils.formatAsString(combined), GuiUtils.formatAsString(totalDestiny),
+                GuiUtils.formatAsString(defenseValue)));
+        if (soc.getDrawDestinyEffect() != null) {
+            soc.getDrawDestinyEffect().applyDeferredWeaponResult(game, action, weapon,
+                    soc.getCardFiringWeapon(), null, target, soc.getVariableXSnapshot(), totalDestiny);
+        }
+        else if (totalDestiny > defenseValue) {
             game.getGameState().sendMessage("Result: Succeeded");
-            // Apply the weapon's actual result (Ion Cannon ionizes; most starship weapons hit).
             if (weapon.getBlueprint().hasKeyword(Keyword.ION_CANNON)) {
                 action.appendEffect(new IonizeStarshipEffect(action, target, weapon, false, true, true));
             }
