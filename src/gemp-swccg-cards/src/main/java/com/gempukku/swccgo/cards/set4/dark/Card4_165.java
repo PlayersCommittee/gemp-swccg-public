@@ -41,6 +41,8 @@ public class Card4_165 extends AbstractNonuniqueStarshipSite {
         modifiers.add(new DeployCostToLocationModifier(self, yourTIEs, new PerTIEEvaluator(-2), self));
         modifiers.add(new MayShuttleTransferLandOrTakeOffHereInsteadOfRelatedStarshipForFreeModifier(self, playerOnDarkSideOfLocation));
         modifiers.add(new ShipdocksForFreeModifier(self, Filters.relatedStarshipOrVehicle(self)));
+        modifiers.add(new TakesOffAsUnlimitedMoveModifier(self, Filters.and(Filters.your(playerOnDarkSideOfLocation), Filters.starship, Filters.atLocation(self))));
+        // TODO: add LandsAsUnlimitedMoveModifier (but only to ships landing here...)
         return modifiers;
     }
 

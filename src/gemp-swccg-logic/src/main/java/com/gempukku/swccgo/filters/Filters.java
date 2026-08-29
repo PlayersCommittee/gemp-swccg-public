@@ -6779,10 +6779,10 @@ public class Filters {
                     List<PhysicalCard> sectorsBetween = modifiersQuerying.getSectorsBetween(gameState, currentAtLocation, physicalCard);
                     validDestination = (sectorsBetween != null && sectorsBetween.isEmpty());
                 }
-                // Check if card to move is at a system and there is a starship docking bay related to a starship that is at that system
+                // Check if card to move is at a system and there is a starship docking bay or launch bay related to a starship that is at that system
                 else if (currentAtLocation.getBlueprint().getCardSubtype() == CardSubtype.SYSTEM
                         && Filters.or(Filters.starfighter, Filters.movesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)
-                        && Filters.and(Filters.starship_site, Filters.docking_bay, Filters.relatedSiteTo(null, Filters.and(Filters.starship, Filters.present(currentAtLocation)))).accepts(gameState, modifiersQuerying, physicalCard)) {
+                        && Filters.and(Filters.starship_site, Filters.or(Filters.docking_bay, Filters.launch_bay), Filters.relatedSiteTo(null, Filters.and(Filters.starship, Filters.present(currentAtLocation)))).accepts(gameState, modifiersQuerying, physicalCard)) {
                     validDestination = true;
                 }
                 // Check if card to move is at a Big One and the location to move to is the related site.
@@ -6875,10 +6875,10 @@ public class Filters {
                     // Check if no sectors in between
                     validDestination = modifiersQuerying.getSectorsBetween(gameState, currentAtLocation, physicalCard).isEmpty();
                 }
-                // Check if the location is a system and card to move is at a starship docking bay related to a starship at that system
+                // Check if the location is a system and card to move is at a starship docking bay or launch bay related to a starship at that system
                 else if (physicalCard.getBlueprint().getCardSubtype() == CardSubtype.SYSTEM
                         && Filters.or(Filters.starfighter, Filters.movesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)
-                        && Filters.and(Filters.starship_site, Filters.docking_bay, Filters.relatedSiteTo(null, Filters.and(Filters.starship, Filters.present(physicalCard)))).accepts(gameState, modifiersQuerying, currentAtLocation)) {
+                        && Filters.and(Filters.starship_site, Filters.or(Filters.docking_bay, Filters.launch_bay), Filters.relatedSiteTo(null, Filters.and(Filters.starship, Filters.present(physicalCard)))).accepts(gameState, modifiersQuerying, currentAtLocation)) {
                     validDestination = true;
                 }
                 // Check if card to move is at a Big One site and the location to move to is the related Big One.
