@@ -510,6 +510,13 @@ public interface Destiny extends BaseQuery {
             SwccgBuiltInCardBlueprint permanentWeapon = weaponFiringState.getPermanentWeaponFiring();
             Collection<PhysicalCard> weaponTargets = weaponFiringState.getTargets();
             PhysicalCard cardFiringWeapon = weaponFiringState.getCardFiringWeapon();
+            // EachWeaponDestinyForWeaponFiredByModifier (Defiance +2) keys off the card firing,
+            // not the weapon card. If state still points at the weapon itself or has no firer,
+            // use the attached host (the starship).
+            if (weapon != null && weapon.getAttachedTo() != null
+                    && (cardFiringWeapon == null || cardFiringWeapon.getCardId() == weapon.getCardId())) {
+                cardFiringWeapon = weapon.getAttachedTo();
+            }
 
             for (Modifier modifier : getModifiers(gameState, ModifierType.EACH_WEAPON_DESTINY)) {
                 if (!mayNotModifyDestinyDraw(gameState, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null)) {
