@@ -38,6 +38,7 @@ public class Card_1_75_Tests {
                     put("bwing2", "9_66");
                     put("im", "7_159");
                     put("im2", "7_159");
+                    put("sw4", "2_081");
                 }},
                 new HashMap<>()
                 {{
@@ -210,6 +211,7 @@ public class Card_1_75_Tests {
         scn.StartBattleAndSkipToWeaponsSegment();
         playCombinedAttack(scn, tie, xwlc, xwlc2);
         chooseUseTargetingComputer(scn, true);
+        chooseSeparatelyOrCombined(scn, "Combined");
 
         // TC -1 on each draw from the TC starship: dest 4,4 then 1 from the other weapon => (4-1)+(4-1)+1 = 7 > 3.
         fireOneShot(scn, tie, 4, 0);
@@ -243,6 +245,7 @@ public class Card_1_75_Tests {
         scn.StartBattleAndSkipToWeaponsSegment();
         playCombinedAttack(scn, tie, xwlc, xwlc2);
         chooseUseTargetingComputer(scn, true);
+        chooseSeparatelyOrCombined(scn, "Combined");
 
         fireOneShot(scn, tie, 4, 0);
         fireOneShot(scn, tie, 4, 0);
@@ -261,34 +264,78 @@ public class Card_1_75_Tests {
     }
 
     @Test
-    public void CombinedAttackXwingLaserCannonX3LosesTieNotMerelyHit() {
-        // Playtest: Combined Attack, pay 3 Force to fire X-wing Laser Cannon. Combined destinies
-        // succeed vs TIE DV 3, but XWLC game text is "lost if destiny + X > DV" when X=3.
-        // Must use the weapon's own result path, not HitCardEffect for every non-ion weapon.
+    public void TargetingComputerInsideCombinedAttackPresentsSeparatelyOrCombinedChoice() {
+        // Bill: Combined Attack + Targeting Computer must ask fire-twice, then Separately vs Combined.
+        // Both shots still go into the Combined Attack destiny pool either way. Pick Combined.
         var scn = GetScenario();
         var ca = scn.GetLSCard("ca");
         var xwlc = scn.GetLSCard("xwlc");
         var xwlc2 = scn.GetLSCard("xwlc2");
         var tie = scn.GetDSCard("tie");
-        setupTwoXwingLasers(scn);
+        setupTwoXwingLasersWithTcOnFirst(scn);
+        scn.MoveCardsToHand(ca);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        playCombinedAttack(scn, tie, xwlc, xwlc2);
+        chooseUseTargetingComputer(scn, true);
+        assertTrue("Expected Separately/Combined prompt inside Combined Attack, got: "
+                        + (scn.LSGetDecision() == null ? "null" : scn.LSGetDecision().getText()),
+                scn.LSDecisionAvailable("separately or combined"));
+        scn.LSChoose("Combined");
+
+        fireOneShot(scn, tie, 4, 0);
+        fireOneShot(scn, tie, 4, 0);
+        fireOneShot(scn, tie, 1, 0);
+        finishCombinedAttack(scn);
+        assertTrue(tie.isHit());
+    }
+
+    @Test
+    public void CombinedAttackXwingLaserCannonX3LosesTieNotMerelyHit() {
+        // Playtest: X-wing XWLC (X=3) + B-wing SW-4 Ion Cannon vs TIE.
+        // Combined destinies are high enough to succeed even without X, so a mere hit is the
+        // wrong result. XWLC at X=3 must LOSE the TIE (destiny + X > DV). Apply Ion Cannon
+        // first so a leftover WeaponFiringState cannot skip restoring X.
+        var scn = GetScenario();
+        var ca = scn.GetLSCard("ca");
+        var xwlc = scn.GetLSCard("xwlc");
+        var sw4 = scn.GetLSCard("sw4");
+        var tie = scn.GetDSCard("tie");
+        setupXwingLaserAndBwingIon(scn);
         scn.MoveCardsToHand(ca);
         scn.EnsureLSForcePile(6);
 
         scn.StartBattleAndSkipToWeaponsSegment();
-        playCombinedAttack(scn, tie, xwlc, xwlc2);
+        playCombinedAttack(scn, tie, xwlc, sw4);
 
+        int forceBeforeShots = scn.GetLSForcePileCount();
         fireOneShot(scn, tie, 4, 3);
+        assertEquals("XWLC Combined Attack shot must use 3 Force (X=3)",
+                forceBeforeShots - 3, scn.GetLSForcePileCount());
         assertFalse("First Combined Attack destiny must not resolve a hit or loss by itself", tie.isHit());
         assertEquals(Zone.AT_LOCATION, tie.getZone());
 
-        fireOneShot(scn, tie, 4, 0);
-        finishCombinedAttack(scn);
+        fireOneShot(scn, tie, 4);
+        finishCombinedAttack(scn, 1);
 
         assertTrue("X-wing Laser Cannon at X=3 must lose the TIE, not merely hit",
                 tie.getZone() == Zone.LOST_PILE || tie.getZone() == Zone.TOP_OF_LOST_PILE);
         assertFalse("TIE must not remain at the location as merely hit", tie.getZone() == Zone.AT_LOCATION);
     }
 
+
+    private void setupXwingLaserAndBwingIon(VirtualTableScenario scn) {
+        scn.StartGame();
+        var system = scn.GetLSStartingLocation();
+        var xwing = scn.GetLSCard("xwing");
+        var bwing = scn.GetLSCard("bwing");
+        var xwlc = scn.GetLSCard("xwlc");
+        var sw4 = scn.GetLSCard("sw4");
+        var tie = scn.GetDSCard("tie");
+        scn.MoveCardsToLocation(system, xwing, bwing, tie);
+        scn.AttachCardsTo(xwing, xwlc);
+        scn.AttachCardsTo(bwing, sw4);
+    }
 
     private void setupTwoXwingLasers(VirtualTableScenario scn) {
         scn.StartGame();
@@ -372,6 +419,13 @@ public class Card_1_75_Tests {
         scn.LSChoose(use ? "Yes" : "No");
     }
 
+    private void chooseSeparatelyOrCombined(VirtualTableScenario scn, String mode) {
+        assertTrue("Expected Separately/Combined prompt, got: "
+                        + (scn.LSGetDecision() == null ? "null" : scn.LSGetDecision().getText()),
+                scn.LSDecisionAvailable("separately or combined"));
+        scn.LSChoose(mode);
+    }
+
     private void fireOneShot(VirtualTableScenario scn, PhysicalCardImpl target, int destiny) {
         fireOneShot(scn, target, destiny, null);
     }
@@ -417,6 +471,10 @@ public class Card_1_75_Tests {
     }
 
     private void chooseResultApplyOrderIfPrompted(VirtualTableScenario scn) {
+        chooseResultApplyOrderIfPrompted(scn, 0);
+    }
+
+    private void chooseResultApplyOrderIfPrompted(VirtualTableScenario scn, int applyFirstChoiceIndex) {
         int safety = 0;
         while (safety++ < 8 && scn.LSGetDecision() != null && scn.LSGetDecision().getText() != null) {
             String text = scn.LSGetDecision().getText().toLowerCase();
@@ -428,12 +486,20 @@ public class Card_1_75_Tests {
             if (ids == null || ids.isEmpty()) {
                 break;
             }
-            scn.PlayerDecided("Light Side Player", ids.get(0));
+            int pick = applyFirstChoiceIndex;
+            if (pick < 0 || pick >= ids.size()) {
+                pick = ids.size() - 1;
+            }
+            scn.PlayerDecided("Light Side Player", ids.get(pick));
         }
     }
 
     private void finishCombinedAttack(VirtualTableScenario scn) {
-        chooseResultApplyOrderIfPrompted(scn);
+        finishCombinedAttack(scn, 0);
+    }
+
+    private void finishCombinedAttack(VirtualTableScenario scn, int applyFirstChoiceIndex) {
+        chooseResultApplyOrderIfPrompted(scn, applyFirstChoiceIndex);
         scn.PassResponses("PLACE_IN_CARD_PILE");
         scn.PassAllResponses();
         scn.PassResponses("ABOUT_TO_BE_LOST");

@@ -11,6 +11,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.CombinedAttackFiringState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.SubAction;
+import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
 import com.gempukku.swccgo.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.swccgo.logic.effects.FireWeaponEffect;
@@ -102,9 +103,30 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
                                                 @Override
                                                 protected void yes() {
                                                     subAction.appendEffect(new UseDeviceEffect(subAction, targetingComputer));
-                                                    subAction.appendEffect(createFireEffect(weapon, targetFilter, false));
-                                                    subAction.appendEffect(createFireEffect(weapon, targetFilter, true));
-                                                    appendNextWeapon(subAction, game, index + 1);
+                                                    subAction.appendEffect(
+                                                            new PlayoutDecisionEffect(subAction, _source.getOwner(),
+                                                                    new MultipleChoiceAwaitingDecision("Fire twice separately or combined?", new String[]{"Separately", "Combined"}) {
+                                                                        @Override
+                                                                        protected void validDecisionMade(int choiceIndex, String result) {
+                                                                            final boolean combined = "Combined".equals(result);
+                                                                            game.getGameState().beginSeparatelyOrCombinedFiring(targetingComputer, weapon, combined);
+                                                                            game.getGameState().sendMessage(_source.getOwner() + " uses " + GameUtils.getCardLink(targetingComputer)
+                                                                                    + " to fire " + GameUtils.getCardLink(weapon) + " twice " + result
+                                                                                    + " as part of Combined Attack");
+                                                                            subAction.appendEffect(createFireEffect(weapon, targetFilter, false));
+                                                                            subAction.appendEffect(createFireEffect(weapon, targetFilter, true));
+                                                                            subAction.appendEffect(
+                                                                                    new PassthruEffect(subAction) {
+                                                                                        @Override
+                                                                                        protected void doPlayEffect(SwccgGame game) {
+                                                                                            game.getGameState().finishSeparatelyOrCombinedFiring();
+                                                                                        }
+                                                                                    }
+                                                                            );
+                                                                            appendNextWeapon(subAction, game, index + 1);
+                                                                        }
+                                                                    })
+                                                    );
                                                 }
 
                                                 @Override
@@ -211,7 +233,15 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
                             applyWeaponRecord(action, game, chosenRecord, drawSum, target);
                         }
                         if (!leftover.isEmpty()) {
-                            promptApplyOrder(action, game, leftover, drawSum, target);
+                            final List<CombinedAttackFiringState.WeaponRecord> leftoverFinal = leftover;
+                            action.appendEffect(
+                                    new PassthruEffect(action) {
+                                        @Override
+                                        protected void doPlayEffect(SwccgGame game) {
+                                            promptApplyOrder(action, game, leftoverFinal, drawSum, target);
+                                        }
+                                    }
+                            );
                         }
                     }
                 }
@@ -232,12 +262,13 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
         }
         if (!queued) {
             float defenseValue = game.getModifiersQuerying().getDefenseValue(game.getGameState(), target);
-            if (total > defenseValue) {
+            float valueForX = record.getVariableXSnapshot();
+            if ((total + valueForX) > defenseValue) {
                 game.getGameState().sendMessage("Result: Succeeded");
                 if (weapon.getBlueprint().hasKeyword(Keyword.ION_CANNON)) {
                     action.appendEffect(new IonizeStarshipEffect(action, target, weapon, false, true, true));
                 }
-                else if (record.getVariableXSnapshot() == 3f) {
+                else if (valueForX == 3f) {
                     action.appendEffect(new LoseCardFromTableEffect(action, target));
                 }
                 else {

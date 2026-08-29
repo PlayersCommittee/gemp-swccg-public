@@ -108,8 +108,7 @@ public class CombinedAttackFiringState {
     }
 
     public String getAddedDestiniesMessage(String drawSumFormatted) {
-        return "Combined Attack destinies: " + formatAddends(_destinyDraws) + " = " + drawSumFormatted
-                + ". Apply that total to each weapon in an order of your choosing.";
+        return "Combined Attack destinies: " + formatAddends(_destinyDraws) + " = " + drawSumFormatted + ".";
     }
 
     public static String getPerWeaponTotalMessage(PhysicalCard weapon, float drawSum, float totalModifier, float total) {
