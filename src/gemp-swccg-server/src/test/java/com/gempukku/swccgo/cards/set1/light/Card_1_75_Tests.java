@@ -210,7 +210,6 @@ public class Card_1_75_Tests {
 
         scn.StartBattleAndSkipToWeaponsSegment();
         playCombinedAttack(scn, tie, xwlc, xwlc2);
-        chooseUseTargetingComputer(scn, true);
         chooseSeparatelyOrCombined(scn, "Combined");
 
         // TC -1 on each draw from the TC starship: dest 4,4 then 1 from the other weapon => (4-1)+(4-1)+1 = 7 > 3.
@@ -244,7 +243,6 @@ public class Card_1_75_Tests {
 
         scn.StartBattleAndSkipToWeaponsSegment();
         playCombinedAttack(scn, tie, xwlc, xwlc2);
-        chooseUseTargetingComputer(scn, true);
         chooseSeparatelyOrCombined(scn, "Combined");
 
         fireOneShot(scn, tie, 4, 0);
@@ -265,8 +263,7 @@ public class Card_1_75_Tests {
 
     @Test
     public void TargetingComputerInsideCombinedAttackPresentsSeparatelyOrCombinedChoice() {
-        // Bill: Combined Attack + Targeting Computer must ask fire-twice, then Separately vs Combined.
-        // Both shots still go into the Combined Attack destiny pool either way. Pick Combined.
+        // Same three-way as standalone Targeting Computer. Both shots still go into the CA pool.
         var scn = GetScenario();
         var ca = scn.GetLSCard("ca");
         var xwlc = scn.GetLSCard("xwlc");
@@ -277,17 +274,37 @@ public class Card_1_75_Tests {
 
         scn.StartBattleAndSkipToWeaponsSegment();
         playCombinedAttack(scn, tie, xwlc, xwlc2);
-        chooseUseTargetingComputer(scn, true);
-        assertTrue("Expected Separately/Combined prompt inside Combined Attack, got: "
-                        + (scn.LSGetDecision() == null ? "null" : scn.LSGetDecision().getText()),
-                scn.LSDecisionAvailable("separately or combined"));
-        scn.LSChoose("Combined");
+        chooseSeparatelyOrCombined(scn, "Combined");
 
         fireOneShot(scn, tie, 4, 0);
         fireOneShot(scn, tie, 4, 0);
         fireOneShot(scn, tie, 1, 0);
         finishCombinedAttack(scn);
         assertTrue(tie.isHit());
+    }
+
+    @Test
+    public void TargetingComputerDontFireInsideCombinedAttackLeavesDeviceUnused() {
+        // Don't Fire fires the Combined Attack weapon once and does not consume Targeting Computer.
+        var scn = GetScenario();
+        var ca = scn.GetLSCard("ca");
+        var xwlc = scn.GetLSCard("xwlc");
+        var xwlc2 = scn.GetLSCard("xwlc2");
+        var tie = scn.GetDSCard("tie");
+        setupTwoXwingLasersWithTcOnFirst(scn);
+        scn.MoveCardsToHand(ca);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        playCombinedAttack(scn, tie, xwlc, xwlc2);
+        chooseSeparatelyOrCombined(scn, "Don't Fire (Cancel)");
+
+        // One shot from the TC ship (no second TC firing) plus the other weapon.
+        fireOneShot(scn, tie, 4, 0);
+        fireOneShot(scn, tie, 1, 0);
+        finishCombinedAttack(scn);
+        assertTrue("4 + 1 without TC -1 still hits TIE 3", tie.isHit());
+        // Weapon already fired in Combined Attack, so TC has nothing left to fire;
+        // unused is proven by only two destinies (no extra TC shot) succeeding as 4+1.
     }
 
     @Test
@@ -411,18 +428,13 @@ public class Card_1_75_Tests {
         scn.PassAllResponses();
     }
 
-    private void chooseUseTargetingComputer(VirtualTableScenario scn, boolean use) {
-        String text = scn.LSGetDecision() == null ? "null" : scn.LSGetDecision().getText();
-        assertTrue("Expected Targeting Computer fire-twice prompt, got: " + text,
-                text != null && (text.contains("Targeting Computer")
-                        || (text.toLowerCase().contains("fire") && text.toLowerCase().contains("twice"))));
-        scn.LSChoose(use ? "Yes" : "No");
-    }
-
     private void chooseSeparatelyOrCombined(VirtualTableScenario scn, String mode) {
-        assertTrue("Expected Separately/Combined prompt, got: "
+        assertTrue("Expected Fire a weapon twice prompt, got: "
                         + (scn.LSGetDecision() == null ? "null" : scn.LSGetDecision().getText()),
-                scn.LSDecisionAvailable("separately or combined"));
+                scn.LSDecisionAvailable("Fire a weapon twice"));
+        assertTrue(scn.LSChoiceAvailable("Separately"));
+        assertTrue(scn.LSChoiceAvailable("Combined"));
+        assertTrue(scn.LSChoiceAvailable("Don't Fire (Cancel)"));
         scn.LSChoose(mode);
     }
 
