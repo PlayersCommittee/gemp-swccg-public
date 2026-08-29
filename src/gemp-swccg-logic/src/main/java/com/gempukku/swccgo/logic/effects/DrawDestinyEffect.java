@@ -797,7 +797,10 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                                           PhysicalCard target, float variableX, Float combinedTotal) {
         GameState gameState = game.getGameState();
         boolean beganFiring = false;
-        if (gameState.getWeaponFiringState() == null && weapon != null) {
+        if (gameState.getWeaponFiringState() != null) {
+            gameState.finishWeaponFiring();
+        }
+        if (weapon != null) {
             gameState.beginWeaponFiring(weapon, permanentWeapon);
             beganFiring = true;
             WeaponFiringState wfs = gameState.getWeaponFiringState();

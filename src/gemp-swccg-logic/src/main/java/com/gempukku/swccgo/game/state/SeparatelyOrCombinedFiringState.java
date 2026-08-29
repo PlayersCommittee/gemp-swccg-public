@@ -130,7 +130,10 @@ public class SeparatelyOrCombinedFiringState {
     }
 
     public String getFiringLabel() {
-        return "Firing " + _firingsInitiated;
+        String deviceTitle = _device != null ? _device.getTitle() : "Targeting Computer";
+        String mode = _combined ? "Combined" : "Separately";
+        String weaponText = _weapon != null ? GameUtils.getCardLink(_weapon) : "weapon";
+        return deviceTitle + " " + mode + " firing " + _firingsInitiated + " (" + weaponText + ")";
     }
 
     public String getCombinedDrawModifiersOnlyMessage(PhysicalCard weapon, float firingDestiny) {
