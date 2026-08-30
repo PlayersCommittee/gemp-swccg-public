@@ -27,6 +27,7 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.FiredWeaponResult;
 
 import java.util.Collections;
@@ -74,20 +75,61 @@ public class Card7_104 extends AbstractUsedInterrupt {
                                                         new FireWeaponEffect(action, weapon, true, Filters.canBeTargetedBy(self)) {
                                                             @Override
                                                             protected List<ActionProxy> getWeaponFiringActionProxies(String playerId2, SwccgGame game, final PhysicalCard weapon) {
+                                                                // Stay Sharp is already off table when destinies are drawn, so it is a poor
+                                                                // spotting source. Check Han/gunner aboard the firing starship now.
+                                                                final PhysicalCard starship = weapon.getAttachedTo();
+                                                                boolean hanOrGunnerFound = false;
+                                                                if (starship != null && Filters.starship.accepts(game, starship)) {
+                                                                    Filter hanOrGunner = Filters.and(Filters.your(self), Filters.or(Filters.Han, Filters.gunner));
+                                                                    for (PhysicalCard cardAboard : game.getGameState().getPilotCardsAboard(game.getModifiersQuerying(), starship, false)) {
+                                                                        if (hanOrGunner.accepts(game, cardAboard)) {
+                                                                            hanOrGunnerFound = true;
+                                                                            break;
+                                                                        }
+                                                                    }
+                                                                    if (!hanOrGunnerFound) {
+                                                                        for (PhysicalCard cardAboard : game.getGameState().getPassengerCardsAboard(starship)) {
+                                                                            if (hanOrGunner.accepts(game, cardAboard)) {
+                                                                                hanOrGunnerFound = true;
+                                                                                break;
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                                final boolean hanOrGunnerAboard = hanOrGunnerFound;
+
                                                                 ActionProxy actionProxy = new AbstractActionProxy() {
+                                                                    private boolean staySharpBonusAccepted;
+
                                                                     @Override
                                                                     public List<TriggerAction> getOptionalAfterTriggers(String playerId3, SwccgGame game, EffectResult effectResult) {
                                                                         List<TriggerAction> actions = new LinkedList<TriggerAction>();
-                                                                        // Check condition(s)
+                                                                        // Offer after each weapon destiny draw until the player accepts once.
+                                                                        // Accepting adds 2 to that draw (and thus the weapon destiny total).
+                                                                        // Declining leaves it available on a later draw of this same firing.
+                                                                        // The same Stay Sharp bonus does not stack if it is somehow accepted twice.
                                                                         if (playerId.equals(playerId3)
-                                                                                && TriggerConditions.isWeaponDestinyJustDrawnBy(game, effectResult, playerId, weapon,
-                                                                                Filters.and(Filters.starship, Filters.hasAboard(self, Filters.and(Filters.your(self), Filters.or(Filters.Han, Filters.gunner)))))) {
+                                                                                && hanOrGunnerAboard
+                                                                                && !staySharpBonusAccepted
+                                                                                && TriggerConditions.isWeaponDestinyJustDrawnBy(game, effectResult, playerId, weapon)) {
 
                                                                             final OptionalGameTextTriggerAction action1 = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
                                                                             action1.setText("Add 2 to weapon destiny");
+                                                                            action1.setPerformingPlayer(playerId);
                                                                             // Perform result(s)
                                                                             action1.appendEffect(
-                                                                                    new ModifyDestinyEffect(action1, 2));
+                                                                                    new PassthruEffect(action1) {
+                                                                                        @Override
+                                                                                        protected void doPlayEffect(SwccgGame game) {
+                                                                                            if (staySharpBonusAccepted) {
+                                                                                                return;
+                                                                                            }
+                                                                                            staySharpBonusAccepted = true;
+                                                                                            action1.appendEffect(
+                                                                                                    new ModifyDestinyEffect(action1, 2));
+                                                                                        }
+                                                                                    }
+                                                                            );
                                                                             actions.add(action1);
                                                                         }
                                                                         return actions;
