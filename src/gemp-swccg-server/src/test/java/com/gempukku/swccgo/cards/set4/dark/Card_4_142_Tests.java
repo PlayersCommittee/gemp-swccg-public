@@ -63,7 +63,8 @@ public class Card_4_142_Tests {
 					put("tk422b", "7_48");
 					put("lsPistol", "7_157");
 					put("admiralsOrder", "9_4");
-					put("insight", "200_32");
+					put("insight", "13_49");
+					put("revolution", "1_62");
 				}},
 				new HashMap<>()
 				{{
@@ -78,6 +79,7 @@ public class Card_4_142_Tests {
 					put("kissWookiee", "3_127");
 					put("stormtrooper", "1_194");
 					put("dsPistol", "7_319");
+					put("cave", "4_158");
 				}},
 				10,
 				10,
@@ -107,6 +109,10 @@ public class Card_4_142_Tests {
 		scn.PassAllResponses();
 	}
 
+	/**
+	 * Play Frustration in Dark's Control phase, pass responses, and dismiss the peek window
+	 * so Dark can choose a target.
+	 */
 	private void PeekFrustrationAtHand(VirtualTableScenario scn) {
 		scn.SkipToPhase(Phase.CONTROL);
 		scn.DSPlayCard(scn.GetDSCard("frustration"));
@@ -116,6 +122,9 @@ public class Card_4_142_Tests {
 		}
 	}
 
+	/**
+	 * Same as PeekFrustrationAtHand, then target the Rebel Trooper.
+	 */
 	private void PlayFrustrationTargetingTrooper(VirtualTableScenario scn) {
 		scn.SkipToPhase(Phase.CONTROL);
 		scn.DSPlayCard(scn.GetDSCard("frustration"));
@@ -128,6 +137,8 @@ public class Card_4_142_Tests {
 	}
 
 	/**
+	 * Run through Light's turn and to the end of Dark's next turn, including the
+	 * lose-from-hand prompt if it fires.
 	 * SkipToTurn can stall at DRAW when an End of Turn required trigger is pending,
 	 * because SkipToPhase returns immediately when the current phase is already DRAW.
 	 * Drain remaining end-of-turn decisions after DS's next Draw phase instead.
@@ -139,6 +150,9 @@ public class Card_4_142_Tests {
 		DrainPendingDecisions(scn, 30);
 	}
 
+	/**
+	 * Click through leftover end-of-turn prompts until the next action window or nothing is pending.
+	 */
 	private void DrainPendingDecisions(VirtualTableScenario scn, int maxAttempts) {
 		for (int i = 0; i < maxAttempts; i++) {
 			if (!scn.DSAnyDecisionsAvailable() && !scn.LSAnyDecisionsAvailable()) {
@@ -224,6 +238,9 @@ public class Card_4_142_Tests {
 	}
 
 
+	/**
+	 * Build a one-line dump of the current prompt for error messages when a test hits an unexpected choice.
+	 */
 	private String decisionSnapshot(VirtualTableScenario scn) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("phase=").append(scn.GetCurrentPhase());
@@ -249,10 +266,16 @@ public class Card_4_142_Tests {
 		return sb.toString();
 	}
 
+	/**
+	 * True if Light can play or use this card as a response right now.
+	 */
 	private boolean lsPlayAvailable(VirtualTableScenario scn, com.gempukku.swccgo.game.PhysicalCardImpl card) {
 		return scn.LSAnyDecisionsAvailable() && (scn.LSCardPlayAvailable(card) || scn.LSCardActionAvailable(card));
 	}
 
+	/**
+	 * True if Dark can play or use this card as a response right now.
+	 */
 	private boolean dsPlayAvailable(VirtualTableScenario scn, com.gempukku.swccgo.game.PhysicalCardImpl card) {
 		return scn.DSAnyDecisionsAvailable() && (scn.DSCardPlayAvailable(card) || scn.DSCardActionAvailable(card));
 	}
@@ -1515,9 +1538,9 @@ public class Card_4_142_Tests {
 
 	@Test
 	public void FrustrationCannotTargetAdmiralsOrderOrDefensiveShieldThatDeployFree() {
-		// I'll Take The Leader 9_4 is an AbstractAdmiralsOrder. Your Insight Serves You Well (V)
-		// 200_32 is an AbstractDefensiveShield. Both always play for free. Free is not a deploy
-		// cost, same pattern as JP Leia. Rebel Trooper remains a legal target.
+		// I'll Take The Leader 9_4 is an AbstractAdmiralsOrder. Reflections III Defensive Shield
+		// Your Insight Serves You Well 13_49 is an AbstractDefensiveShield. Both always play for free.
+		// Free is not a deploy cost, same pattern as JP Leia. Rebel Trooper remains a legal target.
 		var scn = GetScenario();
 		var frustration = scn.GetDSCard("frustration");
 		var admiralsOrder = scn.GetLSCard("admiralsOrder");
@@ -1534,5 +1557,60 @@ public class Card_4_142_Tests {
 		assertTrue(scn.DSHasCardChoiceNotAvailable(insight));
 		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
 	}
+
+	@Test
+	public void FrustrationDoesNotCountDagobahCaveLightIconsCanceledByPresenceAfterRevolution() {
+		// Dagobah: Cave 4_158 is a Dark site with 2 printed Dark Force icons. Dark game text:
+		// "If opponent has presence here, your Force Icons here are canceled."
+		// Revolution 1_62 rotates the location so icons and game texts switch direction: those
+		// 2 Dark icons become 2 Light icons, and the cancel-icons text sits on the Light side.
+		// Default starting systems already provide 2 Light icons.
+		// Without a Dark Stormtrooper at Cave, total is 4 Light icons, so Rebel Pilot deploy 2
+		// is a legal Frustration target (2 < 4). With Stormtrooper 1_194 at the Revolution'd Cave,
+		// Dark is opponent presence for Light, those 2 Light icons are canceled, total stays 2,
+		// so Pilot is not a target (2 is not < 2) while Rebel Trooper deploy 1 still is.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var frustration2 = scn.GetDSCard("frustration2");
+		var cave = scn.GetDSCard("cave");
+		var revolution = scn.GetLSCard("revolution");
+		var stormtrooper = scn.GetDSCard("stormtrooper");
+		var pilot = scn.GetLSCard("pilot");
+		var trooper = scn.GetLSCard("trooper");
+
+		scn.MoveCardsToDSHand(frustration, frustration2);
+		scn.MoveCardsToLSHand(pilot, trooper);
+
+		scn.StartGame();
+		scn.MoveLocationToTable(cave);
+		scn.AttachCardsTo(cave, revolution);
+		scn.gameState().reapplyAffectingForCard(scn.game(), revolution);
+		scn.gameState().reapplyAffectingForCard(scn.game(), cave);
+		scn.PassAllResponses();
+
+		PeekFrustrationAtHand(scn);
+		if (!scn.DSHasCardChoiceAvailable(pilot)) {
+			throw new RuntimeException("Expected Rebel Pilot as Frustration target after Revolution on Dagobah Cave (rotation may not have applied): " + decisionSnapshot(scn));
+		}
+		assertTrue(scn.DSHasCardChoiceAvailable(pilot));
+		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
+		scn.DSChooseCard(trooper);
+		scn.PassAllResponses();
+
+		scn.MoveCardsToLocation(cave, stormtrooper);
+
+		scn.SkipToLSTurn();
+		scn.SkipToDSTurn(Phase.CONTROL);
+		assertTrue(scn.DSCardPlayAvailable(frustration2));
+		scn.DSPlayCard(frustration2);
+		scn.PassAllResponses();
+		if (scn.DSAnyDecisionsAvailable() && scn.DSGetDecision().getText().toLowerCase().contains("hand")) {
+			scn.DSDismissRevealedCards();
+		}
+
+		assertTrue(scn.DSHasCardChoiceNotAvailable(pilot));
+		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
+	}
+
 
 }
