@@ -37,6 +37,16 @@ public class Card_1_39_Tests {
                     put("htb", "9_89");
                     put("ept", "9_88");
                     put("defiance", "9_67");
+                    put("dack", "3_4");
+                    put("verrack", "9_7");
+                    put("cec", "7_56");
+                    put("corellia", "2_61");
+                    put("falcon", "1_143");
+                    put("gunner", "3_17");
+                    put("qlc", "1_159");
+                    put("tennumb", "9_29");
+                    put("blue5", "9_63");
+                    put("missiles", "9_87");
                 }},
                 new HashMap<>()
                 {{
@@ -44,6 +54,7 @@ public class Card_1_39_Tests {
                     put("tie", "1_304");
                     put("tie2", "1_304");
                     put("vsd", "2_155");
+                    put("executor", "4_167");
                 }},
                 10,
                 10,
@@ -567,6 +578,215 @@ public class Card_1_39_Tests {
         assertTrue(stalker.isHit());
     }
 
+
+    @Test
+    public void DefianceDackVerrackHeavyTurbolaserEachBonusesRequiredVsExecutor() {
+        // Dack passenger +1 each, Verrack aboard +2 each vs capital, Defiance +2 each, HTB -1 total vs capital.
+        // Printed 2 and 2: each draw 2+2+1+2=7, total 14-1=13 vs Executor armor 12 hit.
+        // Missing Dack: 12-1=11 vs 12 miss. Missing Verrack or Defiance is even lower.
+        var scn = GetScenario();
+        var htb = scn.GetLSCard("htb");
+        var executor = scn.GetDSCard("executor");
+        setupDefianceGunners(scn, false);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.EnsureLSForcePile(4);
+
+        assertTrue(scn.LSCardActionAvailable(htb, "Fire"));
+        scn.LSUseCardAction(htb, "Fire");
+        fireTwoDestinyShot(scn, executor, 2, 2);
+
+        assertEquals(12, scn.GetDefense(executor));
+        assertWeaponDestinyDrawValues(scn, 7, 7);
+        assertEquals("total must be 13 so dropping Dack's +1 each (11 vs 12) cannot pass",
+                13, lastTotalWeaponDestiny(scn));
+        assertTrue("Dack + Verrack + Defiance each-draw bonuses are all required to hit Executor", executor.isHit());
+    }
+
+    @Test
+    public void DefianceDackVerrackTargetingComputerSeparatelyEachBonusesRequiredVsExecutor() {
+        // TC -1 each. Printed 3 and 3: each draw 3+2+1+2-1=7, total 14-1=13 vs 12 hit.
+        // Missing Dack: 11 vs 12 miss.
+        var scn = GetScenario();
+        var tc = scn.GetLSCard("tc");
+        var executor = scn.GetDSCard("executor");
+        setupDefianceGunners(scn, true);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.EnsureLSForcePile(4);
+
+        scn.LSUseCardAction(tc, "Fire a weapon twice");
+        chooseSeparatelyOrCombined(scn, "Separately");
+        fireTwoDestinyShot(scn, executor, 3, 3);
+
+        assertWeaponDestinyDrawValues(scn, 7, 7);
+        assertEquals(13, lastTotalWeaponDestiny(scn));
+        assertTrue("Separately HTB still needs Dack, Verrack, and Defiance each-draw bonuses", executor.isHit());
+    }
+
+    @Test
+    public void DefianceDackVerrackTargetingComputerCombinedEachBonusesRequiredVsExecutor() {
+        // Combined HTB: two draws per firing, twice, then HTB -1 once.
+        // Printed 0 x4 with TC -1: each draw 0+2+1+2-1=4, combined 16-1=15 vs 12 hit.
+        // Missing Dack: 12-1=11 vs 12 miss.
+        var scn = GetScenario();
+        var tc = scn.GetLSCard("tc");
+        var executor = scn.GetDSCard("executor");
+        setupDefianceGunners(scn, true);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.EnsureLSForcePile(4);
+
+        scn.LSUseCardAction(tc, "Fire a weapon twice");
+        chooseSeparatelyOrCombined(scn, "Combined");
+        fireTwoDestinyShot(scn, executor, 0, 0);
+        assertFalse("First combined HTB firing must not resolve a hit by itself", executor.isHit());
+        fireTwoDestinyShot(scn, executor, 0, 0);
+
+        assertWeaponDestinyDrawValues(scn, 4, 4, 4, 4);
+        assertEquals("combined total 15 so missing Dack's +1 on all four draws (11 vs 12) cannot pass",
+                15, lastTotalWeaponDestiny(scn));
+        assertTrue(executor.isHit());
+    }
+
+    @Test
+    public void FalconCecKarieRogueGunnerQuadLaserEachBonusesRequiredVsVictoryClass() {
+        // CEC +2 each on Quad Laser Cannon, Karie +1 each aboard, Rogue Gunner +1 each as passenger.
+        // Vs capital: Quad Laser's +1 vs starfighter does not apply. Printed 2: 2+2+1+1=6 vs VSD 5 hit.
+        // Missing Karie or Rogue Gunner: 5 vs 5 miss. Missing CEC: 4 vs 5 miss.
+        var scn = GetScenario();
+        var qlc = scn.GetLSCard("qlc");
+        var vsd = scn.GetDSCard("vsd");
+        setupFalconCec(scn, false);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.EnsureLSForcePile(4);
+
+        assertTrue(scn.LSCardActionAvailable(qlc, "Fire"));
+        scn.LSUseCardAction(qlc, "Fire");
+        fireOneShot(scn, vsd, 2);
+
+        assertEquals(5, scn.GetDefense(vsd));
+        assertWeaponDestinyDrawValues(scn, 6);
+        assertEquals(6, lastTotalWeaponDestiny(scn));
+        assertTrue("CEC, Karie, and Rogue Gunner each-draw bonuses are all required to hit VSD", vsd.isHit());
+    }
+
+    @Test
+    public void FalconCecKarieRogueGunnerTargetingComputerSeparatelyEachBonusesRequiredVsVictoryClass() {
+        // TC -1 each. Printed 3: 3+2+1+1-1=6 vs VSD 5 hit. Missing a +1 character: 5 vs 5 miss.
+        var scn = GetScenario();
+        var tc = scn.GetLSCard("tc");
+        var vsd = scn.GetDSCard("vsd");
+        setupFalconCec(scn, true);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.EnsureLSForcePile(4);
+
+        scn.LSUseCardAction(tc, "Fire a weapon twice");
+        chooseSeparatelyOrCombined(scn, "Separately");
+        fireOneShot(scn, vsd, 3);
+
+        assertWeaponDestinyDrawValues(scn, 6);
+        assertEquals(6, lastTotalWeaponDestiny(scn));
+        assertTrue(vsd.isHit());
+    }
+
+    @Test
+    public void FalconCecKarieRogueGunnerTargetingComputerCombinedEachBonusesRequiredVsVictoryClass() {
+        // Combined two draws, then Quad Laser total +1 vs starfighter does not apply vs capital.
+        // Printed 0 and 0 with TC -1: each 0+2+1+1-1=3, combined 6 vs 5 hit.
+        // Missing a +1 character: 2+2=4 vs 5 miss.
+        var scn = GetScenario();
+        var tc = scn.GetLSCard("tc");
+        var vsd = scn.GetDSCard("vsd");
+        setupFalconCec(scn, true);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.EnsureLSForcePile(4);
+
+        scn.LSUseCardAction(tc, "Fire a weapon twice");
+        chooseSeparatelyOrCombined(scn, "Combined");
+        fireOneShot(scn, vsd, 0);
+        assertFalse("First combined Quad Laser firing must not resolve a hit by itself", vsd.isHit());
+        fireOneShot(scn, vsd, 0);
+
+        assertWeaponDestinyDrawValues(scn, 3, 3);
+        assertEquals(6, lastTotalWeaponDestiny(scn));
+        assertTrue(vsd.isHit());
+    }
+
+    @Test
+    public void TenNumbBlueSquadron5ConcussionMissilesTotalBonusRequiredVsTie() {
+        // Blue Squadron 5 +2 each draw. Ten Numb +2 total on a B-wing he pilots. Missiles +1 total vs starfighter.
+        // One draw: EACH vs TOTAL look the same. Printed 0 as 2, total 0+2+2+1=5 vs TIE 3 hit.
+        // Without Ten Numb: 3 vs 3 miss.
+        var scn = GetScenario();
+        var missiles = scn.GetLSCard("missiles");
+        var tie = scn.GetDSCard("tie");
+        setupTenNumbBlue5(scn, false);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.EnsureLSForcePile(4);
+
+        assertTrue(scn.LSCardActionAvailable(missiles, "Fire"));
+        scn.LSUseCardAction(missiles, "Fire");
+        fireOneShot(scn, tie, 0);
+
+        assertEquals(3, scn.GetDefense(tie));
+        assertWeaponDestinyDrawValues(scn, 2);
+        assertEquals("total 5 so Ten Numb's +2 is required (3 vs 3 miss)", 5, lastTotalWeaponDestiny(scn));
+        assertTrue(tie.isHit());
+    }
+
+    @Test
+    public void TenNumbBlueSquadron5TargetingComputerSeparatelyTotalBonusRequiredVsTie() {
+        // TC -1 each. Printed 0 as 1, then Ten Numb +2 total and missiles +1 total: 1+2+1=4 vs TIE 3 hit.
+        // Without Ten Numb: 2 vs 3 miss. One draw still cannot tell EACH from TOTAL.
+        var scn = GetScenario();
+        var tc = scn.GetLSCard("tc");
+        var tie = scn.GetDSCard("tie");
+        setupTenNumbBlue5(scn, true);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.EnsureLSForcePile(4);
+
+        scn.LSUseCardAction(tc, "Fire a weapon twice");
+        chooseSeparatelyOrCombined(scn, "Separately");
+        fireOneShot(scn, tie, 0);
+
+        assertWeaponDestinyDrawValues(scn, 1);
+        assertEquals(4, lastTotalWeaponDestiny(scn));
+        assertTrue(tie.isHit());
+    }
+
+    @Test
+    public void TenNumbBlueSquadron5TargetingComputerCombinedAppliesTotalOnceNotPerDraw() {
+        // Combined is the EACH vs TOTAL distinguisher.
+        // Printed 0 and 0: each draw 0+2 Blue -1 TC = 1 (Ten Numb must NOT be on the draw).
+        // Combined 1+1=2, then Ten Numb +2 total once and missiles +1 once = 5 vs TIE 3 hit.
+        // If Ten Numb were wrongly each-draw, draws would log as 3 and 3 and the total would be 7.
+        // Without Ten Numb: 3 vs 3 miss.
+        var scn = GetScenario();
+        var tc = scn.GetLSCard("tc");
+        var tie = scn.GetDSCard("tie");
+        setupTenNumbBlue5(scn, true);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.EnsureLSForcePile(4);
+
+        scn.LSUseCardAction(tc, "Fire a weapon twice");
+        chooseSeparatelyOrCombined(scn, "Combined");
+        fireOneShot(scn, tie, 0);
+        assertFalse("First combined Concussion Missiles firing must not resolve a hit by itself", tie.isHit());
+        fireOneShot(scn, tie, 0);
+
+        assertWeaponDestinyDrawValues(scn, 1, 1);
+        assertEquals("total 5 means Ten Numb +2 applied once; EACH would log 3+3 and total 7",
+                5, lastTotalWeaponDestiny(scn));
+        assertTrue(tie.isHit());
+    }
+
     private void setupRed7(VirtualTableScenario scn, boolean includeKarie) {
         scn.StartGame();
         var system = scn.GetLSStartingLocation();
@@ -637,6 +857,59 @@ public class Card_1_39_Tests {
         var tie2 = scn.GetDSCard("tie2");
         scn.MoveCardsToLocation(system, ywing, stalker, tie, tie2);
         scn.AttachCardsTo(ywing, sw4, tc);
+    }
+
+
+    private void setupDefianceGunners(VirtualTableScenario scn, boolean withTc) {
+        scn.StartGame();
+        var system = scn.GetLSStartingLocation();
+        var defiance = scn.GetLSCard("defiance");
+        var htb = scn.GetLSCard("htb");
+        var executor = scn.GetDSCard("executor");
+        scn.MoveCardsToLocation(system, defiance, executor);
+        scn.BoardAsPassenger(defiance, scn.GetLSCard("dack"), scn.GetLSCard("verrack"));
+        if (withTc) {
+            scn.AttachCardsTo(defiance, htb, scn.GetLSCard("tc"));
+        }
+        else {
+            scn.AttachCardsTo(defiance, htb);
+        }
+    }
+
+    private void setupFalconCec(VirtualTableScenario scn, boolean withTc) {
+        scn.StartGame();
+        var system = scn.GetLSStartingLocation();
+        var falcon = scn.GetLSCard("falcon");
+        var qlc = scn.GetLSCard("qlc");
+        var vsd = scn.GetDSCard("vsd");
+        var corellia = scn.GetLSCard("corellia");
+        scn.MoveLocationToTable(corellia);
+        scn.AttachCardsTo(corellia, scn.GetLSCard("cec"));
+        scn.MoveCardsToLocation(system, falcon, vsd);
+        scn.BoardAsPilot(falcon, scn.GetLSCard("karie"));
+        scn.BoardAsPassenger(falcon, scn.GetLSCard("gunner"));
+        if (withTc) {
+            scn.AttachCardsTo(falcon, qlc, scn.GetLSCard("tc"));
+        }
+        else {
+            scn.AttachCardsTo(falcon, qlc);
+        }
+    }
+
+    private void setupTenNumbBlue5(VirtualTableScenario scn, boolean withTc) {
+        scn.StartGame();
+        var system = scn.GetLSStartingLocation();
+        var blue5 = scn.GetLSCard("blue5");
+        var missiles = scn.GetLSCard("missiles");
+        var tie = scn.GetDSCard("tie");
+        scn.MoveCardsToLocation(system, blue5, tie);
+        scn.BoardAsPilot(blue5, scn.GetLSCard("tennumb"));
+        if (withTc) {
+            scn.AttachCardsTo(blue5, missiles, scn.GetLSCard("tc"));
+        }
+        else {
+            scn.AttachCardsTo(blue5, missiles);
+        }
     }
 
     private void setupDefiance(VirtualTableScenario scn, boolean withTc) {
