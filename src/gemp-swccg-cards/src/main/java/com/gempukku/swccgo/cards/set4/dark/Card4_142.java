@@ -193,6 +193,15 @@ public class Card4_142 extends AbstractLostInterrupt {
             printed = null;
         }
 
+        // Admiral's Orders, Defensive Shields, and Objectives always play for free
+        // (constructor 0/null plus isCardTypeAlwaysPlayedForFree). Free is not a deploy cost.
+        CardCategory category = card.getBlueprint().getCardCategory();
+        if (category == CardCategory.ADMIRALS_ORDER
+                || category == CardCategory.DEFENSIVE_SHIELD
+                || category == CardCategory.OBJECTIVE) {
+            printed = null;
+        }
+
         // GEMP encodes some "deploys free" cards as constructor deploy 0 plus DeploysFreeModifier
         // (Princess Leia Organa JP). Free is not a deploy cost, so drop that 0.
         // Any currently affecting DEPLOYS_FREE counts: own-text (Savrip with C-3PO) or external

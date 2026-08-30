@@ -55,6 +55,15 @@ public class Card_4_142_Tests {
 					put("quads", "1_159");
 					put("cec", "7_56");
 					put("corellia", "2_61");
+					put("luke2", "1_19");
+					put("squadronAssignments", "9_39");
+					put("red5", "2_71");
+					put("shocking", "5_68");
+					put("tk422", "7_48");
+					put("tk422b", "7_48");
+					put("lsPistol", "7_157");
+					put("admiralsOrder", "9_4");
+					put("insight", "200_32");
 				}},
 				new HashMap<>()
 				{{
@@ -66,6 +75,9 @@ public class Card_4_142_Tests {
 					put("naboo", "12_169");
 					put("invasion", "14_113");
 					put("nabooSwamp", "12_171");
+					put("kissWookiee", "3_127");
+					put("stormtrooper", "1_194");
+					put("dsPistol", "7_319");
 				}},
 				10,
 				10,
@@ -209,6 +221,40 @@ public class Card_4_142_Tests {
 				throw new RuntimeException("Unhandled decision while waiting for LS hand choice: " + scn.GetCurrentDecision().getText());
 			}
 		}
+	}
+
+
+	private String decisionSnapshot(VirtualTableScenario scn) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("phase=").append(scn.GetCurrentPhase());
+		if (scn.DSAnyDecisionsAvailable()) {
+			sb.append(" DS[").append(scn.DSGetDecision().getText()).append("]");
+			try {
+				sb.append(" DSactions=").append(scn.GetDSAvailableActions());
+			}
+			catch (Exception ignored) {
+			}
+		}
+		if (scn.LSAnyDecisionsAvailable()) {
+			sb.append(" LS[").append(scn.LSGetDecision().getText()).append("]");
+			try {
+				sb.append(" LSactions=").append(scn.GetLSAvailableActions());
+			}
+			catch (Exception ignored) {
+			}
+		}
+		if (!scn.DSAnyDecisionsAvailable() && !scn.LSAnyDecisionsAvailable()) {
+			sb.append(" no pending decisions");
+		}
+		return sb.toString();
+	}
+
+	private boolean lsPlayAvailable(VirtualTableScenario scn, com.gempukku.swccgo.game.PhysicalCardImpl card) {
+		return scn.LSAnyDecisionsAvailable() && (scn.LSCardPlayAvailable(card) || scn.LSCardActionAvailable(card));
+	}
+
+	private boolean dsPlayAvailable(VirtualTableScenario scn, com.gempukku.swccgo.game.PhysicalCardImpl card) {
+		return scn.DSAnyDecisionsAvailable() && (scn.DSCardPlayAvailable(card) || scn.DSCardActionAvailable(card));
 	}
 
 	@Test
@@ -1140,6 +1186,352 @@ public class Card_4_142_Tests {
 		}
 
 		assertTrue(scn.DSHasCardChoiceNotAvailable(quads));
+		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
+	}
+
+
+	@Test
+	public void FrustrationSquadronAssignmentsSimultaneousLukeDeploySatisfiesTitle() {
+		// Squadron Assignments 9_39: reveal a pilot from hand, take matching unpiloted starfighter
+		// from Reserve (Red 5 2_71), and deploy both simultaneously. Two Lukes 1_19 in hand;
+		// deploying one Luke this way must satisfy Frustration on the Luke title.
+		// Mos Eisley 1_133 is on table so printed 3 is < 4 LS icons.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var luke = scn.GetLSCard("luke");
+		var luke2 = scn.GetLSCard("luke2");
+		var red5 = scn.GetLSCard("red5");
+		var squadronAssignments = scn.GetLSCard("squadronAssignments");
+		var mosEisley = scn.GetLSCard("mosEisley");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(luke, luke2);
+
+		scn.StartGame();
+		scn.MoveLocationToTable(mosEisley);
+		scn.MoveCardsToLSSideOfTable(squadronAssignments);
+		// Keep Red 5 out of Reserve until LS Deploy so Activate does not draw it as Force.
+		scn.MoveOutOfPlay(red5);
+
+		PeekFrustrationAtHand(scn);
+		if (!scn.DSHasCardChoiceAvailable(luke) && !scn.DSHasCardChoiceAvailable(luke2)) {
+			throw new RuntimeException("Expected Luke as Frustration target, decision: " + decisionSnapshot(scn));
+		}
+		scn.DSChooseCard(luke);
+		scn.PassAllResponses();
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		scn.LSActivateForceCheat(8);
+		scn.MoveCardsToTopOfLSReserveDeck(red5);
+		if (!scn.LSCardActionAvailable(squadronAssignments) && !scn.LSActionAvailable("Reveal")) {
+			throw new RuntimeException("Squadron Assignments action not available: " + decisionSnapshot(scn));
+		}
+		if (scn.LSCardActionAvailable(squadronAssignments)) {
+			scn.LSUseCardAction(squadronAssignments);
+		}
+		else {
+			scn.LSChooseAction("Reveal");
+		}
+
+		for (int i = 0; i < 25; i++) {
+			if (!scn.DSAnyDecisionsAvailable() && !scn.LSAnyDecisionsAvailable()) {
+				break;
+			}
+			String dsText = scn.DSAnyDecisionsAvailable() ? scn.DSGetDecision().getText().toLowerCase() : "";
+			String lsText = scn.LSAnyDecisionsAvailable() ? scn.LSGetDecision().getText().toLowerCase() : "";
+			if (lsText.contains("action or pass") || dsText.contains("action or pass")) {
+				break;
+			}
+			if (lsText.contains("verify") || dsText.contains("verify")) {
+				if (scn.LSAnyDecisionsAvailable()) {
+					scn.LSPass();
+				}
+				if (scn.DSAnyDecisionsAvailable()) {
+					scn.DSPass();
+				}
+				continue;
+			}
+			if (lsText.contains("force - optional") || dsText.contains("force - optional")
+					|| lsText.contains("optional response") || dsText.contains("optional response")) {
+				scn.PassForceUseResponses();
+				scn.PassAllResponses();
+				continue;
+			}
+			if (scn.LSAnyDecisionsAvailable()) {
+				if (scn.LSHasCardChoiceAvailable(luke) && luke.getZone() == Zone.HAND) {
+					scn.LSChooseCard(luke);
+					continue;
+				}
+				if (scn.LSHasCardChoiceAvailable(luke2) && luke2.getZone() == Zone.HAND) {
+					scn.LSChooseCard(luke2);
+					continue;
+				}
+				if (scn.LSHasCardChoiceAvailable(red5)) {
+					scn.LSChooseCard(red5);
+					continue;
+				}
+				if ((lsText.contains("where to deploy") || lsText.contains("choose location")
+						|| lsText.contains("choose system") || lsText.contains("choose where"))
+						&& scn.LSHasCardChoiceAvailable(scn.GetLSStartingLocation())) {
+					scn.LSChooseCard(scn.GetLSStartingLocation());
+					continue;
+				}
+				throw new RuntimeException("Unhandled Squadron Assignments decision: " + decisionSnapshot(scn));
+			}
+			scn.PassAllResponses();
+		}
+
+		var deployedLuke = luke.getZone() != Zone.HAND ? luke : luke2;
+		var remainingLuke = deployedLuke == luke ? luke2 : luke;
+		if (deployedLuke.getZone() == Zone.HAND) {
+			throw new RuntimeException("Neither Luke left hand after Squadron Assignments; luke=" + luke.getZone()
+					+ " luke2=" + luke2.getZone() + " red5=" + red5.getZone() + " decision=" + decisionSnapshot(scn));
+		}
+		assertEquals(Zone.HAND, remainingLuke.getZone());
+
+		AdvanceThroughEndOfDSNextTurn(scn);
+		assertEquals(Zone.HAND, remainingLuke.getZone());
+		assertEquals(0, scn.GetLSLostPileCount());
+	}
+
+	@Test
+	public void FrustrationShockingInformationCausesFourForceLossAndLosesFrustration() {
+		// Shocking Information 5_68 (Cloud City Used Interrupt): if opponent is about to scan/look
+		// through your hand (unless Monnok), opponent continues but loses 4 Force plus the card
+		// allowing the scan. Play it in the BEFORE peek window, not after PassAllResponses.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var shocking = scn.GetLSCard("shocking");
+		var trooper = scn.GetLSCard("trooper");
+		var kfc = scn.GetLSCard("kfc");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(shocking, trooper, kfc);
+
+		scn.StartGame();
+
+		scn.SkipToPhase(Phase.CONTROL);
+		int dsForceBefore = scn.GetDSLifeForceRemaining();
+		scn.DSPlayCard(frustration);
+
+		// Pass the "Playing Frustration" window; Shocking Information is the later BEFORE-peek window.
+		if (!lsPlayAvailable(scn, shocking)) {
+			scn.PassCardPlayResponses();
+		}
+		if (!lsPlayAvailable(scn, shocking)) {
+			throw new RuntimeException("Shocking Information not offered on Frustration peek: " + decisionSnapshot(scn));
+		}
+		scn.LSPlayCard(shocking);
+		scn.PassAllResponses();
+		if (scn.DSAnyDecisionsAvailable() && scn.DSGetDecision().getText().toLowerCase().contains("hand")) {
+			scn.DSDismissRevealedCards();
+		}
+		if (scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(trooper)) {
+			scn.DSChooseCard(trooper);
+		}
+
+		for (int i = 0; i < 20; i++) {
+			if (scn.GetDSLifeForceRemaining() <= dsForceBefore - 4) {
+				break;
+			}
+			if (!scn.DSAnyDecisionsAvailable() && !scn.LSAnyDecisionsAvailable()) {
+				break;
+			}
+			String text = scn.GetCurrentDecision().getText().toLowerCase();
+			if (text.contains("action or pass")) {
+				break;
+			}
+			if (scn.AwaitingDSForceLossPayment()) {
+				scn.DSPayRemainingForceLossFromReserveDeck();
+				continue;
+			}
+			if (text.contains("optional") || text.contains("about to lose") || text.contains("lose force")
+					|| text.contains("about_to_lose") || text.contains("put_in_card_pile") || text.contains("forfeited")) {
+				scn.PassAllResponses();
+				scn.PassCardLeavingTable();
+				continue;
+			}
+			if (scn.DSAnyDecisionsAvailable() && scn.DSGetDecision().getText().toLowerCase().contains("hand")) {
+				scn.DSDismissRevealedCards();
+				continue;
+			}
+			if (scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(trooper)) {
+				scn.DSChooseCard(trooper);
+				continue;
+			}
+			throw new RuntimeException("Unhandled after Shocking Information: " + decisionSnapshot(scn)
+					+ " forceBefore=" + dsForceBefore + " forceNow=" + scn.GetDSLifeForceRemaining());
+		}
+
+		assertEquals("DS should lose 4 Force to Shocking Information", dsForceBefore - 4, scn.GetDSLifeForceRemaining());
+		assertTrue("Frustration should be in Lost Pile after Shocking Information",
+				frustration.getZone() == Zone.LOST_PILE || frustration.getZone() == Zone.TOP_OF_LOST_PILE);
+	}
+
+	@Test
+	public void FrustrationBounceToHandWithIdJustAsSoonKissAWookieeStillSatisfies() {
+		// I'd Just As Soon Kiss A Wookiee 3_127: use 3 Force to return opponent's just deployed
+		// character to hand. LS deploys the targeted Rebel Trooper 1_28, DS bounces it, then at
+		// end of DS next turn the trooper is in HAND and is not lost (the deploy already satisfied).
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var kissWookiee = scn.GetDSCard("kissWookiee");
+		var trooper = scn.GetLSCard("trooper");
+		var walkway = scn.GetLSCard("walkway");
+
+		scn.MoveCardsToDSHand(frustration, kissWookiee);
+		scn.MoveCardsToLSHand(trooper);
+
+		scn.StartGame();
+		scn.DSActivateForceCheat(3);
+
+		PlayFrustrationTargetingTrooper(scn);
+		scn.MoveLocationToTable(walkway);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		assertTrue(scn.LSDeployAvailable(trooper));
+		scn.LSDeployCard(trooper);
+		if (!(scn.LSDecisionAvailable("Choose where to deploy") || scn.LSDecisionAvailable("Choose location where to deploy")
+				|| scn.LSHasCardChoiceAvailable(walkway))) {
+			throw new RuntimeException("Expected deploy-site choice for Trooper: " + decisionSnapshot(scn));
+		}
+		scn.LSChooseCard(walkway);
+
+		// Pass Force-use optional responses; the just-deployed window is next.
+		if (!dsPlayAvailable(scn, kissWookiee)) {
+			scn.PassForceUseResponses();
+		}
+		if (!dsPlayAvailable(scn, kissWookiee)) {
+			throw new RuntimeException("I'd Just As Soon Kiss A Wookiee not offered after Trooper deploy: "
+					+ decisionSnapshot(scn));
+		}
+		scn.DSPlayCard(kissWookiee);
+		scn.PassAllResponses();
+
+		assertEquals(Zone.HAND, trooper.getZone());
+
+		AdvanceThroughEndOfDSNextTurn(scn);
+		assertEquals(Zone.HAND, trooper.getZone());
+		assertEquals(0, scn.GetLSLostPileCount());
+	}
+
+	@Test
+	public void FrustrationUndercoverTk422DeploySatisfies() {
+		// TK-422 7_48 deploys only as an Undercover spy at same site as an Imperial.
+		// Printed 3, so Mos Eisley 1_133 is on table (4 LS icons). Stormtrooper 1_194 is
+		// cheated to Mos Eisley. A second TK-422 stays in hand; if justDeployed fired for
+		// undercover, that copy is not lost.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var tk422 = scn.GetLSCard("tk422");
+		var tk422b = scn.GetLSCard("tk422b");
+		var stormtrooper = scn.GetDSCard("stormtrooper");
+		var mosEisley = scn.GetLSCard("mosEisley");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(tk422, tk422b);
+
+		scn.StartGame();
+		scn.MoveLocationToTable(mosEisley);
+		scn.MoveCardsToLocation(mosEisley, stormtrooper);
+		scn.LSActivateForceCheat(5);
+
+		PeekFrustrationAtHand(scn);
+		if (!scn.DSHasCardChoiceAvailable(tk422) && !scn.DSHasCardChoiceAvailable(tk422b)) {
+			throw new RuntimeException("Expected TK-422 as Frustration target: " + decisionSnapshot(scn));
+		}
+		scn.DSChooseCard(tk422);
+		scn.PassAllResponses();
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		if (!scn.LSDeployAvailable(tk422)) {
+			throw new RuntimeException("TK-422 deploy not available: " + decisionSnapshot(scn));
+		}
+		scn.LSDeployCard(tk422);
+		if (scn.LSHasCardChoiceAvailable(mosEisley)) {
+			scn.LSChooseCard(mosEisley);
+		}
+		else if (scn.LSDecisionAvailable("Choose where to deploy") || scn.LSDecisionAvailable("Choose location where to deploy")) {
+			scn.LSChooseCard(mosEisley);
+		}
+		else {
+			throw new RuntimeException("Expected Mos Eisley as TK-422 deploy site: " + decisionSnapshot(scn));
+		}
+		scn.PassAllResponses();
+
+		assertEquals(Zone.HAND, tk422b.getZone());
+		AdvanceThroughEndOfDSNextTurn(scn);
+		assertEquals(Zone.HAND, tk422b.getZone());
+		assertEquals(0, scn.GetLSLostPileCount());
+	}
+
+	@Test
+	public void FrustrationDsDeployingSameTitleDoesNotSatisfyLsObligation() {
+		// Light Disruptor Pistol 7_157 in LS hand, Dark Disruptor Pistol 7_319 deployed by DS
+		// onto Stormtrooper 1_194. Same title "Disruptor Pistol". DS deploying that title does
+		// not satisfy LS's obligation. Mos Eisley so the pistol's cost is < LS icons.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var lsPistol = scn.GetLSCard("lsPistol");
+		var dsPistol = scn.GetDSCard("dsPistol");
+		var stormtrooper = scn.GetDSCard("stormtrooper");
+		var mosEisley = scn.GetLSCard("mosEisley");
+
+		scn.MoveCardsToDSHand(frustration, dsPistol);
+		scn.MoveCardsToLSHand(lsPistol);
+
+		scn.StartGame();
+		scn.MoveLocationToTable(mosEisley);
+		scn.MoveCardsToLocation(mosEisley, stormtrooper);
+		scn.DSActivateForceCheat(3);
+
+		PeekFrustrationAtHand(scn);
+		if (!scn.DSHasCardChoiceAvailable(lsPistol)) {
+			throw new RuntimeException("Expected LS Disruptor Pistol as Frustration target: " + decisionSnapshot(scn));
+		}
+		scn.DSChooseCard(lsPistol);
+		scn.PassAllResponses();
+
+		scn.SkipToPhase(Phase.DEPLOY);
+		if (!scn.DSDeployAvailable(dsPistol)) {
+			throw new RuntimeException("DS Disruptor Pistol deploy not available: " + decisionSnapshot(scn));
+		}
+		scn.DSDeployCard(dsPistol);
+		if (scn.DSHasCardChoiceAvailable(stormtrooper)) {
+			scn.DSChooseCard(stormtrooper);
+		}
+		else if (scn.DSDecisionAvailable("Choose where to deploy") || scn.DSDecisionAvailable("Choose target")) {
+			scn.DSChooseCard(stormtrooper);
+		}
+		else {
+			throw new RuntimeException("Expected Stormtrooper as DS pistol deploy target: " + decisionSnapshot(scn));
+		}
+		scn.PassAllResponses();
+
+		AdvanceThroughEndOfDSNextTurn(scn);
+		assertEquals(Zone.TOP_OF_LOST_PILE, lsPistol.getZone());
+		assertEquals(1, scn.GetLSLostPileCount());
+	}
+
+	@Test
+	public void FrustrationCannotTargetAdmiralsOrderOrDefensiveShieldThatDeployFree() {
+		// I'll Take The Leader 9_4 is an AbstractAdmiralsOrder. Your Insight Serves You Well (V)
+		// 200_32 is an AbstractDefensiveShield. Both always play for free. Free is not a deploy
+		// cost, same pattern as JP Leia. Rebel Trooper remains a legal target.
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var admiralsOrder = scn.GetLSCard("admiralsOrder");
+		var insight = scn.GetLSCard("insight");
+		var trooper = scn.GetLSCard("trooper");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(admiralsOrder, insight, trooper);
+
+		scn.StartGame();
+		PeekFrustrationAtHand(scn);
+
+		assertTrue(scn.DSHasCardChoiceNotAvailable(admiralsOrder));
+		assertTrue(scn.DSHasCardChoiceNotAvailable(insight));
 		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
 	}
 
