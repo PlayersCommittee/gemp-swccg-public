@@ -604,6 +604,32 @@ public class Card_1_39_Tests {
     }
 
     @Test
+    public void TargetingComputerAttachedDoesNotSubtractFromNormalHeavyTurbolaserFire() {
+        // Playtest: Verrack on Defiance fires HTB at Executor with Targeting Computer attached but unused.
+        // Printed 3 (HTB) and 6 (Concentrate All Fire): each +2 Defiance +2 Verrack vs capital.
+        // Correct: 7 and 10, total 17-1=16 vs armor 12.
+        // Unused TC -1 would make 6 and 9, total 14.
+        var scn = GetScenario();
+        var htb = scn.GetLSCard("htb");
+        var executor = scn.GetDSCard("executor");
+        setupDefianceVerrack(scn, true);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.EnsureLSForcePile(4);
+
+        assertTrue(scn.LSCardActionAvailable(htb, "Fire"));
+        scn.LSUseCardAction(htb, "Fire");
+        fireTwoDestinyShot(scn, executor, 3, 6);
+
+        assertEquals(12, scn.GetDefense(executor));
+        assertWeaponDestinyDrawValues(scn, 7, 10);
+        assertEquals("unused Targeting Computer must not subtract 1 per draw (that would total 14)",
+                16, lastTotalWeaponDestiny(scn));
+        assertTrue(executor.isHit());
+        assertFalse("Ordinary non-TC shots stay unlabeled", gameLog(scn).contains("firing 1"));
+    }
+
+    @Test
     public void DefianceDackVerrackTargetingComputerSeparatelyEachBonusesRequiredVsExecutor() {
         // TC -1 each. Printed 3 and 3: each draw 3+2+1+2-1=7, total 14-1=13 vs 12 hit.
         // Missing Dack: 11 vs 12 miss.
@@ -859,6 +885,22 @@ public class Card_1_39_Tests {
         scn.AttachCardsTo(ywing, sw4, tc);
     }
 
+
+    private void setupDefianceVerrack(VirtualTableScenario scn, boolean withTc) {
+        scn.StartGame();
+        var system = scn.GetLSStartingLocation();
+        var defiance = scn.GetLSCard("defiance");
+        var htb = scn.GetLSCard("htb");
+        var executor = scn.GetDSCard("executor");
+        scn.MoveCardsToLocation(system, defiance, executor);
+        scn.BoardAsPassenger(defiance, scn.GetLSCard("verrack"));
+        if (withTc) {
+            scn.AttachCardsTo(defiance, htb, scn.GetLSCard("tc"));
+        }
+        else {
+            scn.AttachCardsTo(defiance, htb);
+        }
+    }
 
     private void setupDefianceGunners(VirtualTableScenario scn, boolean withTc) {
         scn.StartGame();

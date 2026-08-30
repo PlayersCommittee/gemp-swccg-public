@@ -16,7 +16,10 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.game.state.SeparatelyOrCombinedFiringState;
+import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
@@ -80,8 +83,16 @@ public class Card1_039 extends AbstractDevice {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new ManeuverModifier(self, hasAttached, 1));
-        // Continuous: -1 from each destiny draw when this starship fires, including fire-twice usage.
-        modifiers.add(new EachWeaponDestinyModifier(self, Filters.any, hasAttached, -1));
+        // Subtract 1 from each destiny draw only while this copy is used to fire a weapon twice.
+        // Attached but unused Targeting Computer does not modify ordinary weapon fire.
+        Condition usingThisDeviceToFire = new Condition() {
+            @Override
+            public boolean isFulfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                SeparatelyOrCombinedFiringState soc = gameState.getSeparatelyOrCombinedFiringState();
+                return soc != null && soc.getDevice() != null && soc.getDevice().getCardId() == self.getCardId();
+            }
+        };
+        modifiers.add(new EachWeaponDestinyModifier(self, Filters.any, usingThisDeviceToFire, hasAttached, -1));
         return modifiers;
     }
 
