@@ -555,10 +555,11 @@ public class DefaultSwccgGame implements SwccgGame {
         }
         // Skip snapshot while play-card or firing sub-states are open. generateSnapshot throws on those
         // fields; playCardStates must stay skipped so interrupt-initiated battles still work. Skipping a
-        // leaked SeparatelyOrCombinedFiringState / WeaponFiringState also prevents weapons-segment Pass
+        // leaked SeparatelyOrCombinedFiringState / CombinedAttackFiringState / WeaponFiringState also prevents weapons-segment Pass
         // from aborting the game.
         if (_gameState.getPlayCardStates().isEmpty()
                 && _gameState.getSeparatelyOrCombinedFiringState() == null
+                && _gameState.getCombinedAttackFiringState() == null
                 && !_gameState.isDuringWeaponFiring())
             _snapshots.add(GameSnapshot.createGameSnapshot(getNextSnapshotId(), description, _gameState, _modifiersLogic, _actionsEnvironment, _turnProcedure));
     }

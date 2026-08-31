@@ -65,6 +65,17 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
                         game.getGameState().sendMessage(_source.getOwner() + " plays Combined Attack targeting "
                                 + GameUtils.getCardLink(_target) + " with " + GameUtils.getAppendedNames(_weaponsInOrder));
                         game.getGameState().beginCombinedAttackFiring(_source, _target, _weaponsInOrder);
+                        // Always clear Combined Attack firing when this sub-action leaves the stack.
+                        // Nested finish after the last weapon can be skipped if a required response
+                        // completes nested fire without remaining parent effects.
+                        subAction.appendAfterEffect(
+                                new PassthruEffect(subAction) {
+                                    @Override
+                                    protected void doPlayEffect(SwccgGame game) {
+                                        game.getGameState().finishCombinedAttackFiring();
+                                    }
+                                }
+                        );
                         appendNextWeapon(subAction, game, 0);
                     }
                 }
@@ -111,6 +122,14 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
                                             usedTargetingComputer[0] = true;
                                             subAction.appendEffect(new UseDeviceEffect(subAction, chosen));
                                             game.getGameState().beginSeparatelyOrCombinedFiring(chosen, weapon, true);
+                                            subAction.appendAfterEffect(
+                                                    new PassthruEffect(subAction) {
+                                                        @Override
+                                                        protected void doPlayEffect(SwccgGame game) {
+                                                            game.getGameState().finishSeparatelyOrCombinedFiring();
+                                                        }
+                                                    }
+                                            );
                                             game.getGameState().sendMessage(_source.getOwner() + " uses " + GameUtils.getCardLink(chosen)
                                                     + " to fire " + GameUtils.getCardLink(weapon) + " twice: combined");
                                             subAction.appendEffect(createFireEffect(weapon, targetFilter, false));

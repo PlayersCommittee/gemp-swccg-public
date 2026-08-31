@@ -141,6 +141,7 @@ public class Card_1_75_Tests {
         fireOneShot(scn, tie, 3, 0);
         finishCombinedAttack(scn);
         assertTrue(tie.isHit());
+        assertCombinedAttackStateCleared(scn);
     }
 
     @Test
@@ -510,6 +511,7 @@ public class Card_1_75_Tests {
         String log = gameLog(scn);
         assertTrue("Combined Attack adds firing subtotals 3 + 3 + 5 = 11. LOG:\n" + log, log.contains("3 + 3 + 5 = 11"));
         assertFalse("Do not subtract Heavy Turbolaser Battery -1 again at Combined Attack resolve", log.contains("11-1="));
+        assertCombinedAttackStateCleared(scn);
     }
 
     private void setupXwingLaserAndBwingIon(VirtualTableScenario scn) {
@@ -718,6 +720,19 @@ public class Card_1_75_Tests {
             }
             scn.PlayerDecided("Light Side Player", ids.get(pick));
         }
+    }
+
+    /**
+     * After Combined Attack finishes, Combined Attack and Targeting Computer firing states must be empty
+     * and taking a snapshot must not throw. Weapons-segment Pass snapshots the game; if those states are
+     * still set the game is canceled.
+     */
+    private void assertCombinedAttackStateCleared(VirtualTableScenario scn) {
+        assertTrue("Combined Attack must clear Combined Attack firing state",
+                scn.gameState().getCombinedAttackFiringState() == null);
+        assertTrue("Combined Attack must clear Targeting Computer separately-or-combined firing state",
+                scn.gameState().getSeparatelyOrCombinedFiringState() == null);
+        scn.game().takeSnapshot("after Combined Attack");
     }
 
     private void finishCombinedAttack(VirtualTableScenario scn) {
