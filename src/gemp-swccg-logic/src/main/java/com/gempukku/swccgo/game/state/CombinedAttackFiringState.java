@@ -14,13 +14,13 @@ import java.util.Map;
 /**
  * Tracks Premiere Combined Attack (1_75) while two or more starship weapons fire as one interrupt action.
  *
- * AR 2023 Appendix A: add all weapon destiny DRAWS together, then apply that shared draw-sum separately
- * for each participating weapon (each weapon brings its own total-weapon-destiny modifiers).
+ * Each Combined Attack / Targeting Computer firing is its own complete total weapon destiny subtotal:
+ * sum that firing's destiny draws (including each-draw mods), then apply that weapon's
+ * TOTAL_WEAPON_DESTINY modifiers (Heavy Turbolaser Battery -1 vs capital / -6 otherwise).
+ * Combined Attack adds those subtotals. Targeting Computer twice on one Heavy Turbolaser Battery
+ * is two subtotals, so -1 is subtracted twice. Do not apply total modifiers again at resolve.
  * Results are applied only after all participating weapons have fired (Gergall / forum t=58557),
  * via each weapon's own destinyDraws path (hit, lost, ionize, etc.).
- *
- * This is NOT Targeting Computer fire-twice. When Targeting Computer is used inside Combined Attack,
- * those extra destinies are additional draws in this pool; the TC weapon is still one weapon when applying.
  */
 public class CombinedAttackFiringState {
     private final PhysicalCard _source;
@@ -49,9 +49,10 @@ public class CombinedAttackFiringState {
     }
 
     /**
-     * Record one weapon-destiny firing (draw modifiers only). Snapshot that weapon's total-modifier
-     * contribution and Variable X now, while WeaponFiringState is still active (Intruder Missile
-     * is placed in Used Pile after firing; X is until-end-of-weapon-firing).
+     * Record one firing's complete total weapon destiny subtotal (draws plus that firing's
+     * total-weapon-destiny modifiers, already clamped at max(0, ...)). Snapshot Variable X
+     * now, while WeaponFiringState is still active (Intruder Missile is placed in Used Pile
+     * after firing; X is until-end-of-weapon-firing).
      */
     public void addFiring(PhysicalCard weapon, PhysicalCard cardFiringWeapon,
                           SwccgBuiltInCardBlueprint permanentWeapon, float drawModifiedDestiny,
@@ -121,10 +122,9 @@ public class CombinedAttackFiringState {
                 + sign + GuiUtils.formatAsString(totalModifier) + "=" + GuiUtils.formatAsString(total);
     }
 
-    public String getDrawModifiersOnlyMessage(PhysicalCard weapon, float firingDestiny) {
+    public String getFiringSubtotalMessage(PhysicalCard weapon, float subtotal) {
         String weaponLink = weapon != null ? GameUtils.getCardLink(weapon) : "weapon";
-        return "Combined Attack: " + weaponLink + " destiny " + GuiUtils.formatAsString(firingDestiny)
-                + " (draw modifiers only)";
+        return "Combined Attack: " + weaponLink + " destiny " + GuiUtils.formatAsString(subtotal);
     }
 
     public static String formatAddends(List<Float> values) {

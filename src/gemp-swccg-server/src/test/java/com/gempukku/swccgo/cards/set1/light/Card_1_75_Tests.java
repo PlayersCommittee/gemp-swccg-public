@@ -13,6 +13,8 @@ import com.gempukku.swccgo.game.PhysicalCardImpl;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -40,6 +42,10 @@ public class Card_1_75_Tests {
                     put("im", "7_159");
                     put("im2", "7_159");
                     put("sw4", "2_081");
+                    put("htb", "9_89");
+                    put("htb2", "9_89");
+                    put("homeone", "9_74");
+                    put("defiance", "9_67");
                 }},
                 new HashMap<>()
                 {{
@@ -140,14 +146,12 @@ public class Card_1_75_Tests {
     @Test
     public void CombinedAttackExample2EptAndTwoIntruderMissilesHitsStalkerNotExecutor() {
         /**
-         * Google Doc / Rulebook Example 2 (fleshed out):
+         * Google Doc / Rulebook Example 2 under the subtotal-add model:
          * LS Combined Attack combining Enhanced Proton Torpedoes + 2 Intruder Missiles.
-         * Draws 1, 2, 3. Draw-sum 6.
-         * Total modifiers: +1 from Torpedoes (vs capital) and +3 from ONE Intruder Missile
-         * (not +6 from two; cumulative / per-weapon).
-         * Per-weapon AR: EPT 6+1=7 vs Stalker armor 7 miss; IM 6+3=9 vs 7 hit.
-         * Executor armor 12: 7 and 9 both miss.
-         * Grand-total teaching number 1+2+3+1+3=10 also hits Stalker and misses Executor.
+         * Draws prepared as 1, 1, 1. Each firing is a complete total: Enhanced Proton
+         * Torpedoes 1+1=2; each Intruder Missile +3. One B-wing pilot adds +1 to a draw,
+         * so the addends are 2 + 5 + 4 = 11. That shared 11 is applied for each weapon
+         * (do not add +1 or +3 again). Stalker armor 7: hit. Executor armor 12: miss.
          */
         var scn = GetScenario();
         var ca = scn.GetLSCard("ca");
@@ -157,19 +161,24 @@ public class Card_1_75_Tests {
         var stalker = scn.GetDSCard("stalker");
         setupEptAndTwoIntruderMissiles(scn, false);
         scn.MoveCardsToHand(ca);
+        scn.EnsureLSForcePile(8);
 
         scn.StartBattleAndSkipToWeaponsSegment();
         playCombinedAttack(scn, stalker, ept, im, im2);
-        stackCombinedAttackDestinies(scn, 1, 2, 3);
+        // Destinies prepared immediately before each draw in fireOneShot.
 
         fireOneShot(scn, stalker, 1);
         assertFalse(stalker.isHit());
-        fireOneShot(scn, stalker, 2);
+        fireOneShot(scn, stalker, 1);
         assertFalse(stalker.isHit());
-        fireOneShot(scn, stalker, 3);
+        fireOneShot(scn, stalker, 1);
         finishCombinedAttack(scn);
-        assertTrue("Stalker armor 7 must be hit by Combined Attack example 2", stalker.isHit());
+        assertTrue("Stalker armor 7 must be hit by Combined Attack example 2 subtotals 2+5+4=11", stalker.isHit());
         assertEquals(7, scn.GetDefense(stalker));
+        String log = gameLog(scn);
+        assertTrue("Combined Attack adds firing subtotals 2 + 5 + 4 = 11. LOG:\n" + log, log.contains("2 + 5 + 4 = 11"));
+        assertFalse("Do not apply Enhanced Proton Torpedoes +1 again at Combined Attack resolve", log.contains("11+1="));
+        assertFalse("Do not apply Intruder Missile +3 again at Combined Attack resolve", log.contains("11+3="));
     }
 
     @Test
@@ -182,17 +191,22 @@ public class Card_1_75_Tests {
         var executor = scn.GetDSCard("executor");
         setupEptAndTwoIntruderMissiles(scn, true);
         scn.MoveCardsToHand(ca);
+        scn.EnsureLSForcePile(8);
 
         scn.StartBattleAndSkipToWeaponsSegment();
         playCombinedAttack(scn, executor, ept, im, im2);
-        stackCombinedAttackDestinies(scn, 1, 2, 3);
+        // Destinies prepared immediately before each draw in fireOneShot.
 
         fireOneShot(scn, executor, 1);
-        fireOneShot(scn, executor, 2);
-        fireOneShot(scn, executor, 3);
+        fireOneShot(scn, executor, 1);
+        fireOneShot(scn, executor, 1);
         finishCombinedAttack(scn);
 
-        assertFalse("Executor armor 12 must not be hit by destinies 1+2+3 plus EPT/IM totals", executor.isHit());
+        assertFalse("Executor armor 12 must not be hit by Combined Attack subtotals 2+5+4=11", executor.isHit());
+        String log = gameLog(scn);
+        assertTrue("Combined Attack adds firing subtotals 2 + 5 + 4 = 11 vs Executor. LOG:\n" + log, log.contains("2 + 5 + 4 = 11"));
+        assertFalse("Do not apply Enhanced Proton Torpedoes +1 again at Combined Attack resolve vs Executor", log.contains("11+1="));
+        assertFalse("Do not apply Intruder Missile +3 again at Combined Attack resolve vs Executor", log.contains("11+3="));
     }
 
     @Test
@@ -394,6 +408,110 @@ public class Card_1_75_Tests {
     }
 
 
+    @Test
+    public void CombinedAttackTwoHeavyTurbolaserBatteriesVsExecutorAppliesMinusOnePerWeapon() {
+        // Two Heavy Turbolaser Batteries vs Executor (capital, armor 12).
+        // Each firing: draw two destinies, then Heavy Turbolaser Battery -1 vs capital.
+        // Draws 4,3 then 4,3. Subtotals 7-1=6 and 7-1=6. Combined Attack adds 6 + 6 = 12.
+        // 12 is not > armor 12, miss. Skipping either firing's -1 is 13 > 12 and would hit.
+        var scn = GetScenario();
+        var ca = scn.GetLSCard("ca");
+        var htb = scn.GetLSCard("htb");
+        var htb2 = scn.GetLSCard("htb2");
+        var executor = scn.GetDSCard("executor");
+        setupTwoHeavyTurbolaserBatteriesOnHomeOne(scn, true);
+        scn.MoveCardsToHand(ca);
+        scn.EnsureLSForcePile(6);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        playCombinedAttack(scn, executor, htb, htb2);
+
+        fireTwoDestinyShot(scn, executor, 4, 3);
+        assertFalse("First Combined Attack Heavy Turbolaser Battery firing must not resolve a hit by itself", executor.isHit());
+        assertEquals("First firing displayed total includes Heavy Turbolaser Battery -1 (7-1=6)", 6, lastTotalWeaponDestiny(scn));
+        fireTwoDestinyShot(scn, executor, 4, 3);
+        assertEquals("Second firing displayed total includes Heavy Turbolaser Battery -1 (7-1=6)", 6, lastTotalWeaponDestiny(scn));
+        finishCombinedAttack(scn);
+
+        assertEquals(12, scn.GetDefense(executor));
+        assertFalse("Heavy Turbolaser Battery -1 in each subtotal must make 6+6=12 miss Executor armor 12", executor.isHit());
+        String log = gameLog(scn);
+        assertTrue("Combined Attack adds firing subtotals 6 + 6 = 12. LOG:\n" + log, log.contains("6 + 6 = 12"));
+        assertFalse("Do not subtract Heavy Turbolaser Battery -1 again at Combined Attack resolve", log.contains("12-1="));
+    }
+
+    @Test
+    public void CombinedAttackTwoHeavyTurbolaserBatteriesVsTieAppliesMinusSix() {
+        // Same two Heavy Turbolaser Batteries vs a TIE (not capital). Heavy Turbolaser Battery -6 per firing.
+        // Draws 2,2 then 2,2. Subtotals max(0, 4-6)=0 and 0. Combined Attack adds 0 + 0 = 0, miss vs maneuver 3.
+        // Skipping -6 on either firing is 4 > 3 and would hit.
+        var scn = GetScenario();
+        var ca = scn.GetLSCard("ca");
+        var htb = scn.GetLSCard("htb");
+        var htb2 = scn.GetLSCard("htb2");
+        var tie = scn.GetDSCard("tie");
+        setupTwoHeavyTurbolaserBatteriesOnHomeOne(scn, false);
+        scn.MoveCardsToHand(ca);
+        scn.EnsureLSForcePile(6);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        playCombinedAttack(scn, tie, htb, htb2);
+
+        fireTwoDestinyShot(scn, tie, 2, 2);
+        assertFalse("First Combined Attack Heavy Turbolaser Battery firing must not resolve a hit by itself", tie.isHit());
+        assertEquals("First firing displayed total includes Heavy Turbolaser Battery -6 (4-6 clamped to 0)", 0, lastTotalWeaponDestiny(scn));
+        fireTwoDestinyShot(scn, tie, 2, 2);
+        assertEquals("Second firing displayed total includes Heavy Turbolaser Battery -6 (clamped to 0)", 0, lastTotalWeaponDestiny(scn));
+        finishCombinedAttack(scn);
+
+        assertEquals(3, scn.GetDefense(tie));
+        assertFalse("Heavy Turbolaser Battery -6 in each subtotal must make 0+0=0 miss TIE maneuver 3", tie.isHit());
+        String log = gameLog(scn);
+        assertTrue("Combined Attack adds firing subtotals 0 + 0 = 0. LOG:\n" + log, log.contains("0 + 0 = 0"));
+        assertFalse("Do not subtract Heavy Turbolaser Battery -6 again at Combined Attack resolve", log.contains("0-6="));
+    }
+
+    @Test
+    public void CombinedAttackDefianceTargetingComputerHeavyTurbolaserEachDrawAndTotalOnce() {
+        // Defiance +2 each draw, Targeting Computer -1 each draw while fire-twice,
+        // Heavy Turbolaser Battery -1 per firing vs Executor (Targeting Computer twice subtracts twice).
+        // Printed 1,1 then 1,1 (Targeting Computer) then 1,1 (second battery).
+        // Targeting Computer firing 1: (1+2-1)+(1+2-1)=4, then -1 = 3.
+        // Targeting Computer firing 2: same subtotal 3 (must subtract again).
+        // Second Heavy Turbolaser Battery: (1+2)+(1+2)=6, then -1 = 5.
+        // Combined Attack adds 3 + 3 + 5 = 11, miss vs armor 12.
+        // Skipping both Targeting Computer firing subtracts is 4+4+5=13 and would hit.
+        var scn = GetScenario();
+        var ca = scn.GetLSCard("ca");
+        var htb = scn.GetLSCard("htb");
+        var htb2 = scn.GetLSCard("htb2");
+        var executor = scn.GetDSCard("executor");
+        setupTwoHeavyTurbolaserBatteriesOnDefianceWithTargetingComputer(scn);
+        scn.MoveCardsToHand(ca);
+        scn.EnsureLSForcePile(8);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        playCombinedAttack(scn, executor, htb, htb2);
+        chooseWhetherToUseTargetingComputer(scn, htb, true);
+
+        fireTwoDestinyShot(scn, executor, 1, 1);
+        assertFalse("First Targeting Computer Combined Attack firing must not resolve a hit by itself", executor.isHit());
+        assertEquals("First Targeting Computer firing subtotal includes Heavy Turbolaser Battery -1 (4-1=3)", 3, lastTotalWeaponDestiny(scn));
+        fireTwoDestinyShot(scn, executor, 1, 1);
+        assertFalse("Second Targeting Computer Combined Attack firing must not resolve a hit by itself", executor.isHit());
+        assertEquals("Second Targeting Computer firing must subtract Heavy Turbolaser Battery -1 again (4-1=3)", 3, lastTotalWeaponDestiny(scn));
+        fireTwoDestinyShot(scn, executor, 1, 1);
+        assertEquals("Second Heavy Turbolaser Battery firing includes -1 (6-1=5). LOG:\n" + gameLog(scn), 5, lastTotalWeaponDestiny(scn));
+        finishCombinedAttack(scn);
+
+        assertWeaponDestinyDrawValues(scn, 2, 2, 2, 2, 3, 3);
+        assertEquals(12, scn.GetDefense(executor));
+        assertFalse("Targeting Computer twice must subtract Heavy Turbolaser Battery -1 twice so 3+3+5=11 misses Executor", executor.isHit());
+        String log = gameLog(scn);
+        assertTrue("Combined Attack adds firing subtotals 3 + 3 + 5 = 11. LOG:\n" + log, log.contains("3 + 3 + 5 = 11"));
+        assertFalse("Do not subtract Heavy Turbolaser Battery -1 again at Combined Attack resolve", log.contains("11-1="));
+    }
+
     private void setupXwingLaserAndBwingIon(VirtualTableScenario scn) {
         scn.StartGame();
         var system = scn.GetLSStartingLocation();
@@ -497,7 +615,7 @@ public class Card_1_75_Tests {
         if (weapons.length > 0 && scn.LSGetDecision() != null) {
             scn.LSChooseCards(weapons);
         }
-        scn.PassAllResponses();
+        scn.PassCardPlayResponses();
     }
 
     /**
@@ -621,4 +739,93 @@ public class Card_1_75_Tests {
         scn.PassResponses("ABOUT_TO_BE_LOST");
         scn.PassAllResponses();
     }
+    /**
+     * Two Heavy Turbolaser Batteries on Home One vs Executor (capital) or a TIE (not capital).
+     */
+    private void setupTwoHeavyTurbolaserBatteriesOnHomeOne(VirtualTableScenario scn, boolean vsExecutor) {
+        scn.StartGame();
+        var system = scn.GetLSStartingLocation();
+        var homeone = scn.GetLSCard("homeone");
+        var htb = scn.GetLSCard("htb");
+        var htb2 = scn.GetLSCard("htb2");
+        var target = vsExecutor ? scn.GetDSCard("executor") : scn.GetDSCard("tie");
+        scn.MoveCardsToLocation(system, homeone, target);
+        scn.AttachCardsTo(homeone, htb, htb2);
+    }
+
+    /**
+     * Two Heavy Turbolaser Batteries and a Targeting Computer on Defiance vs Executor.
+     */
+    private void setupTwoHeavyTurbolaserBatteriesOnDefianceWithTargetingComputer(VirtualTableScenario scn) {
+        scn.StartGame();
+        var system = scn.GetLSStartingLocation();
+        var defiance = scn.GetLSCard("defiance");
+        var htb = scn.GetLSCard("htb");
+        var htb2 = scn.GetLSCard("htb2");
+        var tc = scn.GetLSCard("tc");
+        var executor = scn.GetDSCard("executor");
+        scn.MoveCardsToLocation(system, defiance, executor);
+        scn.AttachCardsTo(defiance, htb, htb2, tc);
+    }
+
+    /**
+     * Fire a Combined Attack weapon that draws two destinies (Heavy Turbolaser Battery).
+     * Prepare each draw immediately before it so the same destiny value can be reused.
+     */
+    private void fireTwoDestinyShot(VirtualTableScenario scn, PhysicalCardImpl target, int destiny1, int destiny2) {
+        if (scn.LSGetDecision() != null && scn.LSDecisionAvailable("Targeting Computer") && scn.LSDecisionAvailable("Done")) {
+            // Second Combined Attack weapon on the same starship: skip leftover Targeting Computer.
+            scn.LSDecided("");
+        }
+        if (scn.LSGetDecision() != null && scn.LSHasCardChoiceAvailable(target)) {
+            scn.LSChooseCard(target);
+        }
+        chooseForceAmountIfPrompted(scn, null);
+        scn.PrepareLSDestiny(destiny1);
+        scn.PassForceUseResponses();
+        scn.PassResponses("Fire ");
+        scn.PassDestinyDrawResponses();
+        scn.PrepareLSDestiny(destiny2);
+        scn.PassDestinyDrawResponses();
+        passPostFiringResponses(scn);
+    }
+
+    private String gameLog(VirtualTableScenario scn) {
+        return String.join("\n", scn.gameState().getLastMessages());
+    }
+
+    private int lastTotalWeaponDestiny(VirtualTableScenario scn) {
+        Integer last = null;
+        for (String msg : scn.gameState().getLastMessages()) {
+            String lower = msg.toLowerCase();
+            int idx = lower.lastIndexOf("total weapon destiny is ");
+            if (idx >= 0) {
+                String rest = msg.substring(idx + "total weapon destiny is ".length()).trim();
+                last = (int) Float.parseFloat(rest.split("[^0-9.]")[0]);
+            }
+        }
+        assertTrue("Expected a total weapon destiny log, got: " + gameLog(scn), last != null);
+        return last;
+    }
+
+    /**
+     * Last weapon destiny draw values in order, after each-draw modifiers (Defiance +2, Targeting Computer -1).
+     */
+    private void assertWeaponDestinyDrawValues(VirtualTableScenario scn, int... expected) {
+        List<Integer> actual = new ArrayList<>();
+        for (String msg : scn.gameState().getLastMessages()) {
+            int idx = msg.indexOf(" as a ");
+            int destIdx = msg.indexOf(" for weapon destiny");
+            if (idx >= 0 && destIdx > idx) {
+                actual.add((int) Float.parseFloat(msg.substring(idx + " as a ".length(), destIdx).trim()));
+            }
+        }
+        assertTrue("Expected last weapon destiny draws " + Arrays.toString(expected) + " but saw " + actual,
+                actual.size() >= expected.length);
+        List<Integer> last = actual.subList(actual.size() - expected.length, actual.size());
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals("weapon destiny draw " + (i + 1) + " of " + last, expected[i], last.get(i).intValue());
+        }
+    }
+
 }

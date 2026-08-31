@@ -27,9 +27,10 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Combined Attack result: fire the chosen starship weapons one at a time at the shared target, collect destiny
- * DRAWS, then apply the added total separately for each weapon (AR per-weapon total modifiers) using each
- * weapon's own destinyDraws path (X-wing Laser Cannon can lose the target; Ion Cannon ionizes; others hit).
+ * Combined Attack result: fire the chosen starship weapons one at a time at the shared target. Each firing
+ * is a complete total weapon destiny subtotal (draws plus that firing's total-weapon-destiny modifiers).
+ * Combined Attack adds those subtotals and applies that shared total for each participating weapon
+ * using each weapon's own destinyDraws path (X-wing Laser Cannon can lose the target; Ion Cannon ionizes; others hit).
  *
  * Pending option A: costs paid as each shot initiates; if a later weapon cannot pay, skip it; completed
  * destinies still combine and still get applied to the weapons that did fire.
@@ -181,8 +182,9 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
     }
 
     /**
-     * After all fire: shared draw-sum applied separately per completed weapon via that weapon's own
-     * destinyDraws path. Player chooses apply order when 2+ weapons completed.
+     * After all fire: summed firing subtotals applied as the shared total for each completed
+     * weapon via that weapon's own destinyDraws path. Total-weapon-destiny modifiers are already
+     * inside each subtotal. Player chooses apply order when 2+ weapons completed.
      */
     private void resolveCombinedAttack(Action action, SwccgGame game) {
         CombinedAttackFiringState ca = game.getGameState().getCombinedAttackFiringState();
@@ -254,9 +256,9 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
     private void applyWeaponRecord(Action action, SwccgGame game, CombinedAttackFiringState.WeaponRecord record,
                                    float drawSum, PhysicalCard target) {
         PhysicalCard weapon = record.getWeapon();
-        float total = Math.max(0, drawSum + record.getTotalModifierSnapshot());
+        float total = Math.max(0, drawSum);
         game.getGameState().sendMessage(CombinedAttackFiringState.getPerWeaponTotalMessage(
-                weapon, drawSum, record.getTotalModifierSnapshot(), total));
+                weapon, drawSum, 0f, total));
         boolean queued = false;
         if (record.getDrawDestinyEffect() != null) {
             queued = record.getDrawDestinyEffect().applyDeferredWeaponResult(game, action, weapon,
