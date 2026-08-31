@@ -37,8 +37,6 @@ import java.util.List;
  * After all destinies: if 2+ weapons completed, the player chooses which weapon result applies first.
  */
 public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
-    private static final String CHOOSE_TARGETING_COMPUTER =
-            "Choose a Targeting Computer to fire this Combined Attack weapon twice, or click 'Done' to cancel";
 
     private final PhysicalCard _source;
     private final List<PhysicalCard> _weaponsInOrder;
@@ -104,7 +102,9 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
                             final boolean[] usedTargetingComputer = new boolean[] { false };
                             subAction.appendEffect(
                                     new ChooseCardOnTableEffect(subAction, _source.getOwner(),
-                                            CHOOSE_TARGETING_COMPUTER, Filters.in(targetingComputers), 0) {
+                                            "Choose a Targeting Computer to fire " + GameUtils.getCardLink(weapon)
+                                                    + " twice, or click 'Done' to cancel",
+                                            Filters.in(targetingComputers), 0) {
                                         @Override
                                         protected void cardSelected(PhysicalCard chosen) {
                                             usedTargetingComputer[0] = true;

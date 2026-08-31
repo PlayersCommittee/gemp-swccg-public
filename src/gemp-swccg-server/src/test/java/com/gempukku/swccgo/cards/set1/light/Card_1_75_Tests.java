@@ -211,7 +211,7 @@ public class Card_1_75_Tests {
 
         scn.StartBattleAndSkipToWeaponsSegment();
         playCombinedAttack(scn, tie, xwlc, xwlc2);
-        chooseWhetherToUseTargetingComputer(scn, true);
+        chooseWhetherToUseTargetingComputer(scn, xwlc, true);
 
         // TC -1 on each draw from the TC starship: dest 4,4 then 1 from the other weapon => (4-1)+(4-1)+1 = 7 > 3.
         fireOneShot(scn, tie, 4, 0);
@@ -244,7 +244,7 @@ public class Card_1_75_Tests {
 
         scn.StartBattleAndSkipToWeaponsSegment();
         playCombinedAttack(scn, tie, xwlc, xwlc2);
-        chooseWhetherToUseTargetingComputer(scn, true);
+        chooseWhetherToUseTargetingComputer(scn, xwlc, true);
 
         fireOneShot(scn, tie, 4, 0);
         fireOneShot(scn, tie, 4, 0);
@@ -278,7 +278,7 @@ public class Card_1_75_Tests {
 
         scn.StartBattleAndSkipToWeaponsSegment();
         playCombinedAttack(scn, tie, xwlc, xwlc2);
-        chooseWhetherToUseTargetingComputer(scn, true);
+        chooseWhetherToUseTargetingComputer(scn, xwlc, true);
         if (scn.LSGetDecision() != null) {
             assertFalse("Using Targeting Computer inside Combined Attack must not then ask Separately vs Combined",
                     scn.LSChoiceAvailable("Separately"));
@@ -315,7 +315,7 @@ public class Card_1_75_Tests {
 
         scn.StartBattleAndSkipToWeaponsSegment();
         playCombinedAttack(scn, tie, xwlc, xwlc2);
-        chooseWhetherToUseTargetingComputer(scn, false);
+        chooseWhetherToUseTargetingComputer(scn, xwlc, false);
 
         // One shot from the Targeting Computer ship (no second Targeting Computer firing) plus the other weapon.
         fireOneShot(scn, tie, 4, 0);
@@ -342,7 +342,7 @@ public class Card_1_75_Tests {
 
         scn.StartBattleAndSkipToWeaponsSegment();
         playCombinedAttack(scn, tie, xwlc, xwlc2);
-        assertTargetingComputerTableChooser(scn);
+        assertTargetingComputerTableChooser(scn, xwlc);
         assertTrue(scn.LSHasCardChoiceAvailable(tc));
         assertTrue(scn.LSHasCardChoiceAvailable(tc2));
         assertEquals("Only unused Targeting Computers on the firing starship", 2, scn.LSGetCardChoiceCount());
@@ -502,11 +502,13 @@ public class Card_1_75_Tests {
 
     /**
      * Combined Attack optional Targeting Computer table chooser: click a Targeting Computer
-     * card to fire that Combined Attack weapon twice into the pool, or Done to skip.
-     * Not the standalone Fire a weapon twice three-way, and not MultipleChoice buttons.
+     * card to fire the named Combined Attack weapon twice into the pool, or Done to skip.
+     * The prompt names that firing weapon (for example X-wing Laser Cannon) so the player
+     * knows which Combined Attack weapon is about to fire. Not the standalone Fire a weapon
+     * twice three-way, and not MultipleChoice buttons.
      */
-    private void chooseWhetherToUseTargetingComputer(VirtualTableScenario scn, boolean useTargetingComputer) {
-        assertTargetingComputerTableChooser(scn);
+    private void chooseWhetherToUseTargetingComputer(VirtualTableScenario scn, PhysicalCardImpl weapon, boolean useTargetingComputer) {
+        assertTargetingComputerTableChooser(scn, weapon);
         if (useTargetingComputer) {
             scn.LSChooseCard(scn.GetLSCard("tc"));
         }
@@ -518,12 +520,13 @@ public class Card_1_75_Tests {
 
     /**
      * Combined Attack Targeting Computer prompt is a table-card chooser, not buttons.
+     * The decision text must name Targeting Computer, the firing weapon's title, and Done.
      */
-    private void assertTargetingComputerTableChooser(VirtualTableScenario scn) {
-        assertTrue("Expected optional Targeting Computer prompt for Combined Attack, got: "
-                        + (scn.LSGetDecision() == null ? "null" : scn.LSGetDecision().getText()),
+    private void assertTargetingComputerTableChooser(VirtualTableScenario scn, PhysicalCardImpl weapon) {
+        String decisionText = scn.LSGetDecision() == null ? "null" : scn.LSGetDecision().getText();
+        assertTrue("Expected optional Targeting Computer prompt naming " + weapon.getTitle() + ", got: " + decisionText,
                 scn.LSDecisionAvailable("Targeting Computer")
-                        && scn.LSDecisionAvailable("Combined Attack")
+                        && scn.LSDecisionAvailable(weapon.getTitle())
                         && scn.LSDecisionAvailable("Done"));
         assertFalse("Combined Attack must not ask Separately vs Combined", scn.LSChoiceAvailable("Separately"));
         assertFalse("Combined Attack must not offer Don't Fire (Cancel)", scn.LSChoiceAvailable("Don't Fire"));
