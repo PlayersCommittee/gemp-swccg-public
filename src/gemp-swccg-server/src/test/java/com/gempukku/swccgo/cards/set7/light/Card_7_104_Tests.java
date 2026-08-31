@@ -21,6 +21,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_7_104_Tests {
+    private static final String STAY_SHARP_BONUS_TEXT = "Add 2 to total weapon destiny";
+    private static final String CONCENTRATE_ALL_FIRE_REDRAW_TEXT = "Cancel destiny and cause re-draw";
+
     protected VirtualTableScenario GetScenario() {
         return new VirtualTableScenario(
                 new HashMap<>()
@@ -29,6 +32,7 @@ public class Card_7_104_Tests {
                     put("htb", "9_089");
                     put("cruiser", "9_079");
                     put("han", "1_011");
+                    put("concentrate_all_fire", "9_3");
                 }},
                 new HashMap<>()
                 {{
@@ -57,8 +61,8 @@ public class Card_7_104_Tests {
          * Destiny: 4
          * Icons: Special Edition
          * Game Text: During your control phase, fire one of your starship weapons (for free). If Han or any gunner
-         *      is aboard that starship, may add 2 to destiny draw. 'Hit' target is lost. OR If you just fired a
-         *      weapon in battle, add that weapon's destiny number to your total power.
+         *      is aboard that starship, may add 2 to the total weapon destiny. 'Hit' target is lost. OR If you just
+         *      fired a weapon in battle, add that weapon's destiny number to your total power.
          * Lore: 'Ha haaaaaa!'
          * Set: Special Edition
          * Rarity: U
@@ -81,22 +85,23 @@ public class Card_7_104_Tests {
     @Test
     public void StaySharpHeavyTurbolaserBatteryCannotStackPlusFourToHitDuringControlPhase() {
         // Heavy Turbolaser Battery draws two weapon destinies. Stay Sharp may add 2 to the
-        // destiny total once, not +2 after each draw. Destinies 1 and 3 vs a capital:
+        // total weapon destiny once, not +2 after each draw. Destinies 1 and 3 vs a capital:
         // 1 + 3 - 1 = 3. Plus 2 = 5, which does not beat Imperial-Class Star Destroyer
-        // armor 6. Plus 4 would be 7 and would hit. Always take Stay Sharp +2 when it
-        // is offered so a second illegal accept would make this test fail by hitting.
+        // armor 6 (hit if total destiny > defense value). Plus 4 would be 7 and would hit.
+        // Always take Stay Sharp +2 when it is offered so a second illegal accept would
+        // make this test fail by hitting.
         var scn = GetScenario();
         var staySharp = scn.GetLSCard("stay_sharp");
         var htb = scn.GetLSCard("htb");
         var destroyer = scn.GetDSCard("destroyer");
 
-        setupStaySharpHeavyTurbolaserBatteryTable(scn);
+        setupStaySharpHeavyTurbolaserBatteryTable(scn, false);
         assertEquals(6, scn.GetDefense(destroyer));
 
         playStaySharpAndChooseHeavyTurbolaserBattery(scn, staySharp, htb);
-        int offered = resolveHeavyTurbolaserBatteryFiringWithStaySharp(scn, destroyer, true, true);
+        StaySharpFiringResult result = resolveHeavyTurbolaserBatteryFiring(scn, destroyer, true, true, false, true);
 
-        assertEquals("Stay Sharp +2 should be offered once after it is accepted", 1, offered);
+        assertEquals("Stay Sharp +2 should be offered once after it is accepted", 1, result.staySharpOffered);
         assertTargetWasNotHitByStaySharpPlusFour(scn, destroyer);
     }
 
@@ -110,21 +115,73 @@ public class Card_7_104_Tests {
         var htb = scn.GetLSCard("htb");
         var destroyer = scn.GetDSCard("destroyer");
 
-        setupStaySharpHeavyTurbolaserBatteryTable(scn);
+        setupStaySharpHeavyTurbolaserBatteryTable(scn, false);
 
         playStaySharpAndChooseHeavyTurbolaserBattery(scn, staySharp, htb);
-        int offered = resolveHeavyTurbolaserBatteryFiringWithStaySharp(scn, destroyer, false, true);
+        StaySharpFiringResult result = resolveHeavyTurbolaserBatteryFiring(scn, destroyer, false, true, false, true);
 
-        assertEquals("Stay Sharp +2 should be offered on the first draw, then again after a decline", 2, offered);
+        assertEquals("Stay Sharp +2 should be offered on the first draw, then again after a decline", 2, result.staySharpOffered);
         assertTargetWasNotHitByStaySharpPlusFour(scn, destroyer);
+    }
+
+    @Test
+    public void StaySharpPlusTwoSurvivesConcentrateAllFireRedrawAfterAccept() {
+        // Accept Stay Sharp +2 after the first Heavy Turbolaser Battery destiny, then use
+        // Concentrate All Fire to cancel and redraw that destiny. The +2 is a total weapon
+        // destiny modifier until end of weapon firing, so it must still apply after the
+        // redraw and must not be offered again. Final destinies 2 then 4 vs capital:
+        // 2 + 4 - 1 = 5 miss; +2 = 7 hits Imperial-Class Star Destroyer armor 6 (need total
+        // destiny > 6). If the modifier vanished with the canceled draw, the Destroyer
+        // would miss. Stacking to +4 would also hit, so offer-once is asserted separately.
+        var scn = GetScenario();
+        var staySharp = scn.GetLSCard("stay_sharp");
+        var htb = scn.GetLSCard("htb");
+        var destroyer = scn.GetDSCard("destroyer");
+
+        setupStaySharpHeavyTurbolaserBatteryTable(scn, true);
+        assertEquals(6, scn.GetDefense(destroyer));
+
+        playStaySharpAndChooseHeavyTurbolaserBattery(scn, staySharp, htb);
+        StaySharpFiringResult result = resolveHeavyTurbolaserBatteryFiring(scn, destroyer, true, true, true, true);
+
+        assertEquals("Stay Sharp +2 should be accepted once and not offered again after Concentrate All Fire redraw", 1, result.staySharpOffered);
+        assertEquals("Stay Sharp +2 should be accepted once", 1, result.staySharpAccepted);
+        assertEquals("Concentrate All Fire should cancel and redraw one weapon destiny", 1, result.concentrateAllFireTaken);
+        assertTargetWasHitByStaySharpPlusTwoAfterRedraw(scn, destroyer);
+    }
+
+    @Test
+    public void StaySharpStillOfferedAfterConcentrateAllFireRedrawIfNotYetAccepted() {
+        // Skip Stay Sharp on the first Heavy Turbolaser Battery destiny by taking Concentrate
+        // All Fire instead. After the redraw, Stay Sharp must still be offered until it is
+        // accepted once. Same 2+4-1 destiny math: miss without +2, hit with +2.
+        var scn = GetScenario();
+        var staySharp = scn.GetLSCard("stay_sharp");
+        var htb = scn.GetLSCard("htb");
+        var destroyer = scn.GetDSCard("destroyer");
+
+        setupStaySharpHeavyTurbolaserBatteryTable(scn, true);
+
+        playStaySharpAndChooseHeavyTurbolaserBattery(scn, staySharp, htb);
+        StaySharpFiringResult result = resolveHeavyTurbolaserBatteryFiring(scn, destroyer, true, true, true, false);
+
+        assertTrue("Stay Sharp +2 should still be offered after Concentrate All Fire redraws a destiny",
+                result.staySharpOfferedAfterConcentrateAllFire >= 1);
+        assertEquals("Stay Sharp +2 should be accepted once", 1, result.staySharpAccepted);
+        assertEquals("Concentrate All Fire should cancel and redraw one weapon destiny", 1, result.concentrateAllFireTaken);
+        assertTrue("Stay Sharp +2 must not be offered again after it is accepted",
+                result.staySharpOffered <= 2);
+        assertTargetWasHitByStaySharpPlusTwoAfterRedraw(scn, destroyer);
     }
 
     /**
      * Puts a Mon Calamari Star Cruiser with Han aboard and Heavy Turbolaser Battery attached
-     * at the Light Side system, facing an Imperial-Class Star Destroyer. Stacks weapon destinies
-     * 1 then 3 so the Heavy Turbolaser Battery total is 3 before Stay Sharp.
+     * at the Light Side system, facing an Imperial-Class Star Destroyer.
+     * Without Concentrate All Fire, stacks weapon destinies 1 then 3 so the total is 3
+     * before Stay Sharp. With Concentrate All Fire in play, stacks 1 (canceled), then
+     * redraw 2 and second draw 4 so the final total is 5 before Stay Sharp.
      */
-    private void setupStaySharpHeavyTurbolaserBatteryTable(VirtualTableScenario scn) {
+    private void setupStaySharpHeavyTurbolaserBatteryTable(VirtualTableScenario scn, boolean includeConcentrateAllFire) {
         var staySharp = scn.GetLSCard("stay_sharp");
         var htb = scn.GetLSCard("htb");
         var cruiser = scn.GetLSCard("cruiser");
@@ -138,14 +195,25 @@ public class Card_7_104_Tests {
         scn.BoardAsPilot(cruiser, han);
         scn.AttachCardsTo(cruiser, htb);
         scn.MoveCardsToLSHand(staySharp);
+        if (includeConcentrateAllFire) {
+            scn.MoveCardsToLSSideOfTable(scn.GetLSCard("concentrate_all_fire"));
+        }
 
         scn.SkipToLSTurn(Phase.CONTROL);
         assertTrue("Han must be piloting the Star Cruiser for Stay Sharp +2", scn.IsAboardAsPilot(cruiser, han));
         assertTrue("Han must remain in play aboard the Star Cruiser", han.getZone().isInPlay());
 
-        // Second draw is 3, first draw is 1 (placed on top last). 1+3-1 = 3 vs capital.
-        scn.PrepareLSDestiny(3);
-        scn.PrepareLSDestiny(1);
+        if (includeConcentrateAllFire) {
+            // Last Prepare is drawn first. First draw 1 is canceled; redraw 2 then second draw 4.
+            scn.PrepareLSDestiny(4);
+            scn.PrepareLSDestiny(2);
+            scn.PrepareLSDestiny(1);
+        }
+        else {
+            // Second draw is 3, first draw is 1 (placed on top last). 1+3-1 = 3 vs capital.
+            scn.PrepareLSDestiny(3);
+            scn.PrepareLSDestiny(1);
+        }
     }
 
     /**
@@ -162,32 +230,71 @@ public class Card_7_104_Tests {
 
     /**
      * Finishes firing Heavy Turbolaser Battery after Stay Sharp has been played.
-     * Whenever "Add 2 to weapon destiny" is offered, takes it on the first offer if
-     * takeFirstOffer is true, and on later offers if takeLaterOffers is true.
-     * Returns how many times that optional was offered.
+     * Takes or skips Stay Sharp and Concentrate All Fire optionals according to the flags.
+     * preferStaySharpFirst true means accept Stay Sharp before Concentrate All Fire when both
+     * are showing. False means take Concentrate All Fire first (skipping Stay Sharp that window).
      */
-    private int resolveHeavyTurbolaserBatteryFiringWithStaySharp(VirtualTableScenario scn,
-            PhysicalCardImpl destroyer, boolean takeFirstOffer, boolean takeLaterOffers) {
-        int offered = 0;
+    private StaySharpFiringResult resolveHeavyTurbolaserBatteryFiring(VirtualTableScenario scn,
+            PhysicalCardImpl destroyer, boolean takeFirstStaySharpOffer, boolean takeLaterStaySharpOffers,
+            boolean takeConcentrateAllFireOnce, boolean preferStaySharpFirst) {
+        StaySharpFiringResult result = new StaySharpFiringResult();
         java.util.List<String> seen = new java.util.ArrayList<>();
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 80; i++) {
             seen.add(describeDecisions(scn));
             if (scn.AwaitingLSControlPhaseActions() && i > 0) {
-                if (offered == 0) {
+                if (result.staySharpOffered == 0) {
                     throw new AssertionError("Back at control phase with no Stay Sharp offers. Decisions: " + seen);
                 }
-                return offered;
+                return result;
             }
 
-            if (scn.LSAnyDecisionsAvailable() && staySharpBonusActionAvailable(scn)) {
-                offered++;
-                boolean take = (offered == 1) ? takeFirstOffer : takeLaterOffers;
-                if (take) {
-                    scn.LSChooseAction("Add 2 to weapon destiny");
+            boolean staySharpNow = scn.LSAnyDecisionsAvailable() && staySharpBonusActionAvailable(scn);
+            boolean concentrateNow = scn.LSAnyDecisionsAvailable() && concentrateAllFireRedrawActionAvailable(scn);
+
+            if (staySharpNow && concentrateNow) {
+                result.staySharpOffered++;
+                if (result.concentrateAllFireTaken > 0) {
+                    result.staySharpOfferedAfterConcentrateAllFire++;
+                }
+                if (takeConcentrateAllFireOnce && result.concentrateAllFireTaken == 0 && !preferStaySharpFirst) {
+                    scn.LSChooseAction(CONCENTRATE_ALL_FIRE_REDRAW_TEXT);
+                    result.concentrateAllFireTaken++;
+                    continue;
+                }
+                boolean takeStaySharp = (result.staySharpOffered == 1) ? takeFirstStaySharpOffer : takeLaterStaySharpOffers;
+                if (takeStaySharp) {
+                    scn.LSChooseAction(STAY_SHARP_BONUS_TEXT);
+                    result.staySharpAccepted++;
+                    continue;
+                }
+                if (takeConcentrateAllFireOnce && result.concentrateAllFireTaken == 0) {
+                    scn.LSChooseAction(CONCENTRATE_ALL_FIRE_REDRAW_TEXT);
+                    result.concentrateAllFireTaken++;
+                    continue;
+                }
+                scn.LSDecline();
+                continue;
+            }
+
+            if (staySharpNow) {
+                result.staySharpOffered++;
+                if (result.concentrateAllFireTaken > 0) {
+                    result.staySharpOfferedAfterConcentrateAllFire++;
+                }
+                boolean takeStaySharp = (result.staySharpOffered == 1) ? takeFirstStaySharpOffer : takeLaterStaySharpOffers;
+                if (takeStaySharp) {
+                    scn.LSChooseAction(STAY_SHARP_BONUS_TEXT);
+                    result.staySharpAccepted++;
                 }
                 else {
                     scn.LSDecline();
                 }
+                continue;
+            }
+
+            if (concentrateNow && takeConcentrateAllFireOnce && result.concentrateAllFireTaken == 0) {
+                scn.LSChooseAction(CONCENTRATE_ALL_FIRE_REDRAW_TEXT);
+                result.concentrateAllFireTaken++;
                 continue;
             }
 
@@ -208,16 +315,30 @@ public class Card_7_104_Tests {
             }
 
             throw new AssertionError("No pending decision while firing Heavy Turbolaser Battery after "
-                    + i + " steps; Stay Sharp offers seen: " + offered + "; seen=" + seen);
+                    + i + " steps; Stay Sharp offers seen: " + result.staySharpOffered + "; seen=" + seen);
         }
         throw new AssertionError("Did not finish firing Heavy Turbolaser Battery. Stay Sharp offers seen: "
-                + offered + "; last decision: " + describeDecisions(scn));
+                + result.staySharpOffered + "; last decision: " + describeDecisions(scn));
     }
 
     /**
-     * True if Light Side currently has the Stay Sharp optional to add 2 to weapon destiny.
+     * True if Light Side currently has the Stay Sharp optional to add 2 to total weapon destiny.
      */
     private boolean staySharpBonusActionAvailable(VirtualTableScenario scn) {
+        return actionTextContains(scn, STAY_SHARP_BONUS_TEXT);
+    }
+
+    /**
+     * True if Light Side currently has Concentrate All Fire's cancel and redraw optional.
+     */
+    private boolean concentrateAllFireRedrawActionAvailable(VirtualTableScenario scn) {
+        return actionTextContains(scn, CONCENTRATE_ALL_FIRE_REDRAW_TEXT);
+    }
+
+    /**
+     * True if any Light Side action label contains the given text.
+     */
+    private boolean actionTextContains(VirtualTableScenario scn, String needle) {
         if (!scn.LSAnyDecisionsAvailable()) {
             return false;
         }
@@ -227,7 +348,7 @@ public class Card_7_104_Tests {
             return false;
         }
         for (String text : actionTexts) {
-            if (text != null && text.contains("Add 2 to weapon destiny")) {
+            if (text != null && text.contains(needle)) {
                 return true;
             }
         }
@@ -261,5 +382,24 @@ public class Card_7_104_Tests {
         assertEquals("Imperial-Class Star Destroyer must still be at the system after a miss",
                 Zone.AT_LOCATION, destroyer.getZone());
         assertEquals(0, scn.GetDSLostPileCount());
+    }
+
+    /**
+     * With destinies 2 and 4 vs capital, Stay Sharp +2 makes total 7, which hits armor 6.
+     * Without the +2 the total is 5 and would miss, so a miss here means the bonus was lost.
+     */
+    private void assertTargetWasHitByStaySharpPlusTwoAfterRedraw(VirtualTableScenario scn, PhysicalCardImpl destroyer) {
+        assertTrue("Imperial-Class Star Destroyer must be hit; Stay Sharp +2 should still apply after Concentrate All Fire redraw",
+                destroyer.isHit() || destroyer.getZone() == Zone.LOST_PILE || scn.GetDSLostPileCount() > 0);
+    }
+
+    /**
+     * Counts Stay Sharp and Concentrate All Fire choices while Heavy Turbolaser Battery is firing.
+     */
+    private static class StaySharpFiringResult {
+        int staySharpOffered;
+        int staySharpAccepted;
+        int staySharpOfferedAfterConcentrateAllFire;
+        int concentrateAllFireTaken;
     }
 }

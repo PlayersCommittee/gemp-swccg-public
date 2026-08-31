@@ -20,8 +20,8 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.effects.FireWeaponEffect;
-import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
 import com.gempukku.swccgo.logic.effects.ModifyTotalPowerUntilEndOfBattleEffect;
+import com.gempukku.swccgo.logic.effects.ModifyTotalWeaponDestinyBeforeDrawingDestinyEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -44,7 +44,7 @@ public class Card7_104 extends AbstractUsedInterrupt {
     public Card7_104() {
         super(Side.LIGHT, 4, "Stay Sharp!", Uniqueness.UNIQUE, ExpansionSet.SPECIAL_EDITION, Rarity.U);
         setLore("'Ha haaaaaa!'");
-        setGameText("During your control phase, fire one of your starship weapons (for free). If Han or any gunner is aboard that starship, may add 2 to destiny draw. 'Hit' target is lost. OR If you just fired a weapon in battle, add that weapon's destiny number to your total power.");
+        setGameText("During your control phase, fire one of your starship weapons (for free). If Han or any gunner is aboard that starship, may add 2 to the total weapon destiny. 'Hit' target is lost. OR If you just fired a weapon in battle, add that weapon's destiny number to your total power.");
         addIcons(Icon.SPECIAL_EDITION);
     }
 
@@ -105,7 +105,8 @@ public class Card7_104 extends AbstractUsedInterrupt {
                                                                     public List<TriggerAction> getOptionalAfterTriggers(String playerId3, SwccgGame game, EffectResult effectResult) {
                                                                         List<TriggerAction> actions = new LinkedList<TriggerAction>();
                                                                         // Offer after each weapon destiny draw until the player accepts once.
-                                                                        // Accepting adds 2 to that draw (and thus the weapon destiny total).
+                                                                        // Accepting adds 2 to the TOTAL weapon destiny for the rest of this firing
+                                                                        // (until-end-of-weapon-firing), so a cancel/redraw keeps the bonus.
                                                                         // Declining leaves it available on a later draw of this same firing.
                                                                         // The same Stay Sharp bonus does not stack if it is somehow accepted twice.
                                                                         if (playerId.equals(playerId3)
@@ -114,7 +115,7 @@ public class Card7_104 extends AbstractUsedInterrupt {
                                                                                 && TriggerConditions.isWeaponDestinyJustDrawnBy(game, effectResult, playerId, weapon)) {
 
                                                                             final OptionalGameTextTriggerAction action1 = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-                                                                            action1.setText("Add 2 to weapon destiny");
+                                                                            action1.setText("Add 2 to total weapon destiny");
                                                                             action1.setPerformingPlayer(playerId);
                                                                             // Perform result(s)
                                                                             action1.appendEffect(
@@ -126,7 +127,7 @@ public class Card7_104 extends AbstractUsedInterrupt {
                                                                                             }
                                                                                             staySharpBonusAccepted = true;
                                                                                             action1.appendEffect(
-                                                                                                    new ModifyDestinyEffect(action1, 2));
+                                                                                                    new ModifyTotalWeaponDestinyBeforeDrawingDestinyEffect(action1, 2));
                                                                                         }
                                                                                     }
                                                                             );
