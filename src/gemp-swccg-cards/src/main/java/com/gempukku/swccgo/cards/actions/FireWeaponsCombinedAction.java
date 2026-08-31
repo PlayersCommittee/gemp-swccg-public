@@ -11,13 +11,12 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.CombinedAttackFiringState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.SubAction;
-import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.swccgo.logic.effects.FireWeaponEffect;
 import com.gempukku.swccgo.logic.effects.HitCardEffect;
 import com.gempukku.swccgo.logic.effects.IonizeStarshipEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
-import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -38,7 +37,8 @@ import java.util.List;
  * After all destinies: if 2+ weapons completed, the player chooses which weapon result applies first.
  */
 public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
-    private static final String DO_NOT_USE_TARGETING_COMPUTER = "Do not use Targeting Computer";
+    private static final String CHOOSE_TARGETING_COMPUTER =
+            "Choose a Targeting Computer to fire this Combined Attack weapon twice, or click 'Done' to cancel";
 
     private final PhysicalCard _source;
     private final List<PhysicalCard> _weaponsInOrder;
@@ -96,44 +96,46 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
                     protected void doPlayEffect(SwccgGame game) {
                         final List<PhysicalCard> targetingComputers = findUsableTargetingComputers(game, weapon);
                         if (!targetingComputers.isEmpty()) {
-                            // Optional: use a specific unused Targeting Computer, or use none.
+                            // Click a Targeting Computer card on that starship to use it, or Done to skip.
                             // Combined Attack already adds destinies together, so choosing a Targeting
                             // Computer always takes the combined path. No Separately / Combined / Don't Fire.
-                            List<String> options = new ArrayList<String>();
-                            for (PhysicalCard tc : targetingComputers) {
-                                options.add(GameUtils.getCardLink(tc));
-                            }
-                            options.add(DO_NOT_USE_TARGETING_COMPUTER);
+                            // Minimum 0 so Done skips this Targeting Computer choice only and does not
+                            // cancel Combined Attack or undo already-chosen weapons/target.
+                            final boolean[] usedTargetingComputer = new boolean[] { false };
                             subAction.appendEffect(
-                                    new PlayoutDecisionEffect(subAction, _source.getOwner(),
-                                            new MultipleChoiceAwaitingDecision(
-                                                    "Use Targeting Computer to fire this Combined Attack weapon twice?",
-                                                    options.toArray(new String[options.size()]), true) {
-                                                @Override
-                                                protected void validDecisionMade(int choiceIndex, String result) {
-                                                    if (result != null && result.startsWith("Do not use")) {
-                                                        subAction.appendEffect(createFireEffect(weapon, targetFilter, false));
-                                                        appendNextWeapon(subAction, game, index + 1);
-                                                        return;
+                                    new ChooseCardOnTableEffect(subAction, _source.getOwner(),
+                                            CHOOSE_TARGETING_COMPUTER, Filters.in(targetingComputers), 0) {
+                                        @Override
+                                        protected void cardSelected(PhysicalCard chosen) {
+                                            usedTargetingComputer[0] = true;
+                                            subAction.appendEffect(new UseDeviceEffect(subAction, chosen));
+                                            game.getGameState().beginSeparatelyOrCombinedFiring(chosen, weapon, true);
+                                            game.getGameState().sendMessage(_source.getOwner() + " uses " + GameUtils.getCardLink(chosen)
+                                                    + " to fire " + GameUtils.getCardLink(weapon) + " twice: combined");
+                                            subAction.appendEffect(createFireEffect(weapon, targetFilter, false));
+                                            subAction.appendEffect(createFireEffect(weapon, targetFilter, true));
+                                            subAction.appendEffect(
+                                                    new PassthruEffect(subAction) {
+                                                        @Override
+                                                        protected void doPlayEffect(SwccgGame game) {
+                                                            game.getGameState().finishSeparatelyOrCombinedFiring();
+                                                        }
                                                     }
-                                                    final PhysicalCard chosen = targetingComputers.get(choiceIndex);
-                                                    subAction.appendEffect(new UseDeviceEffect(subAction, chosen));
-                                                    game.getGameState().beginSeparatelyOrCombinedFiring(chosen, weapon, true);
-                                                    game.getGameState().sendMessage(_source.getOwner() + " uses " + GameUtils.getCardLink(chosen)
-                                                            + " to fire " + GameUtils.getCardLink(weapon) + " twice: combined");
-                                                    subAction.appendEffect(createFireEffect(weapon, targetFilter, false));
-                                                    subAction.appendEffect(createFireEffect(weapon, targetFilter, true));
-                                                    subAction.appendEffect(
-                                                            new PassthruEffect(subAction) {
-                                                                @Override
-                                                                protected void doPlayEffect(SwccgGame game) {
-                                                                    game.getGameState().finishSeparatelyOrCombinedFiring();
-                                                                }
-                                                            }
-                                                    );
-                                                    appendNextWeapon(subAction, game, index + 1);
-                                                }
-                                            })
+                                            );
+                                        }
+                                    }
+                            );
+                            subAction.appendEffect(
+                                    new PassthruEffect(subAction) {
+                                        @Override
+                                        protected void doPlayEffect(SwccgGame game) {
+                                            if (!usedTargetingComputer[0]) {
+                                                // Done: do not use Targeting Computer; fire this weapon once.
+                                                subAction.appendEffect(createFireEffect(weapon, targetFilter, false));
+                                            }
+                                            appendNextWeapon(subAction, game, index + 1);
+                                        }
+                                    }
                             );
                         }
                         else {
