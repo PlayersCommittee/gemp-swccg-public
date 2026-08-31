@@ -139,6 +139,17 @@ public class Card1_039 extends AbstractDevice {
                                             action.appendUsage(
                                                     new UseDeviceEffect(action, self));
                                             game.getGameState().beginSeparatelyOrCombinedFiring(self, weapon, combined);
+                                            // Always clear separately-or-combined firing when this action leaves the stack.
+                                            // Nested finish after shot 2 can be skipped if a required response (Defiance)
+                                            // completes the nested fire without running remaining parent effects.
+                                            action.appendAfterEffect(
+                                                    new PassthruEffect(action) {
+                                                        @Override
+                                                        protected void doPlayEffect(SwccgGame game) {
+                                                            game.getGameState().finishSeparatelyOrCombinedFiring();
+                                                        }
+                                                    }
+                                            );
                                             final String mode = result.toLowerCase();
                                             action.appendEffect(
                                                     new PassthruEffect(action) {

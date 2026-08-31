@@ -553,6 +553,8 @@ public class Card_1_39_Tests {
         assertTrue(log.contains("Targeting Computer Combined firing 2"));
         assertFalse("No parentheses around the weapon name", log.contains("firing 1 ("));
         assertFalse(log.contains("firing 2 ("));
+
+        assertFireTwiceStateCleared(scn);
     }
 
     @Test
@@ -648,6 +650,38 @@ public class Card_1_39_Tests {
         assertWeaponDestinyDrawValues(scn, 7, 7);
         assertEquals(13, lastTotalWeaponDestiny(scn));
         assertTrue("Separately HTB still needs Dack, Verrack, and Defiance each-draw bonuses", executor.isHit());
+    }
+
+    @Test
+    public void TargetingComputerSeparatelyFireTwiceClearsFiringStateAfterDefianceHitsCapital() {
+        // Playtest crash: Targeting Computer fires Heavy Turbolaser Battery twice separately
+        // (TIE, then a capital). Defiance required response reduces the capital power by 5.
+        // Weapons-segment Pass then aborted because separately-or-combined firing state was still set.
+        var scn = GetScenario();
+        var tc = scn.GetLSCard("tc");
+        var tie = scn.GetDSCard("tie");
+        var vsd = scn.GetDSCard("vsd");
+        setupDefiance(scn, true);
+        scn.MoveCardsToLocation(scn.GetLSStartingLocation(), tie);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.EnsureLSForcePile(4);
+
+        scn.LSUseCardAction(tc, "Fire a weapon twice");
+        chooseSeparatelyOrCombined(scn, "Separately");
+
+        fireTwoDestinyShot(scn, tie, 7, 7);
+        assertTrue(tie.isHit());
+
+        int vsdPowerBefore = scn.GetPower(vsd);
+        fireTwoDestinyShot(scn, vsd, 7, 7);
+        assertTrue(vsd.isHit());
+        scn.PassResponses("required");
+        scn.PassResponses("power by 5");
+        scn.PassAllResponses();
+        assertEquals("Defiance required response must reduce the capital power by 5", vsdPowerBefore - 5, scn.GetPower(vsd));
+
+        assertFireTwiceStateCleared(scn);
     }
 
     @Test
@@ -954,6 +988,20 @@ public class Card_1_39_Tests {
         }
     }
 
+    /**
+     * After Targeting Computer fire-twice finishes, separately-or-combined firing state must be empty
+     * and taking a snapshot must not throw. Weapons-segment Pass snapshots the game; if that state is
+     * still set the game is canceled.
+     */
+    private void assertFireTwiceStateCleared(VirtualTableScenario scn) {
+        assertTrue("Targeting Computer fire-twice must clear separately-or-combined firing state",
+                scn.gameState().getSeparatelyOrCombinedFiringState() == null);
+        scn.game().takeSnapshot("after Targeting Computer");
+    }
+
+    /**
+     * Defiance with Heavy Turbolaser Battery (and Targeting Computer when withTc) facing a Victory-class Star Destroyer.
+     */
     private void setupDefiance(VirtualTableScenario scn, boolean withTc) {
         scn.StartGame();
         var system = scn.GetLSStartingLocation();
@@ -1055,6 +1103,9 @@ public class Card_1_39_Tests {
         scn.PassDestinyDrawResponses();
         scn.PassResponses("ABOUT_TO_BE_HIT");
         scn.PassResponses("HIT -");
+        // Defiance required: Reduce a capital starship power by 5 after it is hit.
+        scn.PassResponses("required");
+        scn.PassResponses("power by 5");
         scn.PassResponses("FIRED_WEAPON");
         passPostFiringResponses(scn);
     }
