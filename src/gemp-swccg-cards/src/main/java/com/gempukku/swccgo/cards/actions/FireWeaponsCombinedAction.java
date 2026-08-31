@@ -38,6 +38,8 @@ import java.util.List;
  * After all destinies: if 2+ weapons completed, the player chooses which weapon result applies first.
  */
 public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
+    private static final String DO_NOT_USE_TARGETING_COMPUTER = "Do not use Targeting Computer";
+
     private final PhysicalCard _source;
     private final List<PhysicalCard> _weaponsInOrder;
     private final PhysicalCard _target;
@@ -87,32 +89,38 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
 
         final PhysicalCard weapon = _weaponsInOrder.get(index);
         final Filter targetFilter = Filters.sameCardId(_target);
-        final PhysicalCard targetingComputer = findUsableTargetingComputer(game, weapon);
 
         subAction.appendEffect(
                 new PassthruEffect(subAction) {
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
-                        if (targetingComputer != null) {
-                            // Same three-way as standalone Targeting Computer. UseDevice waits until
-                            // Separately/Combined so Don't Fire leaves the device unused.
+                        final List<PhysicalCard> targetingComputers = findUsableTargetingComputers(game, weapon);
+                        if (!targetingComputers.isEmpty()) {
+                            // Optional: use a specific unused Targeting Computer, or use none.
+                            // Combined Attack already adds destinies together, so choosing a Targeting
+                            // Computer always takes the combined path. No Separately / Combined / Don't Fire.
+                            List<String> options = new ArrayList<String>();
+                            for (PhysicalCard tc : targetingComputers) {
+                                options.add(GameUtils.getCardLink(tc));
+                            }
+                            options.add(DO_NOT_USE_TARGETING_COMPUTER);
                             subAction.appendEffect(
                                     new PlayoutDecisionEffect(subAction, _source.getOwner(),
-                                            new MultipleChoiceAwaitingDecision("Fire a weapon twice",
-                                                    new String[]{"Separately", "Combined", "Don't Fire (Cancel)"}) {
+                                            new MultipleChoiceAwaitingDecision(
+                                                    "Use Targeting Computer to fire this Combined Attack weapon twice?",
+                                                    options.toArray(new String[options.size()]), true) {
                                                 @Override
                                                 protected void validDecisionMade(int choiceIndex, String result) {
-                                                    if (result != null && result.startsWith("Don't Fire")) {
+                                                    if (result != null && result.startsWith("Do not use")) {
                                                         subAction.appendEffect(createFireEffect(weapon, targetFilter, false));
                                                         appendNextWeapon(subAction, game, index + 1);
                                                         return;
                                                     }
-                                                    final boolean combined = "Combined".equals(result);
-                                                    subAction.appendEffect(new UseDeviceEffect(subAction, targetingComputer));
-                                                    game.getGameState().beginSeparatelyOrCombinedFiring(targetingComputer, weapon, combined);
-                                                    final String mode = result.toLowerCase();
-                                                    game.getGameState().sendMessage(_source.getOwner() + " uses " + GameUtils.getCardLink(targetingComputer)
-                                                            + " to fire " + GameUtils.getCardLink(weapon) + " twice: " + mode);
+                                                    final PhysicalCard chosen = targetingComputers.get(choiceIndex);
+                                                    subAction.appendEffect(new UseDeviceEffect(subAction, chosen));
+                                                    game.getGameState().beginSeparatelyOrCombinedFiring(chosen, weapon, true);
+                                                    game.getGameState().sendMessage(_source.getOwner() + " uses " + GameUtils.getCardLink(chosen)
+                                                            + " to fire " + GameUtils.getCardLink(weapon) + " twice: combined");
                                                     subAction.appendEffect(createFireEffect(weapon, targetFilter, false));
                                                     subAction.appendEffect(createFireEffect(weapon, targetFilter, true));
                                                     subAction.appendEffect(
@@ -147,25 +155,27 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
     }
 
     /**
-     * Targeting Computer on the starship firing this weapon, unused this battle, and currently usable.
+     * Unused usable Targeting Computers on the starship firing this Combined Attack weapon.
+     * Empty if the starship has none left; the player may still choose none when the list is not empty.
      */
-    private PhysicalCard findUsableTargetingComputer(SwccgGame game, PhysicalCard weapon) {
+    private List<PhysicalCard> findUsableTargetingComputers(SwccgGame game, PhysicalCard weapon) {
+        List<PhysicalCard> result = new ArrayList<PhysicalCard>();
         PhysicalCard starship = weapon.getAttachedTo();
         if (starship == null && Filters.starship.accepts(game, weapon)) {
             starship = weapon;
         }
         if (starship == null) {
-            return null;
+            return result;
         }
         Collection<PhysicalCard> computers = Filters.filterActive(game, _source,
                 Filters.and(Filters.title(Title.Targeting_Computer), Filters.attachedTo(starship)));
         for (PhysicalCard tc : computers) {
             if (GameConditions.canUseDevice(game, tc)
                     && GameConditions.isOncePerBattle(game, tc, tc.getCardId())) {
-                return tc;
+                result.add(tc);
             }
         }
-        return null;
+        return result;
     }
 
     /**
