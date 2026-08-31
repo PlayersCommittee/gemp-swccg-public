@@ -653,6 +653,30 @@ public class Card_1_39_Tests {
     }
 
     @Test
+    public void DefianceKarieDackVerrackTargetingComputerSeparatelyDrawsAreEightNotNineVsExecutor() {
+        // Playtest: Targeting Computer fires Heavy Turbolaser Battery twice separately at Executor.
+        // Defiance +2 each (FiredBy), Karie Neth +1, Dack Ralter +1, Captain Verrack +2 vs capital = +6.
+        // Targeting Computer -1 each while using Fire a weapon twice. Printed 3 and 3 must be 8 and 8, not 9 and 9.
+        // Heavy Turbolaser Battery -1 vs capital still applies to the total: 16-1=15 vs armor 12.
+        var scn = GetScenario();
+        var tc = scn.GetLSCard("tc");
+        var executor = scn.GetDSCard("executor");
+        setupDefianceKarieGunners(scn);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.EnsureLSForcePile(4);
+
+        scn.LSUseCardAction(tc, "Fire a weapon twice");
+        chooseSeparatelyOrCombined(scn, "Separately");
+        fireTwoDestinyShot(scn, executor, 3, 3);
+
+        assertWeaponDestinyDrawValues(scn, 8, 8);
+        assertEquals("Targeting Computer -1 must apply to each draw; 9+9-1 vs capital would total 17",
+                15, lastTotalWeaponDestiny(scn));
+        assertTrue(executor.isHit());
+    }
+
+    @Test
     public void TargetingComputerSeparatelyFireTwiceClearsFiringStateAfterDefianceHitsCapital() {
         // Playtest crash: Targeting Computer fires Heavy Turbolaser Battery twice separately
         // (TIE, then a capital). Defiance required response reduces the capital power by 5.
@@ -936,6 +960,22 @@ public class Card_1_39_Tests {
         }
     }
 
+    /**
+     * Defiance with Karie Neth piloting, Dack Ralter and Captain Verrack as passengers,
+     * Heavy Turbolaser Battery and Targeting Computer, facing Executor.
+     */
+    private void setupDefianceKarieGunners(VirtualTableScenario scn) {
+        scn.StartGame();
+        var system = scn.GetLSStartingLocation();
+        var defiance = scn.GetLSCard("defiance");
+        var htb = scn.GetLSCard("htb");
+        var executor = scn.GetDSCard("executor");
+        scn.MoveCardsToLocation(system, defiance, executor);
+        scn.BoardAsPilot(defiance, scn.GetLSCard("karie"));
+        scn.BoardAsPassenger(defiance, scn.GetLSCard("dack"), scn.GetLSCard("verrack"));
+        scn.AttachCardsTo(defiance, htb, scn.GetLSCard("tc"));
+    }
+
     private void setupDefianceGunners(VirtualTableScenario scn, boolean withTc) {
         scn.StartGame();
         var system = scn.GetLSStartingLocation();
@@ -994,9 +1034,9 @@ public class Card_1_39_Tests {
      * still set the game is canceled.
      */
     private void assertFireTwiceStateCleared(VirtualTableScenario scn) {
+        scn.game().takeSnapshot("after Targeting Computer");
         assertTrue("Targeting Computer fire-twice must clear separately-or-combined firing state",
                 scn.gameState().getSeparatelyOrCombinedFiringState() == null);
-        scn.game().takeSnapshot("after Targeting Computer");
     }
 
     /**

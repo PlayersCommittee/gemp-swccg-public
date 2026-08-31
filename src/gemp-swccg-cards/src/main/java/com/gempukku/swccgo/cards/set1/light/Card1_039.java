@@ -89,7 +89,12 @@ public class Card1_039 extends AbstractDevice {
             @Override
             public boolean isFulfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
                 SeparatelyOrCombinedFiringState soc = gameState.getSeparatelyOrCombinedFiringState();
-                return soc != null && soc.getDevice() != null && soc.getDevice().getCardId() == self.getCardId();
+                if (soc != null && soc.getDevice() != null && soc.getDevice().getCardId() == self.getCardId()) {
+                    return true;
+                }
+                // Fire-twice action can still be resolving if separately-or-combined state was cleared
+                // as soon as targeting completed. Keep -1 on both draws in that case.
+                return gameState.isDuringGameTextActionFrom(self);
             }
         };
         modifiers.add(new EachWeaponDestinyModifier(self, Filters.any, usingThisDeviceToFire, hasAttached, -1));
@@ -139,14 +144,19 @@ public class Card1_039 extends AbstractDevice {
                                             action.appendUsage(
                                                     new UseDeviceEffect(action, self));
                                             game.getGameState().beginSeparatelyOrCombinedFiring(self, weapon, combined);
-                                            // Always clear separately-or-combined firing when this action leaves the stack.
+                                            // Clear separately-or-combined firing after shots, not at targeting-complete.
                                             // Nested finish after shot 2 can be skipped if a required response (Defiance)
                                             // completes the nested fire without running remaining parent effects.
                                             action.appendAfterEffect(
                                                     new PassthruEffect(action) {
                                                         @Override
                                                         protected void doPlayEffect(SwccgGame game) {
-                                                            game.getGameState().finishSeparatelyOrCombinedFiring();
+                                                            // Do not clear at targeting-complete: destinies still need this state for -1.
+                                                            SeparatelyOrCombinedFiringState soc = game.getGameState().getSeparatelyOrCombinedFiringState();
+                                                            if (soc != null && soc.getCurrentFiringNumber() > 0
+                                                                    && !game.getGameState().isDuringWeaponFiring()) {
+                                                                game.getGameState().finishSeparatelyOrCombinedFiring();
+                                                            }
                                                         }
                                                     }
                                             );

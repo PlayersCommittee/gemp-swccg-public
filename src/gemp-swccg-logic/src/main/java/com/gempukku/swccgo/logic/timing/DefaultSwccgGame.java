@@ -11,6 +11,7 @@ import com.gempukku.swccgo.communication.UserFeedback;
 import com.gempukku.swccgo.game.*;
 import com.gempukku.swccgo.game.layout.LocationsLayout;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.SeparatelyOrCombinedFiringState;
 import com.gempukku.swccgo.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.swccgo.logic.PlayerOrder;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
@@ -546,6 +547,12 @@ public class DefaultSwccgGame implements SwccgGame {
     @Override
     public void takeSnapshot(String description) {
         pruneSnapshots();
+        // After a fire-twice shot has started, clear leaked separately-or-combined state before snapshot.
+        // Do not clear during destinies (weapon firing is open) or before the first shot (targeting).
+        SeparatelyOrCombinedFiringState soc = _gameState.getSeparatelyOrCombinedFiringState();
+        if (soc != null && soc.getCurrentFiringNumber() > 0 && !_gameState.isDuringWeaponFiring()) {
+            _gameState.finishSeparatelyOrCombinedFiring();
+        }
         // Skip snapshot while play-card or firing sub-states are open. generateSnapshot throws on those
         // fields; playCardStates must stay skipped so interrupt-initiated battles still work. Skipping a
         // leaked SeparatelyOrCombinedFiringState / WeaponFiringState also prevents weapons-segment Pass

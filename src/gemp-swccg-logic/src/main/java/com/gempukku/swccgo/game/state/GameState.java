@@ -4062,6 +4062,24 @@ public class GameState implements Snapshotable<GameState> {
     }
 
     /**
+     * True if a game-text action from this card is still on the stack.
+     * Targeting Computer uses this so -1 still applies if separately-or-combined state was cleared too soon.
+     */
+    public boolean isDuringGameTextActionFrom(PhysicalCard card) {
+        if (card == null) {
+            return false;
+        }
+        for (GameTextActionState state : _gameTextActionState) {
+            GameTextAction action = state.getGameTextAction();
+            if (action != null && action.getActionSource() != null
+                    && action.getActionSource().getCardId() == card.getCardId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Gets the game text action state for the specific game text action.
      * @return the current game text action state, or null
      */
