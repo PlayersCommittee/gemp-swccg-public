@@ -58,6 +58,8 @@ public class Card_2_056_Tests {
 				put("swilla", "2_126"); // Swilla Corey, prevent theft on weapon
 				put("surprise", "5_156"); // Dark Surprise, retarget interrupt
 				put("disruptor", "7_319"); // Disruptor Pistol: 2 / 1 on non-unique warrior
+				put("maul", "11_54"); // Darth Maul (Tatooine)
+				put("maulSaber", "13_75"); // Maul's Double-Bladed Lightsaber (Reflections III)
 			}},
 			10,
 			10,
@@ -71,6 +73,10 @@ public class Card_2_056_Tests {
 		);
 	}
 
+	/**
+	 * Puts your Bothan Spy undercover at the Light starting site with a Stormtrooper.
+	 * Extra cards are moved to that same site.
+	 */
 	private void SetupSpyAndDarkTargetAtSite(VirtualTableScenario scn, PhysicalCardImpl... extraAtSite) {
 		var site = scn.GetLSCard("starting-location");
 		var spy = scn.GetLSCard("spy");
@@ -83,6 +89,9 @@ public class Card_2_056_Tests {
 	}
 
 
+	/**
+	 * Deploys Merc Sunlet on your Bothan Spy so the spy is a thief, then sends the spy undercover.
+	 */
 	private void GrantThiefToSpyAndGoUndercover(VirtualTableScenario scn) {
 		var merc = scn.GetLSCard("merc");
 		var spy = scn.GetLSCard("spy");
@@ -250,10 +259,35 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
-	public void VehicleIsLegalAndDarkJediLightsaberOnTableUsesBearerAbilityForX() {
+	public void LiftTubeIsALegalSabotageTarget() {
+		// Lift Tube (1_308) is a vehicle with a printed deploy cost, so Sabotage may target it.
 		var scn = GetScenario();
 		var sabotage = scn.GetLSCard("sabotage");
 		var liftTube = scn.GetDSCard("liftTube");
+
+		scn.MoveCardsToLSHand(sabotage);
+		scn.StartGame();
+		SetupSpyAndDarkTargetAtSite(scn, liftTube);
+
+		float liftCost = Card2_056.getOnTableDeployCost(scn.game(), sabotage, liftTube);
+		assertEquals(1f, liftCost, scn.epsilon);
+
+		scn.SkipToLSTurn(Phase.CONTROL);
+		scn.PrepareLSDestiny(2); // 2 > Lift Tube deploy 1
+		assertTrue(scn.LSCardPlayAvailable(sabotage));
+		scn.LSPlayCard(sabotage);
+		assertTrue(scn.LSHasCardChoiceAvailable(liftTube));
+		scn.LSChooseCard(liftTube);
+		scn.PassAllResponses();
+		scn.PassCardLeavingTable();
+		assertEquals(Zone.TOP_OF_LOST_PILE, liftTube.getZone());
+	}
+
+	@Test
+	public void DarkJediLightsaberOnTableUsesBearerAbilityForX() {
+		// Dark Jedi Lightsaber (1_314) on-table cost is X = 7 - bearer's ability.
+		var scn = GetScenario();
+		var sabotage = scn.GetLSCard("sabotage");
 		var vader = scn.GetDSCard("vader");
 		var saber = scn.GetDSCard("saber");
 		var saber2 = scn.GetDSCard("saber2");
@@ -261,23 +295,21 @@ public class Card_2_056_Tests {
 
 		scn.MoveCardsToLSHand(sabotage);
 		scn.StartGame();
-		SetupSpyAndDarkTargetAtSite(scn, liftTube, vader);
+		SetupSpyAndDarkTargetAtSite(scn, vader);
 		scn.AttachCardsTo(vader, saber);
 		scn.AttachCardsTo(trooper, saber2);
 
-		float liftCost = Card2_056.getOnTableDeployCost(scn.game(), sabotage, liftTube);
 		float djlOnVader = Card2_056.getOnTableDeployCost(scn.game(), sabotage, saber);
 		float djlOnTrooper = Card2_056.getOnTableDeployCost(scn.game(), sabotage, saber2);
-		assertEquals(1f, liftCost, scn.epsilon);
-		// X = 7 - ability. Vader ability 6 => 1. Stormtrooper ability 1 => 6. Fake constant 7 means attachedTo was omitted.
+		// X = 7 - ability. Vader (1_168) ability 6 => 1. Stormtrooper (1_194) ability 1 => 6.
+		// Fake constant 7 means attachedTo was omitted.
 		assertEquals(1f, djlOnVader, scn.epsilon);
 		assertEquals(6f, djlOnTrooper, scn.epsilon);
 
 		scn.SkipToLSTurn(Phase.CONTROL);
-		scn.PrepareLSDestiny(2); // 2 > Vader saber 1; would not beat stormtrooper saber 6
+		scn.PrepareLSDestiny(2); // 2 > Vader saber 1; would not beat Stormtrooper saber 6
 		assertTrue(scn.LSCardPlayAvailable(sabotage));
 		scn.LSPlayCard(sabotage);
-		assertTrue(scn.LSHasCardChoiceAvailable(liftTube));
 		assertTrue(scn.LSHasCardChoiceAvailable(saber));
 		scn.LSChooseCard(saber);
 		scn.PassAllResponses();
@@ -555,29 +587,30 @@ public class Card_2_056_Tests {
 
 	@Test
 	public void OccupiedAtAtIsDestroyOnlyAndOccupantIsLost() {
-		// Occupied AT-AT cannot be stolen. Occupants are lost with the vehicle (no jump-off).
+		// Occupied Blizzard 2 (3_155) cannot be stolen. Occupants are lost with the vehicle (no jump-off).
+		// Contrast EmptyPermanentPilotAtAtMayBeStolen: same walker empty (permanent pilot only) may be stolen.
 		var scn = GetScenario();
 		var sabotage = scn.GetLSCard("sabotage");
 		var spy = scn.GetLSCard("spy");
 		var merc = scn.GetLSCard("merc");
-		var atat = scn.GetDSCard("atat");
+		var blizzard2 = scn.GetDSCard("blizzard2");
 		var droid = scn.GetDSCard("droid");
 		var site = scn.GetLSCard("starting-location");
 
 		scn.MoveCardsToLSHand(sabotage, merc);
 		scn.StartGame();
-		scn.MoveCardsToLocation(site, spy, atat, droid);
-		scn.BoardAsPassenger(atat, droid);
+		scn.MoveCardsToLocation(site, spy, blizzard2, droid);
+		scn.BoardAsPassenger(blizzard2, droid);
 		GrantThiefToSpyAndGoUndercover(scn);
 
 		scn.SkipToLSTurn(Phase.CONTROL);
-		scn.PrepareLSDestiny(7); // 7 > Blizzard 1 deploy 6
+		scn.PrepareLSDestiny(7); // 7 > Blizzard 2 deploy 6
 		assertTrue(scn.LSCardPlayAvailable(sabotage));
 		scn.LSPlayCard(sabotage);
-		scn.LSChooseCard(atat);
+		scn.LSChooseCard(blizzard2);
 
 		for (int i = 0; i < 20; i++) {
-			if (scn.DSHasCardChoiceAvailable(atat) || scn.DSHasCardChoiceAvailable(droid)) {
+			if (scn.DSHasCardChoiceAvailable(blizzard2) || scn.DSHasCardChoiceAvailable(droid)) {
 				break;
 			}
 			if (scn.LSAnyDecisionsAvailable() && scn.LSGetDecision().getText().toLowerCase().contains("steal")) {
@@ -596,14 +629,14 @@ public class Card_2_056_Tests {
 		if (scn.DSHasCardChoiceAvailable(droid)) {
 			scn.DSChooseCard(droid);
 		}
-		if (scn.DSHasCardChoiceAvailable(atat)) {
-			scn.DSChooseCard(atat);
+		if (scn.DSHasCardChoiceAvailable(blizzard2)) {
+			scn.DSChooseCard(blizzard2);
 		}
 		scn.PassAllResponses();
 		scn.PassCardLeavingTable();
-		assertEquals(Zone.TOP_OF_LOST_PILE, atat.getZone());
+		assertEquals(Zone.TOP_OF_LOST_PILE, blizzard2.getZone());
 		assertEquals(Zone.LOST_PILE, droid.getZone());
-		assertEquals(scn.DS, atat.getOwner());
+		assertEquals(scn.DS, blizzard2.getOwner());
 		assertEquals(scn.DS, droid.getOwner());
 	}
 
@@ -649,7 +682,9 @@ public class Card_2_056_Tests {
 
 	@Test
 	public void DisruptorPistolOnNonUniqueWarriorUsesLowestCostOne() {
-		// Disruptor Pistol: Use 2 on warrior, 1 on non-unique warrior. getOnTableDeployCost auto-picks lowest valid cost.
+		// Disruptor Pistol (7_319): Use 2 on warrior, 1 on non-unique warrior.
+		// On-table cost uses the current holder (1 on Stormtrooper non-unique warrior, 2 on Vader). No choose-cost prompt.
+		// No AR / rules-post cite found that a multi-cost card uses only the current-holder cost.
 		var scn = GetScenario();
 		var sabotage = scn.GetLSCard("sabotage");
 		var disruptor = scn.GetDSCard("disruptor");
@@ -732,5 +767,46 @@ public class Card_2_056_Tests {
 		assertEquals(trooper, blaster.getAttachedTo());
 		assertEquals(Zone.TOP_OF_LOST_PILE, blaster2.getZone());
 	}
+
+	@Test
+	public void MaulsDoubleBladedLightsaberOnMaulCanBeDestroyedButNotStolen() {
+		// Maul's Double-Bladed Lightsaber (13_75): "Deploy on Maul. ... May not be stolen."
+		// Darth Maul (11_54, Tatooine). Not Darth Maul With Lightsaber (14_77), which is a permanent weapon.
+		// AbstractCharacterWeapon blueprint deploy cost is null (no printed Use X). Free/undefined is not a Sabotage cost.
+		// May not be stolen is checked later via canStealInsteadOfLose; it must not be why targeting fails.
+		var scn = GetScenario();
+		var sabotage = scn.GetLSCard("sabotage");
+		var spy = scn.GetLSCard("spy");
+		var merc = scn.GetLSCard("merc");
+		var maul = scn.GetDSCard("maul");
+		var maulSaber = scn.GetDSCard("maulSaber");
+		var blaster = scn.GetDSCard("blaster");
+		var trooper = scn.GetDSCard("trooper");
+		var site = scn.GetLSCard("starting-location");
+
+		scn.MoveCardsToLSHand(sabotage, merc);
+		scn.StartGame();
+		scn.MoveCardsToLocation(site, spy, maul, trooper);
+		scn.AttachCardsTo(maul, maulSaber);
+		scn.AttachCardsTo(trooper, blaster);
+		GrantThiefToSpyAndGoUndercover(scn);
+
+		assertEquals(null, maulSaber.getBlueprint().getDeployCost());
+		assertFalse("Maul's Double-Bladed Lightsaber (13_75) has no printed Use X, so it has no numeric on-table deploy cost.",
+				Card2_056.hasNumericOnTableDeployCost(scn.game(), sabotage, maulSaber));
+		assertFalse("May not be stolen should suppress steal later, not targeting.",
+				Card2_056.canStealInsteadOfLose(scn.game(), sabotage, spy, maulSaber));
+
+		scn.SkipToLSTurn(Phase.CONTROL);
+		scn.PrepareLSDestiny(2);
+		assertTrue(scn.LSCardPlayAvailable(sabotage));
+		scn.LSPlayCard(sabotage);
+		assertTrue(scn.LSHasCardChoiceAvailable(blaster));
+		assertFalse("Saber is not a Sabotage target because deploy cost is undefined, not because of May not be stolen.",
+				scn.LSHasCardChoiceAvailable(maulSaber));
+		assertEquals(Zone.ATTACHED, maulSaber.getZone());
+		assertEquals(maul, maulSaber.getAttachedTo());
+	}
+
 
 }
