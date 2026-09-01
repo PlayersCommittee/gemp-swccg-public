@@ -84,7 +84,7 @@ public class JumpOffVehicleRule implements Rule {
                         List<TriggerAction> actions = new ArrayList<TriggerAction>();
 
                         Collection<PhysicalCard> charactersAboard = Filters.filter(gameState.getAboardCards(cardAboutToBeLost, false), game,
-                                Filters.and(Filters.your(playerId), Filters.character, Filters.not(Filters.in(cardsToBeLostInAllCardsSituation))));
+                                Filters.and(Filters.your(playerId), Filters.or(Filters.character,Filters.movesLikeCharacter), Filters.not(Filters.in(cardsToBeLostInAllCardsSituation))));
                         for (PhysicalCard characterAboard : charactersAboard) {
                             Action disembarkAction = characterAboard.getBlueprint().getDisembarkAction(characterAboard.getOwner(), game, characterAboard, false, true, Filters.any);
                             if (disembarkAction != null) {

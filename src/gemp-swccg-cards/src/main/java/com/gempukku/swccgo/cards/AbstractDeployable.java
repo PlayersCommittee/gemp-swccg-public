@@ -1812,10 +1812,6 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
             return false;
         }
 
-        if (self.getBlueprint().isMovesLikeCharacter()) {
-            return true;
-        }
-
         if (Filters.canSpotFromTopLocationsOnTable(game,
                 Filters.and(Filters.siteOfStarshipOrVehicle(otherShip),
                 Filters.starshipSiteToShuttleTransferLandAndTakeOffAtForFreeInsteadOfRelatedStarship(self.getOwner()),
@@ -1823,7 +1819,7 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
             return true;
         }
 
-        if (self.getBlueprint().getCardCategory() == CardCategory.CHARACTER) {
+        if (self.getBlueprint().getCardCategory() == CardCategory.CHARACTER || self.getBlueprint().isMovesLikeCharacter()) {
             return Filters.or(Filters.hasAvailablePilotCapacity(self), Filters.hasAvailablePassengerCapacity(self)).accepts(game, otherShip);
         }
         else {

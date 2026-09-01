@@ -7148,6 +7148,7 @@ public class Filters {
                 PhysicalCard attachedTo = cardToMove.getAttachedTo();
                 if ((atLocation == null && attachedTo == null)
                         || (cardToMove.getBlueprint().getCardCategory() != CardCategory.CHARACTER
+                        && !Filters.movesLikeCharacter().accepts(gameState, modifiersQuerying, physicalCard)
                         && cardToMove.getBlueprint().getCardCategory() != CardCategory.VEHICLE)) {
                     return false;
                 }
@@ -7278,8 +7279,13 @@ public class Filters {
 
                 // Check if shuttle vehicle is physically at an exterior site
                 PhysicalCard atLocation = shuttleVehicle.getAtLocation();
-                if (atLocation == null || !Filters.exterior_site.accepts(gameState, modifiersQuerying, atLocation)
-                        || physicalCard.getBlueprint().getCardCategory() != CardCategory.CHARACTER) {
+                if (atLocation == null || !Filters.exterior_site.accepts(gameState, modifiersQuerying, atLocation)) {
+                    return false;
+                }
+
+                // Check if card to shuttled is a character (or moves like one)
+                if (physicalCard.getBlueprint().getCardCategory() != CardCategory.CHARACTER
+                    && !Filters.movesLikeCharacter().accepts(gameState, modifiersQuerying, physicalCard) ) {
                     return false;
                 }
 
@@ -7342,8 +7348,13 @@ public class Filters {
                 // Check if shuttle vehicle is physically at an exterior site
                 PhysicalCard atLocation = shuttleVehicle.getAtLocation();
                 if (atLocation == null || !Filters.exterior_site.accepts(gameState, modifiersQuerying, atLocation)
-                        || physicalCard.getBlueprint().getCardCategory() != CardCategory.CHARACTER
                         || !physicalCard.getOwner().equals(shuttleVehicle.getOwner())) {
+                    return false;
+                }
+
+                // Check if card to be shuttled is a character (or moves like one)
+                if (physicalCard.getBlueprint().getCardCategory() != CardCategory.CHARACTER
+                    && !Filters.movesLikeCharacter().accepts(gameState, modifiersQuerying, physicalCard) ) {
                     return false;
                 }
 
@@ -8587,12 +8598,14 @@ public class Filters {
                 if (card.isUndercover())
                     return false;
 
-                if (card.getBlueprint().getCardCategory() != CardCategory.CHARACTER)
-                    return false;
+                if (card.getBlueprint().getCardCategory() != CardCategory.CHARACTER &&
+                    !card.getBlueprint().isMovesLikeCharacter())
+                        return false;
 
                 if(physicalCard.getBlueprint().getCardCategory() == CardCategory.VEHICLE
                         || physicalCard.getBlueprint().getCardCategory() == CardCategory.STARSHIP){
-                    if (!physicalCard.getBlueprint().getValidPassengerFilter(physicalCard.getOwner(), gameState.getGame(), physicalCard, !card.getZone().isInPlay()).accepts(gameState, modifiersQuerying, card))
+                    if (!physicalCard.getBlueprint().getValidPassengerFilter(physicalCard.getOwner(), gameState.getGame(), physicalCard, !card.getZone().isInPlay()).accepts(gameState, modifiersQuerying, card) &&
+                        !card.getBlueprint().isMovesLikeCharacter())
                         return false;
                 }
 
@@ -19308,7 +19321,7 @@ public class Filters {
     public static final Filter Starship_Graveyard = Filters.title(Title.Starship_Graveyard);
     public static final Filter Strike_Planning = Filters.title(Title.Strike_Planning);
     public static final Filter Super_class_Star_Destroyer = Filters.modelType(ModelType.SUPER_CLASS_STAR_DESTROYER);
-    
+
     /**
      * Wrapper method to allow other static filters to access the wrapped filter.
      */

@@ -240,8 +240,11 @@ public class MoveUsingLocationTextAction extends TopLevelGameTextAction {
                                         }
                                     }
                                     else if (_cardToMove.getBlueprint().isMovesLikeCharacter()) {
-                                        _capacitySlotChosen = true;
-                                        _moveCardEffect = new MoveUsingLocationTextEffect(_that, _cardToMove, _destination, false, false);
+                                        boolean canBePassenger = Filters.hasAvailablePassengerCapacity(_cardToMove).accepts(gameState, modifiersQuerying, _destination);
+                                        if(canBePassenger) {
+                                            _capacitySlotChosen = true;
+                                            _moveCardEffect = new MoveUsingLocationTextEffect(_that, _cardToMove, _destination, false, false);
+                                        }
                                     }
                                     else {
                                         // Need to determine capacity slot for starship/vehicle

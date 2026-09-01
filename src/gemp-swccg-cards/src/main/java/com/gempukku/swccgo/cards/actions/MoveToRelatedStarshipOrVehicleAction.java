@@ -87,10 +87,11 @@ public class MoveToRelatedStarshipOrVehicleAction extends AbstractTopLevelRuleAc
                                 _moveToStarshipOrVehicleEffect = new MoveToRelatedStarshipOrVehicleEffect(_that, _cardToMove, _starshipOrVehicle, _moveAsPilot, false);
                             }
                         } else if (_cardToMove.getBlueprint().isMovesLikeCharacter()) {
-                            _capacitySlotChosen = true;
-
-                            // If both capacity slots were not available, move character to available slot.
-                            _moveToStarshipOrVehicleEffect = new MoveToRelatedStarshipOrVehicleEffect(_that, _cardToMove, _starshipOrVehicle, false, false);
+                            boolean canBePassenger = Filters.hasAvailablePassengerCapacity(_cardToMove).accepts(gameState, modifiersQuerying, _starshipOrVehicle);
+                            if(canBePassenger) {
+                                _capacitySlotChosen = true;
+                                _moveToStarshipOrVehicleEffect = new MoveToRelatedStarshipOrVehicleEffect(_that, _cardToMove, _starshipOrVehicle, false, false);
+                            }
                         } else {
                             // Need to determine capacity slot for starship/vehicle
                             boolean canGoInVehicleSlot = Filters.hasAvailableVehicleCapacity(_cardToMove).accepts(gameState, modifiersQuerying, _starshipOrVehicle);

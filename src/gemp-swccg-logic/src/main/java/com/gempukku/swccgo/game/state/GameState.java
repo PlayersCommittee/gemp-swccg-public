@@ -3161,6 +3161,10 @@ public class GameState implements Snapshotable<GameState> {
         if (modifiersQuerying.getPilotCapacity(this, card)==Integer.MAX_VALUE || blueprint.getPilotOrPassengerCapacity()==Integer.MAX_VALUE)
             return Integer.MAX_VALUE;
 
+        if(cardToCheckFor != null && cardToCheckFor.getBlueprint().isMovesLikeCharacter()) {
+            return 0; // Cards that only "move like characters" are never pilots
+        }
+
         List<PhysicalCard> pilots = getPilotCardsAboard(modifiersQuerying, card, false);
         List<PhysicalCard> passengers = getPassengerCardsAboard(card);
         int astromechOnly = modifiersQuerying.getAstromechCapacity(this, card);
@@ -3265,9 +3269,12 @@ public class GameState implements Snapshotable<GameState> {
             return Integer.MAX_VALUE;
         }
 
-        // If moves like a character, then card does not require an open passenger slot
+        // If moves like a character, then card does not require an open passenger slot (but does require capacity to exist)
         if (cardToCheckFor != null && cardToCheckFor.getBlueprint().isMovesLikeCharacter()) {
-            return 1;
+            if (blueprint.getPassengerCapacity() > 0 || blueprint.getPilotOrPassengerCapacity() > 0) {
+                return 1;
+            }
+            else return 0;
         }
 
         List<PhysicalCard> pilots = getPilotCardsAboard(modifiersQuerying, card, false);
@@ -3398,11 +3405,6 @@ public class GameState implements Snapshotable<GameState> {
                     return 0;
                 }
             }
-        }
-
-        // If moves like a character, then card does not require an open passenger slot
-        if (cardToCheckFor != null && cardToCheckFor.getBlueprint().isMovesLikeCharacter()) {
-            return 1;
         }
 
         if (blueprint.getPilotOrPassengerCapacity() > 0) {
