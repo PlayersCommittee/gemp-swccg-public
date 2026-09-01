@@ -23,10 +23,12 @@ public class Card_2_056_InformantCancel_Tests {
 				put("sabotage", "2_56");
 				put("spy", "7_5");
 				put("lsTrooper", "1_28");
+				put("undercover", "2_40"); // Undercover (2_40)
 			}},
 			new HashMap<>() {{
 				put("informant", "2_134");
 				put("dsSpy", "1_177");
+				put("dsUndercover", "2_129"); // Undercover (2_129)
 				put("trooper", "1_194");
 				put("mover", "1_194");
 				put("cantina", "1_290");
@@ -42,6 +44,34 @@ public class Card_2_056_InformantCancel_Tests {
 			StartingSetup.NoDSShields,
 			VirtualTableScenario.Open
 		);
+	}
+
+	/**
+	 * Plays Undercover (2_40) on your Bothan Spy so the spy is undercover for real, not via MakeCardGoUndercover.
+	 * Caller must already be in the Light deploy phase with the spy at a site.
+	 */
+	private void PlayLightUndercoverOnSpy(VirtualTableScenario scn) {
+		var undercover = scn.GetLSCard("undercover");
+		var spy = scn.GetLSCard("spy");
+		scn.MoveCardsToLSHand(undercover);
+		scn.LSPlayCard(undercover);
+		scn.LSChooseCard(spy);
+		scn.PassAllResponses();
+		assertTrue(spy.isUndercover());
+	}
+
+	/**
+	 * Plays Undercover (2_129) on Garindan so the Dark spy is undercover for real, not via MakeCardGoUndercover.
+	 * Caller must already be in the Dark deploy phase with Garindan at a site.
+	 */
+	private void PlayDarkUndercoverOnGarindan(VirtualTableScenario scn) {
+		var dsUndercover = scn.GetDSCard("dsUndercover");
+		var dsSpy = scn.GetDSCard("dsSpy");
+		scn.MoveCardsToDSHand(dsUndercover);
+		scn.DSPlayCard(dsUndercover);
+		scn.DSChooseCard(dsSpy);
+		scn.PassAllResponses();
+		assertTrue(dsSpy.isUndercover());
 	}
 
 	@Test
@@ -63,7 +93,9 @@ public class Card_2_056_InformantCancel_Tests {
 		assertTrue(scn.IsAdjacentTo(cantina, marketplace));
 		scn.MoveCardsToLocation(marketplace, dsSpy, trooper, lsTrooper);
 		scn.MoveCardsToLocation(cantina, mover);
-		scn.MakeCardGoUndercover(dsSpy);
+
+		scn.SkipToPhase(Phase.DEPLOY);
+		PlayDarkUndercoverOnGarindan(scn);
 
 		scn.SkipToLSTurn(Phase.BATTLE);
 		assertTrue(scn.LSCanInitiateBattle(marketplace));
@@ -100,7 +132,9 @@ public class Card_2_056_InformantCancel_Tests {
 		scn.StartGame();
 		scn.MoveCardsToLocation(site, spy, trooper);
 		scn.AttachCardsTo(trooper, blaster);
-		scn.MakeCardGoUndercover(spy);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		PlayLightUndercoverOnSpy(scn);
 
 		scn.SkipToLSTurn(Phase.CONTROL);
 		assertTrue(scn.LSCardPlayAvailable(sabotage));
