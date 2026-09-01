@@ -9,6 +9,7 @@ import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
+import com.gempukku.swccgo.logic.modifiers.MayFireAnyNumberOfWeaponsModifier;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -19,9 +20,12 @@ import static org.junit.Assert.assertTrue;
 
 public class Card_9_093_Tests {
     /**
-     * Dark Side Fighter Cover uses the same +3 power text as Concentrate All Fire.
-     * We put Fighter Cover on table and fire two weapons from a Light Side B-wing,
-     * because that ship is allowed to fire more than one weapon in battle.
+     * Fighter Cover (9_093) uses the same +3 power text as Concentrate All Fire (9_003).
+     * The original case fires two weapons from a Light Side B-wing Bomber (9_66), because that
+     * ship is allowed to fire more than one weapon in battle.
+     * A second case uses a Dark TIE Fighter (1_304) (same side as Fighter Cover) firing two
+     * SFS L-s7.2 TIE Cannon (9_181). Fighter Cover only boosts starfighters, so a capital
+     * Star Destroyer would never get this +3.
      */
     protected VirtualTableScenario GetScenario() {
         return new VirtualTableScenario(
@@ -34,6 +38,9 @@ public class Card_9_093_Tests {
                 new HashMap<>() {{
                     put("fighterCover", "9_93");
                     put("executor", "4_167");
+                    put("tie", "1_304");
+                    put("cannon1", "9_181");
+                    put("cannon2", "9_181");
                 }},
                 10,
                 10,
@@ -79,8 +86,8 @@ public class Card_9_093_Tests {
     }
 
     /**
-     * Fighter Cover adds 3 power the first time a starfighter fires in a battle.
-     * A second weapon fire from the same ship does not add another 3.
+     * Fighter Cover (9_093) adds 3 power the first time a starfighter fires in a battle.
+     * A second weapon fire from the same B-wing Bomber (9_66) does not add another 3.
      */
     @Test
     public void FighterCoverPowerBonusIsNotCumulativePerStarshipPerBattle() {
@@ -129,5 +136,63 @@ public class Card_9_093_Tests {
 
         // Same clause from the same unique card must not add another 3
         assertEquals(7, scn.GetLSTotalPower());
+    }
+
+    /**
+     * Dark TIE Fighter (1_304) is a starfighter on the same side as Fighter Cover (9_093).
+     * Capitals such as Dominator (9_155) never get this bonus. With two SFS L-s7.2 TIE Cannon (9_181)
+     * aboard, the Dark TIE fires both in one battle and is power +3 once, not +6.
+     */
+    @Test
+    public void FighterCoverPowerBonusIsNotCumulativeWhenDarkStarDestroyerFiresTwoWeapons() {
+        var scn = GetScenario();
+
+        var fighterCover = scn.GetDSCard("fighterCover");
+        var tie = scn.GetDSCard("tie");
+        var cannon1 = scn.GetDSCard("cannon1");
+        var cannon2 = scn.GetDSCard("cannon2");
+        var bwing = scn.GetLSCard("bwing");
+        var hoth = scn.GetLSCard("hoth");
+
+        scn.StartGame();
+
+        scn.MoveLocationToTable(hoth);
+        scn.MoveCardsToLocation(hoth, tie, bwing);
+        scn.AttachCardsTo(tie, cannon1, cannon2);
+        scn.MoveCardsToDSSideOfTable(fighterCover);
+        // No Dark starfighter prints may fire any number of weapons; B-wing Bomber (9_66) is Light.
+        scn.ApplyAdHocModifier(new MayFireAnyNumberOfWeaponsModifier(tie));
+
+        scn.SkipToDSTurn(Phase.BATTLE);
+        assertTrue(scn.AwaitingDSBattlePhaseActions());
+        assertTrue(scn.GetDSForcePileCount() >= 3);
+        assertTrue(scn.DSCanInitiateBattle());
+        scn.DSInitiateBattle(hoth);
+
+        // TIE Fighter printed power 1
+        assertEquals(1, scn.GetPower(tie));
+        assertEquals(1, scn.GetDSTotalPower());
+
+        assertTrue(scn.DSCardActionAvailable(cannon1));
+        scn.DSUseCardAction(cannon1);
+        assertTrue(scn.DSHasCardChoiceAvailable(bwing));
+        scn.DSChooseCard(bwing);
+        scn.PassAllResponses();
+
+        // Fighter Cover adds 3 once to the firing Dark starfighter
+        assertEquals(4, scn.GetPower(tie));
+        assertEquals(4, scn.GetDSTotalPower());
+
+        scn.LSPass();
+
+        assertTrue(scn.DSCardActionAvailable(cannon2));
+        scn.DSUseCardAction(cannon2);
+        assertTrue(scn.DSHasCardChoiceAvailable(bwing));
+        scn.DSChooseCard(bwing);
+        scn.PassAllResponses();
+
+        // Same unique Fighter Cover POWER clause must not add another 3
+        assertEquals(4, scn.GetPower(tie));
+        assertEquals(4, scn.GetDSTotalPower());
     }
 }
