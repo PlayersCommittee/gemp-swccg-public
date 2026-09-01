@@ -1,13 +1,11 @@
-package com.gempukku.swccgo.cards.set9.light;
+package com.gempukku.swccgo.cards.set9.dark;
 
-import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
@@ -17,21 +15,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-public class Card_9_003_Tests {
+public class Card_9_093_Tests {
+    /**
+     * Dark Side Fighter Cover uses the same +3 power text as Concentrate All Fire.
+     * We put Fighter Cover on table and fire two weapons from a Light Side B-wing,
+     * because that ship is allowed to fire more than one weapon in battle.
+     */
     protected VirtualTableScenario GetScenario() {
         return new VirtualTableScenario(
                 new HashMap<>() {{
-                    put("concentrateAllFire", "9_3");
                     put("bwing", "9_66");
                     put("weapon1", "9_87");
                     put("weapon2", "2_81");
                     put("hoth", "3_55");
                 }},
                 new HashMap<>() {{
+                    put("fighterCover", "9_93");
                     put("executor", "4_167");
                 }},
                 10,
@@ -47,26 +48,24 @@ public class Card_9_003_Tests {
     }
 
     @Test
-    public void ConcentrateAllFireStatsAndKeywordsAreCorrect() {
+    public void FighterCoverStatsAndKeywordsAreCorrect() {
         /**
-         * Title: Concentrate All Fire
+         * Title: Fighter Cover
          * Uniqueness: Unique
-         * Side: Light
+         * Side: Dark
          * Type: Admirals Order
          * Destiny: 6
          * Icons: Admirals Order, Death Star II
-         * Game Text: Each starfighter that fires a weapon in battle is power +3 for the remainder of battle. Once per turn you may cancel and redraw your starship weapon destiny just drawn. At sites related to systems you occupy, your characters who have immunity to attrition each add 2 to immunity and 1 to each of that character's weapon destiny draws.
+         * Game Text: Each starfighter that fires a weapon in battle is power +3 for the remainder of battle.
          * Set: Death Star II
          * Rarity: R
          */
-
         var scn = GetScenario();
+        var card = scn.GetDSCard("fighterCover").getBlueprint();
 
-        var card = scn.GetLSCard("concentrateAllFire").getBlueprint();
-
-        assertEquals("Concentrate All Fire", card.getTitle());
+        assertEquals("Fighter Cover", card.getTitle());
         assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
-        assertEquals(Side.LIGHT, card.getSide());
+        assertEquals(Side.DARK, card.getSide());
         scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
             add(CardType.ADMIRALS_ORDER);
         }});
@@ -75,67 +74,60 @@ public class Card_9_003_Tests {
             add(Icon.ADMIRALS_ORDER);
             add(Icon.DEATH_STAR_II);
         }});
-        assertEquals(ExpansionSet.DEATH_STAR_II,card.getExpansionSet());
+        assertEquals(ExpansionSet.DEATH_STAR_II, card.getExpansionSet());
         assertEquals(Rarity.R, card.getRarity());
     }
 
+    /**
+     * Fighter Cover adds 3 power the first time a starfighter fires in a battle.
+     * A second weapon fire from the same ship does not add another 3.
+     */
     @Test
-    public void ConcentrateAllFirePowerBonusIsNotCumulative() {
-        // Issue 38: Concentrate All Fire +3 power is not cumulative per starship per battle.
-
+    public void FighterCoverPowerBonusIsNotCumulativePerStarshipPerBattle() {
         var scn = GetScenario();
 
-        var concentrateAllFire = scn.GetLSCard("concentrateAllFire");
+        var fighterCover = scn.GetDSCard("fighterCover");
         var bwing = scn.GetLSCard("bwing");
         var weapon1 = scn.GetLSCard("weapon1");
         var weapon2 = scn.GetLSCard("weapon2");
         var hoth = scn.GetLSCard("hoth");
-
         var executor = scn.GetDSCard("executor");
 
         scn.StartGame();
 
-        scn.MoveCardsToLSHand(concentrateAllFire);
-
         scn.MoveLocationToTable(hoth);
         scn.MoveCardsToLocation(hoth, bwing, executor);
         scn.AttachCardsTo(bwing, weapon1, weapon2);
+        scn.MoveCardsToDSSideOfTable(fighterCover);
 
-        scn.SkipToLSTurn(Phase.DEPLOY);
-        assertTrue(scn.AwaitingLSDeployPhaseActions());
-
-        assertTrue(scn.LSDeployAvailable(concentrateAllFire));
-        scn.LSDeployCard(concentrateAllFire);
-
-        scn.SkipToPhase(Phase.BATTLE);
-
+        scn.SkipToLSTurn(Phase.BATTLE);
         assertTrue(scn.AwaitingLSBattlePhaseActions());
-        assertTrue(scn.GetLSForcePileCount() >= 2); //enough to initiate and fire both weapons
+        assertTrue(scn.GetLSForcePileCount() >= 2);
         assertTrue(scn.LSCanInitiateBattle());
         scn.LSInitiateBattle(hoth);
         scn.PassBattleStartResponses();
 
-        // -- base power 4
-        assertEquals(4,scn.GetLSTotalPower());
+        // B-wing Bomber printed power 4
+        assertEquals(4, scn.GetLSTotalPower());
 
         assertTrue(scn.LSCardActionAvailable(weapon1));
-        scn.LSUseCardAction(weapon1); //cost: free
+        scn.LSUseCardAction(weapon1);
         assertTrue(scn.LSHasCardChoiceAvailable(executor));
         scn.LSChooseCard(executor);
         scn.PassAllResponses();
 
-        // -- concentrate all fire adds 3
-        assertEquals(7,scn.GetLSTotalPower());
+        // Fighter Cover adds 3 once
+        assertEquals(7, scn.GetLSTotalPower());
 
         scn.DSPass();
 
         assertTrue(scn.LSCardActionAvailable(weapon2));
-        scn.LSUseCardAction(weapon2); //cost: 1
+        scn.LSUseCardAction(weapon2);
         assertTrue(scn.LSHasCardChoiceAvailable(executor));
         scn.LSChooseCard(executor);
         scn.PassAllResponses();
 
-        // -- concentrate all fire should not add further (not cumulative)
-        assertEquals(7,scn.GetLSTotalPower());
+        // Same clause from the same unique card must not add another 3
+        assertEquals(7, scn.GetLSTotalPower());
     }
 }

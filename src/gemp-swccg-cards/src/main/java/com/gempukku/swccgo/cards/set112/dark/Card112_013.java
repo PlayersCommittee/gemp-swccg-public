@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.conditions.DrivingCondition;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Rarity;
@@ -46,7 +47,9 @@ public class Card112_013 extends AbstractAlien {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
         modifiers.add(new AddsPowerToDrivenBySelfModifier(self, 2));
-        modifiers.add(new AddsBattleDestinyModifier(self, new DrivingCondition(self, Filters.transport_vehicle), 1, self.getOwner()));
+        AddsBattleDestinyModifier drivingDestiny = new AddsBattleDestinyModifier(self, new DrivingCondition(self, Filters.transport_vehicle), 1, self.getOwner());
+        drivingDestiny.setClauseIdentity(GameTextActionId.OTHER_CARD_ACTION_1);
+        modifiers.add(drivingDestiny);
         return modifiers;
     }
 
@@ -54,11 +57,11 @@ public class Card112_013 extends AbstractAlien {
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.and(Filters.exterior_site, Filters.relatedSite(self)))
-                && GameConditions.isOncePerTurn(game, self, gameTextSourceCardId)
+                && GameConditions.isOncePerTurn(game, self, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_2)
                 && GameConditions.isPilotingAt(game, self, Filters.cloud_sector)
                 && GameConditions.canAddBattleDestinyDraws(game, self)) {
 
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_2);
             action.setText("Add one battle destiny");
             // Update usage limit(s)
             action.appendUsage(
