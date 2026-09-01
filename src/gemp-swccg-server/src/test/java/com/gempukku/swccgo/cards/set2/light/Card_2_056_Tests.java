@@ -769,11 +769,10 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
-	public void MaulsDoubleBladedLightsaberOnMaulCanBeDestroyedButNotStolen() {
-		// Maul's Double-Bladed Lightsaber (13_75): "Deploy on Maul. ... May not be stolen."
-		// Darth Maul (11_54, Tatooine). Not Darth Maul With Lightsaber (14_77), which is a permanent weapon.
-		// AbstractCharacterWeapon blueprint deploy cost is null (no printed Use X). Free/undefined is not a Sabotage cost.
-		// May not be stolen is checked later via canStealInsteadOfLose; it must not be why targeting fails.
+	public void MaulsDoubleBladedLightsaberHasNoNumericDeployCostAndIsNotATarget() {
+		// Maul's Double-Bladed Lightsaber (13_75) on Darth Maul (11_54, Tatooine). Not Darth Maul With Lightsaber (14_77).
+		// Blank Deploy / no Use X means not a Sabotage target (same as Restraining Bolt 1_205); we do not treat blank Deploy as 0.
+		// May not be stolen is later (canStealInsteadOfLose) and is not why targeting fails.
 		var scn = GetScenario();
 		var sabotage = scn.GetLSCard("sabotage");
 		var spy = scn.GetLSCard("spy");
