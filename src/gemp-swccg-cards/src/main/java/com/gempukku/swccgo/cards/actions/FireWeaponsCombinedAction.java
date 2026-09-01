@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.actions;
 
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
+import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
@@ -120,6 +121,14 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
                                         @Override
                                         protected void cardSelected(PhysicalCard chosen) {
                                             usedTargetingComputer[0] = true;
+                                            // Same once-per-copy counters as Card1_039. UseDeviceEffect
+                                            // excludes this copy from otherDevicesUsed, so without these
+                                            // increments Combined Attack would re-offer the same copy
+                                            // on a later weapon (capital: unlimited device slots).
+                                            String playerId = chosen.getOwner();
+                                            int cardId = chosen.getCardId();
+                                            game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(chosen, playerId, cardId, GameTextActionId.OTHER_CARD_ACTION_DEFAULT).incrementToLimit(1, 1);
+                                            game.getModifiersQuerying().getUntilEndOfBattleLimitCounter(chosen, playerId, cardId, GameTextActionId.OTHER_CARD_ACTION_DEFAULT).incrementToLimit(1, 1);
                                             subAction.appendEffect(new UseDeviceEffect(subAction, chosen));
                                             game.getGameState().beginSeparatelyOrCombinedFiring(chosen, weapon, true);
                                             subAction.appendAfterEffect(
@@ -192,8 +201,12 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
         Collection<PhysicalCard> computers = Filters.filterActive(game, _source,
                 Filters.and(Filters.title(Title.Targeting_Computer), Filters.attachedTo(starship)));
         for (PhysicalCard tc : computers) {
+            String playerId = tc.getOwner();
+            // playerId is required: 3-arg OncePerTurn/OncePerBattle pass playerId=null and never
+            // match the counters incremented with the owner's id.
             if (GameConditions.canUseDevice(game, tc)
-                    && GameConditions.isOncePerBattle(game, tc, tc.getCardId())) {
+                    && GameConditions.isOncePerTurn(game, tc, playerId, tc.getCardId())
+                    && GameConditions.isOncePerBattle(game, tc, playerId, tc.getCardId())) {
                 result.add(tc);
             }
         }
