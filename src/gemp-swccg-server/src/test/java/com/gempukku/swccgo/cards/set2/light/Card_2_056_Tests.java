@@ -59,8 +59,8 @@ public class Card_2_056_Tests {
 				put("maul", "11_54"); // Darth Maul (Tatooine)
 				put("maulSaber", "13_75"); // Maul's Double-Bladed Lightsaber (Reflections III)
 			}},
-			10,
-			10,
+			40,
+			40,
 			StartingSetup.DefaultLSGroundLocation,
 			StartingSetup.DefaultDSGroundLocation,
 			StartingSetup.NoLSStartingInterrupts,
@@ -72,13 +72,16 @@ public class Card_2_056_Tests {
 	}
 
 	/**
-	 * Plays Undercover (2_40) on your Bothan Spy so the spy is undercover for real, not via MakeCardGoUndercover.
-	 * Caller must already be in the Light deploy phase with the spy at a site.
+	 * Puts Undercover (2_40) in hand, skips to Light deploy, and plays it on your Bothan Spy.
+	 * The spy must already be at a site. Does not use MakeCardGoUndercover.
 	 */
 	private void PlayLightUndercoverOnSpy(VirtualTableScenario scn) {
 		var undercover = scn.GetLSCard("undercover");
 		var spy = scn.GetLSCard("spy");
 		scn.MoveCardsToLSHand(undercover);
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		assertTrue("Light Undercover (2_40) should be playable on the spy at a site during Light deploy.",
+				scn.LSCardPlayAvailable(undercover));
 		scn.LSPlayCard(undercover);
 		scn.LSChooseCard(spy);
 		scn.PassAllResponses();
@@ -86,13 +89,16 @@ public class Card_2_056_Tests {
 	}
 
 	/**
-	 * Plays Undercover (2_129) on Garindan so the Dark spy is undercover for real, not via MakeCardGoUndercover.
-	 * Caller must already be in the Dark deploy phase with Garindan at a site.
+	 * Puts Undercover (2_129) in hand, skips to Dark deploy, and plays it on Garindan.
+	 * Garindan must already be at a site. Does not use MakeCardGoUndercover.
 	 */
 	private void PlayDarkUndercoverOnGarindan(VirtualTableScenario scn) {
 		var dsUndercover = scn.GetDSCard("dsUndercover");
 		var dsSpy = scn.GetDSCard("dsSpy");
 		scn.MoveCardsToDSHand(dsUndercover);
+		scn.SkipToDSTurn(Phase.DEPLOY);
+		assertTrue("Dark Undercover (2_129) should be playable on Garindan at a site during Dark deploy.",
+				scn.DSCardPlayAvailable(dsUndercover));
 		scn.DSPlayCard(dsUndercover);
 		scn.DSChooseCard(dsSpy);
 		scn.PassAllResponses();
@@ -119,7 +125,7 @@ public class Card_2_056_Tests {
 
 	/**
 	 * Deploys Merc Sunlet on your Bothan Spy so the spy is a thief, then plays Undercover (2_40)
-	 * on that spy in the same deploy phase so the spy is undercover for real, not via MakeCardGoUndercover.
+	 * on that spy. Helper skips to a later Light deploy; Merc stays attached. Does not use MakeCardGoUndercover.
 	 */
 	private void GrantThiefToSpyAndGoUndercover(VirtualTableScenario scn) {
 		var merc = scn.GetLSCard("merc");
@@ -178,16 +184,14 @@ public class Card_2_056_Tests {
 		scn.MoveCardsToLocation(site, spy, trooper, dsSpy);
 		scn.AttachCardsTo(trooper, blaster);
 
-		// DS deploy Undercover (2_129) on Garindan
-		scn.SkipToPhase(Phase.DEPLOY);
+		// DS deploy Undercover (2_129) on Garindan. Dark helper owns SkipToDSTurn.
 		PlayDarkUndercoverOnGarindan(scn);
 
 		scn.SkipToLSTurn(Phase.CONTROL);
 		// Opponent undercover spy + your spy that is NOT undercover cannot play Sabotage.
 		assertFalse(scn.LSCardPlayAvailable(sabotage));
 
-		// LS deploy Undercover (2_40) on Bothan Spy in this same turn's deploy phase
-		scn.SkipToPhase(Phase.DEPLOY);
+		// LS deploy Undercover (2_40) on Bothan Spy. Light helper owns SkipToLSTurn(DEPLOY).
 		PlayLightUndercoverOnSpy(scn);
 		scn.SkipToLSTurn(Phase.CONTROL);
 		assertTrue(scn.LSCardPlayAvailable(sabotage));

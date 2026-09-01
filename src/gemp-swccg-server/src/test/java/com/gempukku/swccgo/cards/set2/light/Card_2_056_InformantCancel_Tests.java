@@ -34,8 +34,8 @@ public class Card_2_056_InformantCancel_Tests {
 				put("cantina", "1_290");
 				put("blaster", "1_317");
 			}},
-			10,
-			10,
+			40,
+			40,
 			StartingSetup.DefaultLSGroundLocation,
 			StartingSetup.DefaultDSGroundLocation,
 			StartingSetup.NoLSStartingInterrupts,
@@ -47,13 +47,16 @@ public class Card_2_056_InformantCancel_Tests {
 	}
 
 	/**
-	 * Plays Undercover (2_40) on your Bothan Spy so the spy is undercover for real, not via MakeCardGoUndercover.
-	 * Caller must already be in the Light deploy phase with the spy at a site.
+	 * Puts Undercover (2_40) in hand, skips to Light deploy, and plays it on your Bothan Spy.
+	 * The spy must already be at a site. Does not use MakeCardGoUndercover.
 	 */
 	private void PlayLightUndercoverOnSpy(VirtualTableScenario scn) {
 		var undercover = scn.GetLSCard("undercover");
 		var spy = scn.GetLSCard("spy");
 		scn.MoveCardsToLSHand(undercover);
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		assertTrue("Light Undercover (2_40) should be playable on the spy at a site during Light deploy.",
+				scn.LSCardPlayAvailable(undercover));
 		scn.LSPlayCard(undercover);
 		scn.LSChooseCard(spy);
 		scn.PassAllResponses();
@@ -61,13 +64,16 @@ public class Card_2_056_InformantCancel_Tests {
 	}
 
 	/**
-	 * Plays Undercover (2_129) on Garindan so the Dark spy is undercover for real, not via MakeCardGoUndercover.
-	 * Caller must already be in the Dark deploy phase with Garindan at a site.
+	 * Puts Undercover (2_129) in hand, skips to Dark deploy, and plays it on Garindan.
+	 * Garindan must already be at a site. Does not use MakeCardGoUndercover.
 	 */
 	private void PlayDarkUndercoverOnGarindan(VirtualTableScenario scn) {
 		var dsUndercover = scn.GetDSCard("dsUndercover");
 		var dsSpy = scn.GetDSCard("dsSpy");
 		scn.MoveCardsToDSHand(dsUndercover);
+		scn.SkipToDSTurn(Phase.DEPLOY);
+		assertTrue("Dark Undercover (2_129) should be playable on Garindan at a site during Dark deploy.",
+				scn.DSCardPlayAvailable(dsUndercover));
 		scn.DSPlayCard(dsUndercover);
 		scn.DSChooseCard(dsSpy);
 		scn.PassAllResponses();
@@ -94,7 +100,6 @@ public class Card_2_056_InformantCancel_Tests {
 		scn.MoveCardsToLocation(marketplace, dsSpy, trooper, lsTrooper);
 		scn.MoveCardsToLocation(cantina, mover);
 
-		scn.SkipToPhase(Phase.DEPLOY);
 		PlayDarkUndercoverOnGarindan(scn);
 
 		scn.SkipToLSTurn(Phase.BATTLE);
