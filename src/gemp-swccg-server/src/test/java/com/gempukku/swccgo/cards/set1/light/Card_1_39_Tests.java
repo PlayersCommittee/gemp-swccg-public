@@ -26,6 +26,20 @@ public class Card_1_39_Tests {
                 new HashMap<>()
                 {{
                     put("tc", "1_39");
+                    put("tc2", "1_39");
+                    put("tc3", "1_39");
+                    put("tc4", "1_39");
+                    put("bwing", "7_140");
+                    put("squadron", "7_150");
+                    put("sw42", "2_081");
+                    put("sw43", "2_081");
+                    put("sw44", "2_081");
+                    put("xwlc2", "7_162");
+                    put("xwlc3", "7_162");
+                    put("xwlc4", "7_162");
+                    put("htb2", "9_89");
+                    put("htb3", "9_89");
+                    put("htb4", "9_89");
                     put("karie", "9_18");
                     put("pilot", "1_27");
                     put("red7", "7_146");
@@ -56,7 +70,7 @@ public class Card_1_39_Tests {
                     put("vsd", "2_155");
                     put("executor", "4_167");
                 }},
-                10,
+                40,
                 10,
                 StartingSetup.DefaultLSSpaceSystem,
                 StartingSetup.DefaultDSSpaceSystem,
@@ -871,6 +885,342 @@ public class Card_1_39_Tests {
         assertTrue(tie.isHit());
     }
 
+
+    @Test
+    public void TargetingComputerFourCopiesMayDeployOnBwingEvenIfOnlyOneCanBeUsed() {
+        /**
+         * Advanced Rulebook Devices: any number of Targeting Computers may deploy on a starship
+         * even if that ship cannot use all of them this turn. A starfighter may use only one device
+         * per turn. Cumulative Rule: copies of Targeting Computer do not stack +1 maneuver.
+         */
+        var scn = GetScenario();
+        var bwing = scn.GetLSCard("bwing");
+        var tc = scn.GetLSCard("tc");
+        var tc2 = scn.GetLSCard("tc2");
+        var tc3 = scn.GetLSCard("tc3");
+        var tc4 = scn.GetLSCard("tc4");
+        scn.MoveCardsToHand(tc, tc2, tc3, tc4);
+
+        scn.StartGame();
+        var system = scn.GetLSStartingLocation();
+        scn.MoveCardsToLocation(system, bwing);
+
+        // Open format: Dark Side goes first. Skip to Light Side deploy, then move Reserve
+        // into the Force Pile so four Targeting Computers (2 Force each) can deploy.
+        scn.SkipToLSTurn(Phase.DEPLOY);
+        scn.EnsureLSForcePile(8);
+        assertTrue("Expected Light Side deploy actions, got: " + decisionDump(scn),
+                scn.AwaitingLSDeployPhaseActions());
+
+        PhysicalCardImpl[] computers = { tc, tc2, tc3, tc4 };
+        for (PhysicalCardImpl computer : computers) {
+            assertTrue("Targeting Computer must be deployable on the B-wing. " + decisionDump(scn),
+                    scn.LSGetDecision() != null && scn.LSDeployAvailable(computer));
+            scn.LSDeployCard(computer);
+            if (scn.LSGetDecision() != null && scn.LSHasCardChoiceAvailable(bwing)) {
+                scn.LSChooseCard(bwing);
+            }
+            if (scn.GetCurrentDecision() != null) {
+                scn.PassAllResponses();
+            }
+            // Deploy phase alternates players the same way weapons segment does.
+            if (scn.AwaitingDSDeployPhaseActions()) {
+                scn.DSPass();
+            }
+            assertTrue(scn.IsAttachedTo(bwing, computer));
+        }
+
+        assertEquals("Cumulative Rule: four Targeting Computers still add only +1 maneuver, not +4",
+                3, scn.GetManeuver(bwing));
+    }
+
+    @Test
+    public void TargetingComputerStarfighterMayUseOnlyOneCopyPerTurn() {
+        // B-wing Attack Fighter may fire many weapons each turn, so leftover SW-4 Ion Cannons
+        // stay fireable after one Targeting Computer. The starfighter may still use only one
+        // device per turn, so the other three Targeting Computers cannot Fire a weapon twice.
+        var scn = GetScenario();
+        var bwing = scn.GetLSCard("bwing");
+        var tc = scn.GetLSCard("tc");
+        var tc2 = scn.GetLSCard("tc2");
+        var tc3 = scn.GetLSCard("tc3");
+        var tc4 = scn.GetLSCard("tc4");
+        var sw4 = scn.GetLSCard("sw4");
+        var sw42 = scn.GetLSCard("sw42");
+        var tie = scn.GetDSCard("tie");
+        setupBwingWithFourTargetingComputers(scn);
+
+        assertEquals("Unused Targeting Computers still give +1 maneuver (continuous text is not using the device)",
+                3, scn.GetManeuver(bwing));
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        scn.EnsureLSForcePile(6);
+
+        assertTrue(fireTwiceAvailable(scn, tc));
+        assertTrue(fireTwiceAvailable(scn, tc2));
+        assertTrue(fireTwiceAvailable(scn, tc3));
+        assertTrue(fireTwiceAvailable(scn, tc4));
+
+        useFireAWeaponTwice(scn, tc, sw4, "Separately");
+        fireOneShot(scn, tie, 1);
+        fireOneShot(scn, tie, 1);
+        passDarkSideWeaponsIfNeeded(scn);
+
+        assertTrue("B-wing still has unused SW-4 Ion Cannons, so Light Side stays in weapons segment. "
+                        + decisionDump(scn),
+                scn.AwaitingLSWeaponsSegmentActions());
+        assertFalse("That Targeting Computer copy cannot be used again this turn. " + decisionDump(scn),
+                fireTwiceAvailable(scn, tc));
+        assertFalse("Starfighter may use only one device per turn. " + decisionDump(scn),
+                fireTwiceAvailable(scn, tc2));
+        assertFalse("Starfighter may use only one device per turn", fireTwiceAvailable(scn, tc3));
+        assertFalse("Starfighter may use only one device per turn", fireTwiceAvailable(scn, tc4));
+        assertTrue("Leftover SW-4 Ion Cannon can still Fire (device limit is not a weapon limit). "
+                        + decisionDump(scn),
+                scn.LSCardActionAvailable(sw42, "Fire"));
+        assertEquals("After using one Targeting Computer, maneuver is still +1, not +4 and not lost",
+                3, scn.GetManeuver(bwing));
+    }
+
+    @Test
+    public void TargetingComputerSquadronMayUseThreeCopiesPerTurn() {
+        // X-wing Assault Squadron is a Decipher squadron-class starship (Filters.squadron).
+        // Squadrons may use three different devices per turn. After three Targeting Computers
+        // are used, the fourth cannot Fire a weapon twice this turn.
+        var scn = GetScenario();
+        var tc = scn.GetLSCard("tc");
+        var tc2 = scn.GetLSCard("tc2");
+        var tc3 = scn.GetLSCard("tc3");
+        var tc4 = scn.GetLSCard("tc4");
+        var xwlc = scn.GetLSCard("xwlc");
+        var xwlc2 = scn.GetLSCard("xwlc2");
+        var xwlc3 = scn.GetLSCard("xwlc3");
+        var tie = scn.GetDSCard("tie");
+        setupSquadronWithFourTargetingComputers(scn);
+
+        scn.EnsureLSForcePile(4);
+        scn.StartBattleAndSkipToWeaponsSegment();
+
+        assertTrue(fireTwiceAvailable(scn, tc));
+        assertTrue(fireTwiceAvailable(scn, tc2));
+        assertTrue(fireTwiceAvailable(scn, tc3));
+        assertTrue(fireTwiceAvailable(scn, tc4));
+
+        useFireAWeaponTwice(scn, tc, xwlc, "Separately");
+        fireOneShot(scn, tie, 1, 0);
+        fireOneShot(scn, tie, 1, 0);
+        passDarkSideWeaponsIfNeeded(scn);
+        assertTrue("Squadron may use a second Targeting Computer this turn. " + decisionDump(scn),
+                fireTwiceAvailable(scn, tc2));
+        assertFalse("The Targeting Computer copy already used cannot Fire a weapon twice again this turn",
+                fireTwiceAvailable(scn, tc));
+
+        useFireAWeaponTwice(scn, tc2, xwlc2, "Separately");
+        fireOneShot(scn, tie, 1, 0);
+        fireOneShot(scn, tie, 1, 0);
+        passDarkSideWeaponsIfNeeded(scn);
+        assertTrue("Squadron may use a third Targeting Computer this turn. " + decisionDump(scn),
+                fireTwiceAvailable(scn, tc3));
+
+        useFireAWeaponTwice(scn, tc3, xwlc3, "Separately");
+        fireOneShot(scn, tie, 1, 0);
+        fireOneShot(scn, tie, 1, 0);
+        passDarkSideWeaponsIfNeeded(scn);
+
+        if (scn.AwaitingLSWeaponsSegmentActions()) {
+            assertFalse("Squadron may use only three devices per turn. " + decisionDump(scn),
+                    fireTwiceAvailable(scn, tc4));
+        }
+        else {
+            assertTrue("Expected weapons segment after three Targeting Computer uses. " + decisionDump(scn),
+                    scn.AwaitingDSWeaponsSegmentActions());
+        }
+    }
+
+    @Test
+    public void TargetingComputerCapitalMayUseAllFourCopiesPerTurn() {
+        // Home One is a capital starship and may use any number of devices per turn.
+        // Using copy A does not prevent using copy B, C, or D this turn.
+        var scn = GetScenario();
+        var tc = scn.GetLSCard("tc");
+        var tc2 = scn.GetLSCard("tc2");
+        var tc3 = scn.GetLSCard("tc3");
+        var tc4 = scn.GetLSCard("tc4");
+        var htb = scn.GetLSCard("htb");
+        var htb2 = scn.GetLSCard("htb2");
+        var htb3 = scn.GetLSCard("htb3");
+        var htb4 = scn.GetLSCard("htb4");
+        var stalker = scn.GetDSCard("stalker");
+        setupCapitalWithFourTargetingComputers(scn);
+
+        scn.EnsureLSForcePile(16);
+        scn.StartBattleAndSkipToWeaponsSegment();
+
+        PhysicalCardImpl[] computers = { tc, tc2, tc3, tc4 };
+        PhysicalCardImpl[] batteries = { htb, htb2, htb3, htb4 };
+        for (int i = 0; i < computers.length; i++) {
+            assertTrue("Capital may use Targeting Computer copy " + (i + 1) + " this turn. "
+                            + decisionDump(scn),
+                    fireTwiceAvailable(scn, computers[i]));
+            useFireAWeaponTwice(scn, computers[i], batteries[i], "Separately");
+            fireTwoDestinyShot(scn, stalker, 1, 1);
+            fireTwoDestinyShot(scn, stalker, 1, 1);
+            passDarkSideWeaponsIfNeeded(scn);
+            assertFalse("Used Targeting Computer copy " + (i + 1) + " cannot Fire a weapon twice again this turn. "
+                            + decisionDump(scn),
+                    fireTwiceAvailable(scn, computers[i]));
+        }
+    }
+
+    @Test
+    public void TargetingComputerEachCopyCanBeUsedOnlyOncePerTurn() {
+        // One Rule: an individual Targeting Computer copy can only be used once per turn.
+        // OncePerBattle is not enough if a second battle the same turn would re-offer it.
+        // No clean Decipher card initiates a second battle the same turn, so this checks the
+        // same-copy limit in one battle on a capital (device slots are unlimited there).
+        var scn = GetScenario();
+        var tc = scn.GetLSCard("tc");
+        var tc2 = scn.GetLSCard("tc2");
+        var tc3 = scn.GetLSCard("tc3");
+        var tc4 = scn.GetLSCard("tc4");
+        var htb = scn.GetLSCard("htb");
+        var stalker = scn.GetDSCard("stalker");
+        setupCapitalWithFourTargetingComputers(scn);
+
+        scn.EnsureLSForcePile(8);
+        scn.StartBattleAndSkipToWeaponsSegment();
+
+        assertTrue(fireTwiceAvailable(scn, tc));
+        useFireAWeaponTwice(scn, tc, htb, "Separately");
+        fireTwoDestinyShot(scn, stalker, 1, 1);
+        fireTwoDestinyShot(scn, stalker, 1, 1);
+        passDarkSideWeaponsIfNeeded(scn);
+
+        assertTrue("After using copy A, Light Side should still have weapons actions. " + decisionDump(scn),
+                scn.AwaitingLSWeaponsSegmentActions());
+        assertFalse("Copy A cannot Fire a weapon twice again this turn. " + decisionDump(scn),
+                fireTwiceAvailable(scn, tc));
+        assertTrue("Using copy A does not prevent using copy B this turn. " + decisionDump(scn),
+                fireTwiceAvailable(scn, tc2));
+        assertTrue("Copy C is still available this turn", fireTwiceAvailable(scn, tc3));
+        assertTrue("Copy D is still available this turn", fireTwiceAvailable(scn, tc4));
+    }
+
+
+    /**
+     * B-wing Attack Fighter with four Targeting Computers and four SW-4 Ion Cannons vs two TIEs.
+     * The B-wing may fire many weapons during battle, so leftover cannons stay fireable after
+     * one Targeting Computer is used.
+     */
+    private void setupBwingWithFourTargetingComputers(VirtualTableScenario scn) {
+        scn.StartGame();
+        var system = scn.GetLSStartingLocation();
+        var bwing = scn.GetLSCard("bwing");
+        var tie = scn.GetDSCard("tie");
+        var tie2 = scn.GetDSCard("tie2");
+        scn.MoveCardsToLocation(system, bwing, tie, tie2);
+        scn.AttachCardsTo(bwing,
+                scn.GetLSCard("sw4"), scn.GetLSCard("sw42"), scn.GetLSCard("sw43"), scn.GetLSCard("sw44"),
+                scn.GetLSCard("tc"), scn.GetLSCard("tc2"), scn.GetLSCard("tc3"), scn.GetLSCard("tc4"));
+    }
+
+    /**
+     * X-wing Assault Squadron with four Targeting Computers and four X-wing Laser Cannons vs two TIEs.
+     * Squadrons may use three different devices per turn.
+     */
+    private void setupSquadronWithFourTargetingComputers(VirtualTableScenario scn) {
+        scn.StartGame();
+        var system = scn.GetLSStartingLocation();
+        var squadron = scn.GetLSCard("squadron");
+        var tie = scn.GetDSCard("tie");
+        var tie2 = scn.GetDSCard("tie2");
+        scn.MoveCardsToLocation(system, squadron, tie, tie2);
+        scn.AttachCardsTo(squadron,
+                scn.GetLSCard("xwlc"), scn.GetLSCard("xwlc2"), scn.GetLSCard("xwlc3"), scn.GetLSCard("xwlc4"),
+                scn.GetLSCard("tc"), scn.GetLSCard("tc2"), scn.GetLSCard("tc3"), scn.GetLSCard("tc4"));
+    }
+
+    /**
+     * Home One with four Targeting Computers and four Heavy Turbolaser Batteries vs Stalker.
+     * Capitals may use any number of devices per turn. Stalker is the proven Home One target.
+     */
+    private void setupCapitalWithFourTargetingComputers(VirtualTableScenario scn) {
+        scn.StartGame();
+        var system = scn.GetLSStartingLocation();
+        var homeone = scn.GetLSCard("homeone");
+        var stalker = scn.GetDSCard("stalker");
+        scn.MoveCardsToLocation(system, homeone, stalker);
+        scn.AttachCardsTo(homeone,
+                scn.GetLSCard("htb"), scn.GetLSCard("htb2"), scn.GetLSCard("htb3"), scn.GetLSCard("htb4"),
+                scn.GetLSCard("tc"), scn.GetLSCard("tc2"), scn.GetLSCard("tc3"), scn.GetLSCard("tc4"));
+    }
+
+    /**
+     * Starts Fire a weapon twice on the given Targeting Computer. If several weapons can fire,
+     * choose the given weapon. Then pick Separately or Combined.
+     */
+    private void useFireAWeaponTwice(VirtualTableScenario scn, PhysicalCardImpl targetingComputer,
+                                     PhysicalCardImpl weapon, String mode) {
+        assertTrue("Fire a weapon twice must be available on that Targeting Computer. " + decisionDump(scn),
+                fireTwiceAvailable(scn, targetingComputer));
+        scn.LSUseCardAction(targetingComputer, "Fire a weapon twice");
+        if (scn.LSGetDecision() != null && scn.LSDecisionAvailable("Choose weapon")) {
+            scn.LSChooseCard(weapon);
+        }
+        assertTrue("Expected Fire a weapon twice prompt, got: " + decisionDump(scn),
+                scn.LSGetDecision() != null && scn.LSDecisionAvailable("Fire a weapon twice"));
+        assertTrue(scn.LSChoiceAvailable("Separately"));
+        assertTrue(scn.LSChoiceAvailable("Combined"));
+        assertTrue(scn.LSChoiceAvailable("Don't Fire (Cancel)"));
+        scn.LSChoose(mode);
+    }
+
+    /**
+     * Weapons segment alternates players. After Light Side uses a Targeting Computer, Dark Side
+     * is asked next even if Light Side still has weapons or devices. Pass Dark Side to get back
+     * to Light Side's remaining Targeting Computers.
+     */
+    private void passDarkSideWeaponsIfNeeded(VirtualTableScenario scn) {
+        if (scn.AwaitingDSWeaponsSegmentActions()) {
+            scn.DSPass();
+        }
+    }
+
+    /**
+     * True if Light Side currently has Fire a weapon twice on that Targeting Computer copy.
+     * False (does not throw) when Light Side has no decision.
+     */
+    private boolean fireTwiceAvailable(VirtualTableScenario scn, PhysicalCardImpl targetingComputer) {
+        return scn.LSGetDecision() != null && scn.LSCardActionAvailable(targetingComputer, "Fire a weapon twice");
+    }
+
+    /**
+     * Light Side and Dark Side current decision text plus Light Side action list, for assertion messages.
+     */
+    private String decisionDump(VirtualTableScenario scn) {
+        String ls = scn.LSGetDecision() == null ? "null" : scn.LSGetDecision().getText();
+        String ds = scn.DSGetDecision() == null ? "null" : scn.DSGetDecision().getText();
+        String actions = "n/a";
+        try {
+            if (scn.LSGetDecision() != null) {
+                actions = String.valueOf(scn.GetLSAvailableActions());
+            }
+        }
+        catch (RuntimeException ignored) {
+            actions = "(no actionText)";
+        }
+        String phase = String.valueOf(scn.gameState().getCurrentPhase());
+        String player = String.valueOf(scn.gameState().getCurrentPlayerId());
+        String soc = scn.gameState().getSeparatelyOrCombinedFiringState() == null ? "none" : "active";
+        int force = scn.GetLSForcePileCount();
+        String logTail = "";
+        java.util.List<String> msgs = scn.gameState().getLastMessages();
+        int from = Math.max(0, msgs.size() - 12);
+        logTail = String.join(" | ", msgs.subList(from, msgs.size()));
+        return "player=" + player + " phase=" + phase + " force=" + force + " soc=" + soc
+                + " LS=" + ls + " actions=" + actions + " DS=" + ds + " log=" + logTail;
+    }
+
     private void setupRed7(VirtualTableScenario scn, boolean includeKarie) {
         scn.StartGame();
         var system = scn.GetLSStartingLocation();
@@ -1117,6 +1467,9 @@ public class Card_1_39_Tests {
     private void fireOneShot(VirtualTableScenario scn, PhysicalCardImpl target, int destiny, Integer forceToUse) {
         // Combined second shots auto-target and may already be at Force/Fire responses.
         // Prepare destiny before passing those responses so the next draw is stubbed.
+        if (scn.AwaitingLSWeaponsSegmentActions() || scn.AwaitingDSWeaponsSegmentActions()) {
+            return;
+        }
         if (scn.LSGetDecision() != null && scn.LSHasCardChoiceAvailable(target)) {
             scn.LSChooseCard(target);
         }
@@ -1128,6 +1481,9 @@ public class Card_1_39_Tests {
     }
 
     private void fireTwoDestinyShot(VirtualTableScenario scn, PhysicalCardImpl target, int destiny1, int destiny2) {
+        if (scn.AwaitingLSWeaponsSegmentActions() || scn.AwaitingDSWeaponsSegmentActions()) {
+            return;
+        }
         if (scn.LSGetDecision() != null && scn.LSHasCardChoiceAvailable(target)) {
             scn.LSChooseCard(target);
         }

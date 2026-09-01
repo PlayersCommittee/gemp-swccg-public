@@ -3,8 +3,8 @@ package com.gempukku.swccgo.cards.set1.light;
 import com.gempukku.swccgo.cards.AbstractDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
@@ -109,9 +109,12 @@ public class Card1_039 extends AbstractDevice {
                 Filters.attachedTo(Filters.and(Filters.hasAttached(self), Filters.participatingInBattle)),
                 Filters.canBeFired(self, 0, Filters.canBeTargetedBy(self)));
 
-        // Only usable during battle (forum p=1195641). Each copy is limited to one usage per battle (forum p=961994).
+        // Only usable during battle (forum p=1195641). Each copy is limited to one usage per turn
+        // (One Rule / Targeting Computer game text). OncePerBattle alone would re-offer the same copy
+        // in a later battle the same turn.
         if (GameConditions.isDuringBattle(game)
-                && GameConditions.isOncePerBattle(game, self, gameTextSourceCardId)
+                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)
+                && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
                 && GameConditions.canUseDevice(game, self)
                 && GameConditions.isDuringBattleWithParticipant(game, Filters.hasAttached(self))
                 && GameConditions.canSpot(game, self, weaponFilter)) {
@@ -119,7 +122,7 @@ public class Card1_039 extends AbstractDevice {
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
             action.setText("Fire a weapon twice");
             action.setActionMsg("use " + GameUtils.getCardLink(self) + " to fire a weapon twice");
-            // OncePerBattle / UseDevice wait until Separately or Combined so Don't Fire can abort unused.
+            // OncePerTurn / OncePerBattle / UseDevice wait until Separately or Combined so Don't Fire can abort unused.
             action.appendTargeting(
                     new ChooseCardOnTableEffect(action, playerId, "Choose weapon to fire twice", weaponFilter) {
                         @Override
@@ -139,9 +142,12 @@ public class Card1_039 extends AbstractDevice {
                                                 return;
                                             }
                                             final boolean combined = "Combined".equals(result);
-                                            action.appendUsage(
-                                                    new OncePerBattleEffect(action));
-                                            action.appendUsage(
+                                            // Increment here (not appendUsage): targeting has already started, so a
+                                            // usage-phase queue would never run OncePerTurn/OncePerBattle. Don't Fire
+                                            // returns before this, so cancel still leaves the copy unused.
+                                            game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self, playerId, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_DEFAULT).incrementToLimit(1, 1);
+                                            game.getModifiersQuerying().getUntilEndOfBattleLimitCounter(self, playerId, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_DEFAULT).incrementToLimit(1, 1);
+                                            action.appendEffect(
                                                     new UseDeviceEffect(action, self));
                                             game.getGameState().beginSeparatelyOrCombinedFiring(self, weapon, combined);
                                             // Clear separately-or-combined firing after shots, not at targeting-complete.
