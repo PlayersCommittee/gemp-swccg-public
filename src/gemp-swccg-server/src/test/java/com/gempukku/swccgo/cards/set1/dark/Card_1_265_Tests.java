@@ -30,6 +30,7 @@ public class Card_1_265_Tests {
                     put("speeder", "1_149");
                     put("sense", "1_109");
                     put("luke", "1_019");
+                    put("han", "1_011");
                 }},
                 new HashMap<>()
                 {{
@@ -45,6 +46,9 @@ public class Card_1_265_Tests {
                     put("assault", "1_311");
                     put("saber", "1_314");
                     put("vader", "1_168");
+                    put("bossk", "110_005");
+                    put("fourlom", "109_006");
+                    put("hutt", "6_144");
                 }},
                 40,
                 10,
@@ -408,11 +412,205 @@ public class Card_1_265_Tests {
         assertTrue(obi.isHit());
     }
 
+    @Test
+    public void BosskOptionalMinusOneAppliesToPreciseAttackGrandTotalAndCaptures() {
+        /**
+         * Precise Attack (1_265) with Bossk With Mortar Gun (110_005) and 4-LOM With Concussion Rifle (109_006)
+         * vs Han Solo (1_011) destiny 1, with Hutt Bounty (6_144) attached at the same site.
+         * Bossk draws 2 and takes the optional -1. 4-LOM's printed fire cancels game text with no destiny draw.
+         * Grand total is 2 - 1 = 1, which matches Han Solo and captures him.
+         */
+        var scn = GetScenario();
+        var pa = scn.GetDSCard("pa");
+        var bossk = scn.GetDSCard("bossk");
+        var fourlom = scn.GetDSCard("fourlom");
+        var han = scn.GetLSCard("han");
+        setupBosskAndFourLomVsHanWithHuttBounty(scn);
+        scn.MoveCardsToHand(pa);
+
+        scn.DSStartBattleAndSkipToWeaponsSegment(site(scn));
+        playPreciseAttack(scn, han, bossk, fourlom);
+        fireBosskAndFourLom(scn, han, bossk, 2, true);
+        finishBosskPreciseAttack(scn, han, bossk);
+
+        String log = gameLog(scn);
+        assertTrue("After Bossk -1 the live total must be 1. LOG:\n" + log, log.contains("total weapon destiny is 1"));
+        assertTrue("Per-firing line stays draw-only. LOG:\n" + log, log.contains("(draw modifiers only)"));
+        assertTrue("Precise Attack destinies 2 = 2. LOG:\n" + log, log.contains("2 = 2"));
+        assertTrue("Total modifiers -1 once on the grand total. LOG:\n" + log, log.contains("Total modifiers -1"));
+        assertTrue("Grand total is 1 after Bossk -1. LOG:\n" + log, log.contains("Total weapon destiny 1"));
+        assertFalse("4-LOM With Concussion Rifle does not draw destiny. LOG:\n" + log, log.contains("2 + "));
+        assertTrue("Han Solo destiny 1 must be captured by grand total 1. " + decisionDump(scn), han.isCaptive());
+
+        assertPreciseAttackStateCleared(scn);
+    }
+
+    @Test
+    public void DecliningBosskOptionalMinusOneLeavesUnmodifiedPreciseAttackTotal() {
+        /**
+         * Same Precise Attack (1_265) setup as the capture test. Bossk With Mortar Gun draws 2 and
+         * declines the optional -1. Grand total stays 2, which does not match Han Solo destiny 1.
+         */
+        var scn = GetScenario();
+        var pa = scn.GetDSCard("pa");
+        var bossk = scn.GetDSCard("bossk");
+        var fourlom = scn.GetDSCard("fourlom");
+        var han = scn.GetLSCard("han");
+        setupBosskAndFourLomVsHanWithHuttBounty(scn);
+        scn.MoveCardsToHand(pa);
+
+        scn.DSStartBattleAndSkipToWeaponsSegment(site(scn));
+        playPreciseAttack(scn, han, bossk, fourlom);
+        fireBosskAndFourLom(scn, han, bossk, 2, false);
+        finishBosskPreciseAttack(scn, han, bossk);
+
+        String log = gameLog(scn);
+        assertTrue("Precise Attack destinies 2 = 2. LOG:\n" + log, log.contains("2 = 2"));
+        assertTrue("Declining Bossk -1 leaves total 2. LOG:\n" + log, log.contains("Total weapon destiny 2"));
+        assertFalse("Declining must not add Total modifiers -1. LOG:\n" + log, log.contains("Total modifiers -1"));
+        assertFalse("Han Solo destiny 1 must not be captured by unmodified total 2", han.isCaptive());
+        assertPreciseAttackStateCleared(scn);
+    }
+
     /**
      * Dark Side starting location after both sides are moved to the Light Side ground site.
      */
     private PhysicalCardImpl site(VirtualTableScenario scn) {
         return scn.GetLSStartingLocation();
+    }
+
+    /**
+     * Bossk With Mortar Gun (110_005) and 4-LOM With Concussion Rifle (109_006) vs Han Solo (1_011)
+     * with Hutt Bounty (6_144) attached. The bounty is at the same site so Bossk may add or subtract 1.
+     */
+    private void setupBosskAndFourLomVsHanWithHuttBounty(VirtualTableScenario scn) {
+        scn.StartGame();
+        var site = site(scn);
+        var bossk = scn.GetDSCard("bossk");
+        var fourlom = scn.GetDSCard("fourlom");
+        var hutt = scn.GetDSCard("hutt");
+        var han = scn.GetLSCard("han");
+        scn.MoveCardsToLocation(site, bossk, fourlom, han);
+        scn.AttachCardsTo(han, hutt);
+        if (hutt.getAttachedTo() == null || !hutt.getZone().isInPlay()) {
+            scn.MoveCardsToLocation(site, hutt);
+        }
+        ensureDarkForce(scn, 8);
+    }
+
+    /**
+     * Fire both Precise Attack weapons. 4-LOM With Concussion Rifle has no destiny draw.
+     * Bossk With Mortar Gun draws, then optionally subtracts 1 when takeMinusOne is true.
+     */
+    private void fireBosskAndFourLom(VirtualTableScenario scn, PhysicalCardImpl target, PhysicalCardImpl bossk,
+                                    int bosskDestiny, boolean takeMinusOne) {
+        boolean fourLomFirst = scn.DSGetDecision() != null && scn.DSHasCardChoiceAvailable(target);
+        if (fourLomFirst) {
+            fireFourLomNoDestiny(scn, target);
+            fireBosskWithOptionalMinusOne(scn, bossk, bosskDestiny, takeMinusOne);
+        }
+        else {
+            fireBosskWithOptionalMinusOne(scn, bossk, bosskDestiny, takeMinusOne);
+            fireFourLomNoDestiny(scn, target);
+        }
+    }
+
+    /**
+     * Fire 4-LOM With Concussion Rifle. Printed text cancels game text and does not draw destiny.
+     */
+    private void fireFourLomNoDestiny(VirtualTableScenario scn, PhysicalCardImpl target) {
+        if (scn.DSGetDecision() != null && scn.DSHasCardChoiceAvailable(target)) {
+            scn.DSChooseCard(target);
+        }
+        chooseForceAmountIfPrompted(scn, null);
+        scn.PassForceUseResponses();
+        scn.PassWeaponFireWithDestinyDraw(0);
+        passPostFiringResponses(scn);
+    }
+
+    /**
+     * Fire Bossk With Mortar Gun, draw the given destiny, and take or decline the optional -1.
+     */
+    private void fireBosskWithOptionalMinusOne(VirtualTableScenario scn, PhysicalCardImpl bossk, int destiny, boolean takeMinusOne) {
+        scn.PrepareDSDestiny(destiny);
+        chooseForceAmountIfPrompted(scn, null);
+        scn.PassForceUseResponses();
+        scn.PassResponses("Fire ");
+        scn.PassResponses("COST_TO_DRAW_DESTINY_CARD");
+        scn.PassResponses("ABOUT_TO_DRAW_DESTINY_CARD");
+        scn.PassResponses("DESTINY_DRAWN");
+        scn.PassResponses("COMPLETE_DESTINY_DRAW");
+        if (scn.LSGetDecision() != null && scn.LSGetDecision().getText() != null
+                && scn.LSGetDecision().getText().toLowerCase().contains("optional")) {
+            scn.LSPass();
+        }
+        if (takeMinusOne) {
+            assertTrue("Bossk With Mortar Gun optional -1 must be offered after the draw. " + decisionDump(scn),
+                    scn.DSDecisionAvailable("Just completed drawing weapon destiny - Optional responses"));
+            assertTrue("Bossk With Mortar Gun must offer Subtract 1. " + decisionDump(scn),
+                    scn.DSCardActionAvailable(bossk, "Subtract 1"));
+            scn.DSUseCardAction(bossk, "Subtract 1");
+        }
+        else if (scn.DSGetDecision() != null && scn.DSCardActionAvailable(bossk, "Subtract 1")) {
+            scn.DSPass();
+        }
+        scn.PassResponses("DRAWING_DESTINY_COMPLETE");
+        passPostFiringResponses(scn);
+    }
+
+    /**
+     * Apply Precise Attack results. If Bossk With Mortar Gun matched Han Solo's destiny, seize him.
+     */
+    private void finishBosskPreciseAttack(VirtualTableScenario scn, PhysicalCardImpl han, PhysicalCardImpl bossk) {
+        int safety = 0;
+        while (safety++ < 24 && !han.isCaptive()) {
+            chooseResultApplyOrderIfPrompted(scn);
+            if (chooseCaptureIfPrompted(scn, han, bossk)) {
+                continue;
+            }
+            if (scn.LSGetDecision() != null && scn.LSGetDecision().getText() != null
+                    && scn.LSGetDecision().getText().toLowerCase().contains("optional")) {
+                scn.LSPass();
+                continue;
+            }
+            break;
+        }
+        finishPreciseAttack(scn);
+        chooseCaptureIfPrompted(scn, han, bossk);
+    }
+
+    /**
+     * Handles Bossk With Mortar Gun capture prompts: pick Han Solo, then Seize.
+     * Returns true if a capture decision was taken.
+     */
+    private boolean chooseCaptureIfPrompted(VirtualTableScenario scn, PhysicalCardImpl han, PhysicalCardImpl bossk) {
+        boolean acted = false;
+        int safety = 0;
+        while (safety++ < 12 && scn.DSGetDecision() != null && scn.DSGetDecision().getText() != null) {
+            String text = scn.DSGetDecision().getText().toLowerCase();
+            if (text.contains("about_to_be_captured") || text.contains("captured - optional")) {
+                scn.DSPass();
+                acted = true;
+                continue;
+            }
+            if (text.contains("choose option for capturing") || (text.contains("captur") && text.contains("seize"))) {
+                scn.DSChooseSeizeCaptive();
+                acted = true;
+                continue;
+            }
+            if (text.contains("escort") && bossk != null && scn.DSHasCardChoiceAvailable(bossk)) {
+                scn.DSChooseCard(bossk);
+                acted = true;
+                continue;
+            }
+            if ((text.contains("capture") || text.contains("captured") || text.contains("escort")) && scn.DSHasCardChoiceAvailable(han)) {
+                scn.DSChooseCard(han);
+                acted = true;
+                continue;
+            }
+            break;
+        }
+        return acted;
     }
 
     /**

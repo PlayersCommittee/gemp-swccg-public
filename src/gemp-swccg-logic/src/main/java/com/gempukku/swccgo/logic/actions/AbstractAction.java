@@ -34,6 +34,7 @@ public abstract class AbstractAction implements Action {
     private boolean _virtualCardAction;
     private boolean _allowAbort;
     private boolean _choosingTargetsComplete;
+    private Action _appendEffectForwardTo;
 
     protected int _latestTargetGroupId;
     protected Map<Integer, String> _targetingTextMap = new HashMap<Integer, String>();
@@ -316,6 +317,10 @@ public abstract class AbstractAction implements Action {
      */
     @Override
     public final void insertEffect(StandardEffect... effect) {
+        if (_appendEffectForwardTo != null && _appendEffectForwardTo != this) {
+            _appendEffectForwardTo.insertEffect(effect);
+            return;
+        }
         _choosingTargetsComplete = true;
         _effects.addAll(0, Arrays.asList(effect));
     }
@@ -326,8 +331,21 @@ public abstract class AbstractAction implements Action {
      *
      * @param effect the effect
      */
+    /**
+     * Combined Attack / Precise Attack: send later appendEffect calls to the apply-results
+     * action so nested follow-ups (Bossk With Mortar Gun capture after destiny refresh)
+     * are not left on a finished fire action.
+     */
+    public void setAppendEffectForwardTo(Action forwardTo) {
+        _appendEffectForwardTo = forwardTo;
+    }
+
     @Override
     public final void appendEffect(StandardEffect effect) {
+        if (_appendEffectForwardTo != null && _appendEffectForwardTo != this) {
+            _appendEffectForwardTo.appendEffect(effect);
+            return;
+        }
         _choosingTargetsComplete = true;
         _effects.add(effect);
     }
