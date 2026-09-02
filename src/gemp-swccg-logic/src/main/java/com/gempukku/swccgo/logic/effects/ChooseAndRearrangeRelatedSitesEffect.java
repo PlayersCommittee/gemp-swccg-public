@@ -22,8 +22,8 @@ import java.util.List;
  * table does not change until every site has been chosen.
  */
 public class ChooseAndRearrangeRelatedSitesEffect extends AbstractSubActionEffect {
-    public static final String CHOICE_TEXT = "Choose sites in order from left to right";
-    public static final String NEXT_CHOICE_TEXT = "Choose next site from the left";
+    public static final String CHOICE_TEXT = "Choose sites left-to-right";
+    public static final String NEXT_CHOICE_TEXT = CHOICE_TEXT;
 
     private String _playerId;
     private Filter _filter;
@@ -91,7 +91,7 @@ public class ChooseAndRearrangeRelatedSitesEffect extends AbstractSubActionEffec
         private final List<PhysicalCard> _chosenOrder;
 
         private ChooseNextSiteEffect(SubAction subAction, String playerId, List<PhysicalCard> remaining, List<PhysicalCard> chosenOrder) {
-            super(subAction, playerId, chosenOrder.isEmpty() ? CHOICE_TEXT : NEXT_CHOICE_TEXT, new ArrayList<PhysicalCard>(remaining));
+            super(subAction, playerId, CHOICE_TEXT, new ArrayList<PhysicalCard>(remaining));
             _subAction = subAction;
             _chooser = playerId;
             _remaining = remaining;
