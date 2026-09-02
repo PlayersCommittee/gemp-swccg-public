@@ -1,7 +1,7 @@
 package com.gempukku.swccgo.rules.layout;
 
-import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -9,6 +9,7 @@ import com.gempukku.swccgo.game.PhysicalCardImpl;
 import com.gempukku.swccgo.game.layout.LocationGroup;
 import com.gempukku.swccgo.game.layout.RearrangeSites;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.decisions.CardActionSelectionDecision;
 import com.gempukku.swccgo.logic.effects.ChooseAndRearrangeRelatedSitesEffect;
 import org.junit.Test;
 
@@ -72,6 +73,21 @@ public class RearrangeSitesClickOrderTests {
         }
     }
 
+    /**
+     * Starts the generic sequential click-to-order UI as a table action.
+     * DSExecuteAdHocEffect always picks action index 0 (Activate Force during
+     * the Activate phase), so inject at the end of the current action list
+     * and choose that index.
+     */
+    private void beginChooseInOrder(VirtualTableScenario scn, PhysicalCardImpl source, Filter siteFilter) {
+        var action = new TopLevelGameTextAction(source, source.getOwner(), source.getCardId());
+        action.setText("Rearrange related sites");
+        action.appendEffect(new ChooseAndRearrangeRelatedSitesEffect(action, source.getOwner(), siteFilter));
+        int injectedIndex = scn.GetDSAvailableActions().size();
+        ((CardActionSelectionDecision) scn.userFeedback().getAwaitingDecision(source.getOwner())).addAction(action);
+        scn.DSDecided(String.valueOf(injectedIndex));
+    }
+
     @Test
     public void ClickSitesInOrderRearrangesAtomicallyAfterAllChosen() {
         var scn = GetScenario();
@@ -90,7 +106,7 @@ public class RearrangeSitesClickOrderTests {
         putLocation(scn, conference);
         putLocation(scn, db327);
 
-        scn.SkipToPhase(Phase.CONTROL);
+        assertTrue(scn.AwaitingDSActivatePhaseActions());
 
         int db327Index = db327.getLocationZoneIndex();
         List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
@@ -100,10 +116,7 @@ public class RearrangeSitesClickOrderTests {
         PhysicalCardImpl right = (PhysicalCardImpl) interiors.get(2);
         List<PhysicalCard> original = new ArrayList<PhysicalCard>(interiors);
 
-        scn.DSExecuteAdHocEffect(corridor, new ChooseAndRearrangeRelatedSitesEffect(
-                new TopLevelGameTextAction(corridor, corridor.getOwner(), corridor.getCardId()),
-                corridor.getOwner(),
-                RearrangeSites.interiorSitesOfSystem(Title.Death_Star)));
+        beginChooseInOrder(scn, corridor, RearrangeSites.interiorSitesOfSystem(Title.Death_Star));
 
         assertTrue(scn.DSDecisionAvailable(ChooseAndRearrangeRelatedSitesEffect.CHOICE_TEXT));
         assertTrue(scn.DSHasCardChoicesAvailable(left, mid, right));
@@ -111,12 +124,12 @@ public class RearrangeSitesClickOrderTests {
 
         scn.DSChooseCard(right);
         assertEquals(original, interiorTops(scn, Title.Death_Star));
-        assertTrue(scn.DSDecisionAvailable(ChooseAndRearrangeRelatedSitesEffect.CHOICE_TEXT));
+        assertTrue(scn.DSDecisionAvailable(ChooseAndRearrangeRelatedSitesEffect.NEXT_CHOICE_TEXT));
         assertTrue(scn.DSHasCardChoicesAvailable(left, mid));
         assertTrue(scn.DSHasCardChoiceNotAvailable(right));
 
         scn.DSChooseCard(left);
-        if (scn.DSDecisionAvailable(ChooseAndRearrangeRelatedSitesEffect.CHOICE_TEXT)) {
+        if (scn.DSDecisionAvailable(ChooseAndRearrangeRelatedSitesEffect.NEXT_CHOICE_TEXT)) {
             scn.DSChooseCard(mid);
         }
 
