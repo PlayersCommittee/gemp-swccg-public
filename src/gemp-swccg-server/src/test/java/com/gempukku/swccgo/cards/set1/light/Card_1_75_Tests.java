@@ -59,6 +59,12 @@ public class Card_1_75_Tests {
                     put("htb2", "9_89");
                     put("homeone", "9_74");
                     put("defiance", "9_67");
+                    put("falcon", "1_143");
+                    put("corvette", "1_140");
+                    put("qlc", "1_159");
+                    put("bomber3", "9_66");
+                    put("ept2", "9_88");
+                    put("ept3", "9_88");
                 }},
                 new HashMap<>()
                 {{
@@ -787,6 +793,119 @@ public class Card_1_75_Tests {
     }
 
     @Test
+    public void CombinedAttackConcussionMissilesAndQuadLaserCannonPlusOnesStack() {
+        // Falcon (1_143) with Concussion Missiles (9_87) and Corellian Corvette (1_140)
+        // with Quad Laser Cannon (1_159) Combined Attack a TIE (starfighter, maneuver 3).
+        // Different titles: Concussion Missiles +1 and Quad Laser Cannon +1 both apply (+2).
+        // Draws 1 and 1. Draw sum 2. Total 4 > 3 hit.
+        // Collapsing different titles to one +1 is 3, not > 3, miss.
+        var scn = GetScenario();
+        var ca = scn.GetLSCard("ca");
+        var missiles = scn.GetLSCard("missiles");
+        var qlc = scn.GetLSCard("qlc");
+        var tie = scn.GetDSCard("tie");
+        setupFalconConcussionMissilesAndCorvetteQuadLaser(scn);
+        scn.MoveCardsToHand(ca);
+        scn.EnsureLSForcePile(6);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        playCombinedAttack(scn, tie, missiles, qlc);
+
+        fireOneShot(scn, tie, 1);
+        assertFalse("First Combined Attack destiny must not resolve a hit by itself", tie.isHit());
+        fireOneShot(scn, tie, 1, 1);
+        finishCombinedAttack(scn);
+
+        assertEquals(3, scn.GetDefense(tie));
+        assertTrue("Concussion Missiles +1 and Quad Laser Cannon +1 stack to +2: 2+2=4 > TIE maneuver 3", tie.isHit());
+        String log = gameLog(scn);
+        assertTrue("Combined Attack destinies 1 + 1 = 2. LOG:\n" + log, log.contains("1 + 1 = 2"));
+        assertTrue("Total modifiers +2 from different titles. LOG:\n" + log, log.contains("Total modifiers +2"));
+        assertTrue("Grand total 4 after stacked +2. LOG:\n" + log, log.contains("Total weapon destiny 4"));
+        assertFalse("Do not collapse different titles to one +1 (that would be 3)", log.contains("Total weapon destiny 3"));
+    }
+
+    @Test
+    public void CombinedAttackEptAndIntruderMissileStackAfterIonCannonTargetsCapital() {
+        // First fire SW-4 Ion Cannon (2_081) on a B-wing at Stalker (ordinary, not Combined Attack).
+        // Destiny 1 does not beat armor 7, so Stalker is not ionized, but it was targeted this turn.
+        // Then Combined Attack Enhanced Proton Torpedoes (9_88) + Intruder Missile (7_159)
+        // at the same Stalker. Different titles: Enhanced Proton Torpedoes +1 vs capital and
+        // Intruder Missile +3 stack = +4. Draws 1 and 3. Draw sum 4. Total 8 > 7 hit.
+        // Enhanced Proton Torpedoes only +1 is 5 miss; Intruder Missile only +3 is 7 miss.
+        var scn = GetScenario();
+        var ca = scn.GetLSCard("ca");
+        var sw4 = scn.GetLSCard("sw4");
+        var ept = scn.GetLSCard("ept");
+        var im = scn.GetLSCard("im");
+        var stalker = scn.GetDSCard("stalker");
+        setupIonCannonThenEptAndIntruderMissileVsStalker(scn);
+        scn.MoveCardsToHand(ca);
+        scn.EnsureLSForcePile(8);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        assertTrue(scn.LSCardActionAvailable(sw4, "Fire"));
+        scn.LSUseCardAction(sw4, "Fire");
+        fireOneShot(scn, stalker, 1);
+        scn.PassAllResponses();
+        passDarkSideWeaponsIfNeeded(scn);
+        assertFalse("SW-4 Ion Cannon destiny 1 must not ionize Stalker armor 7", stalker.isHit());
+        assertEquals(7, scn.GetDefense(stalker));
+
+        playCombinedAttack(scn, stalker, ept, im);
+        fireOneShot(scn, stalker, 1);
+        assertFalse("First Combined Attack destiny must not resolve a hit by itself", stalker.isHit());
+        fireOneShot(scn, stalker, 3);
+        finishCombinedAttack(scn);
+
+        assertEquals(7, scn.GetDefense(stalker));
+        assertTrue("Enhanced Proton Torpedoes +1 and Intruder Missile +3 stack to +4: 4+4=8 > Stalker armor 7", stalker.isHit());
+        String log = gameLog(scn);
+        assertTrue("Combined Attack destinies 1 + 3 = 4. LOG:\n" + log, log.contains("1 + 3 = 4"));
+        assertTrue("Total modifiers +4 from different titles. LOG:\n" + log, log.contains("Total modifiers +4"));
+        assertTrue("Grand total 8 after stacked +4. LOG:\n" + log, log.contains("Total weapon destiny 8"));
+        assertFalse("Do not keep only Enhanced Proton Torpedoes +1 (that would be 5)", log.contains("Total weapon destiny 5"));
+        assertFalse("Do not keep only Intruder Missile +3 (that would be 7)", log.contains("Total weapon destiny 7"));
+    }
+
+    @Test
+    public void CombinedAttackThreeEnhancedProtonTorpedoesAppliesMinusOneOnceVsStarfighter() {
+        // Three B-wing Bombers (9_66) each with Enhanced Proton Torpedoes (9_88)
+        // Combined Attack a TIE (not capital). Enhanced Proton Torpedoes -1 vs non-capital
+        // applies once (same title), not -3. B-wing Bomber ion-cannon-draw +3 does not apply
+        // (they are firing Enhanced Proton Torpedoes, not ion cannons).
+        // Draws 2, 2, 1. Draw sum 5. Total 4 > 3 hit. Wrong -1 per copy (-3) is 2 miss.
+        var scn = GetScenario();
+        var ca = scn.GetLSCard("ca");
+        var ept = scn.GetLSCard("ept");
+        var ept2 = scn.GetLSCard("ept2");
+        var ept3 = scn.GetLSCard("ept3");
+        var tie = scn.GetDSCard("tie");
+        setupThreeBwingBombersWithEnhancedProtonTorpedoes(scn);
+        scn.MoveCardsToHand(ca);
+        scn.EnsureLSForcePile(8);
+
+        scn.StartBattleAndSkipToWeaponsSegment();
+        playCombinedAttack(scn, tie, ept, ept2, ept3);
+
+        fireOneShot(scn, tie, 2);
+        assertFalse("First Combined Attack destiny must not resolve a hit by itself", tie.isHit());
+        fireOneShot(scn, tie, 2);
+        fireOneShot(scn, tie, 1);
+        finishCombinedAttack(scn);
+
+        assertWeaponDestinyDrawValues(scn, 2, 2, 1);
+        assertEquals(3, scn.GetDefense(tie));
+        assertTrue("Enhanced Proton Torpedoes -1 once on 5 is 4 > TIE maneuver 3", tie.isHit());
+        String log = gameLog(scn);
+        assertTrue("Combined Attack destinies 2 + 2 + 1 = 5. LOG:\n" + log, log.contains("2 + 2 + 1 = 5"));
+        assertTrue("Total modifiers -1 once. LOG:\n" + log, log.contains("Total modifiers -1"));
+        assertTrue("Grand total 4 after Enhanced Proton Torpedoes -1 once. LOG:\n" + log, log.contains("Total weapon destiny 4"));
+        assertFalse("Do not subtract Enhanced Proton Torpedoes -1 per copy (that would be -3)", log.contains("Total modifiers -3"));
+        assertFalse("B-wing Bomber ion-cannon-draw +3 must not apply to Enhanced Proton Torpedoes", log.contains("5 + 5 + 4"));
+    }
+
+    @Test
     public void BoringConversationAnywayCancelsCombinedAttackBeforeWeaponsFire() {
         // Sense (1_267) / Boring Conversation Anyway (1_235) cancel Combined Attack (1_75)
         // before any weapon fires. Weapons may still fire normally afterward.
@@ -1035,6 +1154,65 @@ public class Card_1_75_Tests {
         scn.MoveCardsToLocation(system, bomber, bwing2, tie);
         scn.AttachCardsTo(bomber, missiles);
         scn.AttachCardsTo(bwing2, missiles2);
+    }
+
+    /**
+     * Falcon with Concussion Missiles and Corellian Corvette with Quad Laser Cannon vs a TIE.
+     * Rebel Pilot (1_27) aboard Falcon so it can fire.
+     */
+    private void setupFalconConcussionMissilesAndCorvetteQuadLaser(VirtualTableScenario scn) {
+        scn.StartGame();
+        var system = scn.GetLSStartingLocation();
+        var falcon = scn.GetLSCard("falcon");
+        var corvette = scn.GetLSCard("corvette");
+        var missiles = scn.GetLSCard("missiles");
+        var qlc = scn.GetLSCard("qlc");
+        var tie = scn.GetDSCard("tie");
+        var pilot = scn.GetLSCard("pilot");
+        scn.MoveCardsToLocation(system, falcon, corvette, tie);
+        scn.BoardAsPilot(falcon, pilot);
+        scn.AttachCardsTo(falcon, missiles);
+        scn.AttachCardsTo(corvette, qlc);
+    }
+
+    /**
+     * B-wing SW-4 Ion Cannon, Y-wing Enhanced Proton Torpedoes, and B-wing Bomber
+     * Intruder Missile vs Stalker. Fire the ion cannon first (not Combined Attack), then
+     * Combined Attack the other two weapons at the same capital.
+     */
+    private void setupIonCannonThenEptAndIntruderMissileVsStalker(VirtualTableScenario scn) {
+        scn.StartGame();
+        var system = scn.GetLSStartingLocation();
+        var bwing = scn.GetLSCard("bwing");
+        var ywing = scn.GetLSCard("ywing");
+        var bomber = scn.GetLSCard("bomber");
+        var sw4 = scn.GetLSCard("sw4");
+        var ept = scn.GetLSCard("ept");
+        var im = scn.GetLSCard("im");
+        var stalker = scn.GetDSCard("stalker");
+        scn.MoveCardsToLocation(system, bwing, ywing, bomber, stalker);
+        scn.AttachCardsTo(bwing, sw4);
+        scn.AttachCardsTo(ywing, ept);
+        scn.AttachCardsTo(bomber, im);
+    }
+
+    /**
+     * Three B-wing Bombers each with Enhanced Proton Torpedoes vs a TIE.
+     */
+    private void setupThreeBwingBombersWithEnhancedProtonTorpedoes(VirtualTableScenario scn) {
+        scn.StartGame();
+        var system = scn.GetLSStartingLocation();
+        var bomber = scn.GetLSCard("bomber");
+        var bwing2 = scn.GetLSCard("bwing2");
+        var bomber3 = scn.GetLSCard("bomber3");
+        var ept = scn.GetLSCard("ept");
+        var ept2 = scn.GetLSCard("ept2");
+        var ept3 = scn.GetLSCard("ept3");
+        var tie = scn.GetDSCard("tie");
+        scn.MoveCardsToLocation(system, bomber, bwing2, bomber3, tie);
+        scn.AttachCardsTo(bomber, ept);
+        scn.AttachCardsTo(bwing2, ept2);
+        scn.AttachCardsTo(bomber3, ept3);
     }
 
     /**
