@@ -165,9 +165,17 @@ public class Card_2_117_Tests {
         }
         passIfOptional(scn);
         assertTrue(falcon.isCapturedStarship());
-        // PlayCardAsAttachedAction targets with TO_BE_DEPLOYED_ON, which does not accept captured starships.
-        // AttachCardsTo is the same attach zone the legal deploy would use; remaining-attached is Filters.starship.
-        scn.AttachCardsTo(falcon, besieged);
+
+        // Capture is a cheat; refresh the Deploy action list on the next DS Deploy phase.
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue("Besieged should deploy on the captured Falcon. Decision: " + decisionText(scn)
+                        + " force=" + scn.GetDSForcePileCount() + " actions=" + scn.GetDSAvailableActions(),
+                scn.DSDeployAvailable(besieged));
+        scn.DSDeployCard(besieged);
+        if (scn.DSGetDecision() != null && scn.DSHasCardChoiceAvailable(falcon)) {
+            scn.DSChooseCard(falcon);
+        }
+        passIfOptional(scn);
         assertTrue(scn.IsAttachedTo(falcon, besieged));
     }
 
@@ -425,7 +433,6 @@ public class Card_2_117_Tests {
     }
 
     @Test
-    @Ignore("Cecius search UI did not present Besieged from Reserve (Filters.Besieged matches Title.Besieged; test-rig search/verify path)")
     public void LieutenantCeciusCanTakeBesiegedIntoHand_2_117_Besieged() {
         var scn = GetScenario();
 
@@ -436,19 +443,15 @@ public class Card_2_117_Tests {
 
         scn.StartGame();
         scn.MoveCardsToLocation(system, vcsd, cecius);
-        scn.MoveCardsToTopOfReserveDeck(scn.DS, besieged);
-
+        // Activate first so Besieged is not eaten off the top of Reserve.
         scn.SkipToPhase(Phase.CONTROL);
+        scn.MoveCardsToTopOfReserveDeck(scn.DS, besieged);
         assertTrue("Cecius search not available. Decision: " + decisionText(scn),
-                scn.DSCardActionAvailable(cecius));
-        scn.DSUseCardAction(cecius);
+                scn.DSCardActionAvailable(cecius, "Take card into hand from Reserve Deck"));
+        scn.DSUseCardAction(cecius, "Take card into hand from Reserve Deck");
         scn.PassForceUseResponses();
-        if (scn.DSGetDecision() != null) {
-            if (scn.DSHasCardChoiceAvailable(besieged)) {
-                scn.DSChooseCard(besieged);
-            } else {
-                scn.DSChooseAnyCard();
-            }
+        if (scn.DSGetDecision() != null && scn.DSHasCardChoiceAvailable(besieged)) {
+            scn.DSChooseCards(besieged);
         }
         passIfOptional(scn);
 
