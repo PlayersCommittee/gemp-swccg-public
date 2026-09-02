@@ -10,6 +10,8 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
 import com.gempukku.swccgo.game.layout.LocationGroup;
 import com.gempukku.swccgo.game.layout.RearrangeSites;
+import com.gempukku.swccgo.logic.actions.SystemQueueAction;
+import com.gempukku.swccgo.logic.effects.RearrangeRelatedSitesEffect;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -55,6 +57,8 @@ public class RearrangeSitesTests {
                     put("hallway", "14_112"); // Naboo: Theed Palace Hallway (Dark)
                     put("generator", "13_076"); // Naboo: Theed Palace Generator (Dark)
                     put("generator-core", "13_077"); // Naboo: Theed Palace Generator Core (Dark)
+                    put("throne", "12_174"); // Naboo: Theed Palace Throne Room (Dark)
+                    put("courtyard", "12_172"); // Naboo: Theed Palace Courtyard (Dark)
                 }},
                 10,
                 10,
@@ -613,6 +617,131 @@ public class RearrangeSitesTests {
         assertEquals(newOrder, interiorTops(scn, Title.Naboo));
         assertTrue(scn.CardsAtLocation(hallway, trooper));
         assertEquals(hallway, trooper.getAtLocation());
+        assertIndexesMatchRow(scn);
+    }
+    @Test
+    public void InvalidPermutationIsRejected() {
+        var scn = GetScenario();
+
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("war-room");
+        var conference = scn.GetDSCard("conference");
+
+        scn.StartGame();
+
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        putLocation(scn, conference);
+
+        List<PhysicalCard> before = interiorTops(scn, Title.Death_Star);
+        assertEquals(3, before.size());
+
+        // Wrong length is not a permutation of the current interior stacks.
+        assertFalse(RearrangeSites.rearrangeInteriorSitesByPermutation(scn.game(), Title.Death_Star,
+                Arrays.asList(0, 1)));
+        // Duplicates are rejected.
+        assertFalse(RearrangeSites.rearrangeInteriorSitesByPermutation(scn.game(), Title.Death_Star,
+                Arrays.asList(0, 0, 1)));
+        // Out-of-range indexes are rejected.
+        assertFalse(RearrangeSites.rearrangeInteriorSitesByPermutation(scn.game(), Title.Death_Star,
+                Arrays.asList(0, 1, 3)));
+
+        assertEquals(before, interiorTops(scn, Title.Death_Star));
+        assertIndexesMatchRow(scn);
+    }
+
+    @Test
+    public void PartialOrderOnlySwapsTheOccupiedSlots() {
+        var scn = GetScenario();
+
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("war-room");
+        var conference = scn.GetDSCard("conference");
+
+        scn.StartGame();
+
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        putLocation(scn, conference);
+
+        List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
+        assertEquals(3, interiors.size());
+        PhysicalCard left = interiors.get(0);
+        PhysicalCard mid = interiors.get(1);
+        PhysicalCard right = interiors.get(2);
+
+        // Asking only for the two ends swaps those stacks; the middle site stays.
+        assertTrue(RearrangeSites.rearrangeInteriorSites(scn.game(), Title.Death_Star,
+                Arrays.asList(right, left)));
+
+        List<PhysicalCard> after = interiorTops(scn, Title.Death_Star);
+        assertEquals(Arrays.asList(right, mid, left), after);
+        assertIndexesMatchRow(scn);
+    }
+
+    @Test
+    public void TheedThroneRoomAndCourtyardStayOutOfInteriorRow() {
+        var scn = GetScenario();
+
+        var throne = scn.GetDSCard("throne");
+        var hallway = scn.GetDSCard("hallway");
+        var generator = scn.GetDSCard("generator");
+        var courtyard = scn.GetDSCard("courtyard");
+
+        scn.StartGame();
+
+        putLocation(scn, throne);
+        putLocation(scn, hallway);
+        putLocation(scn, generator);
+        putLocation(scn, courtyard);
+
+        List<PhysicalCard> interiors = interiorTops(scn, Title.Naboo);
+        assertTrue(interiors.contains(hallway));
+        assertTrue(interiors.contains(generator));
+        assertFalse(interiors.contains(throne));
+        assertFalse(interiors.contains(courtyard));
+
+        int throneIndex = throne.getLocationZoneIndex();
+        int courtyardIndex = courtyard.getLocationZoneIndex();
+        List<PhysicalCard> newOrder = reversed(interiors);
+        assertTrue(RearrangeSites.rearrangeInteriorSites(scn.game(), Title.Naboo, newOrder));
+
+        assertEquals(newOrder, interiorTops(scn, Title.Naboo));
+        assertFalse(interiorTops(scn, Title.Naboo).contains(throne));
+        assertFalse(interiorTops(scn, Title.Naboo).contains(courtyard));
+        assertEquals(throneIndex, throne.getLocationZoneIndex());
+        assertEquals(courtyardIndex, courtyard.getLocationZoneIndex());
+        assertIndexesMatchRow(scn);
+    }
+
+    @Test
+    public void RearrangeRelatedSitesEffectReordersInteriorSites() {
+        var scn = GetScenario();
+
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("war-room");
+        var conference = scn.GetDSCard("conference");
+
+        scn.StartGame();
+
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        putLocation(scn, conference);
+
+        List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
+        List<PhysicalCard> newOrder = reversed(interiors);
+        var action = new SystemQueueAction();
+        new RearrangeRelatedSitesEffect(action, RearrangeSites.interiorSitesOfSystem(Title.Death_Star), newOrder)
+                .playEffect(scn.game());
+
+        assertEquals(newOrder, interiorTops(scn, Title.Death_Star));
+        assertIndexesMatchRow(scn);
+
+        List<PhysicalCard> expected = Arrays.asList(newOrder.get(2), newOrder.get(0), newOrder.get(1));
+        new RearrangeRelatedSitesEffect(new SystemQueueAction(), Title.Death_Star,
+                RearrangeSites.interiorSitesOfSystem(Title.Death_Star), Arrays.asList(2, 0, 1))
+                .playEffect(scn.game());
+        assertEquals(expected, interiorTops(scn, Title.Death_Star));
         assertIndexesMatchRow(scn);
     }
 }
