@@ -2522,9 +2522,9 @@ public class GameState implements Snapshotable<GameState> {
 
             // Besieged deploys on a captured starship. TO_BE_DEPLOYED_ON does not otherwise
             // accept captured starships as deploy targets, even with INCLUDE_CAPTIVE.
-            if (!treatCaptiveAsActive
-                    && physicalCard.isCapturedStarship()
+            if (physicalCard.isCapturedStarship()
                     && source != null
+                    && source.getBlueprint() != null
                     && Title.Besieged.equals(source.getBlueprint().getTitle())
                     && targetFiltersMap != null
                     && targetFiltersMap.get(TargetingReason.TO_BE_DEPLOYED_ON) != null) {
