@@ -1,0 +1,658 @@
+package com.gempukku.swccgo.cards.set1.dark;
+
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
+import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.filters.Filters;
+import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.framework.StartingSetup;
+import com.gempukku.swccgo.framework.VirtualTableScenario;
+import com.gempukku.swccgo.game.PhysicalCardImpl;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import static com.gempukku.swccgo.framework.Assertions.assertInHand;
+import static com.gempukku.swccgo.framework.Assertions.assertInZone;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+public class Card_1_188_Tests {
+
+    protected VirtualTableScenario GetScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>() {{
+                    put("roar", "2_058");
+                    put("kessel-run", "1_052");
+                    put("cell", "2_030");
+                    put("leia", "1_017");
+                    put("han", "1_011");
+                    put("jungle", "1_137");
+                    put("yavin-db", "1_136");
+                    put("ds-db", "1_124");
+                    put("trash", "1_125");
+                    put("tatooine-system", "1_127");
+                }},
+                new HashMap<>() {{
+                    put("mouse", "1_188");
+                    put("sadd", "1_229");
+                    put("necklace", "1_226");
+                    put("fivedesix", "1_163");
+                    put("spice", "2_125");
+                    put("landspreeder", "1_310");
+                    put("devastator", "1_301");
+                    put("kessel", "1_288");
+                    put("cave", "4_158");
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
+
+    @Test
+    public void MouseDroid_1_188_StatsAndKeywordsAreCorrect() {
+        /**
+         * Title: MSE-6 'Mouse' Droid
+         * Uniqueness: Unrestricted
+         * Side: Dark
+         * Type: Character
+         * Subtype: Droid
+         * Destiny: 0  Deploy: 0  Power: 0  Forfeit: 0
+         * Model: Messenger
+         * Game Text: Landspeed = 3. Deploys to same site as a character targeted by a Utinni Effect (except Kessel Run).
+         *      If this droid 'reaches' Utinni Effect, may relocate it here. Upon delivery, 'mouse' droid returns to your hand.
+         * Set: Premiere  Rarity: U1
+         */
+        var scn = GetScenario();
+        var card = scn.GetDSCard("mouse").getBlueprint();
+
+        assertEquals("MSE-6 'Mouse' Droid", card.getTitle());
+        assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
+        assertEquals(Side.DARK, card.getSide());
+        assertTrue(card.isCardType(CardType.DROID));
+        assertEquals(0, card.getDestiny(), scn.epsilon);
+        assertEquals(0, card.getDeployCost(), scn.epsilon);
+        assertEquals(0, card.getPower(), scn.epsilon);
+        assertEquals(0, card.getForfeit(), scn.epsilon);
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.DROID);
+        }});
+        scn.BlueprintModelTypeCheck(card, new ArrayList<>() {{
+            add(ModelType.MESSENGER);
+        }});
+        assertEquals(ExpansionSet.PREMIERE, card.getExpansionSet());
+        assertEquals(Rarity.U1, card.getRarity());
+    }
+
+    /** Puts Send A Detachment Down on Marketplace targeting a Stormtrooper at Death Star: Docking Bay 327, then reaches Deploy. */
+    private void PlaySaddTargetingTrooperAtDeathStar(VirtualTableScenario scn) {
+        var sadd = scn.GetDSCard("sadd");
+        var dsDb = scn.GetLSCard("ds-db");
+        var trooper = scn.GetDSFiller(1);
+        var marketplace = scn.GetDSStartingLocation();
+
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveCardsToLocation(dsDb, trooper);
+        scn.AttachCardsTo(marketplace, sadd);
+        sadd.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, trooper, Filters.any);
+        assertTrue(scn.IsAttachedTo(marketplace, sadd));
+        EnsureDSDeployPhase(scn);
+    }
+
+    /** Activate max Force and pass Control so Dark Side is choosing a Deploy action. */
+    private void EnsureDSDeployPhase(VirtualTableScenario scn) {
+        if (scn.AwaitingDSDeployPhaseActions()) {
+            return;
+        }
+        if (scn.GetCurrentPhase() == Phase.ACTIVATE) {
+            scn.DSActivateMaxForceAndPass();
+        }
+        if (scn.GetCurrentPhase() == Phase.CONTROL) {
+            scn.PassControlActions();
+        }
+        if (!scn.AwaitingDSDeployPhaseActions()) {
+            scn.SkipToPhase(Phase.DEPLOY);
+        }
+    }
+
+    /** True when the mouse's optional "Relocate Utinni Effect here" action is on the current prompt. */
+    private boolean RelocateUtinniAvailable(VirtualTableScenario scn, PhysicalCardImpl mouse) {
+        if (!scn.DSAnyDecisionsAvailable()) {
+            return false;
+        }
+        return scn.DSCardActionAvailable(mouse, "Relocate") || scn.DSActionAvailable("Relocate");
+    }
+
+    /** Accepts the mouse's optional relocate, choosing the given Utinni Effect if a card picker is shown. */
+    private void AcceptRelocate(VirtualTableScenario scn, PhysicalCardImpl mouse, PhysicalCardImpl utinni) {
+        assertTrue(RelocateUtinniAvailable(scn, mouse));
+        scn.DSChooseAction("Relocate");
+        if (scn.DSHasCardChoiceAvailable(utinni)) {
+            scn.DSChooseCard(utinni);
+        }
+        scn.PassAllResponses();
+    }
+
+    @Test
+    public void MouseDroid_1_188_DeploysToBattlegroundSameSiteAsUtinniTargetedCharacter() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var dsDb = scn.GetLSCard("ds-db");
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(mouse);
+        PlaySaddTargetingTrooperAtDeathStar(scn);
+
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        assertTrue(scn.DSHasCardChoiceAvailable(dsDb));
+        assertFalse(scn.DSHasCardChoiceAvailable(scn.GetDSStartingLocation()));
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+        assertTrue(scn.CardsAtLocation(dsDb, mouse));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CannotDeployToNoDsIconNonBattlegroundWithoutPresence() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var cell = scn.GetLSCard("cell");
+        var leia = scn.GetLSCard("leia");
+        var jungle = scn.GetLSCard("jungle");
+        var trash = scn.GetLSCard("trash");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(jungle);
+        scn.MoveLocationToTable(trash);
+        scn.MoveCardsToLocation(jungle, leia);
+        scn.MoveCardsToLSHand(cell);
+        scn.MoveCardsToDSHand(mouse);
+
+        scn.SkipToLSTurn(Phase.DEPLOY);
+        scn.LSPlayCard(cell);
+        scn.LSChooseCard(trash);
+        scn.LSChooseCard(leia);
+        scn.PassAllResponses();
+
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertEquals(0, scn.GetDSIconsOnLocation(jungle));
+        assertFalse(scn.DSCardPlayAvailable(mouse));
+    }
+
+    @Test
+    public void MouseDroid_1_188_DeploysToNoDsIconNonBattlegroundWithDsPresence() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var cell = scn.GetLSCard("cell");
+        var leia = scn.GetLSCard("leia");
+        var jungle = scn.GetLSCard("jungle");
+        var trash = scn.GetLSCard("trash");
+        var presence = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(jungle);
+        scn.MoveLocationToTable(trash);
+        scn.MoveCardsToLocation(jungle, leia, presence);
+        scn.MoveCardsToLSHand(cell);
+        scn.MoveCardsToDSHand(mouse);
+
+        scn.SkipToLSTurn(Phase.DEPLOY);
+        scn.LSPlayCard(cell);
+        scn.LSChooseCard(trash);
+        scn.LSChooseCard(leia);
+        scn.PassAllResponses();
+
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        assertTrue(scn.DSHasCardChoiceAvailable(jungle));
+        scn.DSChooseCard(jungle);
+        scn.PassAllResponses();
+        assertTrue(scn.CardsAtLocation(jungle, mouse));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CannotDeployUsingKesselRunAsTheUtinniEffect() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var kesselRun = scn.GetLSCard("kessel-run");
+        var kessel = scn.GetDSCard("kessel");
+        var tatooineSystem = scn.GetLSCard("tatooine-system");
+        var han = scn.GetLSCard("han");
+        var dsDb = scn.GetLSCard("ds-db");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(kessel);
+        scn.MoveLocationToTable(tatooineSystem);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveCardsToLocation(tatooineSystem, han);
+        scn.MoveCardsToLSHand(kesselRun);
+        scn.MoveCardsToDSHand(mouse);
+
+        scn.SkipToLSTurn(Phase.DEPLOY);
+        assertTrue(scn.LSCardPlayAvailable(kesselRun));
+        scn.LSPlayCard(kesselRun);
+        scn.LSChooseCard(kessel);
+        scn.LSChooseCard(han);
+        scn.PassAllResponses();
+
+        // Move the smuggler to a site so the only remaining block is the printed Kessel Run exception.
+        scn.MoveCardsToLocation(dsDb, han);
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertFalse(scn.DSCardPlayAvailable(mouse));
+    }
+
+    @Test
+    @Ignore("GEMP did not apply a general Dagobah deploy restriction to MSE-6 at Dagobah: Cave. Game text has no extra Dagobah clause.")
+    public void MouseDroid_1_188_CannotDeployToDagobahForFailureAtTheCave() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var necklace = scn.GetDSCard("necklace");
+        var yavinDb = scn.GetLSCard("yavin-db");
+        var cave = scn.GetDSCard("cave");
+        var trooper = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(yavinDb);
+        scn.MoveLocationToTable(cave);
+        scn.MoveCardsToLocation(yavinDb, trooper);
+        scn.MoveCardsToDSHand(mouse);
+        scn.AttachCardsTo(yavinDb, necklace);
+        necklace.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, trooper, Filters.any);
+        EnsureDSDeployPhase(scn);
+        scn.MoveCardsToLocation(cave, trooper);
+        assertFalse(scn.DSDeployAvailable(mouse));
+    }
+
+    @Test
+    public void MouseDroid_1_188_OptionalRelocateWhenReachedDeclineDoesNothing() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var sadd = scn.GetDSCard("sadd");
+        var dsDb = scn.GetLSCard("ds-db");
+        var marketplace = scn.GetDSStartingLocation();
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(mouse);
+        PlaySaddTargetingTrooperAtDeathStar(scn);
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+
+        scn.MoveCardsToLocation(marketplace, mouse);
+        scn.SkipToPhase(Phase.CONTROL);
+        assertTrue(RelocateUtinniAvailable(scn, mouse));
+        scn.DSDecline();
+        scn.PassAllResponses();
+        assertTrue(scn.IsAttachedTo(marketplace, sadd));
+        assertTrue(scn.CardsAtLocation(marketplace, mouse));
+    }
+
+    @Test
+    public void MouseDroid_1_188_OptionalRelocateWhenReachedAcceptAttachesToMouse() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var sadd = scn.GetDSCard("sadd");
+        var dsDb = scn.GetLSCard("ds-db");
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(mouse);
+        PlaySaddTargetingTrooperAtDeathStar(scn);
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+
+        scn.MoveCardsToLocation(scn.GetDSStartingLocation(), mouse);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, sadd);
+        assertTrue(scn.IsAttachedTo(mouse, sadd));
+    }
+
+    @Test
+    public void MouseDroid_1_188_DeliveryAtTargetSiteCompletesUtinniAndMouseReturnsToHand() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var sadd = scn.GetDSCard("sadd");
+        var dsDb = scn.GetLSCard("ds-db");
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(mouse);
+        PlaySaddTargetingTrooperAtDeathStar(scn);
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+
+        scn.MoveCardsToLocation(scn.GetDSStartingLocation(), mouse);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, sadd);
+        assertTrue(scn.IsAttachedTo(mouse, sadd));
+
+        scn.MoveCardsToLocation(dsDb, mouse);
+        scn.SkipToPhase(Phase.BATTLE);
+        if (scn.DSAnyDecisionsAvailable() && scn.DSActionAvailable("Return")) {
+            scn.DSChooseAction("Return");
+        }
+        if (scn.DSAnyDecisionsAvailable()) {
+            scn.PassAllResponses();
+        }
+        assertInHand(mouse);
+        assertTrue(scn.IsAttachedTo(dsDb, sadd) || scn.CardsAtLocation(dsDb, sadd));
+    }
+
+    @Test
+    public void MouseDroid_1_188_VehiclePresentReachWorks() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var sadd = scn.GetDSCard("sadd");
+        var dsDb = scn.GetLSCard("ds-db");
+        var vehicle = scn.GetDSCard("landspreeder");
+        var marketplace = scn.GetDSStartingLocation();
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(mouse);
+        PlaySaddTargetingTrooperAtDeathStar(scn);
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+
+        scn.MoveCardsToLocation(marketplace, vehicle);
+        scn.BoardAsPassenger(vehicle, mouse);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, sadd);
+        assertTrue(scn.IsAttachedTo(mouse, sadd));
+    }
+
+    @Test
+    public void MouseDroid_1_188_StarshipSlotReachWorks() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var sadd = scn.GetDSCard("sadd");
+        var dsDb = scn.GetLSCard("ds-db");
+        var devastator = scn.GetDSCard("devastator");
+        var marketplace = scn.GetDSStartingLocation();
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(mouse);
+        PlaySaddTargetingTrooperAtDeathStar(scn);
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+
+        scn.MoveCardsToLocation(marketplace, devastator);
+        scn.BoardAsPassenger(devastator, mouse);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, sadd);
+        assertTrue(scn.IsAttachedTo(mouse, sadd));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CargoBayVehicleDoesNotReachUntilMouseIsInStarship() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var sadd = scn.GetDSCard("sadd");
+        var dsDb = scn.GetLSCard("ds-db");
+        var vehicle = scn.GetDSCard("landspreeder");
+        var devastator = scn.GetDSCard("devastator");
+        var marketplace = scn.GetDSStartingLocation();
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(mouse);
+        PlaySaddTargetingTrooperAtDeathStar(scn);
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+
+        scn.MoveCardsToLocation(marketplace, devastator);
+        scn.BoardAsVehicle(devastator, vehicle);
+        scn.BoardAsPassenger(vehicle, mouse);
+        scn.SkipToPhase(Phase.CONTROL);
+        assertFalse(RelocateUtinniAvailable(scn, mouse));
+
+        scn.BoardAsPassenger(devastator, mouse);
+        scn.SkipToPhase(Phase.BATTLE);
+        AcceptRelocate(scn, mouse, sadd);
+        assertTrue(scn.IsAttachedTo(mouse, sadd));
+    }
+
+    @Test
+    public void MouseDroid_1_188_SpiceMinesCannotMoveIsNoOpAndMouseStays() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var spice = scn.GetDSCard("spice");
+        var kessel = scn.GetDSCard("kessel");
+        var dsDb = scn.GetLSCard("ds-db");
+        var devastator = scn.GetDSCard("devastator");
+        var trooper = scn.GetDSFiller(1);
+        var captive = scn.GetLSFiller(1);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(kessel);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveCardsToLocation(dsDb, trooper);
+        scn.CaptureCardWith(trooper, captive);
+        scn.MoveCardsToDSHand(mouse);
+        scn.AttachCardsTo(kessel, spice);
+        spice.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, captive, Filters.any);
+        spice.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_2, 0, trooper, Filters.any);
+        EnsureDSDeployPhase(scn);
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+        assertTrue(scn.CardsAtLocation(dsDb, mouse));
+
+        scn.MoveCardsToLocation(kessel, devastator);
+        scn.BoardAsPassenger(devastator, mouse);
+        scn.SkipToPhase(Phase.CONTROL);
+        assertFalse(RelocateUtinniAvailable(scn, mouse));
+        assertTrue(scn.IsAboard(devastator, mouse));
+        assertTrue(scn.IsAttachedTo(kessel, spice));
+    }
+
+    @Test
+    public void MouseDroid_1_188_SendADetachmentDownPickupAndDelivery() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var sadd = scn.GetDSCard("sadd");
+        var dsDb = scn.GetLSCard("ds-db");
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(mouse);
+        PlaySaddTargetingTrooperAtDeathStar(scn);
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+
+        scn.MoveCardsToLocation(scn.GetDSStartingLocation(), mouse);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, sadd);
+        assertTrue(scn.IsAttachedTo(mouse, sadd));
+
+        scn.MoveCardsToLocation(dsDb, mouse);
+        scn.SkipToPhase(Phase.BATTLE);
+        if (scn.DSAnyDecisionsAvailable() && scn.DSActionAvailable("Return")) {
+            scn.DSChooseAction("Return");
+        }
+        if (scn.DSAnyDecisionsAvailable()) {
+            scn.PassAllResponses();
+        }
+        assertInHand(mouse);
+    }
+
+    @Test
+    public void MouseDroid_1_188_LightUtinniKeepAwayCell2187() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var cell = scn.GetLSCard("cell");
+        var leia = scn.GetLSCard("leia");
+        var trash = scn.GetLSCard("trash");
+        var jungle = scn.GetLSCard("jungle");
+        var presence = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(trash);
+        scn.MoveLocationToTable(jungle);
+        scn.MoveCardsToLocation(jungle, leia, presence);
+        scn.MoveCardsToLSHand(cell);
+        scn.MoveCardsToDSHand(mouse);
+
+        scn.SkipToLSTurn(Phase.DEPLOY);
+        scn.LSPlayCard(cell);
+        scn.LSChooseCard(trash);
+        scn.LSChooseCard(leia);
+        scn.PassAllResponses();
+
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        assertTrue(scn.DSHasCardChoiceAvailable(jungle));
+        scn.DSChooseCard(jungle);
+        scn.PassAllResponses();
+
+        scn.MoveCardsToLocation(trash, mouse);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, cell);
+        assertTrue(scn.IsAttachedTo(mouse, cell));
+        // Keep-away: move the mouse off Leia's site so she has not reached the Utinni Effect.
+        scn.MoveCardsToLocation(scn.GetDSStartingLocation(), mouse);
+        assertTrue(scn.IsAttachedTo(mouse, cell));
+        assertFalse(scn.CardsAtLocation(jungle, mouse));
+    }
+
+    @Test
+    public void MouseDroid_1_188_TargetLostAfterRelocateLosesUtinni() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var sadd = scn.GetDSCard("sadd");
+        var dsDb = scn.GetLSCard("ds-db");
+        var trooper = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(mouse);
+        PlaySaddTargetingTrooperAtDeathStar(scn);
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+
+        scn.MoveCardsToLocation(scn.GetDSStartingLocation(), mouse);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, sadd);
+        assertTrue(scn.IsAttachedTo(mouse, sadd));
+
+        scn.MoveCardsToTopOfDSLostPile(trooper);
+        scn.SkipToPhase(Phase.BATTLE);
+        scn.PassAllResponses();
+        assertInZone(Zone.LOST_PILE, sadd);
+    }
+
+    @Test
+    public void MouseDroid_1_188_MouseMissingMakesUtinniInactiveRestoreRestoresEffect() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var sadd = scn.GetDSCard("sadd");
+        var dsDb = scn.GetLSCard("ds-db");
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(mouse);
+        PlaySaddTargetingTrooperAtDeathStar(scn);
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+
+        scn.MoveCardsToLocation(scn.GetDSStartingLocation(), mouse);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, sadd);
+        assertTrue(scn.IsCardActive(sadd));
+
+        scn.MakeCardGoMissing(mouse);
+        assertFalse(scn.IsCardActive(mouse));
+        assertFalse(scn.IsCardActive(sadd));
+        assertTrue(scn.IsAttachedTo(mouse, sadd));
+
+        // Find the missing mouse so the carried Utinni Effect can resume.
+        mouse.setMissing(false);
+        assertTrue(scn.IsCardActive(mouse));
+        assertTrue(scn.IsCardActive(sadd));
+    }
+
+    @Test
+    public void MouseDroid_1_188_LandspeedIs3() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var dsDb = scn.GetLSCard("ds-db");
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(mouse);
+        PlaySaddTargetingTrooperAtDeathStar(scn);
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+
+        assertEquals(3, scn.GetLandspeed(mouse));
+    }
+
+    @Test
+    public void MouseDroid_1_188_FiveD6RA7AddsOneToMouseDeployAtSameLocation() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var fivedesix = scn.GetDSCard("fivedesix");
+        var dsDb = scn.GetLSCard("ds-db");
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(mouse, fivedesix);
+        PlaySaddTargetingTrooperAtDeathStar(scn);
+
+        scn.MoveCardsToLocation(dsDb, fivedesix);
+        int forceBefore = scn.GetDSForcePileCount();
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+        int forceAfter = scn.GetDSForcePileCount();
+        assertEquals(forceBefore - 1, forceAfter);
+    }
+
+    @Test
+    public void MouseDroid_1_188_WookieeRoarCanScareOffTheMouse() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var roar = scn.GetLSCard("roar");
+        var dsDb = scn.GetLSCard("ds-db");
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(mouse);
+        scn.MoveCardsToLSHand(roar);
+        PlaySaddTargetingTrooperAtDeathStar(scn);
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+
+        scn.SkipToLSTurn(Phase.CONTROL);
+        assertTrue(scn.LSCardPlayAvailable(roar, "Scare") || scn.LSCardPlayAvailable(roar));
+        if (scn.LSCardPlayAvailable(roar, "Scare")) {
+            scn.LSPlayCard(roar, "Scare");
+        } else {
+            scn.LSPlayCard(roar);
+        }
+        if (scn.LSHasCardChoiceAvailable(mouse)) {
+            scn.LSChooseCard(mouse);
+        }
+        scn.PassAllResponses();
+        assertInZone(Zone.LOST_PILE, mouse);
+    }
+}
