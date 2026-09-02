@@ -3709,11 +3709,19 @@ public class GameState implements Snapshotable<GameState> {
      * @param localTroubleParticipants the Local Trouble battle participants, or null if not a Local Trouble battle
      */
     public void beginBattle(String playerId, PhysicalCard location, boolean isLocalTrouble, Collection<PhysicalCard> localTroubleParticipants, Collection<Modifier> extraModifiers) {
-        _battleState = new BattleState(getGame(), playerId, location, isLocalTrouble);
+        beginBattle(playerId, location, isLocalTrouble, localTroubleParticipants, false, null, extraModifiers);
+    }
+
+    public void beginBattle(String playerId, PhysicalCard location, boolean isLocalTrouble, Collection<PhysicalCard> localTroubleParticipants, boolean isBesieged, Collection<PhysicalCard> besiegedParticipants, Collection<Modifier> extraModifiers) {
+        _battleState = new BattleState(getGame(), playerId, location, isLocalTrouble, isBesieged);
 
         if (isLocalTrouble) {
             _battleState.setLocalTroubleParticipants(localTroubleParticipants);
             _battleState.addParticipants(this, localTroubleParticipants);
+        }
+        else if (isBesieged) {
+            _battleState.setBesiegedParticipants(besiegedParticipants);
+            _battleState.addParticipants(this, besiegedParticipants);
         }
         else {
             //Initial non-captive participants
@@ -3724,8 +3732,10 @@ public class GameState implements Snapshotable<GameState> {
                     Filters.and(Filters.initiallyParticipatesInBattle(location), Filters.battlingCaptive)));
         }
 
-        for (Modifier modifier: extraModifiers) {
-            _game.getModifiersEnvironment().addUntilEndOfBattleModifier(modifier);
+        if (extraModifiers != null) {
+            for (Modifier modifier: extraModifiers) {
+                _game.getModifiersEnvironment().addUntilEndOfBattleModifier(modifier);
+            }
         }
 
         Collection<PhysicalCard> allCardsParticipating = _battleState.getAllCardsParticipating();
