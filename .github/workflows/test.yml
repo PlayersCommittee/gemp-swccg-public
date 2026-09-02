@@ -1,3 +1,4 @@
+---
 name: test-on-push
 on:
   push:
@@ -7,9 +8,9 @@ on:
 
   pull_request:
     types:
-    - opened
-    - edited
-    - synchronize
+      - opened
+      - edited
+      - synchronize
 
 jobs:
   test:
@@ -26,10 +27,6 @@ jobs:
 
       - name: mvn build
         run: mvn clean verify
-        working-directory: src
-
-      - name: mvn test
-        run: mvn test
         working-directory: src
 
       - name: Build Docker stack
@@ -50,7 +47,8 @@ jobs:
           docker compose up -d db
           # Wait for DB to be reachable
           timeout 180 bash -c '
-            until docker compose exec -T db sh -c "mariadb-admin ping -uroot -p\"$MYSQL_ROOT_PASSWORD\" --silent"; do
+            until docker compose exec -T db sh -c "mariadb-admin ping -uroot
+                -p\"$MYSQL_ROOT_PASSWORD\" --silent"; do
               echo "Waiting for DB to be ready..."
               docker compose logs --tail=20 db || true
               sleep 5
@@ -75,11 +73,13 @@ jobs:
           # Wait (with visibility) for the app to start responding
           timeout 240 bash -c '
             url="$1"
-            until curl -fSs --max-time 10 --retry 30 --retry-delay 2 --retry-connrefused "$url"; do
+            until curl -fSs --max-time 10 --retry 30 --retry-delay 2 \
+                --retry-connrefused "$url"; do
               echo "Waiting for app to respond at ${url}..."
               docker compose ps
               docker compose logs --tail=50 build || true
-              docker compose exec -T build sh -c "tail -n 50 /root/nohup.out || tail -n 50 /opt/gemp-swccg/src/nohup.out" || true
+              docker compose exec -T build sh -c "tail -n 50 /root/nohup.out \
+                || tail -n 50 /opt/gemp-swccg/src/nohup.out" || true
               sleep 5
             done
           ' bash "${APP_URL}"
