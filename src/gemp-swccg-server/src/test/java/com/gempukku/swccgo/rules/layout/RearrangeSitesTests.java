@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.rules.layout;
 
 import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
@@ -13,7 +14,6 @@ import com.gempukku.swccgo.game.layout.LocationGroup;
 import com.gempukku.swccgo.game.layout.RearrangeSites;
 import com.gempukku.swccgo.logic.actions.SystemQueueAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.decisions.CardActionSelectionDecision;
 import com.gempukku.swccgo.logic.effects.ChooseAndRearrangeRelatedSitesEffect;
 import com.gempukku.swccgo.logic.effects.RearrangeRelatedSitesEffect;
 import org.junit.Test;
@@ -150,17 +150,15 @@ public class RearrangeSitesTests {
 
     /**
      * Starts the generic sequential click-to-order UI as a table action.
-     * DSExecuteAdHocEffect always picks action index 0 (Activate Force during
-     * the Activate phase), so inject at the end of the current action list
-     * and choose that index.
+     * Skip to Control first so DSExecuteAdHocEffect is not stolen by Activate Force.
      */
     private void beginChooseInOrder(VirtualTableScenario scn, PhysicalCardImpl source, Filter siteFilter) {
+        // DSExecuteAdHocEffect always picks action index 0 (Activate Force during
+        // Activate). Control typically has 0 legal actions, so the injected effect runs.
+        scn.SkipToPhase(Phase.CONTROL);
         var action = new TopLevelGameTextAction(source, source.getOwner(), source.getCardId());
         action.setText("Rearrange related sites");
-        action.appendEffect(new ChooseAndRearrangeRelatedSitesEffect(action, source.getOwner(), siteFilter));
-        int injectedIndex = scn.GetDSAvailableActions().size();
-        ((CardActionSelectionDecision) scn.userFeedback().getAwaitingDecision(source.getOwner())).addAction(action);
-        scn.DSDecided(String.valueOf(injectedIndex));
+        scn.DSExecuteAdHocEffect(source, new ChooseAndRearrangeRelatedSitesEffect(action, source.getOwner(), siteFilter));
     }
 
     @Test
@@ -779,8 +777,6 @@ public class RearrangeSitesTests {
         putLocation(scn, warRoom);
         putLocation(scn, conference);
 
-        assertTrue(scn.AwaitingDSActivatePhaseActions());
-
         List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
         assertEquals(3, interiors.size());
         PhysicalCardImpl a = (PhysicalCardImpl) interiors.get(0);
@@ -824,8 +820,6 @@ public class RearrangeSitesTests {
         putLocation(scn, warRoom);
         putLocation(scn, conference);
         putLocation(scn, db327);
-
-        assertTrue(scn.AwaitingDSActivatePhaseActions());
 
         List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
         assertEquals(3, interiors.size());
@@ -874,8 +868,6 @@ public class RearrangeSitesTests {
 
         putLocation(scn, guest);
         putLocation(scn, incinerator);
-
-        assertTrue(scn.AwaitingDSActivatePhaseActions());
 
         List<PhysicalCard> interiors = interiorTops(scn, Title.Bespin);
         assertEquals(3, interiors.size());
