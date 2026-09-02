@@ -88,6 +88,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
     private int _chooseY;
     private boolean _takeOtherIntoHand;
     private Map<String, Float> _modifierSourceTitleMap = new HashMap<>();
+    private boolean _combinedAttackHitCheckPlusOrMinusFolded;
 
     /**
      * Creates an effect that causes the player to draw a destiny.
@@ -841,6 +842,26 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
             String title = source != null ? source.getTitle() : "";
             ca.addTotalModContribution(title, amount, modifier.isCumulative());
         }
+        // FireWeaponActionBuilder "destiny +1 > defense value" is plusOrMinus on the hit check,
+        // not TOTAL_WEAPON_DESTINY. Combined Attack / Precise Attack still treat it as a TOTAL
+        // modifier (same title once) on the grand total, then skip adding it again at apply.
+        float hitCheckPlus = getHitCheckPlusOrMinus();
+        if (hitCheckPlus != 0f) {
+            String hitTitle = weapon != null ? weapon.getTitle() : "";
+            ca.addTotalModContribution(hitTitle, hitCheckPlus, false);
+            _combinedAttackHitCheckPlusOrMinusFolded = true;
+        }
+    }
+
+    /**
+     * Hit-check plusOrMinus from FireWeaponActionBuilder (for example Blaster Rifle "destiny +1 > defense value").
+     */
+    protected float getHitCheckPlusOrMinus() {
+        return 0f;
+    }
+
+    public boolean isCombinedAttackHitCheckPlusOrMinusFolded() {
+        return _combinedAttackHitCheckPlusOrMinusFolded;
     }
 
     /**

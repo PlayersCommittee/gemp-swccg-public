@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Tracks Premiere Combined Attack (1_75) while two or more starship weapons fire as one interrupt action.
+ * Tracks Premiere Combined Attack (1_75) or Precise Attack (1_265) while two or more weapons fire as one interrupt action.
  *
  * Gergall 2015 + 2023 Advanced Rulebook: fire weapons one at a time (pay then draw each). Hits are not
  * checked until all firings complete. Sum destinies (draw modifiers stay on each draw) and apply TOTAL
@@ -152,7 +152,8 @@ public class CombinedAttackFiringState {
             String sign = totalMods > 0f ? "+" : "";
             mods = ". Total modifiers " + sign + totalModsFormatted;
         }
-        return "Combined Attack destinies: " + formatAddends(_destinyDraws) + " = " + drawSumFormatted
+        String sourceTitle = _source != null && _source.getTitle() != null ? _source.getTitle() : "Combined Attack";
+        return sourceTitle + " destinies: " + formatAddends(_destinyDraws) + " = " + drawSumFormatted
                 + mods + ". Total weapon destiny " + grandTotalFormatted + ".";
     }
 
@@ -162,19 +163,21 @@ public class CombinedAttackFiringState {
                 GuiUtils.formatAsString(getGrandTotal()));
     }
 
-    public static String getPerWeaponTotalMessage(PhysicalCard weapon, float drawSum, float totalModifier, float total) {
+    public String getPerWeaponTotalMessage(PhysicalCard weapon, float drawSum, float totalModifier, float total) {
         String weaponLink = GameUtils.getCardLink(weapon);
         if (totalModifier == 0f) {
-            return "Combined Attack total for " + weaponLink + ": " + GuiUtils.formatAsString(total);
+            String sourceTitle = _source != null && _source.getTitle() != null ? _source.getTitle() : "Combined Attack";
+            return sourceTitle + " total for " + weaponLink + ": " + GuiUtils.formatAsString(total);
         }
         String sign = totalModifier > 0f ? "+" : "";
-        return "Combined Attack total for " + weaponLink + ": " + GuiUtils.formatAsString(drawSum)
+        return (_source != null && _source.getTitle() != null ? _source.getTitle() : "Combined Attack") + " total for " + weaponLink + ": " + GuiUtils.formatAsString(drawSum)
                 + sign + GuiUtils.formatAsString(totalModifier) + "=" + GuiUtils.formatAsString(total);
     }
 
     public String getFiringDrawsMessage(PhysicalCard weapon, float drawDestiny) {
         String weaponLink = weapon != null ? GameUtils.getCardLink(weapon) : "weapon";
-        return "Combined Attack: " + weaponLink + " destiny " + GuiUtils.formatAsString(drawDestiny)
+        String sourceTitle = _source != null && _source.getTitle() != null ? _source.getTitle() : "Combined Attack";
+        return sourceTitle + ": " + weaponLink + " destiny " + GuiUtils.formatAsString(drawDestiny)
                 + " (draw modifiers only)";
     }
 

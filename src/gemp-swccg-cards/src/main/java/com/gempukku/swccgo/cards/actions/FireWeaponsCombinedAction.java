@@ -28,7 +28,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Combined Attack result: fire the chosen starship weapons one at a time at the shared target.
+ * Combined Attack / Precise Attack result: fire the chosen weapons one at a time at the shared target.
  * Draw modifiers stay on each draw. TOTAL weapon destiny modifiers apply once to the grand total
  * (same title once unless the card says cumulatively). That grand total is applied separately
  * to each participating weapon using each weapon's own destinyDraws path (X-wing Laser Cannon
@@ -64,7 +64,8 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
                 new PassthruEffect(subAction) {
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
-                        game.getGameState().sendMessage(_source.getOwner() + " plays Combined Attack targeting "
+                        String sourceTitle = _source.getTitle() != null ? _source.getTitle() : "Combined Attack";
+                        game.getGameState().sendMessage(_source.getOwner() + " plays " + sourceTitle + " targeting "
                                 + GameUtils.getCardLink(_target) + " with " + GameUtils.getAppendedNames(_weaponsInOrder));
                         game.getGameState().beginCombinedAttackFiring(_source, _target, _weaponsInOrder);
                         // Always clear Combined Attack firing when this sub-action leaves the stack.
@@ -294,8 +295,10 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
                                    float drawSum, PhysicalCard target) {
         PhysicalCard weapon = record.getWeapon();
         float total = Math.max(0, drawSum);
-        game.getGameState().sendMessage(CombinedAttackFiringState.getPerWeaponTotalMessage(
-                weapon, total, 0f, total));
+        CombinedAttackFiringState caForLog = game.getGameState().getCombinedAttackFiringState();
+        if (caForLog != null) {
+            game.getGameState().sendMessage(caForLog.getPerWeaponTotalMessage(weapon, total, 0f, total));
+        }
         boolean queued = false;
         if (record.getDrawDestinyEffect() != null) {
             queued = record.getDrawDestinyEffect().applyDeferredWeaponResult(game, action, weapon,

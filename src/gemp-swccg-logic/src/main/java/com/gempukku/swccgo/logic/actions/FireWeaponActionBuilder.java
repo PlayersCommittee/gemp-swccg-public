@@ -1301,6 +1301,10 @@ public class FireWeaponActionBuilder {
                                         action.appendEffect(
                                                 new DrawDestinyEffect(action, _playerId, numDestiny, DestinyType.WEAPON_DESTINY) {
                                                     @Override
+                                                    protected float getHitCheckPlusOrMinus() {
+                                                        return plusOrMinus;
+                                                    }
+                                                    @Override
                                                     protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
                                                         if (statistic == Statistic.DEFENSE_VALUE || statistic == Statistic.MANEUVER || statistic == Statistic.ABILITY) {
                                                             return cardsFiredAt;
@@ -1315,7 +1319,9 @@ public class FireWeaponActionBuilder {
                                                             return;
                                                         }
 
-                                                        totalDestiny = totalDestiny + plusOrMinus;
+                                                        if (!isCombinedAttackHitCheckPlusOrMinusFolded()) {
+                                                            totalDestiny = totalDestiny + plusOrMinus;
+                                                        }
                                                         gameState.sendMessage("Total destiny: " + GuiUtils.formatAsString(totalDestiny));
                                                         List<StandardEffect> effectList = new ArrayList<StandardEffect>();
 
@@ -1448,6 +1454,10 @@ public class FireWeaponActionBuilder {
                                         // Perform result(s)
                                         action.appendEffect(
                                                 new DrawDestinyEffect(action, _playerId, numDestiny, DestinyType.WEAPON_DESTINY) {
+                                                    @Override
+                                                    protected float getHitCheckPlusOrMinus() {
+                                                        return plusOrMinus;
+                                                    }
                                                     @Override
                                                     protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
                                                         if (statistic == Statistic.DEFENSE_VALUE || statistic == Statistic.MANEUVER || statistic == Statistic.ABILITY) {
