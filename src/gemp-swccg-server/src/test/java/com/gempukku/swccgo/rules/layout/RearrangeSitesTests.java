@@ -276,37 +276,43 @@ public class RearrangeSitesTests {
         putLocation(scn, warRoom);
         putLocation(scn, conference);
 
-        // Access Denied stand-in: between corridor and war room.
-        attachEffectToSite(scn, expand, corridor);
-        placeBetweenSites(expand, warRoom);
-        // Restricted Access stand-in: between war room and conference.
-        attachEffectToSite(scn, presence, warRoom);
-        placeBetweenSites(presence, conference);
-
-        assertTrue(scn.IsAttachedTo(corridor, expand));
-        assertEquals(warRoom, expand.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
-        assertTrue(scn.IsAttachedTo(warRoom, presence));
-        assertEquals(conference, presence.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
-
         List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
+        assertEquals(3, interiors.size());
+        PhysicalCardImpl left = (PhysicalCardImpl) interiors.get(0);
+        PhysicalCardImpl mid = (PhysicalCardImpl) interiors.get(1);
+        PhysicalCardImpl right = (PhysicalCardImpl) interiors.get(2);
+
+        // Access Denied stand-in: between the current left and middle sites.
+        attachEffectToSite(scn, expand, left);
+        placeBetweenSites(expand, mid);
+        // Restricted Access stand-in: between the current middle and right sites.
+        attachEffectToSite(scn, presence, mid);
+        placeBetweenSites(presence, right);
+
+        assertTrue(scn.IsAttachedTo(left, expand));
+        assertEquals(mid, expand.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+        assertTrue(scn.IsAttachedTo(mid, presence));
+        assertEquals(right, presence.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+
         List<PhysicalCard> newOrder = reversed(interiors);
         assertTrue(RearrangeSites.rearrangeInteriorSites(scn.game(), Title.Death_Star, newOrder));
 
-        // Reverse puts corridor at the right end. The Access Denied stand-in
-        // reattaches to the left-er of its pair (war room) instead of riding to the end.
-        assertTrue(scn.IsAttachedTo(warRoom, expand));
-        assertEquals(corridor, expand.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
-        // Restricted Access stand-in reattaches to conference (now left of war room).
-        assertTrue(scn.IsAttachedTo(conference, presence));
-        assertEquals(warRoom, presence.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+        // Reverse puts the old left site at the right end. The Access Denied
+        // stand-in reattaches to the left-er of its pair (old mid) instead of
+        // riding to the end.
+        assertTrue(scn.IsAttachedTo(mid, expand));
+        assertEquals(left, expand.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+        // Restricted Access stand-in reattaches to the old right site, now leftmost.
+        assertTrue(scn.IsAttachedTo(right, presence));
+        assertEquals(mid, presence.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
 
         List<PhysicalCard> after = interiorTops(scn, Title.Death_Star);
         assertEquals(newOrder, after);
-        assertEquals(conference, after.get(0));
-        assertEquals(warRoom, after.get(1));
-        assertEquals(corridor, after.get(2));
-        assertFalse(scn.IsAttachedTo(corridor, expand));
-        assertFalse(scn.IsAttachedTo(corridor, presence));
+        assertEquals(right, after.get(0));
+        assertEquals(mid, after.get(1));
+        assertEquals(left, after.get(2));
+        assertFalse(scn.IsAttachedTo(left, expand));
+        assertFalse(scn.IsAttachedTo(left, presence));
         assertIndexesMatchRow(scn);
     }
 
