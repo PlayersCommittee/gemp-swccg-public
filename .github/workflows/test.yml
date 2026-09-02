@@ -33,12 +33,15 @@ jobs:
         working-directory: src
 
       - name: Build the stack
+        working-directory: src
         run: |
-          docker-compose build
-          docker-compose up -d
+          docker compose build
+          docker compose up -d
+
       - name: Test
+        working-directory: src
         run: |
-          docker exec gemp curl -s --retry 10 --retry-connrefused http://127.0.0.1:8080/gemp-swccg/index.html
+          docker compose exec -T build curl -s --retry 10 --retry-connrefused http://127.0.0.1:80/gemp-swccg/index.html
           echo "Python3: $(which python3)"
           echo "pip3...: $(which pip3)"
           pip3 install -r requirements.txt
