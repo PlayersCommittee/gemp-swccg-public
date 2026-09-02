@@ -47,7 +47,7 @@ jobs:
           docker compose up -d db
           # Wait for DB to be reachable
           timeout 180 bash -c '
-            until docker compose exec -T db sh -c "mariadb-admin ping -uroot
+            until docker compose exec -T db sh -c "mariadb-admin ping -uroot \
                 -p\"$MYSQL_ROOT_PASSWORD\" --silent"; do
               echo "Waiting for DB to be ready..."
               docker compose logs --tail=20 db || true
