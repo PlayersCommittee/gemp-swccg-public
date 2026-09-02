@@ -306,7 +306,7 @@ public class RearrangeSitesTests {
         assertEquals(warRoom, after.get(1));
         assertEquals(corridor, after.get(2));
         assertFalse(scn.IsAttachedTo(corridor, expand));
-        assertFalse(scn.IsAttachedTo(after.get(2), presence));
+        assertFalse(scn.IsAttachedTo(corridor, presence));
         assertIndexesMatchRow(scn);
     }
 
