@@ -26,9 +26,11 @@ jobs:
           java -version ; true
       - name: mvn build
         run: mvn clean install
+        working-directory: src
 
       - name: mvn test
         run: mvn test
+        working-directory: src
 
       - name: Build the stack
         run: |
