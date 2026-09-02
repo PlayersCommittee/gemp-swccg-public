@@ -22,6 +22,9 @@ import java.util.List;
  * table does not change until every site has been chosen.
  */
 public class ChooseAndRearrangeRelatedSitesEffect extends AbstractSubActionEffect {
+    public static final String CHOICE_TEXT = "Choose sites in order from left to right";
+    public static final String NEXT_CHOICE_TEXT = "Choose next site from the left";
+
     private String _playerId;
     private Filter _filter;
 
@@ -54,12 +57,16 @@ public class ChooseAndRearrangeRelatedSitesEffect extends AbstractSubActionEffec
 
     @Override
     protected SubAction getSubAction(SwccgGame game) {
-        final SubAction subAction = new SubAction(_action, _playerId);
+        String playerId = _playerId;
+        if (playerId == null && _action != null) {
+            playerId = _action.getPerformingPlayer();
+        }
+        final SubAction subAction = new SubAction(_action, playerId);
         List<PhysicalCard> remaining = matchingSites(game);
         if (remaining.isEmpty()) {
             return subAction;
         }
-        subAction.appendEffect(new ChooseNextSiteEffect(subAction, remaining, new ArrayList<PhysicalCard>()));
+        subAction.appendEffect(new ChooseNextSiteEffect(subAction, playerId, remaining, new ArrayList<PhysicalCard>()));
         return subAction;
     }
 
@@ -79,14 +86,14 @@ public class ChooseAndRearrangeRelatedSitesEffect extends AbstractSubActionEffec
      */
     private class ChooseNextSiteEffect extends ChooseCardOnTableEffect {
         private final SubAction _subAction;
+        private final String _chooser;
         private final List<PhysicalCard> _remaining;
         private final List<PhysicalCard> _chosenOrder;
 
-        private ChooseNextSiteEffect(SubAction subAction, List<PhysicalCard> remaining, List<PhysicalCard> chosenOrder) {
-            super(subAction, _playerId,
-                    chosenOrder.isEmpty() ? "Click leftmost site" : "Click next site from left",
-                    remaining);
+        private ChooseNextSiteEffect(SubAction subAction, String playerId, List<PhysicalCard> remaining, List<PhysicalCard> chosenOrder) {
+            super(subAction, playerId, chosenOrder.isEmpty() ? CHOICE_TEXT : NEXT_CHOICE_TEXT, new ArrayList<PhysicalCard>(remaining));
             _subAction = subAction;
+            _chooser = playerId;
             _remaining = remaining;
             _chosenOrder = chosenOrder;
         }
@@ -101,10 +108,10 @@ public class ChooseAndRearrangeRelatedSitesEffect extends AbstractSubActionEffec
                 }
             }
             if (stillRemaining.isEmpty()) {
-                _subAction.appendEffect(new RearrangeRelatedSitesEffect(_subAction, _filter, _chosenOrder));
+                _subAction.insertEffect(new RearrangeRelatedSitesEffect(_subAction, _filter, _chosenOrder));
             }
             else {
-                _subAction.appendEffect(new ChooseNextSiteEffect(_subAction, stillRemaining, _chosenOrder));
+                _subAction.insertEffect(new ChooseNextSiteEffect(_subAction, _chooser, stillRemaining, _chosenOrder));
             }
         }
     }
