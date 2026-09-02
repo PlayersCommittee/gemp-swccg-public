@@ -52,6 +52,9 @@ public class RearrangeSitesTests {
                     put("escort", "1_166"); // Colonel Wullf Yularen
                     put("droid", "1_163"); // LIN-V8K (Mining Droid)
                     put("bolt", "1_205"); // Restraining Bolt
+                    put("hallway", "14_112"); // Naboo: Theed Palace Hallway (Dark)
+                    put("generator", "13_076"); // Naboo: Theed Palace Generator (Dark)
+                    put("generator-core", "13_077"); // Naboo: Theed Palace Generator Core (Dark)
                 }},
                 10,
                 10,
@@ -575,5 +578,41 @@ public class RearrangeSitesTests {
         assertFalse(RearrangeSites.rearrangeInteriorSites(scn.game(), Title.Death_Star,
                 Arrays.asList(corridor, corridor)));
         assertEquals(before, deathStarRow(scn));
+    }
+
+    @Test
+    public void SameHelperReordersTheedPalaceInteriorSites() {
+        var scn = GetScenario();
+
+        var hallway = scn.GetDSCard("hallway");
+        var generator = scn.GetDSCard("generator");
+        var generatorCore = scn.GetDSCard("generator-core");
+        var trooper = scn.GetDSFiller(1);
+        var marketplace = scn.GetDSStartingLocation();
+        var chasm = scn.GetLSStartingLocation();
+
+        scn.StartGame();
+
+        putLocation(scn, hallway);
+        putLocation(scn, generator);
+        putLocation(scn, generatorCore);
+        putAtSite(scn, hallway, trooper);
+
+        List<PhysicalCard> interiors = interiorTops(scn, Title.Naboo);
+        assertEquals(3, interiors.size());
+        assertTrue(interiors.contains(hallway));
+        assertTrue(interiors.contains(generator));
+        assertTrue(interiors.contains(generatorCore));
+        assertFalse(interiors.contains(marketplace));
+        assertFalse(interiors.contains(chasm));
+        assertTrue(scn.CardsAtLocation(hallway, trooper));
+
+        List<PhysicalCard> newOrder = reversed(interiors);
+        assertTrue(RearrangeSites.rearrangeInteriorSites(scn.game(), Title.Naboo, newOrder));
+
+        assertEquals(newOrder, interiorTops(scn, Title.Naboo));
+        assertTrue(scn.CardsAtLocation(hallway, trooper));
+        assertEquals(hallway, trooper.getAtLocation());
+        assertIndexesMatchRow(scn);
     }
 }

@@ -30,7 +30,11 @@ public final class RearrangeSites {
      * @return the interior-only site filter for that system
      */
     public static Filter interiorSitesOfSystem(String systemName) {
-        return Filters.and(Filters.interior_site, Filters.not(Filters.exterior_site), Filters.partOfSystem(systemName));
+        // Matches Death Star / Bespin "Interior sites" groups and Naboo's interior
+        // Theed Palace row (Throne Room is its own group; courtyard is also exterior).
+        return Filters.and(Filters.interior_site, Filters.not(Filters.exterior_site),
+                Filters.not(Filters.underwater_site), Filters.not(Filters.Theed_Palace_Throne_Room),
+                Filters.partOfSystem(systemName));
     }
 
     /**
