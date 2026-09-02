@@ -457,4 +457,39 @@ public class Card_2_117_Tests {
 
         assertTrue("Cecius should take Besieged. Decision: " + decisionText(scn), scn.GetDSHand().contains(besieged));
     }
+
+    @Test
+    public void LieutenantCeciusHasPowerPlus3InBesiegedBattle_2_117_Besieged() {
+        var scn = GetScenario();
+
+        var falcon = scn.GetLSCard("falcon");
+        var han = scn.GetLSCard("han");
+        var rebel = scn.GetLSFiller(1);
+        var besieged = scn.GetDSCard("besieged");
+        var vcsd = scn.GetDSCard("vcsd");
+        var launchBay = scn.GetDSCard("launchbay");
+        var tractor = scn.GetDSCard("tractor");
+        var cecius = scn.GetDSCard("cecius");
+
+        scn.StartGame();
+        setupLaunchBayCapture(scn, falcon, han, vcsd, launchBay, tractor);
+        scn.MoveCardsToLocation(launchBay, cecius, rebel);
+        scn.AttachCardsTo(falcon, besieged);
+
+        scn.SkipToPhase(Phase.BATTLE);
+        assertEquals(1, scn.GetPower(cecius));
+        assertTrue("DS should start a normal battle at the site. Decision: " + decisionText(scn),
+                scn.DSCanInitiateBattle(launchBay));
+        scn.DSInitiateBattle(launchBay);
+        assertTrue(scn.IsParticipatingInBattle(cecius, rebel));
+        assertFalse(scn.gameState().isDuringBesiegedBattle());
+        assertEquals(1, scn.GetPower(cecius));
+
+        scn.SkipToDSTurn(Phase.BATTLE);
+        assertEquals(1, scn.GetPower(cecius));
+        initiateBesiegedBattle(scn, besieged, cecius);
+        assertTrue(scn.IsParticipatingInBattle(cecius, han));
+        assertTrue(scn.gameState().isDuringBesiegedBattle());
+        assertEquals(4, scn.GetPower(cecius));
+    }
 }
