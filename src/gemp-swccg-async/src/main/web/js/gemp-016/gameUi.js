@@ -3104,9 +3104,6 @@ var GempSwccgGameUI = Class.extend({
         var min = this.getDecisionParameter(decision, "min");
         var max = this.getDecisionParameter(decision, "max");
         var cardIds = this.getDecisionParameters(decision, "cardId");
-        if (text && /left to right/i.test(text)) {
-            text = text + ". Click highlighted sites in order.";
-        }
 
         var that = this;
 
