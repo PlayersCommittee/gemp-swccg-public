@@ -13,8 +13,8 @@ import java.util.List;
 /**
  * An effect that rearranges related sites matching a location filter.
  * The filter is the row to rearrange (for example interior sites of a given
- * system), not a Death Star-only rule. An empty order is a no-op. This does
- * not add client UI for clicking sites.
+ * system), not a Death Star-only rule. An empty order is a no-op. For the click-sites-in-order UI,
+ * use ChooseAndRearrangeRelatedSitesEffect.
  */
 public class RearrangeRelatedSitesEffect extends AbstractSuccessfulEffect {
     private String _systemName;
