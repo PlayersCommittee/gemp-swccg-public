@@ -17,8 +17,10 @@ import java.util.List;
  * not add client UI for clicking sites.
  */
 public class RearrangeRelatedSitesEffect extends AbstractSuccessfulEffect {
+    private String _systemName;
     private Filter _filter;
     private List<PhysicalCard> _newOrder;
+    private List<Integer> _permutation;
 
     /**
      * Rearranges sites accepted by filter into the given left-to-right order.
@@ -29,6 +31,7 @@ public class RearrangeRelatedSitesEffect extends AbstractSuccessfulEffect {
     public RearrangeRelatedSitesEffect(Action action, Filter filter, List<? extends PhysicalCard> newOrder) {
         super(action);
         _filter = filter;
+        _permutation = Collections.emptyList();
         if (newOrder == null) {
             _newOrder = Collections.emptyList();
         }
@@ -37,12 +40,39 @@ public class RearrangeRelatedSitesEffect extends AbstractSuccessfulEffect {
         }
     }
 
+    /**
+     * Rearranges the matching system's site row using a permutation of current
+     * stack indexes. An empty permutation is a no-op.
+     * @param action the action performing this effect
+     * @param systemName the system title, for example Title.Death_Star
+     * @param filter location filter for the row
+     * @param permutation new left-to-right stack indexes
+     */
+    public RearrangeRelatedSitesEffect(Action action, String systemName, Filter filter, List<Integer> permutation) {
+        super(action);
+        _systemName = systemName;
+        _filter = filter;
+        _newOrder = Collections.emptyList();
+        if (permutation == null) {
+            _permutation = Collections.emptyList();
+        }
+        else {
+            _permutation = new ArrayList<Integer>(permutation);
+        }
+    }
+
     @Override
     protected void doPlayEffect(SwccgGame game) {
-        if (_newOrder.isEmpty()) {
+        boolean done;
+        if (!_permutation.isEmpty()) {
+            done = game.getGameState().reorderTopLocationsInGroupByPermutation(_systemName, _filter, _permutation);
+        }
+        else if (_newOrder.isEmpty()) {
             return;
         }
-        boolean done = game.getGameState().reorderTopLocationsInGroup(_filter, _newOrder);
+        else {
+            done = game.getGameState().reorderTopLocationsInGroup(_filter, _newOrder);
+        }
         if (done && _action.getPerformingPlayer() != null) {
             game.getGameState().sendMessage(_action.getPerformingPlayer() + " rearranges sites");
         }

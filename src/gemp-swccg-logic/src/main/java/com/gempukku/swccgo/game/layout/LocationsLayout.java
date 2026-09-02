@@ -556,7 +556,7 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
      * Reorders top locations that already sit in the same LocationGroup so they
      * appear left-to-right in newTopOrder. Converted cards stay in the same
      * stack under the same top. An empty order does nothing.
-     * @param game the game, or null if filter and between-sites checks are not needed
+     * @param game the game, or null if filter checks are not needed
      * @param filter location filter for the cards being rearranged, or null
      * @param newTopOrder requested left-to-right order of top location cards
      * @return true if applied or already matched; false if invalid
@@ -582,7 +582,7 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
 
     /**
      * Reorders top locations inside the given group. newTopOrder cards must already be tops in that group.
-     * @param game the game, or null if between-sites checks are not needed
+     * @param game the game, or null if extra checks are not needed
      * @param group the group to reorder
      * @param newTopOrder requested left-to-right order of top location cards
      * @return true if applied or already matched; false if invalid
@@ -600,6 +600,23 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
             }
         }
         return group.reorderTopLocations(newTopOrder);
+    }
+
+    /**
+     * Reorders every stack in the group by a permutation of 0..size-1.
+     * An empty permutation does nothing. Same order is allowed.
+     * @param group the group to reorder
+     * @param permutation new left-to-right stack indexes
+     * @return true if applied or already matched; false if invalid
+     */
+    public boolean reorderStacksInGroup(LocationGroup group, List<Integer> permutation) {
+        if (permutation == null || permutation.isEmpty()) {
+            return true;
+        }
+        if (group == null) {
+            return false;
+        }
+        return group.reorderStacks(permutation);
     }
 
     /**

@@ -1,14 +1,15 @@
 package com.gempukku.swccgo.rules.layout;
 
+import com.gempukku.swccgo.common.TargetId;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
 import com.gempukku.swccgo.game.layout.LocationGroup;
 import com.gempukku.swccgo.game.layout.RearrangeSites;
-import com.gempukku.swccgo.logic.modifiers.MayNotMoveModifier;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -45,9 +46,12 @@ public class RearrangeSitesTests {
                     put("conference", "2_144"); // Death Star: Conference Room
                     put("ds-system", "2_143"); // Death Star system
                     put("expand", "1_215"); // Expand The Empire (deploys on a site)
+                    put("presence", "1_227"); // Presence Of The Force (deploys on a site)
                     put("incinerator", "5_170"); // Cloud City: Incinerator (Dark)
                     put("cloud-car", "5_178"); // Cloud Car
                     put("escort", "1_166"); // Colonel Wullf Yularen
+                    put("droid", "1_163"); // LIN-V8K (Mining Droid)
+                    put("bolt", "1_205"); // Restraining Bolt
                 }},
                 10,
                 10,
@@ -72,14 +76,22 @@ public class RearrangeSitesTests {
     }
 
     /**
-     * Attaches an Effect to a site. Access Denied / Restricted Access / Laser Gate
-     * are not implemented, so tests use Expand The Empire (deploys on a site) to
-     * show attached cards stay with the site. The engine rejects orders that
-     * would place a card whose game text contains "between two" at either end
-     * of the group, without naming Laser Gate.
+     * Attaches an Effect to a site. Access Denied and Restricted Access are not
+     * implemented as cards, so tests use other "deploys on a site" Effects and
+     * point EFFECT_TARGET_1 at the neighboring site. That is the same attach
+     * plus target shape those between-sites cards use. Laser Gate is also
+     * unimplemented and is not named in engine code.
      */
     private void attachEffectToSite(VirtualTableScenario scn, PhysicalCardImpl effect, PhysicalCardImpl site) {
         scn.AttachCardsTo(site, effect);
+    }
+
+    /**
+     * Marks an attached Effect as sitting between two sites: it stays attached
+     * to one site and targets the other.
+     */
+    private void placeBetweenSites(PhysicalCardImpl effect, PhysicalCardImpl otherSite) {
+        effect.setTargetedCard(TargetId.EFFECT_TARGET_1, null, otherSite, Filters.sameCardId(otherSite));
     }
 
     /** Left-to-right top locations currently on the table. */
@@ -154,6 +166,36 @@ public class RearrangeSitesTests {
     }
 
     @Test
+    public void MixedSideThreeInteriorDeathStarSitesReorder() {
+        var scn = GetScenario();
+
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("war-room");
+        var trash = scn.GetLSCard("trash");
+        var trooper = scn.GetDSFiller(1);
+
+        scn.StartGame();
+
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        putLocation(scn, trash);
+        putAtSite(scn, trash, trooper);
+
+        List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
+        assertEquals(3, interiors.size());
+        assertTrue(interiors.contains(corridor));
+        assertTrue(interiors.contains(warRoom));
+        assertTrue(interiors.contains(trash));
+
+        List<PhysicalCard> newOrder = reversed(interiors);
+        assertTrue(RearrangeSites.rearrangeInteriorSites(scn.game(), Title.Death_Star, newOrder));
+
+        assertEquals(newOrder, interiorTops(scn, Title.Death_Star));
+        assertTrue(scn.CardsAtLocation(trash, trooper));
+        assertIndexesMatchRow(scn);
+    }
+
+    @Test
     public void ConvertedStackStaysUnderTheSameTop() {
         var scn = GetScenario();
 
@@ -204,16 +246,16 @@ public class RearrangeSitesTests {
         putLocation(scn, warRoom);
         putLocation(scn, conference);
         putAtSite(scn, corridor, cloudCar);
-        scn.BoardAsPassenger(cloudCar, pilot);
+        scn.BoardAsPilot(cloudCar, pilot);
 
         assertTrue(scn.CardsAtLocation(corridor, cloudCar));
-        assertTrue(scn.IsAboardAsPassenger(cloudCar, pilot));
+        assertTrue(scn.IsAboardAsPilot(cloudCar, pilot));
 
         List<PhysicalCard> newOrder = reversed(interiorTops(scn, Title.Death_Star));
         assertTrue(RearrangeSites.rearrangeInteriorSites(scn.game(), Title.Death_Star, newOrder));
 
         assertTrue(scn.CardsAtLocation(corridor, cloudCar));
-        assertTrue(scn.IsAboardAsPassenger(cloudCar, pilot));
+        assertTrue(scn.IsAboardAsPilot(cloudCar, pilot));
         assertEquals(corridor, cloudCar.getAtLocation());
         assertIndexesMatchRow(scn);
     }
@@ -226,40 +268,66 @@ public class RearrangeSitesTests {
         var warRoom = scn.GetDSCard("war-room");
         var conference = scn.GetDSCard("conference");
         var expand = scn.GetDSCard("expand");
+        var presence = scn.GetDSCard("presence");
 
         scn.StartGame();
 
         putLocation(scn, corridor);
         putLocation(scn, warRoom);
         putLocation(scn, conference);
-        // Middle site so the attached Effect stays between two interiors after a reverse.
-        attachEffectToSite(scn, expand, warRoom);
 
-        assertTrue(scn.IsAttachedTo(warRoom, expand));
+        // Access Denied stand-in: between corridor and war room.
+        attachEffectToSite(scn, expand, corridor);
+        placeBetweenSites(expand, warRoom);
+        // Restricted Access stand-in: between war room and conference.
+        attachEffectToSite(scn, presence, warRoom);
+        placeBetweenSites(presence, conference);
+
+        assertTrue(scn.IsAttachedTo(corridor, expand));
+        assertEquals(warRoom, expand.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+        assertTrue(scn.IsAttachedTo(warRoom, presence));
+        assertEquals(conference, presence.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
 
         List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
         List<PhysicalCard> newOrder = reversed(interiors);
         assertTrue(RearrangeSites.rearrangeInteriorSites(scn.game(), Title.Death_Star, newOrder));
 
+        // Reverse puts corridor at the right end. The Access Denied stand-in
+        // reattaches to the left-er of its pair (war room) instead of riding to the end.
         assertTrue(scn.IsAttachedTo(warRoom, expand));
-        assertEquals(newOrder, interiorTops(scn, Title.Death_Star));
-        assertEquals(warRoom, newOrder.get(1));
-        assertTrue(scn.IsAdjacentTo(warRoom, (PhysicalCardImpl) newOrder.get(0)));
-        assertTrue(scn.IsAdjacentTo(warRoom, (PhysicalCardImpl) newOrder.get(2)));
+        assertEquals(corridor, expand.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+        // Restricted Access stand-in reattaches to conference (now left of war room).
+        assertTrue(scn.IsAttachedTo(conference, presence));
+        assertEquals(warRoom, presence.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+
+        List<PhysicalCard> after = interiorTops(scn, Title.Death_Star);
+        assertEquals(newOrder, after);
+        assertEquals(conference, after.get(0));
+        assertEquals(warRoom, after.get(1));
+        assertEquals(corridor, after.get(2));
+        assertFalse(scn.IsAttachedTo(corridor, expand));
+        assertFalse(scn.IsAttachedTo(after.get(2), presence));
+        assertIndexesMatchRow(scn);
     }
 
     @Test
-    public void ZeroTargetsIsNoOp() {
+    public void ZeroTargetsIsNoOpAndCannotInitiate() {
         var scn = GetScenario();
-
-        var corridor = scn.GetDSCard("corridor");
-        var warRoom = scn.GetDSCard("war-room");
 
         scn.StartGame();
 
+        List<PhysicalCard> beforeEmpty = new ArrayList<PhysicalCard>(locationRow(scn));
+        assertFalse(RearrangeSites.canRearrangeInteriorSites(scn.game(), Title.Death_Star));
+        assertTrue(RearrangeSites.rearrangeInteriorSites(scn.game(), Title.Death_Star, Collections.emptyList()));
+        assertTrue(RearrangeSites.rearrangeInteriorSitesByPermutation(scn.game(), Title.Death_Star, Collections.emptyList()));
+        assertEquals(beforeEmpty, locationRow(scn));
+
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("war-room");
         putLocation(scn, corridor);
         putLocation(scn, warRoom);
 
+        assertTrue(RearrangeSites.canRearrangeInteriorSites(scn.game(), Title.Death_Star));
         List<PhysicalCard> before = new ArrayList<PhysicalCard>(locationRow(scn));
         List<PhysicalCard> interiorsBefore = interiorTops(scn, Title.Death_Star);
 
@@ -268,6 +336,52 @@ public class RearrangeSitesTests {
 
         assertEquals(before, locationRow(scn));
         assertEquals(interiorsBefore, interiorTops(scn, Title.Death_Star));
+        assertIndexesMatchRow(scn);
+    }
+
+    @Test
+    public void SameConfigurationIsAllowed() {
+        var scn = GetScenario();
+
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("war-room");
+        var conference = scn.GetDSCard("conference");
+
+        scn.StartGame();
+
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        putLocation(scn, conference);
+
+        List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
+        assertTrue(RearrangeSites.rearrangeInteriorSites(scn.game(), Title.Death_Star, interiors));
+        assertEquals(interiors, interiorTops(scn, Title.Death_Star));
+        assertTrue(RearrangeSites.rearrangeInteriorSitesByPermutation(scn.game(), Title.Death_Star, Arrays.asList(0, 1, 2)));
+        assertEquals(interiors, interiorTops(scn, Title.Death_Star));
+        assertIndexesMatchRow(scn);
+    }
+
+    @Test
+    public void IndexPermutationReordersInteriorSites() {
+        var scn = GetScenario();
+
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("war-room");
+        var conference = scn.GetDSCard("conference");
+
+        scn.StartGame();
+
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        putLocation(scn, conference);
+
+        List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
+        assertEquals(3, interiors.size());
+        List<PhysicalCard> expected = Arrays.asList(interiors.get(2), interiors.get(0), interiors.get(1));
+
+        assertTrue(RearrangeSites.rearrangeInteriorSitesByPermutation(scn.game(), Title.Death_Star, Arrays.asList(2, 0, 1)));
+
+        assertEquals(expected, interiorTops(scn, Title.Death_Star));
         assertIndexesMatchRow(scn);
     }
 
@@ -309,29 +423,33 @@ public class RearrangeSitesTests {
         var corridor = scn.GetDSCard("corridor");
         var warRoom = scn.GetDSCard("war-room");
         var conference = scn.GetDSCard("conference");
-        var trooper = scn.GetDSFiller(1);
+        var droid = scn.GetDSCard("droid");
+        var bolt = scn.GetDSCard("bolt");
 
         scn.StartGame();
 
         putLocation(scn, corridor);
         putLocation(scn, warRoom);
         putLocation(scn, conference);
-        putAtSite(scn, corridor, trooper);
-        scn.ApplyAdHocModifier(new MayNotMoveModifier(trooper));
+        putAtSite(scn, corridor, droid);
+        scn.AttachCardsTo(droid, bolt);
 
-        assertTrue(scn.game().getModifiersQuerying().mayNotMove(scn.gameState(), trooper));
-        assertEquals(corridor, trooper.getAtLocation());
+        assertEquals(corridor, droid.getAtLocation());
+        assertTrue(scn.IsAttachedTo(droid, bolt));
         int corridorId = corridor.getCardId();
+        int droidId = droid.getCardId();
 
         List<PhysicalCard> newOrder = reversed(interiorTops(scn, Title.Death_Star));
         assertTrue(RearrangeSites.rearrangeInteriorSites(scn.game(), Title.Death_Star, newOrder));
 
-        // Same site card, same occupant. This is not a move or a deploy.
+        // Same site card, same occupant, same bolt. This is not a move or a deploy.
         assertEquals(corridorId, corridor.getCardId());
-        assertEquals(corridor, trooper.getAtLocation());
-        assertTrue(scn.CardsAtLocation(corridor, trooper));
+        assertEquals(droidId, droid.getCardId());
+        assertEquals(corridor, droid.getAtLocation());
+        assertTrue(scn.CardsAtLocation(corridor, droid));
+        assertTrue(scn.IsAttachedTo(droid, bolt));
         assertEquals(Zone.LOCATIONS, corridor.getZone());
-        assertTrue(scn.game().getModifiersQuerying().mayNotMove(scn.gameState(), trooper));
+        assertTrue(scn.game().getModifiersQuerying().mayNotMove(scn.gameState(), droid));
         assertIndexesMatchRow(scn);
     }
 

@@ -34,6 +34,19 @@ public final class RearrangeSites {
     }
 
     /**
+     * True when that system's interior-site group is on the table with at least
+     * one site. Zero matching sites means a card that rearranges them cannot start.
+     * @param game the game
+     * @param systemName the system title, for example Title.Death_Star
+     * @return true if there is at least one interior site to rearrange
+     */
+    public static boolean canRearrangeInteriorSites(SwccgGame game, String systemName) {
+        LocationGroup group = game.getGameState().getLocationsLayout()
+                .findGroupForSystemMatching(game, systemName, interiorSitesOfSystem(systemName));
+        return group != null && !group.getTopCardsInGroup().isEmpty();
+    }
+
+    /**
      * Reorders sites that already sit in the same LocationGroup so the given
      * top locations appear left-to-right in newTopOrder. Other sites in that
      * group keep their relative slots. Does not fire leave/move/deploy events.
@@ -48,7 +61,7 @@ public final class RearrangeSites {
     /**
      * Reorders interior-only sites of the given system using the same helper
      * Death Star and Bespin share. newTopOrder must be a permutation of some
-     * or all current interior sites of that system.
+     * or all current interior sites of that system. An empty list does nothing.
      * @param game the game
      * @param systemName the system title, for example Title.Death_Star
      * @param newTopOrder the requested left-to-right order of those interior sites
@@ -56,5 +69,17 @@ public final class RearrangeSites {
      */
     public static boolean rearrangeInteriorSites(SwccgGame game, String systemName, List<? extends PhysicalCard> newTopOrder) {
         return game.getGameState().reorderTopLocationsInGroup(systemName, interiorSitesOfSystem(systemName), newTopOrder);
+    }
+
+    /**
+     * Same as rearrangeInteriorSites, but the new order is a permutation of the
+     * current stack indexes (0 is the current leftmost interior site).
+     * @param game the game
+     * @param systemName the system title, for example Title.Death_Star
+     * @param permutation new left-to-right stack indexes
+     * @return true if the order was applied or already matched; false if invalid
+     */
+    public static boolean rearrangeInteriorSitesByPermutation(SwccgGame game, String systemName, List<Integer> permutation) {
+        return game.getGameState().reorderTopLocationsInGroupByPermutation(systemName, interiorSitesOfSystem(systemName), permutation);
     }
 }
