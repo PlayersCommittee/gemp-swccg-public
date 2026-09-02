@@ -555,8 +555,7 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
     /**
      * Reorders top locations that already sit in the same LocationGroup so they
      * appear left-to-right in newTopOrder. Converted cards stay in the same
-     * stack under the same top. An empty order does nothing. Orders that would
-     * put a between-sites card at either end of the group are rejected.
+     * stack under the same top. An empty order does nothing.
      * @param game the game, or null if filter and between-sites checks are not needed
      * @param filter location filter for the cards being rearranged, or null
      * @param newTopOrder requested left-to-right order of top location cards
@@ -577,13 +576,6 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
             if (filter != null && game != null && !filter.accepts(game, card)) {
                 return false;
             }
-        }
-        List<PhysicalCard> preview = group.previewTopLocations(newTopOrder);
-        if (preview == null) {
-            return false;
-        }
-        if (game != null && wouldPutBetweenSitesCardAtEnd(game, preview)) {
-            return false;
         }
         return group.reorderTopLocations(newTopOrder);
     }
@@ -607,53 +599,9 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
                 return false;
             }
         }
-        List<PhysicalCard> preview = group.previewTopLocations(newTopOrder);
-        if (preview == null) {
-            return false;
-        }
-        if (game != null && wouldPutBetweenSitesCardAtEnd(game, preview)) {
-            return false;
-        }
         return group.reorderTopLocations(newTopOrder);
     }
 
-    /**
-     * True if the first or last card in the row is a between-sites card, or has
-     * one attached. Detected from printed game text containing "between two"
-     * so Laser Gate is not named in code.
-     */
-    private boolean wouldPutBetweenSitesCardAtEnd(SwccgGame game, List<PhysicalCard> tops) {
-        if (tops == null || tops.isEmpty()) {
-            return false;
-        }
-        return isBetweenSitesAtEnd(game, tops.get(0)) || isBetweenSitesAtEnd(game, tops.get(tops.size() - 1));
-    }
-
-    private boolean isBetweenSitesAtEnd(SwccgGame game, PhysicalCard siteOrCard) {
-        if (isBetweenSitesCard(siteOrCard)) {
-            return true;
-        }
-        if (game == null || siteOrCard == null) {
-            return false;
-        }
-        for (PhysicalCard attached : game.getGameState().getAttachedCards(siteOrCard, true)) {
-            if (isBetweenSitesCard(attached)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isBetweenSitesCard(PhysicalCard card) {
-        if (card == null || card.getBlueprint() == null) {
-            return false;
-        }
-        if (card.getBlueprint().getCardCategory() == CardCategory.LOCATION) {
-            return false;
-        }
-        String text = card.getBlueprint().getGameText();
-        return text != null && text.toLowerCase().contains("between two");
-    }
     /**
      * Remove any empty starship or vehicle location layouts that are related to a persona.
      */

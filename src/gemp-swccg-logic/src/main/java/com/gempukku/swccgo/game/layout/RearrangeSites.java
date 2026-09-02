@@ -55,6 +55,6 @@ public final class RearrangeSites {
      * @return true if the order was applied or already matched; false if invalid
      */
     public static boolean rearrangeInteriorSites(SwccgGame game, String systemName, List<? extends PhysicalCard> newTopOrder) {
-        return game.getGameState().reorderTopLocationsInGroup(interiorSitesOfSystem(systemName), newTopOrder);
+        return game.getGameState().reorderTopLocationsInGroup(systemName, interiorSitesOfSystem(systemName), newTopOrder);
     }
 }
