@@ -3,6 +3,7 @@ package com.gempukku.swccgo.rules.layout;
 import com.gempukku.swccgo.common.TargetId;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
@@ -11,6 +12,9 @@ import com.gempukku.swccgo.game.PhysicalCardImpl;
 import com.gempukku.swccgo.game.layout.LocationGroup;
 import com.gempukku.swccgo.game.layout.RearrangeSites;
 import com.gempukku.swccgo.logic.actions.SystemQueueAction;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.decisions.CardActionSelectionDecision;
+import com.gempukku.swccgo.logic.effects.ChooseAndRearrangeRelatedSitesEffect;
 import com.gempukku.swccgo.logic.effects.RearrangeRelatedSitesEffect;
 import org.junit.Test;
 
@@ -141,6 +145,22 @@ public class RearrangeSitesTests {
                 assertEquals(i, converted.getLocationZoneIndex());
             }
         }
+    }
+
+
+    /**
+     * Starts the generic sequential click-to-order UI as a table action.
+     * DSExecuteAdHocEffect always picks action index 0 (Activate Force during
+     * the Activate phase), so inject at the end of the current action list
+     * and choose that index.
+     */
+    private void beginChooseInOrder(VirtualTableScenario scn, PhysicalCardImpl source, Filter siteFilter) {
+        var action = new TopLevelGameTextAction(source, source.getOwner(), source.getCardId());
+        action.setText("Rearrange related sites");
+        action.appendEffect(new ChooseAndRearrangeRelatedSitesEffect(action, source.getOwner(), siteFilter));
+        int injectedIndex = scn.GetDSAvailableActions().size();
+        ((CardActionSelectionDecision) scn.userFeedback().getAwaitingDecision(source.getOwner())).addAction(action);
+        scn.DSDecided(String.valueOf(injectedIndex));
     }
 
     @Test
@@ -745,6 +765,144 @@ public class RearrangeSitesTests {
         assertIndexesMatchRow(scn);
     }
 
+    @Test
+    public void PlayerChoosesSitesInOrderAThenCThenB() {
+        var scn = GetScenario();
+
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("war-room");
+        var conference = scn.GetDSCard("conference");
+
+        scn.StartGame();
+
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        putLocation(scn, conference);
+
+        assertTrue(scn.AwaitingDSActivatePhaseActions());
+
+        List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
+        assertEquals(3, interiors.size());
+        PhysicalCardImpl a = (PhysicalCardImpl) interiors.get(0);
+        PhysicalCardImpl b = (PhysicalCardImpl) interiors.get(1);
+        PhysicalCardImpl c = (PhysicalCardImpl) interiors.get(2);
+        List<PhysicalCard> original = new ArrayList<PhysicalCard>(interiors);
+
+        beginChooseInOrder(scn, corridor, RearrangeSites.interiorSitesOfSystem(Title.Death_Star));
+
+        assertTrue(scn.DSDecisionAvailable(ChooseAndRearrangeRelatedSitesEffect.CHOICE_TEXT));
+        assertTrue(scn.DSHasCardChoicesAvailable(a, b, c));
+        scn.DSChooseCard(a);
+
+        assertEquals(original, interiorTops(scn, Title.Death_Star));
+        assertTrue(scn.DSDecisionAvailable(ChooseAndRearrangeRelatedSitesEffect.NEXT_CHOICE_TEXT));
+        assertTrue(scn.DSHasCardChoiceNotAvailable(a));
+        assertTrue(scn.DSHasCardChoicesAvailable(b, c));
+        scn.DSChooseCard(c);
+
+        if (scn.DSDecisionAvailable(ChooseAndRearrangeRelatedSitesEffect.NEXT_CHOICE_TEXT)) {
+            scn.DSChooseCard(b);
+        }
+
+        assertEquals(Arrays.asList(a, c, b), interiorTops(scn, Title.Death_Star));
+        assertIndexesMatchRow(scn);
+    }
+    @Test
+    public void PlayerClicksInteriorSitesInLeftToRightOrder() {
+        var scn = GetScenario();
+
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("war-room");
+        var conference = scn.GetDSCard("conference");
+        var db327 = scn.GetDSCard("db327");
+        var marketplace = scn.GetDSStartingLocation();
+        var chasm = scn.GetLSStartingLocation();
+
+        scn.StartGame();
+
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        putLocation(scn, conference);
+        putLocation(scn, db327);
+
+        assertTrue(scn.AwaitingDSActivatePhaseActions());
+
+        List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
+        assertEquals(3, interiors.size());
+        PhysicalCardImpl left = (PhysicalCardImpl) interiors.get(0);
+        PhysicalCardImpl mid = (PhysicalCardImpl) interiors.get(1);
+        PhysicalCardImpl right = (PhysicalCardImpl) interiors.get(2);
+        List<PhysicalCard> original = new ArrayList<PhysicalCard>(interiors);
+        Filter dsInteriors = RearrangeSites.interiorSitesOfSystem(Title.Death_Star);
+        int db327Index = db327.getLocationZoneIndex();
+
+        beginChooseInOrder(scn, corridor, dsInteriors);
+
+        assertTrue(scn.DSDecisionAvailable(ChooseAndRearrangeRelatedSitesEffect.CHOICE_TEXT));
+        assertEquals(3, scn.DSGetCardChoiceCount());
+        assertTrue(scn.DSHasCardChoiceAvailable(left));
+        assertTrue(scn.DSHasCardChoiceAvailable(mid));
+        assertTrue(scn.DSHasCardChoiceAvailable(right));
+        assertTrue(scn.DSHasCardChoiceNotAvailable(db327));
+        assertTrue(scn.DSHasCardChoiceNotAvailable(marketplace));
+        assertTrue(scn.DSHasCardChoiceNotAvailable(chasm));
+
+        scn.DSChooseCard(right);
+        assertEquals(original, interiorTops(scn, Title.Death_Star));
+        assertTrue(scn.DSDecisionAvailable(ChooseAndRearrangeRelatedSitesEffect.NEXT_CHOICE_TEXT));
+        assertEquals(2, scn.DSGetCardChoiceCount());
+        assertTrue(scn.DSHasCardChoiceNotAvailable(right));
+        assertTrue(scn.DSHasCardChoiceAvailable(left));
+        assertTrue(scn.DSHasCardChoiceAvailable(mid));
+
+        scn.DSChooseCard(mid);
+
+        assertEquals(Arrays.asList(right, mid, left), interiorTops(scn, Title.Death_Star));
+        assertEquals(db327Index, db327.getLocationZoneIndex());
+        assertIndexesMatchRow(scn);
+    }
+
+    @Test
+    public void PlayerClicksBespinInteriorSitesInLeftToRightOrder() {
+        var scn = GetScenario();
+
+        var chasm = scn.GetLSStartingLocation();
+        var guest = scn.GetLSCard("guest");
+        var incinerator = scn.GetDSCard("incinerator");
+
+        scn.StartGame();
+
+        putLocation(scn, guest);
+        putLocation(scn, incinerator);
+
+        assertTrue(scn.AwaitingDSActivatePhaseActions());
+
+        List<PhysicalCard> interiors = interiorTops(scn, Title.Bespin);
+        assertEquals(3, interiors.size());
+        assertTrue(interiors.contains(chasm));
+        PhysicalCardImpl a = (PhysicalCardImpl) interiors.get(0);
+        PhysicalCardImpl b = (PhysicalCardImpl) interiors.get(1);
+        PhysicalCardImpl c = (PhysicalCardImpl) interiors.get(2);
+        List<PhysicalCard> original = new ArrayList<PhysicalCard>(interiors);
+        Filter bespinInteriors = RearrangeSites.interiorSitesOfSystem(Title.Bespin);
+
+        beginChooseInOrder(scn, incinerator, bespinInteriors);
+
+        assertTrue(scn.DSDecisionAvailable(ChooseAndRearrangeRelatedSitesEffect.CHOICE_TEXT));
+        assertEquals(3, scn.DSGetCardChoiceCount());
+        assertTrue(scn.DSHasCardChoicesAvailable(a, b, c));
+
+        scn.DSChooseCard(c);
+        assertEquals(original, interiorTops(scn, Title.Bespin));
+        assertTrue(scn.DSDecisionAvailable(ChooseAndRearrangeRelatedSitesEffect.NEXT_CHOICE_TEXT));
+        assertTrue(scn.DSHasCardChoiceNotAvailable(c));
+        assertTrue(scn.DSHasCardChoicesAvailable(a, b));
+
+        scn.DSChooseCard(a);
+
+        assertEquals(Arrays.asList(c, a, b), interiorTops(scn, Title.Bespin));
+        assertIndexesMatchRow(scn);
+    }
     @Test
     public void CentralCoreParticipatesAndConvertedDockingBayStaysOut() {
         var scn = GetScenario();
