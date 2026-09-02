@@ -727,6 +727,8 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                         CombinedAttackFiringState ca = gameState.getCombinedAttackFiringState();
                         if (ca != null
                                 && (_destinyType == DestinyType.WEAPON_DESTINY || _destinyType == DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY)) {
+                            // Empty list = all draws failed or canceled. That is not destiny 0.
+                            boolean successfulDraw = !_destinyDrawValues.isEmpty();
                             float firingDestiny = 0f;
                             for (Float value : _destinyDrawValues) {
                                 if (value != null) {
@@ -739,12 +741,20 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                             com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint perm = wfs != null ? wfs.getPermanentWeaponFiring() : null;
                             // Snapshot TOTAL mods before endDrawDestiny so optional until-end-of-draw-destiny
                             // modifiers (Bossk With Mortar Gun -1) are still in the environment.
+                            // plusOrMinus is snapshotted even on a failed draw so a later successful draw
+                            // can still receive this weapon's titled +1 on a REAL grand total.
                             snapshotCombinedAttackTotalMods(game, gameState, ca, wfs, cardFiring, weapon, perm);
                             float variableX = weapon != null
                                     ? game.getModifiersQuerying().getVariableValue(gameState, weapon, Variable.X, 0f)
                                     : 0f;
-                            ca.addFiring(weapon, cardFiring, perm, firingDestiny, 0f, variableX, _drawDestinyEffect);
-                            gameState.sendMessage(ca.getFiringDrawsMessage(weapon, firingDestiny));
+                            Float recordedDestiny = successfulDraw ? firingDestiny : null;
+                            ca.addFiring(weapon, cardFiring, perm, recordedDestiny, 0f, variableX, _drawDestinyEffect);
+                            if (successfulDraw) {
+                                gameState.sendMessage(ca.getFiringDrawsMessage(weapon, firingDestiny));
+                            }
+                            else {
+                                gameState.sendMessage(ca.getFailedDrawMessage(weapon));
+                            }
                             gameState.endDrawDestiny();
                             // Defer hit/lost/ionize until all Combined Attack weapons have fired (Gergall).
                             return;
@@ -758,11 +768,15 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                         SeparatelyOrCombinedFiringState soc = gameState.getSeparatelyOrCombinedFiringState();
                         if (soc != null && soc.isCombined()
                                 && (_destinyType == DestinyType.WEAPON_DESTINY || _destinyType == DestinyType.EPIC_EVENT_AND_WEAPON_DESTINY)) {
-                            float firingDestiny = 0f;
-                            for (Float value : _destinyDrawValues) {
-                                if (value != null) {
-                                    firingDestiny += value;
+                            Float firingDestiny = null;
+                            if (!_destinyDrawValues.isEmpty()) {
+                                float sum = 0f;
+                                for (Float value : _destinyDrawValues) {
+                                    if (value != null) {
+                                        sum += value;
+                                    }
                                 }
+                                firingDestiny = sum;
                             }
                             soc.addFiringDestiny(firingDestiny);
                             soc.setDrawDestinyEffect(_drawDestinyEffect);
@@ -781,6 +795,12 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                                 return;
                             }
 
+                            if (!soc.hasSuccessfulFiringDestiny()) {
+                                totalDestiny = null;
+                                soc.markResolved();
+                                destinyDraws(game, _destinyCardDraws, _destinyDrawValues, totalDestiny);
+                                return;
+                            }
                             float combined = soc.getCombinedFiringDestinySum();
                             totalDestiny = game.getModifiersQuerying().getTotalWeaponDestiny(gameState, _performingPlayerId, combined);
                             soc.markResolved();
@@ -867,7 +887,16 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
         // modifier (same title once) on the grand total, then skip adding it again at apply.
         float hitCheckPlus = getHitCheckPlusOrMinus();
         if (hitCheckPlus != 0f) {
-            String hitTitle = weapon != null ? weapon.getTitle() : "";
+            String hitTitle = "";
+            if (perm != null) {
+                String permTitle = perm.getTitle(game);
+                if (permTitle != null && !permTitle.isEmpty()) {
+                    hitTitle = permTitle;
+                }
+            }
+            if (hitTitle.isEmpty() && weapon != null && weapon.getTitle() != null) {
+                hitTitle = weapon.getTitle();
+            }
             ca.addTotalModContribution(hitTitle, hitCheckPlus, false);
             _combinedAttackHitCheckPlusOrMinusFolded = true;
         }

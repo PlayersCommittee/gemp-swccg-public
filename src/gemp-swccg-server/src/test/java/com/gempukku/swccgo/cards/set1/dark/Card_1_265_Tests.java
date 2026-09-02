@@ -48,6 +48,8 @@ public class Card_1_265_Tests {
                     put("vader", "1_168");
                     put("bossk", "110_005");
                     put("fourlom", "109_006");
+                    put("dengar", "110_007");
+                    put("ig88", "109_011");
                     put("hutt", "6_144");
                 }},
                 40,
@@ -472,11 +474,123 @@ public class Card_1_265_Tests {
         assertPreciseAttackStateCleared(scn);
     }
 
+    @Test
+    public void EmptyReservePreciseAttackWithDengarAndIg88HasNoTotalAndDoesNotCapture() {
+        /**
+         * Precise Attack (1_265) with Dengar With Blaster Carbine (110_007) and IG-88 With Riot Gun (109_011)
+         * vs Luke Skywalker (1_019) with an empty Dark Reserve Deck.
+         * Failed draws are not destiny 0. There is no total, so Dengar's printed +1 and IG-88's printed +1
+         * cannot manufacture a total. Luke Skywalker is not hit or captured.
+         */
+        var scn = GetScenario();
+        var pa = scn.GetDSCard("pa");
+        var dengar = scn.GetDSCard("dengar");
+        var ig88 = scn.GetDSCard("ig88");
+        var luke = scn.GetLSCard("luke");
+        setupDengarAndIg88VsLuke(scn);
+        scn.MoveCardsToHand(pa);
+
+        scn.DSStartBattleAndSkipToWeaponsSegment(site(scn));
+        emptyDarkReserveDeck(scn);
+        assertEquals("Dark Reserve Deck must be empty before Precise Attack", 0, scn.GetDSReserveDeckCount());
+        playPreciseAttack(scn, luke, dengar, ig88);
+
+        fireFailedDestinyShot(scn, luke);
+        fireFailedDestinyShot(scn, luke);
+        finishPreciseAttack(scn);
+
+        String log = gameLog(scn);
+        assertTrue("Empty Reserve must say the destiny draw failed. LOG:\n" + log,
+                log.contains("can't draw a card for weapon destiny") || log.contains("destiny draw failed"));
+        assertFalse("Failed draws must not be recorded as 0. LOG:\n" + log, log.contains("destiny 0"));
+        assertFalse("No destinies 0 + 0 total. LOG:\n" + log, log.contains("0 + 0"));
+        assertFalse("No weapon destiny total when all draws failed. LOG:\n" + log, log.contains("Total weapon destiny"));
+        assertFalse("No total modifiers without a real total. LOG:\n" + log, log.contains("Total modifiers"));
+        assertFalse("Luke Skywalker must not be captured without a destiny total", luke.isCaptive());
+        assertFalse("Luke Skywalker must not be hit without a destiny total", luke.isHit());
+        assertPreciseAttackStateCleared(scn);
+    }
+
+    @Test
+    public void DengarAndIg88PlusOrMinusEachApplyOnceOnPreciseAttackGrandTotal() {
+        /**
+         * Precise Attack (1_265) with Dengar With Blaster Carbine (110_007) and IG-88 With Riot Gun (109_011)
+         * vs Luke Skywalker (1_019) ability 4. Draws 3 then 3. Each title's printed destiny +1 applies
+         * once to the real grand total (different titles), not collapsed to a single +1.
+         * Grand total 3 + 3 + 1 + 1 = 8.
+         */
+        var scn = GetScenario();
+        var pa = scn.GetDSCard("pa");
+        var dengar = scn.GetDSCard("dengar");
+        var ig88 = scn.GetDSCard("ig88");
+        var luke = scn.GetLSCard("luke");
+        setupDengarAndIg88VsLuke(scn);
+        scn.MoveCardsToHand(pa);
+
+        scn.DSStartBattleAndSkipToWeaponsSegment(site(scn));
+        playPreciseAttack(scn, luke, dengar, ig88);
+        fireOneShot(scn, luke, 3);
+        fireOneShot(scn, luke, 3);
+        finishPreciseAttack(scn);
+        chooseCaptureIfPrompted(scn, luke, ig88);
+        chooseCaptureIfPrompted(scn, luke, dengar);
+
+        String log = gameLog(scn);
+        assertTrue("Precise Attack destinies 3 + 3 = 6. LOG:\n" + log, log.contains("3 + 3 = 6"));
+        assertTrue("Different titles add +1 each, total modifiers +2. LOG:\n" + log, log.contains("Total modifiers +2"));
+        assertTrue("Dengar's Blaster Carbine +1 must be named. LOG:\n" + log, log.contains("Dengar's Blaster Carbine +1"));
+        assertTrue("riot gun +1 must be named. LOG:\n" + log, log.contains("riot gun +1"));
+        assertTrue("Grand total 8 after both +1s. LOG:\n" + log, log.contains("Total weapon destiny 8"));
+        assertFalse("Do not collapse Dengar and IG-88 +1 to a single +1. LOG:\n" + log, log.contains("Total modifiers +1."));
+        assertTrue("Luke Skywalker ability 4 must be hit or captured by combined 8. " + decisionDump(scn) + " LOG:" + log, luke.isHit() || luke.isCaptive());
+        assertPreciseAttackStateCleared(scn);
+    }
+
     /**
      * Dark Side starting location after both sides are moved to the Light Side ground site.
      */
     private PhysicalCardImpl site(VirtualTableScenario scn) {
         return scn.GetLSStartingLocation();
+    }
+
+    /**
+     * Dengar With Blaster Carbine (110_007) and IG-88 With Riot Gun (109_011) vs Luke Skywalker (1_019)
+     * at the Light Side site. Both permanent weapons fire for free and draw destiny.
+     */
+    private void setupDengarAndIg88VsLuke(VirtualTableScenario scn) {
+        scn.StartGame();
+        var site = site(scn);
+        var dengar = scn.GetDSCard("dengar");
+        var ig88 = scn.GetDSCard("ig88");
+        var luke = scn.GetLSCard("luke");
+        scn.MoveCardsToLocation(site, dengar, ig88, luke);
+        ensureDarkForce(scn, 8);
+    }
+
+    /**
+     * Move every Dark Reserve Deck card to the Lost Pile so weapon destiny draws fail.
+     */
+    private void emptyDarkReserveDeck(VirtualTableScenario scn) {
+        List<PhysicalCardImpl> cards = new ArrayList<PhysicalCardImpl>();
+        for (var card : scn.GetDSReserveDeck()) {
+            cards.add((PhysicalCardImpl) card);
+        }
+        if (!cards.isEmpty()) {
+            scn.MoveCardsToTopOfOwnLostPile(cards.toArray(new PhysicalCardImpl[0]));
+        }
+    }
+
+    /**
+     * Fire one Precise Attack weapon when Reserve is empty. The destiny draw fails and is not 0.
+     */
+    private void fireFailedDestinyShot(VirtualTableScenario scn, PhysicalCardImpl target) {
+        if (scn.DSGetDecision() != null && scn.DSHasCardChoiceAvailable(target)) {
+            scn.DSChooseCard(target);
+        }
+        chooseForceAmountIfPrompted(scn, null);
+        scn.PassForceUseResponses();
+        scn.PassWeaponFireWithDestinyDraw();
+        passPostFiringResponses(scn);
     }
 
     /**

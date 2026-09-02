@@ -2165,6 +2165,10 @@ public class FireWeaponActionBuilder {
                                         action.appendEffect(
                                                 new DrawDestinyEffect(action, _playerId, numDestiny, DestinyType.WEAPON_DESTINY) {
                                                     @Override
+                                                    protected float getHitCheckPlusOrMinus() {
+                                                        return plusOrMinus;
+                                                    }
+                                                    @Override
                                                     protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
                                                         if (statistic == Statistic.DEFENSE_VALUE || statistic == Statistic.MANEUVER || statistic == Statistic.ABILITY) {
                                                             return Collections.singletonList(cardFiredAt);
@@ -2180,6 +2184,9 @@ public class FireWeaponActionBuilder {
                                                             return;
                                                         }
 
+                                                        if (!isCombinedAttackHitCheckPlusOrMinusFolded()) {
+                                                            totalDestiny = totalDestiny + plusOrMinus;
+                                                        }
                                                         gameState.sendMessage("Total destiny: " + GuiUtils.formatAsString(totalDestiny));
                                                         float valueToCompare;
                                                         if (statistic == Statistic.DEFENSE_VALUE) {
@@ -2195,7 +2202,7 @@ public class FireWeaponActionBuilder {
                                                             throw new UnsupportedOperationException("Invalid statistic " + (statistic != null ? statistic.getHumanReadable() : null));
                                                         }
 
-                                                        if ((totalDestiny + plusOrMinus) > valueToCompare) {
+                                                        if (totalDestiny > valueToCompare) {
                                                             gameState.sendMessage("Result: Succeeded");
                                                             action.appendEffect(
                                                                     new CaptureCharacterOnTableEffect(action, cardFiredAt, action.getCardFiringWeapon()));

@@ -222,7 +222,12 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
      */
     private void resolveCombinedAttack(Action action, SwccgGame game) {
         CombinedAttackFiringState ca = game.getGameState().getCombinedAttackFiringState();
-        if (ca == null || ca.isResolved() || ca.getCompletedDrawCount() == 0) {
+        if (ca == null || ca.isResolved()) {
+            return;
+        }
+        if (!ca.hasSuccessfulDraw()) {
+            game.getGameState().sendMessage(ca.getNoTotalMessage());
+            ca.markResolved();
             return;
         }
         PhysicalCard target = ca.getTarget();

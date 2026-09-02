@@ -73,8 +73,17 @@ public class SeparatelyOrCombinedFiringState {
         return _combinedTarget;
     }
 
-    public void addFiringDestiny(float firingDestiny) {
+    public void addFiringDestiny(Float firingDestiny) {
         _firingDestinies.add(firingDestiny);
+    }
+
+    public boolean hasSuccessfulFiringDestiny() {
+        for (Float value : _firingDestinies) {
+            if (value != null) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public int getCompletedFiringCount() {
@@ -151,17 +160,22 @@ public class SeparatelyOrCombinedFiringState {
 
     private static String formatAddends(List<Float> values) {
         if (values == null || values.isEmpty()) {
-            return "0";
+            return "(none)";
         }
         StringBuilder sb = new StringBuilder();
+        int written = 0;
         for (int i = 0; i < values.size(); i++) {
-            if (i > 0) {
+            Float value = values.get(i);
+            if (value == null) {
+                continue;
+            }
+            if (written > 0) {
                 sb.append(" + ");
             }
-            Float value = values.get(i);
-            sb.append(GuiUtils.formatAsString(value != null ? value : 0f));
+            sb.append(GuiUtils.formatAsString(value));
+            written++;
         }
-        return sb.toString();
+        return written == 0 ? "(none)" : sb.toString();
     }
 
     public String getCombinedTotalDestinyMessage(String totalFormatted) {
