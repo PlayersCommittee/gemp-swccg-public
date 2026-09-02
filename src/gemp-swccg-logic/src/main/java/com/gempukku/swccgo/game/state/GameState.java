@@ -5,6 +5,7 @@ import com.gempukku.swccgo.communication.GameStateListener;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.*;
+import com.gempukku.swccgo.game.layout.LocationGroup;
 import com.gempukku.swccgo.game.layout.LocationPlacement;
 import com.gempukku.swccgo.game.layout.LocationsLayout;
 import com.gempukku.swccgo.game.state.actions.GameTextActionState;
@@ -382,6 +383,72 @@ public class GameState implements Snapshotable<GameState> {
         _locationsLayout = locationsLayout;
     }
 
+    public LocationsLayout getLocationsLayout() {
+        return _locationsLayout;
+    }
+
+    /**
+     * Reorders sites that already sit in the same LocationGroup so the given
+     * top locations appear left-to-right in newTopOrder. Converted stacks stay
+     * together. Cards at those sites are not moved. An empty order does nothing.
+     * @param newTopOrder requested left-to-right order of top location cards
+     * @return true if applied or already matched; false if invalid
+     */
+    public boolean reorderTopLocationsInGroup(List<? extends PhysicalCard> newTopOrder) {
+        return reorderTopLocationsInGroup((Filter) null, newTopOrder);
+    }
+
+    /**
+     * Reorders sites matching filter that already sit in the same LocationGroup.
+     * @param filter location filter for the cards being rearranged, or null
+     * @param newTopOrder requested left-to-right order of top location cards
+     * @return true if applied or already matched; false if invalid
+     */
+    public boolean reorderTopLocationsInGroup(Filter filter, List<? extends PhysicalCard> newTopOrder) {
+        if (newTopOrder == null || newTopOrder.isEmpty()) {
+            return true;
+        }
+        LocationGroup group = _locationsLayout.findGroupContaining(newTopOrder.get(0));
+        boolean result = _locationsLayout.reorderTopLocationsInGroup(_game, filter, newTopOrder);
+        if (result) {
+            notifyLocationsReordered(group);
+        }
+        return result;
+    }
+
+    /**
+     * Reorders sites in the LocationGroup for systemName whose top cards match siteFilter.
+     * @param systemName the system title
+     * @param siteFilter filter for the row to rearrange
+     * @param newTopOrder requested left-to-right order of matching top locations
+     * @return true if applied or already matched; false if invalid
+     */
+    public boolean reorderTopLocationsInGroup(String systemName, Filter siteFilter, List<? extends PhysicalCard> newTopOrder) {
+        if (newTopOrder == null || newTopOrder.isEmpty()) {
+            return true;
+        }
+        LocationGroup group = _locationsLayout.findGroupForSystemMatching(_game, systemName, siteFilter);
+        boolean result = _locationsLayout.reorderTopLocationsInGroup(_game, group, newTopOrder);
+        if (result) {
+            notifyLocationsReordered(group);
+        }
+        return result;
+    }
+
+    private void notifyLocationsReordered(LocationGroup group) {
+        _locationsLayout.refreshLocationIndexes();
+        _tableChangedSinceStatsSent = true;
+        if (group == null) {
+            return;
+        }
+        for (List<PhysicalCard> stack : group.getCardsInGroup()) {
+            for (PhysicalCard card : stack) {
+                for (GameStateListener listener : getAllGameStateListeners()) {
+                    listener.cardMoved(card, this);
+                }
+            }
+        }
+    }
     private void addPlayerCards(String playerId, List<String> cards, List<String> outsideOfDeckCards, SwccgCardBlueprintLibrary library) {
         for (String blueprintId : outsideOfDeckCards) {
             PhysicalCard physicalCard = createPhysicalCard(playerId, library, blueprintId);

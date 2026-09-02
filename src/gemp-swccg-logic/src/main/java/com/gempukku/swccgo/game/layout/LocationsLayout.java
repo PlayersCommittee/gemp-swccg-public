@@ -492,6 +492,169 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
     }
 
     /**
+     * Finds the LocationGroup that currently contains the given location (top or converted).
+     * @param card a location on the table
+     * @return the group, or null if not found
+     */
+    public LocationGroup findGroupContaining(PhysicalCard card) {
+        if (card == null) {
+            return null;
+        }
+        if (_holositeLayout instanceof AbstractLocationLayout) {
+            LocationGroup group = ((AbstractLocationLayout) _holositeLayout).findGroupContaining(card);
+            if (group != null) {
+                return group;
+            }
+        }
+        for (LocationLayout layout : _locationLayouts) {
+            if (layout instanceof AbstractLocationLayout) {
+                LocationGroup group = ((AbstractLocationLayout) layout).findGroupContaining(card);
+                if (group != null) {
+                    return group;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Finds the on-table LocationGroup for a system whose current top sites all match siteFilter.
+     * Used so Death Star and Bespin can share the same interior-row rearrange helper.
+     * @param game the game
+     * @param systemName the system title
+     * @param siteFilter filter for the row, typically interior-only sites of that system
+     * @return the matching group, or null if none is on the table
+     */
+    public LocationGroup findGroupForSystemMatching(SwccgGame game, String systemName, Filter siteFilter) {
+        if (game == null || systemName == null || siteFilter == null) {
+            return null;
+        }
+        for (LocationLayout layout : _locationLayouts) {
+            if (systemName.equals(layout.getParentSystemTitle()) && layout instanceof AbstractLocationLayout) {
+                for (LocationGroup group : ((AbstractLocationLayout) layout).getExistingGroupsInOrder()) {
+                    List<PhysicalCard> tops = group.getTopCardsInGroup();
+                    if (tops.isEmpty()) {
+                        continue;
+                    }
+                    boolean allMatch = true;
+                    for (PhysicalCard top : tops) {
+                        if (!siteFilter.accepts(game, top)) {
+                            allMatch = false;
+                            break;
+                        }
+                    }
+                    if (allMatch) {
+                        return group;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Reorders top locations that already sit in the same LocationGroup so they
+     * appear left-to-right in newTopOrder. Converted cards stay in the same
+     * stack under the same top. An empty order does nothing. Orders that would
+     * put a between-sites card at either end of the group are rejected.
+     * @param game the game, or null if filter and between-sites checks are not needed
+     * @param filter location filter for the cards being rearranged, or null
+     * @param newTopOrder requested left-to-right order of top location cards
+     * @return true if applied or already matched; false if invalid
+     */
+    public boolean reorderTopLocationsInGroup(SwccgGame game, Filter filter, List<? extends PhysicalCard> newTopOrder) {
+        if (newTopOrder == null || newTopOrder.isEmpty()) {
+            return true;
+        }
+        LocationGroup group = findGroupContaining(newTopOrder.get(0));
+        if (group == null) {
+            return false;
+        }
+        for (PhysicalCard card : newTopOrder) {
+            if (findGroupContaining(card) != group) {
+                return false;
+            }
+            if (filter != null && game != null && !filter.accepts(game, card)) {
+                return false;
+            }
+        }
+        List<PhysicalCard> preview = group.previewTopLocations(newTopOrder);
+        if (preview == null) {
+            return false;
+        }
+        if (game != null && wouldPutBetweenSitesCardAtEnd(game, preview)) {
+            return false;
+        }
+        return group.reorderTopLocations(newTopOrder);
+    }
+
+    /**
+     * Reorders top locations inside the given group. newTopOrder cards must already be tops in that group.
+     * @param game the game, or null if between-sites checks are not needed
+     * @param group the group to reorder
+     * @param newTopOrder requested left-to-right order of top location cards
+     * @return true if applied or already matched; false if invalid
+     */
+    public boolean reorderTopLocationsInGroup(SwccgGame game, LocationGroup group, List<? extends PhysicalCard> newTopOrder) {
+        if (newTopOrder == null || newTopOrder.isEmpty()) {
+            return true;
+        }
+        if (group == null) {
+            return false;
+        }
+        for (PhysicalCard card : newTopOrder) {
+            if (findGroupContaining(card) != group) {
+                return false;
+            }
+        }
+        List<PhysicalCard> preview = group.previewTopLocations(newTopOrder);
+        if (preview == null) {
+            return false;
+        }
+        if (game != null && wouldPutBetweenSitesCardAtEnd(game, preview)) {
+            return false;
+        }
+        return group.reorderTopLocations(newTopOrder);
+    }
+
+    /**
+     * True if the first or last card in the row is a between-sites card, or has
+     * one attached. Detected from printed game text containing "between two"
+     * so Laser Gate is not named in code.
+     */
+    private boolean wouldPutBetweenSitesCardAtEnd(SwccgGame game, List<PhysicalCard> tops) {
+        if (tops == null || tops.isEmpty()) {
+            return false;
+        }
+        return isBetweenSitesAtEnd(game, tops.get(0)) || isBetweenSitesAtEnd(game, tops.get(tops.size() - 1));
+    }
+
+    private boolean isBetweenSitesAtEnd(SwccgGame game, PhysicalCard siteOrCard) {
+        if (isBetweenSitesCard(siteOrCard)) {
+            return true;
+        }
+        if (game == null || siteOrCard == null) {
+            return false;
+        }
+        for (PhysicalCard attached : game.getGameState().getAttachedCards(siteOrCard, true)) {
+            if (isBetweenSitesCard(attached)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isBetweenSitesCard(PhysicalCard card) {
+        if (card == null || card.getBlueprint() == null) {
+            return false;
+        }
+        if (card.getBlueprint().getCardCategory() == CardCategory.LOCATION) {
+            return false;
+        }
+        String text = card.getBlueprint().getGameText();
+        return text != null && text.toLowerCase().contains("between two");
+    }
+    /**
      * Remove any empty starship or vehicle location layouts that are related to a persona.
      */
     public void removeEmptyStarshipOrVehicleLayouts() {
