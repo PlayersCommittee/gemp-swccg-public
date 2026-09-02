@@ -14,19 +14,17 @@ import java.util.Map;
 /**
  * Tracks Premiere Combined Attack (1_75) while two or more starship weapons fire as one interrupt action.
  *
- * Each Combined Attack / Targeting Computer firing is its own complete total weapon destiny subtotal:
- * sum that firing's destiny draws (including each-draw mods), then apply that weapon's
- * TOTAL_WEAPON_DESTINY modifiers (Heavy Turbolaser Battery -1 vs capital / -6 otherwise).
- * Combined Attack adds those subtotals. Targeting Computer twice on one Heavy Turbolaser Battery
- * is two subtotals, so -1 is subtracted twice. Do not apply total modifiers again at resolve.
- * Results are applied only after all participating weapons have fired (Gergall / forum t=58557),
- * via each weapon's own destinyDraws path (hit, lost, ionize, etc.).
+ * Gergall 2015 + 2023 Advanced Rulebook: fire weapons one at a time (pay then draw each). Hits are not
+ * checked until all firings complete. Sum destinies (draw modifiers stay on each draw) and apply TOTAL
+ * weapon destiny modifiers once to that grand total. Same title modifying the combined total counts once
+ * unless the card says cumulatively. Apply that grand total separately to each non-canceled weapon.
  */
 public class CombinedAttackFiringState {
     private final PhysicalCard _source;
     private final PhysicalCard _target;
     private final List<PhysicalCard> _weaponsInOrder;
     private final List<Float> _destinyDraws = new ArrayList<Float>();
+    private final List<TotalModContribution> _totalMods = new ArrayList<TotalModContribution>();
     private final Map<Integer, WeaponRecord> _recordsByWeaponId = new LinkedHashMap<Integer, WeaponRecord>();
     private boolean _resolved;
 
@@ -49,10 +47,9 @@ public class CombinedAttackFiringState {
     }
 
     /**
-     * Record one firing's complete total weapon destiny subtotal (draws plus that firing's
-     * total-weapon-destiny modifiers, already clamped at max(0, ...)). Snapshot Variable X
-     * now, while WeaponFiringState is still active (Intruder Missile is placed in Used Pile
-     * after firing; X is until-end-of-weapon-firing).
+     * Record one firing's destiny draws (including each-draw modifiers such as Targeting Computer -1
+     * and Defiance +2). Total-weapon-destiny modifiers are snapshotted separately and applied once
+     * to the grand total. Snapshot Variable X now, while WeaponFiringState is still active.
      */
     public void addFiring(PhysicalCard weapon, PhysicalCard cardFiringWeapon,
                           SwccgBuiltInCardBlueprint permanentWeapon, float drawModifiedDestiny,
@@ -78,6 +75,17 @@ public class CombinedAttackFiringState {
         }
     }
 
+    /**
+     * Snapshot one TOTAL_WEAPON_DESTINY contribution from this firing. Zero amounts are ignored.
+     * Same title is collapsed once at resolve unless the modifier is cumulative.
+     */
+    public void addTotalModContribution(String title, float amount, boolean cumulative) {
+        if (amount == 0f) {
+            return;
+        }
+        _totalMods.add(new TotalModContribution(title, amount, cumulative));
+    }
+
     public int getCompletedDrawCount() {
         return _destinyDraws.size();
     }
@@ -90,6 +98,35 @@ public class CombinedAttackFiringState {
             }
         }
         return total;
+    }
+
+    /**
+     * TOTAL_WEAPON_DESTINY modifiers applied once to the Combined Attack grand total.
+     * Multiple copies of the same title count once unless the modifier is cumulative.
+     */
+    public float getSameTitleOnceTotalModifier() {
+        // TotalWeaponDestinyModifier(source, amount, targetFilter) passes cumulative=true by default,
+        // because in a normal firing each copy only affects its own weapon. Combined Attack collects
+        // those copies onto one grand total, so same title still counts once unless we later teach
+        // this path about cards that actually say "cumulatively".
+        Map<String, Float> onceByTitle = new LinkedHashMap<String, Float>();
+        for (TotalModContribution contribution : _totalMods) {
+            String title = contribution._title != null ? contribution._title : "";
+            if (!onceByTitle.containsKey(title)) {
+                onceByTitle.put(title, contribution._amount);
+            }
+        }
+        float total = 0f;
+        for (Float value : onceByTitle.values()) {
+            if (value != null) {
+                total += value;
+            }
+        }
+        return total;
+    }
+
+    public float getGrandTotal() {
+        return Math.max(0, getDrawSum() + getSameTitleOnceTotalModifier());
     }
 
     public List<WeaponRecord> getCompletedWeaponRecordsInOrder() {
@@ -108,8 +145,21 @@ public class CombinedAttackFiringState {
         return ordered;
     }
 
+    public String getAddedDestiniesMessage(String drawSumFormatted, String totalModsFormatted, String grandTotalFormatted) {
+        float totalMods = getSameTitleOnceTotalModifier();
+        String mods = "";
+        if (totalMods != 0f) {
+            String sign = totalMods > 0f ? "+" : "";
+            mods = ". Total modifiers " + sign + totalModsFormatted;
+        }
+        return "Combined Attack destinies: " + formatAddends(_destinyDraws) + " = " + drawSumFormatted
+                + mods + ". Total weapon destiny " + grandTotalFormatted + ".";
+    }
+
     public String getAddedDestiniesMessage(String drawSumFormatted) {
-        return "Combined Attack destinies: " + formatAddends(_destinyDraws) + " = " + drawSumFormatted + ".";
+        return getAddedDestiniesMessage(drawSumFormatted,
+                GuiUtils.formatAsString(getSameTitleOnceTotalModifier()),
+                GuiUtils.formatAsString(getGrandTotal()));
     }
 
     public static String getPerWeaponTotalMessage(PhysicalCard weapon, float drawSum, float totalModifier, float total) {
@@ -122,9 +172,14 @@ public class CombinedAttackFiringState {
                 + sign + GuiUtils.formatAsString(totalModifier) + "=" + GuiUtils.formatAsString(total);
     }
 
-    public String getFiringSubtotalMessage(PhysicalCard weapon, float subtotal) {
+    public String getFiringDrawsMessage(PhysicalCard weapon, float drawDestiny) {
         String weaponLink = weapon != null ? GameUtils.getCardLink(weapon) : "weapon";
-        return "Combined Attack: " + weaponLink + " destiny " + GuiUtils.formatAsString(subtotal);
+        return "Combined Attack: " + weaponLink + " destiny " + GuiUtils.formatAsString(drawDestiny)
+                + " (draw modifiers only)";
+    }
+
+    public String getFiringSubtotalMessage(PhysicalCard weapon, float subtotal) {
+        return getFiringDrawsMessage(weapon, subtotal);
     }
 
     public static String formatAddends(List<Float> values) {
@@ -148,6 +203,18 @@ public class CombinedAttackFiringState {
 
     public boolean isResolved() {
         return _resolved;
+    }
+
+    public static class TotalModContribution {
+        private final String _title;
+        private final float _amount;
+        private final boolean _cumulative;
+
+        private TotalModContribution(String title, float amount, boolean cumulative) {
+            _title = title;
+            _amount = amount;
+            _cumulative = cumulative;
+        }
     }
 
     public static class WeaponRecord {

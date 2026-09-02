@@ -28,12 +28,13 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Combined Attack result: fire the chosen starship weapons one at a time at the shared target. Each firing
- * is a complete total weapon destiny subtotal (draws plus that firing's total-weapon-destiny modifiers).
- * Combined Attack adds those subtotals and applies that shared total for each participating weapon
- * using each weapon's own destinyDraws path (X-wing Laser Cannon can lose the target; Ion Cannon ionizes; others hit).
+ * Combined Attack result: fire the chosen starship weapons one at a time at the shared target.
+ * Draw modifiers stay on each draw. TOTAL weapon destiny modifiers apply once to the grand total
+ * (same title once unless the card says cumulatively). That grand total is applied separately
+ * to each participating weapon using each weapon's own destinyDraws path (X-wing Laser Cannon
+ * can lose the target; Ion Cannon ionizes; others hit).
  *
- * Pending option A: costs paid as each shot initiates; if a later weapon cannot pay, skip it; completed
+ * Costs are paid as each shot initiates; if a later weapon cannot pay, skip it; completed
  * destinies still combine and still get applied to the weapons that did fire.
  *
  * After all destinies: if 2+ weapons completed, the player chooses which weapon result applies first.
@@ -214,9 +215,9 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
     }
 
     /**
-     * After all fire: summed firing subtotals applied as the shared total for each completed
-     * weapon via that weapon's own destinyDraws path. Total-weapon-destiny modifiers are already
-     * inside each subtotal. Player chooses apply order when 2+ weapons completed.
+     * After all fire: sum destinies (draw modifiers only), apply TOTAL mods once to that grand
+     * total (same title once), then apply that shared total for each completed weapon via that
+     * weapon's own destinyDraws path. Player chooses apply order when 2+ weapons completed.
      */
     private void resolveCombinedAttack(Action action, SwccgGame game) {
         CombinedAttackFiringState ca = game.getGameState().getCombinedAttackFiringState();
@@ -228,11 +229,15 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
             return;
         }
         float drawSum = ca.getDrawSum();
-        game.getGameState().sendMessage(ca.getAddedDestiniesMessage(GuiUtils.formatAsString(drawSum)));
+        float totalMods = ca.getSameTitleOnceTotalModifier();
+        float grandTotal = ca.getGrandTotal();
+        game.getGameState().sendMessage(ca.getAddedDestiniesMessage(
+                GuiUtils.formatAsString(drawSum), GuiUtils.formatAsString(totalMods),
+                GuiUtils.formatAsString(grandTotal)));
         List<CombinedAttackFiringState.WeaponRecord> records =
                 new ArrayList<CombinedAttackFiringState.WeaponRecord>(ca.getCompletedWeaponRecordsInOrder());
         ca.markResolved();
-        promptApplyOrder(action, game, records, drawSum, target);
+        promptApplyOrder(action, game, records, grandTotal, target);
     }
 
     private void promptApplyOrder(final Action action, final SwccgGame game,
@@ -290,7 +295,7 @@ public class FireWeaponsCombinedAction extends AbstractSubActionEffect {
         PhysicalCard weapon = record.getWeapon();
         float total = Math.max(0, drawSum);
         game.getGameState().sendMessage(CombinedAttackFiringState.getPerWeaponTotalMessage(
-                weapon, drawSum, 0f, total));
+                weapon, total, 0f, total));
         boolean queued = false;
         if (record.getDrawDestinyEffect() != null) {
             queued = record.getDrawDestinyEffect().applyDeferredWeaponResult(game, action, weapon,
