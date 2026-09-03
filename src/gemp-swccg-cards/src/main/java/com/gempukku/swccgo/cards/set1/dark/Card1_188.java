@@ -17,6 +17,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
@@ -88,22 +89,39 @@ public class Card1_188 extends AbstractDroid {
     }
 
     /**
-     * Utinni Effects this mouse has 'reached' and may pick up: on a location, not Kessel Run / Spice Mines, and able to be moved.
+     * True if the host is a location the mouse is present at, or a character/starship/vehicle at that location.
+     */
+    private boolean hasReachedHost(SwccgGame game, PhysicalCard self, PhysicalCard host) {
+        if (host == null || host.getCardId() == self.getCardId()) {
+            return false;
+        }
+        CardCategory category = host.getBlueprint().getCardCategory();
+        if (category == CardCategory.LOCATION) {
+            return hasReachedLocation(game, self, host);
+        }
+        if (category == CardCategory.CHARACTER || category == CardCategory.STARSHIP || category == CardCategory.VEHICLE) {
+            PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), host);
+            return hasReachedLocation(game, self, location);
+        }
+        return false;
+    }
+
+    /**
+     * Utinni Effects this mouse has 'reached' and may pick up: not Kessel Run / Spice Mines, able to move,
+     * attached to a location the mouse is present at or to a character/starship/vehicle at that location.
      */
     private Filter getRelocatableUtinniEffectFilter(final SwccgGame game, final PhysicalCard self) {
         return Filters.and(
                 Filters.Utinni_Effect,
                 Filters.except(Filters.or(Filters.Kessel_Run, Filters.Spice_Mines_Of_Kessel)),
-                Filters.attachedTo(Filters.location),
+                Filters.not(Filters.attachedTo(self)),
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                         if (modifiersQuerying.mayNotMove(gameState, physicalCard)) {
                             return false;
                         }
-                        PhysicalCard host = physicalCard.getAttachedTo();
-                        return host != null && host.getBlueprint().getCardCategory() == CardCategory.LOCATION
-                                && hasReachedLocation(game, self, host);
+                        return hasReachedHost(game, self, physicalCard.getAttachedTo());
                     }
                 });
     }
@@ -145,59 +163,154 @@ public class Card1_188 extends AbstractDroid {
     }
 
     /**
-     * True when an Utinni Effect carried by this mouse has been reached by its target (delivery).
+     * True if the card is a hunted character, starship, or vehicle — not a location and not this mouse.
+     */
+    private boolean isHuntedTargetCard(PhysicalCard self, PhysicalCard target) {
+        if (target == null || target.getCardId() == self.getCardId()) {
+            return false;
+        }
+        CardCategory category = target.getBlueprint().getCardCategory();
+        return category == CardCategory.CHARACTER || category == CardCategory.STARSHIP || category == CardCategory.VEHICLE;
+    }
+
+    /**
+     * A carried Utinni is delivered only when every Utinni-effect target is a hunted character/starship/vehicle
+     * at the mouse's location. A location target or a missing target does not count as delivery.
+     */
+    private boolean isDeliveredUtinni(SwccgGame game, PhysicalCard self, PhysicalCard utinni) {
+        GameState gameState = game.getGameState();
+        List<TargetId> targetIds = utinni.getBlueprint().getUtinniEffectTargetIds(utinni.getOwner(), game, utinni);
+        if (targetIds == null || targetIds.isEmpty()) {
+            return false;
+        }
+        for (TargetId targetId : targetIds) {
+            PhysicalCard target = utinni.getTargetedCard(gameState, targetId);
+            if (!isHuntedTargetCard(self, target) || !Filters.at(Filters.sameLocation(self)).accepts(game, target)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private Collection<PhysicalCard> getDeliveredCarriedUtinnis(SwccgGame game, PhysicalCard self) {
+        List<PhysicalCard> delivered = new LinkedList<PhysicalCard>();
+        Collection<PhysicalCard> attachedUtinnis = Filters.filter(game.getGameState().getAttachedCards(self), game, Filters.Utinni_Effect);
+        for (PhysicalCard utinni : attachedUtinnis) {
+            if (isDeliveredUtinni(game, self, utinni)) {
+                delivered.add(utinni);
+            }
+        }
+        return delivered;
+    }
+
+    /**
+     * True when this mouse is carrying at least one delivered Utinni Effect.
      */
     private boolean isCarryingDeliveredUtinniEffect(SwccgGame game, PhysicalCard self) {
-        GameState gameState = game.getGameState();
-        Collection<PhysicalCard> attachedUtinnis = Filters.filter(gameState.getAttachedCards(self), game, Filters.Utinni_Effect);
-        for (PhysicalCard utinni : attachedUtinnis) {
-            List<TargetId> targetIds = utinni.getBlueprint().getUtinniEffectTargetIds(utinni.getOwner(), game, utinni);
-            if (targetIds == null || targetIds.isEmpty()) {
-                continue;
-            }
-            boolean allTargetsReached = true;
-            boolean hasTarget = false;
+        return !getDeliveredCarriedUtinnis(game, self).isEmpty();
+    }
+
+    /**
+     * Where to put a delivered Utinni: hunted target if that is a legal host, else the current site if that site
+     * is a legal deploy-on host, else the hunted target so the Utinni can cancel when reached.
+     * Never dump it onto a location it could not deploy on (Send A Detachment Down except docking bay;
+     * Destroyed Homestead only Lars' Farm).
+     */
+    private PhysicalCard choosePlaceToPutDeliveredUtinni(SwccgGame game, PhysicalCard self, PhysicalCard utinni, PhysicalCard location) {
+        PhysicalCard hunted = null;
+        List<TargetId> targetIds = utinni.getBlueprint().getUtinniEffectTargetIds(utinni.getOwner(), game, utinni);
+        if (targetIds != null) {
             for (TargetId targetId : targetIds) {
-                PhysicalCard target = utinni.getTargetedCard(gameState, targetId);
-                if (target == null) {
-                    continue;
-                }
-                hasTarget = true;
-                if (!Filters.at(Filters.sameLocation(self)).accepts(game, target)) {
-                    allTargetsReached = false;
+                PhysicalCard target = utinni.getTargetedCard(game.getGameState(), targetId);
+                if (isHuntedTargetCard(self, target)) {
+                    hunted = target;
                     break;
                 }
             }
-            if (hasTarget && allTargetsReached) {
-                return true;
+        }
+        boolean locationLegal = false;
+        boolean huntedLegal = false;
+        try {
+            Filter legalHost = utinni.getBlueprint().getValidRelocateEffectTargetFilter(utinni.getOwner(), game, utinni);
+            locationLegal = location != null && legalHost.accepts(game, location);
+            huntedLegal = hunted != null && legalHost.accepts(game, hunted);
+        }
+        catch (RuntimeException ignored) {
+            locationLegal = false;
+        }
+        if (huntedLegal) {
+            return hunted;
+        }
+        if (locationLegal) {
+            return location;
+        }
+        // Current site is not a legal deploy-on host. Put it on the hunted target instead of an illegal docking bay.
+        if (hunted != null) {
+            return hunted;
+        }
+        return null;
+    }
+
+    private void appendPlaceDeliveredUtinnis(RequiredGameTextTriggerAction action, SwccgGame game, PhysicalCard self, Collection<PhysicalCard> delivered) {
+        PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self);
+        for (PhysicalCard utinni : delivered) {
+            PhysicalCard host = choosePlaceToPutDeliveredUtinni(game, self, utinni, location);
+            if (host != null) {
+                action.appendEffect(
+                        new AttachCardFromTableEffect(action, utinni, host));
             }
         }
-        return false;
     }
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        // Check condition(s)
-        if (TriggerConditions.isTableChanged(game, effectResult)
-                && isCarryingDeliveredUtinniEffect(game, self)) {
+        if (!TriggerConditions.isTableChanged(game, effectResult)) {
+            return null;
+        }
 
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_2);
+        Collection<PhysicalCard> attachedUtinnis = Filters.filter(game.getGameState().getAttachedCards(self), game, Filters.Utinni_Effect);
+        Collection<PhysicalCard> delivered = getDeliveredCarriedUtinnis(game, self);
+        boolean hasDelivered = !delivered.isEmpty();
+        boolean hasUndelivered = attachedUtinnis.size() > delivered.size();
+        PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self);
+
+        if (hasDelivered && hasUndelivered) {
+            // One package arrived; leave the others on the mouse and stay in play.
+            self.setWhileInPlayData(null);
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_3);
             action.setSingletonTrigger(true);
-            action.setText("Return to hand");
-            action.setActionMsg("Return " + GameUtils.getCardLink(self) + " to hand");
-            // Leave any still-attached Utinni Effects at this location, then return the mouse.
-            PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self);
-            if (location != null) {
-                Collection<PhysicalCard> attachedUtinnis = Filters.filter(game.getGameState().getAttachedCards(self), game, Filters.Utinni_Effect);
-                for (PhysicalCard utinni : attachedUtinnis) {
-                    action.appendEffect(
-                            new AttachCardFromTableEffect(action, utinni, location));
-                }
-            }
-            action.appendEffect(
-                    new ReturnCardToHandFromTableEffect(action, self));
+            action.setText("Deliver Utinni Effect");
+            action.setActionMsg("Deliver Utinni Effect from " + GameUtils.getCardLink(self));
+            appendPlaceDeliveredUtinnis(action, game, self, delivered);
             return Collections.singletonList(action);
         }
-        return null;
+
+        // Remember delivery even if the Utinni is then stolen off the mouse
+        // (choosing Organa's Ceremonial Necklace steal before Return).
+        if (hasDelivered) {
+            self.setWhileInPlayData(new WhileInPlayData(location));
+        }
+        else if (GameConditions.cardHasWhileInPlayDataSet(self)) {
+            PhysicalCard remembered = self.getWhileInPlayData().getPhysicalCard();
+            // Stale flag must not bounce the mouse at a later site, and must not fire while undelivered packages remain.
+            if (location == null || remembered == null || location.getCardId() != remembered.getCardId() || !attachedUtinnis.isEmpty()) {
+                self.setWhileInPlayData(null);
+            }
+        }
+
+        if (!GameConditions.cardHasWhileInPlayDataSet(self)) {
+            return null;
+        }
+
+        final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_2);
+        action.setSingletonTrigger(true);
+        action.setText("Return to hand");
+        action.setActionMsg("Return " + GameUtils.getCardLink(self) + " to hand");
+        // Place any still-attached delivered Utinnis, then return the mouse.
+        // A stolen necklace is already on the Imperial, so it is not re-attached here.
+        appendPlaceDeliveredUtinnis(action, game, self, attachedUtinnis);
+        action.appendEffect(
+                new ReturnCardToHandFromTableEffect(action, self));
+        return Collections.singletonList(action);
     }
 }

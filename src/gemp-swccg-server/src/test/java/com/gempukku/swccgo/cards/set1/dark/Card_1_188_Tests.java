@@ -41,6 +41,8 @@ public class Card_1_188_Tests {
                     put("ds-db", "1_124");
                     put("trash", "1_125");
                     put("tatooine-system", "1_127");
+                    put("luke", "1_019");
+                    put("farm", "1_132");
                 }},
                 new HashMap<>() {{
                     put("mouse", "1_188");
@@ -52,6 +54,10 @@ public class Card_1_188_Tests {
                     put("devastator", "1_301");
                     put("kessel", "1_288");
                     put("cave", "4_158");
+                    put("avarik", "8_95");
+                    put("oberk", "8_099");
+                    put("homestead", "7_226");
+                    put("db94", "1_291");
                 }},
                 10,
                 10,
@@ -351,8 +357,10 @@ public class Card_1_188_Tests {
         if (scn.DSAnyDecisionsAvailable()) {
             scn.PassAllResponses();
         }
+        var trooper = scn.GetDSFiller(1);
         assertInHand(mouse);
-        assertTrue(scn.IsAttachedTo(dsDb, sadd) || scn.CardsAtLocation(dsDb, sadd));
+        // SADD cannot sit on a docking bay, so delivery attaches it to the hunted trooper.
+        assertTrue(scn.IsAttachedTo(trooper, sadd) || scn.IsAttachedTo(dsDb, sadd) || scn.CardsAtLocation(dsDb, sadd));
     }
 
     @Test
@@ -655,4 +663,111 @@ public class Card_1_188_Tests {
         scn.PassAllResponses();
         assertInZone(Zone.LOST_PILE, mouse);
     }
+
+    @Test
+    public void MouseDroid_1_188_MayRelocateUtinniEffectOffACharacterAtSameSite() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var sadd = scn.GetDSCard("sadd");
+        var oberk = scn.GetDSCard("oberk");
+        var dsDb = scn.GetLSCard("ds-db");
+        var db94 = scn.GetDSCard("db94");
+        var trooper = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveLocationToTable(db94);
+        scn.MoveCardsToLocation(dsDb, trooper);
+        scn.MoveCardsToLocation(db94, mouse, oberk);
+        // Utinnis already on a character, as in the playtest when Oberk transited in carrying them.
+        scn.AttachCardsTo(oberk, sadd);
+        sadd.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, trooper, Filters.any);
+
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, sadd);
+        assertTrue(scn.IsAttachedTo(mouse, sadd));
+    }
+
+    @Test
+    public void MouseDroid_1_188_DoesNotReturnWhenCarriedUtinniTargetIsNotPresent() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var homestead = scn.GetDSCard("homestead");
+        var luke = scn.GetLSCard("luke");
+        var farm = scn.GetLSCard("farm");
+        var db94 = scn.GetDSCard("db94");
+        var oberk = scn.GetDSCard("oberk");
+        var dsDb = scn.GetLSCard("ds-db");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(farm);
+        scn.MoveLocationToTable(db94);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveCardsToLocation(farm, luke);
+        scn.MoveCardsToLocation(db94, mouse);
+        scn.MoveCardsToLocation(dsDb, oberk);
+        scn.AttachCardsTo(mouse, homestead);
+        homestead.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, luke, Filters.any);
+
+        scn.MoveCardsToLocation(db94, oberk);
+        scn.SkipToPhase(Phase.CONTROL);
+        if (scn.DSAnyDecisionsAvailable()) {
+            scn.PassAllResponses();
+        }
+
+        assertFalse("Mouse should not return just because someone arrived. Decision: " + decisionText(scn),
+                scn.DSAnyDecisionsAvailable() && (scn.DSActionAvailable("Return") || scn.DSCardActionAvailable(mouse, "Return")));
+        if (RelocateUtinniAvailable(scn, mouse)) {
+            scn.DSDecline();
+        }
+        if (scn.DSAnyDecisionsAvailable()) {
+            scn.PassAllResponses();
+        }
+        assertTrue(scn.CardsAtLocation(db94, mouse));
+        assertTrue(scn.IsAttachedTo(mouse, homestead));
+        assertFalse(scn.IsAttachedTo(db94, homestead));
+    }
+
+    @Test
+    public void MouseDroid_1_188_DeliveringOneUtinniDoesNotDumpTheOthers() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var homestead = scn.GetDSCard("homestead");
+        var sadd = scn.GetDSCard("sadd");
+        var luke = scn.GetLSCard("luke");
+        var farm = scn.GetLSCard("farm");
+        var db94 = scn.GetDSCard("db94");
+        var trooper = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(farm);
+        scn.MoveLocationToTable(db94);
+        scn.MoveCardsToLocation(farm, luke);
+        scn.MoveCardsToLocation(db94, mouse, trooper);
+        scn.AttachCardsTo(mouse, homestead, sadd);
+        homestead.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, luke, Filters.any);
+        sadd.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, trooper, Filters.any);
+
+        scn.SkipToPhase(Phase.CONTROL);
+        if (scn.DSAnyDecisionsAvailable() && (scn.DSActionAvailable("Deliver") || scn.DSCardActionAvailable(mouse, "Deliver"))) {
+            scn.DSChooseAction("Deliver");
+        }
+        if (scn.DSAnyDecisionsAvailable()) {
+            scn.PassAllResponses();
+        }
+
+        assertTrue("Mouse stays while it still carries Homestead", scn.CardsAtLocation(db94, mouse));
+        assertTrue("Homestead stays on the mouse", scn.IsAttachedTo(mouse, homestead));
+        assertFalse("Homestead must not be dumped on Docking Bay 94", scn.IsAttachedTo(db94, homestead));
+        assertFalse("Delivered SADD leaves the mouse", scn.IsAttachedTo(mouse, sadd));
+        assertTrue("SADD attaches to the hunted trooper, not the illegal docking bay", scn.IsAttachedTo(trooper, sadd));
+        assertFalse(scn.IsAttachedTo(db94, sadd));
+    }
+
+
+    /** True if that player's current action list contains the text (any case). dark=true is Dark Side. */
+    private String decisionText(VirtualTableScenario scn) {
+        return scn.GetCurrentDecision() == null ? "none" : scn.GetCurrentDecision().getText();
+    }
+
 }
