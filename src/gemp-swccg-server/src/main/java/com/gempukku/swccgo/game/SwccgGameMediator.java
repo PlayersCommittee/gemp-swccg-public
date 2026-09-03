@@ -851,6 +851,14 @@ public class SwccgGameMediator {
                         sb.append("</div>");
                     }
                 }
+
+                // Cards that have this card as an explicit target (Utinni Effects, etc.)
+                List<PhysicalCard> targetedBy = GameUtils.getCardsTargeting(gameState, card);
+                if (!targetedBy.isEmpty()) {
+                    sb.append("<div>");
+                    sb.append("Targeted by: ").append(GameUtils.getAppendedNames(targetedBy));
+                    sb.append("</div>");
+                }
             }
 
             // 'Insert card' in Reserve Deck information (if applicable)

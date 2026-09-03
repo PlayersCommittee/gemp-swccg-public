@@ -3,8 +3,10 @@ package com.gempukku.swccgo.logic;
 import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgCardBlueprint;
+import com.gempukku.swccgo.game.state.GameState;
 
 import java.util.*;
 
@@ -279,6 +281,24 @@ public class GameUtils {
             return "none";
         else
             return sb.substring(0, sb.length() - 2);
+    }
+
+    /**
+     * Cards that have this card as an explicit target (Utinni Effects, etc.).
+     * @param gameState the game state
+     * @param card the card that may be targeted
+     * @return unique cards currently in play whose targeting map contains the given card, excluding the card itself
+     */
+    public static List<PhysicalCard> getCardsTargeting(GameState gameState, PhysicalCard card) {
+        List<PhysicalCard> cardsTargeting = new LinkedList<PhysicalCard>();
+        for (PhysicalCard cardInPlay : Filters.filterAllOnTable(gameState.getGame(), Filters.any)) {
+            if (card.getPermanentCardId() != cardInPlay.getPermanentCardId()
+                    && cardInPlay.getTargetedCards(gameState).values().contains(card)
+                    && !cardsTargeting.contains(cardInPlay)) {
+                cardsTargeting.add(cardInPlay);
+            }
+        }
+        return cardsTargeting;
     }
 
     /**
