@@ -122,8 +122,8 @@ public class Card7_226 extends AbstractUtinniEffect {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        // Check if reached end of control phase and action was not performed yet.
-        if (TriggerConditions.isEndOfOpponentsPhase(game, self, effectResult, Phase.CONTROL)
+        // Check if reached end of owner's control phase and action was not performed yet.
+        if (TriggerConditions.isEndOfYourPhase(game, self, effectResult, Phase.CONTROL)
                 && GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
