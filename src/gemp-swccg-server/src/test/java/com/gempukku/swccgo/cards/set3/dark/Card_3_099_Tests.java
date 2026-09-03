@@ -64,7 +64,7 @@ public class Card_3_099_Tests {
 
         assertTrue(deathMark.getZone().isInPlay());
         assertTrue(deathMark.getTargetedCards(scn.gameState()).containsValue(han));
-        assertEquals("Han Solo", deathMark.getTargetedCards(scn.gameState()).values().iterator().next().getTitle());
+        assertTrue(deathMark.getTargetedCards(scn.gameState()).values().stream().anyMatch(c -> "Han Solo".equals(c.getTitle())));
     }
 
     @Test
