@@ -3867,7 +3867,7 @@ const fixedImages = {
 "501_208":"https://res.starwarsccg.org/cards/ANewHope-Light/large/grimtaash.gif",
 "501_209":"https://res.starwarsccg.org/cards/DeathStarII-Light/large/honorofthejedi.gif",
 "501_209_BACK":"https://res.starwarsccg.org/cards/DeathStarII-Light/large/honorofthejedi.gif",
-"501_210":"https://res.starwarsccg.org/cards/SpecialEdition-Light/large/imperialatrocity.gif",
+"501_210":"https://res.starwarsccg.org/cards/SpecialEdition-Light/large/hitandrun.gif",
 "501_211":"https://res.starwarsccg.org/cards/DeathStarII-Light/large/anakinskywalker.gif",
 "501_212":"https://res.starwarsccg.org/cards/DeathStarII-Light/large/ifeeltheconflict.gif",
 "501_213":"https://res.starwarsccg.org/cards/Premiere-Light/large/noblesacrifice.gif",
