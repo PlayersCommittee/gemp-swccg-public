@@ -36,7 +36,7 @@ public class Card_3_099_Tests {
         );
     }
 
-    // Put Han at the Farm, then deploy Death Mark there targeting him.
+    // Death Mark cancels if Han is already at its site, so Han stays at the Light starting location.
     private void deployDeathMarkTargetingHan(VirtualTableScenario scn) {
         var han = scn.GetLSCard("han");
         var farm = scn.GetLSCard("farm");
@@ -44,7 +44,7 @@ public class Card_3_099_Tests {
 
         scn.StartGame();
         scn.MoveLocationToTable(farm);
-        scn.MoveCardsToLocation(farm, han);
+        scn.MoveCardsToLocation(scn.GetLSStartingLocation(), han);
         scn.MoveCardsToDSHand(deathMark);
         scn.SkipToPhase(Phase.DEPLOY);
 
@@ -57,11 +57,12 @@ public class Card_3_099_Tests {
     @Test
     public void DeathMark_3_099_CardInfoListsHanAsTarget() {
         var scn = GetScenario();
+        deployDeathMarkTargetingHan(scn);
+
         var han = scn.GetLSCard("han");
         var deathMark = scn.GetDSCard("death-mark");
 
-        deployDeathMarkTargetingHan(scn);
-
+        assertTrue(deathMark.getZone().isInPlay());
         assertTrue(deathMark.getTargetedCards(scn.gameState()).containsValue(han));
         assertEquals("Han Solo", deathMark.getTargetedCards(scn.gameState()).values().iterator().next().getTitle());
     }
@@ -69,10 +70,10 @@ public class Card_3_099_Tests {
     @Test
     public void HanSolo_CardInfoListsDeathMarkAsTargetedBy_3_099() {
         var scn = GetScenario();
+        deployDeathMarkTargetingHan(scn);
+
         var han = scn.GetLSCard("han");
         var deathMark = scn.GetDSCard("death-mark");
-
-        deployDeathMarkTargetingHan(scn);
 
         List<PhysicalCard> targetedBy = GameUtils.getCardsTargeting(scn.gameState(), han);
         assertEquals(1, targetedBy.size());
@@ -84,11 +85,9 @@ public class Card_3_099_Tests {
     public void HanSolo_CardInfoHasNoTargetedByWhenNoUtinni() {
         var scn = GetScenario();
         var han = scn.GetLSCard("han");
-        var farm = scn.GetLSCard("farm");
 
         scn.StartGame();
-        scn.MoveLocationToTable(farm);
-        scn.MoveCardsToLocation(farm, han);
+        scn.MoveCardsToLocation(scn.GetLSStartingLocation(), han);
         scn.SkipToPhase(Phase.DEPLOY);
 
         assertTrue(GameUtils.getCardsTargeting(scn.gameState(), han).isEmpty());
