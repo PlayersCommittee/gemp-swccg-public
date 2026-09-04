@@ -1,4 +1,4 @@
-package com.gempukku.swccgo.cards.set5.dark;
+﻿package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
@@ -40,7 +40,8 @@ public class Card_5_143_Tests {
         return new HashMap<>() {{
             put("off-the-edge", "5_59"); // Off The Edge
             put("skywalkers", "1_110"); // Skywalkers
-            put("sense", "12_68"); // Sense (Light Lost)
+            put("sense", "1_086"); // Sense
+            put("platform-327", "5_83"); // Cloud City: Platform 327 (Docking Bay)
         }};
     }
 
@@ -194,6 +195,7 @@ public class Card_5_143_Tests {
         var dining = scn.GetDSCard("dining");
         var corridor = scn.GetDSCard("corridor");
         var eastPlatform = scn.GetDSCard("east-platform");
+        var platform327 = scn.GetLSCard("platform-327");
         var dsCorridor = scn.GetDSCard("ds-corridor");
         var marketplace = scn.GetDSStartingLocation();
         var trooper = scn.GetDSFiller(1);
@@ -203,6 +205,7 @@ public class Card_5_143_Tests {
         putLocation(scn, dining);
         putLocation(scn, corridor);
         putLocation(scn, eastPlatform);
+        putLocation(scn, platform327);
         putLocation(scn, dsCorridor);
         scn.MoveCardsToLocation(dining, trooper);
 
@@ -214,6 +217,7 @@ public class Card_5_143_Tests {
         PhysicalCardImpl mid = (PhysicalCardImpl) interiors.get(1);
         PhysicalCardImpl right = (PhysicalCardImpl) interiors.get(2);
         int eastIndex = eastPlatform.getLocationZoneIndex();
+        int platform327Index = platform327.getLocationZoneIndex();
         int dsIndex = dsCorridor.getLocationZoneIndex();
         int marketIndex = marketplace.getLocationZoneIndex();
 
@@ -226,6 +230,7 @@ public class Card_5_143_Tests {
         assertTrue(scn.DSDecisionAvailable(ChooseAndRearrangeRelatedSitesEffect.CHOICE_TEXT));
         assertTrue(scn.DSHasCardChoicesAvailable(left, mid, right));
         assertTrue(scn.DSHasCardChoiceNotAvailable(eastPlatform));
+        assertTrue(scn.DSHasCardChoiceNotAvailable(platform327));
         assertTrue(scn.DSHasCardChoiceNotAvailable(dsCorridor));
         assertTrue(scn.DSHasCardChoiceNotAvailable(marketplace));
 
@@ -239,6 +244,7 @@ public class Card_5_143_Tests {
         assertTrue(scn.CardsAtLocation(dining, trooper));
         assertEquals(dining, trooper.getAtLocation());
         assertEquals(eastIndex, eastPlatform.getLocationZoneIndex());
+        assertEquals(platform327Index, platform327.getLocationZoneIndex());
         assertEquals(dsIndex, dsCorridor.getLocationZoneIndex());
         assertEquals(marketIndex, marketplace.getLocationZoneIndex());
         assertInLostPile(heart);
@@ -318,6 +324,7 @@ public class Card_5_143_Tests {
         assertInHand(weatherVane);
         assertInLostPile(heart);
     }
+
     @Test
     public void CaptainBewilCanPullHeartOfTheChasm() {
         // Doc: Captain Bewil can pull Heart Of The Chasm. Filter wiring; full upload interactive is known gap.
@@ -333,3 +340,4 @@ public class Card_5_143_Tests {
                 .accepts(scn.game(), heart));
     }
 }
+
