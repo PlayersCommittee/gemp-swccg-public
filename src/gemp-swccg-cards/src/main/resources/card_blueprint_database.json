@@ -101955,6 +101955,34 @@
     ]
   },
   {
+    "cardId": "5_143",
+    "title": "Heart Of The Chasm",
+    "slug": "heart-of-the-chasm",
+    "slugWithSetName": "heart-of-the-chasm-cloud-city",
+    "side": "DARK",
+    "uniqueness": "UNRESTRICTED",
+    "expansionSet": "CLOUD_CITY",
+    "rarity": "U",
+    "cardCategory": "INTERRUPT",
+    "cardTypes": [
+      "INTERRUPT"
+    ],
+    "cardSubtype": "LOST",
+    "lore": "The long fall into the abyss of Cloud City seemed inevitable.",
+    "gameText": "During your deploy phase, use X Force to rearrange all Cloud City sites, where X = total number of those sites. All cards at a given site move along with that site. OR Cancel Off The Edge. OR Search your Reserve Deck, take one Weather Vane into hand and reshuffle.",
+    "destiny": 3,
+    "icons": [
+      {
+        "icon": "CLOUD_CITY",
+        "count": 1
+      },
+      {
+        "icon": "INTERRUPT",
+        "count": 1
+      }
+    ]
+  },
+  {
     "cardId": "5_144",
     "title": "He's All Yours, Bounty Hunter",
     "slug": "hes-all-yours-bounty-hunter",
