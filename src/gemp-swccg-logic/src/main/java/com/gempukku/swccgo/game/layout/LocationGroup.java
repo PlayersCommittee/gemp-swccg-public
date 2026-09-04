@@ -7,6 +7,7 @@ import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.SnapshotData;
 import com.gempukku.swccgo.logic.timing.Snapshotable;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -192,6 +193,130 @@ public class LocationGroup implements Snapshotable<LocationGroup> {
             }
         }
 
+        return false;
+    }
+
+    /**
+     * Reorders the location stacks in this group. Each stack stays together, so
+     * converted locations remain under the same top site. newOrder is a
+     * permutation of 0..size-1 describing the new left-to-right order of the
+     * current stacks.
+     * @param newOrder permutation of current stack indexes
+     * @return true if the stacks were reordered; false if newOrder is not a valid permutation
+     */
+    public boolean reorderStacks(List<Integer> newOrder) {
+        int size = _cardsInGroup.size();
+        if (newOrder == null || newOrder.size() != size) {
+            return false;
+        }
+        boolean[] seen = new boolean[size];
+        for (Integer index : newOrder) {
+            if (index == null || index < 0 || index >= size || seen[index]) {
+                return false;
+            }
+            seen[index] = true;
+        }
+        List<List<PhysicalCard>> reordered = new LinkedList<List<PhysicalCard>>();
+        for (Integer index : newOrder) {
+            reordered.add(_cardsInGroup.get(index));
+        }
+        _cardsInGroup.clear();
+        _cardsInGroup.addAll(reordered);
+        return true;
+    }
+
+    /**
+     * Reorders stacks so the given top locations appear in that left-to-right
+     * order. Converted cards stay in the same stack under the same top. If
+     * newTopOrder is a subset of this group's tops, only those stacks swap
+     * among the slots they currently occupy; other stacks stay put. An empty
+     * order does nothing.
+     * @param newTopOrder requested left-to-right order of top location cards
+     * @return true if applied or already matched; false if a card is not a top in this group or the list has duplicates
+     */
+    public boolean reorderTopLocations(List<? extends PhysicalCard> newTopOrder) {
+        if (newTopOrder == null || newTopOrder.isEmpty()) {
+            return true;
+        }
+        List<Integer> permutation = permutationForTopOrder(newTopOrder);
+        if (permutation == null) {
+            return false;
+        }
+        return reorderStacks(permutation);
+    }
+
+    /**
+     * What the top row would look like after reorderTopLocations, without changing
+     * the group. Returns null if the order is not valid.
+     * @param newTopOrder requested left-to-right order of top location cards
+     * @return the resulting top cards, or null if the order is invalid
+     */
+    public List<PhysicalCard> previewTopLocations(List<? extends PhysicalCard> newTopOrder) {
+        List<PhysicalCard> tops = getTopCardsInGroup();
+        if (newTopOrder == null || newTopOrder.isEmpty()) {
+            return new ArrayList<PhysicalCard>(tops);
+        }
+        List<Integer> permutation = permutationForTopOrder(newTopOrder);
+        if (permutation == null) {
+            return null;
+        }
+        List<PhysicalCard> preview = new ArrayList<PhysicalCard>();
+        for (Integer index : permutation) {
+            preview.add(tops.get(index));
+        }
+        return preview;
+    }
+
+    private List<Integer> permutationForTopOrder(List<? extends PhysicalCard> newTopOrder) {
+        List<PhysicalCard> tops = getTopCardsInGroup();
+        if (hasDuplicateTops(newTopOrder)) {
+            return null;
+        }
+        for (PhysicalCard card : newTopOrder) {
+            if (indexOfTop(tops, card) < 0) {
+                return null;
+            }
+        }
+        List<Integer> selectedSlots = new ArrayList<Integer>();
+        for (int i = 0; i < tops.size(); ++i) {
+            if (containsTop(newTopOrder, tops.get(i))) {
+                selectedSlots.add(i);
+            }
+        }
+        if (selectedSlots.size() != newTopOrder.size()) {
+            return null;
+        }
+        List<Integer> permutation = new ArrayList<Integer>();
+        for (int i = 0; i < tops.size(); ++i) {
+            permutation.add(i);
+        }
+        for (int i = 0; i < selectedSlots.size(); ++i) {
+            permutation.set(selectedSlots.get(i), indexOfTop(tops, newTopOrder.get(i)));
+        }
+        return permutation;
+    }
+
+    private int indexOfTop(List<PhysicalCard> tops, PhysicalCard card) {
+        for (int i = 0; i < tops.size(); ++i) {
+            if (tops.get(i).getCardId() == card.getCardId()) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private boolean containsTop(List<? extends PhysicalCard> cards, PhysicalCard card) {
+        return indexOfTop(new LinkedList<PhysicalCard>(cards), card) >= 0;
+    }
+
+    private boolean hasDuplicateTops(List<? extends PhysicalCard> cards) {
+        for (int i = 0; i < cards.size(); ++i) {
+            for (int j = i + 1; j < cards.size(); ++j) {
+                if (cards.get(i).getCardId() == cards.get(j).getCardId()) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 }
