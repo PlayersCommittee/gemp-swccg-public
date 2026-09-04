@@ -53,7 +53,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void RescueInTheCloudsStatsAndKeywordsAreCorrect() {
+    public void StatsAndKeywordsAreCorrect_5_67_RescueInTheClouds() {
         /**
          * Title: Rescue In The Clouds
          * Uniqueness: Unique
@@ -92,7 +92,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void RescueInTheCloudsUsedPlacesCharacterFromWeatherVaneInUsedPile() {
+    public void UsedPlacesYourCharacterFromWeatherVaneInUsedPile_5_67_RescueInTheClouds() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -121,7 +121,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void RescueInTheCloudsUsedNotPlayableIfOnlyOpponentsCharacterOnWeatherVane() {
+    public void UsedNotPlayableIfOnlyOpponentsCharacterOnWeatherVane_5_67_RescueInTheClouds() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -139,7 +139,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void RescueInTheCloudsUsedNotPlayableWithoutCharacterOnWeatherVane() {
+    public void UsedNotPlayableWithoutCharacterOnWeatherVane_5_67_RescueInTheClouds() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -155,7 +155,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void RescueInTheCloudsLostDeploysStarfighterAsReactToCloudSector() {
+    public void LostDeploysStarfighterAsReactToCloudSectorBattle_5_67_RescueInTheClouds() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -190,7 +190,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void RescueInTheCloudsLostPlayableAsReactToCloudSectorForceDrain() {
+    public void LostPlayableAsReactToCloudSectorForceDrain_5_67_RescueInTheClouds() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -222,7 +222,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void RescueInTheCloudsLostNotPlayableAsReactToAsteroidSectorBattle() {
+    public void LostNotPlayableAsReactToAsteroidSectorBattle_5_67_RescueInTheClouds() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -244,7 +244,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void RescueInTheCloudsLostNotPlayableWhenBattleIsNotAtCloudSector() {
+    public void LostNotPlayableWhenBattleIsAtASite_5_67_RescueInTheClouds() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
