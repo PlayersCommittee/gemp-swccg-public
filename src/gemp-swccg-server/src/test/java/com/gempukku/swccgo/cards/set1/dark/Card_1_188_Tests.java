@@ -765,6 +765,153 @@ public class Card_1_188_Tests {
     }
 
 
+    /** True when DS has a live ACTION_CHOICE whose actionText contains the text (never call DSActionAvailable blindly). */
+    private boolean DSRequiredActionAvailable(VirtualTableScenario scn, String text) {
+        if (!scn.DSAnyDecisionsAvailable()) {
+            return false;
+        }
+        var params = scn.GetAwaitingDecisionParams(scn.DS);
+        if (params == null || params.get("actionText") == null) {
+            return false;
+        }
+        for (String action : params.get("actionText")) {
+            if (action != null && action.toLowerCase().contains(text.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** Pass Force/optional windows after docking-bay transit; stop when Steal/Return ACTION_CHOICE appears. */
+    private void PassThroughTransitResponsesUntilRequired(VirtualTableScenario scn) {
+        for (int i = 0; i < 30; i++) {
+            if (DSRequiredActionAvailable(scn, "Steal") || DSRequiredActionAvailable(scn, "Return")) {
+                return;
+            }
+            var decision = scn.GetCurrentDecision();
+            if (decision == null) {
+                return;
+            }
+            String text = decision.getText().toLowerCase();
+            if (text.contains("required") || text.contains("choose required") || text.contains("choose action")) {
+                return;
+            }
+            // DockingBayTransitTests: opponent may see Force optional first, then acting player.
+            if (text.contains("optional")) {
+                if (scn.LSAnyDecisionsAvailable()) {
+                    scn.LSPass();
+                }
+                if (scn.DSAnyDecisionsAvailable()) {
+                    scn.DSPass();
+                }
+                continue;
+            }
+            throw new RuntimeException("Unexpected window while waiting for Steal/Return. Decision: " + decisionText(scn)
+                    + " DS=" + (scn.DSGetDecision()==null?"none":scn.DSGetDecision().getText())
+                    + " LS=" + (scn.LSGetDecision()==null?"none":scn.LSGetDecision().getText()));
+        }
+        throw new RuntimeException("Timed out waiting for Steal/Return. Decision: " + decisionText(scn));
+    }
+
+
+    @Test
+    public void MouseDroid_1_188_ReturnToHandStillHappensIfNecklaceStealIsChosenFirst() {
+        // Organa necklace steal and Mouse return both fire at delivery.
+        // Choosing Steal first must still leave Return available via WhileInPlayData.
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var necklace = scn.GetDSCard("necklace");
+        var avarik = scn.GetDSCard("avarik");
+        var db94 = scn.GetDSCard("db94");
+        var dsDb = scn.GetLSCard("ds-db");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(db94);
+        scn.MoveLocationToTable(dsDb);
+
+        // Mouse already carries the necklace after pickup; Imperial waits at Death Star: Docking Bay 327.
+        scn.MoveCardsToLocation(db94, mouse);
+        scn.MoveCardsToLocation(dsDb, avarik);
+        scn.AttachCardsTo(mouse, necklace);
+        necklace.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, avarik, Filters.any);
+
+        // Reach Move while they are apart so SkipToPhase never auto-passes Steal+Return.
+        scn.SkipToPhase(Phase.MOVE);
+        assertTrue(scn.AwaitingDSMovePhaseActions());
+
+        // Docking-bay transit is a location action (see DockingBayTransitTests), not mouse landspeed.
+        assertTrue("Docking bay transit missing on DB 94. Actions: " + scn.GetDSAvailableActions(),
+                scn.DSCardActionAvailable(db94, "transit"));
+        scn.DSUseCardAction(db94, "transit");
+        assertTrue(scn.DSHasCardChoiceAvailable(dsDb));
+        scn.DSChooseCard(dsDb);
+        assertTrue(scn.DSHasCardChoiceAvailable(mouse));
+        scn.DSChooseCard(mouse);
+        assertTrue("After choosing mouse to transit. Decision: " + decisionText(scn),
+                scn.DSAnyDecisionsAvailable() || scn.LSAnyDecisionsAvailable()
+                        || scn.CardsAtLocation(dsDb, mouse));
+        PassThroughTransitResponsesUntilRequired(scn);
+
+        assertTrue("Expected live DS decision after transit. Decision: " + decisionText(scn),
+                scn.DSAnyDecisionsAvailable());
+        assertTrue("Steal necklace must be offered together with Return. Decision: " + decisionText(scn),
+                DSRequiredActionAvailable(scn, "Steal"));
+        assertTrue("Return mouse to hand must be offered together with Steal. Decision: " + decisionText(scn),
+                DSRequiredActionAvailable(scn, "Return"));
+
+        // Choose Steal first - necklace attaches to the Imperial and detaches from the mouse.
+        scn.DSChooseAction("Steal");
+
+        // Return may remain in the same ACTION_CHOICE, or reappear after Steal optionals via WhileInPlayData.
+        if (!DSRequiredActionAvailable(scn, "Return")) {
+            for (int i = 0; i < 20; i++) {
+                if (DSRequiredActionAvailable(scn, "Return")) {
+                    break;
+                }
+                var decision = scn.GetCurrentDecision();
+                if (decision == null) {
+                    break;
+                }
+                String text = decision.getText().toLowerCase();
+                if (text.contains("optional")) {
+                    if (scn.LSAnyDecisionsAvailable()) {
+                        scn.LSPass();
+                    }
+                    if (scn.DSAnyDecisionsAvailable()) {
+                        scn.DSPass();
+                    }
+                    continue;
+                }
+                break;
+            }
+        }
+
+        assertTrue("After Steal, necklace should be on Imperial. Decision: " + decisionText(scn)
+                        + " mouseAtDsDb=" + scn.CardsAtLocation(dsDb, mouse)
+                        + " necklaceOnAvarik=" + scn.IsAttachedTo(avarik, necklace)
+                        + " necklaceOnMouse=" + scn.IsAttachedTo(mouse, necklace),
+                scn.IsAttachedTo(avarik, necklace));
+
+        if (DSRequiredActionAvailable(scn, "Return")) {
+            scn.DSChooseAction("Return");
+            for (int i = 0; i < 10; i++) {
+                var decision = scn.GetCurrentDecision();
+                if (decision == null || !decision.getText().toLowerCase().contains("optional")) {
+                    break;
+                }
+                if (scn.LSAnyDecisionsAvailable()) {
+                    scn.LSPass();
+                }
+                if (scn.DSAnyDecisionsAvailable()) {
+                    scn.DSPass();
+                }
+            }
+        }
+
+        assertInHand(mouse);
+    }
+
+
     /** True if that player's current action list contains the text (any case). dark=true is Dark Side. */
     private String decisionText(VirtualTableScenario scn) {
         return scn.GetCurrentDecision() == null ? "none" : scn.GetCurrentDecision().getText();
