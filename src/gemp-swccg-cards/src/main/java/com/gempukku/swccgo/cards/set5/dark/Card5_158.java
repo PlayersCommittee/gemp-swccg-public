@@ -14,13 +14,13 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromHandEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -74,40 +74,50 @@ public class Card5_158 extends AbstractLostInterrupt {
             return;
         }
 
-        action.appendEffect(
-                new DeployCardToLocationFromHandEffect(action, playerId, deployFilter, locationFilter, false, true) {
-                    @Override
-                    public String getChoiceText() {
-                        if (required) {
+        if (required) {
+            action.appendEffect(
+                    new DeployCardToLocationFromHandEffect(action, playerId, deployFilter, locationFilter, false, true) {
+                        @Override
+                        public String getChoiceText() {
                             return "Choose a TIE or pilot to deploy as a 'react'";
                         }
-                        return "Choose another TIE or pilot to deploy as a 'react'";
+
+                        @Override
+                        protected void cardDeployed(PhysicalCard card) {
+                            appendOptionalAdditionalReactDeploys(action, playerId, game, deployFilter, locationFilter);
+                        }
+                    }
+            );
+            return;
+        }
+
+        action.appendEffect(
+                new ChooseCardsFromHandEffect(action, playerId, playerId, 0, 1, deployFilter, true, false) {
+                    @Override
+                    public String getChoiceText(int numCardsToChoose) {
+                        return "Choose another TIE or pilot to deploy as a 'react', or click 'Done' to stop";
                     }
 
                     @Override
-                    protected void cardDeployed(PhysicalCard card) {
-                        appendOptionalAdditionalReactDeploys(action, playerId, game, deployFilter, locationFilter);
+                    protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
+                        if (selectedCards.isEmpty()) {
+                            return;
+                        }
+                        PhysicalCard selectedCard = selectedCards.iterator().next();
+                        action.appendEffect(
+                                new DeployCardToLocationFromHandEffect(action, selectedCard, locationFilter, false, true) {
+                                    @Override
+                                    protected void cardDeployed(PhysicalCard card) {
+                                        appendOptionalAdditionalReactDeploys(action, playerId, game, deployFilter, locationFilter);
+                                    }
+                                }
+                        );
                     }
                 }
         );
     }
 
     private void appendOptionalAdditionalReactDeploys(final PlayInterruptAction action, final String playerId, final SwccgGame game, final Filter deployFilter, final Filter locationFilter) {
-        if (!GameConditions.hasInHand(game, playerId, deployFilter)) {
-            return;
-        }
-
-        action.appendEffect(
-                new PlayoutDecisionEffect(action, playerId,
-                        new MultipleChoiceAwaitingDecision("Deploy another TIE or pilot as a 'react'?", new String[]{"Yes", "No"}) {
-                            @Override
-                            protected void validDecisionMade(int index, String result) {
-                                if (index == 0) {
-                                    appendDeployAsReactFromHand(action, playerId, game, deployFilter, locationFilter, false);
-                                }
-                            }
-                        }
-                )
-        );
+        appendDeployAsReactFromHand(action, playerId, game, deployFilter, locationFilter, false);
     }
 }

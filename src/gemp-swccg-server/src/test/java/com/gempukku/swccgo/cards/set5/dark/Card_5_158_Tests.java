@@ -34,6 +34,7 @@ public class Card_5_158_Tests {
                 new HashMap<>() {{
                     put("sentry", "5_158");
                     put("tie", "1_304");
+                    put("tie2", "1_304");
                     put("hoth", "3_143");
                     put("big-one", "4_156");
                 }},
@@ -117,6 +118,43 @@ public class Card_5_158_Tests {
         assertAtLocation(system, tie);
         assertInZone(Zone.LOST_PILE, sentry);
         assertEquals(forceBefore - 1, scn.GetDSForcePileCount());
+    }
+
+    @Test
+    public void AdditionalReactChoiceCanBeStoppedWithDone_5_158_TIESentryShips() {
+        var scn = GetScenario();
+
+        var sentry = scn.GetDSCard("sentry");
+        var tie = scn.GetDSCard("tie");
+        var tie2 = scn.GetDSCard("tie2");
+        var xwing = scn.GetLSCard("xwing");
+        var system = scn.GetLSStartingLocation();
+
+        scn.StartGame();
+
+        scn.MoveCardsToLocation(system, xwing);
+        scn.MoveCardsToDSHand(sentry, tie, tie2);
+
+        scn.SkipToLSTurn(Phase.CONTROL);
+        assertTrue(scn.LSForceDrainAvailable(system));
+        scn.LSForceDrainAt(system);
+        assertTrue(scn.DSCardPlayAvailable(sentry));
+        scn.DSPlayCard(sentry);
+        scn.PassAllResponses();
+        if (scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(tie)) {
+            scn.DSChooseCard(tie);
+        }
+        scn.PassAllResponses();
+
+        assertTrue(scn.DSAnyDecisionsAvailable());
+        assertTrue(scn.DSGetDecision().getText().toLowerCase().contains("done"));
+        assertTrue(scn.DSHasCardChoiceAvailable(tie2));
+        scn.DSPass();
+        scn.PassAllResponses();
+
+        assertAtLocation(system, tie);
+        assertInZone(Zone.HAND, tie2);
+        assertInZone(Zone.LOST_PILE, sentry);
     }
 
     @Test
