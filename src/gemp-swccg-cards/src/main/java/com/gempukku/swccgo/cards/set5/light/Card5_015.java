@@ -25,6 +25,7 @@ import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.LoseInsertCardEffect;
 import com.gempukku.swccgo.logic.effects.ShuffleReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.MoveCostFromLocationToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
@@ -139,6 +140,13 @@ public class Card5_015 extends AbstractNormalEffect {
         return action;
     }
 
+    @Override
+    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        // Insert function only — same pattern as Projection Of A Skywalker dual-option Alter immunity.
+        modifiers.add(new ImmuneToTitleModifier(self, new PlayCardOptionIdCondition(self, PlayCardOptionId.PLAY_AS_INSERT_CARD), Title.Alter));
+        return modifiers;
+    }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
