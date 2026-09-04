@@ -1,4 +1,4 @@
-﻿package com.gempukku.swccgo.cards.set5.dark;
+package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
@@ -40,7 +40,7 @@ public class Card_5_143_Tests {
         return new HashMap<>() {{
             put("off-the-edge", "5_59"); // Off The Edge
             put("skywalkers", "1_110"); // Skywalkers
-            put("sense", "1_086"); // Sense
+            put("sense", "12_68"); // Sense (Light Lost)
             put("platform-327", "5_83"); // Cloud City: Platform 327 (Docking Bay)
         }};
     }
