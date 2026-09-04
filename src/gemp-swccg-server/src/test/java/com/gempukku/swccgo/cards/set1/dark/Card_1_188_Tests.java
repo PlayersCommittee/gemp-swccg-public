@@ -42,6 +42,11 @@ public class Card_1_188_Tests {
                     put("tatooine-system", "1_127");
                     put("luke", "1_019");
                     put("farm", "1_132");
+                    put("son", "4_001");
+                    put("daughter", "8_008");
+                    put("bog", "4_085");
+                    put("jungle-dag", "4_086");
+                    put("training", "4_088");
                 }},
                 new HashMap<>() {{
                     put("mouse", "1_188");
@@ -57,6 +62,8 @@ public class Card_1_188_Tests {
                     put("oberk", "8_099");
                     put("homestead", "7_226");
                     put("db94", "1_291");
+                    put("failure", "4_120");
+                    put("tie", "1_304");
                 }},
                 10,
                 10,
@@ -942,6 +949,128 @@ public class Card_1_188_Tests {
         assertInHand(mouse);
     }
 
+
+    /** Marks Son as apprentice and attaches Failure At The Cave to Cave targeting him. */
+    private void SetupFailureAtTheCaveOnCaveTargetingSon(VirtualTableScenario scn,
+            PhysicalCardImpl cave, PhysicalCardImpl failure, PhysicalCardImpl son) {
+        scn.game().getGameState().addApprentice(son);
+        scn.AttachCardsTo(cave, failure);
+        failure.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, son, Filters.any);
+    }
+
+    @Test
+    public void MouseDroid_1_188_OnDagobahViaLandedStarfighterMayRelocateFailureAtTheCave() {
+        // Mouse is already on Dagobah via a landed starfighter (not deployed); may relocate Failure At The Cave.
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var tie = scn.GetDSCard("tie");
+        var cave = scn.GetDSCard("cave");
+        var failure = scn.GetDSCard("failure");
+        var son = scn.GetLSCard("son");
+        var jungle = scn.GetLSCard("jungle-dag");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(cave);
+        scn.MoveLocationToTable(jungle);
+        scn.MoveCardsToLocation(jungle, son);
+        SetupFailureAtTheCaveOnCaveTargetingSon(scn, cave, failure, son);
+
+        // Landed TIE at Cave; mouse already at Cave after arriving aboard (cheat placement).
+        scn.MoveCardsToLocation(cave, tie);
+        scn.MoveCardsToLocation(cave, mouse);
+
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, failure);
+        assertTrue(scn.IsAttachedTo(mouse, failure));
+        assertTrue(scn.CardsAtLocation(cave, mouse));
+    }
+
+    @Test
+    public void MouseDroid_1_188_OnDagobahKeepAwayFailureAtTheCaveDoesNotTriggerWhenMovingPastDaughterOrSon() {
+        // Keep-away (Gergall/Decipher): mouse carrying Failure At The Cave stays away from Daughter/Son
+        // so they do not reach the Utinni and delivery must not fire just from the mouse moving past them.
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var cave = scn.GetDSCard("cave");
+        var failure = scn.GetDSCard("failure");
+        var son = scn.GetLSCard("son");
+        var daughter = scn.GetLSCard("daughter");
+        var jungle = scn.GetLSCard("jungle-dag");
+        var bog = scn.GetLSCard("bog");
+        var training = scn.GetLSCard("training");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(cave);
+        scn.MoveLocationToTable(jungle);
+        scn.MoveLocationToTable(bog);
+        scn.MoveLocationToTable(training);
+        scn.MoveCardsToLocation(jungle, son);
+        scn.MoveCardsToLocation(training, daughter);
+        SetupFailureAtTheCaveOnCaveTargetingSon(scn, cave, failure, son);
+
+        // Mouse already carries Failure after pickup at Cave, then keeps away at Bog.
+        scn.MoveCardsToLocation(cave, mouse);
+        scn.AttachCardsTo(mouse, failure);
+        scn.MoveCardsToLocation(bog, mouse);
+
+        scn.SkipToPhase(Phase.BATTLE);
+        if (RelocateUtinniAvailable(scn, mouse)) {
+            scn.DSDecline();
+        }
+        if (scn.DSAnyDecisionsAvailable() && (scn.DSActionAvailable("Return") || scn.DSCardActionAvailable(mouse, "Return"))) {
+            throw new AssertionError("Keep-away failed: Return offered while Daughter/Son are not present with mouse. Decision: " + decisionText(scn));
+        }
+        if (scn.DSAnyDecisionsAvailable()) {
+            scn.PassAllResponses();
+        }
+
+        assertTrue("Mouse stays at Bog while keeping Failure away", scn.CardsAtLocation(bog, mouse));
+        assertTrue("Failure At The Cave stays on mouse (Daughter/Son have not reached it)", scn.IsAttachedTo(mouse, failure));
+        assertFalse(scn.CardsAtLocation(bog, son));
+        assertFalse(scn.CardsAtLocation(bog, daughter));
+    }
+
+    @Test
+    public void MouseDroid_1_188_PresentWithTargetDeliversUtinniAndReturnsMouseToHand() {
+        // Positive present-with on Dagobah: hunted apprentice present with mouse carrying Failure -> deliver, mouse to hand.
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var cave = scn.GetDSCard("cave");
+        var failure = scn.GetDSCard("failure");
+        var son = scn.GetLSCard("son");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(cave);
+        scn.MoveCardsToLocation(cave, mouse, son);
+        SetupFailureAtTheCaveOnCaveTargetingSon(scn, cave, failure, son);
+        scn.AttachCardsTo(mouse, failure);
+
+        scn.SkipToPhase(Phase.CONTROL);
+        if (scn.DSAnyDecisionsAvailable() && (scn.DSActionAvailable("Return") || scn.DSCardActionAvailable(mouse, "Return"))) {
+            scn.DSChooseAction("Return");
+        }
+        if (scn.DSAnyDecisionsAvailable()) {
+            scn.PassAllResponses();
+        }
+        // If delivery waited for another table-change, try Battle; pass Failure destiny windows if any.
+        if (scn.CardsAtLocation(cave, mouse)) {
+            scn.SkipToPhase(Phase.BATTLE);
+            if (scn.DSAnyDecisionsAvailable() && (scn.DSActionAvailable("Return") || scn.DSCardActionAvailable(mouse, "Return"))) {
+                scn.DSChooseAction("Return");
+            }
+            if (scn.LSAnyDecisionsAvailable()) {
+                scn.LSPass();
+            }
+            if (scn.DSAnyDecisionsAvailable()) {
+                scn.PassAllResponses();
+            }
+        }
+
+        assertInHand(mouse);
+        assertTrue("Delivered Failure returns to Cave (only legal host) or hunted Son",
+                scn.IsAttachedTo(cave, failure) || scn.IsAttachedTo(son, failure));
+        assertFalse(scn.IsAttachedTo(mouse, failure));
+    }
 
     /** True if that player's current action list contains the text (any case). dark=true is Dark Side. */
     private String decisionText(VirtualTableScenario scn) {
