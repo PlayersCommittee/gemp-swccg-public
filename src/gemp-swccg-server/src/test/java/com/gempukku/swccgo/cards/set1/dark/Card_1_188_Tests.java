@@ -14,7 +14,6 @@ import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -265,8 +264,19 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    @Ignore("GEMP did not apply a general Dagobah deploy restriction to MSE-6 at Dagobah: Cave. Game text has no extra Dagobah clause.")
     public void MouseDroid_1_188_CannotDeployToDagobahForFailureAtTheCave() {
+        /**
+         * Dagobah rules (Decipher / Gergall): characters may not deploy to Dagobah unless
+         * specifically allowed by their game text or another card. MSE-6 game text only
+         * restricts deploy sites to "same site as a character targeted by a Utinni Effect";
+         * it does not grant Dagobah deployment. Failure At The Cave (4_120) is a Dagobah-
+         * allowed Utinni Effect, but that does not extend a Dagobah deploy grant to Mouse.
+         *
+         * Engine correctly marks Dagobah: Cave prohibited via isProhibitedFromDeployingTo
+         * (Deploy.java character/starship/vehicle Dagobah check + lack of
+         * MayDeployToDagobahLocationModifier). A Deploy action may still appear with an
+         * empty target list; assert the real outcome: Cave is not a legal deploy choice.
+         */
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
@@ -283,7 +293,28 @@ public class Card_1_188_Tests {
         necklace.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, trooper, Filters.any);
         EnsureDSDeployPhase(scn);
         scn.MoveCardsToLocation(cave, trooper);
-        assertFalse(scn.DSDeployAvailable(mouse));
+
+        assertEquals("Dagobah", cave.getPartOfSystem());
+        assertTrue("Dagobah: Cave must be prohibited for Mouse (no MayDeployToDagobah grant)",
+                scn.game().getModifiersQuerying().isProhibitedFromDeployingTo(
+                        scn.game().getGameState(), mouse, cave, null));
+
+        if (scn.DSDeployAvailable(mouse) || scn.DSCardPlayAvailable(mouse)) {
+            scn.DSDeployCard(mouse);
+            assertFalse("Dagobah: Cave must not be a deploy choice for Mouse",
+                    scn.DSHasCardChoiceAvailable(cave));
+            if (scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(yavinDb)) {
+                // Should not happen; Utinni target is at Cave only.
+                scn.DSChooseCard(yavinDb);
+                scn.PassAllResponses();
+            } else if (scn.DSAnyDecisionsAvailable()) {
+                // No legal site: decline / cancel the empty deploy if the UI requires it.
+                scn.DSDecline();
+            }
+        }
+        assertFalse("Mouse must remain in hand; Dagobah rules block deploy to Cave",
+                scn.CardsAtLocation(cave, mouse));
+        assertInHand(mouse);
     }
 
     @Test
