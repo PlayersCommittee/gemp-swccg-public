@@ -43,7 +43,7 @@ public class Card2_113 extends AbstractDevice {
         setLore("Security corridors are guarded by a grid of laser emplacements which can be activated upon demand to seal off sensitive areas from intrusion.");
         setGameText("Deploy between any two interior mobile sites. To pass, a character must have (power + ability) > 4 or use a Lift Tube (all other vehicles are blocked). Laser Gate defense value = 3; may be targeted (as if a character) by a character weapon from either site.");
         addIcons(Icon.A_NEW_HOPE);
-        addKeywords(Keyword.DEPLOYS_ON_LOCATION);
+        addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override
