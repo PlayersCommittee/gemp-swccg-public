@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests for Laser Gate (2_113).
  * Doc checklist: deploy between interior mobile sites; movement pass rules;
- * defense value 3; character-weapon targeting wiring.
+ * defense value 3; either-site character-weapon targeting; Lift Tube pass.
  */
 public class Card_2_113_Tests {
 
@@ -194,6 +194,33 @@ public class Card_2_113_Tests {
     }
 
     @Test
+    public void LaserGate_2_113_LiftTubeMayPassToFarSite() {
+        var scn = GetScenario();
+        var gate = scn.GetDSCard("laserGate");
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("warRoom");
+        var dsLift = scn.GetDSCard("dsLift");
+        var stormie = scn.GetDSCard("stormie");
+
+        scn.StartGame();
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        deployGateBetween(scn, gate, corridor, warRoom);
+        // Weak Stormtrooper alone is blocked; aboard Lift Tube may pass.
+        scn.MoveCardsToLocation(corridor, dsLift, stormie);
+        scn.BoardAsPassenger(dsLift, stormie);
+
+        scn.SkipToPhase(Phase.MOVE);
+
+        assertTrue("Lift Tube (with passenger) may move past Laser Gate", scn.DSMoveAvailable(dsLift));
+        scn.DSMoveCard(dsLift, warRoom);
+        scn.PassAllResponses();
+        assertTrue("Lift Tube must arrive at far bounding site", scn.CardsAtLocation(warRoom, dsLift));
+        assertTrue("Passenger remains aboard Lift Tube at far site",
+                scn.IsAboardAsPassenger(dsLift, stormie));
+    }
+
+    @Test
     public void LaserGate_2_113_DefenseValueIs3() {
         var scn = GetScenario();
         var gate = scn.GetDSCard("laserGate");
@@ -209,27 +236,84 @@ public class Card_2_113_Tests {
     }
 
     @Test
-    public void LaserGate_2_113_WeaponTargetingModifiersWired() {
+    public void LaserGate_2_113_CharacterWeaponMayTargetFromAttachedBoundingSite() {
         var scn = GetScenario();
         var gate = scn.GetDSCard("laserGate");
-        var corridor = scn.GetDSCard("corridor");
-        var warRoom = scn.GetDSCard("warRoom");
-        var dsBlaster = scn.GetDSCard("dsBlaster");
+        var corridor = scn.GetDSCard("corridor"); // site A
+        var warRoom = scn.GetDSCard("warRoom");   // site B
+        var luke = scn.GetLSCard("luke");
+        var blaster = scn.GetLSCard("blaster");
         var vader = scn.GetDSCard("vader");
 
         scn.StartGame();
         putLocation(scn, corridor);
         putLocation(scn, warRoom);
         deployGateBetween(scn, gate, corridor, warRoom);
-        scn.MoveCardsToLocation(corridor, vader);
-        scn.AttachCardsTo(vader, dsBlaster);
 
-        assertEquals(3, scn.GetDefense(gate));
-        assertTrue("Character weapon should be granted to target Laser Gate",
-                scn.game().getModifiersQuerying().grantedMayBeTargetedBy(scn.gameState(), gate, dsBlaster));
+        scn.MoveCardsToLocation(corridor, luke, vader);
+        scn.AttachCardsTo(luke, blaster);
+        scn.SkipToLSTurn(Phase.BATTLE);
+        assertTrue(scn.LSCanInitiateBattle(corridor));
+        scn.LSInitiateBattle(corridor);
+        scn.PassBattleStartResponses();
+        assertTrue(scn.AwaitingLSWeaponsSegmentActions());
+
+        assertTrue("Character weapon grant for Laser Gate",
+                scn.game().getModifiersQuerying().grantedMayBeTargetedBy(scn.gameState(), gate, blaster));
+        assertTrue("As-if-present grant for either-site targeting",
+                scn.game().getModifiersQuerying().canBeTargetedByWeaponsAsIfPresent(scn.gameState(), gate));
+
+        scn.LSUseCardAction(blaster);
+        assertTrue("Battle at attached site A: Laser Gate must be a legal weapon target",
+                scn.LSHasCardChoiceAvailable(gate));
+        scn.LSChooseCard(gate);
+        scn.PassWeaponFireWithDestinyDraw();
+        scn.PassAllResponses();
+    }
+
+    @Test
+    public void LaserGate_2_113_CharacterWeaponMayTargetFromFarBoundingSite() {
+        var scn = GetScenario();
+        var gate = scn.GetDSCard("laserGate");
+        var corridor = scn.GetDSCard("corridor"); // site A (attach)
+        var warRoom = scn.GetDSCard("warRoom");   // site B (EFFECT_TARGET_1)
+        var conference = scn.GetDSCard("conference"); // site C
+        var luke = scn.GetLSCard("luke");
+        var blaster = scn.GetLSCard("blaster");
+        var stormie = scn.GetDSCard("stormie");
+
+        scn.StartGame();
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        putLocation(scn, conference);
+        deployGateBetween(scn, gate, corridor, warRoom);
+
+        // Battle at far bounding site B — gate is attached to A, not present at B
+        scn.MoveCardsToLocation(warRoom, luke, stormie);
+        scn.AttachCardsTo(luke, blaster);
+        scn.SkipToLSTurn(Phase.BATTLE);
+        assertTrue(scn.LSCanInitiateBattle(warRoom));
+        scn.LSInitiateBattle(warRoom);
+        scn.PassBattleStartResponses();
+        assertTrue(scn.AwaitingLSWeaponsSegmentActions());
+
+        assertTrue("Character weapon grant for Laser Gate",
+                scn.game().getModifiersQuerying().grantedMayBeTargetedBy(scn.gameState(), gate, blaster));
+        assertTrue("As-if-present grant for either-site targeting",
+                scn.game().getModifiersQuerying().canBeTargetedByWeaponsAsIfPresent(scn.gameState(), gate));
+        assertTrue("Between-sites filter includes far bounding site",
+                Filters.deployedBetweenSitesIncluding(Filters.sameCardId(warRoom)).accepts(scn.game(), gate));
+
+        scn.LSUseCardAction(blaster);
+        assertTrue("Battle at far site B: Laser Gate must be a legal weapon target",
+                scn.LSHasCardChoiceAvailable(gate));
+        scn.LSChooseCard(gate);
+        scn.PassWeaponFireWithDestinyDraw();
+        scn.PassAllResponses();
+
+        assertNotNull(conference);
         assertEquals(corridor, gate.getAttachedTo());
         assertEquals(warRoom, gate.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
-        assertNotNull(dsBlaster);
     }
 
     @Test

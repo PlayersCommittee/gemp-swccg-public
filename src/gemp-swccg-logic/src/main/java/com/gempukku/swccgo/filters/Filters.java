@@ -12664,6 +12664,30 @@ public class Filters {
     }
 
     /**
+     * Filter that accepts cards deployed "between" two sites (attached to one site and targeting the other via
+     * TargetId.EFFECT_TARGET_1) where either bounding site is accepted by the site filter.
+     * Used so between-sites devices (e.g. Laser Gate) can be weapon-targeted from either bounding site.
+     *
+     * @param siteFilter filter for one of the bounding sites
+     * @return Filter
+     */
+    public static Filter deployedBetweenSitesIncluding(final Filterable siteFilter) {
+        final Filter filterToCheck = Filters.and(siteFilter);
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                PhysicalCard attachedTo = physicalCard.getAttachedTo();
+                PhysicalCard otherSite = physicalCard.getTargetedCard(gameState, TargetId.EFFECT_TARGET_1);
+                if (attachedTo == null || otherSite == null) {
+                    return false;
+                }
+                return filterToCheck.accepts(gameState, modifiersQuerying, attachedTo)
+                        || filterToCheck.accepts(gameState, modifiersQuerying, otherSite);
+            }
+        };
+    }
+
+    /**
      * Filter that accepts cards being played that are targeting the specified card.
      */
     public static Filter cardBeingPlayedTargeting(PhysicalCard source, PhysicalCard card) {

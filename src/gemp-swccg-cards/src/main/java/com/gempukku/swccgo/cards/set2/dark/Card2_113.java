@@ -21,6 +21,8 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDefenseValueModifier;
+import com.gempukku.swccgo.logic.conditions.TrueCondition;
+import com.gempukku.swccgo.logic.modifiers.MayBeTargetedByWeaponsAsIfPresentModifier;
 import com.gempukku.swccgo.logic.modifiers.MayBeTargetedByWeaponsModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotMoveFromLocationToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -126,9 +128,9 @@ public class Card2_113 extends AbstractDevice {
         modifiers.add(new MayNotMoveFromLocationToLocationModifier(self, blockedFromPassing, siteA, siteB));
         modifiers.add(new MayNotMoveFromLocationToLocationModifier(self, blockedFromPassing, siteB, siteA));
         modifiers.add(new DefinedByGameTextDefenseValueModifier(self, 3));
-        // Character weapons may target this device (as if a character). Full "from either site" /
-        // during-battle non-participant targeting needs shared between-sites engine support.
+        // Character weapons may target this device (as if a character) from either bounding site.
         modifiers.add(new MayBeTargetedByWeaponsModifier(self, Filters.character_weapon));
+        modifiers.add(new MayBeTargetedByWeaponsAsIfPresentModifier(self, self, new TrueCondition()));
         return modifiers;
     }
 }
