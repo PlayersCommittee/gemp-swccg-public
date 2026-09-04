@@ -29,6 +29,7 @@ public interface Title {
     String A280_Sharpshooter_Rifle = "A280 Sharpshooter Rifle";
     String AAT_Laser_Cannon = "AAT Laser Cannon";
     String Abyssin_Ornament = "Abyssin Ornament";
+    String Access_Denied = "Access Denied";
     String Ackbar = "Admiral Ackbar";
     String Activate_The_Droids = "Activate The Droids";
     String Advance_Preparation = "Advance Preparation";
