@@ -4,6 +4,7 @@ import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
@@ -12,9 +13,14 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.layout.RearrangeSites;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
+import com.gempukku.swccgo.logic.effects.ChooseAndRearrangeRelatedSitesEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
+import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 
 import java.util.Collections;
@@ -40,9 +46,33 @@ public class Card2_138 extends AbstractLostInterrupt {
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
-        // Scaffold only: rearrange (deploy phase, X Force = interior Death Star site count via
-        // RearrangeSites.interiorSitesOfSystem(Title.Death_Star) + ChooseAndRearrangeRelatedSitesEffect)
-        // is intentionally not wired yet. Depends on rearranging-sites helper from #1017 / e254419.
+        final Filter interiorDeathStarSites = RearrangeSites.interiorSitesOfSystem(Title.Death_Star);
+        final int x = Filters.countTopLocationsOnTable(game, interiorDeathStarSites);
+
+        // Check condition(s) - rearrange interior Death Star sites (DS1 only; Docking Bay 327 excluded by helper)
+        if (GameConditions.isDuringYourPhase(game, playerId, Phase.DEPLOY)
+                && x > 0
+                && RearrangeSites.canRearrangeInteriorSites(game, Title.Death_Star)
+                && GameConditions.canUseForceToPlayInterrupt(game, playerId, self, x)) {
+
+            final PlayInterruptAction action = new PlayInterruptAction(game, self);
+            action.setText("Rearrange interior Death Star sites");
+            // Pay cost(s)
+            action.appendCost(
+                    new UseForceEffect(action, playerId, x));
+            // Allow response(s)
+            action.allowResponses("Rearrange all interior Death Star sites",
+                    new RespondablePlayCardEffect(action) {
+                        @Override
+                        protected void performActionResults(Action targetingAction) {
+                            // Perform result(s)
+                            action.appendEffect(
+                                    new ChooseAndRearrangeRelatedSitesEffect(action, playerId, interiorDeathStarSites));
+                        }
+                    }
+            );
+            actions.add(action);
+        }
 
         Filter onTheEdge = Filters.title("On The Edge");
 
