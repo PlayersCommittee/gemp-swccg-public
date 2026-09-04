@@ -51,30 +51,38 @@ public class Card2_113 extends AbstractDevice {
         return Filters.location;
     }
 
+    /** Interior mobile sites that are not Dagobah/Ahch-To (shared Deploy Between Sites rule). */
+    private static Filter eligibleInteriorMobileSite() {
+        return Filters.and(
+                Filters.interior_mobile_site,
+                Filters.not(Filters.or(Filters.Dagobah_location, Filters.AhchTo_location)));
+    }
+
     @Override
     protected Filter getGameTextValidDeployTargetFilter(final SwccgGame game, final PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        // Attach to an interior mobile site that has an adjacent interior mobile site.
-        return Filters.and(Filters.interior_mobile_site, new Filter() {
+        // Attach to an eligible interior mobile site that has an adjacent eligible interior mobile site.
+        final Filter eligible = eligibleInteriorMobileSite();
+        return Filters.and(eligible, new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return Filters.canSpot(game, self, Filters.and(Filters.adjacentSite(physicalCard), Filters.interior_mobile_site));
+                return Filters.canSpot(game, self, Filters.and(Filters.adjacentSite(physicalCard), eligible));
             }
         });
     }
 
     @Override
     protected Filter getGameTextValidToUseDeviceFilter(final SwccgGame game, final PhysicalCard self) {
-        return Filters.interior_mobile_site;
+        return eligibleInteriorMobileSite();
     }
 
     @Override
     protected Filter getGameTextValidTargetFilterToRemainAttachedTo(final SwccgGame game, final PhysicalCard self) {
-        return Filters.interior_mobile_site;
+        return eligibleInteriorMobileSite();
     }
 
     @Override
     protected List<TargetingEffect> getGameTextTargetCardsWhenDeployedEffects(final Action action, String playerId, SwccgGame game, final PhysicalCard self, PhysicalCard target, PlayCardOption playCardOption) {
-        final Filter targetFilter = Filters.and(Filters.interior_mobile_site, Filters.adjacentSite(target), Filters.not(target));
+        final Filter targetFilter = Filters.and(eligibleInteriorMobileSite(), Filters.adjacentSite(target), Filters.not(target));
         TargetingEffect targetingEffect = new TargetCardOnTableEffect(action, playerId, "Choose adjacent interior mobile site", targetFilter) {
             @Override
             protected void cardTargeted(int targetGroupId, PhysicalCard chosen) {

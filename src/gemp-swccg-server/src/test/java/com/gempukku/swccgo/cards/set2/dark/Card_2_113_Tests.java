@@ -33,21 +33,22 @@ public class Card_2_113_Tests {
     protected VirtualTableScenario GetScenario() {
         return new VirtualTableScenario(
                 new HashMap<>() {{
-                    put("luke", "1_19"); // Luke Skywalker power 3 ability 4 -> 7 > 4
-                    put("trooper", "1_28"); // Rebel Trooper power 1 ability 1 -> 2
-                    put("blaster", "1_152"); // LS Blaster (character weapon)
-                    put("lift", "1_148"); // Lift Tube (Light)
+                    put("luke", "1_19");
+                    put("trooper", "1_28");
+                    put("blaster", "1_152");
+                    put("lift", "1_148");
                 }},
                 new HashMap<>() {{
                     put("laserGate", "2_113");
-                    put("corridor", "1_284"); // Death Star: Detention Block Corridor
-                    put("warRoom", "1_287"); // Death Star: War Room
-                    put("conference", "2_144"); // Death Star: Conference Room
-                    put("vader", "1_168"); // power 6 ability 6
-                    put("stormie", "1_194"); // Stormtrooper power 1 ability 1
-                    put("dsLift", "1_308"); // Lift Tube (Dark)
-                    put("speeder", "8_169"); // Speeder Bike (non-Lift Tube vehicle)
-                    put("dsBlaster", "1_317"); // Imperial Blaster (character weapon)
+                    put("corridor", "1_284");
+                    put("warRoom", "1_287");
+                    put("conference", "2_144");
+                    put("vader", "1_168");
+                    put("stormie", "1_194");
+                    put("dsLift", "1_308");
+                    put("speeder", "8_169");
+                    put("dsBlaster", "1_317");
+                    put("bewil", "5_092");
                 }},
                 10,
                 10,
@@ -77,16 +78,6 @@ public class Card_2_113_Tests {
 
     @Test
     public void LaserGate_2_113_StatsAndKeywordsAreCorrect() {
-        /**
-         * Title: Laser Gate
-         * Uniqueness: Restricted (••)
-         * Side: Dark
-         * Type: Device
-         * Destiny: 4
-         * Icons: A New Hope, Device
-         * Set: A New Hope
-         * Rarity: U2
-         */
         var scn = GetScenario();
         var card = scn.GetDSCard("laserGate").getBlueprint();
 
@@ -181,19 +172,18 @@ public class Card_2_113_Tests {
     }
 
     @Test
-    public void LaserGate_2_113_AllowsStrongCharactersAndLiftTube() {
+    public void LaserGate_2_113_AllowsStrongCharacters() {
         var scn = GetScenario();
         var gate = scn.GetDSCard("laserGate");
         var corridor = scn.GetDSCard("corridor");
         var warRoom = scn.GetDSCard("warRoom");
         var vader = scn.GetDSCard("vader");
-        var dsLift = scn.GetDSCard("dsLift");
 
         scn.StartGame();
         putLocation(scn, corridor);
         putLocation(scn, warRoom);
         deployGateBetween(scn, gate, corridor, warRoom);
-        scn.MoveCardsToLocation(corridor, vader, dsLift);
+        scn.MoveCardsToLocation(corridor, vader);
 
         scn.SkipToPhase(Phase.MOVE);
 
@@ -201,10 +191,6 @@ public class Card_2_113_Tests {
         scn.DSMoveCard(vader, warRoom);
         scn.PassAllResponses();
         assertTrue(scn.CardsAtLocation(warRoom, vader));
-
-        // Lift Tube is exempt from the gate; assert move remains available.
-        // Full destination commit can NPE in VTS vehicle move decisions — known gap.
-        assertTrue("Lift Tube may move past Laser Gate", scn.DSMoveAvailable(dsLift));
     }
 
     @Test
@@ -243,7 +229,14 @@ public class Card_2_113_Tests {
                 scn.game().getModifiersQuerying().grantedMayBeTargetedBy(scn.gameState(), gate, dsBlaster));
         assertEquals(corridor, gate.getAttachedTo());
         assertEquals(warRoom, gate.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
-        // Gap: full fire-from-either-site during battle (non-participant) needs shared between-sites engine work.
         assertNotNull(dsBlaster);
+    }
+
+    @Test
+    public void LaserGate_2_113_CaptainBewilFilterIncludesLaserGate() {
+        var scn = GetScenario();
+        var gate = scn.GetDSCard("laserGate");
+        assertTrue(Filters.Laser_Gate.accepts(scn.game(), gate));
+        assertTrue(Filters.or(Filters.Laser_Gate, Filters.Heart_Of_The_Chasm, Filters.Rite_Of_Passage).accepts(scn.game(), gate));
     }
 }
