@@ -40,7 +40,7 @@ public class Card_5_143_Tests {
         return new HashMap<>() {{
             put("off-the-edge", "5_59"); // Off The Edge
             put("skywalkers", "1_110"); // Skywalkers
-            put("sense", "1_086"); // Sense
+            put("sense", "12_68"); // Sense (Light Lost)
         }};
     }
 
@@ -54,6 +54,7 @@ public class Card_5_143_Tests {
             put("east-platform", "5_169"); // Cloud City: East Platform (Docking Bay)
             put("bespin", "5_164"); // Bespin system
             put("weather-vane", "5_127"); // Weather Vane
+            put("bewil", "5_92"); // Captain Bewil
             put("ds-corridor", "1_284"); // Death Star: Detention Block Corridor
         }};
     }
@@ -72,7 +73,7 @@ public class Card_5_143_Tests {
         );
     }
 
-    /** LS start is Tibrin system â€” no interior Cloud City sites until we place them. */
+    /** LS start is Tibrin system - no interior Cloud City sites until we place them. */
     protected VirtualTableScenario GetScenarioNoCloudCityStart() {
         return new VirtualTableScenario(
                 lsCards(), dsCards(), 10, 10,
@@ -303,18 +304,32 @@ public class Card_5_143_Tests {
 
         scn.StartGame();
         scn.MoveCardsToDSHand(heart);
-        scn.MoveCardsToTopOfDSReserveDeck(weatherVane);
+        // Activate/Force setup first so Weather Vane is not pulled off Reserve into Force Pile.
         scn.SkipToDSTurn(Phase.DEPLOY);
+        scn.MoveCardsToTopOfDSReserveDeck(weatherVane);
 
         assertTrue(scn.DSCardPlayAvailable(heart, UPLOAD_TEXT));
         scn.DSPlayCard(heart, UPLOAD_TEXT);
         scn.PassAllResponses();
-        if (scn.DSHasCardChoicesAvailable(weatherVane)) {
-            scn.DSChooseCard(weatherVane);
-        }
+        assertTrue("Expected Weather Vane choosable from Reserve Deck", scn.DSHasCardChoicesAvailable(weatherVane));
+        scn.DSChooseCard(weatherVane);
         scn.PassAllResponses();
 
         assertInHand(weatherVane);
         assertInLostPile(heart);
+    }
+    @Test
+    public void CaptainBewilCanPullHeartOfTheChasm() {
+        // Doc: Captain Bewil can pull Heart Of The Chasm. Filter wiring; full upload interactive is known gap.
+        var scn = GetScenario();
+        var heart = scn.GetDSCard("heart");
+        var bewil = scn.GetDSCard("bewil");
+
+        scn.StartGame();
+
+        assertEquals("Captain Bewil", bewil.getBlueprint().getTitle());
+        assertTrue(Filters.Heart_Of_The_Chasm.accepts(scn.game(), heart));
+        assertTrue(Filters.or(Filters.Laser_Gate, Filters.Heart_Of_The_Chasm, Filters.Rite_Of_Passage)
+                .accepts(scn.game(), heart));
     }
 }
