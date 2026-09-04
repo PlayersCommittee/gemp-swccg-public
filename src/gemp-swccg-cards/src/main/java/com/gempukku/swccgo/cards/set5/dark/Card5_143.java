@@ -39,7 +39,7 @@ import java.util.List;
 public class Card5_143 extends AbstractLostInterrupt {
     public Card5_143() {
         super(Side.DARK, 3, Title.Heart_Of_The_Chasm, Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.U);
-        setLore("The long fall into the abyss of Cloud City seemed inevitable.");
+        setLore("The Cloud City chasm's central fin was engineered with a tensile strength unsurpassed by anything in the region, save the silk of the Kashyyyk treeworm.");
         setGameText("During your deploy phase, use X Force to rearrange all Cloud City sites, where X = total number of those sites. All cards at a given site move along with that site. OR Cancel Off The Edge. OR Search your Reserve Deck, take one Weather Vane into hand and reshuffle.");
         addIcons(Icon.CLOUD_CITY);
     }
