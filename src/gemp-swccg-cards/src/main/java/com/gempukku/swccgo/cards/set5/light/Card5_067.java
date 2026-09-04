@@ -18,15 +18,15 @@ import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
-import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.PutStackedCardInUsedPileEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromHandEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -124,40 +124,50 @@ public class Card5_067 extends AbstractUsedOrLostInterrupt {
             return;
         }
 
-        action.appendEffect(
-                new DeployCardToLocationFromHandEffect(action, playerId, deployFilter, Filters.cloud_sector, false, true) {
-                    @Override
-                    public String getChoiceText() {
-                        if (required) {
+        if (required) {
+            action.appendEffect(
+                    new DeployCardToLocationFromHandEffect(action, playerId, deployFilter, Filters.cloud_sector, false, true) {
+                        @Override
+                        public String getChoiceText() {
                             return "Choose vehicle, starfighter, or pilot to deploy as a 'react'";
                         }
-                        return "Choose another vehicle, starfighter, or pilot to deploy as a 'react'";
+
+                        @Override
+                        protected void cardDeployed(PhysicalCard card) {
+                            appendOptionalAdditionalReactDeploys(action, playerId, game, self, deployFilter);
+                        }
+                    }
+            );
+            return;
+        }
+
+        action.appendEffect(
+                new ChooseCardsFromHandEffect(action, playerId, playerId, 0, 1, deployFilter, true, false) {
+                    @Override
+                    public String getChoiceText(int numCardsToChoose) {
+                        return "Choose another vehicle, starfighter, or pilot to deploy as a 'react', or click 'Done' to stop";
                     }
 
                     @Override
-                    protected void cardDeployed(PhysicalCard card) {
-                        appendOptionalAdditionalReactDeploys(action, playerId, game, self, deployFilter);
+                    protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
+                        if (selectedCards.isEmpty()) {
+                            return;
+                        }
+                        PhysicalCard selectedCard = selectedCards.iterator().next();
+                        action.appendEffect(
+                                new DeployCardToLocationFromHandEffect(action, selectedCard, Filters.cloud_sector, false, true) {
+                                    @Override
+                                    protected void cardDeployed(PhysicalCard card) {
+                                        appendOptionalAdditionalReactDeploys(action, playerId, game, self, deployFilter);
+                                    }
+                                }
+                        );
                     }
                 }
         );
     }
 
     private void appendOptionalAdditionalReactDeploys(final PlayInterruptAction action, final String playerId, final SwccgGame game, final PhysicalCard self, final Filter deployFilter) {
-        if (!GameConditions.hasInHand(game, playerId, deployFilter)) {
-            return;
-        }
-
-        action.appendEffect(
-                new PlayoutDecisionEffect(action, playerId,
-                        new MultipleChoiceAwaitingDecision("Deploy another vehicle, starfighter, or pilot as a 'react'?", new String[]{"Yes", "No"}) {
-                            @Override
-                            protected void validDecisionMade(int index, String result) {
-                                if (index == 0) {
-                                    appendDeployAsReactFromHand(action, playerId, game, self, deployFilter, false);
-                                }
-                            }
-                        }
-                )
-        );
+        appendDeployAsReactFromHand(action, playerId, game, self, deployFilter, false);
     }
 }

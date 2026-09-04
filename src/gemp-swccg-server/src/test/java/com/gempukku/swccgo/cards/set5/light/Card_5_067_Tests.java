@@ -274,6 +274,46 @@ public class Card_5_067_Tests {
     }
 
     @Test
+    public void LostAdditionalReactChoiceCanBeStoppedWithDone_5_67_RescueInTheClouds() {
+        var scn = GetScenario();
+
+        var rescue = scn.GetLSCard("rescue");
+        var xwing = scn.GetLSCard("xwing");
+        var freighter = scn.GetLSCard("freighter");
+        var cloudCar = scn.GetLSCard("cloud-car");
+        var bespin = scn.GetLSCard("bespin");
+        var clouds = scn.GetLSCard("clouds");
+        var tie = scn.GetDSCard("tie");
+
+        scn.StartGame();
+
+        scn.MoveLocationToTable(bespin);
+        scn.MoveLocationToTable(clouds);
+        scn.MoveCardsToLocation(clouds, tie, cloudCar);
+        scn.MoveCardsToLSHand(rescue, xwing, freighter);
+
+        scn.SkipToDSTurn(Phase.BATTLE);
+        scn.DSInitiateBattle(clouds);
+        assertTrue(scn.LSCardPlayAvailable(rescue));
+        scn.LSPlayCard(rescue);
+        scn.PassAllResponses();
+        if (scn.LSAnyDecisionsAvailable() && scn.LSHasCardChoiceAvailable(xwing)) {
+            scn.LSChooseCard(xwing);
+        }
+        scn.PassAllResponses();
+
+        assertTrue(scn.LSAnyDecisionsAvailable());
+        assertTrue(scn.LSGetDecision().getText().toLowerCase().contains("done"));
+        assertTrue(scn.LSHasCardChoiceAvailable(freighter));
+        scn.LSPass();
+        scn.PassAllResponses();
+
+        assertAtLocation(clouds, xwing);
+        assertInZone(Zone.HAND, freighter);
+        assertInZone(Zone.LOST_PILE, rescue);
+    }
+
+    @Test
     public void LostNotPlayableWhenOnlyCapitalThatDoesNotDeployLikeStarfighterIsInHand_5_67_RescueInTheClouds() {
         var scn = GetScenario();
 
