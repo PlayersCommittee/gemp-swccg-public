@@ -46,7 +46,7 @@ import java.util.List;
 public class Card5_122 extends AbstractNormalEffect {
     public Card5_122() {
         super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Restricted_Access, Uniqueness.UNRESTRICTED, ExpansionSet.CLOUD_CITY, Rarity.C);
-        setLore("Cloud City's computer-controlled security system is designed to keep unauthorized personnel from entering restricted areas.");
+        setLore("In an effort to direct Luke toward Vader, Captain Bewil used his control of hatchways and lift tubes to cut off Luke's support, limiting his options and resources.");
         setGameText("Insert face up in your Reserve Deck. When Effect reaches top it is lost, along with all opponent's 'insert' cards there. Reshuffle. (Immune to Alter.) OR Deploy between two mobile sites. Opponent's characters may pass only if aboard a Lift Tube or opponent uses +1 Force each.");
         addIcons(Icon.CLOUD_CITY);
         addKeywords(Keyword.DEPLOYS_ON_SITE);
