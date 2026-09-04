@@ -510,6 +510,13 @@ public interface Destiny extends BaseQuery {
             SwccgBuiltInCardBlueprint permanentWeapon = weaponFiringState.getPermanentWeaponFiring();
             Collection<PhysicalCard> weaponTargets = weaponFiringState.getTargets();
             PhysicalCard cardFiringWeapon = weaponFiringState.getCardFiringWeapon();
+            // EachWeaponDestinyForWeaponFiredByModifier (Defiance +2) keys off the card firing,
+            // not the weapon card. If state still points at the weapon itself or has no firer,
+            // use the attached host (the starship).
+            if (weapon != null && weapon.getAttachedTo() != null
+                    && (cardFiringWeapon == null || cardFiringWeapon.getCardId() == weapon.getCardId())) {
+                cardFiringWeapon = weapon.getAttachedTo();
+            }
 
             for (Modifier modifier : getModifiers(gameState, ModifierType.EACH_WEAPON_DESTINY)) {
                 if (!mayNotModifyDestinyDraw(gameState, modifier.getSource(gameState) != null ? modifier.getSource(gameState).getOwner() : null)) {
@@ -1108,21 +1115,21 @@ public interface Destiny extends BaseQuery {
      * @return the total weapon destiny
      */
     default float getTotalWeaponDestiny(GameState gameState, String playerId, float baseTotalDestiny) {
-        float result = baseTotalDestiny;
-
-        // Get from WeaponFiringState
         WeaponFiringState weaponFiringState = gameState.getWeaponFiringState();
-        if (weaponFiringState != null) {
-            PhysicalCard weapon = weaponFiringState.getCardFiring();
-            SwccgBuiltInCardBlueprint permanentWeapon = weaponFiringState.getPermanentWeaponFiring();
-            Collection<PhysicalCard> weaponTargets = weaponFiringState.getTargets();
-            PhysicalCard cardFiringWeapon = weaponFiringState.getCardFiringWeapon();
-
-            for (Modifier modifier : getModifiers(gameState, ModifierType.TOTAL_WEAPON_DESTINY)) {
-                result += modifier.getTotalWeaponDestinyModifier(gameState, query(), cardFiringWeapon, weapon, permanentWeapon, weaponTargets);
-            }
+        if (weaponFiringState == null) {
+            return Math.max(0, baseTotalDestiny);
         }
+        return getTotalWeaponDestiny(gameState, weaponFiringState.getCardFiringWeapon(), weaponFiringState.getCardFiring(),
+                weaponFiringState.getPermanentWeaponFiring(), weaponFiringState.getTargets(), baseTotalDestiny);
+    }
 
+    default float getTotalWeaponDestiny(GameState gameState, PhysicalCard cardFiringWeapon, PhysicalCard weapon,
+                                        SwccgBuiltInCardBlueprint permanentWeapon, Collection<PhysicalCard> weaponTargets,
+                                        float baseTotalDestiny) {
+        float result = baseTotalDestiny;
+        for (Modifier modifier : getModifiers(gameState, ModifierType.TOTAL_WEAPON_DESTINY)) {
+            result += modifier.getTotalWeaponDestinyModifier(gameState, query(), cardFiringWeapon, weapon, permanentWeapon, weaponTargets);
+        }
         return Math.max(0, result);
     }
 
