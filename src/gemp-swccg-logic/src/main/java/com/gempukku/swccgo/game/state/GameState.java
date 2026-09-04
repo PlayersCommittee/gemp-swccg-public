@@ -96,6 +96,7 @@ public class GameState implements Snapshotable<GameState> {
     private SabaccState _sabaccState;
     private SearchPartyState _searchPartyState;
     private WeaponFiringState _weaponFiringState;
+    private SeparatelyOrCombinedFiringState _separatelyOrCombinedFiringState;
     private UsingTractorBeamState _usingTractorBeamState;
     private Stack<ForceLossState> _forceLossState = new Stack<ForceLossState>();
     private Stack<ForceRetrievalState> _forceRetrievalState = new Stack<ForceRetrievalState>();
@@ -297,6 +298,9 @@ public class GameState implements Snapshotable<GameState> {
         }
         if (_weaponFiringState != null) {
             throw new UnsupportedOperationException("Cannot generate snapshot of " + getClass().getSimpleName() + " with WeaponFiringState");
+        }
+        if (_separatelyOrCombinedFiringState != null) {
+            throw new UnsupportedOperationException("Cannot generate snapshot of " + getClass().getSimpleName() + " with SeparatelyOrCombinedFiringState");
         }
         if (!_forceLossState.isEmpty()) {
             throw new UnsupportedOperationException("Cannot generate snapshot of " + getClass().getSimpleName() + " with ForceLossState");
@@ -620,6 +624,10 @@ public class GameState implements Snapshotable<GameState> {
             _lastMessages.removeFirst();
         for (GameStateListener listener : getAllGameStateListeners())
             listener.sendMessage(message);
+    }
+
+    public java.util.List<String> getLastMessages() {
+        return java.util.Collections.unmodifiableList(_lastMessages);
     }
 
     public void playerDecisionStarted(String playerId, AwaitingDecision awaitingDecision) {
@@ -4056,6 +4064,24 @@ public class GameState implements Snapshotable<GameState> {
     }
 
     /**
+     * True if a game-text action from this card is still on the stack.
+     * Targeting Computer uses this so -1 still applies if separately-or-combined state was cleared too soon.
+     */
+    public boolean isDuringGameTextActionFrom(PhysicalCard card) {
+        if (card == null) {
+            return false;
+        }
+        for (GameTextActionState state : _gameTextActionState) {
+            GameTextAction action = state.getGameTextAction();
+            if (action != null && action.getActionSource() != null
+                    && action.getActionSource().getCardId() == card.getCardId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Gets the game text action state for the specific game text action.
      * @return the current game text action state, or null
      */
@@ -4344,6 +4370,9 @@ public class GameState implements Snapshotable<GameState> {
     //
     public void beginWeaponFiring(PhysicalCard weaponFiring, SwccgBuiltInCardBlueprint permanentWeapon) {
         _weaponFiringState = new WeaponFiringState(_game, weaponFiring, permanentWeapon);
+        if (_separatelyOrCombinedFiringState != null) {
+            _separatelyOrCombinedFiringState.markFiringInitiated();
+        }
     }
 
     public void beginCombinedWeaponFiring() {
@@ -4364,6 +4393,22 @@ public class GameState implements Snapshotable<GameState> {
             _game.getActionsEnvironment().removeEndOfWeaponFiringActionProxies();
             _weaponFiringState = null;
         }
+    }
+
+    /**
+     * Begins a Targeting Computer-style fire-twice separately-or-combined action.
+     * Both shots are one overall action (no top-level actions between shots).
+     */
+    public void beginSeparatelyOrCombinedFiring(PhysicalCard device, PhysicalCard weapon, boolean combined) {
+        _separatelyOrCombinedFiringState = new SeparatelyOrCombinedFiringState(device, weapon, combined);
+    }
+
+    public SeparatelyOrCombinedFiringState getSeparatelyOrCombinedFiringState() {
+        return _separatelyOrCombinedFiringState;
+    }
+
+    public void finishSeparatelyOrCombinedFiring() {
+        _separatelyOrCombinedFiringState = null;
     }
 
     //
