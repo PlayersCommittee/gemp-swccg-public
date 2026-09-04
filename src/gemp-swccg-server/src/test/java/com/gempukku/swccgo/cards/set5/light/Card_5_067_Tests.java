@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.cards.set5.light;
 
+import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.ExpansionSet;
@@ -9,6 +10,7 @@ import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import org.junit.Test;
@@ -32,6 +34,8 @@ public class Card_5_067_Tests {
                     put("luke", "1_19");
                     put("xwing", "1_146");
                     put("cloud-car", "5_88");
+                    put("freighter", "7_144");
+                    put("corvette", "1_140");
                     put("bespin", "5_76");
                     put("clouds", "5_85");
                 }},
@@ -187,6 +191,109 @@ public class Card_5_067_Tests {
         assertAtLocation(clouds, xwing);
         assertInZone(Zone.LOST_PILE, rescue);
         assertEquals(forceBefore - 2, scn.GetLSForcePileCount());
+    }
+
+    @Test
+    public void LostDeploysMediumBulkFreighterAsReactToCloudSectorBattle_5_67_RescueInTheClouds() {
+        var scn = GetScenario();
+
+        var rescue = scn.GetLSCard("rescue");
+        var freighter = scn.GetLSCard("freighter");
+        var cloudCar = scn.GetLSCard("cloud-car");
+        var bespin = scn.GetLSCard("bespin");
+        var clouds = scn.GetLSCard("clouds");
+        var tie = scn.GetDSCard("tie");
+
+        scn.StartGame();
+
+        assertTrue(freighter.getBlueprint().isDeploysLikeStarfighter());
+        assertEquals(CardSubtype.CAPITAL, freighter.getBlueprint().getCardSubtype());
+
+        scn.MoveLocationToTable(bespin);
+        scn.MoveLocationToTable(clouds);
+        scn.MoveCardsToLocation(clouds, tie, cloudCar);
+        scn.MoveCardsToLSHand(rescue, freighter);
+
+        assertTrue(Filters.deploysLikeStarfighter.accepts(scn.game(), freighter));
+        assertTrue(GameConditions.hasInHand(scn.game(), VirtualTableScenario.LS, Filters.deploysLikeStarfighter));
+
+        scn.SkipToDSTurn(Phase.BATTLE);
+        int forceBefore = scn.GetLSForcePileCount();
+        scn.DSInitiateBattle(clouds);
+        assertTrue("Expected Rescue after-action. LS decision: " + (scn.LSGetDecision() == null ? "none" : scn.LSGetDecision().getText()),
+                scn.LSAnyDecisionsAvailable());
+        assertTrue(scn.LSCardPlayAvailable(rescue));
+        scn.LSPlayCard(rescue);
+        scn.PassAllResponses();
+        if (scn.LSAnyDecisionsAvailable() && scn.LSHasCardChoiceAvailable(freighter)) {
+            scn.LSChooseCard(freighter);
+        }
+        scn.PassAllResponses();
+
+        assertAtLocation(clouds, freighter);
+        assertInZone(Zone.LOST_PILE, rescue);
+        assertEquals(forceBefore - 3, scn.GetLSForcePileCount());
+    }
+
+    @Test
+    public void LostOffersXwingAndMediumBulkFreighterButNotCorvetteAsReact_5_67_RescueInTheClouds() {
+        var scn = GetScenario();
+
+        var rescue = scn.GetLSCard("rescue");
+        var xwing = scn.GetLSCard("xwing");
+        var freighter = scn.GetLSCard("freighter");
+        var corvette = scn.GetLSCard("corvette");
+        var cloudCar = scn.GetLSCard("cloud-car");
+        var bespin = scn.GetLSCard("bespin");
+        var clouds = scn.GetLSCard("clouds");
+        var tie = scn.GetDSCard("tie");
+
+        scn.StartGame();
+
+        scn.MoveLocationToTable(bespin);
+        scn.MoveLocationToTable(clouds);
+        scn.MoveCardsToLocation(clouds, tie, cloudCar);
+        scn.MoveCardsToLSHand(rescue, xwing, freighter, corvette);
+
+        scn.SkipToDSTurn(Phase.BATTLE);
+        scn.DSInitiateBattle(clouds);
+        assertTrue(scn.LSAnyDecisionsAvailable());
+        assertTrue(scn.LSCardPlayAvailable(rescue));
+        scn.LSPlayCard(rescue);
+        scn.PassAllResponses();
+        assertTrue(scn.LSAnyDecisionsAvailable());
+        assertTrue(scn.LSHasCardChoiceAvailable(xwing));
+        assertTrue(scn.LSHasCardChoiceAvailable(freighter));
+        assertFalse(scn.LSHasCardChoiceAvailable(corvette));
+        scn.LSChooseCard(freighter);
+        scn.PassAllResponses();
+
+        assertAtLocation(clouds, freighter);
+        assertInZone(Zone.HAND, xwing);
+        assertInZone(Zone.HAND, corvette);
+    }
+
+    @Test
+    public void LostNotPlayableWhenOnlyCapitalThatDoesNotDeployLikeStarfighterIsInHand_5_67_RescueInTheClouds() {
+        var scn = GetScenario();
+
+        var rescue = scn.GetLSCard("rescue");
+        var corvette = scn.GetLSCard("corvette");
+        var cloudCar = scn.GetLSCard("cloud-car");
+        var bespin = scn.GetLSCard("bespin");
+        var clouds = scn.GetLSCard("clouds");
+        var tie = scn.GetDSCard("tie");
+
+        scn.StartGame();
+
+        scn.MoveLocationToTable(bespin);
+        scn.MoveLocationToTable(clouds);
+        scn.MoveCardsToLocation(clouds, tie, cloudCar);
+        scn.MoveCardsToLSHand(rescue, corvette);
+
+        scn.SkipToDSTurn(Phase.BATTLE);
+        scn.DSInitiateBattle(clouds);
+        assertFalse(scn.LSAnyDecisionsAvailable() && scn.LSCardPlayAvailable(rescue));
     }
 
     @Test

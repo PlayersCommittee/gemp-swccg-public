@@ -13,6 +13,8 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
@@ -85,7 +87,15 @@ public class Card5_067 extends AbstractUsedOrLostInterrupt {
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
         final String opponent = game.getOpponent(playerId);
-        final Filter deployFilter = Filters.or(Filters.vehicle, Filters.starfighter, Filters.pilot);
+        // Starships that "deploy like a starfighter" follow starfighter deployment rules (ARB Starships).
+        final Filter deployFilter = Filters.or(Filters.vehicle, Filters.starfighter, Filters.pilot, new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return physicalCard.getBlueprint().isDeploysLikeStarfighter()
+                        || modifiersQuerying.isDeploysLikeStarfighter(gameState, physicalCard)
+                        || modifiersQuerying.isDeploysLikeStarfighterAtCloudSectors(gameState, physicalCard);
+            }
+        });
 
         // Check condition(s)
         if ((TriggerConditions.battleInitiatedAt(game, effectResult, opponent, Filters.cloud_sector)
