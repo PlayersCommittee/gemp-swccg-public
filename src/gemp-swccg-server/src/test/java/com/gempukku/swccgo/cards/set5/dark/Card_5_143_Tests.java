@@ -72,7 +72,7 @@ public class Card_5_143_Tests {
         );
     }
 
-    /** LS start is Tibrin system — no interior Cloud City sites until we place them. */
+    /** LS start is Tibrin system â€” no interior Cloud City sites until we place them. */
     protected VirtualTableScenario GetScenarioNoCloudCityStart() {
         return new VirtualTableScenario(
                 lsCards(), dsCards(), 10, 10,
