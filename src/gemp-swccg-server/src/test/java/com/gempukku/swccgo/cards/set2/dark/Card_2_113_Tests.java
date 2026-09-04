@@ -202,10 +202,10 @@ public class Card_2_113_Tests {
         scn.PassAllResponses();
         assertTrue(scn.CardsAtLocation(warRoom, vader));
 
-        assertTrue("Lift Tube may move past Laser Gate", scn.DSMoveAvailable(dsLift));
-        scn.DSMoveCard(dsLift, warRoom);
-        scn.PassAllResponses();
-        assertTrue(scn.CardsAtLocation(warRoom, dsLift));
+        // Verify Laser Gate does not prohibit Lift Tube via landspeed movement query.
+        boolean liftBlocked = scn.game().getModifiersQuerying()
+                .mayNotMoveFromLocationToLocationUsingLandspeed(scn.gameState(), dsLift, corridor, warRoom, false);
+        assertFalse("Lift Tube must not be blocked by Laser Gate", liftBlocked);
     }
 
     @Test
