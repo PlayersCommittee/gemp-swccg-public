@@ -29,9 +29,8 @@ import static org.junit.Assert.assertTrue;
  * Tests for Access Denied (5_015 / blueprint 5_15).
  * Doc tab t.1xouug9yxxg5 / issue #117.
  *
- * Printed game text: "two mobile sites" (not interior-only). Doc line "only interior
- * mobile sites" is superseded by printed text on the same tab — covered by mobile-site
- * deploy tests below (Death Star interior mobile sites are eligible mobile sites).
+ * Printed: "two mobile sites" (not interior-only).
+ * Bill ruling: Immune to Alter only in insert mode; not Immune when deployed between sites.
  */
 public class Card_5_015_Tests {
 
@@ -105,17 +104,25 @@ public class Card_5_015_Tests {
         assertTrue(card.getGameText().contains("Lift Tube"));
         assertTrue("Insert function text keeps Immune to Alter",
                 card.getGameText().contains("Immune to Alter"));
-        // Pending Bill: doc wants not-immune when deployed; encoding keeps always Immune for now.
-        assertTrue("Blueprint Immune to Alter pending Bill rule flip",
+        assertFalse("Between-sites must not be blueprint-immune to Alter",
                 card.isImmuneToCardTitle(Title.Alter));
     }
 
     @Test
-    public void AccessDenied_5_015_ImmuneToAlterOnBlueprint() {
+    public void AccessDenied_5_015_InsertOptionImmuneToAlterWhileInsertedPlayOption() {
         var scn = GetScenario();
-        var card = scn.GetLSCard("accessDenied").getBlueprint();
-        // Pending Bill on insert-only vs always: current encoding keeps blueprint Immune to Alter.
-        assertTrue(card.isImmuneToCardTitle(Title.Alter));
+        var access = scn.GetLSCard("accessDenied");
+
+        scn.StartGame();
+        var alwaysOn = access.getBlueprint().getAlwaysOnModifiers(scn.game(), access);
+        assertNotNull(alwaysOn);
+        assertFalse(alwaysOn.isEmpty());
+        assertTrue("AlwaysOn modifiers include Immune to Alter for insert option",
+                alwaysOn.stream().anyMatch(m -> {
+                    String text = m.getText(scn.gameState(), scn.game().getModifiersQuerying(), access);
+                    return text != null && text.contains("Alter");
+                }));
+        assertTrue(access.getBlueprint().getGameText().contains("Immune to Alter"));
     }
 
     @Test
@@ -169,6 +176,38 @@ public class Card_5_015_Tests {
         assertEquals(warRoom, access.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
         assertEquals(PlayCardOptionId.PLAY_CARD_OPTION_1, access.getPlayCardOptionId());
         assertNotNull(access.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+    }
+
+    @Test
+    public void AccessDenied_5_015_NotImmuneToAlterWhenBetweenSites() {
+        var scn = GetScenario();
+        var access = scn.GetLSCard("accessDenied");
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("warRoom");
+        var alter = scn.GetDSCard("alter");
+        var vader = scn.GetDSCard("vader");
+
+        scn.StartGame();
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        deployBetween(scn, access, corridor, warRoom);
+        scn.MoveCardsToLocation(corridor, vader);
+        scn.MoveCardsToDSHand(alter);
+
+        assertFalse("Between-sites Access Denied is not immune to Alter",
+                scn.game().getModifiersQuerying().isImmuneToCardTitle(scn.gameState(), access, Title.Alter));
+        assertFalse(Filters.immune_to_Alter.accepts(scn.game(), access));
+
+        scn.SkipToPhase(Phase.CONTROL);
+        assertTrue("Alter should be playable vs between-sites Access Denied",
+                scn.DSCardPlayAvailable(alter));
+        scn.DSPlayCard(alter);
+        assertTrue("Access Denied must be a legal Alter cancel target when between sites",
+                scn.DSHasCardChoiceAvailable(access));
+        scn.DSChooseCard(access);
+        assertTrue(scn.DSHasCardChoiceAvailable(vader));
+        scn.DSChooseCard(vader);
+        scn.PassAllResponses();
     }
 
     @Test

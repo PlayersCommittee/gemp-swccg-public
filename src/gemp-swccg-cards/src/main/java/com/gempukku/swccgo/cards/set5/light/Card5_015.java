@@ -25,6 +25,7 @@ import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.LoseInsertCardEffect;
 import com.gempukku.swccgo.logic.effects.ShuffleReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.MoveCostFromLocationToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
@@ -49,9 +50,7 @@ public class Card5_015 extends AbstractNormalEffect {
         setGameText("Insert face up in your Reserve Deck. When Effect reaches top it is lost, along with all opponent's 'insert' cards there. Reshuffle. (Immune to Alter.) OR Deploy between two mobile sites. Opponent's characters may pass only if aboard a Lift Tube or opponent uses +1 Force each.");
         addIcons(Icon.CLOUD_CITY);
         addKeywords(Keyword.DEPLOYS_ON_SITE);
-        // Pending Bill: printed (Immune to Alter.) sits on insert clause; doc wants not-immune when deployed.
-        // Keep blueprint always Immune to Alter until Bill confirms a rule flip.
-        addImmuneToCardTitle(Title.Alter);
+        // Bill ruling: insert mode Immune to Alter; between-sites Effect NOT Immune (see AlwaysOn).
     }
 
     @Override
@@ -141,6 +140,13 @@ public class Card5_015 extends AbstractNormalEffect {
         return action;
     }
 
+    @Override
+    protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, PhysicalCard self) {
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        // Insert function only — same pattern as Projection Of A Skywalker dual-option Alter immunity.
+        modifiers.add(new ImmuneToTitleModifier(self, new PlayCardOptionIdCondition(self, PlayCardOptionId.PLAY_AS_INSERT_CARD), Title.Alter));
+        return modifiers;
+    }
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
