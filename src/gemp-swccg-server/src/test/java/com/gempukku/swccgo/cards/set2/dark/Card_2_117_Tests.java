@@ -12,7 +12,6 @@ import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -337,7 +336,6 @@ public class Card_2_117_Tests {
     }
 
     @Test
-    @Ignore("StealCapturedStarshipWithNoCharactersRule is engine-owned; cheat/ad-hoc does not emit table-changed")
     public void DarkStealsStarshipWhenAllTrappedCharactersAreEliminated_2_117_Besieged() {
         var scn = GetScenario();
 
@@ -347,23 +345,92 @@ public class Card_2_117_Tests {
         var vcsd = scn.GetDSCard("vcsd");
         var launchBay = scn.GetDSCard("launchbay");
         var tractor = scn.GetDSCard("tractor");
-        var trooper = scn.GetDSFiller(1);
+        var trooper1 = scn.GetDSFiller(1);
+        var trooper2 = scn.GetDSFiller(2);
+        var trooper3 = scn.GetDSFiller(3);
+        var trooper4 = scn.GetDSFiller(4);
+        var system = scn.GetDSStartingLocation();
 
         scn.StartGame();
         setupLaunchBayCapture(scn, falcon, han, vcsd, launchBay, tractor);
-        scn.MoveCardsToLocation(launchBay, trooper);
+        // Four troopers beat Han on power without destiny draws.
+        scn.MoveCardsToLocation(launchBay, trooper1, trooper2, trooper3, trooper4);
         scn.AttachCardsTo(falcon, besieged);
 
-        // Emptying the ship via test cheat does not emit table-changed, so the engine steal
-        // rule (StealCapturedStarshipWithNoCharactersRule) is not auto-run here.
-        scn.MoveCardsToTopOfOwnLostPile(han);
-        assertEquals(Zone.LOST_PILE, han.getZone());
-        assertTrue("Han should no longer be aboard the captured Falcon", han.getAttachedTo() == null);
-        // Documented engine path: once no characters remain aboard, Dark steals the starship
-        // and Besieged is canceled to Dark Lost Pile (covered by the steal/escape cancel text).
+        // Empty the ship through a real Besieged battle forfeit so table-changed fires
+        // and StealCapturedStarshipWithNoCharactersRule can run.
+        scn.SkipToPhase(Phase.BATTLE);
+        initiateBesiegedBattle(scn, besieged, trooper1, trooper2, trooper3, trooper4);
+        assertTrue(scn.IsParticipatingInBattle(trooper1, han));
+
+        scn.SkipToDamageSegment(false);
+        assertTrue("LS should owe battle damage after losing. Decision: " + decisionText(scn)
+                        + " LSAttr=" + scn.GetUnpaidLSAttrition() + " LSBD=" + scn.GetUnpaidLSBattleDamage()
+                        + " DSAttr=" + scn.GetUnpaidDSAttrition() + " DSBD=" + scn.GetUnpaidDSBattleDamage(),
+                scn.AwaitingLSBattleDamagePayment() || scn.AwaitingLSAttritionPayment());
+        if (scn.AwaitingLSAttritionPayment()) {
+            scn.LSPayAttritionFromCardInPlay(han);
+        } else {
+            scn.LSPayBattleDamageFromCardInPlay(han);
+        }
+        if (scn.LSDecisionAvailable("still want to forfeit")) {
+            scn.LSChooseYes();
+            passIfOptional(scn);
+        }
+
+        // After Han leaves, the engine steal rule should offer to steal the empty Falcon.
+        resolveStealAndFinishBattle(scn, falcon, vcsd, system);
+
+        assertTrue("Han should be in Lost Pile after forfeit", inLostPile(han));
+        assertTrue("Han should no longer be aboard the Falcon", han.getAttachedTo() == null);
+        assertFalse("Falcon should no longer be captured after the steal", falcon.isCapturedStarship());
+        assertEquals("Dark should own the stolen Falcon", scn.DS, falcon.getOwner());
+        assertTrue("Besieged cancels to Lost when the starship is stolen", inLostPile(besieged));
+        assertEquals(scn.DS, besieged.getZoneOwner());
     }
 
-    @Test
+    /**
+     * After the last character leaves a captured starship, finish any steal choices and leftover
+     * battle damage so the table settles.
+     */
+    private void resolveStealAndFinishBattle(VirtualTableScenario scn, PhysicalCardImpl falcon,
+                                             PhysicalCardImpl vcsd, PhysicalCardImpl system) {
+        for (int i = 0; i < 40; i++) {
+            if (scn.GetCurrentDecision() == null) {
+                return;
+            }
+            String text = decisionText(scn).toLowerCase();
+
+            if (text.contains("choose card to steal") && scn.DSHasCardChoiceAvailable(falcon)) {
+                scn.DSChooseCard(falcon);
+                passIfOptional(scn);
+                continue;
+            }
+            if (text.contains("choose where to steal")) {
+                if (scn.DSHasCardChoiceAvailable(system)) {
+                    scn.DSChooseCard(system);
+                } else if (scn.DSHasCardChoiceAvailable(vcsd)) {
+                    scn.DSChooseCard(vcsd);
+                }
+                passIfOptional(scn);
+                continue;
+            }
+            if (scn.AwaitingDSBattleDamagePayment() && scn.GetDSReserveDeckCount() >= 1) {
+                scn.DSPayRemainingBattleDamageFromReserveDeck();
+                continue;
+            }
+            if (scn.AwaitingLSBattleDamagePayment() && scn.GetLSReserveDeckCount() >= 1) {
+                scn.LSPayRemainingBattleDamageFromReserveDeck();
+                continue;
+            }
+            if (text.contains("optional")) {
+                scn.PassAllResponses();
+                continue;
+            }
+            // Unrecognized decision - stop rather than spinning forever.
+            return;
+        }
+    }
     public void ReleasePlusLaunchLeavesBesiegedOnTheStarship_2_117_Besieged() {
         var scn = GetScenario();
 
