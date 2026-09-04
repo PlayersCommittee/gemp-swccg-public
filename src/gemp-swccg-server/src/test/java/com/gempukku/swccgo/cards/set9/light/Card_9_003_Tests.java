@@ -11,7 +11,6 @@ import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -80,10 +79,9 @@ public class Card_9_003_Tests {
         assertEquals(Rarity.R, card.getRarity());
     }
 
-    @Test @Ignore
+    @Test
     public void ConcentrateAllFirePowerBonusIsNotCumulative() {
-        //this test fails and demonstrates issue #38
-        //https://github.com/PlayersCommittee/gemp-swccg-public/issues/38
+        // Issue 38: Concentrate All Fire +3 power is not cumulative per starship per battle.
 
         var scn = GetScenario();
 

@@ -71,8 +71,9 @@ public class ModifyPowerUntilEndOfBattleEffect extends AbstractSuccessfulEffect 
         // Filter for same card while it is in play
         Filter cardFilter = Filters.and(Filters.sameCardId(_cardToModify), Filters.in_play);
 
-        modifiersEnvironment.addUntilEndOfBattleModifier(
-                new PowerModifier(source, cardFilter, _modifierAmount));
+        PowerModifier powerModifier = new PowerModifier(source, cardFilter, _modifierAmount);
+        powerModifier.applyClauseIdentityFromAction(_action);
+        modifiersEnvironment.addUntilEndOfBattleModifier(powerModifier);
 
         actionsEnvironment.emitEffectResult(new ResetOrModifyCardAttributeResult(performingPlayerId, _cardToModify));
     }
