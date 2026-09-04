@@ -58,6 +58,11 @@ public class WeaponFiringState {
             else
                 _game.getModifiersQuerying().targetedByWeapon(target, _weaponFiring);
         }
+        SeparatelyOrCombinedFiringState soc = _game.getGameState().getSeparatelyOrCombinedFiringState();
+        if (soc != null && soc.isCombined() && !targets.isEmpty()) {
+            soc.setCombinedTarget(targets.iterator().next());
+            soc.setCardFiringWeapon(_cardFiringWeapon);
+        }
     }
 
     public Collection<PhysicalCard> getTargets() {

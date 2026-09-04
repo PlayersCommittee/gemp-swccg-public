@@ -2405,12 +2405,13 @@ var GempSwccgGameUI = Class.extend({
         var text = decision.getAttribute("text");
         var results = this.getDecisionParameters(decision, "results");
         var defaultIndex = this.getDecisionParameter(decision, "defaultIndex");
+        var asButtons = this.getDecisionParameter(decision, "asButtons") == "true";
 
         var that = this;
         this.smallDialog
             .html(text);
 
-        if (results.length > 2 || this.settingsAlwaysDropDown || defaultIndex >= 0) {
+        if (!asButtons && (results.length > 2 || this.settingsAlwaysDropDown || defaultIndex >= 0)) {
             var html = "<br /><select id='multipleChoiceDecision'>";
             for (var i = 0; i < results.length; i++) {
                 html += "<option " + (i == defaultIndex ? "selected='selected' " : "") + "value='" + i + "'>" + results[i] + "</option>";
