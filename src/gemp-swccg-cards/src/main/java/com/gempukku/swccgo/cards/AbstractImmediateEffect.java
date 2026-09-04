@@ -1,18 +1,34 @@
 package com.gempukku.swccgo.cards;
 
-import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.filters.Filter;
+import com.gempukku.swccgo.filters.Filters;
+import com.gempukku.swccgo.game.DeployAsCaptiveOption;
+import com.gempukku.swccgo.game.DeploymentOption;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.ReactActionOption;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.actions.PlayCardAction;
+import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.Effect;
+import com.gempukku.swccgo.logic.timing.EffectResult;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * The abstract class providing the common implementation for Immediate Effects.
  */
 public abstract class AbstractImmediateEffect extends AbstractEffect {
+    private static final ThreadLocal<Boolean> FORCE_MAY_DEPLOY_FOR_FREE = ThreadLocal.withInitial(() -> Boolean.FALSE);
 
     /**
      * Creates a blueprint for an Immediate Effect.
@@ -39,5 +55,124 @@ public abstract class AbstractImmediateEffect extends AbstractEffect {
     @Override
     protected boolean canPlayCardDuringCurrentPhase(String playerId, SwccgGame game, PhysicalCard self) {
         return false;
+    }
+
+    private boolean shouldOfferMayDeployForFree(SwccgGame game, PhysicalCard self) {
+        return game.getModifiersQuerying().mayDeployForFree(game.getGameState(), self)
+                && !game.getModifiersQuerying().grantedDeployForFree(game.getGameState(), self, null);
+    }
+
+    private void appendForFreeLabel(PlayCardAction freeAction) {
+        String text = freeAction.getText();
+        if (text != null && !text.toLowerCase().contains("for free")) {
+            freeAction.setText(text + " for free");
+        }
+    }
+
+    private void appendForceCostLabel(SwccgGame game, PhysicalCard self, PlayCardAction paidAction) {
+        String text = paidAction.getText();
+        if (text == null) {
+            return;
+        }
+        String lower = text.toLowerCase();
+        if (lower.contains("for free") || lower.contains(" force")) {
+            return;
+        }
+        int forceCost = Math.max(0, Math.round(game.getModifiersQuerying().getDeployCost(game.getGameState(), self)));
+        paidAction.setText(text + " for " + forceCost + " Force");
+    }
+
+    /**
+     * Rebuilds the action list so optional free-deploy play actions are first, then regular/paid play actions
+     * (labeled with the Force cost), then any remaining non-play actions.
+     */
+    private List<Action> orderFreeThenPaid(List<PlayCardAction> freeActions, List<Action> paidOrOtherActions, SwccgGame game, PhysicalCard self) {
+        List<Action> result = new LinkedList<Action>();
+        List<Action> paidPlayActions = new LinkedList<Action>();
+        List<Action> otherActions = new LinkedList<Action>();
+
+        if (paidOrOtherActions != null) {
+            for (Action action : paidOrOtherActions) {
+                if (action instanceof PlayCardAction) {
+                    appendForceCostLabel(game, self, (PlayCardAction) action);
+                    paidPlayActions.add(action);
+                }
+                else {
+                    otherActions.add(action);
+                }
+            }
+        }
+
+        if (freeActions != null) {
+            for (PlayCardAction freeAction : freeActions) {
+                appendForFreeLabel(freeAction);
+                result.add(freeAction);
+            }
+        }
+        result.addAll(paidPlayActions);
+        result.addAll(otherActions);
+        return result;
+    }
+
+    private boolean forceMayDeployForFree() {
+        return Boolean.TRUE.equals(FORCE_MAY_DEPLOY_FOR_FREE.get());
+    }
+
+    @Override
+    public List<PlayCardAction> getPlayCardActions(String playerId, SwccgGame game, PhysicalCard self, PhysicalCard sourceCard, boolean forFree, float changeInCost, DeploymentOption deploymentOption, DeploymentRestrictionsOption deploymentRestrictionsOption, DeployAsCaptiveOption deployAsCaptiveOption, ReactActionOption reactActionOption, PhysicalCard cardToDeployWith, boolean cardToDeployWithForFree, float cardToDeployWithChangeInCost, Filter deployTargetFilter, Filter specialLocationConditions) {
+        if (!forFree && forceMayDeployForFree()) {
+            forFree = true;
+        }
+        return super.getPlayCardActions(playerId, game, self, sourceCard, forFree, changeInCost, deploymentOption, deploymentRestrictionsOption, deployAsCaptiveOption, reactActionOption, cardToDeployWith, cardToDeployWithForFree, cardToDeployWithChangeInCost, deployTargetFilter, specialLocationConditions);
+    }
+
+    @Override
+    public List<Action> getTopLevelActions(String playerId, SwccgGame game, PhysicalCard self) {
+        List<Action> actions = super.getTopLevelActions(playerId, game, self);
+        if (canPlayCardDuringCurrentPhase(playerId, game, self)
+                && (self.getZone() != Zone.STACKED || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self))) {
+            boolean forFree = isCardTypeAlwaysPlayedForFree() || game.getGameState().getCurrentPhase() == Phase.PLAY_STARTING_CARDS;
+            if (!forFree && shouldOfferMayDeployForFree(game, self)) {
+                List<PlayCardAction> freePlayCardActions = getPlayCardActions(playerId, game, self, self, true, 0, null, null, null, null, null, false, 0, Filters.any, null);
+                return orderFreeThenPaid(freePlayCardActions, actions, game, self);
+            }
+        }
+        return actions;
+    }
+
+    @Override
+    public List<Action> getOptionalBeforeActions(String playerId, SwccgGame game, Effect effect, PhysicalCard self) {
+        if (self.getZone() != Zone.STACKED || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self)) {
+            if (shouldOfferMayDeployForFree(game, self)) {
+                List<Action> paidActions = super.getOptionalBeforeActions(playerId, game, effect, self);
+                FORCE_MAY_DEPLOY_FOR_FREE.set(Boolean.TRUE);
+                try {
+                    List<PlayCardAction> freeActions = getGameTextOptionalBeforeActions(playerId, game, effect, self, self.getCardId());
+                    return orderFreeThenPaid(freeActions, paidActions, game, self);
+                }
+                finally {
+                    FORCE_MAY_DEPLOY_FOR_FREE.set(Boolean.FALSE);
+                }
+            }
+        }
+        return super.getOptionalBeforeActions(playerId, game, effect, self);
+    }
+
+    @Override
+    public List<Action> getOptionalAfterActions(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
+        if (self.getZone() != Zone.STACKED || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self)) {
+            if (shouldOfferMayDeployForFree(game, self)) {
+                List<Action> paidActions = super.getOptionalAfterActions(playerId, game, effectResult, self);
+                FORCE_MAY_DEPLOY_FOR_FREE.set(Boolean.TRUE);
+                try {
+                    List<PlayCardAction> freeActions = getGameTextOptionalAfterActions(playerId, game, effectResult, self, self.getCardId());
+                    return orderFreeThenPaid(freeActions, paidActions, game, self);
+                }
+                finally {
+                    FORCE_MAY_DEPLOY_FOR_FREE.set(Boolean.FALSE);
+                }
+            }
+        }
+        return super.getOptionalAfterActions(playerId, game, effectResult, self);
     }
 }
