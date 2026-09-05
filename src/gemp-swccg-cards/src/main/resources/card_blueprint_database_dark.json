@@ -41323,6 +41323,35 @@
       }
     ]
   },
+    {
+    "cardId": "2_138",
+    "title": "Retract The Bridge",
+    "slug": "retract-the-bridge",
+    "slugWithSetName": "retract-the-bridge-a-new-hope",
+    "side": "DARK",
+    "uniqueness": "UNRESTRICTED",
+    "expansionSet": "A_NEW_HOPE",
+    "rarity": "R1",
+    "cardCategory": "INTERRUPT",
+    "cardTypes": [
+      "INTERRUPT"
+    ],
+    "cardSubtype": "LOST",
+    "lore": "Strategically retracted bridges can frustrate enemy movement, forcing routing plans to be rearranged.",
+    "gameText": "During your deploy phase, use X Force to rearrange all interior Death Star sites, where X = total number of those sites. All cards at a given site move along with that site. OR Cancel On The Edge.",
+    "destiny": 3,
+    "icons": [
+      {
+        "icon": "A_NEW_HOPE",
+        "count": 1
+      },
+      {
+        "icon": "INTERRUPT",
+        "count": 1
+      }
+    ]
+  },
+
   {
     "cardId": "2_139",
     "title": "Sniper",
