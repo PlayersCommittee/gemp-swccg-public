@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
-from requests import Session
-import xmltodict
+import os
 from pprint import PrettyPrinter
 from time import sleep
+
+import xmltodict
+from requests import Session
 
 
 
@@ -91,7 +93,9 @@ finished = False
 
 session = Session()
 
-gemp_base_url = 'http://0.0.0.0:17001/'
+gemp_port = os.environ.get("APP_PORT", "17001")
+
+gemp_base_url = f"http://127.0.0.1:{gemp_port}/"
 # If doing local testing, instead use the below line and
 # provide the appropriate port:
 #gemp_base_url = 'http://localhost:17010/'
@@ -185,4 +189,3 @@ get_game_hall()
 #    },
 #    headers={'Referer': gemp_base_url+'gemp-swccg/game.html'}
 #  )
-
