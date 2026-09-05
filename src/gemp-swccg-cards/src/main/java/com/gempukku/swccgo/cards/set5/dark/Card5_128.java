@@ -28,6 +28,7 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.CancelCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotAttemptJediTestsModifier;
+import com.gempukku.swccgo.logic.modifiers.MouseDroidUtinniCarry;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -96,8 +97,8 @@ public class Card5_128 extends AbstractUtinniEffect {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringOpponentsPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DRAW)
-            && GameConditions.isOnlyCaptured(game, self) ) {
-            int amountOfForce = Filters.frozenCaptive.accepts(game, self.getAttachedTo()) ? 3 : 2;
+            && isBaitCaptiveContext(game, self) ) {
+            int amountOfForce = Filters.frozenCaptive.accepts(game, MouseDroidUtinniCarry.getEffectSubjectHost(game.getGameState(), self)) ? 3 : 2;
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Make " + opponent + " lose " + amountOfForce + " Force");
@@ -124,7 +125,7 @@ public class Card5_128 extends AbstractUtinniEffect {
         // Check condition(s)
         if (TriggerConditions.released(game, effectResult, Filters.hasAttached(self))
                 || (TriggerConditions.isTableChanged(game, effectResult)
-                && GameConditions.isOnlyCaptured(game, self)
+                && isBaitCaptiveContext(game, self)
                 && GameConditions.isAtLocation(game, self, Filters.sameLocation(target)))
                 && GameConditions.canBeCanceled(game, self)) {
 
@@ -144,8 +145,8 @@ public class Card5_128 extends AbstractUtinniEffect {
         // Check if reached end of opponent's draw phase and action was not performed yet.
         if (TriggerConditions.isEndOfOpponentsPhase(game, self, effectResult, Phase.DRAW)
                 && GameConditions.isOnceDuringOpponentsPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DRAW)
-                && GameConditions.isOnlyCaptured(game, self) ) {
-            int amountOfForce = Filters.frozenCaptive.accepts(game, self.getAttachedTo()) ? 3 : 2;
+                && isBaitCaptiveContext(game, self) ) {
+            int amountOfForce = Filters.frozenCaptive.accepts(game, MouseDroidUtinniCarry.getEffectSubjectHost(game.getGameState(), self)) ? 3 : 2;
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Make " + opponent + " lose " + amountOfForce + " Force");
@@ -157,4 +158,17 @@ public class Card5_128 extends AbstractUtinniEffect {
 
         return actions;
     }
+
+    /** Captive host context: Utinni on captive, or Mouse carrying with remembered captive subject. */
+    private static boolean isBaitCaptiveContext(SwccgGame game, PhysicalCard self) {
+        if (GameConditions.isOnlyCaptured(game, self)) {
+            return true;
+        }
+        if (!MouseDroidUtinniCarry.isCarriedByMouseDroid(self)) {
+            return false;
+        }
+        PhysicalCard subject = MouseDroidUtinniCarry.getEffectSubjectHost(game.getGameState(), self);
+        return subject != null && Filters.captive.accepts(game, subject);
+    }
+
 }

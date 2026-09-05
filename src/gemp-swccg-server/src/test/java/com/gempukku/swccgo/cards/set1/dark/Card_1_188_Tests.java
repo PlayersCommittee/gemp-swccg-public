@@ -11,6 +11,7 @@ import com.gempukku.swccgo.common.TargetId;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.UtinniEffectStatus;
 import com.gempukku.swccgo.filters.Filters;
+import com.gempukku.swccgo.logic.modifiers.MouseDroidUtinniCarry;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
@@ -51,6 +52,7 @@ public class Card_1_188_Tests {
                     put("lando", "109_003");
                     put("cantina", "1_128");
                     put("plastoid", "1_059");
+                    put("tusken", "1_067");
                 }},
                 new HashMap<>() {{
                     put("mouse", "1_188");
@@ -70,6 +72,8 @@ public class Card_1_188_Tests {
                     put("failure", "4_120");
                     put("tie", "1_304");
                     put("juri", "1_220");
+                    put("bait", "5_128");
+                    put("tijw", "3_112");
                 }},
                 10,
                 10,
@@ -1508,6 +1512,142 @@ public class Card_1_188_Tests {
         assertEquals(5, scn.GetArmor(leia));
         assertEquals(leia, plastoid.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
         assertTrue(scn.game().getModifiersQuerying().getCardsOnTableTargetingCard(scn.gameState(), leia).contains(plastoid));
+    }
+
+
+    @Test
+    public void MouseDroid_1_188_CarriesThisIsJustWrongKeepsPowerPenaltyOnHuntedFemale() {
+        // TargetId-only class (DS): modifiers key off hunt TargetId, not hasAttached. Mouse must not become hunted.
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var tijw = scn.GetDSCard("tijw");
+        var oberk = scn.GetDSCard("oberk");
+        var leia = scn.GetLSCard("leia");
+        var jungle = scn.GetLSCard("jungle");
+        var presence = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(jungle);
+        var farm = scn.GetLSCard("farm");
+        scn.MoveLocationToTable(farm);
+        scn.MoveCardsToLocation(jungle, oberk, presence);
+        scn.MoveCardsToLocation(farm, leia);
+        scn.AttachCardsTo(oberk, tijw);
+        tijw.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, leia, Filters.any);
+        scn.MoveCardsToDSHand(mouse);
+
+        int leiaPowerBefore = scn.GetPower(leia);
+
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        // Deploy at Leia (hunted target); then move to Oberk to pick up TIJW.
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(farm);
+        scn.PassAllResponses();
+        scn.MoveCardsToLocation(jungle, mouse);
+
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, tijw);
+        assertTrue(scn.IsAttachedTo(mouse, tijw));
+        assertEquals(leia, tijw.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertEquals(oberk, tijw.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+        assertTrue(scn.game().getModifiersQuerying().getCardsOnTableTargetingCard(scn.gameState(), leia).contains(tijw));
+        // TargetId-class: hunted female still targeted; mouse is carrier only (power may floor at 0).
+        assertTrue(scn.GetPower(leia) <= leiaPowerBefore);
+        assertFalse(leia.equals(mouse));
+    }
+
+    @Test
+    public void MouseDroid_1_188_JuriCancelUsesEffectSubjectNotMouseLocation() {
+        // getAttachedTo / subject-host class: cancel when the original alien reaches Cantina, even if Mouse is elsewhere.
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var juri = scn.GetDSCard("juri");
+        var lando = scn.GetLSCard("lando");
+        var cantina = scn.GetLSCard("cantina");
+        var jungle = scn.GetLSCard("jungle");
+        var presence = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(cantina);
+        scn.MoveLocationToTable(jungle);
+        scn.MoveCardsToLocation(jungle, lando, presence);
+        scn.AttachCardsTo(lando, juri);
+        scn.MoveCardsToDSHand(mouse);
+
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(jungle);
+        scn.PassAllResponses();
+
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, juri);
+        assertTrue(scn.IsAttachedTo(mouse, juri));
+        assertEquals(lando, MouseDroidUtinniCarry.getEffectSubjectHost(scn.gameState(), juri));
+
+        // Mouse stays at jungle; alien alone moves to Cantina (not driving) -> Juri cancels.
+        scn.MoveCardsToLocation(cantina, lando);
+        scn.SkipToPhase(Phase.DEPLOY);
+        scn.PassAllResponses();
+        assertInZone(Zone.LOST_PILE, juri);
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesWereTheBaitKeepsCaptiveSubjectNotHuntTargetForHasAttached() {
+        // Mixed class: hasAttached means captive host; TargetId is Luke. Redirect must prefer remembered subject.
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var bait = scn.GetDSCard("bait");
+        var han = scn.GetLSCard("han");
+        var luke = scn.GetLSCard("luke");
+        var trooper = scn.GetDSFiller(1);
+        var jungle = scn.GetLSCard("jungle");
+        var presence = scn.GetDSFiller(2);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(jungle);
+        scn.MoveCardsToLocation(jungle, trooper, luke, presence, mouse);
+        scn.CaptureCardWith(trooper, han);
+        // Simulate Mouse-carry after relocate off captive: physical host is mouse; subject remembered separately.
+        scn.AttachCardsTo(mouse, bait);
+        bait.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, luke, Filters.any);
+        bait.setTargetedCard(TargetId.EFFECT_TARGET_1, 0, han, Filters.any);
+
+        assertTrue(scn.IsAttachedTo(mouse, bait));
+        assertEquals(luke, bait.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertEquals(han, bait.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+        assertEquals(han, MouseDroidUtinniCarry.getEffectSubjectHost(scn.gameState(), bait));
+        // hasAttached must match captive subject (Han), not hunted Luke ? release-cancel class.
+        assertTrue(Filters.hasAttached(bait).accepts(scn.game(), han));
+        assertFalse(Filters.hasAttached(bait).accepts(scn.game(), luke));
+        assertFalse(Filters.hasAttached(bait).accepts(scn.game(), mouse));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesReachedTuskenBreathMaskAppliesBonusesViaHuntTargetFallback() {
+        // Site-hosted hasAttached+TargetId class (LS): no EFFECT_TARGET_1 subject; hasAttached falls back to hunt TargetId.
+        // Simulate Mouse-carry (REACHED Tusken auto-attaches to a present target, so live relocate races that rule).
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var tusken = scn.GetLSCard("tusken");
+        var leia = scn.GetLSCard("leia");
+        var cantina = scn.GetLSCard("cantina");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(cantina);
+        scn.MoveCardsToLocation(cantina, leia, mouse);
+        int powerBeforeWithoutMask = scn.GetPower(leia);
+        tusken.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, leia, Filters.any);
+        tusken.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.AttachCardsTo(mouse, tusken);
+
+        assertTrue(scn.IsAttachedTo(mouse, tusken));
+        assertTrue(Filters.hasAttached(tusken).accepts(scn.game(), leia));
+        assertFalse(Filters.hasAttached(tusken).accepts(scn.game(), mouse));
+        // While Mouse carries reached mask, Tatooine target keeps +2 via hasAttached?TargetId fallback.
+        assertEquals(powerBeforeWithoutMask + 2, scn.GetPower(leia));
+        assertEquals(leia, tusken.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertEquals(null, tusken.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
     }
 
     private String decisionText(VirtualTableScenario scn) {

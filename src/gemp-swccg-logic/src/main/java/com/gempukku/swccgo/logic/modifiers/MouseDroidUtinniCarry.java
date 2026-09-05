@@ -11,13 +11,18 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
- * Mouse Droid "carry" vs "hunted target" helper.
+ * Central Mouse Droid "carry" vs "hunted target" / "effect subject" resolution.
  *
  * Forum nuance: the mouse carries a relocated Utinni Effect; it does not become the hunted target.
  * Original targets keep the Utinni's game-text modifiers while the Utinni card is attached to the mouse.
  *
- * Thin / reversible: delete this class and the call sites (Filters.hasAttached, Mouse relocate,
- * ModifiersLogic Card Info) if Rules Committee reverses the carry ruling.
+ * Two host concepts while carried:
+ * - Effect subject (previous character/starship/vehicle host): remembered on TargetId.EFFECT_TARGET_1.
+ *   Used for Filters.hasAttached(utinni) when the card was deployed on that host (Juri Juice, We're The Bait captive).
+ * - Hunt TargetIds (UTINNI_EFFECT_TARGET_1/2): preserved as-is. Site-hosted packages (Plastoid, Tusken Breath Mask)
+ *   that key modifiers with hasAttached+TargetId fall back to these when no effect subject was remembered.
+ *
+ * Prefer this helper over per-card Mouse exceptions. Reversible if Rules Committee reverses the carry ruling.
  */
 public final class MouseDroidUtinniCarry {
     private MouseDroidUtinniCarry() {
@@ -51,36 +56,80 @@ public final class MouseDroidUtinniCarry {
         return isMouseDroid(host);
     }
 
+    private static boolean isCharacterStarshipOrVehicle(PhysicalCard card) {
+        if (card == null || card.getBlueprint() == null) {
+            return false;
+        }
+        CardCategory category = card.getBlueprint().getCardCategory();
+        return category == CardCategory.CHARACTER || category == CardCategory.STARSHIP || category == CardCategory.VEHICLE;
+    }
+
     /**
-     * When Mouse relocates an Utinni off a character/starship/vehicle, remember that host as the hunted
-     * target if no Utinni hunt TargetId is set yet (deploy-on-character Utinnis like Juri Juice).
-     * Does not overwrite existing hunt targets (SADD, Destroyed Homestead, etc.).
-     * Ignores DEPLOY_TARGET, which always tracks the physical host and becomes the mouse after relocate.
+     * On Mouse relocate: remember previous character/starship/vehicle host as the effect subject
+     * (TargetId.EFFECT_TARGET_1), and if no hunt TargetIds exist yet, also store that host as
+     * UTINNI_EFFECT_TARGET_1 (deploy-on-character Utinnis like Juri Juice).
+     * Does not overwrite existing hunt targets (SADD, We're The Bait Luke, Destroyed Homestead, etc.).
      */
-    public static void preservePreviousHostAsHuntedTargetIfNeeded(PhysicalCard utinni, PhysicalCard previousHost, GameState gameState) {
+    public static void rememberHostsOnMouseRelocate(PhysicalCard utinni, PhysicalCard previousHost, GameState gameState) {
         if (utinni == null || previousHost == null || gameState == null) {
             return;
         }
         if (!isUtinniEffect(utinni)) {
             return;
         }
-        CardCategory category = previousHost.getBlueprint().getCardCategory();
-        if (category != CardCategory.CHARACTER && category != CardCategory.STARSHIP && category != CardCategory.VEHICLE) {
+        if (!isCharacterStarshipOrVehicle(previousHost) || isMouseDroid(previousHost)) {
             return;
         }
-        if (isMouseDroid(previousHost)) {
-            return;
+        // Effect subject: always remember previous deploy/physical host when relocating off a card host.
+        utinni.setTargetedCard(TargetId.EFFECT_TARGET_1, 0, previousHost, Filters.any);
+        // Hunt TargetId only when missing (character-hosted Utinnis with empty getUtinniEffectTargetIds).
+        if (utinni.getTargetedCard(gameState, TargetId.UTINNI_EFFECT_TARGET_1) == null
+                && utinni.getTargetedCard(gameState, TargetId.UTINNI_EFFECT_TARGET_2) == null) {
+            utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, previousHost, Filters.any);
         }
-        if (utinni.getTargetedCard(gameState, TargetId.UTINNI_EFFECT_TARGET_1) != null
-                || utinni.getTargetedCard(gameState, TargetId.UTINNI_EFFECT_TARGET_2) != null) {
-            return;
-        }
-        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, previousHost, Filters.any);
     }
 
     /**
-     * For Filters.hasAttached(utinni): while carried by Mouse, treat Utinni hunt TargetId card(s) as the
-     * effect host instead of the mouse. Otherwise use real attachedTo.
+     * @deprecated use {@link #rememberHostsOnMouseRelocate}
+     */
+    public static void preservePreviousHostAsHuntedTargetIfNeeded(PhysicalCard utinni, PhysicalCard previousHost, GameState gameState) {
+        rememberHostsOnMouseRelocate(utinni, previousHost, gameState);
+    }
+
+    /**
+     * Clears the Mouse-carry effect-subject marker (EFFECT_TARGET_1) after the Utinni leaves the mouse.
+     * Does not clear UTINNI_EFFECT_TARGET hunt data.
+     */
+    public static void clearMouseCarryEffectSubject(PhysicalCard utinni) {
+        if (!isUtinniEffect(utinni)) {
+            return;
+        }
+        utinni.setTargetedCard(TargetId.EFFECT_TARGET_1, null, null, null);
+    }
+
+    /**
+     * Game-text "attached to" / effect-subject host: while Mouse carries, prefer the remembered previous host
+     * (EFFECT_TARGET_1). Otherwise the real physical attachedTo.
+     * Use this instead of raw getAttachedTo() in Utinni cards that mean "the character this was deployed on".
+     */
+    public static PhysicalCard getEffectSubjectHost(GameState gameState, PhysicalCard utinni) {
+        if (utinni == null) {
+            return null;
+        }
+        if (isCarriedByMouseDroid(utinni) && gameState != null) {
+            PhysicalCard remembered = utinni.getTargetedCard(gameState, TargetId.EFFECT_TARGET_1);
+            if (remembered != null) {
+                return remembered;
+            }
+        }
+        return utinni.getAttachedTo();
+    }
+
+    /**
+     * For Filters.hasAttached(utinni): while carried by Mouse —
+     * 1) match remembered effect subject (previous character host) if present;
+     * 2) else match hunt TargetId cards (site-hosted hasAttached+TargetId modifiers like Plastoid/Tusken).
+     * Otherwise use real attachedTo.
      */
     public static boolean acceptsAsEffectHost(GameState gameState, ModifiersQuerying modifiersQuerying,
                                               PhysicalCard utinni, PhysicalCard candidate) {
@@ -88,6 +137,10 @@ public final class MouseDroidUtinniCarry {
             return false;
         }
         if (isCarriedByMouseDroid(utinni)) {
+            PhysicalCard subject = utinni.getTargetedCard(gameState, TargetId.EFFECT_TARGET_1);
+            if (subject != null) {
+                return Filters.sameCardId(subject).accepts(gameState, modifiersQuerying, candidate);
+            }
             for (TargetId targetId : new TargetId[] { TargetId.UTINNI_EFFECT_TARGET_1, TargetId.UTINNI_EFFECT_TARGET_2 }) {
                 PhysicalCard hunted = utinni.getTargetedCard(gameState, targetId);
                 if (hunted != null && Filters.sameCardId(hunted).accepts(gameState, modifiersQuerying, candidate)) {
@@ -102,14 +155,15 @@ public final class MouseDroidUtinniCarry {
     }
 
     /**
-     * Card Info: while Mouse carries an Utinni that still has hunted Utinni TargetId data, do not treat the
-     * mouse as targeted merely because the Utinni is attached (mouse is host/carrier only).
+     * Card Info: while Mouse carries an Utinni that still has hunted Utinni TargetId data or a remembered
+     * effect subject, do not treat the mouse as targeted merely because the Utinni is attached.
      */
     public static boolean shouldSkipAttachmentTargetingForCardInfo(GameState gameState, PhysicalCard attachedCard, PhysicalCard host) {
         if (!isUtinniEffect(attachedCard) || !isMouseDroid(host) || gameState == null) {
             return false;
         }
         return attachedCard.getTargetedCard(gameState, TargetId.UTINNI_EFFECT_TARGET_1) != null
-                || attachedCard.getTargetedCard(gameState, TargetId.UTINNI_EFFECT_TARGET_2) != null;
+                || attachedCard.getTargetedCard(gameState, TargetId.UTINNI_EFFECT_TARGET_2) != null
+                || attachedCard.getTargetedCard(gameState, TargetId.EFFECT_TARGET_1) != null;
     }
 }

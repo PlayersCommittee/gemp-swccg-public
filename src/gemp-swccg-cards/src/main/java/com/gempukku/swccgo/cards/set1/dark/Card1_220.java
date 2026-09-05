@@ -21,6 +21,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.CancelCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.CantStealModifier;
+import com.gempukku.swccgo.logic.modifiers.MouseDroidUtinniCarry;
 import com.gempukku.swccgo.logic.modifiers.MayNotApplyAbilityForBattleDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -78,7 +79,7 @@ public class Card1_220 extends AbstractUtinniEffect {
         if (!GameConditions.cardHasWhileInPlayDataSet(self)) {
 
             // Check condition(s)
-            PhysicalCard attachedTo = self.getAttachedTo();
+            PhysicalCard attachedTo = MouseDroidUtinniCarry.getEffectSubjectHost(game.getGameState(), self);
             if (attachedTo != null
                     && TriggerConditions.movedUsingLandspeed(game, effectResult, Filters.and(Filters.vehicle, Filters.hasDriving(attachedTo)))) {
                 // Set Utinni Effect info which just means that the alien drove a vehicle
@@ -91,7 +92,7 @@ public class Card1_220 extends AbstractUtinniEffect {
             // Check condition(s)
             if (TriggerConditions.isTableChanged(game, effectResult)
                     && !GameConditions.cardHasWhileInPlayDataSet(self)
-                    && GameConditions.isAtLocation(game, self, Filters.or(Filters.Cantina, Filters.Mos_Eisley,
+                    && GameConditions.isAtLocation(game, (MouseDroidUtinniCarry.getEffectSubjectHost(game.getGameState(), self) != null ? MouseDroidUtinniCarry.getEffectSubjectHost(game.getGameState(), self) : self), Filters.or(Filters.Cantina, Filters.Mos_Eisley,
                     Filters.sameSiteAs(self, Filters.Jabbas_Sail_Barge), Filters.siteOfStarshipOrVehicle(Persona.JABBAS_SAIL_BARGE, false)))
                     && GameConditions.canBeCanceled(game, self)) {
 

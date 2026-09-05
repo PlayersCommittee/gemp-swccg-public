@@ -166,7 +166,7 @@ public class Card1_188 extends AbstractDroid {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_1);
             action.setText("Relocate Utinni Effect here");
-            // Choose target(s) — live filter so after relocating one, siblings at the site remain choosable.
+            // Choose target(s) â€” live filter so after relocating one, siblings at the site remain choosable.
             action.appendTargeting(
                     new ChooseCardOnTableEffect(action, playerId, "Choose Utinni Effect to relocate here", relocatableUtinni) {
                         @Override
@@ -181,7 +181,7 @@ public class Card1_188 extends AbstractDroid {
                                             // Remember previous host as hunted target when needed (Juri Juice etc.).
                                             // Mouse carries the Utinni; it must not become the primary hunted target.
                                             PhysicalCard previousHost = utinniEffect.getAttachedTo();
-                                            MouseDroidUtinniCarry.preservePreviousHostAsHuntedTargetIfNeeded(utinniEffect, previousHost, game.getGameState());
+                                            MouseDroidUtinniCarry.rememberHostsOnMouseRelocate(utinniEffect, previousHost, game.getGameState());
                                             // Perform result(s)
                                             action.appendEffect(
                                                     new AttachCardFromTableEffect(action, utinniEffect, self));
@@ -197,7 +197,7 @@ public class Card1_188 extends AbstractDroid {
     }
 
     /**
-     * True if the card is a hunted character, starship, or vehicle — not a location and not this mouse.
+     * True if the card is a hunted character, starship, or vehicle â€” not a location and not this mouse.
      */
     private boolean isHuntedTargetCard(PhysicalCard self, PhysicalCard target) {
         if (target == null || target.getCardId() == self.getCardId()) {
@@ -281,6 +281,7 @@ public class Card1_188 extends AbstractDroid {
     private void appendPlaceDeliveredUtinnis(RequiredGameTextTriggerAction action, SwccgGame game, PhysicalCard self, Collection<PhysicalCard> delivered) {
         PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self);
         for (PhysicalCard utinni : delivered) {
+            MouseDroidUtinniCarry.clearMouseCarryEffectSubject(utinni);
             PhysicalCard host = choosePlaceToPutDeliveredUtinni(game, self, utinni, location);
             if (host != null) {
                 action.appendEffect(
@@ -291,6 +292,7 @@ public class Card1_188 extends AbstractDroid {
 
     private void appendLoseLeftoverUtinnis(RequiredGameTextTriggerAction action, Collection<PhysicalCard> leftovers) {
         for (PhysicalCard leftover : leftovers) {
+            MouseDroidUtinniCarry.clearMouseCarryEffectSubject(leftover);
             action.appendEffect(
                     new LoseCardFromTableEffect(action, leftover));
         }
@@ -310,7 +312,7 @@ public class Card1_188 extends AbstractDroid {
         boolean hasDelivered = !delivered.isEmpty();
         PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self);
 
-        // Any delivery requires return to hand. Leftover (undelivered) packages go to Lost — the mouse cannot stay in play carrying them.
+        // Any delivery requires return to hand. Leftover (undelivered) packages go to Lost â€” the mouse cannot stay in play carrying them.
         if (hasDelivered) {
             // Remember delivery even if a Utinni is then stolen off the mouse
             // (choosing Organa's Ceremonial Necklace steal before Return).
@@ -336,7 +338,7 @@ public class Card1_188 extends AbstractDroid {
         // Place each delivered Utinni on its hunted target (or legal host).
         // A stolen necklace is already on the Imperial, so it is not re-attached here if it left the mouse.
         appendPlaceDeliveredUtinnis(action, game, self, delivered);
-        // Undelivered leftovers cannot stay on the mouse — mouse must return — so they go to Lost Pile.
+        // Undelivered leftovers cannot stay on the mouse â€” mouse must return â€” so they go to Lost Pile.
         appendLoseLeftoverUtinnis(action, leftovers);
         action.appendEffect(
                 new ReturnCardToHandFromTableEffect(action, self));
