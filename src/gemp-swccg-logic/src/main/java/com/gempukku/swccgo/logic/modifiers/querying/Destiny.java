@@ -38,6 +38,9 @@ public interface Destiny extends BaseQuery {
             result = modifier.getPrintedValueDefinedByGameText(gameState, query(), physicalCard);
             modifierCollector.addModifier(modifier);
         }
+
+        Float printedDestiny = result;
+
         // If value if undefined, then return 0
         if (result == null)
             return 0;
@@ -59,14 +62,21 @@ public interface Destiny extends BaseQuery {
             modifierCollector.addModifier(modifier);
         }
 
-        return result;
-    }
-
-    default float getDestinyModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-        float result = 0;
-        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.DESTINY_INCREASE_MODIFIER_LIMIT, physicalCard)) {
-            result = modifier.getDestinyModifierLimit(gameState, query(), physicalCard);
+        // Check if value is limited (above printed value), and use lowest found
+        Float lowestIncreaseLimitValue = null;
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.DESTINY_INCREASE_LIMITED_TO, physicalCard)) {
+            float modifierAmount = modifier.getDestinyIncreaseLimit(gameState, query(), physicalCard);
+            if (modifierAmount >= 0) {
+                lowestIncreaseLimitValue = (lowestIncreaseLimitValue != null) ? Math.min(lowestIncreaseLimitValue, modifierAmount) : modifierAmount;
+                modifierCollector.addModifier(modifier);
+            }
         }
+        if (lowestIncreaseLimitValue != null) {
+            if(result > printedDestiny + lowestIncreaseLimitValue) {
+                result = printedDestiny + lowestIncreaseLimitValue;
+            }
+        }
+
         return result;
     }
 

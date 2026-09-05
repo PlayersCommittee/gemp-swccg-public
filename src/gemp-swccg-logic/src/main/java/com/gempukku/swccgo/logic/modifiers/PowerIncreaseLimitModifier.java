@@ -10,16 +10,16 @@ import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
 /**
- * A power increase limit modifier.
+ * A power increase (above printed power) limit modifier.
  */
 public class PowerIncreaseLimitModifier extends AbstractModifier {
     private Evaluator _evaluator;
 
     /**
-     * Creates a power increase limit modifier.
+     * Creates a power increase (above printed power) limit modifier.
      *
      * @param source         the source of the modifier
-     * @param affectFilter   the filter for cards whose forfeit value is modified
+     * @param affectFilter   the filter for cards whose power value is limited
      * @param modifierAmount the amount of the modifier
      */
     public PowerIncreaseLimitModifier(PhysicalCard source, Filterable affectFilter, float modifierAmount) {
@@ -27,30 +27,30 @@ public class PowerIncreaseLimitModifier extends AbstractModifier {
     }
 
     /**
-     * Creates a power increase limit modifier.
+     * Creates a power increase (above printed power) limit modifier.
      *
      * @param source       the source of the modifier
-     * @param affectFilter the filter for cards whose forfeit value is modified
+     * @param affectFilter the filter for cards whose power value is limited
      * @param condition    the condition that must be fulfilled for the modifier to be in effect
      * @param evaluator    the evaluator that calculates the amount of the modifier
      * @param cumulative   true if the modifier is cumulative, otherwise false
      */
     public PowerIncreaseLimitModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator, boolean cumulative) {
-        super(source, null, affectFilter, condition, ModifierType.POWER_INCREASE_MODIFIER_LIMIT, cumulative);
+        super(source, null, affectFilter, condition, ModifierType.POWER_INCREASE_LIMITED_TO, cumulative);
         _evaluator = evaluator;
     }
 
     @Override
     public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        final float value = getPowerModifierLimit(gameState, modifiersQuerying, self);
+        final float value = getPowerIncreaseLimit(gameState, modifiersQuerying, self);
         if (value > 0)
-            return "Power may not be increased by more than " + GuiUtils.formatAsString(value);
+            return "Power may not be increased (above printed value) by more than " + GuiUtils.formatAsString(value);
         else
             return null;
     }
 
     @Override
-    public float getPowerModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+    public float getPowerIncreaseLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
         return _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
     }
 }

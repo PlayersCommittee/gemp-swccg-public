@@ -530,7 +530,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public float getPowerModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+    public float getPowerIncreaseLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
         return 0;
     }
 
@@ -597,7 +597,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public float getForfeitModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+    public float getForfeitIncreaseLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
         return 0;
     }
 
@@ -607,7 +607,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public float getDestinyModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+    public float getDestinyIncreaseLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
         return 0;
     }
 

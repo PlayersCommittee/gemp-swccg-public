@@ -57,7 +57,10 @@ public interface Power extends BaseQuery, Attributes, Destiny, Piloting, Politic
                 modifierCollector.addModifier(modifier);
             }
         }
-        // If value if undefined, then return 0
+
+        Float printedPower = result;
+
+        // If value is undefined, then return 0
         if (result == null)
             return 0;
 
@@ -93,15 +96,22 @@ public interface Power extends BaseQuery, Attributes, Destiny, Piloting, Politic
             result = lowestResetValue;
         }
 
-        return Math.max(0, result);
-    }
-
-    default float getPowerModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-        float result = 0;
-        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.POWER_INCREASE_MODIFIER_LIMIT, physicalCard)) {
-            result = modifier.getPowerModifierLimit(gameState, query(), physicalCard);
+        // Check if value is limited (above printed value), and use lowest found
+        Float lowestIncreaseLimitValue = null;
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.POWER_INCREASE_LIMITED_TO, physicalCard)) {
+            float modifierAmount = modifier.getPowerIncreaseLimit(gameState, query(), physicalCard);
+            if (modifierAmount >= 0) {
+                lowestIncreaseLimitValue = (lowestIncreaseLimitValue != null) ? Math.min(lowestIncreaseLimitValue, modifierAmount) : modifierAmount;
+                modifierCollector.addModifier(modifier);
+            }
         }
-        return result;
+        if (lowestIncreaseLimitValue != null) {
+            if(result > printedPower + lowestIncreaseLimitValue) {
+                result = printedPower + lowestIncreaseLimitValue;
+            }
+        }
+
+        return Math.max(0, result);
     }
 
     /**

@@ -128,6 +128,21 @@ public interface Forfeit extends BaseQuery, Attributes, Destiny, Flags, Keywords
             result = lowestResetValue;
         }
 
+        // Check if value is limited (above printed value), and use lowest found
+        Float lowestIncreaseLimitValue = null;
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.FORFEIT_INCREASE_LIMITED_TO, physicalCard)) {
+            float modifierAmount = modifier.getForfeitIncreaseLimit(gameState, query(), physicalCard);
+            if (modifierAmount >= 0) {
+                lowestIncreaseLimitValue = (lowestIncreaseLimitValue != null) ? Math.min(lowestIncreaseLimitValue, modifierAmount) : modifierAmount;
+                modifierCollector.addModifier(modifier);
+            }
+        }
+        if (lowestIncreaseLimitValue != null) {
+            if(result > printedForfeit + lowestIncreaseLimitValue) {
+                result = printedForfeit + lowestIncreaseLimitValue;
+            }
+        }
+
         boolean forfeitMayNotIncreaseBeyondPrinted = isProhibitedFromHavingForfeitIncreasedBeyondPrinted(gameState, physicalCard, modifierCollector);
         if (forfeitMayNotIncreaseBeyondPrinted) {
             if (result > printedForfeit) {
@@ -136,14 +151,6 @@ public interface Forfeit extends BaseQuery, Attributes, Destiny, Flags, Keywords
         }
 
         return Math.max(0, result);
-    }
-
-    default float getForfeitModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-        float result = 0;
-        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.FORFEIT_INCREASE_MODIFIER_LIMIT, physicalCard)) {
-            result = modifier.getForfeitModifierLimit(gameState, query(), physicalCard);
-        }
-        return result;
     }
 
     /**
