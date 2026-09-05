@@ -2928,9 +2928,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
     public List<PhysicalCard> getCardsOnTableTargetingCard(GameState gameState, PhysicalCard card) {
         List<PhysicalCard> cardsTargetingCard = new LinkedList<PhysicalCard>();
 
-        // Any cards attached to this card are targeting it (except captives)
+        // Any cards attached to this card are targeting it (except captives).
+        // Mouse carry: an Utinni on a Mouse with hunted TargetId data does not make the mouse the hunted target.
         for (PhysicalCard attachedCard : card.getCardsAttached()) {
-            if (!attachedCard.isCaptive() && !cardsTargetingCard.contains(attachedCard)) {
+            if (!attachedCard.isCaptive() && !cardsTargetingCard.contains(attachedCard)
+                    && !MouseDroidUtinniCarry.shouldSkipAttachmentTargetingForCardInfo(gameState, attachedCard, card)) {
                 cardsTargetingCard.add(attachedCard);
             }
         }

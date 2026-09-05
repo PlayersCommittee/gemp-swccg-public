@@ -109,6 +109,10 @@ public class Card1_059 extends AbstractEffect {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        // Elom turns this into a normal Effect disguise: no hunt / reach / relocate-to-target.
+        if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.PLASTOID_ARMOR__CHANGE_DEPLOYMENT))
+            return null;
+
         final GameState gameState = game.getGameState();
         PhysicalCard target = self.getTargetedCard(gameState, TargetId.UTINNI_EFFECT_TARGET_1);
 
