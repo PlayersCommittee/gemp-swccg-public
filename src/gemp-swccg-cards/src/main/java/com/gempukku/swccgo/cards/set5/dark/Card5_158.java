@@ -19,6 +19,7 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromHandEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -81,9 +82,12 @@ public class Card5_158 extends AbstractLostInterrupt {
                         public String getChoiceText() {
                             return "Choose a TIE or pilot to deploy as a 'react'";
                         }
-
+                    }
+            );
+            action.appendEffect(
+                    new PassthruEffect(action) {
                         @Override
-                        protected void cardDeployed(PhysicalCard card) {
+                        protected void doPlayEffect(SwccgGame game) {
                             appendOptionalAdditionalReactDeploys(action, playerId, game, deployFilter, locationFilter);
                         }
                     }
@@ -105,9 +109,12 @@ public class Card5_158 extends AbstractLostInterrupt {
                         }
                         PhysicalCard selectedCard = selectedCards.iterator().next();
                         action.appendEffect(
-                                new DeployCardToLocationFromHandEffect(action, selectedCard, locationFilter, false, true) {
+                                new DeployCardToLocationFromHandEffect(action, selectedCard, locationFilter, false, true)
+                        );
+                        action.appendEffect(
+                                new PassthruEffect(action) {
                                     @Override
-                                    protected void cardDeployed(PhysicalCard card) {
+                                    protected void doPlayEffect(SwccgGame game) {
                                         appendOptionalAdditionalReactDeploys(action, playerId, game, deployFilter, locationFilter);
                                     }
                                 }
