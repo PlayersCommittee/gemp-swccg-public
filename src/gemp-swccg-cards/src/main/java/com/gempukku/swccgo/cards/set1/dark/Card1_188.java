@@ -226,6 +226,12 @@ public class Card1_188 extends AbstractDroid {
      */
     private boolean isDeliveredUtinni(SwccgGame game, PhysicalCard self, PhysicalCard utinni) {
         GameState gameState = game.getGameState();
+        // TargetId presence alone is not delivery. Class B Utinnis (for example SADD)
+        // target a hunted character but remain at their deployed site; only treat a
+        // package as delivered after its own reached/relocate-to-target effect fired.
+        if (!GameConditions.isUtinniEffectReached(game, utinni)) {
+            return false;
+        }
         List<TargetId> targetIds = utinni.getBlueprint().getUtinniEffectTargetIds(utinni.getOwner(), game, utinni);
         if (targetIds == null || targetIds.isEmpty()) {
             return false;

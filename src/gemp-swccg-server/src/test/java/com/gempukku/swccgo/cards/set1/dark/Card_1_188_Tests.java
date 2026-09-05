@@ -468,11 +468,12 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_DeliveryAtTargetSiteCompletesUtinniAndMouseReturnsToHand() {
+    public void MouseDroid_1_188_CarriedSendADetachmentDownStaysOnMouseWhenTrooperPresent() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var sadd = scn.GetDSCard("sadd");
         var dsDb = scn.GetLSCard("ds-db");
+        var trooper = scn.GetDSFiller(1);
 
         scn.StartGame();
         scn.MoveCardsToDSHand(mouse);
@@ -486,20 +487,19 @@ public class Card_1_188_Tests {
         AcceptRelocate(scn, mouse, sadd);
         assertTrue(scn.IsAttachedTo(mouse, sadd));
 
+        // SADD is Class B: the trooper being co-present does not relocate SADD or return Mouse.
         scn.MoveCardsToLocation(dsDb, mouse);
         scn.SkipToPhase(Phase.BATTLE);
-        if (scn.DSAnyDecisionsAvailable() && scn.DSActionAvailable("Return")) {
-            scn.DSChooseAction("Return");
-        }
         if (scn.DSAnyDecisionsAvailable()) {
             scn.PassAllResponses();
         }
-        var trooper = scn.GetDSFiller(1);
-        assertInHand(mouse);
-        // SADD cannot sit on a docking bay, so delivery attaches it to the hunted trooper.
-        assertTrue(scn.IsAttachedTo(trooper, sadd) || scn.IsAttachedTo(dsDb, sadd) || scn.CardsAtLocation(dsDb, sadd));
+        assertTrue("Mouse remains on the table after carrying SADD to its hunted trooper",
+                scn.CardsAtLocation(dsDb, mouse));
+        assertTrue("SADD remains attached to Mouse at the trooper's site",
+                scn.IsAttachedTo(mouse, sadd));
+        assertFalse("SADD must never attach to the hunted trooper",
+                scn.IsAttachedTo(trooper, sadd));
     }
-
     @Test
     public void MouseDroid_1_188_VehiclePresentReachWorks() {
         var scn = GetScenario();
@@ -610,7 +610,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_SendADetachmentDownPickupAndDelivery() {
+    public void MouseDroid_1_188_SendADetachmentDownPickupStaysCarriedUntilItsOwnRulesRelocateIt() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var sadd = scn.GetDSCard("sadd");
@@ -623,22 +623,14 @@ public class Card_1_188_Tests {
         scn.DSChooseCard(dsDb);
         scn.PassAllResponses();
 
+        // Pick SADD up away from its hunted trooper. It remains on Mouse and does not trigger return.
         scn.MoveCardsToLocation(scn.GetDSStartingLocation(), mouse);
         scn.SkipToPhase(Phase.CONTROL);
         AcceptRelocate(scn, mouse, sadd);
         assertTrue(scn.IsAttachedTo(mouse, sadd));
-
-        scn.MoveCardsToLocation(dsDb, mouse);
-        scn.SkipToPhase(Phase.BATTLE);
-        if (scn.DSAnyDecisionsAvailable() && scn.DSActionAvailable("Return")) {
-            scn.DSChooseAction("Return");
-        }
-        if (scn.DSAnyDecisionsAvailable()) {
-            scn.PassAllResponses();
-        }
-        assertInHand(mouse);
+        assertTrue(scn.CardsAtLocation(scn.GetDSStartingLocation(), mouse));
+        assertFalse(scn.DSAnyDecisionsAvailable() && scn.DSActionAvailable("Return"));
     }
-
     @Test
     public void MouseDroid_1_188_LightUtinniKeepAwayCell2187() {
         var scn = GetScenario();
@@ -866,24 +858,22 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_DeliveringToTargetReturnsMouseAndSendsLeftoverUtinnisToLost() {
-        // Delivery is required return: place relevant Utinnis on the hunted target, leftover packages to Lost, mouse to hand.
+    public void MouseDroid_1_188_ClassADeliveryReturnsMouseAndSendsCarriedSaddToLost() {
+        // A Class A package (Plastoid) delivers to its hunted target; unrelated Class B SADD is leftover.
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
-        var homestead = scn.GetDSCard("homestead");
+        var plastoid = scn.GetLSCard("plastoid");
         var sadd = scn.GetDSCard("sadd");
-        var luke = scn.GetLSCard("luke");
-        var farm = scn.GetLSCard("farm");
-        var db94 = scn.GetDSCard("db94");
+        var leia = scn.GetLSCard("leia");
+        var dsDb = scn.GetLSCard("ds-db");
         var trooper = scn.GetDSFiller(1);
 
         scn.StartGame();
-        scn.MoveLocationToTable(farm);
-        scn.MoveLocationToTable(db94);
-        scn.MoveCardsToLocation(farm, luke);
-        scn.MoveCardsToLocation(db94, mouse, trooper);
-        scn.AttachCardsTo(mouse, homestead, sadd);
-        homestead.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, luke, Filters.any);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveCardsToLocation(dsDb, mouse, trooper, leia);
+        scn.AttachCardsTo(mouse, plastoid, sadd);
+        plastoid.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, leia, Filters.any);
+        plastoid.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
         sadd.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, trooper, Filters.any);
 
         scn.SkipToPhase(Phase.CONTROL);
@@ -895,160 +885,11 @@ public class Card_1_188_Tests {
         }
 
         assertInHand(mouse);
-        assertTrue("SADD attaches to the hunted trooper", scn.IsAttachedTo(trooper, sadd));
+        assertTrue("Plastoid snaps to its hunted target", scn.IsAttachedTo(leia, plastoid));
+        assertInZone(Zone.LOST_PILE, sadd);
         assertFalse(scn.IsAttachedTo(mouse, sadd));
-        assertInZone(Zone.LOST_PILE, homestead);
-        assertFalse("Homestead must not stay on the mouse after delivery", scn.IsAttachedTo(mouse, homestead));
-        assertFalse("Homestead must not be dumped on Docking Bay 94", scn.IsAttachedTo(db94, homestead));
+        assertFalse(scn.IsAttachedTo(trooper, sadd));
     }
-
-
-    /** True when DS has a live ACTION_CHOICE whose actionText contains the text (never call DSActionAvailable blindly). */
-    private boolean DSRequiredActionAvailable(VirtualTableScenario scn, String text) {
-        if (!scn.DSAnyDecisionsAvailable()) {
-            return false;
-        }
-        var params = scn.GetAwaitingDecisionParams(scn.DS);
-        if (params == null || params.get("actionText") == null) {
-            return false;
-        }
-        for (String action : params.get("actionText")) {
-            if (action != null && action.toLowerCase().contains(text.toLowerCase())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /** Pass Force/optional windows after docking-bay transit; stop when Steal/Return ACTION_CHOICE appears. */
-    private void PassThroughTransitResponsesUntilRequired(VirtualTableScenario scn) {
-        for (int i = 0; i < 30; i++) {
-            if (DSRequiredActionAvailable(scn, "Steal") || DSRequiredActionAvailable(scn, "Return")) {
-                return;
-            }
-            var decision = scn.GetCurrentDecision();
-            if (decision == null) {
-                return;
-            }
-            String text = decision.getText().toLowerCase();
-            if (text.contains("required") || text.contains("choose required") || text.contains("choose action")) {
-                return;
-            }
-            // DockingBayTransitTests: opponent may see Force optional first, then acting player.
-            if (text.contains("optional")) {
-                if (scn.LSAnyDecisionsAvailable()) {
-                    scn.LSPass();
-                }
-                if (scn.DSAnyDecisionsAvailable()) {
-                    scn.DSPass();
-                }
-                continue;
-            }
-            throw new RuntimeException("Unexpected window while waiting for Steal/Return. Decision: " + decisionText(scn)
-                    + " DS=" + (scn.DSGetDecision()==null?"none":scn.DSGetDecision().getText())
-                    + " LS=" + (scn.LSGetDecision()==null?"none":scn.LSGetDecision().getText()));
-        }
-        throw new RuntimeException("Timed out waiting for Steal/Return. Decision: " + decisionText(scn));
-    }
-
-
-    @Test
-    public void MouseDroid_1_188_ReturnToHandStillHappensIfNecklaceStealIsChosenFirst() {
-        // Organa necklace steal and Mouse return both fire at delivery.
-        // Choosing Steal first must still leave Return available via WhileInPlayData.
-        var scn = GetScenario();
-        var mouse = scn.GetDSCard("mouse");
-        var necklace = scn.GetDSCard("necklace");
-        var avarik = scn.GetDSCard("avarik");
-        var db94 = scn.GetDSCard("db94");
-        var dsDb = scn.GetLSCard("ds-db");
-
-        scn.StartGame();
-        scn.MoveLocationToTable(db94);
-        scn.MoveLocationToTable(dsDb);
-
-        // Mouse already carries the necklace after pickup; Imperial waits at Death Star: Docking Bay 327.
-        scn.MoveCardsToLocation(db94, mouse);
-        scn.MoveCardsToLocation(dsDb, avarik);
-        scn.AttachCardsTo(mouse, necklace);
-        necklace.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, avarik, Filters.any);
-
-        // Reach Move while they are apart so SkipToPhase never auto-passes Steal+Return.
-        scn.SkipToPhase(Phase.MOVE);
-        assertTrue(scn.AwaitingDSMovePhaseActions());
-
-        // Docking-bay transit is a location action (see DockingBayTransitTests), not mouse landspeed.
-        assertTrue("Docking bay transit missing on DB 94. Actions: " + scn.GetDSAvailableActions(),
-                scn.DSCardActionAvailable(db94, "transit"));
-        scn.DSUseCardAction(db94, "transit");
-        assertTrue(scn.DSHasCardChoiceAvailable(dsDb));
-        scn.DSChooseCard(dsDb);
-        assertTrue(scn.DSHasCardChoiceAvailable(mouse));
-        scn.DSChooseCard(mouse);
-        assertTrue("After choosing mouse to transit. Decision: " + decisionText(scn),
-                scn.DSAnyDecisionsAvailable() || scn.LSAnyDecisionsAvailable()
-                        || scn.CardsAtLocation(dsDb, mouse));
-        PassThroughTransitResponsesUntilRequired(scn);
-
-        assertTrue("Expected live DS decision after transit. Decision: " + decisionText(scn),
-                scn.DSAnyDecisionsAvailable());
-        assertTrue("Steal necklace must be offered together with Return. Decision: " + decisionText(scn),
-                DSRequiredActionAvailable(scn, "Steal"));
-        assertTrue("Return mouse to hand must be offered together with Steal. Decision: " + decisionText(scn),
-                DSRequiredActionAvailable(scn, "Return"));
-
-        // Choose Steal first - necklace attaches to the Imperial and detaches from the mouse.
-        scn.DSChooseAction("Steal");
-
-        // Return may remain in the same ACTION_CHOICE, or reappear after Steal optionals via WhileInPlayData.
-        if (!DSRequiredActionAvailable(scn, "Return")) {
-            for (int i = 0; i < 20; i++) {
-                if (DSRequiredActionAvailable(scn, "Return")) {
-                    break;
-                }
-                var decision = scn.GetCurrentDecision();
-                if (decision == null) {
-                    break;
-                }
-                String text = decision.getText().toLowerCase();
-                if (text.contains("optional")) {
-                    if (scn.LSAnyDecisionsAvailable()) {
-                        scn.LSPass();
-                    }
-                    if (scn.DSAnyDecisionsAvailable()) {
-                        scn.DSPass();
-                    }
-                    continue;
-                }
-                break;
-            }
-        }
-
-        assertTrue("After Steal, necklace should be on Imperial. Decision: " + decisionText(scn)
-                        + " mouseAtDsDb=" + scn.CardsAtLocation(dsDb, mouse)
-                        + " necklaceOnAvarik=" + scn.IsAttachedTo(avarik, necklace)
-                        + " necklaceOnMouse=" + scn.IsAttachedTo(mouse, necklace),
-                scn.IsAttachedTo(avarik, necklace));
-
-        if (DSRequiredActionAvailable(scn, "Return")) {
-            scn.DSChooseAction("Return");
-            for (int i = 0; i < 10; i++) {
-                var decision = scn.GetCurrentDecision();
-                if (decision == null || !decision.getText().toLowerCase().contains("optional")) {
-                    break;
-                }
-                if (scn.LSAnyDecisionsAvailable()) {
-                    scn.LSPass();
-                }
-                if (scn.DSAnyDecisionsAvailable()) {
-                    scn.DSPass();
-                }
-            }
-        }
-
-        assertInHand(mouse);
-    }
-
 
     /** Marks Son as apprentice and attaches Failure At The Cave to Cave targeting him. */
     private void SetupFailureAtTheCaveOnCaveTargetingSon(VirtualTableScenario scn,
@@ -1131,8 +972,8 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_PresentWithTargetDeliversUtinniAndReturnsMouseToHand() {
-        // Positive present-with on Dagobah: hunted apprentice present with mouse carrying Failure -> deliver, mouse to hand.
+    public void MouseDroid_1_188_PresentWithTargetDoesNotDeliverNonRelocatingUtinni() {
+        // Failure At The Cave has no relocate-to-target effect; a co-present apprentice is not delivery.
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var cave = scn.GetDSCard("cave");
@@ -1152,26 +993,13 @@ public class Card_1_188_Tests {
         if (scn.DSAnyDecisionsAvailable()) {
             scn.PassAllResponses();
         }
-        // If delivery waited for another table-change, try Battle; pass Failure destiny windows if any.
-        if (scn.CardsAtLocation(cave, mouse)) {
-            scn.SkipToPhase(Phase.BATTLE);
-            if (scn.DSAnyDecisionsAvailable() && (scn.DSActionAvailable("Return") || scn.DSCardActionAvailable(mouse, "Return"))) {
-                scn.DSChooseAction("Return");
-            }
-            if (scn.LSAnyDecisionsAvailable()) {
-                scn.LSPass();
-            }
-            if (scn.DSAnyDecisionsAvailable()) {
-                scn.PassAllResponses();
-            }
-        }
 
-        assertInHand(mouse);
-        assertTrue("Delivered Failure returns to Cave (only legal host) or hunted Son",
-                scn.IsAttachedTo(cave, failure) || scn.IsAttachedTo(son, failure));
-        assertFalse(scn.IsAttachedTo(mouse, failure));
+        assertTrue("Mouse stays on table while carrying a non-relocating Utinni",
+                scn.CardsAtLocation(cave, mouse));
+        assertTrue("Failure At The Cave remains on Mouse",
+                scn.IsAttachedTo(mouse, failure));
+        assertFalse(scn.IsAttachedTo(son, failure));
     }
-
     /** True if that player's current action list contains the text (any case). dark=true is Dark Side. */
 
     @Test

@@ -35,6 +35,7 @@ import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
 import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.MouseDroidUtinniCarry;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
@@ -136,6 +137,7 @@ public class Card1_059 extends AbstractEffect {
                     }
             );
             // Perform result(s)
+            MouseDroidUtinniCarry.markMouseDeliveryFromTargetRelocation(self, game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self.getAttachedTo()));
             action.appendEffect(
                     new AttachCardFromTableEffect(action, self, target));
             return Collections.singletonList(action);

@@ -8,6 +8,7 @@ import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 /**
@@ -94,6 +95,21 @@ public final class MouseDroidUtinniCarry {
      */
     public static void preservePreviousHostAsHuntedTargetIfNeeded(PhysicalCard utinni, PhysicalCard previousHost, GameState gameState) {
         rememberHostsOnMouseRelocate(utinni, previousHost, gameState);
+    }
+
+    /**
+     * Records a return for a Mouse whose carried Utinni was just relocated to its hunted target
+     * by that Utinni's own game text. The marker is needed when the Utinni leaves the Mouse before
+     * Mouse's required-after trigger gets to inspect its attachments.
+     */
+    public static void markMouseDeliveryFromTargetRelocation(PhysicalCard utinni, PhysicalCard location) {
+        if (!isUtinniEffect(utinni) || location == null) {
+            return;
+        }
+        PhysicalCard mouse = utinni.getAttachedTo();
+        if (isMouseDroid(mouse)) {
+            mouse.setWhileInPlayData(new WhileInPlayData(true, location));
+        }
     }
 
     /**
