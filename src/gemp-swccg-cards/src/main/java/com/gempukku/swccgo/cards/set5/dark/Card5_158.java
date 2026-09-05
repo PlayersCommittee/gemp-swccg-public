@@ -11,6 +11,7 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.ReactActionOption;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
@@ -70,12 +71,18 @@ public class Card5_158 extends AbstractLostInterrupt {
         return null;
     }
 
-    private void appendDeployAsReactFromHand(final PlayInterruptAction action, final String playerId, final SwccgGame game, final Filter deployFilter, final Filter locationFilter, final boolean required) {
-        if (!GameConditions.hasInHand(game, playerId, deployFilter)) {
-            return;
-        }
+    private Filter fullyDeployableAsReactFilter(PhysicalCard self, Filter deployFilter, Filter locationFilter) {
+        Filter targetFilter = Filters.locationAndCardsAtLocation(locationFilter);
+        ReactActionOption reactOption = new ReactActionOption(self, false, 0, false, "Deploy as a 'react'", deployFilter, targetFilter, null, false);
+        reactOption.setForFreeCardFilter(Filters.none);
+        return Filters.and(deployFilter, Filters.deployableToTarget(self, targetFilter, false, false, 0, null, null, null, null, reactOption));
+    }
 
+    private void appendDeployAsReactFromHand(final PlayInterruptAction action, final String playerId, final SwccgGame game, final Filter deployFilter, final Filter locationFilter, final boolean required) {
         if (required) {
+            if (!GameConditions.hasInHand(game, playerId, deployFilter)) {
+                return;
+            }
             action.appendEffect(
                     new DeployCardToLocationFromHandEffect(action, playerId, deployFilter, locationFilter, false, true) {
                         @Override
@@ -95,8 +102,13 @@ public class Card5_158 extends AbstractLostInterrupt {
             return;
         }
 
+        Filter extraFilter = fullyDeployableAsReactFilter(action.getActionSource(), deployFilter, locationFilter);
+        if (!GameConditions.hasInHand(game, playerId, extraFilter)) {
+            return;
+        }
+
         action.appendEffect(
-                new ChooseCardsFromHandEffect(action, playerId, playerId, 0, 1, deployFilter, true, false) {
+                new ChooseCardsFromHandEffect(action, playerId, playerId, 0, 1, extraFilter, true, false) {
                     @Override
                     public String getChoiceText(int numCardsToChoose) {
                         return "Choose another TIE or pilot to deploy as a 'react', or click 'Done' to stop";

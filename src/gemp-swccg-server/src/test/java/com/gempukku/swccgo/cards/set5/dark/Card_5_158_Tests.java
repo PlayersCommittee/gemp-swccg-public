@@ -35,6 +35,9 @@ public class Card_5_158_Tests {
                     put("sentry", "5_158");
                     put("tie", "1_304");
                     put("tie2", "1_304");
+                    put("black2", "1_299");
+                    put("ds612", "1_173");
+                    put("ds613", "1_174");
                     put("hoth", "3_143");
                     put("big-one", "4_156");
                 }},
@@ -146,6 +149,153 @@ public class Card_5_158_Tests {
         }
         scn.PassAllResponses();
 
+        assertTrue(scn.DSAnyDecisionsAvailable());
+        assertTrue(scn.DSGetDecision().getText().toLowerCase().contains("done"));
+        assertTrue(scn.DSHasCardChoiceAvailable(tie2));
+        scn.DSPass();
+        scn.PassAllResponses();
+
+        assertAtLocation(system, tie);
+        assertInZone(Zone.HAND, tie2);
+        assertInZone(Zone.LOST_PILE, sentry);
+    }
+
+    @Test
+    public void ExtraReactDoesNotOfferCardsThatCostMoreThanRemainingForce_5_158_TIESentryShips() {
+        var scn = GetScenario();
+
+        var sentry = scn.GetDSCard("sentry");
+        var tie = scn.GetDSCard("tie");
+        var ds612 = scn.GetDSCard("ds612");
+        var ds613 = scn.GetDSCard("ds613");
+        var xwing = scn.GetLSCard("xwing");
+        var system = scn.GetLSStartingLocation();
+
+        scn.StartGame();
+
+        scn.MoveCardsToLocation(system, xwing);
+        scn.MoveCardsToDSHand(sentry, tie, ds612, ds613);
+
+        scn.SkipToLSTurn(Phase.CONTROL);
+        int currentForce = scn.GetDSForcePileCount();
+        if (currentForce > 2) {
+            scn.DSUseForceCheat(currentForce - 2);
+        } else if (currentForce < 2) {
+            scn.DSActivateForceCheat(2 - currentForce);
+        }
+
+        assertTrue(scn.LSForceDrainAvailable(system));
+        scn.LSForceDrainAt(system);
+        assertTrue(scn.DSCardPlayAvailable(sentry));
+        scn.DSPlayCard(sentry);
+        scn.PassAllResponses();
+        if (scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(tie)) {
+            scn.DSChooseCard(tie);
+        }
+        scn.PassAllResponses();
+
+        assertEquals(1, scn.GetDSForcePileCount());
+        assertFalse("2-deploy pilot should not light up with 1 Force",
+                scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(ds612));
+        assertFalse("2-deploy pilot should not light up with 1 Force",
+                scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(ds613));
+        if (scn.DSAnyDecisionsAvailable()
+                && scn.DSGetDecision().getText().toLowerCase().contains("done")) {
+            scn.DSPass();
+            scn.PassAllResponses();
+        }
+
+        assertAtLocation(system, tie);
+        assertInZone(Zone.HAND, ds612);
+        assertInZone(Zone.HAND, ds613);
+        assertInZone(Zone.LOST_PILE, sentry);
+    }
+
+    @Test
+    public void ExtraReactDoesNotOfferBlack2WhenRemainingForceCannotPayForRequiredPilot_5_158_TIESentryShips() {
+        var scn = GetScenario();
+
+        var sentry = scn.GetDSCard("sentry");
+        var tie = scn.GetDSCard("tie");
+        var black2 = scn.GetDSCard("black2");
+        var ds612 = scn.GetDSCard("ds612");
+        var xwing = scn.GetLSCard("xwing");
+        var system = scn.GetLSStartingLocation();
+
+        scn.StartGame();
+
+        scn.MoveCardsToLocation(system, xwing);
+        scn.MoveCardsToDSHand(sentry, tie, black2, ds612);
+
+        scn.SkipToLSTurn(Phase.CONTROL);
+        int currentForce = scn.GetDSForcePileCount();
+        if (currentForce > 2) {
+            scn.DSUseForceCheat(currentForce - 2);
+        } else if (currentForce < 2) {
+            scn.DSActivateForceCheat(2 - currentForce);
+        }
+
+        assertTrue(scn.LSForceDrainAvailable(system));
+        scn.LSForceDrainAt(system);
+        assertTrue(scn.DSCardPlayAvailable(sentry));
+        scn.DSPlayCard(sentry);
+        scn.PassAllResponses();
+        if (scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(tie)) {
+            scn.DSChooseCard(tie);
+        }
+        scn.PassAllResponses();
+
+        assertEquals(1, scn.GetDSForcePileCount());
+        assertFalse("Black 2 should not light up without enough Force for a required pilot",
+                scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(black2));
+        assertFalse("2-deploy pilot should not light up with 1 Force",
+                scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(ds612));
+        if (scn.DSAnyDecisionsAvailable()
+                && scn.DSGetDecision().getText().toLowerCase().contains("done")) {
+            scn.DSPass();
+            scn.PassAllResponses();
+        }
+
+        assertAtLocation(system, tie);
+        assertInZone(Zone.HAND, black2);
+        assertInZone(Zone.HAND, ds612);
+        assertInZone(Zone.LOST_PILE, sentry);
+    }
+
+    @Test
+    public void ExtraReactStillOffersOneCostTIEWhenExactlyOneForceRemains_5_158_TIESentryShips() {
+        var scn = GetScenario();
+
+        var sentry = scn.GetDSCard("sentry");
+        var tie = scn.GetDSCard("tie");
+        var tie2 = scn.GetDSCard("tie2");
+        var xwing = scn.GetLSCard("xwing");
+        var system = scn.GetLSStartingLocation();
+
+        scn.StartGame();
+
+        scn.MoveCardsToLocation(system, xwing);
+        scn.MoveCardsToDSHand(sentry, tie, tie2);
+
+        scn.SkipToLSTurn(Phase.CONTROL);
+        int currentForce = scn.GetDSForcePileCount();
+        if (currentForce > 2) {
+            scn.DSUseForceCheat(currentForce - 2);
+        } else if (currentForce < 2) {
+            scn.DSActivateForceCheat(2 - currentForce);
+        }
+
+        assertTrue(scn.LSForceDrainAvailable(system));
+        scn.LSForceDrainAt(system);
+        assertTrue(scn.DSCardPlayAvailable(sentry));
+        scn.DSPlayCard(sentry);
+        scn.PassAllResponses();
+        if (scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(tie)) {
+            scn.DSChooseCard(tie);
+        }
+        scn.PassAllResponses();
+
+        assertEquals(1, scn.GetDSForcePileCount());
         assertTrue(scn.DSAnyDecisionsAvailable());
         assertTrue(scn.DSGetDecision().getText().toLowerCase().contains("done"));
         assertTrue(scn.DSHasCardChoiceAvailable(tie2));
