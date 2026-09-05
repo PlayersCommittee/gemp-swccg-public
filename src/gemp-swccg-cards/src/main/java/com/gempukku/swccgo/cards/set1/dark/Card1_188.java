@@ -36,10 +36,8 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 
 /**
@@ -111,17 +109,17 @@ public class Card1_188 extends AbstractDroid {
 
     /**
      * WhileInPlayData layout for this mouse:
-     * - physicalCard = current meet / delivery location
-     * - textValues = Utinni permanentCardIds already offered/resolved this continuous meet
+     * - physicalCard = delivery location (stale-return guard)
      * - booleanValue = true when the mouse must return to hand after a delivery (steal-first safe)
+     * Relocate is perpetual reach (forum AR): no once-per-meet textValues / permanentId marks.
      */
-    private void clearMeetDataIfLocationChanged(SwccgGame game, PhysicalCard self) {
+    private void clearReturnDataIfLocationChanged(SwccgGame game, PhysicalCard self) {
         if (!GameConditions.cardHasWhileInPlayDataSet(self)) {
             return;
         }
         PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self);
         PhysicalCard remembered = self.getWhileInPlayData().getPhysicalCard();
-        // Left this site (or left table): wipe once-per-meet relocate memory and any stale return flag.
+        // Left this site (or left table): wipe stale return flag.
         if (location == null || remembered == null || location.getCardId() != remembered.getCardId()) {
             self.setWhileInPlayData(null);
         }
@@ -131,98 +129,17 @@ public class Card1_188 extends AbstractDroid {
         return GameConditions.cardHasWhileInPlayDataSet(self) && self.getWhileInPlayData().getBooleanValue();
     }
 
-    private Set<String> getResolvedUtinniPermanentIds(PhysicalCard self) {
-        if (!GameConditions.cardHasWhileInPlayDataSet(self)) {
-            return Collections.emptySet();
-        }
-        return self.getWhileInPlayData().getTextValues();
-    }
-
-    private void ensureMeetTrackingAt(PhysicalCard self, PhysicalCard location, boolean mustReturn) {
-        Set<String> resolved = new HashSet<String>();
-        if (GameConditions.cardHasWhileInPlayDataSet(self)) {
-            resolved.addAll(self.getWhileInPlayData().getTextValues());
-            // Keep an existing must-return flag unless the caller is explicitly setting it.
-            mustReturn = mustReturn || self.getWhileInPlayData().getBooleanValue();
-        }
-        WhileInPlayData data = mustReturn ? new WhileInPlayData(true, location) : new WhileInPlayData(location);
-        data.getTextValues().addAll(resolved);
-        self.setWhileInPlayData(data);
-    }
-
-    private Set<String> permanentIdsOf(Collection<PhysicalCard> utinnis) {
-        Set<String> ids = new HashSet<String>();
-        if (utinnis == null) {
-            return ids;
-        }
-        for (PhysicalCard utinni : utinnis) {
-            ids.add(String.valueOf(utinni.getPermanentCardId()));
-        }
-        return ids;
-    }
-
-    /**
-     * Mark these Utinnis as already offered/resolved for this continuous meet on this mouse.
-     * When includeOtherMice is true, also mark them on other Mouse Droids at the same site
-     * (used after an accept so a sibling mouse does not re-ping that package every phase).
-     * Offer-time marking uses includeOtherMice=false so each mouse at a multi-package site
-     * still gets its own Relocate optional in the same window.
-     */
-    private void markUtinnisResolvedForCurrentMeet(SwccgGame game, PhysicalCard self, Collection<PhysicalCard> utinnis, boolean includeOtherMice) {
-        PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self);
-        if (location == null || utinnis == null || utinnis.isEmpty()) {
-            return;
-        }
-        Set<String> ids = permanentIdsOf(utinnis);
-        ensureMeetTrackingAt(self, location, false);
-        self.getWhileInPlayData().getTextValues().addAll(ids);
-
-        if (!includeOtherMice) {
-            return;
-        }
-        Collection<PhysicalCard> otherMice = Filters.filterActive(game, self,
-                Filters.and(Filters.mouse_droid, Filters.at(location), Filters.other(self)));
-        for (PhysicalCard otherMouse : otherMice) {
-            ensureMeetTrackingAt(otherMouse, location, false);
-            otherMouse.getWhileInPlayData().getTextValues().addAll(ids);
-        }
-    }
-
-    /**
-     * Remove these Utinni permanent ids from once-per-meet memory on this mouse (and optionally siblings),
-     * so unchosen packages can still be offered after one accept.
-     */
-    private void unmarkUtinnisForCurrentMeet(SwccgGame game, PhysicalCard self, Collection<PhysicalCard> utinnis, boolean includeOtherMice) {
-        if (utinnis == null || utinnis.isEmpty()) {
-            return;
-        }
-        Set<String> ids = permanentIdsOf(utinnis);
-        if (GameConditions.cardHasWhileInPlayDataSet(self)) {
-            self.getWhileInPlayData().getTextValues().removeAll(ids);
-        }
-        if (!includeOtherMice) {
-            return;
-        }
-        PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self);
-        if (location == null) {
-            return;
-        }
-        Collection<PhysicalCard> otherMice = Filters.filterActive(game, self,
-                Filters.and(Filters.mouse_droid, Filters.at(location), Filters.other(self)));
-        for (PhysicalCard otherMouse : otherMice) {
-            if (GameConditions.cardHasWhileInPlayDataSet(otherMouse)) {
-                otherMouse.getWhileInPlayData().getTextValues().removeAll(ids);
-            }
-        }
+    private void markMustReturnToHand(PhysicalCard self, PhysicalCard location) {
+        self.setWhileInPlayData(new WhileInPlayData(true, location));
     }
 
     /**
      * Utinni Effects this mouse has 'reached' and may pick up: not Kessel Run / Spice Mines, able to move,
-     * not already offered/declined this continuous meet, attached to a location the mouse is present at
+     * not already attached to this mouse, attached to a location the mouse is present at
      * or to a character/starship/vehicle at that location.
+     * Perpetual reach: offered again on later table-changed while they remain together (including after decline).
      */
     private Filter getRelocatableUtinniEffectFilter(final SwccgGame game, final PhysicalCard self) {
-        final Set<String> alreadyResolved = getResolvedUtinniPermanentIds(self);
         return Filters.and(
                 Filters.Utinni_Effect,
                 Filters.except(Filters.or(Filters.Kessel_Run, Filters.Spice_Mines_Of_Kessel)),
@@ -230,9 +147,6 @@ public class Card1_188 extends AbstractDroid {
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        if (alreadyResolved.contains(String.valueOf(physicalCard.getPermanentCardId()))) {
-                            return false;
-                        }
                         if (modifiersQuerying.mayNotMove(gameState, physicalCard)) {
                             return false;
                         }
@@ -243,41 +157,19 @@ public class Card1_188 extends AbstractDroid {
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        // Once-per-meet: forget resolved Utinnis when this mouse leaves the site.
-        clearMeetDataIfLocationChanged(game, self);
-
         Filter relocatableUtinni = getRelocatableUtinniEffectFilter(game, self);
 
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
                 && GameConditions.canSpot(game, self, relocatableUtinni)) {
 
-            // Snapshot choosable Utinnis now. Mark them resolved on THIS mouse only so that:
-            // - Pass/decline of the whole optional silences these packages for this mouse (no every-phase spam)
-            // - other mice at the same multi-package site still get their own Relocate optional
-            // Accepting one unmarks unchosen siblings below so they remain offerable.
-            final Collection<PhysicalCard> candidates = Filters.filterActive(game, self, relocatableUtinni);
-            markUtinnisResolvedForCurrentMeet(game, self, candidates, false);
-
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_1);
             action.setText("Relocate Utinni Effect here");
-            // Choose target(s)
+            // Choose target(s) — live filter so after relocating one, siblings at the site remain choosable.
             action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerId, "Choose Utinni Effect to relocate here", Filters.in(candidates)) {
+                    new ChooseCardOnTableEffect(action, playerId, "Choose Utinni Effect to relocate here", relocatableUtinni) {
                         @Override
                         protected void cardSelected(final PhysicalCard utinniEffect) {
-                            // Accepting one must not lock siblings: unmark unchosen packages from this offer.
-                            List<PhysicalCard> siblings = new LinkedList<PhysicalCard>();
-                            for (PhysicalCard candidate : candidates) {
-                                if (candidate.getPermanentCardId() != utinniEffect.getPermanentCardId()) {
-                                    siblings.add(candidate);
-                                }
-                            }
-                            unmarkUtinnisForCurrentMeet(game, self, siblings, true);
-                            // Keep the accepted package resolved on this mouse; also mark it on other mice
-                            // so they do not re-ping that same package every phase while staying together.
-                            markUtinnisResolvedForCurrentMeet(game, self, Collections.singletonList(utinniEffect), true);
-
                             action.addAnimationGroup(utinniEffect);
                             action.addAnimationGroup(self);
                             // Allow response(s)
@@ -405,8 +297,8 @@ public class Card1_188 extends AbstractDroid {
             return null;
         }
 
-        // Forget once-per-meet relocate ids (and stale return) when the mouse changes sites.
-        clearMeetDataIfLocationChanged(game, self);
+        // Forget stale return flag when the mouse changes sites.
+        clearReturnDataIfLocationChanged(game, self);
 
         Collection<PhysicalCard> attachedUtinnis = Filters.filter(game.getGameState().getAttachedCards(self), game, Filters.Utinni_Effect);
         Collection<PhysicalCard> delivered = getDeliveredCarriedUtinnis(game, self);
@@ -417,7 +309,7 @@ public class Card1_188 extends AbstractDroid {
         if (hasDelivered) {
             // Remember delivery even if a Utinni is then stolen off the mouse
             // (choosing Organa's Ceremonial Necklace steal before Return).
-            ensureMeetTrackingAt(self, location, true);
+            markMustReturnToHand(self, location);
         }
 
         if (!mustReturnToHand(self)) {
