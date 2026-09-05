@@ -60,6 +60,7 @@ public class Card_1_188_Tests {
                     put("plastoid2", "1_059");
                     put("tusken", "1_067");
                     put("elom", "6_012");
+                    put("doallyn", "6_038");
                     put("chewie", "2_003");
                 }},
                 new HashMap<>() {{
@@ -1495,11 +1496,13 @@ public class Card_1_188_Tests {
         var mouse = scn.GetDSCard("mouse");
         var plastoid = scn.GetLSCard("plastoid");
         var leia = scn.GetLSCard("leia");
+        var dsDb = scn.GetLSCard("ds-db");
         var trash = scn.GetLSCard("trash");
         var jungle = scn.GetLSCard("jungle");
         var presence = scn.GetDSFiller(1);
 
         scn.StartGame();
+        scn.MoveLocationToTable(dsDb);
         scn.MoveLocationToTable(trash);
         scn.MoveLocationToTable(jungle);
         scn.MoveCardsToLocation(jungle, leia, presence);
@@ -1664,7 +1667,7 @@ public class Card_1_188_Tests {
 
 
 
-    /** Simulate Elom's remainder-of-game Plastoid changes (subtype Effect + changed deployment). */
+    /** Simulate Elom's remainder-of-game Plastoid changes (Effect, not Utinni). */
     private void ApplyElomPlastoidModifiers(VirtualTableScenario scn, PhysicalCardImpl elom) {
         scn.game().getModifiersEnvironment().addUntilEndOfGameModifier(
                 new ChangeCardSubtypeModifier(elom, Filters.Plastoid_Armor, CardSubtype.NORMAL));
@@ -1675,61 +1678,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_DeploysToSiteWithOnlyCharacterHostedElomPlastoid() {
-        // A: only Elom-changed Plastoid on characters at the site (no location-hosted Utinni) -> Mouse may deploy.
-        var scn = GetScenario();
-        var mouse = scn.GetDSCard("mouse");
-        var plastoid = scn.GetLSCard("plastoid");
-        var han = scn.GetLSCard("han");
-        var chewie = scn.GetLSCard("chewie");
-        var elom = scn.GetLSCard("elom");
-        var dsDb = scn.GetLSCard("ds-db");
-        var presence = scn.GetDSFiller(1);
-
-        scn.StartGame();
-        scn.MoveLocationToTable(dsDb);
-        scn.MoveCardsToLocation(dsDb, han, chewie, elom, presence);
-        ApplyElomPlastoidModifiers(scn, elom);
-        scn.AttachCardsTo(han, plastoid);
-        scn.MoveCardsToDSHand(mouse);
-
-        // Elom stripped Utinni subtype; attachment alone must still enable Mouse special deploy.
-        assertFalse("Elom Plastoid must not match Filters.Utinni_Effect",
-                Filters.Utinni_Effect.accepts(scn.game(), plastoid));
-        assertTrue(Filters.Plastoid_Armor.accepts(scn.game(), plastoid));
-
-        EnsureDSDeployPhase(scn);
-        assertTrue("Mouse must deploy to site with only character-hosted Elom Plastoid. Decision: " + decisionText(scn),
-                scn.DSCardPlayAvailable(mouse));
-        scn.DSDeployCard(mouse);
-        assertTrue(scn.DSHasCardChoiceAvailable(dsDb));
-        scn.DSChooseCard(dsDb);
-        scn.PassAllResponses();
-        assertTrue(scn.CardsAtLocation(dsDb, mouse));
-    }
-
-    @Test
-    public void MouseDroid_1_188_CannotSpecialDeployToSiteWithNoUtinniAtAll() {
-        // B: character present but no Utinni / Plastoid package -> special deploy not available.
-        var scn = GetScenario();
-        var mouse = scn.GetDSCard("mouse");
-        var han = scn.GetLSCard("han");
-        var dsDb = scn.GetLSCard("ds-db");
-        var presence = scn.GetDSFiller(1);
-
-        scn.StartGame();
-        scn.MoveLocationToTable(dsDb);
-        scn.MoveCardsToLocation(dsDb, han, presence);
-        scn.MoveCardsToDSHand(mouse);
-
-        EnsureDSDeployPhase(scn);
-        assertFalse("Mouse special deploy requires a reachable Utinni/Plastoid package",
-                scn.DSCardPlayAvailable(mouse));
-    }
-
-    @Test
-    public void MouseDroid_1_188_RelocatesCharacterHostedElomPlastoidOntoMouseKeepsSubject() {
-        // C: Mouse with Elom Plastoid on character at same site -> optional relocate; carry keeps subject on original host.
+    public void MouseDroid_1_188_CannotRelocateElomPlastoidArmorBecauseItIsAnEffect() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var plastoid = scn.GetLSCard("plastoid");
@@ -1744,54 +1693,98 @@ public class Card_1_188_Tests {
         ApplyElomPlastoidModifiers(scn, elom);
         scn.AttachCardsTo(han, plastoid);
 
-        assertFalse(Filters.Utinni_Effect.accepts(scn.game(), plastoid));
-        assertTrue(scn.IsAttachedTo(han, plastoid));
+        assertFalse("Elom Plastoid must no longer be a Utinni Effect",
+                Filters.Utinni_Effect.accepts(scn.game(), plastoid));
+        assertTrue("Elom Plastoid remains an Effect",
+                Filters.Effect_of_any_Kind.accepts(scn.game(), plastoid));
 
-        // Do not SkipToPhase here — it can auto-decline the initial Relocate optional.
-        AcceptRelocate(scn, mouse, plastoid);
-        assertTrue("Elom Plastoid should stay on Mouse after relocate (not lost as invalid attach). zone="
-                        + plastoid.getZone() + " attachedTo=" + (plastoid.getAttachedTo() == null ? "null" : plastoid.getAttachedTo().getTitle()),
-                scn.IsAttachedTo(mouse, plastoid));
-        // Carry-vs-target: Han remains effect subject / remembered host.
-        assertEquals(han, MouseDroidUtinniCarry.getEffectSubjectHost(scn.gameState(), plastoid));
-        assertEquals(han, plastoid.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
-        assertEquals(han, plastoid.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        EnsureDSDeployPhase(scn);
+        assertFalse("Mouse special deploy must not unlock from Elom Plastoid",
+                scn.DSCardPlayAvailable(mouse));
+        scn.SkipToPhase(Phase.CONTROL);
+        assertFalse("Mouse must not offer relocate for Elom Plastoid",
+                RelocateUtinniAvailable(scn, mouse));
+        assertTrue(scn.IsAttachedTo(han, plastoid));
     }
 
     @Test
-    public void MouseDroid_1_188_RelocatesTwoCharacterHostedElomPlastoidsOverTime() {
-        // D: two Elom Plastoids on Han + Chewie -> Mouse can relocate both over successive offers.
+    public void MouseDroid_1_188_NormalPlastoidUtinniRelocateKeepsCharacterTargetBenefits() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var plastoid = scn.GetLSCard("plastoid");
-        var plastoid2 = scn.GetLSCard("plastoid2");
-        var han = scn.GetLSCard("han");
-        var chewie = scn.GetLSCard("chewie");
-        var elom = scn.GetLSCard("elom");
+        var leia = scn.GetLSCard("leia");
         var dsDb = scn.GetLSCard("ds-db");
+        var jungle = scn.GetLSCard("jungle");
         var presence = scn.GetDSFiller(1);
 
         scn.StartGame();
         scn.MoveLocationToTable(dsDb);
-        scn.MoveCardsToLocation(dsDb, han, chewie, elom, mouse, presence);
-        ApplyElomPlastoidModifiers(scn, elom);
-        scn.AttachCardsTo(han, plastoid);
-        scn.AttachCardsTo(chewie, plastoid2);
+        scn.MoveLocationToTable(jungle);
+        scn.MoveCardsToLocation(jungle, leia, presence);
+        // Normal Plastoid path after a Stormtrooper was lost at a Death Star site:
+        // it is deployed on the site, targets Leia away from Death Star, and Leia reaches it.
+        scn.AttachCardsTo(dsDb, plastoid);
+        plastoid.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, leia, Filters.any);
+        scn.MoveCardsToLocation(dsDb, leia);
+        plastoid.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.AttachCardsTo(leia, plastoid);
+        scn.MoveCardsToDSHand(mouse);
 
+        assertTrue(scn.IsAttachedTo(leia, plastoid));
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue("Mouse deploys to Leia's Death Star site while Plastoid is targeted",
+                scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+
+        scn.SkipToPhase(Phase.CONTROL);
+        // Mouse picks up the reached package; Leia is present, so delivery/return may resolve immediately.
         AcceptRelocate(scn, mouse, plastoid);
-        assertTrue(scn.IsAttachedTo(mouse, plastoid));
-        assertTrue(scn.IsAttachedTo(chewie, plastoid2));
-
-        AdvanceUntilRelocateAvailable(scn, mouse);
-        assertTrue("Second Plastoid must still be relocatable. Decision: " + decisionText(scn),
-                RelocateUtinniAvailable(scn, mouse));
-        AcceptRelocate(scn, mouse, plastoid2);
-        assertTrue(scn.IsAttachedTo(mouse, plastoid));
-        assertTrue(scn.IsAttachedTo(mouse, plastoid2));
-        assertEquals(han, plastoid.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
-        assertEquals(chewie, plastoid2.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+        assertInHand(mouse);
+        assertTrue(scn.IsAttachedTo(leia, plastoid));
+        assertEquals("Plastoid's hunt target remains Leia after Mouse carries it", leia,
+                plastoid.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertEquals("Leia keeps Plastoid disguise benefits after Mouse delivery", 5, scn.GetArmor(leia));
+        assertTrue(scn.game().getModifiersQuerying().getCardsOnTableTargetingCard(scn.gameState(), leia).contains(plastoid));
     }
 
+    @Test
+    public void MouseDroid_1_188_TuskenBreathMaskDeliveredBackToTargetCharacterNotSite() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var tusken = scn.GetLSCard("tusken");
+        var doallyn = scn.GetLSCard("doallyn");
+        var db94 = scn.GetDSCard("db94");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(db94);
+        scn.MoveCardsToLocation(db94, doallyn, mouse);
+        // Mask is deployed on the battle site targeting Doallyn, then reaches him before Mouse picks it up.
+        scn.AttachCardsTo(db94, tusken);
+        tusken.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, doallyn, Filters.any);
+
+        scn.SkipToPhase(Phase.CONTROL);
+        assertTrue("Tusken Breath Mask must reach Doallyn before Mouse carries it", scn.IsAttachedTo(doallyn, tusken));
+        scn.MoveCardsToLocation(db94, mouse);
+        // Mouse relocates the Mask and delivery/return can resolve immediately because Doallyn is present.
+        AcceptRelocate(scn, mouse, tusken);
+        assertInHand(mouse);
+        assertEquals(doallyn, tusken.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+
+        // Delivery is keyed to the original hunt target, not any arbitrary character/site host.
+        if (scn.DSAnyDecisionsAvailable() && (scn.DSActionAvailable("Return") || scn.DSCardActionAvailable(mouse, "Return"))) {
+            scn.DSChooseAction("Return");
+        }
+        if (scn.DSAnyDecisionsAvailable()) {
+            scn.PassAllResponses();
+        }
+
+        assertInHand(mouse);
+        assertTrue("Tusken Breath Mask must be returned to Doallyn", scn.IsAttachedTo(doallyn, tusken));
+        assertFalse("Tusken Breath Mask must not be dumped on Docking Bay 94", scn.IsAttachedTo(db94, tusken));
+        assertFalse(scn.IsAttachedTo(mouse, tusken));
+    }
     private String decisionText(VirtualTableScenario scn) {
         return scn.GetCurrentDecision() == null ? "none" : scn.GetCurrentDecision().getText();
     }

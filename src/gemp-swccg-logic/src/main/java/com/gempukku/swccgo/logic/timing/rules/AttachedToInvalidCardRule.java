@@ -11,7 +11,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredRuleTriggerAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.effects.LoseCardsFromTableSimultaneouslyEffect;
-import com.gempukku.swccgo.logic.modifiers.MouseDroidUtinniCarry;
+
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.ArrayList;
@@ -51,10 +51,9 @@ public class AttachedToInvalidCardRule implements Rule {
                                 List<String> attachedCardTitles = attachedCard.getTitles();
                                 PhysicalCard attachedTo = attachedCard.getAttachedTo();
                                 if (attachedTo != null) {
-                                    // Mouse may carry Utinni packages (blueprint Utinni / Plastoid even after Elom subtype change).
-                                    if (MouseDroidUtinniCarry.isMouseDroid(attachedTo)
-                                            && (MouseDroidUtinniCarry.isUtinniEffect(attachedCard)
-                                                || Filters.Plastoid_Armor.accepts(game, attachedCard))) {
+                                    // Mouse may carry genuine Utinni Effects, but not an Elom-changed normal Effect.
+                                    if (Filters.title("MSE-6 'Mouse' Droid").accepts(game, attachedTo)
+                                            && Filters.Utinni_Effect.accepts(game, attachedCard)) {
                                         continue;
                                     }
                                     if(!attachedCard.getBlueprint().getValidTargetFilterToRemainAttachedTo(game, attachedCard).accepts(game, attachedTo)) {

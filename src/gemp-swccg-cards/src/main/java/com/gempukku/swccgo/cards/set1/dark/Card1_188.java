@@ -57,16 +57,13 @@ public class Card1_188 extends AbstractDroid {
 
     /**
      * Packages Mouse may treat as Utinni Effects for deploy / relocate reach.
-     * Elom changes Plastoid Armor subtype to a normal Effect for the rest of the game;
-     * Mouse still reaches Plastoid Armor by title (character-hosted disguise packages).
+     * Elom-changed Plastoid Armor is a normal Effect and is intentionally excluded.
      */
     private Filter getMouseReachableUtinniFilter(boolean forDeploy) {
         Filter exceptFilter = forDeploy
                 ? Filters.Kessel_Run
                 : Filters.or(Filters.Kessel_Run, Filters.Spice_Mines_Of_Kessel);
-        Filter utinni = Filters.and(Filters.Utinni_Effect, Filters.except(exceptFilter));
-        // Title match keeps Elom-changed Plastoid in the pool even when subtype is no longer UTINNI.
-        return Filters.or(utinni, Filters.Plastoid_Armor);
+        return Filters.and(Filters.Utinni_Effect, Filters.except(exceptFilter));
     }
 
     @Override
@@ -150,13 +147,13 @@ public class Card1_188 extends AbstractDroid {
     }
 
     /**
-     * Utinni Effects (and Elom-changed Plastoid Armor) this mouse has 'reached' and may pick up:
+     * Utinni Effects this mouse has 'reached' and may pick up:
      * not Kessel Run / Spice Mines, able to move, not already attached to this mouse,
      * attached to a location the mouse is present at or to a character/starship/vehicle at that location.
      * Perpetual reach: offered again on later table-changed while they remain together (including after decline).
      */
     private Filter getRelocatableUtinniEffectFilter(final SwccgGame game, final PhysicalCard self) {
-        // Include Plastoid Armor even after Elom strips Utinni subtype; still skip mayNotMove / already-on-mouse.
+        // Skip mayNotMove / already-on-mouse packages.
         return Filters.and(
                 getMouseReachableUtinniFilter(false),
                 Filters.not(Filters.attachedTo(self)),
@@ -281,15 +278,17 @@ public class Card1_188 extends AbstractDroid {
         catch (RuntimeException ignored) {
             locationLegal = false;
         }
+        // Delivery is defined by the Utinni hunt target. If that original character is present,
+        // return the package to that character even when the card's printed deploy-on filter
+        // would only accept its original site after it has been reached.
+        if (hunted != null && Filters.at(Filters.sameLocation(self)).accepts(game, hunted)) {
+            return hunted;
+        }
         if (huntedLegal) {
             return hunted;
         }
         if (locationLegal) {
             return location;
-        }
-        // Current site is not a legal deploy-on host. Put it on the hunted target instead of an illegal docking bay.
-        if (hunted != null) {
-            return hunted;
         }
         return null;
     }
