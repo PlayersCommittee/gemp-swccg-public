@@ -12,6 +12,9 @@ on:
       - edited
       - synchronize
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -37,7 +40,7 @@ jobs:
       - name: Start Docker stack
         working-directory: src
         run: |
-          set -euxo pipefail
+          set -euo pipefail
           # Load env so we can reuse DB credentials/ports
           set -a
           source .env
@@ -63,7 +66,7 @@ jobs:
         env:
           PYTHONUNBUFFERED: "1"
         run: |
-          set -euxo pipefail
+          set -euo pipefail
           # Load ports from .env so we hit the mapped host port
           set -a
           source .env
@@ -73,8 +76,7 @@ jobs:
           # Wait (with visibility) for the app to start responding
           timeout 240 bash -c '
             url="$1"
-            until curl -fSs --max-time 10 --retry 30 --retry-delay 2 \
-                --retry-connrefused "$url"; do
+            until curl -fSs --max-time 10 --output /dev/null "$url"; do
               echo "Waiting for app to respond at ${url}..."
               docker compose ps
               docker compose logs --tail=50 build || true
@@ -83,6 +85,12 @@ jobs:
               sleep 5
             done
           ' bash "${APP_URL}"
-          python3 -m pip install --upgrade pip
-          pip3 install -r requirements.txt
+          python3 -m pip install --requirement requirements.txt
           python3 -u gemp_client_test.py
+
+      - name: Show Docker diagnostics on failure
+        if: failure()
+        working-directory: src
+        run: |
+          docker compose ps || true
+          docker compose logs --no-color --tail=200 || true
