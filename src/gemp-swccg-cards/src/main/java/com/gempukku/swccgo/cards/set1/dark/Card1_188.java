@@ -55,10 +55,25 @@ public class Card1_188 extends AbstractDroid {
         addModelType(ModelType.MESSENGER);
     }
 
+    /**
+     * Packages Mouse may treat as Utinni Effects for deploy / relocate reach.
+     * Elom changes Plastoid Armor subtype to a normal Effect for the rest of the game;
+     * Mouse still reaches Plastoid Armor by title (character-hosted disguise packages).
+     */
+    private Filter getMouseReachableUtinniFilter(boolean forDeploy) {
+        Filter exceptFilter = forDeploy
+                ? Filters.Kessel_Run
+                : Filters.or(Filters.Kessel_Run, Filters.Spice_Mines_Of_Kessel);
+        Filter utinni = Filters.and(Filters.Utinni_Effect, Filters.except(exceptFilter));
+        // Title match keeps Elom-changed Plastoid in the pool even when subtype is no longer UTINNI.
+        return Filters.or(utinni, Filters.Plastoid_Armor);
+    }
+
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
+        // Same site as a character targeted by a reachable Utinni / Plastoid (attached hosts count as targeted).
         Filter characterTargetedByUtinni = Filters.and(Filters.character,
-                Filters.targetedByCardOnTable(Filters.and(Filters.Utinni_Effect, Filters.except(Filters.Kessel_Run))));
+                Filters.targetedByCardOnTable(getMouseReachableUtinniFilter(true)));
         return Filters.sameSiteAs(self, characterTargetedByUtinni);
     }
 
@@ -66,7 +81,7 @@ public class Card1_188 extends AbstractDroid {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DefinedByGameTextLandspeedModifier(self, 3));
-        modifiers.add(new MouseDroidTargetModifier(self, Filters.and(Filters.Utinni_Effect, Filters.attachedTo(self))));
+        modifiers.add(new MouseDroidTargetModifier(self, Filters.and(getMouseReachableUtinniFilter(false), Filters.attachedTo(self))));
         return modifiers;
     }
 
@@ -135,15 +150,15 @@ public class Card1_188 extends AbstractDroid {
     }
 
     /**
-     * Utinni Effects this mouse has 'reached' and may pick up: not Kessel Run / Spice Mines, able to move,
-     * not already attached to this mouse, attached to a location the mouse is present at
-     * or to a character/starship/vehicle at that location.
+     * Utinni Effects (and Elom-changed Plastoid Armor) this mouse has 'reached' and may pick up:
+     * not Kessel Run / Spice Mines, able to move, not already attached to this mouse,
+     * attached to a location the mouse is present at or to a character/starship/vehicle at that location.
      * Perpetual reach: offered again on later table-changed while they remain together (including after decline).
      */
     private Filter getRelocatableUtinniEffectFilter(final SwccgGame game, final PhysicalCard self) {
+        // Include Plastoid Armor even after Elom strips Utinni subtype; still skip mayNotMove / already-on-mouse.
         return Filters.and(
-                Filters.Utinni_Effect,
-                Filters.except(Filters.or(Filters.Kessel_Run, Filters.Spice_Mines_Of_Kessel)),
+                getMouseReachableUtinniFilter(false),
                 Filters.not(Filters.attachedTo(self)),
                 new Filter() {
                     @Override
@@ -151,6 +166,7 @@ public class Card1_188 extends AbstractDroid {
                         if (modifiersQuerying.mayNotMove(gameState, physicalCard)) {
                             return false;
                         }
+                        // Reach host on the location OR on a character/starship/vehicle present there.
                         return hasReachedHost(game, self, physicalCard.getAttachedTo());
                     }
                 });

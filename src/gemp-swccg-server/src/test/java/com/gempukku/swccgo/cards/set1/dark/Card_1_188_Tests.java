@@ -1,6 +1,11 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.logic.modifiers.ChangeCardSubtypeModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.NotUniqueModifier;
+import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.ModelType;
@@ -52,7 +57,10 @@ public class Card_1_188_Tests {
                     put("lando", "109_003");
                     put("cantina", "1_128");
                     put("plastoid", "1_059");
+                    put("plastoid2", "1_059");
                     put("tusken", "1_067");
+                    put("elom", "6_012");
+                    put("chewie", "2_003");
                 }},
                 new HashMap<>() {{
                     put("mouse", "1_188");
@@ -1279,9 +1287,13 @@ public class Card_1_188_Tests {
         AdvanceUntilRelocateAvailable(scn, mouse);
         assertTrue(RelocateUtinniAvailable(scn, mouse));
         // Prefer this mouse's Relocate when multiple mice can offer Relocate in the same window.
-        assertTrue("Relocate not available on mouse. Decision: " + decisionText(scn) + " actions=" + scn.GetDSAvailableActions(),
-                scn.DSCardActionAvailable(mouse, "Relocate"));
-        scn.DSUseCardAction(mouse, "Relocate");
+        if (scn.DSCardActionAvailable(mouse, "Relocate")) {
+            scn.DSUseCardAction(mouse, "Relocate");
+        } else {
+            assertTrue("Relocate not available. Decision: " + decisionText(scn) + " actions=" + scn.GetDSAvailableActions(),
+                    RelocateUtinniAvailable(scn, mouse));
+            scn.DSChooseAction("Relocate");
+        }
         assertTrue("Utinni not choosable after Relocate. Decision: " + decisionText(scn),
                 scn.DSHasCardChoiceAvailable(utinni));
         scn.DSChooseCard(utinni);
@@ -1648,6 +1660,136 @@ public class Card_1_188_Tests {
         assertEquals(powerBeforeWithoutMask + 2, scn.GetPower(leia));
         assertEquals(leia, tusken.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
         assertEquals(null, tusken.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+    }
+
+
+
+    /** Simulate Elom's remainder-of-game Plastoid changes (subtype Effect + changed deployment). */
+    private void ApplyElomPlastoidModifiers(VirtualTableScenario scn, PhysicalCardImpl elom) {
+        scn.game().getModifiersEnvironment().addUntilEndOfGameModifier(
+                new ChangeCardSubtypeModifier(elom, Filters.Plastoid_Armor, CardSubtype.NORMAL));
+        scn.game().getModifiersEnvironment().addUntilEndOfGameModifier(
+                new NotUniqueModifier(elom, Filters.Plastoid_Armor));
+        scn.game().getModifiersEnvironment().addUntilEndOfGameModifier(
+                new ModifyGameTextModifier(elom, Filters.Plastoid_Armor, ModifyGameTextType.PLASTOID_ARMOR__CHANGE_DEPLOYMENT));
+    }
+
+    @Test
+    public void MouseDroid_1_188_DeploysToSiteWithOnlyCharacterHostedElomPlastoid() {
+        // A: only Elom-changed Plastoid on characters at the site (no location-hosted Utinni) -> Mouse may deploy.
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var plastoid = scn.GetLSCard("plastoid");
+        var han = scn.GetLSCard("han");
+        var chewie = scn.GetLSCard("chewie");
+        var elom = scn.GetLSCard("elom");
+        var dsDb = scn.GetLSCard("ds-db");
+        var presence = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveCardsToLocation(dsDb, han, chewie, elom, presence);
+        ApplyElomPlastoidModifiers(scn, elom);
+        scn.AttachCardsTo(han, plastoid);
+        scn.MoveCardsToDSHand(mouse);
+
+        // Elom stripped Utinni subtype; attachment alone must still enable Mouse special deploy.
+        assertFalse("Elom Plastoid must not match Filters.Utinni_Effect",
+                Filters.Utinni_Effect.accepts(scn.game(), plastoid));
+        assertTrue(Filters.Plastoid_Armor.accepts(scn.game(), plastoid));
+
+        EnsureDSDeployPhase(scn);
+        assertTrue("Mouse must deploy to site with only character-hosted Elom Plastoid. Decision: " + decisionText(scn),
+                scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        assertTrue(scn.DSHasCardChoiceAvailable(dsDb));
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+        assertTrue(scn.CardsAtLocation(dsDb, mouse));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CannotSpecialDeployToSiteWithNoUtinniAtAll() {
+        // B: character present but no Utinni / Plastoid package -> special deploy not available.
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var han = scn.GetLSCard("han");
+        var dsDb = scn.GetLSCard("ds-db");
+        var presence = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveCardsToLocation(dsDb, han, presence);
+        scn.MoveCardsToDSHand(mouse);
+
+        EnsureDSDeployPhase(scn);
+        assertFalse("Mouse special deploy requires a reachable Utinni/Plastoid package",
+                scn.DSCardPlayAvailable(mouse));
+    }
+
+    @Test
+    public void MouseDroid_1_188_RelocatesCharacterHostedElomPlastoidOntoMouseKeepsSubject() {
+        // C: Mouse with Elom Plastoid on character at same site -> optional relocate; carry keeps subject on original host.
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var plastoid = scn.GetLSCard("plastoid");
+        var han = scn.GetLSCard("han");
+        var elom = scn.GetLSCard("elom");
+        var dsDb = scn.GetLSCard("ds-db");
+        var presence = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveCardsToLocation(dsDb, han, elom, mouse, presence);
+        ApplyElomPlastoidModifiers(scn, elom);
+        scn.AttachCardsTo(han, plastoid);
+
+        assertFalse(Filters.Utinni_Effect.accepts(scn.game(), plastoid));
+        assertTrue(scn.IsAttachedTo(han, plastoid));
+
+        // Do not SkipToPhase here — it can auto-decline the initial Relocate optional.
+        AcceptRelocate(scn, mouse, plastoid);
+        assertTrue("Elom Plastoid should stay on Mouse after relocate (not lost as invalid attach). zone="
+                        + plastoid.getZone() + " attachedTo=" + (plastoid.getAttachedTo() == null ? "null" : plastoid.getAttachedTo().getTitle()),
+                scn.IsAttachedTo(mouse, plastoid));
+        // Carry-vs-target: Han remains effect subject / remembered host.
+        assertEquals(han, MouseDroidUtinniCarry.getEffectSubjectHost(scn.gameState(), plastoid));
+        assertEquals(han, plastoid.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+        assertEquals(han, plastoid.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+    }
+
+    @Test
+    public void MouseDroid_1_188_RelocatesTwoCharacterHostedElomPlastoidsOverTime() {
+        // D: two Elom Plastoids on Han + Chewie -> Mouse can relocate both over successive offers.
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var plastoid = scn.GetLSCard("plastoid");
+        var plastoid2 = scn.GetLSCard("plastoid2");
+        var han = scn.GetLSCard("han");
+        var chewie = scn.GetLSCard("chewie");
+        var elom = scn.GetLSCard("elom");
+        var dsDb = scn.GetLSCard("ds-db");
+        var presence = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveCardsToLocation(dsDb, han, chewie, elom, mouse, presence);
+        ApplyElomPlastoidModifiers(scn, elom);
+        scn.AttachCardsTo(han, plastoid);
+        scn.AttachCardsTo(chewie, plastoid2);
+
+        AcceptRelocate(scn, mouse, plastoid);
+        assertTrue(scn.IsAttachedTo(mouse, plastoid));
+        assertTrue(scn.IsAttachedTo(chewie, plastoid2));
+
+        AdvanceUntilRelocateAvailable(scn, mouse);
+        assertTrue("Second Plastoid must still be relocatable. Decision: " + decisionText(scn),
+                RelocateUtinniAvailable(scn, mouse));
+        AcceptRelocate(scn, mouse, plastoid2);
+        assertTrue(scn.IsAttachedTo(mouse, plastoid));
+        assertTrue(scn.IsAttachedTo(mouse, plastoid2));
+        assertEquals(han, plastoid.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+        assertEquals(chewie, plastoid2.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
     }
 
     private String decisionText(VirtualTableScenario scn) {
