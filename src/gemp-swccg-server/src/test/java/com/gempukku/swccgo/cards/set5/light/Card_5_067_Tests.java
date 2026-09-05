@@ -40,6 +40,8 @@ public class Card_5_067_Tests {
                     put("xwing2", "1_146");
                     put("freighter", "7_144");
                     put("corvette", "1_140");
+                    put("patrol", "7_153");
+                    put("raider", "112_5");
                     put("bespin", "5_76");
                     put("clouds", "5_85");
                 }},
@@ -533,6 +535,55 @@ public class Card_5_067_Tests {
                         + " car2=" + cloudCar2.getZone(),
                 Zone.AT_LOCATION, cloudCar2.getZone());
         assertAtLocation(clouds, cloudCar2);
+        assertInZone(Zone.LOST_PILE, rescue);
+    }
+
+    @Test
+    public void LostExtraReactDoesNotOfferUnaffordablePatrolCraftOrPalaceRaider_5_67_RescueInTheClouds() {
+        var scn = GetScenario();
+
+        var rescue = scn.GetLSCard("rescue");
+        var xwing = scn.GetLSCard("xwing");
+        var patrol = scn.GetLSCard("patrol");
+        var raider = scn.GetLSCard("raider");
+        var cloudCar = scn.GetLSCard("cloud-car");
+        var bespin = scn.GetLSCard("bespin");
+        var clouds = scn.GetLSCard("clouds");
+        var tie = scn.GetDSCard("tie");
+
+        scn.StartGame();
+
+        scn.MoveLocationToTable(bespin);
+        scn.MoveLocationToTable(clouds);
+        scn.MoveCardsToLocation(clouds, tie, cloudCar);
+        scn.MoveCardsToLSHand(rescue, xwing, patrol, raider);
+
+        scn.SkipToDSTurn(Phase.BATTLE);
+        int currentForce = scn.GetLSForcePileCount();
+        if (currentForce > 3) {
+            scn.LSUseForceCheat(currentForce - 3);
+        } else if (currentForce < 3) {
+            scn.LSActivateForceCheat(3 - currentForce);
+        }
+
+        scn.DSInitiateBattle(clouds);
+        playRescueAndDeployFirstReact(scn, rescue, xwing);
+        scn.PassAllResponses();
+
+        assertEquals(1, scn.GetLSForcePileCount());
+        assertFalse("Patrol Craft should not light up without a full driver combo",
+                scn.LSAnyDecisionsAvailable() && scn.LSHasCardChoiceAvailable(patrol));
+        assertFalse("Palace Raider should not light up without enough Force",
+                scn.LSAnyDecisionsAvailable() && scn.LSHasCardChoiceAvailable(raider));
+        if (scn.LSAnyDecisionsAvailable()
+                && scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop")) {
+            scn.LSPass();
+            scn.PassAllResponses();
+        }
+
+        assertAtLocation(clouds, xwing);
+        assertInZone(Zone.HAND, patrol);
+        assertInZone(Zone.HAND, raider);
         assertInZone(Zone.LOST_PILE, rescue);
     }
 
