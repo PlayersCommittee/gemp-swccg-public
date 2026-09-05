@@ -23,6 +23,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.AttachCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.ReturnCardToHandFromTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
@@ -35,8 +36,10 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -107,10 +110,77 @@ public class Card1_188 extends AbstractDroid {
     }
 
     /**
+     * WhileInPlayData layout for this mouse:
+     * - physicalCard = current meet / delivery location
+     * - textValues = Utinni permanentCardIds already offered/resolved this continuous meet
+     * - booleanValue = true when the mouse must return to hand after a delivery (steal-first safe)
+     */
+    private void clearMeetDataIfLocationChanged(SwccgGame game, PhysicalCard self) {
+        if (!GameConditions.cardHasWhileInPlayDataSet(self)) {
+            return;
+        }
+        PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self);
+        PhysicalCard remembered = self.getWhileInPlayData().getPhysicalCard();
+        // Left this site (or left table): wipe once-per-meet relocate memory and any stale return flag.
+        if (location == null || remembered == null || location.getCardId() != remembered.getCardId()) {
+            self.setWhileInPlayData(null);
+        }
+    }
+
+    private boolean mustReturnToHand(PhysicalCard self) {
+        return GameConditions.cardHasWhileInPlayDataSet(self) && self.getWhileInPlayData().getBooleanValue();
+    }
+
+    private Set<String> getResolvedUtinniPermanentIds(PhysicalCard self) {
+        if (!GameConditions.cardHasWhileInPlayDataSet(self)) {
+            return Collections.emptySet();
+        }
+        return self.getWhileInPlayData().getTextValues();
+    }
+
+    private void ensureMeetTrackingAt(PhysicalCard self, PhysicalCard location, boolean mustReturn) {
+        Set<String> resolved = new HashSet<String>();
+        if (GameConditions.cardHasWhileInPlayDataSet(self)) {
+            resolved.addAll(self.getWhileInPlayData().getTextValues());
+            // Keep an existing must-return flag unless the caller is explicitly setting it.
+            mustReturn = mustReturn || self.getWhileInPlayData().getBooleanValue();
+        }
+        WhileInPlayData data = mustReturn ? new WhileInPlayData(true, location) : new WhileInPlayData(location);
+        data.getTextValues().addAll(resolved);
+        self.setWhileInPlayData(data);
+    }
+
+    /**
+     * Mark these Utinnis as already offered/resolved for this continuous meet on this mouse,
+     * and on any other Mouse Droids at the same site so a transfer does not re-ping the other mouse every phase.
+     */
+    private void markUtinnisResolvedForCurrentMeet(SwccgGame game, PhysicalCard self, Collection<PhysicalCard> utinnis) {
+        PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self);
+        if (location == null || utinnis == null || utinnis.isEmpty()) {
+            return;
+        }
+        Set<String> ids = new HashSet<String>();
+        for (PhysicalCard utinni : utinnis) {
+            ids.add(String.valueOf(utinni.getPermanentCardId()));
+        }
+        ensureMeetTrackingAt(self, location, false);
+        self.getWhileInPlayData().getTextValues().addAll(ids);
+
+        Collection<PhysicalCard> otherMice = Filters.filterActive(game, self,
+                Filters.and(Filters.mouse_droid, Filters.at(location), Filters.other(self)));
+        for (PhysicalCard otherMouse : otherMice) {
+            ensureMeetTrackingAt(otherMouse, location, false);
+            otherMouse.getWhileInPlayData().getTextValues().addAll(ids);
+        }
+    }
+
+    /**
      * Utinni Effects this mouse has 'reached' and may pick up: not Kessel Run / Spice Mines, able to move,
-     * attached to a location the mouse is present at or to a character/starship/vehicle at that location.
+     * not already offered/declined this continuous meet, attached to a location the mouse is present at
+     * or to a character/starship/vehicle at that location.
      */
     private Filter getRelocatableUtinniEffectFilter(final SwccgGame game, final PhysicalCard self) {
+        final Set<String> alreadyResolved = getResolvedUtinniPermanentIds(self);
         return Filters.and(
                 Filters.Utinni_Effect,
                 Filters.except(Filters.or(Filters.Kessel_Run, Filters.Spice_Mines_Of_Kessel)),
@@ -118,6 +188,9 @@ public class Card1_188 extends AbstractDroid {
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        if (alreadyResolved.contains(String.valueOf(physicalCard.getPermanentCardId()))) {
+                            return false;
+                        }
                         if (modifiersQuerying.mayNotMove(gameState, physicalCard)) {
                             return false;
                         }
@@ -128,17 +201,25 @@ public class Card1_188 extends AbstractDroid {
 
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        // Once-per-meet: forget resolved Utinnis when this mouse leaves the site.
+        clearMeetDataIfLocationChanged(game, self);
+
         Filter relocatableUtinni = getRelocatableUtinniEffectFilter(game, self);
 
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
                 && GameConditions.canSpot(game, self, relocatableUtinni)) {
 
+            // Snapshot choosable Utinnis now. Marking them resolved covers accept and decline/pass:
+            // either way we stop re-pinging for these packages until the mice separate and rejoin.
+            final Collection<PhysicalCard> candidates = Filters.filterActive(game, self, relocatableUtinni);
+            markUtinnisResolvedForCurrentMeet(game, self, candidates);
+
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_1);
             action.setText("Relocate Utinni Effect here");
             // Choose target(s)
             action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerId, "Choose Utinni Effect to relocate here", relocatableUtinni) {
+                    new ChooseCardOnTableEffect(action, playerId, "Choose Utinni Effect to relocate here", Filters.in(candidates)) {
                         @Override
                         protected void cardSelected(final PhysicalCard utinniEffect) {
                             action.addAnimationGroup(utinniEffect);
@@ -204,13 +285,6 @@ public class Card1_188 extends AbstractDroid {
     }
 
     /**
-     * True when this mouse is carrying at least one delivered Utinni Effect.
-     */
-    private boolean isCarryingDeliveredUtinniEffect(SwccgGame game, PhysicalCard self) {
-        return !getDeliveredCarriedUtinnis(game, self).isEmpty();
-    }
-
-    /**
      * Where to put a delivered Utinni: hunted target if that is a legal host, else the current site if that site
      * is a legal deploy-on host, else the hunted target so the Utinni can cancel when reached.
      * Never dump it onto a location it could not deploy on (Send A Detachment Down except docking bay;
@@ -262,53 +336,55 @@ public class Card1_188 extends AbstractDroid {
         }
     }
 
+    private void appendLoseLeftoverUtinnis(RequiredGameTextTriggerAction action, Collection<PhysicalCard> leftovers) {
+        for (PhysicalCard leftover : leftovers) {
+            action.appendEffect(
+                    new LoseCardFromTableEffect(action, leftover));
+        }
+    }
+
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         if (!TriggerConditions.isTableChanged(game, effectResult)) {
             return null;
         }
 
+        // Forget once-per-meet relocate ids (and stale return) when the mouse changes sites.
+        clearMeetDataIfLocationChanged(game, self);
+
         Collection<PhysicalCard> attachedUtinnis = Filters.filter(game.getGameState().getAttachedCards(self), game, Filters.Utinni_Effect);
         Collection<PhysicalCard> delivered = getDeliveredCarriedUtinnis(game, self);
         boolean hasDelivered = !delivered.isEmpty();
-        boolean hasUndelivered = attachedUtinnis.size() > delivered.size();
         PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self);
 
-        if (hasDelivered && hasUndelivered) {
-            // One package arrived; leave the others on the mouse and stay in play.
-            self.setWhileInPlayData(null);
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_3);
-            action.setSingletonTrigger(true);
-            action.setText("Deliver Utinni Effect");
-            action.setActionMsg("Deliver Utinni Effect from " + GameUtils.getCardLink(self));
-            appendPlaceDeliveredUtinnis(action, game, self, delivered);
-            return Collections.singletonList(action);
-        }
-
-        // Remember delivery even if the Utinni is then stolen off the mouse
-        // (choosing Organa's Ceremonial Necklace steal before Return).
+        // Any delivery requires return to hand. Leftover (undelivered) packages go to Lost — the mouse cannot stay in play carrying them.
         if (hasDelivered) {
-            self.setWhileInPlayData(new WhileInPlayData(location));
-        }
-        else if (GameConditions.cardHasWhileInPlayDataSet(self)) {
-            PhysicalCard remembered = self.getWhileInPlayData().getPhysicalCard();
-            // Stale flag must not bounce the mouse at a later site, and must not fire while undelivered packages remain.
-            if (location == null || remembered == null || location.getCardId() != remembered.getCardId() || !attachedUtinnis.isEmpty()) {
-                self.setWhileInPlayData(null);
-            }
+            // Remember delivery even if a Utinni is then stolen off the mouse
+            // (choosing Organa's Ceremonial Necklace steal before Return).
+            ensureMeetTrackingAt(self, location, true);
         }
 
-        if (!GameConditions.cardHasWhileInPlayDataSet(self)) {
+        if (!mustReturnToHand(self)) {
             return null;
+        }
+
+        // Build leftover list from what is still attached and not in the delivered set.
+        List<PhysicalCard> leftovers = new LinkedList<PhysicalCard>();
+        for (PhysicalCard attached : attachedUtinnis) {
+            if (!delivered.contains(attached)) {
+                leftovers.add(attached);
+            }
         }
 
         final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_2);
         action.setSingletonTrigger(true);
         action.setText("Return to hand");
         action.setActionMsg("Return " + GameUtils.getCardLink(self) + " to hand");
-        // Place any still-attached delivered Utinnis, then return the mouse.
-        // A stolen necklace is already on the Imperial, so it is not re-attached here.
-        appendPlaceDeliveredUtinnis(action, game, self, attachedUtinnis);
+        // Place each delivered Utinni on its hunted target (or legal host).
+        // A stolen necklace is already on the Imperial, so it is not re-attached here if it left the mouse.
+        appendPlaceDeliveredUtinnis(action, game, self, delivered);
+        // Undelivered leftovers cannot stay on the mouse — mouse must return — so they go to Lost Pile.
+        appendLoseLeftoverUtinnis(action, leftovers);
         action.appendEffect(
                 new ReturnCardToHandFromTableEffect(action, self));
         return Collections.singletonList(action);

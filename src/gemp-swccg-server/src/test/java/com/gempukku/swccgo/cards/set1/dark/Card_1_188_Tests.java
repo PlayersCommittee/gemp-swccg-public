@@ -50,6 +50,7 @@ public class Card_1_188_Tests {
                 }},
                 new HashMap<>() {{
                     put("mouse", "1_188");
+                    put("mouse2", "1_188");
                     put("sadd", "1_229");
                     put("necklace", "1_226");
                     put("fivedesix", "1_163");
@@ -148,11 +149,84 @@ public class Card_1_188_Tests {
         if (!scn.DSAnyDecisionsAvailable()) {
             return false;
         }
-        return scn.DSCardActionAvailable(mouse, "Relocate") || scn.DSActionAvailable("Relocate");
+        try {
+            if (scn.DSCardActionAvailable(mouse, "Relocate")) {
+                return true;
+            }
+        } catch (RuntimeException ignored) {
+            // Decision is not a card-action choice (e.g. plain optional Pass window).
+        }
+        try {
+            return scn.DSActionAvailable("Relocate");
+        } catch (RuntimeException ignored) {
+            return false;
+        }
+    }
+
+    /**
+     * Advance the clock like SkipToPhase, but stop as soon as Relocate is offered.
+     * Needed because once-per-meet marking happens when Relocate is created, and SkipToPhase
+     * would auto-pass that optional on the way to a later phase and permanently silence it.
+     */
+    private void AdvanceUntilRelocateAvailable(VirtualTableScenario scn, PhysicalCardImpl mouse) {
+        if (RelocateUtinniAvailable(scn, mouse)) {
+            return;
+        }
+        for (int attempts = 1; attempts <= 40; attempts++) {
+            if (RelocateUtinniAvailable(scn, mouse)) {
+                return;
+            }
+            var decision = scn.GetCurrentDecision();
+            if (decision == null) {
+                throw new RuntimeException("No decision while waiting for Relocate");
+            }
+            String text = decision.getText().toLowerCase();
+            // Never auto-pass a live Relocate optional — leave it for the test.
+            if (RelocateUtinniAvailable(scn, mouse)) {
+                return;
+            }
+            if (scn.GetCurrentPhase() == Phase.ACTIVATE) {
+                if (text.contains("optional")) {
+                    scn.PassResponses("optional");
+                } else if (scn.game().getGameState().getCurrentPlayerId().equals(scn.LS)) {
+                    scn.LSActivateMaxForceAndPass();
+                } else {
+                    scn.DSActivateMaxForceAndPass();
+                }
+            } else if (text.contains("optional")) {
+                scn.PassResponses("optional");
+            } else if (text.contains("required")) {
+                scn.PassResponses("required");
+            } else if (text.contains("action")) {
+                scn.PassResponses("action");
+            } else {
+                scn.PassResponses();
+            }
+        }
+        throw new RuntimeException("Relocate never offered. Decision: " + decisionText(scn));
+    }
+
+    /** Clears once-per-meet relocate memory (not a must-return delivery flag) so tests can open a fresh Relocate window. */
+    private void ClearRelocateMeetMarks(PhysicalCardImpl... mice) {
+        for (PhysicalCardImpl mouse : mice) {
+            if (mouse.getWhileInPlayData() == null) {
+                continue;
+            }
+            if (mouse.getWhileInPlayData().getBooleanValue()) {
+                // Keep required-return flag; drop resolved Utinni ids only.
+                var loc = mouse.getWhileInPlayData().getPhysicalCard();
+                mouse.setWhileInPlayData(new com.gempukku.swccgo.game.state.WhileInPlayData(true, loc));
+            } else {
+                mouse.setWhileInPlayData(null);
+            }
+        }
     }
 
     /** Accepts the mouse's optional relocate, choosing the given Utinni Effect if a card picker is shown. */
     private void AcceptRelocate(VirtualTableScenario scn, PhysicalCardImpl mouse, PhysicalCardImpl utinni) {
+        // SkipToPhase may have auto-passed Relocate and marked the meet; clear so a new window can open.
+        ClearRelocateMeetMarks(mouse);
+        AdvanceUntilRelocateAvailable(scn, mouse);
         assertTrue(RelocateUtinniAvailable(scn, mouse));
         scn.DSChooseAction("Relocate");
         if (scn.DSHasCardChoiceAvailable(utinni)) {
@@ -340,7 +414,7 @@ public class Card_1_188_Tests {
         scn.PassAllResponses();
 
         scn.MoveCardsToLocation(marketplace, mouse);
-        scn.SkipToPhase(Phase.CONTROL);
+        AdvanceUntilRelocateAvailable(scn, mouse);
         assertTrue(RelocateUtinniAvailable(scn, mouse));
         scn.DSDecline();
         scn.PassAllResponses();
@@ -767,7 +841,8 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_DeliveringOneUtinniDoesNotDumpTheOthers() {
+    public void MouseDroid_1_188_DeliveringToTargetReturnsMouseAndSendsLeftoverUtinnisToLost() {
+        // Delivery is required return: place relevant Utinnis on the hunted target, leftover packages to Lost, mouse to hand.
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var homestead = scn.GetDSCard("homestead");
@@ -787,19 +862,19 @@ public class Card_1_188_Tests {
         sadd.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, trooper, Filters.any);
 
         scn.SkipToPhase(Phase.CONTROL);
-        if (scn.DSAnyDecisionsAvailable() && (scn.DSActionAvailable("Deliver") || scn.DSCardActionAvailable(mouse, "Deliver"))) {
-            scn.DSChooseAction("Deliver");
+        if (scn.DSAnyDecisionsAvailable() && (scn.DSActionAvailable("Return") || scn.DSCardActionAvailable(mouse, "Return"))) {
+            scn.DSChooseAction("Return");
         }
         if (scn.DSAnyDecisionsAvailable()) {
             scn.PassAllResponses();
         }
 
-        assertTrue("Mouse stays while it still carries Homestead", scn.CardsAtLocation(db94, mouse));
-        assertTrue("Homestead stays on the mouse", scn.IsAttachedTo(mouse, homestead));
+        assertInHand(mouse);
+        assertTrue("SADD attaches to the hunted trooper", scn.IsAttachedTo(trooper, sadd));
+        assertFalse(scn.IsAttachedTo(mouse, sadd));
+        assertInZone(Zone.LOST_PILE, homestead);
+        assertFalse("Homestead must not stay on the mouse after delivery", scn.IsAttachedTo(mouse, homestead));
         assertFalse("Homestead must not be dumped on Docking Bay 94", scn.IsAttachedTo(db94, homestead));
-        assertFalse("Delivered SADD leaves the mouse", scn.IsAttachedTo(mouse, sadd));
-        assertTrue("SADD attaches to the hunted trooper, not the illegal docking bay", scn.IsAttachedTo(trooper, sadd));
-        assertFalse(scn.IsAttachedTo(db94, sadd));
     }
 
 
@@ -1073,6 +1148,97 @@ public class Card_1_188_Tests {
     }
 
     /** True if that player's current action list contains the text (any case). dark=true is Dark Side. */
+
+    @Test
+    public void MouseDroid_1_188_DeclineRelocateStopsPingingUntilMiceSeparateAndRejoin() {
+        // Once-per-meet: decline relocate for a package; no re-ping while mice stay together; separate and rejoin to offer again.
+        var scn = GetScenario();
+        var mouseA = scn.GetDSCard("mouse");
+        var mouseB = scn.GetDSCard("mouse2");
+        var sadd = scn.GetDSCard("sadd");
+        var db94 = scn.GetDSCard("db94");
+        var dsDb = scn.GetLSCard("ds-db");
+        var trooper = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(db94);
+        scn.MoveLocationToTable(dsDb);
+        // Trooper (SADD target) stays at Death Star DB so delivery does not fire while testing relocate ping rules.
+        scn.MoveCardsToLocation(dsDb, trooper);
+        scn.MoveCardsToLocation(db94, mouseA, mouseB);
+        scn.AttachCardsTo(mouseA, sadd);
+        sadd.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, trooper, Filters.any);
+
+        scn.SkipToPhase(Phase.CONTROL);
+        ClearRelocateMeetMarks(mouseA, mouseB);
+        AdvanceUntilRelocateAvailable(scn, mouseB);
+        assertTrue("Mouse B should be offered relocate of A's package", RelocateUtinniAvailable(scn, mouseB));
+        scn.DSDecline();
+        if (scn.DSAnyDecisionsAvailable()) {
+            scn.PassAllResponses();
+        }
+
+        // Same continuous meet: advancing phase must not re-offer relocate for that Utinni.
+        // Pass any non-relocate windows, then step phases without accepting a new Relocate.
+        if (scn.DSAnyDecisionsAvailable()) {
+            scn.PassAllResponses();
+        }
+        scn.SkipToPhase(Phase.BATTLE);
+        assertFalse("After decline, relocate must not re-ping while mice stay together. Decision: " + decisionText(scn),
+                RelocateUtinniAvailable(scn, mouseB) || RelocateUtinniAvailable(scn, mouseA));
+        if (scn.DSAnyDecisionsAvailable()) {
+            scn.PassAllResponses();
+        }
+
+        // Separate then rejoin: the option comes back once.
+        // Cheat MoveCardsToLocation does not fire triggers, so clear meet marks as a real leave-site would.
+        scn.MoveCardsToLocation(dsDb, mouseB);
+        ClearRelocateMeetMarks(mouseB);
+        if (scn.DSAnyDecisionsAvailable()) {
+            scn.PassAllResponses();
+        }
+        scn.MoveCardsToLocation(db94, mouseB);
+        AdvanceUntilRelocateAvailable(scn, mouseB);
+        assertTrue("After separate and rejoin, relocate is offered again", RelocateUtinniAvailable(scn, mouseB));
+    }
+
+    @Test
+    public void MouseDroid_1_188_AcceptRelocateDoesNotRepingSameUtinniEveryPhase() {
+        // After accepting relocate onto mouse B, that same package must not keep offering relocate every phase while they stay together.
+        var scn = GetScenario();
+        var mouseA = scn.GetDSCard("mouse");
+        var mouseB = scn.GetDSCard("mouse2");
+        var sadd = scn.GetDSCard("sadd");
+        var db94 = scn.GetDSCard("db94");
+        var trooper = scn.GetDSFiller(1);
+
+        var dsDb = scn.GetLSCard("ds-db");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(db94);
+        scn.MoveLocationToTable(dsDb);
+        // Keep hunted trooper elsewhere so accept/re-ping checks are not interrupted by delivery.
+        scn.MoveCardsToLocation(dsDb, trooper);
+        scn.MoveCardsToLocation(db94, mouseA, mouseB);
+        scn.AttachCardsTo(mouseA, sadd);
+        sadd.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, trooper, Filters.any);
+
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouseB, sadd);
+        assertTrue(scn.IsAttachedTo(mouseB, sadd));
+
+        if (scn.DSAnyDecisionsAvailable()) {
+            scn.PassAllResponses();
+        }
+        scn.SkipToPhase(Phase.BATTLE);
+        assertFalse("After accept, same package must not re-ping relocate every phase. Decision: " + decisionText(scn),
+                RelocateUtinniAvailable(scn, mouseA) || RelocateUtinniAvailable(scn, mouseB));
+        if (scn.DSAnyDecisionsAvailable()) {
+            scn.PassAllResponses();
+        }
+    }
+
+
     private String decisionText(VirtualTableScenario scn) {
         return scn.GetCurrentDecision() == null ? "none" : scn.GetCurrentDecision().getText();
     }
