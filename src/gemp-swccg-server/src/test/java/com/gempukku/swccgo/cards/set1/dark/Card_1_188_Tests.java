@@ -9,6 +9,7 @@ import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.TargetId;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.UtinniEffectStatus;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
@@ -47,6 +48,9 @@ public class Card_1_188_Tests {
                     put("bog", "4_085");
                     put("jungle-dag", "4_086");
                     put("training", "4_088");
+                    put("lando", "109_003");
+                    put("cantina", "1_128");
+                    put("plastoid", "1_059");
                 }},
                 new HashMap<>() {{
                     put("mouse", "1_188");
@@ -65,6 +69,7 @@ public class Card_1_188_Tests {
                     put("db94", "1_291");
                     put("failure", "4_120");
                     put("tie", "1_304");
+                    put("juri", "1_220");
                 }},
                 10,
                 10,
@@ -1401,6 +1406,109 @@ public class Card_1_188_Tests {
     }
 
 
+
+
+    @Test
+    public void MouseDroid_1_188_CarriesJuriJuiceKeepsRestrictionOnOriginalAlienNotMouse() {
+        // Deploy-on-character Utinni: mouse carries Juri Juice; Lando keeps the ability restriction; mouse does not.
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var juri = scn.GetDSCard("juri");
+        var lando = scn.GetLSCard("lando");
+        var cantina = scn.GetLSCard("cantina");
+        var jungle = scn.GetLSCard("jungle");
+        var presence = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(cantina);
+        scn.MoveLocationToTable(jungle);
+        scn.MoveCardsToLocation(jungle, lando, presence);
+        scn.AttachCardsTo(lando, juri);
+        scn.MoveCardsToDSHand(mouse);
+
+        assertTrue(scn.IsAttachedTo(lando, juri));
+        assertEquals(0, scn.GetBattleDestinyAbility(lando));
+
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(jungle);
+        scn.PassAllResponses();
+
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, juri);
+        assertTrue(scn.IsAttachedTo(mouse, juri));
+        // Original alien still cannot apply ability for battle destiny.
+        assertEquals(0, scn.GetBattleDestinyAbility(lando));
+        // Mouse is carrier/host; hunted target data points at Lando (not the mouse).
+        assertEquals(lando, juri.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertTrue(scn.game().getModifiersQuerying().getCardsOnTableTargetingCard(scn.gameState(), lando).contains(juri));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesSaddPreservesHuntedTrooperTargets() {
+        // Character-hunt Utinni: after mouse carries SADD, TargetId stays on the trooper (not the mouse).
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var sadd = scn.GetDSCard("sadd");
+        var dsDb = scn.GetLSCard("ds-db");
+        var trooper = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(mouse);
+        PlaySaddTargetingTrooperAtDeathStar(scn);
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+
+        scn.MoveCardsToLocation(scn.GetDSStartingLocation(), mouse);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, sadd);
+        assertTrue(scn.IsAttachedTo(mouse, sadd));
+        assertEquals(trooper, sadd.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertTrue(scn.game().getModifiersQuerying().getCardsOnTableTargetingCard(scn.gameState(), trooper).contains(sadd));
+        // Mouse may show as host/attached-to; it is not the hunted TargetId.
+        assertFalse(trooper.equals(mouse));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesPlastoidArmorKeepsDisguiseOnOriginalTarget() {
+        // LS Utinni: mouse carries reached Plastoid while the hunted character is elsewhere;
+        // original target keeps disguise via carry redirect (mouse is not re-delivered onto yet).
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var plastoid = scn.GetLSCard("plastoid");
+        var leia = scn.GetLSCard("leia");
+        var trash = scn.GetLSCard("trash");
+        var jungle = scn.GetLSCard("jungle");
+        var presence = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(trash);
+        scn.MoveLocationToTable(jungle);
+        scn.MoveCardsToLocation(jungle, leia, presence);
+        // Reached Plastoid sitting at the Death Star site (as if awaiting delivery), targeting Leia elsewhere.
+        scn.AttachCardsTo(trash, plastoid);
+        plastoid.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, leia, Filters.any);
+        plastoid.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.MoveCardsToDSHand(mouse);
+
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        // Deploy at Leia's site (character targeted by Utinni), then move to the Plastoid site.
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(jungle);
+        scn.PassAllResponses();
+        scn.MoveCardsToLocation(trash, mouse);
+
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, plastoid);
+        assertTrue(scn.IsAttachedTo(mouse, plastoid));
+        // Carry redirect: disguise still applies to Leia, not the mouse.
+        assertEquals(5, scn.GetArmor(leia));
+        assertEquals(leia, plastoid.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertTrue(scn.game().getModifiersQuerying().getCardsOnTableTargetingCard(scn.gameState(), leia).contains(plastoid));
+    }
 
     private String decisionText(VirtualTableScenario scn) {
         return scn.GetCurrentDecision() == null ? "none" : scn.GetCurrentDecision().getText();

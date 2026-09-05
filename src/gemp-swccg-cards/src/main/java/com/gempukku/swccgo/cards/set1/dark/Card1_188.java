@@ -30,6 +30,7 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextLandspeedModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.MouseDroidTargetModifier;
+import com.gempukku.swccgo.logic.modifiers.MouseDroidUtinniCarry;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -177,6 +178,10 @@ public class Card1_188 extends AbstractDroid {
                                     new UnrespondableEffect(action) {
                                         @Override
                                         protected void performActionResults(Action targetingAction) {
+                                            // Remember previous host as hunted target when needed (Juri Juice etc.).
+                                            // Mouse carries the Utinni; it must not become the primary hunted target.
+                                            PhysicalCard previousHost = utinniEffect.getAttachedTo();
+                                            MouseDroidUtinniCarry.preservePreviousHostAsHuntedTargetIfNeeded(utinniEffect, previousHost, game.getGameState());
                                             // Perform result(s)
                                             action.appendEffect(
                                                     new AttachCardFromTableEffect(action, utinniEffect, self));
