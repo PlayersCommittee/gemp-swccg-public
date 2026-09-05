@@ -150,27 +150,69 @@ public class Card1_188 extends AbstractDroid {
         self.setWhileInPlayData(data);
     }
 
+    private Set<String> permanentIdsOf(Collection<PhysicalCard> utinnis) {
+        Set<String> ids = new HashSet<String>();
+        if (utinnis == null) {
+            return ids;
+        }
+        for (PhysicalCard utinni : utinnis) {
+            ids.add(String.valueOf(utinni.getPermanentCardId()));
+        }
+        return ids;
+    }
+
     /**
-     * Mark these Utinnis as already offered/resolved for this continuous meet on this mouse,
-     * and on any other Mouse Droids at the same site so a transfer does not re-ping the other mouse every phase.
+     * Mark these Utinnis as already offered/resolved for this continuous meet on this mouse.
+     * When includeOtherMice is true, also mark them on other Mouse Droids at the same site
+     * (used after an accept so a sibling mouse does not re-ping that package every phase).
+     * Offer-time marking uses includeOtherMice=false so each mouse at a multi-package site
+     * still gets its own Relocate optional in the same window.
      */
-    private void markUtinnisResolvedForCurrentMeet(SwccgGame game, PhysicalCard self, Collection<PhysicalCard> utinnis) {
+    private void markUtinnisResolvedForCurrentMeet(SwccgGame game, PhysicalCard self, Collection<PhysicalCard> utinnis, boolean includeOtherMice) {
         PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self);
         if (location == null || utinnis == null || utinnis.isEmpty()) {
             return;
         }
-        Set<String> ids = new HashSet<String>();
-        for (PhysicalCard utinni : utinnis) {
-            ids.add(String.valueOf(utinni.getPermanentCardId()));
-        }
+        Set<String> ids = permanentIdsOf(utinnis);
         ensureMeetTrackingAt(self, location, false);
         self.getWhileInPlayData().getTextValues().addAll(ids);
 
+        if (!includeOtherMice) {
+            return;
+        }
         Collection<PhysicalCard> otherMice = Filters.filterActive(game, self,
                 Filters.and(Filters.mouse_droid, Filters.at(location), Filters.other(self)));
         for (PhysicalCard otherMouse : otherMice) {
             ensureMeetTrackingAt(otherMouse, location, false);
             otherMouse.getWhileInPlayData().getTextValues().addAll(ids);
+        }
+    }
+
+    /**
+     * Remove these Utinni permanent ids from once-per-meet memory on this mouse (and optionally siblings),
+     * so unchosen packages can still be offered after one accept.
+     */
+    private void unmarkUtinnisForCurrentMeet(SwccgGame game, PhysicalCard self, Collection<PhysicalCard> utinnis, boolean includeOtherMice) {
+        if (utinnis == null || utinnis.isEmpty()) {
+            return;
+        }
+        Set<String> ids = permanentIdsOf(utinnis);
+        if (GameConditions.cardHasWhileInPlayDataSet(self)) {
+            self.getWhileInPlayData().getTextValues().removeAll(ids);
+        }
+        if (!includeOtherMice) {
+            return;
+        }
+        PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self);
+        if (location == null) {
+            return;
+        }
+        Collection<PhysicalCard> otherMice = Filters.filterActive(game, self,
+                Filters.and(Filters.mouse_droid, Filters.at(location), Filters.other(self)));
+        for (PhysicalCard otherMouse : otherMice) {
+            if (GameConditions.cardHasWhileInPlayDataSet(otherMouse)) {
+                otherMouse.getWhileInPlayData().getTextValues().removeAll(ids);
+            }
         }
     }
 
@@ -210,10 +252,12 @@ public class Card1_188 extends AbstractDroid {
         if (TriggerConditions.isTableChanged(game, effectResult)
                 && GameConditions.canSpot(game, self, relocatableUtinni)) {
 
-            // Snapshot choosable Utinnis now. Marking them resolved covers accept and decline/pass:
-            // either way we stop re-pinging for these packages until the mice separate and rejoin.
+            // Snapshot choosable Utinnis now. Mark them resolved on THIS mouse only so that:
+            // - Pass/decline of the whole optional silences these packages for this mouse (no every-phase spam)
+            // - other mice at the same multi-package site still get their own Relocate optional
+            // Accepting one unmarks unchosen siblings below so they remain offerable.
             final Collection<PhysicalCard> candidates = Filters.filterActive(game, self, relocatableUtinni);
-            markUtinnisResolvedForCurrentMeet(game, self, candidates);
+            markUtinnisResolvedForCurrentMeet(game, self, candidates, false);
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_1);
             action.setText("Relocate Utinni Effect here");
@@ -222,6 +266,18 @@ public class Card1_188 extends AbstractDroid {
                     new ChooseCardOnTableEffect(action, playerId, "Choose Utinni Effect to relocate here", Filters.in(candidates)) {
                         @Override
                         protected void cardSelected(final PhysicalCard utinniEffect) {
+                            // Accepting one must not lock siblings: unmark unchosen packages from this offer.
+                            List<PhysicalCard> siblings = new LinkedList<PhysicalCard>();
+                            for (PhysicalCard candidate : candidates) {
+                                if (candidate.getPermanentCardId() != utinniEffect.getPermanentCardId()) {
+                                    siblings.add(candidate);
+                                }
+                            }
+                            unmarkUtinnisForCurrentMeet(game, self, siblings, true);
+                            // Keep the accepted package resolved on this mouse; also mark it on other mice
+                            // so they do not re-ping that same package every phase while staying together.
+                            markUtinnisResolvedForCurrentMeet(game, self, Collections.singletonList(utinniEffect), true);
+
                             action.addAnimationGroup(utinniEffect);
                             action.addAnimationGroup(self);
                             // Allow response(s)
