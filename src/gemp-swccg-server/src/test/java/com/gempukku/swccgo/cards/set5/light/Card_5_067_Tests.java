@@ -13,6 +13,7 @@ import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
+import com.gempukku.swccgo.game.PhysicalCardImpl;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -32,8 +33,11 @@ public class Card_5_067_Tests {
                     put("rescue", "5_67");
                     put("weather-vane", "5_30");
                     put("luke", "1_19");
+                    put("red1", "1_144");
                     put("xwing", "1_146");
                     put("cloud-car", "5_88");
+                    put("cloud-car2", "5_88");
+                    put("xwing2", "1_146");
                     put("freighter", "7_144");
                     put("corvette", "1_140");
                     put("bespin", "5_76");
@@ -303,13 +307,232 @@ public class Card_5_067_Tests {
         scn.PassAllResponses();
 
         assertTrue(scn.LSAnyDecisionsAvailable());
-        assertTrue(scn.LSGetDecision().getText().toLowerCase().contains("done"));
+        assertTrue("Expected extra react Done prompt, LS decision: " + scn.LSGetDecision().getText(),
+                scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop"));
         assertTrue(scn.LSHasCardChoiceAvailable(freighter));
         scn.LSPass();
         scn.PassAllResponses();
 
         assertAtLocation(clouds, xwing);
         assertInZone(Zone.HAND, freighter);
+        assertInZone(Zone.LOST_PILE, rescue);
+    }
+
+    @Test
+    public void LostDeploysSecondStarfighterWhenContinuingAfterFirstReact_5_67_RescueInTheClouds() {
+        var scn = GetScenario();
+
+        var rescue = scn.GetLSCard("rescue");
+        var xwing = scn.GetLSCard("xwing");
+        var xwing2 = scn.GetLSCard("xwing2");
+        var cloudCar = scn.GetLSCard("cloud-car");
+        var bespin = scn.GetLSCard("bespin");
+        var clouds = scn.GetLSCard("clouds");
+        var tie = scn.GetDSCard("tie");
+
+        scn.StartGame();
+
+        scn.MoveLocationToTable(bespin);
+        scn.MoveLocationToTable(clouds);
+        scn.MoveCardsToLocation(clouds, tie, cloudCar);
+        scn.MoveCardsToLSHand(rescue, xwing, xwing2);
+
+        scn.SkipToDSTurn(Phase.BATTLE);
+        scn.DSInitiateBattle(clouds);
+        assertTrue(scn.LSCardPlayAvailable(rescue));
+        scn.LSPlayCard(rescue);
+        scn.PassAllResponses();
+        if (scn.LSAnyDecisionsAvailable() && scn.LSHasCardChoiceAvailable(xwing)) {
+            scn.LSChooseCard(xwing);
+        }
+        scn.PassAllResponses();
+
+        assertTrue("Expected extra react choice after first X-wing. LS decision: "
+                        + (scn.LSGetDecision() == null ? "none" : scn.LSGetDecision().getText()),
+                scn.LSAnyDecisionsAvailable());
+        assertTrue(scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop"));
+        assertTrue(scn.LSHasCardChoiceAvailable(xwing2));
+        scn.LSChooseCard(xwing2);
+        scn.PassAllResponses();
+
+        if (scn.LSAnyDecisionsAvailable()
+                && scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop")) {
+            scn.LSPass();
+            scn.PassAllResponses();
+        }
+
+        assertAtLocation(clouds, xwing);
+        assertAtLocation(clouds, xwing2);
+        assertInZone(Zone.LOST_PILE, rescue);
+    }
+
+    @Test
+    public void LostDeploysSecondCloudCarWhenContinuingAfterFirstReact_5_67_RescueInTheClouds() {
+        var scn = GetScenario();
+
+        var rescue = scn.GetLSCard("rescue");
+        var cloudCar = scn.GetLSCard("cloud-car");
+        var cloudCar2 = scn.GetLSCard("cloud-car2");
+        var presence = scn.GetLSCard("xwing");
+        var bespin = scn.GetLSCard("bespin");
+        var clouds = scn.GetLSCard("clouds");
+        var tie = scn.GetDSCard("tie");
+
+        scn.StartGame();
+
+        scn.MoveLocationToTable(bespin);
+        scn.MoveLocationToTable(clouds);
+        scn.MoveCardsToLocation(clouds, tie, presence);
+        scn.MoveCardsToLSHand(rescue, cloudCar, cloudCar2);
+
+        scn.SkipToDSTurn(Phase.BATTLE);
+        scn.DSInitiateBattle(clouds);
+        assertTrue(scn.LSCardPlayAvailable(rescue));
+        scn.LSPlayCard(rescue);
+        scn.PassAllResponses();
+        if (scn.LSAnyDecisionsAvailable() && scn.LSHasCardChoiceAvailable(cloudCar)) {
+            scn.LSChooseCard(cloudCar);
+        }
+        scn.PassAllResponses();
+
+        assertTrue("Expected extra react choice after first Cloud Car. LS decision: "
+                        + (scn.LSGetDecision() == null ? "none" : scn.LSGetDecision().getText()),
+                scn.LSAnyDecisionsAvailable());
+        assertTrue(scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop"));
+        assertTrue(scn.LSHasCardChoiceAvailable(cloudCar2));
+        scn.LSChooseCard(cloudCar2);
+        scn.PassAllResponses();
+
+        if (scn.LSAnyDecisionsAvailable()
+                && scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop")) {
+            scn.LSPass();
+            scn.PassAllResponses();
+        }
+
+        assertAtLocation(clouds, cloudCar);
+        assertAtLocation(clouds, cloudCar2);
+        assertInZone(Zone.LOST_PILE, rescue);
+    }
+
+    private void playRescueAndDeployFirstReact(VirtualTableScenario scn, PhysicalCardImpl rescue, PhysicalCardImpl firstCard) {
+        assertTrue(scn.LSCardPlayAvailable(rescue));
+        scn.LSPlayCard(rescue);
+        scn.PassAllResponses();
+        if (scn.LSAnyDecisionsAvailable() && scn.LSHasCardChoiceAvailable(firstCard)) {
+            scn.LSChooseCard(firstCard);
+        }
+        scn.PassAllResponses();
+    }
+
+    private void acceptSimultaneousPilotIfOffered(VirtualTableScenario scn, PhysicalCardImpl pilot) {
+        if (scn.LSAnyDecisionsAvailable() && scn.LSDecisionAvailable("simultaneously")) {
+            scn.LSChooseYes();
+        }
+        if (scn.LSAnyDecisionsAvailable() && scn.LSHasCardChoiceAvailable(pilot)
+                && !scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop")) {
+            scn.LSChooseCard(pilot);
+        }
+        scn.PassAllResponses();
+    }
+
+    @Test
+    public void LostComboThenAdditionalReactCanBeStoppedWithDone_5_67_RescueInTheClouds() {
+        var scn = GetScenario();
+
+        var rescue = scn.GetLSCard("rescue");
+        var red1 = scn.GetLSCard("red1");
+        var luke = scn.GetLSCard("luke");
+        var cloudCar2 = scn.GetLSCard("cloud-car2");
+        var cloudCar = scn.GetLSCard("cloud-car");
+        var bespin = scn.GetLSCard("bespin");
+        var clouds = scn.GetLSCard("clouds");
+        var tie = scn.GetDSCard("tie");
+
+        scn.StartGame();
+        scn.LSActivateForceCheat(10);
+
+        scn.MoveLocationToTable(bespin);
+        scn.MoveLocationToTable(clouds);
+        scn.MoveCardsToLocation(clouds, tie, cloudCar);
+        scn.MoveCardsToLSHand(rescue, red1, luke, cloudCar2);
+
+        scn.SkipToDSTurn(Phase.BATTLE);
+        scn.DSInitiateBattle(clouds);
+        playRescueAndDeployFirstReact(scn, rescue, red1);
+        acceptSimultaneousPilotIfOffered(scn, luke);
+        scn.PassAllResponses();
+
+        assertTrue("Expected extra react choice after ship/pilot combo. LS decision: "
+                        + (scn.LSGetDecision() == null ? "none" : scn.LSGetDecision().getText()),
+                scn.LSAnyDecisionsAvailable());
+        assertTrue(scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop"));
+        assertTrue(scn.LSHasCardChoiceAvailable(cloudCar2));
+        scn.LSPass();
+        scn.PassAllResponses();
+
+        assertAtLocation(clouds, red1);
+        assertTrue(scn.IsAboardAsPilot(red1, luke));
+        assertInZone(Zone.HAND, cloudCar2);
+        assertInZone(Zone.LOST_PILE, rescue);
+    }
+
+    @Test
+    public void LostComboThenDeploysAnotherVehicleAsReact_5_67_RescueInTheClouds() {
+        var scn = GetScenario();
+
+        var rescue = scn.GetLSCard("rescue");
+        var red1 = scn.GetLSCard("red1");
+        var luke = scn.GetLSCard("luke");
+        var cloudCar2 = scn.GetLSCard("cloud-car2");
+        var cloudCar = scn.GetLSCard("cloud-car");
+        var bespin = scn.GetLSCard("bespin");
+        var clouds = scn.GetLSCard("clouds");
+        var tie = scn.GetDSCard("tie");
+
+        scn.StartGame();
+        scn.LSActivateForceCheat(10);
+
+        scn.MoveLocationToTable(bespin);
+        scn.MoveLocationToTable(clouds);
+        scn.MoveCardsToLocation(clouds, tie, cloudCar);
+        scn.MoveCardsToLSHand(rescue, red1, luke, cloudCar2);
+
+        scn.SkipToDSTurn(Phase.BATTLE);
+        scn.DSInitiateBattle(clouds);
+        playRescueAndDeployFirstReact(scn, rescue, red1);
+        acceptSimultaneousPilotIfOffered(scn, luke);
+        scn.PassAllResponses();
+
+        assertTrue("Expected extra react choice after ship/pilot combo. LS decision: "
+                        + (scn.LSGetDecision() == null ? "none" : scn.LSGetDecision().getText()),
+                scn.LSAnyDecisionsAvailable());
+        assertTrue(scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop"));
+        assertTrue(scn.LSHasCardChoiceAvailable(cloudCar2));
+        scn.LSChooseCard(cloudCar2);
+        if (scn.LSAnyDecisionsAvailable() && scn.LSHasCardChoiceAvailable(cloudCar2)
+                && !scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop")) {
+            scn.LSChooseCard(cloudCar2);
+        }
+        if (scn.LSAnyDecisionsAvailable() && scn.LSHasCardChoiceAvailable(clouds)
+                && scn.LSDecisionAvailable("where to deploy")) {
+            scn.LSChooseCard(clouds);
+        }
+        scn.PassAllResponses();
+
+        if (scn.LSAnyDecisionsAvailable()
+                && scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop")) {
+            scn.LSPass();
+            scn.PassAllResponses();
+        }
+
+        assertAtLocation(clouds, red1);
+        assertTrue(scn.IsAboardAsPilot(red1, luke));
+        assertEquals("Second react should deploy the Cloud Car. remaining decision="
+                        + (scn.LSGetDecision() == null ? "none" : scn.LSGetDecision().getText())
+                        + " force=" + scn.GetLSForcePileCount()
+                        + " car2=" + cloudCar2.getZone(),
+                Zone.AT_LOCATION, cloudCar2.getZone());
+        assertAtLocation(clouds, cloudCar2);
         assertInZone(Zone.LOST_PILE, rescue);
     }
 

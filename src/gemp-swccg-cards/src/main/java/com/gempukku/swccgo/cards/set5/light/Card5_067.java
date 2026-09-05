@@ -25,6 +25,7 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromHandEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -100,8 +101,13 @@ public class Card5_067 extends AbstractUsedOrLostInterrupt {
         // Check condition(s)
         if ((TriggerConditions.battleInitiatedAt(game, effectResult, opponent, Filters.cloud_sector)
                 || TriggerConditions.forceDrainInitiatedBy(game, effectResult, opponent, Filters.cloud_sector))
-                && GameConditions.canSpotLocation(game, Filters.cloud_sector)
                 && GameConditions.hasInHand(game, playerId, deployFilter)) {
+
+            final PhysicalCard reactLocation = game.getGameState().getBattleOrForceDrainLocation();
+            if (reactLocation == null || !Filters.cloud_sector.accepts(game, reactLocation)) {
+                return null;
+            }
+            final Filter locationFilter = Filters.sameCardId(reactLocation);
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
             action.setText("Deploy as a 'react' to a cloud sector");
@@ -110,7 +116,7 @@ public class Card5_067 extends AbstractUsedOrLostInterrupt {
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {
-                            appendDeployAsReactFromHand(action, playerId, game, self, deployFilter, true);
+                            appendDeployAsReactFromHand(action, playerId, game, self, deployFilter, locationFilter, true);
                         }
                     }
             );
@@ -119,25 +125,31 @@ public class Card5_067 extends AbstractUsedOrLostInterrupt {
         return null;
     }
 
-    private void appendDeployAsReactFromHand(final PlayInterruptAction action, final String playerId, final SwccgGame game, final PhysicalCard self, final Filter deployFilter, final boolean required) {
-        if (!GameConditions.hasInHand(game, playerId, deployFilter)) {
-            return;
-        }
-
+    private void appendDeployAsReactFromHand(final PlayInterruptAction action, final String playerId, final SwccgGame game, final PhysicalCard self, final Filter deployFilter, final Filter locationFilter, final boolean required) {
         if (required) {
+            if (!GameConditions.hasInHand(game, playerId, deployFilter)) {
+                return;
+            }
             action.appendEffect(
-                    new DeployCardToLocationFromHandEffect(action, playerId, deployFilter, Filters.cloud_sector, false, true) {
+                    new DeployCardToLocationFromHandEffect(action, playerId, deployFilter, locationFilter, false, true) {
                         @Override
                         public String getChoiceText() {
                             return "Choose vehicle, starfighter, or pilot to deploy as a 'react'";
                         }
-
+                    }
+            );
+            action.appendEffect(
+                    new PassthruEffect(action) {
                         @Override
-                        protected void cardDeployed(PhysicalCard card) {
-                            appendOptionalAdditionalReactDeploys(action, playerId, game, self, deployFilter);
+                        protected void doPlayEffect(SwccgGame game) {
+                            appendOptionalAdditionalReactDeploys(action, playerId, game, self, deployFilter, locationFilter);
                         }
                     }
             );
+            return;
+        }
+
+        if (!GameConditions.hasInHand(game, playerId, deployFilter)) {
             return;
         }
 
@@ -155,10 +167,18 @@ public class Card5_067 extends AbstractUsedOrLostInterrupt {
                         }
                         PhysicalCard selectedCard = selectedCards.iterator().next();
                         action.appendEffect(
-                                new DeployCardToLocationFromHandEffect(action, selectedCard, Filters.cloud_sector, false, true) {
+                                new DeployCardToLocationFromHandEffect(action, playerId, Filters.sameCardId(selectedCard), locationFilter, false, true) {
                                     @Override
-                                    protected void cardDeployed(PhysicalCard card) {
-                                        appendOptionalAdditionalReactDeploys(action, playerId, game, self, deployFilter);
+                                    public String getChoiceText() {
+                                        return "Choose vehicle, starfighter, or pilot to deploy as a 'react'";
+                                    }
+                                }
+                        );
+                        action.appendEffect(
+                                new PassthruEffect(action) {
+                                    @Override
+                                    protected void doPlayEffect(SwccgGame game) {
+                                        appendOptionalAdditionalReactDeploys(action, playerId, game, self, deployFilter, locationFilter);
                                     }
                                 }
                         );
@@ -167,7 +187,7 @@ public class Card5_067 extends AbstractUsedOrLostInterrupt {
         );
     }
 
-    private void appendOptionalAdditionalReactDeploys(final PlayInterruptAction action, final String playerId, final SwccgGame game, final PhysicalCard self, final Filter deployFilter) {
-        appendDeployAsReactFromHand(action, playerId, game, self, deployFilter, false);
+    private void appendOptionalAdditionalReactDeploys(final PlayInterruptAction action, final String playerId, final SwccgGame game, final PhysicalCard self, final Filter deployFilter, final Filter locationFilter) {
+        appendDeployAsReactFromHand(action, playerId, game, self, deployFilter, locationFilter, false);
     }
 }
