@@ -70,6 +70,8 @@ public class Card_1_188_Tests {
                     put("ds-db", "1_124");
                     put("trash", "1_125");
                     put("tatooine-system", "1_127");
+                    put("alderaan", "1_121");
+                    put("tatooine-site", "1_133");
                     put("luke", "1_019");
                     put("farm", "1_132");
                     put("son", "4_001");
@@ -1708,7 +1710,39 @@ public class Card_1_188_Tests {
 
 
     @Test
-    public void MouseDroid_1_188_CarriedRycarsRunReachesAtBigOneMovesToPlanetAndReturnsMouse() {
+    public void MouseDroid_1_188_TuskenBreathMaskRequiresAndUsesRealWonBattle() {
+        var scn = GetScenario();
+        var tusken = scn.GetLSCard("tusken");
+        var leia = scn.GetLSCard("leia");
+        var doallyn = scn.GetLSCard("doallyn");
+        var trooper = scn.GetDSFiller(1);
+        var tatooineSite = scn.GetLSCard("tatooine-site");
+        var dsDb = scn.GetLSCard("ds-db");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(tatooineSite);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveCardsToLocation(tatooineSite, leia, trooper);
+        scn.MoveCardsToLocation(dsDb, doallyn);
+        scn.MoveCardsToLSHand(tusken);
+
+        // Tusken Breath Mask is not playable from hand. Create its prerequisite by
+        // initiating and winning an actual Tatooine battle, then use the triggered play.
+        scn.SkipToLSTurn(Phase.BATTLE);
+        scn.LSInitiateBattle(tatooineSite);
+        scn.SkipToDamageSegment(false);
+        assertTrue("Light Side must win the Tatooine battle", scn.LSWonBattle());
+        scn.PassAllResponses();
+
+        assertTrue("Winning the battle must offer Tusken Breath Mask", scn.LSCardPlayAvailable(tusken));
+        scn.LSPlayCard(tusken);
+        scn.LSChooseCard(tatooineSite);
+        scn.LSChooseCard(doallyn);
+        scn.PassAllResponses();
+        assertTrue(scn.IsAttachedTo(tatooineSite, tusken));
+        assertEquals(doallyn, tusken.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+    }
+    @Test\r?\n    public void MouseDroid_1_188_CarriedRycarsRunUsesBigOneAndRealSectorTravel() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var vcsd = scn.GetDSCard("vcsd");
@@ -1719,24 +1753,52 @@ public class Card_1_188_Tests {
 
         scn.StartGame();
         scn.MoveLocationToTable(kessel);
-        scn.MoveLocationToTable(bigOne);
-        scn.MoveCardsToLocation(kessel, awing);
-        scn.MoveCardsToLocation(bigOne, vcsd);
-        scn.BoardAsPassenger(vcsd, mouse);
-        scn.AttachCardsTo(mouse, rycarsRun);
-        MouseDroidUtinniCarry.rememberHostsOnMouseRelocate(rycarsRun, bigOne, scn.gameState());
-        rycarsRun.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, awing, Filters.any);
+        scn.MoveCardsToLocation(kessel, vcsd, mouse, awing);
+        scn.MoveCardsToLSHand(bigOne, rycarsRun);
+        // The route is laid out before play; Mouse's actual boarding is still a legal
+        // Transfer action, and both the Utinni and target use their printed actions.
+        scn.DSTransferCard(mouse);
+        scn.DSChooseCard(vcsd);
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboard(vcsd, mouse));
 
-        // The target starfighter reaches the Mouse-carried Utinni at Big One.
+        scn.SkipToLSTurn(Phase.DEPLOY);
+        scn.LSDeployCard(bigOne);
+        scn.PassAllResponses();
+        scn.LSDeployCard(rycarsRun);
+        scn.LSChooseCard(bigOne);
+        scn.LSChooseCard(awing);
+        scn.PassAllResponses();
+        assertTrue(scn.IsAttachedTo(bigOne, rycarsRun));
+
+        // VCSD takes the real sector-movement route to Big One; Mouse reaches the
+        // Utinni there and accepts the printed relocate option.
+        scn.SkipToDSTurn(Phase.MOVE);
+        scn.DSUseCardAction(vcsd, "sector");
+        scn.DSChooseCard(bigOne);
+        scn.PassAllResponses();
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, rycarsRun);
+        assertTrue(scn.IsAttachedTo(mouse, rycarsRun));
+        assertTrue(scn.IsAboard(vcsd, mouse));
+
+        // The target reaches the carried package by a real sector move. The Utinni
+        // relocates back to Kessel and Mouse returns to hand on that delivery.
         scn.SkipToLSTurn(Phase.MOVE);
         scn.LSUseCardAction(awing, "sector");
         scn.LSChooseCard(bigOne);
         scn.PassAllResponses();
-
-        assertTrue("Rycar's Run relocates to the related planet system", scn.IsAttachedTo(kessel, rycarsRun));
+        assertTrue(scn.IsAttachedTo(kessel, rycarsRun));
         assertInHand(mouse);
-    }
 
+        // Target returns to the related system, completing Rycar's Run and retrieving X.
+        scn.SkipToDSTurn();
+        scn.SkipToLSTurn(Phase.MOVE);
+        scn.LSUseCardAction(awing, "sector");
+        scn.LSChooseCard(kessel);
+        scn.PassAllResponses();
+        assertEquals(Zone.USED_PILE, rycarsRun.getZone());
+    }
     /** Common title-coverage scenario: Mouse reaches a co-located Utinni package and carries it. */
     private void assertMouseCanRelocateUtinni(VirtualTableScenario scn, PhysicalCardImpl mouse,
             PhysicalCardImpl utinni, PhysicalCardImpl target) {
@@ -1833,11 +1895,80 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_CarriesOurMostDesperateHour() {
+    public void MouseDroid_1_188_OurMostDesperateHourUsesRealBoardingAndHyperspaceDelivery() {
         var scn = GetScenario();
-        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetLSCard("desperate"), scn.GetLSCard("luke"));
-    }
+        var mouse = scn.GetDSCard("mouse");
+        var vcsd = scn.GetDSCard("vcsd");
+        var desperate = scn.GetLSCard("desperate");
+        var luke = scn.GetLSCard("luke");
+        var awing = scn.GetLSCard("awing");
+        var tatooine = scn.GetLSCard("tatooine-system");
+        var alderaan = scn.GetLSCard("alderaan");
+        var kessel = scn.GetDSCard("kessel");
 
+        scn.StartGame();
+        // Systems and ships are placed only to establish the legal travel route. Every
+        // character/ship boarding, Utinni deployment, and movement below uses game actions.
+        scn.MoveLocationToTable(tatooine);
+        scn.MoveLocationToTable(alderaan);
+        scn.MoveLocationToTable(kessel);
+        scn.MoveCardsToLocation(tatooine, vcsd, awing);
+        scn.MoveCardsToLSHand(desperate, luke);
+        scn.MoveCardsToDSHand(mouse);
+
+        // Luke pilots the Rebel starfighter at Tatooine, giving Desperate Hour a real
+        // Rebel-at-Tatooine target that can later travel independently of Mouse.
+        scn.SkipToLSTurn(Phase.DEPLOY);
+        scn.LSDeployCard(luke);
+        scn.LSChooseCard(awing);
+        scn.LSChoose("Pilot");
+        scn.PassAllResponses();
+
+        // Play the Utinni normally: it is attached at Alderaan and targets Luke at Tatooine.
+        scn.LSPlayCard(desperate);
+        scn.LSChooseCard(alderaan);
+        scn.LSChooseCard(luke);
+        scn.PassAllResponses();
+        assertTrue(scn.IsAttachedTo(alderaan, desperate));
+
+        // Mouse special-deploys to the targeted Rebel's system, then boards the VCSD via
+        // the legal Transfer action (not BoardAsPassenger/AttachCardsTo).
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue("Mouse must special-deploy to Luke's Tatooine location", scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(tatooine);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.MOVE);
+        assertTrue(scn.DSTransferAvailable(mouse));
+        scn.DSTransferCard(mouse);
+        scn.DSChooseCard(vcsd);
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboard(vcsd, mouse));
+
+        // VCSD carries Mouse to Alderaan, where Mouse reaches and relocates Desperate Hour.
+        scn.DSUseCardAction(vcsd, "hyperspeed");
+        scn.DSChooseCard(alderaan);
+        scn.PassAllResponses();
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, desperate);
+        assertTrue(scn.IsAttachedTo(mouse, desperate));
+
+        // Leave the package at Kessel, then move the original target there on a separate
+        // starfighter. This is the important carrier-path regression: target reaches an
+        // Utinni through Mouse aboard a capital ship.
+        scn.SkipToDSTurn(Phase.MOVE);
+        scn.DSUseCardAction(vcsd, "hyperspeed");
+        scn.DSChooseCard(kessel);
+        scn.PassAllResponses();
+        scn.SkipToLSTurn(Phase.MOVE);
+        scn.LSUseCardAction(awing, "hyperspeed");
+        scn.LSChooseCard(kessel);
+        scn.PassAllResponses();
+
+        assertInHand(mouse);
+        assertInZone(Zone.LOST_PILE, desperate);
+        assertFalse("Desperate Hour must not remain attached after delivery", scn.IsAttachedTo(mouse, desperate));
+    }
     @Test
     public void MouseDroid_1_188_CarriesTheyreOnDantooine() {
         var scn = GetScenario();
