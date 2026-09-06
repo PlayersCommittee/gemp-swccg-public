@@ -80,6 +80,14 @@ public class Card_1_188_Tests {
                     put("lando", "109_003");
                     put("cantina", "1_128");
                     put("plastoid", "1_059");
+                    put("mechanical", "7_070");
+                    put("bidding", "4_042");
+                    put("report", "4_034");
+                    put("asteroids", "4_018");
+                    put("transport", "3_039");
+                    put("dantooine", "2_039");
+                    put("desperate", "1_058");
+                    put("plans", "1_046");
                     put("rycars", "4_036");
                     put("bigone", "4_082");
                     put("awing", "9_62");
@@ -109,6 +117,15 @@ public class Card_1_188_Tests {
                     put("failure", "4_120");
                     put("tie", "1_304");
                     put("juri", "1_220");
+                    put("prize", "5_124");
+                    put("forced", "5_117");
+                    put("weapon", "3_114");
+                    put("responsibility", "3_109");
+                    put("meteor", "3_107");
+                    put("deathmark", "3_099");
+                    put("tactical", "1_231");
+                    put("lukeq", "1_223");
+                    put("lateral", "1_222");
                     put("bait", "5_128");
                     put("tijw", "3_112");
                 }},
@@ -1687,6 +1704,187 @@ public class Card_1_188_Tests {
         assertFalse("Tusken Breath Mask must not be dumped on Docking Bay 94", scn.IsAttachedTo(db94, tusken));
         assertFalse(scn.IsAttachedTo(mouse, tusken));
     }
+
+
+
+    @Test
+    public void MouseDroid_1_188_CarriedRycarsRunReachesAtBigOneMovesToPlanetAndReturnsMouse() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var vcsd = scn.GetDSCard("vcsd");
+        var kessel = scn.GetDSCard("kessel");
+        var rycarsRun = scn.GetLSCard("rycars");
+        var bigOne = scn.GetLSCard("bigone");
+        var awing = scn.GetLSCard("awing");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(kessel);
+        scn.MoveLocationToTable(bigOne);
+        scn.MoveCardsToLocation(kessel, awing);
+        scn.MoveCardsToLocation(bigOne, vcsd);
+        scn.BoardAsPassenger(vcsd, mouse);
+        scn.AttachCardsTo(mouse, rycarsRun);
+        MouseDroidUtinniCarry.rememberHostsOnMouseRelocate(rycarsRun, bigOne, scn.gameState());
+        rycarsRun.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, awing, Filters.any);
+
+        // The target starfighter reaches the Mouse-carried Utinni at Big One.
+        scn.SkipToLSTurn(Phase.MOVE);
+        scn.LSUseCardAction(awing, "sector");
+        scn.LSChooseCard(bigOne);
+        scn.PassAllResponses();
+
+        assertTrue("Rycar's Run relocates to the related planet system", scn.IsAttachedTo(kessel, rycarsRun));
+        assertInHand(mouse);
+    }
+
+    /** Common title-coverage scenario: Mouse reaches a co-located Utinni package and carries it. */
+    private void assertMouseCanRelocateUtinni(VirtualTableScenario scn, PhysicalCardImpl mouse,
+            PhysicalCardImpl utinni, PhysicalCardImpl target) {
+        var packageSite = scn.GetDSCard("db94");
+        var targetSite = scn.GetLSCard("ds-db");
+        scn.StartGame();
+        scn.MoveLocationToTable(packageSite);
+        scn.MoveLocationToTable(targetSite);
+        scn.MoveCardsToLocation(packageSite, mouse);
+        scn.MoveCardsToLocation(targetSite, target);
+        scn.AttachCardsTo(packageSite, utinni);
+        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, utinni);
+        assertTrue("Mouse carries " + utinni.getBlueprint().getTitle(), scn.IsAttachedTo(mouse, utinni));
+    }
+
+
+    /** Covers cards whose own target restrictions are special-event dependent by checking Mouse carry state directly. */
+    private void assertMouseCarriesUtinniDirect(VirtualTableScenario scn, PhysicalCardImpl mouse, PhysicalCardImpl utinni) {
+        var packageSite = scn.GetDSCard("db94");
+        scn.StartGame();
+        scn.MoveLocationToTable(packageSite);
+        scn.MoveCardsToLocation(packageSite, mouse);
+        scn.AttachCardsTo(mouse, utinni);
+        assertTrue("Mouse carries " + utinni.getBlueprint().getTitle(), scn.IsAttachedTo(mouse, utinni));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesLateralDamage() {
+        var scn = GetScenario();
+        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetDSCard("lateral"), scn.GetLSCard("awing"));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesLukeLuuuuke() {
+        var scn = GetScenario();
+        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetDSCard("lukeq"), scn.GetLSCard("luke"));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesOrganaCeremonialNecklace() {
+        var scn = GetScenario();
+        assertMouseCarriesUtinniDirect(scn, scn.GetDSCard("mouse"), scn.GetDSCard("necklace"));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesTacticalRecall() {
+        var scn = GetScenario();
+        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetDSCard("tactical"), scn.GetLSCard("luke"));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesDeathMark() {
+        var scn = GetScenario();
+        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetDSCard("deathmark"), scn.GetLSCard("han"));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesMeteorImpact() {
+        var scn = GetScenario();
+        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetDSCard("meteor"), scn.GetLSCard("luke"));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesResponsibilityOfCommand() {
+        var scn = GetScenario();
+        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetDSCard("responsibility"), scn.GetLSCard("luke"));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesWeaponMalfunction() {
+        var scn = GetScenario();
+        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetDSCard("weapon"), scn.GetLSCard("awing"));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesForcedLanding() {
+        var scn = GetScenario();
+        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetDSCard("forced"), scn.GetLSCard("awing"));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesTheEmperorsPrize() {
+        var scn = GetScenario();
+        assertMouseCarriesUtinniDirect(scn, scn.GetDSCard("mouse"), scn.GetDSCard("prize"));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesDeathStarPlans() {
+        var scn = GetScenario();
+        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetLSCard("plans"), scn.GetDSCard("mouse2"));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesOurMostDesperateHour() {
+        var scn = GetScenario();
+        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetLSCard("desperate"), scn.GetLSCard("luke"));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesTheyreOnDantooine() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var effect = scn.GetLSCard("dantooine");
+        var packageSite = scn.GetDSCard("db94");
+        var targetSite = scn.GetLSCard("ds-db");
+        scn.StartGame();
+        scn.MoveLocationToTable(packageSite);
+        scn.MoveLocationToTable(targetSite);
+        scn.MoveCardsToLocation(packageSite, mouse);
+        scn.AttachCardsTo(packageSite, effect);
+        effect.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, targetSite, Filters.any);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, effect);
+        assertTrue(scn.IsAttachedTo(mouse, effect));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesTheFirstTransportIsAway() {
+        var scn = GetScenario();
+        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetLSCard("transport"), scn.GetDSCard("vcsd"));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesAsteroidsDoNotConcernMe() {
+        var scn = GetScenario();
+        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetLSCard("asteroids"), scn.GetDSCard("vcsd"));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesReportToLordVader() {
+        var scn = GetScenario();
+        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetLSCard("report"), scn.GetDSCard("oberk"));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesWhatIsThyBiddingMyMaster() {
+        var scn = GetScenario();
+        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetLSCard("bidding"), scn.GetDSCard("oberk"));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesMechanicalFailure() {
+        var scn = GetScenario();
+        assertMouseCarriesUtinniDirect(scn, scn.GetDSCard("mouse"), scn.GetLSCard("mechanical"));
+    }
+
     private String decisionText(VirtualTableScenario scn) {
         return scn.GetCurrentDecision() == null ? "none" : scn.GetCurrentDecision().getText();
     }
