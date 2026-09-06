@@ -23,6 +23,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.AttachCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.CancelCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.ReturnCardToHandFromTableEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
@@ -163,8 +164,11 @@ public class Card1_188 extends AbstractDroid {
                         if (modifiersQuerying.mayNotMove(gameState, physicalCard)) {
                             return false;
                         }
-                        // Reach host on the location OR on a character/starship/vehicle present there.
-                        return hasReachedHost(game, self, physicalCard.getAttachedTo());
+                        // An at-location/mobile Utinni (for example Yerka Mig) has no attached host.
+                        // Attached Utinnis retain the existing host-based reach rules.
+                        PhysicalCard utinniLocation = modifiersQuerying.getLocationThatCardIsAt(gameState, physicalCard);
+                        return hasReachedLocation(game, self, utinniLocation)
+                                || hasReachedHost(game, self, physicalCard.getAttachedTo());
                     }
                 });
     }
@@ -229,7 +233,11 @@ public class Card1_188 extends AbstractDroid {
         // TargetId presence alone is not delivery. Class B Utinnis (for example SADD)
         // target a hunted character but remain at their deployed site; only treat a
         // package as delivered after its own reached/relocate-to-target effect fired.
-        if (!GameConditions.isUtinniEffectReached(game, utinni)) {
+        // Mobile/at-location Utinnis (Yerka Mig) are the exception: their purpose
+        // completes when the hunted character reaches their location, without an
+        // Utinni REACHED status or a target-card attachment.
+        boolean mobileAtLocation = utinni.getBlueprint().isMovesLikeCharacter();
+        if (!GameConditions.isUtinniEffectReached(game, utinni) && !mobileAtLocation) {
             return false;
         }
         List<TargetId> targetIds = utinni.getBlueprint().getUtinniEffectTargetIds(utinni.getOwner(), game, utinni);
@@ -303,6 +311,13 @@ public class Card1_188 extends AbstractDroid {
         PhysicalCard location = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self);
         for (PhysicalCard utinni : delivered) {
             MouseDroidUtinniCarry.clearMouseCarryEffectSubject(utinni);
+            // Yerka Mig is apprehended at the target location; it does not deploy
+            // on the target character. Cancel it instead of orphaning it or attaching
+            // it to the target as a delivery host.
+            if (utinni.getBlueprint().isMovesLikeCharacter()) {
+                action.appendEffect(new CancelCardOnTableEffect(action, utinni));
+                continue;
+            }
             PhysicalCard host = choosePlaceToPutDeliveredUtinni(game, self, utinni, location);
             if (host != null) {
                 action.appendEffect(

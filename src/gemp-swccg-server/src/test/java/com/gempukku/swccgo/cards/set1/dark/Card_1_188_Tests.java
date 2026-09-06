@@ -57,6 +57,7 @@ public class Card_1_188_Tests {
                     put("lando", "109_003");
                     put("cantina", "1_128");
                     put("plastoid", "1_059");
+                    put("yerka", "1_069");
                     put("plastoid2", "1_059");
                     put("tusken", "1_067");
                     put("elom", "6_012");
@@ -500,6 +501,27 @@ public class Card_1_188_Tests {
         assertFalse("SADD must never attach to the hunted trooper",
                 scn.IsAttachedTo(trooper, sadd));
     }
+    @Test
+    public void MouseDroid_1_188_CanRelocateYerkaMigWhenCoLocated() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var yerka = scn.GetLSCard("yerka");
+        var dsDb = scn.GetLSCard("ds-db");
+        var marketplace = scn.GetDSStartingLocation();
+        var trooper = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveCardsToLocation(dsDb, trooper);
+        scn.MoveCardsToLocation(marketplace, mouse, yerka);
+        yerka.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, trooper, Filters.any);
+
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, yerka);
+
+        assertTrue("Yerka Mig relocates onto the co-located Mouse", scn.IsAttachedTo(mouse, yerka));
+    }
+
     @Test
     public void MouseDroid_1_188_VehiclePresentReachWorks() {
         var scn = GetScenario();
