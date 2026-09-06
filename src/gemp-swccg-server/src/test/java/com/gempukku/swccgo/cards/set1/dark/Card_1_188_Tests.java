@@ -1761,8 +1761,9 @@ public class Card_1_188_Tests {
         scn.StartGame();
         scn.MoveLocationToTable(packageSite);
         scn.MoveCardsToLocation(packageSite, mouse);
+        utinni.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
         scn.AttachCardsTo(mouse, utinni);
-        assertTrue("Mouse carries " + utinni.getBlueprint().getTitle(), scn.IsAttachedTo(mouse, utinni));
+        assertTrue("Mouse carries reached " + utinni.getBlueprint().getTitle(), scn.IsAttachedTo(mouse, utinni));
     }
 
     @Test
@@ -1890,3 +1891,4 @@ public class Card_1_188_Tests {
     }
 
 }
+
