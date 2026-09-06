@@ -2568,11 +2568,9 @@ public class Card_1_188_Tests {
         scn.StartGame();
         scn.MoveCardsToDSHand(mouse);
         StageCarriedMeteor(scn, mouse, meteor, sourceSite, targetSite, target);
+        scn.MoveLocationToTable(deathStar);
         scn.MoveCardsToLocation(deathStar, vcsd);
-        EnsureDSDeployPhase(scn);
-        scn.DSDeployCard(mouse);
-        scn.DSChooseCard(sourceSite);
-        scn.PassAllResponses();
+        scn.MoveCardsToLocation(sourceSite, mouse);
         scn.AttachCardsTo(mouse, meteor);
         meteor.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
         meteor.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
@@ -2583,6 +2581,7 @@ public class Card_1_188_Tests {
         if (scn.DSHasCardChoiceAvailable(vcsd)) { scn.DSChooseCard(vcsd); }
         if (scn.DSDecisionAvailable("Passenger")) { scn.DSChoose("Passenger"); }
         scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.MOVE);
         assertTrue(scn.IsAboard(vcsd, mouse));
         assertTrue("Meteor target must be free to leave its old site after Mouse shuttles away",
                 scn.DSMoveAvailable(target));
@@ -2605,10 +2604,7 @@ public class Card_1_188_Tests {
         scn.MoveCardsToDSHand(mouse);
         StageCarriedMeteor(scn, mouse, meteor, sourceSite, targetSite, target);
         scn.MoveLocationToTable(yavinDb);
-        EnsureDSDeployPhase(scn);
-        scn.DSDeployCard(mouse);
-        scn.DSChooseCard(sourceSite);
-        scn.PassAllResponses();
+        scn.MoveCardsToLocation(sourceSite, mouse);
         scn.AttachCardsTo(mouse, meteor);
         meteor.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
         meteor.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
@@ -2626,6 +2622,7 @@ public class Card_1_188_Tests {
         scn.LSPass();
         assertTrue(scn.CardsAtLocation(yavinDb, mouse));
         assertTrue(scn.IsAttachedTo(mouse, meteor));
+        scn.SkipToDSTurn(Phase.MOVE);
         assertTrue("Meteor target must still be movable after Mouse transits off-planet",
                 scn.DSMoveAvailable(target));
         scn.DSMoveCard(target, sourceSite);
@@ -2651,10 +2648,7 @@ public class Card_1_188_Tests {
         scn.MoveLocationToTable(yavinSystem);
         scn.MoveCardsToDSHand(mouse);
         scn.MoveCardsToLocation(deathStar, target);
-        EnsureDSDeployPhase(scn);
-        scn.DSDeployCard(mouse);
-        scn.DSChooseCard(sourceSite);
-        scn.PassAllResponses();
+        scn.MoveCardsToLocation(sourceSite, mouse);
         scn.AttachCardsTo(mouse, forced);
         forced.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
         forced.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
@@ -2709,7 +2703,7 @@ public class Card_1_188_Tests {
         scn.PassAllResponses();
         assertTrue(scn.CardsAtLocation(targetSite, mouse));
         assertTrue(scn.IsAttachedTo(mouse, meteor));
-        scn.SkipToPhase(Phase.DEPLOY);
+        scn.DSChooseAction("Cancel");
         scn.PassAllResponses();
         assertInZone(Zone.LOST_PILE, meteor);
     }
