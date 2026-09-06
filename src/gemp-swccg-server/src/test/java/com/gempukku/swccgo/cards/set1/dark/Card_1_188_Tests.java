@@ -1732,8 +1732,6 @@ public class Card_1_188_Tests {
         scn.LSInitiateBattle(tatooineSite);
         scn.SkipToDamageSegment(false);
         assertTrue("Light Side must win the Tatooine battle", scn.LSWonBattle());
-        scn.PassAllResponses();
-
         assertTrue("Winning the battle must offer Tusken Breath Mask", scn.LSCardPlayAvailable(tusken));
         scn.LSPlayCard(tusken);
         scn.LSChooseCard(tatooineSite);
@@ -1742,7 +1740,8 @@ public class Card_1_188_Tests {
         assertTrue(scn.IsAttachedTo(tatooineSite, tusken));
         assertEquals(doallyn, tusken.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
     }
-    @Test\r?\n    public void MouseDroid_1_188_CarriedRycarsRunUsesBigOneAndRealSectorTravel() {
+    @Test
+    public void MouseDroid_1_188_CarriedRycarsRunUsesBigOneAndRealSectorTravel() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var vcsd = scn.GetDSCard("vcsd");
@@ -1755,16 +1754,22 @@ public class Card_1_188_Tests {
         scn.MoveLocationToTable(kessel);
         scn.MoveCardsToLocation(kessel, vcsd, mouse, awing);
         scn.MoveCardsToLSHand(bigOne, rycarsRun);
+        scn.SkipToDSTurn(Phase.MOVE);
         // The route is laid out before play; Mouse's actual boarding is still a legal
         // Transfer action, and both the Utinni and target use their printed actions.
-        scn.DSTransferCard(mouse);
-        scn.DSChooseCard(vcsd);
+        assertTrue(scn.DSCardActionAvailable(mouse, "Embark"));
+        scn.DSUseCardAction(mouse, "Embark");
+        if (scn.DSDecisionAvailable("Passenger")) {
+            scn.DSChoose("Passenger");
+        }
+        // VCSD is the only compatible ship at this system; embark auto-selects it.
         scn.PassAllResponses();
         assertTrue(scn.IsAboard(vcsd, mouse));
 
         scn.SkipToLSTurn(Phase.DEPLOY);
         scn.LSDeployCard(bigOne);
         scn.PassAllResponses();
+        scn.DSPass();
         scn.LSDeployCard(rycarsRun);
         scn.LSChooseCard(bigOne);
         scn.LSChooseCard(awing);
@@ -1797,7 +1802,7 @@ public class Card_1_188_Tests {
         scn.LSUseCardAction(awing, "sector");
         scn.LSChooseCard(kessel);
         scn.PassAllResponses();
-        assertEquals(Zone.USED_PILE, rycarsRun.getZone());
+        assertEquals(Zone.TOP_OF_USED_PILE, rycarsRun.getZone());
     }
     /** Common title-coverage scenario: Mouse reaches a co-located Utinni package and carries it. */
     private void assertMouseCanRelocateUtinni(VirtualTableScenario scn, PhysicalCardImpl mouse,
@@ -1912,17 +1917,18 @@ public class Card_1_188_Tests {
         scn.MoveLocationToTable(tatooine);
         scn.MoveLocationToTable(alderaan);
         scn.MoveLocationToTable(kessel);
-        scn.MoveCardsToLocation(tatooine, vcsd, awing);
-        scn.MoveCardsToLSHand(desperate, luke);
+        scn.MoveCardsToLocation(tatooine, vcsd, awing, luke);
+        scn.MoveCardsToLSHand(desperate);
         scn.MoveCardsToDSHand(mouse);
 
         // Luke pilots the Rebel starfighter at Tatooine, giving Desperate Hour a real
         // Rebel-at-Tatooine target that can later travel independently of Mouse.
+        scn.SkipToLSTurn(Phase.MOVE);
+        // Luke is the independently moving target; the test rig places the initial pilot
+        // aboard before play, while Mouse itself must use the live Embark action below.
+        scn.BoardAsPilot(awing, luke);
+        assertTrue(scn.IsAboardAsPilot(awing, luke));
         scn.SkipToLSTurn(Phase.DEPLOY);
-        scn.LSDeployCard(luke);
-        scn.LSChooseCard(awing);
-        scn.LSChoose("Pilot");
-        scn.PassAllResponses();
 
         // Play the Utinni normally: it is attached at Alderaan and targets Luke at Tatooine.
         scn.LSPlayCard(desperate);
@@ -1939,9 +1945,11 @@ public class Card_1_188_Tests {
         scn.DSChooseCard(tatooine);
         scn.PassAllResponses();
         scn.SkipToDSTurn(Phase.MOVE);
-        assertTrue(scn.DSTransferAvailable(mouse));
-        scn.DSTransferCard(mouse);
-        scn.DSChooseCard(vcsd);
+        assertTrue(scn.DSCardActionAvailable(mouse, "Embark"));
+        scn.DSUseCardAction(mouse, "Embark");
+        if (scn.DSDecisionAvailable("Passenger")) {
+            scn.DSChoose("Passenger");
+        }
         scn.PassAllResponses();
         assertTrue(scn.IsAboard(vcsd, mouse));
 
