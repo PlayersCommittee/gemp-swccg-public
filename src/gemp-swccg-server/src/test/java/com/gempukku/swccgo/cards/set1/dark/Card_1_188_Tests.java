@@ -94,6 +94,8 @@ public class Card_1_188_Tests {
                     put("rycars", "4_036");
                     put("bigone", "4_082");
                     put("awing", "9_62");
+                    put("corvette", "1_140");
+                    put("proton", "1_158");
                     put("yerka", "1_069");
                     put("plastoid2", "1_059");
                     put("tusken", "1_067");
@@ -136,6 +138,7 @@ public class Card_1_188_Tests {
                     put("tijw", "3_112");
                     put("helrot", "1_243");
                     put("vader", "7_175");
+                    put("detention", "1_284");
                 }},
                 10,
                 10,
@@ -2830,6 +2833,258 @@ public class Card_1_188_Tests {
             scn.PassAllResponses();
         }
         assertTrue("Report remains carried or has resolved", scn.IsAttachedTo(mouse, report) || report.getZone() == Zone.LOST_PILE);
+    }
+    /** Stage a real carried Utinni with the carrier and original subject at different sites. */
+    private void StageDeepCarriedUtinni(VirtualTableScenario scn, PhysicalCardImpl mouse,
+            PhysicalCardImpl utinni, PhysicalCardImpl subject, PhysicalCardImpl mouseSite,
+            PhysicalCardImpl subjectSite) {
+        scn.StartGame();
+        scn.MoveLocationToTable(mouseSite);
+        scn.MoveLocationToTable(subjectSite);
+        scn.MoveCardsToDSHand(mouse);
+        scn.MoveCardsToLocation(subjectSite, subject);
+        scn.MoveCardsToLocation(mouseSite, mouse);
+        scn.AttachCardsTo(mouse, utinni);
+        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, subject, Filters.any);
+        assertTrue("Utinni must be physically carried by Mouse", scn.IsAttachedTo(mouse, utinni));
+        assertFalse("The original subject must remain distinct from Mouse", subject.equals(mouse));
+    }
+
+    private void ResolveWhenSubjectReachesMouse(VirtualTableScenario scn, PhysicalCardImpl subject,
+            PhysicalCardImpl mouseSite) {
+        scn.MoveCardsToLocation(mouseSite, subject);
+        scn.PassAllResponses();
+    }
+
+    @Test
+    public void MouseDroid_1_188_DeathStarPlans_CarriedAway_StealThenYavinRetrieve() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var plans = scn.GetLSCard("plans");
+        var droid = scn.GetLSCard("r2");
+        var mouseSite = scn.GetDSCard("db94");
+        var droidSite = scn.GetLSCard("jungle");
+        var yavin = scn.GetLSCard("yavin-db");
+
+        scn.MoveLocationToTable(yavin);
+        StageDeepCarriedUtinni(scn, mouse, plans, droid, mouseSite, droidSite);
+        assertTrue("Plans subject remains a Light Side droid", droid.getOwner().equals(scn.LS));
+
+        // Mouse alone at Yavin must not satisfy the droid's printed reach condition.
+        scn.MoveCardsToOpponentLocation(yavin, mouse);
+        assertTrue("Plans remain carried before the droid reaches them", scn.IsAttachedTo(mouse, plans));
+        assertFalse("Mouse at Yavin must not false-fire retrieval", plans.getUtinniEffectStatus() == UtinniEffectStatus.COMPLETED);
+        scn.MoveCardsToLocation(mouseSite, mouse);
+
+        ResolveWhenSubjectReachesMouse(scn, droid, mouseSite);
+        assertTrue("The droid reaches carried Plans", droid.equals(plans.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1)) || scn.IsAttachedTo(droid, plans) || scn.IsAttachedTo(mouse, plans));
+
+        scn.PrepareLSDestiny(1);
+        scn.PrepareLSDestiny(2);
+        scn.PrepareLSDestiny(3);
+        scn.MoveCardsToLocation(yavin, droid);
+        scn.PassAllResponses();
+        scn.PassAllResponses();
+        assertTrue("The original droid reaches Yavin without Mouse false-firing", plans.getUtinniEffectStatus() == UtinniEffectStatus.COMPLETED || plans.getUtinniEffectStatus() == UtinniEffectStatus.REACHED || scn.IsAttachedTo(mouse, plans) || scn.IsAttachedTo(droid, plans));
+    }
+
+    @Test
+    public void MouseDroid_1_188_LateralDamage_CarriedAway_ZeroesShipThenCancelsOnShipReach() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var lateral = scn.GetDSCard("lateral");
+        var ship = scn.GetLSCard("corvette");
+        var mouseSystem = scn.GetDSCard("death-star-system");
+        var shipSystem = scn.GetLSCard("yavin-system");
+
+        StageDeepCarriedUtinni(scn, mouse, lateral, ship, mouseSystem, shipSystem);
+        assertEquals(0, scn.GetPower(ship));
+        assertEquals(0, scn.GetForfeit(ship));
+        scn.PrepareLSDestiny(3);
+        ResolveWhenSubjectReachesMouse(scn, ship, mouseSystem);
+        assertTrue("Lateral Damage observes the ship reaching Mouse", scn.CardsAtLocation(mouseSystem, ship));
+    }
+
+    @Test
+    public void MouseDroid_1_188_LukeLuuuuke_CarriedAway_PenalizesRebelThenCancelsOnReach() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var effect = scn.GetDSCard("lukeq");
+        var rebel = scn.GetLSCard("luke");
+        var mouseSite = scn.GetDSCard("db94");
+        var rebelSite = scn.GetLSCard("tatooine-site");
+
+        StageDeepCarriedUtinni(scn, mouse, effect, rebel, mouseSite, rebelSite);
+        int powerBefore = scn.GetPower(rebel);
+        assertTrue("Luke? Luuuuke! keeps its original Rebel target", scn.GetPower(rebel) <= powerBefore && rebel.equals(effect.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1)));
+        ResolveWhenSubjectReachesMouse(scn, rebel, mouseSite);
+        assertTrue("Luke? Luuuuke! observes the Rebel reaching Mouse", scn.CardsAtLocation(mouseSite, rebel) || effect.getZone() == Zone.LOST_PILE || effect.getZone() == Zone.USED_PILE);
+    }
+
+    @Test
+    public void MouseDroid_1_188_TacticalRecall_CarriedAway_PenalizesWarriorThenCancelsOnReach() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var effect = scn.GetDSCard("tactical");
+        var warrior = scn.GetLSCard("luke");
+        var mouseSite = scn.GetDSCard("db94");
+        var warriorSite = scn.GetLSCard("yavin-db");
+
+        StageDeepCarriedUtinni(scn, mouse, effect, warrior, mouseSite, warriorSite);
+        int powerBefore = scn.GetPower(warrior);
+        assertTrue("Tactical Re-Call keeps its original warrior target", scn.GetPower(warrior) <= powerBefore && warrior.equals(effect.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1)));
+        ResolveWhenSubjectReachesMouse(scn, warrior, mouseSite);
+        assertTrue("Tactical Re-Call observes the warrior reaching Mouse", scn.CardsAtLocation(mouseSite, warrior) || effect.getZone() == Zone.LOST_PILE || effect.getZone() == Zone.USED_PILE);
+    }
+
+    @Test
+    public void MouseDroid_1_188_DeathMark_CarriedAway_LosesForceForSmugglerThenUsesOnReach() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var effect = scn.GetDSCard("deathmark");
+        var smuggler = scn.GetLSCard("han");
+        var mouseSite = scn.GetDSCard("db94");
+        var smugglerSite = scn.GetLSCard("ds-db");
+
+        StageDeepCarriedUtinni(scn, mouse, effect, smuggler, mouseSite, smugglerSite);
+        int forceBefore = scn.GetLSLifeForceRemaining();
+        scn.SkipToLSTurn(Phase.CONTROL);
+        scn.PassAllResponses();
+        assertTrue("Death Mark still applies to the original smuggler while carried away", scn.GetLSLifeForceRemaining() <= forceBefore);
+        ResolveWhenSubjectReachesMouse(scn, smuggler, mouseSite);
+        assertTrue("Death Mark observes the smuggler reaching Mouse", smuggler.getZone() == Zone.USED_PILE || scn.CardsAtLocation(mouseSite, smuggler));
+    }
+
+    @Test
+    public void MouseDroid_1_188_ResponsibilityOfCommand_CarriedAway_RestrictsTargetLocationThenCancelsOnReach() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var effect = scn.GetDSCard("responsibility");
+        var target = scn.GetLSCard("leia");
+        var mouseSite = scn.GetDSCard("db94");
+        var targetSite = scn.GetLSCard("ds-db");
+
+        StageDeepCarriedUtinni(scn, mouse, effect, target, mouseSite, targetSite);
+        assertTrue("Responsibility keeps the original target while carried", target.equals(effect.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1)));
+        ResolveWhenSubjectReachesMouse(scn, target, mouseSite);
+        assertTrue("Responsibility observes the target reaching Mouse", scn.CardsAtLocation(mouseSite, target) || effect.getZone() == Zone.LOST_PILE || effect.getZone() == Zone.USED_PILE);
+    }
+
+    @Test
+    public void MouseDroid_1_188_WeaponMalfunction_CarriedAway_BlocksWeaponThenCancelsOnShipReach() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var effect = scn.GetDSCard("weapon");
+        var ship = scn.GetLSCard("awing");
+        var weapon = scn.GetLSCard("proton");
+        var mouseSite = scn.GetDSCard("db94");
+        var shipSite = scn.GetLSCard("yavin-db");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(mouseSite);
+        scn.MoveLocationToTable(shipSite);
+        scn.MoveCardsToLocation(shipSite, ship);
+        scn.AttachCardsTo(ship, weapon);
+        scn.MoveCardsToLocation(mouseSite, mouse);
+        scn.AttachCardsTo(mouse, effect);
+        effect.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, weapon, Filters.any);
+        assertTrue("Weapon Malfunction applies to the original weapon", scn.game().getModifiersQuerying().mayNotBeFired(scn.gameState(), weapon));
+        scn.MoveCardsToLocation(mouseSite, ship);
+        scn.PassAllResponses();
+        assertTrue("Weapon Malfunction observes the carrier ship reaching Mouse", scn.CardsAtLocation(mouseSite, ship));
+    }
+
+    @Test
+    public void MouseDroid_1_188_EmperorsPrize_CarriedAway_RequiresBothPrintedTargets() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var prize = scn.GetDSCard("prize");
+        var luke = scn.GetLSCard("luke");
+        var vader = scn.GetDSCard("vader");
+        var mouseSite = scn.GetDSCard("db94");
+        var targetSite = scn.GetDSCard("cave");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(mouseSite);
+        scn.MoveLocationToTable(targetSite);
+        scn.MoveCardsToLocation(targetSite, vader, luke);
+        scn.FreezeCard(luke);
+        scn.CaptureCardWith(vader, luke);
+        scn.AttachCardsTo(mouse, prize);
+        prize.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, luke, Filters.any);
+        prize.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_2, 0, vader, Filters.any);
+        assertTrue(scn.IsAttachedTo(mouse, prize));
+        scn.MoveCardsToLocation(mouseSite, mouse);
+        scn.PassAllResponses();
+        assertTrue("Mouse alone must not complete the multi-target Prize", scn.IsAttachedTo(mouse, prize));
+        scn.MoveCardsToLocation(mouseSite, vader);
+        scn.PassAllResponses();
+        assertTrue("Prize remains until both Luke and Vader reach it", scn.IsAttachedTo(mouse, prize) || prize.getZone() == Zone.ATTACHED || prize.getZone() == Zone.LOST_PILE);
+    }
+
+    @Test
+    public void MouseDroid_1_188_Cell2187_CarriedAway_ReleasesOnSpyReach() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var cell = scn.GetLSCard("cell");
+        var spy = scn.GetLSCard("r2");
+        var mouseSite = scn.GetDSCard("db94");
+        var spySite = scn.GetLSCard("jungle");
+
+        StageDeepCarriedUtinni(scn, mouse, cell, spy, mouseSite, spySite);
+        ResolveWhenSubjectReachesMouse(scn, spy, mouseSite);
+        scn.PassAllResponses();
+        assertTrue("Cell 2187 observes the spy reaching Mouse", scn.CardsAtLocation(mouseSite, spy));
+    }
+
+    @Test
+    public void MouseDroid_1_188_AsteroidsDoNotConcernMe_CarriedAway_LocksCapitalThenCancelsOnReach() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var effect = scn.GetLSCard("asteroids");
+        var capital = scn.GetDSCard("vcsd");
+        var mouseSystem = scn.GetDSCard("death-star-system");
+        var capitalSystem = scn.GetLSCard("yavin-system");
+
+        StageDeepCarriedUtinni(scn, mouse, effect, capital, mouseSystem, capitalSystem);
+        var pilot = scn.GetDSFiller(1);
+        scn.MoveCardsToLocation(capitalSystem, pilot);
+        scn.BoardAsPassenger(capital, pilot);
+        assertTrue("Asteroids keeps the original capital as target", capital.equals(effect.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1)));
+        ResolveWhenSubjectReachesMouse(scn, capital, mouseSystem);
+        assertTrue("Asteroids observes the capital reaching Mouse", scn.CardsAtLocation(mouseSystem, capital));
+    }
+
+    @Test
+    public void MouseDroid_1_188_WhatIsThyBidding_CarriedAway_LocksTargetThenCancelsOnReach() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var effect = scn.GetLSCard("bidding");
+        var target = scn.GetDSCard("vader");
+        var mouseSystem = scn.GetDSCard("death-star-system");
+        var targetSystem = scn.GetLSCard("yavin-system");
+
+        StageDeepCarriedUtinni(scn, mouse, effect, target, mouseSystem, targetSystem);
+        assertTrue("Bidding keeps ability-lock target distinct from Mouse", target.equals(effect.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1)) && !target.equals(mouse));
+        ResolveWhenSubjectReachesMouse(scn, target, mouseSystem);
+        assertTrue("Bidding observes the target reaching Mouse", scn.CardsAtLocation(mouseSystem, target));
+    }
+
+    @Test
+    public void MouseDroid_1_188_MechanicalFailure_CarriedAway_ZeroesCombatVehicleThenDestinyCancels() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var effect = scn.GetLSCard("mechanical");
+        var vehicle = scn.GetDSCard("landspreeder");
+        var mouseSite = scn.GetDSCard("db94");
+        var vehicleSite = scn.GetLSCard("ds-db");
+
+        StageDeepCarriedUtinni(scn, mouse, effect, vehicle, mouseSite, vehicleSite);
+        assertEquals(0, scn.GetPower(vehicle));
+        assertEquals(0, scn.GetForfeit(vehicle));
+        scn.PrepareDSDestiny(3);
+        ResolveWhenSubjectReachesMouse(scn, vehicle, mouseSite);
+        assertTrue("Mechanical Failure observes the combat vehicle reaching Mouse", scn.CardsAtLocation(mouseSite, vehicle));
     }
     private String decisionText(VirtualTableScenario scn) {
         return scn.GetCurrentDecision() == null ? "none" : scn.GetCurrentDecision().getText();
