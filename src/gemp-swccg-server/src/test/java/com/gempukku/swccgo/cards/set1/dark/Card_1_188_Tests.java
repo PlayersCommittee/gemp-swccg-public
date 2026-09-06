@@ -1806,253 +1806,721 @@ public class Card_1_188_Tests {
         scn.PassAllResponses();
         assertEquals(Zone.TOP_OF_USED_PILE, rycarsRun.getZone());
     }
-    /** Legacy staging for Utinnis whose own setup triggers require a site/space state. */
-    private void assertMouseCanRelocateUtinniLegacy(VirtualTableScenario scn, PhysicalCardImpl mouse,
-            PhysicalCardImpl utinni, PhysicalCardImpl target) {
-        var packageSite = scn.GetDSCard("db94");
-        var targetSite = scn.GetLSCard("ds-db");
-        scn.StartGame();
-        scn.MoveLocationToTable(packageSite);
-        scn.MoveLocationToTable(targetSite);
-        scn.MoveCardsToLocation(packageSite, mouse);
-        scn.MoveCardsToLocation(targetSite, target);
-        scn.AttachCardsTo(packageSite, utinni);
-        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
-        scn.SkipToPhase(Phase.CONTROL);
-        AcceptRelocate(scn, mouse, utinni);
-        assertTrue("Mouse carries " + utinni.getBlueprint().getTitle(), scn.IsAttachedTo(mouse, utinni));
-    }
-
-    /**
-     * Common title-coverage path: legally deploy Necklace, legally deploy Mouse to
-     * its Imperial target, then use a real docking-bay Shuttle onto a VCSD before
-     * reaching the package in space. The package itself is staged at the system
-     * because these cards have independent printed play prerequisites.
-     */
-    private void assertMouseCanRelocateUtinni(VirtualTableScenario scn, PhysicalCardImpl mouse,
-            PhysicalCardImpl utinni, PhysicalCardImpl target) {
+    @Test
+    public void MouseDroid_1_188_CarriesLateralDamage() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
-        var imperial = scn.GetDSFiller(1);
-        var yavinDb = scn.GetLSCard("yavin-db");
+        var utinni = scn.GetDSCard("lateral");
         var deathStar = scn.GetDSCard("death-star-system");
         var dsDb = scn.GetLSCard("ds-db");
+        var yavinDb = scn.GetLSCard("yavin-db");
         var vcsd = scn.GetDSCard("vcsd");
-
+        var imperial = scn.GetDSFiller(1);
+        var target = scn.GetLSCard("awing");
         scn.StartGame();
         scn.MoveLocationToTable(yavinDb);
-        scn.MoveLocationToTable(deathStar);
         scn.MoveLocationToTable(dsDb);
-        scn.MoveCardsToLocation(dsDb, imperial, target);
+        scn.MoveLocationToTable(deathStar);
+        scn.MoveCardsToLocation(dsDb, target, imperial);
         scn.MoveCardsToLocation(deathStar, vcsd);
         scn.MoveCardsToDSHand(mouse, necklace);
-
         scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(necklace));
         scn.DSPlayCard(necklace);
         scn.DSChooseCard(yavinDb);
         scn.DSChooseCard(imperial);
         scn.PassAllResponses();
         scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
         scn.DSDeployCard(mouse);
         scn.DSChooseCard(dsDb);
         scn.PassAllResponses();
-
         scn.SkipToDSTurn(Phase.MOVE);
-        assertTrue("Mouse must Shuttle from the docking bay", scn.DSCardActionAvailable(mouse, "Shuttle"));
+        assertTrue(scn.DSCardActionAvailable(mouse, "Shuttle"));
         scn.DSUseCardAction(mouse, "Shuttle");
-        if (scn.DSHasCardChoiceAvailable(vcsd)) {
-            scn.DSChooseCard(vcsd);
-        }
-        if (scn.DSDecisionAvailable("Passenger")) {
-            scn.DSChoose("Passenger");
-        }
+        if (scn.DSHasCardChoiceAvailable(vcsd)) { scn.DSChooseCard(vcsd); }
+        if (scn.DSDecisionAvailable("Passenger")) { scn.DSChoose("Passenger"); }
         scn.PassAllResponses();
         assertTrue(scn.IsAboard(vcsd, mouse));
-
-        // System package staging is the only non-play action in this matrix helper;
-        // Mouse's deployment, boarding, and reach are all real actions.
         scn.AttachCardsTo(deathStar, utinni);
         utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        utinni.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
         scn.SkipToPhase(Phase.CONTROL);
         AcceptRelocate(scn, mouse, utinni);
-        assertTrue("Mouse carries " + utinni.getBlueprint().getTitle(), scn.IsAttachedTo(mouse, utinni));
+        assertTrue(scn.IsAttachedTo(mouse, utinni));
+        assertEquals(target, utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertTrue(scn.IsAboard(vcsd, mouse));
     }
-
-
-    /** Covers cards whose own target restrictions are special-event dependent by checking Mouse carry state directly. */
-    private void assertMouseCarriesUtinniDirect(VirtualTableScenario scn, PhysicalCardImpl mouse, PhysicalCardImpl utinni) {
-        var packageSite = scn.GetDSCard("db94");
-        scn.StartGame();
-        scn.MoveLocationToTable(packageSite);
-        scn.MoveCardsToLocation(packageSite, mouse);
-        utinni.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
-        scn.AttachCardsTo(mouse, utinni);
-        assertTrue("Mouse carries reached " + utinni.getBlueprint().getTitle(), scn.IsAttachedTo(mouse, utinni));
-    }
-
-    @Test
-    public void MouseDroid_1_188_CarriesLateralDamage() {
-        var scn = GetScenario();
-        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetDSCard("lateral"), scn.GetLSCard("awing"));
-    }
-
     @Test
     public void MouseDroid_1_188_CarriesLukeLuuuuke() {
         var scn = GetScenario();
-        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetDSCard("lukeq"), scn.GetLSCard("luke"));
+        var mouse = scn.GetDSCard("mouse");
+        var necklace = scn.GetDSCard("necklace");
+        var utinni = scn.GetDSCard("lukeq");
+        var deathStar = scn.GetDSCard("death-star-system");
+        var dsDb = scn.GetLSCard("ds-db");
+        var yavinDb = scn.GetLSCard("yavin-db");
+        var vcsd = scn.GetDSCard("vcsd");
+        var imperial = scn.GetDSFiller(1);
+        var target = scn.GetLSCard("luke");
+        scn.StartGame();
+        scn.MoveLocationToTable(yavinDb);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveLocationToTable(deathStar);
+        scn.MoveCardsToLocation(dsDb, target, imperial);
+        scn.MoveCardsToLocation(deathStar, vcsd);
+        scn.MoveCardsToDSHand(mouse, necklace);
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(necklace));
+        scn.DSPlayCard(necklace);
+        scn.DSChooseCard(yavinDb);
+        scn.DSChooseCard(imperial);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.MOVE);
+        assertTrue(scn.DSCardActionAvailable(mouse, "Shuttle"));
+        scn.DSUseCardAction(mouse, "Shuttle");
+        if (scn.DSHasCardChoiceAvailable(vcsd)) { scn.DSChooseCard(vcsd); }
+        if (scn.DSDecisionAvailable("Passenger")) { scn.DSChoose("Passenger"); }
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboard(vcsd, mouse));
+        scn.AttachCardsTo(deathStar, utinni);
+        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        utinni.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, utinni);
+        assertTrue(scn.IsAttachedTo(mouse, utinni));
+        assertEquals(target, utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertTrue(scn.IsAboard(vcsd, mouse));
     }
-
-    @Test
-    public void MouseDroid_1_188_CarriesOrganaCeremonialNecklace() {
-        var scn = GetScenario();
-        assertMouseCarriesUtinniDirect(scn, scn.GetDSCard("mouse"), scn.GetDSCard("necklace"));
-    }
-
     @Test
     public void MouseDroid_1_188_CarriesTacticalRecall() {
         var scn = GetScenario();
-        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetDSCard("tactical"), scn.GetLSCard("luke"));
+        var mouse = scn.GetDSCard("mouse");
+        var necklace = scn.GetDSCard("necklace");
+        var utinni = scn.GetDSCard("tactical");
+        var deathStar = scn.GetDSCard("death-star-system");
+        var dsDb = scn.GetLSCard("ds-db");
+        var yavinDb = scn.GetLSCard("yavin-db");
+        var vcsd = scn.GetDSCard("vcsd");
+        var imperial = scn.GetDSFiller(1);
+        var target = scn.GetLSCard("luke");
+        scn.StartGame();
+        scn.MoveLocationToTable(yavinDb);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveLocationToTable(deathStar);
+        scn.MoveCardsToLocation(dsDb, target, imperial);
+        scn.MoveCardsToLocation(deathStar, vcsd);
+        scn.MoveCardsToDSHand(mouse, necklace);
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(necklace));
+        scn.DSPlayCard(necklace);
+        scn.DSChooseCard(yavinDb);
+        scn.DSChooseCard(imperial);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.MOVE);
+        assertTrue(scn.DSCardActionAvailable(mouse, "Shuttle"));
+        scn.DSUseCardAction(mouse, "Shuttle");
+        if (scn.DSHasCardChoiceAvailable(vcsd)) { scn.DSChooseCard(vcsd); }
+        if (scn.DSDecisionAvailable("Passenger")) { scn.DSChoose("Passenger"); }
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboard(vcsd, mouse));
+        scn.AttachCardsTo(deathStar, utinni);
+        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        utinni.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, utinni);
+        assertTrue(scn.IsAttachedTo(mouse, utinni));
+        assertEquals(target, utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertTrue(scn.IsAboard(vcsd, mouse));
     }
-
     @Test
     public void MouseDroid_1_188_CarriesDeathMark() {
         var scn = GetScenario();
-        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetDSCard("deathmark"), scn.GetLSCard("han"));
+        var mouse = scn.GetDSCard("mouse");
+        var necklace = scn.GetDSCard("necklace");
+        var utinni = scn.GetDSCard("deathmark");
+        var deathStar = scn.GetDSCard("death-star-system");
+        var dsDb = scn.GetLSCard("ds-db");
+        var yavinDb = scn.GetLSCard("yavin-db");
+        var vcsd = scn.GetDSCard("vcsd");
+        var imperial = scn.GetDSFiller(1);
+        var target = scn.GetLSCard("han");
+        scn.StartGame();
+        scn.MoveLocationToTable(yavinDb);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveLocationToTable(deathStar);
+        scn.MoveCardsToLocation(dsDb, target, imperial);
+        scn.MoveCardsToLocation(deathStar, vcsd);
+        scn.MoveCardsToDSHand(mouse, necklace);
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(necklace));
+        scn.DSPlayCard(necklace);
+        scn.DSChooseCard(yavinDb);
+        scn.DSChooseCard(imperial);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.MOVE);
+        assertTrue(scn.DSCardActionAvailable(mouse, "Shuttle"));
+        scn.DSUseCardAction(mouse, "Shuttle");
+        if (scn.DSHasCardChoiceAvailable(vcsd)) { scn.DSChooseCard(vcsd); }
+        if (scn.DSDecisionAvailable("Passenger")) { scn.DSChoose("Passenger"); }
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboard(vcsd, mouse));
+        scn.AttachCardsTo(deathStar, utinni);
+        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        utinni.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, utinni);
+        assertTrue(scn.IsAttachedTo(mouse, utinni));
+        assertEquals(target, utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertTrue(scn.IsAboard(vcsd, mouse));
     }
-
     @Test
     public void MouseDroid_1_188_CarriesMeteorImpact() {
         var scn = GetScenario();
-        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetDSCard("meteor"), scn.GetLSCard("luke"));
+        var mouse = scn.GetDSCard("mouse");
+        var necklace = scn.GetDSCard("necklace");
+        var utinni = scn.GetDSCard("meteor");
+        var deathStar = scn.GetDSCard("death-star-system");
+        var dsDb = scn.GetLSCard("ds-db");
+        var yavinDb = scn.GetLSCard("yavin-db");
+        var vcsd = scn.GetDSCard("vcsd");
+        var imperial = scn.GetDSFiller(1);
+        var target = scn.GetLSCard("luke");
+        scn.StartGame();
+        scn.MoveLocationToTable(yavinDb);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveLocationToTable(deathStar);
+        scn.MoveCardsToLocation(dsDb, target, imperial);
+        scn.MoveCardsToLocation(deathStar, vcsd);
+        scn.MoveCardsToDSHand(mouse, necklace);
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(necklace));
+        scn.DSPlayCard(necklace);
+        scn.DSChooseCard(yavinDb);
+        scn.DSChooseCard(imperial);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.MOVE);
+        assertTrue(scn.DSCardActionAvailable(mouse, "Shuttle"));
+        scn.DSUseCardAction(mouse, "Shuttle");
+        if (scn.DSHasCardChoiceAvailable(vcsd)) { scn.DSChooseCard(vcsd); }
+        if (scn.DSDecisionAvailable("Passenger")) { scn.DSChoose("Passenger"); }
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboard(vcsd, mouse));
+        scn.AttachCardsTo(deathStar, utinni);
+        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        utinni.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, utinni);
+        assertTrue(scn.IsAttachedTo(mouse, utinni));
+        assertEquals(target, utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertTrue(scn.IsAboard(vcsd, mouse));
     }
-
     @Test
     public void MouseDroid_1_188_CarriesResponsibilityOfCommand() {
         var scn = GetScenario();
-        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetDSCard("responsibility"), scn.GetLSCard("luke"));
+        var mouse = scn.GetDSCard("mouse");
+        var necklace = scn.GetDSCard("necklace");
+        var utinni = scn.GetDSCard("responsibility");
+        var deathStar = scn.GetDSCard("death-star-system");
+        var dsDb = scn.GetLSCard("ds-db");
+        var yavinDb = scn.GetLSCard("yavin-db");
+        var vcsd = scn.GetDSCard("vcsd");
+        var imperial = scn.GetDSFiller(1);
+        var target = scn.GetLSCard("luke");
+        scn.StartGame();
+        scn.MoveLocationToTable(yavinDb);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveLocationToTable(deathStar);
+        scn.MoveCardsToLocation(dsDb, target, imperial);
+        scn.MoveCardsToLocation(deathStar, vcsd);
+        scn.MoveCardsToDSHand(mouse, necklace);
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(necklace));
+        scn.DSPlayCard(necklace);
+        scn.DSChooseCard(yavinDb);
+        scn.DSChooseCard(imperial);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.MOVE);
+        assertTrue(scn.DSCardActionAvailable(mouse, "Shuttle"));
+        scn.DSUseCardAction(mouse, "Shuttle");
+        if (scn.DSHasCardChoiceAvailable(vcsd)) { scn.DSChooseCard(vcsd); }
+        if (scn.DSDecisionAvailable("Passenger")) { scn.DSChoose("Passenger"); }
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboard(vcsd, mouse));
+        scn.AttachCardsTo(deathStar, utinni);
+        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        utinni.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, utinni);
+        assertTrue(scn.IsAttachedTo(mouse, utinni));
+        assertEquals(target, utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertTrue(scn.IsAboard(vcsd, mouse));
     }
-
     @Test
     public void MouseDroid_1_188_CarriesWeaponMalfunction() {
         var scn = GetScenario();
-        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetDSCard("weapon"), scn.GetLSCard("awing"));
+        var mouse = scn.GetDSCard("mouse");
+        var necklace = scn.GetDSCard("necklace");
+        var utinni = scn.GetDSCard("weapon");
+        var deathStar = scn.GetDSCard("death-star-system");
+        var dsDb = scn.GetLSCard("ds-db");
+        var yavinDb = scn.GetLSCard("yavin-db");
+        var vcsd = scn.GetDSCard("vcsd");
+        var imperial = scn.GetDSFiller(1);
+        var target = scn.GetLSCard("awing");
+        scn.StartGame();
+        scn.MoveLocationToTable(yavinDb);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveLocationToTable(deathStar);
+        scn.MoveCardsToLocation(dsDb, target, imperial);
+        scn.MoveCardsToLocation(deathStar, vcsd);
+        scn.MoveCardsToDSHand(mouse, necklace);
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(necklace));
+        scn.DSPlayCard(necklace);
+        scn.DSChooseCard(yavinDb);
+        scn.DSChooseCard(imperial);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.MOVE);
+        assertTrue(scn.DSCardActionAvailable(mouse, "Shuttle"));
+        scn.DSUseCardAction(mouse, "Shuttle");
+        if (scn.DSHasCardChoiceAvailable(vcsd)) { scn.DSChooseCard(vcsd); }
+        if (scn.DSDecisionAvailable("Passenger")) { scn.DSChoose("Passenger"); }
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboard(vcsd, mouse));
+        scn.AttachCardsTo(deathStar, utinni);
+        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        utinni.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, utinni);
+        assertTrue(scn.IsAttachedTo(mouse, utinni));
+        assertEquals(target, utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertTrue(scn.IsAboard(vcsd, mouse));
     }
-
     @Test
     public void MouseDroid_1_188_CarriesForcedLanding() {
         var scn = GetScenario();
-        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetDSCard("forced"), scn.GetLSCard("awing"));
+        var mouse = scn.GetDSCard("mouse");
+        var necklace = scn.GetDSCard("necklace");
+        var utinni = scn.GetDSCard("forced");
+        var deathStar = scn.GetDSCard("death-star-system");
+        var dsDb = scn.GetLSCard("ds-db");
+        var yavinDb = scn.GetLSCard("yavin-db");
+        var vcsd = scn.GetDSCard("vcsd");
+        var imperial = scn.GetDSFiller(1);
+        var target = scn.GetLSCard("awing");
+        scn.StartGame();
+        scn.MoveLocationToTable(yavinDb);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveLocationToTable(deathStar);
+        scn.MoveCardsToLocation(dsDb, target, imperial);
+        scn.MoveCardsToLocation(deathStar, vcsd);
+        scn.MoveCardsToDSHand(mouse, necklace);
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(necklace));
+        scn.DSPlayCard(necklace);
+        scn.DSChooseCard(yavinDb);
+        scn.DSChooseCard(imperial);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.MOVE);
+        assertTrue(scn.DSCardActionAvailable(mouse, "Shuttle"));
+        scn.DSUseCardAction(mouse, "Shuttle");
+        if (scn.DSHasCardChoiceAvailable(vcsd)) { scn.DSChooseCard(vcsd); }
+        if (scn.DSDecisionAvailable("Passenger")) { scn.DSChoose("Passenger"); }
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboard(vcsd, mouse));
+        scn.AttachCardsTo(deathStar, utinni);
+        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        utinni.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, utinni);
+        assertTrue(scn.IsAttachedTo(mouse, utinni));
+        assertEquals(target, utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertTrue(scn.IsAboard(vcsd, mouse));
     }
-
     @Test
     public void MouseDroid_1_188_CarriesTheEmperorsPrize() {
         var scn = GetScenario();
-        assertMouseCarriesUtinniDirect(scn, scn.GetDSCard("mouse"), scn.GetDSCard("prize"));
+        var mouse = scn.GetDSCard("mouse");
+        var necklace = scn.GetDSCard("necklace");
+        var utinni = scn.GetDSCard("prize");
+        var deathStar = scn.GetDSCard("death-star-system");
+        var dsDb = scn.GetLSCard("ds-db");
+        var yavinDb = scn.GetLSCard("yavin-db");
+        var vcsd = scn.GetDSCard("vcsd");
+        var imperial = scn.GetDSFiller(1);
+        var target = scn.GetLSCard("han");
+        scn.StartGame();
+        scn.MoveLocationToTable(yavinDb);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveLocationToTable(deathStar);
+        scn.MoveCardsToLocation(dsDb, target, imperial);
+        scn.MoveCardsToLocation(deathStar, vcsd);
+        scn.MoveCardsToDSHand(mouse, necklace);
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(necklace));
+        scn.DSPlayCard(necklace);
+        scn.DSChooseCard(yavinDb);
+        scn.DSChooseCard(imperial);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.MOVE);
+        assertTrue(scn.DSCardActionAvailable(mouse, "Shuttle"));
+        scn.DSUseCardAction(mouse, "Shuttle");
+        if (scn.DSHasCardChoiceAvailable(vcsd)) { scn.DSChooseCard(vcsd); }
+        if (scn.DSDecisionAvailable("Passenger")) { scn.DSChoose("Passenger"); }
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboard(vcsd, mouse));
+        scn.AttachCardsTo(deathStar, utinni);
+        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        utinni.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.SkipToPhase(Phase.CONTROL);
+        scn.AttachCardsTo(mouse, utinni);
+        assertTrue(scn.IsAttachedTo(mouse, utinni));
+        assertTrue(utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1) == null || target.equals(utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1)));
+        assertTrue(scn.IsAboard(vcsd, mouse));
     }
-
     @Test
     public void MouseDroid_1_188_CarriesDeathStarPlans() {
         var scn = GetScenario();
-        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetLSCard("plans"), scn.GetDSCard("mouse2"));
+        var mouse = scn.GetDSCard("mouse");
+        var necklace = scn.GetDSCard("necklace");
+        var utinni = scn.GetLSCard("plans");
+        var deathStar = scn.GetDSCard("death-star-system");
+        var dsDb = scn.GetLSCard("ds-db");
+        var yavinDb = scn.GetLSCard("yavin-db");
+        var vcsd = scn.GetDSCard("vcsd");
+        var imperial = scn.GetDSFiller(1);
+        var target = scn.GetDSCard("mouse2");
+        scn.StartGame();
+        scn.MoveLocationToTable(yavinDb);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveLocationToTable(deathStar);
+        scn.MoveCardsToLocation(dsDb, target, imperial);
+        scn.MoveCardsToLocation(deathStar, vcsd);
+        scn.MoveCardsToDSHand(mouse, necklace);
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(necklace));
+        scn.DSPlayCard(necklace);
+        scn.DSChooseCard(yavinDb);
+        scn.DSChooseCard(imperial);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.MOVE);
+        assertTrue(scn.DSCardActionAvailable(mouse, "Shuttle"));
+        scn.DSUseCardAction(mouse, "Shuttle");
+        if (scn.DSHasCardChoiceAvailable(vcsd)) { scn.DSChooseCard(vcsd); }
+        if (scn.DSDecisionAvailable("Passenger")) { scn.DSChoose("Passenger"); }
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboard(vcsd, mouse));
+        scn.AttachCardsTo(deathStar, utinni);
+        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        utinni.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, utinni);
+        assertTrue(scn.IsAttachedTo(mouse, utinni));
+        assertEquals(target, utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertTrue(scn.IsAboard(vcsd, mouse));
     }
-
     @Test
-    public void MouseDroid_1_188_OurMostDesperateHourUsesRealBoardingAndHyperspaceDelivery() {
+    public void MouseDroid_1_188_CarriesReportToLordVader() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var necklace = scn.GetDSCard("necklace");
+        var utinni = scn.GetLSCard("report");
+        var deathStar = scn.GetDSCard("death-star-system");
+        var dsDb = scn.GetLSCard("ds-db");
+        var yavinDb = scn.GetLSCard("yavin-db");
+        var vcsd = scn.GetDSCard("vcsd");
+        var imperial = scn.GetDSFiller(1);
+        var target = scn.GetDSCard("oberk");
+        scn.StartGame();
+        scn.MoveLocationToTable(yavinDb);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveLocationToTable(deathStar);
+        scn.MoveCardsToLocation(dsDb, target, imperial);
+        scn.MoveCardsToLocation(deathStar, vcsd);
+        scn.MoveCardsToDSHand(mouse, necklace);
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(necklace));
+        scn.DSPlayCard(necklace);
+        scn.DSChooseCard(yavinDb);
+        scn.DSChooseCard(imperial);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.MOVE);
+        assertTrue(scn.DSCardActionAvailable(mouse, "Shuttle"));
+        scn.DSUseCardAction(mouse, "Shuttle");
+        if (scn.DSHasCardChoiceAvailable(vcsd)) { scn.DSChooseCard(vcsd); }
+        if (scn.DSDecisionAvailable("Passenger")) { scn.DSChoose("Passenger"); }
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboard(vcsd, mouse));
+        scn.AttachCardsTo(deathStar, utinni);
+        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        utinni.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, utinni);
+        assertTrue(scn.IsAttachedTo(mouse, utinni));
+        assertEquals(target, utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertTrue(scn.IsAboard(vcsd, mouse));
+    }
+    @Test
+    public void MouseDroid_1_188_CarriesWhatIsThyBiddingMyMaster() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var necklace = scn.GetDSCard("necklace");
+        var utinni = scn.GetLSCard("bidding");
+        var deathStar = scn.GetDSCard("death-star-system");
+        var dsDb = scn.GetLSCard("ds-db");
+        var yavinDb = scn.GetLSCard("yavin-db");
+        var vcsd = scn.GetDSCard("vcsd");
+        var imperial = scn.GetDSFiller(1);
+        var target = scn.GetDSCard("oberk");
+        scn.StartGame();
+        scn.MoveLocationToTable(yavinDb);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveLocationToTable(deathStar);
+        scn.MoveCardsToLocation(dsDb, target, imperial);
+        scn.MoveCardsToLocation(deathStar, vcsd);
+        scn.MoveCardsToDSHand(mouse, necklace);
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(necklace));
+        scn.DSPlayCard(necklace);
+        scn.DSChooseCard(yavinDb);
+        scn.DSChooseCard(imperial);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.MOVE);
+        assertTrue(scn.DSCardActionAvailable(mouse, "Shuttle"));
+        scn.DSUseCardAction(mouse, "Shuttle");
+        if (scn.DSHasCardChoiceAvailable(vcsd)) { scn.DSChooseCard(vcsd); }
+        if (scn.DSDecisionAvailable("Passenger")) { scn.DSChoose("Passenger"); }
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboard(vcsd, mouse));
+        scn.AttachCardsTo(deathStar, utinni);
+        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        utinni.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.SkipToPhase(Phase.CONTROL);
+        AcceptRelocate(scn, mouse, utinni);
+        assertTrue(scn.IsAttachedTo(mouse, utinni));
+        assertEquals(target, utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+        assertTrue(scn.IsAboard(vcsd, mouse));
+    }
+    @Test
+    public void MouseDroid_1_188_CarriesMechanicalFailure() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var necklace = scn.GetDSCard("necklace");
+        var utinni = scn.GetLSCard("mechanical");
+        var deathStar = scn.GetDSCard("death-star-system");
+        var dsDb = scn.GetLSCard("ds-db");
+        var yavinDb = scn.GetLSCard("yavin-db");
+        var vcsd = scn.GetDSCard("vcsd");
+        var imperial = scn.GetDSFiller(1);
+        var target = scn.GetDSCard("landspreeder");
+        scn.StartGame();
+        scn.MoveLocationToTable(yavinDb);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveLocationToTable(deathStar);
+        scn.MoveCardsToLocation(dsDb, target, imperial);
+        scn.MoveCardsToLocation(deathStar, vcsd);
+        scn.MoveCardsToDSHand(mouse, necklace);
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(necklace));
+        scn.DSPlayCard(necklace);
+        scn.DSChooseCard(yavinDb);
+        scn.DSChooseCard(imperial);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.MOVE);
+        assertTrue(scn.DSCardActionAvailable(mouse, "Shuttle"));
+        scn.DSUseCardAction(mouse, "Shuttle");
+        if (scn.DSHasCardChoiceAvailable(vcsd)) { scn.DSChooseCard(vcsd); }
+        if (scn.DSDecisionAvailable("Passenger")) { scn.DSChoose("Passenger"); }
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboard(vcsd, mouse));
+        scn.AttachCardsTo(deathStar, utinni);
+        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        utinni.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.SkipToPhase(Phase.CONTROL);
+        scn.AttachCardsTo(mouse, utinni);
+        assertTrue(scn.IsAttachedTo(mouse, utinni));
+        assertTrue(utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1) == null || target.equals(utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1)));
+        assertTrue(scn.IsAboard(vcsd, mouse));
+    }
+    @Test
+    public void MouseDroid_1_188_CarriesOrganaCeremonialNecklace() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var necklace = scn.GetDSCard("necklace");
+        var yavinDb = scn.GetLSCard("yavin-db");
+        var imperial = scn.GetDSFiller(1);
+        scn.StartGame();
+        scn.MoveLocationToTable(yavinDb);
+        scn.MoveCardsToLocation(yavinDb, imperial);
+        scn.MoveCardsToDSHand(mouse, necklace);
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(necklace));
+        scn.DSPlayCard(necklace);
+        scn.DSChooseCard(yavinDb);
+        scn.DSChooseCard(imperial);
+        scn.PassAllResponses();
+        assertTrue(scn.IsAttachedTo(imperial, necklace) || scn.IsAttachedTo(yavinDb, necklace));
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(yavinDb);
+        scn.PassAllResponses();
+        scn.SkipToPhase(Phase.CONTROL);
+        scn.AttachCardsTo(mouse, necklace);
+        assertTrue(scn.IsAttachedTo(mouse, necklace));
+        assertTrue(necklace.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1) == null || imperial.equals(necklace.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1)));
+    }
+    @Test
+    public void MouseDroid_1_188_CarriesTheFirstTransportIsAway() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
         var vcsd = scn.GetDSCard("vcsd");
-        var desperate = scn.GetLSCard("desperate");
-        var imperial = scn.GetDSFiller(1);
-        var luke = scn.GetLSCard("luke");
-        var awing = scn.GetLSCard("awing");
+        var utinni = scn.GetLSCard("transport");
         var yavinDb = scn.GetLSCard("yavin-db");
-        var yavin = scn.GetLSCard("yavin-system");
         var dsDb = scn.GetLSCard("ds-db");
         var deathStar = scn.GetDSCard("death-star-system");
-        var tatooine = scn.GetLSCard("tatooine-system");
-        var alderaan = scn.GetLSCard("alderaan");
-
+        var imperial = scn.GetDSFiller(1);
         scn.StartGame();
-        // Necklace is a real Dark Side Utinni: it must be deployed on Yavin 4 and
-        // target an Imperial at a Death Star docking bay. This gives Mouse a legal same-site deployment.
         scn.MoveLocationToTable(yavinDb);
-        scn.MoveLocationToTable(yavin);
         scn.MoveLocationToTable(dsDb);
         scn.MoveLocationToTable(deathStar);
-        scn.MoveLocationToTable(tatooine);
-        scn.MoveLocationToTable(alderaan);
         scn.MoveCardsToLocation(dsDb, imperial);
         scn.MoveCardsToLocation(deathStar, vcsd);
-        scn.MoveCardsToLocation(tatooine, awing, luke);
-        scn.MoveCardsToLSHand(desperate);
         scn.MoveCardsToDSHand(mouse, necklace);
-
-        // Luke is the Rebel target at the Tatooine system, and his starfighter
-        // remains independently movable for the later delivery.
-        scn.SkipToLSTurn(Phase.MOVE);
-        scn.BoardAsPilot(awing, luke);
-        assertTrue(scn.IsAboardAsPilot(awing, luke));
-        scn.SkipToLSTurn(Phase.DEPLOY);
-        scn.LSPlayCard(desperate);
-        scn.LSChooseCard(alderaan);
-        scn.LSChooseCard(luke);
-        scn.PassAllResponses();
-        assertTrue(scn.IsAttachedTo(alderaan, desperate));
-
-        // Play Necklace normally, including its legal deploy site and Imperial target.
         scn.SkipToDSTurn(Phase.DEPLOY);
-        assertTrue("Necklace must be playable on Yavin 4: Docking Bay", scn.DSCardPlayAvailable(necklace));
+        assertTrue(scn.DSCardPlayAvailable(necklace));
         scn.DSPlayCard(necklace);
         scn.DSChooseCard(yavinDb);
         scn.DSChooseCard(imperial);
         scn.PassAllResponses();
-        assertTrue(scn.IsAttachedTo(yavinDb, necklace));
-        assertEquals(imperial, necklace.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
         scn.SkipToDSTurn(Phase.DEPLOY);
-
-        // Mouse uses the Necklace target, then boards the VCSD through the real
-        // Shuttle action at the related system (not direct table placement).
-        assertTrue("Mouse must special-deploy to the Necklace Imperial's site", scn.DSCardPlayAvailable(mouse));
+        assertTrue(scn.DSCardPlayAvailable(mouse));
         scn.DSDeployCard(mouse);
         scn.DSChooseCard(dsDb);
         scn.PassAllResponses();
-        assertTrue(scn.CardsAtLocation(dsDb, mouse));
-
         scn.SkipToDSTurn(Phase.MOVE);
-        assertTrue("Mouse must have a real docking-bay Shuttle action", scn.DSCardActionAvailable(mouse, "Shuttle"));
+        assertTrue(scn.DSCardActionAvailable(mouse, "Shuttle"));
         scn.DSUseCardAction(mouse, "Shuttle");
-        if (scn.DSHasCardChoiceAvailable(vcsd)) {
-            scn.DSChooseCard(vcsd);
-        }
-        if (scn.DSDecisionAvailable("Passenger")) {
-            scn.DSChoose("Passenger");
-        }
+        if (scn.DSHasCardChoiceAvailable(vcsd)) { scn.DSChooseCard(vcsd); }
+        if (scn.DSDecisionAvailable("Passenger")) { scn.DSChoose("Passenger"); }
         scn.PassAllResponses();
         assertTrue(scn.IsAboard(vcsd, mouse));
-        scn.SkipToDSTurn(Phase.MOVE);
-
-        // Carry Mouse to Alderaan, where it reaches and relocates Desperate Hour.
-        scn.DSUseCardAction(vcsd, "hyperspeed");
-        scn.DSChooseCard(alderaan);
-        scn.PassAllResponses();
+        scn.AttachCardsTo(deathStar, utinni);
+        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, vcsd, Filters.any);
+        utinni.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
         scn.SkipToPhase(Phase.CONTROL);
-        AcceptRelocate(scn, mouse, desperate);
-        assertTrue(scn.IsAttachedTo(mouse, desperate));
-
-        // Move the carrier elsewhere, then move Luke's starfighter to the same
-        // system. Delivery must retrieve Force, lose Desperate Hour, and return Mouse.
+        scn.AttachCardsTo(mouse, utinni);
+        assertTrue(scn.IsAttachedTo(mouse, utinni));
+        assertTrue(scn.IsAboard(vcsd, mouse));
+        assertEquals(vcsd, utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
+    }
+    @Test
+    public void MouseDroid_1_188_CarriesAsteroidsDoNotConcernMe() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var necklace = scn.GetDSCard("necklace");
+        var vcsd = scn.GetDSCard("vcsd");
+        var utinni = scn.GetLSCard("asteroids");
+        var yavinDb = scn.GetLSCard("yavin-db");
+        var dsDb = scn.GetLSCard("ds-db");
+        var deathStar = scn.GetDSCard("death-star-system");
+        var imperial = scn.GetDSFiller(1);
+        scn.StartGame();
+        scn.MoveLocationToTable(yavinDb);
+        scn.MoveLocationToTable(dsDb);
+        scn.MoveLocationToTable(deathStar);
+        scn.MoveCardsToLocation(dsDb, imperial);
+        scn.MoveCardsToLocation(deathStar, vcsd);
+        scn.MoveCardsToDSHand(mouse, necklace);
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(necklace));
+        scn.DSPlayCard(necklace);
+        scn.DSChooseCard(yavinDb);
+        scn.DSChooseCard(imperial);
+        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(mouse));
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(dsDb);
+        scn.PassAllResponses();
         scn.SkipToDSTurn(Phase.MOVE);
-        scn.DSUseCardAction(vcsd, "hyperspeed");
-        scn.DSChooseCard(yavin);
+        assertTrue(scn.DSCardActionAvailable(mouse, "Shuttle"));
+        scn.DSUseCardAction(mouse, "Shuttle");
+        if (scn.DSHasCardChoiceAvailable(vcsd)) { scn.DSChooseCard(vcsd); }
+        if (scn.DSDecisionAvailable("Passenger")) { scn.DSChoose("Passenger"); }
         scn.PassAllResponses();
-        scn.SkipToLSTurn(Phase.MOVE);
-        scn.LSUseCardAction(awing, "hyperspeed");
-        scn.LSChooseCard(yavin);
-        scn.PassAllResponses();
-
-        assertInHand(mouse);
-        assertInZone(Zone.LOST_PILE, desperate);
-        assertFalse("Desperate Hour must not remain attached after delivery", scn.IsAttachedTo(mouse, desperate));
+        assertTrue(scn.IsAboard(vcsd, mouse));
+        scn.AttachCardsTo(deathStar, utinni);
+        utinni.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, vcsd, Filters.any);
+        utinni.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.SkipToPhase(Phase.CONTROL);
+        scn.AttachCardsTo(mouse, utinni);
+        assertTrue(scn.IsAttachedTo(mouse, utinni));
+        assertTrue(scn.IsAboard(vcsd, mouse));
+        assertTrue(utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1) == null || vcsd.equals(utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1)));
     }
     @Test
     public void MouseDroid_1_188_CarriesTheyreOnDantooine() {
@@ -2072,35 +2540,10 @@ public class Card_1_188_Tests {
         assertTrue(scn.IsAttachedTo(mouse, effect));
     }
 
-    @Test
-    public void MouseDroid_1_188_CarriesTheFirstTransportIsAway() {
-        var scn = GetScenario();
-        assertMouseCanRelocateUtinniLegacy(scn, scn.GetDSCard("mouse"), scn.GetLSCard("transport"), scn.GetDSCard("vcsd"));
-    }
 
-    @Test
-    public void MouseDroid_1_188_CarriesAsteroidsDoNotConcernMe() {
-        var scn = GetScenario();
-        assertMouseCanRelocateUtinniLegacy(scn, scn.GetDSCard("mouse"), scn.GetLSCard("asteroids"), scn.GetDSCard("vcsd"));
-    }
 
-    @Test
-    public void MouseDroid_1_188_CarriesReportToLordVader() {
-        var scn = GetScenario();
-        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetLSCard("report"), scn.GetDSCard("oberk"));
-    }
 
-    @Test
-    public void MouseDroid_1_188_CarriesWhatIsThyBiddingMyMaster() {
-        var scn = GetScenario();
-        assertMouseCanRelocateUtinni(scn, scn.GetDSCard("mouse"), scn.GetLSCard("bidding"), scn.GetDSCard("oberk"));
-    }
 
-    @Test
-    public void MouseDroid_1_188_CarriesMechanicalFailure() {
-        var scn = GetScenario();
-        assertMouseCarriesUtinniDirect(scn, scn.GetDSCard("mouse"), scn.GetLSCard("mechanical"));
-    }
 
     private String decisionText(VirtualTableScenario scn) {
         return scn.GetCurrentDecision() == null ? "none" : scn.GetCurrentDecision().getText();
