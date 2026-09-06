@@ -132,6 +132,7 @@ public class Card_1_188_Tests {
                     put("lateral", "1_222");
                     put("bait", "5_128");
                     put("tijw", "3_112");
+                    put("helrot", "1_243");
                 }},
                 10,
                 10,
@@ -2545,6 +2546,173 @@ public class Card_1_188_Tests {
 
 
 
+    /** Stage an already-reached Meteor Impact? on Mouse at source, with its target at another Death Star site. */
+    private void StageCarriedMeteor(VirtualTableScenario scn, PhysicalCardImpl mouse, PhysicalCardImpl meteor,
+            PhysicalCardImpl sourceSite, PhysicalCardImpl targetSite, PhysicalCardImpl target) {
+        scn.MoveLocationToTable(sourceSite);
+        scn.MoveLocationToTable(targetSite);
+        scn.MoveCardsToLocation(targetSite, target);
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesMeteorImpact_TargetCanMoveTowardOldSiteAfterShuttle() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var meteor = scn.GetDSCard("meteor");
+        var target = scn.GetDSFiller(1);
+        var sourceSite = scn.GetLSCard("ds-db");
+        var targetSite = scn.GetLSCard("trash");
+        var deathStar = scn.GetDSCard("death-star-system");
+        var vcsd = scn.GetDSCard("vcsd");
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(mouse);
+        StageCarriedMeteor(scn, mouse, meteor, sourceSite, targetSite, target);
+        scn.MoveCardsToLocation(deathStar, vcsd);
+        EnsureDSDeployPhase(scn);
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(sourceSite);
+        scn.PassAllResponses();
+        scn.AttachCardsTo(mouse, meteor);
+        meteor.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        meteor.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+
+        scn.SkipToDSTurn(Phase.MOVE);
+        assertTrue(scn.DSCardActionAvailable(mouse, "Shuttle"));
+        scn.DSUseCardAction(mouse, "Shuttle");
+        if (scn.DSHasCardChoiceAvailable(vcsd)) { scn.DSChooseCard(vcsd); }
+        if (scn.DSDecisionAvailable("Passenger")) { scn.DSChoose("Passenger"); }
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboard(vcsd, mouse));
+        assertTrue("Meteor target must be free to leave its old site after Mouse shuttles away",
+                scn.DSMoveAvailable(target));
+        scn.DSMoveCard(target, sourceSite);
+        scn.PassAllResponses();
+        assertTrue(scn.CardsAtLocation(sourceSite, target));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesMeteorImpact_TargetCanMoveAfterDockingBayTransitToAnotherPlanet() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var meteor = scn.GetDSCard("meteor");
+        var target = scn.GetDSFiller(1);
+        var sourceSite = scn.GetLSCard("ds-db");
+        var targetSite = scn.GetLSCard("trash");
+        var yavinDb = scn.GetLSCard("yavin-db");
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(mouse);
+        StageCarriedMeteor(scn, mouse, meteor, sourceSite, targetSite, target);
+        scn.MoveLocationToTable(yavinDb);
+        EnsureDSDeployPhase(scn);
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(sourceSite);
+        scn.PassAllResponses();
+        scn.AttachCardsTo(mouse, meteor);
+        meteor.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        meteor.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+
+        scn.SkipToDSTurn(Phase.MOVE);
+        assertTrue(scn.DSCardActionAvailable(sourceSite, "transit"));
+        scn.DSUseCardAction(sourceSite, "transit");
+        scn.DSChooseCard(yavinDb);
+        scn.DSChooseCard(mouse);
+        scn.DSPass();
+        scn.LSPass();
+        scn.DSPass();
+        scn.LSPass();
+        scn.DSPass();
+        scn.LSPass();
+        assertTrue(scn.CardsAtLocation(yavinDb, mouse));
+        assertTrue(scn.IsAttachedTo(mouse, meteor));
+        assertTrue("Meteor target must still be movable after Mouse transits off-planet",
+                scn.DSMoveAvailable(target));
+        scn.DSMoveCard(target, sourceSite);
+        scn.PassAllResponses();
+        assertTrue(scn.CardsAtLocation(sourceSite, target));
+    }
+
+    @Test
+    public void MouseDroid_1_188_CarriesForcedLanding_StarfighterCanMoveAfterMouseTransitsAway() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var forced = scn.GetDSCard("forced");
+        var target = scn.GetLSCard("awing");
+        var sourceSite = scn.GetLSCard("ds-db");
+        var deathStar = scn.GetDSCard("death-star-system");
+        var yavinDb = scn.GetLSCard("yavin-db");
+        var yavinSystem = scn.GetLSCard("yavin-system");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(sourceSite);
+        scn.MoveLocationToTable(deathStar);
+        scn.MoveLocationToTable(yavinDb);
+        scn.MoveLocationToTable(yavinSystem);
+        scn.MoveCardsToDSHand(mouse);
+        scn.MoveCardsToLocation(deathStar, target);
+        EnsureDSDeployPhase(scn);
+        scn.DSDeployCard(mouse);
+        scn.DSChooseCard(sourceSite);
+        scn.PassAllResponses();
+        scn.AttachCardsTo(mouse, forced);
+        forced.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        forced.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+
+        scn.SkipToDSTurn(Phase.MOVE);
+        assertTrue(scn.DSCardActionAvailable(sourceSite, "transit"));
+        scn.DSUseCardAction(sourceSite, "transit");
+        scn.DSChooseCard(yavinDb);
+        scn.DSChooseCard(mouse);
+        scn.DSPass();
+        scn.LSPass();
+        scn.DSPass();
+        scn.LSPass();
+        scn.DSPass();
+        scn.LSPass();
+        assertTrue(scn.CardsAtLocation(yavinDb, mouse));
+        scn.SkipToLSTurn(Phase.MOVE);
+        assertTrue("Forced Landing must stop restricting the starfighter once Mouse leaves",
+                scn.LSMoveAvailable(target));
+        scn.LSMoveCard(target, yavinSystem);
+        scn.PassAllResponses();
+        assertTrue(scn.CardsAtLocation(yavinSystem, target));
+    }
+
+    @Test
+    public void MouseDroid_1_188_ElisHelrotTransportsMouseAndMeteorCancelsAtTarget() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var meteor = scn.GetDSCard("meteor");
+        var helrot = scn.GetDSCard("helrot");
+        var target = scn.GetDSFiller(1);
+        var sourceSite = scn.GetDSStartingLocation();
+        var targetSite = scn.GetLSCard("cantina");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(targetSite);
+        scn.MoveCardsToLocation(sourceSite, mouse);
+        scn.MoveCardsToLocation(targetSite, target);
+        scn.AttachCardsTo(mouse, meteor);
+        meteor.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        meteor.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.MoveCardsToDSHand(helrot);
+
+        scn.SkipToDSTurn(Phase.MOVE);
+        scn.PrepareDSDestiny(0);
+        scn.DSPlayCard(helrot);
+        scn.DSChooseCard(sourceSite);
+        scn.DSChooseCard(targetSite);
+        scn.DSChooseCard(mouse);
+        scn.PassDestinyDrawResponses();
+        scn.DSChooseYes();
+        scn.PassAllResponses();
+        assertTrue(scn.CardsAtLocation(targetSite, mouse));
+        assertTrue(scn.IsAttachedTo(mouse, meteor));
+        scn.SkipToPhase(Phase.DEPLOY);
+        scn.PassAllResponses();
+        assertInZone(Zone.LOST_PILE, meteor);
+    }
     private String decisionText(VirtualTableScenario scn) {
         return scn.GetCurrentDecision() == null ? "none" : scn.GetCurrentDecision().getText();
     }
