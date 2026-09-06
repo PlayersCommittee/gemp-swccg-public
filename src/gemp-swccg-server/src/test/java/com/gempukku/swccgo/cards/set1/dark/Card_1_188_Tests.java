@@ -133,6 +133,7 @@ public class Card_1_188_Tests {
                     put("bait", "5_128");
                     put("tijw", "3_112");
                     put("helrot", "1_243");
+                    put("vader", "7_175");
                 }},
                 10,
                 10,
@@ -2706,6 +2707,124 @@ public class Card_1_188_Tests {
         scn.DSChooseAction("Cancel");
         scn.PassAllResponses();
         assertInZone(Zone.LOST_PILE, meteor);
+    }
+    @Test
+    public void MouseDroid_1_188_ElisHelrot_MouseAtUnusualSite_UtinniStaysAttached() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var meteor = scn.GetDSCard("meteor");
+        var helrot = scn.GetDSCard("helrot");
+        var target = scn.GetDSFiller(1);
+        var sourceSite = scn.GetDSStartingLocation();
+        var unusualSite = scn.GetLSCard("cantina");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(unusualSite);
+        scn.MoveCardsToLocation(sourceSite, mouse, target);
+        scn.AttachCardsTo(mouse, meteor);
+        meteor.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        meteor.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.MoveCardsToDSHand(helrot);
+
+        scn.SkipToDSTurn(Phase.MOVE);
+        scn.PrepareDSDestiny(0);
+        scn.DSPlayCard(helrot);
+        scn.DSChooseCard(sourceSite);
+        scn.DSChooseCard(unusualSite);
+        scn.DSChooseCard(mouse);
+        scn.PassDestinyDrawResponses();
+        scn.DSChooseYes();
+        scn.PassAllResponses();
+
+        assertTrue(scn.CardsAtLocation(unusualSite, mouse));
+        assertTrue(scn.CardsAtLocation(sourceSite, target));
+        assertTrue("Elis Helrot must not strip Meteor from the carried Mouse", scn.IsAttachedTo(mouse, meteor));
+    }
+
+    @Test
+    public void MouseDroid_1_188_Nabrun_TargetToUnusualMouseSite_UtinniResolves() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var meteor = scn.GetDSCard("meteor");
+        var nabrun = scn.GetLSCard("nabrun");
+        var target = scn.GetLSCard("luke");
+        var unusualSite = scn.GetLSCard("cantina");
+        var targetSite = scn.GetLSCard("tatooine-site");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(unusualSite);
+        scn.MoveLocationToTable(targetSite);
+        scn.MoveCardsToLocation(unusualSite, mouse);
+        scn.MoveCardsToLocation(targetSite, target);
+        scn.AttachCardsTo(mouse, meteor);
+        meteor.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, target, Filters.any);
+        meteor.setUtinniEffectStatus(UtinniEffectStatus.REACHED);
+        scn.MoveCardsToLSHand(nabrun);
+
+        scn.SkipToLSTurn(Phase.MOVE);
+        scn.PrepareLSDestiny(0);
+        scn.LSPlayCard(nabrun);
+        scn.LSChooseCard(targetSite);
+        scn.LSChooseCard(unusualSite);
+        scn.LSChooseCard(target);
+        scn.PassDestinyDrawResponses();
+        scn.LSChooseYes();
+        scn.PassAllResponses();
+        if (scn.DSActionAvailable("Cancel")) {
+            scn.DSChooseAction("Cancel");
+            scn.PassAllResponses();
+        }
+
+        assertTrue(scn.CardsAtLocation(unusualSite, target));
+        assertInZone(Zone.LOST_PILE, meteor);
+    }
+
+    @Test
+    public void MouseDroid_1_188_ReportToLordVader_CarriedAway_ResolvesWhenImperialReachesVader() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var report = scn.GetLSCard("report");
+        var vader = scn.GetDSCard("vader");
+        var imperial = scn.GetDSFiller(1);
+        var vaderSite = scn.GetLSCard("ds-db");
+        var mouseSite = scn.GetLSCard("cantina");
+        var imperialSite = scn.GetLSCard("yavin-db");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(vaderSite);
+        scn.MoveLocationToTable(mouseSite);
+        scn.MoveLocationToTable(imperialSite);
+        scn.MoveCardsToLocation(vaderSite, vader);
+        scn.MoveCardsToLocation(mouseSite, mouse);
+        scn.MoveCardsToLocation(imperialSite, imperial);
+        scn.AttachCardsTo(vader, report);
+        report.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, imperial, Filters.any);
+
+        int vaderPowerBefore = scn.GetPower(vader);
+        int imperialPowerBefore = scn.GetPower(imperial);
+        int mousePowerBefore = scn.GetPower(mouse);
+        scn.AttachCardsTo(mouse, report);
+        MouseDroidUtinniCarry.rememberHostsOnMouseRelocate(report, vader, scn.gameState());
+
+        assertTrue(scn.IsAttachedTo(mouse, report));
+        assertEquals(vaderPowerBefore - 4, scn.GetPower(vader));
+        assertEquals(imperialPowerBefore - 4, scn.GetPower(imperial));
+        assertEquals("Report penalties must not apply to Mouse", mousePowerBefore, scn.GetPower(mouse));
+
+        // Reaching the Mouse alone must not resolve Report; Vader is still elsewhere.
+        scn.MoveCardsToLocation(mouseSite, imperial);
+        scn.PassAllResponses();
+        assertTrue("Report must stay on Mouse until the Imperial reaches Vader", scn.IsAttachedTo(mouse, report));
+
+        // The same Imperial now reaches Vader, which is the printed resolution condition.
+        scn.PrepareDSDestiny(0);
+        scn.MoveCardsToLocation(vaderSite, imperial);
+        scn.PassAllResponses();
+        assertTrue(scn.DSActionAvailable("Make lost"));
+        scn.DSChooseAction("Make lost");
+        scn.PassDestinyDrawResponses();
+        scn.PassAllResponses();
+        assertInZone(Zone.LOST_PILE, report);
     }
     private String decisionText(VirtualTableScenario scn) {
         return scn.GetCurrentDecision() == null ? "none" : scn.GetCurrentDecision().getText();
