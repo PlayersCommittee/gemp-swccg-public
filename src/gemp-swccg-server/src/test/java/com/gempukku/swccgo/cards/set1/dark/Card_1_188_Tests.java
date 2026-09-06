@@ -33,6 +33,29 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class Card_1_188_Tests {
+    /*
+     * Utinni inventory matrix (Decipher Premiere through Theed Palace; exact blueprints):
+     * DS (17): 1_220 Juri Juice [character-hosted], 1_222 Lateral Damage [mobile/at-location],
+     * 1_223 Luke? Luuuuke! [snap-to-target], 1_226 Organa's Ceremonial Necklace [snap-to-target],
+     * 1_229 Send A Detachment Down [stay-put], 1_231 Tactical Re-Call [snap-to-target],
+     * 2_125 Spice Mines Of Kessel [excluded/may-not-move], 3_099 Death Mark [snap-to-target],
+     * 3_107 Meteor Impact? [snap-to-target], 3_109 Responsibility Of Command [snap-to-target],
+     * 3_112 This Is Just Wrong [snap-to-target], 3_114 Weapon Malfunction [snap-to-target],
+     * 4_120 Failure At The Cave [stay-put], 5_117 Forced Landing [stay-put],
+     * 5_124 The Emperor's Prize [snap-to-target], 5_128 We're The Bait [character-hosted],
+     * 7_226 Destroyed Homestead [snap-to-target].
+     * LS (14): 1_046 Death Star Plans [snap-to-target], 1_052 Kessel Run [excluded],
+     * 1_058 Our Most Desperate Hour [snap-to-target], 1_059 Plastoid Armor [snap-to-target],
+     * 1_067 Tusken Breath Mask [snap-to-target], 1_069 Yerka Mig [mobile/at-location],
+     * 2_030 Cell 2187 [snap-to-target], 2_039 They're On Dantooine [stay-put],
+     * 3_039 The First Transport Is Away [space/at-location], 4_018 Asteroids Do Not Concern Me [space/Big One],
+     * 4_034 Report To Lord Vader [snap-to-target], 4_036 Rycar's Run [space/Big One],
+     * 4_042 What Is Thy Bidding, My Master? [snap-to-target], 7_070 Mechanical Failure [snap-to-target].
+     * Excluded from Mouse interaction: Kessel Run, Spice Mines Of Kessel, and the Elom-modified
+     * 1_059 Plastoid Armor form; Elom's 6_012 modification makes Plastoid a normal Effect (not an Utinni).
+     * Coverage checklist: [x] relocate onto Mouse; [x] own reached/delivery/cancel/attrition text remains active;
+     * [x] carried Utinni reaches through a starship/vehicle; [x] cannot-grab exclusions; [x] SADD stays put.
+     */
 
     protected VirtualTableScenario GetScenario() {
         return new VirtualTableScenario(
@@ -57,6 +80,9 @@ public class Card_1_188_Tests {
                     put("lando", "109_003");
                     put("cantina", "1_128");
                     put("plastoid", "1_059");
+                    put("rycars", "4_036");
+                    put("bigone", "4_082");
+                    put("awing", "9_62");
                     put("yerka", "1_069");
                     put("plastoid2", "1_059");
                     put("tusken", "1_067");
@@ -73,6 +99,7 @@ public class Card_1_188_Tests {
                     put("spice", "2_125");
                     put("landspreeder", "1_310");
                     put("devastator", "1_301");
+                    put("vcsd", "2_155");
                     put("kessel", "1_288");
                     put("cave", "4_158");
                     put("avarik", "8_95");
@@ -521,7 +548,32 @@ public class Card_1_188_Tests {
 
         assertTrue("Yerka Mig relocates onto the co-located Mouse", scn.IsAttachedTo(mouse, yerka));
     }
+    @Test
+    public void MouseDroid_1_188_RycarsRunIsAtVCSDLocationWhenCarried() {
+        var scn = GetScenario();
+        var mouse = scn.GetDSCard("mouse");
+        var vcsd = scn.GetDSCard("vcsd");
+        var kessel = scn.GetDSCard("kessel");
+        var rycarsRun = scn.GetLSCard("rycars");
+        var bigOne = scn.GetLSCard("bigone");
+        var awing = scn.GetLSCard("awing");
 
+        scn.StartGame();
+        scn.MoveLocationToTable(kessel);
+        scn.MoveLocationToTable(bigOne);
+        scn.MoveCardsToLocation(kessel, awing);
+        scn.MoveCardsToLocation(bigOne, vcsd);
+        scn.AttachCardsTo(bigOne, rycarsRun);
+        scn.BoardAsPassenger(vcsd, mouse);
+        scn.AttachCardsTo(mouse, rycarsRun);
+        MouseDroidUtinniCarry.rememberHostsOnMouseRelocate(rycarsRun, bigOne, scn.gameState());
+        rycarsRun.setTargetedCard(TargetId.UTINNI_EFFECT_TARGET_1, 0, awing, Filters.any);
+
+        // Regression for the playtest: an Utinni carried by Mouse aboard VCSD is at VCSD's system.
+        assertEquals(bigOne, scn.game().getModifiersQuerying().getLocationThatCardIsAt(
+                scn.gameState(), rycarsRun));
+        assertTrue(scn.IsAboard(vcsd, mouse));
+    }
     @Test
     public void MouseDroid_1_188_VehiclePresentReachWorks() {
         var scn = GetScenario();
