@@ -31,6 +31,8 @@ import com.gempukku.swccgo.logic.effects.choose.DeployCardFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotDeployModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.NoForceLossFromCardModifier;
+import com.gempukku.swccgo.logic.modifiers.NoForceLossFromForceDrainModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 /**
@@ -42,7 +44,7 @@ public class Card226_012 extends AbstractObjective {
     public Card226_012() {
         super(Side.DARK, 0, Title.This_Deal_Is_Getting_Worse_All_The_Time, ExpansionSet.SET_26, Rarity.V);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy a Cloud City battleground site and [Cloud City] I'm Sorry. For remainder of game, you may not deploy Admiral's Orders or [Death Star II] Executor. During your control phase, your Lando may make a regular move. Once during your turn, may [upload] Dark Deal, Vader's Bounty, or [Special Edition] Bespin. Flip this card if you control 3 Bespin locations and opponent controls fewer than 3 Bespin locations.");
+        setGameText("Deploy a Cloud City battleground site and [Cloud City] I'm Sorry. For remainder of game, you may not deploy Admiral's Orders, Endor Shield, [Death Star II] Executor, or [Episode I] (or [Episode VII]) cards with ability. During your deploy phase, your Lando may make a regular move. While this side up, opponent loses no Force to Cloud City Occupation or your Force drains at Bespin system. Once during your turn, may [upload] Dark Deal or [Special Edition] Bespin. Flip this card if you control three Bespin locations and opponent controls fewer than three Bespin locations.");
         addIcons(Icon.CLOUD_CITY, Icon.PREMIUM, Icon.VIRTUAL_SET_26);
         setVirtualSuffix(true);
     }
@@ -51,19 +53,19 @@ public class Card226_012 extends AbstractObjective {
     protected ObjectiveDeployedTriggerAction getGameTextWhenDeployedAction(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         ObjectiveDeployedTriggerAction action = new ObjectiveDeployedTriggerAction(self);
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.Cloud_City_battleground_site, true, false) {
-                    @Override
-                    public String getChoiceText() {
-                        return "Choose Cloud City battleground site to deploy";
-                    }
-                });
+            new DeployCardFromReserveDeckEffect(action, Filters.Cloud_City_battleground_site, true, false) {
+                @Override
+                public String getChoiceText() {
+                    return "Choose Cloud City battleground site to deploy";
+                }
+            });
         action.appendRequiredEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.and(Icon.CLOUD_CITY, Filters.Im_Sorry), true, false) {
-                    @Override
-                    public String getChoiceText() {
-                        return "Choose I'm Sorry to deploy";
-                    }
-                });
+            new DeployCardFromReserveDeckEffect(action, Filters.and(Icon.CLOUD_CITY, Filters.Im_Sorry), true, false) {
+                @Override
+                public String getChoiceText() {
+                    return "Choose I'm Sorry to deploy";
+                }
+            });
         return action;
     }
 
@@ -71,8 +73,11 @@ public class Card226_012 extends AbstractObjective {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         String playerId = self.getOwner();
+        String opponent = game.getOpponent(playerId);
         //For remainder of game
-        modifiers.add(new MayNotDeployModifier(self, Filters.or(Filters.Admirals_Order, Filters.and(Icon.DEATH_STAR_II, Filters.Executor)), playerId));
+        modifiers.add(new NoForceLossFromCardModifier(self, Filters.Cloud_City_Occupation, opponent));
+        modifiers.add(new NoForceLossFromForceDrainModifier(self, Filters.Bespin_system, opponent));
+        modifiers.add(new MayNotDeployModifier(self, Filters.or(Filters.Admirals_Order, Filters.Endor_Shield, Filters.and(Icon.DEATH_STAR_II, Filters.Executor), Filters.and(Icon.EPISODE_I, Filters.hasAbility), Filters.and(Icon.EPISODE_VII, Filters.hasAbility)), playerId));
         return modifiers;
     }
 
@@ -84,8 +89,8 @@ public class Card226_012 extends AbstractObjective {
         Filter yourLandoFilter = Filters.and(Filters.your(playerId), Filters.Lando, Filters.movableAsRegularMove(playerId, false, 0, false, Filters.any));
 
         // Check condition(s)
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
-                && GameConditions.canSpot(game, self, yourLandoFilter)) {
+        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DEPLOY)
+            && GameConditions.canSpot(game, self, yourLandoFilter)) {
 
             PhysicalCard yourLandoCard = Filters.findFirstActive(game, self, yourLandoFilter);
 
@@ -95,10 +100,10 @@ public class Card226_012 extends AbstractObjective {
                 action.setActionMsg("Have " + GameUtils.getCardLink(yourLandoCard) + " make a regular move");
                 // Update usage limit(s)
                 action.appendUsage(
-                        new OncePerPhaseEffect(action));
+                    new OncePerPhaseEffect(action));
                 // Perform result(s)
                 action.appendEffect(
-                        new MoveCardAsRegularMoveEffect(action, playerId, yourLandoCard, false, false, Filters.any));
+                    new MoveCardAsRegularMoveEffect(action, playerId, yourLandoCard, false, false, Filters.any));
                 actions.add(action);
             }
         }
@@ -107,17 +112,17 @@ public class Card226_012 extends AbstractObjective {
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
+            && GameConditions.canTakeCardsIntoHandFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Take card into hand from Reserve Deck");
-            action.setActionMsg("Take Dark Deal, Vader's Bounty, or [Special Edition] Bespin into hand from Reserve Deck");
+            action.setActionMsg("Take Dark Deal or [Special Edition] Bespin into hand from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
-                    new OncePerTurnEffect(action));
+                new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.Dark_Deal, Filters.Vaders_Bounty, Filters.and(Icon.SPECIAL_EDITION, Filters.Bespin_system)), true));
+                new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.or(Filters.Dark_Deal, Filters.and(Icon.SPECIAL_EDITION, Filters.Bespin_system)), true));
             actions.add(action);
         }
         return actions;
@@ -130,9 +135,9 @@ public class Card226_012 extends AbstractObjective {
 
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
-                && GameConditions.canBeFlipped(game, self)
-                && GameConditions.controls(game, playerId, 3, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.Bespin_location)
-                && !GameConditions.controls(game, opponent, 3, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.Bespin_location)) {
+            && GameConditions.canBeFlipped(game, self)
+            && GameConditions.controls(game, playerId, 3, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.Bespin_location)
+            && !GameConditions.controls(game, opponent, 3, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, Filters.Bespin_location)) {
 
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setSingletonTrigger(true);
@@ -140,7 +145,7 @@ public class Card226_012 extends AbstractObjective {
             action.setActionMsg(null);
             // Perform result(s)
             action.appendEffect(
-                    new FlipCardEffect(action, self));
+                new FlipCardEffect(action, self));
             return Collections.singletonList(action);
         }
         return null;
