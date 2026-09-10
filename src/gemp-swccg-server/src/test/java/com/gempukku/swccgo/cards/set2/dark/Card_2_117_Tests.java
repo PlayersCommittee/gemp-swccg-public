@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -13,6 +14,8 @@ import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import java.util.HashMap;
 
@@ -108,7 +111,7 @@ public class Card_2_117_Tests {
     }
 
     @Test
-    public void StatsAndKeywordsAreCorrect_2_117_Besieged() {
+    public void BesiegedStatsAndKeywordsAreCorrect() {
         /**
          * Title: Besieged
          * Uniqueness: Unrestricted
@@ -131,11 +134,16 @@ public class Card_2_117_Tests {
         assertEquals(5, card.getDestiny(), scn.epsilon);
         assertEquals(ExpansionSet.A_NEW_HOPE, card.getExpansionSet());
         assertEquals(Rarity.R2, card.getRarity());
-        assertEquals(1, card.getIconCount(Icon.A_NEW_HOPE));
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.A_NEW_HOPE);
+            add(Icon.EFFECT);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+        }});
     }
 
     @Test
-    public void DeploysOnCapturedStarshipNotUncaptured_2_117_Besieged() {
+    public void BesiegedDeploysOnCapturedStarshipNotUncaptured() {
         var scn = GetScenario();
 
         var falcon = scn.GetLSCard("falcon");
@@ -179,7 +187,7 @@ public class Card_2_117_Tests {
     }
 
     @Test
-    public void CannotBesiegeCapturedStarshipWithOnlyADroidAboard_2_117_Besieged() {
+    public void BesiegedCannotDeployOnCapturedStarshipWithOnlyADroidAboard() {
         var scn = GetScenario();
 
         var falcon = scn.GetLSCard("falcon");
@@ -200,7 +208,7 @@ public class Card_2_117_Tests {
     }
 
     @Test
-    public void DSCharactersPresentWithCapturedShipCanInitiateBesiegedBattleAtSiteCost_2_117_Besieged() {
+    public void BesiegedAllowsPresentCharactersToInitiateBattleAtSiteCost() {
         var scn = GetScenario();
 
         var falcon = scn.GetLSCard("falcon");
@@ -227,7 +235,7 @@ public class Card_2_117_Tests {
     }
 
     @Test
-    public void DSMayChooseSomeCharactersAndStarshipsVehiclesDoNotParticipate_2_117_Besieged() {
+    public void BesiegedAllowsChoosingParticipatingCharactersExcludesStarshipsVehicles() {
         var scn = GetScenario();
 
         var falcon = scn.GetLSCard("falcon");
@@ -258,7 +266,7 @@ public class Card_2_117_Tests {
     }
 
     @Test
-    public void CharactersAboardCapturedShipAreActiveDuringBesiegedBattle_2_117_Besieged() {
+    public void BesiegedMakesCharactersAboardCapturedShipActiveDuringBattle() {
         var scn = GetScenario();
 
         var falcon = scn.GetLSCard("falcon");
@@ -285,7 +293,7 @@ public class Card_2_117_Tests {
     }
 
     @Test
-    public void TrappedCharactersCannotInitiateOrJoinNormalBattles_2_117_Besieged() {
+    public void BesiegedPreventsTrappedCharactersFromNormalBattles() {
         var scn = GetScenario();
 
         var falcon = scn.GetLSCard("falcon");
@@ -312,7 +320,7 @@ public class Card_2_117_Tests {
     }
 
     @Test
-    public void CannotBattleBothTrappedGroupAndSiteGroupSameTurn_2_117_Besieged() {
+    public void BesiegedPreventsBattlingBothTrappedAndSiteGroupsSameTurn() {
         var scn = GetScenario();
 
         var falcon = scn.GetLSCard("falcon");
@@ -336,7 +344,7 @@ public class Card_2_117_Tests {
     }
 
     @Test
-    public void DarkStealsStarshipWhenAllTrappedCharactersAreEliminated_2_117_Besieged() {
+    public void BesiegedCausesStealWhenAllTrappedCharactersEliminated() {
         var scn = GetScenario();
 
         var falcon = scn.GetLSCard("falcon");
@@ -431,7 +439,7 @@ public class Card_2_117_Tests {
             return;
         }
     }
-    public void ReleasePlusLaunchLeavesBesiegedOnTheStarship_2_117_Besieged() {
+    public void BesiegedRemainsAfterReleasePlusLaunch() {
         var scn = GetScenario();
 
         var falcon = scn.GetLSCard("falcon");
@@ -468,7 +476,7 @@ public class Card_2_117_Tests {
     }
 
     @Test
-    public void ReleasePlusEscapeSendsBesiegedToDarkLostPile_2_117_Besieged() {
+    public void BesiegedGoesToLostPileAfterReleasePlusEscape() {
         var scn = GetScenario();
 
         var falcon = scn.GetLSCard("falcon");
@@ -500,7 +508,7 @@ public class Card_2_117_Tests {
     }
 
     @Test
-    public void LieutenantCeciusCanTakeBesiegedIntoHand_2_117_Besieged() {
+    public void BesiegedCanBeTakenIntoHandByLieutenantCecius() {
         var scn = GetScenario();
 
         var cecius = scn.GetDSCard("cecius");
@@ -526,7 +534,7 @@ public class Card_2_117_Tests {
     }
 
     @Test
-    public void LieutenantCeciusHasPowerPlus3InBesiegedBattle_2_117_Besieged() {
+    public void BesiegedGivesLieutenantCeciusPowerPlus3InBattle() {
         var scn = GetScenario();
 
         var falcon = scn.GetLSCard("falcon");
