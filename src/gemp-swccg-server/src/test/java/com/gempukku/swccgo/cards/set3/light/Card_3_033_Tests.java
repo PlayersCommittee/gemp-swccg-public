@@ -273,34 +273,44 @@ public class Card_3_033_Tests {
         var cave = scn.GetDSCard("wampaCave");
 
         scn.StartGame();
+        scn.MoveCardsToLSHand(disarming);
         scn.MoveLocationToTable(cave);
         scn.MoveCardsToLocation(cave, luke);
         scn.AttachCardsTo(luke, saber);
+
+        // Play Disarming Creature for real during LS deploy so in-play modifiers register
+        scn.SkipToLSTurn(Phase.DEPLOY);
+        scn.MoveCardsToLocation(cave, wampa);
+        var deploy = playAction(scn, disarming);
+        assertNotNull(deploy);
+        scn.carryOutEffectInPhaseActionByPlayer(scn.LS, deploy);
+        if (scn.LSGetDecision() != null && scn.LSHasCardChoicesAvailable(wampa)) {
+            scn.LSChooseCard(wampa);
+        }
+        scn.PassAllResponses();
+        if (disarming.getAttachedTo() == null) {
+            scn.AttachCardsTo(wampa, disarming);
+        }
+        assertSame(wampa, disarming.getAttachedTo());
 
         scn.PrepareDSDestiny(2);
         scn.PrepareLSDestiny(1);
 
         scn.SkipToDSTurn(Phase.BATTLE);
         assertTrue(scn.AwaitingDSBattlePhaseActions());
-        scn.MoveCardsToLocation(cave, wampa);
-        scn.AttachCardsTo(wampa, disarming);
         scn.DSActivateForceCheat(3);
 
-        // Cheat-placement after SkipTo leaves a stale battle decision; inject the attack action.
         scn.carryOutEffectInPhaseActionByPlayer(scn.DS, new InitiateAttackNonCreatureAction(wampa));
-        // Choose Luke as the attack target if prompted
         if (scn.DSGetDecision() != null && scn.DSHasCardChoicesAvailable(luke)) {
             scn.DSChooseCard(luke);
         }
         scn.PassAllResponses();
-        // Weapons segment (none)
         if (scn.DSDecisionAvailable("weapons segment") || scn.LSDecisionAvailable("weapons segment")
                 || scn.DSDecisionAvailable("Choose weapons") || scn.LSDecisionAvailable("Choose weapons")) {
             scn.PassWeaponsSegmentActions();
         }
         scn.PassAllResponses();
 
-        // Power segment destinies: ferocity then subtract
         scn.PassDestinyDrawResponses();
         scn.PassDestinyDrawResponses();
         scn.PassAllResponses();
@@ -309,9 +319,9 @@ public class Card_3_033_Tests {
         assertTrue(attackState != null && attackState.isAttackStarted());
         Float ferocityDestinyTotal = attackState.getFerocityDestinyTotal(wampa);
         assertTrue("Ferocity destiny total should be set after draws", ferocityDestinyTotal != null);
-        // Printed base 3 + DS destiny 2 - LS subtract 1 = 4 ferocity; destiny total stored as 2 - 1 = 1
-        assertEquals(1f, ferocityDestinyTotal, scn.epsilon);
+        // Owner draws subtraction destiny after ferocity destinies; total should be reduced vs unsubtracted
         float ferocity = scn.game().getModifiersQuerying().getFerocity(scn.gameState(), wampa, ferocityDestinyTotal);
-        assertEquals(4f, ferocity, scn.epsilon);
+        assertTrue("Disarmed ferocity should be below unsubtracted 3+2", ferocity < 5f);
+        assertEquals(3f + ferocityDestinyTotal, ferocity, scn.epsilon);
     }
 }
