@@ -15,6 +15,7 @@ import com.gempukku.swccgo.game.PhysicalCardImpl;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -77,7 +78,12 @@ public class Card_7_104_Tests {
         assertTrue(card.getCardTypes().contains(CardType.INTERRUPT));
         assertEquals(CardSubtype.USED, card.getCardSubtype());
         assertEquals(4, card.getDestiny(), scn.epsilon);
-        assertEquals(1, card.getIconCount(Icon.SPECIAL_EDITION));
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.INTERRUPT);
+            add(Icon.SPECIAL_EDITION);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+        }});
         assertEquals(ExpansionSet.SPECIAL_EDITION, card.getExpansionSet());
         assertEquals(Rarity.U, card.getRarity());
     }
