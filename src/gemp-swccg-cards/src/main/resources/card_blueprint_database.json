@@ -97982,6 +97982,34 @@
     ]
   },
   {
+    "cardId": "4_20",
+    "title": "Descent Into The Dark",
+    "slug": "descent-into-the-dark",
+    "slugWithSetName": "descent-into-the-dark-dagobah",
+    "side": "LIGHT",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "DAGOBAH",
+    "rarity": "R",
+    "cardCategory": "EFFECT",
+    "cardTypes": [
+      "EFFECT"
+    ],
+    "cardSubtype": "IMMEDIATE",
+    "lore": "Jedi training is a journey into the depths of an apprentice's subconscious, where one must learn to use the Force wisely. \"A Jedi's strength flows from the Force.\"",
+    "gameText": "During your turn, if either player just placed a card in a Used Pile, deploy on table. All Used Piles are immediately re-circulated. When any player places one or more cards in a Used Pile, Immediate Effect canceled.",
+    "destiny": 4,
+    "icons": [
+      {
+        "icon": "DAGOBAH",
+        "count": 1
+      },
+      {
+        "icon": "EFFECT",
+        "count": 1
+      }
+    ]
+  },
+  {
     "cardId": "4_21",
     "title": "Do, Or Do Not",
     "slug": "do-or-do-not",

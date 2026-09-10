@@ -314,6 +314,7 @@ public interface Title {
     String Den_Of_Thieves = "Den Of Thieves";
     String Dengars_Blaster_Carbine =  "Dengar's Blaster Carbine";
     String Derlin = "Major Bren Derlin";
+    String Descent_Into_The_Dark = "Descent Into The Dark";
     String Desert_Heart = "Tatooine: Desert Heart";
     String Desert_Landing_Site = "Tatooine: Desert Landing Site";
     String Despair = "Despair";
