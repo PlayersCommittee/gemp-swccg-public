@@ -8,6 +8,7 @@ import com.gempukku.swccgo.logic.modifiers.NotUniqueModifier;
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.ModelType;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
@@ -29,6 +30,8 @@ import java.util.HashMap;
 import static com.gempukku.swccgo.framework.Assertions.assertInHand;
 import static com.gempukku.swccgo.framework.Assertions.assertInZone;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -153,7 +156,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_StatsAndKeywordsAreCorrect() {
+    public void MouseDroidStatsAndKeywordsAreCorrect() {
         /**
          * Title: MSE-6 'Mouse' Droid
          * Uniqueness: Unrestricted
@@ -182,6 +185,8 @@ public class Card_1_188_Tests {
         }});
         scn.BlueprintModelTypeCheck(card, new ArrayList<>() {{
             add(ModelType.MESSENGER);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
         }});
         assertEquals(ExpansionSet.PREMIERE, card.getExpansionSet());
         assertEquals(Rarity.U1, card.getRarity());
@@ -263,10 +268,10 @@ public class Card_1_188_Tests {
             }
             var decision = scn.GetCurrentDecision();
             if (decision == null) {
-                throw new RuntimeException("No decision while waiting for Relocate");
+                assertNotNull("No decision while waiting for Relocate", decision);
             }
             String text = decision.getText().toLowerCase();
-            // Never auto-pass a live Relocate optional — leave it for the test.
+            // Never auto-pass a live Relocate optional â€” leave it for the test.
             if (RelocateUtinniAvailable(scn, mouse)) {
                 return;
             }
@@ -302,7 +307,7 @@ public class Card_1_188_Tests {
                 scn.PassResponses();
             }
         }
-        throw new RuntimeException("Relocate never offered. Decision: " + decisionText(scn));
+        fail("Relocate never offered. Decision: " + decisionText(scn));
     }
 
     /** Accepts the mouse's optional relocate, choosing the given Utinni Effect if a card picker is shown. */
@@ -317,7 +322,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_DeploysToBattlegroundSameSiteAsUtinniTargetedCharacter() {
+    public void MouseDroidDeploysToBattlegroundSameSiteAsUtinniTargetedCharacter() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var dsDb = scn.GetLSCard("ds-db");
@@ -336,7 +341,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_CannotDeployToNoDsIconNonBattlegroundWithoutPresence() {
+    public void MouseDroidCannotDeployToNoDsIconNonBattlegroundWithoutPresence() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var cell = scn.GetLSCard("cell");
@@ -363,7 +368,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_DeploysToNoDsIconNonBattlegroundWithDsPresence() {
+    public void MouseDroidDeploysToNoDsIconNonBattlegroundWithDsPresence() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var cell = scn.GetLSCard("cell");
@@ -395,7 +400,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_CannotDeployUsingKesselRunAsTheUtinniEffect() {
+    public void MouseDroidCannotDeployUsingKesselRunAsTheUtinniEffect() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var kesselRun = scn.GetLSCard("kessel-run");
@@ -426,7 +431,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_CannotDeployToDagobahForFailureAtTheCave() {
+    public void MouseDroidCannotDeployToDagobahForFailureAtTheCave() {
         /**
          * Dagobah rules (Decipher / Gergall): characters may not deploy to Dagobah unless
          * specifically allowed by their game text or another card. MSE-6 game text only
@@ -480,7 +485,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_OptionalRelocateWhenReachedDeclineDoesNothing() {
+    public void MouseDroidOptionalRelocateWhenReachedDeclineDoesNothing() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var sadd = scn.GetDSCard("sadd");
@@ -504,7 +509,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_OptionalRelocateWhenReachedAcceptAttachesToMouse() {
+    public void MouseDroidOptionalRelocateWhenReachedAcceptAttachesToMouse() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var sadd = scn.GetDSCard("sadd");
@@ -524,7 +529,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_CarriedSendADetachmentDownStaysOnMouseWhenTrooperPresent() {
+    public void MouseDroidCarriedSendADetachmentDownStaysOnMouseWhenTrooperPresent() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var sadd = scn.GetDSCard("sadd");
@@ -557,7 +562,7 @@ public class Card_1_188_Tests {
                 scn.IsAttachedTo(trooper, sadd));
     }
     @Test
-    public void MouseDroid_1_188_CanRelocateYerkaMigWhenCoLocated() {
+    public void MouseDroidCanRelocateYerkaMigWhenCoLocated() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var yerka = scn.GetLSCard("yerka");
@@ -577,7 +582,7 @@ public class Card_1_188_Tests {
         assertTrue("Yerka Mig relocates onto the co-located Mouse", scn.IsAttachedTo(mouse, yerka));
     }
     @Test
-    public void MouseDroid_1_188_RycarsRunIsAtVCSDLocationWhenCarried() {
+    public void MouseDroidRycarsRunIsAtVCSDLocationWhenCarried() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var vcsd = scn.GetDSCard("vcsd");
@@ -603,7 +608,7 @@ public class Card_1_188_Tests {
         assertTrue(scn.IsAboard(vcsd, mouse));
     }
     @Test
-    public void MouseDroid_1_188_VehiclePresentReachWorks() {
+    public void MouseDroidVehiclePresentReachWorks() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var sadd = scn.GetDSCard("sadd");
@@ -626,7 +631,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_StarshipSlotReachWorks() {
+    public void MouseDroidStarshipSlotReachWorks() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var sadd = scn.GetDSCard("sadd");
@@ -649,7 +654,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_CargoBayVehicleDoesNotReachUntilMouseIsInStarship() {
+    public void MouseDroidCargoBayVehicleDoesNotReachUntilMouseIsInStarship() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var sadd = scn.GetDSCard("sadd");
@@ -678,7 +683,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_SpiceMinesCannotMoveIsNoOpAndMouseStays() {
+    public void MouseDroidSpiceMinesCannotMoveIsNoOpAndMouseStays() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var spice = scn.GetDSCard("spice");
@@ -712,7 +717,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_SendADetachmentDownPickupStaysCarriedUntilItsOwnRulesRelocateIt() {
+    public void MouseDroidSendADetachmentDownPickupStaysCarriedUntilItsOwnRulesRelocateIt() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var sadd = scn.GetDSCard("sadd");
@@ -734,7 +739,7 @@ public class Card_1_188_Tests {
         assertFalse(scn.DSAnyDecisionsAvailable() && scn.DSActionAvailable("Return"));
     }
     @Test
-    public void MouseDroid_1_188_LightUtinniKeepAwayCell2187() {
+    public void MouseDroidLightUtinniKeepAwayCell2187() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var cell = scn.GetLSCard("cell");
@@ -774,7 +779,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_TargetLostAfterRelocateLosesUtinni() {
+    public void MouseDroidTargetLostAfterRelocateLosesUtinni() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var sadd = scn.GetDSCard("sadd");
@@ -800,7 +805,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_MouseMissingMakesUtinniInactiveRestoreRestoresEffect() {
+    public void MouseDroidMouseMissingMakesUtinniInactiveRestoreRestoresEffect() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var sadd = scn.GetDSCard("sadd");
@@ -830,7 +835,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_LandspeedIs3() {
+    public void MouseDroidLandspeedIs3() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var dsDb = scn.GetLSCard("ds-db");
@@ -846,7 +851,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_FiveD6RA7AddsOneToMouseDeployAtSameLocation() {
+    public void MouseDroidFiveD6RA7AddsOneToMouseDeployAtSameLocation() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var fivedesix = scn.GetDSCard("fivedesix");
@@ -867,7 +872,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_WookieeRoarCanScareOffTheMouse() {
+    public void MouseDroidWookieeRoarCanScareOffTheMouse() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var roar = scn.GetLSCard("roar");
@@ -896,7 +901,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_MayRelocateUtinniEffectOffACharacterAtSameSite() {
+    public void MouseDroidMayRelocateUtinniEffectOffACharacterAtSameSite() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var sadd = scn.GetDSCard("sadd");
@@ -920,7 +925,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_DoesNotReturnWhenCarriedUtinniTargetIsNotPresent() {
+    public void MouseDroidDoesNotReturnWhenCarriedUtinniTargetIsNotPresent() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var homestead = scn.GetDSCard("homestead");
@@ -960,7 +965,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_ClassADeliveryReturnsMouseAndSendsCarriedSaddToLost() {
+    public void MouseDroidClassADeliveryReturnsMouseAndSendsCarriedSaddToLost() {
         // A Class A package (Plastoid) delivers to its hunted target; unrelated Class B SADD is leftover.
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
@@ -1002,7 +1007,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_OnDagobahViaLandedStarfighterMayRelocateFailureAtTheCave() {
+    public void MouseDroidOnDagobahViaLandedStarfighterMayRelocateFailureAtTheCave() {
         // Mouse is already on Dagobah via a landed starfighter (not deployed); may relocate Failure At The Cave.
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
@@ -1029,7 +1034,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_OnDagobahKeepAwayFailureAtTheCaveDoesNotTriggerWhenMovingPastDaughterOrSon() {
+    public void MouseDroidOnDagobahKeepAwayFailureAtTheCaveDoesNotTriggerWhenMovingPastDaughterOrSon() {
         // Keep-away (Gergall/Decipher): mouse carrying Failure At The Cave stays away from Daughter/Son
         // so they do not reach the Utinni and delivery must not fire just from the mouse moving past them.
         var scn = GetScenario();
@@ -1074,7 +1079,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_PresentWithTargetDoesNotDeliverNonRelocatingUtinni() {
+    public void MouseDroidPresentWithTargetDoesNotDeliverNonRelocatingUtinni() {
         // Failure At The Cave has no relocate-to-target effect; a co-present apprentice is not delivery.
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
@@ -1105,7 +1110,7 @@ public class Card_1_188_Tests {
     /** True if that player's current action list contains the text (any case). dark=true is Dark Side. */
 
     @Test
-    public void MouseDroid_1_188_DeclineRelocateCanBeOfferedAgainWhileStillTogether() {
+    public void MouseDroidDeclineRelocateCanBeOfferedAgainWhileStillTogether() {
         // Forum AR perpetual reach: declining relocate does not silence the option; later table-changed
         // while mice stay together may offer Relocate again (including every phase/subphase).
         var scn = GetScenario();
@@ -1143,9 +1148,9 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_AfterAcceptCarriedUtinniNotReofferedOnSameMouse() {
+    public void MouseDroidAfterAcceptCarriedUtinniNotReofferedOnSameMouse() {
         // After accepting relocate onto mouse B, that package is attachedTo(B) so B must not re-offer it.
-        // Sibling mouse A may still steal (perpetual reach) — that is intentional and not asserted here.
+        // Sibling mouse A may still steal (perpetual reach) â€” that is intentional and not asserted here.
         var scn = GetScenario();
         var mouseA = scn.GetDSCard("mouse");
         var mouseB = scn.GetDSCard("mouse2");
@@ -1255,7 +1260,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_AfterRelocatingOneUtinniStillOffersOtherUtinniAtSameSite() {
+    public void MouseDroidAfterRelocatingOneUtinniStillOffersOtherUtinniAtSameSite() {
         // Multi-Utinni meet: accepting one package must not lock a sibling; both can load onto the mouse.
         var scn = GetScenario();
         var mouseA = scn.GetDSCard("mouse");
@@ -1300,7 +1305,7 @@ public class Card_1_188_Tests {
 
 
     @Test
-    public void MouseDroid_1_188_DeclineOneUtinniKeepsOfferForSiblingAndCanRepingDeclined() {
+    public void MouseDroidDeclineOneUtinniKeepsOfferForSiblingAndCanRepingDeclined() {
         // Multi-Utinni: accept one package, decline the sibling offer; perpetual reach allows the declined
         // sibling to be offered again later while the mouse stays at the site.
         var scn = GetScenario();
@@ -1356,7 +1361,7 @@ public class Card_1_188_Tests {
 
 
     @Test
-    public void MouseDroid_1_188_CarriesJuriJuiceKeepsRestrictionOnOriginalAlienNotMouse() {
+    public void MouseDroidCarriesJuriJuiceKeepsRestrictionOnOriginalAlienNotMouse() {
         // Deploy-on-character Utinni: mouse carries Juri Juice; Lando keeps the ability restriction; mouse does not.
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
@@ -1393,7 +1398,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_CarriesSaddPreservesHuntedTrooperTargets() {
+    public void MouseDroidCarriesSaddPreservesHuntedTrooperTargets() {
         // Character-hunt Utinni: after mouse carries SADD, TargetId stays on the trooper (not the mouse).
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
@@ -1419,7 +1424,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_CarriesPlastoidArmorKeepsDisguiseOnOriginalTarget() {
+    public void MouseDroidCarriesPlastoidArmorKeepsDisguiseOnOriginalTarget() {
         // LS Utinni: mouse carries reached Plastoid while the hunted character is elsewhere;
         // original target keeps disguise via carry redirect (mouse is not re-delivered onto yet).
         var scn = GetScenario();
@@ -1461,7 +1466,7 @@ public class Card_1_188_Tests {
 
 
     @Test
-    public void MouseDroid_1_188_CarriesThisIsJustWrongKeepsPowerPenaltyOnHuntedFemale() {
+    public void MouseDroidCarriesThisIsJustWrongKeepsPowerPenaltyOnHuntedFemale() {
         // TargetId-only class (DS): modifiers key off hunt TargetId, not hasAttached. Mouse must not become hunted.
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
@@ -1503,7 +1508,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_JuriCancelUsesEffectSubjectNotMouseLocation() {
+    public void MouseDroidJuriCancelUsesEffectSubjectNotMouseLocation() {
         // getAttachedTo / subject-host class: cancel when the original alien reaches Cantina, even if Mouse is elsewhere.
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
@@ -1538,7 +1543,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_CarriesWereTheBaitKeepsCaptiveSubjectNotHuntTargetForHasAttached() {
+    public void MouseDroidCarriesWereTheBaitKeepsCaptiveSubjectNotHuntTargetForHasAttached() {
         // Mixed class: hasAttached means captive host; TargetId is Luke. Redirect must prefer remembered subject.
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
@@ -1569,7 +1574,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_CarriesReachedTuskenBreathMaskAppliesBonusesViaHuntTargetFallback() {
+    public void MouseDroidCarriesReachedTuskenBreathMaskAppliesBonusesViaHuntTargetFallback() {
         // Site-hosted hasAttached+TargetId class (LS): no EFFECT_TARGET_1 subject; hasAttached falls back to hunt TargetId.
         // Simulate Mouse-carry (REACHED Tusken auto-attaches to a present target, so live relocate races that rule).
         var scn = GetScenario();
@@ -1608,7 +1613,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_CannotRelocateElomPlastoidArmorBecauseItIsAnEffect() {
+    public void MouseDroidCannotRelocateElomPlastoidArmorBecauseItIsAnEffect() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var plastoid = scn.GetLSCard("plastoid");
@@ -1638,7 +1643,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_NormalPlastoidUtinniRelocateKeepsCharacterTargetBenefits() {
+    public void MouseDroidNormalPlastoidUtinniRelocateKeepsCharacterTargetBenefits() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var plastoid = scn.GetLSCard("plastoid");
@@ -1680,7 +1685,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_TuskenBreathMaskDeliveredBackToTargetCharacterNotSite() {
+    public void MouseDroidTuskenBreathMaskDeliveredBackToTargetCharacterNotSite() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var tusken = scn.GetLSCard("tusken");
@@ -1719,7 +1724,7 @@ public class Card_1_188_Tests {
 
 
     @Test
-    public void MouseDroid_1_188_TuskenBreathMaskRequiresAndUsesRealWonBattle() {
+    public void MouseDroidTuskenBreathMaskRequiresAndUsesRealWonBattle() {
         var scn = GetScenario();
         var tusken = scn.GetLSCard("tusken");
         var leia = scn.GetLSCard("leia");
@@ -1750,7 +1755,7 @@ public class Card_1_188_Tests {
         assertEquals(doallyn, tusken.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
     }
     @Test
-    public void MouseDroid_1_188_CarriedRycarsRunUsesBigOneAndRealSectorTravel() {
+    public void MouseDroidCarriedRycarsRunUsesBigOneAndRealSectorTravel() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var vcsd = scn.GetDSCard("vcsd");
@@ -1814,7 +1819,7 @@ public class Card_1_188_Tests {
         assertEquals(Zone.TOP_OF_USED_PILE, rycarsRun.getZone());
     }
     @Test
-    public void MouseDroid_1_188_CarriesLateralDamage() {
+    public void MouseDroidCarriesLateralDamage() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
@@ -1860,7 +1865,7 @@ public class Card_1_188_Tests {
         assertTrue(scn.IsAboard(vcsd, mouse));
     }
     @Test
-    public void MouseDroid_1_188_CarriesLukeLuuuuke() {
+    public void MouseDroidCarriesLukeLuuuuke() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
@@ -1906,7 +1911,7 @@ public class Card_1_188_Tests {
         assertTrue(scn.IsAboard(vcsd, mouse));
     }
     @Test
-    public void MouseDroid_1_188_CarriesTacticalRecall() {
+    public void MouseDroidCarriesTacticalRecall() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
@@ -1952,7 +1957,7 @@ public class Card_1_188_Tests {
         assertTrue(scn.IsAboard(vcsd, mouse));
     }
     @Test
-    public void MouseDroid_1_188_CarriesDeathMark() {
+    public void MouseDroidCarriesDeathMark() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
@@ -1998,7 +2003,7 @@ public class Card_1_188_Tests {
         assertTrue(scn.IsAboard(vcsd, mouse));
     }
     @Test
-    public void MouseDroid_1_188_CarriesMeteorImpact() {
+    public void MouseDroidCarriesMeteorImpact() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
@@ -2044,7 +2049,7 @@ public class Card_1_188_Tests {
         assertTrue(scn.IsAboard(vcsd, mouse));
     }
     @Test
-    public void MouseDroid_1_188_CarriesResponsibilityOfCommand() {
+    public void MouseDroidCarriesResponsibilityOfCommand() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
@@ -2090,7 +2095,7 @@ public class Card_1_188_Tests {
         assertTrue(scn.IsAboard(vcsd, mouse));
     }
     @Test
-    public void MouseDroid_1_188_CarriesWeaponMalfunction() {
+    public void MouseDroidCarriesWeaponMalfunction() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
@@ -2136,7 +2141,7 @@ public class Card_1_188_Tests {
         assertTrue(scn.IsAboard(vcsd, mouse));
     }
     @Test
-    public void MouseDroid_1_188_CarriesForcedLanding() {
+    public void MouseDroidCarriesForcedLanding() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
@@ -2182,7 +2187,7 @@ public class Card_1_188_Tests {
         assertTrue(scn.IsAboard(vcsd, mouse));
     }
     @Test
-    public void MouseDroid_1_188_CarriesTheEmperorsPrize() {
+    public void MouseDroidCarriesTheEmperorsPrize() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
@@ -2228,7 +2233,7 @@ public class Card_1_188_Tests {
         assertTrue(scn.IsAboard(vcsd, mouse));
     }
     @Test
-    public void MouseDroid_1_188_CarriesDeathStarPlans() {
+    public void MouseDroidCarriesDeathStarPlans() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
@@ -2274,7 +2279,7 @@ public class Card_1_188_Tests {
         assertTrue(scn.IsAboard(vcsd, mouse));
     }
     @Test
-    public void MouseDroid_1_188_CarriesReportToLordVader() {
+    public void MouseDroidCarriesReportToLordVader() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
@@ -2320,7 +2325,7 @@ public class Card_1_188_Tests {
         assertTrue(scn.IsAboard(vcsd, mouse));
     }
     @Test
-    public void MouseDroid_1_188_CarriesWhatIsThyBiddingMyMaster() {
+    public void MouseDroidCarriesWhatIsThyBiddingMyMaster() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
@@ -2366,7 +2371,7 @@ public class Card_1_188_Tests {
         assertTrue(scn.IsAboard(vcsd, mouse));
     }
     @Test
-    public void MouseDroid_1_188_CarriesMechanicalFailure() {
+    public void MouseDroidCarriesMechanicalFailure() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
@@ -2412,7 +2417,7 @@ public class Card_1_188_Tests {
         assertTrue(scn.IsAboard(vcsd, mouse));
     }
     @Test
-    public void MouseDroid_1_188_CarriesOrganaCeremonialNecklace() {
+    public void MouseDroidCarriesOrganaCeremonialNecklace() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
@@ -2440,7 +2445,7 @@ public class Card_1_188_Tests {
         assertTrue(necklace.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1) == null || imperial.equals(necklace.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1)));
     }
     @Test
-    public void MouseDroid_1_188_CarriesTheFirstTransportIsAway() {
+    public void MouseDroidCarriesTheFirstTransportIsAway() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
@@ -2485,7 +2490,7 @@ public class Card_1_188_Tests {
         assertEquals(vcsd, utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1));
     }
     @Test
-    public void MouseDroid_1_188_CarriesAsteroidsDoNotConcernMe() {
+    public void MouseDroidCarriesAsteroidsDoNotConcernMe() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var necklace = scn.GetDSCard("necklace");
@@ -2530,7 +2535,7 @@ public class Card_1_188_Tests {
         assertTrue(utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1) == null || vcsd.equals(utinni.getTargetedCard(scn.gameState(), TargetId.UTINNI_EFFECT_TARGET_1)));
     }
     @Test
-    public void MouseDroid_1_188_CarriesTheyreOnDantooine() {
+    public void MouseDroidCarriesTheyreOnDantooine() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var effect = scn.GetLSCard("dantooine");
@@ -2561,7 +2566,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_CarriesMeteorImpact_TargetCanMoveTowardOldSiteAfterShuttle() {
+    public void MouseDroidCarriesMeteorImpact_TargetCanMoveTowardOldSiteAfterShuttle() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var meteor = scn.GetDSCard("meteor");
@@ -2597,7 +2602,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_CarriesMeteorImpact_TargetCanMoveAfterDockingBayTransitToAnotherPlanet() {
+    public void MouseDroidCarriesMeteorImpact_TargetCanMoveAfterDockingBayTransitToAnotherPlanet() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var meteor = scn.GetDSCard("meteor");
@@ -2637,7 +2642,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_CarriesForcedLanding_StarfighterCanMoveAfterMouseTransitsAway() {
+    public void MouseDroidCarriesForcedLanding_StarfighterCanMoveAfterMouseTransitsAway() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var forced = scn.GetDSCard("forced");
@@ -2680,7 +2685,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_ElisHelrotTransportsMouseAndMeteorCancelsAtTarget() {
+    public void MouseDroidElisHelrotTransportsMouseAndMeteorCancelsAtTarget() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var meteor = scn.GetDSCard("meteor");
@@ -2714,7 +2719,7 @@ public class Card_1_188_Tests {
         assertInZone(Zone.LOST_PILE, meteor);
     }
     @Test
-    public void MouseDroid_1_188_ElisHelrot_MouseAtUnusualSite_UtinniStaysAttached() {
+    public void MouseDroidElisHelrot_MouseAtUnusualSite_UtinniStaysAttached() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var meteor = scn.GetDSCard("meteor");
@@ -2750,7 +2755,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_Nabrun_TargetToUnusualMouseSite_UtinniResolves() {
+    public void MouseDroidNabrun_TargetToUnusualMouseSite_UtinniResolves() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var meteor = scn.GetDSCard("meteor");
@@ -2788,7 +2793,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_ReportToLordVader_CarriedAway_ResolvesWhenImperialReachesVader() {
+    public void MouseDroidReportToLordVader_CarriedAway_ResolvesWhenImperialReachesVader() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var report = scn.GetLSCard("report");
@@ -2857,7 +2862,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_DeathStarPlans_CarriedAway_StealThenYavinRetrieve() {
+    public void MouseDroidDeathStarPlans_CarriedAway_StealThenYavinRetrieve() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var plans = scn.GetLSCard("plans");
@@ -2889,7 +2894,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_LateralDamage_CarriedAway_ZeroesShipThenCancelsOnShipReach() {
+    public void MouseDroidLateralDamage_CarriedAway_ZeroesShipThenCancelsOnShipReach() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var lateral = scn.GetDSCard("lateral");
@@ -2906,7 +2911,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_LukeLuuuuke_CarriedAway_PenalizesRebelThenCancelsOnReach() {
+    public void MouseDroidLukeLuuuuke_CarriedAway_PenalizesRebelThenCancelsOnReach() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var effect = scn.GetDSCard("lukeq");
@@ -2922,7 +2927,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_TacticalRecall_CarriedAway_PenalizesWarriorThenCancelsOnReach() {
+    public void MouseDroidTacticalRecall_CarriedAway_PenalizesWarriorThenCancelsOnReach() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var effect = scn.GetDSCard("tactical");
@@ -2938,7 +2943,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_DeathMark_CarriedAway_LosesForceForSmugglerThenUsesOnReach() {
+    public void MouseDroidDeathMark_CarriedAway_LosesForceForSmugglerThenUsesOnReach() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var effect = scn.GetDSCard("deathmark");
@@ -2956,7 +2961,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_ResponsibilityOfCommand_CarriedAway_RestrictsTargetLocationThenCancelsOnReach() {
+    public void MouseDroidResponsibilityOfCommand_CarriedAway_RestrictsTargetLocationThenCancelsOnReach() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var effect = scn.GetDSCard("responsibility");
@@ -2971,7 +2976,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_WeaponMalfunction_CarriedAway_BlocksWeaponThenCancelsOnShipReach() {
+    public void MouseDroidWeaponMalfunction_CarriedAway_BlocksWeaponThenCancelsOnShipReach() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var effect = scn.GetDSCard("weapon");
@@ -2995,7 +3000,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_EmperorsPrize_CarriedAway_RequiresBothPrintedTargets() {
+    public void MouseDroidEmperorsPrize_CarriedAway_RequiresBothPrintedTargets() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var prize = scn.GetDSCard("prize");
@@ -3023,7 +3028,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_Cell2187_CarriedAway_ReleasesOnSpyReach() {
+    public void MouseDroidCell2187_CarriedAway_ReleasesOnSpyReach() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var cell = scn.GetLSCard("cell");
@@ -3038,7 +3043,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_AsteroidsDoNotConcernMe_CarriedAway_LocksCapitalThenCancelsOnReach() {
+    public void MouseDroidAsteroidsDoNotConcernMe_CarriedAway_LocksCapitalThenCancelsOnReach() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var effect = scn.GetLSCard("asteroids");
@@ -3056,7 +3061,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_WhatIsThyBidding_CarriedAway_LocksTargetThenCancelsOnReach() {
+    public void MouseDroidWhatIsThyBidding_CarriedAway_LocksTargetThenCancelsOnReach() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var effect = scn.GetLSCard("bidding");
@@ -3071,7 +3076,7 @@ public class Card_1_188_Tests {
     }
 
     @Test
-    public void MouseDroid_1_188_MechanicalFailure_CarriedAway_ZeroesCombatVehicleThenDestinyCancels() {
+    public void MouseDroidMechanicalFailure_CarriedAway_ZeroesCombatVehicleThenDestinyCancels() {
         var scn = GetScenario();
         var mouse = scn.GetDSCard("mouse");
         var effect = scn.GetLSCard("mechanical");
