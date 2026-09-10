@@ -101,7 +101,7 @@ public class CardInfoTargetedBy_Tests {
     }
 
     @Test
-    public void DestroyedHomestead_7_226_CardInfoListsLukeAsTarget() {
+    public void DestroyedHomesteadCardInfoListsLukeAsTarget() {
         var scn = GetHomesteadScenario();
         deployHomesteadTargetingLuke(scn);
 
@@ -114,7 +114,7 @@ public class CardInfoTargetedBy_Tests {
     }
 
     @Test
-    public void LukeSkywalker_CardInfoListsDestroyedHomesteadAsTargetedBy_7_226() {
+    public void LukeSkywalkerCardInfoListsDestroyedHomesteadAsTargetedBy() {
         var scn = GetHomesteadScenario();
         deployHomesteadTargetingLuke(scn);
 
@@ -128,7 +128,7 @@ public class CardInfoTargetedBy_Tests {
     }
 
     @Test
-    public void LateralDamage_1_222_CardInfoListsFalconAsTarget() {
+    public void LateralDamageCardInfoListsFalconAsTarget() {
         var scn = GetLateralDamageScenario();
         deployLateralDamageTargetingFalcon(scn);
 
@@ -141,7 +141,7 @@ public class CardInfoTargetedBy_Tests {
     }
 
     @Test
-    public void MillenniumFalcon_CardInfoListsLateralDamageAsTargetedBy_1_222() {
+    public void MillenniumFalconCardInfoListsLateralDamageAsTargetedBy() {
         var scn = GetLateralDamageScenario();
         deployLateralDamageTargetingFalcon(scn);
 
@@ -155,7 +155,7 @@ public class CardInfoTargetedBy_Tests {
     }
 
     @Test
-    public void LukeSkywalker_CardInfoHasNoTargetedByWhenNoUtinni() {
+    public void LukeSkywalkerCardInfoHasNoTargetedByWhenNoUtinni() {
         var scn = GetHomesteadScenario();
         var luke = scn.GetLSCard("luke");
 
@@ -167,7 +167,7 @@ public class CardInfoTargetedBy_Tests {
     }
 
     @Test
-    public void MillenniumFalcon_CardInfoHasNoTargetedByWhenNoUtinni() {
+    public void MillenniumFalconCardInfoHasNoTargetedByWhenNoUtinni() {
         var scn = GetLateralDamageScenario();
         var falcon = scn.GetLSCard("falcon");
         var yavin = scn.GetLSCard("yavin");
