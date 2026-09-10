@@ -145,7 +145,7 @@ public class Card_2_134_Tests {
     }
 
     @Test
-    public void StatsAndKeywordsAreCorrect() {
+    public void InformantStatsAndKeywordsAreCorrect() {
         /**
          * Title: Informant
          * Uniqueness: Unrestricted (not unique, no bullet)
@@ -169,13 +169,18 @@ public class Card_2_134_Tests {
             add(CardType.INTERRUPT);
         }});
         assertEquals(CardSubtype.USED, card.getCardSubtype());
-        assertEquals(1, card.getIconCount(Icon.A_NEW_HOPE));
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.INTERRUPT);
+            add(Icon.A_NEW_HOPE);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+        }});
         assertEquals(ExpansionSet.A_NEW_HOPE, card.getExpansionSet());
         assertEquals(Rarity.U1, card.getRarity());
     }
 
     @Test
-    public void HappyPathMovesAdjacentCharacterForFreeIntoBattle() {
+    public void InformantMovesAdjacentCharacterForFreeIntoBattle() {
         var scn = GetScenario();
         var informant = scn.GetDSCard("informant");
         var marketplace = scn.GetDSStartingLocation();
@@ -211,7 +216,7 @@ public class Card_2_134_Tests {
     }
 
     @Test
-    public void NotPlayableIfSpyAtBattleSiteIsNotUndercoverEvenIfOpponentHasUndercoverSpy() {
+    public void InformantNotPlayableWithoutOwnUndercoverSpyAtBattleSite() {
         var scn = GetScenario();
         var informant = scn.GetDSCard("informant");
         var marketplace = scn.GetDSStartingLocation();
@@ -235,7 +240,7 @@ public class Card_2_134_Tests {
     }
 
     @Test
-    public void NotPlayableIfUndercoverSpyIsAtADifferentSiteThanTheBattle() {
+    public void InformantNotPlayableIfUndercoverSpyAtDifferentSite() {
         var scn = GetScenario();
         var informant = scn.GetDSCard("informant");
         var marketplace = scn.GetDSStartingLocation();
@@ -258,7 +263,7 @@ public class Card_2_134_Tests {
     }
 
     @Test
-    public void NotPlayableIfOnlyDsCardAtSiteIsUndercoverSpyAndForceDrainIsNotATrigger() {
+    public void InformantNotPlayableWhenOnlyDarkPresenceIsUndercoverSpy() {
         var scn = GetScenario();
         var informant = scn.GetDSCard("informant");
         var marketplace = scn.GetDSStartingLocation();
@@ -287,7 +292,7 @@ public class Card_2_134_Tests {
     }
 
     @Test
-    public void CharacterTwoSitesAwayIsNotALegalMover() {
+    public void InformantCannotMoveCharacterTwoSitesAway() {
         var scn = GetScenario();
         var informant = scn.GetDSCard("informant");
         var marketplace = scn.GetDSStartingLocation();
@@ -340,7 +345,7 @@ public class Card_2_134_Tests {
     }
 
     @Test
-    public void MoveAsReactIsFreeWhenDsForcePileIsEmpty() {
+    public void InformantReactIsFreeWhenForcePileEmpty() {
         var scn = GetScenario();
         var informant = scn.GetDSCard("informant");
         var marketplace = scn.GetDSStartingLocation();
@@ -362,7 +367,7 @@ public class Card_2_134_Tests {
     }
 
     @Test
-    public void OpponentCharactersAtAdjacentSiteCannotBeMoved() {
+    public void InformantCannotMoveOpponentCharacters() {
         var scn = GetScenario();
         var informant = scn.GetDSCard("informant");
         var marketplace = scn.GetDSStartingLocation();
@@ -387,7 +392,7 @@ public class Card_2_134_Tests {
     }
 
     @Test
-    public void CharacterAlreadyAtBattleSiteIsNotALegalInformantTarget() {
+    public void InformantCannotTargetCharacterAlreadyAtBattleSite() {
         var scn = GetScenario();
         var informant = scn.GetDSCard("informant");
         var marketplace = scn.GetDSStartingLocation();
@@ -412,7 +417,7 @@ public class Card_2_134_Tests {
     }
 
     @Test
-    public void MultipleAdjacentCharactersMayAllReactAndFromMultipleAdjacentSites() {
+    public void InformantMayMoveMultipleAdjacentCharacters() {
         var scn = GetScenario();
         var informant = scn.GetDSCard("informant");
         var marketplace = scn.GetDSStartingLocation();
@@ -500,7 +505,7 @@ public class Card_2_134_Tests {
         }
     }
     @Test
-    public void NavanderAtBattleSiteBlocksInformantReactToThatLocation() {
+    public void InformantBlockedByNavanderAtBattleSite() {
         // Romas "Lock" Navander: opponent may not 'react' to or from same location.
         var scn = GetScenario();
         var informant = scn.GetDSCard("informant");
@@ -520,7 +525,7 @@ public class Card_2_134_Tests {
     }
 
     @Test
-    public void NavanderAtAdjacentSiteBlocksInformantReactFromThatLocation() {
+    public void InformantBlockedByNavanderAtAdjacentSite() {
         var scn = GetScenario();
         var informant = scn.GetDSCard("informant");
         var marketplace = scn.GetDSStartingLocation();
@@ -567,7 +572,7 @@ public class Card_2_134_Tests {
     }
 
     @Test
-    public void CharacterAtPassengerDeckReactsForFreeIntoBattleAtPalaceWhenBargeIsThere() {
+    public void InformantCanMoveFromRelatedVehicleSite() {
         var scn = GetScenario();
         var informant = scn.GetDSCard("informant");
         var palace = scn.GetDSCard("palace");
@@ -612,7 +617,7 @@ public class Card_2_134_Tests {
     }
 
     @Test
-    public void CharacterAtVehicleSiteOfVehicleElsewhereIsNotALegalInformantTarget() {
+    public void InformantCannotMoveFromUnrelatedVehicleSite() {
         var scn = GetScenario();
         var informant = scn.GetDSCard("informant");
         var palace = scn.GetDSCard("palace");
