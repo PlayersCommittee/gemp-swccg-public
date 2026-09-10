@@ -2459,11 +2459,15 @@ public class GameState implements Snapshotable<GameState> {
         boolean includeMissing = false;
         boolean includeConcealed = false;
         boolean includeSuspended = false;
+        boolean includeLocalTroubleNonParticipant = false;
 
         // If any spotOverrides were supplied, then apply them
         if (spotOverrides != null) {
             if (spotOverrides.get(InactiveReason.EXCLUDED_FROM_BATTLE) != null) {
                 includeExcludedFromBattle = spotOverrides.get(InactiveReason.EXCLUDED_FROM_BATTLE);
+            }
+            if (spotOverrides.get(InactiveReason.LOCAL_TROUBLE_NON_PARTICIPANT) != null) {
+                includeLocalTroubleNonParticipant = spotOverrides.get(InactiveReason.LOCAL_TROUBLE_NON_PARTICIPANT);
             }
             if (spotOverrides.get(InactiveReason.UNDERCOVER) != null) {
                 includeUndercover = spotOverrides.get(InactiveReason.UNDERCOVER);
@@ -2522,7 +2526,7 @@ public class GameState implements Snapshotable<GameState> {
 
             // Check if the card can be spotted as "active" and include it if it can be.
             if (isCardInPlayActive(physicalCard, includeExcludedFromBattle, includeUndercoverForThisCard, treatCaptiveAsActive,
-                    includeConcealed, includeWeaponsForStealingForThisCard, includeMissing, false, includeSuspended)) {
+                    includeConcealed, includeWeaponsForStealingForThisCard, includeMissing, false, includeSuspended, includeLocalTroubleNonParticipant)) {
                 if (physicalCardVisitor.visitPhysicalCard(physicalCard)) {
                     return true;
                 }
@@ -3565,7 +3569,11 @@ public class GameState implements Snapshotable<GameState> {
     }
 
     public boolean isCardInPlayActive(PhysicalCard card, boolean includeExcludedFromBattle, boolean includeUndercover, boolean includeCaptives, boolean includeConcealed, boolean includeWeaponsForStealing, boolean includeMissing, boolean includeBinaryOff, boolean includeSuspended) {
-        return getGame().getModifiersQuerying().getCardState(this, card, includeExcludedFromBattle, includeUndercover, includeCaptives, includeConcealed, includeWeaponsForStealing, includeMissing, includeBinaryOff, includeSuspended)==CardState.ACTIVE;
+        return isCardInPlayActive(card, includeExcludedFromBattle, includeUndercover, includeCaptives, includeConcealed, includeWeaponsForStealing, includeMissing, includeBinaryOff, includeSuspended, false);
+    }
+
+    public boolean isCardInPlayActive(PhysicalCard card, boolean includeExcludedFromBattle, boolean includeUndercover, boolean includeCaptives, boolean includeConcealed, boolean includeWeaponsForStealing, boolean includeMissing, boolean includeBinaryOff, boolean includeSuspended, boolean includeLocalTroubleNonParticipant) {
+        return getGame().getModifiersQuerying().getCardState(this, card, includeExcludedFromBattle, includeUndercover, includeCaptives, includeConcealed, includeWeaponsForStealing, includeMissing, includeBinaryOff, includeSuspended, includeLocalTroubleNonParticipant)==CardState.ACTIVE;
     }
 
     public void reapplyAffectingForCard(SwccgGame game, PhysicalCard card) {
