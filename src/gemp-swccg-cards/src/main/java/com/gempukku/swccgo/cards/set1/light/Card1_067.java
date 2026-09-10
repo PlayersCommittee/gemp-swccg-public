@@ -28,6 +28,7 @@ import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionOfExactlyModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.MouseDroidUtinniCarry;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -104,6 +105,7 @@ public class Card1_067 extends AbstractUtinniEffect {
                     }
             );
             // Perform result(s)
+            MouseDroidUtinniCarry.markMouseDeliveryFromTargetRelocation(self, game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self.getAttachedTo()));
             action.appendEffect(
                     new AttachCardFromTableEffect(action, self, target));
             actions.add(action);

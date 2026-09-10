@@ -46,6 +46,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import com.gempukku.swccgo.logic.effects.RespondableWeaponFiringEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.MouseDroidUtinniCarry;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -5058,9 +5059,9 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 PhysicalCard card = gameState.findCardByPermanentId(permCardId);
-                PhysicalCard attachedTo = card.getAttachedTo();
-                return attachedTo != null
-                        && Filters.sameCardId(attachedTo).accepts(gameState, modifiersQuerying, physicalCard);
+                // Mouse carry: Utinni modifiers that key off host apply to hunted targets, not the mouse.
+                // Reversible via MouseDroidUtinniCarry.
+                return MouseDroidUtinniCarry.acceptsAsEffectHost(gameState, modifiersQuerying, card, physicalCard);
             }
         };
     }

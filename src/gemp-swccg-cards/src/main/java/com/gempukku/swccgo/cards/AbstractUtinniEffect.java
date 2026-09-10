@@ -24,6 +24,7 @@ import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.MouseDroidUtinniCarry;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.SuspendsCardModifier;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -279,4 +280,14 @@ public abstract class AbstractUtinniEffect extends AbstractEffect {
         }
         return actions;
     }
+
+    /**
+     * Host for Utinni game text that means the card this Utinni was deployed on / effect subject.
+     * While Mouse Droid carries this Utinni, returns the remembered previous host rather than the mouse.
+     * Prefer this over raw getAttachedTo() in Utinni card implementations.
+     */
+    protected PhysicalCard getUtinniEffectSubjectHost(SwccgGame game, PhysicalCard self) {
+        return MouseDroidUtinniCarry.getEffectSubjectHost(game.getGameState(), self);
+    }
+
 }

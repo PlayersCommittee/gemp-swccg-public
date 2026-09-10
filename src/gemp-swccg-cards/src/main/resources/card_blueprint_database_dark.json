@@ -13963,6 +13963,38 @@
     "species": "HNEMTHE"
   },
   {
+    "cardId": "1_188",
+    "title": "MSE-6 'Mouse' Droid",
+    "slug": "mse-6-mouse-droid",
+    "slugWithSetName": "mse-6-mouse-droid-premiere",
+    "side": "DARK",
+    "uniqueness": "UNRESTRICTED",
+    "expansionSet": "PREMIERE",
+    "rarity": "U1",
+    "cardCategory": "CHARACTER",
+    "cardTypes": [
+      "DROID"
+    ],
+    "lore": "Nicknamed for rodent-like appearance. Delivers orders and sensitive documents. Retractable manipulator arms. Made by Rebaxan Colmuni. Easily frightened.",
+    "gameText": "Landspeed = 3. Deploys to same site as a character targeted by a Utinni Effect (except Kessel Run). If this droid 'reaches' Utinni Effect, may relocate it here. Upon delivery, 'mouse' droid returns to your hand.",
+    "deployCost": 0,
+    "destiny": 0,
+    "power": 0,
+    "ability": 0,
+    "forfeit": 0,
+    "landspeed": 3,
+    "politics": 0,
+    "icons": [
+      {
+        "icon": "DROID",
+        "count": 1
+      }
+    ],
+    "modelTypes": [
+      "MESSENGER"
+    ]
+  },
+  {
     "cardId": "1_189",
     "title": "Myo",
     "slug": "myo",
