@@ -213,6 +213,8 @@ public class Card_2_029_Tests {
             add(Icon.DEVICE);
             add(Icon.A_NEW_HOPE);
         }});
+		scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+		}});
         assertEquals(ExpansionSet.A_NEW_HOPE, card.getExpansionSet());
         assertEquals(Rarity.U2, card.getRarity());
     }
