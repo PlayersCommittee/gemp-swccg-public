@@ -4,6 +4,7 @@ import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.gempukku.swccgo.framework.Assertions.assertAtLocation;
+import static com.gempukku.swccgo.framework.Assertions.assertInHand;
 import static com.gempukku.swccgo.framework.Assertions.assertInZone;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -54,7 +56,7 @@ public class Card_5_158_Tests {
     }
 
     @Test
-    public void StatsAndKeywordsAreCorrect_5_158_TIESentryShips() {
+    public void TIESentryShipsStatsAndKeywordsAreCorrect() {
         /**
          * Title: TIE Sentry Ships
          * Uniqueness: Unique
@@ -62,7 +64,7 @@ public class Card_5_158_Tests {
          * Type: Interrupt
          * Subtype: Lost
          * Destiny: 5
-         * Icons: Cloud City
+         * Icons: Cloud City, Interrupt
          * Game Text: If opponent just initiated a Force drain at a system, cloud sector or asteroid sector,
          *      you may 'react' by deploying TIEs and pilots to that location (at normal use of the Force).
          * Lore: Several TIEs were assigned to patrol Cloud City prior to the Imperial occupation of Bespin.
@@ -88,12 +90,13 @@ public class Card_5_158_Tests {
             add(Icon.CLOUD_CITY);
             add(Icon.INTERRUPT);
         }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<Keyword>());
         assertEquals(ExpansionSet.CLOUD_CITY, card.getExpansionSet());
         assertEquals(Rarity.C, card.getRarity());
     }
 
     @Test
-    public void DeploysTIEAsReactToSystemForceDrain_5_158_TIESentryShips() {
+    public void TIESentryShipsDeploysAsReactToSystemForceDrain() {
         var scn = GetScenario();
 
         var sentry = scn.GetDSCard("sentry");
@@ -124,7 +127,7 @@ public class Card_5_158_Tests {
     }
 
     @Test
-    public void AdditionalReactChoiceCanBeStoppedWithDone_5_158_TIESentryShips() {
+    public void TIESentryShipsAdditionalReactCanBeStoppedWithDone() {
         var scn = GetScenario();
 
         var sentry = scn.GetDSCard("sentry");
@@ -156,12 +159,12 @@ public class Card_5_158_Tests {
         scn.PassAllResponses();
 
         assertAtLocation(system, tie);
-        assertInZone(Zone.HAND, tie2);
+        assertInHand(tie2);
         assertInZone(Zone.LOST_PILE, sentry);
     }
 
     @Test
-    public void ExtraReactDoesNotOfferCardsThatCostMoreThanRemainingForce_5_158_TIESentryShips() {
+    public void TIESentryShipsDoesNotOfferExtraReactsThatCostMoreThanRemainingForce() {
         var scn = GetScenario();
 
         var sentry = scn.GetDSCard("sentry");
@@ -195,10 +198,8 @@ public class Card_5_158_Tests {
         scn.PassAllResponses();
 
         assertEquals(1, scn.GetDSForcePileCount());
-        assertFalse("2-deploy pilot should not light up with 1 Force",
-                scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(ds612));
-        assertFalse("2-deploy pilot should not light up with 1 Force",
-                scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(ds613));
+        assertFalse(scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(ds612));
+        assertFalse(scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(ds613));
         if (scn.DSAnyDecisionsAvailable()
                 && scn.DSGetDecision().getText().toLowerCase().contains("done")) {
             scn.DSPass();
@@ -206,13 +207,13 @@ public class Card_5_158_Tests {
         }
 
         assertAtLocation(system, tie);
-        assertInZone(Zone.HAND, ds612);
-        assertInZone(Zone.HAND, ds613);
+        assertInHand(ds612);
+        assertInHand(ds613);
         assertInZone(Zone.LOST_PILE, sentry);
     }
 
     @Test
-    public void ExtraReactDoesNotOfferBlack2WhenRemainingForceCannotPayForRequiredPilot_5_158_TIESentryShips() {
+    public void TIESentryShipsDoesNotOfferUnpilotedStarfighterWhenRemainingForceCannotPayRequiredPilot() {
         var scn = GetScenario();
 
         var sentry = scn.GetDSCard("sentry");
@@ -246,10 +247,8 @@ public class Card_5_158_Tests {
         scn.PassAllResponses();
 
         assertEquals(1, scn.GetDSForcePileCount());
-        assertFalse("Black 2 should not light up without enough Force for a required pilot",
-                scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(black2));
-        assertFalse("2-deploy pilot should not light up with 1 Force",
-                scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(ds612));
+        assertFalse(scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(black2));
+        assertFalse(scn.DSAnyDecisionsAvailable() && scn.DSHasCardChoiceAvailable(ds612));
         if (scn.DSAnyDecisionsAvailable()
                 && scn.DSGetDecision().getText().toLowerCase().contains("done")) {
             scn.DSPass();
@@ -257,13 +256,13 @@ public class Card_5_158_Tests {
         }
 
         assertAtLocation(system, tie);
-        assertInZone(Zone.HAND, black2);
-        assertInZone(Zone.HAND, ds612);
+        assertInHand(black2);
+        assertInHand(ds612);
         assertInZone(Zone.LOST_PILE, sentry);
     }
 
     @Test
-    public void ExtraReactStillOffersOneCostTIEWhenExactlyOneForceRemains_5_158_TIESentryShips() {
+    public void TIESentryShipsStillOffersAffordableExtraReactWhenExactlyOneForceRemains() {
         var scn = GetScenario();
 
         var sentry = scn.GetDSCard("sentry");
@@ -303,12 +302,12 @@ public class Card_5_158_Tests {
         scn.PassAllResponses();
 
         assertAtLocation(system, tie);
-        assertInZone(Zone.HAND, tie2);
+        assertInHand(tie2);
         assertInZone(Zone.LOST_PILE, sentry);
     }
 
     @Test
-    public void PlayableAsReactToCloudSectorForceDrain_5_158_TIESentryShips() {
+    public void TIESentryShipsPlayableAsReactToCloudSectorForceDrain() {
         var scn = GetScenario();
 
         var sentry = scn.GetDSCard("sentry");
@@ -340,7 +339,7 @@ public class Card_5_158_Tests {
     }
 
     @Test
-    public void PlayableAsReactToAsteroidSectorForceDrain_5_158_TIESentryShips() {
+    public void TIESentryShipsPlayableAsReactToAsteroidSectorForceDrain() {
         var scn = GetScenario();
 
         var sentry = scn.GetDSCard("sentry");
@@ -372,7 +371,7 @@ public class Card_5_158_Tests {
     }
 
     @Test
-    public void NotPlayableAsReactToBattleAtSystem_5_158_TIESentryShips() {
+    public void TIESentryShipsNotPlayableAsReactToBattleAtSystem() {
         var scn = GetScenario();
 
         var sentry = scn.GetDSCard("sentry");
@@ -391,7 +390,7 @@ public class Card_5_158_Tests {
     }
 
     @Test
-    public void NotPlayableAsReactToForceDrainAtSite_5_158_TIESentryShips() {
+    public void TIESentryShipsNotPlayableAsReactToForceDrainAtSite() {
         var scn = GetScenario();
 
         var sentry = scn.GetDSCard("sentry");
