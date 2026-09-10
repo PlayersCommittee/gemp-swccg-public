@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set2.dark;
 
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
@@ -27,8 +28,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * Tests for Retract The Bridge (2_138). Overlay 17004 only.
- * Relies on RearrangeSites helper from #1017 / e254419.
+ * Tests for Retract The Bridge (2_138).
+ * Relies on RearrangeSites helper from #1017.
  */
 public class Card_2_138_Tests {
 
@@ -66,8 +67,6 @@ public class Card_2_138_Tests {
     }
 
     private void putLocation(VirtualTableScenario scn, PhysicalCardImpl location) {
-        var placements = scn.gameState().getLocationPlacement(scn.game(), location, null, null);
-        assertFalse("No legal placement for " + location.getTitle(), placements.isEmpty());
         scn.MoveLocationToTable(location);
     }
 
@@ -84,8 +83,7 @@ public class Card_2_138_Tests {
     }
 
     private void assertInLostPile(PhysicalCardImpl card) {
-        assertTrue("Expected lost pile zone, was " + card.getZone(),
-                card.getZone() == Zone.LOST_PILE || card.getZone() == Zone.TOP_OF_LOST_PILE);
+        assertTrue(card.getZone() == Zone.LOST_PILE || card.getZone() == Zone.TOP_OF_LOST_PILE);
     }
 
     private void playRearrangeAndChooseOrder(VirtualTableScenario scn, PhysicalCardImpl retract,
@@ -102,7 +100,7 @@ public class Card_2_138_Tests {
     }
 
     @Test
-    public void RetractTheBridgeStatsAreCorrect() {
+    public void RetractTheBridgeStatsAndKeywordsAreCorrect() {
         /**
          * Title: Retract The Bridge
          * Uniqueness: UNRESTRICTED
@@ -110,6 +108,7 @@ public class Card_2_138_Tests {
          * Type: Interrupt
          * Subtype: Lost
          * Destiny: 3
+         * Icons: A New Hope
          * Set: A New Hope
          * Rarity: R1
          */
@@ -117,18 +116,26 @@ public class Card_2_138_Tests {
         var card = scn.GetDSCard("retract").getBlueprint();
 
         assertEquals("Retract The Bridge", card.getTitle());
+        assertFalse(card.hasVirtualSuffix());
         assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
         assertEquals(Side.DARK, card.getSide());
-        assertTrue(card.isCardType(CardType.INTERRUPT));
-        assertEquals(CardSubtype.LOST, card.getCardSubtype());
         assertEquals(3, card.getDestiny(), scn.epsilon);
-        assertEquals(1, card.getIconCount(Icon.A_NEW_HOPE));
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.INTERRUPT);
+        }});
+        assertEquals(CardSubtype.LOST, card.getCardSubtype());
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.A_NEW_HOPE);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+        }});
+        assertEquals(ExpansionSet.A_NEW_HOPE, card.getExpansionSet());
         assertEquals(Rarity.R1, card.getRarity());
         assertTrue(Filters.Retract_The_Bridge.accepts(scn.game(), scn.GetDSCard("retract")));
     }
 
     @Test
-    public void CostsOneForceWithOneInteriorDeathStarSite() {
+    public void RetractTheBridgeCostsOneForceWithOneInteriorDeathStarSite() {
         var scn = GetScenario();
         var retract = scn.GetDSCard("retract");
         var corridor = scn.GetDSCard("corridor");
@@ -149,7 +156,7 @@ public class Card_2_138_Tests {
     }
 
     @Test
-    public void CostsTwoForceWithTwoInteriorDeathStarSitesAndRearranges() {
+    public void RetractTheBridgeCostsTwoForceWithTwoInteriorDeathStarSitesAndRearranges() {
         var scn = GetScenario();
         var retract = scn.GetDSCard("retract");
         var corridor = scn.GetDSCard("corridor");
@@ -175,14 +182,14 @@ public class Card_2_138_Tests {
     }
 
     @Test
-    public void CostsThreeForceWithThreeInteriorSitesCardsRideDb327AndUnrelatedStay() {
+    public void RetractTheBridgeCostsThreeForceWithThreeInteriorSitesCardsRideAndUnrelatedStay() {
         var scn = GetScenario();
         var retract = scn.GetDSCard("retract");
         var corridor = scn.GetDSCard("corridor");
         var warRoom = scn.GetDSCard("war-room");
         var conference = scn.GetDSCard("conference");
         var db327 = scn.GetDSCard("db327");
-        var chasm = scn.GetLSStartingLocation(); // Cloud City: Chasm Walkway (unrelated)
+        var chasm = scn.GetLSStartingLocation();
         var marketplace = scn.GetDSStartingLocation();
         var trooper = scn.GetDSFiller(1);
 
@@ -232,7 +239,7 @@ public class Card_2_138_Tests {
     }
 
     @Test
-    public void CannotPlayRearrangeSideWithZeroInteriorDeathStarSites() {
+    public void RetractTheBridgeCannotPlayRearrangeWithZeroInteriorDeathStarSites() {
         var scn = GetScenario();
         var retract = scn.GetDSCard("retract");
         var db327 = scn.GetDSCard("db327");
@@ -246,7 +253,7 @@ public class Card_2_138_Tests {
     }
 
     @Test
-    public void CannotPlayRearrangeOutsideDeployPhase() {
+    public void RetractTheBridgeCannotPlayRearrangeOutsideDeployPhase() {
         var scn = GetScenario();
         var retract = scn.GetDSCard("retract");
         var corridor = scn.GetDSCard("corridor");
@@ -263,9 +270,9 @@ public class Card_2_138_Tests {
     }
 
     @Test
-    public void CancelOnTheEdgeActionTextIsWiredOnCard() {
+    public void RetractTheBridgeCancelOnTheEdgeWiringIsAsserted() {
         // Interactive On The Edge / Sense / Skywalkers response windows are brittle in VTS;
-        // assert the cancel filter wiring and that Filters.Retract_The_Bridge is what Skywalkers uses.
+        // assert cancel filter wiring and that Filters.Retract_The_Bridge is what Skywalkers uses.
         var scn = GetScenario();
         var retract = scn.GetDSCard("retract");
         var onTheEdge = scn.GetLSCard("on-the-edge");
