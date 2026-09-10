@@ -106,7 +106,7 @@ public class Card_3_139_Tests {
         scn.DSChooseCard(toolkit);
         scn.PassAllResponses();
 
-        assertEquals(Zone.LOST_PILE, toolkit.getZone());
+        assertEquals(Zone.TOP_OF_LOST_PILE, toolkit.getZone());
     }
 
     @Test
@@ -129,7 +129,7 @@ public class Card_3_139_Tests {
         scn.DSChooseCard(crash);
         scn.PassAllResponses();
 
-        assertEquals(Zone.LOST_PILE, crash.getZone());
+        assertEquals(Zone.TOP_OF_LOST_PILE, crash.getZone());
     }
 
     @Test
@@ -154,7 +154,7 @@ public class Card_3_139_Tests {
         scn.DSPlayCard(tio);
         scn.DSChooseCard(toolkit);
         scn.PassAllResponses();
-        assertEquals(Zone.LOST_PILE, toolkit.getZone());
+        assertEquals(Zone.TOP_OF_LOST_PILE, toolkit.getZone());
 
         scn.MoveCardsToLSSideOfTable(crash);
 
@@ -163,6 +163,6 @@ public class Card_3_139_Tests {
         assertTrue(scn.DSHasCardChoiceAvailable(crash));
         scn.DSChooseCard(crash);
         scn.PassAllResponses();
-        assertEquals(Zone.LOST_PILE, crash.getZone());
+        assertEquals(Zone.TOP_OF_LOST_PILE, crash.getZone());
     }
 }
