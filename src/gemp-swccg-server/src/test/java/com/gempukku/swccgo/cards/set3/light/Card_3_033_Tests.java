@@ -260,7 +260,7 @@ public class Card_3_033_Tests {
         scn.PassAllResponses();
 
         var attackState = scn.gameState().getAttackState();
-        assertTrue(attackState != null && attackState.isAttackInProgress());
+        assertTrue(attackState != null && attackState.isAttackStarted());
         Float ferocityDestinyTotal = attackState.getFerocityDestinyTotal(wampa);
         assertTrue("Ferocity destiny total should be set after draws", ferocityDestinyTotal != null);
         // Printed base 3 + DS destiny 2 - LS subtract 1 = 4 ferocity; destiny total stored as 2 - 1 = 1
