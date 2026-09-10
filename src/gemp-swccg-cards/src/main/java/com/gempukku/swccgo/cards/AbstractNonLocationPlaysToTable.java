@@ -1217,7 +1217,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
         } 
         // End of checking for 'react' actions
 
-        // FLAG(Chief): creature-attack react window for R2 Sensor Array (3_31) — parallel to battle/Force drain reacts
+        // FLAG(Chief): creature-attack react window for R2 Sensor Array (3_31) ï¿½ parallel to battle/Force drain reacts
         if (TriggerConditions.attackInitiatedByCreature(game, effectResult)) {
             if (self.getZone().isInPlay()) {
                 boolean inPlayActiveForAttackReact = game.getGameState().isCardInPlayActive(self, false, true, false, false, false, false, false, false);

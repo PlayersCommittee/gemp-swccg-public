@@ -1,4 +1,4 @@
-﻿package com.gempukku.swccgo.cards.set3.light;
+package com.gempukku.swccgo.cards.set3.light;
 
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.common.ExpansionSet;

@@ -1,4 +1,4 @@
-﻿package com.gempukku.swccgo.logic.modifiers;
+package com.gempukku.swccgo.logic.modifiers;
 
 import com.gempukku.swccgo.common.Filterable;
 import com.gempukku.swccgo.filters.Filter;
