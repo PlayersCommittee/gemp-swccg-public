@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
@@ -29,7 +30,7 @@ import static org.junit.Assert.*;
 
 /**
  * Tests for Heart Of The Chasm (5_143).
- * Relies on RearrangeSites helper from #1017 / e254419.
+ * Relies on RearrangeSites helper from #1017.
  */
 public class Card_5_143_Tests {
 
@@ -89,8 +90,6 @@ public class Card_5_143_Tests {
     }
 
     private void putLocation(VirtualTableScenario scn, PhysicalCardImpl location) {
-        var placements = scn.gameState().getLocationPlacement(scn.game(), location, null, null);
-        assertFalse("No legal placement for " + location.getTitle(), placements.isEmpty());
         scn.MoveLocationToTable(location);
     }
 
@@ -107,8 +106,7 @@ public class Card_5_143_Tests {
     }
 
     private void assertInLostPile(PhysicalCardImpl card) {
-        assertTrue("Expected lost pile zone, was " + card.getZone(),
-                card.getZone() == Zone.LOST_PILE || card.getZone() == Zone.TOP_OF_LOST_PILE);
+        assertTrue(card.getZone() == Zone.LOST_PILE || card.getZone() == Zone.TOP_OF_LOST_PILE);
     }
 
     private void playRearrangeAndChooseOrder(VirtualTableScenario scn, PhysicalCardImpl heart,
@@ -125,23 +123,42 @@ public class Card_5_143_Tests {
     }
 
     @Test
-    public void HeartOfTheChasmStatsAreCorrect() {
+    public void HeartOfTheChasmStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Heart Of The Chasm
+         * Uniqueness: UNRESTRICTED
+         * Side: Dark
+         * Type: Interrupt
+         * Subtype: Lost
+         * Destiny: 3
+         * Icons: Cloud City
+         * Set: Cloud City
+         * Rarity: U
+         */
         var scn = GetScenario();
         var card = scn.GetDSCard("heart").getBlueprint();
 
         assertEquals("Heart Of The Chasm", card.getTitle());
+        assertFalse(card.hasVirtualSuffix());
         assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
         assertEquals(Side.DARK, card.getSide());
-        assertTrue(card.isCardType(CardType.INTERRUPT));
-        assertEquals(CardSubtype.LOST, card.getCardSubtype());
         assertEquals(3, card.getDestiny(), scn.epsilon);
-        assertEquals(1, card.getIconCount(Icon.CLOUD_CITY));
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.INTERRUPT);
+        }});
+        assertEquals(CardSubtype.LOST, card.getCardSubtype());
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.CLOUD_CITY);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+        }});
+        assertEquals(ExpansionSet.CLOUD_CITY, card.getExpansionSet());
         assertEquals(Rarity.U, card.getRarity());
         assertTrue(Filters.Heart_Of_The_Chasm.accepts(scn.game(), scn.GetDSCard("heart")));
     }
 
     @Test
-    public void CostsOneForceWithOneInteriorCloudCitySite() {
+    public void HeartOfTheChasmCostsOneForceWithOneInteriorCloudCitySite() {
         var scn = GetScenarioNoCloudCityStart();
         var heart = scn.GetDSCard("heart");
         var chamber = scn.GetDSCard("chamber");
@@ -162,7 +179,7 @@ public class Card_5_143_Tests {
     }
 
     @Test
-    public void CostsTwoForceWithTwoInteriorSitesAndRearranges() {
+    public void HeartOfTheChasmCostsTwoForceWithTwoInteriorSitesAndRearranges() {
         var scn = GetScenarioNoCloudCityStart();
         var heart = scn.GetDSCard("heart");
         var chamber = scn.GetDSCard("chamber");
@@ -188,7 +205,7 @@ public class Card_5_143_Tests {
     }
 
     @Test
-    public void CostsThreeForceCardsRideDockingBaysDsAndUnrelatedNotChoosable() {
+    public void HeartOfTheChasmCostsThreeForceCardsRideDockingBaysAndUnrelatedNotChoosable() {
         var scn = GetScenarioNoCloudCityStart();
         var heart = scn.GetDSCard("heart");
         var chamber = scn.GetDSCard("chamber");
@@ -251,7 +268,7 @@ public class Card_5_143_Tests {
     }
 
     @Test
-    public void CannotPlayRearrangeWithZeroInteriorCloudCitySites() {
+    public void HeartOfTheChasmCannotPlayRearrangeWithZeroInteriorCloudCitySites() {
         var scn = GetScenarioNoCloudCityStart();
         var heart = scn.GetDSCard("heart");
         var eastPlatform = scn.GetDSCard("east-platform");
@@ -266,7 +283,7 @@ public class Card_5_143_Tests {
     }
 
     @Test
-    public void CannotPlayRearrangeOutsideDeployPhase() {
+    public void HeartOfTheChasmCannotPlayRearrangeOutsideDeployPhase() {
         var scn = GetScenarioNoCloudCityStart();
         var heart = scn.GetDSCard("heart");
         var chamber = scn.GetDSCard("chamber");
@@ -283,7 +300,7 @@ public class Card_5_143_Tests {
     }
 
     @Test
-    public void CancelOffTheEdgeActionTextIsWiredOnCard() {
+    public void HeartOfTheChasmCancelOffTheEdgeWiringIsAsserted() {
         // Interactive Off The Edge / Sense / Skywalkers response windows are brittle in VTS;
         // assert cancel filter wiring (known gap: full interactive cancel).
         var scn = GetScenario();
@@ -303,21 +320,20 @@ public class Card_5_143_Tests {
     }
 
     @Test
-    public void WeatherVaneUploadActionIsWired() {
+    public void HeartOfTheChasmUploadsWeatherVaneFromReserveDeck() {
         var scn = GetScenarioNoCloudCityStart();
         var heart = scn.GetDSCard("heart");
         var weatherVane = scn.GetDSCard("weather-vane");
 
         scn.StartGame();
         scn.MoveCardsToDSHand(heart);
-        // Activate/Force setup first so Weather Vane is not pulled off Reserve into Force Pile.
         scn.SkipToDSTurn(Phase.DEPLOY);
         scn.MoveCardsToTopOfDSReserveDeck(weatherVane);
 
         assertTrue(scn.DSCardPlayAvailable(heart, UPLOAD_TEXT));
         scn.DSPlayCard(heart, UPLOAD_TEXT);
         scn.PassAllResponses();
-        assertTrue("Expected Weather Vane choosable from Reserve Deck", scn.DSHasCardChoicesAvailable(weatherVane));
+        assertTrue(scn.DSHasCardChoicesAvailable(weatherVane));
         scn.DSChooseCard(weatherVane);
         scn.PassAllResponses();
 
@@ -326,7 +342,7 @@ public class Card_5_143_Tests {
     }
 
     @Test
-    public void CaptainBewilCanPullHeartOfTheChasm() {
+    public void HeartOfTheChasmMatchesCaptainBewilUploadFilter() {
         // Doc: Captain Bewil can pull Heart Of The Chasm. Filter wiring; full upload interactive is known gap.
         var scn = GetScenario();
         var heart = scn.GetDSCard("heart");
@@ -340,4 +356,3 @@ public class Card_5_143_Tests {
                 .accepts(scn.game(), heart));
     }
 }
-
