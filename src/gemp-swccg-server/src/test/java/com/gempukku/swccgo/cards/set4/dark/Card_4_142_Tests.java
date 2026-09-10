@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class Card_4_142_Tests {
 	protected VirtualTableScenario GetScenario() {
@@ -184,7 +185,7 @@ public class Card_4_142_Tests {
 				scn.PassCardLeavingTable();
 			}
 			else {
-				throw new RuntimeException("Unhandled decision while draining end of turn: " + scn.GetCurrentDecision().getText());
+				fail("Unhandled decision while draining end of turn");
 			}
 		}
 	}
@@ -232,39 +233,12 @@ public class Card_4_142_Tests {
 				scn.PassCardLeavingTable();
 			}
 			else {
-				throw new RuntimeException("Unhandled decision while waiting for LS hand choice: " + scn.GetCurrentDecision().getText());
+				fail("Unhandled decision while waiting for LS hand choice");
 			}
 		}
 	}
 
 
-	/**
-	 * Build a one-line dump of the current prompt for error messages when a test hits an unexpected choice.
-	 */
-	private String decisionSnapshot(VirtualTableScenario scn) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("phase=").append(scn.GetCurrentPhase());
-		if (scn.DSAnyDecisionsAvailable()) {
-			sb.append(" DS[").append(scn.DSGetDecision().getText()).append("]");
-			try {
-				sb.append(" DSactions=").append(scn.GetDSAvailableActions());
-			}
-			catch (Exception ignored) {
-			}
-		}
-		if (scn.LSAnyDecisionsAvailable()) {
-			sb.append(" LS[").append(scn.LSGetDecision().getText()).append("]");
-			try {
-				sb.append(" LSactions=").append(scn.GetLSAvailableActions());
-			}
-			catch (Exception ignored) {
-			}
-		}
-		if (!scn.DSAnyDecisionsAvailable() && !scn.LSAnyDecisionsAvailable()) {
-			sb.append(" no pending decisions");
-		}
-		return sb.toString();
-	}
 
 	/**
 	 * True if Light can play or use this card as a response right now.
@@ -311,7 +285,12 @@ public class Card_4_142_Tests {
 			add(CardType.INTERRUPT);
 		}});
 		assertEquals(CardSubtype.LOST, card.getCardSubtype());
-		assertEquals(1, card.getIconCount(Icon.DAGOBAH));
+		scn.BlueprintIconCheck(card, new ArrayList<>() {{
+			add(Icon.INTERRUPT);
+			add(Icon.DAGOBAH);
+		}});
+		scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+		}});
 		assertEquals(ExpansionSet.DAGOBAH, card.getExpansionSet());
 		assertEquals(Rarity.R, card.getRarity());
 	}
@@ -424,7 +403,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void ProtectorCanCancelFrustration() {
+	public void FrustrationCanBeCanceled() {
 		var scn = GetScenario();
 
 		var frustration = scn.GetDSCard("frustration");
@@ -543,7 +522,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationAppliesGlobalDeployCostModifierFromBadFeelingHaveI() {
+	public void FrustrationAccountsForGlobalDeployCostModifiers() {
 		// Default systems 2 LS icons + Mos Eisley 2 = 4. Luke is 3, or 5 with Bad Feeling Have I.
 		var scn = GetScenario();
 		var frustration = scn.GetDSCard("frustration");
@@ -623,7 +602,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationCountsDaughterOfSkywalkerLightForceIconTowardIconsOnTable() {
+	public void FrustrationCountsAddedLightForceIconsOnTable() {
 		// Daughter Of Skywalker (8_8) uses IconModifier to give +1 LIGHT_FORCE to her same exterior site.
 		// Tatooine: Bluffs (2_150) is exterior with 0 printed Force icons, so default systems stay at 2
 		// until Daughter arrives and bumps the total to 3 (Pilot deploy 2 becomes targetable).
@@ -771,7 +750,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void IHaveABadFeelingAboutThisCannotRetargetFrustrationBecauseTargetIsChosenInResultStep() {
+	public void FrustrationCannotBeRetargeted() {
 		// ScompLink Extra Card Data: IHABFAT may not retarget something that isn't chosen until
 		// the result step (e.g. Twi'lek Advisor taking a card into hand from Reserve Deck).
 		// Frustration currently chooses its target in the result step (after peek), not as a
@@ -836,7 +815,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationCanTargetChewbaccasBowcasterUsingCostFour() {
+	public void FrustrationCanTargetUsingDefinedByGameTextCost() {
 		// Default systems 2 LS icons: cost 4 is not < 2, so Chewie's Bowcaster is not a target.
 		// Mos Eisley 2 + Chasm Walkway 1 = 5 total; 4 < 5, so it becomes targetable.
 		var scn = GetScenario();
@@ -874,7 +853,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationIgnoresFreeOptionOnLandosBlasterRifleAndUsesCostThree() {
+	public void FrustrationIgnoresFreeOptionAndUsesRemainingCost() {
 		// Default systems have 2 Light icons.
 		// Lando's Blaster Rifle is free on Lando or 3 on other warrior. Free is not a number; remaining cost 3 is not < 2.
 		// Ponda's blaster is free or 2; 2 is not < 2. Dark card, so it lives in DS extras and is moved into LS hand.
@@ -896,7 +875,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationCanTargetMantellianSavripPrintedThreeWithoutC3PO() {
+	public void FrustrationCanTargetPrintedCostWhenFreeOptionInactive() {
 		// Savrip printed cost 3. Default systems 2 LS icons + Mos Eisley 2 = 4. 3 < 4, so Savrip is a target.
 		// C-3PO is not on table, so the free option is not active.
 		var scn = GetScenario();
@@ -918,7 +897,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationCannotTargetMantellianSavripWhenC3POMakesItDeployFree() {
+	public void FrustrationCannotTargetWhenFreeOptionIsActive() {
 		// Same 4 Light icons. C-3PO on table makes Savrip deploy free. Free is not a deploy cost, so Savrip is not a target.
 		var scn = GetScenario();
 		var frustration = scn.GetDSCard("frustration");
@@ -941,7 +920,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationDeployingArtooAndThreepioSatisfiesArtooTitleObligation() {
+	public void FrustrationComboCardDeploySatisfiesOverlappingTitle() {
 		// Target JP Artoo 6_3 (titles ["Artoo"]). Deploying combo 10_2 (titles ["Artoo","Threepio"])
 		// satisfies the obligation because sameTitleAs matches overlapping combo titles.
 		var scn = GetScenario();
@@ -976,7 +955,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationLosesArtooAndThreepioThatEnteredHandAfterArtooRemoved() {
+	public void FrustrationLosesComboCardMatchingTargetedTitle() {
 		// Target Artoo, remove it from hand, combo of that title enters hand, combo is lost at deadline.
 		var scn = GetScenario();
 		var frustration = scn.GetDSCard("frustration");
@@ -1006,7 +985,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationOwnerChoosesBetweenArtooAndComboToLoseFromHand() {
+	public void FrustrationOwnerChoosesAmongMatchingTitlesToLose() {
 		// Both JP Artoo and combo Artoo & Threepio in hand at deadline. LS chooses which matching title to lose.
 		var scn = GetScenario();
 		var frustration = scn.GetDSCard("frustration");
@@ -1039,7 +1018,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationDeployingArtooSatisfiesArtooAndThreepioTitleObligation() {
+	public void FrustrationStandaloneDeploySatisfiesComboTitle() {
 		// Vice versa: target combo 10_2, deploying standalone JP Artoo 6_3 satisfies the overlapping title.
 		var scn = GetScenario();
 		var frustration = scn.GetDSCard("frustration");
@@ -1076,7 +1055,7 @@ public class Card_4_142_Tests {
 
 
 	@Test
-	public void FrustrationCountsNabooSystemLightIconsWhenInvasionIsNotOnTable() {
+	public void FrustrationCountsSystemLightIconsWhenNotCanceled() {
 		// Default systems 2 LS icons + Dark Naboo system 12_169 printed 2 LS = 4.
 		// Rebel Pilot deploy 2 is < 4. Luke deploy 3 is < 4. Trooper deploy 1 is < 4.
 		var scn = GetScenario();
@@ -1100,7 +1079,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationDoesNotCountNabooSystemLightIconsCanceledByInvasion() {
+	public void FrustrationDoesNotCountCanceledSystemLightIcons() {
 		// Invasion 14_113: opponent's Force icons at Naboo system are canceled (system only).
 		// Default systems stay at 2 LS. Pilot deploy 2 is not < 2. Luke 3 is not. Trooper 1 is.
 		var scn = GetScenario();
@@ -1125,7 +1104,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationStillCountsNabooSwampLightIconsWhenInvasionCancelsSystemIcons() {
+	public void FrustrationStillCountsUncanceledSiteIcons() {
 		// Invasion cancels only Naboo system LS icons. Swamp 12_171 still has 1 LS.
 		// Default 2 + swamp 1 = 3. Pilot 2 is < 3. Luke 3 is not. Trooper 1 is.
 		var scn = GetScenario();
@@ -1157,7 +1136,7 @@ public class Card_4_142_Tests {
 	 * while attached to Corellia. Frustration must treat that always-free deploy as not a cost.
 	 */
 	@Test
-	public void FrustrationCanTargetQuadLaserCannonsWithoutCEC() {
+	public void FrustrationCanTargetWhenDeploysFreeModifierInactive() {
 		// Quads printed cost 2 via DefinedByGameTextDeployCostModifier.
 		// Default systems 2 LS icons + Corellia 1 = 3, so 2 is less than 3.
 		var scn = GetScenario();
@@ -1179,7 +1158,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationCannotTargetQuadLaserCannonsWhenCECIsAttachedToCorellia() {
+	public void FrustrationCannotTargetWhenDeploysFreeModifierActive() {
 		// Same 3 Light icons. CEC on Corellia makes Quads deploy free. Free is not a deploy cost.
 		var scn = GetScenario();
 		var frustration = scn.GetDSCard("frustration");
@@ -1214,7 +1193,7 @@ public class Card_4_142_Tests {
 
 
 	@Test
-	public void FrustrationSquadronAssignmentsSimultaneousLukeDeploySatisfiesTitle() {
+	public void FrustrationSimultaneousDeploySatisfiesTitle() {
 		// Squadron Assignments 9_39: reveal a pilot from hand, take matching unpiloted starfighter
 		// from Reserve (Red 5 2_71), and deploy both simultaneously. Two Lukes 1_19 in hand;
 		// deploying one Luke this way must satisfy Frustration on the Luke title.
@@ -1237,18 +1216,14 @@ public class Card_4_142_Tests {
 		scn.MoveOutOfPlay(red5);
 
 		PeekFrustrationAtHand(scn);
-		if (!scn.DSHasCardChoiceAvailable(luke) && !scn.DSHasCardChoiceAvailable(luke2)) {
-			throw new RuntimeException("Expected Luke as Frustration target, decision: " + decisionSnapshot(scn));
-		}
+		assertTrue(scn.DSHasCardChoiceAvailable(luke) || scn.DSHasCardChoiceAvailable(luke2));
 		scn.DSChooseCard(luke);
 		scn.PassAllResponses();
 
 		scn.SkipToLSTurn(Phase.DEPLOY);
 		scn.LSActivateForceCheat(8);
 		scn.MoveCardsToTopOfLSReserveDeck(red5);
-		if (!scn.LSCardActionAvailable(squadronAssignments) && !scn.LSActionAvailable("Reveal")) {
-			throw new RuntimeException("Squadron Assignments action not available: " + decisionSnapshot(scn));
-		}
+		assertTrue(scn.LSCardActionAvailable(squadronAssignments) || scn.LSActionAvailable("Reveal"));
 		if (scn.LSCardActionAvailable(squadronAssignments)) {
 			scn.LSUseCardAction(squadronAssignments);
 		}
@@ -1299,17 +1274,14 @@ public class Card_4_142_Tests {
 					scn.LSChooseCard(scn.GetLSStartingLocation());
 					continue;
 				}
-				throw new RuntimeException("Unhandled Squadron Assignments decision: " + decisionSnapshot(scn));
+				fail("Unhandled Squadron Assignments decision");
 			}
 			scn.PassAllResponses();
 		}
 
 		var deployedLuke = luke.getZone() != Zone.HAND ? luke : luke2;
 		var remainingLuke = deployedLuke == luke ? luke2 : luke;
-		if (deployedLuke.getZone() == Zone.HAND) {
-			throw new RuntimeException("Neither Luke left hand after Squadron Assignments; luke=" + luke.getZone()
-					+ " luke2=" + luke2.getZone() + " red5=" + red5.getZone() + " decision=" + decisionSnapshot(scn));
-		}
+		assertNotEquals(Zone.HAND, deployedLuke.getZone());
 		assertEquals(Zone.HAND, remainingLuke.getZone());
 
 		AdvanceThroughEndOfDSNextTurn(scn);
@@ -1318,7 +1290,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationShockingInformationCausesFourForceLossAndLosesFrustration() {
+	public void FrustrationScanResponseCausesForceLossAndLosesCard() {
 		// Shocking Information 5_68 (Cloud City Used Interrupt): if opponent is about to scan/look
 		// through your hand (unless Monnok), opponent continues but loses 4 Force plus the card
 		// allowing the scan. Play it in the BEFORE peek window, not after PassAllResponses.
@@ -1341,9 +1313,7 @@ public class Card_4_142_Tests {
 		if (!lsPlayAvailable(scn, shocking)) {
 			scn.PassCardPlayResponses();
 		}
-		if (!lsPlayAvailable(scn, shocking)) {
-			throw new RuntimeException("Shocking Information not offered on Frustration peek: " + decisionSnapshot(scn));
-		}
+		assertTrue(lsPlayAvailable(scn, shocking));
 		scn.LSPlayCard(shocking);
 		scn.PassAllResponses();
 		if (scn.DSAnyDecisionsAvailable() && scn.DSGetDecision().getText().toLowerCase().contains("hand")) {
@@ -1382,8 +1352,7 @@ public class Card_4_142_Tests {
 				scn.DSChooseCard(trooper);
 				continue;
 			}
-			throw new RuntimeException("Unhandled after Shocking Information: " + decisionSnapshot(scn)
-					+ " forceBefore=" + dsForceBefore + " forceNow=" + scn.GetDSLifeForceRemaining());
+			fail("Unhandled after Shocking Information");
 		}
 
 		assertEquals("DS should lose 4 Force to Shocking Information", dsForceBefore - 4, scn.GetDSLifeForceRemaining());
@@ -1392,7 +1361,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationBounceToHandWithIdJustAsSoonKissAWookieeStillSatisfies() {
+	public void FrustrationBouncedDeployStillSatisfiesObligation() {
 		// I'd Just As Soon Kiss A Wookiee 3_127: use 3 Force to return opponent's just deployed
 		// character to hand. LS deploys the targeted Rebel Trooper 1_28, DS bounces it, then at
 		// end of DS next turn the trooper is in HAND and is not lost (the deploy already satisfied).
@@ -1414,20 +1383,15 @@ public class Card_4_142_Tests {
 		scn.SkipToLSTurn(Phase.DEPLOY);
 		assertTrue(scn.LSDeployAvailable(trooper));
 		scn.LSDeployCard(trooper);
-		if (!(scn.LSDecisionAvailable("Choose where to deploy") || scn.LSDecisionAvailable("Choose location where to deploy")
-				|| scn.LSHasCardChoiceAvailable(walkway))) {
-			throw new RuntimeException("Expected deploy-site choice for Trooper: " + decisionSnapshot(scn));
-		}
+		assertTrue(scn.LSDecisionAvailable("Choose where to deploy") || scn.LSDecisionAvailable("Choose location where to deploy")
+				|| scn.LSHasCardChoiceAvailable(walkway));
 		scn.LSChooseCard(walkway);
 
 		// Pass Force-use optional responses; the just-deployed window is next.
 		if (!dsPlayAvailable(scn, kissWookiee)) {
 			scn.PassForceUseResponses();
 		}
-		if (!dsPlayAvailable(scn, kissWookiee)) {
-			throw new RuntimeException("I'd Just As Soon Kiss A Wookiee not offered after Trooper deploy: "
-					+ decisionSnapshot(scn));
-		}
+		assertTrue(dsPlayAvailable(scn, kissWookiee));
 		scn.DSPlayCard(kissWookiee);
 		scn.PassAllResponses();
 
@@ -1439,7 +1403,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationUndercoverTk422DeploySatisfies() {
+	public void FrustrationUndercoverDeploySatisfiesObligation() {
 		// TK-422 7_48 deploys only as an Undercover spy at same site as an Imperial.
 		// Printed 3, so Mos Eisley 1_133 is on table (4 LS icons). Stormtrooper 1_194 is
 		// cheated to Mos Eisley. A second TK-422 stays in hand; if justDeployed fired for
@@ -1460,16 +1424,12 @@ public class Card_4_142_Tests {
 		scn.LSActivateForceCheat(5);
 
 		PeekFrustrationAtHand(scn);
-		if (!scn.DSHasCardChoiceAvailable(tk422) && !scn.DSHasCardChoiceAvailable(tk422b)) {
-			throw new RuntimeException("Expected TK-422 as Frustration target: " + decisionSnapshot(scn));
-		}
+		assertTrue(scn.DSHasCardChoiceAvailable(tk422) || scn.DSHasCardChoiceAvailable(tk422b));
 		scn.DSChooseCard(tk422);
 		scn.PassAllResponses();
 
 		scn.SkipToLSTurn(Phase.DEPLOY);
-		if (!scn.LSDeployAvailable(tk422)) {
-			throw new RuntimeException("TK-422 deploy not available: " + decisionSnapshot(scn));
-		}
+		assertTrue(scn.LSDeployAvailable(tk422));
 		scn.LSDeployCard(tk422);
 		if (scn.LSHasCardChoiceAvailable(mosEisley)) {
 			scn.LSChooseCard(mosEisley);
@@ -1478,7 +1438,7 @@ public class Card_4_142_Tests {
 			scn.LSChooseCard(mosEisley);
 		}
 		else {
-			throw new RuntimeException("Expected Mos Eisley as TK-422 deploy site: " + decisionSnapshot(scn));
+			fail("Expected Mos Eisley as TK-422 deploy site");
 		}
 		scn.PassAllResponses();
 
@@ -1489,7 +1449,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationDsDeployingSameTitleDoesNotSatisfyLsObligation() {
+	public void FrustrationOpponentDeployingSameTitleDoesNotSatisfy() {
 		// Light Disruptor Pistol 7_157 in LS hand, Dark Disruptor Pistol 7_319 deployed by DS
 		// onto Stormtrooper 1_194. Same title "Disruptor Pistol". DS deploying that title does
 		// not satisfy LS's obligation. Mos Eisley so the pistol's cost is < LS icons.
@@ -1509,16 +1469,12 @@ public class Card_4_142_Tests {
 		scn.DSActivateForceCheat(3);
 
 		PeekFrustrationAtHand(scn);
-		if (!scn.DSHasCardChoiceAvailable(lsPistol)) {
-			throw new RuntimeException("Expected LS Disruptor Pistol as Frustration target: " + decisionSnapshot(scn));
-		}
+		assertTrue(scn.DSHasCardChoiceAvailable(lsPistol));
 		scn.DSChooseCard(lsPistol);
 		scn.PassAllResponses();
 
 		scn.SkipToPhase(Phase.DEPLOY);
-		if (!scn.DSDeployAvailable(dsPistol)) {
-			throw new RuntimeException("DS Disruptor Pistol deploy not available: " + decisionSnapshot(scn));
-		}
+		assertTrue(scn.DSDeployAvailable(dsPistol));
 		scn.DSDeployCard(dsPistol);
 		if (scn.DSHasCardChoiceAvailable(stormtrooper)) {
 			scn.DSChooseCard(stormtrooper);
@@ -1527,7 +1483,7 @@ public class Card_4_142_Tests {
 			scn.DSChooseCard(stormtrooper);
 		}
 		else {
-			throw new RuntimeException("Expected Stormtrooper as DS pistol deploy target: " + decisionSnapshot(scn));
+			fail("Expected Stormtrooper as DS pistol deploy target");
 		}
 		scn.PassAllResponses();
 
@@ -1537,7 +1493,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationCannotTargetAdmiralsOrderOrDefensiveShieldThatDeployFree() {
+	public void FrustrationCannotTargetAlwaysFreeCardTypes() {
 		// I'll Take The Leader 9_4 is an AbstractAdmiralsOrder. Reflections III Defensive Shield
 		// Your Insight Serves You Well 13_49 is an AbstractDefensiveShield. Both always play for free.
 		// Free is not a deploy cost, same pattern as JP Leia. Rebel Trooper remains a legal target.
@@ -1559,7 +1515,7 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
-	public void FrustrationDoesNotCountDagobahCaveLightIconsCanceledByPresenceAfterRevolution() {
+	public void FrustrationCostRequirementAccountsForCanceledIcons() {
 		// Dagobah: Cave 4_158 is a Dark site with 2 printed Dark Force icons. Dark game text:
 		// "If opponent has presence here, your Force Icons here are canceled."
 		// Revolution 1_62 rotates the location so icons and game texts switch direction: those
@@ -1589,9 +1545,7 @@ public class Card_4_142_Tests {
 		scn.PassAllResponses();
 
 		PeekFrustrationAtHand(scn);
-		if (!scn.DSHasCardChoiceAvailable(pilot)) {
-			throw new RuntimeException("Expected Rebel Pilot as Frustration target after Revolution on Dagobah Cave (rotation may not have applied): " + decisionSnapshot(scn));
-		}
+		assertTrue(scn.DSHasCardChoiceAvailable(pilot));
 		assertTrue(scn.DSHasCardChoiceAvailable(pilot));
 		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
 		scn.DSChooseCard(trooper);
