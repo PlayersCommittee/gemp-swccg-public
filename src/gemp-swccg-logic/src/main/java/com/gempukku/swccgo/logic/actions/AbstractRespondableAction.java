@@ -3,6 +3,7 @@ package com.gempukku.swccgo.logic.actions;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.SeparatelyOrCombinedFiringState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.effects.RespondableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -193,7 +194,12 @@ public abstract class AbstractRespondableAction extends AbstractAction {
 
                 // Send message and show animation of targets now that action initiation is complete
                 if (_actionMessage != null) {
-                    gameState.sendMessage(_actionMessage);
+                    String actionMsg = _actionMessage;
+                    SeparatelyOrCombinedFiringState soc = gameState.getSeparatelyOrCombinedFiringState();
+                    if (soc != null && soc.getCurrentFiringNumber() > 0 && this instanceof AbstractFireWeaponAction) {
+                        actionMsg = soc.getFiringLabel() + ": " + actionMsg;
+                    }
+                    gameState.sendMessage(actionMsg);
                 }
 
                 // Assert that RespondableEffect is set (which is required if any cards were targeted and this is not a sub-action)
