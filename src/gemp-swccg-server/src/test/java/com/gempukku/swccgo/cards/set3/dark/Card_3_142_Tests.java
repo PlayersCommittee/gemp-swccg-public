@@ -31,8 +31,8 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for Yaggle Gakkle (3_142). Issue #97.
- * Ferocity bonus is card-local (AddUntilEndOfGameModifierEffect + FerocityModifier);
- * no shared attack-react / CalculateFerocity hook widening.
+ * Uses shared CalculateFerocityEffect (destinies + Disarming subtract + modifiers).
+ * Ferocity bonus is card-local cumulative FerocityModifier; no attack-react path.
  */
 public class Card_3_142_Tests {
 
@@ -59,6 +59,35 @@ public class Card_3_142_Tests {
                     put("wampaCave", "3_150");
                     put("skull", "7_264");
                     put("stopMotion", "3_135");
+                }},
+                10,
+                10,
+                StartingSetup.DefaultLSGroundLocation,
+                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
+
+
+    protected VirtualTableScenario GetEopieScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>() {{
+                    put("eopie", "11_48");
+                    put("eopie2", "11_48");
+                    put("luke", "1_19");
+                    put("saber", "3_71");
+                    put("disarming", "3_33");
+                    put("farm", "1_132");
+                }},
+                new HashMap<>() {{
+                    put("yaggle", "3_142");
+                    put("yaggle2", "3_142");
+                    put("bubo", "6_138");
+                    put("krayt", "7_211");
                 }},
                 10,
                 10,
@@ -578,7 +607,7 @@ public class Card_3_142_Tests {
 
     @Test
     public void YaggleGakkleDisarmingCreatureSubtractionCanPreventEat() {
-        // Shared DrawFerocityDestinyEffect: ferocity destinies then Disarming subtraction
+        // Shared CalculateFerocityEffect: ferocity destinies then Disarming subtraction
         // Wampa destiny 2 => 5; LS subtract 1 => 4; Tauntaun threshold 4 => equal fail
         var scn = GetScenario();
         var yaggle = scn.GetDSCard("yaggle");
@@ -646,7 +675,7 @@ public class Card_3_142_Tests {
         scn.PassAllResponses();
 
         assertEquals(Zone.TOP_OF_LOST_PILE, tauntaun.getZone());
-        // Card-local +2 ferocity stacks with Disarming still attached for later CalculateFerocity draws
+        // Cumulative +2 ferocity stacks with Disarming still attached on shared CalculateFerocity path
         assertEquals(5f, scn.game().getModifiersQuerying().getFerocity(scn.gameState(), wampa, 0f), scn.epsilon);
         assertEquals(1, scn.game().getModifiersQuerying()
                 .getModifiersAffectingCard(scn.gameState(), ModifierType.SUBTRACT_DESTINY_FROM_FEROCITY, wampa).size());
@@ -858,4 +887,135 @@ public class Card_3_142_Tests {
         assertTrue(yaggle.getZone() == Zone.TOP_OF_USED_PILE || yaggle.getZone() == Zone.USED_PILE);
         assertEquals(5f, scn.game().getModifiersQuerying().getFerocity(scn.gameState(), wampa, 0f), scn.epsilon);
     }
+
+    @Test
+    public void YaggleGakkleBuboTargetingEopieUsesSharedFerocityWithNoDestinyDraws() {
+        // VHD: Yaggle using Bubo targeting Eopie — no ferocity destiny draws
+        var scn = GetEopieScenario();
+        var yaggle = scn.GetDSCard("yaggle");
+        var bubo = scn.GetDSCard("bubo");
+        var eopie = scn.GetLSCard("eopie");
+        var farm = scn.GetLSCard("farm");
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(yaggle);
+        scn.MoveLocationToTable(farm);
+        scn.MoveCardsToLocation(farm, bubo, eopie);
+        goToDSControl(scn);
+
+        assertEquals(0, scn.game().getModifiersQuerying().getNumFerocityDestiny(scn.gameState(), bubo));
+        int dsReserveBefore = scn.GetDSReserveDeck().size();
+
+        // Bubo ferocity 4; Eopie man2+ls2=4 => equal fail (no eat); critical: no destiny draws
+        playYaggle(scn, yaggle, eopie, bubo);
+        scn.PassAllResponses();
+
+        assertEquals("No ferocity destiny cards drawn for fixed-ferocity Bubo", dsReserveBefore, scn.GetDSReserveDeck().size());
+        assertEquals(Zone.AT_LOCATION, eopie.getZone());
+        assertEquals(4f, scn.game().getModifiersQuerying().getFerocity(scn.gameState(), bubo, null), scn.epsilon);
+    }
+
+    @Test
+    public void YaggleGakkleKraytDragonTargetingEopieDrawsTwoFerocityDestinies() {
+        // VHD: Yaggle using Krayt Dragon targeting Eopie — 2 ferocity destiny draws
+        var scn = GetEopieScenario();
+        var yaggle = scn.GetDSCard("yaggle");
+        var krayt = scn.GetDSCard("krayt");
+        var eopie = scn.GetLSCard("eopie");
+        var farm = scn.GetLSCard("farm");
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(yaggle);
+        scn.MoveLocationToTable(farm);
+        scn.MoveCardsToLocation(farm, krayt, eopie);
+        goToDSControl(scn);
+
+        assertEquals(2, scn.game().getModifiersQuerying().getNumFerocityDestiny(scn.gameState(), krayt));
+        scn.PrepareDSDestiny(1);
+        scn.PrepareDSDestiny(2);
+        int dsReserveBefore = scn.GetDSReserveDeck().size();
+
+        playYaggle(scn, yaggle, eopie, krayt);
+        scn.PassDestinyDrawResponses();
+        scn.PassAllResponses();
+
+        assertEquals("Krayt draws two ferocity destinies on shared CalculateFerocity path", dsReserveBefore - 2, scn.GetDSReserveDeck().size());
+        // 6 + 1 + 2 = 9 > Eopie threshold 4
+        assertEquals(Zone.TOP_OF_LOST_PILE, eopie.getZone());
+        // After eat: base 6 + cumulative +2 (destiny total not retained on query with 0f)
+        assertEquals(8f, scn.game().getModifiersQuerying().getFerocity(scn.gameState(), krayt, 0f), scn.epsilon);
+    }
+
+    @Test
+    public void YaggleGakkleKraytWithDisarmingAndCumulativePriorYaggleUsesSharedPath() {
+        // VHD: Krayt + Disarming vs Eopie ? 2 positive ferocity destinies, 1 negative (Disarming),
+        // plus cumulative modifiers from previous Yaggle plays
+        var scn = GetEopieScenario();
+        var yaggle = scn.GetDSCard("yaggle");
+        var yaggle2 = scn.GetDSCard("yaggle2");
+        var krayt = scn.GetDSCard("krayt");
+        var eopie = scn.GetLSCard("eopie");
+        var eopie2 = scn.GetLSCard("eopie2");
+        var farm = scn.GetLSCard("farm");
+        var disarming = scn.GetLSCard("disarming");
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(yaggle, yaggle2);
+        scn.MoveLocationToTable(farm);
+        scn.MoveCardsToLocation(farm, krayt, eopie, eopie2);
+        // Cheat-attach Disarming (same fallback as playDisarmingOnto) to avoid SkipTo* auto-attack traps
+        scn.AttachCardsTo(krayt, disarming);
+        assertSame(krayt, disarming.getAttachedTo());
+        assertEquals(1, scn.game().getModifiersQuerying()
+                .getModifiersAffectingCard(scn.gameState(), ModifierType.SUBTRACT_DESTINY_FROM_FEROCITY, krayt).size());
+
+        goToDSControl(scn);
+
+        // First Yaggle: 2 ferocity destinies + 1 Disarming subtract; establishes cumulative +2
+        scn.PrepareDSDestiny(2);
+        scn.PrepareDSDestiny(2);
+        scn.PrepareLSDestiny(1);
+        playYaggle(scn, yaggle, eopie, krayt);
+        scn.PassDestinyDrawResponses();
+        scn.PassDestinyDrawResponses();
+        if (scn.LSDecisionAvailable("EATEN") || scn.DSDecisionAvailable("EATEN")) {
+            scn.PassResponses("EATEN");
+        }
+        for (int i = 0; i < 30 && !scn.AwaitingDSControlPhaseActions(); i++) {
+            if (scn.LSGetDecision() != null) {
+                scn.LSPass();
+            } else if (scn.DSGetDecision() != null && !scn.AwaitingDSControlPhaseActions()) {
+                String text = scn.DSGetDecision().getText() != null ? scn.DSGetDecision().getText() : "";
+                if (text.toLowerCase().contains("control") && text.toLowerCase().contains("action")) {
+                    break;
+                }
+                scn.DSPass();
+            } else {
+                break;
+            }
+        }
+        assertEquals(Zone.TOP_OF_LOST_PILE, eopie.getZone());
+        assertEquals(8f, scn.game().getModifiersQuerying().getFerocity(scn.gameState(), krayt, 0f), scn.epsilon);
+
+        // Second Yaggle: again 2 positive + 1 negative; prior cumulative +2 still present
+        assertTrue(scn.AwaitingDSControlPhaseActions());
+        scn.PrepareDSDestiny(3);
+        scn.PrepareDSDestiny(2);
+        scn.PrepareLSDestiny(1);
+        int dsReserveBefore = scn.GetDSReserveDeck().size();
+        int lsReserveBefore = scn.GetLSReserveDeck().size();
+
+        playYaggle(scn, yaggle2, eopie2, krayt);
+        scn.PassDestinyDrawResponses();
+        scn.PassDestinyDrawResponses();
+        scn.PassAllResponses();
+
+        assertEquals("Two positive ferocity destiny draws", dsReserveBefore - 2, scn.GetDSReserveDeck().size());
+        assertEquals("One negative Disarming destiny draw", lsReserveBefore - 1, scn.GetLSReserveDeck().size());
+        assertEquals(Zone.TOP_OF_LOST_PILE, eopie2.getZone());
+        assertEquals(10f, scn.game().getModifiersQuerying().getFerocity(scn.gameState(), krayt, 0f), scn.epsilon);
+        assertFalse(scn.game().getModifiersQuerying()
+                .getModifiersAffectingCard(scn.gameState(), ModifierType.FEROCITY, krayt).isEmpty());
+    }
+
 }

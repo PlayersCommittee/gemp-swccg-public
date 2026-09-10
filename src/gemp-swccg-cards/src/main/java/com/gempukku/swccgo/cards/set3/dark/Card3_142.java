@@ -17,7 +17,7 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
-import com.gempukku.swccgo.logic.effects.DrawFerocityDestinyEffect;
+import com.gempukku.swccgo.logic.effects.CalculateFerocityEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
@@ -77,21 +77,19 @@ public class Card3_142 extends AbstractUsedInterrupt {
                                                             final PhysicalCard finalVehicle = action.getPrimaryTargetCard(vehicleTargetGroupId);
                                                             final PhysicalCard finalCreature = action.getPrimaryTargetCard(creatureTargetGroupId);
 
-                                                            // Perform result(s)
+                                                            // Shared get-ferocity path (destinies + Disarming subtract + modifiers)
                                                             action.appendEffect(
-                                                                    new DrawFerocityDestinyEffect(action, finalCreature) {
+                                                                    new CalculateFerocityEffect(action, finalCreature) {
                                                                         @Override
-                                                                        protected void totalFerocityDestinyCalculated(Float totalFerocityDestiny) {
+                                                                        protected void ferocityCalculationFailed() {
+                                                                            game.getGameState().sendMessage("Result: Failed due to failed ferocity destiny draw");
+                                                                        }
+
+                                                                        @Override
+                                                                        protected void ferocityCalculated(float ferocity, Float ferocityDestinyTotal) {
                                                                             GameState gameState = game.getGameState();
                                                                             ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
-                                                                            if (totalFerocityDestiny == null
-                                                                                    && modifiersQuerying.getNumFerocityDestiny(gameState, finalCreature) > 0) {
-                                                                                gameState.sendMessage("Result: Failed due to failed ferocity destiny draw");
-                                                                                return;
-                                                                            }
-
-                                                                            float ferocity = modifiersQuerying.getFerocity(gameState, finalCreature, totalFerocityDestiny);
                                                                             float maneuver = modifiersQuerying.getManeuver(gameState, finalVehicle);
                                                                             float landspeed = modifiersQuerying.getLandspeed(gameState, finalVehicle);
                                                                             float threshold = maneuver + landspeed;

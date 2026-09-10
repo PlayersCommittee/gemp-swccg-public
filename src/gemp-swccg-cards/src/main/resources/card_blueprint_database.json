@@ -92426,6 +92426,36 @@
     ]
   },
   {
+    "cardId": "3_33",
+    "title": "Disarming Creature",
+    "slug": "disarming-creature",
+    "slugWithSetName": "disarming-creature-hoth",
+    "side": "LIGHT",
+    "uniqueness": "UNRESTRICTED",
+    "expansionSet": "HOTH",
+    "rarity": "R1",
+    "cardCategory": "EFFECT",
+    "cardTypes": [
+      "EFFECT"
+    ],
+    "cardSubtype": "IMMEDIATE",
+    "lore": "Luke's defensive maneuver put him out of arm's way.",
+    "gameText": "If you have a character with a weapon at same site as any creature (except Space Slug), deploy on that creature during any deploy phase, Creature is Disarmed (each time ferocity is calculated, draw destiny, subtract that amount). (Immune to Control.)",
+    "destiny": 6,
+    "icons": [
+      {
+        "icon": "HOTH",
+        "count": 1
+      },
+      {
+        "icon": "EFFECT",
+        "count": 1
+      }
+    ],
+    "keywords": [
+      "DISARMING_CARD"
+    ]
+  },  {
     "cardId": "3_34",
     "title": "Echo Base Operations",
     "slug": "echo-base-operations",
