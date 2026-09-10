@@ -399,4 +399,26 @@ public interface Piloting extends BaseQuery, Icons, Locations, Prohibited {
         return false;
     }
 
+    /**
+     * Determines if the card may move and use power, maneuver, and hyperspeed while unpiloted
+     * due to an Astromech Translator (MayPilotWithAstromechModifier).
+     * @param gameState the game state
+     * @param card the card
+     * @return true if MayPilotWithAstromechModifier is applied, otherwise false
+     */
+    default boolean mayPilotWithAstromech(GameState gameState, PhysicalCard card) {
+        return !getModifiersAffectingCard(gameState, ModifierType.MAY_PILOT_WITH_ASTROMECH, card).isEmpty();
+    }
+
+    /**
+     * Determines if the card is piloted, or may act as if piloted for movement/stats via Astromech Translator.
+     * Does not change actual piloted status used for attrition immunity OR-branches.
+     * @param gameState the game state
+     * @param card the card
+     * @param forStarshipTakeoff true if checking if starship is piloted for takeoff, otherwise false
+     * @return true if piloted or MayPilotWithAstromechModifier is applied, otherwise false
+     */
+    default boolean isPilotedOrMayPilotWithAstromech(GameState gameState, PhysicalCard card, boolean forStarshipTakeoff) {
+        return isPiloted(gameState, card, forStarshipTakeoff) || mayPilotWithAstromech(gameState, card);
+    }
 }
