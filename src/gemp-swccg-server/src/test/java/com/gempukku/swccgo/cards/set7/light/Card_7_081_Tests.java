@@ -108,7 +108,7 @@ public class Card_7_081_Tests {
 	}
 
 	@Test
-	public void GrapplingHookHasOneGrabActionWithoutWiseAdvice() {
+	public void WiseAdviceAbsentLeavesOnlyPrintedImmediateEffectAction() {
 		var scn = GetScenario();
 		var grapplingHook = scn.GetLSCard("grapplingHook");
 
@@ -120,7 +120,7 @@ public class Card_7_081_Tests {
 	}
 
 	@Test
-	public void GrapplingHookHasFreeAndPrintedActionsWhenWiseAdviceIsOnTable() {
+	public void WiseAdviceOffersFreeAndPrintedImmediateEffectActions() {
 		// Issue 990 repro: Wise Advice in play, Grappling Hook in hand, enough Force
 		// for printed cost 1. Expect two actions (free first, then paid with Force cost).
 		var scn = GetScenario();
@@ -138,7 +138,7 @@ public class Card_7_081_Tests {
 	}
 
 	@Test
-	public void GrapplingHookPrintedActionWithWiseAdvicePaysOneForce() {
+	public void WiseAdvicePrintedImmediateEffectActionPaysPrintedForce() {
 		var scn = GetScenario();
 		var grapplingHook = scn.GetLSCard("grapplingHook");
 
@@ -157,7 +157,7 @@ public class Card_7_081_Tests {
 	}
 
 	@Test
-	public void GrapplingHookFreeActionWithWiseAdvicePaysZeroForce() {
+	public void WiseAdviceFreeImmediateEffectActionPaysZeroForce() {
 		var scn = GetScenario();
 		var grapplingHook = scn.GetLSCard("grapplingHook");
 
@@ -175,7 +175,7 @@ public class Card_7_081_Tests {
 	}
 
 	@Test
-	public void WhatreYouTryinToPushOnUsHasFreeAndPrintedActionsWhenWiseAdviceIsOnTable() {
+	public void WiseAdviceOffersFreeAndPrintedActionsOnOtherImmediateEffect() {
 		var scn = GetScenario();
 		var wyttpou = scn.GetLSCard("wyttpou");
 
@@ -191,7 +191,7 @@ public class Card_7_081_Tests {
 	}
 
 	@Test
-	public void WhatreYouTryinToPushOnUsPrintedActionWithWiseAdvicePaysThreeForce() {
+	public void WiseAdvicePrintedActionOnOtherImmediateEffectPaysPrintedForce() {
 		var scn = GetScenario();
 		var wyttpou = scn.GetLSCard("wyttpou");
 
