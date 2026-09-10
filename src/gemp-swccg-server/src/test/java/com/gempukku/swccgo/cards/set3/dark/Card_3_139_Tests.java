@@ -28,10 +28,13 @@ public class Card_3_139_Tests {
                     put("toolkit", "4_010");
                     put("crash", "1_045");
                     put("han", "1_011");
+                    put("chewie", "2_003");
+                    put("c3p0", "1_005");
                 }},
                 new HashMap<>() {{
                     put("tio", "3_139");
                     put("tio2", "3_139");
+                    put("eppVader", "108_006");
                 }},
                 10,
                 10,
@@ -175,5 +178,50 @@ public class Card_3_139_Tests {
         scn.DSChooseCard(crash);
         scn.PassAllResponses();
         assertEquals(Zone.TOP_OF_LOST_PILE, crash.getZone());
+    }
+
+    @Test
+    public void TurnItOffTurnItOffCancelsChewieHitDroidToUsedPile() {
+        var scn = GetScenario();
+
+        var tio = scn.GetDSCard("tio");
+        var eppVader = scn.GetDSCard("eppVader");
+        var chewie = scn.GetLSCard("chewie");
+        var c3p0 = scn.GetLSCard("c3p0");
+        var site = scn.GetLSStartingLocation();
+
+        scn.StartGame();
+
+        scn.MoveCardsToDSHand(tio);
+        scn.MoveCardsToLocation(site, eppVader, chewie, c3p0);
+
+        scn.SkipToPhase(Phase.BATTLE);
+        scn.PrepareDSDestiny(6); // for hit
+        scn.PrepareDSDestiny(7);
+        scn.PrepareDSDestiny(5); // for destiny so dark wins
+
+        scn.DSInitiateBattle(site);
+        scn.PassAllResponses();
+
+        scn.DSUseCardAction(eppVader);
+        scn.DSChooseCard(c3p0);
+        scn.PassAllResponses();
+        assertTrue(c3p0.isHit());
+
+        scn.SkipToEndOfPowerSegment(true);
+        scn.PassAllResponses();
+        assertTrue(scn.AwaitingLSBattleDamagePayment());
+        scn.LSChooseCard(c3p0);
+
+        // Chewie targets C-3PO to go to Used instead of Lost - Turn It Off cancels that targeting
+        assertTrue(scn.DSCardPlayAvailable(tio));
+        scn.DSPlayCard(tio);
+        assertTrue(scn.DSHasCardChoiceAvailable(c3p0));
+        scn.DSChooseCard(c3p0);
+        scn.PassAllResponses();
+
+        // With Used placement canceled, the hit droid is forfeited to Lost Pile
+        scn.PassAllResponses();
+        assertEquals(Zone.TOP_OF_LOST_PILE, c3p0.getZone());
     }
 }

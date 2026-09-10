@@ -2,21 +2,31 @@ package com.gempukku.swccgo.cards.set3.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.CancelTargetingEffect;
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.CancelCardActionBuilder;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
+import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
+import com.gempukku.swccgo.logic.timing.TargetingActionUtils;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,6 +47,41 @@ public class Card3_139 extends AbstractUsedOrLostInterrupt {
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalBeforeActions(String playerId, SwccgGame game, Effect effect, PhysicalCard self) {
         List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
+        String opponent = game.getOpponent(playerId);
+
+        // Check condition(s) - USED: Cancel attempt to place hit starship/vehicle/droid in Used instead of Lost
+        Filter hitStarshipVehicleOrDroid = Filters.and(Filters.or(Filters.starship, Filters.vehicle, Filters.droid), Filters.hit, Filters.canBeTargetedBy(self));
+        List<TargetingReason> targetingReasons = Collections.singletonList(TargetingReason.TO_BE_USED_INSTEAD_OF_LOST);
+        if (TriggerConditions.isTargetedForReason(game, effect, opponent, hitStarshipVehicleOrDroid, targetingReasons)) {
+            final RespondableEffect respondableEffect = (RespondableEffect) effect;
+            final List<PhysicalCard> cardsTargeted = TargetingActionUtils.getCardsTargetedForReason(game, respondableEffect.getTargetingAction(), targetingReasons, hitStarshipVehicleOrDroid);
+            if (!cardsTargeted.isEmpty()) {
+
+                final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
+                action.setText("Cancel targeting");
+                // Choose target(s)
+                action.appendTargeting(
+                        new TargetCardOnTableEffect(action, playerId, "Choose hit starship, vehicle, or droid", Filters.in(cardsTargeted)) {
+                            @Override
+                            protected void cardTargeted(final int targetGroupId1, final PhysicalCard cardTargeted) {
+                                action.addAnimationGroup(cardTargeted);
+                                // Allow response(s)
+                                action.allowResponses("Cancel attempt to place " + GameUtils.getCardLink(cardTargeted) + " in Used Pile",
+                                        new RespondablePlayCardEffect(action) {
+                                            @Override
+                                            protected void performActionResults(Action targetingAction) {
+                                                // Perform result(s)
+                                                action.appendEffect(
+                                                        new CancelTargetingEffect(action, respondableEffect));
+                                            }
+                                        }
+                                );
+                            }
+                        }
+                );
+                actions.add(action);
+            }
+        }
 
         // Check condition(s) - USED: Cancel Han's Toolkit being played
         if (TriggerConditions.isPlayingCard(game, effect, Filters.Hans_Toolkit)
@@ -56,10 +101,6 @@ public class Card3_139 extends AbstractUsedOrLostInterrupt {
             CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
             actions.add(action);
         }
-        // TODO(Chief/shared engine): USED cancel of attempt to place hit starship/vehicle/droid
-        // in Used Pile instead of Lost Pile needs Chewbacca/WED Techie to emit cancelable targeting
-        // (TargetingReason.TO_BE_USED_INSTEAD_OF_LOST) or PlaceInCardPileInsteadOfLostEffect.
-        // See GitHub #96 / #997 and Gergall Doc plan. Do not implement broad engine here without Chief.
         return actions;
     }
 
