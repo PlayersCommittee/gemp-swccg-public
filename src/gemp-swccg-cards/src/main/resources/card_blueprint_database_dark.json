@@ -44199,6 +44199,34 @@
     ]
   },
   {
+    "cardId": "3_142",
+    "title": "Yaggle Gakkle",
+    "slug": "yaggle-gakkle",
+    "slugWithSetName": "yaggle-gakkle-hoth",
+    "side": "DARK",
+    "uniqueness": "UNRESTRICTED",
+    "expansionSet": "HOTH",
+    "rarity": "R2",
+    "cardCategory": "INTERRUPT",
+    "cardTypes": [
+      "INTERRUPT"
+    ],
+    "cardSubtype": "USED",
+    "lore": "Steady. Hey! Steady girl. Hey, what's the matter? You smell something?",
+    "gameText": "Target a creature vehicle at same site as a creature. If ferocity > target's maneuver + landspeed, creature vehicle is eaten, cumulatively adding 2 to creature's ferocity.",
+    "destiny": 6,
+    "icons": [
+      {
+        "icon": "HOTH",
+        "count": 1
+      },
+      {
+        "icon": "INTERRUPT",
+        "count": 1
+      }
+    ]
+  },
+  {
     "cardId": "3_143",
     "title": "Hoth",
     "slug": "hoth",
