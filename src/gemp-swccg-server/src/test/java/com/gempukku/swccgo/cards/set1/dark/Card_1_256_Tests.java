@@ -223,12 +223,14 @@ public class Card_1_256_Tests {
         scn.BlueprintIconCheck(card, new ArrayList<>() {{
             add(Icon.INTERRUPT);
         }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+        }});
         assertEquals(ExpansionSet.PREMIERE, card.getExpansionSet());
         assertEquals(Rarity.R1, card.getRarity());
     }
 
     @Test
-    public void StartOfBattlePhaseOffersLocalTroubleAndDecliningPreventsLaterPlay() {
+    public void LocalTroubleOfferedAtStartOfBattlePhaseAndDeclinePreventsLaterPlay() {
         var scn = GetScenario();
         var localTrouble = scn.GetDSCard("localTrouble");
         var cantina = scn.GetDSCard("cantina");
@@ -263,7 +265,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void HappyPathInitiatesLocalTroubleBattleWithOnlyChosenParticipants() {
+    public void LocalTroubleInitiatesBattleWithOnlyChosenParticipants() {
         var scn = GetScenario();
         var localTrouble = scn.GetDSCard("localTrouble");
         var cantina = scn.GetDSCard("cantina");
@@ -308,7 +310,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void DecliningOptionalBattleDestinyAddsNoExtraDestiny() {
+    public void LocalTroubleDecliningOptionalBattleDestinyAddsNoExtra() {
         var scn = GetScenario();
         var cantina = scn.GetDSCard("cantina");
         var st1 = scn.GetDSCard("st1");
@@ -337,7 +339,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void ExtraCharactersAtCantinaDoNotParticipateAndAreNotFlagged() {
+    public void LocalTroubleExcludesNonChosenCharactersAtSameSite() {
         var scn = GetScenario();
         var cantina = scn.GetDSCard("cantina");
         var marketplace = scn.GetDSStartingLocation();
@@ -369,7 +371,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void SergeantWallenDeploysToCantinaButDoesNotParticipate() {
+    public void LocalTroubleLaterDeployDoesNotJoinBattle() {
         var scn = GetScenario();
         var cantina = scn.GetDSCard("cantina");
         var st1 = scn.GetDSCard("st1");
@@ -408,7 +410,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void RunLukeRunMovesLukeInButHeDoesNotParticipate() {
+    public void LocalTroubleMovedInCharacterDoesNotJoinBattle() {
         var scn = GetScenario();
         var cantina = scn.GetDSCard("cantina");
         var marketplace = scn.GetDSStartingLocation();
@@ -454,7 +456,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void CaptiveWithParticipatingStormtrooperCannotJoinViaCaptiveFury() {
+    public void LocalTroubleCaptiveCannotJoinViaCaptiveFury() {
         var scn = GetScenario();
         var cantina = scn.GetDSCard("cantina");
         var st1 = scn.GetDSCard("st1");
@@ -479,7 +481,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void StunningLeaderExcludingOnlyLSParticipantEndsTheBattle() {
+    public void LocalTroubleBattleEndsWhenOnlyLightParticipantExcluded() {
         var scn = GetScenario();
         var cantina = scn.GetDSCard("cantina");
         var st1 = scn.GetDSCard("st1");
@@ -522,7 +524,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void BystanderAtCantinaDoesNotKeepBattleAliveAfterLukeExcluded() {
+    public void LocalTroubleBystanderDoesNotKeepBattleAlive() {
         var scn = GetScenario();
         var cantina = scn.GetDSCard("cantina");
         var st1 = scn.GetDSCard("st1");
@@ -571,7 +573,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void CannotPlayWithOnlyOneStormtrooper() {
+    public void LocalTroubleCannotPlayWithOnlyOneStormtrooper() {
         var scn = GetScenario();
         var localTrouble = scn.GetDSCard("localTrouble");
         var cantina = scn.GetDSCard("cantina");
@@ -587,7 +589,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void CannotPlayTargetingADroidWithoutPresence() {
+    public void LocalTroubleCannotTargetDroidWithoutPresence() {
         var scn = GetScenario();
         var localTrouble = scn.GetDSCard("localTrouble");
         var cantina = scn.GetDSCard("cantina");
@@ -604,7 +606,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void AfterPlayCannotInitiateNormalBattleAtCantina() {
+    public void LocalTroublePreventsNormalBattleAtSameSiteAfterPlay() {
         var scn = GetScenario();
         var cantina = scn.GetDSCard("cantina");
         var st1 = scn.GetDSCard("st1");
@@ -627,7 +629,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void DavinFelthOnTatooineMakesLocalTroubleAUsedInterrupt() {
+    public void LocalTroubleBecomesUsedWithDavinFelthOnTatooine() {
         var scn = GetScenario();
         var localTrouble = scn.GetDSCard("localTrouble");
         var cantina = scn.GetDSCard("cantina");
@@ -663,7 +665,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void DerlinAtCantinaCanCancelLocalTrouble() {
+    public void LocalTroubleCanBeCanceled() {
         var scn = GetScenario();
         var localTrouble = scn.GetDSCard("localTrouble");
         var cantina = scn.GetDSCard("cantina");
@@ -714,7 +716,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void AvarikInLocalTroubleBattleAddsDestinyToPower() {
+    public void LocalTroubleBattleAllowsAvarikDestinyToPower() {
         var scn = GetScenario();
         var cantina = scn.GetDSCard("cantina");
         var st1 = scn.GetDSCard("st1");
@@ -744,7 +746,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void ArtooAndThreepioMakesADroidALegalLocalTroubleTarget() {
+    public void LocalTroubleCanTargetDroidWhenComboProvidesPresence() {
         var scn = GetScenario(new HashMap<>() {{ put("cz3", "1_006"); put("artooThreepio", "10_002"); }}, new HashMap<>());
         var cantina = scn.GetDSCard("cantina");
         var marketplace = scn.GetDSStartingLocation();
@@ -767,7 +769,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void ArtooAndThreepioAtCantinaMakesMiningDroidBattleEndWhenTheyGoInactive() {
+    public void LocalTroubleBattleEndsWhenComboPresenceBecomesInactive() {
         var scn = GetScenario(new HashMap<>() {{ put("miningDroid", "1_018"); put("artooThreepio", "10_002"); }}, new HashMap<>());
         var cantina = scn.GetDSCard("cantina");
         var st1 = scn.GetDSCard("st1");
@@ -806,7 +808,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void K3POIsALegalLocalTroubleTarget() {
+    public void LocalTroubleCanTargetK3PO() {
         var scn = GetScenario(new HashMap<>() {{ put("k3po", "3_012"); }}, new HashMap<>());
         var cantina = scn.GetDSCard("cantina");
         var st1 = scn.GetDSCard("st1");
@@ -825,7 +827,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void K3POOnTableDoesNotMakeC3POALegalLocalTroubleTarget() {
+    public void LocalTroubleK3POOnTableDoesNotLegalizeOtherDroids() {
         var scn = GetScenario(new HashMap<>() {{ put("k3po", "3_012"); }}, new HashMap<>());
         var cantina = scn.GetDSCard("cantina");
         var marketplace = scn.GetDSStartingLocation();
@@ -847,7 +849,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void K3POAtCantinaDoesNotMakeC3POALegalLocalTroubleTarget() {
+    public void LocalTroubleK3POAtSiteDoesNotLegalizeOtherDroids() {
         var scn = GetScenario(new HashMap<>() {{ put("k3po", "3_012"); }}, new HashMap<>());
         var cantina = scn.GetDSCard("cantina");
         var st1 = scn.GetDSCard("st1");
@@ -868,7 +870,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void StolenBattleDroidWithPresenceIsALegalLocalTroubleTarget() {
+    public void LocalTroubleCanTargetStolenBattleDroidWithPresence() {
         var scn = GetScenario(new HashMap<>(), new HashMap<>() {{ put("battleDroid", "14_080"); }});
         var cantina = scn.GetDSCard("cantina");
         var st1 = scn.GetDSCard("st1");
@@ -890,7 +892,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void CalderaPreventsLocalTroubleWhenDSAbilityIsNotLessThan8() {
+    public void LocalTroublePreventedWhenAbilityRequirementNotMet() {
         var scn = GetScenario(new HashMap<>() {{ put("caldera", "11_001"); }}, new HashMap<>() {{ put("vader", "1_168"); }});
         var cantina = scn.GetDSCard("cantina");
         var st1 = scn.GetDSCard("st1");
@@ -910,7 +912,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void FeltipernAddsInitiateBattleCostToLocalTrouble() {
+    public void LocalTroublePaysInitiateBattleCostModifiers() {
         var scn = GetScenario(new HashMap<>(), new HashMap<>() {{ put("feltipern", "1_176"); }});
         var cantina = scn.GetDSCard("cantina");
         var st1 = scn.GetDSCard("st1");
@@ -936,7 +938,7 @@ public class Card_1_256_Tests {
     }
 
     @Test
-    public void IHaveABadFeelingAboutThisCanRetargetLocalTrouble() {
+    public void LocalTroubleCanBeRetargeted() {
         var scn = GetScenario(new HashMap<>() {{ put("badFeeling", "4_052"); }},
                 new HashMap<>() {{ put("st3", "1_194"); put("st4", "1_194"); }});
         var cantina = scn.GetDSCard("cantina");
