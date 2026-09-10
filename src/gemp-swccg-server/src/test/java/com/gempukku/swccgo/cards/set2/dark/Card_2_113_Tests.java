@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -91,8 +92,13 @@ public class Card_2_113_Tests {
         }});
         assertEquals(ExpansionSet.A_NEW_HOPE, card.getExpansionSet());
         assertEquals(Rarity.U2, card.getRarity());
-        assertTrue(card.hasIcon(Icon.A_NEW_HOPE));
-        assertTrue(card.hasIcon(Icon.DEVICE));
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.A_NEW_HOPE);
+            add(Icon.DEVICE);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+            add(Keyword.DEPLOYS_ON_SITE);
+        }});
         assertTrue(card.getGameText().contains("interior mobile sites"));
         assertTrue(card.getGameText().contains("defense value = 3"));
     }
@@ -158,17 +164,10 @@ public class Card_2_113_Tests {
                 scn.DSMoveAvailable(stormie));
         assertTrue(scn.CardsAtLocation(corridor, stormie));
 
-        if (scn.DSMoveAvailable(speeder)) {
-            try {
-                scn.DSMoveCard(speeder, warRoom);
-                scn.PassAllResponses();
-                assertFalse("Non-Lift-Tube vehicle should not end at far side of Laser Gate",
-                        scn.CardsAtLocation(warRoom, speeder));
-            } catch (RuntimeException expected) {
-                // Destination through gate not offered — acceptable.
-            }
-        }
-        assertTrue(scn.CardsAtLocation(corridor, speeder) || !scn.CardsAtLocation(warRoom, speeder));
+        assertFalse("Non-Lift-Tube vehicle cannot move past Laser Gate",
+                scn.DSMoveAvailable(speeder));
+        assertTrue(scn.CardsAtLocation(corridor, speeder));
+        assertFalse(scn.CardsAtLocation(warRoom, speeder));
     }
 
     @Test
@@ -317,7 +316,7 @@ public class Card_2_113_Tests {
     }
 
     @Test
-    public void LaserGate_2_113_CaptainBewilFilterIncludesLaserGate() {
+    public void LaserGate_2_113_MatchesLaserGateFilter() {
         var scn = GetScenario();
         var gate = scn.GetDSCard("laserGate");
         assertTrue(Filters.Laser_Gate.accepts(scn.game(), gate));
