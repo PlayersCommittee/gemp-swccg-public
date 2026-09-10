@@ -50403,6 +50403,34 @@
     ]
   },
   {
+    "cardId": "5_158",
+    "title": "TIE Sentry Ships",
+    "slug": "tie-sentry-ships",
+    "slugWithSetName": "tie-sentry-ships-cloud-city",
+    "side": "DARK",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "CLOUD_CITY",
+    "rarity": "C",
+    "cardCategory": "INTERRUPT",
+    "cardTypes": [
+      "INTERRUPT"
+    ],
+    "cardSubtype": "LOST",
+    "lore": "Several TIEs were assigned to patrol Cloud City prior to the Imperial occupation of Bespin. Their instructions were to herd any vessels attempting to escape toward the Executor.",
+    "gameText": "If opponent just initiated a Force drain at a system, cloud sector or asteroid sector, you may 'react' by deploying TIEs and pilots to that location (at normal use of the Force).",
+    "destiny": 5,
+    "icons": [
+      {
+        "icon": "CLOUD_CITY",
+        "count": 1
+      },
+      {
+        "icon": "INTERRUPT",
+        "count": 1
+      }
+    ]
+  },
+  {
     "cardId": "5_159",
     "title": "Trooper Assault",
     "slug": "trooper-assault",

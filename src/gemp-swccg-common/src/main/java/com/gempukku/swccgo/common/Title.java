@@ -1212,6 +1212,7 @@ public interface Title {
     String Tibanna_Gas_Miner = "Tibanna Gas Miner";
     String Tibrin = "Tibrin";
     String TIE_Assault_Squadron = "TIE Assault Squadron";
+    String TIE_Sentry_Ships = "TIE Sentry Ships";
     String TK421 = "TK-421";
     String TK422 = "TK-422";
     String Too_Cold_For_Speeders = "Too Cold For Speeders";

@@ -19488,6 +19488,7 @@ public class Filters {
     public static final Filter TIE_ln = Filters.modelType(ModelType.TIE_LN);
     public static final Filter TIE_rc = Filters.modelType(ModelType.TIE_RC);
     public static final Filter TIE_sa = Filters.modelType(ModelType.TIE_SA);
+    public static final Filter TIE_Sentry_Ships = Filters.title(Title.TIE_Sentry_Ships);
     public static final Filter TIE_sr = Filters.modelType(ModelType.TIE_SR);
     public static final Filter TIE_vn = Filters.modelType(ModelType.TIE_VN);
     public static final Filter Tigran = Filters.persona(Persona.TIGRAN);
