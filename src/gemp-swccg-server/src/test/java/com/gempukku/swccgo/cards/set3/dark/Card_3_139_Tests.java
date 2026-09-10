@@ -148,19 +148,22 @@ public class Card_3_139_Tests {
         scn.MoveCardsToDSHand(tio, tio2);
         scn.MoveCardsToLocation(site, han);
         scn.AttachCardsTo(han, toolkit);
+        scn.MoveCardsToLSSideOfTable(crash);
 
         scn.SkipToPhase(Phase.CONTROL);
+        assertTrue(scn.AwaitingDSControlPhaseActions());
 
+        // Both cancel actions available; choose Toolkit first (USED).
+        assertTrue(scn.DSCardPlayAvailable(tio));
         scn.DSPlayCard(tio);
+        scn.DSChooseAction("Cancel Han's Toolkit");
         scn.DSChooseCard(toolkit);
         scn.PassAllResponses();
         assertEquals(Zone.TOP_OF_LOST_PILE, toolkit.getZone());
 
-        scn.MoveCardsToLSSideOfTable(crash);
-
+        assertTrue(scn.AwaitingDSControlPhaseActions());
         assertTrue(scn.DSCardPlayAvailable(tio2));
         scn.DSPlayCard(tio2);
-        assertTrue(scn.DSHasCardChoiceAvailable(crash));
         scn.DSChooseCard(crash);
         scn.PassAllResponses();
         assertEquals(Zone.TOP_OF_LOST_PILE, crash.getZone());
