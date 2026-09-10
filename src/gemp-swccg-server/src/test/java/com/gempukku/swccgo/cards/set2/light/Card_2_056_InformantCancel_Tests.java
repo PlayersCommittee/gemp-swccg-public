@@ -123,7 +123,7 @@ public class Card_2_056_InformantCancel_Tests {
 	}
 
 	@Test
-	public void InformantCancelsSabotageBeingPlayed() {
+	public void SabotageCanBeCanceledByInformant() {
 		var scn = GetScenario();
 		var informant = scn.GetDSCard("informant");
 		var sabotage = scn.GetLSCard("sabotage");

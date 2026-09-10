@@ -162,13 +162,18 @@ public class Card_2_056_Tests {
 			add(CardType.INTERRUPT);
 		}});
 		assertEquals(CardSubtype.USED, card.getCardSubtype());
-		assertEquals(1, card.getIconCount(Icon.A_NEW_HOPE));
+		scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.INTERRUPT);
+            add(Icon.A_NEW_HOPE);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+        }});
 		assertEquals(ExpansionSet.A_NEW_HOPE, card.getExpansionSet());
 		assertEquals(Rarity.U1, card.getRarity());
 	}
 
 	@Test
-	public void PlayableInLsControlWithUndercoverSpyAtSiteOtherwiseNot() {
+	public void SabotagePlayableInControlWithUndercoverSpyAtSite() {
 		// Two of your undercover spies: code auto-picks via sameSiteAs / findFirstActive; no spy-choice prompt.
 		var scn = GetScenario();
 		var sabotage = scn.GetLSCard("sabotage");
@@ -201,7 +206,7 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
-	public void DestinyGreaterThanDeployCostLosesDarkBlasterDestinyLessOrEqualDoesNot() {
+	public void SabotageLosesWeaponWhenDestinyGreaterThanDeployCost() {
 		var scn = GetScenario();
 		var sabotage = scn.GetLSCard("sabotage");
 		var blaster = scn.GetDSCard("blaster");
@@ -236,7 +241,7 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
-	public void ThiefUndercoverSpyMayStealDarkWeaponInsteadOfLose() {
+	public void SabotageThiefMayStealDarkWeaponInsteadOfLose() {
 		var scn = GetScenario();
 		var sabotage = scn.GetLSCard("sabotage");
 		var spy = scn.GetLSCard("spy");
@@ -293,7 +298,7 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
-	public void LiftTubeIsALegalSabotageTarget() {
+	public void SabotageCanTargetLiftTube() {
 		// Lift Tube (1_308) is a vehicle with a printed deploy cost, so Sabotage may target it.
 		var scn = GetScenario();
 		var sabotage = scn.GetLSCard("sabotage");
@@ -318,7 +323,7 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
-	public void DarkJediLightsaberOnTableUsesBearerAbilityForX() {
+	public void SabotageUsesBearerAbilityForLightsaberDeployCost() {
 		// Dark Jedi Lightsaber (1_314) on-table cost is X = 7 - bearer's ability.
 		var scn = GetScenario();
 		var sabotage = scn.GetLSCard("sabotage");
@@ -353,7 +358,7 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
-	public void FreeOrNoCostWeaponIsNotATargetPondaOnWarriorUsesCostTwo() {
+	public void SabotageIgnoresFreeOptionAndUsesRemainingCost() {
 		// Free is not a cost. No numeric cost after modifiers is ineligible.
 		// Ponda Baba's Hold-out Blaster is unique: free on smuggler, 2 on warrior (lowest non-free, no prompt).
 		// Restraining Bolt has no Use X / printed number.
@@ -394,7 +399,7 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
-	public void OnTableDeployCostUsesGlobalAndNonGlobalModifiers() {
+	public void SabotageAccountsForDeployCostModifiersOnTable() {
 		// Murr Danod is implemented but only reduces LS weapons/devices, so not a Dark-primary modifier.
 		// Hoth: Mountains (104_4): DS combat vehicles deploy -1 here (Blizzard Scout 1 (3_156): 3 -> 2).
 		var scn = GetScenario();
@@ -424,7 +429,7 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
-	public void CannotStealWhenSwillaCoreyPreventsTheftLoseOnly() {
+	public void SabotageCannotStealWhenTheftPrevented() {
 		var scn = GetScenario();
 		var sabotage = scn.GetLSCard("sabotage");
 		var spy = scn.GetLSCard("spy");
@@ -465,7 +470,7 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
-	public void EmptyPermanentPilotAtAtMayBeStolen() {
+	public void SabotageMayStealEmptyPermanentPilotVehicle() {
 		// AR p.173: permanent pilots are not characters and do not block steal.
 		// Blizzard 2 has a permanent pilot and nobody else aboard.
 		var scn = GetScenario();
@@ -500,7 +505,7 @@ public class Card_2_056_Tests {
 
 
 	@Test
-	public void ThiefMayStealOrDestroyEmptyVehicle() {
+	public void SabotageThiefMayStealOrDestroyEmptyVehicle() {
 		// Empty vehicle: thief spy gets steal-or-destroy. Choose destroy here; steal is covered by the AT-AT test.
 		var scn = GetScenario();
 		var sabotage = scn.GetLSCard("sabotage");
@@ -530,7 +535,7 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
-	public void OccupiedSpeederBikeIsDestroyOnlyAndRiderJumpsOff() {
+	public void SabotageDestroysOccupiedSpeederAndRiderJumpsOff() {
 		// Occupied vehicle cannot be stolen (AR p.173). Speeder Bike riders may jump off when it is lost.
 		var scn = GetScenario();
 		var sabotage = scn.GetLSCard("sabotage");
@@ -580,9 +585,9 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
-	public void OccupiedAtAtIsDestroyOnlyAndOccupantIsLost() {
+	public void SabotageDestroysOccupiedAtAtAndOccupantIsLost() {
 		// Occupied Blizzard 2 (3_155) cannot be stolen. Occupants are lost with the vehicle (no jump-off).
-		// Contrast EmptyPermanentPilotAtAtMayBeStolen: same walker empty (permanent pilot only) may be stolen.
+		// Contrast SabotageMayStealEmptyPermanentPilotVehicle: same walker empty (permanent pilot only) may be stolen.
 		var scn = GetScenario();
 		var sabotage = scn.GetLSCard("sabotage");
 		var spy = scn.GetLSCard("spy");
@@ -636,7 +641,7 @@ public class Card_2_056_Tests {
 
 
 	@Test
-	public void LsMayTargetOwnLsWeaponDestroyButCannotStealEvenWithThief() {
+	public void SabotageMayDestroyOwnWeaponButCannotSteal() {
 		// Sabotage may target a LS weapon/device/vehicle at the spy's site, not only opponent's.
 		// Steal takes the opponent's card: own card may be lost, but steal must not be offered even if spy is a thief.
 		var scn = GetScenario();
@@ -675,7 +680,7 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
-	public void DisruptorPistolOnNonUniqueWarriorUsesLowestCostOne() {
+	public void SabotageUsesLowestAlternateCostOnNonUniqueBearer() {
 		// Disruptor Pistol (7_319): Use 2 on warrior, 1 on non-unique warrior.
 		// On-table cost uses the current holder (1 on Stormtrooper non-unique warrior, 2 on Vader). No choose-cost prompt.
 		// No AR / rules-post cite found that a multi-cost card uses only the current-holder cost.
@@ -709,7 +714,7 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
-	public void DarkSurpriseCanRetargetSabotageToAnotherDarkWeaponAtSite() {
+	public void SabotageCanBeRetargeted() {
 		// After LS chooses a Sabotage target, DS may play Surprise as an optional-before response and retarget
 		// to another appropriate Dark card on the same side of the Force (not a LS card).
 		var scn = GetScenario();
@@ -763,7 +768,7 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
-	public void MaulsDoubleBladedLightsaberHasNoNumericDeployCostAndIsNotATarget() {
+	public void SabotageCannotTargetWeaponWithNoNumericDeployCost() {
 		// Maul's Double-Bladed Lightsaber (13_75) on Darth Maul (11_54, Tatooine). Not Darth Maul With Lightsaber (14_77).
 		// Blank Deploy / no Use X means not a Sabotage target (same as Restraining Bolt 1_205); we do not treat blank Deploy as 0.
 		// May not be stolen is later (canStealInsteadOfLose) and is not why targeting fails.
