@@ -1,16 +1,15 @@
 package com.gempukku.swccgo.cards.set5.light;
 
-import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
-import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.gempukku.swccgo.framework.Assertions.assertAtLocation;
+import static com.gempukku.swccgo.framework.Assertions.assertInHand;
 import static com.gempukku.swccgo.framework.Assertions.assertInZone;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -63,7 +63,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void StatsAndKeywordsAreCorrect_5_67_RescueInTheClouds() {
+    public void RescueInTheCloudsStatsAndKeywordsAreCorrect() {
         /**
          * Title: Rescue In The Clouds
          * Uniqueness: Unique
@@ -71,7 +71,7 @@ public class Card_5_067_Tests {
          * Type: Interrupt
          * Subtype: Used Or Lost
          * Destiny: 5
-         * Icons: Cloud City
+         * Icons: Cloud City, Interrupt
          * Game Text: USED: If you have a character on Weather Vane, place that character on your Used Pile.
          *      LOST: Deploy one or more vehicles, starfighters and pilots (at normal use of the Force)
          *      as a 'react' to a cloud sector.
@@ -97,12 +97,13 @@ public class Card_5_067_Tests {
             add(Icon.CLOUD_CITY);
             add(Icon.INTERRUPT);
         }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<Keyword>());
         assertEquals(ExpansionSet.CLOUD_CITY, card.getExpansionSet());
         assertEquals(Rarity.C, card.getRarity());
     }
 
     @Test
-    public void UsedPlacesYourCharacterFromWeatherVaneInUsedPile_5_67_RescueInTheClouds() {
+    public void RescueInTheCloudsUsedPlacesYourCharacterFromWeatherVaneInUsedPile() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -131,7 +132,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void UsedNotPlayableIfOnlyOpponentsCharacterOnWeatherVane_5_67_RescueInTheClouds() {
+    public void RescueInTheCloudsUsedNotPlayableIfOnlyOpponentsCharacterOnWeatherVane() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -149,7 +150,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void UsedNotPlayableWithoutCharacterOnWeatherVane_5_67_RescueInTheClouds() {
+    public void RescueInTheCloudsUsedNotPlayableWithoutCharacterOnWeatherVane() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -165,7 +166,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void LostDeploysStarfighterAsReactToCloudSectorBattle_5_67_RescueInTheClouds() {
+    public void RescueInTheCloudsLostDeploysAsReactToCloudSectorBattle() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -173,7 +174,6 @@ public class Card_5_067_Tests {
         var cloudCar = scn.GetLSCard("cloud-car");
         var bespin = scn.GetLSCard("bespin");
         var clouds = scn.GetLSCard("clouds");
-
         var tie = scn.GetDSCard("tie");
 
         scn.StartGame();
@@ -200,7 +200,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void LostDeploysMediumBulkFreighterAsReactToCloudSectorBattle_5_67_RescueInTheClouds() {
+    public void RescueInTheCloudsLostDeploysCardsThatDeployLikeStarfighters() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -220,14 +220,9 @@ public class Card_5_067_Tests {
         scn.MoveCardsToLocation(clouds, tie, cloudCar);
         scn.MoveCardsToLSHand(rescue, freighter);
 
-        assertTrue(Filters.deploysLikeStarfighter.accepts(scn.game(), freighter));
-        assertTrue(GameConditions.hasInHand(scn.game(), VirtualTableScenario.LS, Filters.deploysLikeStarfighter));
-
         scn.SkipToDSTurn(Phase.BATTLE);
         int forceBefore = scn.GetLSForcePileCount();
         scn.DSInitiateBattle(clouds);
-        assertTrue("Expected Rescue after-action. LS decision: " + (scn.LSGetDecision() == null ? "none" : scn.LSGetDecision().getText()),
-                scn.LSAnyDecisionsAvailable());
         assertTrue(scn.LSCardPlayAvailable(rescue));
         scn.LSPlayCard(rescue);
         scn.PassAllResponses();
@@ -242,7 +237,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void LostOffersXwingAndMediumBulkFreighterButNotCorvetteAsReact_5_67_RescueInTheClouds() {
+    public void RescueInTheCloudsLostDoesNotOfferCapitalsThatDoNotDeployLikeStarfighters() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -275,12 +270,12 @@ public class Card_5_067_Tests {
         scn.PassAllResponses();
 
         assertAtLocation(clouds, freighter);
-        assertInZone(Zone.HAND, xwing);
-        assertInZone(Zone.HAND, corvette);
+        assertInHand(xwing);
+        assertInHand(corvette);
     }
 
     @Test
-    public void LostAdditionalReactChoiceCanBeStoppedWithDone_5_67_RescueInTheClouds() {
+    public void RescueInTheCloudsLostAdditionalReactCanBeStoppedWithDone() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -309,19 +304,18 @@ public class Card_5_067_Tests {
         scn.PassAllResponses();
 
         assertTrue(scn.LSAnyDecisionsAvailable());
-        assertTrue("Expected extra react Done prompt, LS decision: " + scn.LSGetDecision().getText(),
-                scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop"));
+        assertTrue(scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop"));
         assertTrue(scn.LSHasCardChoiceAvailable(freighter));
         scn.LSPass();
         scn.PassAllResponses();
 
         assertAtLocation(clouds, xwing);
-        assertInZone(Zone.HAND, freighter);
+        assertInHand(freighter);
         assertInZone(Zone.LOST_PILE, rescue);
     }
 
     @Test
-    public void LostDeploysSecondStarfighterWhenContinuingAfterFirstReact_5_67_RescueInTheClouds() {
+    public void RescueInTheCloudsLostDeploysAdditionalReact() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -349,9 +343,7 @@ public class Card_5_067_Tests {
         }
         scn.PassAllResponses();
 
-        assertTrue("Expected extra react choice after first X-wing. LS decision: "
-                        + (scn.LSGetDecision() == null ? "none" : scn.LSGetDecision().getText()),
-                scn.LSAnyDecisionsAvailable());
+        assertTrue(scn.LSAnyDecisionsAvailable());
         assertTrue(scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop"));
         assertTrue(scn.LSHasCardChoiceAvailable(xwing2));
         scn.LSChooseCard(xwing2);
@@ -369,7 +361,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void LostDeploysSecondCloudCarWhenContinuingAfterFirstReact_5_67_RescueInTheClouds() {
+    public void RescueInTheCloudsLostDeploysAdditionalVehicleReact() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -397,9 +389,7 @@ public class Card_5_067_Tests {
         }
         scn.PassAllResponses();
 
-        assertTrue("Expected extra react choice after first Cloud Car. LS decision: "
-                        + (scn.LSGetDecision() == null ? "none" : scn.LSGetDecision().getText()),
-                scn.LSAnyDecisionsAvailable());
+        assertTrue(scn.LSAnyDecisionsAvailable());
         assertTrue(scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop"));
         assertTrue(scn.LSHasCardChoiceAvailable(cloudCar2));
         scn.LSChooseCard(cloudCar2);
@@ -438,7 +428,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void LostComboThenAdditionalReactCanBeStoppedWithDone_5_67_RescueInTheClouds() {
+    public void RescueInTheCloudsLostAdditionalReactAfterSimultaneousDeployCanBeStoppedWithDone() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -464,9 +454,7 @@ public class Card_5_067_Tests {
         acceptSimultaneousPilotIfOffered(scn, luke);
         scn.PassAllResponses();
 
-        assertTrue("Expected extra react choice after ship/pilot combo. LS decision: "
-                        + (scn.LSGetDecision() == null ? "none" : scn.LSGetDecision().getText()),
-                scn.LSAnyDecisionsAvailable());
+        assertTrue(scn.LSAnyDecisionsAvailable());
         assertTrue(scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop"));
         assertTrue(scn.LSHasCardChoiceAvailable(cloudCar2));
         scn.LSPass();
@@ -474,12 +462,12 @@ public class Card_5_067_Tests {
 
         assertAtLocation(clouds, red1);
         assertTrue(scn.IsAboardAsPilot(red1, luke));
-        assertInZone(Zone.HAND, cloudCar2);
+        assertInHand(cloudCar2);
         assertInZone(Zone.LOST_PILE, rescue);
     }
 
     @Test
-    public void LostComboThenDeploysAnotherVehicleAsReact_5_67_RescueInTheClouds() {
+    public void RescueInTheCloudsLostDeploysAdditionalReactAfterSimultaneousDeploy() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -505,9 +493,7 @@ public class Card_5_067_Tests {
         acceptSimultaneousPilotIfOffered(scn, luke);
         scn.PassAllResponses();
 
-        assertTrue("Expected extra react choice after ship/pilot combo. LS decision: "
-                        + (scn.LSGetDecision() == null ? "none" : scn.LSGetDecision().getText()),
-                scn.LSAnyDecisionsAvailable());
+        assertTrue(scn.LSAnyDecisionsAvailable());
         assertTrue(scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop"));
         assertTrue(scn.LSHasCardChoiceAvailable(cloudCar2));
         scn.LSChooseCard(cloudCar2);
@@ -529,17 +515,12 @@ public class Card_5_067_Tests {
 
         assertAtLocation(clouds, red1);
         assertTrue(scn.IsAboardAsPilot(red1, luke));
-        assertEquals("Second react should deploy the Cloud Car. remaining decision="
-                        + (scn.LSGetDecision() == null ? "none" : scn.LSGetDecision().getText())
-                        + " force=" + scn.GetLSForcePileCount()
-                        + " car2=" + cloudCar2.getZone(),
-                Zone.AT_LOCATION, cloudCar2.getZone());
         assertAtLocation(clouds, cloudCar2);
         assertInZone(Zone.LOST_PILE, rescue);
     }
 
     @Test
-    public void LostExtraReactDoesNotOfferUnaffordablePatrolCraftOrPalaceRaider_5_67_RescueInTheClouds() {
+    public void RescueInTheCloudsLostDoesNotOfferExtraReactsThatCannotFullyDeploy() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -571,10 +552,8 @@ public class Card_5_067_Tests {
         scn.PassAllResponses();
 
         assertEquals(1, scn.GetLSForcePileCount());
-        assertFalse("Patrol Craft should not light up without a full driver combo",
-                scn.LSAnyDecisionsAvailable() && scn.LSHasCardChoiceAvailable(patrol));
-        assertFalse("Palace Raider should not light up without enough Force",
-                scn.LSAnyDecisionsAvailable() && scn.LSHasCardChoiceAvailable(raider));
+        assertFalse(scn.LSAnyDecisionsAvailable() && scn.LSHasCardChoiceAvailable(patrol));
+        assertFalse(scn.LSAnyDecisionsAvailable() && scn.LSHasCardChoiceAvailable(raider));
         if (scn.LSAnyDecisionsAvailable()
                 && scn.LSGetDecision().getText().toLowerCase().contains("click 'done' to stop")) {
             scn.LSPass();
@@ -582,13 +561,13 @@ public class Card_5_067_Tests {
         }
 
         assertAtLocation(clouds, xwing);
-        assertInZone(Zone.HAND, patrol);
-        assertInZone(Zone.HAND, raider);
+        assertInHand(patrol);
+        assertInHand(raider);
         assertInZone(Zone.LOST_PILE, rescue);
     }
 
     @Test
-    public void LostNotPlayableWhenOnlyCapitalThatDoesNotDeployLikeStarfighterIsInHand_5_67_RescueInTheClouds() {
+    public void RescueInTheCloudsLostNotPlayableWhenOnlyIllegalCapitalIsInHand() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -611,7 +590,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void LostPlayableAsReactToCloudSectorForceDrain_5_67_RescueInTheClouds() {
+    public void RescueInTheCloudsLostPlayableAsReactToCloudSectorForceDrain() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -643,7 +622,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void LostNotPlayableAsReactToAsteroidSectorBattle_5_67_RescueInTheClouds() {
+    public void RescueInTheCloudsLostNotPlayableAsReactToAsteroidSectorBattle() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
@@ -665,7 +644,7 @@ public class Card_5_067_Tests {
     }
 
     @Test
-    public void LostNotPlayableWhenBattleIsAtASite_5_67_RescueInTheClouds() {
+    public void RescueInTheCloudsLostNotPlayableWhenBattleIsAtASite() {
         var scn = GetScenario();
 
         var rescue = scn.GetLSCard("rescue");
