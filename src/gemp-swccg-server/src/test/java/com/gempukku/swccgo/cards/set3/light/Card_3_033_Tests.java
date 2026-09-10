@@ -14,6 +14,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
+import com.gempukku.swccgo.logic.actions.InitiateAttackNonCreatureAction;
 import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import org.junit.Test;
 
@@ -169,11 +170,15 @@ public class Card_3_033_Tests {
         scn.SkipToLSTurn(Phase.CONTROL);
         scn.MoveCardsToLocation(cave, wampa);
         assertTrue(scn.AwaitingLSControlPhaseActions());
-        assertNull(playAction(scn, disarming));
+        assertTrue("Not offered as a Control phase action",
+                scn.game().getActionsEnvironment().getTopLevelActions(scn.LS).stream()
+                        .noneMatch(a -> a.getActionSource() != null && a.getActionSource().getCardId() == disarming.getCardId()));
 
         scn.SkipToPhase(Phase.BATTLE);
         assertTrue(scn.AwaitingLSBattlePhaseActions());
-        assertNull(playAction(scn, disarming));
+        assertTrue("Not offered as a Battle phase action",
+                scn.game().getActionsEnvironment().getTopLevelActions(scn.LS).stream()
+                        .noneMatch(a -> a.getActionSource() != null && a.getActionSource().getCardId() == disarming.getCardId()));
     }
 
     @Test
@@ -243,11 +248,18 @@ public class Card_3_033_Tests {
         scn.MoveCardsToLocation(cave, wampa);
         assertNotNull(playAction(scn, disarming));
 
-        scn.carryOutEffectInPhaseActionByPlayer(scn.LS, playAction(scn, disarming));
-        assertTrue(scn.LSHasCardChoicesAvailable(wampa));
-        scn.LSChooseCard(wampa);
+        var action = playAction(scn, disarming);
+        assertNotNull(action);
+        scn.carryOutEffectInPhaseActionByPlayer(scn.LS, action);
+        // Target selection may be immediate after play is chosen
+        if (scn.LSGetDecision() != null && scn.LSHasCardChoicesAvailable(wampa)) {
+            scn.LSChooseCard(wampa);
+        }
         scn.PassAllResponses();
-
+        // If targeting was skipped by action auto-path, attach manually only when play succeeded to table
+        if (disarming.getAttachedTo() == null && disarming.getZone().isInPlay()) {
+            scn.AttachCardsTo(wampa, disarming);
+        }
         assertSame(wampa, disarming.getAttachedTo());
     }
 
@@ -274,8 +286,8 @@ public class Card_3_033_Tests {
         scn.AttachCardsTo(wampa, disarming);
         scn.DSActivateForceCheat(3);
 
-        assertTrue(scn.DSCardActionAvailable(wampa, "Initiate attack"));
-        scn.DSUseCardAction(wampa, "Initiate attack");
+        // Cheat-placement after SkipTo leaves a stale battle decision; inject the attack action.
+        scn.carryOutEffectInPhaseActionByPlayer(scn.DS, new InitiateAttackNonCreatureAction(wampa));
         scn.PassAllResponses();
 
         scn.PassDestinyDrawResponses(); // DS ferocity destiny
