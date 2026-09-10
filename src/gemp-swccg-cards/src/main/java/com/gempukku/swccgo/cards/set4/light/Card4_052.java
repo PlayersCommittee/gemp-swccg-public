@@ -12,6 +12,7 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
@@ -170,7 +171,13 @@ public class Card4_052 extends AbstractLostInterrupt {
                 actions.add(action);
             }
 
-            Filter effectFilter = Filters.and(Filters.Effect, Filters.except(Filters.immune_to_Alter), Filters.attachedTo(Filters.location),
+            Filter effectFilter = Filters.and(Filters.Effect, Filters.except(Filters.immune_to_Alter), Filters.attachedTo(Filters.location), Filters.not(new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        return physicalCard.getAttachedTo() != null
+                                && physicalCard.getTargetedCard(gameState, TargetId.EFFECT_TARGET_1) != null;
+                    }
+                }),
                     Filters.effectCanBeRelocatedTo(playerId, Filters.and(Filters.location, Filters.canBeTargetedBy(self))));
 
             if (GameConditions.canTarget(game, self, effectFilter)) {
@@ -190,7 +197,13 @@ public class Card4_052 extends AbstractLostInterrupt {
                                             protected void cardTargeted(final int targetGroupId2, PhysicalCard targetedLocation) {
                                                 action.addAnimationGroup(targetedLocation);
                                                 // Set target filters for re-targeting
-                                                action.updatePrimaryTargetFilter(targetGroupId1, Filters.and(Filters.Effect, Filters.except(Filters.immune_to_Alter), Filters.attachedTo(Filters.location),
+                                                action.updatePrimaryTargetFilter(targetGroupId1, Filters.and(Filters.Effect, Filters.except(Filters.immune_to_Alter), Filters.attachedTo(Filters.location), Filters.not(new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        return physicalCard.getAttachedTo() != null
+                                && physicalCard.getTargetedCard(gameState, TargetId.EFFECT_TARGET_1) != null;
+                    }
+                }),
                                                         Filters.effectCanBeRelocatedTo(playerId, Filters.and(Filters.inActionTargetGroup(action, targetGroupId2), Filters.canBeTargetedBy(self)))));
                                                 action.updatePrimaryTargetFilter(targetGroupId2, Filters.and(Filters.location, Filters.canRelocateEffectTo(playerId, Filters.inActionTargetGroup(action, targetGroupId1))));
                                                 // Pay cost(s)
