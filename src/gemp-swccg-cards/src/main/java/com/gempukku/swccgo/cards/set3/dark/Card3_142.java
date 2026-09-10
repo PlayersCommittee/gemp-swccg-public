@@ -49,7 +49,7 @@ public class Card3_142 extends AbstractUsedInterrupt {
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
         final TargetingReason targetingReason = TargetingReason.TO_BE_LOST;
         Filter vehicleFilter = Filters.and(Filters.creature_vehicle, Filters.hasManeuverDefined,
-                Filters.at(Filters.sameSiteAs(self, Filters.creature)));
+                Filters.at(Filters.wherePresent(self, Filters.creature)));
 
         // Check condition(s)
         if (GameConditions.canTarget(game, self, targetingReason, vehicleFilter)) {

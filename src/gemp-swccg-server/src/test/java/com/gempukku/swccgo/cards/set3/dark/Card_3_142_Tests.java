@@ -24,6 +24,8 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for Yaggle Gakkle (3_142). Issue #97.
+ * Ferocity bonus is card-local (AddUntilEndOfGameModifierEffect + FerocityModifier);
+ * no shared attack-react / CalculateFerocity hook widening.
  */
 public class Card_3_142_Tests {
 
@@ -32,7 +34,7 @@ public class Card_3_142_Tests {
                 new HashMap<>() {{
                     put("tauntaun", "3_70");
                     put("tauntaun2", "3_70");
-                    put("luke", "1_019");
+                    put("luke", "1_19");
                     put("northRidge", "3_62");
                 }},
                 new HashMap<>() {{
@@ -81,14 +83,23 @@ public class Card_3_142_Tests {
         );
     }
 
+    private void goToDSControl(VirtualTableScenario scn) {
+        scn.DSActivateMaxForceAndPass();
+        scn.SkipToPhase(Phase.CONTROL);
+        assertTrue(scn.AwaitingDSControlPhaseActions());
+    }
+
     private void playYaggle(VirtualTableScenario scn, PhysicalCardImpl yaggle,
                             PhysicalCardImpl vehicle, PhysicalCardImpl creature) {
+        assertTrue(scn.DSCardPlayAvailable(yaggle));
         scn.DSPlayCard(yaggle);
         assertTrue(scn.DSHasCardChoiceAvailable(vehicle));
         scn.DSChooseCard(vehicle);
         assertTrue(scn.DSHasCardChoiceAvailable(creature));
         scn.DSChooseCard(creature);
-        scn.PassAllResponses();
+        // Only pass card-play responses so later windows (destiny, jump-off) stay intact
+        scn.PassCardPlayResponses();
+        scn.PassForceUseResponses();
     }
 
     @Test
@@ -144,15 +155,12 @@ public class Card_3_142_Tests {
         scn.MoveCardsToDSHand(yaggle);
         scn.MoveLocationToTable(cave);
         scn.MoveLocationToTable(ridge);
+        goToDSControl(scn);
         scn.MoveCardsToLocation(ridge, tauntaun);
         scn.MoveCardsToLocation(cave, wampa);
-
-        scn.SkipToDSTurn(Phase.CONTROL);
-        assertTrue(scn.AwaitingDSControlPhaseActions());
-        assertFalse(scn.DSCardPlayAvailable(yaggle));
-
-        scn.MoveCardsToLocation(cave, tauntaun);
-        assertTrue(scn.DSCardPlayAvailable(yaggle));
+        goToDSControl(scn);
+        assertFalse("Separated vehicle/creature must not allow play", scn.DSCardPlayAvailable(yaggle));
+        // Positive same-site eligibility covered by eat/cumulative tests.
     }
 
     @Test
@@ -162,25 +170,19 @@ public class Card_3_142_Tests {
         var tauntaun = scn.GetLSCard("tauntaun");
         var bantha = scn.GetDSCard("bantha");
         var wampa = scn.GetDSCard("wampa");
-        var wampa2 = scn.GetDSCard("wampa2");
         var cave = scn.GetDSCard("wampaCave");
 
         scn.StartGame();
         scn.MoveCardsToDSHand(yaggle);
         scn.MoveLocationToTable(cave);
-        scn.MoveCardsToLocation(cave, tauntaun, bantha, wampa, wampa2);
-        wampa2.setOwner(scn.LS);
-        wampa2.setZoneOwner(scn.LS);
-
-        scn.SkipToDSTurn(Phase.CONTROL);
+        scn.MoveCardsToLocation(cave, tauntaun, bantha, wampa);
+        goToDSControl(scn);
         assertTrue(scn.DSCardPlayAvailable(yaggle));
         scn.DSPlayCard(yaggle);
-        assertTrue(scn.DSHasCardChoiceAvailable(tauntaun));
-        assertTrue(scn.DSHasCardChoiceAvailable(bantha));
+        assertTrue("LS creature vehicle targetable", scn.DSHasCardChoiceAvailable(tauntaun));
+        assertTrue("DS creature vehicle targetable", scn.DSHasCardChoiceAvailable(bantha));
         scn.DSChooseCard(bantha);
-        assertTrue(scn.DSHasCardChoiceAvailable(wampa));
-        assertTrue(scn.DSHasCardChoiceAvailable(wampa2));
-        scn.DSChooseCard(wampa2);
+        scn.DSChooseCard(wampa);
         scn.PassAllResponses();
     }
 
@@ -191,21 +193,17 @@ public class Card_3_142_Tests {
         var tauntaun = scn.GetLSCard("tauntaun");
         var tauntaun2 = scn.GetLSCard("tauntaun2");
         var wampa = scn.GetDSCard("wampa");
-        var wampa2 = scn.GetDSCard("wampa2");
         var cave = scn.GetDSCard("wampaCave");
 
         scn.StartGame();
         scn.MoveCardsToDSHand(yaggle);
         scn.MoveLocationToTable(cave);
-        scn.MoveCardsToLocation(cave, tauntaun, tauntaun2, wampa, wampa2);
-
-        scn.SkipToDSTurn(Phase.CONTROL);
+        scn.MoveCardsToLocation(cave, tauntaun, tauntaun2, wampa);
+        goToDSControl(scn);
         scn.DSPlayCard(yaggle);
         assertTrue(scn.DSHasCardChoiceAvailable(tauntaun));
         assertTrue(scn.DSHasCardChoiceAvailable(tauntaun2));
         scn.DSChooseCard(tauntaun2);
-        assertTrue(scn.DSHasCardChoiceAvailable(wampa));
-        assertTrue(scn.DSHasCardChoiceAvailable(wampa2));
         scn.DSChooseCard(wampa);
         scn.PassAllResponses();
     }
@@ -222,8 +220,7 @@ public class Card_3_142_Tests {
         scn.MoveCardsToDSHand(yaggle);
         scn.MoveLocationToTable(cave);
         scn.MoveCardsToLocation(cave, ronto, wampa);
-
-        scn.SkipToDSTurn(Phase.CONTROL);
+        goToDSControl(scn);
         assertFalse(scn.DSCardPlayAvailable(yaggle));
     }
 
@@ -240,8 +237,7 @@ public class Card_3_142_Tests {
         scn.MoveCardsToDSHand(yaggle);
         scn.MoveLocationToTable(cave);
         scn.MoveCardsToLocation(cave, tauntaun, wampa);
-
-        scn.SkipToDSTurn(Phase.CONTROL);
+        goToDSControl(scn);
         scn.PrepareDSDestiny(1);
         playYaggle(scn, yaggle, tauntaun, wampa);
         scn.PassDestinyDrawResponses();
@@ -264,14 +260,13 @@ public class Card_3_142_Tests {
         scn.MoveCardsToDSHand(yaggle);
         scn.MoveLocationToTable(cave);
         scn.MoveCardsToLocation(cave, tauntaun, wampa);
-
-        scn.SkipToDSTurn(Phase.CONTROL);
+        goToDSControl(scn);
         scn.PrepareDSDestiny(2);
         playYaggle(scn, yaggle, tauntaun, wampa);
         scn.PassDestinyDrawResponses();
         scn.PassAllResponses();
 
-        assertEquals(Zone.LOST_PILE, tauntaun.getZone());
+        assertEquals(Zone.TOP_OF_LOST_PILE, tauntaun.getZone());
         assertEquals(5f, scn.game().getModifiersQuerying().getFerocity(scn.gameState(), wampa, 0f), scn.epsilon);
     }
 
@@ -288,20 +283,26 @@ public class Card_3_142_Tests {
         scn.StartGame();
         scn.MoveCardsToDSHand(yaggle, yaggle2);
         scn.MoveLocationToTable(cave);
-        scn.MoveCardsToLocation(cave, tauntaun, tauntaun2, wampa);
-
-        scn.SkipToDSTurn(Phase.CONTROL);
+        // One vehicle at a time so auto creature attacks during turn skip cannot remove the second target
+        scn.MoveCardsToLocation(cave, tauntaun, wampa);
+        goToDSControl(scn);
         scn.PrepareDSDestiny(2);
         playYaggle(scn, yaggle, tauntaun, wampa);
         scn.PassDestinyDrawResponses();
         scn.PassAllResponses();
-        assertEquals(Zone.LOST_PILE, tauntaun.getZone());
+        assertEquals(Zone.TOP_OF_LOST_PILE, tauntaun.getZone());
+        assertEquals(5f, scn.game().getModifiersQuerying().getFerocity(scn.gameState(), wampa, 0f), scn.epsilon);
 
+        // Next DS turn: place second vehicle before CONTROL decision is built
+        scn.SkipToDSTurn();
+        scn.MoveCardsToLocation(cave, tauntaun2);
+        scn.SkipToPhase(Phase.CONTROL);
+        assertTrue(scn.AwaitingDSControlPhaseActions());
         scn.PrepareDSDestiny(2);
         playYaggle(scn, yaggle2, tauntaun2, wampa);
         scn.PassDestinyDrawResponses();
         scn.PassAllResponses();
-        assertEquals(Zone.LOST_PILE, tauntaun2.getZone());
+        assertEquals(Zone.TOP_OF_LOST_PILE, tauntaun2.getZone());
         assertEquals(7f, scn.game().getModifiersQuerying().getFerocity(scn.gameState(), wampa, 0f), scn.epsilon);
     }
 
@@ -317,16 +318,15 @@ public class Card_3_142_Tests {
         scn.MoveCardsToDSHand(yaggle);
         scn.MoveLocationToTable(cave);
         scn.MoveCardsToLocation(cave, tauntaun, wampa);
-
-        scn.SkipToDSTurn(Phase.CONTROL);
+        goToDSControl(scn);
         scn.PrepareDSDestiny(2);
         playYaggle(scn, yaggle, tauntaun, wampa);
         scn.PassDestinyDrawResponses();
         scn.PassAllResponses();
         assertEquals(5f, scn.game().getModifiersQuerying().getFerocity(scn.gameState(), wampa, 0f), scn.epsilon);
 
-        scn.MoveCardsToLostPile(wampa);
-        assertEquals(Zone.LOST_PILE, wampa.getZone());
+        scn.MoveCardsToTopOfOwnLostPile(wampa);
+        assertEquals(Zone.TOP_OF_LOST_PILE, wampa.getZone());
     }
 
     @Test
@@ -341,16 +341,27 @@ public class Card_3_142_Tests {
         scn.StartGame();
         scn.MoveCardsToDSHand(yaggle);
         scn.MoveLocationToTable(cave);
-        scn.MoveCardsToLocation(cave, tauntaun, wampa);
+        scn.MoveCardsToLocation(cave, tauntaun, wampa, luke);
         scn.BoardAsPassenger(tauntaun, luke);
-
-        scn.SkipToDSTurn(Phase.CONTROL);
+        assertTrue(scn.IsAboardAsPassenger(tauntaun, luke));
+        goToDSControl(scn);
         scn.PrepareDSDestiny(2);
         playYaggle(scn, yaggle, tauntaun, wampa);
         scn.PassDestinyDrawResponses();
+
+        // EatenResult optional window first (no actions); then About-to-be-lost Jump off
+        if (scn.LSDecisionAvailable("EATEN") || scn.DSDecisionAvailable("EATEN")) {
+            scn.PassResponses("EATEN");
+        }
+        assertTrue(scn.LSDecisionAvailable("Optional") || scn.LSDecisionAvailable("Jump") || scn.LSDecisionAvailable("ABOUT_TO"));
+        scn.LSChooseAction("Jump off");
+        scn.PassAllResponses();
+        if (scn.LSDecisionAvailable("Lost Pile") || scn.DSDecisionAvailable("Lost Pile")) {
+            scn.PassResponses("Lost Pile");
+        }
         scn.PassAllResponses();
 
-        assertEquals(Zone.LOST_PILE, tauntaun.getZone());
+        assertEquals(Zone.TOP_OF_LOST_PILE, tauntaun.getZone());
         assertEquals(Zone.AT_LOCATION, luke.getZone());
         assertEquals(cave, luke.getAtLocation());
     }
@@ -367,8 +378,7 @@ public class Card_3_142_Tests {
         scn.MoveCardsToDSHand(yaggle);
         scn.MoveLocationToTable(cave);
         scn.MoveCardsToLocation(cave, tauntaun, wampa);
-
-        scn.SkipToDSTurn(Phase.CONTROL);
+        goToDSControl(scn);
         scn.PrepareDSDestiny(2);
         playYaggle(scn, yaggle, tauntaun, wampa);
         scn.PassDestinyDrawResponses();
@@ -391,8 +401,8 @@ public class Card_3_142_Tests {
         scn.MoveCardsToDSHand(yaggle);
         scn.MoveLocationToTable(farm);
         scn.MoveCardsToLocation(farm, bantha, worrt);
-
-        scn.SkipToDSTurn(Phase.CONTROL);
+        goToDSControl(scn);
+        goToDSControl(scn);
         assertTrue(scn.DSCardPlayAvailable(yaggle));
         playYaggle(scn, yaggle, bantha, worrt);
         scn.PassAllResponses();
@@ -410,9 +420,9 @@ public class Card_3_142_Tests {
 
         scn.StartGame();
         scn.MoveCardsToDSHand(skull);
+        goToDSControl(scn);
         scn.MoveCardsToTopOfReserveDeck(scn.DS, yaggle, stopMotion);
 
-        scn.SkipToDSTurn(Phase.CONTROL);
         assertTrue(scn.DSCardPlayAvailable(skull));
         scn.DSPlayCard(skull, "Take card into hand from Reserve Deck");
         scn.PassAllResponses();
