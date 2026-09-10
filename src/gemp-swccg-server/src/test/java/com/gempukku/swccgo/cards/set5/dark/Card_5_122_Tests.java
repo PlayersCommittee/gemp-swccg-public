@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set5.dark;
 import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
@@ -102,7 +103,13 @@ public class Card_5_122_Tests {
         }});
         assertEquals(ExpansionSet.CLOUD_CITY, card.getExpansionSet());
         assertEquals(Rarity.C, card.getRarity());
-        assertTrue(card.hasIcon(Icon.CLOUD_CITY));
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.CLOUD_CITY);
+            add(Icon.EFFECT);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+            add(Keyword.DEPLOYS_ON_SITE);
+        }});
         assertTrue(card.getGameText().contains("Insert face up"));
         assertTrue(card.getGameText().contains("two mobile sites"));
         assertTrue(card.getGameText().contains("Lift Tube"));
