@@ -15,7 +15,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToDrivenBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
@@ -36,7 +36,7 @@ public class Card112_013 extends AbstractAlien {
     public Card112_013() {
         super(Side.DARK, 2, 2, 2, 1, 3, "Mercenary Pilot", Uniqueness.UNRESTRICTED, ExpansionSet.JPSD, Rarity.PM);
         setLore("Smugglers. Candidates who resent authority often abandon Imperial academies to sell their piloting skills to criminals. Will work for any high paying crime syndicate.");
-        setGameText("Adds 2 to power of anything he pilots or drives. When driving a transport vehicle, adds one battle destiny. When piloting at a cloud sector, once per turn adds one battle destiny during battle at a related exterior site.");
+        setGameText("Adds 2 to power of anything he pilots or drives. When driving a transport vehicle, adds one battle destiny. When piloting at a cloud sector, once per turn may add one battle destiny during battle at a related exterior site.");
         addIcons(Icon.PREMIUM, Icon.PILOT, Icon.WARRIOR);
         addKeywords(Keyword.MERCENARY, Keyword.SMUGGLER);
     }
@@ -51,14 +51,14 @@ public class Card112_013 extends AbstractAlien {
     }
 
     @Override
-    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.and(Filters.exterior_site, Filters.relatedSite(self)))
-                && GameConditions.isOncePerTurn(game, self, gameTextSourceCardId)
+                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)
                 && GameConditions.isPilotingAt(game, self, Filters.cloud_sector)
                 && GameConditions.canAddBattleDestinyDraws(game, self)) {
 
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Add one battle destiny");
             // Update usage limit(s)
             action.appendUsage(
