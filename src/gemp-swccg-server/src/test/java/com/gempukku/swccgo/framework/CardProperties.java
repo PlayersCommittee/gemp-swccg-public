@@ -320,6 +320,14 @@ public interface CardProperties extends TestBase {
     }
 
     /**
+     * @param card The card to inspect.
+     * @return True if the card currently has any ionization type applied.
+     */
+    default boolean IsIonized(PhysicalCardImpl card) {
+        return card.getIonization() != null && !card.getIonization().isEmpty();
+    }
+
+    /**
      * Checks whether a card is wholly immune to attrition
      * @param card The card to check
      * @return True if no amount of attrition can affect this card, false otherwise.
