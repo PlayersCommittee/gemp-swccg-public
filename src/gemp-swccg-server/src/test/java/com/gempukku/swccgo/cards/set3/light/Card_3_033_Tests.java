@@ -288,10 +288,21 @@ public class Card_3_033_Tests {
 
         // Cheat-placement after SkipTo leaves a stale battle decision; inject the attack action.
         scn.carryOutEffectInPhaseActionByPlayer(scn.DS, new InitiateAttackNonCreatureAction(wampa));
+        // Choose Luke as the attack target if prompted
+        if (scn.DSGetDecision() != null && scn.DSHasCardChoicesAvailable(luke)) {
+            scn.DSChooseCard(luke);
+        }
+        scn.PassAllResponses();
+        // Weapons segment (none)
+        if (scn.DSDecisionAvailable("weapons segment") || scn.LSDecisionAvailable("weapons segment")
+                || scn.DSDecisionAvailable("Choose weapons") || scn.LSDecisionAvailable("Choose weapons")) {
+            scn.PassWeaponsSegmentActions();
+        }
         scn.PassAllResponses();
 
-        scn.PassDestinyDrawResponses(); // DS ferocity destiny
-        scn.PassDestinyDrawResponses(); // LS subtract destiny
+        // Power segment destinies: ferocity then subtract
+        scn.PassDestinyDrawResponses();
+        scn.PassDestinyDrawResponses();
         scn.PassAllResponses();
 
         var attackState = scn.gameState().getAttackState();
