@@ -1,5 +1,8 @@
 package com.gempukku.swccgo.cards.set1.light;
 
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.Phase;
@@ -108,9 +111,17 @@ public class Card_1_75_Tests {
         assertEquals("Combined Attack", card.getTitle());
         assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
         assertEquals(Side.LIGHT, card.getSide());
-        assertTrue(card.isCardType(CardType.INTERRUPT));
-        assertEquals(CardSubtype.LOST, card.getCardSubtype());
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.INTERRUPT);
+        }});
         assertEquals(4, card.getDestiny(), scn.epsilon);
+        assertEquals(CardSubtype.LOST, card.getCardSubtype());
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.INTERRUPT);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+        }});
+        assertEquals(ExpansionSet.PREMIERE, card.getExpansionSet());
         assertEquals(Rarity.C2, card.getRarity());
     }
 
@@ -233,7 +244,7 @@ public class Card_1_75_Tests {
     }
 
     @Test
-    public void TargetingComputerBothShotsGoIntoCombinedAttackPool() {
+    public void CombinedAttackIncludesBothTargetingComputerShotsInPool() {
         // Two XWLCs, one ship has Targeting Computer. Use TC inside CA.
         // Destinies 4 and 4 (TC weapon, two draws, each -1) plus 1 (second weapon) = 7 vs TIE 3.
         // TC weapon is still one weapon when applying the shared total.
@@ -267,7 +278,7 @@ public class Card_1_75_Tests {
     }
 
     @Test
-    public void TargetingComputerCannotSplitOneShotInsideCombinedAttackAndOneOutside() {
+    public void CombinedAttackCannotSplitTargetingComputerShotsInsideAndOutside() {
         // Forum p=1111897: both TC shots consecutive and both inside Combined Attack.
         var scn = GetScenario();
         var ca = scn.GetLSCard("ca");
@@ -300,7 +311,7 @@ public class Card_1_75_Tests {
     }
 
     @Test
-    public void TargetingComputerInsideCombinedAttackOffersOptionalUseWithoutSeparatelyCombinedCancel() {
+    public void CombinedAttackOffersOptionalTargetingComputerUse() {
         // Combined Attack already chose the target. Click a Targeting Computer card to fire
         // that Combined Attack weapon twice into the pool. No Separately / Combined / Don't Fire.
         // Choosing the card consumes Targeting Computer and both destinies join the pool.
@@ -339,7 +350,7 @@ public class Card_1_75_Tests {
     }
 
     @Test
-    public void TargetingComputerInsideCombinedAttackCanBeSkippedAndRemainsUnused() {
+    public void CombinedAttackCanSkipTargetingComputerLeavingItUnused() {
         // Done on the Targeting Computer table chooser fires the Combined Attack weapon once
         // and does not consume Targeting Computer. Done must not cancel Combined Attack.
         var scn = GetScenario();
@@ -363,7 +374,7 @@ public class Card_1_75_Tests {
     }
 
     @Test
-    public void TargetingComputerInsideCombinedAttackCanChooseAmongMultipleComputersOrNone() {
+    public void CombinedAttackCanChooseAmongMultipleTargetingComputersOrNone() {
         // Two unused Targeting Computers on the firing starship: click one specific card, or Done for none.
         var scn = GetScenario();
         var ca = scn.GetLSCard("ca");
@@ -906,7 +917,7 @@ public class Card_1_75_Tests {
     }
 
     @Test
-    public void BoringConversationAnywayCancelsCombinedAttackBeforeWeaponsFire() {
+    public void CombinedAttackCanBeCanceled() {
         // Sense (1_267) / Boring Conversation Anyway (1_235) cancel Combined Attack (1_75)
         // before any weapon fires. Weapons may still fire normally afterward.
         // This test uses Boring Conversation Anyway because it names Combined Attack and
