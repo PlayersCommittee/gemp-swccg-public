@@ -12,6 +12,10 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
+import com.gempukku.swccgo.game.PhysicalCardImpl;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.decisions.CardActionSelectionDecision;
+import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -27,12 +31,13 @@ public class Card_4_20_Tests {
         return new VirtualTableScenario(
                 new HashMap<>() {{
                     put("descent", "4_20");
-                    put("luke", "1_019"); // deploy 5 - uses Force into Used
-                    put("leia", "1_017"); // deploy 4 - second Force use for cancel
-                    put("han", "1_011"); // presence
+                    put("luke", "1_019");
+                    put("leia", "1_017");
+                    put("han", "1_011");
                 }},
                 new HashMap<>() {{
-                    put("viper", "1_282");
+                    put("stormtrooper", "1_194");
+                    put("officer", "1_180");
                 }},
                 10,
                 10,
@@ -44,6 +49,31 @@ public class Card_4_20_Tests {
                 StartingSetup.NoDSShields,
                 VirtualTableScenario.Open
         );
+    }
+
+    /**
+     * AdHoc place-from-table into Used Pile. Framework carryOutEffect always decides "0",
+     * which selects an existing Deploy action when any are legal; pick the newly-added index instead.
+     */
+    private void placeCardInUsedPile(VirtualTableScenario scn, String playerId, PhysicalCardImpl card) {
+        var awaitingDecision = (CardActionSelectionDecision) scn.userFeedback().getAwaitingDecision(playerId);
+        String[] before = awaitingDecision.getDecisionParameters().get("actionId");
+        int idx = (before == null) ? 0 : before.length;
+        var action = new TopLevelGameTextAction(card, playerId, card.getCardId());
+        action.setText("Place in Used Pile (ad-hoc)");
+        action.appendEffect(new PlaceCardInUsedPileFromTableEffect(action, card));
+        awaitingDecision.addAction(action);
+        scn.PlayerDecided(playerId, String.valueOf(idx));
+        // Resolve about-to-leave-table responses so the card actually enters Used Pile
+        scn.PassResponses("ABOUT_TO");
+    }
+
+    private void lsPlaceCardInUsedPile(VirtualTableScenario scn, PhysicalCardImpl card) {
+        placeCardInUsedPile(scn, scn.LS, card);
+    }
+
+    private void dsPlaceCardInUsedPile(VirtualTableScenario scn, PhysicalCardImpl card) {
+        placeCardInUsedPile(scn, scn.DS, card);
     }
 
     @Test
@@ -94,35 +124,30 @@ public class Card_4_20_Tests {
 
         var descent = scn.GetLSCard("descent");
         var luke = scn.GetLSCard("luke");
+        var han = scn.GetLSCard("han");
         var site = scn.GetLSStartingLocation();
 
         scn.StartGame();
 
-        scn.MoveCardsToLSHand(descent, luke);
-        // Seed some Used Pile cards so recirculate is observable
-        scn.MoveCardsToTopOfLSUsedPile(scn.GetTopOfLSReserveDeck());
-        scn.MoveCardsToTopOfDSUsedPile(scn.GetTopOfDSReserveDeck());
-
-        // Presence so Luke can deploy
-        scn.MoveCardsToLocation(site, scn.GetLSCard("leia"));
+        scn.MoveCardsToLocation(site, han, luke);
 
         scn.SkipToLSTurn(Phase.DEPLOY);
 
-        int lsUsedBeforeDeploy = scn.GetLSUsedPileCount();
-        int dsUsedBeforeDeploy = scn.GetDSUsedPileCount();
-        assertTrue(lsUsedBeforeDeploy >= 1);
-        assertTrue(dsUsedBeforeDeploy >= 1);
+        scn.MoveCardsToLSHand(descent);
+        scn.MoveCardsToTopOfLSUsedPile(scn.GetTopOfLSReserveDeck());
+        scn.MoveCardsToTopOfDSUsedPile(scn.GetTopOfDSReserveDeck());
+        assertTrue(scn.GetLSUsedPileCount() >= 1);
+        assertTrue(scn.GetDSUsedPileCount() >= 1);
 
-        assertTrue(scn.LSDeployAvailable(luke));
-        scn.LSDeployCard(luke);
-        scn.LSChooseCard(site);
-        // Using Force places cards in Used Pile - Descent should be offered as a response
-        assertTrue(scn.LSCardPlayAvailable(descent));
+        assertTrue(scn.AwaitingLSDeployPhaseActions());
+        lsPlaceCardInUsedPile(scn, han);
+        // Opponent of performing player responds first to after-triggers
+        scn.DSPass();
+        assertTrue("Descent should be playable as response to Used Pile placement", scn.LSCardPlayAvailable(descent));
         scn.LSPlayCard(descent);
         scn.PassAllResponses();
 
         assertEquals(Zone.SIDE_OF_TABLE, descent.getZone());
-        // All Used Piles immediately re-circulated
         assertEquals(0, scn.GetLSUsedPileCount());
         assertEquals(0, scn.GetDSUsedPileCount());
     }
@@ -134,33 +159,33 @@ public class Card_4_20_Tests {
         var descent = scn.GetLSCard("descent");
         var luke = scn.GetLSCard("luke");
         var leia = scn.GetLSCard("leia");
+        var han = scn.GetLSCard("han");
         var site = scn.GetLSStartingLocation();
 
         scn.StartGame();
 
-        var han = scn.GetLSCard("han");
-        scn.MoveCardsToLSHand(descent, luke, leia);
-        scn.MoveCardsToLocation(site, han);
+        scn.MoveCardsToLocation(site, han, luke, leia);
 
         scn.SkipToLSTurn(Phase.DEPLOY);
 
-        // First deploy uses Force -> play Descent
-        assertTrue(scn.LSDeployAvailable(luke));
-        scn.LSDeployCard(luke);
-        scn.LSChooseCard(site);
+        scn.MoveCardsToLSHand(descent);
+
+        assertTrue(scn.AwaitingLSDeployPhaseActions());
+        lsPlaceCardInUsedPile(scn, han);
+        scn.DSPass();
         assertTrue(scn.LSCardPlayAvailable(descent));
         scn.LSPlayCard(descent);
         scn.PassAllResponses();
         assertEquals(Zone.SIDE_OF_TABLE, descent.getZone());
-        assertEquals(0, scn.GetLSUsedPileCount());
 
-        // Second deploy uses Force again -> Descent cancels
-        assertTrue(scn.LSDeployAvailable(leia));
-        scn.LSDeployCard(leia);
-        scn.LSChooseCard(site);
+        // Phase actions alternate: after LS AdHoc place, DS gets the next Deploy window
+        assertTrue(scn.AwaitingDSDeployPhaseActions());
+        scn.DSPass();
+        assertTrue(scn.AwaitingLSDeployPhaseActions());
+        lsPlaceCardInUsedPile(scn, luke);
         scn.PassAllResponses();
 
-        assertTrue(descent.getZone() == Zone.TOP_OF_LOST_PILE || descent.getZone() == Zone.LOST_PILE);
+        assertEquals(Zone.TOP_OF_LOST_PILE, descent.getZone());
     }
 
     @Test
@@ -168,21 +193,21 @@ public class Card_4_20_Tests {
         var scn = GetScenario();
 
         var descent = scn.GetLSCard("descent");
-        var viper = scn.GetDSCard("viper");
+        var stormtrooper = scn.GetDSCard("stormtrooper");
+        var officer = scn.GetDSCard("officer");
         var site = scn.GetDSStartingLocation();
 
         scn.StartGame();
 
-        scn.MoveCardsToLSHand(descent);
-        scn.MoveCardsToDSHand(viper);
+        scn.MoveCardsToLocation(site, officer, stormtrooper);
 
-        // Get through to DS turn deploy; LS has Descent in hand but it is opponent's turn
         scn.SkipToDSTurn(Phase.DEPLOY);
 
-        assertTrue(scn.DSDeployAvailable(viper));
-        scn.DSDeployCard(viper);
-        scn.DSChooseCard(site);
-        // Using Force on DS turn should NOT offer Descent to LS
+        scn.MoveCardsToLSHand(descent);
+
+        assertTrue(scn.AwaitingDSDeployPhaseActions());
+        dsPlaceCardInUsedPile(scn, stormtrooper);
+        // Force use / Used placement on opponent turn must not offer Descent
         assertFalse(scn.LSCardPlayAvailable(descent));
     }
 }

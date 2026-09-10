@@ -98,6 +98,10 @@ public class Card4_020 extends AbstractImmediateEffect {
      * Covers from-table, from-off-table (including played Used Interrupts), and forfeit-to-Used.
      */
     private boolean justPlacedCardInAUsedPile(SwccgGame game, EffectResult effectResult) {
+        // Using Force places the top Force Pile card into Used Pile (emits FORCE_USED, not PutInUsedPile).
+        if (effectResult.getType() == EffectResult.Type.FORCE_USED) {
+            return true;
+        }
         if (TriggerConditions.justPlacedInUsedPileFromTable(game, effectResult, Filters.any)) {
             return true;
         }
