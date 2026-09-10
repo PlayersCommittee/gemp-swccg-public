@@ -1,6 +1,8 @@
 package com.gempukku.swccgo.cards.set1.light;
 
 import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -104,8 +106,16 @@ public class Card_1_39_Tests {
         assertEquals("Targeting Computer", card.getTitle());
         assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
         assertEquals(Side.LIGHT, card.getSide());
-        assertTrue(card.isCardType(CardType.DEVICE));
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.DEVICE);
+        }});
         assertEquals(3, card.getDestiny(), scn.epsilon);
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.DEVICE);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+        }});
+        assertEquals(ExpansionSet.PREMIERE, card.getExpansionSet());
         assertEquals(Rarity.U1, card.getRarity());
     }
 
@@ -513,7 +523,7 @@ public class Card_1_39_Tests {
     }
 
     @Test
-    public void DefianceHeavyTurbolaserVsVictoryClassAddsTwoToEachDraw() {
+    public void TargetingComputerDoesNotAffectUnattachedHeavyTurbolaserVsVictoryClass() {
         // HTB draws two destinies vs VSD (capital): HTB -1 total, not -6 vs starfighter. No Targeting Computer.
         // Printed destinies 2 and 2. No bonus: 2+2-1=3 vs armor 5 miss.
         // +1 each would be (2+1)+(2+1)-1=5 vs 5 miss (equal fails).
@@ -539,7 +549,7 @@ public class Card_1_39_Tests {
     }
 
     @Test
-    public void DefianceTargetingComputerCombinedAppliesMinusOneAndPlusTwoPerDraw() {
+    public void TargetingComputerCombinedAppliesMinusOneAndPlusTwoPerDrawOnCapital() {
         // TC -1 and Defiance +2 per draw (net +1 vs printed). HTB two draws per firing.
         // Printed 2,2 then 2,2: each firing (2-1+2)*2=6. Combined 12, HTB -1 vs capital = 11 vs VSD 5 hit.
         // Without Defiance +2: (2-1)*2 per firing, combined 4, -1 = 3 vs 5 miss.
@@ -596,7 +606,7 @@ public class Card_1_39_Tests {
 
 
     @Test
-    public void DefianceDackVerrackHeavyTurbolaserEachBonusesRequiredVsExecutor() {
+    public void TargetingComputerNotRequiredForIndependentHeavyTurbolaserBonuses() {
         // Dack passenger +1 each, Verrack aboard +2 each vs capital, Defiance +2 each, HTB -1 total vs capital.
         // Printed 2 and 2: each draw 2+2+1+2=7, total 14-1=13 vs Executor armor 12 hit.
         // Missing Dack: 12-1=11 vs 12 miss. Missing Verrack or Defiance is even lower.
@@ -646,7 +656,7 @@ public class Card_1_39_Tests {
     }
 
     @Test
-    public void DefianceDackVerrackTargetingComputerSeparatelyEachBonusesRequiredVsExecutor() {
+    public void TargetingComputerSeparatelyAppliesEachBonusesRequiredVsExecutor() {
         // TC -1 each. Printed 3 and 3: each draw 3+2+1+2-1=7, total 14-1=13 vs 12 hit.
         // Missing Dack: 11 vs 12 miss.
         var scn = GetScenario();
@@ -667,7 +677,7 @@ public class Card_1_39_Tests {
     }
 
     @Test
-    public void DefianceKarieDackVerrackTargetingComputerSeparatelyDrawsAreEightNotNineVsExecutor() {
+    public void TargetingComputerSeparatelyDrawTotalsAccountForGunnerAndPilot() {
         // Playtest: Targeting Computer fires Heavy Turbolaser Battery twice separately at Executor.
         // Defiance +2 each (FiredBy), Karie Neth +1, Dack Ralter +1, Captain Verrack +2 vs capital = +6.
         // Targeting Computer -1 each while using Fire a weapon twice. Printed 3 and 3 must be 8 and 8, not 9 and 9.
@@ -723,7 +733,7 @@ public class Card_1_39_Tests {
     }
 
     @Test
-    public void DefianceDackVerrackTargetingComputerCombinedEachBonusesRequiredVsExecutor() {
+    public void TargetingComputerCombinedAppliesEachBonusesRequiredVsExecutor() {
         // Combined HTB: two draws per firing, twice, then HTB -1 once.
         // Printed 0 x4 with TC -1: each draw 0+2+1+2-1=4, combined 16-1=15 vs 12 hit.
         // Missing Dack: 12-1=11 vs 12 miss.
@@ -748,7 +758,7 @@ public class Card_1_39_Tests {
     }
 
     @Test
-    public void FalconCecKarieRogueGunnerQuadLaserEachBonusesRequiredVsVictoryClass() {
+    public void TargetingComputerNotRequiredForIndependentQuadLaserBonuses() {
         // CEC +2 each on Quad Laser Cannon, Karie +1 each aboard, Rogue Gunner +1 each as passenger.
         // Vs capital: Quad Laser's +1 vs starfighter does not apply. Printed 2: 2+2+1+1=6 vs VSD 5 hit.
         // Missing Karie or Rogue Gunner: 5 vs 5 miss. Missing CEC: 4 vs 5 miss.
@@ -771,7 +781,7 @@ public class Card_1_39_Tests {
     }
 
     @Test
-    public void FalconCecKarieRogueGunnerTargetingComputerSeparatelyEachBonusesRequiredVsVictoryClass() {
+    public void TargetingComputerSeparatelyAppliesQuadLaserBonusesVsVictoryClass() {
         // TC -1 each. Printed 3: 3+2+1+1-1=6 vs VSD 5 hit. Missing a +1 character: 5 vs 5 miss.
         var scn = GetScenario();
         var tc = scn.GetLSCard("tc");
@@ -791,7 +801,7 @@ public class Card_1_39_Tests {
     }
 
     @Test
-    public void FalconCecKarieRogueGunnerTargetingComputerCombinedEachBonusesRequiredVsVictoryClass() {
+    public void TargetingComputerCombinedAppliesQuadLaserBonusesVsVictoryClass() {
         // Combined two draws, then Quad Laser total +1 vs starfighter does not apply vs capital.
         // Printed 0 and 0 with TC -1: each 0+2+1+1-1=3, combined 6 vs 5 hit.
         // Missing a +1 character: 2+2=4 vs 5 miss.
@@ -815,7 +825,7 @@ public class Card_1_39_Tests {
     }
 
     @Test
-    public void TenNumbBlueSquadron5ConcussionMissilesTotalBonusRequiredVsTie() {
+    public void TargetingComputerNotRequiredForIndependentConcussionMissileBonus() {
         // Blue Squadron 5 +2 each draw. Ten Numb +2 total on a B-wing he pilots. Missiles +1 total vs starfighter.
         // One draw: EACH vs TOTAL look the same. Printed 0 as 2, total 0+2+2+1=5 vs TIE 3 hit.
         // Without Ten Numb: 3 vs 3 miss.
@@ -838,7 +848,7 @@ public class Card_1_39_Tests {
     }
 
     @Test
-    public void TenNumbBlueSquadron5TargetingComputerSeparatelyTotalBonusRequiredVsTie() {
+    public void TargetingComputerSeparatelyAppliesConcussionMissileTotalBonus() {
         // TC -1 each. Printed 0 as 1, then Ten Numb +2 total and missiles +1 total: 1+2+1=4 vs TIE 3 hit.
         // Without Ten Numb: 2 vs 3 miss. One draw still cannot tell EACH from TOTAL.
         var scn = GetScenario();
@@ -859,7 +869,7 @@ public class Card_1_39_Tests {
     }
 
     @Test
-    public void TenNumbBlueSquadron5TargetingComputerCombinedAppliesTotalOnceNotPerDraw() {
+    public void TargetingComputerCombinedAppliesConcussionMissileTotalOnceNotPerDraw() {
         // Combined is the EACH vs TOTAL distinguisher.
         // Printed 0 and 0: each draw 0+2 Blue -1 TC = 1 (Ten Numb must NOT be on the draw).
         // Combined 1+1=2, then Ten Numb +2 total once and missiles +1 once = 5 vs TIE 3 hit.
@@ -909,12 +919,12 @@ public class Card_1_39_Tests {
         // into the Force Pile so four Targeting Computers (2 Force each) can deploy.
         scn.SkipToLSTurn(Phase.DEPLOY);
         scn.EnsureLSForcePile(8);
-        assertTrue("Expected Light Side deploy actions, got: " + decisionDump(scn),
+        assertTrue("Expected Light Side deploy actions, got: " ,
                 scn.AwaitingLSDeployPhaseActions());
 
         PhysicalCardImpl[] computers = { tc, tc2, tc3, tc4 };
         for (PhysicalCardImpl computer : computers) {
-            assertTrue("Targeting Computer must be deployable on the B-wing. " + decisionDump(scn),
+            assertTrue("Targeting Computer must be deployable on the B-wing. " ,
                     scn.LSGetDecision() != null && scn.LSDeployAvailable(computer));
             scn.LSDeployCard(computer);
             if (scn.LSGetDecision() != null && scn.LSHasCardChoiceAvailable(bwing)) {
@@ -967,16 +977,16 @@ public class Card_1_39_Tests {
         passDarkSideWeaponsIfNeeded(scn);
 
         assertTrue("B-wing still has unused SW-4 Ion Cannons, so Light Side stays in weapons segment. "
-                        + decisionDump(scn),
+                        ,
                 scn.AwaitingLSWeaponsSegmentActions());
-        assertFalse("That Targeting Computer copy cannot be used again this turn. " + decisionDump(scn),
+        assertFalse("That Targeting Computer copy cannot be used again this turn. " ,
                 fireTwiceAvailable(scn, tc));
-        assertFalse("Starfighter may use only one device per turn. " + decisionDump(scn),
+        assertFalse("Starfighter may use only one device per turn. " ,
                 fireTwiceAvailable(scn, tc2));
         assertFalse("Starfighter may use only one device per turn", fireTwiceAvailable(scn, tc3));
         assertFalse("Starfighter may use only one device per turn", fireTwiceAvailable(scn, tc4));
         assertTrue("Leftover SW-4 Ion Cannon can still Fire (device limit is not a weapon limit). "
-                        + decisionDump(scn),
+                        ,
                 scn.LSCardActionAvailable(sw42, "Fire"));
         assertEquals("After using one Targeting Computer, maneuver is still +1, not +4 and not lost",
                 3, scn.GetManeuver(bwing));
@@ -1010,7 +1020,7 @@ public class Card_1_39_Tests {
         fireOneShot(scn, tie, 1, 0);
         fireOneShot(scn, tie, 1, 0);
         passDarkSideWeaponsIfNeeded(scn);
-        assertTrue("Squadron may use a second Targeting Computer this turn. " + decisionDump(scn),
+        assertTrue("Squadron may use a second Targeting Computer this turn. " ,
                 fireTwiceAvailable(scn, tc2));
         assertFalse("The Targeting Computer copy already used cannot Fire a weapon twice again this turn",
                 fireTwiceAvailable(scn, tc));
@@ -1019,7 +1029,7 @@ public class Card_1_39_Tests {
         fireOneShot(scn, tie, 1, 0);
         fireOneShot(scn, tie, 1, 0);
         passDarkSideWeaponsIfNeeded(scn);
-        assertTrue("Squadron may use a third Targeting Computer this turn. " + decisionDump(scn),
+        assertTrue("Squadron may use a third Targeting Computer this turn. " ,
                 fireTwiceAvailable(scn, tc3));
 
         useFireAWeaponTwice(scn, tc3, xwlc3, "Separately");
@@ -1028,11 +1038,11 @@ public class Card_1_39_Tests {
         passDarkSideWeaponsIfNeeded(scn);
 
         if (scn.AwaitingLSWeaponsSegmentActions()) {
-            assertFalse("Squadron may use only three devices per turn. " + decisionDump(scn),
+            assertFalse("Squadron may use only three devices per turn. " ,
                     fireTwiceAvailable(scn, tc4));
         }
         else {
-            assertTrue("Expected weapons segment after three Targeting Computer uses. " + decisionDump(scn),
+            assertTrue("Expected weapons segment after three Targeting Computer uses. " ,
                     scn.AwaitingDSWeaponsSegmentActions());
         }
     }
@@ -1060,14 +1070,14 @@ public class Card_1_39_Tests {
         PhysicalCardImpl[] batteries = { htb, htb2, htb3, htb4 };
         for (int i = 0; i < computers.length; i++) {
             assertTrue("Capital may use Targeting Computer copy " + (i + 1) + " this turn. "
-                            + decisionDump(scn),
+                            ,
                     fireTwiceAvailable(scn, computers[i]));
             useFireAWeaponTwice(scn, computers[i], batteries[i], "Separately");
             fireTwoDestinyShot(scn, stalker, 1, 1);
             fireTwoDestinyShot(scn, stalker, 1, 1);
             passDarkSideWeaponsIfNeeded(scn);
             assertFalse("Used Targeting Computer copy " + (i + 1) + " cannot Fire a weapon twice again this turn. "
-                            + decisionDump(scn),
+                            ,
                     fireTwiceAvailable(scn, computers[i]));
         }
     }
@@ -1096,11 +1106,11 @@ public class Card_1_39_Tests {
         fireTwoDestinyShot(scn, stalker, 1, 1);
         passDarkSideWeaponsIfNeeded(scn);
 
-        assertTrue("After using copy A, Light Side should still have weapons actions. " + decisionDump(scn),
+        assertTrue("After using copy A, Light Side should still have weapons actions. " ,
                 scn.AwaitingLSWeaponsSegmentActions());
-        assertFalse("Copy A cannot Fire a weapon twice again this turn. " + decisionDump(scn),
+        assertFalse("Copy A cannot Fire a weapon twice again this turn. " ,
                 fireTwiceAvailable(scn, tc));
-        assertTrue("Using copy A does not prevent using copy B this turn. " + decisionDump(scn),
+        assertTrue("Using copy A does not prevent using copy B this turn. " ,
                 fireTwiceAvailable(scn, tc2));
         assertTrue("Copy C is still available this turn", fireTwiceAvailable(scn, tc3));
         assertTrue("Copy D is still available this turn", fireTwiceAvailable(scn, tc4));
@@ -1161,13 +1171,13 @@ public class Card_1_39_Tests {
      */
     private void useFireAWeaponTwice(VirtualTableScenario scn, PhysicalCardImpl targetingComputer,
                                      PhysicalCardImpl weapon, String mode) {
-        assertTrue("Fire a weapon twice must be available on that Targeting Computer. " + decisionDump(scn),
+        assertTrue("Fire a weapon twice must be available on that Targeting Computer. " ,
                 fireTwiceAvailable(scn, targetingComputer));
         scn.LSUseCardAction(targetingComputer, "Fire a weapon twice");
         if (scn.LSGetDecision() != null && scn.LSDecisionAvailable("Choose weapon")) {
             scn.LSChooseCard(weapon);
         }
-        assertTrue("Expected Fire a weapon twice prompt, got: " + decisionDump(scn),
+        assertTrue("Expected Fire a weapon twice prompt, got: " ,
                 scn.LSGetDecision() != null && scn.LSDecisionAvailable("Fire a weapon twice"));
         assertTrue(scn.LSChoiceAvailable("Separately"));
         assertTrue(scn.LSChoiceAvailable("Combined"));
@@ -1192,33 +1202,6 @@ public class Card_1_39_Tests {
      */
     private boolean fireTwiceAvailable(VirtualTableScenario scn, PhysicalCardImpl targetingComputer) {
         return scn.LSGetDecision() != null && scn.LSCardActionAvailable(targetingComputer, "Fire a weapon twice");
-    }
-
-    /**
-     * Light Side and Dark Side current decision text plus Light Side action list, for assertion messages.
-     */
-    private String decisionDump(VirtualTableScenario scn) {
-        String ls = scn.LSGetDecision() == null ? "null" : scn.LSGetDecision().getText();
-        String ds = scn.DSGetDecision() == null ? "null" : scn.DSGetDecision().getText();
-        String actions = "n/a";
-        try {
-            if (scn.LSGetDecision() != null) {
-                actions = String.valueOf(scn.GetLSAvailableActions());
-            }
-        }
-        catch (RuntimeException ignored) {
-            actions = "(no actionText)";
-        }
-        String phase = String.valueOf(scn.gameState().getCurrentPhase());
-        String player = String.valueOf(scn.gameState().getCurrentPlayerId());
-        String soc = scn.gameState().getSeparatelyOrCombinedFiringState() == null ? "none" : "active";
-        int force = scn.GetLSForcePileCount();
-        String logTail = "";
-        java.util.List<String> msgs = scn.gameState().getLastMessages();
-        int from = Math.max(0, msgs.size() - 12);
-        logTail = String.join(" | ", msgs.subList(from, msgs.size()));
-        return "player=" + player + " phase=" + phase + " force=" + force + " soc=" + soc
-                + " LS=" + ls + " actions=" + actions + " DS=" + ds + " log=" + logTail;
     }
 
     private void setupRed7(VirtualTableScenario scn, boolean includeKarie) {

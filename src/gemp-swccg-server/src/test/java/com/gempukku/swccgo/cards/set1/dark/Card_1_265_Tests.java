@@ -1,5 +1,8 @@
 package com.gempukku.swccgo.cards.set1.dark;
 
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.Phase;
@@ -85,9 +88,17 @@ public class Card_1_265_Tests {
         assertEquals("Precise Attack", card.getTitle());
         assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
         assertEquals(Side.DARK, card.getSide());
-        assertTrue(card.isCardType(CardType.INTERRUPT));
-        assertEquals(CardSubtype.LOST, card.getCardSubtype());
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.INTERRUPT);
+        }});
         assertEquals(4, card.getDestiny(), scn.epsilon);
+        assertEquals(CardSubtype.LOST, card.getCardSubtype());
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.INTERRUPT);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+        }});
+        assertEquals(ExpansionSet.PREMIERE, card.getExpansionSet());
         assertEquals(Rarity.C2, card.getRarity());
     }
 
@@ -142,7 +153,7 @@ public class Card_1_265_Tests {
     }
 
     @Test
-    public void GergallExample1ThreeBlasterRiflesHitsDefense6NotDefense7() {
+    public void PreciseAttackExampleHitsDefense6NotDefense7() {
         /**
          * Gergall 2015 Example 1: three Blaster Rifles (1_312) via Precise Attack (1_265).
          * Draws 1, 2, 3. TOTAL +1 from Blaster Rifle once (same title), not +3.
@@ -202,7 +213,7 @@ public class Card_1_265_Tests {
     }
 
     @Test
-    public void DarkJediLightsaberCannotBeChosenWhenTargetingAVehicle() {
+    public void PreciseAttackCannotChooseLightsaberWhenTargetingVehicle() {
         // Dark Jedi Lightsaber (1_314) may target a character or creature, not a vehicle.
         // Both weapons must actually be able to fire at the chosen target.
         var scn = GetScenario();
@@ -237,7 +248,7 @@ public class Card_1_265_Tests {
     }
 
     @Test
-    public void TwoDifferentWeaponTitlesBothTotalModifiersApply() {
+    public void PreciseAttackStacksDifferentWeaponTitleTotalModifiers() {
         // Blaster Rifle (1_312) +1 and Assault Rifle (1_311) +1 are different titles, so both apply.
         // Destinies 2+3 = 5, +1 and +1 = 7 > Obi-Wan Kenobi ability 6 hits.
         // Wrong same-title-once across different titles would be 6, which does not hit.
@@ -265,7 +276,7 @@ public class Card_1_265_Tests {
     }
 
     @Test
-    public void ResultApplyOrderChooserIsOfferedAfterAllFirings() {
+    public void PreciseAttackOffersResultApplyOrderAfterAllFirings() {
         var scn = GetScenario();
         var pa = scn.GetDSCard("pa");
         var rifle = scn.GetDSCard("rifle");
@@ -288,7 +299,7 @@ public class Card_1_265_Tests {
     }
 
     @Test
-    public void SenseCancelsPreciseAttackBeforeWeaponsFire() {
+    public void PreciseAttackCanBeCanceled() {
         // Sense (1_109) cancels Precise Attack (1_265) before any weapon fires.
         // Weapons may still fire normally afterward. Boring Conversation Anyway (1_235)
         // names Combined Attack, not Precise Attack, and is Dark (same side).
@@ -415,7 +426,7 @@ public class Card_1_265_Tests {
     }
 
     @Test
-    public void BosskOptionalMinusOneAppliesToPreciseAttackGrandTotalAndCaptures() {
+    public void PreciseAttackAccountsForOptionalWeaponDestinyModifierAndCaptures() {
         /**
          * Precise Attack (1_265) with Bossk With Mortar Gun (110_005) and 4-LOM With Concussion Rifle (109_006)
          * vs Han Solo (1_011) destiny 1, with Hutt Bounty (6_144) attached at the same site.
@@ -448,7 +459,7 @@ public class Card_1_265_Tests {
     }
 
     @Test
-    public void DecliningBosskOptionalMinusOneLeavesUnmodifiedPreciseAttackTotal() {
+    public void PreciseAttackTotalUnmodifiedWhenOptionalModifierDeclined() {
         /**
          * Same Precise Attack (1_265) setup as the capture test. Bossk With Mortar Gun draws 2 and
          * declines the optional -1. Grand total stays 2, which does not match Han Solo destiny 1.
@@ -475,7 +486,7 @@ public class Card_1_265_Tests {
     }
 
     @Test
-    public void EmptyReservePreciseAttackWithDengarAndIg88HasNoTotalAndDoesNotCapture() {
+    public void PreciseAttackWithEmptyReserveHasNoTotalAndDoesNotCapture() {
         /**
          * Precise Attack (1_265) with Dengar With Blaster Carbine (110_007) and IG-88 With Riot Gun (109_011)
          * vs Luke Skywalker (1_019) with an empty Dark Reserve Deck.
@@ -512,7 +523,7 @@ public class Card_1_265_Tests {
     }
 
     @Test
-    public void DengarAndIg88PlusOrMinusEachApplyOnceOnPreciseAttackGrandTotal() {
+    public void PreciseAttackAppliesEachPlusOrMinusModifierOnceOnGrandTotal() {
         /**
          * Precise Attack (1_265) with Dengar With Blaster Carbine (110_007) and IG-88 With Riot Gun (109_011)
          * vs Luke Skywalker (1_019) ability 4. Draws 3 then 3. Each title's printed destiny +1 applies
