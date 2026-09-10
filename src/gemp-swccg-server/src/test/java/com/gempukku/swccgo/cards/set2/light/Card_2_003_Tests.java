@@ -142,12 +142,11 @@ public class Card_2_003_Tests {
         assertTrue(scn.AwaitingLSBattleDamagePayment());
         scn.LSChooseCard(c3p0);
 
-            //automatic send to used pile action carried out
-        assertTrue(scn.DSDecisionAvailable("FORFEITED_TO_USED_PILE_FROM_TABLE")); //FORFEITED_TO_USED_PILE_FROM_TABLE - Optional responses
+        // Chewie targets hit card for Used instead of Lost (cancelable window)
         scn.PassAllResponses();
 
-        assertTrue(scn.AwaitingLSBattleDamagePayment());
         assertEquals(Zone.TOP_OF_USED_PILE, c3p0.getZone());
+        assertTrue(scn.AwaitingLSBattleDamagePayment());
     }
 
     @Test
@@ -279,10 +278,7 @@ public class Card_2_003_Tests {
         scn.LSPass();
 
         assertTrue(c3p0.isHit());
-        assertTrue(scn.DSDecisionAvailable("ABOUT_TO_BE_LOST_FROM_TABLE"));
-        scn.DSPass(); //ABOUT_TO_BE_LOST_FROM_TABLE - Optional responses
-
-            //automatic send to used pile action should be carried out here
+        // Chewie required Used-instead-of-Lost targeting resolves during about-to-be-lost
         scn.PassAllResponses();
 
         assertTrue(scn.AwaitingLSWeaponsSegmentActions());

@@ -11,6 +11,7 @@ import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Species;
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
@@ -75,14 +76,14 @@ public class Card2_003 extends AbstractAlienRebel {
         if (TriggerConditions.isAboutToBeLost(game, effectResult, hitAtSameSite)) {
             final AboutToLoseCardFromTableResult result = (AboutToLoseCardFromTableResult) effectResult;
             final PhysicalCard cardToBeLost = result.getCardToBeLost();
-            if (GameConditions.canTarget(game, self, targetingReason, cardToBeLost)) {
+            if (GameConditions.canTarget(game, self, SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, targetingReason, cardToBeLost)) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setPerformingPlayer(playerId);
                 action.setText("Place " + GameUtils.getFullName(cardToBeLost) + " in Used Pile");
                 // Choose target(s)
                 action.appendTargeting(
-                        new TargetCardOnTableEffect(action, playerId, "Target card to place in Used Pile instead of Lost Pile", targetingReason, cardToBeLost) {
+                        new TargetCardOnTableEffect(action, playerId, "Target card to place in Used Pile instead of Lost Pile", SpotOverride.INCLUDE_EXCLUDED_FROM_BATTLE, targetingReason, cardToBeLost) {
                             @Override
                             protected void cardTargeted(final int targetGroupId, PhysicalCard cardTargeted) {
                                 action.addAnimationGroup(cardTargeted);
