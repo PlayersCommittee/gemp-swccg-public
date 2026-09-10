@@ -2152,7 +2152,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
         List<Integer> otherDevices = new LinkedList<Integer>();
         if (usedDevices != null)
             for (Integer cardId : usedDevices)
-                if (cardId!=device.getCardId())
+                if (cardId!=device.getCardId() && !otherDevices.contains(cardId))
                     otherDevices.add(cardId);
 
         return otherDevices;
@@ -2175,7 +2175,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
         List<Integer> otherWeapons = new LinkedList<Integer>();
         if (usedWeapons != null)
             for (Integer cardId : usedWeapons)
-                if (cardId!=weapon.getCardId())
+                if (cardId!=weapon.getCardId() && !otherWeapons.contains(cardId))
                     otherWeapons.add(cardId);
 
         return otherWeapons;
