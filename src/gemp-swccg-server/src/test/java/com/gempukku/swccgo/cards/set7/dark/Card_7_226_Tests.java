@@ -4,6 +4,7 @@ import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -13,6 +14,8 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import java.util.HashMap;
 
@@ -105,7 +108,7 @@ public class Card_7_226_Tests {
     }
 
     @Test
-    public void StatsAndKeywordsAreCorrect_7_226_DestroyedHomestead() {
+    public void DestroyedHomesteadStatsAndKeywordsAreCorrect() {
         /**
          * Title: Destroyed Homestead
          * Uniqueness: Unique
@@ -130,12 +133,16 @@ public class Card_7_226_Tests {
         assertEquals(5, card.getDestiny(), scn.epsilon);
         assertEquals(ExpansionSet.SPECIAL_EDITION, card.getExpansionSet());
         assertEquals(Rarity.R, card.getRarity());
-        assertEquals(1, card.getIconCount(Icon.SPECIAL_EDITION));
-        assertEquals(1, card.getIconCount(Icon.EFFECT));
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.SPECIAL_EDITION);
+            add(Icon.EFFECT);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+        }});
     }
 
     @Test
-    public void ManualClickDuringYourControlPhaseMakesOpponentLoseOneForce_7_226_DestroyedHomestead() {
+    public void DestroyedHomesteadManualClickDuringYourControlPhaseMakesOpponentLoseOneForce() {
         var scn = GetScenario();
         scn.StartGame();
         reachDSControlWithHomestead(scn);
@@ -154,7 +161,7 @@ public class Card_7_226_Tests {
     }
 
     @Test
-    public void BothPlayersPassingStillMakesOpponentLoseOneForce_7_226_DestroyedHomestead() {
+    public void DestroyedHomesteadBothPlayersPassingStillMakesOpponentLoseOneForce() {
         var scn = GetScenario();
         scn.StartGame();
         reachDSControlWithHomestead(scn);
@@ -174,7 +181,7 @@ public class Card_7_226_Tests {
     }
 
     @Test
-    public void ClickingOnceDoesNotLoseASecondForceAtEndOfPhase_7_226_DestroyedHomestead() {
+    public void DestroyedHomesteadClickingOnceDoesNotLoseASecondForceAtEndOfPhase() {
         var scn = GetScenario();
         scn.StartGame();
         reachDSControlWithHomestead(scn);
@@ -195,7 +202,7 @@ public class Card_7_226_Tests {
     }
 
     @Test
-    public void DoesNotFireDuringOpponentsControlPhase_7_226_DestroyedHomestead() {
+    public void DestroyedHomesteadDoesNotFireDuringOpponentsControlPhase() {
         var scn = GetScenario();
         scn.StartGame();
         scn.SkipToPhase(Phase.DEPLOY);
