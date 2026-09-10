@@ -173,6 +173,8 @@ public enum ModifierType {
     MAY_MOVE_AWAY_AS_REACT_TO_LOCATION,
     MAY_MOVE_OTHER_CARD_AS_REACT_TO_LOCATION,
     MAY_MOVE_OTHER_CARD_AWAY_AS_REACT_TO_LOCATION,
+    // FLAG(Chief): attack-react path for R2 Sensor Array (3_31) only — collision risk with other creature-attack work
+    MAY_MOVE_OTHER_CARD_AS_REACT_FROM_ATTACK,
 
     // Force draining
     IGNORES_OBJECTIVE_RESTRICTIONS_WHEN_FORCE_DRAINING_AT_LOCATION,

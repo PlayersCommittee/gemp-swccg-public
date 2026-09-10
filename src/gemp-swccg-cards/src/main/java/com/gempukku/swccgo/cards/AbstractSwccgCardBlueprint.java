@@ -2692,6 +2692,48 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
     }
 
     /**
+     * Gets an action that allows the player to move other cards away as a 'react' from a creature attack.
+     * FLAG(Chief): attack-react path for R2 Sensor Array (3_31).
+     * @param playerId the player
+     * @param game the game
+     * @param self the card
+     * @return the action, or null
+     */
+    protected TriggerAction getMoveOtherCardsAsReactFromAttackAction(final String playerId, final SwccgGame game, PhysicalCard self) {
+
+        final ReactActionOption reactActionOption = game.getModifiersQuerying().getMoveOtherCardsAsReactFromAttackOption(playerId, game.getGameState(), self);
+        if (reactActionOption != null) {
+
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, self.getCardId(), GameTextActionId.OTHER_CARD_ACTION_REACT_MOVE_AWAY_FROM_ATTACK_OTHER_CARDS);
+            action.setRepeatableTrigger(true);
+            action.setText(reactActionOption.getActionText());
+            // Update usage limit(s)
+            if (self.getBlueprint().getCardCategory() == CardCategory.DEVICE) {
+                action.appendUsage(
+                        new UseDeviceEffect(action, self));
+            }
+            // Choose target(s)
+            action.appendTargeting(
+                    new ChooseCardOnTableEffect(action, playerId, "Choose card to move away as a 'react'", reactActionOption.getCardToReactFilter()) {
+                        @Override
+                        protected void cardSelected(PhysicalCard selectedCard) {
+                            // Perform result(s)
+                            Action moveAsReactAction = selectedCard.getBlueprint().getMoveAsReactAction(playerId, game,
+                                    selectedCard, reactActionOption, reactActionOption.getTargetFilter());
+                            if (moveAsReactAction != null) {
+                                action.appendEffect(
+                                        new StackActionEffect(action, moveAsReactAction));
+                            }
+                        }
+                    }
+            );
+            return action;
+        }
+
+        return null;
+    }
+
+    /**
      * Gets the optional "after" actions for the specified effect result that can be performed by the specified player.
      * This includes actions like playing the card from hand.
      * @param playerId the player
