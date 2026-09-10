@@ -10,8 +10,11 @@ import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
+import com.gempukku.swccgo.game.PhysicalCardImpl;
+import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -19,6 +22,8 @@ import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -55,6 +60,11 @@ public class Card_3_033_Tests {
                 StartingSetup.NoDSShields,
                 VirtualTableScenario.Open
         );
+    }
+
+    private PlayCardAction playAction(VirtualTableScenario scn, PhysicalCardImpl card) {
+        return card.getBlueprint().getPlayCardAction(
+                scn.LS, scn.game(), card, card, false, 0, null, null, null, null, null, false, 0, Filters.any, null);
     }
 
     @Test
@@ -112,11 +122,12 @@ public class Card_3_033_Tests {
         scn.StartGame();
         scn.MoveCardsToLSHand(disarming);
         scn.MoveLocationToTable(cave);
+        scn.MoveCardsToLocation(cave, luke);
 
         scn.SkipToLSTurn(Phase.DEPLOY);
-        scn.MoveCardsToLocation(cave, luke, wampa);
+        scn.MoveCardsToLocation(cave, wampa);
         assertTrue(scn.AwaitingLSDeployPhaseActions());
-        assertFalse(scn.LSCardPlayAvailable(disarming));
+        assertNull(playAction(scn, disarming));
     }
 
     @Test
@@ -131,12 +142,13 @@ public class Card_3_033_Tests {
         scn.StartGame();
         scn.MoveCardsToLSHand(disarming);
         scn.MoveLocationToTable(dockingBay);
+        scn.MoveCardsToLocation(dockingBay, luke);
+        scn.AttachCardsTo(luke, saber);
 
         scn.SkipToLSTurn(Phase.DEPLOY);
-        scn.MoveCardsToLocation(dockingBay, luke, slug);
-        scn.AttachCardsTo(luke, saber);
+        scn.MoveCardsToLocation(dockingBay, slug);
         assertTrue(scn.AwaitingLSDeployPhaseActions());
-        assertFalse(scn.LSCardPlayAvailable(disarming));
+        assertNull(playAction(scn, disarming));
     }
 
     @Test
@@ -151,17 +163,17 @@ public class Card_3_033_Tests {
         scn.StartGame();
         scn.MoveCardsToLSHand(disarming);
         scn.MoveLocationToTable(cave);
+        scn.MoveCardsToLocation(cave, luke);
+        scn.AttachCardsTo(luke, saber);
 
         scn.SkipToLSTurn(Phase.CONTROL);
-        scn.MoveCardsToLocation(cave, luke, wampa);
-        scn.AttachCardsTo(luke, saber);
+        scn.MoveCardsToLocation(cave, wampa);
         assertTrue(scn.AwaitingLSControlPhaseActions());
-        assertFalse(scn.LSCardPlayAvailable(disarming));
+        assertNull(playAction(scn, disarming));
 
-        // Reach battle without leaving creature+character through end-of-battle auto-attack
         scn.SkipToPhase(Phase.BATTLE);
         assertTrue(scn.AwaitingLSBattlePhaseActions());
-        assertFalse(scn.LSCardPlayAvailable(disarming));
+        assertNull(playAction(scn, disarming));
     }
 
     @Test
@@ -177,14 +189,15 @@ public class Card_3_033_Tests {
         scn.StartGame();
         scn.MoveCardsToLSHand(disarming);
         scn.MoveLocationToTable(dockingBay);
+        scn.MoveCardsToLocation(dockingBay, luke);
+        scn.AttachCardsTo(luke, saber);
 
         scn.SkipToLSTurn(Phase.DEPLOY);
-        scn.MoveCardsToLocation(dockingBay, luke, worrt, bubo);
-        scn.AttachCardsTo(luke, saber);
+        scn.MoveCardsToLocation(dockingBay, worrt, bubo);
         assertTrue(scn.AwaitingLSDeployPhaseActions());
-        assertTrue(scn.LSCardPlayAvailable(disarming));
-        scn.LSPlayCard(disarming);
+        assertNotNull(playAction(scn, disarming));
 
+        scn.carryOutEffectInPhaseActionByPlayer(scn.LS, playAction(scn, disarming));
         assertTrue(scn.LSHasCardChoicesAvailable(worrt, bubo));
     }
 
@@ -199,10 +212,15 @@ public class Card_3_033_Tests {
         scn.StartGame();
         scn.MoveCardsToLSHand(disarming);
         scn.MoveLocationToTable(cave);
+        scn.MoveCardsToLocation(cave, quigon);
 
         scn.SkipToDSTurn(Phase.DEPLOY);
-        scn.MoveCardsToLocation(cave, quigon, wampa);
         assertTrue(scn.AwaitingDSDeployPhaseActions());
+        scn.MoveCardsToLocation(cave, wampa);
+        assertNotNull(playAction(scn, disarming));
+
+        // After DS passes, LS gets a deploy-phase window during opponent's turn
+        scn.DSPass();
         assertTrue(scn.LSCardPlayAvailable(disarming));
     }
 
@@ -218,12 +236,14 @@ public class Card_3_033_Tests {
         scn.StartGame();
         scn.MoveCardsToLSHand(disarming);
         scn.MoveLocationToTable(cave);
+        scn.MoveCardsToLocation(cave, luke);
+        scn.AttachCardsTo(luke, saber);
 
         scn.SkipToLSTurn(Phase.DEPLOY);
-        scn.MoveCardsToLocation(cave, luke, wampa);
-        scn.AttachCardsTo(luke, saber);
-        assertTrue(scn.LSCardPlayAvailable(disarming));
-        scn.LSPlayCard(disarming);
+        scn.MoveCardsToLocation(cave, wampa);
+        assertNotNull(playAction(scn, disarming));
+
+        scn.carryOutEffectInPhaseActionByPlayer(scn.LS, playAction(scn, disarming));
         assertTrue(scn.LSHasCardChoicesAvailable(wampa));
         scn.LSChooseCard(wampa);
         scn.PassAllResponses();
@@ -242,21 +262,22 @@ public class Card_3_033_Tests {
 
         scn.StartGame();
         scn.MoveLocationToTable(cave);
+        scn.MoveCardsToLocation(cave, luke);
+        scn.AttachCardsTo(luke, saber);
 
-        // Wampa ferocity destiny (creature owner) then LS subtract destiny (Disarming Creature owner)
         scn.PrepareDSDestiny(2);
         scn.PrepareLSDestiny(1);
 
         scn.SkipToDSTurn(Phase.BATTLE);
-        scn.MoveCardsToLocation(cave, luke, wampa);
-        scn.AttachCardsTo(luke, saber);
+        assertTrue(scn.AwaitingDSBattlePhaseActions());
+        scn.MoveCardsToLocation(cave, wampa);
         scn.AttachCardsTo(wampa, disarming);
+        scn.DSActivateForceCheat(3);
 
         assertTrue(scn.DSCardActionAvailable(wampa, "Initiate attack"));
         scn.DSUseCardAction(wampa, "Initiate attack");
         scn.PassAllResponses();
 
-        // Power segment: ferocity destiny then subtract destiny (automatic draws)
         scn.PassDestinyDrawResponses(); // DS ferocity destiny
         scn.PassDestinyDrawResponses(); // LS subtract destiny
         scn.PassAllResponses();
