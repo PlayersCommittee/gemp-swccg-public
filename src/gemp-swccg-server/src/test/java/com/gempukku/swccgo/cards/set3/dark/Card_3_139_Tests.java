@@ -153,17 +153,15 @@ public class Card_3_139_Tests {
         scn.SkipToPhase(Phase.CONTROL);
         assertTrue(scn.AwaitingDSControlPhaseActions());
 
-        // Both cancel actions available; choose Toolkit first (USED).
-        assertTrue(scn.DSCardPlayAvailable(tio));
-        scn.DSPlayCard(tio);
-        scn.DSChooseAction("Cancel Han's Toolkit");
+        assertTrue(scn.DSCardPlayAvailable(tio, "Cancel Han's Toolkit"));
+        scn.DSPlayCard(tio, "Cancel Han's Toolkit");
         scn.DSChooseCard(toolkit);
         scn.PassAllResponses();
         assertEquals(Zone.TOP_OF_LOST_PILE, toolkit.getZone());
 
         assertTrue(scn.AwaitingDSControlPhaseActions());
-        assertTrue(scn.DSCardPlayAvailable(tio2));
-        scn.DSPlayCard(tio2);
+        assertTrue(scn.DSCardPlayAvailable(tio2, "Cancel Crash Site Memorial"));
+        scn.DSPlayCard(tio2, "Cancel Crash Site Memorial");
         scn.DSChooseCard(crash);
         scn.PassAllResponses();
         assertEquals(Zone.TOP_OF_LOST_PILE, crash.getZone());
