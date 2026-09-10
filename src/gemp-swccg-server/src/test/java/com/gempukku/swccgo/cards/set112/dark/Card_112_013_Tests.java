@@ -1,6 +1,12 @@
 package com.gempukku.swccgo.cards.set112.dark;
 
 import com.gempukku.swccgo.common.Phase;
+import java.util.ArrayList;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
@@ -12,6 +18,7 @@ import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Tests for Mercenary Pilot (112_013).
@@ -55,11 +62,41 @@ public class Card_112_013_Tests {
     }
 
     @Test
-    public void MercenaryPilotStatsAreCorrect() {
+    public void MercenaryPilotStatsAndKeywordsAreCorrect() {
+        /**
+         * Title: Mercenary Pilot
+         * Uniqueness: Unrestricted
+         * Side: Dark
+         * Type: Alien
+         * Destiny: 2 / Power: 2 / Ability: 1 / Deploy: 2 / Forfeit: 3
+         * Icons: Pilot, Warrior (Jabba's Palace Sealed Deck)
+         * Keywords: Mercenary, Smuggler
+         * Set: JPSD
+         */
         var scn = GetScenario();
         var card = scn.GetDSCard("pilot1").getBlueprint();
         assertEquals("Mercenary Pilot", card.getTitle());
         assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
+        assertEquals(Side.DARK, card.getSide());
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.ALIEN);
+        }});
+        assertEquals(2, card.getDestiny(), scn.epsilon);
+        assertEquals(2, card.getPower(), scn.epsilon);
+        assertEquals(1, card.getAbility(), scn.epsilon);
+        assertEquals(2, card.getDeployCost(), scn.epsilon);
+        assertEquals(3, card.getForfeit(), scn.epsilon);
+        scn.BlueprintIconCheck(card, new ArrayList<>() {{
+            add(Icon.ALIEN);
+            add(Icon.PILOT);
+            add(Icon.WARRIOR);
+            add(Icon.PREMIUM);
+        }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+            add(Keyword.MERCENARY);
+            add(Keyword.SMUGGLER);
+        }});
+        assertEquals(ExpansionSet.JPSD, card.getExpansionSet());
     }
 
     /**
@@ -74,10 +111,7 @@ public class Card_112_013_Tests {
         scn.SkipToDSTurn(Phase.BATTLE);
         InitiateBattleKeepingStartResponses(scn, board.eastPlatform);
 
-        String debug = "decision=" + (scn.DSGetDecision() == null ? "none" : scn.DSGetDecision().getText())
-                + " ls=" + (scn.LSGetDecision() == null ? "none" : scn.LSGetDecision().getText())
-                + " actions=" + scn.GetDSAvailableActions();
-        assertTrue(debug, scn.DSAnyDecisionsAvailable() && scn.DSCardActionAvailable(board.pilot1, "Add one battle destiny"));
+        assertTrue(scn.DSAnyDecisionsAvailable() && scn.DSCardActionAvailable(board.pilot1, "Add one battle destiny"));
         scn.DSUseCardAction(board.pilot1, "Add one battle destiny");
 
         scn.SkipToPowerSegment();
@@ -261,8 +295,7 @@ public class Card_112_013_Tests {
             }
             return;
         }
-        throw new RuntimeException("Could not finish battle. decision=" +
-                (scn.GetCurrentDecision() == null ? "none" : scn.GetCurrentDecision().getText()));
+        fail("Could not finish battle. decision=" + (scn.GetCurrentDecision() == null ? "none" : scn.GetCurrentDecision().getText()));
     }
 
     private static class CloudBoard {
