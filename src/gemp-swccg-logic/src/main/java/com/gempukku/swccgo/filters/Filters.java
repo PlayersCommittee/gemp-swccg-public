@@ -19237,6 +19237,7 @@ public class Filters {
     public static final Filter Senate_Hovercam = Filters.title(Title.Senate_Hovercam);
     public static final Filter senator = Filters.keyword(Keyword.SENATOR);
     public static final Filter Sense = Filters.title(Title.Sense);
+    public static final Filter Sensor_Panel = Filters.title(Title.Sensor_Panel);
     public static final Filter Separatist_Command_Center = Filters.title(Title.Separatist_Command_Center);
     public static final Filter Set_For_Stun = Filters.title(Title.Set_For_Stun);
     public static final Filter Set_Your_Course_For_Alderaan = Filters.title(Title.Set_Your_Course_For_Alderaan);

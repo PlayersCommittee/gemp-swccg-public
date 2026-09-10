@@ -24,6 +24,7 @@ import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.results.PeekedAtOpponentsHandResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -40,6 +41,21 @@ public class Card1_104 extends AbstractUsedInterrupt {
         super(Side.LIGHT, 3, Title.Radar_Scanner, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.C2);
         setLore("Sensor on Luke's landspeeder. Many possible settings. Can scan for life forms, movement or concentrations of metal. Used for traffic control on settled worlds.");
         setGameText("If you have at least one vehicle or starship on table, use 1 Force to glance at the cards in the opponent's hand for 10 seconds. You may move each Jawa (except Dathcha) and Tusken Raider you find there to opponent's Used Pile.");
+    }
+
+    /**
+     * Lets cards such as Sensor Panel respond after the peek, without looking at the hand a second time.
+     */
+    private void emitPeekedAtOpponentsHand(final Action action, final String playerId, final PhysicalCard self, final List<PhysicalCard> peekedAtCards) {
+        action.appendEffect(
+                new PassthruEffect(action) {
+                    @Override
+                    protected void doPlayEffect(SwccgGame game) {
+                        game.getActionsEnvironment().emitEffectResult(
+                                new PeekedAtOpponentsHandResult(playerId, self, peekedAtCards));
+                    }
+                }
+        );
     }
 
     @Override
@@ -84,7 +100,8 @@ public class Card1_104 extends AbstractUsedInterrupt {
                                                                             new LoseCardsFromHandEffect(action, opponent, cardsToLose));
                                                                 }
                                                             }
-                                                            ;
+                                                            // Offer Sensor Panel (and similar) after seeing the hand, before Radar Scanner's Jawa option.
+                                                            emitPeekedAtOpponentsHand(action, playerId, self, peekedAtCards);
                                                             action.appendEffect(
                                                                     new PassthruEffect(action) {
                                                                         @Override
@@ -99,11 +116,14 @@ public class Card1_104 extends AbstractUsedInterrupt {
                                                                                                         game.getGameState().sendMessage(playerId + " chooses to place Jawas and Tusken Raiders in Used Pile");
                                                                                                         action.appendEffect(
                                                                                                                 new PutCardsFromHandOnUsedPileEffect(action, playerId, opponent, jawaAndTuskenRaiderFilter, false));
+                                                                                                        // Second window so Sensor Panel can also be used after the Jawa option.
+                                                                                                        emitPeekedAtOpponentsHand(action, playerId, self, peekedAtCards);
                                                                                                     }
 
                                                                                                     @Override
                                                                                                     protected void no() {
                                                                                                         game.getGameState().sendMessage(playerId + " chooses to not place Jawas and Tusken Raiders in Used Pile");
+                                                                                                        emitPeekedAtOpponentsHand(action, playerId, self, peekedAtCards);
                                                                                                     }
                                                                                                 }
                                                                                         )
