@@ -22,7 +22,6 @@ import static org.junit.Assert.*;
 
 /**
  * Dedicated click-to-order coverage for the rearranging-sites helper.
- * Retract The Bridge and Heart Of The Chasm are not encoded here.
  */
 public class RearrangeSitesClickOrderTests {
 
@@ -89,7 +88,7 @@ public class RearrangeSitesClickOrderTests {
     }
 
     @Test
-    public void ClickSitesInOrderRearrangesAtomicallyAfterAllChosen() {
+    public void RearrangeSitesClickSitesInOrderRearrangesAtomicallyAfterAllChosen() {
         var scn = GetScenario();
 
         var corridor = scn.GetDSCard("corridor");

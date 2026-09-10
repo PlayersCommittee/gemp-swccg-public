@@ -162,7 +162,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void ThreeInteriorDeathStarSitesReorderAndCharactersRide() {
+    public void RearrangeSitesThreeInteriorDeathStarSitesReorderAndCharactersRide() {
         var scn = GetScenario();
 
         var corridor = scn.GetDSCard("corridor");
@@ -191,7 +191,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void MixedSideThreeInteriorDeathStarSitesReorder() {
+    public void RearrangeSitesMixedSideThreeInteriorDeathStarSitesReorder() {
         var scn = GetScenario();
 
         var corridor = scn.GetDSCard("corridor");
@@ -221,7 +221,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void ConvertedStackStaysUnderTheSameTop() {
+    public void RearrangeSitesConvertedStackStaysUnderTheSameTop() {
         var scn = GetScenario();
 
         var chasm = scn.GetLSStartingLocation();
@@ -256,7 +256,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void VehicleAndPilotStayEmbarked() {
+    public void RearrangeSitesVehicleAndPilotStayEmbarked() {
         var scn = GetScenario();
 
         var corridor = scn.GetDSCard("corridor");
@@ -286,7 +286,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void AccessDeniedRestrictedAccessStayBetweenSites() {
+    public void RearrangeSitesBetweenSitesEffectsStayBetweenPairedSites() {
         var scn = GetScenario();
 
         var corridor = scn.GetDSCard("corridor");
@@ -307,10 +307,10 @@ public class RearrangeSitesTests {
         PhysicalCardImpl mid = (PhysicalCardImpl) interiors.get(1);
         PhysicalCardImpl right = (PhysicalCardImpl) interiors.get(2);
 
-        // Access Denied stand-in: between the current left and middle sites.
+        // Between-sites stand-in: between the current left and middle sites.
         attachEffectToSite(scn, expand, left);
         placeBetweenSites(expand, mid);
-        // Restricted Access stand-in: between the current middle and right sites.
+        // Between-sites stand-in: between the current middle and right sites.
         attachEffectToSite(scn, presence, mid);
         placeBetweenSites(presence, right);
 
@@ -322,12 +322,12 @@ public class RearrangeSitesTests {
         List<PhysicalCard> newOrder = reversed(interiors);
         assertTrue(RearrangeSites.rearrangeInteriorSites(scn.game(), Title.Death_Star, newOrder));
 
-        // Reverse puts the old left site at the right end. The Access Denied
+        // Reverse puts the old left site at the right end. The first between-sites
         // stand-in reattaches to the left-er of its pair (old mid) instead of
         // riding to the end.
         assertTrue(scn.IsAttachedTo(mid, expand));
         assertEquals(left, expand.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
-        // Restricted Access stand-in reattaches to the old right site, now leftmost.
+        // Second between-sites stand-in reattaches to the old right site, now leftmost.
         assertTrue(scn.IsAttachedTo(right, presence));
         assertEquals(mid, presence.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
 
@@ -342,7 +342,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void ZeroTargetsIsNoOpAndCannotInitiate() {
+    public void RearrangeSitesZeroTargetsIsNoOpAndCannotInitiate() {
         var scn = GetScenario();
 
         scn.StartGame();
@@ -371,7 +371,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void SameConfigurationIsAllowed() {
+    public void RearrangeSitesSameConfigurationIsAllowed() {
         var scn = GetScenario();
 
         var corridor = scn.GetDSCard("corridor");
@@ -393,7 +393,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void IndexPermutationReordersInteriorSites() {
+    public void RearrangeSitesIndexPermutationReordersInteriorSites() {
         var scn = GetScenario();
 
         var corridor = scn.GetDSCard("corridor");
@@ -417,7 +417,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void CaptiveStaysEscorted() {
+    public void RearrangeSitesCaptiveStaysEscorted() {
         var scn = GetScenario();
 
         var corridor = scn.GetDSCard("corridor");
@@ -448,7 +448,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void RearrangeIsNotMovementOrDeploymentAndCannotMoveUnaffected() {
+    public void RearrangeSitesIsNotMovementOrDeploymentAndCannotMoveUnaffected() {
         var scn = GetScenario();
 
         var corridor = scn.GetDSCard("corridor");
@@ -485,7 +485,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void TrenchSystemAndUnrelatedSitesAreUnchanged() {
+    public void RearrangeSitesTrenchSystemAndUnrelatedSitesAreUnchanged() {
         var scn = GetScenario();
 
         var corridor = scn.GetDSCard("corridor");
@@ -534,7 +534,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void SameHelperReordersBespinInteriorSites() {
+    public void RearrangeSitesReordersBespinInteriorSites() {
         var scn = GetScenario();
 
         var chasm = scn.GetLSStartingLocation();
@@ -563,7 +563,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void InvalidOrdersThatBreakLayoutRulesAreRejected() {
+    public void RearrangeSitesInvalidOrdersThatBreakLayoutRulesAreRejected() {
         var scn = GetScenario();
 
         var corridor = scn.GetDSCard("corridor");
@@ -603,7 +603,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void SameHelperReordersTheedPalaceInteriorSites() {
+    public void RearrangeSitesReordersTheedPalaceInteriorSites() {
         var scn = GetScenario();
 
         var hallway = scn.GetDSCard("hallway");
@@ -638,7 +638,7 @@ public class RearrangeSitesTests {
         assertIndexesMatchRow(scn);
     }
     @Test
-    public void InvalidPermutationIsRejected() {
+    public void RearrangeSitesInvalidPermutationIsRejected() {
         var scn = GetScenario();
 
         var corridor = scn.GetDSCard("corridor");
@@ -669,7 +669,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void PartialOrderOnlySwapsTheOccupiedSlots() {
+    public void RearrangeSitesPartialOrderOnlySwapsTheOccupiedSlots() {
         var scn = GetScenario();
 
         var corridor = scn.GetDSCard("corridor");
@@ -698,7 +698,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void TheedThroneRoomAndCourtyardStayOutOfInteriorRow() {
+    public void RearrangeSitesTheedThroneRoomAndCourtyardStayOutOfInteriorRow() {
         var scn = GetScenario();
 
         var throne = scn.GetDSCard("throne");
@@ -733,7 +733,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void RearrangeRelatedSitesEffectReordersInteriorSites() {
+    public void RearrangeSitesRelatedSitesEffectReordersInteriorSites() {
         var scn = GetScenario();
 
         var corridor = scn.GetDSCard("corridor");
@@ -764,7 +764,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void PlayerChoosesSitesInOrderAThenCThenB() {
+    public void RearrangeSitesPlayerChoosesSitesInOrderAThenCThenB() {
         var scn = GetScenario();
 
         var corridor = scn.GetDSCard("corridor");
@@ -804,7 +804,7 @@ public class RearrangeSitesTests {
         assertIndexesMatchRow(scn);
     }
     @Test
-    public void PlayerClicksInteriorSitesInLeftToRightOrder() {
+    public void RearrangeSitesPlayerClicksInteriorSitesInLeftToRightOrder() {
         var scn = GetScenario();
 
         var corridor = scn.GetDSCard("corridor");
@@ -857,7 +857,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void PlayerClicksBespinInteriorSitesInLeftToRightOrder() {
+    public void RearrangeSitesPlayerClicksBespinInteriorSitesInLeftToRightOrder() {
         var scn = GetScenario();
 
         var chasm = scn.GetLSStartingLocation();
@@ -896,7 +896,7 @@ public class RearrangeSitesTests {
         assertIndexesMatchRow(scn);
     }
     @Test
-    public void CentralCoreParticipatesAndConvertedDockingBayStaysOut() {
+    public void RearrangeSitesCentralCoreParticipatesAndConvertedDockingBayStaysOut() {
         var scn = GetScenario();
         var corridor = scn.GetDSCard("corridor");
         var core = scn.GetDSCard("core");
@@ -930,7 +930,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void AdjacencyUpdatesAfterRotation() {
+    public void RearrangeSitesAdjacencyUpdatesAfterRotation() {
         var scn = GetScenario();
         var corridor = scn.GetDSCard("corridor");
         var warRoom = scn.GetDSCard("war-room");
@@ -956,7 +956,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void OneInteriorSiteCanInitiateAndKeepsOrder() {
+    public void RearrangeSitesOneInteriorSiteCanInitiateAndKeepsOrder() {
         var scn = GetScenario();
         var corridor = scn.GetDSCard("corridor");
         scn.StartGame();
@@ -972,7 +972,7 @@ public class RearrangeSitesTests {
     }
 
     @Test
-    public void SiteAttachedEffectThatIsNotBetweenSitesStaysPut() {
+    public void RearrangeSitesSiteAttachedEffectThatIsNotBetweenSitesStaysPut() {
         var scn = GetScenario();
         var corridor = scn.GetDSCard("corridor");
         var warRoom = scn.GetDSCard("war-room");
