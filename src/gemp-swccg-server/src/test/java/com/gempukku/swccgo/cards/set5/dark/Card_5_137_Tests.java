@@ -139,11 +139,11 @@ public class Card_5_137_Tests {
 		var lando = scn.GetDSCard("lando");
 		var han = scn.GetLSCard("han");
 		// Bespin system is not a site
-		var bespin = scn.GetDSCard("plaza"); // use a site that we will NOT put them on — relocate to default systems via skip
+		var bespin = scn.GetDSCard("plaza"); // use a site that we will NOT put them on â€” relocate to default systems via skip
 
 		scn.StartGame();
 		scn.MoveCardsToDSHand(swindler);
-		// Place Han/Lando at starting systems (not sites) if possible — characters at system need to be aboard;
+		// Place Han/Lando at starting systems (not sites) if possible â€” characters at system need to be aboard;
 		// instead put them at different sites to prove same-system alone is insufficient for Action1.
 		var dining = scn.GetDSCard("dining");
 		var platform = scn.GetDSCard("platform");
@@ -153,7 +153,7 @@ public class Card_5_137_Tests {
 		scn.MoveCardsToLocation(platform, lando);
 
 		scn.SkipToPhase(Phase.CONTROL);
-		assertFalse("Han and your Lando at different sites — Action1 not playable",
+		assertFalse("Han and your Lando at different sites â€” Action1 not playable",
 				scn.DSCardPlayAvailable(swindler));
 	}
 
@@ -170,12 +170,11 @@ public class Card_5_137_Tests {
 		scn.MoveLocationToTable(dining);
 		scn.MoveCardsToLocation(dining, han, lando);
 
-		int lsForceBefore = scn.GetLSLifeForceRemaining();
-
 		scn.SkipToPhase(Phase.CONTROL);
 		assertTrue(scn.DSCardPlayAvailable(swindler));
-		scn.DSPlayCard(swindler);
-		SafePassOptionalResponses(scn);
+		int lsForceBefore = scn.GetLSLifeForceRemaining();
+		scn.DSPlayCardAndPassResponses(swindler);
+		scn.LSPayRemainingForceLossFromReserveDeck();
 
 		assertEquals("Opponent should lose 3 Force", lsForceBefore - 3, scn.GetLSLifeForceRemaining());
 		assertTrue("Swindler is Lost Interrupt",
@@ -196,7 +195,7 @@ public class Card_5_137_Tests {
 		scn.MoveCardsToLSHand(nabrun);
 		scn.MoveLocationToTable(dining);
 		scn.MoveLocationToTable(platform);
-		// LS needs a character to transport — use Han
+		// LS needs a character to transport â€” use Han
 		var han = scn.GetLSCard("han");
 		scn.MoveCardsToLocation(dining, han);
 		scn.MoveCardsToLocation(platform, trooper); // DS presence at destination
@@ -223,7 +222,7 @@ public class Card_5_137_Tests {
 					sawSwindler = true;
 					scn.DSPlayCard(swindler);
 					SafePassOptionalResponses(scn);
-					// May be offered deploy choices — pass them
+					// May be offered deploy choices â€” pass them
 					for (int j = 0; j < 15; j++) {
 						var d2 = scn.GetCurrentDecision();
 						if (d2 == null) break;
