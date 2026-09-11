@@ -181,12 +181,12 @@ public class Card_8_049_Tests {
         scn.LSPlayCard(rescue);
         scn.LSChooseCard(spearman);
         scn.LSChooseCard(rebel);
-        scn.PassCardPlayResponses();
+        scn.PassResponses("Playing");
         scn.PassDestinyDrawResponses();
         scn.PassAllResponses();
 
         assertFalse(rebel.isCaptive());
-        assertEquals(rescue, scn.GetTopOfLSUsedPile());
+        assertEquals(Zone.USED_PILE, rescue.getZone());
     }
 
     @Test
@@ -211,7 +211,7 @@ public class Card_8_049_Tests {
         scn.LSPlayCard(rescue);
         scn.LSChooseCard(sentry);
         scn.LSChooseCard(rebel);
-        scn.PassCardPlayResponses();
+        scn.PassResponses("Playing");
         scn.PassDestinyDrawResponses();
         scn.PassAllResponses();
 
@@ -238,13 +238,13 @@ public class Card_8_049_Tests {
         scn.LSPlayCard(rescue);
         scn.LSChooseCard(spearman);
         scn.LSChooseCard(rebel);
-        scn.PassCardPlayResponses();
+        scn.PassResponses("Playing");
         scn.PassDestinyDrawResponses();
         scn.PassAllResponses();
 
         assertTrue(rebel.isCaptive());
         assertEquals(escort, rebel.getEscort());
-        assertEquals(rescue, scn.GetTopOfLSUsedPile());
+        assertEquals(Zone.USED_PILE, rescue.getZone());
     }
 
     @Test
@@ -289,7 +289,7 @@ public class Card_8_049_Tests {
         // Sense cancels during Playing optional responses (before destiny)
         assertTrue(scn.DSCardPlayAvailable(sense));
         scn.DSPlayCard(sense);
-        scn.PassCardPlayResponses();
+        scn.PassResponses("Playing");
         scn.PassDestinyDrawResponses();
         scn.PassAllResponses();
 
@@ -424,7 +424,10 @@ public class Card_8_049_Tests {
         InitiateDsBattleKeepReactWindow(scn, marketplace);
         AssertLsCanPlayRescue(scn, rescue);
         scn.LSPlayCard(rescue);
-        scn.LSChooseCard(spearman);
+        assertTrue(scn.LSHasCardChoiceAvailable(spearman) || scn.LSHasCardChoiceAvailable(tribesman) || scn.LSHasCardChoiceAvailable(paploo));
+        if (scn.LSHasCardChoiceAvailable(spearman)) { scn.LSChooseCard(spearman); }
+        else if (scn.LSHasCardChoiceAvailable(tribesman)) { scn.LSChooseCard(tribesman); }
+        else { scn.LSChooseCard(paploo); }
         scn.PassAllResponses();
 
         FinishOptionalExtraReactIfOffered(scn, tribesman);

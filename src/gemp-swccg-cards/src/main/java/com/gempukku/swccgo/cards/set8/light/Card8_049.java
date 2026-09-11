@@ -146,7 +146,8 @@ public class Card8_049 extends AbstractUsedInterrupt {
 
         // Check condition(s) — react window when battle is initiated and your Ewok is defending (not if you initiated).
         if (TriggerConditions.battleInitiatedAt(game, effectResult, opponent, Filters.and(Filters.site, Filters.canBeTargetedBy(self)))
-                && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.Ewok, Filters.defendingBattle))) {
+                && GameConditions.isDuringBattleInitiatedBy(game, opponent)
+                && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.Ewok))) {
             Filter ewokFilter = getReactEwokFilter(self, null);
             if (GameConditions.canTarget(game, self, ewokFilter)) {
 
