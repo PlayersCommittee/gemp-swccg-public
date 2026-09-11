@@ -44,6 +44,7 @@ public class Card_8_049_Tests {
                 put("presence", "1_194");
                 put("cantinaDS", "1_290"); // Tatooine: Cantina (Dark)
                 put("db94", "1_291"); // Tatooine: Docking Bay 94
+                put("lars", "1_294"); // Tatooine: Lars' Moisture Farm (exterior)
                 put("palace", "6_171"); // Tatooine: Jabba's Palace
                 put("deck", "6_167"); // Jabba's Sail Barge: Passenger Deck
                 put("bargeDS", "6_172"); // Jabba's Sail Barge
@@ -105,36 +106,14 @@ public class Card_8_049_Tests {
     }
 
     private void FinishAction1Destiny(VirtualTableScenario scn) {
-        // Drive the Used-Interrupt play + destiny chain to completion.
-        // Destiny response ids often include "Optional responses" — check destiny first.
-        for (int i = 0; i < 40; i++) {
-            if (scn.GetCurrentDecision() == null) {
-                break;
-            }
+        // Only clear Playing + destiny + leftover optionals. Do NOT generic-pass phase actions
+        // or the table will advance into recirculation (interrupt lands in Reserve Deck).
+        scn.PassCardPlayResponses();
+        scn.PassAllResponses();
+        if (scn.GetCurrentDecision() != null) {
             String text = scn.GetCurrentDecision().getText();
-            if (text == null) {
-                break;
-            }
-            String lower = text.toLowerCase();
-            if (lower.contains("destiny")) {
+            if (text != null && text.toLowerCase().contains("destiny")) {
                 scn.PassDestinyDrawResponses();
-                continue;
-            }
-            if (lower.contains("playing") || lower.contains("optional")) {
-                scn.PassResponses("optional");
-                if (scn.GetCurrentDecision() != null) {
-                    String t2 = scn.GetCurrentDecision().getText();
-                    if (t2 != null && t2.toLowerCase().contains("playing")) {
-                        scn.PassResponses("Playing");
-                    }
-                }
-                continue;
-            }
-            try {
-                scn.PassResponses();
-            }
-            catch (RuntimeException ex) {
-                break;
             }
         }
         scn.PassAllResponses();
@@ -345,16 +324,16 @@ public class Card_8_049_Tests {
         var rebel = scn.GetLSCard("rebel");
         var presence = scn.GetDSCard("presence");
         var marketplace = scn.GetDSStartingLocation();
-        var cantina = scn.GetDSCard("cantinaDS");
+        var exteriorAdjacent = scn.GetDSCard("db94");
 
         scn.MoveCardsToLSHand(rescue);
         scn.StartGame();
-        scn.MoveLocationToTable(cantina);
-        assertTrue(scn.IsAdjacentTo(cantina, marketplace));
+        scn.MoveLocationToTable(exteriorAdjacent);
+        assertTrue(scn.IsAdjacentTo(exteriorAdjacent, marketplace));
 
         // Defending Ewok at battle; three movers at adjacent exterior site
         scn.MoveCardsToLocation(marketplace, sentry, presence, rebel);
-        scn.MoveCardsToLocation(cantina, spearman, tribesman, paploo);
+        scn.MoveCardsToLocation(exteriorAdjacent, spearman, tribesman, paploo);
 
         scn.SkipToDSTurn(Phase.BATTLE);
         int lsForceBefore = scn.GetLSForcePileCount();
@@ -387,13 +366,13 @@ public class Card_8_049_Tests {
         var rebel = scn.GetLSCard("rebel");
         var presence = scn.GetDSCard("presence");
         var marketplace = scn.GetDSStartingLocation();
-        var cantina = scn.GetDSCard("cantinaDS");
+        var exteriorAdjacent = scn.GetDSCard("db94");
 
         scn.MoveCardsToLSHand(rescue);
         scn.StartGame();
-        scn.MoveLocationToTable(cantina);
+        scn.MoveLocationToTable(exteriorAdjacent);
         scn.MoveCardsToLocation(marketplace, sentry, presence, rebel);
-        scn.MoveCardsToLocation(cantina, spearman);
+        scn.MoveCardsToLocation(exteriorAdjacent, spearman);
 
         scn.SkipToLSTurn(Phase.BATTLE);
         assertTrue(scn.LSCanInitiateBattle(marketplace));
@@ -411,14 +390,14 @@ public class Card_8_049_Tests {
         var rebel = scn.GetLSCard("rebel");
         var presence = scn.GetDSCard("presence");
         var marketplace = scn.GetDSStartingLocation();
-        var cantina = scn.GetDSCard("cantinaDS");
+        var exteriorAdjacent = scn.GetDSCard("db94");
 
         scn.MoveCardsToLSHand(rescue);
         scn.StartGame();
-        scn.MoveLocationToTable(cantina);
+        scn.MoveLocationToTable(exteriorAdjacent);
         // Non-Ewok LS presence at battle; Ewok only at adjacent
         scn.MoveCardsToLocation(marketplace, rebel, presence);
-        scn.MoveCardsToLocation(cantina, spearman);
+        scn.MoveCardsToLocation(exteriorAdjacent, spearman);
 
         scn.SkipToDSTurn(Phase.BATTLE);
         InitiateDsBattleKeepReactWindow(scn, marketplace);
@@ -437,31 +416,26 @@ public class Card_8_049_Tests {
         var rebel = scn.GetLSCard("rebel");
         var presence = scn.GetDSCard("presence");
         var marketplace = scn.GetDSStartingLocation();
-        var cantina = scn.GetDSCard("cantinaDS");
-        var db94 = scn.GetDSCard("db94");
+        var exteriorAdjacent = scn.GetDSCard("db94");
+        var otherExterior = scn.GetDSCard("lars");
 
         scn.MoveCardsToLSHand(rescue);
         scn.StartGame();
-        scn.MoveLocationToTable(cantina);
-        scn.MoveLocationToTable(db94);
+        scn.MoveLocationToTable(exteriorAdjacent);
+        scn.MoveLocationToTable(otherExterior);
+        assertTrue(scn.IsAdjacentTo(exteriorAdjacent, marketplace));
 
         scn.MoveCardsToLocation(marketplace, sentry, presence, rebel);
-        scn.MoveCardsToLocation(cantina, spearman, tribesman, paploo);
-        // Fourth Ewok at a different exterior site
-        PhysicalCardImpl otherSite = scn.IsAdjacentTo(db94, marketplace) ? db94 : cantina;
-        if (otherSite == cantina) {
-            // place romba with the three if db94 not adjacent; still test max 3
-            scn.MoveCardsToLocation(cantina, romba);
-        }
-        else {
-            scn.MoveCardsToLocation(otherSite, romba);
-        }
+        scn.MoveCardsToLocation(exteriorAdjacent, spearman, tribesman, paploo);
+        // Fourth Ewok at a different exterior site (not the locked site)
+        scn.MoveCardsToLocation(otherExterior, romba);
 
         scn.SkipToDSTurn(Phase.BATTLE);
         InitiateDsBattleKeepReactWindow(scn, marketplace);
         AssertLsCanPlayRescue(scn, rescue);
         scn.LSPlayCard(rescue);
         assertTrue(scn.LSHasCardChoiceAvailable(spearman) || scn.LSHasCardChoiceAvailable(tribesman) || scn.LSHasCardChoiceAvailable(paploo));
+        assertFalse("Romba at a different exterior site is not eligible with first-site lock", scn.LSHasCardChoiceAvailable(romba));
         if (scn.LSHasCardChoiceAvailable(spearman)) { scn.LSChooseCard(spearman); }
         else if (scn.LSHasCardChoiceAvailable(tribesman)) { scn.LSChooseCard(tribesman); }
         else { scn.LSChooseCard(paploo); }
@@ -469,7 +443,6 @@ public class Card_8_049_Tests {
 
         FinishOptionalExtraReactIfOffered(scn, tribesman);
         FinishOptionalExtraReactIfOffered(scn, paploo);
-        // After three reacts, romba at same site must not get a fourth offer; different site never eligible with first site lock
         boolean offeredRomba = scn.LSHasCardChoiceAvailable(romba)
                 || (scn.LSDecisionAvailable("Choose another Ewok") && scn.LSHasCardChoiceAvailable(romba));
         assertFalse("At most three Ewoks from the locked exterior site", offeredRomba);
@@ -521,17 +494,17 @@ public class Card_8_049_Tests {
         var rebel = scn.GetLSCard("rebel");
         var presence = scn.GetDSCard("presence");
         var marketplace = scn.GetDSStartingLocation();
-        var cantina = scn.GetDSCard("cantinaDS");
+        var exteriorAdjacent = scn.GetDSCard("db94");
         var barge = scn.GetDSCard("bargeDS");
         var escortDriver = scn.GetDSCard("escort");
 
         scn.MoveCardsToLSHand(rescue);
         scn.StartGame();
-        scn.MoveLocationToTable(cantina);
-        assertTrue(scn.IsAdjacentTo(cantina, marketplace));
+        scn.MoveLocationToTable(exteriorAdjacent);
+        assertTrue(scn.IsAdjacentTo(exteriorAdjacent, marketplace));
 
         scn.MoveCardsToLocation(marketplace, sentry, presence, rebel);
-        scn.MoveCardsToLocation(cantina, barge);
+        scn.MoveCardsToLocation(exteriorAdjacent, barge);
         scn.BoardAsPilot(barge, escortDriver);
         scn.BoardAsPassenger(barge, spearman);
 
