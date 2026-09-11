@@ -19,7 +19,7 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleActionProxyEffect;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnActionProxyEffect;
-import com.gempukku.swccgo.logic.effects.ForfeitCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardsOnTableEffect;
@@ -84,7 +84,7 @@ public class Card4_065 extends AbstractLostInterrupt {
                     @Override
                     protected void cardsSelected(Collection<PhysicalCard> selectedCards) {
                         for (PhysicalCard selected : selectedCards) {
-                            action.appendEffect(new ForfeitCardFromTableEffect(action, selected));
+                            action.appendEffect(new LoseCardFromTableEffect(action, selected));
                         }
                     }
                 }
