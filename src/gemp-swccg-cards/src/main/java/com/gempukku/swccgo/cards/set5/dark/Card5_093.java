@@ -53,6 +53,7 @@ public class Card5_093 extends AbstractImperial {
         // Check condition(s)
         if (GameConditions.isInBattle(game, self)
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                && !GameConditions.mayNotHideFromBattle(game)
                 && GameConditions.canUseForce(game, playerId, 3)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
