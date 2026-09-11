@@ -55,6 +55,7 @@ public class RuleSet {
         new LostIfAboutToBeStolenRule(_actionsEnvironment).applyRule();
         new LukesBackpackRule(_actionsEnvironment).applyRule();
         new OperativesRule(_actionsEnvironment, _modifiersEnvironment).applyRule();
+        new RecordBattlesThisTurnRule(_actionsEnvironment).applyRule();
         new PresenceIconRule(_modifiersEnvironment).applyRule();
         new ReleaseCaptivesWithLightSideEscortRule(_actionsEnvironment).applyRule();
         new ReleaseCapturedStarshipsIfNoRelatedTractorBeamsRule(_actionsEnvironment).applyRule();
@@ -63,3 +64,4 @@ public class RuleSet {
         new TurnOverCardPilesRule(_actionsEnvironment).applyRule();
     }
 }
+

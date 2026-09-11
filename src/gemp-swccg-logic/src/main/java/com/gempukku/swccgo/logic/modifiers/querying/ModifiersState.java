@@ -124,6 +124,25 @@ public interface ModifiersState {
     boolean hasParticipatedInBattleAtOtherLocation(PhysicalCard card, PhysicalCard location);
 
     /**
+     * Records a completed battle for this turn.
+     * @param record the battle record
+     */
+    void recordBattleThisTurn(com.gempukku.swccgo.game.state.BattleThisTurnRecord record);
+
+    /**
+     * Gets battles recorded this turn that the specified player lost.
+     * @param playerId the player
+     * @return the lost battle records (may be empty)
+     */
+    java.util.List<com.gempukku.swccgo.game.state.BattleThisTurnRecord> getBattlesLostThisTurn(String playerId);
+
+    /**
+     * Gets all battles recorded this turn.
+     * @return the battle records (may be empty)
+     */
+    java.util.List<com.gempukku.swccgo.game.state.BattleThisTurnRecord> getBattlesThisTurn();
+
+    /**
      * Determines if a battle has been initiated at the specified location this turn.
      *
      * @param location the location
@@ -658,3 +677,4 @@ public interface ModifiersState {
     void setExtraInformationForArchetypeLabel(String playerId, String text);
     String getExtraInformationForArchetypeLabel(String playerId);
 }
+
