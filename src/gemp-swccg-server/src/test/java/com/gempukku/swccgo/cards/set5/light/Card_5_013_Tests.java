@@ -27,11 +27,11 @@ public class Card_5_013_Tests {
                     put("construct", "5_13");
                     put("lobot", "5_6");
                     put("leesub", "1_16"); // ability 3 alien
-                    put("eg6", "1_175"); // ability 0 alien
+                    put("kabe", "1_14"); // ability 1 alien host
+                    put("jawa", "1_12"); // ability 1 alien transfer target
                     put("luke", "1_19"); // non-alien
                     put("dodge", "5_45");
                     put("trooper", "1_28");
-                    put("kabe", "1_14"); // ability 1 alien
                 }},
                 new HashMap<>() {{
                 }},
@@ -121,25 +121,25 @@ public class Card_5_013_Tests {
     public void CyborgConstructMayDeployOnAlienAbilityTwoOrLess() throws DecisionResultInvalidException {
         var scn = GetScenario();
         var site = scn.GetLSStartingLocation();
-        var eg6 = scn.GetLSCard("eg6");
+        var kabe = scn.GetLSCard("kabe");
         var construct = scn.GetLSCard("construct");
         scn.MoveCardsToHand(construct);
         scn.StartGame();
-        scn.MoveCardsToLocation(site, eg6);
-        deployConstructOn(scn, eg6, construct);
+        scn.MoveCardsToLocation(site, kabe);
+        deployConstructOn(scn, kabe, construct);
     }
 
     @Test
     public void CyborgConstructMayStoreOnceDuringOwnerTurn() throws DecisionResultInvalidException {
         var scn = GetScenario();
         var site = scn.GetLSStartingLocation();
-        var eg6 = scn.GetLSCard("eg6");
+        var kabe = scn.GetLSCard("kabe");
         var construct = scn.GetLSCard("construct");
         var dodge = scn.GetLSCard("dodge");
         scn.MoveCardsToHand(construct, dodge);
         scn.StartGame();
-        scn.MoveCardsToLocation(site, eg6);
-        deployConstructOn(scn, eg6, construct);
+        scn.MoveCardsToLocation(site, kabe);
+        deployConstructOn(scn, kabe, construct);
 
         assertTrue(scn.LSCardActionAvailable(construct, "Store"));
         scn.LSUseCardAction(construct, "Store");
@@ -153,13 +153,13 @@ public class Card_5_013_Tests {
     public void CyborgConstructMayStoreOnceDuringOpponentTurn() throws DecisionResultInvalidException {
         var scn = GetScenario();
         var site = scn.GetLSStartingLocation();
-        var eg6 = scn.GetLSCard("eg6");
+        var kabe = scn.GetLSCard("kabe");
         var construct = scn.GetLSCard("construct");
         var dodge = scn.GetLSCard("dodge");
         scn.MoveCardsToHand(construct, dodge);
         scn.StartGame();
-        scn.MoveCardsToLocation(site, eg6);
-        deployConstructOn(scn, eg6, construct);
+        scn.MoveCardsToLocation(site, kabe);
+        deployConstructOn(scn, kabe, construct);
         scn.SkipToDSTurn(Phase.DEPLOY);
 
         assertTrue(scn.LSCardActionAvailable(construct, "Store"));
@@ -172,15 +172,15 @@ public class Card_5_013_Tests {
     public void CyborgConstructHoldsThreeOnNonLobot() throws DecisionResultInvalidException {
         var scn = GetScenario();
         var site = scn.GetLSStartingLocation();
-        var eg6 = scn.GetLSCard("eg6");
+        var kabe = scn.GetLSCard("kabe");
         var construct = scn.GetLSCard("construct");
         var c1 = scn.GetLSCard("dodge");
         var c2 = scn.GetLSCard("trooper");
-        var c3 = scn.GetLSCard("kabe");
+        var c3 = scn.GetLSCard("jawa");
         scn.MoveCardsToHand(construct, c1, c2, c3);
         scn.StartGame();
-        scn.MoveCardsToLocation(site, eg6);
-        deployConstructOn(scn, eg6, construct);
+        scn.MoveCardsToLocation(site, kabe);
+        deployConstructOn(scn, kabe, construct);
 
         scn.LSUseCardAction(construct, "Store");
         scn.LSChooseCard(c1);
@@ -234,13 +234,13 @@ public class Card_5_013_Tests {
     public void CyborgConstructMayDeployCardFromUnderneath() throws DecisionResultInvalidException {
         var scn = GetScenario();
         var site = scn.GetLSStartingLocation();
-        var eg6 = scn.GetLSCard("eg6");
+        var kabe = scn.GetLSCard("kabe");
         var construct = scn.GetLSCard("construct");
         var trooper = scn.GetLSCard("trooper");
         scn.MoveCardsToHand(construct, trooper);
         scn.StartGame();
-        scn.MoveCardsToLocation(site, eg6);
-        deployConstructOn(scn, eg6, construct);
+        scn.MoveCardsToLocation(site, kabe);
+        deployConstructOn(scn, kabe, construct);
         scn.LSUseCardAction(construct, "Store");
         scn.LSChooseCard(trooper);
         assertEquals(Zone.STACKED_FACE_DOWN, trooper.getZone());
@@ -254,17 +254,16 @@ public class Card_5_013_Tests {
     public void CyborgConstructMayPlayTopLevelInterruptFromUnderneath() throws DecisionResultInvalidException {
         var scn = GetScenario();
         var site = scn.GetLSStartingLocation();
-        var eg6 = scn.GetLSCard("eg6");
+        var kabe = scn.GetLSCard("kabe");
         var construct = scn.GetLSCard("construct");
         var dodge = scn.GetLSCard("dodge");
         scn.MoveCardsToHand(construct, dodge);
         scn.StartGame();
-        scn.MoveCardsToLocation(site, eg6);
-        deployConstructOn(scn, eg6, construct);
+        scn.MoveCardsToLocation(site, kabe);
+        deployConstructOn(scn, kabe, construct);
         scn.LSUseCardAction(construct, "Store");
         scn.LSChooseCard(dodge);
         assertEquals(Zone.STACKED_FACE_DOWN, dodge.getZone());
-        // Thin CardVisitor path: stacked face-down interrupt with MayDeployAsIfFromHand is visited for owner actions
         assertTrue(scn.LSCardActionAvailable(dodge) || scn.LSPlayUsedInterruptAvailable(dodge) || scn.LSPlayLostInterruptAvailable(dodge));
     }
 
@@ -272,13 +271,13 @@ public class Card_5_013_Tests {
     public void CyborgConstructStackedCardsToUsedWhenDeviceLost() throws DecisionResultInvalidException {
         var scn = GetScenario();
         var site = scn.GetLSStartingLocation();
-        var eg6 = scn.GetLSCard("eg6");
+        var kabe = scn.GetLSCard("kabe");
         var construct = scn.GetLSCard("construct");
         var dodge = scn.GetLSCard("dodge");
         scn.MoveCardsToHand(construct, dodge);
         scn.StartGame();
-        scn.MoveCardsToLocation(site, eg6);
-        deployConstructOn(scn, eg6, construct);
+        scn.MoveCardsToLocation(site, kabe);
+        deployConstructOn(scn, kabe, construct);
         scn.LSUseCardAction(construct, "Store");
         scn.LSChooseCard(dodge);
 
@@ -290,22 +289,22 @@ public class Card_5_013_Tests {
     public void CyborgConstructStackedCardsToUsedWhenDeviceTransferred() throws DecisionResultInvalidException {
         var scn = GetScenario();
         var site = scn.GetLSStartingLocation();
-        var eg6 = scn.GetLSCard("eg6");
         var kabe = scn.GetLSCard("kabe");
+        var jawa = scn.GetLSCard("jawa");
         var construct = scn.GetLSCard("construct");
         var dodge = scn.GetLSCard("dodge");
         scn.MoveCardsToHand(construct, dodge);
         scn.StartGame();
-        scn.MoveCardsToLocation(site, eg6, kabe);
-        deployConstructOn(scn, eg6, construct);
+        scn.MoveCardsToLocation(site, kabe, jawa);
+        deployConstructOn(scn, kabe, construct);
         scn.LSUseCardAction(construct, "Store");
         scn.LSChooseCard(dodge);
 
         assertTrue(scn.LSTransferAvailable(construct));
         scn.LSTransferCard(construct);
-        assertTrue(scn.LSHasCardChoiceAvailable(kabe));
-        scn.LSChooseCard(kabe);
+        assertTrue(scn.LSHasCardChoiceAvailable(jawa));
+        scn.LSChooseCard(jawa);
         assertEquals(Zone.USED_PILE, dodge.getZone());
-        assertEquals(kabe, construct.getAttachedTo());
+        assertEquals(jawa, construct.getAttachedTo());
     }
 }
