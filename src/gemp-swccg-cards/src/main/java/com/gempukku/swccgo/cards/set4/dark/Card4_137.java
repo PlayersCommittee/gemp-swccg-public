@@ -1,4 +1,4 @@
-﻿package com.gempukku.swccgo.cards.set4.dark;
+package com.gempukku.swccgo.cards.set4.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;

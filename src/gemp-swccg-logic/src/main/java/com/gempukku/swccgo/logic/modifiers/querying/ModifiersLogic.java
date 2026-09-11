@@ -1,4 +1,4 @@
-﻿package com.gempukku.swccgo.logic.modifiers.querying;
+package com.gempukku.swccgo.logic.modifiers.querying;
 
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;

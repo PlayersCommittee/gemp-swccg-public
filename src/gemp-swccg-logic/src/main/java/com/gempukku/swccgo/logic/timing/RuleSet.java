@@ -1,4 +1,4 @@
-﻿package com.gempukku.swccgo.logic.timing;
+package com.gempukku.swccgo.logic.timing;
 
 import com.gempukku.swccgo.game.ActionsEnvironment;
 import com.gempukku.swccgo.game.SwccgGame;

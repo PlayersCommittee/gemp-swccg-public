@@ -1,4 +1,4 @@
-﻿package com.gempukku.swccgo.game.state;
+package com.gempukku.swccgo.game.state;
 
 import java.util.Collections;
 import java.util.HashMap;

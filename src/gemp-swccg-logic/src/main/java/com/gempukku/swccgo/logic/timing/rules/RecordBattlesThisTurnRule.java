@@ -1,4 +1,4 @@
-﻿package com.gempukku.swccgo.logic.timing.rules;
+package com.gempukku.swccgo.logic.timing.rules;
 
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.ActionsEnvironment;
@@ -30,7 +30,6 @@ public class RecordBattlesThisTurnRule implements Rule {
         _actionsEnvironment = actionsEnvironment;
     }
 
-    @Override
     public void applyRule() {
         _actionsEnvironment.addUntilEndOfGameActionProxy(
                 new AbstractActionProxy() {
