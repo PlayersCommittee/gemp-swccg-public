@@ -261,6 +261,30 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
                                     }));
                 }
             }
+            else if (game.getModifiersQuerying().mayFireWeaponRepeatedlyAtSameTarget(game.getGameState(), _weaponToFire)) {
+                Collection<PhysicalCard> targets = (game.getGameState().getWeaponFiringState() == null)
+                        ? Collections.emptyList()
+                        : game.getGameState().getWeaponFiringState().getTargets();
+                if (!targets.isEmpty()) {
+                    Filter baseFilter = (_fireAtTargetFilter != null) ? _fireAtTargetFilter : Filters.any;
+                    final Filter fireAtSameTargetFilter = Filters.and(baseFilter, Filters.in(targets));
+                    final FireWeaponAction fireWeaponAction = _weaponToFire.getBlueprint().getFireWeaponAction(playerId, game, _weaponToFire, false, 0, _sourceCard, true, _targetedAsCharacter, _defenseValueAsCharacter, fireAtSameTargetFilter, _ignorePerAttackOrBattleLimit);
+                    if (fireWeaponAction != null) {
+                        appendAfterEffect(
+                                new PlayoutDecisionEffect(this, playerId,
+                                        new YesNoDecision("Do you want to repeatedly fire " + GameUtils.getCardLink(_weaponToFire) + " again (at same target)?") {
+                                            @Override
+                                            protected void yes() {
+                                                game.getActionsEnvironment().addActionToStack(fireWeaponAction);
+                                            }
+                                            @Override
+                                            protected void no() {
+                                                game.getGameState().sendMessage(playerId + " chooses to not repeatedly fire " + GameUtils.getCardLink(_weaponToFire) + " again");
+                                            }
+                                        }));
+                    }
+                }
+            }
         }
 
         return null;
