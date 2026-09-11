@@ -1005,8 +1005,7 @@ public class TheChosenOneAi extends HeuristicAiBase {
      * V29.15: Set the deck name for saga-aware decisions (Epic Event choices).
      * @param deckName the deck name as stored in the database
      */
-    @Override
-    public void setDeckName(String deckName) {
+        public void setDeckName(String deckName) {
         this.deckName = deckName;
         LOG.info("V29.15 Deck name set: '{}'", deckName);
     }

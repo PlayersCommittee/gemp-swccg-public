@@ -132,8 +132,12 @@ public class Card_13_70_Tests {
 		scn.DSPlayCard(forcePush);
 		scn.DSChooseCard(obi);
 		scn.PassAllResponses();
+		// Lose 1 Force (destiny <= 4)
+		scn.PassAllResponses();
+		scn.DSChooseCard(scn.GetTopOfDSForcePile());
+		scn.PassAllResponses();
 
-		assertEquals(Zone.USED_PILE, forcePush.getZone());
+		assertEquals(Zone.TOP_OF_LOST_PILE, forcePush.getZone());
 		assertTrue(scn.GetStackedCards(obi).contains(combat));
 		assertEquals(lifeBefore - 1, scn.GetDSLifeForceRemaining());
 	}
@@ -154,9 +158,9 @@ public class Card_13_70_Tests {
 		scn.DSChooseCard(obi);
 		scn.PassAllResponses();
 
-		assertEquals(Zone.USED_PILE, forcePush.getZone());
+		assertEquals(Zone.TOP_OF_LOST_PILE, forcePush.getZone());
 		assertFalse(scn.GetStackedCards(obi).contains(combat));
-		assertEquals(Zone.RESERVE_DECK, combat.getZone());
+		assertEquals(Zone.TOP_OF_RESERVE_DECK, combat.getZone());
 		assertEquals(combat, scn.GetTopOfLSReserveDeck());
 		assertEquals(lifeBefore, scn.GetDSLifeForceRemaining());
 	}
@@ -177,9 +181,9 @@ public class Card_13_70_Tests {
 		scn.DSChooseCard(obi);
 		scn.PassAllResponses();
 
-		assertEquals(Zone.USED_PILE, forcePush.getZone());
-		boolean aOnReserve = combatA.getZone() == Zone.RESERVE_DECK;
-		boolean bOnReserve = combatB.getZone() == Zone.RESERVE_DECK;
+		assertEquals(Zone.TOP_OF_LOST_PILE, forcePush.getZone());
+		boolean aOnReserve = combatA.getZone() == Zone.TOP_OF_RESERVE_DECK || combatA.getZone() == Zone.RESERVE_DECK;
+		boolean bOnReserve = combatB.getZone() == Zone.TOP_OF_RESERVE_DECK || combatB.getZone() == Zone.RESERVE_DECK;
 		assertTrue(aOnReserve ^ bOnReserve);
 		assertEquals(1, scn.GetStackedCards(obi).size());
 	}
@@ -203,6 +207,10 @@ public class Card_13_70_Tests {
 		// Optional responses to playing Force Push - Sense must not be available
 		assertFalse(scn.LSCardPlayAvailable(sense));
 		scn.PassAllResponses();
-		assertEquals(Zone.USED_PILE, forcePush.getZone());
+		// Destiny 4 combat card -> lose 1 Force
+		scn.PassAllResponses();
+		scn.DSChooseCard(scn.GetTopOfDSForcePile());
+		scn.PassAllResponses();
+		assertEquals(Zone.TOP_OF_LOST_PILE, forcePush.getZone());
 	}
 }
