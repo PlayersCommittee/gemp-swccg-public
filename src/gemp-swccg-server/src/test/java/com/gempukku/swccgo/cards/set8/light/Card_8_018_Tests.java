@@ -34,6 +34,7 @@ public class Card_8_018_Tests {
                 }},
                 new HashMap<>() {{
                     put("trooper", "1_194");
+                    put("tarkin", "1_179");
                     put("speeder", "1_309");
                     put("ds_cantina", "1_290");
                 }},
@@ -107,32 +108,32 @@ public class Card_8_018_Tests {
 
     @Test
     public void LieutenantGreeveCharactersHitAreForfeitMinusThree() {
+        // VHD: target forfeit 4+ so -3 is observable (trooper floors at 0). Tarkin 6 -> 3.
         var scn = GetScenario();
         var greeve = scn.GetLSCard("greeve");
         var a280 = scn.GetLSCard("a280");
         var cantina = scn.GetLSCard("ls_cantina");
-        var trooper = scn.GetDSCard("trooper");
+        var tarkin = scn.GetDSCard("tarkin");
 
         scn.StartGame();
         scn.MoveLocationToTable(cantina);
-        scn.MoveCardsToLocation(cantina, greeve, trooper);
+        scn.MoveCardsToLocation(cantina, greeve, tarkin);
         scn.AttachCardsTo(greeve, a280);
 
-        int forfeitBefore = scn.GetForfeit(trooper);
+        assertEquals(6, scn.GetForfeit(tarkin));
 
         scn.LSActivateForceCheat(5);
         scn.SkipToLSTurn(Phase.BATTLE);
-        scn.PrepareLSDestiny(5);
+        // Tarkin ability/DV 3; Greeve +1 weapon destiny; destiny 3+1=4 hits.
+        scn.PrepareLSDestiny(3);
         scn.LSInitiateBattle(cantina);
 
         scn.LSUseCardAction(a280, "Fire");
-        scn.LSChooseCard(trooper);
+        scn.LSChooseCard(tarkin);
         scn.PassAllResponses();
 
-        assertTrue(trooper.isHit());
-        // Forfeit cannot go below 0
-        assertEquals(Math.max(0, forfeitBefore - 3), scn.GetForfeit(trooper));
-        assertTrue(scn.GetForfeit(trooper) < forfeitBefore || forfeitBefore == 0);
+        assertTrue(tarkin.isHit());
+        assertEquals(3, scn.GetForfeit(tarkin));
     }
 
     @Test
