@@ -2,6 +2,7 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.effects.RevealTopCardsOfReserveDeckEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -16,12 +17,10 @@ import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardsFromHandAndLoseTheRestEffect;
-import com.gempukku.swccgo.logic.effects.choose.DrawCardsIntoHandFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardsFromReserveDeckAndLoseTheRestEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -50,25 +49,25 @@ public class Card1_244 extends AbstractUsedInterrupt {
             if ((2 * playersPower) < opponentsPower) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
-                action.setText("Draw cards from Reserve Deck");
+                action.setText("Reveal cards from Reserve Deck");
                 // Allow response(s)
                 action.allowResponses(
                         new RespondablePlayCardEffect(action) {
                             @Override
                             protected void performActionResults(Action targetingAction) {
-                                final int maxToDraw = Math.min(3, game.getGameState().getReserveDeckSize(playerId));
+                                final int maxToReveal = Math.min(3, game.getGameState().getReserveDeckSize(playerId));
                                 // Perform result(s)
                                 action.appendEffect(
                                         new PlayoutDecisionEffect(action, playerId,
-                                                new IntegerAwaitingDecision("Choose number of cards to draw ", 1, maxToDraw, maxToDraw) {
+                                                new IntegerAwaitingDecision("Choose number of cards to reveal ", 1, maxToReveal, maxToReveal) {
                                                     @Override
-                                                    public void decisionMade(final int numToDraw) throws DecisionResultInvalidException {
+                                                    public void decisionMade(final int numToReveal) throws DecisionResultInvalidException {
                                                         action.appendEffect(
-                                                                new DrawCardsIntoHandFromReserveDeckEffect(action, playerId, numToDraw) {
+                                                                new RevealTopCardsOfReserveDeckEffect(action, playerId, numToReveal) {
                                                                     @Override
-                                                                    protected void cardsDrawnIntoHand(Collection<PhysicalCard> cards) {
+                                                                    protected void cardsRevealed(List<PhysicalCard> cards) {
                                                                         action.appendEffect(
-                                                                                new DeployCardsFromHandAndLoseTheRestEffect(action, cards,
+                                                                                new DeployCardsFromReserveDeckAndLoseTheRestEffect(action, cards,
                                                                                         Filters.or(Filters.character, Filters.starship, Filters.vehicle, Filters.device, Filters.weapon), true));
                                                                     }
                                                                 }
