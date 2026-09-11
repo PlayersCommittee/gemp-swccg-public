@@ -92,7 +92,7 @@ public class Card_8_018_Tests {
         scn.AttachCardsTo(greeve, a280);
 
         scn.LSActivateForceCheat(5);
-        scn.SkipToPhase(Phase.BATTLE);
+        scn.SkipToLSTurn(Phase.BATTLE);
         // A280: draw destiny; Greeve +1; target hit if total > DV. Trooper DV ~1; destiny 1 +1 = 2 hits.
         scn.PrepareLSDestiny(1);
         scn.LSInitiateBattle(cantina);
@@ -121,7 +121,7 @@ public class Card_8_018_Tests {
         int forfeitBefore = scn.GetForfeit(trooper);
 
         scn.LSActivateForceCheat(5);
-        scn.SkipToPhase(Phase.BATTLE);
+        scn.SkipToLSTurn(Phase.BATTLE);
         scn.PrepareLSDestiny(5);
         scn.LSInitiateBattle(cantina);
 
@@ -151,7 +151,7 @@ public class Card_8_018_Tests {
         int forfeitBefore = scn.GetForfeit(speeder);
 
         scn.LSActivateForceCheat(5);
-        scn.SkipToPhase(Phase.BATTLE);
+        scn.SkipToLSTurn(Phase.BATTLE);
         scn.PrepareLSDestiny(7);
         scn.LSInitiateBattle(cantina);
 
@@ -183,7 +183,7 @@ public class Card_8_018_Tests {
         scn.AttachCardsTo(greeve, a280);
 
         scn.LSActivateForceCheat(6);
-        scn.SkipToPhase(Phase.BATTLE);
+        scn.SkipToLSTurn(Phase.BATTLE);
         scn.PrepareLSDestiny(1);
         scn.PrepareLSDestiny(1);
         scn.LSInitiateBattle(cantina);
@@ -221,7 +221,7 @@ public class Card_8_018_Tests {
         scn.AttachCardsTo(greeve, a280);
 
         scn.LSActivateForceCheat(6);
-        scn.SkipToPhase(Phase.BATTLE);
+        scn.SkipToLSTurn(Phase.BATTLE);
         scn.PrepareLSDestiny(1);
         scn.PrepareLSDestiny(1);
         scn.LSInitiateBattle(cantina);
@@ -254,7 +254,7 @@ public class Card_8_018_Tests {
         scn.AttachCardsTo(greeve, blaster);
 
         scn.LSActivateForceCheat(8);
-        scn.SkipToPhase(Phase.BATTLE);
+        scn.SkipToLSTurn(Phase.BATTLE);
         scn.PrepareLSDestiny(5);
         scn.LSInitiateBattle(cantina);
 
