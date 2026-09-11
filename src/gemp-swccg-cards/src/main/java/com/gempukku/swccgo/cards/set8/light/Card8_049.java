@@ -104,7 +104,7 @@ public class Card8_049 extends AbstractUsedInterrupt {
                                                                                 return;
                                                                             }
 
-                                                                            float scoutBonus = (Filters.scout.accepts(game, finalEwok) || finalEwok.getBlueprint().hasKeyword(com.gempukku.swccgo.common.Keyword.SCOUT)) ? 2 : 0;
+                                                                            float scoutBonus = Filters.scout.accepts(game, finalEwok) ? 2 : 0;
                                                                             float total = totalDestiny + scoutBonus;
                                                                             float defenseValue = game.getModifiersQuerying().getDefenseValue(gameState, escort);
 
@@ -144,64 +144,75 @@ public class Card8_049 extends AbstractUsedInterrupt {
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
         String opponent = game.getOpponent(playerId);
 
-        // Check condition(s) — react window when battle is initiated and your Ewok is defending (not if you initiated).
-        if (TriggerConditions.battleInitiatedAt(game, effectResult, opponent, Filters.and(Filters.site, Filters.canBeTargetedBy(self)))
-                && GameConditions.isDuringBattleInitiatedBy(game, opponent)
-                && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.Ewok))) {
-            Filter ewokFilter = getReactEwokFilter(self, null);
-            if (GameConditions.canTarget(game, self, ewokFilter)) {
+        // React window when opponent initiates battle and your Ewok is at the battle site (defending).
+        // Not playable if you initiated — battleInitiatedAt(..., opponent, ...) enforces that.
+        if (TriggerConditions.battleInitiatedAt(game, effectResult, opponent, Filters.and(Filters.site, Filters.canBeTargetedBy(self)))) {
+            final PhysicalCard battleSite = game.getGameState().getBattleLocation();
+            if (battleSite != null
+                    && GameConditions.canSpot(game, self, Filters.and(Filters.your(self), Filters.Ewok, Filters.at(battleSite)))) {
+                Filter ewokFilter = getReactEwokFilter(self, battleSite, null);
+                if (GameConditions.canTarget(game, self, ewokFilter)) {
 
-                final PlayInterruptAction action = new PlayInterruptAction(game, self);
-                action.setText("Move Ewoks as 'react'");
-                // First react is required targeting so Sense can cancel the whole play.
-                action.appendTargeting(
-                        new TargetCardOnTableEffect(action, playerId, "Choose Ewok to move as a 'react'", ewokFilter) {
-                            @Override
-                            protected void cardTargeted(final int targetGroupId1, final PhysicalCard targetedEwok) {
-                                action.addAnimationGroup(targetedEwok);
-                                action.addSecondaryTargetFilter(Filters.battleLocation);
-                                // Allow response(s)
-                                action.allowResponses("Move " + GameUtils.getCardLink(targetedEwok) + " as a 'react'",
-                                        new RespondablePlayCardEffect(action) {
-                                            @Override
-                                            protected void performActionResults(Action targetingAction) {
-                                                PhysicalCard finalEwok = action.getPrimaryTargetCard(targetGroupId1);
-                                                final PhysicalCard exteriorSite = getExteriorSiteOf(finalEwok);
-                                                action.appendEffect(
-                                                        new MoveAsReactEffect(action, finalEwok, true));
-                                                // Remaining Ewoks at the same exterior site may optionally react for free
-                                                // as sub-actions of this same interrupt (AR Appendix C). Total <= 3.
-                                                appendOptionalAdditionalReacts(action, playerId, self, exteriorSite, 2);
+                    final PlayInterruptAction action = new PlayInterruptAction(game, self);
+                    action.setText("Move Ewoks as 'react'");
+                    // First react is required targeting so Sense can cancel the whole play.
+                    action.appendTargeting(
+                            new TargetCardOnTableEffect(action, playerId, "Choose Ewok to move as a 'react'", ewokFilter) {
+                                @Override
+                                protected void cardTargeted(final int targetGroupId1, final PhysicalCard targetedEwok) {
+                                    action.addAnimationGroup(targetedEwok);
+                                    action.addSecondaryTargetFilter(Filters.battleLocation);
+                                    // Allow response(s)
+                                    action.allowResponses("Move " + GameUtils.getCardLink(targetedEwok) + " as a 'react'",
+                                            new RespondablePlayCardEffect(action) {
+                                                @Override
+                                                protected void performActionResults(Action targetingAction) {
+                                                    PhysicalCard finalEwok = action.getPrimaryTargetCard(targetGroupId1);
+                                                    final PhysicalCard exteriorSite = getExteriorSiteOf(game, finalEwok);
+                                                    action.appendEffect(
+                                                            new MoveAsReactEffect(action, finalEwok, true));
+                                                    // Remaining Ewoks at the same exterior site may optionally react for free
+                                                    // as sub-actions of this same interrupt (AR Appendix C). Total <= 3.
+                                                    appendOptionalAdditionalReacts(action, playerId, self, battleSite, exteriorSite, 2);
+                                                }
                                             }
-                                        }
-                                );
+                                    );
+                                }
                             }
-                        }
-                );
-                return Collections.singletonList(action);
+                    );
+                    return Collections.singletonList(action);
+                }
             }
         }
         return null;
     }
 
-    private PhysicalCard getExteriorSiteOf(PhysicalCard ewok) {
-        PhysicalCard site = ewok.getAtLocation();
-        if (site == null && ewok.getAttachedTo() != null) {
-            site = ewok.getAttachedTo().getAtLocation();
+    private PhysicalCard getExteriorSiteOf(SwccgGame game, PhysicalCard ewok) {
+        PhysicalCard site = game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), ewok);
+        if (site != null && Filters.exterior_site.accepts(game, site)) {
+            return site;
         }
-        return site;
+        return null;
     }
 
-    private Filter getReactEwokFilter(PhysicalCard self, PhysicalCard lockedExteriorSite) {
-        Filter siteFilter = lockedExteriorSite != null
-                ? Filters.sameCardId(lockedExteriorSite)
-                : Filters.exterior_site;
+    private Filter getReactEwokFilter(PhysicalCard self, PhysicalCard battleSite, PhysicalCard lockedExteriorSite) {
+        Filter siteFilter;
+        if (lockedExteriorSite != null) {
+            siteFilter = Filters.sameCardId(lockedExteriorSite);
+        }
+        else {
+            // Same exterior-site restriction as game text; adjacent (incl. related vehicle sites) like Informant.
+            Filter adjacentSites = Filters.or(
+                    Filters.adjacentSite(battleSite),
+                    Filters.siteOfStarshipOrVehicle(Filters.and(Filters.or(Filters.starship, Filters.vehicle), Filters.at(battleSite))));
+            siteFilter = Filters.and(Filters.exterior_site, adjacentSites);
+        }
         return Filters.and(Filters.your(self), Filters.Ewok, Filters.at(siteFilter),
                 Filters.canMoveAsReactAsActionFromOtherCard(self, true, 0, false));
     }
 
     private void appendOptionalAdditionalReacts(final PlayInterruptAction action, final String playerId, final PhysicalCard self,
-                                                final PhysicalCard exteriorSite, final int remaining) {
+                                                final PhysicalCard battleSite, final PhysicalCard exteriorSite, final int remaining) {
         if (remaining <= 0 || exteriorSite == null) {
             return;
         }
@@ -209,7 +220,7 @@ public class Card8_049 extends AbstractUsedInterrupt {
                 new PassthruEffect(action) {
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
-                        Filter remainingFilter = getReactEwokFilter(self, exteriorSite);
+                        Filter remainingFilter = getReactEwokFilter(self, battleSite, exteriorSite);
                         if (GameConditions.canTarget(game, self, remainingFilter)) {
                             action.appendEffect(
                                     new ChooseCardOnTableEffect(action, playerId, "Choose another Ewok to move as a 'react'", remainingFilter, 0) {
@@ -217,7 +228,7 @@ public class Card8_049 extends AbstractUsedInterrupt {
                                         protected void cardSelected(PhysicalCard selectedCard) {
                                             action.appendEffect(
                                                     new MoveAsReactEffect(action, selectedCard, true));
-                                            appendOptionalAdditionalReacts(action, playerId, self, exteriorSite, remaining - 1);
+                                            appendOptionalAdditionalReacts(action, playerId, self, battleSite, exteriorSite, remaining - 1);
                                         }
                                     }
                             );

@@ -40,6 +40,7 @@ public class Card_8_049_Tests {
             new HashMap<>() {{
                 put("escort", "1_194"); // Stormtrooper
                 put("sense", "1_267"); // Sense
+                put("vader", "1_168"); // Darth Vader (high ability for Sense)
                 put("presence", "1_194");
                 put("cantinaDS", "1_290"); // Tatooine: Cantina (Dark)
                 put("db94", "1_291"); // Tatooine: Docking Bay 94
@@ -67,12 +68,11 @@ public class Card_8_049_Tests {
         assertTrue("Unable to initiate battle at location", scn.DSCanInitiateBattle(site));
         scn.DSUseCardAction(site, "Initiate battle");
         scn.PassForceUseResponses();
-        // DS may hold the BATTLE_INITIATED optional window first; pass so LS can react.
-        if (scn.DSAnyDecisionsAvailable()) {
-            scn.DSPass();
-        }
-        if (scn.DSAnyDecisionsAvailable() && (scn.DSDecisionAvailable("BATTLE_INITIATED")
-                || scn.DSDecisionAvailable("Battle just initiated"))) {
+        // If DS holds the BATTLE_INITIATED optional window first, pass so LS can react (Informant mirror).
+        if (scn.DSAnyDecisionsAvailable()
+                && (scn.DSDecisionAvailable("BATTLE_INITIATED")
+                || scn.DSDecisionAvailable("Battle just initiated")
+                || !scn.LSAnyDecisionsAvailable())) {
             scn.DSPass();
         }
     }
@@ -102,6 +102,42 @@ public class Card_8_049_Tests {
         if (!LsCardPlayAvailableSafe(scn, rescue)) {
             fail("Expected Ewok Rescue playable as a battle-just-initiated react. " + DescribeDecision(scn));
         }
+    }
+
+    private void FinishAction1Destiny(VirtualTableScenario scn) {
+        // Drive the Used-Interrupt play + destiny chain to completion.
+        // Destiny response ids often include "Optional responses" — check destiny first.
+        for (int i = 0; i < 40; i++) {
+            if (scn.GetCurrentDecision() == null) {
+                break;
+            }
+            String text = scn.GetCurrentDecision().getText();
+            if (text == null) {
+                break;
+            }
+            String lower = text.toLowerCase();
+            if (lower.contains("destiny")) {
+                scn.PassDestinyDrawResponses();
+                continue;
+            }
+            if (lower.contains("playing") || lower.contains("optional")) {
+                scn.PassResponses("optional");
+                if (scn.GetCurrentDecision() != null) {
+                    String t2 = scn.GetCurrentDecision().getText();
+                    if (t2 != null && t2.toLowerCase().contains("playing")) {
+                        scn.PassResponses("Playing");
+                    }
+                }
+                continue;
+            }
+            try {
+                scn.PassResponses();
+            }
+            catch (RuntimeException ex) {
+                break;
+            }
+        }
+        scn.PassAllResponses();
     }
 
     private boolean FinishOptionalExtraReactIfOffered(VirtualTableScenario scn, PhysicalCardImpl extraMover) {
@@ -173,7 +209,7 @@ public class Card_8_049_Tests {
         scn.CaptureCardWith(escort, rebel);
         assertTrue(rebel.isCaptive());
 
-        // Stormtrooper DV typically 2; non-scout needs destiny > 2
+        // Stormtrooper defense value = ability 1; non-scout needs destiny > 1
         scn.PrepareLSDestiny(2);
         scn.SkipToLSTurn(Phase.CONTROL);
         assertTrue(scn.LSAnyDecisionsAvailable());
@@ -181,10 +217,11 @@ public class Card_8_049_Tests {
         scn.LSPlayCard(rescue);
         scn.LSChooseCard(spearman);
         scn.LSChooseCard(rebel);
-        scn.PassResponses("Playing");
-        scn.PassDestinyDrawResponses();
-        scn.PassAllResponses();
+        FinishAction1Destiny(scn);
 
+        if (rebel.isCaptive() || rescue.getZone() != Zone.USED_PILE) {
+            fail("Action1 did not complete. captive=" + rebel.isCaptive() + " zone=" + rescue.getZone() + " " + DescribeDecision(scn));
+        }
         assertFalse(rebel.isCaptive());
         assertEquals(Zone.USED_PILE, rescue.getZone());
     }
@@ -203,7 +240,7 @@ public class Card_8_049_Tests {
         scn.MoveCardsToLocation(site, sentry, escort, rebel);
         scn.CaptureCardWith(escort, rebel);
 
-        // Destiny 1 + scout 2 = 3 > escort DV 2
+        // Destiny 1 + scout 2 = 3 > escort DV 1
         scn.PrepareLSDestiny(1);
         scn.SkipToLSTurn(Phase.CONTROL);
         assertTrue(scn.LSAnyDecisionsAvailable());
@@ -211,11 +248,9 @@ public class Card_8_049_Tests {
         scn.LSPlayCard(rescue);
         scn.LSChooseCard(sentry);
         scn.LSChooseCard(rebel);
-        scn.PassResponses("Playing");
-        scn.PassDestinyDrawResponses();
-        scn.PassAllResponses();
+        FinishAction1Destiny(scn);
 
-        assertFalse("Scout Ewok +2 should release captive with destiny 1 vs DV 2", rebel.isCaptive());
+        assertFalse("Scout Ewok +2 should release captive with destiny 1 vs DV 1", rebel.isCaptive());
     }
 
     @Test
@@ -238,9 +273,7 @@ public class Card_8_049_Tests {
         scn.LSPlayCard(rescue);
         scn.LSChooseCard(spearman);
         scn.LSChooseCard(rebel);
-        scn.PassResponses("Playing");
-        scn.PassDestinyDrawResponses();
-        scn.PassAllResponses();
+        FinishAction1Destiny(scn);
 
         assertTrue(rebel.isCaptive());
         assertEquals(escort, rebel.getEscort());
@@ -272,26 +305,30 @@ public class Card_8_049_Tests {
         var rebel = scn.GetLSCard("rebel");
         var escort = scn.GetDSCard("escort");
         var sense = scn.GetDSCard("sense");
+        var vader = scn.GetDSCard("vader");
         var site = scn.GetDSStartingLocation();
 
         scn.MoveCardsToLSHand(rescue);
         scn.MoveCardsToDSHand(sense);
         scn.StartGame();
-        scn.MoveCardsToLocation(site, spearman, escort, rebel);
+        scn.MoveCardsToLocation(site, spearman, escort, rebel, vader);
         scn.CaptureCardWith(escort, rebel);
 
         scn.PrepareLSDestiny(7);
+        scn.PrepareDSDestiny(3); // 3 < Vader ability 6
         scn.SkipToLSTurn(Phase.CONTROL);
         assertTrue(scn.LSAnyDecisionsAvailable());
         scn.LSPlayCard(rescue);
         scn.LSChooseCard(spearman);
         scn.LSChooseCard(rebel);
-        // Sense cancels during Playing optional responses (before destiny)
+        // Sense cancels during Playing responses (optional-before on the play effect)
         assertTrue(scn.DSCardPlayAvailable(sense));
         scn.DSPlayCard(sense);
-        scn.PassResponses("Playing");
-        scn.PassDestinyDrawResponses();
-        scn.PassAllResponses();
+        if (scn.DSHasCardChoiceAvailable(vader)) {
+            scn.DSChooseCard(vader);
+        }
+        // Complete Sense destiny (and any leftover responses); Ewok Rescue should be canceled
+        FinishAction1Destiny(scn);
 
         assertTrue("Captive remains escorted when Sense cancels Ewok Rescue", rebel.isCaptive());
         assertNotEquals(Zone.VOID, rescue.getZone());
