@@ -34,6 +34,7 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
     private boolean _ignorePerAttackOrBattleLimit;
     private boolean _thrown;
     private boolean _repeatedFiring;
+    private Collection<PhysicalCard> _firedAtTargets = Collections.emptyList();
 
     /**
      * Creates an action for firing a single weapon.
@@ -221,7 +222,9 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
                 // Emit effect result that weapon was fired
                 if (!_emitFiredWeaponResult) {
                     _emitFiredWeaponResult = true;
-                    game.getActionsEnvironment().emitEffectResult(new FiredWeaponResult(game, _permanentWeapon != null ? null : _weaponToFire, _permanentWeapon, getCardFiringWeapon(), _thrown, _repeatedFiring, (game.getGameState().getWeaponFiringState()==null ? Collections.<PhysicalCard>emptyList():game.getGameState().getWeaponFiringState().getTargets())));
+                    Collection<PhysicalCard> firedTargets = (game.getGameState().getWeaponFiringState()==null ? Collections.<PhysicalCard>emptyList():game.getGameState().getWeaponFiringState().getTargets());
+                    _firedAtTargets = new java.util.LinkedList<PhysicalCard>(firedTargets);
+                    game.getActionsEnvironment().emitEffectResult(new FiredWeaponResult(game, _permanentWeapon != null ? null : _weaponToFire, _permanentWeapon, getCardFiringWeapon(), _thrown, _repeatedFiring, firedTargets));
                 }
             }
         }
@@ -262,9 +265,11 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
                 }
             }
             else if (game.getModifiersQuerying().mayFireWeaponRepeatedlyAtSameTarget(game.getGameState(), _weaponToFire)) {
-                Collection<PhysicalCard> targets = (game.getGameState().getWeaponFiringState() == null)
+                Collection<PhysicalCard> targets = !_firedAtTargets.isEmpty()
+                        ? _firedAtTargets
+                        : ((game.getGameState().getWeaponFiringState() == null)
                         ? Collections.emptyList()
-                        : game.getGameState().getWeaponFiringState().getTargets();
+                        : game.getGameState().getWeaponFiringState().getTargets());
                 if (!targets.isEmpty()) {
                     Filter baseFilter = (_fireAtTargetFilter != null) ? _fireAtTargetFilter : Filters.any;
                     final Filter fireAtSameTargetFilter = Filters.and(baseFilter, Filters.in(targets));
