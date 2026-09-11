@@ -10,7 +10,6 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import com.gempukku.swccgo.game.PhysicalCardImpl;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
@@ -26,10 +25,10 @@ public class Card_5_013_Tests {
                 new HashMap<>() {{
                     put("construct", "5_13");
                     put("lobot", "5_6");
-                    put("leesub", "1_16"); // ability 3 alien
-                    put("kabe", "1_14"); // ability 1 alien host
-                    put("jawa", "1_12"); // ability 1 alien transfer target
-                    put("luke", "1_19"); // non-alien
+                    put("leesub", "1_16");
+                    put("kabe", "1_14");
+                    put("jawa", "1_12");
+                    put("luke", "1_19");
                     put("dodge", "5_45");
                     put("trooper", "1_28");
                 }},
@@ -45,15 +44,6 @@ public class Card_5_013_Tests {
                 StartingSetup.NoDSShields,
                 VirtualTableScenario.Open
         );
-    }
-
-    private void deployConstructOn(VirtualTableScenario scn, PhysicalCardImpl host, PhysicalCardImpl construct) throws DecisionResultInvalidException {
-        scn.SkipToLSTurn(Phase.DEPLOY);
-        assertTrue(scn.LSDeployAvailable(construct));
-        scn.LSDeployCard(construct);
-        assertTrue(scn.LSHasCardChoiceAvailable(host));
-        scn.LSChooseCard(host);
-        assertEquals(host, construct.getAttachedTo());
     }
 
     @Test
@@ -93,14 +83,16 @@ public class Card_5_013_Tests {
         var scn = GetScenario();
         var site = scn.GetLSStartingLocation();
         var luke = scn.GetLSCard("luke");
+        var kabe = scn.GetLSCard("kabe");
         var construct = scn.GetLSCard("construct");
         scn.MoveCardsToHand(construct);
         scn.StartGame();
-        scn.MoveCardsToLocation(site, luke);
+        scn.MoveCardsToLocation(site, luke, kabe);
         scn.SkipToLSTurn(Phase.DEPLOY);
         assertTrue(scn.LSDeployAvailable(construct));
         scn.LSDeployCard(construct);
         assertFalse(scn.LSHasCardChoiceAvailable(luke));
+        assertTrue(scn.LSHasCardChoiceAvailable(kabe));
     }
 
     @Test
@@ -108,13 +100,16 @@ public class Card_5_013_Tests {
         var scn = GetScenario();
         var site = scn.GetLSStartingLocation();
         var leesub = scn.GetLSCard("leesub");
+        var kabe = scn.GetLSCard("kabe");
         var construct = scn.GetLSCard("construct");
         scn.MoveCardsToHand(construct);
         scn.StartGame();
-        scn.MoveCardsToLocation(site, leesub);
+        scn.MoveCardsToLocation(site, leesub, kabe);
         scn.SkipToLSTurn(Phase.DEPLOY);
+        assertTrue(scn.LSDeployAvailable(construct));
         scn.LSDeployCard(construct);
         assertFalse(scn.LSHasCardChoiceAvailable(leesub));
+        assertTrue(scn.LSHasCardChoiceAvailable(kabe));
     }
 
     @Test
@@ -126,7 +121,10 @@ public class Card_5_013_Tests {
         scn.MoveCardsToHand(construct);
         scn.StartGame();
         scn.MoveCardsToLocation(site, kabe);
-        deployConstructOn(scn, kabe, construct);
+        scn.SkipToLSTurn(Phase.DEPLOY);
+        assertTrue(scn.LSDeployAvailable(construct));
+        scn.LSDeployCard(construct);
+        assertTrue(scn.LSHasCardChoiceAvailable(kabe));
     }
 
     @Test
@@ -136,10 +134,11 @@ public class Card_5_013_Tests {
         var kabe = scn.GetLSCard("kabe");
         var construct = scn.GetLSCard("construct");
         var dodge = scn.GetLSCard("dodge");
-        scn.MoveCardsToHand(construct, dodge);
         scn.StartGame();
         scn.MoveCardsToLocation(site, kabe);
-        deployConstructOn(scn, kabe, construct);
+        scn.AttachCardsTo(kabe, construct);
+        scn.MoveCardsToHand(dodge);
+        scn.SkipToLSTurn(Phase.DEPLOY);
 
         assertTrue(scn.LSCardActionAvailable(construct, "Store"));
         scn.LSUseCardAction(construct, "Store");
@@ -156,10 +155,10 @@ public class Card_5_013_Tests {
         var kabe = scn.GetLSCard("kabe");
         var construct = scn.GetLSCard("construct");
         var dodge = scn.GetLSCard("dodge");
-        scn.MoveCardsToHand(construct, dodge);
         scn.StartGame();
         scn.MoveCardsToLocation(site, kabe);
-        deployConstructOn(scn, kabe, construct);
+        scn.AttachCardsTo(kabe, construct);
+        scn.MoveCardsToHand(dodge);
         scn.SkipToDSTurn(Phase.DEPLOY);
 
         assertTrue(scn.LSCardActionAvailable(construct, "Store"));
@@ -177,10 +176,11 @@ public class Card_5_013_Tests {
         var c1 = scn.GetLSCard("dodge");
         var c2 = scn.GetLSCard("trooper");
         var c3 = scn.GetLSCard("jawa");
-        scn.MoveCardsToHand(construct, c1, c2, c3);
         scn.StartGame();
         scn.MoveCardsToLocation(site, kabe);
-        deployConstructOn(scn, kabe, construct);
+        scn.AttachCardsTo(kabe, construct);
+        scn.MoveCardsToHand(c1, c2, c3);
+        scn.SkipToLSTurn(Phase.DEPLOY);
 
         scn.LSUseCardAction(construct, "Store");
         scn.LSChooseCard(c1);
@@ -204,10 +204,10 @@ public class Card_5_013_Tests {
         var site = scn.GetLSStartingLocation();
         var lobot = scn.GetLSCard("lobot");
         var construct = scn.GetLSCard("construct");
-        scn.MoveCardsToHand(construct);
         scn.StartGame();
         scn.MoveCardsToLocation(site, lobot);
-        deployConstructOn(scn, lobot, construct);
+        scn.AttachCardsTo(lobot, construct);
+        scn.SkipToLSTurn(Phase.DEPLOY);
 
         for (int i = 0; i < 6; i++) {
             var filler = scn.GetLSFiller(i + 1);
@@ -237,10 +237,11 @@ public class Card_5_013_Tests {
         var kabe = scn.GetLSCard("kabe");
         var construct = scn.GetLSCard("construct");
         var trooper = scn.GetLSCard("trooper");
-        scn.MoveCardsToHand(construct, trooper);
         scn.StartGame();
         scn.MoveCardsToLocation(site, kabe);
-        deployConstructOn(scn, kabe, construct);
+        scn.AttachCardsTo(kabe, construct);
+        scn.MoveCardsToHand(trooper);
+        scn.SkipToLSTurn(Phase.DEPLOY);
         scn.LSUseCardAction(construct, "Store");
         scn.LSChooseCard(trooper);
         assertEquals(Zone.STACKED_FACE_DOWN, trooper.getZone());
@@ -257,10 +258,11 @@ public class Card_5_013_Tests {
         var kabe = scn.GetLSCard("kabe");
         var construct = scn.GetLSCard("construct");
         var dodge = scn.GetLSCard("dodge");
-        scn.MoveCardsToHand(construct, dodge);
         scn.StartGame();
         scn.MoveCardsToLocation(site, kabe);
-        deployConstructOn(scn, kabe, construct);
+        scn.AttachCardsTo(kabe, construct);
+        scn.MoveCardsToHand(dodge);
+        scn.SkipToLSTurn(Phase.DEPLOY);
         scn.LSUseCardAction(construct, "Store");
         scn.LSChooseCard(dodge);
         assertEquals(Zone.STACKED_FACE_DOWN, dodge.getZone());
@@ -274,10 +276,11 @@ public class Card_5_013_Tests {
         var kabe = scn.GetLSCard("kabe");
         var construct = scn.GetLSCard("construct");
         var dodge = scn.GetLSCard("dodge");
-        scn.MoveCardsToHand(construct, dodge);
         scn.StartGame();
         scn.MoveCardsToLocation(site, kabe);
-        deployConstructOn(scn, kabe, construct);
+        scn.AttachCardsTo(kabe, construct);
+        scn.MoveCardsToHand(dodge);
+        scn.SkipToLSTurn(Phase.DEPLOY);
         scn.LSUseCardAction(construct, "Store");
         scn.LSChooseCard(dodge);
 
@@ -293,10 +296,11 @@ public class Card_5_013_Tests {
         var jawa = scn.GetLSCard("jawa");
         var construct = scn.GetLSCard("construct");
         var dodge = scn.GetLSCard("dodge");
-        scn.MoveCardsToHand(construct, dodge);
         scn.StartGame();
         scn.MoveCardsToLocation(site, kabe, jawa);
-        deployConstructOn(scn, kabe, construct);
+        scn.AttachCardsTo(kabe, construct);
+        scn.MoveCardsToHand(dodge);
+        scn.SkipToLSTurn(Phase.DEPLOY);
         scn.LSUseCardAction(construct, "Store");
         scn.LSChooseCard(dodge);
 
