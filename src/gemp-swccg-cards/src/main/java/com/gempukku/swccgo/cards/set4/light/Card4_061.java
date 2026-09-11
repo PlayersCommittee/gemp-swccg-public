@@ -63,9 +63,7 @@ public class Card4_061 extends AbstractUsedInterrupt {
                                     new RespondablePlayCardEffect(action) {
                                         @Override
                                         protected void performActionResults(Action targetingAction) {
-                                            // Get the targeted card(s) from the action using the targetGroupId.
                                             PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
-                                            // Perform result(s)
                                             action.appendEffect(
                                                     new AddUntilEndOfTurnModifierEffect(action,
                                                             new TotalAsteroidDestinyModifier(self, 2, finalTarget),

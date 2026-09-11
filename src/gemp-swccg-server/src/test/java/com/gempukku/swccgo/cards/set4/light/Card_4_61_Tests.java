@@ -25,9 +25,9 @@ public class Card_4_61_Tests {
         return new VirtualTableScenario(
                 new HashMap<>() {{
                     put("crazy", "4_61");
+                    put("corvette", "1_140");
                     put("kessel", "1_126");
                     put("asteroid", "4_081");
-                    put("falcon", "1_071");
                 }},
                 new HashMap<>() {{
                     put("tie", "1_304");
@@ -46,21 +46,6 @@ public class Card_4_61_Tests {
 
     @Test
     public void TheydBeCrazyToFollowUsStatsAndKeywordsAreCorrect() {
-        /**
-         * Title: They'd Be Crazy To Follow Us
-         * Uniqueness: Unrestricted
-         * Side: Light
-         * Type: Interrupt
-         * Subtype: Used
-         * Destiny: 4
-         * Icons: Interrupt, Dagobah
-         * Game Text: Use 1 Force to target a starship at an asteroid sector or a "blown away" system.
-         *      For remainder of turn, you may add 2 to destiny totals targeting the armor or maneuver of that starship.
-         * Lore: Flying into an asteroid field is considered to be certain death except by Han Solo, Rycar Ryjerd and the terminally insane.
-         * Set: Dagobah
-         * Rarity: C
-         */
-
         var scn = GetScenario();
         var card = scn.GetLSCard("crazy").getBlueprint();
 
@@ -82,14 +67,12 @@ public class Card_4_61_Tests {
 
     @Test
     public void TheydBeCrazyAddsTwoToAsteroidDestinyAgainstTargetTest() {
-        // Playable vs starship at asteroid sector; +2 makes destiny succeed vs low draw
-
         var scn = GetScenario();
 
         var crazy = scn.GetLSCard("crazy");
+        var corvette = scn.GetLSCard("corvette");
         var kessel = scn.GetLSCard("kessel");
         var asteroid = scn.GetLSCard("asteroid");
-        var falcon = scn.GetLSCard("falcon");
         var tie = scn.GetDSCard("tie");
 
         scn.StartGame();
@@ -97,20 +80,23 @@ public class Card_4_61_Tests {
         scn.MoveCardsToLSHand(crazy);
         scn.MoveLocationToTable(kessel);
         scn.MoveLocationToTable(asteroid);
-        scn.MoveCardsToLocation(asteroid, falcon, tie);
+        scn.MoveCardsToLocation(asteroid, corvette, tie);
 
-        scn.SkipToPhase(Phase.CONTROL);
+        // Give LS a turn so Force is available, then play during DS control (asteroid destiny timing)
+        scn.SkipToLSTurn(Phase.CONTROL);
+        scn.LSPass();
+        scn.SkipToDSTurn(Phase.CONTROL);
         scn.DSPass();
 
+        assertTrue(scn.CardsAtLocation(asteroid, corvette, tie));
         assertTrue(scn.LSCardPlayAvailable(crazy));
         scn.LSPlayCard(crazy);
         assertTrue(scn.LSHasCardChoiceAvailable(tie));
-        assertTrue(scn.LSHasCardChoiceAvailable(falcon));
+        assertTrue(scn.LSHasCardChoiceAvailable(corvette));
         scn.LSChooseCard(tie);
         scn.PassAllResponses();
         scn.DSPass();
 
-        // TIE has armor/maneuver 3; destiny 2 alone fails, destiny 2+2 succeeds
         scn.PrepareLSDestiny(2);
         assertTrue(scn.LSCardActionAvailable(tie, "asteroid"));
         scn.LSUseCardAction(tie, "asteroid");
@@ -124,9 +110,9 @@ public class Card_4_61_Tests {
         var scn = GetScenario();
 
         var crazy = scn.GetLSCard("crazy");
+        var corvette = scn.GetLSCard("corvette");
         var kessel = scn.GetLSCard("kessel");
         var asteroid = scn.GetLSCard("asteroid");
-        var falcon = scn.GetLSCard("falcon");
         var tie = scn.GetDSCard("tie");
 
         scn.StartGame();
@@ -134,9 +120,11 @@ public class Card_4_61_Tests {
         scn.MoveCardsToLSHand(crazy);
         scn.MoveLocationToTable(kessel);
         scn.MoveLocationToTable(asteroid);
-        scn.MoveCardsToLocation(kessel, falcon, tie);
+        scn.MoveCardsToLocation(kessel, corvette, tie);
 
-        scn.SkipToPhase(Phase.CONTROL);
+        scn.SkipToLSTurn(Phase.CONTROL);
+        scn.LSPass();
+        scn.SkipToDSTurn(Phase.CONTROL);
         scn.DSPass();
 
         assertFalse(scn.LSCardPlayAvailable(crazy));
@@ -144,14 +132,12 @@ public class Card_4_61_Tests {
 
     @Test
     public void TheydBeCrazyWithoutModifierLowDestinyFailsTest() {
-        // Control: without Crazy, destiny 2 vs TIE fails (stays on table)
-
         var scn = GetScenario();
 
         var crazy = scn.GetLSCard("crazy");
+        var corvette = scn.GetLSCard("corvette");
         var kessel = scn.GetLSCard("kessel");
         var asteroid = scn.GetLSCard("asteroid");
-        var falcon = scn.GetLSCard("falcon");
         var tie = scn.GetDSCard("tie");
 
         scn.StartGame();
@@ -159,7 +145,7 @@ public class Card_4_61_Tests {
         scn.MoveCardsToLSHand(crazy);
         scn.MoveLocationToTable(kessel);
         scn.MoveLocationToTable(asteroid);
-        scn.MoveCardsToLocation(asteroid, falcon, tie);
+        scn.MoveCardsToLocation(asteroid, corvette, tie);
 
         scn.SkipToPhase(Phase.CONTROL);
         scn.DSPass();
