@@ -2928,6 +2928,29 @@ public class GameState implements Snapshotable<GameState> {
         return getCardPileSize(playerId, Zone.FROZEN_PILE);
     }
 
+    /**
+     * Frozen Force only — excludes Frozen Assets marker sitting at top of FROZEN_PILE.
+     */
+    public int getFrozenForceCount(String playerId) {
+        int count = 0;
+        for (PhysicalCard c : getFrozenPile(playerId)) {
+            if (!"Frozen Assets".equals(c.getTitle()))
+                count++;
+        }
+        return count;
+    }
+
+    /**
+     * Topmost frozen Force card (skips Frozen Assets marker at top of FROZEN_PILE).
+     */
+    public PhysicalCard getTopFrozenForce(String playerId) {
+        for (PhysicalCard c : getFrozenPile(playerId)) {
+            if (!"Frozen Assets".equals(c.getTitle()))
+                return c;
+        }
+        return null;
+    }
+
     public PhysicalCard getBottomOfCardPile(String playerId, Zone zone) {
         List<? extends PhysicalCard> cards = getCardPile(playerId, zone);
         if (cards==null || cards.isEmpty())
@@ -3096,12 +3119,13 @@ public class GameState implements Snapshotable<GameState> {
         }
         int forcePileLifeForce = 0;
         for (PhysicalCard card : _forcePiles.get(playerId)) {
-            // Frozen Assets Effect on Force Pile is not a unit of life Force
+            // Frozen Assets Effect is not a unit of life Force (may sit on Force Pile after SSA)
             if (!"Frozen Assets".equals(card.getTitle())) {
                 forcePileLifeForce++;
             }
         }
-        return getReserveDeckSize(playerId) + forcePileLifeForce + _frozenPiles.get(playerId).size() + _usedPiles.get(playerId).size()
+        // Frozen Force counts as life; FA marker on FROZEN_PILE does not
+        return getReserveDeckSize(playerId) + forcePileLifeForce + getFrozenForceCount(playerId) + _usedPiles.get(playerId).size()
                 + _unresolvedDestinyDraws.get(playerId).size() + _sabaccHands.get(playerId).size();
     }
 
@@ -4671,11 +4695,13 @@ public class GameState implements Snapshotable<GameState> {
     }
 
     /**
-     * Moves all cards from Frozen Pile onto Force Pile (order preserved). Used when Frozen Assets leaves or is relocated.
+     * Moves frozen Force from Frozen Pile onto Force Pile (order preserved). Skips Frozen Assets marker.
      */
     public void moveFrozenPileToForcePile(String playerId) {
         List<PhysicalCard> frozenPile = new LinkedList<PhysicalCard>(_frozenPiles.get(playerId));
         for (PhysicalCard card : frozenPile) {
+            if ("Frozen Assets".equals(card.getTitle()))
+                continue;
             removeCardFromZone(card);
             addCardToZone(card, Zone.FORCE_PILE, playerId);
         }

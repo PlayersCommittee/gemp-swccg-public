@@ -72,13 +72,13 @@ public class Card5_023 extends AbstractNormalEffect {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        // Force-pile mode (Doc separate Frozen Pile): FA sits Active on SIDE_OF_TABLE (zoneOwner = Force pile owner).
+        // Force-pile mode (VHD): FA sits Active at TOP of FROZEN_PILE (zoneOwner = Force pile owner).
         // Lost at end of opponent's next turn; unfreeze Frozen Pile when leaving table.
         if (self.getPlayCardOptionId() == PlayCardOptionId.PLAY_CARD_OPTION_2) {
             if (TriggerConditions.isAboutToLeaveTable(game, effectResult, self)
                     || TriggerConditions.justLost(game, effectResult, self)
                     || TriggerConditions.justCanceled(game, effectResult, self)) {
-                final String forcePileOwner = game.getOpponent(self.getOwner());
+                final String forcePileOwner = self.getZoneOwner();
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setText("Unfreeze Force Pile");
                 action.appendEffect(
@@ -92,10 +92,11 @@ public class Card5_023 extends AbstractNormalEffect {
                 return Collections.singletonList(action);
             }
             if (TriggerConditions.isEndOfOpponentsTurn(game, effectResult, self)
-                    && (self.getZone() == Zone.FORCE_PILE || self.getZone() == Zone.TOP_OF_FORCE_PILE || self.getZone() == Zone.SIDE_OF_TABLE)) {
+                    && (self.getZone() == Zone.FROZEN_PILE || self.getZone() == Zone.TOP_OF_FROZEN_PILE
+                    || self.getZone() == Zone.FORCE_PILE || self.getZone() == Zone.TOP_OF_FORCE_PILE)) {
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setText("Make Frozen Assets lost");
-                final String forcePileOwner = game.getOpponent(self.getOwner());
+                final String forcePileOwner = self.getZoneOwner();
                 action.appendEffect(
                         new PassthruEffect(action) {
                             @Override

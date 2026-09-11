@@ -213,8 +213,8 @@ public interface Force extends BaseQuery, PrivateQuery, Flags, Icons, Captives, 
      */
     default int getOpponentsForceAvailableToUse(GameState gameState, String playerId) {
         String opponent = gameState.getOpponent(playerId);
-        // Beggar AR: may use both usable Force Pile and Frozen Pile
-        int opponentsForcePileSize = getUsableForcePileSize(gameState, opponent) + gameState.getFrozenPileSize(opponent);
+        // VHD: Beggar may NOT use Frozen Force - only usable Force Pile
+        int opponentsForcePileSize = getUsableForcePileSize(gameState, opponent);
 
         // Determine the maximum number of opponent's Force that can be used
         int opponentsForceAvailable = 0;
@@ -239,7 +239,8 @@ public interface Force extends BaseQuery, PrivateQuery, Flags, Icons, Captives, 
      */
     default int getMaxOpponentsForceToUseViaCard(GameState gameState, String playerId, PhysicalCard card, int opponentsForceAlreadyToBeUsed, int minOpponentForceToUse) {
         String opponent = gameState.getOpponent(playerId);
-        int opponentsForcePileSize = Math.max(0, getUsableForcePileSize(gameState, opponent) + gameState.getFrozenPileSize(opponent) - opponentsForceAlreadyToBeUsed);
+        // VHD: Beggar may NOT use Frozen Force
+        int opponentsForcePileSize = Math.max(0, getUsableForcePileSize(gameState, opponent) - opponentsForceAlreadyToBeUsed);
         int minToUse = Math.max(0, minOpponentForceToUse - opponentsForceAlreadyToBeUsed);
 
         // Determine the maximum number of opponent's Force that can be used by the card
