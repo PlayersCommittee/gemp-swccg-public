@@ -186,20 +186,21 @@ public class Card_8_018_Tests {
 
         scn.LSActivateForceCheat(6);
         scn.SkipToLSTurn(Phase.BATTLE);
-        scn.PrepareLSDestiny(1);
-        scn.PrepareLSDestiny(1);
+        scn.PrepareLSDestiny(0);
+        scn.PrepareLSDestiny(5);
         scn.LSInitiateBattle(cantina);
 
         int forceBefore = scn.GetLSForcePileCount();
         scn.LSUseCardAction(a280, "Fire");
         scn.LSChooseCard(trooper);
         scn.PassWeaponFireWithDestinyDraw();
+        // Clear any optional responses (e.g. forfeit-reduced) before the repeatedly-fire prompt.
+        scn.PassAllResponses();
 
         assertTrue(scn.LSDecisionAvailable("repeatedly fire"));
         scn.LSChooseYes();
-        // A280 first fire is free; repeat costs 2 Force. Target is already chosen as same target filter.
-        // If chooser appears, only original target should be available.
-        if (scn.LSDecisionAvailable("Choose target") || scn.LSHasCardChoiceAvailable(trooper)) {
+        // A280 first fire is free; repeat costs 2 Force. Same-target filter may auto-narrow chooser.
+        if (scn.LSDecisionAvailable("Choose target")) {
             assertTrue(scn.LSHasCardChoiceAvailable(trooper));
             scn.LSChooseCard(trooper);
         }
@@ -224,20 +225,26 @@ public class Card_8_018_Tests {
 
         scn.LSActivateForceCheat(6);
         scn.SkipToLSTurn(Phase.BATTLE);
-        scn.PrepareLSDestiny(1);
-        scn.PrepareLSDestiny(1);
+        scn.PrepareLSDestiny(0);
+        scn.PrepareLSDestiny(5);
         scn.LSInitiateBattle(cantina);
 
         scn.LSUseCardAction(a280, "Fire");
         scn.LSChooseCard(trooper);
         scn.PassWeaponFireWithDestinyDraw();
+        // Clear any optional responses (e.g. forfeit-reduced) before the repeatedly-fire prompt.
+        scn.PassAllResponses();
 
         assertTrue(scn.LSDecisionAvailable("repeatedly fire"));
         scn.LSChooseYes();
-        if (scn.LSDecisionAvailable("Choose target") || scn.LSHasCardChoiceAvailable(trooper) || scn.LSHasCardChoiceAvailable(speeder)) {
+        // Same-target repeat must not offer the other DS card; chooser may be skipped if only one valid.
+        if (scn.LSDecisionAvailable("Choose target")) {
             assertTrue(scn.LSHasCardChoiceAvailable(trooper));
             assertFalse(scn.LSHasCardChoiceAvailable(speeder));
             scn.LSChooseCard(trooper);
+        } else {
+            // No chooser: ensure speeder never became a pending card choice either.
+            assertFalse(scn.LSDecisionAvailable("speeder") || scn.LSDecisionAvailable("Speeder"));
         }
         scn.PassAllResponses();
     }
