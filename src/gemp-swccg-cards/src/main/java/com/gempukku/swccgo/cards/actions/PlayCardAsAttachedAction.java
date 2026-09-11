@@ -3,7 +3,9 @@ package com.gempukku.swccgo.cards.actions;
 import com.gempukku.swccgo.cards.effects.PayDeployCostEffect;
 import com.gempukku.swccgo.common.InactiveReason;
 import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PlayCardOption;
@@ -66,8 +68,13 @@ public class PlayCardAsAttachedAction extends AbstractPlayCardAction {
             _text = _text + " as a 'react'";
         }
 
+        Map<InactiveReason, Boolean> effectiveSpotOverrides = spotOverrides;
+        if (Title.Besieged.equals(cardToPlay.getBlueprint().getTitle())) {
+            // Captured starships remain inactive for TO_BE_DEPLOYED_ON even with INCLUDE_CAPTIVE.
+            effectiveSpotOverrides = SpotOverride.INCLUDE_ALL;
+        }
         appendTargeting(
-                new TargetCardOnTableEffect(_that, getPerformingPlayer(), "Choose where to " + _text.toLowerCase() + " " + GameUtils.getCardLink(_cardToPlay) + " as attached", spotOverrides, TargetingReason.TO_BE_DEPLOYED_ON, deployTargetFilter) {
+                new TargetCardOnTableEffect(_that, getPerformingPlayer(), "Choose where to " + _text.toLowerCase() + " " + GameUtils.getCardLink(_cardToPlay) + " as attached", effectiveSpotOverrides, TargetingReason.TO_BE_DEPLOYED_ON, deployTargetFilter) {
                     @Override
                     protected void cardTargeted(int targetGroupId, PhysicalCard target) {
                         _target = target;
