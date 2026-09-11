@@ -11,6 +11,7 @@ import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.ModelType;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -18,12 +19,17 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.SubAction;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
+import com.gempukku.swccgo.logic.effects.StackActionEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.StealCardToLocationEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.TotalPowerModifier;
+import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -66,6 +72,8 @@ public class Card2_107 extends AbstractDroid {
             if (!lightPlayer.equals(self.getOwner())) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                // Light Side is the player performing the steal so responses such as Oh, Switch Off can cancel it
+                action.setPerformingPlayer(lightPlayer);
                 action.setText("Choose whether to 'steal'");
                 action.setActionMsg("Have " + lightPlayer + " choose whether to 'steal'" + GameUtils.getCardLink(self));
                 // Perform result(s)
@@ -74,8 +82,34 @@ public class Card2_107 extends AbstractDroid {
                                 new YesNoDecision("Do you want to 'steal' " + GameUtils.getCardLink(self) + "?") {
                                     @Override
                                     protected void yes() {
+                                        // Target for TO_BE_STOLEN with allowResponses so Oh, Switch Off can cancel (Caller-style)
+                                        final SubAction stealAction = new SubAction(action, lightPlayer);
+                                        stealAction.appendTargeting(
+                                                new TargetCardOnTableEffect(stealAction, lightPlayer, "Choose droid to steal", TargetingReason.TO_BE_STOLEN, self) {
+                                                    @Override
+                                                    protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
+                                                        stealAction.addAnimationGroup(targetedCard);
+                                                        // Allow response(s)
+                                                        stealAction.allowResponses("Steal " + GameUtils.getCardLink(targetedCard),
+                                                                new RespondableEffect(stealAction) {
+                                                                    @Override
+                                                                    protected void performActionResults(Action targetingAction) {
+                                                                        final PhysicalCard cardToSteal = stealAction.getPrimaryTargetCard(targetGroupId);
+                                                                        // Perform result(s)
+                                                                        stealAction.appendEffect(
+                                                                                new StealCardToLocationEffect(stealAction, lightPlayer, cardToSteal));
+                                                                    }
+                                                                }
+                                                        );
+                                                    }
+                                                    @Override
+                                                    protected boolean getUseShortcut() {
+                                                        return true;
+                                                    }
+                                                }
+                                        );
                                         action.appendEffect(
-                                                new StealCardToLocationEffect(action, lightPlayer, self));
+                                                new StackActionEffect(action, stealAction));
                                     }
 
                                     @Override
