@@ -309,10 +309,23 @@ public interface Weapons extends BaseQuery, Icons {
      * @param weapon the weapon
      * @return the cost for fire the weapon repeatedly
      */
+    /**
+     * Determines if the specified weapon may be fired repeatedly at the same target.
+     * @param gameState the game state
+     * @param weapon the weapon
+     * @return true or false
+     */
+    default boolean mayFireWeaponRepeatedlyAtSameTarget(GameState gameState, PhysicalCard weapon) {
+        return (!getModifiersAffectingCard(gameState, ModifierType.MAY_FIRE_REPEATEDLY_AT_SAME_TARGET_FOR_COST, weapon).isEmpty());
+    }
+
     default float getFireWeaponRepeatedlyCost(GameState gameState, PhysicalCard weapon) {
         float result = Float.MAX_VALUE;
 
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_FIRE_REPEATEDLY_FOR_COST, weapon)) {
+            result = Math.min(result, modifier.getValue(gameState, query(), weapon));
+        }
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_FIRE_REPEATEDLY_AT_SAME_TARGET_FOR_COST, weapon)) {
             result = Math.min(result, modifier.getValue(gameState, query(), weapon));
         }
 
