@@ -324,7 +324,6 @@ public class Card_5_013_Tests {
             }
         }
         assertNotNull("Expected LS optional response window after battle initiated", scn.LSGetDecision());
-        System.out.println("LS actions: " + scn.GetLSAvailableActions());
         boolean dodgeResponse = scn.LSCardActionAvailable(dodge)
                 || scn.LSPlayLostInterruptAvailable(dodge)
                 || scn.LSActionAvailable("Move character away")
