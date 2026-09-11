@@ -1,5 +1,8 @@
 package com.gempukku.swccgo.cards.set2.dark;
 
+import com.gempukku.swccgo.common.CardSubtype;
+import com.gempukku.swccgo.common.CardType;
+import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.ModelType;
@@ -42,29 +45,72 @@ public class Card_2_107_Tests {
         );
     }
 
+    private void breakU3POCoverWithQAM(VirtualTableScenario scn) {
+        var qam = scn.GetLSCard("qam");
+        var u3po = scn.GetDSCard("u3po");
+        var ohSwitchOff = scn.GetDSCard("ohSwitchOff");
+        var site = scn.GetLSStartingLocation();
+
+        scn.MoveCardsToLSHand(qam);
+        scn.MoveCardsToDSHand(u3po, ohSwitchOff);
+
+        scn.SkipToPhase(Phase.DEPLOY);
+        scn.DSDeployCard(u3po);
+        scn.DSChooseCard(site);
+        scn.PassAllResponses();
+
+        assertTrue(u3po.isUndercover());
+        assertEquals(scn.DS, u3po.getOwner());
+
+        scn.SkipToLSTurn(Phase.MOVE);
+        assertTrue(scn.LSCardPlayAvailable(qam, "Break a spy's cover"));
+        scn.LSPlayCard(qam, "Break a spy's cover");
+        assertTrue(scn.LSHasCardChoiceAvailable(u3po));
+        scn.LSChooseCard(u3po);
+        scn.PassAllResponses();
+
+        assertFalse(u3po.isUndercover());
+    }
+
+    /**
+     * After LS chooses to steal, advance until Oh, Switch Off can respond (ABOUT_TO_BE_STOLEN).
+     */
+    private void advanceToOhSwitchOffResponse(VirtualTableScenario scn, com.gempukku.swccgo.game.PhysicalCardImpl ohSwitchOff) {
+        for (int i = 0; i < 20; i++) {
+            var ds = scn.DSGetDecision();
+            if (ds != null && scn.DSCardPlayAvailable(ohSwitchOff)) {
+                return;
+            }
+            var ls = scn.LSGetDecision();
+            if (ls != null) {
+                String lower = ls.getText() == null ? "" : ls.getText().toLowerCase();
+                if (scn.LSDecisionAvailable("steal") || lower.contains("do you want to")) {
+                    scn.LSChooseYes();
+                    continue;
+                }
+                if (lower.contains("optional") || lower.contains("about") || lower.contains("cover") || lower.contains("response")) {
+                    scn.LSPass();
+                    continue;
+                }
+            }
+            if (ds != null) {
+                String lower = ds.getText() == null ? "" : ds.getText().toLowerCase();
+                if (lower.contains("optional") || lower.contains("about") || lower.contains("cover") || lower.contains("response")) {
+                    // Do not pass the Oh Switch Off window
+                    if (scn.DSCardPlayAvailable(ohSwitchOff)) {
+                        return;
+                    }
+                    scn.DSPass();
+                    continue;
+                }
+            }
+            break;
+        }
+    }
+
     @Test
     public void U3POStatsAndKeywordsAreCorrect() {
-        /**
-         * Title: U-3PO (Yoo-Threepio)
-         * Uniqueness: Unique
-         * Side: Dark
-         * Type: Character
-         * Subtype: Droid
-         * Destiny: 3
-         * Deploy: 3
-         * Power: 1
-         * Forfeit: 3
-         * Icons: A New Hope
-         * Model Type: Protocol
-         * Keywords: Spy
-         * Game Text: Deploys only to a site as an Undercover spy. If Undercover at a battle, adds his power to Light Side.
-         *      If U-3PO just had his 'cover broken,' Light Side may steal him.
-         * Set: A New Hope
-         * Rarity: R1
-         */
-
         var scn = GetScenario();
-
         var card = scn.GetDSCard("u3po").getBlueprint();
 
         assertEquals("U-3PO (Yoo-Threepio)", card.getTitle());
@@ -75,38 +121,26 @@ public class Card_2_107_Tests {
         assertEquals(3, card.getDeployCost(), scn.epsilon);
         assertEquals(1, card.getPower(), scn.epsilon);
         assertEquals(3, card.getForfeit(), scn.epsilon);
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.DROID);
+        }});
         scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
             add(Keyword.SPY);
         }});
         scn.BlueprintIconCheck(card, new ArrayList<>() {{
             add(Icon.A_NEW_HOPE);
+            add(Icon.DROID);
         }});
         scn.BlueprintModelTypeCheck(card, new ArrayList<>() {{
             add(ModelType.PROTOCOL);
         }});
-        assertEquals(com.gempukku.swccgo.common.ExpansionSet.A_NEW_HOPE, card.getExpansionSet());
+        assertEquals(ExpansionSet.A_NEW_HOPE, card.getExpansionSet());
         assertEquals(Rarity.R1, card.getRarity());
     }
 
     @Test
     public void OhSwitchOffStatsAndKeywordsAreCorrect() {
-        /**
-         * Title: Oh, Switch Off
-         * Uniqueness: Unrestricted
-         * Side: Dark
-         * Type: Interrupt
-         * Subtype: Used
-         * Destiny: 6
-         * Icons: Hoth
-         * Game Text: Cancel an attempt by opponent to target your droid to be stolen, 'hit' or lost.
-         *      Droid is protected from all such attempts for remainder of turn.
-         *      OR Switch OFF any binary droid for remainder of turn.
-         * Set: Hoth
-         * Rarity: C2
-         */
-
         var scn = GetScenario();
-
         var card = scn.GetDSCard("ohSwitchOff").getBlueprint();
 
         assertEquals("Oh, Switch Off", card.getTitle());
@@ -114,10 +148,15 @@ public class Card_2_107_Tests {
         assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
         assertEquals(Side.DARK, card.getSide());
         assertEquals(6, card.getDestiny(), scn.epsilon);
+        scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
+            add(CardType.INTERRUPT);
+        }});
+        assertEquals(CardSubtype.USED, card.getCardSubtype());
         scn.BlueprintIconCheck(card, new ArrayList<>() {{
             add(Icon.HOTH);
+            add(Icon.INTERRUPT);
         }});
-        assertEquals(com.gempukku.swccgo.common.ExpansionSet.HOTH, card.getExpansionSet());
+        assertEquals(ExpansionSet.HOTH, card.getExpansionSet());
         assertEquals(Rarity.C2, card.getRarity());
     }
 
@@ -126,41 +165,18 @@ public class Card_2_107_Tests {
         // Repro (#50): LS breaks U-3PO cover (Quite A Mercenary (V)), chooses steal;
         // Oh, Switch Off should light up and keep U-3PO as a DS droid.
         var scn = GetScenario();
-
-        var qam = scn.GetLSCard("qam");
         var u3po = scn.GetDSCard("u3po");
         var ohSwitchOff = scn.GetDSCard("ohSwitchOff");
         var site = scn.GetLSStartingLocation();
 
         scn.StartGame();
+        breakU3POCoverWithQAM(scn);
 
-        scn.MoveCardsToLSHand(qam);
-        scn.MoveCardsToDSHand(u3po, ohSwitchOff);
-
-        scn.SkipToPhase(Phase.DEPLOY);
-        scn.DSDeployCard(u3po);
-        scn.DSChooseCard(site);
-        scn.PassAllResponses();
-
-        assertTrue(u3po.isUndercover());
-        assertEquals(scn.DS, u3po.getOwner());
-
-        scn.SkipToLSTurn(Phase.MOVE);
-        assertTrue(scn.LSCardPlayAvailable(qam));
-        scn.LSPlayCard(qam);
-        // LOST: Break a spy's cover
-        assertTrue(scn.LSDecisionAvailable("Choose undercover spy") || scn.LSHasCardChoiceAvailable(u3po) || scn.LSDecisionAvailable("Break"));
-        if (scn.LSHasCardChoiceAvailable(u3po)) {
-            scn.LSChooseCard(u3po);
-        }
-        scn.PassAllResponses();
-
-        assertFalse(u3po.isUndercover());
         assertTrue(scn.LSDecisionAvailable("steal"));
         scn.LSChooseYes();
+        advanceToOhSwitchOffResponse(scn, ohSwitchOff);
 
-        // Steal targeting - optional responses; Oh, Switch Off should be available
-        assertTrue(scn.DSCardPlayAvailable(ohSwitchOff));
+        assertTrue("Oh, Switch Off should be playable to cancel the steal", scn.DSCardPlayAvailable(ohSwitchOff));
         scn.DSPlayCard(ohSwitchOff);
         scn.PassAllResponses();
 
@@ -171,35 +187,18 @@ public class Card_2_107_Tests {
     @Test
     public void LightSideMayStealU3POWhenCoverBrokenIfOhSwitchOffNotPlayed() {
         var scn = GetScenario();
-
-        var qam = scn.GetLSCard("qam");
         var u3po = scn.GetDSCard("u3po");
         var ohSwitchOff = scn.GetDSCard("ohSwitchOff");
         var site = scn.GetLSStartingLocation();
 
         scn.StartGame();
-
-        scn.MoveCardsToLSHand(qam);
-        scn.MoveCardsToDSHand(u3po, ohSwitchOff);
-
-        scn.SkipToPhase(Phase.DEPLOY);
-        scn.DSDeployCard(u3po);
-        scn.DSChooseCard(site);
-        scn.PassAllResponses();
-
-        assertTrue(u3po.isUndercover());
-
-        scn.SkipToLSTurn(Phase.MOVE);
-        scn.LSPlayCard(qam);
-        if (scn.LSHasCardChoiceAvailable(u3po)) {
-            scn.LSChooseCard(u3po);
-        }
-        scn.PassAllResponses();
+        breakU3POCoverWithQAM(scn);
 
         assertTrue(scn.LSDecisionAvailable("steal"));
         scn.LSChooseYes();
+        advanceToOhSwitchOffResponse(scn, ohSwitchOff);
 
-        assertTrue(scn.DSCardPlayAvailable(ohSwitchOff));
+        assertTrue("Oh, Switch Off should still be available before DS declines", scn.DSCardPlayAvailable(ohSwitchOff));
         scn.PassAllResponses();
 
         assertEquals(scn.LS, u3po.getOwner());
