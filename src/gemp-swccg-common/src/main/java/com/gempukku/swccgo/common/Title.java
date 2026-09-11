@@ -250,6 +250,7 @@ public interface Title {
     String Coruscant_The_Works = "Coruscant: The Works";
     String Count_Me_In = "Count Me In";
     String Counter_Assault = "Counter Assault";
+    String Counterattack = "Counterattack";
     String Courage_Of_A_Skywalker = "Courage Of A Skywalker";
     String Court_Of_The_Vile_Gangster = "Court Of The Vile Gangster";
     String Covert_Landing = "Covert Landing";
@@ -508,6 +509,7 @@ public interface Title {
     String Heart_Of_The_Chasm = "Heart Of The Chasm";
     String Hebsly = "Lieutenant Hebsly";
     String Help_Me_Obi_Wan_Kenobi = "Help Me Obi-Wan Kenobi";
+    String Here_We_Go_Again = "Here We Go Again";
     String Hera = "Captain Hera Syndulla";
     String Hero_Of_A_Thousand_Devices = "Hero Of A Thousand Devices";
     String Heroic_Sacrifice = "Heroic Sacrifice";
