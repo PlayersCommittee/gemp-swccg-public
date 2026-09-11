@@ -257,7 +257,11 @@ public class Card_13_013_Tests {
         assertTrue(scn.LSCardActionAvailable(blaster, "Fire"));
         scn.LSUseCardAction(blaster, "Fire");
         scn.LSChooseCard(trooper1);
+        scn.PassWeaponFireWithDestinyDraw();
         scn.PassAllResponses();
+        if (scn.AwaitingDSWeaponsSegmentActions()) {
+            scn.DSPass();
+        }
 
         // Even if already fired, Desperate Times may fire it again
         assertTrue(scn.LSCardActionAvailable(desperate));
@@ -265,11 +269,20 @@ public class Card_13_013_Tests {
         scn.LSPlayCard(desperate);
         scn.LSChooseCard(blaster);
         scn.PassAllResponses();
-        scn.LSChooseCard(trooper2);
+        if (scn.LSHasCardChoiceAvailable(trooper2)) {
+            scn.LSChooseCard(trooper2);
+        } else if (scn.LSHasCardChoiceAvailable(trooper1)) {
+            scn.LSChooseCard(trooper1);
+        }
+        scn.PassWeaponFireWithDestinyDraw();
         scn.PassAllResponses();
+        if (scn.AwaitingDSWeaponsSegmentActions()) {
+            scn.DSPass();
+        }
 
         assertTrue(trooper2.isHit() || trooper1.isHit());
         // Does not leave a lasting "may fire again" — normal Fire should not be available after two fires
+        assertTrue(scn.AwaitingLSWeaponsSegmentActions());
         assertFalse(scn.LSCardActionAvailable(blaster, "Fire"));
     }
 
@@ -297,10 +310,19 @@ public class Card_13_013_Tests {
         scn.LSPlayCard(desperate);
         scn.LSChooseCard(blaster);
         scn.PassAllResponses();
-        scn.LSChooseCard(trooper1);
+        if (scn.LSHasCardChoiceAvailable(trooper1)) {
+            scn.LSChooseCard(trooper1);
+        } else if (scn.LSHasCardChoiceAvailable(trooper2)) {
+            scn.LSChooseCard(trooper2);
+        }
+        scn.PassWeaponFireWithDestinyDraw();
         scn.PassAllResponses();
+        if (scn.AwaitingDSWeaponsSegmentActions()) {
+            scn.DSPass();
+        }
 
         // After DT resolves the first fire, normal Fire should not be available again this battle
+        assertTrue(scn.AwaitingLSWeaponsSegmentActions());
         assertFalse(scn.LSCardActionAvailable(blaster, "Fire"));
     }
 
