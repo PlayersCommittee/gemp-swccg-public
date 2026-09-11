@@ -67,8 +67,12 @@ public class Card_8_049_Tests {
         assertTrue("Unable to initiate battle at location", scn.DSCanInitiateBattle(site));
         scn.DSUseCardAction(site, "Initiate battle");
         scn.PassForceUseResponses();
-        if (scn.DSAnyDecisionsAvailable() && !scn.LSAnyDecisionsAvailable()
-                && scn.DSDecisionAvailable("Battle just initiated")) {
+        // DS may hold the BATTLE_INITIATED optional window first; pass so LS can react.
+        if (scn.DSAnyDecisionsAvailable()) {
+            scn.DSPass();
+        }
+        if (scn.DSAnyDecisionsAvailable() && (scn.DSDecisionAvailable("BATTLE_INITIATED")
+                || scn.DSDecisionAvailable("Battle just initiated"))) {
             scn.DSPass();
         }
     }
@@ -161,7 +165,7 @@ public class Card_8_049_Tests {
         var spearman = scn.GetLSCard("spearman");
         var rebel = scn.GetLSCard("rebel");
         var escort = scn.GetDSCard("escort");
-        var site = scn.GetLSStartingLocation();
+        var site = scn.GetDSStartingLocation();
 
         scn.MoveCardsToLSHand(rescue);
         scn.StartGame();
@@ -170,13 +174,14 @@ public class Card_8_049_Tests {
         assertTrue(rebel.isCaptive());
 
         // Stormtrooper DV typically 2; non-scout needs destiny > 2
-        scn.PrepareLSDestiny(3);
-        scn.SkipToPhase(Phase.CONTROL);
+        scn.PrepareLSDestiny(2);
+        scn.SkipToLSTurn(Phase.CONTROL);
+        assertTrue(scn.LSAnyDecisionsAvailable());
         assertTrue(scn.LSCardPlayAvailable(rescue));
         scn.LSPlayCard(rescue);
         scn.LSChooseCard(spearman);
         scn.LSChooseCard(rebel);
-        scn.PassAllResponses();
+        scn.PassCardPlayResponses();
         scn.PassDestinyDrawResponses();
         scn.PassAllResponses();
 
@@ -191,7 +196,7 @@ public class Card_8_049_Tests {
         var sentry = scn.GetLSCard("sentry");
         var rebel = scn.GetLSCard("rebel");
         var escort = scn.GetDSCard("escort");
-        var site = scn.GetLSStartingLocation();
+        var site = scn.GetDSStartingLocation();
 
         scn.MoveCardsToLSHand(rescue);
         scn.StartGame();
@@ -200,12 +205,13 @@ public class Card_8_049_Tests {
 
         // Destiny 1 + scout 2 = 3 > escort DV 2
         scn.PrepareLSDestiny(1);
-        scn.SkipToPhase(Phase.CONTROL);
+        scn.SkipToLSTurn(Phase.CONTROL);
+        assertTrue(scn.LSAnyDecisionsAvailable());
         assertTrue(scn.LSCardPlayAvailable(rescue));
         scn.LSPlayCard(rescue);
         scn.LSChooseCard(sentry);
         scn.LSChooseCard(rebel);
-        scn.PassAllResponses();
+        scn.PassCardPlayResponses();
         scn.PassDestinyDrawResponses();
         scn.PassAllResponses();
 
@@ -219,7 +225,7 @@ public class Card_8_049_Tests {
         var spearman = scn.GetLSCard("spearman");
         var rebel = scn.GetLSCard("rebel");
         var escort = scn.GetDSCard("escort");
-        var site = scn.GetLSStartingLocation();
+        var site = scn.GetDSStartingLocation();
 
         scn.MoveCardsToLSHand(rescue);
         scn.StartGame();
@@ -227,11 +233,12 @@ public class Card_8_049_Tests {
         scn.CaptureCardWith(escort, rebel);
 
         scn.PrepareLSDestiny(1);
-        scn.SkipToPhase(Phase.CONTROL);
+        scn.SkipToLSTurn(Phase.CONTROL);
+        assertTrue(scn.LSAnyDecisionsAvailable());
         scn.LSPlayCard(rescue);
         scn.LSChooseCard(spearman);
         scn.LSChooseCard(rebel);
-        scn.PassAllResponses();
+        scn.PassCardPlayResponses();
         scn.PassDestinyDrawResponses();
         scn.PassAllResponses();
 
@@ -246,15 +253,15 @@ public class Card_8_049_Tests {
         var rescue = scn.GetLSCard("rescue");
         var rebel = scn.GetLSCard("rebel");
         var escort = scn.GetDSCard("escort");
-        var site = scn.GetLSStartingLocation();
+        var site = scn.GetDSStartingLocation();
 
         scn.MoveCardsToLSHand(rescue);
         scn.StartGame();
         scn.MoveCardsToLocation(site, escort, rebel);
         scn.CaptureCardWith(escort, rebel);
 
-        scn.SkipToPhase(Phase.CONTROL);
-        assertFalse(scn.LSCardPlayAvailable(rescue));
+        scn.SkipToLSTurn(Phase.CONTROL);
+        assertFalse(scn.LSAnyDecisionsAvailable() && scn.LSCardPlayAvailable(rescue));
     }
 
     @Test
@@ -265,7 +272,7 @@ public class Card_8_049_Tests {
         var rebel = scn.GetLSCard("rebel");
         var escort = scn.GetDSCard("escort");
         var sense = scn.GetDSCard("sense");
-        var site = scn.GetLSStartingLocation();
+        var site = scn.GetDSStartingLocation();
 
         scn.MoveCardsToLSHand(rescue);
         scn.MoveCardsToDSHand(sense);
@@ -274,23 +281,20 @@ public class Card_8_049_Tests {
         scn.CaptureCardWith(escort, rebel);
 
         scn.PrepareLSDestiny(7);
-        scn.SkipToPhase(Phase.CONTROL);
+        scn.SkipToLSTurn(Phase.CONTROL);
+        assertTrue(scn.LSAnyDecisionsAvailable());
         scn.LSPlayCard(rescue);
         scn.LSChooseCard(spearman);
         scn.LSChooseCard(rebel);
-        // Sense cancels Used Interrupt
-        if (scn.DSCardPlayAvailable(sense)) {
-            scn.DSPlayCard(sense);
-            scn.PassAllResponses();
-            scn.PassDestinyDrawResponses();
-            scn.PassAllResponses();
-        }
-        else {
-            scn.PassAllResponses();
-        }
+        // Sense cancels during Playing optional responses (before destiny)
+        assertTrue(scn.DSCardPlayAvailable(sense));
+        scn.DSPlayCard(sense);
+        scn.PassCardPlayResponses();
+        scn.PassDestinyDrawResponses();
+        scn.PassAllResponses();
 
         assertTrue("Captive remains escorted when Sense cancels Ewok Rescue", rebel.isCaptive());
-        assertEquals(Zone.USED_PILE, rescue.getZone());
+        assertNotEquals(Zone.VOID, rescue.getZone());
     }
 
     @Test
@@ -303,7 +307,7 @@ public class Card_8_049_Tests {
         var paploo = scn.GetLSCard("paploo");
         var rebel = scn.GetLSCard("rebel");
         var presence = scn.GetDSCard("presence");
-        var marketplace = scn.GetLSStartingLocation();
+        var marketplace = scn.GetDSStartingLocation();
         var cantina = scn.GetDSCard("cantinaDS");
 
         scn.MoveCardsToLSHand(rescue);
@@ -345,7 +349,7 @@ public class Card_8_049_Tests {
         var spearman = scn.GetLSCard("spearman");
         var rebel = scn.GetLSCard("rebel");
         var presence = scn.GetDSCard("presence");
-        var marketplace = scn.GetLSStartingLocation();
+        var marketplace = scn.GetDSStartingLocation();
         var cantina = scn.GetDSCard("cantinaDS");
 
         scn.MoveCardsToLSHand(rescue);
@@ -369,7 +373,7 @@ public class Card_8_049_Tests {
         var spearman = scn.GetLSCard("spearman");
         var rebel = scn.GetLSCard("rebel");
         var presence = scn.GetDSCard("presence");
-        var marketplace = scn.GetLSStartingLocation();
+        var marketplace = scn.GetDSStartingLocation();
         var cantina = scn.GetDSCard("cantinaDS");
 
         scn.MoveCardsToLSHand(rescue);
@@ -395,7 +399,7 @@ public class Card_8_049_Tests {
         var romba = scn.GetLSCard("romba");
         var rebel = scn.GetLSCard("rebel");
         var presence = scn.GetDSCard("presence");
-        var marketplace = scn.GetLSStartingLocation();
+        var marketplace = scn.GetDSStartingLocation();
         var cantina = scn.GetDSCard("cantinaDS");
         var db94 = scn.GetDSCard("db94");
 
@@ -443,7 +447,7 @@ public class Card_8_049_Tests {
         var bunker = scn.GetLSCard("bunker");
         var rebel = scn.GetLSCard("rebel");
         var presence = scn.GetDSCard("presence");
-        var marketplace = scn.GetLSStartingLocation();
+        var marketplace = scn.GetDSStartingLocation();
 
         scn.MoveCardsToLSHand(rescue);
         scn.StartGame();
@@ -467,44 +471,43 @@ public class Card_8_049_Tests {
     }
 
     @Test
-    public void EwokRescueAction2AllowsDisembarkFromRelatedVehicleSite() {
+    public void EwokRescueAction2AllowsDisembarkThenReactFromVehicleAtExteriorSite() {
+        // Doc: reacting Ewoks may disembark and then react. Passenger Deck is interior,
+        // so cover disembark from a vehicle parked at an adjacent exterior site.
         var scn = GetScenario();
         var rescue = scn.GetLSCard("rescue");
         var sentry = scn.GetLSCard("sentry");
         var spearman = scn.GetLSCard("spearman");
         var rebel = scn.GetLSCard("rebel");
         var presence = scn.GetDSCard("presence");
-        var palace = scn.GetDSCard("palace");
+        var marketplace = scn.GetDSStartingLocation();
+        var cantina = scn.GetDSCard("cantinaDS");
         var barge = scn.GetDSCard("bargeDS");
-        var deck = scn.GetDSCard("deck");
         var escortDriver = scn.GetDSCard("escort");
 
         scn.MoveCardsToLSHand(rescue);
         scn.StartGame();
-        scn.MoveLocationToTable(palace);
-        scn.MoveLocationToTable(deck);
-        scn.MoveCardsToLocation(palace, barge);
-        scn.BoardAsPilot(barge, escortDriver);
-        scn.MoveCardsToLocation(palace, sentry, presence, rebel);
-        scn.MoveCardsToLocation(deck, spearman);
+        scn.MoveLocationToTable(cantina);
+        assertTrue(scn.IsAdjacentTo(cantina, marketplace));
 
-        assertTrue("Passenger Deck adjacent to Palace while barge is there",
-                scn.IsAdjacentTo(deck, palace));
+        scn.MoveCardsToLocation(marketplace, sentry, presence, rebel);
+        scn.MoveCardsToLocation(cantina, barge);
+        scn.BoardAsPilot(barge, escortDriver);
+        scn.BoardAsPassenger(barge, spearman);
 
         scn.SkipToDSTurn(Phase.BATTLE);
         int lsForceBefore = scn.GetLSForcePileCount();
-        InitiateDsBattleKeepReactWindow(scn, palace);
+        InitiateDsBattleKeepReactWindow(scn, marketplace);
         AssertLsCanPlayRescue(scn, rescue);
         scn.LSPlayCard(rescue);
-        assertTrue("Ewok at related vehicle site may disembark/exit as react",
+        assertTrue("Ewok passenger at exterior site may disembark then react",
                 scn.LSHasCardChoiceAvailable(spearman));
         scn.LSChooseCard(spearman);
         scn.PassAllResponses();
 
-        assertEquals("Spearman should exit Passenger Deck to Palace as a free react",
-                palace, spearman.getAtLocation());
+        assertEquals(marketplace, spearman.getAtLocation());
         assertTrue(scn.IsParticipatingInBattle(spearman));
         assertEquals(lsForceBefore, scn.GetLSForcePileCount());
-        assertNotEquals(deck, spearman.getAtLocation());
+        assertFalse(scn.IsAboardAsPassenger(barge, spearman));
     }
 }

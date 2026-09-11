@@ -79,12 +79,13 @@ public class Card8_049 extends AbstractUsedInterrupt {
                                                         protected void performActionResults(Action targetingAction) {
                                                             final PhysicalCard finalEwok = action.getPrimaryTargetCard(targetGroupId1);
                                                             final PhysicalCard finalCaptive = action.getPrimaryTargetCard(targetGroupId2);
+                                                            final PhysicalCard escortAtPlay = finalCaptive != null ? finalCaptive.getEscort() : null;
                                                             // Perform result(s)
                                                             action.appendEffect(
                                                                     new DrawDestinyEffect(action, playerId) {
                                                                         @Override
                                                                         protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
-                                                                            PhysicalCard escort = finalCaptive.getEscort();
+                                                                            PhysicalCard escort = escortAtPlay != null ? escortAtPlay : (finalCaptive != null ? finalCaptive.getEscort() : null);
                                                                             if (escort != null) {
                                                                                 return Arrays.asList(escort);
                                                                             }
@@ -93,7 +94,7 @@ public class Card8_049 extends AbstractUsedInterrupt {
                                                                         @Override
                                                                         protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
                                                                             GameState gameState = game.getGameState();
-                                                                            PhysicalCard escort = finalCaptive.getEscort();
+                                                                            PhysicalCard escort = escortAtPlay != null ? escortAtPlay : finalCaptive.getEscort();
                                                                             if (totalDestiny == null) {
                                                                                 gameState.sendMessage("Result: Failed due to failed destiny draw");
                                                                                 return;
@@ -103,7 +104,7 @@ public class Card8_049 extends AbstractUsedInterrupt {
                                                                                 return;
                                                                             }
 
-                                                                            float scoutBonus = Filters.scout.accepts(game, finalEwok) ? 2 : 0;
+                                                                            float scoutBonus = (Filters.scout.accepts(game, finalEwok) || finalEwok.getBlueprint().hasKeyword(com.gempukku.swccgo.common.Keyword.SCOUT)) ? 2 : 0;
                                                                             float total = totalDestiny + scoutBonus;
                                                                             float defenseValue = game.getModifiersQuerying().getDefenseValue(gameState, escort);
 
@@ -164,7 +165,7 @@ public class Card8_049 extends AbstractUsedInterrupt {
                                             @Override
                                             protected void performActionResults(Action targetingAction) {
                                                 PhysicalCard finalEwok = action.getPrimaryTargetCard(targetGroupId1);
-                                                final PhysicalCard exteriorSite = finalEwok.getAtLocation();
+                                                final PhysicalCard exteriorSite = getExteriorSiteOf(finalEwok);
                                                 action.appendEffect(
                                                         new MoveAsReactEffect(action, finalEwok, true));
                                                 // Remaining Ewoks at the same exterior site may optionally react for free
@@ -180,6 +181,14 @@ public class Card8_049 extends AbstractUsedInterrupt {
             }
         }
         return null;
+    }
+
+    private PhysicalCard getExteriorSiteOf(PhysicalCard ewok) {
+        PhysicalCard site = ewok.getAtLocation();
+        if (site == null && ewok.getAttachedTo() != null) {
+            site = ewok.getAttachedTo().getAtLocation();
+        }
+        return site;
     }
 
     private Filter getReactEwokFilter(PhysicalCard self, PhysicalCard lockedExteriorSite) {
