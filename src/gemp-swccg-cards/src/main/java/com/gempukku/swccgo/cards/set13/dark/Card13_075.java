@@ -12,6 +12,7 @@ import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Statistic;
 import com.gempukku.swccgo.common.TargetingReason;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
@@ -73,14 +74,18 @@ public class Card13_075 extends AbstractCharacterWeapon {
         if (TriggerConditions.forceDrainInitiatedBy(game, effectResult, playerId, Filters.wherePresent(self))
                 && GameConditions.canUseWeapon(game, self.getAttachedTo(), self)) {
 
+            // Armament Dismantled: Maul's lightsaber may add only 1 to Force drains
+            final boolean dismantled = GameConditions.canSpot(game, self, Filters.Armament_Dismantled);
+            final int amount = dismantled ? 1 : 2;
+
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Add 2 to Force drain");
+            action.setText("Add " + amount + " to Force drain");
             // Pay cost(s)
             action.appendCost(
                     new LoseForceEffect(action, playerId, 1, true));
             // Perform result(s)
             action.appendEffect(
-                    new AddToForceDrainEffect(action, 2));
+                    new AddToForceDrainEffect(action, amount));
             return Collections.singletonList(action);
         }
         return null;
@@ -88,8 +93,12 @@ public class Card13_075 extends AbstractCharacterWeapon {
 
     @Override
     protected List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, final SwccgGame game, final PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
-        FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)
-                .twicePerBattle().targetForFree(Filters.or(Filters.character, targetedAsCharacter), TargetingReason.TO_BE_HIT).finishBuildPrep();
+        // Armament Dismantled: Maul's lightsaber may be swung only once per battle
+        FireWeaponActionBuilder prep = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit);
+        if (!GameConditions.canSpot(game, self, Filters.Armament_Dismantled)) {
+            prep.twicePerBattle();
+        }
+        FireWeaponActionBuilder actionBuilder = prep.targetForFree(Filters.or(Filters.character, targetedAsCharacter), TargetingReason.TO_BE_HIT).finishBuildPrep();
         if (actionBuilder != null) {
 
             // Build action using common utility

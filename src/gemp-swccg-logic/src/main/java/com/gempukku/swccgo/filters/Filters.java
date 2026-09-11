@@ -17834,6 +17834,7 @@ public class Filters {
     public static final Filter Allegations_Of_Corruption = Filters.title(Title.Allegations_Of_Corruption);
     public static final Filter Alter = Filters.title(Title.Alter);
     public static final Filter Alternatives_To_Fighting = Filters.title(Title.Alternatives_To_Fighting);
+    public static final Filter Armament_Dismantled = Filters.title(Title.Armament_Dismantled);
     public static final Filter always_immune_to_Alter = Filters.alwaysImmuneToCardTitle(Title.Alter);
     public static final Filter Always_Thinking_With_Your_Stomach = Filters.title(Title.Always_Thinking_With_Your_Stomach);
     public static final Filter Always_Two_There_Are = Filters.title(Title.Always_Two_There_Are);
