@@ -2,28 +2,35 @@ package com.gempukku.swccgo.cards.set8.dark;
 
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.RevealTopCardsOfReserveDeckEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
+import com.gempukku.swccgo.logic.actions.SubAction;
+import com.gempukku.swccgo.logic.effects.PutCardFromHandOnReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
+import com.gempukku.swccgo.logic.effects.ShowCardOnScreenEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromHandEffect;
+import com.gempukku.swccgo.logic.effects.choose.DrawCardsIntoHandFromReserveDeckEffect;
+import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -59,13 +66,19 @@ public class Card8_144 extends AbstractUsedInterrupt {
                         new RespondablePlayCardEffect(action) {
                             @Override
                             protected void performActionResults(Action targetingAction) {
-                                // Perform result(s)
+                                final int numToReveal = Math.min(3, game.getGameState().getReserveDeckSize(playerId));
+                                // Reveal by drawing into hand (shown), deploy eligible to battle, put rest back on top in order.
+                                // Shared Panic/Emergency proper-reveal fix deferred pending Chief clearance.
                                 action.appendEffect(
-                                        new RevealTopCardsOfReserveDeckEffect(action, playerId, 3) {
+                                        new DrawCardsIntoHandFromReserveDeckEffect(action, playerId, numToReveal) {
                                             @Override
-                                            protected void cardsRevealed(final List<PhysicalCard> cards) {
+                                            protected void cardsDrawnIntoHand(Collection<PhysicalCard> cards) {
+                                                final List<PhysicalCard> revealedInOrder = new ArrayList<PhysicalCard>(cards);
+                                                for (PhysicalCard revealed : revealedInOrder) {
+                                                    action.appendEffect(new ShowCardOnScreenEffect(action, revealed));
+                                                }
                                                 action.appendEffect(
-                                                        getDeployNextScoutOrSpeederBikeEffect(action, self, playerId, cards));
+                                                        new DeployRevealedScoutsAndSpeederBikesFromHandEffect(action, self, playerId, revealedInOrder));
                                             }
                                         }
                                 );
@@ -79,41 +92,82 @@ public class Card8_144 extends AbstractUsedInterrupt {
     }
 
     /**
-     * Recursively deploys any revealed scouts or speeder bikes that can deploy for free to the battle location.
-     * Non-deployed revealed cards remain on top of Reserve Deck in their original relative order.
+     * Deploys scouts/speeder bikes among the revealed (drawn) cards for free to the battle, then puts any remaining
+     * revealed cards back on top of Reserve Deck preserving relative order.
      */
-    private StandardEffect getDeployNextScoutOrSpeederBikeEffect(final PlayInterruptAction action, final PhysicalCard self,
-                                                                 final String playerId, final List<PhysicalCard> revealedCards) {
-        return new PassthruEffect(action) {
-            @Override
-            protected void doPlayEffect(final SwccgGame game) {
-                Collection<PhysicalCard> deployable = Filters.filter(revealedCards, game,
-                        Filters.and(Filters.or(Filters.scout, Filters.speeder_bike),
-                                Filters.deployableToLocation(self, Filters.battleLocation, true, 0)));
-                if (deployable.isEmpty()) {
-                    return;
-                }
+    private static class DeployRevealedScoutsAndSpeederBikesFromHandEffect extends AbstractSubActionEffect {
+        private final PhysicalCard _source;
+        private final String _playerId;
+        private final List<PhysicalCard> _revealedInOrder;
 
-                if (deployable.size() == 1) {
-                    PhysicalCard onlyCard = deployable.iterator().next();
-                    action.appendEffect(
-                            new DeployCardToLocationFromReserveDeckEffect(action, onlyCard, Filters.battleLocation, true, false, false));
-                    // After deploying, check remaining revealed cards again
-                    action.appendEffect(getDeployNextScoutOrSpeederBikeEffect(action, self, playerId, revealedCards));
-                    return;
-                }
+        private DeployRevealedScoutsAndSpeederBikesFromHandEffect(Action action, PhysicalCard source, String playerId, List<PhysicalCard> revealedInOrder) {
+            super(action);
+            _source = source;
+            _playerId = playerId;
+            _revealedInOrder = new LinkedList<PhysicalCard>(revealedInOrder);
+        }
 
-                action.appendEffect(
-                        new ChooseCardEffect(action, playerId, "Choose scout or speeder bike to deploy to battle", deployable) {
-                            @Override
-                            protected void cardSelected(PhysicalCard selectedCard) {
-                                action.appendEffect(
-                                        new DeployCardToLocationFromReserveDeckEffect(action, selectedCard, Filters.battleLocation, true, false, false));
-                                action.appendEffect(getDeployNextScoutOrSpeederBikeEffect(action, self, playerId, revealedCards));
-                            }
-                        }
-                );
+        @Override
+        public boolean isPlayableInFull(SwccgGame game) {
+            return true;
+        }
+
+        @Override
+        protected SubAction getSubAction(final SwccgGame game) {
+            final SubAction subAction = new SubAction(_action);
+            subAction.appendEffect(getChooseAndDeployEffect(subAction));
+            return subAction;
+        }
+
+        private void appendPutRemainingBackOnTop(final SubAction subAction) {
+            List<PhysicalCard> remaining = new ArrayList<PhysicalCard>();
+            for (PhysicalCard card : _revealedInOrder) {
+                if (card.getZone() == Zone.HAND && _playerId.equals(card.getOwner())) {
+                    remaining.add(card);
+                }
             }
-        };
+            // Place last remaining first so earliest remaining ends on top (same relative order).
+            for (int i = remaining.size() - 1; i >= 0; --i) {
+                subAction.appendEffect(
+                        new PutCardFromHandOnReserveDeckEffect(subAction, _playerId, Filters.sameCardId(remaining.get(i)), true));
+            }
+        }
+
+        private StandardEffect getChooseAndDeployEffect(final SubAction subAction) {
+            return new PassthruEffect(subAction) {
+                @Override
+                protected void doPlayEffect(final SwccgGame game) {
+                    Collection<PhysicalCard> deployable = Filters.filter(_revealedInOrder, game,
+                            Filters.and(Filters.inHand(_playerId), Filters.or(Filters.scout, Filters.speeder_bike),
+                                    Filters.deployableToLocation(_source, Filters.battleLocation, true, 0)));
+                    if (deployable.isEmpty()) {
+                        appendPutRemainingBackOnTop(subAction);
+                        return;
+                    }
+
+                    subAction.insertEffect(
+                            new ChooseCardEffect(subAction, _playerId, "Choose scout or speeder bike to deploy to battle", deployable) {
+                                @Override
+                                protected void cardSelected(PhysicalCard selectedCard) {
+                                    subAction.insertEffect(
+                                            new DeployCardToLocationFromHandEffect(subAction, selectedCard, Filters.battleLocation, true, false),
+                                            new PassthruEffect(subAction) {
+                                                @Override
+                                                protected void doPlayEffect(SwccgGame game) {
+                                                    subAction.insertEffect(getChooseAndDeployEffect(subAction));
+                                                }
+                                            }
+                                    );
+                                }
+                            }
+                    );
+                }
+            };
+        }
+
+        @Override
+        protected boolean wasActionCarriedOut() {
+            return true;
+        }
     }
 }
