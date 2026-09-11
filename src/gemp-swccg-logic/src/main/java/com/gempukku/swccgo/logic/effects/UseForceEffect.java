@@ -68,8 +68,9 @@ public class UseForceEffect extends AbstractSubActionEffect {
         SubAction subAction = new SubAction(_action);
         final List<UseOneForceEffect> useOneForceEffects = new LinkedList<UseOneForceEffect>();
         for (int i = 0; i < _amountOfForce; i++) {
-            final UseOneForceEffect effect = new UseOneForceEffect(subAction, i < _amountForOpponentToUse ? game.getOpponent(_playerId) : _playerId,
-                    i==0 || i==_amountForOpponentToUse, i==(_amountForOpponentToUse-1) || i==(_amountOfForce-1));
+            final boolean usingOpponentsForce = i < _amountForOpponentToUse;
+            final UseOneForceEffect effect = new UseOneForceEffect(subAction, usingOpponentsForce ? game.getOpponent(_playerId) : _playerId,
+                    i==0 || i==_amountForOpponentToUse, i==(_amountForOpponentToUse-1) || i==(_amountOfForce-1), usingOpponentsForce);
             subAction.appendEffect(effect);
             useOneForceEffects.add(effect);
         }

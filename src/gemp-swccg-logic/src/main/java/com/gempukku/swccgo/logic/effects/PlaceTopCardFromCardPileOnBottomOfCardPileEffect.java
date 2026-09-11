@@ -36,6 +36,27 @@ public class PlaceTopCardFromCardPileOnBottomOfCardPileEffect extends AbstractSu
     @Override
     protected void doPlayEffect(SwccgGame game) {
         GameState gameState = game.getGameState();
+        // Slip Sliding Away AR: relocating Frozen Assets to bottom of Force Pile unfreezes.
+        // VHD: FA sits at TOP of FROZEN_PILE (Force Pile empty) — only unfreeze when FA is conceptual top.
+        if (_fromPile == Zone.FORCE_PILE && _toPile == Zone.FORCE_PILE) {
+            PhysicalCard top = gameState.getTopOfCardPile(_cardPileOwner, _fromPile);
+            PhysicalCard topFrozen = gameState.getTopOfFrozenPile(_cardPileOwner);
+            boolean topIsFrozenAssets = top != null && com.gempukku.swccgo.filters.Filters.Frozen_Assets.accepts(game, top);
+            boolean faOnFrozenTop = topFrozen != null && com.gempukku.swccgo.filters.Filters.Frozen_Assets.accepts(game, topFrozen);
+            boolean forcePileEmpty = top == null;
+            if (topIsFrozenAssets || (faOnFrozenTop && forcePileEmpty)) {
+                PhysicalCard fa = topIsFrozenAssets ? top : topFrozen;
+                int frozenCount = gameState.getFrozenForceCount(_cardPileOwner);
+                gameState.removeCardsFromZone(Collections.singleton(fa));
+                gameState.moveFrozenPileToForcePile(_cardPileOwner);
+                gameState.addCardToZone(fa, Zone.FORCE_PILE, _cardPileOwner);
+                fa.startAffectingGame(game);
+                String playerNameForMsg = _action.getPerformingPlayer().equals(_cardPileOwner) ? "" : (_cardPileOwner + "'s ");
+                gameState.sendMessage(_action.getPerformingPlayer() + " relocates Frozen Assets within " + playerNameForMsg + "Force Pile; " + frozenCount + " frozen Force become usable");
+                return;
+            }
+        }
+
         PhysicalCard card = gameState.getTopOfCardPile(_cardPileOwner, _fromPile);
         if (card == null)
             return;

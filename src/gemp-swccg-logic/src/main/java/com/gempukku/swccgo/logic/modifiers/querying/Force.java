@@ -185,8 +185,21 @@ public interface Force extends BaseQuery, PrivateQuery, Flags, Icons, Captives, 
      * @param playerId the player
      * @return the amount of Force
      */
+    /**
+     * Force Pile cards usable as Force (excludes Frozen Assets Effect sitting on the pile).
+     */
+    default int getUsableForcePileSize(GameState gameState, String playerId) {
+        int size = 0;
+        for (PhysicalCard card : gameState.getForcePile(playerId)) {
+            if (!Filters.Frozen_Assets.accepts(gameState.getGame(), card)) {
+                size++;
+            }
+        }
+        return size;
+    }
+
     default int getForceAvailableToUse(GameState gameState, String playerId) {
-        int playersForcePileSize = gameState.getForcePile(playerId).size();
+        int playersForcePileSize = getUsableForcePileSize(gameState, playerId);
         int opponentsForceAvailable = getOpponentsForceAvailableToUse(gameState, playerId);
 
         return Math.max(0, playersForcePileSize + opponentsForceAvailable);
@@ -199,7 +212,9 @@ public interface Force extends BaseQuery, PrivateQuery, Flags, Icons, Captives, 
      * @return the amount of Force
      */
     default int getOpponentsForceAvailableToUse(GameState gameState, String playerId) {
-        int opponentsForcePileSize = gameState.getForcePile(gameState.getOpponent(playerId)).size();
+        String opponent = gameState.getOpponent(playerId);
+        // VHD: Beggar may NOT use Frozen Force - only usable Force Pile
+        int opponentsForcePileSize = getUsableForcePileSize(gameState, opponent);
 
         // Determine the maximum number of opponent's Force that can be used
         int opponentsForceAvailable = 0;
@@ -224,7 +239,8 @@ public interface Force extends BaseQuery, PrivateQuery, Flags, Icons, Captives, 
      */
     default int getMaxOpponentsForceToUseViaCard(GameState gameState, String playerId, PhysicalCard card, int opponentsForceAlreadyToBeUsed, int minOpponentForceToUse) {
         String opponent = gameState.getOpponent(playerId);
-        int opponentsForcePileSize = Math.max(0, gameState.getForcePile(opponent).size() - opponentsForceAlreadyToBeUsed);
+        // VHD: Beggar may NOT use Frozen Force
+        int opponentsForcePileSize = Math.max(0, getUsableForcePileSize(gameState, opponent) - opponentsForceAlreadyToBeUsed);
         int minToUse = Math.max(0, minOpponentForceToUse - opponentsForceAlreadyToBeUsed);
 
         // Determine the maximum number of opponent's Force that can be used by the card

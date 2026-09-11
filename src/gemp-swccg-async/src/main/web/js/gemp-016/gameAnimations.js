@@ -1,4 +1,29 @@
 var GameAnimations = Class.extend({
+    _setForcePileSandwich: function(countSelector, forceStr, frozenStr) {
+        var force = parseInt(forceStr, 10) || 0;
+        var frozen = parseInt(frozenStr, 10) || 0;
+        var $count = $(countSelector);
+        if (frozen > 0) {
+            $count.html(
+                "<div class='faSandwichLabel'>" +
+                "<div class='faSandwichRow'><span class='faFrzN'>" + frozen + "</span><span class='faUseN'>" + force + "</span></div>" +
+                "<div class='faSandwichTotal'>(" + (force + frozen) + ")</div>" +
+                "</div>"
+            );
+            $count.closest(".card").addClass("faSandwichActive");
+            var $card = $count.closest(".card");
+            if ($card.length && $card.find(".faFrzSliver").length === 0) {
+                var faUrl = (typeof Card !== "undefined" && Card.getImageUrl) ? Card.getImageUrl("5_23") : null;
+                if (!faUrl) faUrl = "https://res.starwarsccg.org/cardlists/images/starwars/Light--CloudCity/t_frozenassets.gif";
+                $card.prepend("<div class='faFrzSliver' title='Frozen Assets (Frz)'><img src='" + faUrl + "' alt='Frz'/></div>");
+            }
+        } else {
+            $count.text(forceStr);
+            var $card2 = $count.closest(".card");
+            $card2.removeClass("faSandwichActive");
+            $card2.find(".faFrzSliver").remove();
+        }
+    },
     game:null,
     replaySpeed:1,
     playEventDuration:1000,
@@ -1160,6 +1185,7 @@ var GameAnimations = Class.extend({
                     var sabaccHand = playerZone.getAttribute("SABACC_HAND");
                     var reserve = playerZone.getAttribute("RESERVE_DECK");
                     var force = playerZone.getAttribute("FORCE_PILE");
+                    var frozen = playerZone.getAttribute("FROZEN_PILE");
                     var used = playerZone.getAttribute("USED_PILE");
                     var lost = playerZone.getAttribute("LOST_PILE");
                     var outOfPlay = playerZone.getAttribute("OUT_OF_PLAY");
@@ -1191,7 +1217,7 @@ var GameAnimations = Class.extend({
                             $("#politicsTotal" + that.game.getPlayerIndex(playerId)).css({display:"table-cell"});
                         }
                         $(".topDarkReserveDeck").text(reserve);
-                        $(".topDarkForcePile").text(force);
+                        that._setForcePileSandwich(".topDarkForcePile", force, frozen);
                         $(".topDarkUsedPile").text(used);
                         $(".topDarkLostPile").text(lost);
                    }
@@ -1212,7 +1238,7 @@ var GameAnimations = Class.extend({
                             $("#politicsTotal" + that.game.getPlayerIndex(playerId)).css({display:"table-cell"});
                         }
                         $(".topLightReserveDeck").text(reserve);
-                        $(".topLightForcePile").text(force);
+                        that._setForcePileSandwich(".topLightForcePile", force, frozen);
                         $(".topLightUsedPile").text(used);
                         $(".topLightLostPile").text(lost);
                     }

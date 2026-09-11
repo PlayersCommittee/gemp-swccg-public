@@ -1,0 +1,115 @@
+package com.gempukku.swccgo.cards.set5.light;
+
+import com.gempukku.swccgo.cards.AbstractNormalEffect;
+import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
+import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.PlayCardOptionId;
+import com.gempukku.swccgo.common.PlayCardZoneOption;
+import com.gempukku.swccgo.common.Rarity;
+import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.SpotOverride;
+import com.gempukku.swccgo.common.Title;
+import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.filters.Filter;
+import com.gempukku.swccgo.filters.Filters;
+import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.PlayCardOption;
+import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardsFromForcePileEffect;
+import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.PowerModifier;
+import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+/**
+ * Set: Cloud City
+ * Type: Effect
+ * Title: Frozen Assets
+ */
+public class Card5_023 extends AbstractNormalEffect {
+    public Card5_023() {
+        // playCardZoneOption null = multiple play options
+        super(Side.LIGHT, 5, null, Title.Frozen_Assets, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
+        setLore("Molten carbonite is released into the chamber and then flash frozen, releasing a blast of air. The subject is instantly covered in the newly solidified material.");
+        setGameText("Deploy on your side of table. At every site where there is a 'frozen' captive, your Rebels deploy -2 and are power +2 in battle. OR Deploy on top of opponent's Force Pile. Force below this card may not be drawn or used. Effect lost at end of opponent's next turn.");
+        addIcons(Icon.CLOUD_CITY);
+    }
+
+    @Override
+    protected List<PlayCardOption> getGameTextPlayCardOptions() {
+        List<PlayCardOption> playCardOptions = new ArrayList<PlayCardOption>();
+        playCardOptions.add(new PlayCardOption(PlayCardOptionId.PLAY_CARD_OPTION_1, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Deploy on your side of table"));
+        playCardOptions.add(new PlayCardOption(PlayCardOptionId.PLAY_CARD_OPTION_2, PlayCardZoneOption.OPPONENTS_FORCE_PILE, "Deploy on top of opponent's Force Pile"));
+        return playCardOptions;
+    }
+
+    @Override
+    protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        Condition tableOption = new PlayCardOptionIdCondition(self, PlayCardOptionId.PLAY_CARD_OPTION_1);
+        Filter sitesWithFrozenCaptive = Filters.sameSiteAs(self, SpotOverride.INCLUDE_CAPTIVE, Filters.frozenCaptive);
+        Filter yourRebels = Filters.and(Filters.your(self), Filters.Rebel);
+
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(new DeployCostToLocationModifier(self, yourRebels, tableOption, -2, sitesWithFrozenCaptive));
+        // Power +2 in battle at those sites
+        modifiers.add(new PowerModifier(self,
+                Filters.and(yourRebels, Filters.participatingInBattle, Filters.at(sitesWithFrozenCaptive)),
+                tableOption, 2));
+        return modifiers;
+    }
+
+    @Override
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        // Force-pile mode (VHD): FA sits Active at TOP of FROZEN_PILE (zoneOwner = Force pile owner).
+        // Lost at end of opponent's next turn; unfreeze Frozen Pile when leaving table.
+        if (self.getPlayCardOptionId() == PlayCardOptionId.PLAY_CARD_OPTION_2) {
+            if (TriggerConditions.isAboutToLeaveTable(game, effectResult, self)
+                    || TriggerConditions.justLost(game, effectResult, self)
+                    || TriggerConditions.justCanceled(game, effectResult, self)) {
+                final String forcePileOwner = self.getZoneOwner();
+                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setText("Unfreeze Force Pile");
+                action.appendEffect(
+                        new PassthruEffect(action) {
+                            @Override
+                            protected void doPlayEffect(SwccgGame game) {
+                                game.getGameState().moveFrozenPileToForcePile(forcePileOwner);
+                            }
+                        }
+                );
+                return Collections.singletonList(action);
+            }
+            if (TriggerConditions.isEndOfOpponentsTurn(game, effectResult, self)
+                    && (self.getZone() == Zone.FROZEN_PILE || self.getZone() == Zone.TOP_OF_FROZEN_PILE
+                    || self.getZone() == Zone.FORCE_PILE || self.getZone() == Zone.TOP_OF_FORCE_PILE)) {
+                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setText("Make Frozen Assets lost");
+                final String forcePileOwner = self.getZoneOwner();
+                action.appendEffect(
+                        new PassthruEffect(action) {
+                            @Override
+                            protected void doPlayEffect(SwccgGame game) {
+                                game.getGameState().moveFrozenPileToForcePile(forcePileOwner);
+                            }
+                        }
+                );
+                action.appendEffect(
+                        new LoseCardFromTableEffect(action, self));
+                return Collections.singletonList(action);
+            }
+        }
+        return null;
+    }
+}
