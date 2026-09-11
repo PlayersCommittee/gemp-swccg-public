@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
  * Tests for 5_52 Impressive, Most Impressive.
  * Doc scenarios + Mouse-style edges (threshold, CF window, hide, release, non-window).
  * Luke Skywalker (1_19) ability = 4.
- * Reuses existing MayNotBattleUntilEndOfTurnEffect hide; no seeker-ignore path.
+ * Uses shared HideUntilEndOfTurnEffect (AboutToHide family; Nice Of You Guys can cancel).
  */
 public class Card_5_052_Tests {
 
@@ -33,6 +33,7 @@ public class Card_5_052_Tests {
 		return new VirtualTableScenario(
 				new HashMap<>() {{
 					put("impressive", "5_52");
+					put("nice", "3_46");
 					put("luke", "1_19");
 					put("obi", "1_11");
 					put("chamberLS", "5_78");
@@ -217,6 +218,9 @@ public class Card_5_052_Tests {
 				impressive.getZone() == Zone.TOP_OF_LOST_PILE || impressive.getZone() == Zone.LOST_PILE);
 		assertFalse("Luke should be released", luke.isCaptive());
 		assertTrue("Luke should remain in play after rally", luke.getZone().isInPlay());
+		assertTrue("Luke should be hidden (may not participate in battle) for remainder of turn",
+				scn.game().getModifiersQuerying().isProhibitedFromParticipatingInBattle(
+						scn.gameState(), luke, scn.DS));
 	}
 
 	@Test
@@ -252,5 +256,133 @@ public class Card_5_052_Tests {
 		SafePassOptionalResponses(scn);
 
 		assertTrue("Luke should remain captive when Impressive fails", luke.isCaptive());
+	}
+
+	/**
+	 * Hide-until-EOT clears after turn ends (duration = remainder of turn).
+	 */
+	@Test
+	public void ImpressiveMostImpressiveHideClearsAfterTurnEnds() {
+		var scn = GetScenario();
+		var impressive = scn.GetLSCard("impressive");
+		var luke = scn.GetLSCard("luke");
+		var carbonFreezing = scn.GetDSCard("carbonFreezing");
+		var chamber = scn.GetDSCard("chamber");
+		var boba = scn.GetDSCard("boba");
+
+		scn.StartGame();
+		scn.MoveCardsToLSHand(impressive);
+		scn.MoveLocationToTable(chamber);
+		scn.MoveCardsToLocation(chamber, boba, luke);
+		scn.CaptureCardWith(boba, luke);
+		scn.AttachCardsTo(chamber, carbonFreezing);
+
+		scn.SkipToDSTurn(Phase.CONTROL);
+		StartCarbonFreezingOnLuke(scn);
+		assertTrue("Impressive should be offered", WaitForImpressiveResponse(scn));
+
+		scn.PrepareLSDestiny(4);
+		scn.LSPlayCard(impressive);
+		FinishImpressivePlay(scn);
+
+		assertTrue("Luke hidden for remainder of turn",
+				scn.game().getModifiersQuerying().isProhibitedFromParticipatingInBattle(
+						scn.gameState(), luke, scn.DS));
+
+		scn.SkipToLSTurn(Phase.CONTROL);
+		assertFalse("Hide-until-EOT should clear after the turn ends",
+				scn.game().getModifiersQuerying().isProhibitedFromParticipatingInBattle(
+						scn.gameState(), luke, scn.DS));
+	}
+
+	/**
+	 * Nice Of You Guys To Drop By cancels Impressive's AboutToHide hide-until-EOT.
+	 */
+	@Test
+	public void ImpressiveMostImpressiveHideCanceledByNiceOfYouGuysToDropBy() {
+		var scn = GetScenario();
+		var impressive = scn.GetLSCard("impressive");
+		var nice = scn.GetLSCard("nice");
+		var luke = scn.GetLSCard("luke");
+		var carbonFreezing = scn.GetDSCard("carbonFreezing");
+		var chamber = scn.GetDSCard("chamber");
+		var boba = scn.GetDSCard("boba");
+
+		scn.StartGame();
+		scn.MoveCardsToLSHand(impressive, nice);
+		scn.MoveLocationToTable(chamber);
+		scn.MoveCardsToLocation(chamber, boba, luke);
+		scn.CaptureCardWith(boba, luke);
+		scn.AttachCardsTo(chamber, carbonFreezing);
+
+		scn.SkipToDSTurn(Phase.CONTROL);
+		StartCarbonFreezingOnLuke(scn);
+		assertTrue("Impressive should be offered", WaitForImpressiveResponse(scn));
+
+		scn.PrepareLSDestiny(4);
+		scn.LSPlayCard(impressive);
+		scn.PassCardPlayResponses();
+		scn.PassDestinyDrawResponses();
+
+		boolean niceOffered = false;
+		for (int i = 0; i < 50; i++) {
+			if (scn.LSReleaseDecisionAvailable()) {
+				scn.LSChooseRally();
+				continue;
+			}
+
+			var lsDec = scn.LSGetDecision();
+			var dsDec = scn.DSGetDecision();
+			var lsActions = scn.GetLSAvailableActions();
+
+			boolean niceInActions = false;
+			if (lsActions != null) {
+				for (String a : lsActions) {
+					if (a == null) continue;
+					String lower = a.toLowerCase();
+					if (lower.contains("nice") || lower.contains("hide")) {
+						niceInActions = true;
+						break;
+					}
+				}
+			}
+			// Only query LS card actions when LS actually has a decision (avoids framework NPE)
+			if (lsDec != null && (niceInActions || scn.LSCardActionAvailable(nice) || scn.LSActionAvailable("hide"))) {
+				niceOffered = true;
+				break;
+			}
+
+			if (dsDec != null) {
+				String dsText = dsDec.getText() != null ? dsDec.getText().toLowerCase() : "";
+				if (dsText.contains("about_to_hide") || dsText.contains("optional") || dsText.contains("required")) {
+					scn.DSPass();
+					continue;
+				}
+			}
+			if (lsDec != null) {
+				String lsText = lsDec.getText() != null ? lsDec.getText().toLowerCase() : "";
+				if (lsText.contains("about_to_hide")) {
+					// LS has AboutToHide but Nice not listed — fail later
+					break;
+				}
+				if (lsText.contains("optional") || lsText.contains("required")) {
+					scn.LSPass();
+					continue;
+				}
+			}
+			break;
+		}
+
+		assertTrue("Nice Of You Guys should be offered to cancel AboutToHide", niceOffered);
+		scn.LSUseCardAction(nice);
+		scn.PassCardPlayResponses();
+		scn.PassAllResponses();
+		SafePassOptionalResponses(scn);
+		scn.PassAllResponses();
+
+		assertFalse("Luke should be released", luke.isCaptive());
+		assertFalse("Nice Of You Guys should cancel hide-until-EOT",
+				scn.game().getModifiersQuerying().isProhibitedFromParticipatingInBattle(
+						scn.gameState(), luke, scn.DS));
 	}
 }

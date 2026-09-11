@@ -19,7 +19,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.CancelCardBeingPlayedEffect;
 import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
-import com.gempukku.swccgo.logic.effects.MayNotBattleUntilEndOfTurnEffect;
+import com.gempukku.swccgo.logic.effects.HideUntilEndOfTurnEffect;
 import com.gempukku.swccgo.logic.effects.ReleaseCaptiveEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
@@ -171,7 +171,7 @@ public class Card5_052 extends AbstractLostInterrupt {
                         new ReleaseCaptiveEffect(action, character));
             }
             action.appendEffect(
-                    new MayNotBattleUntilEndOfTurnEffect(action, character));
+                    new HideUntilEndOfTurnEffect(action, character));
         }
         else {
             gameState.sendMessage("Result: Failed");
