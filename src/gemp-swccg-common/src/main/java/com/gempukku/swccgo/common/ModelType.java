@@ -74,6 +74,7 @@ public enum ModelType implements Filterable {
     OUBLIETTE_CLASS_TRANSPORT("Oubliette-Class Transport"),
     POWER("Power"),
     PROBE("Probe"),
+    PATROL("Patrol"),
     PROTOCOL("Protocol"),
     PROVIDENCE_CLASS_DREADNAUGHT("Providence-Class Dreadnaught"),
     RECON("Recon"),
