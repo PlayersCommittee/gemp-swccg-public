@@ -469,6 +469,8 @@ public class LoseForceEffect extends AbstractSubActionEffect {
 
                             PhysicalCard topOfReserveDeck = game.getGameState().getTopOfReserveDeck(_playerToLoseForce);
                             PhysicalCard topOfForcePile = game.getGameState().getTopOfForcePile(_playerToLoseForce);
+                            if (topOfForcePile != null && com.gempukku.swccgo.filters.Filters.Frozen_Assets.accepts(game, topOfForcePile))
+                                topOfForcePile = null; // Frozen Assets is not a unit of Force
 
                             // check if all of the places that force loss "must come from" are empty
                             boolean allowForceLossFromAnywhereAvailable = !((_fromReserveDeckOnly && topOfReserveDeck != null) || (_fromForcePileOnly && topOfForcePile != null) || (_fromHandOnly && !game.getGameState().getHand(_playerToLoseForce).isEmpty()));
@@ -491,6 +493,10 @@ public class LoseForceEffect extends AbstractSubActionEffect {
 
                             if (topOfForcePile != null && (_fromForcePile || allowForceLossFromAnywhereAvailable))
                                 selectableCards.add(topOfForcePile);
+
+                            PhysicalCard topOfFrozenPile = game.getGameState().getTopOfFrozenPile(_playerToLoseForce);
+                            if (topOfFrozenPile != null && (_fromForcePile || allowForceLossFromAnywhereAvailable))
+                                selectableCards.add(topOfFrozenPile);
 
                             PhysicalCard topOfUsedPile = game.getGameState().getTopOfUsedPile(_playerToLoseForce);
                             if (topOfUsedPile != null && (_fromUsedPile || allowForceLossFromAnywhereAvailable))

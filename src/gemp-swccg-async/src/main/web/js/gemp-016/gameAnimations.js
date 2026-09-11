@@ -1160,6 +1160,7 @@ var GameAnimations = Class.extend({
                     var sabaccHand = playerZone.getAttribute("SABACC_HAND");
                     var reserve = playerZone.getAttribute("RESERVE_DECK");
                     var force = playerZone.getAttribute("FORCE_PILE");
+                    var frozen = playerZone.getAttribute("FROZEN_PILE");
                     var used = playerZone.getAttribute("USED_PILE");
                     var lost = playerZone.getAttribute("LOST_PILE");
                     var outOfPlay = playerZone.getAttribute("OUT_OF_PLAY");
@@ -1191,7 +1192,7 @@ var GameAnimations = Class.extend({
                             $("#politicsTotal" + that.game.getPlayerIndex(playerId)).css({display:"table-cell"});
                         }
                         $(".topDarkReserveDeck").text(reserve);
-                        $(".topDarkForcePile").text(force);
+                        $(".topDarkForcePile").text((frozen && parseInt(frozen, 10) > 0) ? (force + " (" + (parseInt(force,10)+parseInt(frozen,10)) + ")") : force);
                         $(".topDarkUsedPile").text(used);
                         $(".topDarkLostPile").text(lost);
                    }
@@ -1212,7 +1213,7 @@ var GameAnimations = Class.extend({
                             $("#politicsTotal" + that.game.getPlayerIndex(playerId)).css({display:"table-cell"});
                         }
                         $(".topLightReserveDeck").text(reserve);
-                        $(".topLightForcePile").text(force);
+                        $(".topLightForcePile").text((frozen && parseInt(frozen, 10) > 0) ? (force + " (" + (parseInt(force,10)+parseInt(frozen,10)) + ")") : force);
                         $(".topLightUsedPile").text(used);
                         $(".topLightLostPile").text(lost);
                     }

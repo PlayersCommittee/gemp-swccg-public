@@ -255,7 +255,8 @@ public class GameStats {
                 playerZoneSizes.put(Zone.HAND, game.getGameState().getHand(player).size());
                 playerZoneSizes.put(Zone.SABACC_HAND, game.getGameState().getSabaccHand(player).size());
                 playerZoneSizes.put(Zone.RESERVE_DECK, game.getGameState().getReserveDeckSize(player));
-                playerZoneSizes.put(Zone.FORCE_PILE, game.getGameState().getForcePile(player).size());
+                playerZoneSizes.put(Zone.FORCE_PILE, game.getModifiersQuerying().getUsableForcePileSize(game.getGameState(), player));
+                playerZoneSizes.put(Zone.FROZEN_PILE, game.getGameState().getFrozenPile(player).size());
                 playerZoneSizes.put(Zone.USED_PILE, game.getGameState().getUsedPile(player).size());
                 playerZoneSizes.put(Zone.LOST_PILE, game.getGameState().getLostPile(player).size());
                 playerZoneSizes.put(Zone.OUT_OF_PLAY, game.getGameState().getOutOfPlayPile(player).size());

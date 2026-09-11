@@ -20,11 +20,13 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardsFromForcePileEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,9 +51,6 @@ public class Card5_023 extends AbstractNormalEffect {
     protected List<PlayCardOption> getGameTextPlayCardOptions() {
         List<PlayCardOption> playCardOptions = new ArrayList<PlayCardOption>();
         playCardOptions.add(new PlayCardOption(PlayCardOptionId.PLAY_CARD_OPTION_1, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, "Deploy on your side of table"));
-        // Force-pile mode needs engine support (face-up Effect in Force pile / frozen-block / UI stack /
-        // Beggar-both / Slip Sliding Away within stack). OPPONENTS_FORCE_PILE currently adds a normal
-        // face-down Force card and does not call startAffecting — see Chief ping.
         playCardOptions.add(new PlayCardOption(PlayCardOptionId.PLAY_CARD_OPTION_2, PlayCardZoneOption.OPPONENTS_FORCE_PILE, "Deploy on top of opponent's Force Pile"));
         return playCardOptions;
     }
@@ -73,17 +72,42 @@ public class Card5_023 extends AbstractNormalEffect {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
-        // Scaffold: lose from Force pile at end of opponent's next turn (first EndOfOpponentsTurn after
-        // deploy-on-your-turn). Will not fire until Force-pile Effects are treated as affecting.
-        Zone zone = self.getZone();
-        if (self.getPlayCardOptionId() == PlayCardOptionId.PLAY_CARD_OPTION_2
-                && TriggerConditions.isEndOfOpponentsTurn(game, effectResult, self)
-                && (zone == Zone.FORCE_PILE || zone == Zone.TOP_OF_FORCE_PILE)) {
-            RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Make Frozen Assets lost");
-            action.appendEffect(
-                    new LoseCardsFromForcePileEffect(action, self.getOwner(), self.getZoneOwner(), Filters.sameCardId(self)));
-            return Collections.singletonList(action);
+        // Force-pile mode (Doc separate Frozen Pile): FA sits Active on SIDE_OF_TABLE (zoneOwner = Force pile owner).
+        // Lost at end of opponent's next turn; unfreeze Frozen Pile when leaving table.
+        if (self.getPlayCardOptionId() == PlayCardOptionId.PLAY_CARD_OPTION_2) {
+            if (TriggerConditions.isAboutToLeaveTable(game, effectResult, self)
+                    || TriggerConditions.justLost(game, effectResult, self)
+                    || TriggerConditions.justCanceled(game, effectResult, self)) {
+                final String forcePileOwner = game.getOpponent(self.getOwner());
+                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setText("Unfreeze Force Pile");
+                action.appendEffect(
+                        new PassthruEffect(action) {
+                            @Override
+                            protected void doPlayEffect(SwccgGame game) {
+                                game.getGameState().moveFrozenPileToForcePile(forcePileOwner);
+                            }
+                        }
+                );
+                return Collections.singletonList(action);
+            }
+            if (TriggerConditions.isEndOfOpponentsTurn(game, effectResult, self)
+                    && (self.getZone() == Zone.FORCE_PILE || self.getZone() == Zone.TOP_OF_FORCE_PILE || self.getZone() == Zone.SIDE_OF_TABLE)) {
+                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                action.setText("Make Frozen Assets lost");
+                final String forcePileOwner = game.getOpponent(self.getOwner());
+                action.appendEffect(
+                        new PassthruEffect(action) {
+                            @Override
+                            protected void doPlayEffect(SwccgGame game) {
+                                game.getGameState().moveFrozenPileToForcePile(forcePileOwner);
+                            }
+                        }
+                );
+                action.appendEffect(
+                        new LoseCardFromTableEffect(action, self));
+                return Collections.singletonList(action);
+            }
         }
         return null;
     }
