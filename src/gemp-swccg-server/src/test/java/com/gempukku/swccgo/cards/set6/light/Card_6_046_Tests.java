@@ -35,6 +35,8 @@ public class Card_6_046_Tests {
 					put("yarkora", "6_46");
 					put("yarkora2", "6_46");
 					put("saelt", "6_37");
+					put("momaw", "1_20");
+					put("ls_undercover", "2_40");
 				}},
 				new HashMap<>() {{
 					put("garindan", "1_177");
@@ -155,6 +157,45 @@ public class Card_6_046_Tests {
 		scn.PassAllResponses();
 		return taken;
 	}
+
+	/**
+	 * Put LS spy Momaw undercover via LS Undercover (2_40). Spy crosses to DS side but remains LS-owned,
+	 * so Yarkora's opponents(self) filter must not offer break-cover.
+	 */
+	private void MakeMomawUndercoverAt(VirtualTableScenario scn, PhysicalCardImpl site) {
+		var momaw = scn.GetLSCard("momaw");
+		var undercover = scn.GetLSCard("ls_undercover");
+
+		scn.MoveCardsToLocation(site, momaw);
+		scn.MoveCardsToLSHand(undercover);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		boolean deployed = false;
+		try {
+			if (scn.LSDeployAvailable(undercover)) {
+				scn.LSDeployCard(undercover);
+				if (scn.LSHasCardChoiceAvailable(momaw)) {
+					scn.LSChooseCard(momaw);
+				}
+				scn.PassCardPlayResponses();
+				SafePassOptionalResponses(scn);
+				scn.PassAllResponses();
+				deployed = momaw.isUndercover();
+			}
+		} catch (RuntimeException ex) {
+			deployed = false;
+		}
+
+		if (!deployed) {
+			scn.AttachCardsTo(momaw, undercover);
+			var action = new TopLevelGameTextAction(undercover, undercover.getOwner(), undercover.getCardId());
+			scn.LSExecuteAdHocEffect(undercover, new PutUndercoverEffect(action, momaw));
+			SafePassOptionalResponses(scn);
+			scn.PassAllResponses();
+		}
+		assertTrue("Momaw should be undercover with LS Undercover (2_40)", momaw.isUndercover());
+	}
+
 	@Test
 	public void YarkoraStatsAndKeywordsAreCorrect() {
 		var scn = GetScenario();
@@ -197,16 +238,17 @@ public class Card_6_046_Tests {
 	@Test
 	public void YarkoraCannotTargetOwnUndercoverSpy() {
 		var scn = GetScenario();
-		// Own undercover would be LS Undercover 2_040; use DS spy path only for opponent targeting.
-		// This test verifies opponent filter: action requires opponents(self) undercover spy.
 		var yarkora = scn.GetLSCard("yarkora");
+		var momaw = scn.GetLSCard("momaw");
 		var site = scn.GetLSStartingLocation();
 
 		scn.StartGame();
 		scn.MoveCardsToLocation(site, yarkora);
+		MakeMomawUndercoverAt(scn, site);
+		assertTrue(momaw.isUndercover());
 
 		scn.SkipToLSTurn(Phase.CONTROL);
-		assertFalse("Without opponent undercover spy, action unavailable",
+		assertFalse("Yarkora must not break cover of own (LS-owned) undercover spy",
 				scn.LSCardActionAvailable(yarkora, "Break a spy's cover"));
 	}
 
