@@ -72,7 +72,11 @@ public class Card4_178 extends AbstractCharacterWeapon {
             return null;
         }
 
-        Filter targetFilter = Filters.or(Filters.non_droid_character, targetedAsCharacter, Filters.creature);
+        // Creatures do not participate in battle — creature targeting is for attacks/sniper only.
+        Filter targetFilter = Filters.or(Filters.non_droid_character, targetedAsCharacter);
+        if (!GameConditions.isDuringBattle(game)) {
+            targetFilter = Filters.or(targetFilter, Filters.creature);
+        }
 
         List<FireWeaponAction> actions = new LinkedList<FireWeaponAction>();
         int forceAvailable = GameConditions.forceAvailableToUse(game, playerId);

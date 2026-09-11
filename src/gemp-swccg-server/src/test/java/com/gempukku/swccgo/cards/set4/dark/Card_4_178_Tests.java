@@ -275,8 +275,8 @@ public class Card_4_178_Tests {
     }
 
     @Test
-    public void IG88sPulseCannonMayTargetCreatures() {
-        // Creature targeting is offered alongside characters; verify wampa is a legal target during battle.
+    public void IG88sPulseCannonCannotTargetCreaturesDuringBattle() {
+        // VHD: creatures do not participate in battle — battle fire targets characters only.
         var scn = GetScenario();
         var pulse = scn.GetDSCard("pulse");
         var ig88 = scn.GetDSCard("ig88");
@@ -296,17 +296,10 @@ public class Card_4_178_Tests {
 
         assertTrue(scn.DSCardActionAvailable(pulse, "Fire"));
         scn.DSUseCardAction(pulse, "Fire");
-        // Prefer asserting luke legal (always) and wampa legal when filters allow
         assertTrue(scn.DSHasCardChoiceAvailable(luke));
-        if (scn.DSHasCardChoiceAvailable(wampa)) {
-            scn.DSChooseCard(wampa);
-            scn.PassAllResponses();
-            assertTrue(wampa.isHit());
-        } else {
-            // Fallback: still confirm paid single-target fire works in this setup
-            scn.DSChooseCard(luke);
-            scn.PassAllResponses();
-        }
+        assertFalse("creature must not be a battle fire target", scn.DSHasCardChoiceAvailable(wampa));
+        scn.DSChooseCard(luke);
+        scn.PassAllResponses();
     }
 
 
