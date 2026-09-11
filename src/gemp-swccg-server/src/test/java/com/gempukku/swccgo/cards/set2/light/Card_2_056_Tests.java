@@ -29,10 +29,12 @@ public class Card_2_056_Tests {
 			{{
 				put("sabotage", "2_56");
 				put("spy", "7_5"); // Bothan Spy
+				put("spy2", "7_5"); // second Bothan Spy (two-spy choose)
 				put("merc", "2_36"); // Merc Sunlet (thief skill)
 				put("lsBlaster", "1_152"); // LS Blaster, Use 1
 				put("lsTrooper", "1_28"); // Rebel Trooper, warrior
 				put("undercover", "2_40"); // Undercover (2_40), LS Effect
+				put("undercover2", "2_40"); // second Undercover for spy2
 			}},
 			new HashMap<>()
 			{{
@@ -174,7 +176,7 @@ public class Card_2_056_Tests {
 
 	@Test
 	public void SabotagePlayableInControlWithUndercoverSpyAtSite() {
-		// Two of your undercover spies: code auto-picks via sameSiteAs / findFirstActive; no spy-choice prompt.
+		// Opponent undercover spy + your non-undercover spy cannot play; after Light Undercover, Sabotage is playable in Control.
 		var scn = GetScenario();
 		var sabotage = scn.GetLSCard("sabotage");
 		var spy = scn.GetLSCard("spy");
@@ -806,5 +808,75 @@ public class Card_2_056_Tests {
 		assertEquals(maul, maulSaber.getAttachedTo());
 	}
 
+	/**
+	 * After playing Sabotage, if an Undercover-spy choice is pending, choose it.
+	 * With one spy, ChooseCardOnTableEffect auto-selects (getUseShortcut) so this is a no-op.
+	 */
+	private void ChooseUndercoverSpyIfPrompted(VirtualTableScenario scn, PhysicalCardImpl spy) {
+		if (scn.LSAnyDecisionsAvailable()) {
+			String text = scn.LSGetDecision().getText().toLowerCase();
+			if (text.contains("undercover") || text.contains("spy")) {
+				scn.LSChooseCard(spy);
+			}
+		}
+	}
 
+	@Test
+	public void SabotageChoosesUndercoverSpyBeforeDestinyAndAttachesStolenWeaponToChosenThief() {
+		// Doc: with 2 Undercover spies at the site, choose one before destiny.
+		// Stolen weapon attaches to the chosen thief spy (not findFirstActive).
+		var scn = GetScenario();
+		var sabotage = scn.GetLSCard("sabotage");
+		var spy = scn.GetLSCard("spy");
+		var spy2 = scn.GetLSCard("spy2");
+		var merc = scn.GetLSCard("merc");
+		var undercover = scn.GetLSCard("undercover");
+		var undercover2 = scn.GetLSCard("undercover2");
+		var site = scn.GetLSCard("starting-location");
+		var trooper = scn.GetDSCard("trooper");
+		var blaster = scn.GetDSCard("blaster");
+
+		scn.MoveCardsToLSHand(sabotage, merc, undercover, undercover2);
+		scn.StartGame();
+		scn.MoveCardsToLocation(site, spy, spy2, trooper);
+		scn.AttachCardsTo(trooper, blaster);
+
+		// Only spy2 is a thief; both go Undercover. Re-SkipTo deploy like PlayLightUndercoverOnSpy.
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		scn.LSPlayCard(merc, "non-thief");
+		scn.LSChooseCard(spy2);
+		scn.PassAllResponses();
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		assertTrue(scn.LSCardPlayAvailable(undercover));
+		scn.LSPlayCard(undercover);
+		scn.LSChooseCard(spy);
+		scn.PassAllResponses();
+		assertTrue(spy.isUndercover());
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		assertTrue(scn.LSCardPlayAvailable(undercover2));
+		scn.LSPlayCard(undercover2);
+		scn.LSChooseCard(spy2);
+		scn.PassAllResponses();
+		assertTrue(spy2.isUndercover());
+
+		scn.SkipToLSTurn(Phase.CONTROL);
+		scn.PrepareLSDestiny(2);
+		assertTrue(scn.LSCardPlayAvailable(sabotage));
+		scn.LSPlayCard(sabotage);
+		// Spy choice comes before EWDV targeting.
+		assertTrue("Should offer Undercover spy choice before destiny", scn.LSAnyDecisionsAvailable());
+		assertTrue(scn.LSHasCardChoiceAvailable(spy));
+		assertTrue(scn.LSHasCardChoiceAvailable(spy2));
+		scn.LSChooseCard(spy2);
+		assertTrue(scn.LSHasCardChoiceAvailable(blaster));
+		scn.LSChooseCard(blaster);
+		scn.PassAllResponses();
+		assertTrue(scn.LSAnyDecisionsAvailable());
+		assertTrue(scn.LSGetDecision().getText().toLowerCase().contains("steal"));
+		scn.LSChooseYes();
+		scn.PassAllResponses();
+		assertEquals(Zone.ATTACHED, blaster.getZone());
+		assertEquals(spy2, blaster.getAttachedTo());
+		assertNotEquals(spy, blaster.getAttachedTo());
+	}
 }

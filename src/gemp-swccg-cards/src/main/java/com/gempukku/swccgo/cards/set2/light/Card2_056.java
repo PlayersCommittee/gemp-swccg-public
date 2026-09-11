@@ -26,6 +26,7 @@ import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.StealCardAndAttachFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.StealCardToLocationEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -59,14 +60,15 @@ public class Card2_056 extends AbstractUsedInterrupt {
 		List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
 		final Filter yourUndercoverSpy = Filters.and(Filters.your(self), Filters.undercover_spy);
-		Filter targetFilter = Filters.and(Filters.or(Filters.weapon, Filters.device, Filters.vehicle),
-				Filters.at(Filters.sameSiteAs(self, SpotOverride.INCLUDE_UNDERCOVER, yourUndercoverSpy)),
+		final Filter ewdvWithNumericCost = Filters.and(Filters.or(Filters.weapon, Filters.device, Filters.vehicle),
 				new Filter() {
 					@Override
 					public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
 						return hasNumericOnTableDeployCost(game, self, physicalCard);
 					}
 				});
+		Filter targetFilter = Filters.and(ewdvWithNumericCost,
+				Filters.at(Filters.sameSiteAs(self, SpotOverride.INCLUDE_UNDERCOVER, yourUndercoverSpy)));
 		TargetingReason targetingReason = TargetingReason.TO_BE_LOST;
 
 		// Check condition(s)
@@ -76,76 +78,84 @@ public class Card2_056 extends AbstractUsedInterrupt {
 
 			final PlayInterruptAction action = new PlayInterruptAction(game, self);
 			action.setText("Target weapon, device or vehicle");
-			// Choose target(s)
+			// Doc: choose Undercover spy before destiny (auto if only 1); then target EWDV at that site.
 			action.appendTargeting(
-					new TargetCardOnTableEffect(action, playerId, "Target weapon, device or vehicle", targetingReason, targetFilter) {
+					new ChooseCardOnTableEffect(action, playerId, "Choose Undercover spy", SpotOverride.INCLUDE_UNDERCOVER, yourUndercoverSpy) {
 						@Override
-						protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
-							action.addAnimationGroup(targetedCard);
-							// Allow response(s)
-							action.allowResponses("Make " + GameUtils.getCardLink(targetedCard) + " lost",
-									new RespondablePlayCardEffect(action) {
+						protected boolean getUseShortcut() {
+							return true;
+						}
+						@Override
+						protected void cardSelected(final PhysicalCard chosenSpy) {
+							Filter ewdvAtSpySite = Filters.and(ewdvWithNumericCost, Filters.atSameSite(chosenSpy));
+							action.appendTargeting(
+									new TargetCardOnTableEffect(action, playerId, "Target weapon, device or vehicle", targetingReason, ewdvAtSpySite) {
 										@Override
-										protected void performActionResults(Action targetingAction) {
-											// Get the targeted card(s) from the action using the targetGroupId.
-											// This needs to be done in case the target(s) were changed during the responses.
-											final PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
-
-											// Perform result(s)
-											action.appendEffect(
-													new DrawDestinyEffect(action, playerId) {
+										protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
+											action.addAnimationGroup(targetedCard);
+											action.allowResponses("Make " + GameUtils.getCardLink(targetedCard) + " lost",
+													new RespondablePlayCardEffect(action) {
 														@Override
-														protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
-															GameState gameState = game.getGameState();
-															if (totalDestiny == null) {
-																gameState.sendMessage("Result: Failed due to failed destiny draw");
-																return;
-															}
+														protected void performActionResults(Action targetingAction) {
+															final PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
 
-															float deployCost = getOnTableDeployCost(game, self, finalTarget);
-															gameState.sendMessage("Destiny: " + GuiUtils.formatAsString(totalDestiny));
-															gameState.sendMessage("Deploy cost: " + GuiUtils.formatAsString(deployCost));
+															action.appendEffect(
+																	new DrawDestinyEffect(action, playerId) {
+																		@Override
+																		protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
+																			GameState gameState = game.getGameState();
+																			if (totalDestiny == null) {
+																				gameState.sendMessage("Result: Failed due to failed destiny draw");
+																				return;
+																			}
 
-															if (totalDestiny > deployCost) {
-																gameState.sendMessage("Result: Succeeded");
-																PhysicalCard thiefSpy = Filters.findFirstActive(game, self, SpotOverride.INCLUDE_UNDERCOVER,
-																		Filters.and(Filters.your(self), Filters.undercover_spy, Filters.thief,
-																				Filters.atSameSite(finalTarget)));
-																boolean stealInstead = canStealInsteadOfLose(game, self, thiefSpy, finalTarget);
-																if (stealInstead) {
-																	final PhysicalCard spyToAttachTo = thiefSpy;
-																	final boolean stealVehicleToLocation = Filters.vehicle.accepts(game, finalTarget);
-																	action.appendEffect(
-																			new PlayoutDecisionEffect(action, playerId,
-																					new YesNoDecision("Do you want to steal " + GameUtils.getCardLink(finalTarget) + " instead of making it lost?") {
-																						@Override
-																						protected void yes() {
-																							if (stealVehicleToLocation) {
-																								action.appendEffect(
-																										new StealCardToLocationEffect(action, finalTarget));
-																							}
-																							else {
-																								action.appendEffect(
-																										new StealCardAndAttachFromTableEffect(action, finalTarget, spyToAttachTo));
-																							}
-																						}
-																						@Override
-																						protected void no() {
-																							action.appendEffect(
-																									new LoseCardFromTableEffect(action, finalTarget));
-																						}
-																					}
-																			)
-																	);
-																}
-																else {
-																	action.appendEffect(
-																			new LoseCardFromTableEffect(action, finalTarget));
-																}
-															}
-															else {
-																gameState.sendMessage("Result: Failed");
-															}
+																			float deployCost = getOnTableDeployCost(game, self, finalTarget);
+																			gameState.sendMessage("Destiny: " + GuiUtils.formatAsString(totalDestiny));
+																			gameState.sendMessage("Deploy cost: " + GuiUtils.formatAsString(deployCost));
+
+																			if (totalDestiny > deployCost) {
+																				gameState.sendMessage("Result: Succeeded");
+																				// Steal attaches to the Undercover spy chosen before destiny (not findFirstActive).
+																				PhysicalCard thiefSpy = Filters.and(Filters.undercover_spy, Filters.thief).accepts(game, chosenSpy)
+																						? chosenSpy : null;
+																				boolean stealInstead = canStealInsteadOfLose(game, self, thiefSpy, finalTarget);
+																				if (stealInstead) {
+																					final PhysicalCard spyToAttachTo = chosenSpy;
+																					final boolean stealVehicleToLocation = Filters.vehicle.accepts(game, finalTarget);
+																					action.appendEffect(
+																							new PlayoutDecisionEffect(action, playerId,
+																									new YesNoDecision("Do you want to steal " + GameUtils.getCardLink(finalTarget) + " instead of making it lost?") {
+																										@Override
+																										protected void yes() {
+																											if (stealVehicleToLocation) {
+																												action.appendEffect(
+																														new StealCardToLocationEffect(action, finalTarget));
+																											}
+																											else {
+																												action.appendEffect(
+																														new StealCardAndAttachFromTableEffect(action, finalTarget, spyToAttachTo));
+																											}
+																										}
+																										@Override
+																										protected void no() {
+																											action.appendEffect(
+																													new LoseCardFromTableEffect(action, finalTarget));
+																										}
+																									}
+																							)
+																					);
+																				}
+																				else {
+																					action.appendEffect(
+																							new LoseCardFromTableEffect(action, finalTarget));
+																				}
+																			}
+																			else {
+																				gameState.sendMessage("Result: Failed");
+																			}
+																		}
+																	}
+															);
 														}
 													}
 											);
@@ -158,11 +168,9 @@ public class Card2_056 extends AbstractUsedInterrupt {
 			actions.add(action);
 		}
 
-		// Check condition(s)
 		if (GameConditions.canTargetToCancel(game, self, Filters.title("Informant"))) {
 
 			final PlayInterruptAction action = new PlayInterruptAction(game, self);
-			// Build action using common utility
 			CancelCardActionBuilder.buildCancelCardAction(action, Filters.title("Informant"), "Informant");
 			actions.add(action);
 		}
@@ -171,12 +179,10 @@ public class Card2_056 extends AbstractUsedInterrupt {
 
 	@Override
 	protected List<PlayInterruptAction> getGameTextOptionalBeforeActions(final String playerId, SwccgGame game, final Effect effect, final PhysicalCard self) {
-		// Check condition(s)
 		if (TriggerConditions.isPlayingCard(game, effect, Filters.title("Informant"))
 				&& GameConditions.canCancelCardBeingPlayed(game, self, effect)) {
 
 			final PlayInterruptAction action = new PlayInterruptAction(game, self);
-			// Build action using common utility
 			CancelCardActionBuilder.buildCancelCardBeingPlayedAction(action, effect);
 			return Collections.singletonList(action);
 		}
@@ -199,18 +205,11 @@ public class Card2_056 extends AbstractUsedInterrupt {
 		return Filters.canStealAndCarry(target).accepts(game, thiefSpy);
 	}
 
-	/**
-	 * Bearer for attached weapons/devices; current site for unattached vehicles so location modifiers apply.
-	 */
 	static PhysicalCard onTableCostTarget(PhysicalCard target) {
 		PhysicalCard attachedTo = target.getAttachedTo();
 		return attachedTo != null ? attachedTo : target.getAtLocation();
 	}
 
-	/**
-	 * Free is not a deploy cost. Undefined (no printed / game-text number for the current bearer or site) is not a cost.
-	 * A defined 0 (e.g. Dark Jedi Lightsaber X=7-ability on ability 7) still counts.
-	 */
 	static boolean hasNumericOnTableDeployCost(SwccgGame game, PhysicalCard self, PhysicalCard target) {
 		PhysicalCard costTarget = onTableCostTarget(target);
 		GameState gameState = game.getGameState();
@@ -234,12 +233,6 @@ public class Card2_056 extends AbstractUsedInterrupt {
 		return false;
 	}
 
-	/**
-	 * On-table deploy cost for a weapon/device/vehicle already in play.
-	 * Passes the current attachedTo as costTarget so X (e.g. Dark Jedi Lightsaber)
-	 * and free-to-target (e.g. Chewbacca's Bowcaster) resolve the same way transfer does.
-	 * Unattached vehicles use getAtLocation so non-global location modifiers (Hoth Mountains) apply.
-	 */
 	static float getOnTableDeployCost(SwccgGame game, PhysicalCard self, PhysicalCard target) {
 		PhysicalCard costTarget = onTableCostTarget(target);
 		return game.getModifiersQuerying().getDeployCost(game.getGameState(), self, target, costTarget,
