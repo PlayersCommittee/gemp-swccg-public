@@ -24,6 +24,8 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests for 5_52 Impressive, Most Impressive.
  * Doc scenarios + Mouse-style edges (threshold, CF window, hide, release, non-window).
+ * Luke Skywalker (1_19) ability = 4.
+ * Reuses existing MayNotBattleUntilEndOfTurnEffect hide; no seeker-ignore path.
  */
 public class Card_5_052_Tests {
 
@@ -89,6 +91,52 @@ public class Card_5_052_Tests {
 		}
 	}
 
+	private boolean WaitForImpressiveResponse(VirtualTableScenario scn) {
+		for (int i = 0; i < 30; i++) {
+			if (ImpressivePlayAvailable(scn)) {
+				return true;
+			}
+			var decision = scn.GetCurrentDecision();
+			if (decision == null) {
+				return false;
+			}
+			String text = decision.getText() != null ? decision.getText().toLowerCase() : "";
+			if (text.contains("optional")) {
+				scn.PassResponses("optional");
+			} else if (text.contains("required")) {
+				scn.PassResponses("required");
+			} else {
+				return ImpressivePlayAvailable(scn);
+			}
+		}
+		return ImpressivePlayAvailable(scn);
+	}
+
+	private void StartCarbonFreezingOnLuke(VirtualTableScenario scn) {
+		var luke = scn.GetLSCard("luke");
+		var carbonFreezing = scn.GetDSCard("carbonFreezing");
+		try {
+			scn.DSUseCardAction(carbonFreezing, "Perform Carbon-Freezing");
+		} catch (RuntimeException ex) {
+			scn.DSUseCardAction(carbonFreezing);
+		}
+		if (scn.DSHasCardChoiceAvailable(luke)) {
+			scn.DSChooseCard(luke);
+		}
+	}
+
+	private void FinishImpressivePlay(VirtualTableScenario scn) {
+		scn.PassCardPlayResponses();
+		scn.PassDestinyDrawResponses();
+		SafePassOptionalResponses(scn);
+		scn.PassAllResponses();
+		if (scn.LSReleaseDecisionAvailable()) {
+			scn.LSChooseRally();
+			scn.PassAllResponses();
+			SafePassOptionalResponses(scn);
+		}
+	}
+
 	@Test
 	public void ImpressiveMostImpressiveStatsAndKeywordsAreCorrect() {
 		var scn = GetScenario();
@@ -126,7 +174,7 @@ public class Card_5_052_Tests {
 
 	/**
 	 * Carbon-Freezing attempt: destiny+ability > 7 cancels, releases captive, hides rest of turn.
-	 * Luke ability 6 + destiny 2 = 8 > 7.
+	 * Luke ability 4 + destiny 4 = 8 > 7.
 	 */
 	@Test
 	public void ImpressiveMostImpressiveCancelsCarbonFreezingOnSuccessReleasesAndHides() {
@@ -144,66 +192,31 @@ public class Card_5_052_Tests {
 		scn.CaptureCardWith(boba, luke);
 		assertTrue(luke.isCaptive());
 
-		// Attach Carbon-Freezing to chamber
-		scn.MoveCardsToDSHand(carbonFreezing);
-		scn.SkipToDSTurn(Phase.DEPLOY);
-		assertTrue(scn.DSDeployAvailable(carbonFreezing) || scn.DSCardPlayAvailable(carbonFreezing));
-		scn.DSDeployCard(carbonFreezing);
-		if (scn.DSHasCardChoiceAvailable(chamber)) {
-			scn.DSChooseCard(chamber);
-		}
-		SafePassOptionalResponses(scn);
+		scn.AttachCardsTo(chamber, carbonFreezing);
 
-		scn.SkipToPhase(Phase.CONTROL);
-		assertTrue("Carbon-Freezing perform action should be available",
-				scn.DSCardActionAvailable(carbonFreezing, "Perform Carbon-Freezing")
-						|| scn.DSCardActionAvailable(carbonFreezing));
-
-		scn.DSUseCardAction(carbonFreezing, "Perform Carbon-Freezing");
-		if (!scn.DSDecisionAvailable("Perform Carbon-Freezing") && scn.DSGetDecision() != null) {
-			// fallback if action text differs
-			scn.DSUseCardAction(carbonFreezing);
+		scn.SkipToDSTurn(Phase.CONTROL);
+		boolean cfAction = false;
+		try {
+			cfAction = scn.DSCardActionAvailable(carbonFreezing, "Perform Carbon-Freezing")
+					|| scn.DSCardActionAvailable(carbonFreezing);
+		} catch (NullPointerException | IndexOutOfBoundsException ex) {
+			cfAction = false;
 		}
-		if (scn.DSHasCardChoiceAvailable(luke)) {
-			scn.DSChooseCard(luke);
-		}
-		SafePassOptionalResponses(scn);
+		assertTrue("Carbon-Freezing perform action should be available", cfAction);
 
-		// LS optional response to CF attempt
-		boolean found = false;
-		for (int i = 0; i < 30; i++) {
-			if (ImpressivePlayAvailable(scn)) {
-				found = true;
-				break;
-			}
-			var decision = scn.GetCurrentDecision();
-			if (decision == null) {
-				break;
-			}
-			String text = decision.getText() != null ? decision.getText().toLowerCase() : "";
-			if (text.contains("optional")) {
-				// do not auto-pass if Impressive is available under broader window
-				if (ImpressivePlayAvailable(scn)) {
-					found = true;
-					break;
-				}
-				scn.PassResponses("optional");
-			} else if (text.contains("required")) {
-				scn.PassResponses("required");
-			} else {
-				break;
-			}
-		}
-		assertTrue("Impressive should be offered in response to Carbon-Freezing attempt", found);
+		StartCarbonFreezingOnLuke(scn);
 
-		scn.PrepareLSDestiny(2); // + Luke ability 6 = 8 > 7
+		assertTrue("Impressive should be offered in response to Carbon-Freezing attempt",
+				WaitForImpressiveResponse(scn));
+
+		scn.PrepareLSDestiny(4); // + Luke ability 4 = 8 > 7
 		scn.LSPlayCard(impressive);
-		SafePassOptionalResponses(scn);
+		FinishImpressivePlay(scn);
 
 		assertTrue("Impressive is Lost Interrupt",
 				impressive.getZone() == Zone.TOP_OF_LOST_PILE || impressive.getZone() == Zone.LOST_PILE);
 		assertFalse("Luke should be released", luke.isCaptive());
-		assertTrue("Luke should remain in play after release", luke.getZone().isInPlay());
+		assertTrue("Luke should remain in play after rally", luke.getZone().isInPlay());
 	}
 
 	@Test
@@ -221,42 +234,23 @@ public class Card_5_052_Tests {
 		scn.MoveCardsToLocation(chamber, boba, luke);
 		scn.CaptureCardWith(boba, luke);
 
-		scn.MoveCardsToDSHand(carbonFreezing);
-		scn.SkipToDSTurn(Phase.DEPLOY);
-		scn.DSDeployCard(carbonFreezing);
-		if (scn.DSHasCardChoiceAvailable(chamber)) {
-			scn.DSChooseCard(chamber);
-		}
-		SafePassOptionalResponses(scn);
+		scn.AttachCardsTo(chamber, carbonFreezing);
 
-		scn.SkipToPhase(Phase.CONTROL);
-		scn.DSUseCardAction(carbonFreezing);
-		if (scn.DSHasCardChoiceAvailable(luke)) {
-			scn.DSChooseCard(luke);
-		}
+		scn.SkipToDSTurn(Phase.CONTROL);
+		StartCarbonFreezingOnLuke(scn);
 
-		boolean found = false;
-		for (int i = 0; i < 30; i++) {
-			if (ImpressivePlayAvailable(scn)) {
-				found = true;
-				break;
-			}
-			var decision = scn.GetCurrentDecision();
-			if (decision == null) break;
-			String text = decision.getText() != null ? decision.getText().toLowerCase() : "";
-			if (text.contains("optional")) {
-				if (ImpressivePlayAvailable(scn)) { found = true; break; }
-				scn.PassResponses("optional");
-			} else if (text.contains("required")) {
-				scn.PassResponses("required");
-			} else break;
-		}
-		assertTrue(found);
+		assertTrue("Impressive should be offered", WaitForImpressiveResponse(scn));
 
-		scn.PrepareLSDestiny(0); // + ability 6 = 6 <= 7 fail
+		scn.PrepareLSDestiny(3); // + ability 4 = 7 not > 7
+		scn.PrepareDSDestiny(7); // CF no-result band after Impressive fails
 		scn.LSPlayCard(impressive);
+		scn.PassCardPlayResponses();
+		scn.PassDestinyDrawResponses();
+		SafePassOptionalResponses(scn);
+		scn.PassAllResponses();
+		scn.PassDestinyDrawResponses();
 		SafePassOptionalResponses(scn);
 
-		assertTrue(luke.isCaptive());
+		assertTrue("Luke should remain captive when Impressive fails", luke.isCaptive());
 	}
 }
