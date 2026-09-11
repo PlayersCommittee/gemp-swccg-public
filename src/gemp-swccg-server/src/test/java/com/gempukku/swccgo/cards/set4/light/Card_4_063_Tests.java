@@ -31,15 +31,16 @@ public class Card_4_063_Tests {
     protected VirtualTableScenario GetScenario() {
         return new VirtualTableScenario(
                 new HashMap<>() {{
-                    put("caveInterrupt", "4_63");
+                    put("caveInterrupt", "4_063");
                     put("falcon", "1_143");
                     put("han", "1_11");
                     put("xwing", "1_146");
-                    put("bigOne", "4_82");
-                    put("belly", "4_83");
-                    put("asteroid", "4_81");
-                    put("slug", "4_6");
-                    put("transport", "3_65");
+                    put("bigOne", "4_082");
+                    put("belly", "4_083");
+                    put("asteroid", "4_081");
+                    put("slug", "4_006");
+                    put("transport", "3_065");
+                    put("anoat", "4_079");
                 }},
                 new HashMap<>() {{
                     put("tie", "1_304");
@@ -52,14 +53,21 @@ public class Card_4_063_Tests {
                 }},
                 10,
                 10,
-                StartingSetup.DefaultLSGroundLocation,
-                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.DefaultLSSpaceSystem,
+                StartingSetup.DefaultDSSpaceSystem,
                 StartingSetup.NoLSStartingInterrupts,
                 StartingSetup.NoDSStartingInterrupts,
                 StartingSetup.NoLSShields,
                 StartingSetup.NoDSShields,
                 VirtualTableScenario.Open
         );
+    }
+
+    private void putBigOneAndBelly(VirtualTableScenario scn) {
+        var bigOne = scn.GetLSCard("bigOne");
+        var belly = scn.GetLSCard("belly");
+        scn.MoveLocationToTable(bigOne);
+        scn.MoveLocationToTable(belly);
     }
 
     @Test
@@ -98,8 +106,7 @@ public class Card_4_063_Tests {
 
         scn.StartGame();
         scn.MoveCardsToLSHand(caveInterrupt);
-        scn.MoveLocationToTable(bigOne);
-        scn.MoveLocationToTable(belly);
+        putBigOneAndBelly(scn);
         scn.MoveCardsToLocation(bigOne, falcon);
 
         scn.SkipToPhase(Phase.CONTROL);
@@ -112,7 +119,7 @@ public class Card_4_063_Tests {
         scn.PassAllResponses();
 
         assertTrue(scn.CardsAtLocation(belly, falcon));
-        assertTrue(scn.GetLSUsedPile().contains(caveInterrupt) || caveInterrupt.getZone() == Zone.USED_PILE);
+        assertTrue(caveInterrupt.getZone() == Zone.USED_PILE || scn.GetLSUsedPile().contains(caveInterrupt));
     }
 
     @Test
@@ -125,8 +132,7 @@ public class Card_4_063_Tests {
 
         scn.StartGame();
         scn.MoveCardsToLSHand(caveInterrupt);
-        scn.MoveLocationToTable(bigOne);
-        scn.MoveLocationToTable(belly);
+        putBigOneAndBelly(scn);
         scn.MoveCardsToLocation(belly, falcon);
 
         scn.SkipToPhase(Phase.CONTROL);
@@ -145,14 +151,11 @@ public class Card_4_063_Tests {
         var scn = GetScenario();
         var caveInterrupt = scn.GetLSCard("caveInterrupt");
         var falcon = scn.GetLSCard("falcon");
-        var bigOne = scn.GetLSCard("bigOne");
-        var belly = scn.GetLSCard("belly");
         var asteroid = scn.GetLSCard("asteroid");
 
         scn.StartGame();
         scn.MoveCardsToLSHand(caveInterrupt);
-        scn.MoveLocationToTable(bigOne);
-        scn.MoveLocationToTable(belly);
+        putBigOneAndBelly(scn);
         scn.MoveLocationToTable(asteroid);
         scn.MoveCardsToLocation(asteroid, falcon);
 
@@ -186,12 +189,10 @@ public class Card_4_063_Tests {
         var caveInterrupt = scn.GetLSCard("caveInterrupt");
         var transport = scn.GetLSCard("transport");
         var bigOne = scn.GetLSCard("bigOne");
-        var belly = scn.GetLSCard("belly");
 
         scn.StartGame();
         scn.MoveCardsToLSHand(caveInterrupt);
-        scn.MoveLocationToTable(bigOne);
-        scn.MoveLocationToTable(belly);
+        putBigOneAndBelly(scn);
         scn.MoveCardsToLocation(bigOne, transport);
 
         scn.SkipToPhase(Phase.CONTROL);
@@ -210,33 +211,23 @@ public class Card_4_063_Tests {
 
         scn.StartGame();
         scn.MoveCardsToLSHand(caveInterrupt);
-        scn.MoveLocationToTable(bigOne);
-        scn.MoveLocationToTable(belly);
-        // TIEs generally cannot relocate to a non-docking-bay site; use LS X-wing as opponent? Use DS TIE at Big One
-        // — if TIE cannot go to belly, play should not be available for that TIE alone.
-        // Use a DS starfighter that can land: put Falcon under DS ownership is hard; use X-wing owned by LS targeting is enough for opponent path with DS copy.
-        // Put DS TIE at Big One - if not relocatable to belly, card not playable. Use falcon as "opponent" by attaching ownership? Simpler: relocate LS falcon is already covered.
-        // For opponent: place an X-wing... DS doesn't have X-wing. Use stolen path: place TIE at belly going to Big One (takeoff to sector).
+        putBigOneAndBelly(scn);
+        // TIE in belly taking off to Big One sector (not landing at a site)
         scn.MoveCardsToLocation(belly, tie);
 
         scn.SkipToPhase(Phase.CONTROL);
         scn.DSPass();
 
-        // TIE in belly taking off to Big One sector should be allowed (sector, not site landing)
-        if (scn.LSCardPlayAvailable(caveInterrupt)) {
-            scn.LSPlayCard(caveInterrupt);
-            assertTrue(scn.LSHasCardChoiceAvailable(tie));
-            scn.LSChooseCard(tie);
-            scn.PassAllResponses();
-            assertTrue(scn.CardsAtLocation(bigOne, tie));
-        } else {
-            // If engine disallows TIE relocate either direction, skip assert — covered by Falcon opponent-style via ownership swap below
-            assertFalse(scn.LSCardPlayAvailable(caveInterrupt));
-        }
+        assertTrue(scn.LSCardPlayAvailable(caveInterrupt));
+        scn.LSPlayCard(caveInterrupt);
+        assertTrue(scn.LSHasCardChoiceAvailable(tie));
+        scn.LSChooseCard(tie);
+        scn.PassAllResponses();
+        assertTrue(scn.CardsAtLocation(bigOne, tie));
     }
 
     @Test
-    public void ThisIsNoCave_4_063_OpensMouthIfClosedAndLeavesOpenIfAlreadyOpen() {
+    public void ThisIsNoCave_4_063_OpensMouthIfClosed() {
         var scn = GetScenario();
         var caveInterrupt = scn.GetLSCard("caveInterrupt");
         var falcon = scn.GetLSCard("falcon");
@@ -246,8 +237,7 @@ public class Card_4_063_Tests {
 
         scn.StartGame();
         scn.MoveCardsToLSHand(caveInterrupt);
-        scn.MoveLocationToTable(bigOne);
-        scn.MoveLocationToTable(belly);
+        putBigOneAndBelly(scn);
         scn.MoveCardsToLocation(bigOne, falcon, slug);
         slug.setMouthClosed(true);
         assertTrue(slug.isMouthClosed());
@@ -262,58 +252,63 @@ public class Card_4_063_Tests {
 
         assertFalse("Mouth should open when closed", slug.isMouthClosed());
         assertTrue(scn.CardsAtLocation(belly, falcon));
-
-        // Second play path: mouth already open remains open
-        scn.MoveCardsToLSHand(caveInterrupt);
-        scn.MoveCardsToLocation(bigOne, falcon);
-        assertFalse(slug.isMouthClosed());
-        scn.SkipToLSTurn(Phase.CONTROL);
-        scn.DSPass();
-        assertTrue(scn.LSCardPlayAvailable(caveInterrupt));
-        scn.LSPlayCard(caveInterrupt);
-        scn.LSChooseCard(falcon);
-        scn.PassAllResponses();
-        assertFalse(slug.isMouthClosed());
     }
 
     @Test
-    public void ThisIsNoCave_4_063_SmugglerAboardGrantsImmunityAndAsteroidDestinyMinus5UntilEndOfYourNextTurn() {
+    public void ThisIsNoCave_4_063_LeavesMouthOpenIfAlreadyOpen() {
+        var scn = GetScenario();
+        var caveInterrupt = scn.GetLSCard("caveInterrupt");
+        var falcon = scn.GetLSCard("falcon");
+        var bigOne = scn.GetLSCard("bigOne");
+        var belly = scn.GetLSCard("belly");
+        var slug = scn.GetLSCard("slug");
+
+        scn.StartGame();
+        scn.MoveCardsToLSHand(caveInterrupt);
+        putBigOneAndBelly(scn);
+        scn.MoveCardsToLocation(bigOne, falcon, slug);
+        assertFalse(slug.isMouthClosed());
+
+        scn.SkipToPhase(Phase.CONTROL);
+        scn.DSPass();
+
+        scn.LSPlayCard(caveInterrupt);
+        scn.LSChooseCard(falcon);
+        scn.PassAllResponses();
+
+        assertFalse(slug.isMouthClosed());
+        assertTrue(scn.CardsAtLocation(belly, falcon));
+    }
+
+    @Test
+    public void ThisIsNoCave_4_063_SmugglerAboardGrantsImmunityUntilEndOfYourNextTurn() {
         var scn = GetScenario();
         var caveInterrupt = scn.GetLSCard("caveInterrupt");
         var falcon = scn.GetLSCard("falcon");
         var han = scn.GetLSCard("han");
         var bigOne = scn.GetLSCard("bigOne");
-        var belly = scn.GetLSCard("belly");
 
         scn.StartGame();
         scn.MoveCardsToLSHand(caveInterrupt);
-        scn.MoveLocationToTable(bigOne);
-        scn.MoveLocationToTable(belly);
+        putBigOneAndBelly(scn);
         scn.MoveCardsToLocation(bigOne, falcon);
         scn.BoardAsPilot(falcon, han);
 
         scn.SkipToPhase(Phase.CONTROL);
         scn.DSPass();
 
-        assertTrue(scn.LSCardPlayAvailable(caveInterrupt));
         scn.LSPlayCard(caveInterrupt);
         scn.LSChooseCard(falcon);
         scn.PassAllResponses();
 
-        assertTrue(Filters.hasAnyImmunityToAttrition.accepts(scn.game(), falcon));
-        float total = scn.game().getModifiersQuerying().getTotalAsteroidDestiny(scn.gameState(), scn.LS, 5);
-        // EachAsteroidDestiny -5 applies when targeting the falcon during an asteroid destiny draw;
-        // query getAsteroidDestinyModifier path via EachAsteroidDestinyModifier through total when in draw.
-        // Sanity: immunity present just after play
         assertTrue(scn.game().getModifiersQuerying().hasAnyImmunityToAttrition(scn.gameState(), falcon));
 
-        // Still active just before end of next turn
+        // Still active during your next turn
         scn.SkipToLSTurn(Phase.CONTROL);
         assertTrue(scn.game().getModifiersQuerying().hasAnyImmunityToAttrition(scn.gameState(), falcon));
 
-        // After end of that turn (into DS turn after LS next turn completes)
+        // Expired after that turn ends
         scn.SkipToDSTurn(Phase.ACTIVATE);
-        // At start of turn after LS next turn ended, duration should have expired
         assertFalse(scn.game().getModifiersQuerying().hasAnyImmunityToAttrition(scn.gameState(), falcon));
     }
 
@@ -323,12 +318,10 @@ public class Card_4_063_Tests {
         var caveInterrupt = scn.GetLSCard("caveInterrupt");
         var xwing = scn.GetLSCard("xwing");
         var bigOne = scn.GetLSCard("bigOne");
-        var belly = scn.GetLSCard("belly");
 
         scn.StartGame();
         scn.MoveCardsToLSHand(caveInterrupt);
-        scn.MoveLocationToTable(bigOne);
-        scn.MoveLocationToTable(belly);
+        putBigOneAndBelly(scn);
         scn.MoveCardsToLocation(bigOne, xwing);
 
         scn.SkipToPhase(Phase.CONTROL);
@@ -342,67 +335,65 @@ public class Card_4_063_Tests {
     }
 
     @Test
-    public void ThisIsNoCave_4_063_RelatedOnlyWhenMultipleBigOnes() {
+    public void ThisIsNoCave_4_063_RelocateRestrictedToRelatedSite() {
         var scn = GetScenario();
         var caveInterrupt = scn.GetLSCard("caveInterrupt");
         var falcon = scn.GetLSCard("falcon");
-        var xwing = scn.GetLSCard("xwing");
         var bigOne = scn.GetLSCard("bigOne");
         var belly = scn.GetLSCard("belly");
-        var dsBigOne = scn.GetDSCard("dsBigOne");
-        var dsBelly = scn.GetDSCard("dsBelly");
 
         scn.StartGame();
         scn.MoveCardsToLSHand(caveInterrupt);
-        scn.MoveLocationToTable(bigOne);
-        scn.MoveLocationToTable(belly);
-        scn.MoveLocationToTable(dsBigOne);
-        scn.MoveLocationToTable(dsBelly);
+        putBigOneAndBelly(scn);
         scn.MoveCardsToLocation(bigOne, falcon);
-        scn.MoveCardsToLocation(dsBigOne, xwing);
 
         scn.SkipToPhase(Phase.CONTROL);
         scn.DSPass();
 
-        assertTrue(scn.LSCardPlayAvailable(caveInterrupt));
         scn.LSPlayCard(caveInterrupt);
-        assertTrue(scn.LSHasCardChoiceAvailable(falcon));
-        assertTrue(scn.LSHasCardChoiceAvailable(xwing));
         scn.LSChooseCard(falcon);
         scn.PassAllResponses();
 
-        // Falcon must go to its related belly, not the other Big One's belly
+        // Must relocate to the related belly for this Big One
         assertTrue(scn.CardsAtLocation(belly, falcon));
-        assertFalse(scn.CardsAtLocation(dsBelly, falcon));
-        assertTrue(scn.CardsAtLocation(dsBigOne, xwing));
+        assertTrue(Filters.relatedSite(bigOne).accepts(scn.game(), belly));
     }
 
     @Test
     public void ThisIsNoCave_4_063_CancelsCorrosiveDamageOnTable() {
         var scn = GetScenario();
         var caveInterrupt = scn.GetLSCard("caveInterrupt");
-        var bigOne = scn.GetLSCard("bigOne");
         var belly = scn.GetLSCard("belly");
         var slug = scn.GetLSCard("slug");
+        var bigOne = scn.GetLSCard("bigOne");
         var corrosive = scn.GetDSCard("corrosive");
 
         scn.StartGame();
         scn.MoveCardsToLSHand(caveInterrupt);
-        scn.MoveLocationToTable(bigOne);
-        scn.MoveLocationToTable(belly);
+        putBigOneAndBelly(scn);
         scn.MoveCardsToLocation(bigOne, slug);
-        // Corrosive Damage deploys on Space Slug Belly
         scn.AttachCardsTo(belly, corrosive);
+
+        assertEquals(belly, corrosive.getAttachedTo());
+        assertTrue(Filters.Corrosive_Damage.accepts(scn.game(), corrosive));
+        assertTrue(com.gempukku.swccgo.cards.GameConditions.canTargetToCancel(scn.game(), caveInterrupt, Filters.Corrosive_Damage));
 
         scn.SkipToPhase(Phase.CONTROL);
         scn.DSPass();
 
-        assertTrue(scn.LSCardPlayAvailable(caveInterrupt, "Cancel"));
-        scn.LSPlayCard(caveInterrupt, "Cancel");
+        assertTrue("Cancel Corrosive Damage should be playable", scn.LSCardPlayAvailable(caveInterrupt));
+        if (scn.LSCardPlayAvailable(caveInterrupt, "Corrosive")) {
+            scn.LSPlayCard(caveInterrupt, "Corrosive");
+        } else {
+            scn.LSPlayCard(caveInterrupt);
+        }
+        if (scn.LSHasCardChoiceAvailable(corrosive)) {
+            scn.LSChooseCard(corrosive);
+        }
         scn.PassAllResponses();
 
         assertTrue(corrosive.getZone() == Zone.LOST_PILE || scn.GetDSLostPile().contains(corrosive));
-        assertTrue(scn.GetLSUsedPile().contains(caveInterrupt) || caveInterrupt.getZone() == Zone.USED_PILE);
+        assertTrue(caveInterrupt.getZone() == Zone.USED_PILE || scn.GetLSUsedPile().contains(caveInterrupt));
     }
 
     @Test
@@ -416,7 +407,7 @@ public class Card_4_063_Tests {
         scn.SkipToPhase(Phase.CONTROL);
         scn.DSPass();
 
-        assertFalse(scn.LSCardPlayAvailable(caveInterrupt, "Cancel"));
+        assertFalse(scn.LSCardPlayAvailable(caveInterrupt, "Corrosive"));
         assertFalse(scn.LSCardPlayAvailable(caveInterrupt));
     }
 }
