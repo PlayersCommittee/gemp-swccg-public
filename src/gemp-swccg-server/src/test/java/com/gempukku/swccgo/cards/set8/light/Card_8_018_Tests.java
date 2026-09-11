@@ -130,7 +130,9 @@ public class Card_8_018_Tests {
         scn.PassAllResponses();
 
         assertTrue(trooper.isHit());
-        assertEquals(forfeitBefore - 3, scn.GetForfeit(trooper));
+        // Forfeit cannot go below 0
+        assertEquals(Math.max(0, forfeitBefore - 3), scn.GetForfeit(trooper));
+        assertTrue(scn.GetForfeit(trooper) < forfeitBefore || forfeitBefore == 0);
     }
 
     @Test
@@ -191,7 +193,7 @@ public class Card_8_018_Tests {
         int forceBefore = scn.GetLSForcePileCount();
         scn.LSUseCardAction(a280, "Fire");
         scn.LSChooseCard(trooper);
-        scn.PassAllResponses();
+        scn.PassWeaponFireWithDestinyDraw();
 
         assertTrue(scn.LSDecisionAvailable("repeatedly fire"));
         scn.LSChooseYes();
@@ -228,7 +230,7 @@ public class Card_8_018_Tests {
 
         scn.LSUseCardAction(a280, "Fire");
         scn.LSChooseCard(trooper);
-        scn.PassAllResponses();
+        scn.PassWeaponFireWithDestinyDraw();
 
         assertTrue(scn.LSDecisionAvailable("repeatedly fire"));
         scn.LSChooseYes();
