@@ -19952,6 +19952,38 @@
     ]
   },
   {
+    "cardId": "13_70",
+    "title": "Force Push",
+    "slug": "force-push",
+    "slugWithSetName": "force-push-reflections-iii",
+    "side": "DARK",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "REFLECTIONS_III",
+    "rarity": "PM",
+    "cardCategory": "INTERRUPT",
+    "cardTypes": [
+      "INTERRUPT"
+    ],
+    "cardSubtype": "LOST",
+    "lore": "A fully-trained Sith warrior has more weapons at his disposal than just a lightsaber.",
+    "gameText": "Target opponent's Jedi with at least one combat card present with your Dark Jedi. Reveal one of target's combat cards (random selection). If revealed card's destiny > 4, place it on top of opponent's Reserve Deck. Otherwise, lose 1 Force. (Immune to Sense.)",
+    "destiny": 5,
+    "icons": [
+      {
+        "icon": "REFLECTIONS_III",
+        "count": 1
+      },
+      {
+        "icon": "INTERRUPT",
+        "count": 1
+      },
+      {
+        "icon": "EPISODE_I",
+        "count": 1
+      }
+    ]
+  },
+  {
     "cardId": "13_71",
     "title": "Jabba Desilijic Tiure",
     "slug": "jabba-desilijic-tiure",
