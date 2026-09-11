@@ -18075,6 +18075,7 @@ public class Filters {
     public static final Filter Close_Call = Filters.title(Title.Close_Call);
     public static final Filter Cody = Filters.title(Title.Cody);
     public static final Filter Collision = Filters.title(Title.Collision);
+    public static final Filter Corrosive_Damage = Filters.title(Title.Corrosive_Damage);
     public static final Filter Colo_Claw_Fish = Filters.title(Title.Colo_Claw_Fish);
     public static final Filter Combat_Readiness = Filters.title(Title.Combat_Readiness);
     public static final Filter Combat_Response = Filters.title(Title.Combat_Response);
@@ -19468,6 +19469,7 @@ public class Filters {
     public static final Filter This_Is_All_Your_Fault = Filters.title(Title.This_Is_All_Your_Fault);
     public static final Filter This_Is_Just_Wrong = Filters.title(Title.This_Is_Just_Wrong);
     public static final Filter This_Is_More_Like_It = Filters.title(Title.This_Is_More_Like_It);
+    public static final Filter This_Is_No_Cave = Filters.title(Title.This_Is_No_Cave);
     public static final Filter This_Is_Some_Rescue = Filters.title(Title.This_Is_Some_Rescue);
     public static final Filter This_Is_Still_Wrong = Filters.title(Title.This_Is_Still_Wrong);
     public static final Filter This_Place_Can_Be_A_Little_Rough = Filters.title(Title.This_Place_Can_Be_A_Little_Rough);
