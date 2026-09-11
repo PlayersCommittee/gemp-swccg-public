@@ -684,8 +684,11 @@ public class BattleState implements Snapshotable<BattleState> {
     }
 
     public float getAttritionTotal(SwccgGame game, String player) {
-        if (_reachedDamageSegment)
-            return _totalAttrition.get(player);
+        if (_reachedDamageSegment) {
+            // Null-safe: end-of-battle forfeit effects can run after totals are cleared
+            Float attrition = _totalAttrition.get(player);
+            return attrition == null ? 0 : attrition;
+        }
 
         if (_baseAttrition.get(player) == null)
             return 0;
