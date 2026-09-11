@@ -99,9 +99,14 @@ public class Card5_137 extends AbstractLostInterrupt {
                                     new AddUntilEndOfCardPlayedModifierEffect(action, self,
                                             new DeploysFreeModifier(self, Filters.and(Filters.your(self), Filters.trooper)),
                                             "Troopers deploy free"));
-                            // May repeatedly deploy from hand to destination site (not as a react)
+                            // May repeatedly deploy from hand to destination site (not as a react).
+                            // Limit to cards that can actually deploy to a site / cards there — excludes
+                            // side-of-table Effects (e.g. Den Of Thieves).
+                            Filter deployableToSite = Filters.or(Filters.character, Filters.starship, Filters.vehicle,
+                                    Filters.weapon, Filters.device, Filters.and(Filters.Effect,
+                                            Filters.or(Filters.deploys_on_location, Filters.deploys_on_characters)));
                             action.appendEffect(
-                                    new DeployCardsToLocationFromHandEffect(action, playerId, Filters.any, thatSite, false));
+                                    new DeployCardsToLocationFromHandEffect(action, playerId, deployableToSite, thatSite, false));
                         }
                     }
             );
