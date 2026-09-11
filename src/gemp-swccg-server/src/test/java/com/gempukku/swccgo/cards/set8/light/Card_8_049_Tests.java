@@ -36,6 +36,7 @@ public class Card_8_049_Tests {
                 put("romba", "8_26"); // Romba (scout)
                 put("rebel", "1_28"); // Rebel Trooper (captive / presence)
                 put("bunker", "8_70"); // Endor: Bunker (interior)
+                put("lars", "1_132"); // Tatooine: Lars' Moisture Farm (exterior)
             }},
             new HashMap<>() {{
                 put("escort", "1_194"); // Stormtrooper
@@ -44,7 +45,6 @@ public class Card_8_049_Tests {
                 put("presence", "1_194");
                 put("cantinaDS", "1_290"); // Tatooine: Cantina (Dark)
                 put("db94", "1_291"); // Tatooine: Docking Bay 94
-                put("lars", "1_294"); // Tatooine: Lars' Moisture Farm (exterior)
                 put("palace", "6_171"); // Tatooine: Jabba's Palace
                 put("deck", "6_167"); // Jabba's Sail Barge: Passenger Deck
                 put("bargeDS", "6_172"); // Jabba's Sail Barge
@@ -417,7 +417,7 @@ public class Card_8_049_Tests {
         var presence = scn.GetDSCard("presence");
         var marketplace = scn.GetDSStartingLocation();
         var exteriorAdjacent = scn.GetDSCard("db94");
-        var otherExterior = scn.GetDSCard("lars");
+        var otherExterior = scn.GetLSCard("lars");
 
         scn.MoveCardsToLSHand(rescue);
         scn.StartGame();
