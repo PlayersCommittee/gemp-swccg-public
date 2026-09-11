@@ -203,7 +203,7 @@ public class Card_4_137_Tests {
 		var trooper = scn.GetDSCard("trooper");
 
 		SetupLostBattleWithSurvivingTrooper(scn);
-		scn.ApplyAdHocModifier(new ResetAbilityModifier(apology, Filters.sameCardId(trooper), 6));
+		scn.ApplyAdHocModifier(new ResetAbilityModifier(trooper, Filters.sameCardId(trooper), 6));
 		SafePassOptionalResponses(scn);
 		assertFalse("Ability 6 Imperial is not eligible", AdvanceToApologyWindow(scn));
 	}
@@ -215,7 +215,7 @@ public class Card_4_137_Tests {
 		var trooper = scn.GetDSCard("trooper");
 
 		SetupLostBattleWithSurvivingTrooper(scn);
-		scn.ApplyAdHocModifier(new ResetAbilityModifier(apology, Filters.sameCardId(trooper), 5));
+		scn.ApplyAdHocModifier(new ResetAbilityModifier(trooper, Filters.sameCardId(trooper), 5));
 		SafePassOptionalResponses(scn);
 		assertTrue("Ability 5 Imperial is eligible", AdvanceToApologyWindow(scn));
 	}
@@ -243,7 +243,7 @@ public class Card_4_137_Tests {
 		var trooper = scn.GetDSCard("trooper");
 
 		SetupLostBattleWithSurvivingTrooper(scn);
-		scn.ApplyAdHocModifier(new ResetForfeitModifier(apology, Filters.sameCardId(trooper), 0));
+		scn.ApplyAdHocModifier(new ResetForfeitModifier(trooper, Filters.sameCardId(trooper), 0));
 		while (scn.GetDSReserveDeckCount() > 0) {
 			scn.MoveCardsToTopOfDSUsedPile(scn.GetTopOfDSReserveDeck());
 		}
