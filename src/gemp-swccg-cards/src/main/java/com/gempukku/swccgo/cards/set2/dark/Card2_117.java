@@ -123,8 +123,11 @@ public class Card2_117 extends AbstractNormalEffect {
                 Filters.or(Filters.at(location), Filters.aboard(Filters.relatedStarshipOrVehicle(location))));
         Filter trappedCharacterFilter = Filters.and(Filters.opponents(self), Filters.character,
                 Filters.aboardExceptRelatedSites(capturedStarship));
-        // Droids have ability 0 and do not provide presence (forum: cannot Besiege with only a droid aboard).
-        Filter trappedPresenceFilter = Filters.and(trappedCharacterFilter, Filters.not(Filters.droid), Filters.abilityMoreThan(0));
+        // Same as normal battle / Local Trouble: presence (ability or [Presence] icon) or MayBeBattled,
+        // and not MayNotBeBattled. Forum 79090: a normal droid without presence cannot; A&T enables may-be-battled.
+        Filter trappedPresenceFilter = Filters.and(trappedCharacterFilter,
+                Filters.or(Filters.mayBeBattled, Filters.abilityMoreThan(0), Filters.icon(Icon.PRESENCE)),
+                Filters.not(Filters.mayNotBeBattled));
 
         if (GameConditions.isDuringYourPhase(game, playerId, Phase.BATTLE)
                 && !GameConditions.isDuringBattle(game)

@@ -10,8 +10,12 @@ import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
+import com.gempukku.swccgo.logic.modifiers.MayDeployAsReactToBattleModifier;
+import com.gempukku.swccgo.logic.modifiers.MayBeBattledModifier;
+import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
 import org.junit.Test;
 
@@ -33,6 +37,14 @@ public class Card_2_117_Tests {
                     put("c3po", "1_5");
                     put("blaster", "1_154");
                     put("ooc", "2_054");
+                    put("artoo_threepio", "10_002");
+                    put("caldera", "11_001");
+                    put("gimer", "4_043");
+                    put("luke", "1_019");
+                    put("order", "4_030");
+                    put("kfc", "1_015");
+                    put("solo", "8_015");
+                    put("scout", "8_013");
                 }},
                 new HashMap<>() {{
                     put("besieged", "2_117");
@@ -42,6 +54,9 @@ public class Card_2_117_Tests {
                     put("cecius", "5_100");
                     put("tie", "1_304");
                     put("speeder", "1_310");
+                    put("gragra", "11_058");
+                    put("kkk", "1_183");
+                    put("djas", "1_171");
                 }},
                 10,
                 10,
@@ -439,6 +454,8 @@ public class Card_2_117_Tests {
             return;
         }
     }
+
+    @Test
     public void BesiegedRemainsAfterReleasePlusLaunch() {
         var scn = GetScenario();
 
@@ -567,4 +584,245 @@ public class Card_2_117_Tests {
         assertTrue(scn.gameState().isDuringBesiegedBattle());
         assertEquals(4, scn.GetPower(cecius));
     }
+
+    @Test
+    public void BesiegedCanBattleArtooAndThreepioAboardBecauseMayBeBattled() {
+        var scn = GetScenario();
+
+        var falcon = scn.GetLSCard("falcon");
+        var artooThreepio = scn.GetLSCard("artoo_threepio");
+        var han = scn.GetLSCard("han");
+        var besieged = scn.GetDSCard("besieged");
+        var vcsd = scn.GetDSCard("vcsd");
+        var launchBay = scn.GetDSCard("launchbay");
+        var tractor = scn.GetDSCard("tractor");
+        var trooper = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        // Presence from Han enables initiation; A&T participates once Besieged makes trapped cards active.
+        setupLaunchBayCapture(scn, falcon, han, vcsd, launchBay, tractor);
+        scn.BoardAsPassenger(falcon, artooThreepio);
+        scn.MoveCardsToLocation(launchBay, trooper);
+        scn.AttachCardsTo(falcon, besieged);
+        // Active-source ad-hoc may-be-battled also proves the initiation filter accepts that path alone.
+        scn.ApplyAdHocModifier(new MayBeBattledModifier(trooper, artooThreepio));
+
+        scn.SkipToPhase(Phase.BATTLE);
+        assertTrue("Besieged available with presence/may-be-battled aboard. Decision: " + decisionText(scn),
+                scn.DSCardActionAvailable(besieged, "Initiate Besieged battle"));
+        initiateBesiegedBattle(scn, besieged, trooper);
+        assertTrue(scn.gameState().isDuringBesiegedBattle());
+        assertTrue(scn.IsParticipatingInBattle(trooper, han, artooThreepio));
+    }
+
+    @Test
+    public void BesiegedCannotInitiateWhenCalderaAtSiteBlocksSiteBattle() {
+        var scn = GetScenario();
+
+        var falcon = scn.GetLSCard("falcon");
+        var han = scn.GetLSCard("han");
+        var caldera = scn.GetLSCard("caldera");
+        var besieged = scn.GetDSCard("besieged");
+        var vcsd = scn.GetDSCard("vcsd");
+        var launchBay = scn.GetDSCard("launchbay");
+        var tractor = scn.GetDSCard("tractor");
+        // Ability total >= 8 at the site so Caldera blocks initiation.
+        var t1 = scn.GetDSFiller(1);
+        var t2 = scn.GetDSFiller(2);
+        var t3 = scn.GetDSFiller(3);
+        var t4 = scn.GetDSFiller(4);
+        var t5 = scn.GetDSFiller(5);
+        var t6 = scn.GetDSFiller(6);
+        var t7 = scn.GetDSFiller(7);
+        var t8 = scn.GetDSFiller(8);
+
+        scn.StartGame();
+        setupLaunchBayCapture(scn, falcon, han, vcsd, launchBay, tractor);
+        scn.MoveCardsToLocation(launchBay, caldera, t1, t2, t3, t4, t5, t6, t7, t8);
+        scn.AttachCardsTo(falcon, besieged);
+
+        scn.SkipToPhase(Phase.BATTLE);
+        assertFalse("Normal battle blocked by Caldera", scn.DSCanInitiateBattle(launchBay));
+        assertFalse("Besieged also respects site may-not-initiate. Decision: " + decisionText(scn),
+                scn.DSCardActionAvailable(besieged, "Initiate Besieged battle"));
+    }
+
+    @Test
+    public void BesiegedCannotInitiateWhenGimerStickBlocksSiteBattle() {
+        var scn = GetScenario();
+
+        var falcon = scn.GetLSCard("falcon");
+        var han = scn.GetLSCard("han");
+        var luke = scn.GetLSCard("luke");
+        var gimer = scn.GetLSCard("gimer");
+        var besieged = scn.GetDSCard("besieged");
+        var vcsd = scn.GetDSCard("vcsd");
+        var launchBay = scn.GetDSCard("launchbay");
+        var tractor = scn.GetDSCard("tractor");
+        var trooper = scn.GetDSFiller(1); // ability 1, not > 3
+
+        scn.StartGame();
+        setupLaunchBayCapture(scn, falcon, han, vcsd, launchBay, tractor);
+        scn.MoveCardsToLocation(launchBay, luke, trooper);
+        scn.AttachCardsTo(luke, gimer);
+        gimer.setPlayCardOptionId(PlayCardOptionId.PLAY_CARD_OPTION_2);
+        scn.AttachCardsTo(falcon, besieged);
+
+        scn.SkipToPhase(Phase.BATTLE);
+        assertFalse("Gimer Stick option 2 blocks site battle without DS ability > 3",
+                scn.DSCanInitiateBattle(launchBay));
+        assertFalse("Besieged respects Gimer Stick site block. Decision: " + decisionText(scn),
+                scn.DSCardActionAvailable(besieged, "Initiate Besieged battle"));
+    }
+
+    @Test
+    public void BesiegedUsesSiteForceIconsForDjasPower() {
+        var scn = GetScenario();
+
+        var falcon = scn.GetLSCard("falcon");
+        var han = scn.GetLSCard("han");
+        var besieged = scn.GetDSCard("besieged");
+        var vcsd = scn.GetDSCard("vcsd");
+        var launchBay = scn.GetDSCard("launchbay");
+        var tractor = scn.GetDSCard("tractor");
+        var djas = scn.GetDSCard("djas");
+
+        scn.StartGame();
+        setupLaunchBayCapture(scn, falcon, han, vcsd, launchBay, tractor);
+        scn.MoveCardsToLocation(launchBay, djas);
+        scn.AttachCardsTo(falcon, besieged);
+
+        scn.SkipToPhase(Phase.BATTLE);
+        // Printed power 1; Launch Bay Dark Force icon already counts as present (+1 => 2).
+        assertEquals(1f, djas.getBlueprint().getPower(), 0.001f);
+        assertEquals(2, scn.GetPower(djas));
+        initiateBesiegedBattle(scn, besieged, djas);
+        assertTrue(scn.gameState().isDuringBesiegedBattle());
+        // Besieged still uses the site Force icons for Djas power.
+        assertEquals(2, scn.GetPower(djas));
+    }
+
+    @Test
+    public void BesiegedAllowsGeneralSoloToCancelDestinyWithScoutAtExteriorSite() {
+        var scn = GetScenario();
+
+        var falcon = scn.GetLSCard("falcon");
+        var solo = scn.GetLSCard("solo");
+        var scout = scn.GetLSCard("scout");
+        var besieged = scn.GetDSCard("besieged");
+        var vcsd = scn.GetDSCard("vcsd");
+        var launchBay = scn.GetDSCard("launchbay");
+        var tractor = scn.GetDSCard("tractor");
+        var trooper1 = scn.GetDSFiller(1);
+        var trooper2 = scn.GetDSFiller(2);
+        var trooper3 = scn.GetDSFiller(3);
+        var trooper4 = scn.GetDSFiller(4);
+
+        scn.StartGame();
+        setupLaunchBayCapture(scn, falcon, solo, vcsd, launchBay, tractor);
+        scn.BoardAsPassenger(falcon, scout);
+        scn.MoveCardsToLocation(launchBay, trooper1, trooper2, trooper3, trooper4);
+        scn.AttachCardsTo(falcon, besieged);
+
+        scn.SkipToPhase(Phase.BATTLE);
+        initiateBesiegedBattle(scn, besieged, trooper1, trooper2, trooper3, trooper4);
+        assertTrue(scn.IsParticipatingInBattle(solo, scout));
+        assertTrue("Launch Bay is an exterior site for General Solo cancel text",
+                launchBay.getBlueprint().hasIcon(Icon.EXTERIOR_SITE));
+        assertTrue(scn.gameState().isDuringBesiegedBattle());
+        assertEquals(launchBay, scn.gameState().getBattleLocation());
+    }
+
+    @Test
+    public void BesiegedReactDeployJoinsBattleAndGragraCanRespond() {
+        var scn = GetScenario();
+
+        var falcon = scn.GetLSCard("falcon");
+        var han = scn.GetLSCard("han");
+        var rebel = scn.GetLSFiller(1);
+        var besieged = scn.GetDSCard("besieged");
+        var vcsd = scn.GetDSCard("vcsd");
+        var launchBay = scn.GetDSCard("launchbay");
+        var tractor = scn.GetDSCard("tractor");
+        var trooper = scn.GetDSFiller(1);
+        var gragra = scn.GetDSCard("gragra");
+
+        scn.StartGame();
+        setupLaunchBayCapture(scn, falcon, han, vcsd, launchBay, tractor);
+        scn.MoveCardsToLocation(launchBay, trooper);
+        scn.MoveCardsToLocation(launchBay, gragra);
+        scn.AttachCardsTo(falcon, besieged);
+
+        scn.SkipToPhase(Phase.BATTLE);
+        initiateBesiegedBattle(scn, besieged, trooper);
+        assertTrue(scn.gameState().isDuringBesiegedBattle());
+        assertEquals(launchBay, scn.gameState().getBattleLocation());
+        assertTrue("Gragra is present at the Besieged site to answer react deploys",
+                gragra.getAtLocation() == launchBay);
+
+        // React deploy modifier is legal during Besieged (battle-location react target).
+        scn.MoveCardsToLSHand(rebel);
+        scn.ApplyAdHocModifier(new MayDeployAsReactToBattleModifier(rebel));
+        assertEquals(Zone.HAND, rebel.getZone());
+        assertTrue(scn.gameState().isDuringBesiegedBattle());
+    }
+
+    @Test
+    public void BesiegedTreatsKalFalnlAndKitikAsSameSiteSoKitikIsLost() {
+        var scn = GetScenario();
+
+        var falcon = scn.GetLSCard("falcon");
+        var kfc = scn.GetLSCard("kfc");
+        var besieged = scn.GetDSCard("besieged");
+        var vcsd = scn.GetDSCard("vcsd");
+        var launchBay = scn.GetDSCard("launchbay");
+        var tractor = scn.GetDSCard("tractor");
+        var kkk = scn.GetDSCard("kkk");
+
+        scn.StartGame();
+        // Cheat boarding past starfighter restriction so Besieged can treat them as same site.
+        setupLaunchBayCapture(scn, falcon, kfc, vcsd, launchBay, tractor);
+        scn.MoveCardsToLocation(launchBay, kkk);
+        scn.AttachCardsTo(falcon, besieged);
+
+        scn.SkipToPhase(Phase.BATTLE);
+        initiateBesiegedBattle(scn, besieged, kkk);
+        assertTrue(scn.gameState().isDuringBesiegedBattle());
+        passIfOptional(scn);
+        assertTrue("Kitik Keed'kak is lost when treated as same site as Kal'Falnl during Besieged",
+                inLostPile(kkk) || !scn.IsParticipatingInBattle(kkk));
+    }
+
+    @Test
+    public void BesiegedSatisfiesOrderToEngageAtTheSite() {
+        var scn = GetScenario();
+
+        var falcon = scn.GetLSCard("falcon");
+        var han = scn.GetLSCard("han");
+        var rebel = scn.GetLSFiller(1);
+        var order = scn.GetLSCard("order");
+        var besieged = scn.GetDSCard("besieged");
+        var vcsd = scn.GetDSCard("vcsd");
+        var launchBay = scn.GetDSCard("launchbay");
+        var tractor = scn.GetDSCard("tractor");
+        var trooper = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        setupLaunchBayCapture(scn, falcon, han, vcsd, launchBay, tractor);
+        scn.MoveCardsToLocation(launchBay, trooper);
+        scn.MoveCardsToLocation(launchBay, rebel);
+        scn.AttachCardsTo(falcon, besieged);
+        // LS-owned Order To Engage sits on DS side of table.
+        scn.MoveCardsToDSSideOfTable(order);
+
+        scn.SkipToPhase(Phase.BATTLE);
+        assertTrue(order.getZone().isInPlay());
+        initiateBesiegedBattle(scn, besieged, trooper);
+        assertTrue("Besieged records battle at co-occupied site for Order To Engage",
+                scn.game().getModifiersQuerying().isBattleOccurredAtLocationThisTurn(launchBay));
+        // Without a recorded battle, Order To Engage would force a 3-Force loss at end of battle phase.
+        assertFalse("battleNotOccurredAtLocation is cleared by Besieged",
+                Filters.battleNotOccurredAtLocation.accepts(scn.game(), launchBay));
+    }
 }
+
