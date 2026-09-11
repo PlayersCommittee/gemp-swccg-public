@@ -1,4 +1,4 @@
-﻿package com.gempukku.swccgo.cards.set5.light;
+package com.gempukku.swccgo.cards.set5.light;
 
 import com.gempukku.swccgo.cards.AbstractNormalEffect;
 import com.gempukku.swccgo.cards.conditions.PlayCardOptionIdCondition;
