@@ -23,27 +23,25 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * VHD tests for 5_53 Innocent Scoundrel.
- * Doc Action1 (USED weapon retarget/lose 2) and Action2 (LOST cancel Effect on Han/your Lando).
  */
 public class Card_5_53_Tests {
 
 	protected VirtualTableScenario GetScenario() {
 		return new VirtualTableScenario(
 				new HashMap<>() {{
-					put("scoundrel", "5_053");
-					put("han", "1_011");
-					put("lando", "5_005");
-					put("luke", "1_019");
-					put("proficiency", "1_054");
-					put("rycar", "1_063");
-					put("dining", "5_168");
-					
+					put("scoundrel", "5_53");
+					put("han", "1_11");
+					put("lando", "5_5");
+					put("luke", "1_19");
+					put("proficiency", "1_54");
+					put("saber", "1_155");
+					put("rycar", "1_63");
 				}},
 				new HashMap<>() {{
+					put("dining", "5_168");
 					put("vader", "1_168");
-					put("trooper", "1_194");
 					put("dsBlaster", "1_312");
-					put("dsLando", "5_099");
+					put("dsLando", "5_99");
 					put("platform", "5_169");
 				}},
 				20,
@@ -105,18 +103,18 @@ public class Card_5_53_Tests {
 		var scoundrel = scn.GetLSCard("scoundrel");
 		var han = scn.GetLSCard("han");
 		var proficiency = scn.GetLSCard("proficiency");
-		var dining = scn.GetLSCard("dining");
+		var dining = scn.GetDSCard("dining");
 
 		scn.StartGame();
 		scn.MoveCardsToLSHand(scoundrel);
 		scn.MoveLocationToTable(dining);
 		scn.MoveCardsToLocation(dining, han);
-		scn.AttachCardsTo(han, proficiency);
+		scn.AttachCardsTo(han, scn.GetLSCard("saber"), proficiency);
 
-		scn.SkipToPhase(Phase.CONTROL);
+		scn.SkipToLSTurn(Phase.CONTROL);
 		assertTrue("LOST should be playable vs non-Alter-immune Effect on Han",
-				scn.LSCardPlayAvailable(scoundrel));
-		scn.LSPlayCard(scoundrel);
+				scn.LSPlayLostInterruptAvailable(scoundrel));
+		scn.LSPlayLostInterrupt(scoundrel);
 		scn.LSChooseCard(proficiency);
 		SafePassOptionalResponses(scn);
 
@@ -132,17 +130,17 @@ public class Card_5_53_Tests {
 		var scoundrel = scn.GetLSCard("scoundrel");
 		var lando = scn.GetLSCard("lando");
 		var proficiency = scn.GetLSCard("proficiency");
-		var dining = scn.GetLSCard("dining");
+		var dining = scn.GetDSCard("dining");
 
 		scn.StartGame();
 		scn.MoveCardsToLSHand(scoundrel);
 		scn.MoveLocationToTable(dining);
 		scn.MoveCardsToLocation(dining, lando);
-		scn.AttachCardsTo(lando, proficiency);
+		scn.AttachCardsTo(lando, scn.GetLSCard("saber"), proficiency);
 
-		scn.SkipToPhase(Phase.CONTROL);
-		assertTrue(scn.LSCardPlayAvailable(scoundrel));
-		scn.LSPlayCard(scoundrel);
+		scn.SkipToLSTurn(Phase.CONTROL);
+		assertTrue(scn.LSPlayLostInterruptAvailable(scoundrel));
+		scn.LSPlayLostInterrupt(scoundrel);
 		scn.LSChooseCard(proficiency);
 		SafePassOptionalResponses(scn);
 
@@ -155,7 +153,7 @@ public class Card_5_53_Tests {
 		var scoundrel = scn.GetLSCard("scoundrel");
 		var han = scn.GetLSCard("han");
 		var rycar = scn.GetLSCard("rycar");
-		var dining = scn.GetLSCard("dining");
+		var dining = scn.GetDSCard("dining");
 
 		scn.StartGame();
 		scn.MoveCardsToLSHand(scoundrel);
@@ -163,9 +161,9 @@ public class Card_5_53_Tests {
 		scn.MoveCardsToLocation(dining, han);
 		scn.AttachCardsTo(han, rycar);
 
-		scn.SkipToPhase(Phase.CONTROL);
+		scn.SkipToLSTurn(Phase.CONTROL);
 		assertFalse("Cannot cancel Effect immune to Alter",
-				scn.LSCardPlayAvailable(scoundrel));
+				scn.LSPlayLostInterruptAvailable(scoundrel));
 	}
 
 	@Test
@@ -174,17 +172,17 @@ public class Card_5_53_Tests {
 		var scoundrel = scn.GetLSCard("scoundrel");
 		var proficiency = scn.GetLSCard("proficiency");
 		var dsLando = scn.GetDSCard("dsLando");
-		var dining = scn.GetLSCard("dining");
+		var dining = scn.GetDSCard("dining");
 
 		scn.StartGame();
 		scn.MoveCardsToLSHand(scoundrel);
 		scn.MoveLocationToTable(dining);
 		scn.MoveCardsToLocation(dining, dsLando);
-		scn.AttachCardsTo(dsLando, proficiency);
+		scn.AttachCardsTo(dsLando, scn.GetLSCard("saber"), proficiency);
 
-		scn.SkipToPhase(Phase.CONTROL);
+		scn.SkipToLSTurn(Phase.CONTROL);
 		assertFalse("Cannot cancel Effect on opponent's Lando",
-				scn.LSCardPlayAvailable(scoundrel));
+				scn.LSPlayLostInterruptAvailable(scoundrel));
 	}
 
 	@Test
@@ -193,17 +191,17 @@ public class Card_5_53_Tests {
 		var scoundrel = scn.GetLSCard("scoundrel");
 		var luke = scn.GetLSCard("luke");
 		var proficiency = scn.GetLSCard("proficiency");
-		var dining = scn.GetLSCard("dining");
+		var dining = scn.GetDSCard("dining");
 
 		scn.StartGame();
 		scn.MoveCardsToLSHand(scoundrel);
 		scn.MoveLocationToTable(dining);
 		scn.MoveCardsToLocation(dining, luke);
-		scn.AttachCardsTo(luke, proficiency);
+		scn.AttachCardsTo(luke, scn.GetLSCard("saber"), proficiency);
 
-		scn.SkipToPhase(Phase.CONTROL);
+		scn.SkipToLSTurn(Phase.CONTROL);
 		assertFalse("Cannot cancel Effect on non-Han / non-your-Lando",
-				scn.LSCardPlayAvailable(scoundrel));
+				scn.LSPlayLostInterruptAvailable(scoundrel));
 	}
 
 	@Test
@@ -211,7 +209,7 @@ public class Card_5_53_Tests {
 		var scn = GetScenario();
 		var scoundrel = scn.GetLSCard("scoundrel");
 		var han = scn.GetLSCard("han");
-		var dining = scn.GetLSCard("dining");
+		var dining = scn.GetDSCard("dining");
 		var vader = scn.GetDSCard("vader");
 		var dsBlaster = scn.GetDSCard("dsBlaster");
 
@@ -230,7 +228,6 @@ public class Card_5_53_Tests {
 		scn.DSUseCardAction(dsBlaster);
 		scn.DSChooseCard(han);
 
-		// During Fire optional responses, LS may play Innocent Scoundrel
 		boolean saw = false;
 		for (int i = 0; i < 20; i++) {
 			var decision = scn.GetCurrentDecision();
@@ -241,7 +238,6 @@ public class Card_5_53_Tests {
 					int dsForceBefore = scn.GetDSLifeForceRemaining();
 					scn.LSPlayCard(scoundrel);
 					SafePassOptionalResponses(scn);
-					// Forced lose 2 (sole valid target — no retarget)
 					try { scn.DSPayRemainingForceLossFromReserveDeck(); } catch (RuntimeException ignored) {}
 					assertTrue("Scoundrel USED goes to Used Pile",
 							scoundrel.getZone() == Zone.USED_PILE || scoundrel.getZone() == Zone.TOP_OF_USED_PILE);
@@ -262,4 +258,3 @@ public class Card_5_53_Tests {
 		assertTrue("Innocent Scoundrel should be offered when your gambler is targeted", saw);
 	}
 }
-

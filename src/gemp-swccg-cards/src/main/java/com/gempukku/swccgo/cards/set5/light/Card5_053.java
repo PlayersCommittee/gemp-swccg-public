@@ -22,7 +22,7 @@ import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
-import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 
@@ -82,10 +82,9 @@ public class Card5_053 extends AbstractUsedOrLostInterrupt {
                                                         if (index == 0) {
                                                             game.getGameState().sendMessage(opponent + " chooses to select a new target");
                                                             action.appendEffect(
-                                                                    new TargetCardOnTableEffect(action, opponent, "Select new target for weapon", retargetFilter) {
+                                                                    new ChooseCardOnTableEffect(action, opponent, "Select new target for weapon", retargetFilter) {
                                                                         @Override
-                                                                        protected void cardTargeted(final int targetGroupId, PhysicalCard newTarget) {
-                                                                            action.addAnimationGroup(newTarget);
+                                                                        protected void cardSelected(PhysicalCard newTarget) {
                                                                             action.appendEffect(
                                                                                     new RetargetWeaponEffect(action, oldTarget, newTarget));
                                                                         }
