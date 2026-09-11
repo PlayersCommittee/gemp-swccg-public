@@ -51914,6 +51914,33 @@
     ]
   },
   {
+    "cardId": "5_13",
+    "title": "Cyborg Construct",
+    "slug": "cyborg-construct",
+    "slugWithSetName": "cyborg-construct-cloud-city",
+    "side": "LIGHT",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "CLOUD_CITY",
+    "rarity": "U",
+    "cardCategory": "DEVICE",
+    "cardTypes": [
+      "DEVICE"
+    ],
+    "lore": "Biotech's latest model, the Aj^g, boasts greater storage capacity than all other models combined. Advertised as, 'Artificial intelligence worth shaving your head for.'",
+    "gameText": "Deploy on an alien of ability < 3. Each turn, you may 'store' one card from hand face-down here. Holds up to three cards (six on Lobot). You may play or deploy cards from here as if from hand. Place stored cards in Used Pile if device lost or removed from character.",
+    "destiny": 4,
+    "icons": [
+      {
+        "icon": "CLOUD_CITY",
+        "count": 1
+      },
+      {
+        "icon": "DEVICE",
+        "count": 1
+      }
+    ]
+  },
+  {
     "cardId": "5_14",
     "title": "Lando's Wrist Comlink",
     "slug": "landos-wrist-comlink",
