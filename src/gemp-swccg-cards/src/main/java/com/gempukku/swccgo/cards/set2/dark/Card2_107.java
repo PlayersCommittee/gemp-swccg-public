@@ -66,14 +66,17 @@ public class Card2_107 extends AbstractDroid {
             if (!lightPlayer.equals(self.getOwner())) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                // Light Side performs the steal so ABOUT_TO_BE_STOLEN / Oh, Switch Off can respond
+                action.setPerformingPlayer(lightPlayer);
                 action.setText("Choose whether to 'steal'");
-                action.setActionMsg("Have " + lightPlayer + " choose whether to 'steal'" + GameUtils.getCardLink(self));
-                // Perform result(s)
+                action.setActionMsg("Have " + lightPlayer + " choose whether to 'steal' " + GameUtils.getCardLink(self));
+                // Yes/No then steal; Oh, Switch Off cancels via ABOUT_TO_BE_STOLEN (and TO_BE_STOLEN targeting if present)
                 action.appendEffect(
                         new PlayoutDecisionEffect(action, lightPlayer,
                                 new YesNoDecision("Do you want to 'steal' " + GameUtils.getCardLink(self) + "?") {
                                     @Override
                                     protected void yes() {
+                                        game.getGameState().sendMessage(lightPlayer + " chooses to 'steal' " + GameUtils.getCardLink(self));
                                         action.appendEffect(
                                                 new StealCardToLocationEffect(action, lightPlayer, self));
                                     }
@@ -82,7 +85,6 @@ public class Card2_107 extends AbstractDroid {
                                     protected void no() {
                                         game.getGameState().sendMessage(lightPlayer + " chooses not to 'steal' " + GameUtils.getCardLink(self));
                                     }
-
                                 }
                         )
                 );
