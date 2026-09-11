@@ -97,7 +97,7 @@ public class Card_6_046_Tests {
 				scn.PassAllResponses();
 				deployed = garindan.isUndercover();
 			}
-		} catch (RuntimeException | NullPointerException | IndexOutOfBoundsException ex) {
+		} catch (RuntimeException ex) {
 			deployed = false;
 		}
 
@@ -112,6 +112,49 @@ public class Card_6_046_Tests {
 		assertTrue("Garindan should be undercover with Undercover (2_129) involved", garindan.isUndercover());
 	}
 
+
+	/** Pass pre-draw windows, take up to maxSubtracts Yarkora -1 optionals, then finish destiny. */
+	private int YarkoraTakeSubtractsAndFinishDestiny(VirtualTableScenario scn, int maxSubtracts) {
+		scn.PassResponses("COST_TO_DRAW_DESTINY_CARD");
+		scn.PassResponses("ABOUT_TO_DRAW_DESTINY_CARD");
+		int taken = 0;
+		for (int i = 0; i < 40 && taken < maxSubtracts; i++) {
+			// Prefer LS subtract whenever available (even if DS is current decider)
+			if (scn.LSAnyDecisionsAvailable()) {
+				java.util.List<String> actions = scn.LSGetADParamAsList("actionText");
+				boolean hasSubtract = actions != null && actions.stream().anyMatch(
+						a -> a != null && a.toLowerCase().contains("subtract 1"));
+				if (hasSubtract) {
+					scn.LSChooseAction("Subtract 1");
+					taken++;
+					continue;
+				}
+			}
+			var decision = scn.GetCurrentDecision();
+			if (decision == null) {
+				break;
+			}
+			String text = decision.getText() != null ? decision.getText() : "";
+			String lower = text.toLowerCase();
+			// Pass the non-LS (or LS-without-subtract) player one at a time — do not PassResponses both
+			if (lower.contains("destiny_drawn") || lower.contains("optional") || lower.contains("about_to_draw") || lower.contains("cost_to_draw")) {
+				String decider = scn.GetDecidingPlayer();
+				if (decider != null) {
+					scn.PlayerPass(decider);
+				} else {
+					break;
+				}
+				continue;
+			}
+			scn.PassResponses();
+		}
+		scn.PassResponses("DESTINY_DRAWN");
+		scn.PassResponses("COMPLETE_DESTINY_DRAW");
+		scn.PassResponses("DRAWING_DESTINY_COMPLETE");
+		SafePassOptionalResponses(scn);
+		scn.PassAllResponses();
+		return taken;
+	}
 	@Test
 	public void YarkoraStatsAndKeywordsAreCorrect() {
 		var scn = GetScenario();
@@ -230,29 +273,8 @@ public class Card_6_046_Tests {
 		scn.LSUseCardAction(yarkora, "Break a spy's cover");
 		scn.LSChooseCard(garindan);
 
-		// Destiny drawn; take both subtract optionals
-		for (int i = 0; i < 10; i++) {
-			var decision = scn.GetCurrentDecision();
-			if (decision == null) {
-				break;
-			}
-			String text = decision.getText() != null ? decision.getText() : "";
-			if (text.toLowerCase().contains("subtract 1")) {
-				scn.LSChooseAction("Subtract 1");
-			} else if (text.toLowerCase().contains("optional")) {
-				// Prefer subtract if listed in actions; otherwise pass after both used
-				try {
-					scn.LSChooseAction("Subtract 1");
-				} catch (AssertionError | RuntimeException ex) {
-					scn.PassResponses("optional");
-				}
-			} else {
-				break;
-			}
-		}
-		SafePassOptionalResponses(scn);
-		scn.PassAllResponses();
-
+		int taken = YarkoraTakeSubtractsAndFinishDestiny(scn, 2);
+		assertTrue("Expected two Yarkora subtract optionals, took " + taken, taken >= 2);
 		assertFalse("Two Yarkoras -1 each should make destiny 3 become 1 and break cover",
 				garindan.isUndercover());
 	}
@@ -274,32 +296,8 @@ public class Card_6_046_Tests {
 		scn.LSUseCardAction(yarkora, "Break a spy's cover");
 		scn.LSChooseCard(garindan);
 
-		boolean subtracted = false;
-		for (int i = 0; i < 10; i++) {
-			var decision = scn.GetCurrentDecision();
-			if (decision == null) {
-				break;
-			}
-			String text = decision.getText() != null ? decision.getText() : "";
-			if (text.toLowerCase().contains("subtract 1")) {
-				scn.LSChooseAction("Subtract 1");
-				subtracted = true;
-				break;
-			} else if (text.toLowerCase().contains("optional")) {
-				try {
-					scn.LSChooseAction("Subtract 1");
-					subtracted = true;
-					break;
-				} catch (AssertionError | RuntimeException ex) {
-					scn.PassResponses("optional");
-				}
-			} else {
-				break;
-			}
-		}
-		assertTrue("At least one Yarkora species character should offer subtract", subtracted);
-		SafePassOptionalResponses(scn);
-		scn.PassAllResponses();
+		int taken = YarkoraTakeSubtractsAndFinishDestiny(scn, 1);
+		assertTrue("Saelt and/or Yarkora should offer subtract, took " + taken, taken >= 1);
 		assertFalse(garindan.isUndercover());
 	}
 }
