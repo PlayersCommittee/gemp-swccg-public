@@ -4680,6 +4680,15 @@ public class GameConditions {
                 && hasHand(game, player);
     }
 
+    // Checks if player can bury mines at an exterior planet site (Appendix C Mining Droid Rules).
+    public static boolean canBuryMinesAtLocation(String player, SwccgGame game, PhysicalCard self) {
+        return self.getZone() == Zone.LOCATIONS
+                && Filters.exterior_planet_site.accepts(game, self)
+                && isDuringYourPhase(game, player, Phase.DEPLOY)
+                && hasHand(game, player)
+                && Filters.canSpot(game, self, Filters.and(Filters.your(player), Filters.mining_droid, Filters.present(self)));
+    }
+
     // Checks if player can flip a 'bluff card' at location.
     public static boolean canFlipBluffCardAtLocation(String player, SwccgGame game, PhysicalCard self) {
         return self.getZone() == Zone.LOCATIONS
