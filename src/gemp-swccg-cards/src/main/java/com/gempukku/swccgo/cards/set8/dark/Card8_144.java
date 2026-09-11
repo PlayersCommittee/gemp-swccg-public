@@ -15,7 +15,6 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.actions.SubAction;
-import com.gempukku.swccgo.logic.effects.PutCardFromHandOnReserveDeckEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.ShowCardOnScreenEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardEffect;
@@ -120,17 +119,26 @@ public class Card8_144 extends AbstractUsedInterrupt {
         }
 
         private void appendPutRemainingBackOnTop(final SubAction subAction) {
-            List<PhysicalCard> remaining = new ArrayList<PhysicalCard>();
-            for (PhysicalCard card : _revealedInOrder) {
-                if (card.getZone() == Zone.HAND && _playerId.equals(card.getOwner())) {
-                    remaining.add(card);
-                }
-            }
-            // Place last remaining first so earliest remaining ends on top (same relative order).
-            for (int i = remaining.size() - 1; i >= 0; --i) {
-                subAction.appendEffect(
-                        new PutCardFromHandOnReserveDeckEffect(subAction, _playerId, Filters.sameCardId(remaining.get(i)), true));
-            }
+            subAction.appendEffect(
+                    new PassthruEffect(subAction) {
+                        @Override
+                        protected void doPlayEffect(SwccgGame game) {
+                            List<PhysicalCard> remaining = new ArrayList<PhysicalCard>();
+                            for (PhysicalCard card : _revealedInOrder) {
+                                if (card.getZone() == Zone.HAND && _playerId.equals(card.getOwner())) {
+                                    remaining.add(card);
+                                }
+                            }
+                            // Place last remaining first so earliest remaining ends on top (same relative order).
+                            for (int i = remaining.size() - 1; i >= 0; --i) {
+                                PhysicalCard card = remaining.get(i);
+                                game.getGameState().removeCardsFromZone(java.util.Collections.singleton(card));
+                                game.getGameState().addCardToTopOfZone(card, Zone.RESERVE_DECK, _playerId);
+                                game.getGameState().sendMessage(_playerId + " puts " + com.gempukku.swccgo.logic.GameUtils.getCardLink(card) + " on top of Reserve Deck");
+                            }
+                        }
+                    }
+            );
         }
 
         private StandardEffect getChooseAndDeployEffect(final SubAction subAction) {
@@ -138,8 +146,7 @@ public class Card8_144 extends AbstractUsedInterrupt {
                 @Override
                 protected void doPlayEffect(final SwccgGame game) {
                     Collection<PhysicalCard> deployable = Filters.filter(_revealedInOrder, game,
-                            Filters.and(Filters.inHand(_playerId), Filters.or(Filters.scout, Filters.speeder_bike),
-                                    Filters.deployableToLocation(_source, Filters.battleLocation, true, 0)));
+                            Filters.and(Filters.inHand(_playerId), Filters.or(Filters.scout, Filters.speeder_bike)));
                     if (deployable.isEmpty()) {
                         appendPutRemainingBackOnTop(subAction);
                         return;
