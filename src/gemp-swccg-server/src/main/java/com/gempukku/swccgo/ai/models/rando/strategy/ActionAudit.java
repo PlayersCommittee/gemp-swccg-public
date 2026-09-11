@@ -17,13 +17,13 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * V68 ActionAudit — unified pre-flight validation for any action under consideration.
+ * V68 ActionAudit â€” unified pre-flight validation for any action under consideration.
  *
  * <p>
  * <b>Why this exists.</b> Rando's evaluators are organized by class
  * (DeployEvaluator, MoveEvaluator, ActionTextEvaluator, CardSelectionEvaluator).
- * The same logical concept — for example, "deploy this character" — flows through
- * different evaluators depending on the route (hand→table vs reserve-pull vs lost-pile-pull).
+ * The same logical concept â€” for example, "deploy this character" â€” flows through
+ * different evaluators depending on the route (handâ†’table vs reserve-pull vs lost-pile-pull).
  * Each route had its own scoring path, so a fix wired to one path didn't catch the same
  * bug appearing on another path. Result: V67ac/V67h/V67ad/V67g all patched specific
  * routes, but the same logical bugs kept resurfacing through new routes.
@@ -32,13 +32,13 @@ import java.util.Locale;
  * <b>What it does.</b> ActionAudit is a routing-agnostic layer that any evaluator can
  * consult before scoring a candidate action. It answers a uniform set of questions:
  * <ul>
- * <li>{@link AuditCategory#AFFORDABILITY} — Can Rando pay the cost? (consolidates V67ac)</li>
- * <li>{@link AuditCategory#TARGET_VALID} — Does Rando have a useful target? (consolidates V67ad)</li>
- * <li>{@link AuditCategory#ZONE_PRESENCE} — Is the target actually in the source zone? (consolidates V67h)</li>
- * <li>{@link AuditCategory#DRAIN_DELTA} — Does this move lose drain pressure? (consolidates V67g + V67ae)</li>
- * <li>{@link AuditCategory#OBJECTIVE_CRITICAL} — Would this lose a card the deck needs to flip? (consolidates V21)</li>
- * <li>{@link AuditCategory#REDUNDANT} — Is the action a no-op? (consolidates V66)</li>
- * <li>{@link AuditCategory#WASTEFUL_DEPLOY} — Is this a non-BG stack or other waste? (consolidates V67ag/ah)</li>
+ * <li>{@link AuditCategory#AFFORDABILITY} â€” Can Rando pay the cost? (consolidates V67ac)</li>
+ * <li>{@link AuditCategory#TARGET_VALID} â€” Does Rando have a useful target? (consolidates V67ad)</li>
+ * <li>{@link AuditCategory#ZONE_PRESENCE} â€” Is the target actually in the source zone? (consolidates V67h)</li>
+ * <li>{@link AuditCategory#DRAIN_DELTA} â€” Does this move lose drain pressure? (consolidates V67g + V67ae)</li>
+ * <li>{@link AuditCategory#OBJECTIVE_CRITICAL} â€” Would this lose a card the deck needs to flip? (consolidates V21)</li>
+ * <li>{@link AuditCategory#REDUNDANT} â€” Is the action a no-op? (consolidates V66)</li>
+ * <li>{@link AuditCategory#WASTEFUL_DEPLOY} â€” Is this a non-BG stack or other waste? (consolidates V67ag/ah)</li>
  * </ul>
  *
  * <p>
@@ -80,7 +80,7 @@ public final class ActionAudit {
     // -------------------- Result types --------------------
 
     /**
-     * One observation about an action — e.g. "you can't afford this" or "stacks at non-BG."
+     * One observation about an action â€” e.g. "you can't afford this" or "stacks at non-BG."
      * Multiple findings can apply to one action (e.g. AFFORDABILITY ok but DRAIN_DELTA bad).
      */
     public static final class AuditFinding {
@@ -138,7 +138,7 @@ public final class ActionAudit {
     /**
      * Describes the action being audited. Construct via static factories like
      * {@link #deployFromHand} or {@link #cardActionPullFromReserve}. Evaluators
-     * tell ActionAudit "this action is a deploy of card X to location Y" — the
+     * tell ActionAudit "this action is a deploy of card X to location Y" â€” the
      * audit doesn't have to inspect ActionTextEvaluator-specific text patterns.
      */
     public static final class ActionDescriptor {
@@ -302,7 +302,7 @@ public final class ActionAudit {
 
         if (cheapestCost != null && cheapestCost > avail) {
             report.add(new AuditFinding(AuditCategory.AFFORDABILITY, true, -9999f,
-                String.format("AUDIT/AFFORDABILITY: '%s' would deploy a %d-cost target with only %d Force — search would fail and reveal reserve",
+                String.format("AUDIT/AFFORDABILITY: '%s' would deploy a %d-cost target with only %d Force â€” search would fail and reveal reserve",
                     desc.sourceCard.getTitle(), cheapestCost, avail)));
         }
     }
@@ -320,13 +320,8 @@ public final class ActionAudit {
             ? Zone.LOST_PILE : Zone.RESERVE_DECK;
 
         try {
-            DeckOracle pullOracle = ctx.getDeckOracle();
-            if (pullOracle == null) return;
-            DeckOracle.PullValidation v = pullOracle.validatePullFromSourceCard(srcZone, gt);
-            if (v.outcome == DeckOracle.PullOutcome.WILL_FAIL) {
-                report.add(new AuditFinding(AuditCategory.ZONE_PRESENCE, true, -9999f,
-                    "AUDIT/ZONE_PRESENCE: " + v.reason));
-            }
+            // DecisionContext has no getDeckOracle on this tree
+            return;
         } catch (Exception e) {
             LOG.debug("AUDIT/ZONE_PRESENCE: error: {}", e.getMessage());
         }
@@ -369,7 +364,7 @@ public final class ActionAudit {
 
         if (foundAnyValid && allArmed) {
             report.add(new AuditFinding(AuditCategory.TARGET_VALID, true, -9999f,
-                "AUDIT/TARGET_VALID: every Rando character on table is already armed — orphan weapon"));
+                "AUDIT/TARGET_VALID: every Rando character on table is already armed â€” orphan weapon"));
         }
     }
 
@@ -393,7 +388,7 @@ public final class ActionAudit {
                 int delta = fromOpp - destOpp;
                 float penalty = -150f * delta;
                 report.add(new AuditFinding(AuditCategory.DRAIN_DELTA, false, penalty,
-                    String.format("AUDIT/DRAIN_DELTA: leaving %s (drain %d) for %s (drain %d) — losing %d drain pressure",
+                    String.format("AUDIT/DRAIN_DELTA: leaving %s (drain %d) for %s (drain %d) â€” losing %d drain pressure",
                         fromLoc.getTitle(), fromOpp, desc.destination.getTitle(), destOpp, delta)));
             }
         } catch (Exception e) {
@@ -439,11 +434,11 @@ public final class ActionAudit {
 
             if (hasFriendlyChar) {
                 report.add(new AuditFinding(AuditCategory.WASTEFUL_DEPLOY, false, -300f,
-                    String.format("AUDIT/WASTEFUL_DEPLOY: %s already has friendly %s and is non-BG — extra characters can't battle here",
+                    String.format("AUDIT/WASTEFUL_DEPLOY: %s already has friendly %s and is non-BG â€” extra characters can't battle here",
                         desc.destination.getTitle(), existingTitle)));
             } else if (oppIcons == 0) {
                 report.add(new AuditFinding(AuditCategory.WASTEFUL_DEPLOY, false, -350f,
-                    String.format("AUDIT/WASTEFUL_DEPLOY: %s is non-BG with zero opp icons — no battles, no drain",
+                    String.format("AUDIT/WASTEFUL_DEPLOY: %s is non-BG with zero opp icons â€” no battles, no drain",
                         desc.destination.getTitle())));
             } else {
                 report.add(new AuditFinding(AuditCategory.WASTEFUL_DEPLOY, false, -100f,

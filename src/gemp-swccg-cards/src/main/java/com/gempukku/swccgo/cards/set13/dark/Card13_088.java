@@ -133,6 +133,8 @@ public class Card13_088 extends AbstractUsedInterrupt {
                         }
                     }
             );
+            // setText/allowResponses reset subtype from blueprint for pure USED cards — re-apply last
+            action.setPlayedAsSubtype(CardSubtype.LOST);
             return Collections.singletonList(action);
         }
         return null;
