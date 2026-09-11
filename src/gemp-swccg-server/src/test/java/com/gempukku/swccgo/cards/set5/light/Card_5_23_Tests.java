@@ -222,7 +222,7 @@ public class Card_5_23_Tests {
 		assertEquals(0, scn.GetDSForcePileCount());
 		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
 
-		// Simulate Slip Sliding Away AR: Force Pile empty + FA on frozen top → unfreeze, FA to Force bottom
+		// Simulate Slip Sliding Away AR: Force Pile empty + FA on frozen top â†’ unfreeze, FA to Force bottom
 		var action = new com.gempukku.swccgo.logic.actions.SystemQueueAction();
 		action.setPerformingPlayer(scn.DS);
 		new com.gempukku.swccgo.logic.effects.PlaceTopCardFromCardPileOnBottomOfCardPileEffect(
@@ -242,7 +242,7 @@ public class Card_5_23_Tests {
 
 		scn.StartGame();
 		scn.MoveCardsToLSHand(frozenAssets);
-		// Skip first — activation during SkipToLSTurn would refill Force Pile
+		// Skip first â€” activation during SkipToLSTurn would refill Force Pile
 		scn.SkipToLSTurn(Phase.DEPLOY);
 		// Drain DS Force Pile empty after skip (AR: may still place under empty pile)
 		while (scn.GetDSForcePileCount() > 0) {
@@ -284,7 +284,7 @@ public class Card_5_23_Tests {
 		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
 		assertEquals(0, scn.game().getModifiersQuerying().getForceAvailableToUse(scn.gameState(), scn.DS));
 
-		// Activate usable Force (Force Pile only — FA stays on FROZEN_PILE top)
+		// Activate usable Force (Force Pile only â€” FA stays on FROZEN_PILE top)
 		scn.DSActivateForceCheat(2);
 		assertEquals(2, scn.game().getModifiersQuerying().getForceAvailableToUse(scn.gameState(), scn.DS));
 		assertEquals(frozenExpected, scn.gameState().getFrozenForceCount(scn.DS));
@@ -297,7 +297,7 @@ public class Card_5_23_Tests {
 		var topFrozenForce = scn.gameState().getTopFrozenForce(scn.DS);
 		assertTrue(topFrozenForce != null && !"Frozen Assets".equals(topFrozenForce.getTitle()));
 
-		// Usable empty again — frozen Force (beneath FA) becomes loseable life force
+		// Usable empty again â€” frozen Force (beneath FA) becomes loseable life force
 		scn.DSUseForceCheat(usableBefore);
 		assertEquals(0, scn.game().getModifiersQuerying().getForceAvailableToUse(scn.gameState(), scn.DS));
 		assertEquals(frozenBefore, scn.gameState().getFrozenForceCount(scn.DS));
@@ -305,6 +305,7 @@ public class Card_5_23_Tests {
 		assertEquals(topFrozenForce, scn.gameState().getTopFrozenForce(scn.DS));
 	}
 
+	@Test
 	public void ForcePileModeFaStaysOnFrozenTopNotInForcePile() {
 		var scn = GetScenario();
 		var frozenAssets = scn.GetLSCard("frozenAssets");
@@ -320,7 +321,7 @@ public class Card_5_23_Tests {
 		scn.LSPlayCard(frozenAssets, "Force Pile");
 		scn.PassAllResponses();
 
-		// Activate Force — FA remains top of FROZEN_PILE, never enters Force Pile
+		// Activate Force â€” FA remains top of FROZEN_PILE, never enters Force Pile
 		scn.DSActivateForceCheat(3);
 		assertEquals(3, scn.GetDSForcePileCount());
 		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
@@ -363,13 +364,37 @@ public class Card_5_23_Tests {
 
 	@Test
 	public void ForcePileModeBeggarMayNotUseFrozenForce() {
-		var scn = GetScenario();
+		// Beggar needs exterior Tatooine (DS Marketplace) + MayUseOpponentsForce active
+		var scn = new VirtualTableScenario(
+				new HashMap<>() {{
+					put("frozenAssets", "5_23");
+					put("beggar", "1_44");
+					put("luke", "1_19");
+					put("han", "1_11");
+					put("leia", "1_17");
+				}},
+				new HashMap<>() {{
+					put("boba", "5_91");
+					put("vader", "1_168");
+				}},
+				20,
+				20,
+				StartingSetup.DefaultLSGroundLocation,
+				StartingSetup.DefaultDSGroundLocation,
+				StartingSetup.NoLSStartingInterrupts,
+				StartingSetup.NoDSStartingInterrupts,
+				StartingSetup.NoLSShields,
+				StartingSetup.NoDSShields,
+				VirtualTableScenario.Open
+		);
 		var frozenAssets = scn.GetLSCard("frozenAssets");
+		var beggar = scn.GetLSCard("beggar");
 		var vader = scn.GetDSCard("vader");
 		var boba = scn.GetDSCard("boba");
 		var luke = scn.GetLSCard("luke");
 
 		scn.StartGame();
+		scn.AttachCardsTo(scn.GetDSStartingLocation(), beggar);
 		scn.MoveCardsToLSHand(frozenAssets);
 		scn.MoveCardsToTopOfDSForcePile(vader, boba, luke);
 
@@ -390,6 +415,7 @@ public class Card_5_23_Tests {
 		assertEquals(frozenExpected, scn.gameState().getFrozenForceCount(scn.DS));
 	}
 
+	@Test
 	public void ForcePileModeGameStatsExposeFrozenAndUsableForSandwichUi() {
 		var scn = GetScenario();
 		var frozenAssets = scn.GetLSCard("frozenAssets");
