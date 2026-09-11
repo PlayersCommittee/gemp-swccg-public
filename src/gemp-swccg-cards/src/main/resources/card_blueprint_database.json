@@ -104393,6 +104393,34 @@
     ]
   },
   {
+    "cardId": "5_52",
+    "title": "Impressive, Most Impressive",
+    "slug": "impressive-most-impressive",
+    "slugWithSetName": "impressive-most-impressive-cloud-city",
+    "side": "LIGHT",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "CLOUD_CITY",
+    "rarity": "R",
+    "cardCategory": "INTERRUPT",
+    "cardTypes": [
+      "INTERRUPT"
+    ],
+    "cardSubtype": "LOST",
+    "lore": "'Obi-Wan has taught you well.'",
+    "gameText": "If opponent just attempted to 'freeze' a character using Carbon-Freezing or All Too Easy, draw destiny. Add character's ability. If total destiny > 7, effect canceled. Character released (if captive) and 'hides' (may not participate in battle) for remainder of turn.",
+    "destiny": 6,
+    "icons": [
+      {
+        "icon": "CLOUD_CITY",
+        "count": 1
+      },
+      {
+        "icon": "INTERRUPT",
+        "count": 1
+      }
+    ]
+  },
+  {
     "cardId": "5_54",
     "title": "Into The Ventilation Shaft, Lefty",
     "slug": "into-the-ventilation-shaft-lefty",
