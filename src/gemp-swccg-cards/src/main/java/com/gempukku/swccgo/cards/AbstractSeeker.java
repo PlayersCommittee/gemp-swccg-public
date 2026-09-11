@@ -21,7 +21,7 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.LoseCardsFromTableSimultaneouslyEffect;
-import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.DeploysAndMovesLikeUndercoverSpyModifier;
@@ -156,7 +156,7 @@ public abstract class AbstractSeeker extends AbstractAutomatedWeapon {
         action.setText("Ignore all potential targets");
         action.setActionMsg("Ignore all potential targets for " + GameUtils.getCardLink(self));
         action.appendEffect(
-                new UnrespondableEffect(action) {
+                new PassthruEffect(action) {
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
                         Collection<PhysicalCard> targets = Filters.filterActive(game, self, getFullEligibleTargetFilter(game, self));
@@ -221,7 +221,7 @@ public abstract class AbstractSeeker extends AbstractAutomatedWeapon {
         action.setText("Stop ignoring potential targets");
         action.setActionMsg("Stop ignoring potential targets for " + GameUtils.getCardLink(self));
         action.appendEffect(
-                new UnrespondableEffect(action) {
+                new PassthruEffect(action) {
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
                         clearIgnoreList(self);

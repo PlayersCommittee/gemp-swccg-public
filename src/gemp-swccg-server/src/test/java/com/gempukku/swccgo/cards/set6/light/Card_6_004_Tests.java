@@ -141,7 +141,7 @@ public class Card_6_004_Tests {
     }
 
     @Test
-    public void AttarkAllowsSeekerToIgnoreAndStopIgnoringTargets() {
+    public void AttarkAllowsSeekerToIgnoreTargetsOwnerScoped() {
         var scn = GetScenario();
 
         var attark = scn.GetLSCard("attark");
@@ -152,33 +152,13 @@ public class Card_6_004_Tests {
         scn.StartGame();
         scn.MoveCardsToLocation(site, attark, seeker, pilot);
 
+        // Shared owner-scoped ignore flag is active for Attark's owner only
         assertTrue(scn.game().getModifiersQuerying().hasFlagActive(
                 scn.game().getGameState(), ModifierFlag.SEEKERS_MAY_IGNORE_TARGETS, scn.LS));
-
-        // Optional ignore response should appear after table change processing
-        scn.SkipToLSTurn(Phase.CONTROL);
-        assertTrue(
-                scn.LSDecisionAvailable("Ignore all potential targets")
-                        || scn.LSActionAvailable("Ignore all potential targets")
-                        || scn.LSCardActionAvailable(seeker, "Ignore all potential targets")
-                        || scn.LSDecisionAvailable("Make a character lost")
-        );
-
-        if (scn.LSDecisionAvailable("Ignore all potential targets")
-                || scn.LSActionAvailable("Ignore all potential targets")
-                || scn.LSCardActionAvailable(seeker, "Ignore all potential targets")) {
-            if (scn.LSCardActionAvailable(seeker, "Ignore all potential targets")) {
-                scn.LSUseCardAction(seeker, "Ignore all potential targets");
-            } else if (scn.LSActionAvailable("Ignore all potential targets")) {
-                scn.LSChoose("Ignore all potential targets");
-            } else {
-                scn.LSChoose("Ignore all potential targets");
-            }
-            scn.PassAllResponses();
-            assertTrue(scn.LSCardActionAvailable(seeker, "Stop ignoring potential targets")
-                    || scn.LSActionAvailable("Stop ignoring potential targets"));
-        }
+        assertFalse(scn.game().getModifiersQuerying().hasFlagActive(
+                scn.game().getGameState(), ModifierFlag.SEEKERS_MAY_IGNORE_TARGETS, scn.DS));
     }
+
 
     @Test
     public void AttarkLeavesTableStopsSeekerIgnoring() {

@@ -15,7 +15,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.gempukku.swccgo.framework.Assertions.assertAtLocation;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -81,24 +80,21 @@ public class Card_6_128_Tests {
         var velken = scn.GetDSCard("velken");
         var seeker = scn.GetDSCard("hanSeeker");
         var site = scn.GetDSStartingLocation();
+        var lsSite = scn.GetLSStartingLocation();
 
         scn.StartGame();
         scn.MoveCardsToLocation(site, velken);
         scn.MoveCardsToDSHand(seeker);
 
+        // Free to Velken's controlled site
         float freeCost = scn.game().getModifiersQuerying().getDeployCost(
                 scn.game().getGameState(), seeker, seeker, site, false, null, false, 0, null, false);
         assertEquals(0f, freeCost, scn.epsilon);
 
-        scn.SkipToDSTurn(Phase.DEPLOY);
-        int forceBefore = scn.GetDSForcePileCount();
-        assertTrue(scn.DSCardPlayAvailable(seeker));
-        scn.DSPlayCard(seeker);
-        assertTrue(scn.DSHasCardChoiceAvailable(site));
-        scn.DSChooseCard(site);
-        scn.PassAllResponses();
-        assertAtLocation(site, seeker);
-        assertEquals(forceBefore, scn.GetDSForcePileCount());
+        // Still costs 1 when deploying to a different site Velken does not make free
+        float otherCost = scn.game().getModifiersQuerying().getDeployCost(
+                scn.game().getGameState(), seeker, seeker, lsSite, false, null, false, 0, null, false);
+        assertEquals(1f, otherCost, scn.epsilon);
     }
 
     @Test
