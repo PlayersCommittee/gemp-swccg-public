@@ -48,7 +48,7 @@ public class Card_5_013_Tests {
     }
 
     private void deployConstructOn(VirtualTableScenario scn, PhysicalCardImpl host, PhysicalCardImpl construct) throws DecisionResultInvalidException {
-        scn.SkipToPhase(Phase.DEPLOY);
+        scn.SkipToLSTurn(Phase.DEPLOY);
         assertTrue(scn.LSDeployAvailable(construct));
         scn.LSDeployCard(construct);
         assertTrue(scn.LSHasCardChoiceAvailable(host));
@@ -97,7 +97,7 @@ public class Card_5_013_Tests {
         scn.MoveCardsToHand(construct);
         scn.StartGame();
         scn.MoveCardsToLocation(site, luke);
-        scn.SkipToPhase(Phase.DEPLOY);
+        scn.SkipToLSTurn(Phase.DEPLOY);
         assertTrue(scn.LSDeployAvailable(construct));
         scn.LSDeployCard(construct);
         assertFalse(scn.LSHasCardChoiceAvailable(luke));
@@ -112,7 +112,7 @@ public class Card_5_013_Tests {
         scn.MoveCardsToHand(construct);
         scn.StartGame();
         scn.MoveCardsToLocation(site, leesub);
-        scn.SkipToPhase(Phase.DEPLOY);
+        scn.SkipToLSTurn(Phase.DEPLOY);
         scn.LSDeployCard(construct);
         assertFalse(scn.LSHasCardChoiceAvailable(leesub));
     }
