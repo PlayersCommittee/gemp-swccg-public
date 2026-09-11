@@ -19,9 +19,11 @@ import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * VHD tests for Endor 8_144 Go For Help! (shared reveal helper with LEAVE_ON_TOP leftovers).
+ */
 public class Card_8_144_Tests {
     protected VirtualTableScenario GetScenario() {
         return new VirtualTableScenario(
@@ -55,22 +57,6 @@ public class Card_8_144_Tests {
 
     @Test
     public void GoForHelpStatsAndKeywordsAreCorrect() {
-        /**
-         * Title: Go For Help!
-         * Uniqueness: Unique
-         * Side: Dark
-         * Type: Interrupt
-         * Subtype: Used
-         * Destiny: 5
-         * Icons: Interrupt, Endor
-         * Game Text: If opponent just initiated a battle at an exterior site with double your total power,
-         *      reveal top 3 cards of your Reserve Deck. If any of those cards are scouts or speeder bikes,
-         *      deploy them for free to that battle (replace others on top of Reserve Deck in same order).
-         * Lore: When confronted with enemy troops, biker scouts are instructed to immediately call for reinforcements.
-         * Set: Endor
-         * Rarity: C
-         */
-
         var scn = GetScenario();
 
         var card = scn.GetDSCard("goforhelp").getBlueprint();
@@ -96,11 +82,8 @@ public class Card_8_144_Tests {
     }
 
     @Test
-    public void GoForHelpRevealsAndDeploysScoutAndSpeederBikeToBattle() {
-        //test1: playable when LS just initiated battle at exterior site with >= double DS power
-        //test2: deploys scout and speeder bike for free to battle
-        //test3: non-matching revealed card returns to Reserve Deck
-        //test4: Go For Help! goes to used pile
+    public void GoForHelpRevealsDeploysMatchingAndLeavesRestOnTopOfReserve() {
+        // Shared Panic/ED reveal path: cards stay in Reserve; leftovers LEAVE_ON_TOP (not lost).
         var scn = GetScenario();
 
         var luke = scn.GetLSCard("luke");
@@ -127,50 +110,75 @@ public class Card_8_144_Tests {
 
         scn.MoveCardsToLocation(hothsite2, luke, han, chewie, dsFiller);
 
-        // top 3: bikerscout, junk, speederbike
-        scn.MoveCardsToTopOfOwnReserveDeck(speederbike, junk, bikerscout);
-
         scn.SkipToLSTurn(Phase.BATTLE);
+        // Restack after Force activation so reveal sees these three on top
+        scn.MoveCardsToTopOfOwnReserveDeck(speederbike, junk, bikerscout);
         scn.LSInitiateBattle(hothsite2);
 
-        assertTrue(scn.DSDecisionAvailable("Battle just initiated")); //test1 window
+        assertTrue(scn.DSDecisionAvailable("Battle just initiated"));
         assertTrue(scn.DSCardPlayAvailable(goforhelp));
         scn.DSPlayCard(goforhelp);
         scn.PassAllResponses();
 
-        // Drain remaining decisions until interrupt resolves (draw/choose/deploy/put-back)
-        for (int i = 0; i < 30; i++) {
+        // Both players acknowledge reveal UI (not draw-into-hand)
+        assertTrue("Expected DS reveal UI; got: " + decisionText(scn),
+                scn.DSDecisionAvailable("Top card") || scn.DSDecisionAvailable("Reserve Deck"));
+        scn.DSPass();
+        if (scn.LSDecisionAvailable("Top card") || scn.LSDecisionAvailable("Reserve Deck")) {
+            scn.LSPass();
+        }
+
+        assertTrue("Scout should still be in Reserve after reveal; zone=" + bikerscout.getZone(),
+                bikerscout.getZone() == Zone.RESERVE_DECK || bikerscout.getZone() == Zone.TOP_OF_RESERVE_DECK);
+        assertTrue("Junk should still be in Reserve after reveal; zone=" + junk.getZone(),
+                junk.getZone() == Zone.RESERVE_DECK || junk.getZone() == Zone.TOP_OF_RESERVE_DECK);
+
+        // Prefer scout/speeder when offered, otherwise resolve generically
+        for (int i = 0; i < 50; i++) {
             if (goforhelp.getZone() == Zone.TOP_OF_USED_PILE || goforhelp.getZone() == Zone.USED_PILE) {
                 break;
             }
-            if (scn.DSDecisionAvailable("Choose scout or speeder bike") || scn.DSDecisionAvailable("Choose card")) {
-                if (scn.DSHasCardChoicesAvailable(bikerscout)) {
-                    scn.DSChooseCard(bikerscout);
-                } else if (scn.DSHasCardChoicesAvailable(speederbike)) {
-                    scn.DSChooseCard(speederbike);
-                } else if (scn.DSGetCardChoices() != null && !scn.DSGetCardChoices().isEmpty()) {
-                    scn.DSChooseAnyCard();
-                } else {
-                    scn.DSPass();
-                }
-            } else if (scn.DSAnyDecisionsAvailable()) {
-                scn.DSPass();
-            } else if (scn.LSAnyDecisionsAvailable()) {
-                scn.LSPass();
-            } else {
+            if (!scn.DSAnyDecisionsAvailable() && !scn.LSAnyDecisionsAvailable()) {
                 break;
             }
-            scn.PassAllResponses();
+            if (scn.DSDecisionAvailable("Choose card to deploy")) {
+                var ids = scn.DSGetCardChoices();
+                var bp = scn.DSGetBPChoices();
+                String[] selectable = scn.DSGetADParam("selectable");
+                String pick = null;
+                if (ids != null && bp != null) {
+                    for (int c = 0; c < ids.size(); c++) {
+                        boolean isSelectable = selectable == null || (c < selectable.length && "true".equalsIgnoreCase(selectable[c]));
+                        if (!isSelectable) {
+                            continue;
+                        }
+                        String choice = normalizeBp(bp.get(c));
+                        if (normalizeBp(bikerscout.getBlueprintId(true)).equals(choice)
+                                || normalizeBp(speederbike.getBlueprintId(true)).equals(choice)) {
+                            pick = ids.get(c);
+                            break;
+                        }
+                        if (pick == null) {
+                            pick = ids.get(c);
+                        }
+                    }
+                }
+                scn.DSDecided(pick == null ? "" : pick);
+                continue;
+            }
+            resolveOneDecision(scn);
         }
 
         assertTrue("Go For Help should finish in Used pile; zone=" + goforhelp.getZone(),
                 goforhelp.getZone() == Zone.TOP_OF_USED_PILE || goforhelp.getZone() == Zone.USED_PILE);
-        // reinforcement deploy covered best-effort above via choose loop
+        assertTrue("Non-matching leftover must stay in Reserve (LEAVE_ON_TOP), not lost; zone=" + junk.getZone(),
+                junk.getZone() == Zone.RESERVE_DECK || junk.getZone() == Zone.TOP_OF_RESERVE_DECK);
+        assertFalse("Junk must not be lost under Go For Help; zone=" + junk.getZone(),
+                junk.getZone() == Zone.LOST_PILE || junk.getZone() == Zone.TOP_OF_LOST_PILE);
     }
 
     @Test
     public void GoForHelpNotAvailableIfNotDoublePower() {
-        //test1: not playable when opponent does not have at least double your power
         var scn = GetScenario();
 
         var luke = scn.GetLSCard("luke");
@@ -193,17 +201,89 @@ public class Card_8_144_Tests {
         scn.SkipToLSTurn(Phase.BATTLE);
         scn.LSInitiateBattle(hothsite2);
 
-        // When Go For Help! is not legal, battle-start optional window is skipped
         assertTrue(scn.LSDecisionAvailable("Choose weapons segment action")
                 || scn.LSDecisionAvailable("Choose Battle action")
-                || scn.AwaitingLSWeaponsSegmentActions()); //test1
+                || scn.AwaitingLSWeaponsSegmentActions());
+        assertFalse("Go For Help must not be playable without double power",
+                scn.DSAnyDecisionsAvailable() && scn.DSCardPlayAvailable(goforhelp));
     }
 
     @Test
     public void GoForHelpBikerScoutKeywordPresent() {
-        // Mouse/VHD edge: confirm scout keyword used by deploy filter
         var scn = GetScenario();
         var bikerscout = scn.GetDSCard("bikerscout").getBlueprint();
         assertTrue(bikerscout.hasKeyword(Keyword.SCOUT) || bikerscout.hasKeyword(Keyword.BIKER_SCOUT));
+    }
+
+
+    private static void resolveOneDecision(VirtualTableScenario scn) {
+        String player = scn.GetDecidingPlayer();
+        var decision = scn.GetAwaitingDecision(player);
+        if (decision == null) {
+            return;
+        }
+        String text = decision.getText() == null ? "" : decision.getText().toLowerCase();
+        if (text.contains("optional response")) {
+            scn.PlayerPass(player);
+            return;
+        }
+        String[] actionIds = scn.GetADParam(player, "actionId");
+        if (actionIds != null && actionIds.length > 0) {
+            String[] actionTexts = scn.GetADParam(player, "actionText");
+            if (actionTexts != null) {
+                for (int a = 0; a < actionTexts.length; a++) {
+                    if (actionTexts[a] != null && actionTexts[a].toLowerCase().contains("pass")) {
+                        scn.PlayerDecided(player, actionIds[a]);
+                        return;
+                    }
+                }
+            }
+            scn.PlayerPass(player);
+            return;
+        }
+        String[] cardIds = scn.GetADParam(player, "cardId");
+        String[] selectable = scn.GetADParam(player, "selectable");
+        if (cardIds != null && cardIds.length > 0) {
+            String pick = null;
+            if (selectable != null && selectable.length == cardIds.length) {
+                for (int c = 0; c < cardIds.length; c++) {
+                    if ("true".equalsIgnoreCase(selectable[c])) {
+                        pick = cardIds[c];
+                        break;
+                    }
+                }
+                scn.PlayerDecided(player, pick == null ? "" : pick);
+            } else {
+                scn.PlayerDecided(player, cardIds[0]);
+            }
+            return;
+        }
+        String[] results = scn.GetADParam(player, "results");
+        if (results != null && results.length > 0) {
+            scn.PlayerDecided(player, "0");
+            return;
+        }
+        String[] max = scn.GetADParam(player, "max");
+        if (max != null && max.length > 0) {
+            scn.PlayerDecided(player, max[0]);
+            return;
+        }
+        scn.PlayerPass(player);
+    }
+    private static String normalizeBp(String bp) {
+        if (bp == null || !bp.contains("_")) {
+            return bp;
+        }
+        String[] parts = bp.split("_", 2);
+        try {
+            return parts[0] + "_" + Integer.parseInt(parts[1]);
+        } catch (NumberFormatException e) {
+            return bp;
+        }
+    }
+
+    private static String decisionText(VirtualTableScenario scn) {
+        var d = scn.GetCurrentDecision();
+        return d == null ? "null" : d.getText();
     }
 }
