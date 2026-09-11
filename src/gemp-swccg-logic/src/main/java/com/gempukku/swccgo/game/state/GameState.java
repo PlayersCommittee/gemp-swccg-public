@@ -2932,6 +2932,15 @@ public class GameState implements Snapshotable<GameState> {
         List<? extends PhysicalCard> cards = getCardPile(playerId, zone);
         if (cards==null || cards.isEmpty())
             return null;
+        // Tikkes: bottom-most UNFROZEN (usable) Force card — skip Frozen Assets marker
+        if (zone == Zone.FORCE_PILE || zone == Zone.TOP_OF_FORCE_PILE) {
+            for (int i = cards.size() - 1; i >= 0; i--) {
+                PhysicalCard c = cards.get(i);
+                if (!"Frozen Assets".equals(c.getTitle()))
+                    return c;
+            }
+            return null;
+        }
         return cards.get(cards.size() - 1);
     }
 
@@ -4678,22 +4687,49 @@ public class GameState implements Snapshotable<GameState> {
             return;
 
         List<PhysicalCard> cardsInPile = getZoneCards(player, zone);
-        if (cardsInPile.size() > 1) {
+        // Bith Shuffle / Gergall: shuffle only unfrozen Force (exclude Frozen Assets marker)
+        PhysicalCard frozenAssetsMarker = null;
+        if (zone == Zone.FORCE_PILE) {
+            for (PhysicalCard c : cardsInPile) {
+                if ("Frozen Assets".equals(c.getTitle())) {
+                    frozenAssetsMarker = c;
+                    break;
+                }
+            }
+        }
+        List<PhysicalCard> shuffleList = cardsInPile;
+        if (frozenAssetsMarker != null) {
+            shuffleList = new LinkedList<PhysicalCard>();
+            for (PhysicalCard c : cardsInPile) {
+                if (c != frozenAssetsMarker)
+                    shuffleList.add(c);
+            }
+        }
+        if (shuffleList.size() > 1) {
             // Tell game listener to remove top card before shuffling
             PhysicalCard topCard = cardsInPile.get(0);
             for (GameStateListener listener : getAllGameStateListeners())
                 listener.cardsRemoved(player, Collections.singleton(topCard));
 
-            topCard.setZone(zone);
+            if (topCard != frozenAssetsMarker)
+                topCard.setZone(zone);
             // Keep shuffling until top card in pile is not an "inserted" card,
             // or minimum times to shuffle reached.
-            int minTimesToShuffle = (cardsInPile.size() / 30) + 1;
+            int minTimesToShuffle = (shuffleList.size() / 30) + 1;
             int timesShuffled = 0;
             do {
-                Collections.shuffle(cardsInPile);
+                Collections.shuffle(shuffleList);
                 timesShuffled++;
-                topCard = cardsInPile.get(0);
+                topCard = shuffleList.get(0);
             } while (timesShuffled < minTimesToShuffle || topCard.isInserted());
+
+            // Rebuild Force pile: usable (shuffled) then FA at bottom if present
+            if (frozenAssetsMarker != null) {
+                cardsInPile.clear();
+                cardsInPile.addAll(shuffleList);
+                cardsInPile.add(frozenAssetsMarker);
+                frozenAssetsMarker.setZone(zone);
+            }
 
             Zone topZone = GameUtils.getZoneTopFromZone(zone);
             cardsInPile.get(0).setZone(topZone);
@@ -4701,10 +4737,9 @@ public class GameState implements Snapshotable<GameState> {
 
             // Tell game listener to create top card after shuffling
             for (GameStateListener listener : getAllGameStateListeners())
-                listener.cardCreated(topCard, this, false);
+                listener.cardCreated(cardsInPile.get(0), this, false);
         }
     }
-
     public void shuffleCardsIntoPile(Collection<? extends PhysicalCard> cards, String zoneOwner, Zone zone) {
         if (zone!=Zone.RESERVE_DECK && zone!=Zone.FORCE_PILE
                 && zone!=Zone.USED_PILE && zone!=Zone.LOST_PILE)

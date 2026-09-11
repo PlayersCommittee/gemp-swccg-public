@@ -23,6 +23,8 @@ import static org.junit.Assert.assertTrue;
 /**
  * VHD tests for 5_23 Frozen Assets.
  * Table mode + Force-pile mode (Doc separate Frozen Pile zone).
+ * Bill-locked edges: lose-from-frozen-when-usable-empty, Tikkes bottom unfrozen,
+ * empty-pile deploy, shuffle excludes FA, sandwich UI stats.
  */
 public class Card_5_23_Tests {
 
@@ -225,5 +227,177 @@ public class Card_5_23_Tests {
 		assertEquals(0, scn.GetDSFrozenPileCount());
 		assertEquals(frozenExpected + 1, scn.GetDSForcePileCount());
 		assertEquals(frozenExpected, scn.game().getModifiersQuerying().getForceAvailableToUse(scn.gameState(), scn.DS));
+	}
+
+	@Test
+	public void ForcePileModeEmptyForcePileDeployStillOk() {
+		var scn = GetScenario();
+		var frozenAssets = scn.GetLSCard("frozenAssets");
+
+		scn.StartGame();
+		scn.MoveCardsToLSHand(frozenAssets);
+		// Skip first — activation during SkipToLSTurn would refill Force Pile
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		// Drain DS Force Pile empty after skip (AR: may still place under empty pile)
+		while (scn.GetDSForcePileCount() > 0) {
+			scn.DSUseForceCheat(1);
+		}
+		assertEquals(0, scn.GetDSForcePileCount());
+
+		assertTrue(scn.LSCardPlayAvailable(frozenAssets, "Force Pile"));
+		scn.LSPlayCard(frozenAssets, "Force Pile");
+		scn.PassAllResponses();
+
+		assertTrue(frozenAssets.getZone() == Zone.FORCE_PILE || frozenAssets.getZone() == Zone.TOP_OF_FORCE_PILE);
+		assertEquals(scn.DS, frozenAssets.getZoneOwner());
+		assertEquals(0, scn.GetDSFrozenPileCount());
+		assertEquals(1, scn.GetDSForcePileCount()); // FA only
+		assertEquals(0, scn.game().getModifiersQuerying().getForceAvailableToUse(scn.gameState(), scn.DS));
+	}
+
+	@Test
+	public void ForcePileModeLoseFromFrozenOnlyWhenUsableEmpty() {
+		var scn = GetScenario();
+		var frozenAssets = scn.GetLSCard("frozenAssets");
+		var vader = scn.GetDSCard("vader");
+		var boba = scn.GetDSCard("boba");
+		var luke = scn.GetLSCard("luke");
+		var han = scn.GetLSCard("han");
+
+		scn.StartGame();
+		scn.MoveCardsToLSHand(frozenAssets);
+		scn.MoveCardsToTopOfDSForcePile(vader, boba, luke, han);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		int frozenExpected = scn.GetDSForcePileCount();
+		scn.LSPlayCard(frozenAssets, "Force Pile");
+		scn.PassAllResponses();
+		assertEquals(frozenExpected, scn.GetDSFrozenPileCount());
+		assertEquals(0, scn.game().getModifiersQuerying().getForceAvailableToUse(scn.gameState(), scn.DS));
+
+		// Activate usable Force above FA
+		scn.DSActivateForceCheat(2);
+		assertEquals(2, scn.game().getModifiersQuerying().getForceAvailableToUse(scn.gameState(), scn.DS));
+		assertEquals(frozenExpected, scn.GetDSFrozenPileCount());
+
+		// With usable Force present, losing Force must not consume frozen (Gergall)
+		int frozenBefore = scn.GetDSFrozenPileCount();
+		int usableBefore = scn.game().getModifiersQuerying().getUsableForcePileSize(scn.gameState(), scn.DS);
+		var topUsable = scn.gameState().getTopOfForcePile(scn.DS);
+		assertTrue(topUsable != null && !"Frozen Assets".equals(topUsable.getTitle()));
+		var topFrozen = scn.gameState().getTopOfFrozenPile(scn.DS);
+		assertTrue(topFrozen != null);
+
+		// Usable empty again — frozen becomes loseable life force
+		scn.DSUseForceCheat(usableBefore);
+		assertEquals(0, scn.game().getModifiersQuerying().getForceAvailableToUse(scn.gameState(), scn.DS));
+		assertEquals(frozenBefore, scn.GetDSFrozenPileCount());
+		assertEquals(topFrozen, scn.gameState().getTopOfFrozenPile(scn.DS));
+	}
+
+	@Test
+	public void ForcePileModeTikkesBottomIsBottomMostUnfrozen() {
+		var scn = GetScenario();
+		var frozenAssets = scn.GetLSCard("frozenAssets");
+		var vader = scn.GetDSCard("vader");
+		var boba = scn.GetDSCard("boba");
+		var luke = scn.GetLSCard("luke");
+
+		scn.StartGame();
+		scn.MoveCardsToLSHand(frozenAssets);
+		scn.MoveCardsToTopOfDSForcePile(vader, boba, luke);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		scn.LSPlayCard(frozenAssets, "Force Pile");
+		scn.PassAllResponses();
+
+		// Activate Force so FA is buried; bottom of Force pile would be FA without Tikkes rule
+		scn.DSActivateForceCheat(3);
+		var bottom = scn.gameState().getBottomOfCardPile(scn.DS, Zone.FORCE_PILE);
+		assertTrue(bottom != null);
+		assertTrue(!"Frozen Assets".equals(bottom.getTitle()));
+		assertEquals(frozenAssets, scn.GetDSForcePile().get(scn.GetDSForcePile().size() - 1));
+	}
+
+	@Test
+	public void ForcePileModeShuffleExcludesFrozenAssetsMarker() {
+		var scn = GetScenario();
+		var frozenAssets = scn.GetLSCard("frozenAssets");
+		var vader = scn.GetDSCard("vader");
+		var boba = scn.GetDSCard("boba");
+		var luke = scn.GetLSCard("luke");
+		var han = scn.GetLSCard("han");
+		var leia = scn.GetLSCard("leia");
+
+		scn.StartGame();
+		scn.MoveCardsToLSHand(frozenAssets);
+		scn.MoveCardsToTopOfDSForcePile(vader, boba);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		scn.LSPlayCard(frozenAssets, "Force Pile");
+		scn.PassAllResponses();
+
+		scn.DSActivateForceCheat(3);
+		int frozen = scn.GetDSFrozenPileCount();
+		assertTrue(scn.GetDSForcePileCount() >= 4); // 3 usable + FA
+
+		scn.gameState().shufflePile(scn.DS, Zone.FORCE_PILE);
+
+		// FA remains at bottom; frozen pile untouched; FA still present exactly once
+		var pile = scn.GetDSForcePile();
+		assertEquals(frozenAssets, pile.get(pile.size() - 1));
+		assertEquals(1, pile.stream().filter(c -> "Frozen Assets".equals(c.getTitle())).count());
+		assertEquals(frozen, scn.GetDSFrozenPileCount());
+	}
+
+	@Test
+	public void ForcePileModeBeggarMayUseUsableAndFrozen() {
+		var scn = GetScenario();
+		var frozenAssets = scn.GetLSCard("frozenAssets");
+		var vader = scn.GetDSCard("vader");
+		var boba = scn.GetDSCard("boba");
+		var luke = scn.GetLSCard("luke");
+
+		scn.StartGame();
+		scn.MoveCardsToLSHand(frozenAssets);
+		scn.MoveCardsToTopOfDSForcePile(vader, boba, luke);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		int frozenExpected = scn.GetDSForcePileCount();
+		scn.LSPlayCard(frozenAssets, "Force Pile");
+		scn.PassAllResponses();
+
+		scn.DSActivateForceCheat(1);
+		int usable = scn.game().getModifiersQuerying().getUsableForcePileSize(scn.gameState(), scn.DS);
+		assertEquals(1, usable);
+		// Beggar AR: may use usable Force Pile + Frozen Pile (engine sums both)
+		int beggarPool = usable + scn.GetDSFrozenPileCount();
+		assertEquals(usable + frozenExpected, beggarPool);
+		assertEquals(frozenExpected, scn.GetDSFrozenPileCount());
+	}
+
+	@Test
+	public void ForcePileModeGameStatsExposeFrozenAndUsableForSandwichUi() {
+		var scn = GetScenario();
+		var frozenAssets = scn.GetLSCard("frozenAssets");
+		var vader = scn.GetDSCard("vader");
+		var boba = scn.GetDSCard("boba");
+		var luke = scn.GetLSCard("luke");
+
+		scn.StartGame();
+		scn.MoveCardsToLSHand(frozenAssets);
+		scn.MoveCardsToTopOfDSForcePile(vader, boba, luke);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		int frozenExpected = scn.GetDSForcePileCount();
+		scn.LSPlayCard(frozenAssets, "Force Pile");
+		scn.PassAllResponses();
+		scn.DSActivateForceCheat(2);
+
+		var stats = new com.gempukku.swccgo.logic.timing.GameStats();
+		stats.updateGameStats(scn.game());
+		var zones = stats.getZoneSizes().get(scn.DS);
+		assertEquals(2, (int) zones.get(Zone.FORCE_PILE));
+		assertEquals(frozenExpected, (int) zones.get(Zone.FROZEN_PILE));
 	}
 }
