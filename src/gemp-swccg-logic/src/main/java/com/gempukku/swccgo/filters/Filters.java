@@ -19459,6 +19459,7 @@ public class Filters {
     public static final Filter They_Have_No_Idea_Were_Coming = Filters.title(Title.They_Have_No_Idea_Were_Coming);
     public static final Filter Theyre_On_Dantooine = Filters.title(Title.Theyre_On_Dantooine);
     public static final Filter Theyve_Shut_Down_The_Main_Reactor = Filters.title(Title.Theyve_Shut_Down_The_Main_Reactor);
+    public static final Filter Tight_Squeeze = Filters.title(Title.Tight_Squeeze);
     public static final Filter thief = Filters.keyword(Keyword.THIEF);
     public static final Filter Third_Marker = Filters.keyword(Keyword.MARKER_3);
     public static final Filter They_Will_Be_Lost_And_Confused = Filters.title(Title.They_Will_Be_Lost_And_Confused);
