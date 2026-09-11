@@ -43,6 +43,10 @@ public class Card_5_53_Tests {
 					put("dsBlaster", "1_312");
 					put("dsLando", "5_99");
 					put("platform", "5_169");
+					put("boba", "5_091");
+					put("bobasBlasterV", "205_022"); // Boba Fett's Blaster Rifle (V)
+					put("stormtrooper", "1_194");
+					put("blasterRifleV", "200_141"); // Blaster Rifle (V)
 				}},
 				20,
 				20,
@@ -257,4 +261,145 @@ public class Card_5_53_Tests {
 		}
 		assertTrue("Innocent Scoundrel should be offered when your gambler is targeted", saw);
 	}
+	/**
+	 * NEW target pick path: opponent chooses "Select a new target" (MultipleChoice), then picks a card
+	 * via ChooseCardOnTableEffect, which applies RetargetWeaponEffect.
+	 * Uses Boba Fett + Boba Fett's Blaster Rifle (V) (free fire).
+	 */
+	@Test
+	public void UsedSelectNewTargetRetargetsWithBobaFettsBlasterRifleV() {
+		var scn = GetScenario();
+		var scoundrel = scn.GetLSCard("scoundrel");
+		var han = scn.GetLSCard("han");
+		var luke = scn.GetLSCard("luke");
+		var dining = scn.GetDSCard("dining");
+		var boba = scn.GetDSCard("boba");
+		var bobasBlasterV = scn.GetDSCard("bobasBlasterV");
+
+		scn.StartGame();
+		scn.MoveCardsToLSHand(scoundrel);
+		scn.MoveLocationToTable(dining);
+		scn.MoveCardsToLocation(dining, han, luke, boba);
+		scn.AttachCardsTo(boba, bobasBlasterV);
+
+		scn.SkipToPhase(Phase.BATTLE);
+		scn.DSInitiateBattle(dining);
+		scn.PassBattleStartResponses();
+		assertTrue(scn.AwaitingDSWeaponsSegmentActions());
+
+		scn.DSUseCardAction(bobasBlasterV);
+		scn.DSChooseCard(han);
+
+		boolean saw = false;
+		for (int i = 0; i < 25; i++) {
+			var decision = scn.GetCurrentDecision();
+			if (decision == null) break;
+			try {
+				if (scn.LSCardPlayAvailable(scoundrel)) {
+					saw = true;
+					scn.LSPlayCard(scoundrel);
+					SafePassOptionalResponses(scn);
+
+					assertTrue("Opponent should be offered new-target vs Force-loss choice",
+							scn.DSDecisionAvailable("Choose effect") || scn.DSChoiceAvailable("Select a new target"));
+					assertTrue(scn.DSChoiceAvailable("Select a new target"));
+					assertTrue(scn.DSChoiceAvailable("Lose 2 Force"));
+					scn.DSChoose("Select a new target");
+
+					assertTrue(scn.DSDecisionAvailable("Select new target for weapon")
+							|| scn.DSHasCardChoiceAvailable(luke));
+					assertTrue("Luke should be a legal new target", scn.DSHasCardChoiceAvailable(luke));
+					assertFalse("Han (current target) should not be offered as new target",
+							scn.DSHasCardChoiceAvailable(han));
+					scn.PrepareDSDestiny(7);
+					scn.DSChooseCard(luke);
+					SafePassOptionalResponses(scn);
+					try { scn.PassDestinyDrawResponses(); } catch (RuntimeException ignored) {}
+					SafePassOptionalResponses(scn);
+					try { scn.PassAllResponses(); } catch (RuntimeException ignored) {}
+
+					assertTrue("Scoundrel USED goes to Used Pile",
+							scoundrel.getZone() == Zone.USED_PILE || scoundrel.getZone() == Zone.TOP_OF_USED_PILE);
+					assertFalse("After RetargetWeaponEffect, original gambler target Han must not be hit", han.isHit());
+					break;
+				}
+			} catch (RuntimeException ignored) {
+			}
+			String textDec = decision.getText() != null ? decision.getText().toLowerCase() : "";
+			if (textDec.contains("optional")) {
+				scn.PassResponses("optional");
+			} else if (textDec.contains("required")) {
+				scn.PassResponses("required");
+			} else {
+				try { scn.PassAllResponses(); } catch (RuntimeException ex) { break; }
+			}
+		}
+		assertTrue("Innocent Scoundrel should be offered when your gambler is targeted", saw);
+	}
+
+	/**
+	 * Blaster Rifle (V) free-fire: opponent chooses Force-loss even though a legal re-target exists.
+	 * Differentiates MultipleChoice Force-loss from the RetargetWeaponEffect path.
+	 */
+	@Test
+	public void UsedOpponentChoosesLose2WhenRetargetAvailableWithBlasterRifleV() {
+		var scn = GetScenario();
+		var scoundrel = scn.GetLSCard("scoundrel");
+		var han = scn.GetLSCard("han");
+		var luke = scn.GetLSCard("luke");
+		var dining = scn.GetDSCard("dining");
+		var stormtrooper = scn.GetDSCard("stormtrooper");
+		var blasterRifleV = scn.GetDSCard("blasterRifleV");
+
+		scn.StartGame();
+		scn.MoveCardsToLSHand(scoundrel);
+		scn.MoveLocationToTable(dining);
+		scn.MoveCardsToLocation(dining, han, luke, stormtrooper);
+		scn.AttachCardsTo(stormtrooper, blasterRifleV);
+
+		scn.SkipToPhase(Phase.BATTLE);
+		scn.DSInitiateBattle(dining);
+		scn.PassBattleStartResponses();
+		assertTrue(scn.AwaitingDSWeaponsSegmentActions());
+
+		scn.DSUseCardAction(blasterRifleV);
+		scn.DSChooseCard(han);
+
+		boolean saw = false;
+		for (int i = 0; i < 25; i++) {
+			var decision = scn.GetCurrentDecision();
+			if (decision == null) break;
+			try {
+				if (scn.LSCardPlayAvailable(scoundrel)) {
+					saw = true;
+					int dsForceBefore = scn.GetDSLifeForceRemaining();
+					scn.LSPlayCard(scoundrel);
+					SafePassOptionalResponses(scn);
+
+					assertTrue(scn.DSChoiceAvailable("Select a new target"));
+					assertTrue(scn.DSChoiceAvailable("Lose 2 Force"));
+					scn.DSChoose("Lose 2 Force");
+					SafePassOptionalResponses(scn);
+					try { scn.DSPayRemainingForceLossFromReserveDeck(); } catch (RuntimeException ignored) {}
+
+					assertTrue(scoundrel.getZone() == Zone.USED_PILE || scoundrel.getZone() == Zone.TOP_OF_USED_PILE);
+					assertEquals("Opponent loses 2 Force despite legal retarget available",
+							dsForceBefore - 2, scn.GetDSLifeForceRemaining());
+					assertFalse("No RetargetWeaponEffect when Force-loss chosen", luke.isHit());
+					break;
+				}
+			} catch (RuntimeException ignored) {
+			}
+			String textDec = decision.getText() != null ? decision.getText().toLowerCase() : "";
+			if (textDec.contains("optional")) {
+				scn.PassResponses("optional");
+			} else if (textDec.contains("required")) {
+				scn.PassResponses("required");
+			} else {
+				try { scn.PassAllResponses(); } catch (RuntimeException ex) { break; }
+			}
+		}
+		assertTrue("Innocent Scoundrel should be offered when your gambler is targeted", saw);
+	}
+
 }
