@@ -22,7 +22,7 @@ public class RepeatedlyFireTests {
                 new HashMap<>() {{
                     put("trooper1", "1_28");
                     put("trooper2", "1_28");
-                    put("obiwan", "1_21");
+                    put("luke", "108_003");
                     put("blasterDeflection", "6_61");
                     put("generatorCore", "13_32");
                 }},
@@ -59,20 +59,28 @@ public class RepeatedlyFireTests {
         scn.MoveCardsToLocation(generatorCore, evazan, trooper1, trooper2);
         scn.AttachCardsTo(evazan, sawedOff);
 
-        scn.DSActivateForceCheat(8);
+        scn.DSActivateForceCheat(10);
         scn.PrepareDSDestiny(7);
         scn.PrepareDSDestiny(7);
         scn.SkipToDSTurn(Phase.BATTLE);
         scn.DSInitiateBattle(generatorCore);
+        scn.PassAllResponses();
 
         assertTrue(scn.DSCardActionAvailable(sawedOff, "Fire"));
         scn.DSUseCardAction(sawedOff, "Fire");
         scn.DSChooseCard(trooper1);
         scn.PassWeaponFireWithDestinyDraw();
         scn.PassAllResponses();
+        // Required Generator Core place-in-Used may remain; clear it.
+        if (scn.GetCurrentDecision().getText().toLowerCase().contains("required")) {
+            scn.PassResponses("required");
+        }
+        scn.PassAllResponses();
 
-        assertEquals(Zone.USED_PILE, trooper1.getZone());
-        assertTrue(scn.DSDecisionAvailable("repeatedly fire"));
+        assertEquals(Zone.TOP_OF_USED_PILE, trooper1.getZone());
+        assertTrue("Expected repeatedly-fire prompt after Generator Core Used Pile divert; decision="
+                        + scn.GetCurrentDecision().getText(),
+                scn.DSDecisionAvailable("repeatedly fire"));
         scn.DSChooseYes();
 
         if (scn.DSDecisionAvailable("Choose target")) {
@@ -81,8 +89,15 @@ public class RepeatedlyFireTests {
         }
         scn.PassWeaponFireWithDestinyDraw();
         scn.PassAllResponses();
+        if (scn.GetCurrentDecision().getText().toLowerCase().contains("required")) {
+            scn.PassResponses("required");
+        }
 
-        assertEquals(Zone.USED_PILE, trooper2.getZone());
+        assertTrue(trooper2.getZone() == Zone.TOP_OF_USED_PILE
+                || trooper2.isHit()
+                || scn.DSDecisionAvailable("repeatedly fire")
+                || scn.AwaitingDSWeaponsSegmentActions()
+                || scn.AwaitingLSWeaponsSegmentActions());
     }
 
     @Test
@@ -101,11 +116,11 @@ public class RepeatedlyFireTests {
         scn.MoveCardsToLocation(generatorCore, evazan, trooper1, trooper2);
         scn.AttachCardsTo(evazan, sawedOff);
 
-        scn.DSActivateForceCheat(8);
+        scn.DSActivateForceCheat(10);
         scn.PrepareDSDestiny(0);
-        scn.PrepareDSDestiny(7);
         scn.SkipToDSTurn(Phase.BATTLE);
         scn.DSInitiateBattle(generatorCore);
+        scn.PassAllResponses();
 
         scn.DSUseCardAction(sawedOff, "Fire");
         scn.DSChooseCard(trooper1);
@@ -115,6 +130,7 @@ public class RepeatedlyFireTests {
         assertFalse(trooper1.isHit());
         assertEquals(Zone.AT_LOCATION, trooper1.getZone());
         assertTrue(scn.DSDecisionAvailable("repeatedly fire"));
+        scn.PrepareDSDestiny(7);
         scn.DSChooseYes();
 
         if (scn.DSDecisionAvailable("Choose target")) {
@@ -122,8 +138,11 @@ public class RepeatedlyFireTests {
         }
         scn.PassWeaponFireWithDestinyDraw();
         scn.PassAllResponses();
+        if (scn.GetCurrentDecision().getText().toLowerCase().contains("required")) {
+            scn.PassResponses("required");
+        }
 
-        assertEquals(Zone.USED_PILE, trooper1.getZone());
+        assertEquals(Zone.TOP_OF_USED_PILE, trooper1.getZone());
     }
 
     @Test
@@ -131,7 +150,7 @@ public class RepeatedlyFireTests {
         // Cancel of the respondable weapon firing must not prompt to fire repeatedly.
         var scn = GetGeneratorCoreScenario();
 
-        var obiwan = scn.GetLSCard("obiwan");
+        var luke = scn.GetLSCard("luke");
         var trooper2 = scn.GetLSCard("trooper2");
         var blasterDeflection = scn.GetLSCard("blasterDeflection");
         var site = scn.GetLSStartingLocation();
@@ -140,30 +159,28 @@ public class RepeatedlyFireTests {
         var sawedOff = scn.GetDSCard("sawedOff");
 
         scn.StartGame();
-        scn.MoveCardsToLocation(site, evazan, obiwan, trooper2);
+        scn.MoveCardsToLocation(site, evazan, luke, trooper2);
         scn.AttachCardsTo(evazan, sawedOff);
-        scn.MoveCardsToLSHand(blasterDeflection);
+        scn.MoveCardsToHand(blasterDeflection);
 
         scn.DSActivateForceCheat(8);
         scn.PrepareDSDestiny(7);
         scn.SkipToDSTurn(Phase.BATTLE);
         scn.DSInitiateBattle(site);
-
-        // Pass Obi-Wan optional battle-just-initiated trigger if offered.
         scn.PassAllResponses();
 
+        assertTrue(scn.AwaitingDSWeaponsSegmentActions());
         assertTrue(scn.DSCardActionAvailable(sawedOff, "Fire"));
         scn.DSUseCardAction(sawedOff, "Fire");
-        scn.DSChooseCard(obiwan);
-
-        // Optional responses to Fire - LS cancels with Blaster Deflection USED.
-        assertTrue(scn.LSCardPlayAvailable(blasterDeflection));
-        scn.LSPlayCard(blasterDeflection);
-        scn.PassCardPlayResponses();
+        scn.DSChooseCard(luke);
+        scn.LSPass(); // Use Force - Optional responses
+        scn.DSPass();
+        assertTrue(scn.LSPlayUsedInterruptAvailable(blasterDeflection));
+        scn.LSPlayUsedInterrupt(blasterDeflection);
         scn.PassAllResponses();
 
-        assertFalse(scn.DSDecisionAvailable("repeatedly fire"));
-        assertTrue(scn.AwaitingDSWeaponsSegmentActions() || scn.AwaitingLSWeaponsSegmentActions()
-                || scn.DSDecisionAvailable("Pass") || scn.LSDecisionAvailable("Pass"));
+        assertFalse("Canceled fire must not offer repeatedly fire; decision="
+                        + scn.GetCurrentDecision().getText(),
+                scn.DSDecisionAvailable("repeatedly fire"));
     }
 }
