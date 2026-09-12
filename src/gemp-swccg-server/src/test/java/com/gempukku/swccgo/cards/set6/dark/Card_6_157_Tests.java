@@ -107,6 +107,7 @@ public class Card_6_157_Tests {
     }
 
     private void deployAndPass(VirtualTableScenario scn, PhysicalCardImpl card, PhysicalCardImpl location) {
+        recoverToLSDeploy(scn);
         assertTrue("Deploy unavailable for " + card.getBlueprint().getTitle()
                 + "; actions=" + scn.GetLSAvailableActions()
                 + " force=" + scn.GetLSForcePileCount(),
@@ -262,7 +263,8 @@ public class Card_6_157_Tests {
         // Next LS turn: persona turn list is cleared, so Tamtel may deploy
         scn.SkipToLSTurn(Phase.DEPLOY);
         scn.LSActivateForceCheat(10);
-        assertTrue(scn.LSDeployAvailable(tamtel));
+        recoverToLSDeploy(scn);
+        assertTrue("Tamtel still blocked after turn clear; actions=" + scn.GetLSAvailableActions(), scn.LSDeployAvailable(tamtel));
         // DS Lando remains legal on Cloud City once uniqueness allows (separate from turn list)
         assertTrue(dsLando != null);
         assertTrue(dsSite != null);
