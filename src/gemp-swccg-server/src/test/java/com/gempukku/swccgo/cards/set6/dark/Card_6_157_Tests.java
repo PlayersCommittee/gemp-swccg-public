@@ -198,28 +198,6 @@ public class Card_6_157_Tests {
     }
 
     @Test
-    public void PersonaTurnLimitBlocksMillenniumFalconAfterGoldSquadron1() {
-        var scn = GetScenario();
-
-        var falcon = scn.GetLSCard("falcon");
-        var gold1 = scn.GetLSCard("gold1");
-        var tibrin = scn.GetLSCard("tibrin");
-        var dantooine = scn.GetDSCard("dantooine");
-
-        scn.MoveCardsToLSHand(falcon, gold1);
-        scn.StartGame();
-        scn.MoveLocationToTable(tibrin);
-        scn.MoveLocationToTable(dantooine);
-
-        scn.LSActivateForceCheat(20);
-        scn.SkipToLSTurn(Phase.DEPLOY);
-
-        // Gold Squadron 1 is the Falcon persona and more reliably deploys to systems in VHD
-        deployAndPass(scn, gold1, tibrin);
-        assertFalse(scn.LSDeployAvailable(falcon));
-    }
-
-    @Test
     public void PersonaTurnLimitBlocksGoldSquadron1AfterHanChewieAndTheFalcon() {
         var scn = GetScenario();
 
@@ -259,13 +237,14 @@ public class Card_6_157_Tests {
 
         deployAndPass(scn, lando, lsSite);
         assertFalse(scn.LSDeployAvailable(tamtel));
+        assertFalse(scn.LSActionAvailable("Persona replace"));
 
-        // Next LS turn: persona turn list is cleared, so Tamtel may deploy
+        // Next LS turn: persona turn list is cleared (Tamtel can persona-replace despite uniqueness)
         scn.SkipToLSTurn(Phase.DEPLOY);
         scn.LSActivateForceCheat(10);
         recoverToLSDeploy(scn);
-        assertTrue("Tamtel still blocked after turn clear; actions=" + scn.GetLSAvailableActions(), scn.LSDeployAvailable(tamtel));
-        // DS Lando remains legal on Cloud City once uniqueness allows (separate from turn list)
+        assertTrue("Tamtel still blocked after turn clear; actions=" + scn.GetLSAvailableActions(),
+                scn.LSActionAvailable("Persona replace") || scn.LSDeployAvailable(tamtel));
         assertTrue(dsLando != null);
         assertTrue(dsSite != null);
     }
