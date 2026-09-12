@@ -27,6 +27,7 @@ import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.AboutToLoseCardFromTableResult;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -82,6 +83,7 @@ public class Card2_003 extends AbstractAlienRebel {
                         }
                     }
             );
+            return Collections.singletonList(action);
         }
         return null;
     }
