@@ -1,4 +1,4 @@
-﻿package com.gempukku.swccgo.cards.set6.dark;
+package com.gempukku.swccgo.cards.set6.dark;
 
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
