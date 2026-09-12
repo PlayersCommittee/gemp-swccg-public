@@ -202,6 +202,46 @@ public interface Weapons extends BaseQuery, Icons {
         return !getModifiersAffectingCard(gameState, ModifierType.DOES_NOT_REQUIRE_POWER_SOURCE, artilleryWeapon).isEmpty();
     }
 
+
+    /**
+     * Gets the source card of a "may fire weapon for free" modifier that applies when the specified card
+     * fires the specified weapon (or permanent weapon), or null if none.
+     */
+    default PhysicalCard getMayFireWeaponFiredByForFreeSource(GameState gameState, PhysicalCard cardFiringWeapon, PhysicalCard weapon) {
+        if (cardFiringWeapon == null || weapon == null) {
+            return null;
+        }
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_FIRE_WEAPON_FIRED_BY_FOR_FREE, cardFiringWeapon)) {
+            if (modifier.isAffectedTarget(gameState, query(), weapon)) {
+                return modifier.getSource(gameState);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets the source card of a "may fire weapon for free" modifier that applies when the specified card
+     * fires the specified permanent weapon, or null if none.
+     */
+    default PhysicalCard getMayFireWeaponFiredByForFreeSource(GameState gameState, PhysicalCard cardFiringWeapon, SwccgBuiltInCardBlueprint permanentWeapon) {
+        if (cardFiringWeapon == null || permanentWeapon == null) {
+            return null;
+        }
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_FIRE_WEAPON_FIRED_BY_FOR_FREE, cardFiringWeapon)) {
+            if (modifier.isAffectedTarget(gameState, query(), permanentWeapon)) {
+                return modifier.getSource(gameState);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Determines if the specified card may optionally fire the specified weapon for free.
+     */
+    default boolean mayFireWeaponFiredByForFree(GameState gameState, PhysicalCard cardFiringWeapon, PhysicalCard weapon) {
+        return getMayFireWeaponFiredByForFreeSource(gameState, cardFiringWeapon, weapon) != null;
+    }
+
     /**
      * Gets the cost to fire the weapon.
      * @param gameState the game state
