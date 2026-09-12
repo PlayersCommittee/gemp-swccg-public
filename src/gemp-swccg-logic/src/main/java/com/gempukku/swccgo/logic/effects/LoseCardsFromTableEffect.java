@@ -1,4 +1,4 @@
-﻿package com.gempukku.swccgo.logic.effects;
+package com.gempukku.swccgo.logic.effects;
 
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
