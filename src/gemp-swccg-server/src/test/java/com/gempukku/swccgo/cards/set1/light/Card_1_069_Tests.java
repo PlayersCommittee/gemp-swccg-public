@@ -485,6 +485,52 @@ public class Card_1_069_Tests {
 		assertTrue(scn.IsAboardAsPassenger(corvette, urchins));
 	}
 
+
+	@Test
+	public void YerkaMigCanTransferBetweenDockedStarshipsAsPassenger() {
+		// #1013: real ship-dock transfer path for moves-like-a-character (passenger capacity may be occupied)
+		var scn = GetScenario();
+
+		var yerka = scn.GetLSCard("yerka");
+		var corvette = scn.GetLSCard("corvette");
+		var ywing = scn.GetLSCard("ywing");
+		var rebelTrooper = scn.GetLSFiller(1);
+		var system = scn.GetLSStartingLocation();
+
+		var trooper = scn.GetDSFiller(1);
+
+		scn.StartGame();
+
+		scn.MoveCardsToLSHand(yerka);
+		// Keep Utinni target off Yerka so Mig is not immediately cancelled
+		var landing = scn.GetDSCard("landing");
+		scn.MoveLocationToTable(landing);
+		scn.MoveCardsToLocation(landing, trooper);
+		scn.MoveCardsToLocation(system, corvette, ywing);
+		// Fill Y-wing pilot-or-passenger slot; Yerka still transfers (does not count toward capacity)
+		scn.BoardAsPassenger(ywing, rebelTrooper);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		scn.LSDeployCard(yerka);
+		scn.LSChooseCard(corvette);
+		scn.LSChooseCard(trooper);
+		scn.PassAllResponses();
+		assertTrue(scn.IsAboardAsPassenger(corvette, yerka));
+
+		scn.SkipToPhase(Phase.MOVE);
+		assertTrue(scn.LSCardActionAvailable(corvette, "dock"));
+		scn.LSUseCardAction(corvette, "dock");
+		scn.LSChooseCard(ywing);
+		scn.PassAllResponses();
+
+		assertTrue(scn.LSCardActionAvailable(yerka, "Transfer"));
+		scn.LSUseCardAction(yerka, "Transfer");
+		scn.PassAllResponses();
+
+		assertTrue(scn.IsAttachedTo(ywing, yerka));
+		assertTrue(scn.IsAboardAsPassenger(ywing, yerka));
+	}
+
     //add tests for:
 	// requires targetable opponent's character to play
 
