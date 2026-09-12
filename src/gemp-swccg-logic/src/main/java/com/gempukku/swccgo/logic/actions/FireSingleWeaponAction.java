@@ -240,7 +240,13 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
         }
 
         // If weapon firing completed, check if weapon can repeatedly fire.
-        if (!_checkedToFireRepeatedly && wasCarriedOut()) {
+        // Do not require wasCarriedOut(): Generator Core (and similar) can prevent the hit
+        // effect after a successful fire (about-to-be-hit -> Used Pile), which makes
+        // wasCarriedOut() false and would incorrectly skip the repeat-fire prompt.
+        // Still refuse repeat if costs failed or the respondable firing was canceled
+        // (e.g. Blaster Deflection USED cancel targeting).
+        if (!_checkedToFireRepeatedly && _weaponFired && !isAnyCostFailed()
+                && (_respondableEffect == null || !_respondableEffect.isCanceled())) {
             _checkedToFireRepeatedly = true;
 
             final String playerId = getPerformingPlayer();
