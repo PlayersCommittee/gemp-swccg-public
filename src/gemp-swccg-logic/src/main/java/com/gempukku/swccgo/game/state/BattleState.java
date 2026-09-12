@@ -280,6 +280,30 @@ public class BattleState implements Snapshotable<BattleState> {
             }
         }
 
+        // Cards that arrive mid-battle but cannot participate (e.g. already battled elsewhere this turn
+        // via a react) never enter currentParticipants, so the exclude modifier above never applied.
+        // Apply ExcludedFromBattleModifier so getCardState returns INACTIVE for the rest of the battle.
+        // Do not mark them inactive before they arrive — react itself must still be legal.
+        Collection<PhysicalCard> presentButIneligible;
+        if (_isLocalTrouble) {
+            presentButIneligible = Filters.filterActive(game, null, Filters.and(
+                    Filters.initiallyParticipatesInBattle(_location),
+                    Filters.in(_localTroubleParticipants),
+                    Filters.not(Filters.in(currentParticipants)),
+                    Filters.not(Filters.in(getAllCardsParticipating()))));
+        }
+        else {
+            presentButIneligible = Filters.filterActive(game, null, Filters.and(
+                    Filters.initiallyParticipatesInBattle(_location),
+                    Filters.not(Filters.in(currentParticipants)),
+                    Filters.not(Filters.in(getAllCardsParticipating()))));
+        }
+        for (PhysicalCard card : presentButIneligible) {
+            if (!modifiersQuerying.isExcludedFromBattle(gameState, card)) {
+                modifiersEnvironment.addUntilEndOfBattleModifier(new ExcludedFromBattleModifier(null, Filters.sameCardId(card)));
+            }
+        }
+
         for (PhysicalCard previousParticipant : previousParticipants) {
             // Remove cards no longer in the battle
             if (!_darkCardsParticipants.contains(previousParticipant) && !_lightCardsParticipants.contains(previousParticipant)) {
