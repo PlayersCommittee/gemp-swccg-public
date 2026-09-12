@@ -51,8 +51,10 @@ public interface Reacts extends BaseQuery {
             for (PhysicalCard target : targets) {
                 if (modifier.isAffectedTarget(gameState, query(), target)) {
 
+                    // Restrict deploy choices to targets accepted by this react modifier (not all cards at the location)
+                    Filter reactTargetFilter = Filters.and(deployTargetFilter, modifier.getTargetFilter());
                     return new ReactActionOption(modifier.getSource(gameState), modifier.isReactForFree(),
-                            modifier.getChangeInCost(), false, modifier.getText(gameState, query(), card), card, deployTargetFilter, null, modifier.isGrantedToDeployToTarget());
+                            modifier.getChangeInCost(), false, modifier.getText(gameState, query(), card), card, reactTargetFilter, null, modifier.isGrantedToDeployToTarget());
                 }
             }
         }
@@ -60,8 +62,10 @@ public interface Reacts extends BaseQuery {
             for (PhysicalCard target : targets) {
                 if (modifier.isAffectedTarget(gameState, query(), target)) {
 
+                    // Restrict deploy choices to targets accepted by this react modifier (not all cards at the location)
+                    Filter reactTargetFilter = Filters.and(deployTargetFilter, modifier.getTargetFilter());
                     return new ReactActionOption(modifier.getSource(gameState), modifier.isReactForFree(),
-                            modifier.getChangeInCost(), false, modifier.getText(gameState, query(), card), card, deployTargetFilter, modifier.getPilotOrDriverFilter(), modifier.isGrantedToDeployToTarget());
+                            modifier.getChangeInCost(), false, modifier.getText(gameState, query(), card), card, reactTargetFilter, modifier.getPilotOrDriverFilter(), modifier.isGrantedToDeployToTarget());
                 }
             }
         }
