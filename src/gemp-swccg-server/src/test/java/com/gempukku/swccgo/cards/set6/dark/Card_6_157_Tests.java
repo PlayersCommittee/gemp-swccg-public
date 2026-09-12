@@ -35,13 +35,14 @@ public class Card_6_157_Tests {
                     put("falcon", "1_143"); // Millennium Falcon
                     put("gold1", "9_068"); // Gold Squadron 1
                     put("hcf", "13_021"); // Han, Chewie, And The Falcon
-                    put("audience", "6_162"); // Jabba's Palace: Audience Chamber
                     put("tibrin", "6_087"); // space system for starships
+                    put("entrance", "6_082"); // Jabba's Palace: Entrance Cavern (LS)
                 }},
                 new HashMap<>() {{
                     put("nsp", "6_157"); // None Shall Pass
                     put("dsLando", "5_099"); // Lando Calrissian (DS)
-                    put("cloudCity", "5_166"); // Cloud City: Downtown Plaza (or similar CC site)
+                    put("cloudCity", "5_166"); // Cloud City: Carbonite Chamber
+                    put("audience", "6_162"); // Jabba's Palace: Audience Chamber (DS)
                 }},
                 40,
                 40,
@@ -94,7 +95,7 @@ public class Card_6_157_Tests {
         var scn = GetScenario();
 
         var luke = scn.GetLSCard("luke");
-        var audience = scn.GetLSCard("audience");
+        var audience = scn.GetDSCard("audience");
         var nsp = scn.GetDSCard("nsp");
 
         scn.StartGame();
@@ -111,7 +112,6 @@ public class Card_6_157_Tests {
         assertTrue(scn.LSDecisionAvailable("Choose where to deploy"));
         scn.LSChooseCard(audience);
 
-        // After-deploy window: DS plays None Shall Pass
         assertTrue(scn.DSPlayUsedInterruptAvailable(nsp));
         scn.DSPlayUsedInterrupt(nsp);
         if (scn.DSDecisionAvailable("Choose Rebel")) {
@@ -130,7 +130,7 @@ public class Card_6_157_Tests {
 
         var luke = scn.GetLSCard("luke");
         var lukeJedi = scn.GetLSCard("lukeJedi");
-        var audience = scn.GetLSCard("audience");
+        var audience = scn.GetDSCard("audience");
         var nsp = scn.GetDSCard("nsp");
 
         scn.StartGame();
@@ -155,7 +155,6 @@ public class Card_6_157_Tests {
 
         assertEquals(Zone.HAND, luke.getZone());
         assertTrue(scn.AwaitingLSDeployPhaseActions());
-        // Same persona, different title may not redeploy this turn (#262)
         assertFalse(scn.LSDeployAvailable(lukeJedi));
         assertFalse(scn.LSDeployAvailable(luke));
     }
@@ -214,11 +213,11 @@ public class Card_6_157_Tests {
         var tamtel = scn.GetLSCard("tamtel");
         var dsLando = scn.GetDSCard("dsLando");
         var cloudCity = scn.GetDSCard("cloudCity");
-        var audience = scn.GetLSCard("audience"); // Tatooine JP site for Tamtel
+        var entrance = scn.GetLSCard("entrance");
 
         scn.StartGame();
 
-        scn.MoveLocationToTable(audience);
+        scn.MoveLocationToTable(entrance);
         scn.MoveLocationToTable(cloudCity);
         scn.MoveCardsToLSHand(lando, tamtel);
         scn.MoveCardsToDSHand(dsLando);
@@ -226,13 +225,11 @@ public class Card_6_157_Tests {
         scn.LSActivateForceCheat(20);
         scn.SkipToPhase(Phase.DEPLOY);
 
-        // Deploy LS Lando; Tamtel (same persona, different title) blocked same turn
         assertTrue(scn.LSDeployAvailable(lando));
         scn.LSDeployCardAndPassResponses(lando, scn.GetLSStartingLocation());
         assertTrue(scn.AwaitingLSDeployPhaseActions());
         assertFalse(scn.LSDeployAvailable(tamtel));
 
-        // After turn ends, persona list clears so DS may deploy their Lando
         scn.SkipToDSTurn(Phase.DEPLOY);
         scn.DSActivateForceCheat(10);
         assertTrue(scn.DSDeployAvailable(dsLando));
