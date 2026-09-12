@@ -3,9 +3,7 @@ package com.gempukku.swccgo.cards.set110.dark;
 import com.gempukku.swccgo.cards.AbstractAlien;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InPlayDataNotSetCondition;
-import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
@@ -17,17 +15,14 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.CancelDestinyEffect;
-import com.gempukku.swccgo.logic.effects.ModifyTotalWeaponDestinyBeforeDrawingDestinyEffect;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextLandspeedModifier;
-import com.gempukku.swccgo.logic.modifiers.FireWeaponFiredByForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.MayFireWeaponFiredByForFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.MayBeTargetedByModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.DestinyDrawnResult;
 
@@ -79,31 +74,6 @@ public class Card110_009 extends AbstractAlien {
     }
 
     @Override
-    protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
-        String playerId = self.getOwner();
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
-
-        if (!GameConditions.cardHasWhileInPlayDataSet(self)
-                && TriggerConditions.isFiringWeapon(game, effect, Filters.or(Filters.rifle, Filters.blaster), self)
-                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
-
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Add 2 to total weapon destiny");
-            action.setPerformingPlayer(playerId);
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerTurnEffect(action));
-            // Perform result(s)
-            action.appendEffect(
-                    new SetWhileInPlayDataEffect(action, self, new WhileInPlayData()));
-            action.appendEffect(
-                    new ModifyTotalWeaponDestinyBeforeDrawingDestinyEffect(action, 2));
-            return Collections.singletonList(action);
-        }
-        return null;
-    }
-
-    @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (self.getWhileInPlayData() != null && TriggerConditions.isStartOfEachTurn(game, effectResult)) {
@@ -115,7 +85,7 @@ public class Card110_009 extends AbstractAlien {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new FireWeaponFiredByForFreeModifier(self, new InPlayDataNotSetCondition(self), Filters.or(Filters.rifle, Filters.blaster)));
+        modifiers.add(new MayFireWeaponFiredByForFreeModifier(self, new InPlayDataNotSetCondition(self), Filters.or(Filters.rifle, Filters.blaster)));
         modifiers.add(new MayBeTargetedByModifier(self, Title.Hidden_Weapons));
         modifiers.add(new DefinedByGameTextLandspeedModifier(self, 3));
         return modifiers;
