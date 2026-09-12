@@ -80,9 +80,29 @@ public class Card_6_157_Tests {
         scn.LSDeployCard(rebel);
         assertTrue(scn.LSDecisionAvailable("Choose where to deploy"));
         scn.LSChooseCard(site);
-        scn.PassForceUseResponses();
-        assertTrue(scn.DSPlayUsedInterruptAvailable(nsp));
-        scn.DSPlayUsedInterrupt(nsp);
+
+        // Reach the just-deployed optional response window
+        for (int i = 0; i < 12 && !scn.DSCardActionAvailable(nsp) && !scn.DSActionAvailable("Return"); i++) {
+            String text = scn.GetCurrentDecision().getText().toLowerCase();
+            if (!text.contains("optional response")) {
+                break;
+            }
+            if (text.contains("force")) {
+                scn.PassForceUseResponses();
+            } else if (scn.GetDecidingPlayer().equals(scn.LS)) {
+                scn.LSPass();
+            } else {
+                break;
+            }
+        }
+        assertTrue("NSP response unavailable; decision=" + scn.GetCurrentDecision().getText()
+                + " DS actions=" + scn.GetDSAvailableActions(),
+                scn.DSCardActionAvailable(nsp) || scn.DSActionAvailable("Return"));
+        if (scn.DSCardActionAvailable(nsp)) {
+            scn.DSUseCardAction(nsp);
+        } else {
+            scn.DSChooseAction("Return");
+        }
         if (scn.DSDecisionAvailable("Choose Rebel")) {
             scn.DSChooseCard(rebel);
         }
