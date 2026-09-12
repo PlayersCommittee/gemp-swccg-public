@@ -73,8 +73,9 @@ public class Card101_003 extends AbstractLostInterrupt {
                                                         new MoveCardUsingLandspeedEffect(action, playerId, finalTarget, true, Filters.battleLocation));
                                                 action.appendEffect(
                                                         new AddUntilEndOfBattleModifierEffect(action,
-                                                                new PowerModifier(self, Filters.Luke, new CantSpotCondition(self, Filters.and(Filters.Vader, Filters.or(Filters.presentAt(Filters.battleLocation),
-                                                                        Filters.at(Filters.adjacentSiteTo(self, Filters.battleLocation))))), 2), null));
+                                                                new PowerModifier(self, Filters.Luke, new CantSpotCondition(self, Filters.or(
+                                                                        Filters.personaPresentAt(Filters.Vader, Filters.battleLocation),
+                                                                        Filters.personaAt(Filters.Vader, Filters.adjacentSiteTo(self, Filters.battleLocation)))), 2), null));
                                             }
                                         }
                                 );

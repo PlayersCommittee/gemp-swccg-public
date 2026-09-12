@@ -47,8 +47,10 @@ public class Card6_154 extends AbstractUsedInterrupt {
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self) {
         // Check condition(s)
         if (GameConditions.isDuringBattle(game)) {
-            Filter filter = Filters.and(Filters.or(Filters.Boba_Fett, Filters.grantedMayBeTargetedBy(self), Filters.and(Filters.your(self),
-                    Filters.character, Filters.hasAttached(Filters.Mandalorian_Armor))), Filters.presentInBattle);
+            Filter filter = Filters.or(
+                    Filters.personaPresentInBattle(Filters.Boba_Fett),
+                    Filters.and(Filters.or(Filters.grantedMayBeTargetedBy(self), Filters.and(Filters.your(self),
+                            Filters.character, Filters.hasAttached(Filters.Mandalorian_Armor))), Filters.presentInBattle));
             if (GameConditions.canSpot(game, self, filter)) {
                 Filter opponentsCharacter = Filters.and(Filters.opponents(self), Filters.character, Filters.presentInBattle);
                 final Set<TargetingReason> targetingReasonSet = new HashSet<TargetingReason>();
