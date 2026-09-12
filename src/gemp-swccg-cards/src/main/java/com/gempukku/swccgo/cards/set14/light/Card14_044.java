@@ -44,7 +44,7 @@ public class Card14_044 extends AbstractUsedInterrupt {
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
         // Check condition(s)
         if (TriggerConditions.isAboutToDrawWeaponDestiny(game, effectResult, playerId, Filters.Proton_Torpedoes)
-                && GameConditions.canDrawDestinyAndChoose(game, 3)) {
+                && GameConditions.canDrawDestinyAndChoose(game, 1)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText("Draw three and choose one");
