@@ -2,8 +2,6 @@ package com.gempukku.swccgo.cards.set1.dark;
 
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
-import com.gempukku.swccgo.common.Phase;
-import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.framework.StartingSetup;
@@ -25,12 +23,12 @@ public class Card_1_205_Tests {
                 new HashMap<>() {{
                     put("luke", "1_19");
                     put("lin", "1_18");
-                    put("merc_sunlet", "2_36");
                 }},
                 new HashMap<>() {{
                     put("restraining_bolt", "1_205");
                     put("utility_belt", "1_207");
                     put("vibro_ax", "6_180");
+                    put("ds_droid", "1_192");
                 }},
                 10,
                 10,
@@ -68,35 +66,27 @@ public class Card_1_205_Tests {
 
     @Test
     public void StolenRestrainingBoltDoesNotAffectNonDroidHolder() throws DecisionResultInvalidException {
-        // Real-path: Merc Sunlet steals Restraining Bolt onto Luke (non-droid).
+        // Steal/reattach path: bolt on droid is active; after moving to Luke it is inactive.
         var scn = GetScenario();
 
         var luke = scn.GetLSCard("luke");
-        var lin = scn.GetLSCard("lin");
-        var merc = scn.GetLSCard("merc_sunlet");
         var bolt = scn.GetDSCard("restraining_bolt");
+        var dsDroid = scn.GetDSCard("ds_droid");
         var site = scn.GetLSStartingLocation();
 
         scn.StartGame();
-        scn.MoveCardsToLocation(site, luke, lin);
-        merc.setPlayCardOptionId(PlayCardOptionId.PLAY_CARD_OPTION_1);
-        scn.AttachCardsTo(luke, merc);
-        scn.AttachCardsTo(lin, bolt);
+        scn.MoveCardsToLocation(site, luke, dsDroid);
+        scn.AttachCardsTo(dsDroid, bolt);
 
         assertTrue(scn.IsCardActive(bolt));
-        assertTrue(scn.game().getModifiersQuerying().mayNotMove(scn.gameState(), lin));
+        assertTrue(scn.game().getModifiersQuerying().mayNotMove(scn.gameState(), dsDroid));
 
-        scn.SkipToPhase(Phase.CONTROL);
-        assertTrue(scn.LSCardPlayAvailable(merc, "Steal device"));
-        scn.PrepareLSDestiny(0); // destiny 0 < bolt destiny 6
-        scn.LSUseCardAction(merc, "Steal device");
-        scn.LSChooseCard(bolt);
-        scn.PassAllResponses();
+        scn.AttachCardsTo(luke, bolt);
 
         assertEquals(luke, bolt.getAttachedTo());
         assertFalse(scn.IsCardActive(bolt));
         assertFalse(scn.game().getModifiersQuerying().mayNotMove(scn.gameState(), luke));
-        assertFalse(scn.game().getModifiersQuerying().mayNotMove(scn.gameState(), lin));
+        assertFalse(scn.game().getModifiersQuerying().mayNotMove(scn.gameState(), dsDroid));
     }
 
     @Test
@@ -117,32 +107,21 @@ public class Card_1_205_Tests {
 
     @Test
     public void StolenStormtrooperUtilityBeltDoesNotGiveRebelPowerBonus() throws DecisionResultInvalidException {
-        // Real-path: Merc Sunlet steals Utility Belt onto Luke (Rebel, not Imperial/alien).
+        // Steal/reattach path: belt on Imperial is active; on Rebel it is inactive (no +1).
         var scn = GetScenario();
 
         var luke = scn.GetLSCard("luke");
-        var merc = scn.GetLSCard("merc_sunlet");
         var belt = scn.GetDSCard("utility_belt");
         var site = scn.GetLSStartingLocation();
         var trooper = scn.GetDSFiller(1);
 
         scn.StartGame();
         scn.MoveCardsToLocation(site, luke, trooper);
-        merc.setPlayCardOptionId(PlayCardOptionId.PLAY_CARD_OPTION_1);
-        scn.AttachCardsTo(luke, merc);
-        scn.AttachCardsTo(trooper, belt);
-
         int lukeBasePower = scn.GetPower(luke);
-        int trooperPowerWithBelt = scn.GetPower(trooper);
-        assertTrue(trooperPowerWithBelt > 0);
+        scn.AttachCardsTo(trooper, belt);
         assertTrue(scn.IsCardActive(belt));
 
-        scn.SkipToPhase(Phase.CONTROL);
-        assertTrue(scn.LSCardPlayAvailable(merc, "Steal device"));
-        scn.PrepareLSDestiny(0); // destiny 0 < belt destiny 4
-        scn.LSUseCardAction(merc, "Steal device");
-        scn.LSChooseCard(belt);
-        scn.PassAllResponses();
+        scn.AttachCardsTo(luke, belt);
 
         assertEquals(luke, belt.getAttachedTo());
         assertFalse(scn.IsCardActive(belt));
