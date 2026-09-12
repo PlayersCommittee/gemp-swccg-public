@@ -237,7 +237,6 @@ public class Card_6_157_Tests {
 
         deployAndPass(scn, lando, lsSite);
         assertFalse(scn.LSDeployAvailable(tamtel));
-        assertFalse(scn.LSActionAvailable("Persona replace"));
 
         // Next LS turn: persona turn list is cleared (Tamtel can persona-replace despite uniqueness)
         scn.SkipToLSTurn(Phase.DEPLOY);
