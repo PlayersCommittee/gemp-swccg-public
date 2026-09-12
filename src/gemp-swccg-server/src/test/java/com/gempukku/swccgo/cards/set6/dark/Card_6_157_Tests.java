@@ -74,6 +74,21 @@ public class Card_6_157_Tests {
         );
     }
 
+    private void playNoneShallPassAfterDeploy(VirtualTableScenario scn, com.gempukku.swccgo.game.PhysicalCardImpl rebel,
+                                              com.gempukku.swccgo.game.PhysicalCardImpl site,
+                                              com.gempukku.swccgo.game.PhysicalCardImpl nsp) {
+        scn.LSDeployCard(rebel);
+        assertTrue(scn.LSDecisionAvailable("Choose where to deploy"));
+        scn.LSChooseCard(site);
+        scn.PassForceUseResponses();
+        assertTrue(scn.DSPlayUsedInterruptAvailable(nsp));
+        scn.DSPlayUsedInterrupt(nsp);
+        if (scn.DSDecisionAvailable("Choose Rebel")) {
+            scn.DSChooseCard(rebel);
+        }
+        scn.PassAllResponses();
+    }
+
     @Test
     public void NoneShallPassStatsAndKeywordsAreCorrect() {
         /**
@@ -115,23 +130,13 @@ public class Card_6_157_Tests {
 
         scn.MoveCardsToLSHand(luke);
         scn.MoveCardsToDSHand(nsp);
-
         scn.StartGame();
 
         scn.LSActivateForceCheat(10);
         scn.SkipToLSTurn(Phase.DEPLOY);
 
         assertTrue(scn.LSDeployAvailable(luke));
-        scn.LSDeployCard(luke);
-        assertTrue(scn.LSDecisionAvailable("Choose where to deploy"));
-        scn.LSChooseCard(site);
-
-        assertTrue(scn.DSPlayUsedInterruptAvailable(nsp));
-        scn.DSPlayUsedInterrupt(nsp);
-        if (scn.DSDecisionAvailable("Choose Rebel")) {
-            scn.DSChooseCard(luke);
-        }
-        scn.PassAllResponses();
+        playNoneShallPassAfterDeploy(scn, luke, site, nsp);
 
         assertEquals(Zone.HAND, luke.getZone());
         assertTrue(scn.AwaitingLSDeployPhaseActions());
@@ -149,22 +154,13 @@ public class Card_6_157_Tests {
 
         scn.MoveCardsToLSHand(luke, lukeJedi);
         scn.MoveCardsToDSHand(nsp);
-
         scn.StartGame();
 
         scn.LSActivateForceCheat(20);
         scn.SkipToLSTurn(Phase.DEPLOY);
 
-        scn.LSDeployCard(luke);
-        assertTrue(scn.LSDecisionAvailable("Choose where to deploy"));
-        scn.LSChooseCard(site);
-
-        assertTrue(scn.DSPlayUsedInterruptAvailable(nsp));
-        scn.DSPlayUsedInterrupt(nsp);
-        if (scn.DSDecisionAvailable("Choose Rebel")) {
-            scn.DSChooseCard(luke);
-        }
-        scn.PassAllResponses();
+        assertTrue(scn.LSDeployAvailable(luke));
+        playNoneShallPassAfterDeploy(scn, luke, site, nsp);
 
         assertEquals(Zone.HAND, luke.getZone());
         assertTrue(scn.AwaitingLSDeployPhaseActions());
