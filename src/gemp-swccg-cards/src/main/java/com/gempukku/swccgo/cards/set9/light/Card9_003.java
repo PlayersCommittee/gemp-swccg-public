@@ -17,6 +17,7 @@ import com.gempukku.swccgo.logic.effects.ModifyPowerUntilEndOfBattleEffect;
 import com.gempukku.swccgo.logic.modifiers.EachWeaponDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmunityToAttritionChangeModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifierType;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.FiredWeaponResult;
 
@@ -43,6 +44,13 @@ public class Card9_003 extends AbstractAdmiralsOrder {
         // Check condition(s)
         if (TriggerConditions.weaponJustFiredBy(game, effectResult, Filters.weapon, Filters.and(Filters.starfighter, Filters.participatingInBattle))) {
             final PhysicalCard cardFiringWeapon = ((FiredWeaponResult) effectResult).getCardFiringWeapon();
+
+            // Once per starfighter per battle: do not re-apply +3 if this card already modified that ship's power
+            for (Modifier modifier : game.getModifiersQuerying().getModifiersAffectingCard(game.getGameState(), ModifierType.POWER, cardFiringWeapon)) {
+                if (modifier.getSource(game.getGameState()) == self) {
+                    return null;
+                }
+            }
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Add 3 to power of " + GameUtils.getFullName(cardFiringWeapon));

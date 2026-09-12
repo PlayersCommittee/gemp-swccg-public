@@ -1,4 +1,4 @@
-package com.gempukku.swccgo.cards.set9.light;
+package com.gempukku.swccgo.cards.set9.dark;
 
 import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.ExpansionSet;
@@ -18,17 +18,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class Card_9_003_Tests {
+public class Card_9_093_Tests {
     protected VirtualTableScenario GetScenario() {
         return new VirtualTableScenario(
                 new HashMap<>() {{
-                    put("concentrateAllFire", "9_3");
                     put("bwing", "9_66");
                     put("weapon1", "9_87");
                     put("weapon2", "2_81");
                     put("hoth", "3_55");
                 }},
                 new HashMap<>() {{
+                    put("fighterCover", "9_93");
                     put("executor", "4_167");
                 }},
                 10,
@@ -44,26 +44,13 @@ public class Card_9_003_Tests {
     }
 
     @Test
-    public void ConcentrateAllFireStatsAndKeywordsAreCorrect() {
-        /**
-         * Title: Concentrate All Fire
-         * Uniqueness: Unique
-         * Side: Light
-         * Type: Admirals Order
-         * Destiny: 6
-         * Icons: Admirals Order, Death Star II
-         * Game Text: Each starfighter that fires a weapon in battle is power +3 for the remainder of battle. Once per turn you may cancel and redraw your starship weapon destiny just drawn. At sites related to systems you occupy, your characters who have immunity to attrition each add 2 to immunity and 1 to each of that character's weapon destiny draws.
-         * Set: Death Star II
-         * Rarity: R
-         */
-
+    public void FighterCoverStatsAndKeywordsAreCorrect() {
         var scn = GetScenario();
+        var card = scn.GetDSCard("fighterCover").getBlueprint();
 
-        var card = scn.GetLSCard("concentrateAllFire").getBlueprint();
-
-        assertEquals("Concentrate All Fire", card.getTitle());
+        assertEquals("Fighter Cover", card.getTitle());
         assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
-        assertEquals(Side.LIGHT, card.getSide());
+        assertEquals(Side.DARK, card.getSide());
         scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
             add(CardType.ADMIRALS_ORDER);
         }});
@@ -72,17 +59,18 @@ public class Card_9_003_Tests {
             add(Icon.ADMIRALS_ORDER);
             add(Icon.DEATH_STAR_II);
         }});
-        assertEquals(ExpansionSet.DEATH_STAR_II,card.getExpansionSet());
+        assertEquals(ExpansionSet.DEATH_STAR_II, card.getExpansionSet());
         assertEquals(Rarity.R, card.getRarity());
     }
 
     @Test
-    public void ConcentrateAllFireDoesNotAddPowerTwiceToSameStarfighterInOneBattle() {
-        // Issue #38: B-Wing firing multiple weapons must get +3 from Concentrate All Fire only once per battle.
+    public void FighterCoverDoesNotAddPowerTwiceToSameStarfighterInOneBattle() {
+        // Issue #46 twin of #38: same once-per-starfighter gate as Concentrate All Fire.
+        // LS B-Wing fires two weapons under DS Fighter Cover; +3 applies once only.
 
         var scn = GetScenario();
 
-        var concentrateAllFire = scn.GetLSCard("concentrateAllFire");
+        var fighterCover = scn.GetDSCard("fighterCover");
         var bWing = scn.GetLSCard("bwing");
         var weapon1 = scn.GetLSCard("weapon1");
         var weapon2 = scn.GetLSCard("weapon2");
@@ -91,24 +79,23 @@ public class Card_9_003_Tests {
 
         scn.StartGame();
 
-        scn.MoveCardsToLSHand(concentrateAllFire);
+        scn.MoveCardsToDSHand(fighterCover);
         scn.MoveLocationToTable(hoth);
         scn.MoveCardsToLocation(hoth, bWing, executor);
         scn.AttachCardsTo(bWing, weapon1, weapon2);
 
-        scn.SkipToLSTurn(Phase.DEPLOY);
-        assertTrue(scn.AwaitingLSDeployPhaseActions());
-        assertTrue(scn.LSDeployAvailable(concentrateAllFire));
-        scn.LSDeployCard(concentrateAllFire);
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.AwaitingDSDeployPhaseActions());
+        assertTrue(scn.DSDeployAvailable(fighterCover));
+        scn.DSDeployCard(fighterCover);
 
-        scn.SkipToPhase(Phase.BATTLE);
+        scn.SkipToLSTurn(Phase.BATTLE);
         assertTrue(scn.AwaitingLSBattlePhaseActions());
         assertTrue(scn.GetLSForcePileCount() >= 2);
         assertTrue(scn.LSCanInitiateBattle());
         scn.LSInitiateBattle(hoth);
         scn.PassBattleStartResponses();
 
-        // B-Wing printed power 4 before any Concentrate All Fire bonus
         assertEquals(4, scn.GetPower(bWing));
         assertEquals(4, scn.GetLSTotalPower());
 
@@ -118,7 +105,6 @@ public class Card_9_003_Tests {
         scn.LSChooseCard(executor);
         scn.PassAllResponses();
 
-        // First weapon fire: Concentrate All Fire +3 once
         assertEquals(7, scn.GetPower(bWing));
         assertEquals(7, scn.GetLSTotalPower());
 
@@ -128,7 +114,6 @@ public class Card_9_003_Tests {
         scn.LSUseCardAction(weapon2);
         assertTrue(scn.LSHasCardChoiceAvailable(executor));
         scn.LSChooseCard(executor);
-        // Second fire must not re-offer / re-apply Concentrate All Fire +3 on the same B-Wing
         assertFalse(scn.LSDecisionAvailable("Add 3 to power"));
         scn.PassAllResponses();
         assertFalse(scn.LSDecisionAvailable("Add 3 to power"));
