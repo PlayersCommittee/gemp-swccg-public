@@ -53,6 +53,11 @@ public class MayDeployAsReactToTargetModifier extends AbstractModifier {
     }
 
     @Override
+    public Filter getTargetFilter() {
+        return _targetFilter;
+    }
+
+    @Override
     public float getChangeInCost() {
         return _changeInCost;
     }
