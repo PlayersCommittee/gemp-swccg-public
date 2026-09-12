@@ -96,6 +96,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
     private Map<String, LimitCounter> _duelLimitCounters = new HashMap<String, LimitCounter>();
     private Map<Integer, Map<String, LimitCounter>> _forceLossLimitCounters = new HashMap<Integer, Map<String, LimitCounter>>();
     private Map<String, LimitCounter> _cardTitlePlayedTurnLimitCounters = new HashMap<String, LimitCounter>();
+    private Set<Persona> _personasPlayedThisTurn = new HashSet<Persona>();
     private Map<Integer, Map<String, LimitCounter>> _captivityLimitCounters = new HashMap<Integer, Map<String, LimitCounter>>();
     private Map<Float, Map<String, LimitCounter>> _raceTotalLimitCounters = new HashMap<Float, Map<String, LimitCounter>>();
 
@@ -292,6 +293,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
         for (Map.Entry<String, LimitCounter> entry : _cardTitlePlayedTurnLimitCounters.entrySet()) {
             snapshot._cardTitlePlayedTurnLimitCounters.put(entry.getKey(), snapshotData.getDataForSnapshot(entry.getValue()));
         }
+        snapshot._personasPlayedThisTurn.addAll(_personasPlayedThisTurn);
         for (Integer cardId : _captivityLimitCounters.keySet()) {
             Map<String, LimitCounter> snapshotMap = new HashMap<String, LimitCounter>();
             snapshot._captivityLimitCounters.put(cardId, snapshotMap);
@@ -724,6 +726,16 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
             _cardTitlePlayedTurnLimitCounters.put(title, limitCounter);
         }
         return limitCounter;
+    }
+
+    @Override
+    public void recordPersonaPlayedThisTurn(Persona persona) {
+        _personasPlayedThisTurn.add(persona);
+    }
+
+    @Override
+    public boolean isPersonaPlayedThisTurn(Persona persona) {
+        return _personasPlayedThisTurn.contains(persona);
     }
 
     // Modifiers Environment
@@ -1163,6 +1175,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
      */
     public void removeEndOfTurnCounters() {
         _cardTitlePlayedTurnLimitCounters.clear();
+        _personasPlayedThisTurn.clear();
         _turnLimitCounters.clear();
         _turnForCardTitleLimitCounters.clear();
         _forceActivatedPerPhaseMap.clear();
