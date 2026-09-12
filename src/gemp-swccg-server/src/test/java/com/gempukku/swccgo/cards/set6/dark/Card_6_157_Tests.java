@@ -28,26 +28,44 @@ public class Card_6_157_Tests {
     protected VirtualTableScenario GetScenario() {
         return new VirtualTableScenario(
                 new HashMap<>() {{
-                    put("luke", "1_019"); // Luke Skywalker
-                    put("lukeJedi", "9_024"); // Luke Skywalker, Jedi Knight
-                    put("lando", "5_005"); // Lando Calrissian (LS)
-                    put("tamtel", "6_042"); // Tamtel Skreej (Lando persona)
-                    put("falcon", "1_143"); // Millennium Falcon
-                    put("gold1", "9_068"); // Gold Squadron 1
-                    put("hcf", "13_021"); // Han, Chewie, And The Falcon
-                    put("tibrin", "6_087"); // space system for starships
-                    put("entrance", "6_082"); // Jabba's Palace: Entrance Cavern (LS)
+                    put("luke", "1_019");
+                    put("lukeJedi", "9_024");
+                    put("lando", "5_005");
+                    put("tamtel", "6_042");
+                    put("falcon", "1_143");
+                    put("gold1", "9_068");
+                    put("hcf", "13_021");
                 }},
                 new HashMap<>() {{
-                    put("nsp", "6_157"); // None Shall Pass
-                    put("dsLando", "5_099"); // Lando Calrissian (DS)
-                    put("cloudCity", "5_166"); // Cloud City: Carbonite Chamber
-                    put("audience", "6_162"); // Jabba's Palace: Audience Chamber (DS)
+                    put("nsp", "6_157");
+                    put("dsLando", "5_099");
                 }},
                 40,
                 40,
-                StartingSetup.DefaultLSGroundLocation,
-                StartingSetup.DefaultDSGroundLocation,
+                StartingSetup.LSStartingLocation("6_082"), // Jabba's Palace: Entrance Cavern
+                StartingSetup.DSStartingLocation("5_166"), // Cloud City: Carbonite Chamber
+                StartingSetup.NoLSStartingInterrupts,
+                StartingSetup.NoDSStartingInterrupts,
+                StartingSetup.NoLSShields,
+                StartingSetup.NoDSShields,
+                VirtualTableScenario.Open
+        );
+    }
+
+    protected VirtualTableScenario GetSpaceScenario() {
+        return new VirtualTableScenario(
+                new HashMap<>() {{
+                    put("falcon", "1_143");
+                    put("gold1", "9_068");
+                    put("hcf", "13_021");
+                }},
+                new HashMap<>() {{
+                    put("nsp", "6_157");
+                }},
+                40,
+                40,
+                StartingSetup.DefaultLSSpaceSystem,
+                StartingSetup.DefaultDSSpaceSystem,
                 StartingSetup.NoLSStartingInterrupts,
                 StartingSetup.NoDSStartingInterrupts,
                 StartingSetup.NoLSShields,
@@ -65,9 +83,6 @@ public class Card_6_157_Tests {
          * Type: Interrupt
          * Subtype: Used
          * Destiny: 5
-         * Game Text: If opponent just deployed a Rebel to a Jabba's Palace site, (and you have no Imperials at a
-         *      Jabba's Palace site), return Rebel to opponents hand. Any Force used to deploy that Rebel remains used,
-         *      and Rebel may not be deployed for the remainder of the turn.
          * Set: Jabba's Palace
          * Rarity: C
          */
@@ -95,22 +110,21 @@ public class Card_6_157_Tests {
         var scn = GetScenario();
 
         var luke = scn.GetLSCard("luke");
-        var audience = scn.GetDSCard("audience");
         var nsp = scn.GetDSCard("nsp");
+        var site = scn.GetLSStartingLocation();
 
-        scn.StartGame();
-
-        scn.MoveLocationToTable(audience);
         scn.MoveCardsToLSHand(luke);
         scn.MoveCardsToDSHand(nsp);
 
-        scn.SkipToLSTurn(Phase.DEPLOY);
+        scn.StartGame();
+
         scn.LSActivateForceCheat(10);
+        scn.SkipToLSTurn(Phase.DEPLOY);
 
         assertTrue(scn.LSDeployAvailable(luke));
         scn.LSDeployCard(luke);
         assertTrue(scn.LSDecisionAvailable("Choose where to deploy"));
-        scn.LSChooseCard(audience);
+        scn.LSChooseCard(site);
 
         assertTrue(scn.DSPlayUsedInterruptAvailable(nsp));
         scn.DSPlayUsedInterrupt(nsp);
@@ -130,21 +144,20 @@ public class Card_6_157_Tests {
 
         var luke = scn.GetLSCard("luke");
         var lukeJedi = scn.GetLSCard("lukeJedi");
-        var audience = scn.GetDSCard("audience");
         var nsp = scn.GetDSCard("nsp");
+        var site = scn.GetLSStartingLocation();
 
-        scn.StartGame();
-
-        scn.MoveLocationToTable(audience);
         scn.MoveCardsToLSHand(luke, lukeJedi);
         scn.MoveCardsToDSHand(nsp);
 
-        scn.SkipToLSTurn(Phase.DEPLOY);
+        scn.StartGame();
+
         scn.LSActivateForceCheat(20);
+        scn.SkipToLSTurn(Phase.DEPLOY);
 
         scn.LSDeployCard(luke);
         assertTrue(scn.LSDecisionAvailable("Choose where to deploy"));
-        scn.LSChooseCard(audience);
+        scn.LSChooseCard(site);
 
         assertTrue(scn.DSPlayUsedInterruptAvailable(nsp));
         scn.DSPlayUsedInterrupt(nsp);
@@ -161,22 +174,20 @@ public class Card_6_157_Tests {
 
     @Test
     public void PersonaTurnLimitBlocksGoldSquadron1AfterMillenniumFalcon() {
-        var scn = GetScenario();
+        var scn = GetSpaceScenario();
 
         var falcon = scn.GetLSCard("falcon");
         var gold1 = scn.GetLSCard("gold1");
-        var tibrin = scn.GetLSCard("tibrin");
+        var system = scn.GetLSStartingLocation();
 
+        scn.MoveCardsToLSHand(falcon, gold1);
         scn.StartGame();
 
-        scn.MoveLocationToTable(tibrin);
-        scn.MoveCardsToLSHand(falcon, gold1);
-
-        scn.SkipToLSTurn(Phase.DEPLOY);
         scn.LSActivateForceCheat(20);
+        scn.SkipToLSTurn(Phase.DEPLOY);
 
         assertTrue(scn.LSDeployAvailable(falcon));
-        scn.LSDeployCardAndPassResponses(falcon, tibrin);
+        scn.LSDeployCardAndPassResponses(falcon, system);
 
         assertTrue(scn.AwaitingLSDeployPhaseActions());
         assertFalse(scn.LSDeployAvailable(gold1));
@@ -184,22 +195,20 @@ public class Card_6_157_Tests {
 
     @Test
     public void PersonaTurnLimitBlocksGoldSquadron1AfterHanChewieAndTheFalcon() {
-        var scn = GetScenario();
+        var scn = GetSpaceScenario();
 
         var hcf = scn.GetLSCard("hcf");
         var gold1 = scn.GetLSCard("gold1");
-        var tibrin = scn.GetLSCard("tibrin");
+        var system = scn.GetLSStartingLocation();
 
+        scn.MoveCardsToLSHand(hcf, gold1);
         scn.StartGame();
 
-        scn.MoveLocationToTable(tibrin);
-        scn.MoveCardsToLSHand(hcf, gold1);
-
-        scn.SkipToLSTurn(Phase.DEPLOY);
         scn.LSActivateForceCheat(20);
+        scn.SkipToLSTurn(Phase.DEPLOY);
 
         assertTrue(scn.LSDeployAvailable(hcf));
-        scn.LSDeployCardAndPassResponses(hcf, tibrin);
+        scn.LSDeployCardAndPassResponses(hcf, system);
 
         assertTrue(scn.AwaitingLSDeployPhaseActions());
         assertFalse(scn.LSDeployAvailable(gold1));
@@ -212,26 +221,25 @@ public class Card_6_157_Tests {
         var lando = scn.GetLSCard("lando");
         var tamtel = scn.GetLSCard("tamtel");
         var dsLando = scn.GetDSCard("dsLando");
-        var cloudCity = scn.GetDSCard("cloudCity");
-        var entrance = scn.GetLSCard("entrance");
+        var lsSite = scn.GetLSStartingLocation();
+        var dsSite = scn.GetDSStartingLocation();
 
-        scn.StartGame();
-
-        scn.MoveLocationToTable(entrance);
-        scn.MoveLocationToTable(cloudCity);
         scn.MoveCardsToLSHand(lando, tamtel);
         scn.MoveCardsToDSHand(dsLando);
+        scn.StartGame();
 
-        scn.SkipToLSTurn(Phase.DEPLOY);
         scn.LSActivateForceCheat(20);
+        scn.SkipToLSTurn(Phase.DEPLOY);
 
         assertTrue(scn.LSDeployAvailable(lando));
-        scn.LSDeployCardAndPassResponses(lando, scn.GetLSStartingLocation());
+        scn.LSDeployCardAndPassResponses(lando, lsSite);
         assertTrue(scn.AwaitingLSDeployPhaseActions());
         assertFalse(scn.LSDeployAvailable(tamtel));
 
         scn.SkipToDSTurn(Phase.DEPLOY);
         scn.DSActivateForceCheat(10);
         assertTrue(scn.DSDeployAvailable(dsLando));
+        scn.DSDeployCardAndPassResponses(dsLando, dsSite);
+        assertTrue(scn.CardsAtLocation(dsSite, dsLando));
     }
 }
