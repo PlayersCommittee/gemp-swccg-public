@@ -11097,10 +11097,12 @@ public class Filters {
      */
     public static Filter personaPresentInBattle(final Filterable personaFilter) {
         final Filter persona = Filters.and(personaFilter);
-        return Filters.or(
-                Filters.and(persona, Filters.character, Filters.presentInBattle),
-                Filters.and(Filters.hasPermanentPilot(persona), Filters.open_vehicle, Filters.presentInBattle)
-        );
+        // Characters with the persona that are present in battle, or permanent pilots with that
+        // persona aboard open vehicles (not starships / enclosed vehicles).
+        return Filters.and(Filters.presentInBattle, Filters.or(
+                Filters.and(persona, Filters.character),
+                Filters.and(Filters.hasPermanentPilot(persona), Filters.open_vehicle)
+        ));
     }
 
     /**
@@ -11114,10 +11116,10 @@ public class Filters {
      */
     public static Filter personaPresentAt(final Filterable personaFilter, final Filter locationFilter) {
         final Filter persona = Filters.and(personaFilter);
-        return Filters.or(
-                Filters.and(persona, Filters.character, Filters.presentAt(locationFilter)),
-                Filters.and(Filters.hasPermanentPilot(persona), Filters.open_vehicle, Filters.presentAt(locationFilter))
-        );
+        return Filters.and(Filters.presentAt(locationFilter), Filters.or(
+                Filters.and(persona, Filters.character),
+                Filters.and(Filters.hasPermanentPilot(persona), Filters.open_vehicle)
+        ));
     }
 
     /**
@@ -11131,10 +11133,10 @@ public class Filters {
      */
     public static Filter personaAt(final Filterable personaFilter, final Filter locationFilter) {
         final Filter persona = Filters.and(personaFilter);
-        return Filters.or(
-                Filters.and(persona, Filters.character, Filters.at(locationFilter)),
-                Filters.and(Filters.hasPermanentPilot(persona), Filters.open_vehicle, Filters.at(locationFilter))
-        );
+        return Filters.and(Filters.at(locationFilter), Filters.or(
+                Filters.and(persona, Filters.character),
+                Filters.and(Filters.hasPermanentPilot(persona), Filters.open_vehicle)
+        ));
     }
 
     /**

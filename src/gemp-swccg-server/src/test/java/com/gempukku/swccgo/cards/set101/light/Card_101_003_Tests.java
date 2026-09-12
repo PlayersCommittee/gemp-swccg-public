@@ -57,11 +57,11 @@ public class Card_101_003_Tests {
         scn.DSUseCardAction(db, "Initiate battle");
         scn.PassForceUseResponses();
 
-        assertTrue(scn.LSCardPlayAvailable(runLukeRun));
-        scn.LSPlayCard(runLukeRun);
-        scn.PassAllResponses();
+        assertTrue(scn.LSCardPlayAvailable(runLukeRun, "Move Luke"));
+        scn.LSPlayCardAndPassResponses(runLukeRun, "Move Luke", luke);
 
         assertTrue(scn.CardsAtLocation(db, luke));
+        assertTrue(scn.IsActiveBattle());
         // Luke printed power 3; Run Luke, Run! +2 should remain despite DSAS Vader permanent pilot
         assertEquals(5, scn.GetPower(luke));
     }

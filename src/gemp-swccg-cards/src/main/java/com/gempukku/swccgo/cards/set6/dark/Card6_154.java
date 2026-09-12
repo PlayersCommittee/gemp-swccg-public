@@ -49,8 +49,9 @@ public class Card6_154 extends AbstractUsedInterrupt {
         if (GameConditions.isDuringBattle(game)) {
             Filter filter = Filters.or(
                     Filters.personaPresentInBattle(Filters.Boba_Fett),
-                    Filters.and(Filters.or(Filters.grantedMayBeTargetedBy(self), Filters.and(Filters.your(self),
-                            Filters.character, Filters.hasAttached(Filters.Mandalorian_Armor))), Filters.presentInBattle));
+                    Filters.and(Filters.character, Filters.presentInBattle, Filters.or(
+                            Filters.grantedMayBeTargetedBy(self),
+                            Filters.and(Filters.your(self), Filters.hasAttached(Filters.Mandalorian_Armor)))));
             if (GameConditions.canSpot(game, self, filter)) {
                 Filter opponentsCharacter = Filters.and(Filters.opponents(self), Filters.character, Filters.presentInBattle);
                 final Set<TargetingReason> targetingReasonSet = new HashSet<TargetingReason>();
