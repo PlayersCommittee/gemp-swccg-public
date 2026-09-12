@@ -580,6 +580,29 @@ public abstract class AbstractStarship extends AbstractDeployable {
             pilotTargetFilter = Filters.locationAndCardsAtLocation(character.getBlueprint().getValidLocationForSimultaneouslyDeployingAsPilotOrPassengerFilter(playerId, game, character, sourceCard, deploymentRestrictionsOption, reactActionOption));
         }
 
+        // Even when the pilot may board this ship regardless of location (e.g. Captain Han
+        // "deploys only on Falcon"), still honor per-target Dagobah / Ahch-To prohibitions (#760).
+        // Same grantedToDeployToDagobahTarget check used by isProhibitedFromDeployingTo.
+        if (deploymentRestrictionsOption == null || !deploymentRestrictionsOption.isIgnoreLocationDeploymentRestrictions()) {
+            final PhysicalCard pilot = character;
+            pilotTargetFilter = Filters.and(pilotTargetFilter, new Filter() {
+                @Override
+                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                    PhysicalCard location = modifiersQuerying.getLocationHere(gameState, physicalCard);
+                    if (location == null) {
+                        return true;
+                    }
+                    if (Filters.Dagobah_location.accepts(gameState, modifiersQuerying, location)) {
+                        return modifiersQuerying.grantedToDeployToDagobahTarget(gameState, pilot, physicalCard);
+                    }
+                    if (Filters.AhchTo_location.accepts(gameState, modifiersQuerying, location)) {
+                        return modifiersQuerying.grantedToDeployToAhchToTarget(gameState, pilot, physicalCard);
+                    }
+                    return true;
+                }
+            });
+        }
+
         pilotTargetFilter = Filters.and(pilotTargetFilter, Filters.canUseForceToDeploySimultaneouslyToTarget(sourceCard, self, forFree, changeInCost, character, characterForFree, characterChangeInCost, reactActionOption));
 
         return Filters.and(getValidDeployTargetFilter(playerId, game, self, sourceCard, null, forFree, changeInCost, deploymentRestrictionsOption, null, reactActionOption, true, spyPilot), pilotTargetFilter);
