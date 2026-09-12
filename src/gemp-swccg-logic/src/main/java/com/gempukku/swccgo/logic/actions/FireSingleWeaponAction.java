@@ -240,26 +240,34 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
         }
 
         // If weapon firing completed, check if weapon can repeatedly fire.
-        if (!_checkedToFireRepeatedly && wasCarriedOut()) {
+        // Do not require wasCarriedOut(): Generator Core (and similar) can prevent the hit
+        // effect after a successful fire (about-to-be-hit -> Used Pile), which makes
+        // wasCarriedOut() false and would incorrectly skip the repeat-fire prompt.
+        // Require FiredWeaponResult emission so canceled firings (e.g. Blaster Deflection)
+        // do not offer repeatedly fire.
+        if (!_checkedToFireRepeatedly && _weaponFired && _emitFiredWeaponResult && !isAnyCostFailed()
+                && (_respondableEffect == null || !_respondableEffect.isCanceled())) {
             _checkedToFireRepeatedly = true;
 
             final String playerId = getPerformingPlayer();
             if (game.getModifiersQuerying().mayFireWeaponRepeatedly(game.getGameState(), _weaponToFire)) {
-                final FireWeaponAction fireWeaponAction = _weaponToFire.getBlueprint().getFireWeaponAction(playerId, game, _weaponToFire, false, 0, _sourceCard, true, _targetedAsCharacter, _defenseValueAsCharacter, _fireAtTargetFilter, _ignorePerAttackOrBattleLimit);
-                if (fireWeaponAction != null) {
-                    appendAfterEffect(
-                            new PlayoutDecisionEffect(this, playerId,
-                                    new YesNoDecision("Do you want to repeatedly fire " + GameUtils.getCardLink(_weaponToFire) + " again?") {
-                                        @Override
-                                        protected void yes() {
+                // Create the repeat FireWeaponAction when the player accepts, after weapon
+                // firing state has finished — avoids null action during mid-fire Used-Pile divert.
+                appendAfterEffect(
+                        new PlayoutDecisionEffect(this, playerId,
+                                new YesNoDecision("Do you want to repeatedly fire " + GameUtils.getCardLink(_weaponToFire) + " again?") {
+                                    @Override
+                                    protected void yes() {
+                                        FireWeaponAction fireWeaponAction = _weaponToFire.getBlueprint().getFireWeaponAction(playerId, game, _weaponToFire, false, 0, _sourceCard, true, _targetedAsCharacter, _defenseValueAsCharacter, _fireAtTargetFilter, _ignorePerAttackOrBattleLimit);
+                                        if (fireWeaponAction != null) {
                                             game.getActionsEnvironment().addActionToStack(fireWeaponAction);
                                         }
-                                        @Override
-                                        protected void no() {
-                                            game.getGameState().sendMessage(playerId + " chooses to not repeatedly fire " + GameUtils.getCardLink(_weaponToFire) + " again");
-                                        }
-                                    }));
-                }
+                                    }
+                                    @Override
+                                    protected void no() {
+                                        game.getGameState().sendMessage(playerId + " chooses to not repeatedly fire " + GameUtils.getCardLink(_weaponToFire) + " again");
+                                    }
+                                }));
             }
         }
 
