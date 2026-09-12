@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set1.dark;
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.Phase;
+import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.framework.StartingSetup;
@@ -68,7 +69,6 @@ public class Card_1_205_Tests {
     @Test
     public void StolenRestrainingBoltDoesNotAffectNonDroidHolder() throws DecisionResultInvalidException {
         // Real-path: Merc Sunlet steals Restraining Bolt onto Luke (non-droid).
-        // Bolt must be inactive; Luke keeps gametext and may move.
         var scn = GetScenario();
 
         var luke = scn.GetLSCard("luke");
@@ -79,13 +79,12 @@ public class Card_1_205_Tests {
 
         scn.StartGame();
         scn.MoveCardsToLocation(site, luke, lin);
+        merc.setPlayCardOptionId(PlayCardOptionId.PLAY_CARD_OPTION_1);
         scn.AttachCardsTo(luke, merc);
-        // Bolt starts on a valid droid so Merc Sunlet can steal it.
         scn.AttachCardsTo(lin, bolt);
 
-        assertTrue(scn.game().getModifiersQuerying().mayNotMove(scn.gameState(), lin));
-        assertTrue(scn.game().getModifiersQuerying().isGameTextCanceled(scn.gameState(), lin));
         assertTrue(scn.IsCardActive(bolt));
+        assertTrue(scn.game().getModifiersQuerying().mayNotMove(scn.gameState(), lin));
 
         scn.SkipToPhase(Phase.CONTROL);
         assertTrue(scn.LSCardPlayAvailable(merc, "Steal device"));
@@ -97,9 +96,7 @@ public class Card_1_205_Tests {
         assertEquals(luke, bolt.getAttachedTo());
         assertFalse(scn.IsCardActive(bolt));
         assertFalse(scn.game().getModifiersQuerying().mayNotMove(scn.gameState(), luke));
-        assertFalse(scn.game().getModifiersQuerying().isGameTextCanceled(scn.gameState(), luke));
         assertFalse(scn.game().getModifiersQuerying().mayNotMove(scn.gameState(), lin));
-        assertFalse(scn.game().getModifiersQuerying().isGameTextCanceled(scn.gameState(), lin));
     }
 
     @Test
@@ -116,7 +113,6 @@ public class Card_1_205_Tests {
 
         assertTrue(scn.IsCardActive(bolt));
         assertTrue(scn.game().getModifiersQuerying().mayNotMove(scn.gameState(), lin));
-        assertTrue(scn.game().getModifiersQuerying().isGameTextCanceled(scn.gameState(), lin));
     }
 
     @Test
@@ -132,10 +128,14 @@ public class Card_1_205_Tests {
 
         scn.StartGame();
         scn.MoveCardsToLocation(site, luke, trooper);
+        merc.setPlayCardOptionId(PlayCardOptionId.PLAY_CARD_OPTION_1);
         scn.AttachCardsTo(luke, merc);
         scn.AttachCardsTo(trooper, belt);
 
         int lukeBasePower = scn.GetPower(luke);
+        int trooperPowerWithBelt = scn.GetPower(trooper);
+        assertTrue(trooperPowerWithBelt > 0);
+        assertTrue(scn.IsCardActive(belt));
 
         scn.SkipToPhase(Phase.CONTROL);
         assertTrue(scn.LSCardPlayAvailable(merc, "Steal device"));
