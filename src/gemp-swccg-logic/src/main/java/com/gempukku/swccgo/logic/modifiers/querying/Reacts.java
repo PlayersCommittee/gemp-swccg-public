@@ -138,7 +138,14 @@ public interface Reacts extends BaseQuery {
         }
 
         // Check if location is accepted by the move target filter
+        // FLAG(Chief): fall back to attack location when another card grants an attack react (R2 Sensor Array 3_31)
         PhysicalCard location = gameState.getBattleOrForceDrainLocation();
+        if (location == null && reactActionFromOtherCard != null) {
+            location = gameState.getAttackLocation();
+        }
+        if (location == null) {
+            return null;
+        }
         if (asReactAway) {
             if (moveTargetFilter.accepts(gameState, query(), location)) {
                 return null;
@@ -356,5 +363,61 @@ public interface Reacts extends BaseQuery {
         }
 
         return false;
+    }
+
+    /**
+     * Gets the 'react' action option if the player can use the specified card to move other cards away as a 'react'
+     * from a creature attack.
+     * FLAG(Chief): attack-react query path for R2 Sensor Array (3_31). Does not enable normal battle/Force drain reacts during attacks.
+     * @param playerId the player
+     * @param gameState the game state
+     * @param card the card
+     * @return 'react' action option, or null
+     */
+    default ReactActionOption getMoveOtherCardsAsReactFromAttackOption(String playerId, GameState gameState, PhysicalCard card) {
+        if (!gameState.isDuringAttack() || gameState.isDuringNonCreatureAttackOnCreature()) {
+            return null;
+        }
+        if (gameState.getAttackState() == null || !gameState.getAttackState().isCreatureAttackingNonCreature()) {
+            return null;
+        }
+        PhysicalCard attackLocation = gameState.getAttackLocation();
+        if (attackLocation == null) {
+            return null;
+        }
+
+        List<PhysicalCard> cardsToCheck = new ArrayList<PhysicalCard>(Filters.filterActive(gameState.getGame(), null,
+                Filters.and(Filters.owner(playerId), Filters.character)));
+        if (cardsToCheck.isEmpty()) {
+            return null;
+        }
+
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_MOVE_OTHER_CARD_AS_REACT_FROM_ATTACK, card)) {
+            if (modifier.isForPlayer(playerId)) {
+                Filter cardToReactFilter = modifier.getCardToReactFilter();
+                Filter targetFilter = modifier.getTargetFilter();
+                ReactActionOption reactActionOption = new ReactActionOption(card, modifier.isReactForFree(), modifier.getChangeInCost(),
+                        true, modifier.getActionText(), cardToReactFilter, targetFilter, null, false);
+
+                List<PhysicalCard> validToMoveAwayAsReact = new ArrayList<PhysicalCard>();
+                for (PhysicalCard cardToCheck : cardsToCheck) {
+                    if (cardToReactFilter.accepts(gameState, query(), cardToCheck)
+                            && Filters.at(attackLocation).accepts(gameState, query(), cardToCheck)) {
+                        Action moveAsReactAction = cardToCheck.getBlueprint().getMoveAsReactAction(playerId, gameState.getGame(),
+                                cardToCheck, reactActionOption, targetFilter);
+                        if (moveAsReactAction != null) {
+                            validToMoveAwayAsReact.add(cardToCheck);
+                        }
+                    }
+                }
+
+                if (!validToMoveAwayAsReact.isEmpty()) {
+                    reactActionOption.setCardToReactFilter(Filters.in(validToMoveAwayAsReact));
+                    return reactActionOption;
+                }
+            }
+        }
+
+        return null;
     }
 }
