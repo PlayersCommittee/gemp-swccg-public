@@ -18,7 +18,7 @@ import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.swccgo.logic.effects.LookAtCardsInOpponentsHandEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardsFromOffTableSimultaneouslyEffect;
-import com.gempukku.swccgo.logic.effects.LoseCardsFromTableSimultaneouslyEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
@@ -107,7 +107,7 @@ public class Card5_153 extends AbstractUsedInterrupt {
                             sourceAction.appendAfterEffect(
                                     new LoseCardsFromOffTableSimultaneouslyEffect(sourceAction, Collections.singleton(sourceCard), false));
                             sourceAction.appendAfterEffect(
-                                    new LoseCardsFromTableSimultaneouslyEffect(sourceAction, Collections.singleton(sourceCard), false, false));
+                                    new LoseCardFromTableEffect(sourceAction, sourceCard));
                             sourceAction.appendAfterEffect(
                                     new LoseForceEffect(sourceAction, opponent, 4));
                         }
