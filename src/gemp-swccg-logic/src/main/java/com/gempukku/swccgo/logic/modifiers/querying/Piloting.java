@@ -266,11 +266,13 @@ public interface Piloting extends BaseQuery, Icons, Locations, Prohibited {
         if (starshipOrVehicle.getBlueprint().getCardCategory() != CardCategory.STARSHIP && starshipOrVehicle.getBlueprint().getCardCategory() != CardCategory.VEHICLE)
             return false;
 
-        // A character, starship, vehicle, weapon or device is "aboard" (or "on") a starship or vehicle if it is:
+        // A character, starship, vehicle, weapon, device, or moves-like-a-character card is "aboard" (or "on") a starship or vehicle if it is:
         // (1) Present at any site related to that starship or vehicle.
         // (2) At the bridge, cockpit or cargo bay of that starship or vehicle.
         CardCategory cardCategory = physicalCard.getBlueprint().getCardCategory();
-        if (cardCategory!=CardCategory.CHARACTER && cardCategory!=CardCategory.STARSHIP && cardCategory!=CardCategory.VEHICLE && cardCategory!=CardCategory.WEAPON && cardCategory!=CardCategory.DEVICE)
+        // Moves-like-a-character cards (e.g. Yerka Mig, All My Urchins) can be aboard as passengers
+        if (cardCategory!=CardCategory.CHARACTER && cardCategory!=CardCategory.STARSHIP && cardCategory!=CardCategory.VEHICLE && cardCategory!=CardCategory.WEAPON && cardCategory!=CardCategory.DEVICE
+                && !physicalCard.getBlueprint().isMovesLikeCharacter())
             return false;
 
 
