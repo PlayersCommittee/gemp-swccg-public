@@ -48,6 +48,8 @@ public class Card1_015 extends AbstractAlien {
     protected List<Modifier> getGameTextAlwaysOnModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayNotDeployToTargetModifier(self, Filters.or(Filters.starfighter, Filters.enclosed_vehicle)));
+        // Always-on so may-not-board survives brief inactive / reapply races (issue #221)
+        modifiers.add(new MayNotExistAtTargetModifier(self, Filters.or(Filters.starfighter, Filters.enclosed_vehicle)));
         return modifiers;
     }
 
@@ -56,7 +58,6 @@ public class Card1_015 extends AbstractAlien {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DefinedByGameTextLandspeedModifier(self, 3));
         modifiers.add(new AddsPowerToPilotedBySelfModifier(self, 2));
-        modifiers.add(new MayNotExistAtTargetModifier(self, Filters.or(Filters.starfighter, Filters.enclosed_vehicle)));
         return modifiers;
     }
 

@@ -19,16 +19,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Kal'Falnl C'ndros — may not deploy to / board starfighters or enclosed vehicles.
+ * Issue #221: was allowed aboard Millennium Falcon as passenger via ship-dock transfer.
+ */
 public class Card_1_015_Tests {
 
     protected VirtualTableScenario GetScenario() {
         return new VirtualTableScenario(
-
                 new HashMap<>() {{
-                    put("kfc","1_015"); //Kal'Falnl C'ndros
-                    put("falcon","1_143");
-                    put("nebulon","9_080"); //Nebulon-B Frigate
-                    put("haashn","9_025"); //Major Haash'n
+                    put("kalFalnlCndros", "1_015");
+                    put("millenniumFalcon", "1_143");
+                    put("nebulonBFrigate", "9_080");
+                    put("majorHaashn", "9_025");
                 }},
                 new HashMap<>() {{
                 }},
@@ -46,32 +49,8 @@ public class Card_1_015_Tests {
 
     @Test
     public void KalFalnlCndrosStatsAndKeywordsAreCorrect() {
-        /**
-         * Title: Kal'Falnl C'ndros
-         * Uniqueness: Unique
-         * Side: Light
-         * Type: Character
-         * Subtype: Alien
-         * Destiny: 2
-         * Deploy: 0
-         * Power: 1
-         * Ability: 1
-         * Forfeit: 5
-         * Persona: (none)
-         * Species: Quor'sav
-         * Icons: Pilot
-         * Game Text: When in a battle, if both players draw only one battle destiny and yours is higher,
-         *         reduces opponent's total battle destiny to zero. Landspeed = 3. Adds 2 to power of anything she pilots.
-         *         May not be aboard starfighters or enclosed vehicles.
-         * Lore: A female Quor'sav, a warm-blooded, avian/monotreme species. 3.5 meters tall. Over-protective mother.
-         *         Freelance pilot. Has custom-built ship with tall corridors. Lays eggs.
-         * Set: Premiere
-         * Rarity: R1
-         */
-
         var scn = GetScenario();
-
-        var card = scn.GetLSCard("kfc").getBlueprint();
+        var card = scn.GetLSCard("kalFalnlCndros").getBlueprint();
 
         assertEquals("Kal'Falnl C'ndros", card.getTitle());
         assertEquals(Uniqueness.UNIQUE, card.getUniqueness());
@@ -101,119 +80,110 @@ public class Card_1_015_Tests {
 
     @Test
     public void KalFalnlCndrosCanDeployAboardCapitalShip() {
-        //test1: kfc cannot be aboard starfighter, but can be aboard non-starfighter starships
         var scn = GetScenario();
 
-        var kfc = scn.GetLSCard("kfc");
-        var nebulon = scn.GetLSCard("nebulon");
+        var kalFalnlCndros = scn.GetLSCard("kalFalnlCndros");
+        var nebulonBFrigate = scn.GetLSCard("nebulonBFrigate");
 
         var system = scn.GetLSStartingLocation();
         var site = scn.GetDSStartingLocation();
 
         scn.StartGame();
-
-        scn.MoveCardsToLSHand(kfc);
-
-        scn.MoveCardsToLocation(system,nebulon);
+        scn.MoveCardsToLSHand(kalFalnlCndros);
+        scn.MoveCardsToLocation(system, nebulonBFrigate);
 
         scn.SkipToLSTurn(Phase.DEPLOY);
-        assertTrue(scn.LSDeployAvailable(kfc));
-        scn.LSDeployCard(kfc);
+        assertTrue(scn.LSDeployAvailable(kalFalnlCndros));
+        scn.LSDeployCard(kalFalnlCndros);
         assertTrue(scn.LSHasCardChoiceAvailable(site));
-        assertTrue(scn.LSHasCardChoiceAvailable(nebulon)); //test1
-        scn.LSChooseCard(nebulon);
+        assertTrue(scn.LSHasCardChoiceAvailable(nebulonBFrigate));
+        scn.LSChooseCard(nebulonBFrigate);
         scn.LSChoose("Pilot");
         scn.PassAllResponses();
 
-        assertTrue(scn.IsAboardAsPilot(nebulon, kfc));
+        assertTrue(scn.IsAboardAsPilot(nebulonBFrigate, kalFalnlCndros));
     }
 
     @Test
-    public void KalFalnlCndrosCannotDeployAboardStarfighter() {
-        //test1: kfc cannot be aboard starfighter, so kfc cannot deploy to a starfighter
+    public void KalFalnlCndrosMayNotDeployAboardMillenniumFalcon() {
+        // Real-path deploy: may not board/pilot Falcon (#221)
         var scn = GetScenario();
 
-        var kfc = scn.GetLSCard("kfc");
-        var falcon = scn.GetLSCard("falcon");
+        var kalFalnlCndros = scn.GetLSCard("kalFalnlCndros");
+        var millenniumFalcon = scn.GetLSCard("millenniumFalcon");
 
         var system = scn.GetLSStartingLocation();
         var site = scn.GetDSStartingLocation();
 
         scn.StartGame();
-
-        scn.MoveCardsToLSHand(kfc);
-
-        scn.MoveCardsToLocation(system,falcon);
+        scn.MoveCardsToLSHand(kalFalnlCndros);
+        scn.MoveCardsToLocation(system, millenniumFalcon);
 
         scn.SkipToLSTurn(Phase.DEPLOY);
-        assertTrue(scn.LSDeployAvailable(kfc));
-        scn.LSDeployCard(kfc);
+        assertTrue(scn.LSDeployAvailable(kalFalnlCndros));
+        scn.LSDeployCard(kalFalnlCndros);
         assertTrue(scn.LSHasCardChoiceAvailable(site));
-        assertFalse(scn.LSHasCardChoiceAvailable(falcon)); //test1
+        assertFalse(scn.LSHasCardChoiceAvailable(millenniumFalcon));
     }
 
     @Test
-    public void KalFalnlCndrosCannotEmbarkOnStarfighter() {
-        //test1: kfc cannot be aboard starfighter, so kfc cannot embark on a starfighter
+    public void KalFalnlCndrosMayNotEmbarkOnMillenniumFalcon() {
+        // Real-path embark: may not board Falcon as pilot or passenger (#221)
         var scn = GetScenario();
 
-        var kfc = scn.GetLSCard("kfc");
+        var kalFalnlCndros = scn.GetLSCard("kalFalnlCndros");
         var trooper = scn.GetLSFiller(1);
-        var falcon = scn.GetLSCard("falcon");
+        var millenniumFalcon = scn.GetLSCard("millenniumFalcon");
 
         var site = scn.GetDSStartingLocation();
 
         scn.StartGame();
-
-        scn.MoveCardsToLocation(site,falcon,kfc,trooper);
+        scn.MoveCardsToLocation(site, millenniumFalcon, kalFalnlCndros, trooper);
 
         scn.SkipToLSTurn(Phase.MOVE);
         assertTrue(scn.LSCardActionAvailable(trooper, "Embark"));
-        assertFalse(scn.LSCardActionAvailable(kfc, "Embark")); //test1
+        assertFalse(scn.LSCardActionAvailable(kalFalnlCndros, "Embark"));
     }
 
     @Test
-    public void KalFalnlCndrosCannotTransferToStarfighterUsingShipDock() {
-        //unsuccessful attempt to replicate https://github.com/PlayersCommittee/gemp-swccg-public/issues/221
-        //test1: kfc cannot be aboard starfighter, so kfc cannot transfer (via ship-dock) to a starfighter
+    public void KalFalnlCndrosMayNotTransferToMillenniumFalconViaShipDock() {
+        // Real-path ship-dock transfer: may not board/pilot Falcon as passenger or pilot (#221)
         var scn = GetScenario();
 
-        var kfc = scn.GetLSCard("kfc");
-        var haashn = scn.GetLSCard("haashn");
-        var falcon = scn.GetLSCard("falcon");
-        var nebulon = scn.GetLSCard("nebulon");
+        var kalFalnlCndros = scn.GetLSCard("kalFalnlCndros");
+        var majorHaashn = scn.GetLSCard("majorHaashn");
+        var millenniumFalcon = scn.GetLSCard("millenniumFalcon");
+        var nebulonBFrigate = scn.GetLSCard("nebulonBFrigate");
 
         var system = scn.GetLSStartingLocation();
 
         scn.StartGame();
-
-        scn.MoveCardsToLocation(system,falcon,nebulon);
-        scn.MoveCardsToLSHand(kfc, haashn);
+        scn.MoveCardsToLocation(system, millenniumFalcon, nebulonBFrigate);
+        scn.MoveCardsToLSHand(kalFalnlCndros, majorHaashn);
 
         scn.SkipToLSTurn(Phase.DEPLOY);
-        scn.LSDeployCard(haashn);
-        scn.LSChooseCard(nebulon);
+        scn.LSDeployCard(majorHaashn);
+        scn.LSChooseCard(nebulonBFrigate);
         scn.LSChoose("Pilot");
         scn.PassAllResponses();
-        assertTrue(scn.IsAboardAsPilot(haashn));
+        assertTrue(scn.IsAboardAsPilot(majorHaashn));
 
         scn.DSPass();
 
-        scn.LSDeployCard(kfc);
-        scn.LSChooseCard(nebulon);
+        scn.LSDeployCard(kalFalnlCndros);
+        scn.LSChooseCard(nebulonBFrigate);
         scn.LSChoose("Pilot");
         scn.PassAllResponses();
-        assertTrue(scn.IsAboardAsPilot(kfc));
+        assertTrue(scn.IsAboardAsPilot(kalFalnlCndros));
 
         scn.SkipToPhase(Phase.MOVE);
-        scn.LSUseCardAction(nebulon, "dock");
-        scn.LSChooseCard(falcon);
+        scn.LSUseCardAction(nebulonBFrigate, "dock");
+        scn.LSChooseCard(millenniumFalcon);
         scn.PassAllResponses();
 
-        assertTrue(scn.LSCardActionAvailable(haashn, "Transfer"));
-        assertFalse(scn.LSCardActionAvailable(kfc, "Transfer")); //test1
+        assertTrue(scn.LSCardActionAvailable(majorHaashn, "Transfer"));
+        assertFalse(scn.LSCardActionAvailable(kalFalnlCndros, "Transfer"));
+        assertFalse(scn.IsAboardAsPassenger(millenniumFalcon, kalFalnlCndros));
+        assertFalse(scn.IsAboardAsPilot(millenniumFalcon, kalFalnlCndros));
     }
-
 }
-
-
