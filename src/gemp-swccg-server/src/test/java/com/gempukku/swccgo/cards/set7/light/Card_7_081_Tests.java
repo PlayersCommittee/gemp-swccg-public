@@ -208,4 +208,48 @@ public class Card_7_081_Tests {
 		assertEquals(Zone.SIDE_OF_TABLE, wyttpou.getZone());
 		assertEquals(forceBefore - 3, scn.GetLSForcePileCount());
 	}
+
+	@Test
+	public void WiseAdviceForceZeroOffersOnlyFreeImmediateEffectAction() {
+		// Chief VHD: with Wise Advice and Force=0, only the free Grappling Hook action is offered.
+		var scn = GetScenario();
+		var grapplingHook = scn.GetLSCard("grapplingHook");
+		var wiseAdvice = scn.GetLSCard("wiseAdvice");
+		var reinforcements = scn.GetDSCard("reinforcements");
+		var site = scn.GetLSCard("mosEisley");
+		var trooper = scn.GetLSCard("trooper");
+
+		scn.MoveCardsToLSHand(grapplingHook);
+		scn.MoveCardsToDSHand(reinforcements);
+
+		scn.StartGame();
+		scn.MoveLocationToTable(site);
+		scn.MoveCardsToLocation(site, trooper);
+		scn.MoveCardsToLSSideOfTable(wiseAdvice);
+		assertEquals(Zone.SIDE_OF_TABLE, wiseAdvice.getZone());
+
+		// SkipTo runs activate phases (refills Force). Drain LS Force after SkipTo, before the grab window.
+		scn.SkipToDSTurn(Phase.CONTROL);
+		if (scn.GetLSForcePileCount() > 0) {
+			scn.LSUseForceCheat(scn.GetLSForcePileCount());
+		}
+		assertEquals(0, scn.GetLSForcePileCount());
+		if (scn.GetDSForcePileCount() < 1) {
+			scn.DSActivateForceCheat(2);
+		}
+
+		assertTrue("reinforcements not playable; LS=" + scn.GetLSAvailableActions() + " DS=" + scn.GetDSAvailableActions(),
+				scn.DSCardPlayAvailable(reinforcements) || scn.DSCardActionAvailable(reinforcements));
+		scn.DSPlayCard(reinforcements);
+		scn.LSPass();
+		scn.DSPass();
+
+		assertEquals(0, scn.GetLSForcePileCount());
+		List<String> grabs = grabActionTexts(scn);
+		assertEquals("expected free-only grab when Force=0; grabs=" + grabs, 1, grabs.size());
+		assertTrue("only action should be free: " + grabs, grabs.get(0).toLowerCase().contains("for free"));
+		assertTrue(scn.LSCardActionAvailable(grapplingHook, "for free"));
+		assertFalse(scn.LSCardActionAvailable(grapplingHook, "for 1 Force"));
+	}
+
 }
