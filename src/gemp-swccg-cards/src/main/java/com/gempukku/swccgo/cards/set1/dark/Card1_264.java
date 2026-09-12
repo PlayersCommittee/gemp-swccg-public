@@ -89,7 +89,7 @@ public class Card1_264 extends AbstractLostInterrupt {
         // Check condition(s)
         if (TriggerConditions.wonBattle(game, effectResult, playerId)
                 && GameConditions.canUseForceToPlayInterrupt(game, playerId, self, 1)
-                && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.Dark_Jedi, Filters.presentInBattle))
+                && GameConditions.isDuringBattleWithParticipant(game, Filters.personaPresentInBattle(Filters.Dark_Jedi))
                 && GameConditions.canTarget(game, self, targetingReason, filter)) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
