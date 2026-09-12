@@ -1,22 +1,28 @@
 package com.gempukku.swccgo.cards.set5.light;
 
-import com.gempukku.swccgo.cards.effects.RelocateFromLocationToWeatherVane;
 import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
+import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.decisions.CardActionSelectionDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.swccgo.logic.effects.LoseCardsFromTableSimultaneouslyEffect;
 import org.junit.Test;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 import static com.gempukku.swccgo.framework.Assertions.assertInZone;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -93,20 +99,36 @@ public class Card_5_030_Tests {
 		scn.MoveCardsToLocation(site, chewie, luke);
 		scn.AttachCardsTo(chewie, bowcaster);
 
-		scn.LSExecuteAdHocEffect(vane, new RelocateFromLocationToWeatherVane(
-				new TopLevelGameTextAction(vane, scn.LS, vane.getCardId()), chewie));
-		scn.PassAllResponses();
+		scn.SkipToLSTurn(Phase.CONTROL);
+		assertTrue(scn.AwaitingLSControlPhaseActions());
 
-		assertEquals(Zone.STACKED, chewie.getZone());
-		assertEquals(Zone.ATTACHED, bowcaster.getZone());
+		scn.gameState().relocateCardAsStacked(chewie, vane, false, true);
+		assertTrue(chewie.getCardsAttached().contains(bowcaster));
+
+		scn.gameState().relocateCardAsStacked(luke, vane, false, true);
+
+		Collection<PhysicalCard> charactersToLose = Filters.filter(
+				scn.gameState().getStackedCards(vane), scn.game(), Filters.not(luke));
+		assertTrue(charactersToLose.contains(chewie));
+		assertFalse(charactersToLose.contains(luke));
 
 		int lsLostBefore = scn.GetLSLostPileCount();
 
-		scn.LSExecuteAdHocEffect(vane, new RelocateFromLocationToWeatherVane(
-				new TopLevelGameTextAction(vane, scn.LS, vane.getCardId()), luke));
+		var loseAction = new TopLevelGameTextAction(vane, scn.LS, vane.getCardId());
+		loseAction.setText("Make character lost");
+		loseAction.appendEffect(new LoseCardsFromTableSimultaneouslyEffect(loseAction, charactersToLose, false, true));
+		var awaiting = (CardActionSelectionDecision) scn.userFeedback().getAwaitingDecision(scn.LS);
+		String[] actionIdsBefore = scn.LSGetADParam("actionId");
+		int newIndex = actionIdsBefore == null ? 0 : actionIdsBefore.length;
+		awaiting.addAction(loseAction);
+		scn.LSDecided(String.valueOf(newIndex));
 		scn.PassAllResponses();
 
-		while (scn.LSDecisionAvailable("Lost Pile") || scn.LSDecisionAvailable("lost")) {
+		for (int i = 0; i < 6; i++) {
+			if (!(scn.LSDecisionAvailable("Lost Pile") || scn.LSDecisionAvailable("lost")
+					|| scn.LSDecisionAvailable("Choose card") || scn.LSDecisionAvailable("place"))) {
+				break;
+			}
 			if (scn.LSHasCardChoiceAvailable(chewie)) {
 				scn.LSChooseCard(chewie);
 			} else if (scn.LSHasCardChoiceAvailable(bowcaster)) {

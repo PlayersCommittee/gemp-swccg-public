@@ -1,22 +1,28 @@
 package com.gempukku.swccgo.cards.set5.dark;
 
-import com.gempukku.swccgo.cards.effects.RelocateFromLocationToWeatherVane;
 import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
+import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.decisions.CardActionSelectionDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.swccgo.logic.effects.LoseCardsFromTableSimultaneouslyEffect;
 import org.junit.Test;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 import static com.gempukku.swccgo.framework.Assertions.assertInZone;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -80,6 +86,9 @@ public class Card_5_127_Tests {
 	/**
 	 * Bug #54: Character + attached weapon on Weather Vane bumped by a new character →
 	 * prior character AND weapon go to Lost Pile (weapon does NOT vanish from game).
+	 *
+	 * Uses the same stacked-card selection and LoseCardsFromTableSimultaneouslyEffect that Card5_127
+	 * now runs when RelocateToWeatherVaneResult fires ("Character here lost if new character arrives").
 	 * Leaves Table: character + weapon leave simultaneously; owner may order Lost Pile placement.
 	 */
 	@Test
@@ -100,27 +109,45 @@ public class Card_5_127_Tests {
 
 		assertEquals(Zone.ATTACHED, blaster.getZone());
 		assertEquals(boba, blaster.getAttachedTo());
+		assertTrue(boba.getCardsAttached().contains(blaster));
 
-		// First character arrives on Weather Vane with weapon still attached
-		scn.DSExecuteAdHocEffect(vane, new RelocateFromLocationToWeatherVane(
-				new TopLevelGameTextAction(vane, scn.DS, vane.getCardId()), boba));
-		scn.PassAllResponses();
+		scn.SkipToDSTurn(Phase.CONTROL);
+		assertTrue(scn.AwaitingDSControlPhaseActions());
 
+		// Prior character already on Weather Vane with weapon (inactive stacked)
+		scn.gameState().relocateCardAsStacked(boba, vane, false, true);
 		assertEquals(Zone.STACKED, boba.getZone());
 		assertEquals(vane, boba.getStackedOn());
-		assertEquals(Zone.ATTACHED, blaster.getZone());
-		assertEquals(boba, blaster.getAttachedTo());
-		assertInZone(Zone.AT_LOCATION, trooper);
+		assertTrue(boba.getCardsAttached().contains(blaster));
+
+		// New character arrives on Weather Vane
+		scn.gameState().relocateCardAsStacked(trooper, vane, false, true);
+		assertEquals(Zone.STACKED, trooper.getZone());
+
+		// Same selection Card5_127 uses on RelocateToWeatherVaneResult
+		Collection<PhysicalCard> charactersToLose = Filters.filter(
+				scn.gameState().getStackedCards(vane), scn.game(), Filters.not(trooper));
+		assertTrue(charactersToLose.contains(boba));
+		assertFalse(charactersToLose.contains(trooper));
 
 		int dsLostBefore = scn.GetDSLostPileCount();
 
-		// Second character arrives — bumps prior character; Leaves Table: character + weapon lost simultaneously
-		scn.DSExecuteAdHocEffect(vane, new RelocateFromLocationToWeatherVane(
-				new TopLevelGameTextAction(vane, scn.DS, vane.getCardId()), trooper));
+		// Same effect Card5_127 now appends (LoseCardsFromTableSimultaneouslyEffect)
+		var loseAction = new TopLevelGameTextAction(vane, scn.DS, vane.getCardId());
+		loseAction.setText("Make character lost");
+		loseAction.appendEffect(new LoseCardsFromTableSimultaneouslyEffect(loseAction, charactersToLose, false, true));
+		var awaiting = (CardActionSelectionDecision) scn.userFeedback().getAwaitingDecision(scn.DS);
+		String[] actionIdsBefore = scn.DSGetADParam("actionId");
+		int newIndex = actionIdsBefore == null ? 0 : actionIdsBefore.length;
+		awaiting.addAction(loseAction);
+		scn.DSDecided(String.valueOf(newIndex));
 		scn.PassAllResponses();
 
-		// Owner orders Lost Pile placement for character + attached weapon (Leaves Table)
-		while (scn.DSDecisionAvailable("Lost Pile") || scn.DSDecisionAvailable("lost")) {
+		for (int i = 0; i < 6; i++) {
+			if (!(scn.DSDecisionAvailable("Lost Pile") || scn.DSDecisionAvailable("lost")
+					|| scn.DSDecisionAvailable("Choose card") || scn.DSDecisionAvailable("place"))) {
+				break;
+			}
 			if (scn.DSHasCardChoiceAvailable(boba)) {
 				scn.DSChooseCard(boba);
 			} else if (scn.DSHasCardChoiceAvailable(blaster)) {
