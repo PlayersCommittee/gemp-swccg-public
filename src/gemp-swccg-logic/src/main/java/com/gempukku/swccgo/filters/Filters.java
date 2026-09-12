@@ -13809,8 +13809,12 @@ public class Filters {
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 PhysicalCard effectToRelocate = gameState.findCardByPermanentId(permEffectToRelocateCardId);
 
+                // Leaf for effectCanBeRelocatedTo / canRelocateEffectTo(Filter) — keep checks here, not in the
+                // Filter overloads, to avoid circular recursion between those two helpers.
                 return Filters.and(Filters.Effect, Filters.zone(Zone.ATTACHED)).accepts(gameState, modifiersQuerying, effectToRelocate)
-                        && effectToRelocate.getBlueprint().getValidRelocateEffectTargetFilter(playerId, gameState.getGame(), effectToRelocate).accepts(gameState, modifiersQuerying, physicalCard);
+                        && effectToRelocate.getBlueprint().getValidRelocateEffectTargetFilter(playerId, gameState.getGame(), effectToRelocate).accepts(gameState, modifiersQuerying, physicalCard)
+                        && !modifiersQuerying.isProhibitedFromDeployingTo(gameState, effectToRelocate, physicalCard, null)
+                        && modifiersQuerying.canBeTargetedBy(gameState, physicalCard, effectToRelocate);
             }
         };
     }

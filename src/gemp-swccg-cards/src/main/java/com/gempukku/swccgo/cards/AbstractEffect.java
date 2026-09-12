@@ -46,8 +46,10 @@ public abstract class AbstractEffect extends AbstractDeployable {
     @Override
     public final Filter getValidRelocateEffectTargetFilter(final String playerId, final SwccgGame game, final PhysicalCard self) {
         // Filter cards that this card is not prohibited from being at
+        // Same restrictions as deploy: MayNotDeployToTarget and immunity (canBeTargetedBy).
         Filter filter = Filters.and(Filters.not(Filters.or(Filters.holosite, Filters.hasAttached(self), Filters.attachedToWithRecursiveChecking(self))),
-                Filters.notProhibitedFromTarget(self), Filters.notProhibitedFromCarrying(self), Filters.canBeTargetedBy(self));
+                Filters.notProhibitedFromTarget(self), Filters.notProhibitedFromDeployingTo(self, null),
+                Filters.notProhibitedFromCarrying(self), Filters.canBeTargetedBy(self));
 
         // Filter cards that a this type of card can be placed (based on game rules for that card type/subtype, etc.)
         filter = Filters.and(filter, getValidDeployTargetFilterForCardType(playerId, game, self, false, false, null, null),
