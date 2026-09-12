@@ -104,8 +104,8 @@ public class Card_6_157_Tests {
         scn.MoveCardsToLSHand(luke);
         scn.MoveCardsToDSHand(nsp);
 
+        scn.SkipToLSTurn(Phase.DEPLOY);
         scn.LSActivateForceCheat(10);
-        scn.SkipToPhase(Phase.DEPLOY);
 
         assertTrue(scn.LSDeployAvailable(luke));
         scn.LSDeployCard(luke);
@@ -139,8 +139,8 @@ public class Card_6_157_Tests {
         scn.MoveCardsToLSHand(luke, lukeJedi);
         scn.MoveCardsToDSHand(nsp);
 
+        scn.SkipToLSTurn(Phase.DEPLOY);
         scn.LSActivateForceCheat(20);
-        scn.SkipToPhase(Phase.DEPLOY);
 
         scn.LSDeployCard(luke);
         assertTrue(scn.LSDecisionAvailable("Choose where to deploy"));
@@ -172,8 +172,8 @@ public class Card_6_157_Tests {
         scn.MoveLocationToTable(tibrin);
         scn.MoveCardsToLSHand(falcon, gold1);
 
+        scn.SkipToLSTurn(Phase.DEPLOY);
         scn.LSActivateForceCheat(20);
-        scn.SkipToPhase(Phase.DEPLOY);
 
         assertTrue(scn.LSDeployAvailable(falcon));
         scn.LSDeployCardAndPassResponses(falcon, tibrin);
@@ -195,8 +195,8 @@ public class Card_6_157_Tests {
         scn.MoveLocationToTable(tibrin);
         scn.MoveCardsToLSHand(hcf, gold1);
 
+        scn.SkipToLSTurn(Phase.DEPLOY);
         scn.LSActivateForceCheat(20);
-        scn.SkipToPhase(Phase.DEPLOY);
 
         assertTrue(scn.LSDeployAvailable(hcf));
         scn.LSDeployCardAndPassResponses(hcf, tibrin);
@@ -222,8 +222,8 @@ public class Card_6_157_Tests {
         scn.MoveCardsToLSHand(lando, tamtel);
         scn.MoveCardsToDSHand(dsLando);
 
+        scn.SkipToLSTurn(Phase.DEPLOY);
         scn.LSActivateForceCheat(20);
-        scn.SkipToPhase(Phase.DEPLOY);
 
         assertTrue(scn.LSDeployAvailable(lando));
         scn.LSDeployCardAndPassResponses(lando, scn.GetLSStartingLocation());
