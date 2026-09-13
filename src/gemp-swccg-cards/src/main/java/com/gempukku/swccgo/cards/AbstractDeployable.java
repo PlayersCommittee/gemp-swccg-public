@@ -194,10 +194,16 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
             return null;
         }
 
+        // Honor the react option target filter so e.g. aboard a vehicle does not also offer the site
+        Filter playTargetFilter = completeDeployTargetFilter;
+        if (reactActionOption.getTargetFilter() != null) {
+            playTargetFilter = Filters.and(completeDeployTargetFilter, reactActionOption.getTargetFilter());
+        }
+
         // Get the play card action using the react option, if any.
         PlayCardAction playCardAction = getPlayCardAction(playerId, game, self, reactActionFromOtherCard != null ? reactActionFromOtherCard.getSource() : self,
                 reactActionOption.isForFree() || (reactActionOption.getForFreeCardFilter() != null && reactActionOption.getForFreeCardFilter().accepts(game, self)),
-                reactActionOption.getChangeInCost(), null, null, null, reactActionOption, null, false, 0, completeDeployTargetFilter, null);
+                reactActionOption.getChangeInCost(), null, null, null, reactActionOption, null, false, 0, playTargetFilter, null);
         if (playCardAction == null) {
             return null;
         }
