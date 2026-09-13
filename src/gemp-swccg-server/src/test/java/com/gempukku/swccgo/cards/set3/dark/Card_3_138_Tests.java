@@ -10,7 +10,6 @@ import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -240,7 +239,7 @@ public class Card_3_138_Tests {
         assertFalse(scn.DSHasCardChoiceAvailable(trooper2)); //test1
     }
 
-    @Test @Ignore
+    @Test
     public void TrampleCannotTargetExcludedCharacterDuringBattle_MultipleBattles() {
         //test1: during battle, excluded character (due to participating in a different battle this turn)
         // is considered inactive and cannot be targeted by trample
@@ -291,7 +290,7 @@ public class Card_3_138_Tests {
         assertFalse(scn.DSHasCardChoiceAvailable(wolfman)); //test1
     }
 
-    @Test @Ignore
+    @Test
     public void TrampleExcludedWalkerCannotTargetCharacterDuringBattle_MultipleBattles() {
         //shows issue: https://github.com/PlayersCommittee/gemp-swccg-public/issues/297
         //test1: during battle, excluded walker (due to participating in a different battle this turn)
