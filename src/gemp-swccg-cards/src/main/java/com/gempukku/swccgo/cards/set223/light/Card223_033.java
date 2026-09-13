@@ -50,14 +50,13 @@ public class Card223_033 extends AbstractDroid {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-
         // Check condition(s)
         if (GameConditions.isInBattle(game, self)
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
-                && GameConditions.isInBattleWith(game, self, 2, Filters.and(Filters.your(self), Filters.icon(Icon.EPISODE_VII), Filters.character)) 
+                && GameConditions.isInBattleWith(game, self, 2, Filters.and(Filters.your(self), Filters.icon(Icon.EPISODE_VII), Filters.character))
                 && GameConditions.canAddDestinyDrawsToAttrition(game, playerId)) {
 
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId);
             action.setText("Add one destiny to attrition");
             action.setActionMsg("Add one destiny to attrition");
             // Update usage limit(s)
@@ -75,14 +74,15 @@ public class Card223_033 extends AbstractDroid {
 
     @Override
     protected List<TopLevelGameTextAction> getOpponentsCardGameTextTopLevelActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+        //GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
         if (GameConditions.isInBattle(game, self)
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
-                && GameConditions.isInBattleWith(game, self, 2, Filters.and(Filters.opponents(self), Filters.icon(Icon.EPISODE_VII), Filters.character)) 
+                && GameConditions.isInBattleWith(game, self, 2, Filters.and(Filters.opponents(self), Filters.icon(Icon.EPISODE_VII), Filters.character))
                 && GameConditions.canAddDestinyDrawsToAttrition(game, playerId)) {
 
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId);
             action.setText("Add one destiny to attrition");
             action.setActionMsg("Add one destiny to attrition");
             // Update usage limit(s)
