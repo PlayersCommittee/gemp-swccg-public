@@ -389,7 +389,10 @@ public class FireWeaponActionBuilder {
                             }
                         }
                     }
-                    _targetFilterList.set(i, Filters.in(validTargets));
+                    // Keep the logical target filter (same structure as free targeting).
+                    // Replacing it with Filters.in(validTargets) snapshots only currently
+                    // affordable opponent cards, which breaks Filters.weaponMayRetargetTo
+                    // (acceptsIgnoringOwner) used by retarget interrupts like Blaster Deflection LOST.
                     isValid = (validTargets.size() >= _numTargets);
                 }
                 _targetFilterValid.add(isValid);
