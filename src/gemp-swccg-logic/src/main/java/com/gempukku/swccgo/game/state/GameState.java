@@ -5,6 +5,7 @@ import com.gempukku.swccgo.communication.GameStateListener;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.*;
+import com.gempukku.swccgo.game.layout.LocationGroup;
 import com.gempukku.swccgo.game.layout.LocationPlacement;
 import com.gempukku.swccgo.game.layout.LocationsLayout;
 import com.gempukku.swccgo.game.state.actions.GameTextActionState;
@@ -382,6 +383,178 @@ public class GameState implements Snapshotable<GameState> {
         _locationsLayout = locationsLayout;
     }
 
+    public LocationsLayout getLocationsLayout() {
+        return _locationsLayout;
+    }
+
+    /**
+     * Reorders sites that already sit in the same LocationGroup so the given
+     * top locations appear left-to-right in newTopOrder. Converted stacks stay
+     * together. Cards at those sites are not moved. An empty order does nothing.
+     * @param newTopOrder requested left-to-right order of top location cards
+     * @return true if applied or already matched; false if invalid
+     */
+    public boolean reorderTopLocationsInGroup(List<? extends PhysicalCard> newTopOrder) {
+        return reorderTopLocationsInGroup((Filter) null, newTopOrder);
+    }
+
+    /**
+     * Reorders sites matching filter that already sit in the same LocationGroup.
+     * @param filter location filter for the cards being rearranged, or null
+     * @param newTopOrder requested left-to-right order of top location cards
+     * @return true if applied or already matched; false if invalid
+     */
+    public boolean reorderTopLocationsInGroup(Filter filter, List<? extends PhysicalCard> newTopOrder) {
+        if (newTopOrder == null || newTopOrder.isEmpty()) {
+            return true;
+        }
+        LocationGroup group = _locationsLayout.findGroupContaining(newTopOrder.get(0));
+        boolean result = _locationsLayout.reorderTopLocationsInGroup(_game, filter, newTopOrder);
+        if (result) {
+            notifyLocationsReordered(group);
+        }
+        return result;
+    }
+
+    /**
+     * Reorders sites in the LocationGroup for systemName whose top cards match siteFilter.
+     * @param systemName the system title
+     * @param siteFilter filter for the row to rearrange
+     * @param newTopOrder requested left-to-right order of matching top locations
+     * @return true if applied or already matched; false if invalid
+     */
+    public boolean reorderTopLocationsInGroup(String systemName, Filter siteFilter, List<? extends PhysicalCard> newTopOrder) {
+        if (newTopOrder == null || newTopOrder.isEmpty()) {
+            return true;
+        }
+        LocationGroup group = _locationsLayout.findGroupForSystemMatching(_game, systemName, siteFilter);
+        boolean result = _locationsLayout.reorderTopLocationsInGroup(_game, group, newTopOrder);
+        if (result) {
+            notifyLocationsReordered(group);
+        }
+        return result;
+    }
+
+    /**
+     * Reorders every stack in the matching LocationGroup by a permutation of current indexes.
+     * An empty permutation does nothing. The same order is allowed.
+     * @param systemName the system title
+     * @param siteFilter filter for the row to rearrange
+     * @param permutation new left-to-right stack indexes
+     * @return true if applied or already matched; false if invalid
+     */
+    public boolean reorderTopLocationsInGroupByPermutation(String systemName, Filter siteFilter, List<Integer> permutation) {
+        if (permutation == null || permutation.isEmpty()) {
+            return true;
+        }
+        LocationGroup group = _locationsLayout.findGroupForSystemMatching(_game, systemName, siteFilter);
+        boolean result = _locationsLayout.reorderStacksInGroup(group, permutation);
+        if (result) {
+            notifyLocationsReordered(group);
+        }
+        return result;
+    }
+
+    private void notifyLocationsReordered(LocationGroup group) {
+        _locationsLayout.refreshLocationIndexes();
+        keepBetweenSiteCardsBetweenSites(group);
+        _tableChangedSinceStatsSent = true;
+        if (group == null) {
+            return;
+        }
+        for (List<PhysicalCard> stack : group.getCardsInGroup()) {
+            for (PhysicalCard card : stack) {
+                for (GameStateListener listener : getAllGameStateListeners()) {
+                    listener.cardMoved(card, this);
+                }
+            }
+        }
+    }
+
+    /**
+     * Cards that sit between two sites in this group (attached to one site and
+     * targeting the other) stay between those same two sites after a reorder.
+     * They are reattached to whichever of the pair is currently left-er so they
+     * are not left hanging at an end of the row. No leave/move/deploy events.
+     */
+    private void keepBetweenSiteCardsBetweenSites(LocationGroup group) {
+        if (group == null) {
+            return;
+        }
+        Set<Integer> groupIds = new HashSet<Integer>();
+        for (List<PhysicalCard> stack : group.getCardsInGroup()) {
+            for (PhysicalCard loc : stack) {
+                groupIds.add(loc.getCardId());
+            }
+        }
+
+        List<PhysicalCard> betweenCards = new ArrayList<PhysicalCard>();
+        for (List<PhysicalCard> stack : group.getCardsInGroup()) {
+            for (PhysicalCard loc : stack) {
+                for (PhysicalCard attached : getAttachedCards(loc, false)) {
+                    if (otherGroupLocationTarget(attached, groupIds) != null) {
+                        betweenCards.add(attached);
+                    }
+                }
+            }
+        }
+
+        for (PhysicalCard card : betweenCards) {
+            PhysicalCard formerAttached = card.getAttachedTo();
+            PhysicalCard other = otherGroupLocationTarget(card, groupIds);
+            if (formerAttached == null || other == null) {
+                continue;
+            }
+            PhysicalCard left = leftSite(formerAttached, other);
+            PhysicalCard right = (left.getCardId() == formerAttached.getCardId()) ? other : formerAttached;
+            if (left.getCardId() == formerAttached.getCardId()) {
+                continue;
+            }
+            card.attachTo(left, card.isPilotOf(), card.isPassengerOf(), card.isInCargoHoldAsVehicle(),
+                    card.isInCargoHoldAsStarfighterOrTIE(), card.isInCargoHoldAsCapitalStarship());
+            Map<TargetId, PhysicalCard> targets = card.getTargetedCards(this);
+            if (targets == null) {
+                continue;
+            }
+            for (Map.Entry<TargetId, PhysicalCard> entry : targets.entrySet()) {
+                if (entry.getKey() == TargetId.DEPLOY_TARGET) {
+                    continue;
+                }
+                PhysicalCard target = entry.getValue();
+                if (target != null && target.getCardId() == left.getCardId()) {
+                    card.setTargetedCard(entry.getKey(), card.getTargetGroupId(entry.getKey()), right, Filters.sameCardId(right));
+                }
+            }
+        }
+    }
+
+    private PhysicalCard otherGroupLocationTarget(PhysicalCard card, Set<Integer> groupIds) {
+        PhysicalCard attachedTo = card.getAttachedTo();
+        if (attachedTo == null) {
+            return null;
+        }
+        Map<TargetId, PhysicalCard> targets = card.getTargetedCards(this);
+        if (targets == null) {
+            return null;
+        }
+        for (Map.Entry<TargetId, PhysicalCard> entry : targets.entrySet()) {
+            if (entry.getKey() == TargetId.DEPLOY_TARGET) {
+                continue;
+            }
+            PhysicalCard target = entry.getValue();
+            if (target != null && groupIds.contains(target.getCardId()) && target.getCardId() != attachedTo.getCardId()) {
+                return target;
+            }
+        }
+        return null;
+    }
+
+    private PhysicalCard leftSite(PhysicalCard a, PhysicalCard b) {
+        if (a.getLocationZoneIndex() <= b.getLocationZoneIndex()) {
+            return a;
+        }
+        return b;
+    }
     private void addPlayerCards(String playerId, List<String> cards, List<String> outsideOfDeckCards, SwccgCardBlueprintLibrary library) {
         for (String blueprintId : outsideOfDeckCards) {
             PhysicalCard physicalCard = createPhysicalCard(playerId, library, blueprintId);

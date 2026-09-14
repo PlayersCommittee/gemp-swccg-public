@@ -2514,6 +2514,9 @@ var GempSwccgGameUI = Class.extend({
         var max = this.getDecisionParameter(decision, "max");
         var returnAnyChange = this.getDecisionParameter(decision, "returnAnyChange");
         var cardIds = this.getDecisionParameters(decision, "cardId");
+        if (text && /left[- ]to[- ]right/i.test(text)) {
+            text = text + ". Click highlighted sites in order.";
+        }
         var blueprintIds = this.getDecisionParameters(decision, "blueprintId");
         var preselected = this.getDecisionParameters(decision, "preselected");
         var selectable = this.getDecisionParameters(decision, "selectable");
