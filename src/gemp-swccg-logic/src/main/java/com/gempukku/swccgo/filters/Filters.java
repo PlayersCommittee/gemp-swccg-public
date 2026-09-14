@@ -11239,6 +11239,13 @@ public class Filters {
             return physicalCard.isBluffCard();
         }
     };
+
+    public static final Filter buriedMine = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return physicalCard.isBuriedMine();
+        }
+    };
     /**
      * Wrapper method to allow other static filters to access the wrapped filter.
      */

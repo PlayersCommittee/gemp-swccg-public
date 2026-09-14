@@ -32,6 +32,7 @@ public class RuleSet {
         new BlownAwayRebelBaseRule(_actionsEnvironment).applyRule();
         new BombingRunRule(_actionsEnvironment).applyRule();
         new BreakCoverWhenNotSpyRule(_actionsEnvironment).applyRule();
+        new BuryingMinesRule(_actionsEnvironment).applyRule();
         new CancelGameTextRule(_actionsEnvironment).applyRule();
         new CaveRule(_actionsEnvironment).applyRule();
         new CharactersForfeitReducedToZeroRule(_actionsEnvironment).applyRule();

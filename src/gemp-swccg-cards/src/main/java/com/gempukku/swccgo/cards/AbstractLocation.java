@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards;
 
 import com.gempukku.swccgo.cards.actions.DockingBayTransitAction;
+import com.gempukku.swccgo.cards.actions.BuryMinesAction;
 import com.gempukku.swccgo.cards.actions.FlipBluffCardAction;
 import com.gempukku.swccgo.cards.actions.InitiateForceDrainAction;
 import com.gempukku.swccgo.cards.actions.PlayLocationAction;
@@ -332,6 +333,10 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
         if (GameConditions.canReleaseUnattendedFrozenCaptiveAtLocation(game, playerId, self)) {
             actions.add(new ReleaseUnattendedFrozenCaptiveAction(playerId, self));
         }
+
+        // Burying Mines (Appendix C) — reuse under-site stacking like Bluff cards
+        if (GameConditions.canBuryMinesAtLocation(playerId, game, self))
+            actions.add(new BuryMinesAction(playerId, self));
 
         // Bluff rules (stack 'bluff card')
         if (GameConditions.canStackBluffCardAtLocation(playerId, game, self))

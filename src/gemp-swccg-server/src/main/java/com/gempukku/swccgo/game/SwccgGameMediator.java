@@ -324,6 +324,9 @@ public class SwccgGameMediator {
             if (card.isBluffCard()) {
                 sb.append("<div>").append("Bluff card").append("</div>");
             }
+            if (card.isBuriedMine()) {
+                sb.append("<div>").append("Buried mine").append("</div>");
+            }
             if (card.isCombatCard()) {
                 sb.append("<div>").append("Combat card").append("</div>");
             }

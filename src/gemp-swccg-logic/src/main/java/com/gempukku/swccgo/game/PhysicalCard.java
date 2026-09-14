@@ -378,6 +378,9 @@ public interface PhysicalCard extends Filterable, Snapshotable<PhysicalCard> {
     void setCombatCard(boolean combatCard);
     boolean isCombatCard();
 
+    void setBuriedMine(boolean buriedMine);
+    boolean isBuriedMine();
+
     void setSpaceSlugBelly(boolean spaceSlugBelly);
     boolean isSpaceSlugBelly();
 
