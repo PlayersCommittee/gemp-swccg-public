@@ -149,6 +149,7 @@ public class Card_5_143_Tests {
         assertEquals(CardSubtype.LOST, card.getCardSubtype());
         scn.BlueprintIconCheck(card, new ArrayList<>() {{
             add(Icon.CLOUD_CITY);
+            add(Icon.INTERRUPT);
         }});
         scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
         }});
