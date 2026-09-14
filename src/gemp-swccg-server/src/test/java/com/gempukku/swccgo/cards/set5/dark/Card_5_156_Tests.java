@@ -103,8 +103,8 @@ public class Card_5_156_Tests {
         assertEquals(Zone.ATTACHED, effect.getZone());
         assertEquals(host, effect.getAttachedTo());
 
-        scn.SkipToDSTurn(Phase.DEPLOY);
         scn.DSActivateForceCheat(6);
+        scn.SkipToDSTurn(Phase.DEPLOY);
         Assume.assumeTrue("Surprise should be playable with Force available", scn.DSCardActionAvailable(surprise));
         scn.DSPlayCard(surprise);
         scn.DSChooseCard(effect);
