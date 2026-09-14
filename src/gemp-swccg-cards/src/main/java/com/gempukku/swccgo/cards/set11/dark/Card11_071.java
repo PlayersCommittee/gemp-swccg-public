@@ -63,7 +63,7 @@ public class Card11_071 extends AbstractNormalEffect {
         if (TriggerConditions.isTableChanged(game, effectResult)) {
             PhysicalCard amidala = Filters.findFirstActive(game, self, Filters.Amidala);
             if (amidala != null) {
-                if (GameConditions.isPresentWith(game, self, amidala, Filters.Maul)
+                if (GameConditions.canSpot(game, self, Filters.personaPresentAt(Filters.Maul, Filters.sameLocation(amidala)))
                     && !GameConditions.isWith(game, self, amidala, Filters.and(Filters.opponents(self), Filters.Jedi))) {
 
                     final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);

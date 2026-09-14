@@ -11087,6 +11087,59 @@ public class Filters {
     }
 
     /**
+     * Filter that accepts cards representing a persona that is "present" during battle
+     * (present at the battle location). Unique permanent-pilot personas aboard starships
+     * or enclosed vehicles are present aboard the craft, not at the location, so those
+     * combo cards do not match. Permanent pilots aboard open vehicles remain location-present.
+     *
+     * @param personaFilter filter matching the persona (e.g. Filters.Boba_Fett)
+     * @return Filter
+     */
+    public static Filter personaPresentInBattle(final Filterable personaFilter) {
+        final Filter persona = Filters.and(personaFilter);
+        // Characters with the persona that are present in battle, or permanent pilots with that
+        // persona aboard open vehicles (not starships / enclosed vehicles).
+        return Filters.and(Filters.presentInBattle, Filters.or(
+                Filters.and(persona, Filters.character),
+                Filters.and(Filters.hasPermanentPilot(persona), Filters.open_vehicle)
+        ));
+    }
+
+    /**
+     * Filter that accepts cards representing a persona that is "present" at locations
+     * accepted by the specified filter. Unique permanent-pilot personas aboard starships
+     * or enclosed vehicles are present aboard the craft, not at the location.
+     *
+     * @param personaFilter filter matching the persona (e.g. Filters.Vader)
+     * @param locationFilter locations to check presence at
+     * @return Filter
+     */
+    public static Filter personaPresentAt(final Filterable personaFilter, final Filter locationFilter) {
+        final Filter persona = Filters.and(personaFilter);
+        return Filters.and(Filters.presentAt(locationFilter), Filters.or(
+                Filters.and(persona, Filters.character),
+                Filters.and(Filters.hasPermanentPilot(persona), Filters.open_vehicle)
+        ));
+    }
+
+    /**
+     * Filter that accepts cards representing a persona that is "at" locations accepted by
+     * the specified filter. Unique permanent-pilot personas aboard starships or enclosed
+     * vehicles are aboard the craft, not at the location for persona-"at" checks.
+     *
+     * @param personaFilter filter matching the persona (e.g. Filters.Vader)
+     * @param locationFilter locations to check
+     * @return Filter
+     */
+    public static Filter personaAt(final Filterable personaFilter, final Filter locationFilter) {
+        final Filter persona = Filters.and(personaFilter);
+        return Filters.and(Filters.at(locationFilter), Filters.or(
+                Filters.and(persona, Filters.character),
+                Filters.and(Filters.hasPermanentPilot(persona), Filters.open_vehicle)
+        ));
+    }
+
+    /**
      * Filter that accepts cards that are in battle with the specified card.
      *
      * @param card the card

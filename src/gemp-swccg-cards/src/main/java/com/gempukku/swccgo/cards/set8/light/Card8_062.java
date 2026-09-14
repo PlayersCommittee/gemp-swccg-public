@@ -48,7 +48,7 @@ public class Card8_062 extends AbstractUsedInterrupt {
         // Check condition(s)
         if (GameConditions.isDuringYourTurn(game, self)) {
             final PhysicalCard site = Filters.findFirstFromTopLocationsOnTable(game, Filters.and(Filters.battleground_site,
-                    Filters.and(Filters.wherePresent(self, Filters.and(Filters.Han, Filters.not(Filters.undercover_spy))), Filters.wherePresent(self, Filters.and(Filters.Leia, Filters.not(Filters.undercover_spy))))));
+                    Filters.and(Filters.wherePresent(self, Filters.and(Filters.personaPresentAt(Filters.Han, Filters.battleground_site), Filters.not(Filters.undercover_spy))), Filters.wherePresent(self, Filters.and(Filters.personaPresentAt(Filters.Leia, Filters.battleground_site), Filters.not(Filters.undercover_spy))))));
             if (site != null) {
 
                 final PlayInterruptAction action1 = new PlayInterruptAction(game, self);

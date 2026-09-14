@@ -61,9 +61,9 @@ public class Card9_048 extends AbstractUsedInterrupt {
                 && GameConditions.canDrawDestiny(game, playerId)) {
             final AboutToLeaveTableResult aboutToLeaveTableResult = (AboutToLeaveTableResult) effectResult;
             PhysicalCard cardToBeLost = aboutToLeaveTableResult.getCardAboutToLeaveTable();
-            final Filter vaderFilter = Filters.and(Filters.Vader, Filters.present(cardToBeLost));
+            final Filter vaderFilter = Filters.personaPresentAt(Filters.Vader, Filters.sameLocation(cardToBeLost));
             if (GameConditions.canTarget(game, self, vaderFilter)) {
-                final Filter emperorFilter = Filters.and(Filters.Emperor, Filters.present(cardToBeLost));
+                final Filter emperorFilter = Filters.personaPresentAt(Filters.Emperor, Filters.sameLocation(cardToBeLost));
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
                 action.setImmuneTo(Title.Sense);
