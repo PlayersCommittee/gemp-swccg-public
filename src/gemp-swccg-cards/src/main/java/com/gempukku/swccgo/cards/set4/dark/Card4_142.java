@@ -16,6 +16,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.ForRemainderOfGameData;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
@@ -38,7 +39,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 
 /**
@@ -99,11 +99,10 @@ public class Card4_142 extends AbstractLostInterrupt {
                                                             // even if the unique copy is retrieved and played again.
                                                             final int playCardId = self.getCardId();
                                                             final int nextTurnNumber = game.getGameState().getPlayersLatestTurnNumber(playerId) + 1;
-                                                            // Track the obligation on the proxy itself. Frustration is a Lost Interrupt, so
-                                                            // ForRemainderOfGameData on the card is not reliable after it hits the Lost Pile.
-                                                            // Each play gets its own proxy + stillPending flag so a later play cannot replace this one.
-                                                            // AtomicBoolean so the anonymous proxy can mutate a final captured flag.
-                                                            final AtomicBoolean stillPending = new AtomicBoolean(true);
+                                                            // Pending flag lives in ForRemainderOfGameData (snapshotted on the card) rather than
+                                                            // a heap AtomicBoolean captured by the proxy. Until-end-of-game proxies are the same
+                                                            // object after revert, so a captured boolean would stay "already satisfied".
+                                                            self.setForRemainderOfGameData(playCardId, new ForRemainderOfGameData(true));
                                                             game.getGameState().sendMessage(playerId + " targets " + GameUtils.getCardLink(targetedCard)
                                                                     + ". " + opponent + " must deploy a card of that title by the end of " + playerId + "'s next turn, or lose a card of that title from hand (if possible)");
 
@@ -114,21 +113,21 @@ public class Card4_142 extends AbstractLostInterrupt {
                                                                         @Override
                                                                         public List<TriggerAction> getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult) {
                                                                             List<TriggerAction> actions = new LinkedList<TriggerAction>();
-                                                                            if (!stillPending.get()) {
+                                                                            final PhysicalCard source = game.findCardByPermanentId(permCardId);
+                                                                            if (source == null || !GameConditions.cardHasForRemainderOfGameDataEquals(source, playCardId, true)) {
                                                                                 return actions;
                                                                             }
 
                                                                             // Opponent deployed a card of the targeted title, which satisfies this Frustration play
                                                                             if (TriggerConditions.justDeployed(game, effectResult, opponent, Filters.sameTitleAs(targetedCard, true))) {
-                                                                                stillPending.set(false);
+                                                                                source.setForRemainderOfGameData(playCardId, new ForRemainderOfGameData(false));
                                                                                 return actions;
                                                                             }
 
                                                                             // At the end of that next turn, lose a card of the title from hand if possible
                                                                             if (TriggerConditions.isEndOfYourTurn(game, effectResult, playerId)
                                                                                     && game.getGameState().getPlayersLatestTurnNumber(playerId) == nextTurnNumber) {
-                                                                                stillPending.set(false);
-                                                                                final PhysicalCard source = game.findCardByPermanentId(permCardId);
+                                                                                source.setForRemainderOfGameData(playCardId, new ForRemainderOfGameData(false));
                                                                                 Collection<PhysicalCard> inHand = Filters.filter(game.getGameState().getHand(opponent), game, Filters.sameTitleAs(targetedCard, true));
                                                                                 if (!inHand.isEmpty()) {
                                                                                     // Rule trigger with a per-play id so retrieving/replaying unique Frustration

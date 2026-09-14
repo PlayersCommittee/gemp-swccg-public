@@ -750,6 +750,74 @@ public class Card_4_142_Tests {
 	}
 
 	@Test
+	public void FrustrationRevertAfterLosingToUnmetObligationRestoresObligation() {
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var trooper = scn.GetLSCard("trooper");
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(trooper);
+
+		scn.StartGame();
+		PlayFrustrationTargetingTrooper(scn);
+
+		scn.SkipToLSTurn();
+		scn.SkipToDSTurn(Phase.DRAW);
+		scn.PassDrawActions();
+		DrainPendingDecisions(scn, 30);
+		assertTrue(scn.AwaitingLSActivatePhaseActions());
+
+		assertEquals(Zone.TOP_OF_LOST_PILE, frustration.getZone());
+		assertEquals(Zone.TOP_OF_LOST_PILE, trooper.getZone());
+
+		scn.IssueRevert("Start of Dark Side Player's draw phase #2");
+		frustration = scn.GetPostRevertCard(frustration);
+		trooper = scn.GetPostRevertCard(trooper);
+
+		assertEquals(Zone.TOP_OF_LOST_PILE, frustration.getZone());
+		assertEquals(Zone.HAND, trooper.getZone());
+
+		scn.PassDrawActions();
+		DrainPendingDecisions(scn, 30);
+		assertTrue(scn.AwaitingLSActivatePhaseActions());
+
+		assertEquals(Zone.TOP_OF_LOST_PILE, trooper.getZone());
+	}
+
+	@Test
+	public void FrustrationRevertAfterObligationFulfilledRestoresObligation() {
+		var scn = GetScenario();
+		var frustration = scn.GetDSCard("frustration");
+		var trooper = scn.GetLSCard("trooper");
+		var walkway = scn.GetLSCard("walkway");
+
+		scn.MoveLocationToTable(walkway);
+
+		scn.MoveCardsToDSHand(frustration);
+		scn.MoveCardsToLSHand(trooper);
+
+		scn.StartGame();
+		PlayFrustrationTargetingTrooper(scn);
+
+		scn.SkipToLSTurn();
+		scn.SkipToPhase(Phase.DEPLOY);
+		scn.LSDeployCard(trooper);
+		scn.LSChooseCard(walkway);
+		scn.PassAllResponses();
+
+		scn.IssueRevert("Start of Light Side Player's deploy phase #1");
+		trooper = scn.GetPostRevertCard(trooper);
+		assertEquals(Zone.HAND, trooper.getZone());
+
+		scn.SkipToDSTurn(Phase.DRAW);
+		scn.PassDrawActions();
+		DrainPendingDecisions(scn, 30);
+		assertTrue(scn.AwaitingLSActivatePhaseActions());
+
+		assertEquals(Zone.TOP_OF_LOST_PILE, trooper.getZone());
+	}
+
+	@Test
 	public void FrustrationCannotBeRetargeted() {
 		// ScompLink Extra Card Data: IHABFAT may not retarget something that isn't chosen until
 		// the result step (e.g. Twi'lek Advisor taking a card into hand from Reserve Deck).
