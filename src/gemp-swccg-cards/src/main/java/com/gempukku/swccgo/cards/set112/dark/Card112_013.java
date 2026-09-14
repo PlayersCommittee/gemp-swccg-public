@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.conditions.DrivingCondition;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
+import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Rarity;
@@ -54,11 +55,11 @@ public class Card112_013 extends AbstractAlien {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.and(Filters.exterior_site, Filters.relatedSite(self)))
-                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)
+                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_2)
                 && GameConditions.isPilotingAt(game, self, Filters.cloud_sector)
                 && GameConditions.canAddBattleDestinyDraws(game, self)) {
 
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_2);
             action.setText("Add one battle destiny");
             // Update usage limit(s)
             action.appendUsage(
