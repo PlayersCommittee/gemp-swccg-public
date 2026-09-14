@@ -48,12 +48,12 @@ public class Card_5_156_Tests {
         return new VirtualTableScenario(
                 new HashMap<>() {{
                     put("boss_nass", "14_49");
+                    put("war_room", "1_139");
                     put("revolution", "1_62");
                 }},
                 new HashMap<>() {{
                     put("surprise", "5_156");
                     put("cantina", "1_290");
-                    put("marketplace", "12_176");
                 }},
                 10,
                 10,
@@ -136,12 +136,12 @@ public class Card_5_156_Tests {
         var revolution = scn.GetLSCard("revolution");
         var cantina = scn.GetDSCard("cantina");
         var surprise = scn.GetDSCard("surprise");
-        var marketplace = scn.GetDSCard("marketplace");
+        var warRoom = scn.GetLSCard("war_room");
 
-        prepareSurpriseRelocate(scn, cantina, revolution, surprise, marketplace);
+        prepareSurpriseRelocate(scn, cantina, revolution, surprise, warRoom);
 
         assertFalse("Surprise must not relocate Revolution onto Boss Nass Chambers", scn.DSHasCardChoiceAvailable(bossNass));
-        assertTrue("Surprise may relocate Revolution onto marketplace", scn.DSHasCardChoiceAvailable(marketplace));
+        assertTrue("Surprise may relocate Revolution onto Yavin 4: War Room", scn.DSHasCardChoiceAvailable(warRoom));
     }
 
     @Test
