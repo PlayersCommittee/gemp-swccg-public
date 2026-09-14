@@ -970,20 +970,39 @@ public class Card_1_256_Tests {
             scn.DSChooseCard(rebel);
         }
 
-        for (int i = 0; i < 12 && !lsHasCard(scn, badFeeling) && !lsHasAction(scn, "Retarget")
-                && !(scn.LSAnyDecisionsAvailable() && scn.LSCardPlayAvailable(badFeeling)); i++) {
+        // Stay in the "playing Local Trouble" window so LS can retarget.
+        // Do not PassResponses("optional") while LS might still get a play/retarget action.
+        for (int i = 0; i < 20; i++) {
+            if (lsHasCard(scn, badFeeling) || lsHasAction(scn, "Retarget")
+                    || (scn.LSAnyDecisionsAvailable() && scn.LSCardPlayAvailable(badFeeling))) {
+                break;
+            }
             var decision = scn.GetCurrentDecision();
             if (decision == null) {
                 break;
             }
             String text = decision.getText().toLowerCase();
-            if (text.contains("use 1 force") || text.contains("use force")) {
+            if (text.contains("weapons") || text.contains("battle_initiated") || text.contains("battle destiny")) {
+                break;
+            }
+            if (text.contains("use") && text.contains("force")) {
                 scn.PassForceUseResponses();
                 continue;
             }
-            if (text.contains("optional") && !lsHasCard(scn, badFeeling)
-                    && !(scn.LSAnyDecisionsAvailable() && scn.LSCardPlayAvailable(badFeeling))) {
-                scn.PassResponses("optional");
+            if (scn.LSAnyDecisionsAvailable()) {
+                try {
+                    var acts = scn.GetLSAvailableActions();
+                    if (acts != null && !acts.isEmpty()) {
+                        break;
+                    }
+                } catch (RuntimeException ignored) {
+                    break;
+                }
+                scn.LSPass();
+                continue;
+            }
+            if (scn.DSAnyDecisionsAvailable()) {
+                scn.DSPass();
                 continue;
             }
             break;
