@@ -326,6 +326,7 @@ public interface Title {
     String Dining_Room = "Cloud City: Dining Room";
     String Diplomatic_Mission_To_Alderaan = "Diplomatic Mission To Alderaan";
     String Disarmed = "Disarmed";
+    String Disarming_Creature = "Disarming Creature";
     String Do_Or_Do_Not = "Do, Or Do Not";
     String Do_They_Have_A_Code_Clearance = "Do They Have A Code Clearance?";
     String Doallyn = "Sergeant Doallyn";
