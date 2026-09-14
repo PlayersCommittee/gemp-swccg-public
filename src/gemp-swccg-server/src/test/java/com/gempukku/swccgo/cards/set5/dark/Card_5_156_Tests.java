@@ -70,6 +70,7 @@ public class Card_5_156_Tests {
     protected VirtualTableScenario GetExpandTheEmpireImmunityScenario() throws DecisionResultInvalidException {
         return new VirtualTableScenario(
                 new HashMap<>() {{
+                    put("scarif", "209_23");
                     put("turbolift", "209_27");
                 }},
                 new HashMap<>() {{
@@ -147,13 +148,14 @@ public class Card_5_156_Tests {
     @Test
     public void SurpriseCannotRelocateExpandTheEmpireToScarifTurboliftComplexImmuneToExpandTheEmpire() throws DecisionResultInvalidException {
         var scn = GetExpandTheEmpireImmunityScenario();
+        var scarif = scn.GetLSCard("scarif");
         var turbolift = scn.GetLSCard("turbolift");
         var marketplace = scn.GetDSCard("marketplace");
         var desert = scn.GetDSCard("desert");
         var expand = scn.GetDSCard("expand");
         var surprise = scn.GetDSCard("surprise");
 
-        prepareSurpriseRelocate(scn, marketplace, expand, surprise, desert);
+        prepareSurpriseRelocate(scn, marketplace, expand, surprise, scarif, desert);
 
         assertFalse("Surprise must not relocate Expand The Empire onto Turbolift Complex", scn.DSHasCardChoiceAvailable(turbolift));
         assertTrue("Surprise may relocate Expand The Empire onto Tatooine Desert", scn.DSHasCardChoiceAvailable(desert));
