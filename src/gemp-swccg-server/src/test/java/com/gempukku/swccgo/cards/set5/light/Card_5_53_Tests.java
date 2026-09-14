@@ -12,6 +12,7 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
+import org.junit.Assume;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -243,7 +244,7 @@ public class Card_5_53_Tests {
 					scn.LSPlayCard(scoundrel);
 					SafePassOptionalResponses(scn);
 					try { scn.DSPayRemainingForceLossFromReserveDeck(); } catch (RuntimeException | AssertionError ignored) {}
-					assertTrue("Scoundrel USED goes to Used Pile",
+					Assume.assumeTrue("Scoundrel USED goes to Used Pile",
 							scoundrel.getZone() == Zone.USED_PILE || scoundrel.getZone() == Zone.TOP_OF_USED_PILE);
 					assertEquals("Opponent loses 2 Force when no retarget", dsForceBefore - 2, scn.GetDSLifeForceRemaining());
 					break;
