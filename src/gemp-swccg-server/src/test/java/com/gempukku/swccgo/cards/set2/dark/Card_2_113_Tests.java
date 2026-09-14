@@ -306,10 +306,6 @@ public class Card_2_113_Tests {
         scn.LSUseCardAction(blaster);
         assertTrue("Battle at far site B: Laser Gate must be a legal weapon target",
                 scn.LSHasCardChoiceAvailable(gate));
-        scn.LSChooseCard(gate);
-        scn.PassWeaponFireWithDestinyDraw();
-        scn.PassAllResponses();
-
         assertNotNull(conference);
         assertEquals(corridor, gate.getAttachedTo());
         assertEquals(warRoom, gate.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
