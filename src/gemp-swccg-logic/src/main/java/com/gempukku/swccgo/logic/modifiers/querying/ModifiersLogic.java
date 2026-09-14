@@ -2752,68 +2752,65 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
         return result;
     }
 
+    /**
+     * Returns true when adding modifier would violate the Cumulative Rule against modifiers
+     * already kept in modifierList.
+     *
+     * No modifiers stack unless they say Cumulatively. Multiple copies of a card, or multiple
+     * applications of the same game-text clause, may not increasingly modify the same thing.
+     * Different portions of the same title's game text are different clauses and may both apply.
+     */
     private boolean foundCumulativeConflict(GameState gameState, Collection<Modifier> modifierList, Modifier modifier) {
-        // If modifier is not cumulative, then check if modifiers from another copy
-        // card of same title is already in the list
-        if (!modifier.isCumulative() && modifier.getSource(gameState) != null) {
+        if (modifier.isCumulative()) {
+            return false;
+        }
 
-            ModifierType modifierType = modifier.getModifierType();
-            String cardTitle = modifier.getSource(gameState).getTitle();
-            String forPlayer = modifier.getForPlayer();
-            Icon icon = modifier.getIcon();
+        PhysicalCard source = modifier.getSource(gameState);
+        if (source == null) {
+            return false;
+        }
 
-            for (Modifier liveModifier : modifierList) {
-                if (
-                        // Modifiers that affect different things cannot be said to be cumulative in any sense
-                        liveModifier.getModifierType() == modifierType
-                        // Non-card modifiers must be from a game rule, and those cannot violate the cumulative rule.
-                        && liveModifier.getSource(gameState) != null
-                        && (
-                                liveModifier.isFromPermanentPilot() == modifier.isFromPermanentPilot()
-                                && liveModifier.isFromPermanentAstromech() == modifier.isFromPermanentAstromech())
-                                // The cumulative rule is all about 'copies" of the same card, which is to say cards
-                                // with the same title.
-                                && liveModifier.getSource(gameState).getTitle().equals(cardTitle)
-                                && (
-                                        //Non-unique cards with the same title and same modifier type are the main
-                                        // reason the cumulative rule exists at all.
-                                        modifier.getSource(gameState).getBlueprint().getUniqueness() != Uniqueness.UNIQUE
-                                        || liveModifier.getSource(gameState).getBlueprint().getUniqueness() != Uniqueness.UNIQUE
-                                        //This is for checking for persistent modifiers that were emitted by a previous
-                                        // incarnation of a unique card.  For example, if a unique card modifies a force
-                                        // drain amount and then leaves play and re-enters, they are considered a new
-                                        // card, but since another "copy" of that card already modified the force drain
-                                        // amount, the new one cannot also alter it without violating the cumulative rule.
-                                        || modifier.getSource(gameState).getCardId() != liveModifier.getSource(gameState).getCardId()
+        ModifierType modifierType = modifier.getModifierType();
+        String cardTitle = source.getTitle();
+        String forPlayer = modifier.getForPlayer();
+        Icon icon = modifier.getIcon();
+        String clauseIdentity = modifier.getClauseIdentity();
+        boolean fromPermanentPilot = modifier.isFromPermanentPilot();
+        boolean fromPermanentAstromech = modifier.isFromPermanentAstromech();
 
-                                        /*
-                                        The above section is the reason for the Rebel Flight Suit failure when you attach
-                                        2 copies of it to 2 different Ralltiir Freighter Captains on the same ship.
-                                        Either RFS marks its maneuver modifier as cumulative and you end up with two +2
-                                        bonuses from nonuniques, or you mark it as non-cumulative and the pilot's own +1
-                                        crushes the RFS +2 for cumulative reasons.
-
-                                        This entire for loop should be broken up to use fewer && checks and more standalone
-                                        if blocks in the future. (Use "continue" upon finding a relationship that can't
-                                        possibly be cumulative rather than endlessly chaining.)
-
-                                        This subsection should then be broken up into two categories:
-                                        - a check for both sources being unique
-                                            - same current id is the same card with two different unrelated modifiers that should combine
-                                            - different current id is a past life invocation that violates cumulative
-                                        - a check for both sources being nonunique:
-                                            - same permanent id is the same card with two different unrelated modifiers that should combine
-                                            - different permanent ids are two different cards violating cumulative
-
-                                         */
-                                )
-                                // Presumably cards with the same title on different sides do not interfere cumulatively
-                                && liveModifier.isForPlayer(forPlayer)
-                                && liveModifier.getIcon() == icon
-                        ) {
-                    return true;
-                }
+        for (Modifier liveModifier : modifierList) {
+            PhysicalCard liveSource = liveModifier.getSource(gameState);
+            if (liveSource == null) {
+                continue;
             }
+            if (liveModifier.getModifierType() != modifierType) {
+                continue;
+            }
+            if (liveModifier.isFromPermanentPilot() != fromPermanentPilot) {
+                continue;
+            }
+            if (liveModifier.isFromPermanentAstromech() != fromPermanentAstromech) {
+                continue;
+            }
+            if (!liveSource.getTitle().equals(cardTitle)) {
+                continue;
+            }
+            if (!liveModifier.isForPlayer(forPlayer)) {
+                continue;
+            }
+            if (liveModifier.getIcon() != icon) {
+                continue;
+            }
+            // Issue 697: different game-text clauses of the same title may both apply.
+            if (!java.util.Objects.equals(liveModifier.getClauseIdentity(), clauseIdentity)) {
+                continue;
+            }
+
+            // Same clause and not cumulative: this is a conflict.
+            // Unique same cardId, same clause twice is Concentrate All Fire firing twice.
+            // Unique different cardId is a past-life persistent modifier from the same title.
+            // Nonunique different copies is Sandcrawler / Targeting Computer / two Rebel Flight Suits.
+            return true;
         }
         return false;
     }
