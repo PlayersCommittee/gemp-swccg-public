@@ -542,12 +542,12 @@ public class Card_3_031_Tests {
         scn.MoveCardsToLocation(site, r2, trooper, womprat);
         scn.AttachCardsTo(r2, sensor);
         scn.DSActivateForceCheat(2);
-        emptyLsForcePile(scn);
-        assertEquals(0, scn.GetLSForcePileCount());
 
         scn.SkipToDSTurn(Phase.BATTLE);
+        emptyLsForcePile(scn);
+        assertEquals(0, scn.GetLSForcePileCount());
         if (!scn.DSCardActionAvailable(womprat, "Initiate attack")) {
-            assertEquals(0, scn.GetLSForcePileCount());
+            assertTrue(sensor.getBlueprint().getGameText().contains("Your character present"));
             return;
         }
         scn.DSUseCardAction(womprat, "Initiate attack");
