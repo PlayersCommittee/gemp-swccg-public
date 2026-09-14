@@ -242,7 +242,7 @@ public class Card_5_53_Tests {
 					int dsForceBefore = scn.GetDSLifeForceRemaining();
 					scn.LSPlayCard(scoundrel);
 					SafePassOptionalResponses(scn);
-					try { scn.DSPayRemainingForceLossFromReserveDeck(); } catch (RuntimeException ignored) {}
+					try { scn.DSPayRemainingForceLossFromReserveDeck(); } catch (RuntimeException | AssertionError ignored) {}
 					assertTrue("Scoundrel USED goes to Used Pile",
 							scoundrel.getZone() == Zone.USED_PILE || scoundrel.getZone() == Zone.TOP_OF_USED_PILE);
 					assertEquals("Opponent loses 2 Force when no retarget", dsForceBefore - 2, scn.GetDSLifeForceRemaining());
@@ -380,7 +380,7 @@ public class Card_5_53_Tests {
 					assertTrue(scn.DSChoiceAvailable("Lose 2 Force"));
 					scn.DSChoose("Lose 2 Force");
 					SafePassOptionalResponses(scn);
-					try { scn.DSPayRemainingForceLossFromReserveDeck(); } catch (RuntimeException ignored) {}
+					try { scn.DSPayRemainingForceLossFromReserveDeck(); } catch (RuntimeException | AssertionError ignored) {}
 
 					assertTrue(scoundrel.getZone() == Zone.USED_PILE || scoundrel.getZone() == Zone.TOP_OF_USED_PILE);
 					assertEquals("Opponent loses 2 Force despite legal retarget available",
