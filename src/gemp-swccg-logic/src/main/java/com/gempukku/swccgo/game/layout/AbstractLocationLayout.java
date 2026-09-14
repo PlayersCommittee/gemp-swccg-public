@@ -611,4 +611,25 @@ public abstract class AbstractLocationLayout implements LocationLayout {
 
         return locationsInOrder;
     }
+    /**
+     * Finds the location group that currently contains the given location card
+     * (top or converted).
+     * @param card a location on the table
+     * @return the group, or null if this layout does not contain the card
+     */
+    public final LocationGroup findGroupContaining(PhysicalCard card) {
+        if (card == null) {
+            return null;
+        }
+        for (LocationGroup group : getExistingGroupsInOrder()) {
+            for (List<PhysicalCard> stack : group.getCardsInGroup()) {
+                for (PhysicalCard location : stack) {
+                    if (location.getCardId() == card.getCardId()) {
+                        return group;
+                    }
+                }
+            }
+        }
+        return null;
+    }
 }
