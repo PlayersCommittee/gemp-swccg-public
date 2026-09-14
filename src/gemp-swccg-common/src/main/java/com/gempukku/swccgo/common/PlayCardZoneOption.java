@@ -16,6 +16,7 @@ public enum PlayCardZoneOption {
 
     NEXT_TO_EITHER_LOST_PILE(Zone.SIDE_OF_TABLE, Zone.LOST_PILE, 1, true, true, false),
     OPPONENTS_RESERVE_DECK(Zone.RESERVE_DECK, Zone.RESERVE_DECK, 2, false, true, true),
+    YOUR_RESERVE_DECK(Zone.RESERVE_DECK, Zone.RESERVE_DECK, 2, true, false, true),
     OPPONENTS_FORCE_PILE(Zone.FORCE_PILE, Zone.FORCE_PILE, 1, false, true, false);
 
 

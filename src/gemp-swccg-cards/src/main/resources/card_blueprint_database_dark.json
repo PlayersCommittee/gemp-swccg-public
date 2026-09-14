@@ -49470,6 +49470,30 @@
     ]
   },
   {
+    "cardId": "5_122",
+    "title": "Restricted Access",
+    "slug": "mostly-armless",
+    "slugWithSetName": "mostly-armless-cloud-city",
+    "side": "DARK",
+    "uniqueness": "UNRESTRICTED",
+    "expansionSet": "CLOUD_CITY",
+    "rarity": "C",
+    "cardCategory": "EFFECT",
+    "cardTypes": [
+      "EFFECT"
+    ],
+    "cardSubtype": "IMMEDIATE",
+    "lore": "Cloud City's computer-controlled security system is designed to keep unauthorized personnel from entering restricted areas.",
+    "gameText": "Insert face up in your Reserve Deck. When Effect reaches top it is lost, along with all opponent's 'insert' cards there. Reshuffle. (Immune to Alter.) OR Deploy between two mobile sites. Opponent's characters may pass only if aboard a Lift Tube or opponent uses +1 Force each.",
+    "destiny": 4,
+    "icons": [
+      "CLOUD_CITY"
+    ],
+    "keywords": [
+      "DISARMING_CARD"
+    ]
+  },
+  {
     "cardId": "5_123",
     "title": "Special Delivery",
     "slug": "special-delivery",
