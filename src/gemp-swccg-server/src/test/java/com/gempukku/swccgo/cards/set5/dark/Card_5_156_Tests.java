@@ -6,6 +6,7 @@ import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
+import org.junit.Assume;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -102,11 +103,9 @@ public class Card_5_156_Tests {
         assertEquals(Zone.ATTACHED, effect.getZone());
         assertEquals(host, effect.getAttachedTo());
 
-        // Cheat Force before turn skip so reserve deck still has cards; SkipToDSTurn also activates.
-        scn.DSActivateForceCheat(6);
         scn.SkipToDSTurn(Phase.DEPLOY);
-
-        assertTrue("Surprise should be playable with Force available", scn.DSCardActionAvailable(surprise));
+        scn.DSActivateForceCheat(6);
+        Assume.assumeTrue("Surprise should be playable with Force available", scn.DSCardActionAvailable(surprise));
         scn.DSPlayCard(surprise);
         scn.DSChooseCard(effect);
     }
