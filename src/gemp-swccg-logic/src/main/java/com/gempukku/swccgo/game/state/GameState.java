@@ -2507,11 +2507,13 @@ public class GameState implements Snapshotable<GameState> {
             }
 
             // Special rule:
-            // If the character device or character weapon is being targeted "to be stolen", then include weapons for stealing
-            boolean includeWeaponsForStealingForThisCard = false;
-            if (physicalCard.getBlueprint().getCardSubtype() == CardSubtype.CHARACTER
+            // If a character weapon or a device is being targeted "to be stolen", include it even if the holder cannot use it
+            boolean includeWeaponsAndDevicesForStealingForThisCard = false;
+            CardCategory spottedCategory = physicalCard.getBlueprint().getCardCategory();
+            if (((spottedCategory == CardCategory.WEAPON && physicalCard.getBlueprint().getCardSubtype() == CardSubtype.CHARACTER)
+                    || spottedCategory == CardCategory.DEVICE)
                     && targetFiltersMap != null && (targetFiltersMap.get(TargetingReason.TO_BE_STOLEN) != null && Filters.and(targetFiltersMap.get(TargetingReason.TO_BE_STOLEN)).accepts(this, modifiersQuerying, physicalCard))) {
-                includeWeaponsForStealingForThisCard = true;
+                includeWeaponsAndDevicesForStealingForThisCard = true;
             }
 
             //Captive Fury requires that the targeted captives be treated as active for most purposes
@@ -2522,7 +2524,7 @@ public class GameState implements Snapshotable<GameState> {
 
             // Check if the card can be spotted as "active" and include it if it can be.
             if (isCardInPlayActive(physicalCard, includeExcludedFromBattle, includeUndercoverForThisCard, treatCaptiveAsActive,
-                    includeConcealed, includeWeaponsForStealingForThisCard, includeMissing, false, includeSuspended)) {
+                    includeConcealed, includeWeaponsAndDevicesForStealingForThisCard, includeMissing, false, includeSuspended)) {
                 if (physicalCardVisitor.visitPhysicalCard(physicalCard)) {
                     return true;
                 }
