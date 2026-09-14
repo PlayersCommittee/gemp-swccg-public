@@ -46,7 +46,7 @@ public class Card3_033 extends AbstractImmediateEffect {
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
         return Filters.and(Filters.creature, Filters.not(Filters.Space_Slug),
-                Filters.sameSiteAs(self, Filters.and(Filters.your(self), Filters.character_with_a_weapon)));
+                Filters.presentAt(Filters.sameSiteAs(self, Filters.and(Filters.your(self), Filters.character_with_a_weapon))));
     }
 
     @Override
