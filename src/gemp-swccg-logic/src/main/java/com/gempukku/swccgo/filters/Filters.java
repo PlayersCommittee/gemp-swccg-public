@@ -18115,6 +18115,7 @@ public class Filters {
     public static final Filter corvette = Filters.or(Filters.modelType(ModelType.CORELLIAN_CORVETTE),Filters.modelType(ModelType.HAMMERHEAD_CORVETTE));
     public static final Filter Count_Me_In = Filters.title(Title.Count_Me_In);
     public static final Filter Counter_Assault = Filters.title(Title.Counter_Assault);
+    public static final Filter Counterattack = Filters.title(Title.Counterattack);
     public static final Filter Courage_Of_A_Skywalker = Filters.title(Title.Courage_Of_A_Skywalker);
     public static final Filter Court_Of_The_Vile_Gangster = Filters.title(Title.Court_Of_The_Vile_Gangster);
     public static final Filter Cracken = Filters.persona(Persona.CRACKEN);
@@ -18498,6 +18499,7 @@ public class Filters {
     public static final Filter Heart_Of_The_Chasm = Filters.title(Title.Heart_Of_The_Chasm);
     public static final Filter Hebsly = Filters.title(Title.Hebsly);
     public static final Filter Help_Me_ObiWan_Kenobi = Filters.title(Title.Help_Me_Obi_Wan_Kenobi);
+    public static final Filter Here_We_Go_Again = Filters.title(Title.Here_We_Go_Again);
     public static final Filter Hera = Filters.title(Title.Hera);
     public static final Filter Hero_Of_A_Thousand_Devices = Filters.title(Title.Hero_Of_A_Thousand_Devices);
     public static final Filter Heroic_Sacrifice = Filters.title(Title.Heroic_Sacrifice);

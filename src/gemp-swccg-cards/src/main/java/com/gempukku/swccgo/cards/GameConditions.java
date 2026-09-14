@@ -4945,6 +4945,21 @@ public class GameConditions {
      * @return true or false
      */
     public static boolean canInitiateBattleAtLocation(String player, SwccgGame game, PhysicalCard location, boolean forFree, boolean skipPhaseCheck, boolean skipPresenceCheck) {
+        return canInitiateBattleAtLocation(player, game, location, forFree, skipPhaseCheck, skipPresenceCheck, false);
+    }
+
+    /**
+     * Determines if the specified player can initiate battle at the location.
+     * @param player the player
+     * @param game the game
+     * @param location the location
+     * @param forFree if the battle would be initiated for free
+     * @param skipPhaseCheck if owner's battle phase is not required
+     * @param skipPresenceCheck if occupying is not required
+     * @param skipBattleOccurredCheck if a battle already occurring at this location this turn is ignored
+     * @return true or false
+     */
+    public static boolean canInitiateBattleAtLocation(String player, SwccgGame game, PhysicalCard location, boolean forFree, boolean skipPhaseCheck, boolean skipPresenceCheck, boolean skipBattleOccurredCheck) {
         GameState gameState = game.getGameState();
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
@@ -4974,7 +4989,7 @@ public class GameConditions {
         }
 
         // Check that a battle has not already happened at this location this turn
-        if (modifiersQuerying.isBattleOccurredAtLocationThisTurn(location))
+        if (!skipBattleOccurredCheck && modifiersQuerying.isBattleOccurredAtLocationThisTurn(location))
             return false;
 
         boolean foundMayInitiateBattle = Filters.canSpot(game, null, Filters.and(Filters.owner(player), Filters.mayInitiateBattle, Filters.canParticipateInBattleAt(location, player)));
@@ -5013,6 +5028,15 @@ public class GameConditions {
      */
     public static boolean canAddBattleDestinyDraws(SwccgGame game, PhysicalCard card) {
         return !game.getModifiersQuerying().mayNotAddBattleDestinyDraws(game.getGameState(), card);
+    }
+
+    /**
+     * Determines if cards may not 'hide' from the current battle.
+     * @param game the game
+     * @return true if hiding from this battle is prevented
+     */
+    public static boolean mayNotHideFromBattle(SwccgGame game) {
+        return game.getModifiersQuerying().mayNotHideFromBattle(game.getGameState());
     }
 
     /**

@@ -2135,6 +2135,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
         return (locationCardId != null && locationCardId != location.getCardId());
     }
 
+    /**
+     * Clears the battle participation flag for the specified card this turn.
+     * @param card the card
+     */
+    public void clearBattleParticipation(PhysicalCard card) {
+        _battleParticipationMap.remove(card.getCardId());
+    }
+
     public void deviceUsedBy(PhysicalCard user, PhysicalCard device) {
         if (user==null)
             return;

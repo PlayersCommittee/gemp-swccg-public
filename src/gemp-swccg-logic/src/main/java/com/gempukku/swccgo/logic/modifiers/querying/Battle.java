@@ -23,6 +23,18 @@ public interface Battle extends BaseQuery, Ability, Attributes, CardTraits, Flag
         return !getModifiersAffectingCard(gameState, ModifierType.MAY_INITIATE_BATTLE, card).isEmpty();
     }
 
+    /**
+     * Determines if cards may not 'hide' from the current battle.
+     * @param gameState the game state
+     * @return true if hiding from this battle is prevented
+     */
+    default boolean mayNotHideFromBattle(GameState gameState) {
+        if (gameState.getBattleState() == null)
+            return false;
+        PhysicalCard location = gameState.getBattleState().getBattleLocation();
+        return location != null && !getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_HIDE_FROM_BATTLE, location).isEmpty();
+    }
+
     default boolean mayNotCancelBattle(GameState gameState, String playerId, PhysicalCard battleLocation) {
         if (playerId == null)
             return false;
