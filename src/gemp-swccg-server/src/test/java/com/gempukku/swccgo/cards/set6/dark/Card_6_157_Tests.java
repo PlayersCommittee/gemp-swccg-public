@@ -247,4 +247,24 @@ public class Card_6_157_Tests {
         assertTrue(dsLando != null);
         assertTrue(dsSite != null);
     }
+
+    @Test
+    public void PersonaReplaceStillAllowedSameTurnAsDeployOfThatPersona() {
+        // VHD: uniqueness blocks a second *deploy* of the same persona this turn,
+        // but persona *replacement* of the just-deployed card is still legal.
+        var scn = GetScenario();
+        var luke = scn.GetLSCard("luke");
+        var lukeJedi = scn.GetLSCard("lukeJedi");
+        var site = scn.GetLSStartingLocation();
+
+        scn.MoveCardsToLSHand(luke, lukeJedi);
+        scn.StartGame();
+        scn.LSActivateForceCheat(20);
+        scn.SkipToLSTurn(Phase.DEPLOY);
+
+        deployAndPass(scn, luke, site);
+        assertFalse("Second Luke must not be deployable this turn", scn.LSDeployAvailable(lukeJedi));
+        assertTrue("Persona replace of the just-deployed Luke must still be offered; actions=" + scn.GetLSAvailableActions(),
+                scn.LSActionAvailable("Persona replace") || scn.LSCardPlayAvailable(lukeJedi));
+    }
 }
