@@ -28,6 +28,8 @@ import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.ReactActionOption;
 import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
@@ -41,7 +43,10 @@ import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.SendMessageEffect;
+import com.gempukku.swccgo.logic.modifiers.FireWeaponFiredByForFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.TotalWeaponDestinyForWeaponFiredByModifier;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -684,7 +689,71 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
             fireWeaponActions.addAll(permanentWeaponActions);
         }
 
+        PhysicalCard maySource = getMayFireWeaponFiredByForFreeAndAdd2Source(game, self);
+        if (maySource != null) {
+            for (FireWeaponAction fireWeaponAction : fireWeaponActions) {
+                attachMayFireForFreeAndAdd2Prompt(fireWeaponAction, playerId, game, maySource);
+            }
+        }
+
         return fireWeaponActions;
+    }
+
+    /**
+     * Jodo Kast / Sabine Wren: once per turn when firing a rifle or blaster, may fire for free and add 2.
+     * Ask Yes/No on every fire path (battle, Sniper, Defensive Fire (V), Sorry About The Mess).
+     */
+    private void attachMayFireForFreeAndAdd2Prompt(final FireWeaponAction fireWeaponAction, final String playerId,
+                                                   final SwccgGame game, final PhysicalCard maySource) {
+        final String sourceTitle = GameUtils.getFullName(maySource);
+        fireWeaponAction.appendBeforeCost(
+                new PlayoutDecisionEffect(fireWeaponAction, playerId,
+                        new MultipleChoiceAwaitingDecision("Use " + sourceTitle + ": fire for free and add 2 to total weapon destiny?", new String[]{"Yes", "No"}) {
+                            @Override
+                            protected void validDecisionMade(int index, String result) {
+                                if (!"Yes".equals(result)) {
+                                    return;
+                                }
+                                maySource.setWhileInPlayData(new WhileInPlayData());
+                                game.getModifiersEnvironment().addUntilEndOfWeaponFiringModifier(
+                                        new FireWeaponFiredByForFreeModifier(maySource, Filters.or(Filters.rifle, Filters.blaster)));
+                                game.getModifiersEnvironment().addUntilEndOfWeaponFiringModifier(
+                                        new TotalWeaponDestinyForWeaponFiredByModifier(maySource, 2, Filters.or(Filters.rifle, Filters.blaster)));
+                            }
+                        }));
+    }
+
+    private PhysicalCard getMayFireWeaponFiredByForFreeAndAdd2Source(SwccgGame game, PhysicalCard self) {
+        ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
+        GameState gameState = game.getGameState();
+
+        if (self.getAttachedTo() != null) {
+            PhysicalCard source = modifiersQuerying.getMayFireWeaponFiredByForFreeSource(gameState, self.getAttachedTo(), self);
+            if (source != null) {
+                return source;
+            }
+        }
+
+        PhysicalCard source = modifiersQuerying.getMayFireWeaponFiredByForFreeSource(gameState, self, self);
+        if (source != null) {
+            return source;
+        }
+
+        SwccgBuiltInCardBlueprint permanentWeapon = modifiersQuerying.getPermanentWeapon(gameState, self);
+        if (permanentWeapon != null) {
+            source = modifiersQuerying.getMayFireWeaponFiredByForFreeSource(gameState, self, permanentWeapon);
+            if (source != null) {
+                return source;
+            }
+        }
+
+        for (PhysicalCard warrior : Filters.filterActive(game, self, Filters.and(Filters.your(self), Filters.warrior, Filters.present(self)))) {
+            source = modifiersQuerying.getMayFireWeaponFiredByForFreeSource(gameState, warrior, self);
+            if (source != null) {
+                return source;
+            }
+        }
+        return null;
     }
 
     /**
@@ -730,7 +799,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
 
         // Play card
         if (canPlayCardDuringCurrentPhase(playerId, game, self)
-                && (self.getZone() != Zone.STACKED || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self))) {
+                && ((self.getZone() != Zone.STACKED && self.getZone() != Zone.STACKED_FACE_DOWN) || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self))) {
             boolean forFree = isCardTypeAlwaysPlayedForFree() || game.getGameState().getCurrentPhase() == Phase.PLAY_STARTING_CARDS;
             List<PlayCardAction> playCardActions = getPlayCardActions(playerId, game, self, self, forFree, 0, null, null, null, null, null, false, 0, Filters.any, null);
             if (playCardActions != null) {
@@ -1000,7 +1069,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
         List<Action> actions = new LinkedList<Action>();
 
         // Actions from game text
-        if (self.getZone() != Zone.STACKED || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self)) {
+        if ((self.getZone() != Zone.STACKED && self.getZone() != Zone.STACKED_FACE_DOWN) || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self)) {
             List<PlayCardAction> gameTextActions = getGameTextOptionalBeforeActions(playerId, game, effect, self, self.getCardId());
             if (gameTextActions != null)
                 actions.addAll(gameTextActions);
@@ -1217,6 +1286,27 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
         } 
         // End of checking for 'react' actions
 
+        // FLAG(Chief): creature-attack react window for R2 Sensor Array (3_31) � parallel to battle/Force drain reacts
+        if (TriggerConditions.attackInitiatedByCreature(game, effectResult)) {
+            if (self.getZone().isInPlay()) {
+                boolean inPlayActiveForAttackReact = game.getGameState().isCardInPlayActive(self, false, true, false, false, false, false, false, false);
+                if (!game.getModifiersQuerying().isGameTextCanceled(game.getGameState(), self)) {
+                    if (inPlayActiveForAttackReact) {
+                        if (self.getBlueprint().getCardCategory() != CardCategory.DEVICE
+                                || !game.getModifiersQuerying().mayNotBeUsed(game.getGameState(), self)
+                                || self.getAttachedTo() == null
+                                || Filters.canUseDevice(self).accepts(game, self.getOwner().equals(self.getAttachedTo().getOwner()) ? self.getAttachedTo() : self)) {
+                            TriggerAction moveOtherCardsAsReactFromAttackAction = getMoveOtherCardsAsReactFromAttackAction(playerId, game, self);
+                            if (moveOtherCardsAsReactFromAttackAction != null) {
+                                actions.add(moveOtherCardsAsReactFromAttackAction);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // End of checking for creature-attack react actions
+
         return actions;
     }
 
@@ -1274,7 +1364,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
         List<Action> actions = new LinkedList<Action>();
 
         // Actions from game text
-        if (self.getZone() != Zone.STACKED || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self)) {
+        if ((self.getZone() != Zone.STACKED && self.getZone() != Zone.STACKED_FACE_DOWN) || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self)) {
             List<PlayCardAction> gameTextActions = getGameTextOptionalAfterActions(playerId, game, effectResult, self, self.getCardId());
             if (gameTextActions != null)
                 actions.addAll(gameTextActions);
