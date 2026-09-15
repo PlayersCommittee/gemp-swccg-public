@@ -56,7 +56,7 @@ public class Card12_153 extends AbstractLostInterrupt {
         // Check condition(s)
         if (GameConditions.isDuringBattleWithParticipant(game, Filters.Maul)
                 && GameConditions.canAddBattleDestinyDraws(game, self)) {
-            if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.Jedi, Filters.not(Filters.QuiGon)))) {
+            if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.Jedi, Filters.not(Filters.QuiGon), Filters.canBeTargetedBy(self)))) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
                 action.setText("Add one battle destiny");
@@ -73,7 +73,7 @@ public class Card12_153 extends AbstractLostInterrupt {
                 );
                 actions.add(action);
             }
-            if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.Jedi, Filters.QuiGon))) {
+            if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.Jedi, Filters.QuiGon, Filters.canBeTargetedBy(self)))) {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
                 action.setText("Add two battle destiny");
