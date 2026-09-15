@@ -27,7 +27,9 @@ import com.gempukku.swccgo.logic.modifiers.MayNotTargetToBeHitModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotTargetToBeLostModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
+import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.TargetingActionUtils;
+import com.gempukku.swccgo.logic.timing.results.AboutToBeStolenResult;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -87,6 +89,45 @@ public class Card3_130 extends AbstractUsedInterrupt {
                 );
                 return Collections.singletonList(action);
             }
+        }
+        return null;
+    }
+
+    /**
+     * Also respond when a droid is about to be stolen (e.g. after TO_BE_STOLEN targeting responses),
+     * so Oh, Switch Off can cancel U-3PO-style steals that emit ABOUT_TO_BE_STOLEN.
+     */
+    @Override
+    protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self) {
+        Filter yourDroid = Filters.and(Filters.your(self), Filters.droid);
+
+        // Check condition(s) — opponent attempting to steal your droid (ABOUT_TO_BE_STOLEN path)
+        if (TriggerConditions.isAboutToBeStolen(game, effectResult, yourDroid)) {
+            final AboutToBeStolenResult aboutToBeStolenResult = (AboutToBeStolenResult) effectResult;
+            final PhysicalCard droid = aboutToBeStolenResult.getCardToBeStolen();
+
+            final PlayInterruptAction action = new PlayInterruptAction(game, self);
+            action.setText("Cancel attempt to steal");
+            // Allow response(s)
+            action.allowResponses("Cancel attempt to steal " + GameUtils.getCardLink(droid),
+                    new RespondablePlayCardEffect(action) {
+                        @Override
+                        protected void performActionResults(Action targetingAction) {
+                            // Perform result(s)
+                            aboutToBeStolenResult.getPreventableCardEffect().preventEffectOnCard(droid);
+                            action.appendEffect(
+                                    new AddUntilEndOfTurnModifierEffect(action,
+                                            new MayNotBeStolenModifier(self, droid), null));
+                            action.appendEffect(
+                                    new AddUntilEndOfTurnModifierEffect(action,
+                                            new MayNotTargetToBeHitModifier(self, droid), null));
+                            action.appendEffect(
+                                    new AddUntilEndOfTurnModifierEffect(action,
+                                            new MayNotTargetToBeLostModifier(self, droid), null));
+                        }
+                    }
+            );
+            return Collections.singletonList(action);
         }
         return null;
     }
