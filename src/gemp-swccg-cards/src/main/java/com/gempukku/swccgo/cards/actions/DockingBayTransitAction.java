@@ -48,8 +48,32 @@ public class DockingBayTransitAction extends AbstractTopLevelRuleAction {
      * @param location the location
      * @param forFree true if moving for free, otherwise false
      */
+    /**
+     * Transit a specific card as a regular move (e.g. Lor San Tekka / #954).
+     * @return the action, or null if that card has no legal docking bay destination
+     */
+    public static DockingBayTransitAction forSingleCard(String playerId, SwccgGame game, PhysicalCard cardToTransit,
+                                                        boolean forFree, float changeInCost, Filter moveTargetFilter) {
+        PhysicalCard fromDockingBay = cardToTransit.getAtLocation();
+        if (fromDockingBay == null || !Filters.docking_bay.accepts(game, fromDockingBay)) {
+            return null;
+        }
+        GameState gameState = game.getGameState();
+        ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
+        Collection<PhysicalCard> otherDockingBays = Filters.filterTopLocationsOnTable(game, Filters.and(Filters.other(fromDockingBay), Filters.docking_bay, moveTargetFilter));
+        List<PhysicalCard> validDockingBays = new ArrayList<PhysicalCard>();
+        for (PhysicalCard otherDockingBay : otherDockingBays) {
+            if (Filters.canMoveToUsingDockingBayTransit(cardToTransit, forFree, changeInCost).accepts(gameState, modifiersQuerying, otherDockingBay)) {
+                validDockingBays.add(otherDockingBay);
+            }
+        }
+        if (validDockingBays.isEmpty()) {
+            return null;
+        }
+        return new DockingBayTransitAction(playerId, game, fromDockingBay, cardToTransit, validDockingBays, forFree);
+    }
+
     public DockingBayTransitAction(String playerId, SwccgGame game, PhysicalCard location, boolean forFree) {
-        super(location, playerId);
         _playerId = playerId;
         _fromDockingBay = location;
         _forFree = forFree;
@@ -113,6 +137,26 @@ public class DockingBayTransitAction extends AbstractTopLevelRuleAction {
                       };
                   }
               };
+    }
+
+    private DockingBayTransitAction(String playerId, SwccgGame game, PhysicalCard fromDockingBay, final PhysicalCard cardToTransit,
+                                    List<PhysicalCard> validDockingBays, boolean forFree) {
+        super(fromDockingBay, playerId);
+        _playerId = playerId;
+        _fromDockingBay = fromDockingBay;
+        _forFree = forFree;
+        _that = this;
+        _cardsToTransitChosen = true;
+        _cardsToTransit = java.util.Collections.singletonList(cardToTransit);
+
+        _chooseDestinationEffect = new ChooseCardOnTableEffect(_that, _playerId, "Choose docking bay to transit to", validDockingBays) {
+            @Override
+            protected void cardSelected(PhysicalCard toCard) {
+                _destinationChosen = true;
+                _destination = toCard;
+                _moveCardsEffect = new DockingBayTransitEffect(_that, _cardsToTransit, _fromDockingBay, _destination);
+            }
+        };
     }
 
     @Override
