@@ -74,6 +74,7 @@ public class DockingBayTransitAction extends AbstractTopLevelRuleAction {
     }
 
     public DockingBayTransitAction(String playerId, SwccgGame game, PhysicalCard location, boolean forFree) {
+        super(location, playerId);
         _playerId = playerId;
         _fromDockingBay = location;
         _forFree = forFree;
