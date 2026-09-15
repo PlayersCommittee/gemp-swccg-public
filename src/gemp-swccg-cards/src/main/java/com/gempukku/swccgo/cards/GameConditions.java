@@ -1414,7 +1414,7 @@ public class GameConditions {
      * @return true or false
      */
     public static boolean isDuringYourPhase(SwccgGame game, PhysicalCard card, Phase phase) {
-        return (game.getGameState().getCurrentPhase() == phase && game.getGameState().getCurrentPlayerId().equals(card.getOwner()));
+        return isDuringYourPhase(game, card.getOwner(), phase);
     }
 
     /**
@@ -1426,6 +1426,9 @@ public class GameConditions {
      * @return true or false
      */
     public static boolean isDuringYourPhase(SwccgGame game, String playerId, Phase phase) {
+        if (phase == Phase.MOVE && game.getGameState().isIncludeLocationTextAsRegularMove()) {
+            return true;
+        }
         return (game.getGameState().getCurrentPhase() == phase && game.getGameState().getCurrentPlayerId().equals(playerId));
     }
 

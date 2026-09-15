@@ -643,21 +643,26 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
             regularMoveActions.add(shuttleAction);
         }
 
-        // Docking bay transit as a regular move (Lor San Tekka / #954). Location-text
-        // movement is still MOVE-phase-only on the site itself.
+        // Start of Attack Run (Light starfighter into Death Star: Trench) is a regular move.
+        Action startAttackRunAction = getMoveAtStartOfAttackRunAction(playerId, game, self);
+        if (startAttackRunAction != null) {
+            regularMoveActions.add(startAttackRunAction);
+        }
+
+        // Docking bay transit and location-text as extra regular moves (Lor San Tekka / Bodhi / #954).
+        // Not offered as a 'react' — getMoveAsReactAction does not call this method.
         if (skipPhaseCheck) {
             Action dockingBayTransitAction = com.gempukku.swccgo.cards.actions.DockingBayTransitAction.forSingleCard(
                     playerId, game, self, forFree, changeInCost, moveTargetFilter);
             if (dockingBayTransitAction != null) {
                 regularMoveActions.add(dockingBayTransitAction);
             }
+            Action locationTextAction = com.gempukku.swccgo.cards.actions.LocationTextRegularMoves.forCard(
+                    playerId, game, self, forFree, moveTargetFilter);
+            if (locationTextAction != null) {
+                regularMoveActions.add(locationTextAction);
+            }
         }
-
-        // TODO: add other types of regular moves
-        // see https://github.com/PlayersCommittee/gemp-swccg-public/issues/954
-        // using the movement text on a location
-        // moving a Death Star
-        // a Light side starfighter moving into the Death Star: Trench to start an Attack Run
 
         if (regularMoveActions.isEmpty())
             return null;

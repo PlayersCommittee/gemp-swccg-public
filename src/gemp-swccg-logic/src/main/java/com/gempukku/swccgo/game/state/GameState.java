@@ -128,6 +128,9 @@ public class GameState implements Snapshotable<GameState> {
     private String _subjugatedPlanet;
 
     private int _nextCardId;
+    // Recursion-safe query flag: extra regular moves may use location-text as if during Move phase.
+    // Not snapshotted — a mid-query snapshot must not persist this bypass.
+    private int _includeLocationTextAsRegularMove;
 
     /**
      * Needed to generate snapshot.
@@ -3589,6 +3592,24 @@ public class GameState implements Snapshotable<GameState> {
 
     public Phase getCurrentPhase() {
         return _currentPhase;
+    }
+
+    /**
+     * While collecting location-text options for an extra regular move, treat "during your move phase"
+     * as true so location game text can offer those moves outside Move phase.
+     */
+    public void beginIncludeLocationTextAsRegularMove() {
+        _includeLocationTextAsRegularMove++;
+    }
+
+    public void endIncludeLocationTextAsRegularMove() {
+        if (_includeLocationTextAsRegularMove > 0) {
+            _includeLocationTextAsRegularMove--;
+        }
+    }
+
+    public boolean isIncludeLocationTextAsRegularMove() {
+        return _includeLocationTextAsRegularMove > 0;
     }
 
 

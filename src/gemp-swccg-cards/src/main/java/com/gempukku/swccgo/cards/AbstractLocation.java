@@ -482,6 +482,14 @@ public abstract class AbstractLocation extends AbstractSwccgCardBlueprint {
     }
 
     @Override
+    public Action getRegularMoveAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, float changeInCost, boolean skipPhaseCheck, boolean asAdditionalMove, Filter moveTargetFilter) {
+        if (Filters.mobile_system.accepts(game, self)) {
+            return getMoveUsingHyperspeedAction(playerId, game, self, forFree, false, false, skipPhaseCheck, asAdditionalMove, moveTargetFilter);
+        }
+        return null;
+    }
+
+    @Override
     public final List<Action> getOptionalBeforeActions(String playerId, SwccgGame game, Effect effect, PhysicalCard self) {
         return Collections.emptyList();
     }
