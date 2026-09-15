@@ -27,11 +27,15 @@ public class Card_2_107_Tests {
                 new HashMap<>()
                 {{
                     put("qam", "210_024"); // Quite A Mercenary (V)
+                    put("luke", "1_019");
+                    put("caller", "1_34");
+                    put("bolt", "1_38");
                 }},
                 new HashMap<>()
                 {{
                     put("u3po", "2_107"); // U-3PO (Yoo-Threepio)
                     put("ohSwitchOff", "3_130"); // Oh, Switch Off
+                    put("mouse", "1_188");
                 }},
                 10,
                 10,
@@ -203,5 +207,46 @@ public class Card_2_107_Tests {
 
         assertEquals(scn.LS, u3po.getOwner());
         assertTrue(scn.CardsAtLocation(site, u3po));
+    }
+
+    @Test
+    public void OhSwitchOffCancelsCallerStealOfDsDroidWithRestrainingBolt() {
+        // VHD: LS Caller + Restraining Bolt steal of a DS droid should still be cancelable.
+        var scn = GetScenario();
+        var luke = scn.GetLSCard("luke");
+        var caller = scn.GetLSCard("caller");
+        var bolt = scn.GetLSCard("bolt");
+        var mouse = scn.GetDSCard("mouse");
+        var ohSwitchOff = scn.GetDSCard("ohSwitchOff");
+        var site = scn.GetLSStartingLocation();
+
+        scn.StartGame();
+        scn.MoveCardsToLocation(site, luke, mouse);
+        scn.AttachCardsTo(luke, caller);
+        scn.AttachCardsTo(mouse, bolt);
+        scn.MoveCardsToDSHand(ohSwitchOff);
+
+        scn.SkipToLSTurn(Phase.CONTROL);
+        for (int i = 0; i < 12 && !scn.AwaitingLSControlPhaseActions(); i++) {
+            if (scn.DSAnyDecisionsAvailable() && !scn.LSAnyDecisionsAvailable()) {
+                scn.DSPass();
+                continue;
+            }
+            break;
+        }
+        assertTrue(scn.LSCardActionAvailable(caller, "Steal"));
+        scn.LSUseCardAction(caller, "Steal");
+        if (scn.LSHasCardChoiceAvailable(mouse)) {
+            scn.LSChooseCard(mouse);
+        }
+        scn.PassAllResponses();
+        advanceToOhSwitchOffResponse(scn, ohSwitchOff);
+
+        assertTrue("Oh, Switch Off should cancel Caller steal", scn.DSCardPlayAvailable(ohSwitchOff));
+        scn.DSPlayCard(ohSwitchOff);
+        scn.PassAllResponses();
+
+        assertEquals(scn.DS, mouse.getOwner());
+        assertTrue(scn.CardsAtLocation(site, mouse));
     }
 }
