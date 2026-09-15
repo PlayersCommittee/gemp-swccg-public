@@ -4729,6 +4729,119 @@ public class FireWeaponActionBuilder {
         return action;
     }
 
+
+    /**
+     * Builds a fire weapon action for IG-88's Pulse Cannon.
+     * Draws weapon destiny for each targeted card separately: destiny 0 applies power/forfeit -1
+     * to characters until end of turn; destiny -1 > defense value hits the target.
+     * @return the action
+     */
+    public FireSingleWeaponAction buildFireWeaponIG88sPulseCannonAction() {
+        final FireSingleWeaponAction action = new FireSingleWeaponAction(_sourceCard, _weaponOrCardWithPermanentWeapon, _permanentWeapon, _repeatedFiring, _targetedAsCharacter, _defenseValueAsCharacter, _fireAtTargetFilter, _ignorePerAttackOrBattleLimit);
+        action.setText("Fire " + action.getWeaponTitle(_game) + (_numTargets > 1 ? (" at " + _numTargets + " targets") : ""));
+
+        // Choose target(s)
+        action.appendTargeting(
+                new TargetCardsOnTableEffect(action, action.getPerformingPlayer(), "Choose target" + GameUtils.s(_numTargets), _numTargets, _numTargets, getTargetFiltersMap(action.getCardFiringWeapon())) {
+                    @Override
+                    protected boolean isIncludeStackedCardsTargetedByWeaponsAsIfPresent() {
+                        return true;
+                    }
+                    @Override
+                    protected void cardsTargeted(final int targetGroupId, Collection<PhysicalCard> cardsTargeted) {
+                        action.addAnimationGroup(cardsTargeted);
+                        _game.getGameState().getWeaponFiringState().setTargets(cardsTargeted);
+
+                        // Pay cost(s)
+                        float forceToUse = getUseForceCost(action.getCardFiringWeapon(), cardsTargeted);
+                        if (forceToUse > 0) {
+                            action.appendCost(
+                                    new UseForceEffect(action, _playerId, forceToUse));
+                        }
+
+                        // Allow response(s)
+                        action.allowResponses("Fire " + GameUtils.getCardLink(action.getWeaponToFire()) + " at " + GameUtils.getAppendedNames(cardsTargeted),
+                                new RespondableWeaponFiringEffect(action) {
+                                    @Override
+                                    protected void performActionResults(Action targetingAction) {
+                                        // Get the targeted card(s) from the action using the targetGroupId.
+                                        // This needs to be done in case the target(s) were changed during the responses.
+                                        final List<PhysicalCard> cardsFiredAt = new ArrayList<PhysicalCard>(targetingAction.getPrimaryTargetCards(targetGroupId));
+                                        _game.getGameState().getWeaponFiringState().setTargets(cardsFiredAt);
+
+                                        // Draw destiny for each target (in selection order)
+                                        IG88sPulseCannonDrawDestinyForTargets(action, cardsFiredAt);
+                                    }
+                                });
+                    }
+                }
+        );
+
+        return action;
+    }
+
+    /**
+     * IG-88's Pulse Cannon: sequentially draw weapon destiny for each remaining target.
+     */
+    private void IG88sPulseCannonDrawDestinyForTargets(final FireSingleWeaponAction action, final List<PhysicalCard> remainingTargets) {
+        if (remainingTargets == null || remainingTargets.isEmpty()) {
+            return;
+        }
+
+        final PhysicalCard cardFiredAt = remainingTargets.get(0);
+        final List<PhysicalCard> rest = new ArrayList<PhysicalCard>(remainingTargets.subList(1, remainingTargets.size()));
+        _game.getGameState().getWeaponFiringState().setTarget(cardFiredAt);
+
+        action.appendEffect(
+                new DrawDestinyEffect(action, _playerId, 1, DestinyType.WEAPON_DESTINY) {
+                    @Override
+                    protected Collection<PhysicalCard> getGameTextAbilityManeuverOrDefenseValueTargeted() {
+                        return Collections.singletonList(cardFiredAt);
+                    }
+                    @Override
+                    protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
+                        GameState gameState = game.getGameState();
+                        if (totalDestiny == null) {
+                            gameState.sendMessage("Result: Failed due to failed weapon destiny draw");
+                            IG88sPulseCannonDrawDestinyForTargets(action, rest);
+                            return;
+                        }
+
+                        gameState.sendMessage("Total destiny: " + GuiUtils.formatAsString(totalDestiny));
+
+                        // If destiny = 0, character is power -1 and forfeit -1 until end of turn
+                        if (totalDestiny == 0 && Filters.character.accepts(game, cardFiredAt)) {
+                            gameState.sendMessage("Result: Destiny 0 — " + GameUtils.getCardLink(cardFiredAt) + " is power -1 and forfeit -1 until end of turn");
+                            action.appendEffect(
+                                    new ModifyPowerUntilEndOfTurnEffect(action, cardFiredAt, -1));
+                            action.appendEffect(
+                                    new ModifyForfeitUntilEndOfTurnEffect(action, cardFiredAt, -1));
+                        }
+
+                        float valueToCompare;
+                        if (_targetedAsCharacter != null && _targetedAsCharacter.accepts(game, cardFiredAt)) {
+                            valueToCompare = _defenseValueAsCharacter;
+                        } else {
+                            valueToCompare = game.getModifiersQuerying().getDefenseValue(game.getGameState(), cardFiredAt);
+                        }
+                        gameState.sendMessage("Defense value: " + GuiUtils.formatAsString(valueToCompare));
+
+                        // If destiny -1 > defense value, target hit
+                        if ((totalDestiny - 1) > valueToCompare) {
+                            gameState.sendMessage("Result: Succeeded");
+                            action.appendEffect(
+                                    new HitCardEffect(action, cardFiredAt, _weaponOrCardWithPermanentWeapon, _permanentWeapon, gameState.getWeaponFiringState().getCardFiringWeapon()));
+                        }
+                        else {
+                            gameState.sendMessage("Result: Failed");
+                        }
+
+                        IG88sPulseCannonDrawDestinyForTargets(action, rest);
+                    }
+                }
+        );
+    }
+
     /**
      * Builds a fire weapon action for Zuckuss' Snare Rifle.
      * @return the action
