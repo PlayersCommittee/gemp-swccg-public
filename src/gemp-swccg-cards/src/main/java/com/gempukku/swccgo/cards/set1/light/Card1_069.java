@@ -52,8 +52,6 @@ public class Card1_069 extends AbstractUtinniEffect {
             deploysLikeACharacter = Filters.and(deploysLikeACharacter, Filters.not(Filters.locationAndCardsAtLocation(Filters.Dagobah_location)));
         }
         return deploysLikeACharacter;
-
-        //TODO when deploying aboard, need to attach to ship/vehicle - possibly using attachCardInPassengerCapacitySlot?
     }
 
     @Override
