@@ -3,8 +3,6 @@ package com.gempukku.swccgo.cards.set207.light;
 import com.gempukku.swccgo.cards.AbstractRebel;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InPlayDataNotSetCondition;
-import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
@@ -18,15 +16,12 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
-import com.gempukku.swccgo.logic.effects.ModifyTotalWeaponDestinyBeforeDrawingDestinyEffect;
-import com.gempukku.swccgo.logic.modifiers.FireWeaponFiredByForFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.MayFireWeaponFiredByForFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToTitleModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -51,31 +46,6 @@ public class Card207_009 extends AbstractRebel {
         addIcon(Icon.WARRIOR, 2);
         addKeywords(Keyword.FEMALE, Keyword.SCOUT);
         setSpecies(Species.MANDALORIAN);
-    }
-
-    @Override
-    protected List<RequiredGameTextTriggerAction> getGameTextRequiredBeforeTriggers(SwccgGame game, Effect effect, PhysicalCard self, int gameTextSourceCardId) {
-        String playerId = self.getOwner();
-        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
-
-        if (!GameConditions.cardHasWhileInPlayDataSet(self)
-                && TriggerConditions.isFiringWeapon(game, effect, Filters.or(Filters.rifle, Filters.blaster), self)
-                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)) {
-
-            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-            action.setText("Add 2 to total weapon destiny");
-            action.setPerformingPlayer(playerId);
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerTurnEffect(action));
-            // Perform result(s)
-            action.appendEffect(
-                    new SetWhileInPlayDataEffect(action, self, new WhileInPlayData()));
-            action.appendEffect(
-                    new ModifyTotalWeaponDestinyBeforeDrawingDestinyEffect(action, 2));
-            return Collections.singletonList(action);
-        }
-        return null;
     }
 
     @Override
@@ -107,7 +77,7 @@ public class Card207_009 extends AbstractRebel {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new FireWeaponFiredByForFreeModifier(self, new InPlayDataNotSetCondition(self), Filters.or(Filters.rifle, Filters.blaster)));
+        modifiers.add(new MayFireWeaponFiredByForFreeModifier(self, new InPlayDataNotSetCondition(self), Filters.or(Filters.rifle, Filters.blaster)));
         modifiers.add(new ImmuneToTitleModifier(self, Title.Hidden_Weapons));
         return modifiers;
     }

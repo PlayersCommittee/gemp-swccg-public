@@ -28,6 +28,8 @@ import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.ReactActionOption;
 import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
@@ -41,7 +43,10 @@ import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardOutOfPlayFromTableEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.SendMessageEffect;
+import com.gempukku.swccgo.logic.modifiers.FireWeaponFiredByForFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.TotalWeaponDestinyForWeaponFiredByModifier;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -684,7 +689,71 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
             fireWeaponActions.addAll(permanentWeaponActions);
         }
 
+        PhysicalCard maySource = getMayFireWeaponFiredByForFreeAndAdd2Source(game, self);
+        if (maySource != null) {
+            for (FireWeaponAction fireWeaponAction : fireWeaponActions) {
+                attachMayFireForFreeAndAdd2Prompt(fireWeaponAction, playerId, game, maySource);
+            }
+        }
+
         return fireWeaponActions;
+    }
+
+    /**
+     * Jodo Kast / Sabine Wren: once per turn when firing a rifle or blaster, may fire for free and add 2.
+     * Ask Yes/No on every fire path (battle, Sniper, Defensive Fire (V), Sorry About The Mess).
+     */
+    private void attachMayFireForFreeAndAdd2Prompt(final FireWeaponAction fireWeaponAction, final String playerId,
+                                                   final SwccgGame game, final PhysicalCard maySource) {
+        final String sourceTitle = GameUtils.getFullName(maySource);
+        fireWeaponAction.appendPreTargetingCost(
+                new PlayoutDecisionEffect(fireWeaponAction, playerId,
+                        new MultipleChoiceAwaitingDecision("Use " + sourceTitle + ": fire for free and add 2 to total weapon destiny?", new String[]{"Yes", "No"}) {
+                            @Override
+                            protected void validDecisionMade(int index, String result) {
+                                if (!"Yes".equals(result)) {
+                                    return;
+                                }
+                                maySource.setWhileInPlayData(new WhileInPlayData());
+                                game.getModifiersEnvironment().addUntilEndOfWeaponFiringModifier(
+                                        new FireWeaponFiredByForFreeModifier(maySource, Filters.or(Filters.rifle, Filters.blaster)));
+                                game.getModifiersEnvironment().addUntilEndOfWeaponFiringModifier(
+                                        new TotalWeaponDestinyForWeaponFiredByModifier(maySource, 2, Filters.or(Filters.rifle, Filters.blaster)));
+                            }
+                        }));
+    }
+
+    private PhysicalCard getMayFireWeaponFiredByForFreeAndAdd2Source(SwccgGame game, PhysicalCard self) {
+        ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
+        GameState gameState = game.getGameState();
+
+        if (self.getAttachedTo() != null) {
+            PhysicalCard source = modifiersQuerying.getMayFireWeaponFiredByForFreeSource(gameState, self.getAttachedTo(), self);
+            if (source != null) {
+                return source;
+            }
+        }
+
+        PhysicalCard source = modifiersQuerying.getMayFireWeaponFiredByForFreeSource(gameState, self, self);
+        if (source != null) {
+            return source;
+        }
+
+        SwccgBuiltInCardBlueprint permanentWeapon = modifiersQuerying.getPermanentWeapon(gameState, self);
+        if (permanentWeapon != null) {
+            source = modifiersQuerying.getMayFireWeaponFiredByForFreeSource(gameState, self, permanentWeapon);
+            if (source != null) {
+                return source;
+            }
+        }
+
+        for (PhysicalCard warrior : Filters.filterActive(game, self, Filters.and(Filters.your(self), Filters.warrior, Filters.present(self)))) {
+            source = modifiersQuerying.getMayFireWeaponFiredByForFreeSource(gameState, warrior, self);
+            if (source != null) {
+                return source;
+            }
+        }
+        return null;
     }
 
     /**
