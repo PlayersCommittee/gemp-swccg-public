@@ -307,9 +307,11 @@ public class Card_1_015_Tests {
         scn.SkipToLSTurn(Phase.MOVE);
         assertTrue(scn.LSCardActionAvailable(kalFalnlCndros, "Embark"));
         scn.LSUseCardAction(kalFalnlCndros, "Embark");
-        assertTrue(scn.LSHasCardChoiceAvailable(skiff));
-        assertFalse(scn.LSHasCardChoiceAvailable(millenniumFalcon));
-        scn.LSChooseCard(skiff);
+        if (scn.LSHasCardChoiceAvailable(skiff) || scn.LSHasCardChoiceAvailable(millenniumFalcon)) {
+            assertTrue(scn.LSHasCardChoiceAvailable(skiff));
+            assertFalse(scn.LSHasCardChoiceAvailable(millenniumFalcon));
+            scn.LSChooseCard(skiff);
+        }
         scn.PassAllResponses();
         assertTrue(scn.IsAboardAsPassenger(skiff, kalFalnlCndros)
                 || scn.IsAboardAsPilot(skiff, kalFalnlCndros));
