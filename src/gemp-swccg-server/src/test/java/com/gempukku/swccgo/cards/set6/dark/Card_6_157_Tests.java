@@ -271,10 +271,12 @@ public class Card_6_157_Tests {
     }
 
     @Test
-    public void SetForStunBounceDoesNotAllowOtherPersonaToDeployThisTurn() {
-        // VHD: LS deploys Leia Organa, then she is returned to hand (Set For Stun). Unique title
-        // already blocks Leia; persona-played-this-turn must also block Boushh. No card-local
-        // MayNotDeploy on Set For Stun or other bounce cards.
+    public void PersonaPlayedThisTurnBlocksOtherTitleAfterUniqueLeavesTable() {
+        // Engine uniqueness: a unique title already played this turn may not deploy again.
+        // Set For Stun has no "may not deploy this turn" clause; it only returns the character
+        // to hand. Hutt Smooch / None Shall Pass are the cards with that printed clause
+        // (same title). After the unique leaves table, other titles of that persona are still
+        // blocked by persona-played-this-turn, not by bounce-card text.
         var scn = GetScenario();
         var leia = scn.GetLSCard("leia");
         var boushh = scn.GetLSCard("boushh");
