@@ -960,6 +960,7 @@ public interface Title {
     String Red_9 = "Red 9";
     String Red_10 = "Red 10";
     String Red_12 = "Red 12";
+    String Red_Squadron_4 = "Red Squadron 4";
     String Reegesk = "Reegesk";
     String ReeYees = "Ree-Yees";
     String Reflection = "Reflection";

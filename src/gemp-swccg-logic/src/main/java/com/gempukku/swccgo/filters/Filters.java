@@ -19115,6 +19115,7 @@ public class Filters {
     public static final Filter Red_9 = Filters.title(Title.Red_9);
     public static final Filter Red_10 = Filters.title(Title.Red_10);
     public static final Filter Red_12 = Filters.title(Title.Red_12);
+    public static final Filter Red_Squadron_4 = Filters.title(Title.Red_Squadron_4);
     public static final Filter Red_Leader = Filters.persona(Persona.RED_LEADER);
     public static final Filter Red_Squadron_pilot = Filters.and(CardCategory.CHARACTER, Icon.PILOT, Filters.or(Keyword.RED_SQUADRON, Filters.piloting(Filters.keyword(Keyword.RED_SQUADRON))));
     public static final Filter Red_Squadron_starfighter = Filters.and(CardSubtype.STARFIGHTER, Keyword.RED_SQUADRON);
