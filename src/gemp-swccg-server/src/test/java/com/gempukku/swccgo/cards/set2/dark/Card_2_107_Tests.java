@@ -239,10 +239,17 @@ public class Card_2_107_Tests {
         if (scn.LSHasCardChoiceAvailable(mouse)) {
             scn.LSChooseCard(mouse);
         }
-        scn.PassAllResponses();
-        advanceToOhSwitchOffResponse(scn, ohSwitchOff);
-
-        assertTrue("Oh, Switch Off should cancel Caller steal", scn.DSCardPlayAvailable(ohSwitchOff));
+        // Caller steal is a targeting Effect (before-action). Do not PassAllResponses —
+        // that skips the Oh, Switch Off window.
+        for (int i = 0; i < 12 && !scn.DSCardPlayAvailable(ohSwitchOff); i++) {
+            if (scn.LSAnyDecisionsAvailable() && !scn.DSAnyDecisionsAvailable()) {
+                scn.LSPass();
+                continue;
+            }
+            break;
+        }
+        assertTrue("Oh, Switch Off should cancel Caller steal; ds=" + scn.GetDSAvailableActions()
+                + " ls=" + scn.GetLSAvailableActions(), scn.DSCardPlayAvailable(ohSwitchOff));
         scn.DSPlayCard(ohSwitchOff);
         scn.PassAllResponses();
 
