@@ -32,6 +32,8 @@ public class Card_6_155_Tests {
         return new VirtualTableScenario(
                 new HashMap<>() {{
                     put("bothan", "7_5");
+                    put("boushh", "110_001");
+                    put("leia", "1_17");
                 }},
                 new HashMap<>() {{
                     put("smooch", "6_155");
@@ -145,5 +147,67 @@ public class Card_6_155_Tests {
 
         assertEquals(Zone.HAND, bothan.getZone());
         assertFalse(scn.LSDeployAvailable(bothan));
+    }
+
+    @Test
+    public void HuttSmoochCapturesOpponentsUndercoverSpy() {
+        var scn = GetScenario();
+        var boushh = scn.GetLSCard("boushh");
+        var smooch = scn.GetDSCard("smooch");
+        var site = scn.GetLSStartingLocation();
+        var trooper = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveCardsToLocation(site, boushh, trooper);
+        scn.MakeCardGoUndercover(boushh);
+        scn.MoveCardsToDSHand(smooch);
+        scn.SkipToDSTurn(Phase.DEPLOY);
+
+        assertTrue(boushh.isUndercover());
+        assertTrue("Hutt Smooch capture unavailable; decision="
+                        + (scn.GetCurrentDecision() == null ? "null" : scn.GetCurrentDecision().getText()),
+                scn.DSCardPlayAvailable(smooch) || scn.DSCardActionAvailable(smooch, "Capture"));
+        if (scn.DSCardPlayAvailable(smooch)) {
+            scn.DSPlayCard(smooch);
+        } else {
+            scn.DSUseCardAction(smooch, "Capture");
+        }
+        assertTrue("Boushh not offered as capture target; decision="
+                        + (scn.GetCurrentDecision() == null ? "null" : scn.GetCurrentDecision().getText()),
+                scn.DSHasCardChoiceAvailable(boushh));
+        scn.DSChooseCard(boushh);
+        scn.PassAllResponses();
+        if (scn.DSDecisionAvailable("Choose option for capturing")) {
+            scn.DSChooseSeizeCaptive();
+        }
+        scn.PassAllResponses();
+
+        assertTrue("expected captive; zone=" + boushh.getZone() + " undercover=" + boushh.isUndercover()
+                        + " decision=" + (scn.GetCurrentDecision() == null ? "null" : scn.GetCurrentDecision().getText()),
+                boushh.isCaptive());
+        assertFalse(boushh.isUndercover());
+    }
+
+    @Test
+    public void HuttSmoochBounceBlocksOtherPersonaOfTheSpy() {
+        var scn = GetScenario();
+        var boushh = scn.GetLSCard("boushh");
+        var leia = scn.GetLSCard("leia");
+        var smooch = scn.GetDSCard("smooch");
+        var icePlains = scn.GetDSCard("icePlains");
+
+        scn.MoveCardsToLSHand(boushh, leia);
+        scn.MoveCardsToDSHand(smooch);
+        scn.StartGame();
+        scn.MoveLocationToTable(icePlains);
+        scn.LSActivateForceCheat(15);
+        scn.SkipToLSTurn(Phase.DEPLOY);
+
+        assertTrue(scn.LSDeployAvailable(boushh));
+        playHuttSmoochBounceAfterSpyDeploy(scn, boushh, icePlains, smooch);
+
+        assertEquals(Zone.HAND, boushh.getZone());
+        assertFalse(scn.LSDeployAvailable(boushh));
+        assertFalse(scn.LSDeployAvailable(leia));
     }
 }
