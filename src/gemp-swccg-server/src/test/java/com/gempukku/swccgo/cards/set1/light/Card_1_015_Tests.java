@@ -34,7 +34,7 @@ public class Card_1_015_Tests {
                     put("majorHaashn", "9_025");
                     put("chewbacca", "2_003");
                     put("dockingBay327", "1_124");
-                    put("sandcrawler", "1_309");
+                    put("snowspeeder", "3_069");
                     put("skiff", "6_088");
                 }},
                 new HashMap<>() {{
@@ -278,15 +278,15 @@ public class Card_1_015_Tests {
     }
 
     @Test
-    public void KalFalnlCndrosMayNotEmbarkOnEnclosedSandcrawler() {
+    public void KalFalnlCndrosMayNotEmbarkOnEnclosedSnowspeeder() {
         var scn = GetScenario();
         var kalFalnlCndros = scn.GetLSCard("kalFalnlCndros");
         var trooper = scn.GetLSFiller(1);
-        var sandcrawler = scn.GetLSCard("sandcrawler");
+        var snowspeeder = scn.GetLSCard("snowspeeder");
         var site = scn.GetDSStartingLocation();
 
         scn.StartGame();
-        scn.MoveCardsToLocation(site, sandcrawler, kalFalnlCndros, trooper);
+        scn.MoveCardsToLocation(site, snowspeeder, kalFalnlCndros, trooper);
 
         scn.SkipToLSTurn(Phase.MOVE);
         assertTrue(scn.LSCardActionAvailable(trooper, "Embark"));
