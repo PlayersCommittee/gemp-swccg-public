@@ -32,6 +32,10 @@ public class Card_1_015_Tests {
                     put("millenniumFalcon", "1_143");
                     put("nebulonBFrigate", "9_080");
                     put("majorHaashn", "9_025");
+                    put("chewbacca", "2_003");
+                    put("dockingBay327", "1_124");
+                    put("sandcrawler", "1_309");
+                    put("skiff", "6_088");
                 }},
                 new HashMap<>() {{
                 }},
@@ -183,7 +187,163 @@ public class Card_1_015_Tests {
 
         assertTrue(scn.LSCardActionAvailable(majorHaashn, "Transfer"));
         assertFalse(scn.LSCardActionAvailable(kalFalnlCndros, "Transfer"));
+        assertFalse(TryTransferKalFalnlOntoFalcon(scn));
         assertFalse(scn.IsAboardAsPassenger(millenniumFalcon, kalFalnlCndros));
         assertFalse(scn.IsAboardAsPilot(millenniumFalcon, kalFalnlCndros));
+    }
+
+    @Test
+    public void KalFalnlCndrosMayNotTransferOntoFalconWhenChewieIsPiloting() {
+        // Replay-shaped #221: Chewie already piloting Falcon, KFC piloting Nebulon,
+        // ship-dock, then try the passenger transfer that succeeded in the 2020 game.
+        var scn = GetScenario();
+        var kalFalnlCndros = scn.GetLSCard("kalFalnlCndros");
+        var majorHaashn = scn.GetLSCard("majorHaashn");
+        var chewbacca = scn.GetLSCard("chewbacca");
+        var millenniumFalcon = scn.GetLSCard("millenniumFalcon");
+        var nebulonBFrigate = scn.GetLSCard("nebulonBFrigate");
+        var system = scn.GetLSStartingLocation();
+
+        scn.StartGame();
+        scn.MoveCardsToLocation(system, millenniumFalcon, nebulonBFrigate);
+        scn.BoardAsPilot(millenniumFalcon, chewbacca);
+        scn.MoveCardsToLSHand(kalFalnlCndros, majorHaashn);
+
+        scn.SkipToLSTurn(Phase.DEPLOY);
+        scn.LSDeployCard(majorHaashn);
+        scn.LSChooseCard(nebulonBFrigate);
+        scn.LSChoose("Pilot");
+        scn.PassAllResponses();
+        scn.DSPass();
+        scn.LSDeployCard(kalFalnlCndros);
+        scn.LSChooseCard(nebulonBFrigate);
+        scn.LSChoose("Pilot");
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboardAsPilot(nebulonBFrigate, kalFalnlCndros));
+        assertTrue(scn.IsAboardAsPilot(millenniumFalcon, chewbacca));
+
+        ShipDockNebulonToFalcon(scn);
+        assertFalse(TryTransferKalFalnlOntoFalcon(scn));
+        assertFalse(scn.IsAboardAsPassenger(millenniumFalcon, kalFalnlCndros));
+        assertFalse(scn.IsAboardAsPilot(millenniumFalcon, kalFalnlCndros));
+    }
+
+    @Test
+    public void KalFalnlCndrosMayNotTransferOntoFalconFromNebulonPassengerSlot() {
+        var scn = GetScenario();
+        var kalFalnlCndros = scn.GetLSCard("kalFalnlCndros");
+        var majorHaashn = scn.GetLSCard("majorHaashn");
+        var millenniumFalcon = scn.GetLSCard("millenniumFalcon");
+        var nebulonBFrigate = scn.GetLSCard("nebulonBFrigate");
+        var system = scn.GetLSStartingLocation();
+
+        scn.StartGame();
+        scn.MoveCardsToLocation(system, millenniumFalcon, nebulonBFrigate);
+        scn.MoveCardsToLSHand(kalFalnlCndros, majorHaashn);
+
+        scn.SkipToLSTurn(Phase.DEPLOY);
+        scn.LSDeployCard(majorHaashn);
+        scn.LSChooseCard(nebulonBFrigate);
+        scn.LSChoose("Pilot");
+        scn.PassAllResponses();
+        scn.DSPass();
+        scn.LSDeployCard(kalFalnlCndros);
+        scn.LSChooseCard(nebulonBFrigate);
+        scn.LSChoose("Passenger");
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboardAsPassenger(nebulonBFrigate, kalFalnlCndros));
+
+        ShipDockNebulonToFalcon(scn);
+        assertFalse(TryTransferKalFalnlOntoFalcon(scn));
+        assertFalse(scn.IsAboardAsPassenger(millenniumFalcon, kalFalnlCndros));
+        assertFalse(scn.IsAboardAsPilot(millenniumFalcon, kalFalnlCndros));
+    }
+
+    @Test
+    public void KalFalnlCndrosMayNotEmbarkOnFalconAtDockingBay() {
+        var scn = GetScenario();
+        var kalFalnlCndros = scn.GetLSCard("kalFalnlCndros");
+        var trooper = scn.GetLSFiller(1);
+        var millenniumFalcon = scn.GetLSCard("millenniumFalcon");
+        var dockingBay327 = scn.GetLSCard("dockingBay327");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(dockingBay327);
+        scn.MoveCardsToLocation(dockingBay327, millenniumFalcon, kalFalnlCndros, trooper);
+
+        scn.SkipToLSTurn(Phase.MOVE);
+        assertTrue(scn.LSCardActionAvailable(trooper, "Embark"));
+        assertFalse(scn.LSCardActionAvailable(kalFalnlCndros, "Embark"));
+        assertFalse(scn.IsAboardAsPassenger(millenniumFalcon, kalFalnlCndros));
+    }
+
+    @Test
+    public void KalFalnlCndrosMayNotEmbarkOnEnclosedSandcrawler() {
+        var scn = GetScenario();
+        var kalFalnlCndros = scn.GetLSCard("kalFalnlCndros");
+        var trooper = scn.GetLSFiller(1);
+        var sandcrawler = scn.GetLSCard("sandcrawler");
+        var site = scn.GetDSStartingLocation();
+
+        scn.StartGame();
+        scn.MoveCardsToLocation(site, sandcrawler, kalFalnlCndros, trooper);
+
+        scn.SkipToLSTurn(Phase.MOVE);
+        assertTrue(scn.LSCardActionAvailable(trooper, "Embark"));
+        assertFalse(scn.LSCardActionAvailable(kalFalnlCndros, "Embark"));
+    }
+
+    @Test
+    public void KalFalnlCndrosCanEmbarkOnOpenSkiffButNotFalconAtSameSite() {
+        var scn = GetScenario();
+        var kalFalnlCndros = scn.GetLSCard("kalFalnlCndros");
+        var millenniumFalcon = scn.GetLSCard("millenniumFalcon");
+        var skiff = scn.GetLSCard("skiff");
+        var site = scn.GetDSStartingLocation();
+
+        scn.StartGame();
+        scn.MoveCardsToLocation(site, millenniumFalcon, skiff, kalFalnlCndros);
+
+        scn.SkipToLSTurn(Phase.MOVE);
+        assertTrue(scn.LSCardActionAvailable(kalFalnlCndros, "Embark"));
+        scn.LSUseCardAction(kalFalnlCndros, "Embark");
+        assertTrue(scn.LSHasCardChoiceAvailable(skiff));
+        assertFalse(scn.LSHasCardChoiceAvailable(millenniumFalcon));
+        scn.LSChooseCard(skiff);
+        scn.PassAllResponses();
+        assertTrue(scn.IsAboardAsPassenger(skiff, kalFalnlCndros)
+                || scn.IsAboardAsPilot(skiff, kalFalnlCndros));
+        assertFalse(scn.IsAboardAsPassenger(millenniumFalcon, kalFalnlCndros));
+    }
+
+    private void ShipDockNebulonToFalcon(VirtualTableScenario scn) {
+        var millenniumFalcon = scn.GetLSCard("millenniumFalcon");
+        var nebulonBFrigate = scn.GetLSCard("nebulonBFrigate");
+        scn.SkipToPhase(Phase.MOVE);
+        scn.LSUseCardAction(nebulonBFrigate, "dock");
+        scn.LSChooseCard(millenniumFalcon);
+        scn.PassAllResponses();
+    }
+
+    /**
+     * Takes ship-dock Transfer if the engine still offers it (the #221 exploit).
+     * @return true if Kal'Falnl ended aboard Falcon
+     */
+    private boolean TryTransferKalFalnlOntoFalcon(VirtualTableScenario scn) {
+        var kalFalnlCndros = scn.GetLSCard("kalFalnlCndros");
+        var millenniumFalcon = scn.GetLSCard("millenniumFalcon");
+        if (!scn.LSCardActionAvailable(kalFalnlCndros, "Transfer")) {
+            return false;
+        }
+        scn.LSUseCardAction(kalFalnlCndros, "Transfer");
+        if (scn.LSAnyDecisionsAvailable()) {
+            String text = scn.LSGetDecision().getText().toLowerCase();
+            if (text.contains("passenger") || text.contains("capacity")) {
+                scn.LSChoose("Passenger");
+            }
+        }
+        scn.PassAllResponses();
+        return scn.IsAboardAsPassenger(millenniumFalcon, kalFalnlCndros)
+                || scn.IsAboardAsPilot(millenniumFalcon, kalFalnlCndros);
     }
 }
