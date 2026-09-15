@@ -706,7 +706,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
     private void attachMayFireForFreeAndAdd2Prompt(final FireWeaponAction fireWeaponAction, final String playerId,
                                                    final SwccgGame game, final PhysicalCard maySource) {
         final String sourceTitle = GameUtils.getFullName(maySource);
-        fireWeaponAction.appendBeforeCost(
+        fireWeaponAction.appendPreTargetingCost(
                 new PlayoutDecisionEffect(fireWeaponAction, playerId,
                         new MultipleChoiceAwaitingDecision("Use " + sourceTitle + ": fire for free and add 2 to total weapon destiny?", new String[]{"Yes", "No"}) {
                             @Override
@@ -799,7 +799,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
 
         // Play card
         if (canPlayCardDuringCurrentPhase(playerId, game, self)
-                && ((self.getZone() != Zone.STACKED && self.getZone() != Zone.STACKED_FACE_DOWN) || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self))) {
+                && (self.getZone() != Zone.STACKED || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self))) {
             boolean forFree = isCardTypeAlwaysPlayedForFree() || game.getGameState().getCurrentPhase() == Phase.PLAY_STARTING_CARDS;
             List<PlayCardAction> playCardActions = getPlayCardActions(playerId, game, self, self, forFree, 0, null, null, null, null, null, false, 0, Filters.any, null);
             if (playCardActions != null) {
@@ -1069,7 +1069,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
         List<Action> actions = new LinkedList<Action>();
 
         // Actions from game text
-        if ((self.getZone() != Zone.STACKED && self.getZone() != Zone.STACKED_FACE_DOWN) || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self)) {
+        if (self.getZone() != Zone.STACKED || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self)) {
             List<PlayCardAction> gameTextActions = getGameTextOptionalBeforeActions(playerId, game, effect, self, self.getCardId());
             if (gameTextActions != null)
                 actions.addAll(gameTextActions);
@@ -1286,27 +1286,6 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
         } 
         // End of checking for 'react' actions
 
-        // FLAG(Chief): creature-attack react window for R2 Sensor Array (3_31) � parallel to battle/Force drain reacts
-        if (TriggerConditions.attackInitiatedByCreature(game, effectResult)) {
-            if (self.getZone().isInPlay()) {
-                boolean inPlayActiveForAttackReact = game.getGameState().isCardInPlayActive(self, false, true, false, false, false, false, false, false);
-                if (!game.getModifiersQuerying().isGameTextCanceled(game.getGameState(), self)) {
-                    if (inPlayActiveForAttackReact) {
-                        if (self.getBlueprint().getCardCategory() != CardCategory.DEVICE
-                                || !game.getModifiersQuerying().mayNotBeUsed(game.getGameState(), self)
-                                || self.getAttachedTo() == null
-                                || Filters.canUseDevice(self).accepts(game, self.getOwner().equals(self.getAttachedTo().getOwner()) ? self.getAttachedTo() : self)) {
-                            TriggerAction moveOtherCardsAsReactFromAttackAction = getMoveOtherCardsAsReactFromAttackAction(playerId, game, self);
-                            if (moveOtherCardsAsReactFromAttackAction != null) {
-                                actions.add(moveOtherCardsAsReactFromAttackAction);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        // End of checking for creature-attack react actions
-
         return actions;
     }
 
@@ -1364,7 +1343,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
         List<Action> actions = new LinkedList<Action>();
 
         // Actions from game text
-        if ((self.getZone() != Zone.STACKED && self.getZone() != Zone.STACKED_FACE_DOWN) || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self)) {
+        if (self.getZone() != Zone.STACKED || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self)) {
             List<PlayCardAction> gameTextActions = getGameTextOptionalAfterActions(playerId, game, effectResult, self, self.getCardId());
             if (gameTextActions != null)
                 actions.addAll(gameTextActions);

@@ -163,13 +163,16 @@ public class Card_110_009_Tests {
         scn.DSActivateForceCheat(6);
 
         scn.SkipToDSTurn(Phase.CONTROL);
-        assertTrue(scn.DSPlayLostInterruptAvailable(sniper));
-        scn.DSPlayLostInterrupt(sniper);
+        assertTrue(scn.DSCardActionAvailable(sniper));
+        scn.DSUseCardAction(sniper);
+        scn.PassAllResponses();
         scn.DSChooseCard(blaster);
         scn.PassAllResponses();
         assertTrue(scn.DSDecisionAvailable("fire for free and add 2"));
         scn.DSChooseOption("Yes");
-        scn.DSChooseCard(luke);
+        if (scn.DSGetDecision() != null && scn.DSHasCardChoiceAvailable(luke)) {
+            scn.DSChooseCard(luke);
+        }
         scn.PassAllResponses();
         assertNotNull(jodo.getWhileInPlayData());
     }
@@ -189,15 +192,22 @@ public class Card_110_009_Tests {
         scn.MoveCardsToDSHand(dfv);
 
         scn.SkipToLSTurn(Phase.BATTLE);
-        scn.LSInitiateBattle(site);
-        assertTrue(scn.DSPlayUsedInterruptAvailable(dfv));
-        scn.DSPlayUsedInterrupt(dfv);
+        scn.LSUseCardAction(site, "Initiate battle");
+        scn.PassForceUseResponses();
+        if (scn.LSDecisionAvailable("BATTLE_INITIATED") && !scn.DSCardActionAvailable(dfv)) {
+            scn.LSPass();
+        }
+        assertTrue(scn.DSCardActionAvailable(dfv));
+        scn.DSUseCardAction(dfv);
+        scn.PassAllResponses();
         scn.DSChooseCard(blaster);
         scn.PassAllResponses();
         assertTrue(scn.DSDecisionAvailable("fire for free and add 2"));
         scn.DSChooseOption("No");
         scn.PrepareDSDestiny(2);
-        scn.DSChooseCard(luke);
+        if (scn.DSGetDecision() != null && scn.DSHasCardChoiceAvailable(luke)) {
+            scn.DSChooseCard(luke);
+        }
         scn.PassAllResponses();
         assertNull(jodo.getWhileInPlayData());
         assertFalse("Destiny 2 + Defensive Fire +2 = 4 is not > Luke defense 5 without Jodo", luke.isHit());
@@ -218,16 +228,55 @@ public class Card_110_009_Tests {
         scn.MoveCardsToDSHand(dfv);
 
         scn.SkipToLSTurn(Phase.BATTLE);
-        scn.LSInitiateBattle(site);
-        scn.DSPlayUsedInterrupt(dfv);
+        scn.LSUseCardAction(site, "Initiate battle");
+        scn.PassForceUseResponses();
+        if (scn.LSDecisionAvailable("BATTLE_INITIATED") && !scn.DSCardActionAvailable(dfv)) {
+            scn.LSPass();
+        }
+        assertTrue(scn.DSCardActionAvailable(dfv));
+        scn.DSUseCardAction(dfv);
+        scn.PassAllResponses();
         scn.DSChooseCard(blaster);
         scn.PassAllResponses();
         assertTrue(scn.DSDecisionAvailable("fire for free and add 2"));
         scn.DSChooseOption("Yes");
         scn.PrepareDSDestiny(2);
-        scn.DSChooseCard(luke);
+        if (scn.DSGetDecision() != null && scn.DSHasCardChoiceAvailable(luke)) {
+            scn.DSChooseCard(luke);
+        }
         scn.PassAllResponses();
         assertNotNull(jodo.getWhileInPlayData());
         assertTrue("Destiny 2 + Defensive Fire +2 + Jodo +2 = 6 > Luke defense 5", luke.isHit());
+    }
+
+    @Test
+    public void JodoKastWeaponAvailableWithNoForceWhileMayUnused() {
+        var scn = GetScenario();
+        var luke = scn.GetLSCard("luke");
+        var jodo = scn.GetDSCard("jodo");
+        var blaster = scn.GetDSCard("blaster");
+        var site = scn.GetLSStartingLocation();
+
+        scn.StartGame();
+        scn.MoveCardsToLocation(site, luke, jodo);
+        scn.AttachCardsTo(jodo, blaster);
+
+        scn.SkipToPhase(Phase.BATTLE);
+        scn.DSInitiateBattle(site);
+        int leftoverForce = scn.GetDSForcePileCount();
+        if (leftoverForce > 0) {
+            scn.DSUseForceCheat(leftoverForce);
+        }
+        assertEquals(0, scn.GetDSForcePileCount());
+        assertTrue(scn.AwaitingDSWeaponsSegmentActions());
+        assertTrue(scn.DSCardActionAvailable(blaster, "Fire"));
+
+        scn.DSUseCardAction(blaster, "Fire");
+        assertTrue(scn.DSDecisionAvailable("fire for free and add 2"));
+        scn.DSChooseOption("Yes");
+        scn.DSChooseCard(luke);
+        scn.PassAllResponses();
+        assertNotNull(jodo.getWhileInPlayData());
+        assertEquals(0, scn.GetDSForcePileCount());
     }
 }

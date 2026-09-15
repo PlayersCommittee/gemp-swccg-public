@@ -242,6 +242,13 @@ public interface Weapons extends BaseQuery, Icons {
     }
 
     /**
+     * Determines if the specified card may optionally fire the specified permanent weapon for free.
+     */
+    default boolean mayFireWeaponFiredByForFree(GameState gameState, PhysicalCard cardFiringWeapon, SwccgBuiltInCardBlueprint permanentWeapon) {
+        return getMayFireWeaponFiredByForFreeSource(gameState, cardFiringWeapon, permanentWeapon) != null;
+    }
+
+    /**
      * Gets the cost to fire the weapon.
      * @param gameState the game state
      * @param weapon the weapon

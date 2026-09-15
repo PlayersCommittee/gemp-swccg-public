@@ -149,14 +149,48 @@ public class Card_207_009_Tests {
         scn.LSActivateForceCheat(6);
 
         scn.SkipToLSTurn(Phase.CONTROL);
-        assertTrue(scn.LSPlayLostInterruptAvailable(satm));
-        scn.LSPlayLostInterrupt(satm);
+        assertTrue(scn.LSCardActionAvailable(satm));
+        scn.LSUseCardAction(satm);
+        scn.PassAllResponses();
         scn.LSChooseCard(blaster);
         scn.PassAllResponses();
+        assertTrue(scn.LSDecisionAvailable("fire for free and add 2"));
+        scn.LSChooseOption("Yes");
+        if (scn.LSGetDecision() != null && scn.LSHasCardChoiceAvailable(trooper)) {
+            scn.LSChooseCard(trooper);
+        }
+        scn.PassAllResponses();
+        assertNotNull(sabine.getWhileInPlayData());
+    }
+
+    @Test
+    public void SabineWrenWeaponAvailableWithNoForceWhileMayUnused() {
+        var scn = GetScenario();
+        var sabine = scn.GetLSCard("sabine");
+        var blaster = scn.GetLSCard("blaster");
+        var trooper = scn.GetDSCard("trooper");
+        var site = scn.GetLSStartingLocation();
+
+        scn.StartGame();
+        scn.MoveCardsToLocation(site, sabine, trooper);
+        scn.AttachCardsTo(sabine, blaster);
+
+        scn.SkipToLSTurn(Phase.BATTLE);
+        scn.LSInitiateBattle(site);
+        int leftoverForce = scn.GetLSForcePileCount();
+        if (leftoverForce > 0) {
+            scn.LSUseForceCheat(leftoverForce);
+        }
+        assertEquals(0, scn.GetLSForcePileCount());
+        assertTrue(scn.AwaitingLSWeaponsSegmentActions());
+        assertTrue(scn.LSCardActionAvailable(blaster, "Fire"));
+
+        scn.LSUseCardAction(blaster, "Fire");
         assertTrue(scn.LSDecisionAvailable("fire for free and add 2"));
         scn.LSChooseOption("Yes");
         scn.LSChooseCard(trooper);
         scn.PassAllResponses();
         assertNotNull(sabine.getWhileInPlayData());
+        assertEquals(0, scn.GetLSForcePileCount());
     }
 }

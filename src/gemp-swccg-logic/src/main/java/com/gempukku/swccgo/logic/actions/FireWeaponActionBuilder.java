@@ -282,6 +282,7 @@ public class FireWeaponActionBuilder {
         }
 
         int forceAvailableToUse = modifiersQuerying.getForceAvailableToUse(gameState, _playerId);
+        boolean mayFireForFreeUnused = isMayFireForFreeUnused();
 
         if (!_firesWithoutTargeting) {
 
@@ -341,7 +342,7 @@ public class FireWeaponActionBuilder {
                 // Check if Force can be used to target
                 if (_repeatedFiring) {
 
-                    if (getUseForceCost(null) <= forceAvailableToUse) {
+                    if (getUseForceCost(null) <= forceAvailableToUse || mayFireForFreeUnused) {
                         for (PhysicalCard possibleWeaponUser : _possibleWeaponUsers) {
                             // Check if valid target can be found
                             if (Filters.canSpot(_game, _sourceCard, _numTargets, null, targetingReasons, Filters.and(newTargetFilterable, Filters.canBeTargetedByWeaponUser(possibleWeaponUser)))
@@ -352,7 +353,7 @@ public class FireWeaponActionBuilder {
                         }
                     }
                 }
-                else if (_forFree || _targetsForFree.get(i)) {
+                else if (_forFree || _targetsForFree.get(i) || (mayFireForFreeUnused && _extraForceRequired <= forceAvailableToUse)) {
 
                     if (_extraForceRequired <= forceAvailableToUse) {
                         for (PhysicalCard possibleWeaponUser : _possibleWeaponUsers) {
@@ -432,14 +433,15 @@ public class FireWeaponActionBuilder {
         }
         else {
             if (_repeatedFiring) {
-                if (forceAvailableToUse < getUseForceCost(null)) {
+                if (forceAvailableToUse < getUseForceCost(null) && !mayFireForFreeUnused) {
                     return null;
                 }
                 _validWeaponUsers.addAll(_possibleWeaponUsers);
             }
             else if (!_forFree && !_firesWithoutTargetingForFree) {
                 for (PhysicalCard possibleWeaponUser : _possibleWeaponUsers) {
-                    if (forceAvailableToUse >= (getUseForceCost(possibleWeaponUser) + _extraForceRequired)) {
+                    if (forceAvailableToUse >= (getUseForceCost(possibleWeaponUser) + _extraForceRequired)
+                            || (mayFireForFreeUnused && forceAvailableToUse >= _extraForceRequired)) {
                         _validWeaponUsers.add(possibleWeaponUser);
                     }
                 }
@@ -922,6 +924,25 @@ public class FireWeaponActionBuilder {
      */
     public Collection<PhysicalCard> getValidWeaponUsers() {
         return _validWeaponUsers;
+    }
+
+    /**
+     * True when a once-per-turn "may fire for free" ability is still unused, so the fire action
+     * should be offered even if the player cannot currently pay the printed fire cost.
+     */
+    private boolean isMayFireForFreeUnused() {
+        ModifiersQuerying modifiersQuerying = _game.getModifiersQuerying();
+        GameState gameState = _game.getGameState();
+        for (PhysicalCard possibleWeaponUser : _possibleWeaponUsers) {
+            if (_permanentWeapon != null) {
+                if (modifiersQuerying.mayFireWeaponFiredByForFree(gameState, possibleWeaponUser, _permanentWeapon)) {
+                    return true;
+                }
+            } else if (modifiersQuerying.mayFireWeaponFiredByForFree(gameState, possibleWeaponUser, _weaponOrCardWithPermanentWeapon)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
