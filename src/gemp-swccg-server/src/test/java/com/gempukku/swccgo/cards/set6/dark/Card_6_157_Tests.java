@@ -37,6 +37,8 @@ public class Card_6_157_Tests {
                     put("gold1", "9_068");
                     put("hcf", "13_021");
                     put("tibrin", "6_087");
+                    put("leia", "1_17");
+                    put("boushh", "110_001");
                 }},
                 new HashMap<>() {{
                     put("nsp", "6_157");
@@ -266,5 +268,32 @@ public class Card_6_157_Tests {
         assertFalse("Second Luke must not be deployable this turn", scn.LSDeployAvailable(lukeJedi));
         assertTrue("Persona replace of the just-deployed Luke must still be offered; actions=" + scn.GetLSAvailableActions(),
                 scn.LSActionAvailable("Persona replace") || scn.LSCardPlayAvailable(lukeJedi));
+    }
+
+    @Test
+    public void SetForStunBounceDoesNotAllowOtherPersonaToDeployThisTurn() {
+        // VHD: LS deploys Leia Organa, then she is returned to hand (Set For Stun). Unique title
+        // already blocks Leia; persona-played-this-turn must also block Boushh. No card-local
+        // MayNotDeploy on Set For Stun or other bounce cards.
+        var scn = GetScenario();
+        var leia = scn.GetLSCard("leia");
+        var boushh = scn.GetLSCard("boushh");
+        var site = scn.GetLSStartingLocation();
+
+        scn.MoveCardsToLSHand(leia, boushh);
+        scn.StartGame();
+        scn.LSActivateForceCheat(20);
+        scn.SkipToLSTurn(Phase.DEPLOY);
+
+        deployAndPass(scn, leia, site);
+        assertFalse("Leia Organa must not redeploy this turn", scn.LSDeployAvailable(leia));
+        assertFalse("Boushh must not deploy this turn while Leia is on table", scn.LSDeployAvailable(boushh));
+
+        scn.MoveCardsToLSHand(leia);
+        recoverToLSDeploy(scn);
+
+        assertEquals(Zone.HAND, leia.getZone());
+        assertFalse("Leia Organa must still not redeploy this turn after returning to hand", scn.LSDeployAvailable(leia));
+        assertFalse("Boushh must not deploy this turn after Leia persona was already deployed", scn.LSDeployAvailable(boushh));
     }
 }

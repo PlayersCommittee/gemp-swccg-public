@@ -113,13 +113,9 @@ public class Card6_155 extends AbstractLostInterrupt {
                                                 // Perform result(s)
                                                 action.appendEffect(
                                                         new ReturnCardToHandFromTableEffect(action, finalTarget));
-                                                Filter mayNotDeployFilter = Filters.sameTitle(finalTarget);
-                                                for (com.gempukku.swccgo.common.Persona persona : finalTarget.getBlueprint().getPersonas()) {
-                                                    mayNotDeployFilter = Filters.or(mayNotDeployFilter, Filters.persona(persona));
-                                                }
                                                 action.appendEffect(
                                                         new AddUntilEndOfTurnModifierEffect(action,
-                                                                new MayNotDeployModifier(self, mayNotDeployFilter, opponent), null));
+                                                                new MayNotDeployModifier(self, Filters.sameTitle(finalTarget), opponent), null));
                                             }
                                         }
                                 );
