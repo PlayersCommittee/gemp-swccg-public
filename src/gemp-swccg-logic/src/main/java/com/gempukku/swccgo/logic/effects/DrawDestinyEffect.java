@@ -420,12 +420,13 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
     }
 
     /**
-     * Determines if a "draw X and choose Y" can be performed
+     * Determines if a "draw X and choose Y" can be performed.
+     * Gates on choose-Y (destinies that count toward the draw limit), not draw-X.
      * @param game the game
-     * @param drawX the X value
+     * @param chooseY the Y value (number of destinies chosen / counted against the limit)
      * @return true or false
      */
-    public boolean canDrawAndChoose(SwccgGame game, int drawX) {
+    public boolean canDrawAndChoose(SwccgGame game, int chooseY) {
         if (isDrawAndChoose())
             return false;
 
@@ -447,7 +448,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
             maxAllowedToDraw = Math.min(maxAllowedToDraw, modifiersQuerying.getNumDestinyDrawsToAttritionOnly(gameState, _performingPlayerId, true, false));
         }
 
-        return (_numDrawnSoFarAgainstLimit + _numSkippedSoFar + drawX) <= maxAllowedToDraw;
+        return (_numDrawnSoFarAgainstLimit + _numSkippedSoFar + chooseY) <= maxAllowedToDraw;
     }
 
     /**
@@ -575,8 +576,11 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
             maxAllowedToDraw = Math.min(maxAllowedToDraw, modifiersQuerying.getNumDestinyDrawsToAttritionOnly(gameState, _performingPlayerId, true, false));
         }
 
-        // If the number of destiny drawn so far against the limit has reached the limit, then no more destiny can be drawn
-        if ((_numDrawnSoFarAgainstLimit + _numSkippedSoFar) >= maxAllowedToDraw) {
+        // If the number of destiny drawn so far against the limit has reached the limit, then no more destiny can be drawn.
+        // During draw-X-choose-Y, allow finishing the remaining draws within X (extras are peeks; only Y counts toward the limit).
+        boolean stillDrawingWithinDrawX = isDrawAndChoose()
+                && (_numDrawnSoFarWithinDrawX + _numSkippedSoFarWithinDrawX) < _drawX;
+        if (!stillDrawingWithinDrawX && (_numDrawnSoFarAgainstLimit + _numSkippedSoFar) >= maxAllowedToDraw) {
             gameState.sendMessage("Limit of " + maxAllowedToDraw + " " + _destinyType.getHumanReadable() + " drawn for " + _performingPlayerId + " has been reached. No more " + _destinyType.getHumanReadable() + " can be drawn");
             _noMoreDestinyToDraw = true;
         }
@@ -923,12 +927,17 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                                                 _drawnDestinyValueModification = 0;
                                                 _modifierSourceTitleMap.clear();
                                                 // Decrement number drawn so far against limit if substituted after drawn
-                                                _numDrawnSoFarAgainstLimit--;
+                                                // (only if that draw counted against the limit under draw-X-choose-Y rules)
+                                                if (!isDrawAndChoose() || _numDrawnSoFarWithinDrawX <= _chooseY) {
+                                                    _numDrawnSoFarAgainstLimit--;
+                                                }
                                             }
                                             else if (isDestinyToBeRedrawn()) {
                                                 // Decrement number drawn so far (and against limit if canceled and redraw)
                                                 _numDrawnSoFar--;
-                                                _numDrawnSoFarAgainstLimit--;
+                                                if (!isDrawAndChoose() || _numDrawnSoFarWithinDrawX <= _chooseY) {
+                                                    _numDrawnSoFarAgainstLimit--;
+                                                }
                                                 if (isDrawAndChoose()) {
                                                     _numDrawnSoFarWithinDrawX--;
                                                 }
@@ -1159,9 +1168,12 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                             gameState.destinyDrawn(_drawnDestinyCard, destinyText);
                             gameState.removeCardsFromZone(Collections.singleton(_drawnDestinyCard));
                             gameState.addCardToTopOfZone(_drawnDestinyCard, Zone.UNRESOLVED_DESTINY_DRAW, _performingPlayerId);
-                            // Increment number drawn (and against limit)
+                            // Increment number drawn (and against limit).
+                            // For draw-X-choose-Y only the first chooseY draws count against the destiny limit.
                             _numDrawnSoFar++;
-                            _numDrawnSoFarAgainstLimit++;
+                            if (!isDrawAndChoose() || _numDrawnSoFarWithinDrawX <= _chooseY) {
+                                _numDrawnSoFarAgainstLimit++;
+                            }
 
                             // Ask the player to choose the destiny value (if multiple exist)
                             if (_drawnDestinyCard.getBlueprint().getDestiny() != null && !_drawnDestinyCard.getBlueprint().getDestiny().equals(_drawnDestinyCard.getBlueprint().getAlternateDestiny())) {

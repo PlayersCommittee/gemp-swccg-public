@@ -29,7 +29,7 @@ public class DrawDestinyAndChooseInsteadEffect extends AbstractSuccessfulEffect 
         DrawDestinyState drawDestinyState = gameState.getTopDrawDestinyState();
         if (drawDestinyState != null) {
             DrawDestinyEffect drawDestinyEffect = drawDestinyState.getDrawDestinyEffect();
-            if (drawDestinyEffect.canDrawAndChoose(game, _drawX)) {
+            if (drawDestinyEffect.canDrawAndChoose(game, _chooseY)) {
 
                 gameState.sendMessage(drawDestinyEffect.getPlayerDrawingDestiny() + " will draw " + _drawX + " "
                         + " " + drawDestinyEffect.getDestinyType().getHumanReadable() + " and choose " + _chooseY);
