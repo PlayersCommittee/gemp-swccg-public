@@ -242,6 +242,7 @@ public interface Reacts extends BaseQuery {
                 if (!validToMoveAsReact.isEmpty()) {
                     // Update the filter with the cards that can actually move as a 'react' and return the action option
                     reactActionOption.setCardToReactFilter(Filters.in(validToMoveAsReact));
+                    reactActionOption.setIncludeUndercoverSpies(includeUndercover);
                     return reactActionOption;
                 }
             }
