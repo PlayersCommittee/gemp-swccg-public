@@ -14,6 +14,8 @@ import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
+import com.gempukku.swccgo.game.DeployAsCaptiveOption;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
@@ -46,13 +48,21 @@ public class Card2_025 extends AbstractCharacterDevice {
     }
 
     @Override
+    protected Filter getValidDeployTargetFilterForCardType(String playerId, SwccgGame game, PhysicalCard self, boolean isSimDeployAttached, boolean ignorePresenceOrForceIcons, DeploymentRestrictionsOption deploymentRestrictionsOption, DeployAsCaptiveOption deployAsCaptiveOption) {
+        // Character-device default is character-only; this device may also attach to a starship
+        // that has a permanent astromech (#974).
+        return Filters.and(Filters.your(self), Filters.or(Filters.character, Filters.hasPermanentAstromech));
+    }
+
+    @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.and(Filters.your(self), Filters.astromech_droid);
+        // Permanent astromech aboard (e.g. Artoo-Detoo In Red 5) is an astromech for this deploy (#974).
+        return Filters.and(Filters.your(self), Filters.or(Filters.astromech_droid, Filters.hasPermanentAstromech));
     }
 
     @Override
     protected Filter getGameTextValidToUseDeviceFilter(final SwccgGame game, final PhysicalCard self) {
-        return Filters.astromech_droid;
+        return Filters.or(Filters.astromech_droid, Filters.hasPermanentAstromech);
     }
 
     @Override
@@ -85,7 +95,7 @@ public class Card2_025 extends AbstractCharacterDevice {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.and(Filters.site, Filters.wherePresent(self)))
-                && GameConditions.isAttachedTo(game, self, Filters.R2D2)
+                && GameConditions.isAttachedTo(game, self, Filters.R2D2_or_has_R2D2_as_permanent_astromech)
                 && GameConditions.canUseDevice(game, self)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
