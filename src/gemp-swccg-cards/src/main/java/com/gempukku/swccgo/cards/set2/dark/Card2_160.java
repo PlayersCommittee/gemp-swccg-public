@@ -15,7 +15,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.LoseCardsFromTableSimultaneouslyEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardsFromTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -58,7 +58,7 @@ public class Card2_160 extends AbstractSeeker {
                             action.setActionMsg("Make " + GameUtils.getCardLink(character) + " lost");
                             // Perform result(s)
                             action.appendEffect(
-                                    new LoseCardsFromTableSimultaneouslyEffect(action, Arrays.asList(character, self), true, true));
+                                    new LoseCardsFromTableEffect(action, Arrays.asList(character, self), true));
                         }
                     }
             );
