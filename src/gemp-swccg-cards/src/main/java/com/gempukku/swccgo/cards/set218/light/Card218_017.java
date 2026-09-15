@@ -47,7 +47,7 @@ public class Card218_017 extends AbstractSite {
     protected List<Modifier> getGameTextLightSideWhileActiveModifiers(String playerOnLightSideOfLocation, SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
         modifiers.add(new MayMoveOtherCardsAsReactToLocationModifier(self, "Move your stormtrooper as a react", playerOnLightSideOfLocation,
-                Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.stormtrooper, Filters.here(self)), Filters.adjacentSite(self)));
+                Filters.and(Filters.your(playerOnLightSideOfLocation), Filters.stormtrooper, Filters.here(self)), Filters.adjacentSite(self), 0, true));
         return modifiers;
     }
 }

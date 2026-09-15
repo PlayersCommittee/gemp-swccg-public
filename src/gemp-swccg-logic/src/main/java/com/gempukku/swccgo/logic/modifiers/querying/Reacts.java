@@ -1,10 +1,12 @@
 package com.gempukku.swccgo.logic.modifiers.querying;
 
+import com.gempukku.swccgo.common.SpotOverride;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.ReactActionOption;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.logic.modifiers.MayMoveOtherCardsAsReactToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifierType;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -204,16 +206,20 @@ public interface Reacts extends BaseQuery {
      */
     default ReactActionOption getMoveOtherCardsAsReactOption(String playerId, GameState gameState, PhysicalCard card) {
 
-        // Check the cards in the player has in play.
-        List<PhysicalCard> cardsToCheck = new ArrayList<PhysicalCard>(Filters.filterActive(gameState.getGame(), null,
-                Filters.and(Filters.owner(playerId), Filters.or(Filters.character, Filters.starship, Filters.vehicle))));
-        if (cardsToCheck.isEmpty()) {
-            return null;
-        }
+        Filter movableFilter = Filters.and(Filters.owner(playerId), Filters.or(Filters.character, Filters.starship, Filters.vehicle));
 
         // Check if card may allow other cards to move as a 'react'
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_MOVE_OTHER_CARD_AS_REACT_TO_LOCATION, card)) {
             if (modifier.isForPlayer(playerId)) {
+                boolean includeUndercover = modifier instanceof MayMoveOtherCardsAsReactToLocationModifier
+                        && ((MayMoveOtherCardsAsReactToLocationModifier) modifier).includesUndercoverSpies();
+                List<PhysicalCard> cardsToCheck = new ArrayList<PhysicalCard>(includeUndercover
+                        ? Filters.filterActive(gameState.getGame(), null, SpotOverride.INCLUDE_UNDERCOVER, movableFilter)
+                        : Filters.filterActive(gameState.getGame(), null, movableFilter));
+                if (cardsToCheck.isEmpty()) {
+                    continue;
+                }
+
                 Filter cardToReactFilter = modifier.getCardToReactFilter();
                 Filter targetFilter = modifier.getTargetFilter();
                 ReactActionOption reactActionOption = new ReactActionOption(card, modifier.isReactForFree(), modifier.getChangeInCost(),
