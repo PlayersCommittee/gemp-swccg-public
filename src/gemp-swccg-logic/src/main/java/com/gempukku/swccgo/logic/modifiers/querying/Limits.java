@@ -22,15 +22,13 @@ public interface Limits extends BaseQuery {
     LimitCounter getCardTitlePlayedTurnLimitCounter(String title);
 
     /**
-     * Records that the specified persona was played this turn.
-     * @param persona the persona
+     * Records that the specified player played the specified persona this turn.
+     * Per-player: both sides may play the same unique persona the same turn (different titles).
      */
-    void recordPersonaPlayedThisTurn(Persona persona);
+    void recordPersonaPlayedThisTurn(String playerId, Persona persona);
 
     /**
-     * Determines if the specified persona has already been played this turn.
-     * @param persona the persona
-     * @return true if the persona has been played this turn, otherwise false
+     * Determines if the specified player has already played the specified persona this turn.
      */
-    boolean isPersonaPlayedThisTurn(Persona persona);
+    boolean isPersonaPlayedThisTurn(String playerId, Persona persona);
 }

@@ -45,7 +45,7 @@ public class RecordCardsBeingPlayedEffect extends AbstractSuccessfulEffect {
             Set<Persona> personas = new HashSet<Persona>(cardPlayed.getBlueprint().getPersonas());
             personas.addAll(modifiersQuerying.getPersonas(game.getGameState(), cardPlayed));
             for (Persona persona : personas) {
-                modifiersQuerying.recordPersonaPlayedThisTurn(persona);
+                modifiersQuerying.recordPersonaPlayedThisTurn(cardPlayed.getOwner(), persona);
             }
         }
     }

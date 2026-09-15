@@ -176,6 +176,31 @@ public class Card_6_157_Tests {
     }
 
     @Test
+    public void NoneShallPassBlocksNonUniqueRebelTitleAfterBounce() {
+        // Printed NSP clause: that Rebel title may not deploy this turn, even if non-unique.
+        // Unique-title engine rules are not what this tests (see Luke tests).
+        var scn = GetScenario();
+        var trooper1 = scn.GetLSFiller(1);
+        var trooper2 = scn.GetLSFiller(2);
+        var nsp = scn.GetDSCard("nsp");
+        var site = scn.GetLSStartingLocation();
+
+        scn.MoveCardsToLSHand(trooper1, trooper2);
+        scn.MoveCardsToDSHand(nsp);
+        scn.StartGame();
+
+        scn.LSActivateForceCheat(10);
+        scn.SkipToLSTurn(Phase.DEPLOY);
+
+        assertTrue(scn.LSDeployAvailable(trooper1));
+        playNoneShallPassAfterDeploy(scn, trooper1, site, nsp);
+
+        assertEquals(Zone.HAND, trooper1.getZone());
+        assertFalse(scn.LSDeployAvailable(trooper1));
+        assertFalse(scn.LSDeployAvailable(trooper2));
+    }
+
+    @Test
     public void NoneShallPassBlocksOtherPersonaOfTargetedRebel() {
         var scn = GetScenario();
 
