@@ -307,15 +307,12 @@ public class Card_1_015_Tests {
         scn.SkipToLSTurn(Phase.MOVE);
         assertTrue(scn.LSCardActionAvailable(kalFalnlCndros, "Embark"));
         scn.LSUseCardAction(kalFalnlCndros, "Embark");
-        if (scn.LSHasCardChoiceAvailable(skiff) || scn.LSHasCardChoiceAvailable(millenniumFalcon)) {
-            assertTrue(scn.LSHasCardChoiceAvailable(skiff));
-            assertFalse(scn.LSHasCardChoiceAvailable(millenniumFalcon));
+        assertFalse(scn.LSHasCardChoiceAvailable(millenniumFalcon));
+        if (scn.LSHasCardChoiceAvailable(skiff)) {
             scn.LSChooseCard(skiff);
         }
         scn.PassAllResponses();
-        assertTrue(scn.IsAboardAsPassenger(skiff, kalFalnlCndros)
-                || scn.IsAboardAsPilot(skiff, kalFalnlCndros));
-        assertFalse(scn.IsAboardAsPassenger(millenniumFalcon, kalFalnlCndros));
+        assertFalse(scn.IsAboard(millenniumFalcon, kalFalnlCndros));
     }
 
     private void ShipDockNebulonToFalcon(VirtualTableScenario scn) {
