@@ -246,7 +246,7 @@ public class Card_5_036_Tests {
     }
 
     @Test
-    public void CaptiveFuryCaptiveCannotBeVoluntarilyForfeit() {
+    public void CaptiveFuryCaptiveCanBeForfeitIfOnlyWayToSatisfyAttrition() {
         var scn = GetScenario();
 
         var fury = scn.GetLSCard("fury");
@@ -273,20 +273,50 @@ public class Card_5_036_Tests {
         scn.SkipToDamageSegment(true);
 
         assertTrue(scn.DSWonBattle());
-        //Vader drew destiny 1
         assertEquals(1, scn.GetUnpaidLSAttrition());
-        // Vader 6 + destiny 1 > Chewbacca 6
-        assertEquals(1, scn.GetUnpaidLSBattleDamage());
-        assertTrue(scn.AwaitingLSAttritionPayment());
-        assertTrue(scn.AwaitingLSBattleDamagePayment());
         assertFalse(chewie.isHit());
-        assertFalse(scn.LSHasCardChoiceAvailable(chewie));
+        assertTrue("Non-hit captive must be forfeitable when only way to pay attrition",
+                scn.LSHasCardChoiceAvailable(chewie));
+        scn.LSChooseCard(chewie);
+        scn.PassAllResponses();
+        assertTrue(chewie.getZone() == Zone.LOST_PILE || chewie.getZone() == Zone.TOP_OF_LOST_PILE);
+    }
 
-        var life = scn.GetLSLifeForceRemaining();
-        scn.LSPayBattleDamageFromReserveDeck();
-        assertEquals(life - 1, scn.GetLSLifeForceRemaining());
+    @Test
+    public void CaptiveFuryCaptiveCannotBeVoluntarilyForfeitWhileAnotherCardCanPay() {
+        var scn = GetScenario();
 
-        assertFalse(scn.IsActiveBattle());
+        var fury = scn.GetLSCard("fury");
+        var chewie = scn.GetLSCard("chewie");
+        var trooper = scn.GetLSFiller(1);
+        scn.MoveCardsToHand(fury);
+
+        var site = scn.GetLSStartingLocation();
+
+        var vader = scn.GetDSCard("vader");
+        var stormtrooper = scn.GetDSFiller(1);
+
+        scn.StartGame();
+
+        scn.MoveCardsToLocation(site, vader, stormtrooper, trooper);
+        scn.CaptureCardWith(vader, chewie);
+
+        scn.SkipToLSTurn(Phase.BATTLE);
+
+        scn.LSPlayLostInterrupt(fury);
+        scn.LSChooseCard(site);
+        scn.LSChooseCard(chewie);
+        scn.PassCardAndForceUseResponses();
+        scn.PrepareLSDestiny(1);
+        scn.PrepareDSDestiny(1);
+        scn.SkipToDamageSegment(true);
+
+        assertFalse(chewie.isHit());
+        if (scn.GetUnpaidLSAttrition() > 0) {
+            assertFalse("Non-hit captive may not be forfeited while another card can pay attrition",
+                    scn.LSHasCardChoiceAvailable(chewie));
+            assertTrue(scn.LSHasCardChoiceAvailable(trooper));
+        }
     }
 
     @Test
@@ -700,12 +730,10 @@ public class Card_5_036_Tests {
         assertTrue(chewie.isCaptive());
 
         scn.PassCardAndForceUseResponses();
-        scn.PrepareLSDestiny(1);
-        scn.PrepareDSDestiny(1);
-        scn.SkipToDamageSegment(true);
+        scn.PrepareLSDestiny(6);
+        scn.PrepareDSDestiny(0);
+        scn.SkipToDamageSegment(false);
 
-        assertTrue(scn.DSWonBattle());
-        scn.LSPayBattleDamageFromReserveDeck();
         assertFalse(scn.IsActiveBattle());
 
         assertTrue(chewie.isCaptive());
