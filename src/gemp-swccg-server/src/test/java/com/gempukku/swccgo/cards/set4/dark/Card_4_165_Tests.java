@@ -10,7 +10,6 @@ import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -181,7 +180,7 @@ public class Card_4_165_Tests {
         assertFalse(scn.LSCardActionAvailable(ywing)); //test4
     }
 
-    @Test @Ignore
+    @Test
     public void StarDestroyerLaunchBayDSCanLandTieTest() {
         //test1: DS can land (embark) Tie starfighter from a system (where the related star destroyer is) to the launch bay
         //test2: Tie lands (embarks) at the bay
@@ -230,7 +229,7 @@ public class Card_4_165_Tests {
         assertTrue(scn.DSCardActionAvailable(tiescout, "hyperspeed")); //test4
     }
 
-    @Test @Ignore
+    @Test
     public void StarDestroyerLaunchBayDSCanLandNonTieStarfighterTest() {
         //test1: DS can land (embark) non-Tie starfighter from a system (where the related star destroyer is) to the launch bay
         //test2: starfighter lands (embarks) at the bay
