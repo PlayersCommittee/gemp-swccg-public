@@ -422,6 +422,8 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
 
     @Override
     public void startAffectingGame(SwccgGame game) {
+        // Stop first so a second start cannot duplicate hooks (lost-modifier / Frozen Assets paths).
+        stopAffectingGame();
         SwccgCardBlueprint blueprint = getBlueprint();
 
         List<Modifier> modifiers;
