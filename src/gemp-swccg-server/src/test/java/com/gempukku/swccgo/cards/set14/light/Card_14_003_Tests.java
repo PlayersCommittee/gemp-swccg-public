@@ -12,7 +12,6 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -213,7 +212,7 @@ public class Card_14_003_Tests {
     }
 
     //shows: https://github.com/PlayersCommittee/gemp-swccg-public/issues/944
-    @Test @Ignore
+    @Test
     public void ArtooBraveLittleDroidCanCancelBattleDestinyWithStolenDataTapes() {
         //test1: with stolen data tapes on artoo: can take action after just drawn battle destiny to cancel it
         //test2: with stolen data tapes on artoo: artoo goes to used pile
