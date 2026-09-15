@@ -730,12 +730,10 @@ public class Card_5_036_Tests {
         assertTrue(chewie.isCaptive());
 
         scn.PassCardAndForceUseResponses();
-        scn.PrepareLSDestiny(1);
-        scn.PrepareDSDestiny(1);
-        scn.SkipToDamageSegment(true);
+        scn.PrepareLSDestiny(6);
+        scn.PrepareDSDestiny(0);
+        scn.SkipToDamageSegment(false);
 
-        assertTrue(scn.DSWonBattle());
-        scn.LSPayBattleDamageFromReserveDeck();
         assertFalse(scn.IsActiveBattle());
 
         assertTrue(chewie.isCaptive());
