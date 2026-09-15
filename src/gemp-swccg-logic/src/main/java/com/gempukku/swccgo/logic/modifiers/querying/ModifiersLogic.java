@@ -246,7 +246,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
             snapshot._untilStartOfPlayersNextTurnModifiers.put(playerId, snapshotList);
         }
         snapshot._untilStartOfTurnModifiers.addAll(_untilStartOfTurnModifiers);
-        snapshot._skipSet.addAll(_skipSet);
+        // Recursion guard for in-flight modifier evaluation only. Persisting it
+        // in a snapshot (or restoring a mid-evaluation skip) permanently disables
+        // those modifiers for the rest of the game (lost-modifier / AOBS).
+        snapshot._skipSet.clear();
         for (Phase phase : _endOfPhaseLimitCounters.keySet()) {
             Map<String, LimitCounter> snapshotMap = new HashMap<String, LimitCounter>();
             snapshot._endOfPhaseLimitCounters.put(phase, snapshotMap);
@@ -2821,9 +2824,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
     private boolean affectsCardWithSkipSet(GameState gameState, PhysicalCard physicalCard, Modifier modifier) {
         if (!_skipSet.contains(modifier) && physicalCard != null) {
             _skipSet.add(modifier);
-            boolean result = modifier.affectsCard(gameState, query(), physicalCard);
-            _skipSet.remove(modifier);
-            return result;
+            try {
+                return modifier.affectsCard(gameState, query(), physicalCard);
+            } finally {
+                _skipSet.remove(modifier);
+            }
         } else {
             return false;
         }
@@ -2870,47 +2875,55 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
         else {
             LinkedList<Modifier> liveModifiers = new LinkedList<Modifier>();
             if (alwaysOnModifiers!=null) {
+                alwaysOnModifiers = new ArrayList<Modifier>(alwaysOnModifiers);
                 for (Modifier modifier : alwaysOnModifiers) {
                     if (modifierType==modifier.getModifierType()) {
                         if (keyword == null || ((KeywordAffectingModifier) modifier).getKeyword() == keyword) {
                             if (!_skipSet.contains(modifier)) {
                                 _skipSet.add(modifier);
-                                if (modifier.getSource(gameState) == null || modifier.isPersistent() || !(isGameTextCanceled(gameState, modifier.getSource(gameState)) || modifier.getSource(gameState).isSuspended())) {
-                                    Condition condition = modifier.getCondition();
-                                    Condition additionalCondition = modifier.getAdditionalCondition(gameState, query(), card);
-                                    if ((condition == null || condition.isFulfilled(gameState, query())) && (additionalCondition == null || additionalCondition.isFulfilled(gameState, query())))
-                                        if (!foundCumulativeConflict(gameState, liveModifiers, modifier))
-                                            liveModifiers.add(modifier);
+                                try {
+                                    if (modifier.getSource(gameState) == null || modifier.isPersistent() || !(isGameTextCanceled(gameState, modifier.getSource(gameState)) || modifier.getSource(gameState).isSuspended())) {
+                                        Condition condition = modifier.getCondition();
+                                        Condition additionalCondition = modifier.getAdditionalCondition(gameState, query(), card);
+                                        if ((condition == null || condition.isFulfilled(gameState, query())) && (additionalCondition == null || additionalCondition.isFulfilled(gameState, query())))
+                                            if (!foundCumulativeConflict(gameState, liveModifiers, modifier))
+                                                liveModifiers.add(modifier);
+                                    }
+                                } finally {
+                                    _skipSet.remove(modifier);
                                 }
-                                _skipSet.remove(modifier);
                             }
                         }
                     }
                 }
             }
             if (modifiers!=null) {
+                modifiers = new ArrayList<Modifier>(modifiers);
                 for (Modifier modifier : modifiers) {
                     if (keyword == null || ((KeywordAffectingModifier) modifier).getKeyword() == keyword) {
                         if (!_skipSet.contains(modifier)) {
                             _skipSet.add(modifier);
-                            if (modifier.getSource(gameState) == null || modifier.isPersistent() || !(isGameTextCanceled(gameState, modifier.getSource(gameState), false, modifier.isEvenIfUnpilotedInPlay()) || modifier.getSource(gameState).isSuspended())) {
-                                if (modifier.getSource(gameState) == null || modifier.isPersistent() || modifier.getLocationSidePlayer() == null || !isLocationGameTextCanceledForPlayer(gameState, modifier.getSource(gameState), modifier.getLocationSidePlayer())) {
-                                    // For some modifier types, the affects card checking is faster than the condition checking, so for those check the affects card first
-                                    boolean checkAffectsCardFirst = (modifierType == ModifierType.GIVE_ICON || modifierType == ModifierType.CANCEL_FORCE_ICON || modifierType == ModifierType.CANCEL_FORCE_ICONS || modifierType == ModifierType.CANCEL_ICONS || modifierType == ModifierType.EQUALIZE_FORCE_ICONS || modifierType == ModifierType.MAY_NOT_ADD_ICON);
-                                    if (!checkAffectsCardFirst || card == null || modifier.affectsCard(gameState, query(), card)) {
-                                        Condition condition = modifier.getCondition();
-                                        Condition additionalCondition = modifier.getAdditionalCondition(gameState, query(), card);
-                                        if ((condition == null || condition.isFulfilled(gameState, query())) && (additionalCondition == null || additionalCondition.isFulfilled(gameState, query())))
-                                            if (modifier.getSource(gameState) == null || modifier.isPersistent() || modifier.getSource(gameState).getZone() == Zone.STACKED || modifier.getSource(gameState).getZone() == Zone.OUT_OF_PLAY || modifier.isWhileInactiveInPlay() == !gameState.isCardInPlayActive(modifier.getSource(gameState), false, true, false, false, false, false, false, false))
-                                                if (modifier.getSource(gameState) == null || modifier.isPersistent() || !modifier.isFromPermanentPilot() || hasPermanentPilot(gameState, modifier.getSource(gameState)))
-                                                    if (modifier.getSource(gameState) == null || modifier.isPersistent() || !modifier.isFromPermanentAstromech() || hasPermanentAstromech(gameState, modifier.getSource(gameState)))
-                                                        if (checkAffectsCardFirst || card == null || modifier.affectsCard(gameState, query(), card))
-                                                            if (!foundCumulativeConflict(gameState, liveModifiers, modifier))
-                                                                liveModifiers.add(modifier);
+                            try {
+                                if (modifier.getSource(gameState) == null || modifier.isPersistent() || !(isGameTextCanceled(gameState, modifier.getSource(gameState), false, modifier.isEvenIfUnpilotedInPlay()) || modifier.getSource(gameState).isSuspended())) {
+                                    if (modifier.getSource(gameState) == null || modifier.isPersistent() || modifier.getLocationSidePlayer() == null || !isLocationGameTextCanceledForPlayer(gameState, modifier.getSource(gameState), modifier.getLocationSidePlayer())) {
+                                        // For some modifier types, the affects card checking is faster than the condition checking, so for those check the affects card first
+                                        boolean checkAffectsCardFirst = (modifierType == ModifierType.GIVE_ICON || modifierType == ModifierType.CANCEL_FORCE_ICON || modifierType == ModifierType.CANCEL_FORCE_ICONS || modifierType == ModifierType.CANCEL_ICONS || modifierType == ModifierType.EQUALIZE_FORCE_ICONS || modifierType == ModifierType.MAY_NOT_ADD_ICON);
+                                        if (!checkAffectsCardFirst || card == null || modifier.affectsCard(gameState, query(), card)) {
+                                            Condition condition = modifier.getCondition();
+                                            Condition additionalCondition = modifier.getAdditionalCondition(gameState, query(), card);
+                                            if ((condition == null || condition.isFulfilled(gameState, query())) && (additionalCondition == null || additionalCondition.isFulfilled(gameState, query())))
+                                                if (modifier.getSource(gameState) == null || modifier.isPersistent() || modifier.getSource(gameState).getZone() == Zone.STACKED || modifier.getSource(gameState).getZone() == Zone.OUT_OF_PLAY || modifier.isWhileInactiveInPlay() == !gameState.isCardInPlayActive(modifier.getSource(gameState), false, true, false, false, false, false, false, false))
+                                                    if (modifier.getSource(gameState) == null || modifier.isPersistent() || !modifier.isFromPermanentPilot() || hasPermanentPilot(gameState, modifier.getSource(gameState)))
+                                                        if (modifier.getSource(gameState) == null || modifier.isPersistent() || !modifier.isFromPermanentAstromech() || hasPermanentAstromech(gameState, modifier.getSource(gameState)))
+                                                            if (checkAffectsCardFirst || card == null || modifier.affectsCard(gameState, query(), card))
+                                                                if (!foundCumulativeConflict(gameState, liveModifiers, modifier))
+                                                                    liveModifiers.add(modifier);
+                                        }
                                     }
                                 }
+                            } finally {
+                                _skipSet.remove(modifier);
                             }
-                            _skipSet.remove(modifier);
                         }
                     }
                 }
