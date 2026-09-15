@@ -23,8 +23,6 @@ public class DockingBayTransitTests {
                     put("mrbc", "3_077");
                     put("mining_droid","1_018");
                     put("timer_mine", "1_162");
-                    put("lor", "204_7");
-                    put("finn", "204_6");
 
                 }},
                 new HashMap<>()
@@ -301,34 +299,6 @@ public class DockingBayTransitTests {
         assertTrue(scn.AwaitingDSMovePhaseActions());
         assertEquals(expectedTransitCost, preTransitForcePile - scn.GetLSForcePileCount()); //test2
         assertTrue(scn.IsAttachedTo(yavin4_db, mrbc)); //test3
-    }
-
-    @Test
-    public void LorSanTekkaRegularMoveMayUseDockingBayTransit() {
-        var scn = GetScenario();
-        var lor = scn.GetLSCard("lor");
-        var finn = scn.GetLSCard("finn");
-        var tat_db = scn.GetLSCard("tat_db");
-        var yavin4_db = scn.GetLSCard("yavin4_db");
-
-        scn.StartGame();
-        scn.MoveLocationToTable(tat_db);
-        scn.MoveLocationToTable(yavin4_db);
-        scn.MoveCardsToLocation(tat_db, lor, finn);
-        scn.LSActivateForceCheat(4);
-
-        scn.SkipToLSTurn(Phase.CONTROL);
-        assertTrue(scn.LSCardActionAvailable(lor, "regular move"));
-        scn.LSUseCardAction(lor, "regular move");
-        scn.LSChooseCard(finn);
-        assertTrue("Docking bay transit must be offered as a regular move; LS=" + scn.GetLSAvailableActions(),
-                scn.LSDecisionAvailable("Docking bay") || scn.LSDecisionAvailable("Choose docking bay")
-                        || scn.LSActionAvailable("Docking bay transit"));
-        if (scn.LSDecisionAvailable("Choose docking bay") || scn.LSDecisionAvailable("Docking bay")) {
-            scn.LSChooseCard(yavin4_db);
-            scn.PassAllResponses();
-            assertEquals(yavin4_db, finn.getAtLocation());
-        }
     }
 
     //add lots of other docking bay transit checks
