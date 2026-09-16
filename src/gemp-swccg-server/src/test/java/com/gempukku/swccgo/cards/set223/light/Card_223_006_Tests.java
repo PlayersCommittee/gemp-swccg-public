@@ -10,7 +10,6 @@ import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -33,6 +32,7 @@ public class Card_223_006_Tests {
                     put("devastator","1_302");
                     put("beam","2_115"); //Tractor Beam
                     put("lenox","3_90"); //Captain Lennox
+                    put("in_range","7_254");
                 }},
                 10,
                 10,
@@ -86,15 +86,8 @@ public class Card_223_006_Tests {
         assertEquals(Rarity.V, card.getRarity());
     }
 
-    //associated issue: https://github.com/PlayersCommittee/gemp-swccg-public/issues/846
-    @Test @Ignore
-    public void TransmissionTerminatedVUsedPreventsUsingTractorBeam() {
-        //test coverage:
-        //test1: can target opponent starship
-        //test2: can target self starship
-        //test3: (FAILS) opponent targeted starship cannot use tractor beam this turn
-        //test4: opponent targeted starship can use tractor beam next turn
-
+    @Test
+    public void TransmissionTerminatedVUsedPreventsInRangeUsingTractorBeam() {
         var scn = GetScenario();
 
         var ttv = scn.GetLSCard("ttv");
@@ -102,14 +95,14 @@ public class Card_223_006_Tests {
 
         var devastator = scn.GetDSCard("devastator");
         var beam = scn.GetDSCard("beam");
+        var inRange = scn.GetDSCard("in_range");
 
         var system = scn.GetDSStartingLocation();
 
         scn.StartGame();
 
         scn.MoveCardsToLSHand(ttv);
-        scn.MoveCardsToDSHand(beam);
-
+        scn.MoveCardsToDSHand(inRange);
         scn.MoveCardsToLocation(system, devastator, tantive);
         scn.AttachCardsTo(devastator, beam);
 
@@ -117,28 +110,15 @@ public class Card_223_006_Tests {
         scn.DSPass();
 
         scn.LSPlayUsedInterrupt(ttv);
-        assertTrue(scn.LSHasCardChoiceAvailable(devastator)); //test1
-        assertTrue(scn.LSHasCardChoiceAvailable(tantive)); //test2
+        assertTrue(scn.LSHasCardChoicesAvailable(devastator, tantive));
         scn.LSChooseCard(devastator);
         scn.PassAllResponses();
 
         scn.DSInitiateBattle(system);
+        scn.PassBattleStartResponses();
 
-        scn.SkipToDamageSegment();
-
-        assertTrue(scn.GetDSForcePileCount() >= 2); //enough to pay tractor beam cost
-        assertEquals(3,scn.GetUnpaidLSBattleDamage());
-        scn.LSPayRemainingBattleDamageFromReserveDeck();
-
-            ///FAILS HERE (should not be able to use tractor beam)
-        assertFalse(scn.DSDecisionAvailable("about to end - Optional responses"));
-        assertFalse(scn.DSCardActionAvailable(beam, "tractor beam")); //test3
-
-        //add more to skip to next turn, battle again, verify able to use tractor beam
+        assertFalse(scn.DSPlayUsedInterruptAvailable(inRange));
     }
-
-    //add test for showing TT(V) does not allow In Range to use a Tractor Beam
-    //add test for showing TT(V) does not allow Lennox to use a Tractor Beam
 
 }
 

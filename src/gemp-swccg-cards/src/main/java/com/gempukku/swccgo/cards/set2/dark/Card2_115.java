@@ -76,6 +76,7 @@ public class Card2_115 extends AbstractDevice {
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.battleEndingAt(game, effectResult, Filters.here(self))
+                && Filters.weaponOrDeviceMayBeUsed.accepts(game, self)
                 && GameConditions.canSpot(game, self, getTargetFilter(self))
                 && GameConditions.canUseForce(game, playerId, 2)
                 && game.getDarkPlayer().equals(playerId)) {

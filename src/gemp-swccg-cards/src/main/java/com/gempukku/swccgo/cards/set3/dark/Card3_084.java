@@ -55,7 +55,7 @@ public class Card3_084 extends AbstractImperial {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
-        Filter tractorBeamFilter = Filters.and(Filters.tractor_beam, Filters.attachedTo(Filters.hasAboard(self)));
+        Filter tractorBeamFilter = Filters.and(Filters.tractor_beam, Filters.weaponOrDeviceMayBeUsed, Filters.attachedTo(Filters.hasAboard(self)));
 
         // Check condition(s)
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
