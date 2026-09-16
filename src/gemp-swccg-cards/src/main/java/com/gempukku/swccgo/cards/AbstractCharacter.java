@@ -421,7 +421,7 @@ public abstract class AbstractCharacter extends AbstractDeployable {
         }
         else {
             combinedFilter = Filters.or(Filters.site, Filters.and(Filters.owner(playerId), Filters.or(Filters.hasAvailablePilotCapacity(self), Filters.hasAvailablePassengerCapacity(self))));
-            if (!ignorePresenceOrForceIcons && (deploymentRestrictionsOption == null || (!deploymentRestrictionsOption.isEvenWithoutPresenceOrForceIcons() && !deploymentRestrictionsOption.isIgnoreLocationDeploymentRestrictions()))) {
+            if (!ignorePresenceOrForceIcons && (deploymentRestrictionsOption == null || !deploymentRestrictionsOption.isEvenWithoutPresenceOrForceIcons())) {
                 combinedFilter = Filters.and(combinedFilter, Filters.sufficientPresenceOrForceIconsToDeployTo(self));
             }
         }
@@ -563,7 +563,7 @@ public abstract class AbstractCharacter extends AbstractDeployable {
     @Override
     public final Filter getValidLocationForSimultaneouslyDeployingAsPilotOrPassengerFilter(String playerId, final SwccgGame game, final PhysicalCard self, PhysicalCard sourceCard, DeploymentRestrictionsOption deploymentRestrictionsOption, ReactActionOption reactActionOption) {
         Filter filter = Filters.and(Filters.location, getValidDeployTargetFilter(playerId, game, self, sourceCard, null, true, 0, deploymentRestrictionsOption, null, reactActionOption, true, true));
-        if (deploymentRestrictionsOption == null || (!deploymentRestrictionsOption.isEvenWithoutPresenceOrForceIcons() && !deploymentRestrictionsOption.isIgnoreLocationDeploymentRestrictions())) {
+        if (deploymentRestrictionsOption == null || !deploymentRestrictionsOption.isEvenWithoutPresenceOrForceIcons()) {
             filter = Filters.and(filter, Filters.or(Filters.sufficientPresenceOrForceIconsToDeployTo(self), Filters.sufficientPresenceOrForceIconsToDeployToAsPilotSimultaneouslyWith(self, sourceCard)));
         }
         return filter;
