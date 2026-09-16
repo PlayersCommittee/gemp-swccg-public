@@ -12,6 +12,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.modifiers.CantSearchCardPileModifier;
+import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
 import com.gempukku.swccgo.logic.timing.AbstractStandardEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.TargetingEffect;
@@ -218,11 +219,11 @@ public abstract class ChooseCardsFromMultiplePilesEffect extends AbstractStandar
             }
         }
 
-        // Check if player looked at cards in own card pile
+        // "Just looked" fires after this action finishes (including shuffle/replace).
         if (!isSkipTriggerPlayerLookedAtCardsInPile()) {
             for (Zone zone:_zones) {
-                game.getActionsEnvironment().emitEffectResult(
-                        new LookedAtCardsInCardPileResult(_playerId, _zoneOwner, zone, _action.getActionSource()));
+                _action.appendAfterEffect(new TriggeringResultEffect(_action,
+                        new LookedAtCardsInCardPileResult(_playerId, _zoneOwner, zone, _action.getActionSource())));
             }
         }
 
