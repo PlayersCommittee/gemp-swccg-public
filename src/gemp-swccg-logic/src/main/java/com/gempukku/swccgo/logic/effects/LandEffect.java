@@ -56,7 +56,7 @@ public class LandEffect extends AbstractSubActionEffect implements MovingAsReact
 
     @Override
     public Type getType() {
-        return _asReact ? Type.LANDING_AS_REACT : null;
+        return null;
     }
 
     @Override

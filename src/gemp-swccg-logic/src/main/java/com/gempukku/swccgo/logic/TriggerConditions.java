@@ -21,6 +21,7 @@ import com.gempukku.swccgo.game.state.DuelState;
 import com.gempukku.swccgo.game.state.ForceDrainState;
 import com.gempukku.swccgo.game.state.ForceRetrievalState;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.MoveAsReactState;
 import com.gempukku.swccgo.game.state.UsingTractorBeamState;
 import com.gempukku.swccgo.game.state.WeaponFiringState;
 import com.gempukku.swccgo.logic.effects.LookAtCardsInOpponentsHandEffect;
@@ -1452,6 +1453,12 @@ public class TriggerConditions {
                 || effect.getType() == Effect.Type.TAKING_OFF_AS_REACT
                 || effect.getType() == Effect.Type.ENTERING_STARSHIP_VEHICLE_SITE_AS_REACT
                 || effect.getType() == Effect.Type.EXITING_STARSHIP_VEHICLE_SITE_AS_REACT) {
+            MoveAsReactState moveAsReactState = game.getGameState().getMoveAsReactState();
+            // Inner regular-move effects keep this type for other listeners; Sense/cancel is only
+            // on the initiation window before embarking.
+            if (moveAsReactState != null && moveAsReactState.isDuringRegularMovement()) {
+                return false;
+            }
             return true;
         }
 
