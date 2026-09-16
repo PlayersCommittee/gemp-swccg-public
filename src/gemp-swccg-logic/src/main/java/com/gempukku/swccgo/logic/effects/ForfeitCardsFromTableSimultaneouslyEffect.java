@@ -138,11 +138,14 @@ public class ForfeitCardsFromTableSimultaneouslyEffect extends AbstractSubAction
 
                             float forfeitValue = (_forfeitValueToUse != null) ? _forfeitValueToUse : modifiersQuerying.getForfeitWhenForfeiting(gameState, cardToForfeit);
 
-                            _totalBattleDamageToSatisfyMap.put(cardToForfeit, Math.min(battleDamageRemaining, forfeitValue));
-                            if (!_satisfyAllBattleDamage) {
-                                _satisfyAllBattleDamage = modifiersQuerying.isSatisfyAllBattleDamageWhenForfeited(gameState, cardToForfeit);
+                            float amountToReduceForfeit = 0;
+                            if (!modifiersQuerying.cannotSatisfyBattleDamage(gameState, cardToForfeit)) {
+                                _totalBattleDamageToSatisfyMap.put(cardToForfeit, Math.min(battleDamageRemaining, forfeitValue));
+                                if (!_satisfyAllBattleDamage) {
+                                    _satisfyAllBattleDamage = modifiersQuerying.isSatisfyAllBattleDamageWhenForfeited(gameState, cardToForfeit);
+                                }
+                                amountToReduceForfeit = Math.min(battleDamageRemaining, forfeitValue);
                             }
-                            float amountToReduceForfeit = Math.min(battleDamageRemaining, forfeitValue);
 
                             if (!modifiersQuerying.cannotSatisfyAttrition(gameState, cardToForfeit)) {
                                 _totalAttritionToSatisfyMap.put(cardToForfeit, Math.min(attritionRemaining, forfeitValue));
