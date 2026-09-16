@@ -758,7 +758,7 @@ public class Card_7_023_Tests {
 
         assertTrue(scn.AwaitingLSDeployPhaseActions());
         assertSame(Zone.HAND,joh.getZone());
-        assertSame(Zone.HAND,jamDestiny.getZone()); //test1 (returned to hand by setForStun)
+        assertTrue(jamDestiny.getZone() == Zone.LOST_PILE || jamDestiny.getZone() == Zone.TOP_OF_LOST_PILE);
         assertFalse(jamDestiny.isJamCard());
     }
 

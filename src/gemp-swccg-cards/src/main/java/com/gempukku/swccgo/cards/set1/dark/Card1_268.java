@@ -17,14 +17,12 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
-import com.gempukku.swccgo.logic.effects.PutStackedCardsInLostPileEffect;
 import com.gempukku.swccgo.logic.effects.ReturnCardToHandFromTableEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -90,13 +88,9 @@ public class Card1_268 extends AbstractLostInterrupt {
                                                             gameState.sendMessage("Ability: " + GuiUtils.formatAsString(ability));
                                                             if (totalDestiny > ability) {
                                                                 gameState.sendMessage("Result: Succeeded");
-                                                                // Printed: cards deployed on the character return to owners' hands.
-                                                                // Stacked cards are not deployed on the character (AR Leaves Table → Lost Pile).
-                                                                Collection<PhysicalCard> stackedCards = new ArrayList<PhysicalCard>(finalTarget.getCardsStacked());
-                                                                if (!stackedCards.isEmpty()) {
-                                                                    action.appendEffect(
-                                                                            new PutStackedCardsInLostPileEffect(action, playerId, stackedCards, false));
-                                                                }
+                                                                // Deployed-on cards go to hand. Stacked cards are not deployed on
+                                                                // the character, so they follow Leaves Table (Lost Pile) unless
+                                                                // host game text redirects them first (e.g. Joh Yowza jam).
                                                                 action.appendEffect(
                                                                         new ReturnCardToHandFromTableEffect(action, finalTarget, Zone.HAND));
                                                             }
