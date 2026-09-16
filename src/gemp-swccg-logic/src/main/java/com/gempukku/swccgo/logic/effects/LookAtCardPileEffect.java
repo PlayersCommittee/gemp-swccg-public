@@ -55,8 +55,8 @@ class LookAtCardPileEffect extends AbstractSuccessfulEffect {
                 });
 
         if (!cardsInZone.isEmpty()) {
-            game.getActionsEnvironment().emitEffectResult(
-                    new LookedAtCardsInCardPileResult(_playerId, _cardPileOwner, _cardPile, _action.getActionSource()));
+            _action.appendAfterEffect(new TriggeringResultEffect(_action,
+                    new LookedAtCardsInCardPileResult(_playerId, _cardPileOwner, _cardPile, _action.getActionSource())));
         }
     }
 
