@@ -13,6 +13,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.CancelGameTextUntilEndOfTurnEffect;
 import com.gempukku.swccgo.logic.effects.CancelPreviousBattleDestinyDrawsEffect;
@@ -105,7 +106,8 @@ public class Card208_020 extends AbstractUsedInterrupt {
         final String opponent = game.getOpponent(playerId);
 
         // Check condition(s)
-        if (GameConditions.didDrawMoreThanBattleDestinies(game, opponent, 2)
+        if (TriggerConditions.isBattleDestinyDrawingJustCompletedForPlayer(game, effectResult, opponent)
+                && GameConditions.didDrawMoreThanBattleDestinies(game, opponent, 2)
                 && GameConditions.canCancelOpponentsPreviouslyDrawnBattleDestiny(game, playerId)) {
             final int numToRemain = game.getGameState().getBattleState().getNumBattleDestinyDrawn(opponent) - 1;
             if (numToRemain > 0) {
