@@ -33,7 +33,9 @@ public class Card_217_020_Tests {
                     put("vader1", "9_113");
                     put("vader2", "1_168");
                     put("dooku", "200_76");
+                    put("sidious", "14_78");
                     put("castle", "209_50");
+                    put("bridge", "211_20");
                 }},
                 15,
                 15,
@@ -164,6 +166,30 @@ public class Card_217_020_Tests {
         assertFalse(scn.DSDeployAvailable(dooku));
     }
 
+    @Test
+    public void RevengeOfTheSithChosenDookuAndEpisodeISidiousAreDestinyPlusTwo() {
+        var scn = GetScenario();
+
+        var rots = scn.GetDSCard("rots");
+        var dooku = scn.GetDSCard("dooku");
+        var sidious = scn.GetDSCard("sidious");
+        var vader = scn.GetDSCard("vader2");
+
+        scn.StartGame();
+        passStartingInterrupts(scn);
+        scn.MoveCardsToDSHand(dooku, sidious, vader);
+        grantDookuApprentice(scn, rots);
+        skipToDSDeploy(scn);
+
+        assertTrue(scn.game().getModifiersQuerying().hasKeyword(scn.gameState(), dooku, Keyword.SITH_APPRENTICE));
+        assertTrue(scn.game().getModifiersQuerying().getCardTypes(scn.gameState(), dooku).contains(CardType.SITH));
+        assertTrue(scn.game().getModifiersQuerying().getCardTypes(scn.gameState(), sidious).contains(CardType.SITH));
+        assertFalse(scn.game().getModifiersQuerying().getCardTypes(scn.gameState(), vader).contains(CardType.SITH));
+        assertEquals(3, scn.GetDestiny(dooku));
+        assertEquals(3, scn.GetDestiny(sidious));
+        assertEquals(1, scn.GetDestiny(vader));
+    }
+
     private void passStartingInterrupts(VirtualTableScenario scn) {
         if (scn.DSDecisionAvailable("Choose starting interrupt")) {
             scn.DSPass();
@@ -201,6 +227,22 @@ public class Card_217_020_Tests {
         else {
             scn.game().getModifiersEnvironment().addUntilEndOfGameModifier(
                     new KeywordModifier(rots, Filters.Vader, Keyword.SITH_APPRENTICE));
+        }
+    }
+
+    private void grantDookuApprentice(VirtualTableScenario scn, PhysicalCardImpl rots) {
+        scn.MoveCardsToDSSideOfTable(rots);
+        if (scn.DSDecisionAvailable("Choose an apprentice")) {
+            scn.DSChoose("Dooku");
+            if (scn.DSDecisionAvailable("Choose card from Reserve Deck")
+                    || scn.DSDecisionAvailable("Choose card to deploy")) {
+                scn.DSChooseCard(scn.GetDSCard("bridge"));
+            }
+            scn.PassAllResponses();
+        }
+        else {
+            scn.game().getModifiersEnvironment().addUntilEndOfGameModifier(
+                    new KeywordModifier(rots, Filters.Dooku, Keyword.SITH_APPRENTICE));
         }
     }
 }
