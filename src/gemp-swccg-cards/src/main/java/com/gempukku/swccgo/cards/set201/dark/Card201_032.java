@@ -113,6 +113,7 @@ public class Card201_032 extends AbstractNormalEffect {
                                                                             protected void cardSelected(final PhysicalCard cardToMakeLost3) {
                                                                                 action2.addAnimationGroup(cardToMakeLost3);
                                                                                 action2.setText("Make " + GameUtils.getCardLink(cardToMakeLost3) + " lost");
+                                                                                cardsToMakeLost2.remove(cardToMakeLost3);
                                                                                 // Perform result(s)
                                                                                 action2.appendEffect(
                                                                                         new LoseCardFromTableEffect(action2, cardToMakeLost3, true));
