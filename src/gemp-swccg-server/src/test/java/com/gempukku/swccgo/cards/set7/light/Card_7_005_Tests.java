@@ -13,7 +13,6 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -136,8 +135,7 @@ public class Card_7_005_Tests {
         assertTrue(scn.IsAttachedTo(ds_site,plans));
     }
 
-    //demonstrates 'bug 1' from: https://github.com/PlayersCommittee/gemp-swccg-public/issues/770
-    @Test @Ignore
+    @Test
     public void BothanSpyMakesDeathStarPlansTargetingSelfImmuneToAlter() {
         var scn = GetScenario();
 
@@ -166,9 +164,8 @@ public class Card_7_005_Tests {
         scn.LSChooseCard(ds_site);
         scn.LSChooseCard(spy);
 
-        assertTrue(scn.DSDecisionAvailable("Deploying")); //Deploying Death Star Plans - Optional responses
-
-        assertFalse(scn.DSCardPlayAvailable(alter)); /// FAILS HERE - have not met the condition of being targeted yet?
+        assertTrue(scn.DSDecisionAvailable("Deploying"));
+        assertFalse(scn.DSCardPlayAvailable(alter));
         scn.PassAllResponses();
 
         assertTrue(scn.AwaitingDSDeployPhaseActions());

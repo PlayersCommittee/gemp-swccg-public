@@ -6,6 +6,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.actions.PlayCardState;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
@@ -32,17 +33,27 @@ public class TargetedByUtinniEffectCondition implements Condition {
         PhysicalCard card = gameState.findCardByPermanentId(_permCardId);
 
         for (PhysicalCard utinniEffect : Filters.filterActive(game, card, _filters)) {
-            // Check if attached to card
-            if (Filters.hasAttached(utinniEffect).accepts(game, card)) {
+            if (isTargetingCard(game, gameState, utinniEffect, card)) {
                 return true;
             }
+        }
 
-            // Check if explicitly targeting this card
-            if (utinniEffect.getTargetedCards(gameState).values().contains(card)) {
+        // Include Utinni Effects currently being played. Targeting is already chosen
+        // before the play-response window, but the Effect is not active on table yet.
+        for (PlayCardState playCardState : gameState.getPlayCardStates()) {
+            PhysicalCard played = playCardState.getPlayCardAction().getPlayedCard();
+            if (played != null && _filters.accepts(game, played) && isTargetingCard(game, gameState, played, card)) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    private boolean isTargetingCard(SwccgGame game, GameState gameState, PhysicalCard utinniEffect, PhysicalCard card) {
+        if (Filters.hasAttached(utinniEffect).accepts(game, card)) {
+            return true;
+        }
+        return utinniEffect.getTargetedCards(gameState).values().contains(card);
     }
 }
