@@ -333,4 +333,24 @@ public class Card9_055 extends AbstractJediTest {
 
         return null;
     }
+
+    @Override
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActionsWhenInactiveInPlay(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
+        // Printed: attempt when Vader with target (even as a non-frozen captive).
+        // MWYHL / inactive apprentice suspends this card; still offer the attempt.
+        if (!GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE,
+                Filters.and(Filters.apprenticeTargetedByJediTest(self), Filters.captive, Filters.not(Filters.frozenCaptive)))) {
+            return null;
+        }
+        return getGameTextTopLevelActions(playerId, game, self, gameTextSourceCardId);
+    }
+
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggersWhenInactiveInPlay(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        if (!GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE,
+                Filters.and(Filters.apprenticeTargetedByJediTest(self), Filters.captive, Filters.not(Filters.frozenCaptive)))) {
+            return null;
+        }
+        return getGameTextOptionalAfterTriggers(playerId, game, effectResult, self, gameTextSourceCardId);
+    }
 }
