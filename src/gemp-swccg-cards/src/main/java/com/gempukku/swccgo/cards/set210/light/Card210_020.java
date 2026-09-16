@@ -8,7 +8,6 @@ import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
-import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -45,12 +44,6 @@ public class Card210_020 extends AbstractJediMaster {
         setGameText("Never deploys to a site opponent occupies. Deploys -2 to Ahch-To. Once per turn, may [upload] Force Projection. During battle, may cancel an opponent's just drawn destiny to cause a re-draw. Immune to attrition.");
         addPersona(Persona.LUKE);
         addIcons(Icon.VIRTUAL_SET_10, Icon.PILOT, Icon.WARRIOR, Icon.EPISODE_VII);
-    }
-
-    //redundant with NeverDeploysToLocationModifier, but necessary to prevent persona replacement until NeverDeploysToLocationModifier is fixed
-    @Override
-    protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return Filters.not(Filters.and(Filters.site, Filters.occupies(game.getOpponent(self.getOwner()))));
     }
 
     @Override
