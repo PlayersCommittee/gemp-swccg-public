@@ -13,6 +13,8 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
@@ -20,7 +22,9 @@ import com.gempukku.swccgo.logic.modifiers.MayDeployToDagobahLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotInitiateAttacksAtLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotInitiateBattleAtLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.modifiers.TotalTrainingDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -57,12 +61,22 @@ public class Card4_002 extends AbstractJediMaster {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         Condition unlessDarkSideCharacterOfAbilityMoreThanThreePresent = new UnlessCondition(new PresentCondition(self,
                 Filters.and(Filters.Dark_Side, Filters.character, Filters.abilityMoreThan(3))));
+        final int yodaPermId = self.getPermanentCardId();
+        Condition gimerStickIgnoresRestriction = new Condition() {
+            @Override
+            public boolean isFulfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                PhysicalCard yoda = gameState.findCardByPermanentId(yodaPermId);
+                return yoda != null && modifiersQuerying.hasGameTextModification(gameState, yoda,
+                        ModifyGameTextType.YODAS_GIMER_STICK__IGNORE_DAGOBAH_YODA_BATTLE_AND_ATTACK_RESTRICTIONS);
+            }
+        };
         Filter wherePresent = Filters.wherePresent(self);
+        Condition yodaBattleRestriction = new AndCondition(unlessDarkSideCharacterOfAbilityMoreThanThreePresent, new UnlessCondition(gimerStickIgnoresRestriction));
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new TotalTrainingDestinyModifier(self, Filters.jediTestTargetingMentor(Filters.sameCardId(self)), 1));
-        modifiers.add(new MayNotInitiateBattleAtLocationModifier(self, wherePresent, unlessDarkSideCharacterOfAbilityMoreThanThreePresent));
-        modifiers.add(new MayNotInitiateAttacksAtLocationModifier(self, wherePresent, unlessDarkSideCharacterOfAbilityMoreThanThreePresent));
+        modifiers.add(new MayNotInitiateBattleAtLocationModifier(self, wherePresent, yodaBattleRestriction));
+        modifiers.add(new MayNotInitiateAttacksAtLocationModifier(self, wherePresent, yodaBattleRestriction));
         modifiers.add(new ImmuneToAttritionModifier(self));
         return modifiers;
     }

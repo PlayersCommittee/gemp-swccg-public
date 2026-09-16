@@ -21,11 +21,11 @@ import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.conditions.UnlessCondition;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionModifier;
-import com.gempukku.swccgo.logic.modifiers.MayInitiateAttacksAtLocationModifier;
-import com.gempukku.swccgo.logic.modifiers.MayInitiateBattleAtLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotInitiateAttacksAtLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotInitiateBattleAtLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextModifier;
+import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -80,7 +80,6 @@ public class Card4_043 extends AbstractNormalEffect {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        String playerId = self.getOwner();
         Condition playCardOptionId1 = new PlayCardOptionIdCondition(self, PlayCardOptionId.PLAY_CARD_OPTION_1);
         Condition playCardOptionId2 = new PlayCardOptionIdCondition(self, PlayCardOptionId.PLAY_CARD_OPTION_2);
         Condition unlessOpponentsCharacterOfAbilityMoreThanThreePresent = new UnlessCondition(new PresentCondition(self,
@@ -88,8 +87,11 @@ public class Card4_043 extends AbstractNormalEffect {
         Filter wherePresent = Filters.wherePresent(self);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new MayInitiateAttacksAtLocationModifier(self, wherePresent, playCardOptionId1, playerId));
-        modifiers.add(new MayInitiateBattleAtLocationModifier(self, wherePresent, playCardOptionId1, playerId));
+        // Option 1 "You may initiate battles and attacks where present" supersedes only Dagobah Yoda's
+        // own initiation restriction (AR: Yoda's Gimer Stick). It does not grant a generic may-initiate
+        // that would ignore other cards such as Duel Of The Fates.
+        modifiers.add(new ModifyGameTextModifier(self, Filters.and(Filters.hasAttached(self), Filters.title("Yoda")),
+                playCardOptionId1, ModifyGameTextType.YODAS_GIMER_STICK__IGNORE_DAGOBAH_YODA_BATTLE_AND_ATTACK_RESTRICTIONS));
         modifiers.add(new MayNotInitiateBattleAtLocationModifier(self, wherePresent, new AndCondition(playCardOptionId2, unlessOpponentsCharacterOfAbilityMoreThanThreePresent)));
         modifiers.add(new MayNotInitiateAttacksAtLocationModifier(self, wherePresent, new AndCondition(playCardOptionId2, unlessOpponentsCharacterOfAbilityMoreThanThreePresent)));
         modifiers.add(new ImmuneToAttritionModifier(self, Filters.hasAttached(self), playCardOptionId2));
