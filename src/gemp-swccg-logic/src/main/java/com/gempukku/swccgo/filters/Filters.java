@@ -8198,8 +8198,10 @@ public class Filters {
                     return false;
                 }
 
-                // Relocate is not embarking or disembarking.
-                if (Filters.or(Filters.aboardAnyStarship, Filters.aboardAnyVehicle).accepts(gameState, modifiersQuerying, physicalCard)) {
+                // Relocate is not embarking or disembarking unless the effect allows it
+                // (Escape Pod / Evacuate pass allowSameLocation).
+                if (!allowSameLocation
+                        && Filters.or(Filters.aboardAnyStarship, Filters.aboardAnyVehicle).accepts(gameState, modifiersQuerying, physicalCard)) {
                     return false;
                 }
 
@@ -8254,10 +8256,6 @@ public class Filters {
                 }
                 // 3) Check if escorting a captive
                 if (!allowEscort && Filters.escort.accepts(gameState, modifiersQuerying, physicalCard)) {
-                    return false;
-                }
-                // Relocate is not embarking or disembarking.
-                if (Filters.or(Filters.aboardAnyStarship, Filters.aboardAnyVehicle).accepts(gameState, modifiersQuerying, physicalCard)) {
                     return false;
                 }
                 return true;
@@ -8345,8 +8343,10 @@ public class Filters {
                     return false;
                 }
 
-                // Relocate is not embarking or disembarking.
-                if (!isOnWeatherVane && Filters.or(Filters.aboardAnyStarship, Filters.aboardAnyVehicle).accepts(gameState, modifiersQuerying, cardToMove)) {
+                // Relocate is not embarking or disembarking unless the effect allows it
+                // (Escape Pod / Evacuate pass allowSameLocation).
+                if (!isOnWeatherVane && !allowSameLocation
+                        && Filters.or(Filters.aboardAnyStarship, Filters.aboardAnyVehicle).accepts(gameState, modifiersQuerying, cardToMove)) {
                     return false;
                 }
 

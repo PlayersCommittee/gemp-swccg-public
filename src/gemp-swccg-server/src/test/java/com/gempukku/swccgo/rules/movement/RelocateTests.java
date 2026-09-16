@@ -49,7 +49,7 @@ public class RelocateTests {
         scn.BoardAsPilot(tie, vader);
 
         assertFalse(Filters.canBeRelocatedToLocation(eisley, 2).accepts(scn.game(), vader));
-        assertFalse(Filters.canBeRelocated(false).accepts(scn.game(), vader));
+        assertFalse(Filters.locationCanBeRelocatedTo(vader, 2).accepts(scn.game(), eisley));
     }
 
     @Test
