@@ -101,26 +101,35 @@ public class HitCardAndMayActivateForceEffect extends AbstractSubActionEffect im
 
                                             game.getActionsEnvironment().emitEffectResult(new HitResult(_cardHit, _hitByCard, _hitByPermanentWeapon, _cardFiringWeapon));
 
-                                            if (_amountToActivate > 0
-                                                    && !gameState.getReserveDeck(playerId).isEmpty()
-                                                    && !modifiersQuerying.isActivatingForceProhibited(gameState, playerId)) {
-                                                subAction.appendEffect(
-                                                        new PlayoutDecisionEffect(subAction, playerId,
-                                                                new YesNoDecision("Do you want to activate " + _amountToActivate + " Force?") {
-                                                                    @Override
-                                                                    protected void yes() {
-                                                                        gameState.sendMessage(playerId + " chooses to activate " + _amountToActivate + " Force");
-                                                                        subAction.appendEffect(
-                                                                                new ActivateForceEffect(subAction, playerId, _amountToActivate));
-                                                                    }
-                                                                    @Override
-                                                                    protected void no() {
-                                                                        gameState.sendMessage(playerId + " chooses to not activate " + _amountToActivate + " Force");
-                                                                    }
-                                                                }
-                                                        )
-                                                );
-                                            }
+                                            // Check after just-hit responses (e.g. Shadow Collective recirculate) so an empty
+                                            // Reserve at the moment of the hit can still allow activate if the pile is restored.
+                                            subAction.appendEffect(
+                                                    new PassthruEffect(subAction) {
+                                                        @Override
+                                                        protected void doPlayEffect(SwccgGame game) {
+                                                            if (_amountToActivate > 0
+                                                                    && !gameState.getReserveDeck(playerId).isEmpty()
+                                                                    && !modifiersQuerying.isActivatingForceProhibited(gameState, playerId)) {
+                                                                subAction.appendEffect(
+                                                                        new PlayoutDecisionEffect(subAction, playerId,
+                                                                                new YesNoDecision("Do you want to activate " + _amountToActivate + " Force?") {
+                                                                                    @Override
+                                                                                    protected void yes() {
+                                                                                        gameState.sendMessage(playerId + " chooses to activate " + _amountToActivate + " Force");
+                                                                                        subAction.appendEffect(
+                                                                                                new ActivateForceEffect(subAction, playerId, _amountToActivate));
+                                                                                    }
+                                                                                    @Override
+                                                                                    protected void no() {
+                                                                                        gameState.sendMessage(playerId + " chooses to not activate " + _amountToActivate + " Force");
+                                                                                    }
+                                                                                }
+                                                                        )
+                                                                );
+                                                            }
+                                                        }
+                                                    }
+                                            );
                                         }
                                     }
                                 }
