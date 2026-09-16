@@ -68,7 +68,9 @@ public class Card222_001 extends AbstractLostInterrupt {
                                                     new AddUntilEndOfGameModifierEffect(action, new MayDeployToTargetModifier(self, selectedCard, Filters.Grievous), "")
                                             );
                                             action.appendEffect(
-                                                    new AddUntilEndOfGameModifierEffect(action, new MayUseWeaponModifier(self, Filters.Grievous, selectedCard), "Grievous may use " + GameUtils.getCardLink(selectedCard))
+                                                    new AddUntilEndOfGameModifierEffect(action, new MayUseWeaponModifier(self, Filters.Grievous,
+                                                            Filters.and(Filters.samePermanentCardId(selectedCard), Filters.attachedTo(Filters.Grievous))),
+                                                            "Grievous may use " + GameUtils.getCardLink(selectedCard))
                                             );
                                             action.appendEffect(
                                                     new DeployCardToTargetFromLostPileEffect(action, selectedCard, Filters.Grievous, false, false)
