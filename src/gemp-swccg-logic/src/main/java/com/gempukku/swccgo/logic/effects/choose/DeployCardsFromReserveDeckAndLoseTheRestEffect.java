@@ -16,10 +16,8 @@ import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Shared helper for Panic / Emergency Deployment / Go For Help / 3B3-21 / similar cards:
@@ -29,9 +27,9 @@ import java.util.Set;
  * Revealed cards remain in Reserve Deck in the same order. If a response draws destiny (or
  * otherwise moves a revealed card) mid-resolution, that card leaves the revealed set normally;
  * remaining revealed cards stay deployable; leftovers are lost or left on top depending on mode.
- * If remaining revealed cards are shuffled (or otherwise cease to be a consecutive block in
- * original relative order), they are no longer revealed: they stay in Reserve and are not
- * leftover-lost.
+ * If the Reserve is shuffled while cards are revealed, those cards are no longer revealed
+ * (the act of shuffling, even if order happens to stay the same): they stay in Reserve and
+ * are not leftover-lost.
  * <p>
  * Unpiloted ships/vehicles deploy via the normal play-card path, which may pair a pilot/driver
  * from hand (normal cost) but not another revealed Reserve card.
@@ -57,7 +55,7 @@ public class DeployCardsFromReserveDeckAndLoseTheRestEffect extends AbstractSubA
     private final Filter _locationFilter;
     private final boolean _forFree;
     private final LeftoverMode _leftoverMode;
-    private List<Integer> _pileOrderAtReveal;
+    private Integer _shuffleCountAtReveal;
 
     /**
      * Deploy matching revealed cards anywhere (for free by default for Panic-family), then lose the rest.
@@ -110,25 +108,18 @@ public class DeployCardsFromReserveDeckAndLoseTheRestEffect extends AbstractSubA
     }
 
     /**
-     * AR: revealed cards that leave Reserve drop out of the set. A shuffle permutes the original
-     * Reserve order, which ends the reveal: remaining cards stay in Reserve and must not be
-     * offered to deploy or leftover-lost. Detected even when only one revealed card remains.
+     * AR: revealed cards that leave Reserve drop out of the set. The act of shuffling the
+     * Reserve ends the reveal even if remaining cards happen to stay in the same order.
      */
-    private void ensurePileSnapshot(SwccgGame game) {
-        if (_pileOrderAtReveal != null) {
+    private void ensureShuffleSnapshot(SwccgGame game) {
+        if (_shuffleCountAtReveal != null) {
             return;
         }
-        _pileOrderAtReveal = new LinkedList<Integer>();
-        List<PhysicalCard> pile = game.getGameState().getCardPile(_playerId, Zone.RESERVE_DECK);
-        if (pile != null) {
-            for (PhysicalCard card : pile) {
-                _pileOrderAtReveal.add(card.getPermanentCardId());
-            }
-        }
+        _shuffleCountAtReveal = game.getGameState().getCardPileShuffleCount(_playerId, Zone.RESERVE_DECK);
     }
 
     private void dropCardsNoLongerRevealed(SwccgGame game) {
-        ensurePileSnapshot(game);
+        ensureShuffleSnapshot(game);
         List<PhysicalCard> pile = game.getGameState().getCardPile(_playerId, Zone.RESERVE_DECK);
         if (pile == null) {
             _remainingCards.clear();
@@ -144,27 +135,9 @@ public class DeployCardsFromReserveDeckAndLoseTheRestEffect extends AbstractSubA
         if (_remainingCards.isEmpty()) {
             return;
         }
-        if (!originalPileCardsStillInOriginalRelativeOrder(pile)) {
+        if (game.getGameState().getCardPileShuffleCount(_playerId, Zone.RESERVE_DECK) > _shuffleCountAtReveal) {
             _remainingCards.clear();
         }
-    }
-
-    private boolean originalPileCardsStillInOriginalRelativeOrder(List<PhysicalCard> pile) {
-        Set<Integer> originalIds = new HashSet<Integer>(_pileOrderAtReveal);
-        List<Integer> currentOriginals = new LinkedList<Integer>();
-        for (PhysicalCard card : pile) {
-            int id = card.getPermanentCardId();
-            if (originalIds.contains(id)) {
-                currentOriginals.add(id);
-            }
-        }
-        int i = 0;
-        for (Integer id : _pileOrderAtReveal) {
-            if (i < currentOriginals.size() && id.equals(currentOriginals.get(i))) {
-                i++;
-            }
-        }
-        return i == currentOriginals.size();
     }
 
     private Filter currentlyDeployableFilter(SwccgGame game) {
@@ -180,6 +153,7 @@ public class DeployCardsFromReserveDeckAndLoseTheRestEffect extends AbstractSubA
 
     @Override
     protected SubAction getSubAction(SwccgGame game) {
+        ensureShuffleSnapshot(game);
         final SubAction subAction = new SubAction(_action);
         subAction.appendEffect(
                 new PassthruEffect(subAction) {
