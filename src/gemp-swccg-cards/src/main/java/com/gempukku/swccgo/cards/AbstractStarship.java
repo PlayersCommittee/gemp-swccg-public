@@ -647,7 +647,7 @@ public abstract class AbstractStarship extends AbstractDeployable {
         if (Filters.starfighter.accepts(game.getGameState(), game.getModifiersQuerying(), self))
             combinedFilter = Filters.or(combinedFilter, filter7);
 
-        return combinedFilter;
+        return Filters.and(combinedFilter, Filters.destinationDoesNotViolateUniquenessOfCardsAboard(self));
     }
 
     /**

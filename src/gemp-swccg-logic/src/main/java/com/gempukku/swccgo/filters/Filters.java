@@ -13509,6 +13509,26 @@ public class Filters {
     }
 
     /**
+     * Destinations a starship or vehicle may not move to because a card aboard would be prohibited there
+     * (diamond uniqueness per system, etc.).
+     */
+    public static Filter destinationDoesNotViolateUniquenessOfCardsAboard(PhysicalCard carrier) {
+        final Integer permCarrierId = carrier.getPermanentCardId();
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                PhysicalCard carrier = gameState.findCardByPermanentId(permCarrierId);
+                for (PhysicalCard aboard : gameState.getAboardCards(carrier, true)) {
+                    if (modifiersQuerying.isProhibitedFromTarget(gameState, aboard, physicalCard)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        };
+    }
+
+    /**
      * Gets a filter representing the cards that are not prohibited from deploying to the specified target.
      * @param target the target
      * @return the filter
