@@ -312,9 +312,28 @@ public interface Forfeit extends BaseQuery, Attributes, Destiny, Flags, Keywords
         return hasAnyImmunityToAttrition(gameState, card, false, sourceToIgnore, new ModifierCollectorImpl());
     }
 
+    /**
+     * AR: characters aboard an enclosed vehicle are protected by that vehicle's immunity to attrition.
+     */
+    private PhysicalCard getEnclosedVehicleCharacterIsAboard(GameState gameState, PhysicalCard card) {
+        if (card.getBlueprint().getCardCategory() != CardCategory.CHARACTER) {
+            return null;
+        }
+        PhysicalCard attachedTo = card.getAttachedTo();
+        if (attachedTo != null && Filters.enclosed_vehicle.accepts(gameState, query(), attachedTo)) {
+            return attachedTo;
+        }
+        return null;
+    }
+
     private boolean hasAnyImmunityToAttrition(GameState gameState, PhysicalCard card, boolean skipImmunityValueCheck, Filterable sourceToIgnore, ModifierCollector modifierCollector) {
-        if (!card.getBlueprint().hasImmunityToAttritionAttribute())
-            return false;
+        if (!card.getBlueprint().hasImmunityToAttritionAttribute()) {
+            PhysicalCard enclosedVehicle = getEnclosedVehicleCharacterIsAboard(gameState, card);
+            if (enclosedVehicle == null) {
+                return false;
+            }
+            return hasAnyImmunityToAttrition(gameState, enclosedVehicle, skipImmunityValueCheck, sourceToIgnore, modifierCollector);
+        }
 
         boolean mayNotBeCanceled = false;
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.IMMUNITY_TO_ATTRITION_MAY_NOT_BE_CANCELED, card)) {
@@ -397,6 +416,10 @@ public interface Forfeit extends BaseQuery, Attributes, Destiny, Flags, Keywords
             }
         }
 
+        PhysicalCard enclosedVehicle = getEnclosedVehicleCharacterIsAboard(gameState, physicalCard);
+        if (enclosedVehicle != null) {
+            result = Math.max(result, getImmunityToAttritionLessThan(gameState, enclosedVehicle, sourceToIgnore, modifierCollector));
+        }
 
         for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.IMMUNITY_TO_ATTRITION_OF_EXACTLY, physicalCard)) {
             if (sourceToIgnore == null || modifier.getSource(gameState) == null || !Filters.and(sourceToIgnore).accepts(gameState, query(), modifier.getSource(gameState))) {
