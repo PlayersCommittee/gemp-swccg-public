@@ -153,7 +153,7 @@ public class ChooseCardsToLoseFromTableEffect extends AbstractSubActionEffect {
          * @param remainingCards the remaining cards to place in the card pile
          */
         public ChooseNextCardToLose(SubAction subAction, SwccgGame game, Collection<PhysicalCard> remainingCards) {
-            super(subAction, subAction.getPerformingPlayer(), "Choose card to be lost", 1, 1, remainingCards);
+            super(subAction, _performingPlayerId, "Choose card to be lost", 1, 1, remainingCards);
             _subAction = subAction;
             _game = game;
             _remainingCards = remainingCards;
