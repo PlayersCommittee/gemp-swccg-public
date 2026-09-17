@@ -1376,10 +1376,15 @@ public class GameState implements Snapshotable<GameState> {
                 Collection<PhysicalCard> convertedLocations = _locationsLayout.getConvertedLocationsOfTopLocation(card);
                 Integer locationZoneIndexToRemove = card.getLocationZoneIndex();
                 _locationsLayout.removeLocationFromLayout(_game, _game.getModifiersQuerying(), card, false);
-                // Need to show the new top location (if any)
-                for (PhysicalCard convertedLocation : convertedLocations) {
-                    if (convertedLocation.getZone() == Zone.LOCATIONS && !cardsToRemove.contains(convertedLocation)) {
-                        cardsToAdd.add(convertedLocation);
+                // After removing the top location, promote the location that is now top of the stack
+                // (was previously converted underneath). Without this, the stack keeps a void top while
+                // the converted site remains in CONVERTED_LOCATIONS (illegal Objective undo path).
+                if (!convertedLocations.isEmpty()) {
+                    PhysicalCard newTopLocation = convertedLocations.iterator().next();
+                    if (!cardsToRemove.contains(newTopLocation)) {
+                        newTopLocation.setZone(Zone.LOCATIONS);
+                        startAffecting(_game, newTopLocation);
+                        cardsToAdd.add(newTopLocation);
                         locationZoneIndexToRemove = null;
                     }
                 }
