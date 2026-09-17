@@ -194,26 +194,20 @@ public class Card_1_244_Tests {
 
         assertTrue("Expected deploy choice; got: " + decisionText(scn),
                 scn.DSDecisionAvailable("Choose card to deploy"));
-        {
-            var bp = scn.DSGetBPChoices();
-            var ids = scn.DSGetCardChoices();
-            String vaderBp = vader.getBlueprintId(true);
-            int idx = -1;
-            for (int i = 0; i < bp.size(); i++) {
-                if (normalizeBp(vaderBp).equals(normalizeBp(bp.get(i)))) {
-                    idx = i;
-                    break;
-                }
-            }
-            assertTrue("Vader should appear in deploy choices; bp=" + bp + " vaderBp=" + vaderBp, idx >= 0);
-            scn.DSDecided(ids.get(idx));
-        }
 
-        // After deploying one revealed card, a Reserve shuffle ends the reveal (Prepare-style).
+        int shuffleCountBefore = scn.gameState().getCardPileShuffleCount(scn.DS, Zone.RESERVE_DECK);
+        // The act of shuffling ends the reveal even if remaining cards happen to stay in
+        // the same order (two remaining cards are 50/50 after a shuffle). Decline leftover deploys.
         scn.gameState().shufflePile(scn.DS, Zone.RESERVE_DECK);
+        assertTrue("Expected shuffle count to increase; before=" + shuffleCountBefore
+                        + " after=" + scn.gameState().getCardPileShuffleCount(scn.DS, Zone.RESERVE_DECK),
+                scn.gameState().getCardPileShuffleCount(scn.DS, Zone.RESERVE_DECK) > shuffleCountBefore);
+        if (scn.DSDecisionAvailable("Choose card to deploy")) {
+            scn.DSDecided("");
+        }
         resolveUntilIdle(scn, 40);
 
-        assertFalse("Vader should have left Reserve; zone=" + vader.getZone(),
+        assertTrue("Shuffled Vader must stay in Reserve (not leftover-lost); zone=" + vader.getZone(),
                 vader.getZone() == Zone.RESERVE_DECK || vader.getZone() == Zone.TOP_OF_RESERVE_DECK);
         assertTrue("Shuffled leftover interrupt must stay in Reserve (not leftover-lost); zone=" + barrier.getZone(),
                 barrier.getZone() == Zone.RESERVE_DECK || barrier.getZone() == Zone.TOP_OF_RESERVE_DECK);

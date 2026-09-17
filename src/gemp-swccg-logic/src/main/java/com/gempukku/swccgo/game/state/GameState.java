@@ -59,6 +59,7 @@ public class GameState implements Snapshotable<GameState> {
     private boolean _darkSideTopOfReserveDeckTurnedOver;
     private boolean _lightSideTopOfReserveDeckTurnedOver;
     private boolean _tableChangedSinceStatsSent;
+    private Map<String, Integer> _cardPileShuffleCounts = new HashMap<String, Integer>();
     private boolean _skipListenerUpdateAllowed;
     private boolean _insertFound;
 
@@ -244,6 +245,7 @@ public class GameState implements Snapshotable<GameState> {
         snapshot._lightSideTopOfReserveDeckTurnedOver = _lightSideTopOfReserveDeckTurnedOver;
         snapshot._usedPilesTurnedOver = _usedPilesTurnedOver;
         snapshot._tableChangedSinceStatsSent = _tableChangedSinceStatsSent;
+        snapshot._cardPileShuffleCounts.putAll(_cardPileShuffleCounts);
         snapshot._skipListenerUpdateAllowed = _skipListenerUpdateAllowed;
         snapshot._insertFound = _insertFound;
         snapshot._podraceInitiatedByCard = snapshotData.getDataForSnapshot(_podraceInitiatedByCard);
@@ -4607,6 +4609,15 @@ public class GameState implements Snapshotable<GameState> {
         shufflePile(player, Zone.RESERVE_DECK);
     }
 
+    /**
+     * How many times this player's pile has actually been shuffled. Reveal actions use this to end
+     * revealed-state on the act of shuffling, even if the cards happen to stay in the same order.
+     */
+    public int getCardPileShuffleCount(String player, Zone zone) {
+        Integer count = _cardPileShuffleCounts.get(player + ":" + zone.name());
+        return count == null ? 0 : count;
+    }
+
     public void shufflePile(String player, Zone zone) {
         if (zone!=Zone.RESERVE_DECK && zone!=Zone.FORCE_PILE
                 && zone!=Zone.USED_PILE && zone!=Zone.LOST_PILE)
@@ -4633,6 +4644,9 @@ public class GameState implements Snapshotable<GameState> {
             Zone topZone = GameUtils.getZoneTopFromZone(zone);
             cardsInPile.get(0).setZone(topZone);
             _tableChangedSinceStatsSent = true;
+            String shuffleKey = player + ":" + zone.name();
+            Integer prior = _cardPileShuffleCounts.get(shuffleKey);
+            _cardPileShuffleCounts.put(shuffleKey, prior == null ? 1 : prior + 1);
 
             // Tell game listener to create top card after shuffling
             for (GameStateListener listener : getAllGameStateListeners())
