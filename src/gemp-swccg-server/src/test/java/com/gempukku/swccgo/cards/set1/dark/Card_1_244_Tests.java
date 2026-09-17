@@ -159,6 +159,68 @@ public class Card_1_244_Tests {
                 scn.DSAnyDecisionsAvailable() && scn.DSCardPlayAvailable(emergency));
     }
 
+    @Test
+    public void EmergencyDeploymentShuffleOfRevealedCardsEndsRemainingDeploysAndDoesNotLoseThem() {
+        // AR: shuffling a revealed card ends the reveal. Remaining cards stay in Reserve
+        // (not leftover-lost) and must not be offered to deploy.
+        var scn = GetScenario();
+
+        var luke = scn.GetLSCard("luke");
+        var han = scn.GetLSCard("han");
+        var lsCantina = scn.GetLSCard("ls_cantina");
+
+        var emergency = scn.GetDSCard("emergency");
+        var st1 = scn.GetDSCard("st1");
+        var vader = scn.GetDSCard("vader");
+        var barrier = scn.GetDSCard("barrier");
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(emergency);
+        scn.MoveLocationToTable(lsCantina);
+        scn.MoveCardsToLocation(lsCantina, luke, han, st1);
+
+        scn.SkipToLSTurn(Phase.BATTLE);
+        scn.MoveCardsToTopOfOwnReserveDeck(barrier, vader);
+        scn.LSInitiateBattle(lsCantina);
+
+        assertTrue(scn.DSCardPlayAvailable(emergency));
+        scn.DSPlayCard(emergency);
+        scn.PassAllResponses();
+        scn.DSDecided(2);
+        scn.DSPass();
+        if (scn.LSDecisionAvailable("Top card") || scn.LSDecisionAvailable("Reserve Deck")) {
+            scn.LSPass();
+        }
+
+        assertTrue("Expected deploy choice; got: " + decisionText(scn),
+                scn.DSDecisionAvailable("Choose card to deploy"));
+        {
+            var bp = scn.DSGetBPChoices();
+            var ids = scn.DSGetCardChoices();
+            String vaderBp = vader.getBlueprintId(true);
+            int idx = -1;
+            for (int i = 0; i < bp.size(); i++) {
+                if (normalizeBp(vaderBp).equals(normalizeBp(bp.get(i)))) {
+                    idx = i;
+                    break;
+                }
+            }
+            assertTrue("Vader should appear in deploy choices; bp=" + bp + " vaderBp=" + vaderBp, idx >= 0);
+            scn.DSDecided(ids.get(idx));
+        }
+
+        // After deploying one revealed card, a Reserve shuffle ends the reveal (Prepare-style).
+        scn.gameState().shufflePile(scn.DS, Zone.RESERVE_DECK);
+        resolveUntilIdle(scn, 40);
+
+        assertFalse("Vader should have left Reserve; zone=" + vader.getZone(),
+                vader.getZone() == Zone.RESERVE_DECK || vader.getZone() == Zone.TOP_OF_RESERVE_DECK);
+        assertTrue("Shuffled leftover interrupt must stay in Reserve (not leftover-lost); zone=" + barrier.getZone(),
+                barrier.getZone() == Zone.RESERVE_DECK || barrier.getZone() == Zone.TOP_OF_RESERVE_DECK);
+        assertTrue("Emergency Deployment should finish in Used pile; zone=" + emergency.getZone(),
+                emergency.getZone() == Zone.TOP_OF_USED_PILE || emergency.getZone() == Zone.USED_PILE);
+    }
+
 
     private static void resolveUntilIdle(VirtualTableScenario scn, int maxSteps) {
         for (int i = 0; i < maxSteps; i++) {

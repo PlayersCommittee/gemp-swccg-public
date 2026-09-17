@@ -16,8 +16,10 @@ import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Shared helper for Panic / Emergency Deployment / Go For Help / 3B3-21 / similar cards:
@@ -27,6 +29,9 @@ import java.util.List;
  * Revealed cards remain in Reserve Deck in the same order. If a response draws destiny (or
  * otherwise moves a revealed card) mid-resolution, that card leaves the revealed set normally;
  * remaining revealed cards stay deployable; leftovers are lost or left on top depending on mode.
+ * If remaining revealed cards are shuffled (or otherwise cease to be a consecutive block in
+ * original relative order), they are no longer revealed: they stay in Reserve and are not
+ * leftover-lost.
  * <p>
  * Unpiloted ships/vehicles deploy via the normal play-card path, which may pair a pilot/driver
  * from hand (normal cost) but not another revealed Reserve card.
@@ -52,6 +57,7 @@ public class DeployCardsFromReserveDeckAndLoseTheRestEffect extends AbstractSubA
     private final Filter _locationFilter;
     private final boolean _forFree;
     private final LeftoverMode _leftoverMode;
+    private List<Integer> _pileOrderAtReveal;
 
     /**
      * Deploy matching revealed cards anywhere (for free by default for Panic-family), then lose the rest.
@@ -103,7 +109,66 @@ public class DeployCardsFromReserveDeckAndLoseTheRestEffect extends AbstractSubA
         return true;
     }
 
-    private Filter currentlyDeployableFilter() {
+    /**
+     * AR: revealed cards that leave Reserve drop out of the set. A shuffle permutes the original
+     * Reserve order, which ends the reveal: remaining cards stay in Reserve and must not be
+     * offered to deploy or leftover-lost. Detected even when only one revealed card remains.
+     */
+    private void ensurePileSnapshot(SwccgGame game) {
+        if (_pileOrderAtReveal != null) {
+            return;
+        }
+        _pileOrderAtReveal = new LinkedList<Integer>();
+        List<PhysicalCard> pile = game.getGameState().getCardPile(_playerId, Zone.RESERVE_DECK);
+        if (pile != null) {
+            for (PhysicalCard card : pile) {
+                _pileOrderAtReveal.add(card.getPermanentCardId());
+            }
+        }
+    }
+
+    private void dropCardsNoLongerRevealed(SwccgGame game) {
+        ensurePileSnapshot(game);
+        List<PhysicalCard> pile = game.getGameState().getCardPile(_playerId, Zone.RESERVE_DECK);
+        if (pile == null) {
+            _remainingCards.clear();
+            return;
+        }
+        List<PhysicalCard> stillInReserve = new LinkedList<PhysicalCard>();
+        for (PhysicalCard card : _remainingCards) {
+            if (pile.contains(card)) {
+                stillInReserve.add(card);
+            }
+        }
+        _remainingCards.retainAll(stillInReserve);
+        if (_remainingCards.isEmpty()) {
+            return;
+        }
+        if (!originalPileCardsStillInOriginalRelativeOrder(pile)) {
+            _remainingCards.clear();
+        }
+    }
+
+    private boolean originalPileCardsStillInOriginalRelativeOrder(List<PhysicalCard> pile) {
+        Set<Integer> originalIds = new HashSet<Integer>(_pileOrderAtReveal);
+        List<Integer> currentOriginals = new LinkedList<Integer>();
+        for (PhysicalCard card : pile) {
+            int id = card.getPermanentCardId();
+            if (originalIds.contains(id)) {
+                currentOriginals.add(id);
+            }
+        }
+        int i = 0;
+        for (Integer id : _pileOrderAtReveal) {
+            if (i < currentOriginals.size() && id.equals(currentOriginals.get(i))) {
+                i++;
+            }
+        }
+        return i == currentOriginals.size();
+    }
+
+    private Filter currentlyDeployableFilter(SwccgGame game) {
+        dropCardsNoLongerRevealed(game);
         // Only cards still in this player's Reserve Deck remain in the revealed deployable set
         // (a mid-resolution destiny draw / move / lose drops a card out of the set automatically).
         Filter stillInReserve = Filters.and(Filters.in(_remainingCards), Filters.zoneOfPlayer(Zone.RESERVE_DECK, _playerId), _deployableTypesFilter);
@@ -120,9 +185,9 @@ public class DeployCardsFromReserveDeckAndLoseTheRestEffect extends AbstractSubA
                 new PassthruEffect(subAction) {
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
-                        Collection<PhysicalCard> deployableCards = Filters.filter(_remainingCards, game, currentlyDeployableFilter());
+                        Collection<PhysicalCard> deployableCards = Filters.filter(_remainingCards, game, currentlyDeployableFilter(game));
                         if (!deployableCards.isEmpty()) {
-                            subAction.insertEffect(getChooseOneCardToDeployEffect(subAction, deployableCards));
+                            subAction.insertEffect(getChooseOneCardToDeployEffect(subAction, game, deployableCards));
                         }
                     }
                 }
@@ -131,6 +196,7 @@ public class DeployCardsFromReserveDeckAndLoseTheRestEffect extends AbstractSubA
                 new PassthruEffect(subAction) {
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
+                        dropCardsNoLongerRevealed(game);
                         if (_leftoverMode == LeftoverMode.LEAVE_ON_TOP) {
                             // Proper reveal leaves cards in Reserve in original order; nothing to put back.
                             return;
@@ -146,10 +212,10 @@ public class DeployCardsFromReserveDeckAndLoseTheRestEffect extends AbstractSubA
         return subAction;
     }
 
-    private StandardEffect getChooseOneCardToDeployEffect(final SubAction subAction, final Collection<PhysicalCard> deployableCards) {
+    private StandardEffect getChooseOneCardToDeployEffect(final SubAction subAction, final SwccgGame game, final Collection<PhysicalCard> deployableCards) {
         // min 0 => player may stop deploying even when more matching cards remain (remainder handled by leftover mode)
         return new ChooseArbitraryCardsEffect(subAction, _playerId, "Choose card to deploy" + GameUtils.s(1) + " (or none)",
-                _remainingCards, currentlyDeployableFilter(), 0, 1) {
+                _remainingCards, currentlyDeployableFilter(game), 0, 1) {
             @Override
             protected void cardsSelected(SwccgGame game, Collection<PhysicalCard> selectedCards) {
                 if (selectedCards.isEmpty()) {
@@ -159,9 +225,9 @@ public class DeployCardsFromReserveDeckAndLoseTheRestEffect extends AbstractSubA
                 // Mid-resolution destiny/move may have already removed this card from Reserve
                 if (!Filters.zoneOfPlayer(Zone.RESERVE_DECK, _playerId).accepts(game, selectedCard)) {
                     _remainingCards.remove(selectedCard);
-                    Collection<PhysicalCard> more = Filters.filter(_remainingCards, game, currentlyDeployableFilter());
+                    Collection<PhysicalCard> more = Filters.filter(_remainingCards, game, currentlyDeployableFilter(game));
                     if (!more.isEmpty()) {
-                        subAction.insertEffect(getChooseOneCardToDeployEffect(subAction, more));
+                        subAction.insertEffect(getChooseOneCardToDeployEffect(subAction, game, more));
                     }
                     return;
                 }
@@ -172,9 +238,9 @@ public class DeployCardsFromReserveDeckAndLoseTheRestEffect extends AbstractSubA
                             new PassthruEffect(subAction) {
                                 @Override
                                 protected void doPlayEffect(SwccgGame game) {
-                                    Collection<PhysicalCard> more = Filters.filter(_remainingCards, game, currentlyDeployableFilter());
+                                    Collection<PhysicalCard> more = Filters.filter(_remainingCards, game, currentlyDeployableFilter(game));
                                     if (!more.isEmpty()) {
-                                        subAction.insertEffect(getChooseOneCardToDeployEffect(subAction, more));
+                                        subAction.insertEffect(getChooseOneCardToDeployEffect(subAction, game, more));
                                     }
                                 }
                             }
@@ -185,9 +251,9 @@ public class DeployCardsFromReserveDeckAndLoseTheRestEffect extends AbstractSubA
                             new PassthruEffect(subAction) {
                                 @Override
                                 protected void doPlayEffect(SwccgGame game) {
-                                    Collection<PhysicalCard> more = Filters.filter(_remainingCards, game, currentlyDeployableFilter());
+                                    Collection<PhysicalCard> more = Filters.filter(_remainingCards, game, currentlyDeployableFilter(game));
                                     if (!more.isEmpty()) {
-                                        subAction.insertEffect(getChooseOneCardToDeployEffect(subAction, more));
+                                        subAction.insertEffect(getChooseOneCardToDeployEffect(subAction, game, more));
                                     }
                                 }
                             }
