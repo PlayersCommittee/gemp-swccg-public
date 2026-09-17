@@ -72,7 +72,7 @@ public class Card6_157 extends AbstractUsedInterrupt {
                                                         new ReturnCardToHandFromTableEffect(action, finalTarget));
                                                 action.appendEffect(
                                                         new AddUntilEndOfTurnModifierEffect(action,
-                                                                new MayNotDeployModifier(self, Filters.sameTitle(finalTarget), opponent), null));
+                                                                new MayNotDeployModifier(self, Filters.or(Filters.sameTitle(finalTarget), Filters.samePersonaAs(finalTarget)), opponent), null));
                                             }
                                         }
                                 );
