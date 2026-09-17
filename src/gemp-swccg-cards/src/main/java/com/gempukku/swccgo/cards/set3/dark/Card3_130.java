@@ -65,23 +65,36 @@ public class Card3_130 extends AbstractUsedInterrupt {
 
                 final PlayInterruptAction action = new PlayInterruptAction(game, self);
                 action.setText("Cancel targeting");
-                // Allow response(s)
-                action.allowResponses(
-                        new RespondablePlayCardEffect(action) {
+                action.appendTargeting(
+                        new TargetCardOnTableEffect(action, playerId, "Choose droid to protect", Filters.in(cardsTargeted)) {
                             @Override
-                            protected void performActionResults(Action targetingAction) {
-                                // Perform result(s)
-                                action.appendEffect(
-                                        new CancelTargetingEffect(action, respondableEffect));
-                                action.appendEffect(
-                                        new AddUntilEndOfTurnModifierEffect(action,
-                                                new MayNotBeStolenModifier(self, Filters.in(cardsTargeted)), null));
-                                action.appendEffect(
-                                        new AddUntilEndOfTurnModifierEffect(action,
-                                                new MayNotTargetToBeHitModifier(self, Filters.in(cardsTargeted)), null));
-                                action.appendEffect(
-                                        new AddUntilEndOfTurnModifierEffect(action,
-                                                new MayNotTargetToBeLostModifier(self, Filters.in(cardsTargeted)), null));
+                            protected boolean getUseShortcut() {
+                                return true;
+                            }
+
+                            @Override
+                            protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
+                                action.allowResponses("Cancel targeting and protect " + GameUtils.getCardLink(targetedCard),
+                                        new RespondablePlayCardEffect(action) {
+                                            @Override
+                                            protected void performActionResults(Action targetingAction) {
+                                                final PhysicalCard droid = action.getPrimaryTargetCard(targetGroupId);
+                                                action.appendEffect(
+                                                        new CancelTargetingEffect(action, respondableEffect));
+                                                if (droid != null) {
+                                                    action.appendEffect(
+                                                            new AddUntilEndOfTurnModifierEffect(action,
+                                                                    new MayNotBeStolenModifier(self, droid), null));
+                                                    action.appendEffect(
+                                                            new AddUntilEndOfTurnModifierEffect(action,
+                                                                    new MayNotTargetToBeHitModifier(self, droid), null));
+                                                    action.appendEffect(
+                                                            new AddUntilEndOfTurnModifierEffect(action,
+                                                                    new MayNotTargetToBeLostModifier(self, droid), null));
+                                                }
+                                            }
+                                        }
+                                );
                             }
                         }
                 );
