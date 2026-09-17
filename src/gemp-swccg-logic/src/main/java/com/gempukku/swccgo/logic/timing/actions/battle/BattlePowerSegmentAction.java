@@ -105,9 +105,11 @@ public class BattlePowerSegmentAction extends SystemQueueAction {
         protected SubAction getSubAction(SwccgGame game) {
             final GameState gameState = game.getGameState();
             final BattleState battleState = gameState.getBattleState();
-            final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-
             final SubAction subAction = new SubAction(_action, _playerId);
+            if (battleState == null || !battleState.canContinue(game)) {
+                return subAction;
+            }
+            final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
             // Determine how many destinies to power only player must draw
             final int numDraws = modifiersQuerying.getNumDestinyDrawsToTotalPowerOnly(gameState, _playerId, false, false);
@@ -162,9 +164,11 @@ public class BattlePowerSegmentAction extends SystemQueueAction {
         protected SubAction getSubAction(SwccgGame game) {
             final GameState gameState = game.getGameState();
             final BattleState battleState = gameState.getBattleState();
-            final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-
             final SubAction subAction = new SubAction(_action, _playerId);
+            if (battleState == null || !battleState.canContinue(game)) {
+                return subAction;
+            }
+            final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
             // Determine how many battle destinies player can draw
             final int numDraws = modifiersQuerying.getNumBattleDestinyDraws(gameState, _playerId, false, false);
@@ -241,9 +245,11 @@ public class BattlePowerSegmentAction extends SystemQueueAction {
         protected SubAction getSubAction(SwccgGame game) {
             final GameState gameState = game.getGameState();
             final BattleState battleState = gameState.getBattleState();
-            final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-
             final SubAction subAction = new SubAction(_action, _playerId);
+            if (battleState == null || !battleState.canContinue(game)) {
+                return subAction;
+            }
+            final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
             // Determine how many destinies to attrition only player must draw
             int numDraws = modifiersQuerying.getNumDestinyDrawsToAttritionOnly(gameState, _playerId, false, false);
@@ -293,8 +299,11 @@ public class BattlePowerSegmentAction extends SystemQueueAction {
 
         @Override
         protected void doPlayEffect(final SwccgGame game) {
-            // Determine the initial value of attrition for each player
             BattleState battleState = game.getGameState().getBattleState();
+            if (battleState == null || !battleState.canContinue(game)) {
+                return;
+            }
+            // Determine the initial value of attrition for each player
             battleState.increaseBaseAttrition(game.getDarkPlayer(), battleState.getTotalBattleDestiny(game, game.getLightPlayer()));
             battleState.increaseBaseAttrition(game.getLightPlayer(), battleState.getTotalBattleDestiny(game, game.getDarkPlayer()));
             battleState.baseAttritionCalculated();
