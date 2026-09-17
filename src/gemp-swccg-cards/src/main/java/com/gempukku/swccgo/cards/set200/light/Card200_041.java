@@ -68,18 +68,17 @@ public class Card200_041 extends AbstractNormalEffect {
                 characterNamesAlreadyUsed = new HashSet<String>();
             }
             PhysicalCard cardDeployed = ((PlayCardResult) effectResult).getPlayedCard();
-            boolean isActive = Filters.canSpot(game, self, cardDeployed);
             final Set<String> characterNamesToUse = new HashSet<String>();
-            if (isActive && Filters.Chewie.accepts(game, cardDeployed) && !characterNamesAlreadyUsed.contains("Chewie")) {
+            if (Filters.Chewie.accepts(game, cardDeployed) && !characterNamesAlreadyUsed.contains("Chewie")) {
                 characterNamesToUse.add("Chewie");
             }
-            if (isActive && Filters.Lando.accepts(game, cardDeployed) && !characterNamesAlreadyUsed.contains("Lando")) {
+            if (Filters.Lando.accepts(game, cardDeployed) && !characterNamesAlreadyUsed.contains("Lando")) {
                 characterNamesToUse.add("Lando");
             }
-            if (isActive && Filters.Leia.accepts(game, cardDeployed) && !characterNamesAlreadyUsed.contains("Leia")) {
+            if (Filters.Leia.accepts(game, cardDeployed) && !characterNamesAlreadyUsed.contains("Leia")) {
                 characterNamesToUse.add("Leia");
             }
-            if (isActive && Filters.Luke.accepts(game, cardDeployed) && !characterNamesAlreadyUsed.contains("Luke")) {
+            if (Filters.Luke.accepts(game, cardDeployed) && !characterNamesAlreadyUsed.contains("Luke")) {
                 characterNamesToUse.add("Luke");
             }
             if (!characterNamesToUse.isEmpty()) {
