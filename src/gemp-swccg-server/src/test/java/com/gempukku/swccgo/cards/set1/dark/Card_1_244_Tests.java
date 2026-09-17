@@ -194,24 +194,42 @@ public class Card_1_244_Tests {
 
         assertTrue("Expected deploy choice; got: " + decisionText(scn),
                 scn.DSDecisionAvailable("Choose card to deploy"));
-
-        int shuffleCountBefore = scn.gameState().getCardPileShuffleCount(scn.DS, Zone.RESERVE_DECK);
+        assertTrue("Revealed Vader should still be marked revealed before shuffle",
+                scn.game().getGameState().isCardRevealedFromPile(vader));
+        assertTrue("Revealed Barrier should still be marked revealed before shuffle",
+                scn.game().getGameState().isCardRevealedFromPile(barrier));
+        int shuffleCountBefore = scn.game().getGameState().getCardPileShuffleCount(scn.DS, Zone.RESERVE_DECK);
         // The act of shuffling ends the reveal even if remaining cards happen to stay in
-        // the same order (two remaining cards are 50/50 after a shuffle). Decline leftover deploys.
-        scn.gameState().shufflePile(scn.DS, Zone.RESERVE_DECK);
+        // the same order. Decline leftover deploys after the shuffle.
+        scn.game().getGameState().shufflePile(scn.DS, Zone.RESERVE_DECK);
         assertTrue("Expected shuffle count to increase; before=" + shuffleCountBefore
-                        + " after=" + scn.gameState().getCardPileShuffleCount(scn.DS, Zone.RESERVE_DECK),
-                scn.gameState().getCardPileShuffleCount(scn.DS, Zone.RESERVE_DECK) > shuffleCountBefore);
+                        + " after=" + scn.game().getGameState().getCardPileShuffleCount(scn.DS, Zone.RESERVE_DECK),
+                scn.game().getGameState().getCardPileShuffleCount(scn.DS, Zone.RESERVE_DECK) > shuffleCountBefore);
+        assertFalse("Shuffle must end Vader revealed-state",
+                scn.game().getGameState().isCardRevealedFromPile(vader));
+        assertFalse("Shuffle must end Barrier revealed-state",
+                scn.game().getGameState().isCardRevealedFromPile(barrier));
         if (scn.DSDecisionAvailable("Choose card to deploy")) {
             scn.DSDecided("");
         }
-        resolveUntilIdle(scn, 40);
+        // Pass only optional responses so ED can finish. Do not play out the rest of the
+        // battle — Force loss from Reserve would take these cards for an unrelated reason.
+        for (int i = 0; i < 10; i++) {
+            if (scn.DSDecisionAvailable("optional response")) {
+                scn.DSPass();
+            } else if (scn.LSDecisionAvailable("optional response")) {
+                scn.LSPass();
+            } else {
+                break;
+            }
+        }
 
         assertTrue("Shuffled Vader must stay in Reserve (not leftover-lost); zone=" + vader.getZone(),
                 vader.getZone() == Zone.RESERVE_DECK || vader.getZone() == Zone.TOP_OF_RESERVE_DECK);
         assertTrue("Shuffled leftover interrupt must stay in Reserve (not leftover-lost); zone=" + barrier.getZone(),
                 barrier.getZone() == Zone.RESERVE_DECK || barrier.getZone() == Zone.TOP_OF_RESERVE_DECK);
-        assertTrue("Emergency Deployment should finish in Used pile; zone=" + emergency.getZone(),
+        assertTrue("Emergency Deployment should finish in Used pile; zone=" + emergency.getZone()
+                        + " lastDecision=" + decisionText(scn),
                 emergency.getZone() == Zone.TOP_OF_USED_PILE || emergency.getZone() == Zone.USED_PILE);
     }
 
