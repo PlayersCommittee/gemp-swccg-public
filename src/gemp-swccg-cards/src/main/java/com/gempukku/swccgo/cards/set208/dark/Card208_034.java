@@ -5,6 +5,7 @@ import com.gempukku.swccgo.cards.AbstractSith;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.ArmedWithCondition;
 import com.gempukku.swccgo.cards.effects.AddToForceDrainEffect;
+import com.gempukku.swccgo.cards.effects.UseWeaponEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
@@ -18,6 +19,7 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
@@ -59,14 +61,17 @@ public class Card208_034 extends AbstractSith {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
+        SwccgBuiltInCardBlueprint permanentWeapon = self.getBlueprint().getPermanentWeapon(self);
         if (TriggerConditions.forceDrainInitiatedBy(game, effectResult, playerId, Filters.wherePresent(self))
                 && GameConditions.isArmedWith(game, self, Filters.Mauls_Lightsaber)
-                && GameConditions.canUseWeapon(game, self, self)
+                && GameConditions.canUseWeapon(game, self, permanentWeapon)
                 && GameConditions.isPresent(game, self)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Add 1 to Force drain");
             // Perform result(s)
+            action.appendEffect(
+                    new UseWeaponEffect(action, self, permanentWeapon));
             action.appendEffect(
                     new AddToForceDrainEffect(action, 1));
             return Collections.singletonList(action);
