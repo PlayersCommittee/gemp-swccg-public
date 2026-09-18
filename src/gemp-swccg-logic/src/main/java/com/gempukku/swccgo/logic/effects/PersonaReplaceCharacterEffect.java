@@ -9,6 +9,7 @@ import com.gempukku.swccgo.logic.actions.SubAction;
 import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.results.AboutToPersonaReplaceCharacterResult;
 import com.gempukku.swccgo.logic.timing.results.PersonaReplacedCharacterResult;
 
 import java.util.Collection;
@@ -52,13 +53,15 @@ public class PersonaReplaceCharacterEffect extends AbstractSubActionEffect {
 
                         Collection<PhysicalCard> cardsToPlaceInLostPile = gameState.replaceCharacterOnTable(_oldCharacter, _newCharacter);
                         gameState.sendMessage(performingPlayerId + " persona replaces " + GameUtils.getCardLink(_oldCharacter) + " with " + GameUtils.getCardLink(_newCharacter) + (!wasUndercover && _newCharacter.isUndercover() ? " as 'undercover'" : ""));
-                        // Retrieve (See-Threepio) must resolve while the replaced persona is still in Void, not Lost Pile.
+                        // "When replacing" fires before Lost Pile. "Just persona replaced" stays after Lost Pile.
                         subAction.appendEffect(
-                                new TriggeringResultEffect(subAction, new PersonaReplacedCharacterResult(performingPlayerId, _oldCharacter, _newCharacter)));
+                                new TriggeringResultEffect(subAction, new AboutToPersonaReplaceCharacterResult(performingPlayerId, _oldCharacter, _newCharacter)));
                         if (!cardsToPlaceInLostPile.isEmpty()) {
                             subAction.appendEffect(
                                     new PutCardsInCardPileEffect(subAction, game, cardsToPlaceInLostPile, Zone.LOST_PILE));
                         }
+                        subAction.appendEffect(
+                                new TriggeringResultEffect(subAction, new PersonaReplacedCharacterResult(performingPlayerId, _oldCharacter, _newCharacter)));
                     }
                 }
         );
