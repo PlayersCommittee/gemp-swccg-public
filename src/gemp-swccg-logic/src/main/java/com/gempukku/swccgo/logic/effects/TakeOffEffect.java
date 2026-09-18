@@ -56,7 +56,7 @@ public class TakeOffEffect extends AbstractSubActionEffect implements MovingAsRe
 
     @Override
     public Type getType() {
-        return null;
+        return _asReact ? Type.TAKING_OFF_AS_REACT : null;
     }
 
     @Override

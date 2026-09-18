@@ -81,7 +81,7 @@ public class MoveStarshipUsingHyperspeedEffect extends AbstractSubActionEffect i
 
     @Override
     public Effect.Type getType() {
-        return null;
+        return _asReact ? Type.MOVING_AS_REACT_USING_HYPERSPEED : null;
     }
 
     @Override

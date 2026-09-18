@@ -54,7 +54,7 @@ public class EnterStarshipOrVehicleSiteEffect extends AbstractSubActionEffect im
 
     @Override
     public Type getType() {
-        return null;
+        return _asReact ? Type.ENTERING_STARSHIP_VEHICLE_SITE_AS_REACT : null;
     }
 
     @Override
