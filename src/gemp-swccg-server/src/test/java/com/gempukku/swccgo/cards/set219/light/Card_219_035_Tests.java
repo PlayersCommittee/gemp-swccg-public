@@ -113,7 +113,9 @@ public class Card_219_035_Tests {
         if (scn.AwaitingDSBattleDamagePayment()) {
             scn.DSPayRemainingBattleDamageFromReserveDeck();
         }
-        scn.PassAllResponses();
+        if (scn.GetCurrentDecision() != null) {
+            scn.PassAllResponses();
+        }
 
         assertFalse("Need 2 in Reserve to offer return-to-hand to activate 2",
                 scn.LSCardActionAvailable(fenn, "Activate"));
