@@ -27,10 +27,28 @@ public class Card_213_033_Tests {
         return new VirtualTableScenario(
                 new HashMap<>() {{
                     put("pao", "214_17");
+                    put("scarif", "209_23");
+                    put("beach", "209_24");
+                    put("vault", "209_25");
+                    put("lightmaker", "209_30");
+                    put("sefla", "209_13");
+                    put("tantive", "201_19");
+                    put("bodhi", "206_1");
                 }},
                 new HashMap<>() {{
                     put("blaster", "213_033");
                     put("vigo", "10_053");
+                    put("qira", "217_19");
+                    put("zuckuss", "110_12");
+                    put("chokk", "12_99");
+                    put("balatik", "209_33");
+                    put("fourlom", "109_6");
+                    put("zam", "204_46");
+                    put("cdb", "213_34");
+                    put("firststrike", "7_229");
+                    put("secretplans", "13_86");
+                    put("reception", "213_27");
+                    put("hoth", "3_144");
                 }},
                 10,
                 10,
@@ -118,5 +136,105 @@ public class Card_213_033_Tests {
         assertNotNull(scn.GetCurrentDecision());
         assertFalse(pao.isHit());
         assertTrue(scn.DSCanInitiateBattle(site) || scn.AwaitingDSBattlePhaseActions() || scn.IsActiveBattle());
+    }
+
+    /**
+     * Replay CoffeePass$s81mh1lzr9v1gt2k last battle: Lightmaker vs loaded Zuckuss at Scarif,
+     * fat table still in play (Beach, Data Vault, First Light, Hoth, First Strike, Secret Plans).
+     * That is the "revert last battle" window. Layout is cheated; the battle and revert are played.
+     */
+    @Test
+    public void LastScarifBattleRevertDoesNotCrash() {
+        var scn = GetScenario();
+
+        var scarif = scn.GetLSCard("scarif");
+        var beach = scn.GetLSCard("beach");
+        var vault = scn.GetLSCard("vault");
+        var lightmaker = scn.GetLSCard("lightmaker");
+        var sefla = scn.GetLSCard("sefla");
+        var tantive = scn.GetLSCard("tantive");
+        var pao = scn.GetLSCard("pao");
+        var bodhi = scn.GetLSCard("bodhi");
+
+        var zuckuss = scn.GetDSCard("zuckuss");
+        var chokk = scn.GetDSCard("chokk");
+        var balatik = scn.GetDSCard("balatik");
+        var fourlom = scn.GetDSCard("fourlom");
+        var qira = scn.GetDSCard("qira");
+        var blaster = scn.GetDSCard("blaster");
+        var zam = scn.GetDSCard("zam");
+        var cdb = scn.GetDSCard("cdb");
+        var firststrike = scn.GetDSCard("firststrike");
+        var secretplans = scn.GetDSCard("secretplans");
+        var reception = scn.GetDSCard("reception");
+        var hoth = scn.GetDSCard("hoth");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(scarif);
+        scn.MoveLocationToTable(beach);
+        scn.MoveLocationToTable(vault);
+        scn.MoveLocationToTable(reception);
+        scn.MoveLocationToTable(hoth);
+
+        scn.MoveCardsToLocation(scarif, lightmaker, zuckuss, tantive);
+        scn.BoardAsPilot(zuckuss, balatik);
+        scn.BoardAsPassenger(zuckuss, chokk, fourlom);
+        scn.BoardAsPassenger(tantive, sefla);
+        scn.MoveCardsToLocation(beach, pao, bodhi, qira);
+        scn.AttachCardsTo(qira, blaster);
+        scn.MoveCardsToLocation(reception, zam);
+        scn.AttachCardsTo(zam, cdb);
+        scn.MoveCardsToLocation(hoth, scn.GetDSFiller(1));
+        scn.MoveCardsToLocation(vault, scn.GetDSFiller(2));
+        scn.MoveCardsToDSSideOfTable(firststrike, secretplans);
+
+        scn.SkipToLSTurn(Phase.BATTLE);
+        assertTrue(scn.LSCanInitiateBattle(scarif));
+        scn.LSInitiateBattle(scarif);
+
+        revertFromFirstEligiblePrompt(scn);
+
+        scarif = scn.GetPostRevertCard(scarif);
+        lightmaker = scn.GetPostRevertCard(lightmaker);
+        zuckuss = scn.GetPostRevertCard(zuckuss);
+        assertNotNull(scn.GetCurrentDecision());
+        assertTrue(scn.LSCanInitiateBattle(scarif) || scn.AwaitingLSBattlePhaseActions() || scn.IsActiveBattle());
+    }
+
+    private void revertFromFirstEligiblePrompt(VirtualTableScenario scn) {
+        for (int i = 0; i < 30; ++i) {
+            if (scn.AwaitingDSForceLossPayment()) {
+                scn.DSPayRemainingForceLossFromReserveDeck();
+                continue;
+            }
+            if (scn.AwaitingLSForceLossPayment()) {
+                scn.LSPayRemainingForceLossFromReserveDeck();
+                continue;
+            }
+            if (hasRevert(scn.LSGetDecision()) || hasRevert(scn.DSGetDecision())) {
+                scn.IssueRevert("Start of Light Side Player's battle phase #1");
+                return;
+            }
+            var decision = scn.GetCurrentDecision();
+            if (decision != null && decision.getText() != null
+                    && decision.getText().toLowerCase().contains("optional")) {
+                scn.PassResponses("optional");
+                continue;
+            }
+            break;
+        }
+        var ls = scn.LSGetDecision();
+        var ds = scn.DSGetDecision();
+        throw new AssertionError("No revert-eligible prompt. LS="
+                + (ls == null ? "null" : ls.getText())
+                + " DS=" + (ds == null ? "null" : ds.getText()));
+    }
+
+    private boolean hasRevert(com.gempukku.swccgo.logic.decisions.AwaitingDecision decision) {
+        if (decision == null) {
+            return false;
+        }
+        var revertEligible = decision.getDecisionParameters().get("revertEligible");
+        return revertEligible != null && revertEligible.length > 0 && "true".equals(revertEligible[0]);
     }
 }
