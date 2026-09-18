@@ -5,9 +5,11 @@ import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import org.junit.Test;
@@ -117,5 +119,45 @@ public class Card_3_066_Tests {
         assertEquals(6, scn.game().getModifiersQuerying().getImmunityToAttritionLessThan(scn.gameState(), rogue1), scn.epsilon);
         assertEquals("Enclosed passenger shares Echo Base Garrison matching-pilot immunity < 6",
                 6, scn.game().getModifiersQuerying().getImmunityToAttritionLessThan(scn.gameState(), trooper), scn.epsilon);
+    }
+
+    @Test
+    public void Rogue1WithEchoBaseGarrisonIsNotForcedToForfeitAttrition1() {
+        var scn = GetScenario();
+        var rogue1 = scn.GetLSCard("rogue1");
+        var luke = scn.GetLSCard("luke");
+        var ebg = scn.GetLSCard("ebg");
+        var vader = scn.GetDSCard("vader");
+        var site = scn.GetLSStartingLocation();
+
+        scn.StartGame();
+        scn.MoveCardsToLSSideOfTable(ebg);
+        scn.MoveCardsToLocation(site, rogue1, vader);
+        scn.BoardAsPilot(rogue1, luke);
+
+        assertEquals("Rogue 1 with matching Luke and Echo Base Garrison is immune < 6",
+                6, scn.game().getModifiersQuerying().getImmunityToAttritionLessThan(scn.gameState(), rogue1), scn.epsilon);
+
+        scn.SkipToLSTurn(Phase.BATTLE);
+        scn.PrepareLSDestiny(1);
+        scn.PrepareDSDestiny(1);
+        assertTrue(scn.LSCanInitiateBattle(site));
+        scn.LSInitiateBattle(site);
+        scn.SkipToDamageSegment(true);
+
+        if (scn.AwaitingLSBattleDamagePayment() && scn.GetLSReserveDeckCount() > 0) {
+            scn.LSChooseCard(scn.GetTopOfLSReserveDeck());
+            scn.PassAllResponses();
+        }
+        if (scn.GetUnpaidLSAttrition() >= 1 && scn.AwaitingLSAttritionPayment()) {
+            var decision = scn.LSGetDecision();
+            String text = decision == null ? "" : decision.getText();
+            assertTrue("Remaining attrition against immune Rogue 1 is optional, not required. decision=" + text,
+                    text.toLowerCase().contains("if desired"));
+            scn.LSPass();
+            scn.PassAllResponses();
+        }
+        assertEquals(Zone.AT_LOCATION, rogue1.getZone());
+        assertTrue(luke.getZone() == Zone.ATTACHED || luke.getZone() == Zone.AT_LOCATION);
     }
 }
