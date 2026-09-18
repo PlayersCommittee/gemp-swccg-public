@@ -14,6 +14,7 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
@@ -21,8 +22,10 @@ import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromLostPileEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromLostPileEffect;
+import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.modifiers.MayDeployToTargetModifier;
 import com.gempukku.swccgo.logic.modifiers.MayUseWeaponModifier;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -68,12 +71,32 @@ public class Card222_001 extends AbstractLostInterrupt {
                                                     new AddUntilEndOfGameModifierEffect(action, new MayDeployToTargetModifier(self, selectedCard, Filters.Grievous), "")
                                             );
                                             action.appendEffect(
-                                                    new AddUntilEndOfGameModifierEffect(action, new MayUseWeaponModifier(self, Filters.Grievous,
-                                                            Filters.and(Filters.samePermanentCardId(selectedCard), Filters.attachedTo(Filters.Grievous))),
-                                                            "Grievous may use " + GameUtils.getCardLink(selectedCard))
+                                                    new DeployCardToTargetFromLostPileEffect(action, selectedCard, Filters.Grievous, false, false)
                                             );
                                             action.appendEffect(
-                                                    new DeployCardToTargetFromLostPileEffect(action, selectedCard, Filters.Grievous, false, false)
+                                                    new AddUntilEndOfGameModifierEffect(action, new MayUseWeaponModifier(self, Filters.Grievous,
+                                                            new Condition() {
+                                                                private boolean _everCarrying;
+                                                                private boolean _ended;
+                                                                @Override
+                                                                public boolean isFulfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                                                                    if (_ended) {
+                                                                        return false;
+                                                                    }
+                                                                    boolean carrying = Filters.attachedTo(Filters.Grievous).accepts(gameState, modifiersQuerying, selectedCard);
+                                                                    if (carrying) {
+                                                                        _everCarrying = true;
+                                                                        return true;
+                                                                    }
+                                                                    if (_everCarrying) {
+                                                                        _ended = true;
+                                                                        return false;
+                                                                    }
+                                                                    return true;
+                                                                }
+                                                            },
+                                                            Filters.samePermanentCardId(selectedCard)),
+                                                            "Grievous may use " + GameUtils.getCardLink(selectedCard) + " until he is no longer carrying it")
                                             );
                                         }
                                     }
