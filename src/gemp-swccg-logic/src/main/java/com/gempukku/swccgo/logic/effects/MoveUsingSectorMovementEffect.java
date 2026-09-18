@@ -86,7 +86,7 @@ public class MoveUsingSectorMovementEffect extends AbstractSubActionEffect imple
 
     @Override
     public Type getType() {
-        return _asReact ? Type.MOVING_AS_REACT_USING_SECTOR_MOVEMENT : null;
+        return null;
     }
 
     @Override

@@ -56,7 +56,7 @@ public class LandEffect extends AbstractSubActionEffect implements MovingAsReact
 
     @Override
     public Type getType() {
-        return _asReact ? Type.LANDING_AS_REACT : null;
+        return null;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class LandEffect extends AbstractSubActionEffect implements MovingAsReact
                 && (!isAsReact() || gameState.getMoveAsReactState().canContinue())) {
 
             if (!_asUnlimitedMove
-                    && !modifiersQuerying.landsAsUnlimitedMove(gameState, _cardMoved, _movedTo)){
+                    && !modifiersQuerying.landsAsUnlimitedMove(gameState, _cardMoved)){
                 subAction.appendEffect(
                         new PassthruEffect(subAction) {
                             @Override
