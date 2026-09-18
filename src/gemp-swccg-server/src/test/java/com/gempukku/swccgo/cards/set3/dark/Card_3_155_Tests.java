@@ -114,7 +114,7 @@ public class Card_3_155_Tests {
     }
 
     @Test
-    public void PunishingOnePassengerCanBeForfeitedInSpaceBattle() {
+    public void PunishingOneKeepsImmunityWhilePassengerCanBeForfeitedToAttrition() {
         var scn = GetScenario();
         var punishingOne = scn.GetDSCard("punishingOne");
         var dengar = scn.GetDSCard("dengar");
@@ -129,20 +129,30 @@ public class Card_3_155_Tests {
         scn.BoardAsPilot(punishingOne, dengar);
         scn.BoardAsPassenger(punishingOne, trooper);
 
-        scn.SkipToLSTurn(Phase.BATTLE);
+        assertEquals("Punishing One with Dengar piloting is immune < 3 even with a passenger aboard",
+                3, scn.game().getModifiersQuerying().getImmunityToAttritionLessThan(scn.gameState(), punishingOne), scn.epsilon);
+
+        scn.SkipToDSTurn(Phase.BATTLE);
         scn.PrepareLSDestiny(1);
         scn.PrepareDSDestiny(1);
-        assertTrue("Light should be able to initiate at Dantooine", scn.LSCanInitiateBattle(system));
-        scn.LSInitiateBattle(system);
+        assertTrue("Dark should be able to initiate at Dantooine", scn.DSCanInitiateBattle(system));
+        scn.DSInitiateBattle(system);
         scn.SkipToDamageSegment(true);
 
-        assertTrue("Dark should owe attrition or battle damage so a forfeit choice is posted; unpaid attrition="
+        assertEquals("Punishing One remains immune < 3 during the damage segment",
+                3, scn.game().getModifiersQuerying().getImmunityToAttritionLessThan(scn.gameState(), punishingOne), scn.epsilon);
+        assertTrue("Dark should owe attrition or battle damage; unpaid attrition="
                         + scn.GetUnpaidDSAttrition() + " unpaid battle damage=" + scn.GetUnpaidDSBattleDamage(),
                 scn.GetUnpaidDSAttrition() >= 1 || scn.GetUnpaidDSBattleDamage() >= 1);
-        assertTrue("Characters aboard a starship can be forfeited in a space battle",
+        assertTrue("Dark should be choosing a forfeit",
+                scn.AwaitingDSAttritionPayment() || scn.AwaitingDSBattleDamagePayment());
+        assertTrue("A Stormtrooper passenger aboard a starship can be forfeited",
                 scn.DSHasCardChoiceAvailable(trooper));
         scn.DSChooseCard(trooper);
         scn.PassAllResponses();
         assertInZone(Zone.LOST_PILE, trooper);
+        assertEquals(Zone.AT_LOCATION, punishingOne.getZone());
+        assertEquals("Punishing One is still immune < 3 after the passenger is forfeited",
+                3, scn.game().getModifiersQuerying().getImmunityToAttritionLessThan(scn.gameState(), punishingOne), scn.epsilon);
     }
 }
