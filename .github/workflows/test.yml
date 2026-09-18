@@ -4,13 +4,13 @@ on:
   push:
     branches:
       - master
-      - main
 
-  pull_request:
-    types:
-      - opened
-      - edited
-      - synchronize
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: Pull request number to test
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -20,6 +20,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          ref: >-
+            ${{ github.event_name == 'workflow_dispatch'
+                && format('refs/pull/{0}/merge', inputs.pr_number)
+                || github.sha }}
 
       - name: Set up Java 21
         uses: actions/setup-java@v6
