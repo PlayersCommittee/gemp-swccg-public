@@ -154,10 +154,16 @@ public class HallServer extends AbstractServer {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-        _chatServer.setGameHallKeepAlive(this::isPlayerInRunningGame);
+        _chatServer.setGameHallKeepAlive(this::isConnectedToRunningGame);
     }
 
-    private boolean isPlayerInRunningGame(String playerId) {
+    /**
+     * Keep Game Hall presence only while a game client is still polling.
+     * Seat at a running table is not enough: a closed Epic Duel client, or a
+     * paused game after the 5-minute channel drop, must leave the lobby list.
+     * Rejoin creates a new game channel and presence returns.
+     */
+    private boolean isConnectedToRunningGame(String playerId) {
         _hallDataAccessLock.readLock().lock();
         try {
             for (RunningTable table : _runningTables.values()) {
@@ -165,10 +171,8 @@ public class HallServer extends AbstractServer {
                 if (mediator == null || mediator.isDestroyed()) {
                     continue;
                 }
-                for (SwccgGameParticipant participant : mediator.getPlayersPlaying()) {
-                    if (playerId.equals(participant.getPlayerId())) {
-                        return true;
-                    }
+                if (mediator.hasLiveClientConnection(playerId)) {
+                    return true;
                 }
             }
             return false;

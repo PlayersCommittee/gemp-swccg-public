@@ -17,5 +17,9 @@ public class ChatRoomMediatorCleanupTests {
 
         assertTrue(room.getUsersInRoom().contains("alice"));
         assertFalse(room.getUsersInRoom().contains("bob"));
+
+        room.cleanup(playerId -> false);
+        assertFalse("Idle players drop once they no longer have a live game connection",
+                room.getUsersInRoom().contains("alice"));
     }
 }
