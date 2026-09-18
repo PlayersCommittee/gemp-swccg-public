@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.logic.timing.actions.battle;
 
+import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -313,8 +314,17 @@ public class BattleDamageSegmentAction extends SystemQueueAction {
                             else if (!cardsThatMayBeForfeited.isEmpty()
                                     && attritionRemaining > 0 && !attritionCanBeIgnored) {
 
-                                // Add cards that may be forfeited
-                                selectableCards.addAll(cardsThatMayBeForfeited);
+                                float totalAttrition = battleState.getAttritionTotal(game, _playerId);
+                                for (PhysicalCard card : cardsThatMayBeForfeited) {
+                                    // AR: characters aboard an enclosed vehicle are protected by that vehicle's immunity.
+                                    if (card.getBlueprint().getCardCategory() == CardCategory.CHARACTER
+                                            && card.getAttachedTo() != null
+                                            && Filters.enclosed_vehicle.accepts(gameState, modifiersQuerying, card.getAttachedTo())
+                                            && modifiersQuerying.getImmunityToAttritionLessThan(gameState, card) > totalAttrition) {
+                                        continue;
+                                    }
+                                    selectableCards.add(card);
+                                }
 
                                 // Set text and send message
                                 _text = "Choose a card from battle to forfeit";

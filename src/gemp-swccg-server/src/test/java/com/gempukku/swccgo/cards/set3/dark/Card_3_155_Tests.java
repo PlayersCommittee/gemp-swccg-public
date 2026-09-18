@@ -76,28 +76,20 @@ public class Card_3_155_Tests {
         scn.MoveCardsToLocation(site, blizzard2, luke, leia, lsTrooper, siteTrooper, siteTrooper2);
         scn.BoardAsPassenger(blizzard2, trooper);
 
-        scn.SkipToLSTurn(Phase.BATTLE);
+        scn.SkipToDSTurn(Phase.BATTLE);
         scn.PrepareLSDestiny(1);
         scn.PrepareDSDestiny(1);
-        assertTrue("Light should be able to initiate at Marketplace", scn.LSCanInitiateBattle(site));
-        scn.LSInitiateBattle(site);
+        assertTrue("Dark should be able to initiate at Marketplace", scn.DSCanInitiateBattle(site));
+        scn.DSInitiateBattle(site);
         scn.SkipToDamageSegment(true);
 
         assertTrue("Dark should owe attrition; unpaid=" + scn.GetUnpaidDSAttrition(),
                 scn.GetUnpaidDSAttrition() >= 1);
-        for (int i = 0; i < 20; i++) {
-            if (!scn.AwaitingDSAttritionPayment() && !scn.AwaitingDSBattleDamagePayment()) {
-                break;
-            }
-            assertFalse("Stormtrooper aboard immune Blizzard 2 must not be forfeited to attrition 1",
-                    scn.DSHasCardChoiceAvailable(trooper));
-            if (scn.GetDSReserveDeckCount() > 0) {
-                scn.DSChooseCard(scn.GetTopOfDSReserveDeck());
-                scn.PassAllResponses();
-            } else {
-                break;
-            }
-        }
+        assertEquals("Battle damage must be 0 so this is an attrition forfeit, not a battle-damage forfeit",
+                0, scn.GetUnpaidDSBattleDamage());
+        assertTrue("Dark should be choosing a forfeit", scn.AwaitingDSAttritionPayment());
+        assertFalse("Stormtrooper aboard immune Blizzard 2 must not be forfeited to attrition 1",
+                scn.DSHasCardChoiceAvailable(trooper));
         assertTrue(trooper.getZone() == Zone.ATTACHED || trooper.getZone() == Zone.AT_LOCATION);
         assertEquals(Zone.AT_LOCATION, blizzard2.getZone());
     }
