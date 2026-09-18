@@ -61,19 +61,15 @@ public class Card_3_155_Tests {
     }
 
     @Test
-    public void Blizzard2PassengerIsNotForfeitedToAttrition1() {
+    public void Blizzard2PassengerRemainsOptionalForfeitWhenVehicleImmune() {
         var scn = GetScenario();
         var blizzard2 = scn.GetDSCard("blizzard2");
         var trooper = scn.GetDSCard("trooper");
         var luke = scn.GetLSCard("luke");
-        var leia = scn.GetLSCard("leia");
-        var lsTrooper = scn.GetLSCard("lsTrooper");
-        var siteTrooper = scn.GetDSCard("siteTrooper");
-        var siteTrooper2 = scn.GetDSCard("siteTrooper2");
         var site = scn.GetDSStartingLocation();
 
         scn.StartGame();
-        scn.MoveCardsToLocation(site, blizzard2, luke, leia, lsTrooper, siteTrooper, siteTrooper2);
+        scn.MoveCardsToLocation(site, blizzard2, luke);
         scn.BoardAsPassenger(blizzard2, trooper);
 
         scn.SkipToDSTurn(Phase.BATTLE);
@@ -87,9 +83,13 @@ public class Card_3_155_Tests {
                 scn.GetUnpaidDSAttrition() >= 1);
         assertEquals("Battle damage must be 0 so this is an attrition forfeit, not a battle-damage forfeit",
                 0, scn.GetUnpaidDSBattleDamage());
-        assertTrue("Dark should be choosing a forfeit", scn.AwaitingDSAttritionPayment());
-        assertFalse("Stormtrooper aboard immune Blizzard 2 must not be forfeited to attrition 1",
+        assertTrue("Dark should be choosing an optional forfeit", scn.AwaitingDSAttritionPayment());
+        assertTrue("Stormtrooper aboard immune Blizzard 2 remains an optional forfeit",
                 scn.DSHasCardChoiceAvailable(trooper));
+        assertTrue("Blizzard 2 remains an optional forfeit",
+                scn.DSHasCardChoiceAvailable(blizzard2));
+        scn.DSPass();
+        scn.PassAllResponses();
         assertTrue(trooper.getZone() == Zone.ATTACHED || trooper.getZone() == Zone.AT_LOCATION);
         assertEquals(Zone.AT_LOCATION, blizzard2.getZone());
     }
