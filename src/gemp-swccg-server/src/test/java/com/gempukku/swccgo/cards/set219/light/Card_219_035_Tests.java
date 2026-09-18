@@ -102,18 +102,21 @@ public class Card_219_035_Tests {
 
         scn.StartGame();
         scn.MoveCardsToLocation(site, fenn, stormtrooper);
-        winBattleUntilFennRauActivateIsOffered(scn, fenn, site);
-
+        scn.SkipToLSTurn(Phase.BATTLE);
+        scn.PassAllResponses();
         while (scn.GetLSReserveDeckCount() > 1) {
             scn.MoveCardsToTopOfLSUsedPile(scn.GetTopOfLSReserveDeck());
         }
-
-        assertTrue(scn.LSCardActionAvailable(fenn, "Activate"));
-        scn.LSUseCardAction(fenn, "Activate");
+        assertTrue(scn.LSCanInitiateBattle(site));
+        scn.LSInitiateBattle(site);
+        scn.SkipToDamageSegment(false);
+        if (scn.AwaitingDSBattleDamagePayment()) {
+            scn.DSPayRemainingBattleDamageFromReserveDeck();
+        }
         scn.PassAllResponses();
 
-        assertEquals(Zone.HAND, fenn.getZone());
-        assertFalse(scn.LSDecisionAvailable("Retrieve 1 Force"));
+        assertFalse("Need 2 in Reserve to offer return-to-hand to activate 2",
+                scn.LSCardActionAvailable(fenn, "Activate"));
     }
 
     @Test

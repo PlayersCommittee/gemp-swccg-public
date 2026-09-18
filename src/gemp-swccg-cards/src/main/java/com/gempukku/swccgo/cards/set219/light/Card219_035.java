@@ -67,7 +67,8 @@ public class Card219_035 extends AbstractAlienRebel {
         // Check condition(s)
         if (TriggerConditions.battleEndingAt(game, effectResult, Filters.here(self))
                 && GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canActivateForce(game, playerId)) {
+                && GameConditions.canActivateForce(game, playerId)
+                && GameConditions.numCardsInReserveDeck(game, playerId) >= 2) {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Activate 2 Force");
             action.setActionMsg("Return to hand to activate 2 Force.");
