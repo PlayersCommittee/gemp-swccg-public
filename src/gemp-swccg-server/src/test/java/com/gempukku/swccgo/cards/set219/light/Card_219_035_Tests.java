@@ -113,12 +113,9 @@ public class Card_219_035_Tests {
         if (scn.AwaitingDSBattleDamagePayment()) {
             scn.DSPayRemainingBattleDamageFromReserveDeck();
         }
-        if (scn.GetCurrentDecision() != null) {
-            scn.PassAllResponses();
-        }
 
         assertFalse("Need 2 in Reserve to offer return-to-hand to activate 2",
-                scn.LSCardActionAvailable(fenn, "Activate"));
+                walkBattleEndForFennActivate(scn, fenn));
     }
 
     @Test
@@ -131,19 +128,6 @@ public class Card_219_035_Tests {
 
         scn.StartGame();
         scn.MoveCardsToLocation(site, fenn, stormtrooper);
-        winBattleUntilFennRauActivateIsOffered(scn, fenn, site);
-
-        assertTrue(scn.LSCardActionAvailable(fenn, "Activate"));
-        scn.LSUseCardAction(fenn, "Activate");
-        scn.PassAllResponses();
-
-        assertEquals(Zone.HAND, fenn.getZone());
-        assertTrue(scn.LSDecisionAvailable("Retrieve 1 Force"));
-    }
-
-    private void winBattleUntilFennRauActivateIsOffered(VirtualTableScenario scn,
-                                                        PhysicalCardImpl fenn,
-                                                        PhysicalCardImpl site) {
         scn.SkipToLSTurn(Phase.BATTLE);
         scn.PassAllResponses();
         assertTrue(scn.LSCanInitiateBattle(site));
@@ -152,20 +136,45 @@ public class Card_219_035_Tests {
         if (scn.AwaitingDSBattleDamagePayment()) {
             scn.DSPayRemainingBattleDamageFromReserveDeck();
         }
+
+        assertTrue(walkBattleEndForFennActivate(scn, fenn));
+        scn.LSUseCardAction(fenn, "Activate");
+        scn.PassAllResponses();
+
+        assertEquals(Zone.HAND, fenn.getZone());
+        assertTrue(scn.LSDecisionAvailable("Retrieve 1 Force"));
+    }
+
+    /**
+     * Walks optional responses after the damage segment until Fenn Rau's Activate is offered,
+     * or the battle-end window is gone. Does not call LSCardActionAvailable unless Light has
+     * an action-choice decision (that helper NPEs on null cardId).
+     */
+    private boolean walkBattleEndForFennActivate(VirtualTableScenario scn, PhysicalCardImpl fenn) {
         for (int i = 0; i < 20; ++i) {
+            if (lsHasActivateAction(scn, fenn)) {
+                return true;
+            }
             var decision = scn.GetCurrentDecision();
             if (decision != null && decision.getText() != null
                     && decision.getText().toLowerCase().contains("optional")) {
-                if (scn.GetLSAvailableActions().toString().contains("Activate")) {
-                    return;
-                }
                 scn.PassResponses("optional");
                 continue;
             }
-            if (scn.LSCardActionAvailable(fenn, "Activate")) {
-                return;
-            }
-            break;
+            return false;
         }
+        return false;
+    }
+
+    private boolean lsHasActivateAction(VirtualTableScenario scn, PhysicalCardImpl fenn) {
+        var decision = scn.LSGetDecision();
+        if (decision == null) {
+            return false;
+        }
+        var actionText = decision.getDecisionParameters().get("actionText");
+        if (actionText == null) {
+            return false;
+        }
+        return scn.LSCardActionAvailable(fenn, "Activate");
     }
 }
