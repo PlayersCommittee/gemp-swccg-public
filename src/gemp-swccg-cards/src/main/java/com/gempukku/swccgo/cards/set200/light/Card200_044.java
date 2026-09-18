@@ -16,7 +16,6 @@ import com.gempukku.swccgo.logic.modifiers.DeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
 import com.gempukku.swccgo.logic.modifiers.IgnoresLocationDeploymentRestrictionsInGameTextModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
-import com.gempukku.swccgo.logic.modifiers.MaximumToReduceDeployCostByModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 
 import java.util.LinkedList;
@@ -42,7 +41,6 @@ public class Card200_044 extends AbstractNormalEffect {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new DeployCostModifier(self, starCruisersExceptProfundity, -2));
-        modifiers.add(new MaximumToReduceDeployCostByModifier(self, starCruisersExceptProfundity, 3));
         modifiers.add(new IgnoresLocationDeploymentRestrictionsInGameTextModifier(self, starCruisersExceptProfundity));
         modifiers.add(new DrawsBattleDestinyIfUnableToOtherwiseModifier(self, starCruisersExceptProfundity, 1));
         modifiers.add(new ImmuneToAttritionLessThanModifier(self, starCruisersExceptProfundity, 4));
