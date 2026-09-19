@@ -33,7 +33,8 @@ public class Card_208_034_Tests {
                 new HashMap<>()
                 {{
                     put("maul", "208_034");
-                    put("saber", "211_025");
+                    put("saber", "1_314");
+                    put("saberv", "211_025");
                 }},
                 10,
                 10,
@@ -144,29 +145,47 @@ public class Card_208_034_Tests {
 
     @Test
     public void LordMaulWithLightsaberMayNotAddToForceDrainIfUsedOtherWeapon() {
+        assertSaberAddBlocksMaulAdd("saber");
+    }
+
+    @Test
+    public void LordMaulWithLightsaberAddingToForceDrainUsesWeapon() {
+        assertMaulAddBlocksSaberAdd("saber");
+    }
+
+    @Test
+    public void LordMaulWithLightsaberMayNotAddToForceDrainIfUsedDarkJediLightsaberV() {
+        assertSaberAddBlocksMaulAdd("saberv");
+    }
+
+    @Test
+    public void LordMaulWithLightsaberAddingToForceDrainBlocksDarkJediLightsaberV() {
+        assertMaulAddBlocksSaberAdd("saberv");
+    }
+
+    private void assertSaberAddBlocksMaulAdd(String saberName) {
         var scn = GetScenario();
         var maul = scn.GetDSCard("maul");
-        var saber = scn.GetDSCard("saber");
-        var site = placeMaulWithSaber(scn);
+        var saber = scn.GetDSCard(saberName);
+        var site = placeMaulWithSaber(scn, saber);
 
-        drainUntilAdd(scn, site);
+        drainUntilAdd(scn, site, saber);
         assertTrue(scn.DSCardActionAvailable(saber, "Add"));
         assertTrue(scn.DSCardActionAvailable(maul, "Add"));
         scn.DSUseCardAction(saber, "Add");
         scn.LSPass();
         scn.DSPass();
         scn.LSPass();
-        assertFalse("Maul already used Dark Jedi Lightsaber this turn", scn.DSCardActionAvailable(maul, "Add"));
+        assertFalse("Maul already used a Dark Jedi Lightsaber this turn", scn.DSCardActionAvailable(maul, "Add"));
     }
 
-    @Test
-    public void LordMaulWithLightsaberAddingToForceDrainUsesWeapon() {
+    private void assertMaulAddBlocksSaberAdd(String saberName) {
         var scn = GetScenario();
         var maul = scn.GetDSCard("maul");
-        var saber = scn.GetDSCard("saber");
-        var site = placeMaulWithSaber(scn);
+        var saber = scn.GetDSCard(saberName);
+        var site = placeMaulWithSaber(scn, saber);
 
-        drainUntilAdd(scn, site);
+        drainUntilAdd(scn, site, saber);
         assertTrue(scn.DSCardActionAvailable(saber, "Add"));
         assertTrue(scn.DSCardActionAvailable(maul, "Add"));
         scn.DSUseCardAction(maul, "Add");
@@ -174,21 +193,21 @@ public class Card_208_034_Tests {
         assertFalse("Maul already used his permanent lightsaber this turn", scn.DSCardActionAvailable(saber, "Add"));
     }
 
-    private PhysicalCardImpl placeMaulWithSaber(VirtualTableScenario scn) {
+    private PhysicalCardImpl placeMaulWithSaber(VirtualTableScenario scn, PhysicalCardImpl saber) {
         scn.StartGame();
         var site = scn.GetDSStartingLocation();
         scn.MoveCardsToLocation(site, scn.GetDSCard("maul"));
-        scn.AttachCardsTo(scn.GetDSCard("maul"), scn.GetDSCard("saber"));
+        scn.AttachCardsTo(scn.GetDSCard("maul"), saber);
         return site;
     }
 
-    private void drainUntilAdd(VirtualTableScenario scn, PhysicalCardImpl site) {
+    private void drainUntilAdd(VirtualTableScenario scn, PhysicalCardImpl site, PhysicalCardImpl saber) {
         scn.SkipToPhase(Phase.CONTROL);
         assertTrue(scn.DSCardActionAvailable(site, "drain"));
         scn.DSUseCardAction(site);
         scn.LSPass();
         assertTrue(scn.DSCardActionAvailable(scn.GetDSCard("maul"), "Add")
-                || scn.DSCardActionAvailable(scn.GetDSCard("saber"), "Add"));
+                || scn.DSCardActionAvailable(saber, "Add"));
     }
 
 }
