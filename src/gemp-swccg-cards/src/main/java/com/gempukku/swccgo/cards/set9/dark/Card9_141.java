@@ -91,7 +91,7 @@ public class Card9_141 extends AbstractLostInterrupt {
             action.setText("Release frozen Luke");
             // Choose target(s)
             action.appendTargeting(
-                    new TargetCardOnTableEffect(action, playerId, "Choose frozen Luke", lukeFilter) {
+                    new TargetCardOnTableEffect(action, playerId, "Choose frozen Luke", SpotOverride.INCLUDE_CAPTIVE, lukeFilter) {
                         @Override
                         protected void cardTargeted(final int targetGroupId, final PhysicalCard targetedCard) {
                             action.addAnimationGroup(targetedCard);
