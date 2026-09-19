@@ -1767,6 +1767,7 @@ public class GameConditions {
         if (battleState == null)
             return false;
 
+        // Includes destinies that were later canceled (Wounded Wookiee / Mandalorian Mishap (V) #970).
         return battleState.getNumBattleDestinyDrawn(playerId) > number;
     }
 
