@@ -23,11 +23,12 @@ import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Set: Special Edition
@@ -76,11 +77,11 @@ public class Card7_258 extends AbstractLostInterrupt {
                                         new TargetCardsOnTableEffect(action, playerId, "Target all starships at " + GameUtils.getCardLink(system), starshipsAtSystem.size(), starshipsAtSystem.size(), Filters.in(starshipsAtSystem)) {
                                             @Override
                                             protected void cardsTargeted(int targetGroupId, Collection<PhysicalCard> targetedCards) {
-                                                final ArrayList<PhysicalCard> affectedCards = new ArrayList<PhysicalCard>();
+                                                // "cards on them": attached weapons/devices/effects/creatures, not only Filters.aboard.
+                                                final Set<PhysicalCard> affectedCards = new LinkedHashSet<PhysicalCard>();
                                                 for (PhysicalCard starship : starshipsAtSystem) {
                                                     affectedCards.add(starship);
-                                                    Collection<PhysicalCard> cardsAboard = Filters.filterActive(game, self, Filters.aboard(starship));
-                                                    affectedCards.addAll(cardsAboard);
+                                                    affectedCards.addAll(game.getGameState().getAllAttachedRecursively(starship));
                                                 }
                                                 action.addAnimationGroup(starshipsAtSystem);
                                                 // Allow response(s)
