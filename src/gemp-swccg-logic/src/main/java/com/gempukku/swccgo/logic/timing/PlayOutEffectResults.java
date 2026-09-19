@@ -39,6 +39,14 @@ public class PlayOutEffectResults extends SystemQueueAction {
         _effectResults = effectResults;
     }
 
+    /**
+     * Gets the effect results being played out.
+     * @return the effect results
+     */
+    public Set<EffectResult> getEffectResults() {
+        return _effectResults;
+    }
+
     @Override
     public Effect nextEffect(SwccgGame game) {
         // The first time this is called, need to gather the required and optional actions that can respond to the
