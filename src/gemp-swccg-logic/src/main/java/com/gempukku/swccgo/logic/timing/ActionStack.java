@@ -96,6 +96,14 @@ public class ActionStack implements Snapshotable<ActionStack> {
     }
 
     /**
+     * Gets the actions currently on the stack, from bottom to top.
+     * @return the actions
+     */
+    public Iterable<Action> getActions() {
+        return _actionStack;
+    }
+
+    /**
      * Log the contents of the action stack.
      */
     public void dumpStack(SwccgGame game) {

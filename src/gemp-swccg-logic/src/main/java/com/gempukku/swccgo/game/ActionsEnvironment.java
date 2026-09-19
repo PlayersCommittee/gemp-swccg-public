@@ -179,4 +179,12 @@ public interface ActionsEnvironment extends Snapshotable<ActionsEnvironment> {
      * @return the effect results to be triggered
      */
     Set<EffectResult> consumeEffectResults();
+
+    /**
+     * Determines if the specified card is currently being responded to as just lost, forfeited, or canceled from table.
+     * Used for "placed out of play while just lost from table" windows.
+     * @param card the card
+     * @return true or false
+     */
+    boolean isJustLostFromTableBeingRespondedTo(PhysicalCard card);
 }
