@@ -12,7 +12,6 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -212,12 +211,14 @@ public class Card_14_003_Tests {
         assertFalse(scn.LSCardActionAvailable(artoo,"Cancel")); //test1
     }
 
-    //shows: https://github.com/PlayersCommittee/gemp-swccg-public/issues/944
-    @Test @Ignore
+    @Test
     public void ArtooBraveLittleDroidCanCancelBattleDestinyWithStolenDataTapes() {
-        //test1: with stolen data tapes on artoo: can take action after just drawn battle destiny to cancel it
-        //test2: with stolen data tapes on artoo: artoo goes to used pile
-        //test3: with stolen data tapes on artoo: battle destiny is canceled
+        //shows fixed: https://github.com/PlayersCommittee/gemp-swccg-public/issues/944
+        //with stolen data tapes on artoo:
+        //test1: can take action after just drawn battle destiny to cancel it
+        //test2: artoo goes to used pile
+        //test3: battle destiny is canceled
+        //test4: data tapes is correctly re-routed
         var scn = GetScenario();
 
         var artoo = scn.GetLSCard("artoo");
@@ -253,41 +254,7 @@ public class Card_14_003_Tests {
         assertTrue(scn.LSCardActionAvailable(artoo,"Cancel")); //test1
         scn.LSUseCardAction(artoo,"Cancel");
 
-        scn.DSPass(); //ABOUT_TO_BE_PLACE_IN_CARD_PILE_FROM_TABLE - Optional responses
-        scn.LSPass();
-
-            ///stolen data tapes actions (start)
-        scn.DSPass(); //ATTACH_FROM_TABLE - Optional responses
-        scn.LSPass();
-
-        scn.DSPass(); //ABOUT_TO_BE_LOST_FROM_TABLE - Optional responses
-        scn.LSPass();
-            ///stolen data tapes actions (end?)
-
-        scn.DSPass(); //PUT_IN_USED_PILE_FROM_TABLE - Optional responses
-        scn.LSPass();
-
-        scn.DSPass(); //DESTINY_DRAWN - Optional responses
-        scn.LSPass();
-
-        ///Problem is here? Destiny should not be completed
-        scn.LSPass(); //COMPLETE_DESTINY_DRAW - Optional responses
-        scn.DSPass();
-
-        scn.LSPass(); //DRAWING_DESTINY_COMPLETE - Optional responses
-        scn.DSPass();
-
-        scn.LSPass(); //BATTLE_DESTINY_DRAWS_COMPLETE_FOR_PLAYER - Optional responses
-        scn.DSPass();
-
-        scn.DSPass(); //BATTLE_DESTINY_DRAWS_COMPLETE_FOR_PLAYER - Optional responses
-        scn.LSPass();
-
-        scn.LSPass(); //BATTLE_DESTINY_DRAWS_COMPLETE_FOR_BOTH_PLAYERS - Optional responses
-        scn.DSPass();
-
-        scn.LSPass(); //INITIAL_ATTRITION_CALCULATED - Optional responses
-        scn.DSPass();
+        scn.PassAllResponses();
 
         assertEquals(Zone.TOP_OF_USED_PILE, artoo.getZone()); //test2
         assertEquals(2,scn.GetUnpaidLSBattleDamage()); //test3 (2 battle damage, implies destiny 7 was canceled)
@@ -296,6 +263,7 @@ public class Card_14_003_Tests {
 
         assertTrue(scn.AwaitingLSBattlePhaseActions());
         assertEquals(2,scn.GetLSLostPileCount()); //test3 (2 battle damage, implies destiny 7 was canceled)
+        assertTrue(scn.IsAttachedTo(duneSea,tapes)); //test4
     }
 
 }
