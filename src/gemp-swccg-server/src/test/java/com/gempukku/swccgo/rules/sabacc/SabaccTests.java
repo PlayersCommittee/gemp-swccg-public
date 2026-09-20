@@ -37,12 +37,13 @@ public class SabaccTests {
         );
     }
 
-    //unable to reproduce: https://github.com/PlayersCommittee/gemp-swccg-public/issues/58
+    // https://github.com/PlayersCommittee/gemp-swccg-public/issues/58 — clone/wild values auto-continue once set
     @Test
     public void SabaccCloneCardTarget() {
         //verifies:
         //clone card lets user choose a card to duplicate destiny value
         //clone card correctly duplicates target card's sabacc destiny value
+        //after assigning the clone value, play auto-continues (no Done required)
         //able to complete sabacc game after resolving clone card value
 
         var scn = GetScenario();
@@ -109,9 +110,8 @@ public class SabaccTests {
         assertTrue(scn.DSChoiceAvailable("no")); //Do you want to draw another sabacc card?
         scn.DSChoose("no");
 
-        //choosing DSPass here fails because minimum requirement (setting value of clone cards) has not been met
-        //(no way to verify "Done" option is unavailable?)
-        //scn.DSPass(); //if uncommented, fails here because "Done" is not available
+        // Before the clone value is set, play cannot continue past value assignment
+        // (no Done/reassign loop — unset clone/wild cards must be assigned first).
 
         assertEquals(7,scn.GetDSSabaccTotal()); //5 + 3 + -1 clone
 
@@ -123,8 +123,8 @@ public class SabaccTests {
 
         assertEquals(11,scn.GetDSSabaccTotal()); //5 + 3 + cloned 3
         assertEquals(8,scn.GetLSSabaccTotal()); //5 + 3
-        //(no way to verify "Done" option is available?)
-        scn.DSPass(); //choose 'Done'
+        // After the last unset clone/wild value is assigned, sabacc continues automatically
+        // (no mandatory Done click; prevents bot infinite reassignment).
 
         scn.DSPass(); //SABACC_TOTAL_CALCULATED - Optional responses
         scn.LSPass();
