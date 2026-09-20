@@ -1,10 +1,12 @@
 package com.gempukku.swccgo.cards.actions;
 
+import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.PayMoveUsingLocationTextCostEffect;
 import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.common.Filterable;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.InactiveReason;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -49,6 +51,10 @@ public class MoveUsingLocationTextAction extends TopLevelGameTextAction {
     private boolean _forFree;
     private float _baseCost;
     private Action _that;
+    private Filterable _cardToMoveFilter;
+    private Filterable _fromCardFilter;
+    private Filterable _toCardFilter;
+    private Map<InactiveReason, Boolean> _spotOverrides;
 
     /**
      * Creates an action to perform a movement using location text.
@@ -134,6 +140,10 @@ public class MoveUsingLocationTextAction extends TopLevelGameTextAction {
         _forFree = forFree;
         _baseCost = baseCost;
         _that = this;
+        _cardToMoveFilter = cardToMoveFilter;
+        _fromCardFilter = fromCardFilter;
+        _toCardFilter = toCardFilter;
+        _spotOverrides = spotOverrides;
 
         final GameState gameState = game.getGameState();
         final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
@@ -279,6 +289,23 @@ public class MoveUsingLocationTextAction extends TopLevelGameTextAction {
                 };
             }
         };
+    }
+
+    /**
+     * Rebuild this location-text move so only the specified card may move (extra regular move / #954).
+     * @return the locked action, or null if that card has no legal destination using this location text
+     */
+    public Action lockToCard(SwccgGame game, PhysicalCard cardToMove, Filter moveTargetFilter, boolean forFree) {
+        Filterable lockedCard = Filters.and(_cardToMoveFilter, Filters.sameCardId(cardToMove));
+        Filterable toFilter = Filters.and(_toCardFilter, moveTargetFilter);
+        boolean actuallyFree = forFree || _forFree;
+        if (!GameConditions.canPerformMovementUsingLocationText(_playerId, game, _spotOverrides, lockedCard, _fromCardFilter, toFilter, actuallyFree, _baseCost)) {
+            return null;
+        }
+        MoveUsingLocationTextAction locked = new MoveUsingLocationTextAction(_playerId, game, getActionSource(),
+                getGameTextSourceCardId(), getGameTextActionId(), _spotOverrides, lockedCard, _fromCardFilter, toFilter, actuallyFree, _baseCost);
+        locked.setText(getText());
+        return locked;
     }
 
     @Override
