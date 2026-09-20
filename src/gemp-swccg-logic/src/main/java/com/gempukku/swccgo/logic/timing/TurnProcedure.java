@@ -228,7 +228,7 @@ public class TurnProcedure implements Snapshotable<TurnProcedure> {
             final Iterator<TriggerAction> triggersIterator = requiredBeforeTriggers.iterator();
             while (triggersIterator.hasNext()) {
                 TriggerAction curTriggerAction = triggersIterator.next();
-                if (!curTriggerAction.isRepeatableTrigger() && _triggersUsed.contains(curTriggerAction.getTriggerIdentifier(false)))
+                if (!curTriggerAction.isRepeatableTrigger() && triggerAlreadyUsed(_triggersUsed, curTriggerAction))
                     triggersIterator.remove();
             }
 
@@ -238,7 +238,7 @@ public class TurnProcedure implements Snapshotable<TurnProcedure> {
                 // Add the action to the action stack, mark trigger as used, and play out required
                 // "before" responses again in case there are more triggers after this trigger is processed.
                 _game.getActionsEnvironment().addActionToStack(requiredBeforeTriggers.get(0));
-                _triggersUsed.add(requiredBeforeTriggers.get(0).getTriggerIdentifier(false));
+                markTriggerUsed(_triggersUsed, requiredBeforeTriggers.get(0));
                 _action.insertEffect(new PlayoutRequiredBeforeResponsesEffect(_action, _triggersUsed, _effect));
             }
             // Otherwise, ask the player whose turn it is, which action to perform first.
@@ -254,7 +254,7 @@ public class TurnProcedure implements Snapshotable<TurnProcedure> {
                                     // Add the action to the action stack, mark trigger as used, and play out required
                                     // "before" responses again in case there are more triggers after this trigger is processed.
                                     _game.getActionsEnvironment().addActionToStack(action);
-                                    _triggersUsed.add(action.getTriggerIdentifier(false));
+                                    markTriggerUsed(_triggersUsed, action);
                                     _action.insertEffect(new PlayoutRequiredBeforeResponsesEffect(_action, _triggersUsed, _effect));
                                 }
                             }
@@ -429,6 +429,16 @@ public class TurnProcedure implements Snapshotable<TurnProcedure> {
             text = effectResults.stream().findFirst().get().getType().toString();
         }
         return (text != null ? (text + " - ") : "") + textToAppend;
+    }
+
+    private static boolean triggerAlreadyUsed(Set<String> triggersUsed, TriggerAction action) {
+        return triggersUsed.contains(action.getTriggerIdentifier(false))
+                || triggersUsed.contains(action.getTriggerIdentifier(true));
+    }
+
+    private static void markTriggerUsed(Set<String> triggersUsed, TriggerAction action) {
+        triggersUsed.add(action.getTriggerIdentifier(false));
+        triggersUsed.add(action.getTriggerIdentifier(true));
     }
 
     /**
