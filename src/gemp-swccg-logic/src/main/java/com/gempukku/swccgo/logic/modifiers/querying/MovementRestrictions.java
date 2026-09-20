@@ -233,6 +233,17 @@ public interface MovementRestrictions extends BaseQuery, Locations {
                 return true;
             }
 
+            // Per-system (diamond) uniqueness: mover and cards aboard may not enter a system
+            // that already has the uniqueness limit of the same title (see isProhibitedFromTarget).
+            if (query().isProhibitedFromTarget(gameState, card, toLocation)) {
+                return true;
+            }
+            for (PhysicalCard aboard : gameState.getAboardCards(card, true)) {
+                if (query().isProhibitedFromTarget(gameState, aboard, toLocation)) {
+                    return true;
+                }
+            }
+
             if (asReact) {
                 // Check if player may not 'react' to the location
                 for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_REACT_TO_LOCATION, toLocation)) {
