@@ -16,6 +16,7 @@ public class SpotOverride {
         aMap.put(InactiveReason.CAPTIVE, Boolean.TRUE);
         aMap.put(InactiveReason.CONCEALED, Boolean.TRUE);
         aMap.put(InactiveReason.EXCLUDED_FROM_BATTLE, Boolean.TRUE);
+        aMap.put(InactiveReason.LOCAL_TROUBLE_NON_PARTICIPANT, Boolean.TRUE);
         aMap.put(InactiveReason.MISSING, Boolean.TRUE);
         aMap.put(InactiveReason.STOLEN_WEAPON_DEVICE, Boolean.TRUE);
         aMap.put(InactiveReason.SUSPENDED, Boolean.TRUE);
@@ -35,6 +36,7 @@ public class SpotOverride {
         Map<InactiveReason, Boolean> aMap = new HashMap<InactiveReason, Boolean>();
         aMap.put(InactiveReason.CAPTIVE, Boolean.TRUE);
         aMap.put(InactiveReason.EXCLUDED_FROM_BATTLE, Boolean.TRUE);
+        aMap.put(InactiveReason.LOCAL_TROUBLE_NON_PARTICIPANT, Boolean.TRUE);
         return Collections.unmodifiableMap(aMap);
     }
 
@@ -49,6 +51,14 @@ public class SpotOverride {
     private static Map<InactiveReason, Boolean> includeExcludedFromBattleMap() {
         Map<InactiveReason, Boolean> aMap = new HashMap<InactiveReason, Boolean>();
         aMap.put(InactiveReason.EXCLUDED_FROM_BATTLE, Boolean.TRUE);
+        aMap.put(InactiveReason.LOCAL_TROUBLE_NON_PARTICIPANT, Boolean.TRUE);
+        return Collections.unmodifiableMap(aMap);
+    }
+
+    public static final Map<InactiveReason, Boolean> INCLUDE_LOCAL_TROUBLE_NON_PARTICIPANT = includeLocalTroubleNonParticipantMap();
+    private static Map<InactiveReason, Boolean> includeLocalTroubleNonParticipantMap() {
+        Map<InactiveReason, Boolean> aMap = new HashMap<InactiveReason, Boolean>();
+        aMap.put(InactiveReason.LOCAL_TROUBLE_NON_PARTICIPANT, Boolean.TRUE);
         return Collections.unmodifiableMap(aMap);
     }
 

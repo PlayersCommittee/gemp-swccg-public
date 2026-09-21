@@ -245,7 +245,8 @@ public class Card1_059 extends AbstractEffect {
                                         spotOverride != null && spotOverride.get(InactiveReason.STOLEN_WEAPON_DEVICE) != null && spotOverride.get(InactiveReason.STOLEN_WEAPON_DEVICE),
                                         spotOverride != null && spotOverride.get(InactiveReason.MISSING) != null && spotOverride.get(InactiveReason.MISSING),
                                         spotOverride != null && spotOverride.get(InactiveReason.TURNED_OFF) != null && spotOverride.get(InactiveReason.TURNED_OFF),
-                                        spotOverride != null && spotOverride.get(InactiveReason.SUSPENDED) != null && spotOverride.get(InactiveReason.SUSPENDED))) {
+                                        spotOverride != null && spotOverride.get(InactiveReason.SUSPENDED) != null && spotOverride.get(InactiveReason.SUSPENDED),
+                                        spotOverride != null && spotOverride.get(InactiveReason.LOCAL_TROUBLE_NON_PARTICIPANT) != null && spotOverride.get(InactiveReason.LOCAL_TROUBLE_NON_PARTICIPANT))) {
                                     return true;
                                 }
                             }
