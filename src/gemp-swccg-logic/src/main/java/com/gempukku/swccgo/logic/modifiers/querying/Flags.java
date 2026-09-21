@@ -256,6 +256,35 @@ public interface Flags extends BaseQuery {
         return !getModifiersAffectingCard(gameState, ModifierType.LANDS_AS_UNLIMITED_MOVE, card).isEmpty();
     }
 
+    /**
+     * Determines if the card lands as an unlimited move to the specified location.
+     * @param gameState the game state
+     * @param card a card
+     * @param toLocation the location being landed at
+     * @return true or false
+     */
+    default boolean landsAsUnlimitedMove(GameState gameState, PhysicalCard card, PhysicalCard toLocation) {
+        if (landsAsUnlimitedMove(gameState, card)) {
+            return true;
+        }
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.LANDS_AS_UNLIMITED_MOVE_TO_LOCATION, card)) {
+            if (modifier.isUnlimitedMoveToLocation(gameState, query(), toLocation)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Determines if the card has any destination-specific lands-as-unlimited-move modifiers.
+     * @param gameState the game state
+     * @param card a card
+     * @return true or false
+     */
+    default boolean hasLandsAsUnlimitedMoveToLocation(GameState gameState, PhysicalCard card) {
+        return !getModifiersAffectingCard(gameState, ModifierType.LANDS_AS_UNLIMITED_MOVE_TO_LOCATION, card).isEmpty();
+    }
+
     default boolean takesOffAsUnlimitedMove(GameState gameState, PhysicalCard card) {
         return !getModifiersAffectingCard(gameState, ModifierType.TAKES_OFF_AS_UNLIMITED_MOVE, card).isEmpty();
     }

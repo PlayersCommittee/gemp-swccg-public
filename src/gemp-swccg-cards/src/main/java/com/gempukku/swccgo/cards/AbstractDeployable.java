@@ -909,11 +909,24 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
      */
     @Override
     public Action getLandAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asReact, boolean skipPhaseCheck, boolean asAdditionalMove, boolean asUnlimitedMove, Filter moveTargetFilter) {
-        if (asUnlimitedMove
-                || game.getModifiersQuerying().landsAsUnlimitedMove(game.getGameState(), self)) {
+        final boolean globallyUnlimited = asUnlimitedMove
+                || game.getModifiersQuerying().landsAsUnlimitedMove(game.getGameState(), self);
+        final boolean hasUnlimitedToLocation = game.getModifiersQuerying().hasLandsAsUnlimitedMoveToLocation(game.getGameState(), self);
+        boolean useAsUnlimitedMove = globallyUnlimited;
+
+        if (globallyUnlimited) {
             if (!checkUnlimitedMoveRequirements(playerId, game, self, asAdditionalMove))
                 return null;
-        } else if(!checkRegularMoveRequirements(playerId, game, self, asAdditionalMove)) {
+            useAsUnlimitedMove = true;
+        } else if (checkRegularMoveRequirements(playerId, game, self, asAdditionalMove)) {
+            // Regular move available; destination-specific unlimited land is applied when performing the land
+            useAsUnlimitedMove = false;
+        } else if (hasUnlimitedToLocation) {
+            // Regular move already used; still allow landing only to destinations treated as unlimited
+            if (!checkUnlimitedMoveRequirements(playerId, game, self, asAdditionalMove))
+                return null;
+            useAsUnlimitedMove = true;
+        } else {
             return null;
         }
 
@@ -928,9 +941,21 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
 
         Filter completeTargetFilter = getLandFilter(playerId, game, self, forFree, asReact, moveTargetFilter);
 
+        // When only destination-specific unlimited land is available, restrict destinations accordingly
+        if (!globallyUnlimited && useAsUnlimitedMove && hasUnlimitedToLocation) {
+            final Integer permCardId = self.getPermanentCardId();
+            completeTargetFilter = Filters.and(completeTargetFilter, new Filter() {
+                @Override
+                public boolean accepts(com.gempukku.swccgo.game.state.GameState gameState, com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                    PhysicalCard card = gameState.findCardByPermanentId(permCardId);
+                    return modifiersQuerying.landsAsUnlimitedMove(gameState, card, physicalCard);
+                }
+            });
+        }
+
         // Check that a valid location to move to can be found
         if (Filters.canSpotFromTopLocationsOnTable(game, completeTargetFilter)) {
-            return new LandAction(playerId, self, forFree, asReact, asUnlimitedMove, completeTargetFilter);
+            return new LandAction(playerId, self, forFree, asReact, useAsUnlimitedMove, completeTargetFilter);
         }
 
         return null;
@@ -966,6 +991,7 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
     public Action getTakeOffAction(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, boolean asReact, boolean skipPhaseCheck, boolean asAdditionalMove, boolean asUnlimitedMove, Filter moveTargetFilter) {
         if (asUnlimitedMove
                 || game.getModifiersQuerying().takesOffAsUnlimitedMove(game.getGameState(), self)) {
+            asUnlimitedMove = true;
             if (!checkUnlimitedMoveRequirements(playerId, game, self, asAdditionalMove))
                 return null;
         } else if(!checkRegularMoveRequirements(playerId, game, self, asAdditionalMove)) {
