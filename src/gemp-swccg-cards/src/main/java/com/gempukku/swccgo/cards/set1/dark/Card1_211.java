@@ -13,12 +13,15 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.StackCardFromTableEffect;
+import com.gempukku.swccgo.logic.effects.TransferDeviceOrWeaponEffect;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseStackedCardEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployStackedCardToTargetEffect;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -44,7 +47,7 @@ public class Card1_211 extends AbstractNormalEffect {
         if (GameConditions.canSpot(game, self, filter)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-            action.setText("Stack character weapon");
+            action.setText("Transfer character weapon");
             // Choose target(s)
             action.appendTargeting(
                     new ChooseCardOnTableEffect(action, playerId, "Choose character weapon", filter) {
@@ -59,23 +62,49 @@ public class Card1_211 extends AbstractNormalEffect {
             actions.add(action);
         }
 
-        Filter filter2 = Filters.and(Filters.weapon, Filters.deployableToTarget(self, Filters.and(Filters.your(self), Filters.character), false, 0));
+        final Filter yourCharacters = Filters.and(Filters.your(self), Filters.character);
+        Filter transferableStackedWeapon = new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (!Filters.weapon.accepts(gameState, modifiersQuerying, physicalCard)) {
+                    return false;
+                }
+                Filter validTarget = Filters.and(yourCharacters,
+                        physicalCard.getBlueprint().getValidToUseWeaponFilter(playerId, gameState.getGame(), physicalCard));
+                if (!Filters.canSpot(gameState.getGame(), self, validTarget)) {
+                    return false;
+                }
+                float cost = modifiersQuerying.getDeployCost(gameState, physicalCard);
+                return GameConditions.canUseForce(gameState.getGame(), playerId, cost);
+            }
+        };
 
         // Check condition(s)
         if (GameConditions.isDuringYourPhase(game, self, Phase.DEPLOY)
-                && GameConditions.hasStackedCards(game, self, filter2)) {
+                && GameConditions.hasStackedCards(game, self, transferableStackedWeapon)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-            action.setText("Deploy stacked weapon");
+            action.setText("Transfer stacked weapon");
             // Choose target(s)
             action.appendEffect(
-                    new ChooseStackedCardEffect(action, playerId, self, filter2) {
+                    new ChooseStackedCardEffect(action, playerId, self, transferableStackedWeapon) {
                         @Override
                         protected void cardSelected(PhysicalCard selectedCard) {
-                            action.setActionMsg("Deploy " + GameUtils.getCardLink(selectedCard));
-                            // Perform result(s)
+                            action.setActionMsg("Transfer " + GameUtils.getCardLink(selectedCard));
+                            Filter validTarget = Filters.and(yourCharacters,
+                                    selectedCard.getBlueprint().getValidToUseWeaponFilter(playerId, game, selectedCard));
                             action.appendEffect(
-                                    new DeployStackedCardToTargetEffect(action, selectedCard, Filters.and(Filters.your(self), Filters.character)));
+                                    new ChooseCardOnTableEffect(action, playerId, "Choose character to transfer to", validTarget) {
+                                        @Override
+                                        protected void cardSelected(PhysicalCard character) {
+                                            float cost = game.getModifiersQuerying().getDeployCost(game.getGameState(), selectedCard);
+                                            if (cost > 0) {
+                                                action.appendEffect(new UseForceEffect(action, playerId, cost));
+                                            }
+                                            action.appendEffect(
+                                                    new TransferDeviceOrWeaponEffect(action, selectedCard, character, null));
+                                        }
+                                    });
                         }
                     });
             actions.add(action);
