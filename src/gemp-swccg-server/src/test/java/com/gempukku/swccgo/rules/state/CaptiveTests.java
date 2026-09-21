@@ -3,7 +3,6 @@ package com.gempukku.swccgo.rules.state;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.framework.StartingSetup;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -23,6 +22,8 @@ public class CaptiveTests {
                     put("leia", "1_17");
                     put("loves_you", "6_75");
                     put("wioslea", "1_33"); //purchases droids
+                    put("caller", "1_34");
+                    put("bolt", "1_38");
                 }},
                 new HashMap<>()
                 {{
@@ -172,8 +173,6 @@ public class CaptiveTests {
         assertTrue(scn.IsParticipatingInBattle(han));
     }
 
-    //See https://github.com/PlayersCommittee/gemp-swccg-public/issues/849
-    @Ignore("https://github.com/PlayersCommittee/gemp-swccg-public/issues/849")
     @Test
     public void CaptivesAreAutomaticallyFreedIfEscortIsPurchased() {
         var scn = GetScenario();
@@ -218,14 +217,14 @@ public class CaptiveTests {
         assertEquals(scn.LS, fourlom.getOwner());
 
         assertTrue(scn.LSDecisionAvailable("Choose character to release"));
-        assertFalse(scn.LSHasCardChoicesAvailable(han));
-        scn.DSChooseCard(han);
+        assertTrue(scn.LSHasCardChoicesAvailable(han, chewie, leia));
+        scn.LSChooseCard(han);
         scn.LSChooseRally();
         scn.PassAllResponses();
 
         assertTrue(scn.LSDecisionAvailable("Choose character to release"));
-        assertFalse(scn.LSHasCardChoicesAvailable(chewie));
-        scn.DSChooseCard(chewie);
+        assertTrue(scn.LSHasCardChoicesAvailable(chewie, leia));
+        scn.LSChooseCard(chewie);
         scn.LSChooseRally();
         scn.PassAllResponses();
 
@@ -246,6 +245,63 @@ public class CaptiveTests {
         assertNull(leia.getAttachedTo());
         assertNull(leia.getEscort());
         assertAtLocation(site, leia);
+    }
+
+    @Test
+    public void CaptivesAreAutomaticallyFreedIfEscortIsStolen() {
+        var scn = GetScenario();
+
+        var chewie = scn.GetLSCard("chewie");
+        var han = scn.GetLSCard("han");
+        var leia = scn.GetLSCard("leia");
+        var caller = scn.GetLSCard("caller");
+        var bolt = scn.GetLSCard("bolt");
+
+        var site = scn.GetLSStartingLocation();
+
+        var fourlom = scn.GetDSCard("4lom");
+
+        scn.StartGame();
+
+        scn.MoveCardsToLocation(site, fourlom, chewie, han, leia);
+        scn.AttachCardsTo(leia, caller);
+        scn.AttachCardsTo(fourlom, bolt);
+        scn.CaptureCardWith(fourlom, chewie);
+        scn.CaptureCardWith(fourlom, han);
+
+        assertTrue(chewie.isCaptive());
+        assertEquals(fourlom, chewie.getEscort());
+        assertTrue(han.isCaptive());
+        assertEquals(fourlom, han.getEscort());
+
+        scn.SkipToLSTurn(Phase.CONTROL);
+        assertTrue(scn.LSCardActionAvailable(caller));
+        assertEquals(scn.DS, fourlom.getOwner());
+
+        scn.LSUseCardAction(caller);
+        scn.LSChooseCard(fourlom);
+        scn.PassAllResponses();
+
+        assertEquals(scn.LS, fourlom.getOwner());
+
+        assertTrue(scn.LSDecisionAvailable("Choose character to release"));
+        assertTrue(scn.LSHasCardChoicesAvailable(han, chewie));
+        scn.LSChooseCard(han);
+        scn.LSChooseRally();
+        scn.PassAllResponses();
+
+        scn.LSChooseRally();
+        scn.PassAllResponses();
+
+        assertFalse(chewie.isCaptive());
+        assertNull(chewie.getAttachedTo());
+        assertNull(chewie.getEscort());
+        assertAtLocation(site, chewie);
+
+        assertFalse(han.isCaptive());
+        assertNull(han.getAttachedTo());
+        assertNull(han.getEscort());
+        assertAtLocation(site, han);
     }
 
 }

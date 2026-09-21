@@ -65,7 +65,7 @@ class StealOneCardToLocationEffect extends AbstractSubActionEffect implements Pr
                     protected void doPlayEffect(SwccgGame game) {
                         if (!isEffectOnCardPrevented(_cardToBeStolen)) {
 
-                            Collection<PhysicalCard> allCharactersAboardStolenCards = Filters.filter(gameState.getAllAttachedRecursively(_cardToBeStolen), game, Filters.character);
+                            Collection<PhysicalCard> allCharactersAboardStolenCards = Filters.filter(gameState.getAllAttachedRecursively(_cardToBeStolen), game, Filters.and(Filters.character, Filters.not(Filters.captive)));
                             if (!allCharactersAboardStolenCards.isEmpty()) {
 
                                 SubAction makeCharactersAboardLostSubAction = new SubAction(subAction);
