@@ -11,7 +11,6 @@ import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -130,7 +129,7 @@ public class Card_218_017_Tests {
         assertTrue(scn.AwaitingLSControlPhaseActions()); //force drain was canceled
     }
 
-    @Test @Ignore
+    @Test
     public void DeathStarLevel6CoreShaftCorridorVUndercoverStormtrooperMayReactToAdjacentTest() {
         //test1: site action available to move undercover stormtrooper (TK-422 V + Undercover) at this site as a react to a force drain at adjacent site
         //test2: can select undercover stormtrooper to move over
