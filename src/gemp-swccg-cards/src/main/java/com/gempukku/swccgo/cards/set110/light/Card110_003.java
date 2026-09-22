@@ -59,7 +59,7 @@ public class Card110_003 extends AbstractDroid {
         GameTextActionId gameTextActionId = GameTextActionId.SEE_THREEPIO__RETRIEVE_FORCE;
 
         // Check condition(s)
-        if (TriggerConditions.justPersonaReplacedCharacter(game, effectResult, self)
+        if (TriggerConditions.aboutToPersonaReplaceCharacter(game, effectResult, self)
                 && GameConditions.isOncePerGame(game, self, gameTextActionId)) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
