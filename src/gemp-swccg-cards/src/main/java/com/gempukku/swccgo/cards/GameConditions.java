@@ -1138,6 +1138,19 @@ public class GameConditions {
     }
 
     /**
+     * Determines if the specified permanent weapon can be used by the specified user.
+     *
+     * @param game            the game
+     * @param user            the card to use the weapon
+     * @param permanentWeapon the permanent weapon
+     * @return true or false
+     */
+    public static boolean canUseWeapon(SwccgGame game, PhysicalCard user, SwccgBuiltInCardBlueprint permanentWeapon) {
+        return permanentWeapon != null
+                && Filters.canUseWeapon(permanentWeapon).accepts(game.getGameState(), game.getModifiersQuerying(), user);
+    }
+
+    /**
      * Determines if the specified card can be canceled.
      *
      * @param game the game

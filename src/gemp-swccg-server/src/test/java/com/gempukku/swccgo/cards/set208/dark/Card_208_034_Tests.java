@@ -12,7 +12,7 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
+import com.gempukku.swccgo.game.PhysicalCardImpl;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -32,8 +32,9 @@ public class Card_208_034_Tests {
                 }},
                 new HashMap<>()
                 {{
-                    put("maul", "208_034"); //Lord Maul With Lightsaber
-                    put("saber","1_314"); //dark jedi lightsaber
+                    put("maul", "208_034");
+                    put("saber", "1_314");
+                    put("saberv", "211_025");
                 }},
                 10,
                 10,
@@ -142,64 +143,71 @@ public class Card_208_034_Tests {
         assertEquals(2,scn.GetLSLostPileCount()); //1 + 1 from Maul
     }
 
-    //demonstrates bug https://github.com/PlayersCommittee/gemp-swccg-public/issues/7
-    @Test @Ignore
+    @Test
     public void LordMaulWithLightsaberMayNotAddToForceDrainIfUsedOtherWeapon() {
-        //Test1: using saber prevents maul adding to force drain this turn (only able to use 1 weapon per turn)
-        var scn = GetScenario();
-
-        var maul = scn.GetDSCard("maul");
-        var saber = scn.GetDSCard("saber");
-        var site = scn.GetDSStartingLocation();
-
-        scn.StartGame();
-
-        scn.MoveCardsToLocation(site, maul);
-        scn.AttachCardsTo(maul,saber);
-
-        scn.SkipToPhase(Phase.CONTROL);
-        assertTrue(scn.DSCardActionAvailable(site,"drain"));
-        scn.DSUseCardAction(site);
-        scn.LSPass(); //FORCE_DRAIN_INITIATED - Optional responses
-        //assertTrue(scn.DSAwaitingResponse("Force drain initiated at");
-        assertTrue(scn.DSCardActionAvailable(saber,"Add"));
-        assertTrue(scn.DSCardActionAvailable(maul,"Add"));
-        scn.DSUseCardAction(saber);
-        scn.LSPass(); //FORCE_DRAIN_ENHANCED_BY_WEAPON - Optional responses
-        scn.DSPass();
-        scn.LSPass(); //FORCE_DRAIN_INITIATED - Optional responses
-        //assertTrue(scn.DSAwaitingResponse("Force drain initiated at");
-        assertFalse(scn.DSCardActionAvailable(maul,"Add")); //Test1: already used saber this turn
+        assertSaberAddBlocksMaulAdd("saber");
     }
 
-    //demonstrates bug https://github.com/PlayersCommittee/gemp-swccg-public/issues/7
-    @Test @Ignore
+    @Test
     public void LordMaulWithLightsaberAddingToForceDrainUsesWeapon() {
-        //Test1: using maul's permanent weapon prevents using saber to add (only able to use 1 weapon per turn)
-        var scn = GetScenario();
-
-        var maul = scn.GetDSCard("maul");
-        var saber = scn.GetDSCard("saber");
-        var site = scn.GetDSStartingLocation();
-
-        scn.StartGame();
-
-        scn.MoveCardsToLocation(site, maul);
-        scn.AttachCardsTo(maul,saber);
-
-        scn.SkipToPhase(Phase.CONTROL);
-        assertTrue(scn.DSCardActionAvailable(site,"drain"));
-        scn.DSUseCardAction(site);
-        scn.LSPass(); //FORCE_DRAIN_INITIATED - Optional responses
-        //assertTrue(scn.DSAwaitingResponse("Force drain initiated at");
-        assertTrue(scn.DSCardActionAvailable(saber,"Add"));
-        assertTrue(scn.DSCardActionAvailable(maul,"Add"));
-        scn.DSUseCardAction(maul);
-            /// if coded correctly, should cause this additional response?
-//        scn.LSPass(); //FORCE_DRAIN_ENHANCED_BY_WEAPON - Optional responses
-//        scn.DSPass();
-        scn.LSPass(); //FORCE_DRAIN_INITIATED - Optional responses
-        //assertTrue(scn.DSAwaitingResponse("Force drain initiated at");
-        assertFalse(scn.DSCardActionAvailable(saber,"Add")); //Test1: already used maul this turn
+        assertMaulAddBlocksSaberAdd("saber");
     }
+
+    @Test
+    public void LordMaulWithLightsaberMayNotAddToForceDrainIfUsedDarkJediLightsaberV() {
+        assertSaberAddBlocksMaulAdd("saberv");
+    }
+
+    @Test
+    public void LordMaulWithLightsaberAddingToForceDrainBlocksDarkJediLightsaberV() {
+        assertMaulAddBlocksSaberAdd("saberv");
+    }
+
+    private void assertSaberAddBlocksMaulAdd(String saberName) {
+        var scn = GetScenario();
+        var maul = scn.GetDSCard("maul");
+        var saber = scn.GetDSCard(saberName);
+        var site = placeMaulWithSaber(scn, saber);
+
+        drainUntilAdd(scn, site, saber);
+        assertTrue(scn.DSCardActionAvailable(saber, "Add"));
+        assertTrue(scn.DSCardActionAvailable(maul, "Add"));
+        scn.DSUseCardAction(saber, "Add");
+        scn.LSPass();
+        scn.DSPass();
+        scn.LSPass();
+        assertFalse("Maul already used a Dark Jedi Lightsaber this turn", scn.DSCardActionAvailable(maul, "Add"));
+    }
+
+    private void assertMaulAddBlocksSaberAdd(String saberName) {
+        var scn = GetScenario();
+        var maul = scn.GetDSCard("maul");
+        var saber = scn.GetDSCard(saberName);
+        var site = placeMaulWithSaber(scn, saber);
+
+        drainUntilAdd(scn, site, saber);
+        assertTrue(scn.DSCardActionAvailable(saber, "Add"));
+        assertTrue(scn.DSCardActionAvailable(maul, "Add"));
+        scn.DSUseCardAction(maul, "Add");
+        scn.LSPass();
+        assertFalse("Maul already used his permanent lightsaber this turn", scn.DSCardActionAvailable(saber, "Add"));
+    }
+
+    private PhysicalCardImpl placeMaulWithSaber(VirtualTableScenario scn, PhysicalCardImpl saber) {
+        scn.StartGame();
+        var site = scn.GetDSStartingLocation();
+        scn.MoveCardsToLocation(site, scn.GetDSCard("maul"));
+        scn.AttachCardsTo(scn.GetDSCard("maul"), saber);
+        return site;
+    }
+
+    private void drainUntilAdd(VirtualTableScenario scn, PhysicalCardImpl site, PhysicalCardImpl saber) {
+        scn.SkipToPhase(Phase.CONTROL);
+        assertTrue(scn.DSCardActionAvailable(site, "drain"));
+        scn.DSUseCardAction(site);
+        scn.LSPass();
+        assertTrue(scn.DSCardActionAvailable(scn.GetDSCard("maul"), "Add")
+                || scn.DSCardActionAvailable(saber, "Add"));
+    }
+
 }
