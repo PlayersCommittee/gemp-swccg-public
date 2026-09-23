@@ -12,7 +12,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.AddToBlownAwayForceLossEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.DockingBayTransitFromCostModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeConvertedModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -50,12 +50,11 @@ public class Card14_048 extends AbstractUniqueStarshipSite {
     protected List<RequiredGameTextTriggerAction> getGameTextDarkSideRequiredAfterTriggers(String playerOnDarkSideOfLocation, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.isBlownAwayCalculateForceLossStep(game, effectResult, Filters.Blockade_Flagship)) {
-
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            action.skipInitialMessageAndAnimation();
-            // Perform result(s)
+            action.setPerformingPlayer(playerOnDarkSideOfLocation);
+            action.setText("Lose 4 Force");
             action.appendEffect(
-                    new AddToBlownAwayForceLossEffect(action, playerOnDarkSideOfLocation, 4));
+                    new LoseForceEffect(action, playerOnDarkSideOfLocation, 4));
             return Collections.singletonList(action);
         }
         return null;

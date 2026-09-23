@@ -13,7 +13,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.AddToBlownAwayForceLossEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.DeploysFreeToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.ForceGenerationImmuneToLimitModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -52,12 +52,11 @@ public class Card208_048 extends AbstractSite {
     protected List<RequiredGameTextTriggerAction> getGameTextLightSideRequiredAfterTriggers(String playerOnLightSideOfLocation, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.isBlownAwayBySuperlaserCalculateForceLossStep(game, effectResult, Filters.system)) {
-
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            action.skipInitialMessageAndAnimation();
-            // Perform result(s)
+            action.setPerformingPlayer(playerOnLightSideOfLocation);
+            action.setText("Lose 3 Force");
             action.appendEffect(
-                    new AddToBlownAwayForceLossEffect(action, playerOnLightSideOfLocation, 3));
+                    new LoseForceEffect(action, playerOnLightSideOfLocation, 3));
             return Collections.singletonList(action);
         }
         return null;
