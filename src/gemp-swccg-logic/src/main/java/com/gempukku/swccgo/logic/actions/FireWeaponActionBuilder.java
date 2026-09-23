@@ -389,7 +389,21 @@ public class FireWeaponActionBuilder {
                             }
                         }
                     }
-                    _targetFilterList.set(i, Filters.in(validTargets));
+                    // Fire targeting (accepts) stays the affordable snapshot. Retarget
+                    // (weaponMayRetargetTo / acceptsIgnoringOwner) still uses the logical filter
+                    // so own-side characters can match after Blaster Deflection LOST.
+                    final Filter logicalTargetFilter = _targetFilterList.get(i);
+                    final Filter affordableTargets = Filters.in(validTargets);
+                    _targetFilterList.set(i, new Filter() {
+                        @Override
+                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                            return affordableTargets.accepts(gameState, modifiersQuerying, physicalCard);
+                        }
+                        @Override
+                        public boolean acceptsIgnoringOwner(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                            return logicalTargetFilter.acceptsIgnoringOwner(gameState, modifiersQuerying, physicalCard);
+                        }
+                    });
                     isValid = (validTargets.size() >= _numTargets);
                 }
                 _targetFilterValid.add(isValid);
