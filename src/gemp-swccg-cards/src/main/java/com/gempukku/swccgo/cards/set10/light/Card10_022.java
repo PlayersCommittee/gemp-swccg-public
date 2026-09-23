@@ -21,7 +21,7 @@ import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.swccgo.logic.effects.LookAtCardsInOpponentsHandEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardsFromHandEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardsFromOffTableSimultaneouslyEffect;
-import com.gempukku.swccgo.logic.effects.LoseCardsFromTableSimultaneouslyEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.PutCardsFromHandOnUsedPileEffect;
 import com.gempukku.swccgo.logic.effects.PutRandomCardsFromHandOnUsedPileEffect;
@@ -167,7 +167,7 @@ public class Card10_022 extends AbstractUsedOrLostInterrupt {
                             sourceAction.appendAfterEffect(
                                     new LoseCardsFromOffTableSimultaneouslyEffect(sourceAction, Collections.singleton(sourceCard), false));
                             sourceAction.appendAfterEffect(
-                                    new LoseCardsFromTableSimultaneouslyEffect(sourceAction, Collections.singleton(sourceCard), false, false));
+                                    new LoseCardFromTableEffect(sourceAction, sourceCard));
                             sourceAction.appendAfterEffect(
                                     new LoseForceEffect(sourceAction, opponent, 4));
                         }
