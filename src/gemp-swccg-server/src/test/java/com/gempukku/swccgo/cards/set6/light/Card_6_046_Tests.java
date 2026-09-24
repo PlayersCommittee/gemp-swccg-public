@@ -38,6 +38,7 @@ public class Card_6_046_Tests {
 					put("saelt", "6_37");
 					put("momaw", "1_20");
 					put("ls_undercover", "2_40");
+					put("trooper", "1_28");
 				}},
 				new HashMap<>() {{
 					put("garindan", "1_177");
@@ -385,21 +386,84 @@ public class Card_6_046_Tests {
 		var scn = GetScenario();
 		var yarkora = scn.GetLSCard("yarkora");
 		var saelt = scn.GetLSCard("saelt");
+		var trooper = scn.GetLSCard("trooper");
 		var garindan = scn.GetDSCard("garindan");
 		var site = scn.GetLSStartingLocation();
 
 		scn.StartGame();
-		scn.MoveCardsToLocation(site, yarkora, saelt);
+		scn.MoveCardsToLocation(site, yarkora, saelt, trooper);
 		MakeGarindanUndercoverAt(scn, site);
 
 		scn.SkipToLSTurn(Phase.CONTROL);
-		scn.PrepareLSDestiny(2); // 2 -1 (Saelt or Yarkora) = 1
+		scn.PrepareLSDestiny(3); // 3 -1 (Yarkora) -1 (Saelt) = 1
 		scn.LSUseCardAction(yarkora, "Break a spy's cover");
 		scn.LSChooseCard(garindan);
 
-		int taken = YarkoraTakeSubtractsAndFinishDestiny(scn, 1);
-		assertTrue("Saelt and/or Yarkora should offer subtract, took " + taken, taken >= 1);
-		assertFalse(garindan.isUndercover());
+		scn.PassResponses("COST_TO_DRAW_DESTINY_CARD");
+		scn.PassResponses("ABOUT_TO_DRAW_DESTINY_CARD");
+		for (int i = 0; i < 20; i++) {
+			if (scn.LSAnyDecisionsAvailable()) {
+				java.util.List<String> actions = scn.LSGetADParamAsList("actionText");
+				if (actions != null && actions.stream().anyMatch(a -> a != null && a.toLowerCase().contains("subtract 1"))) {
+					break;
+				}
+			}
+			var decision = scn.GetCurrentDecision();
+			if (decision == null) {
+				break;
+			}
+			String lower = decision.getText() != null ? decision.getText().toLowerCase() : "";
+			if (lower.contains("optional") || lower.contains("destiny_drawn") || lower.contains("about_to_draw") || lower.contains("cost_to_draw")) {
+				String decider = scn.GetDecidingPlayer();
+				if (decider != null) {
+					scn.PlayerPass(decider);
+				} else {
+					break;
+				}
+			} else {
+				break;
+			}
+		}
+
+		assertTrue(scn.LSCardActionAvailable(yarkora, "Subtract 1"));
+		assertTrue(scn.LSCardActionAvailable(saelt, "Subtract 1"));
+		assertFalse(scn.LSCardActionAvailable(trooper, "Subtract 1"));
+
+		int taken = 0;
+		for (int i = 0; i < 40 && taken < 2; i++) {
+			if (scn.LSAnyDecisionsAvailable()) {
+				java.util.List<String> actions = scn.LSGetADParamAsList("actionText");
+				boolean hasSubtract = actions != null && actions.stream().anyMatch(
+						a -> a != null && a.toLowerCase().contains("subtract 1"));
+				if (hasSubtract) {
+					scn.LSChooseAction("Subtract 1");
+					taken++;
+					continue;
+				}
+			}
+			var decision = scn.GetCurrentDecision();
+			if (decision == null) {
+				break;
+			}
+			String lower = decision.getText() != null ? decision.getText().toLowerCase() : "";
+			if (lower.contains("destiny_drawn") || lower.contains("optional") || lower.contains("about_to_draw") || lower.contains("cost_to_draw")) {
+				String decider = scn.GetDecidingPlayer();
+				if (decider != null) {
+					scn.PlayerPass(decider);
+				} else {
+					break;
+				}
+				continue;
+			}
+			break;
+		}
+		scn.PassResponses("DESTINY_DRAWN");
+		scn.PassResponses("COMPLETE_DESTINY_DRAW");
+		scn.PassResponses("DRAWING_DESTINY_COMPLETE");
+		SafePassOptionalResponses(scn);
+		scn.PassAllResponses();
+		assertTrue("Yarkora and Saelt should each subtract once; took " + taken, taken >= 2);
+		assertFalse("3 -1 -1 = 1 equals ability, cover broken", garindan.isUndercover());
 	}
 
 	@Test
