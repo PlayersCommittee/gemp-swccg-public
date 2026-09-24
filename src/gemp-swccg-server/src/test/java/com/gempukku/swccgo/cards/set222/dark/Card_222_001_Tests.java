@@ -9,7 +9,6 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -191,10 +190,7 @@ public class Card_222_001_Tests {
         assertTrue(scn.AwaitingLSControlPhaseActions());
     }
 
-    //shows https://github.com/PlayersCommittee/gemp-swccg-public/issues/889
-    //parallel test to above, but with persona restricted saber
-    //fails because persona restricted saber deploys but is inactive
-    @Test @Ignore
+    @Test
     public void AFineAdditionToMyCollectionAction3MayUseDeployedVadersSaber() {
         //test1:
         var scn = GetScenario();
