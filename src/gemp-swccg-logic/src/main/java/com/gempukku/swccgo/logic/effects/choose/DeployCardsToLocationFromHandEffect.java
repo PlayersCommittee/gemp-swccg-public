@@ -39,7 +39,15 @@ public class DeployCardsToLocationFromHandEffect extends AbstractSubActionEffect
         _playerId = playerId;
         _locationFilter = Filters.and(locationFilter);
         _forFree = forFree;
-        _cardFilter = Filters.and(cardFilter, Filters.deployableToLocation(action.getActionSource(), _locationFilter, forFree, 0));
+        // Location capability lives here, not on each calling card. deployableToLocation is not
+        // enough by itself: side-of-table Effects still return a PlayCardToZoneAction.
+        // Deploying on a location (e.g. Presence Of The Force) is not deploying to that site;
+        // Effects that deploy on a card at the site (e.g. Disarmed) are.
+        Filter deploysToSiteOrCardsThere = Filters.or(
+                Filters.not(Filters.Effect),
+                Filters.deploys_on_characters);
+        _cardFilter = Filters.and(cardFilter, deploysToSiteOrCardsThere,
+                Filters.deployableToLocation(action.getActionSource(), _locationFilter, forFree, 0));
         _numDeployed = 0;
     }
 

@@ -34,6 +34,7 @@ public class Card_5_137_Tests {
 					put("nabrun", "1_097");
 					put("farm", "1_132");
 					put("cantina", "1_128");
+					put("hanBlaster", "1_154");
 				}},
 				new HashMap<>() {{
 					put("swindler", "5_137");
@@ -46,6 +47,7 @@ public class Card_5_137_Tests {
 					put("denOfThieves", "6_143");
 					put("disarmed", "1_214");
 					put("potf", "1_227"); // Presence Of The Force
+					put("blasterRifle", "1_312");
 				}},
 				20,
 				20,
@@ -346,38 +348,41 @@ public class Card_5_137_Tests {
 	}
 
 	@Test
-	public void SwindlerDisarmedNotDeployableOutsideControl() {
+	public void SwindlerDisarmedDeploysOutsideControlPhase() {
+		// Printed Disarmed is control-phase, but Swindler says immediately deploy to that site.
 		var scn = GetScenario();
 		var swindler = scn.GetDSCard("swindler");
 		var disarmed = scn.GetDSCard("disarmed");
 		var trooper = scn.GetDSCard("trooper");
+		var rifle = scn.GetDSCard("blasterRifle");
 		var nabrun = scn.GetLSCard("nabrun");
 		var han = scn.GetLSCard("han");
+		var hanBlaster = scn.GetLSCard("hanBlaster");
 		var dining = scn.GetDSCard("dining");
 		var platform = scn.GetDSCard("platform");
+		var trooper2 = scn.GetDSCard("trooper2");
 
 		scn.StartGame();
-		scn.MoveCardsToDSHand(swindler, disarmed, trooper);
+		scn.MoveCardsToDSHand(swindler, disarmed, trooper2);
 		scn.MoveCardsToLSHand(nabrun);
 		scn.MoveLocationToTable(dining);
 		scn.MoveLocationToTable(platform);
-		// Put a DS character with a weapon at destination so Disarmed's present-at filter could otherwise match
 		scn.MoveCardsToLocation(dining, han);
 		scn.MoveCardsToLocation(platform, trooper);
-		// Give LS a weapon-bearing character at destination for Disarmed's mutual-weapon requirement if needed —
-		// but phase restriction alone should block outside Control.
-		var trooper2 = scn.GetDSCard("trooper2");
-		scn.MoveCardsToDSHand(trooper2);
+		scn.AttachCardsTo(han, hanBlaster);
+		scn.AttachCardsTo(trooper, rifle);
 
-		scn.SkipToLSTurn(Phase.MOVE); // outside Control
+		scn.SkipToLSTurn(Phase.MOVE);
 		assertTrue("Sanity: Nabrun during Move (outside Control)", scn.GetCurrentPhase() == Phase.MOVE);
 		assertTrue(PlaySwindlerAfterNabrunToDeployWindow(scn));
 
 		boolean sawDeploy = false;
 		for (int j = 0; j < 20; j++) {
-			if (AtDeployFromHandChoice(scn) || scn.DSDecisionAvailable("deploy") || scn.DSHasCardChoiceAvailable(trooper2)) {
+			if (AtDeployFromHandChoice(scn) || scn.DSDecisionAvailable("deploy")
+					|| scn.DSHasCardChoiceAvailable(disarmed) || scn.DSHasCardChoiceAvailable(trooper2)) {
 				sawDeploy = true;
-				assertFalse("Disarmed must not deploy via Swindler outside Control phase",
+				assertTrue("Disarmed must be deployable via Swindler outside Control; decision="
+								+ (scn.GetCurrentDecision() == null ? "null" : scn.GetCurrentDecision().getText()),
 						scn.DSHasCardChoiceAvailable(disarmed));
 				try { scn.DSPass(); } catch (RuntimeException ex) {
 					try { scn.PassResponses(); } catch (RuntimeException ex2) {}
@@ -387,60 +392,46 @@ public class Card_5_137_Tests {
 			SafePassOptionalResponses(scn);
 			try { scn.PassAllResponses(); } catch (RuntimeException ignored) { break; }
 		}
-		assertTrue(sawDeploy);
+		assertTrue("Should reach deploy-from-hand window", sawDeploy);
 	}
 
 	@Test
-	public void SwindlerPresenceOfTheForceMayDeployToDestinationNotBlocked() {
-		// "not POTF" fold note: Presence Of The Force is a normal location Effect and SHOULD be offered
-		// (unlike Den Of Thieves). Verifies deploy-to-site path accepts DEPLOYS_ON_LOCATION Effects.
+	public void SwindlerPresenceOfTheForceNotOfferedBecauseOnLocationIsNotToLocation() {
+		// Deploying on a location is not deploying to that site.
 		var scn = GetScenario();
 		var swindler = scn.GetDSCard("swindler");
 		var potf = scn.GetDSCard("potf");
+		var trooper = scn.GetDSCard("trooper");
 		var nabrun = scn.GetLSCard("nabrun");
 		var han = scn.GetLSCard("han");
 		var dining = scn.GetDSCard("dining");
 		var platform = scn.GetDSCard("platform");
-		var trooper = scn.GetDSCard("trooper");
 
 		scn.StartGame();
-		scn.MoveCardsToDSHand(swindler, potf);
+		scn.MoveCardsToDSHand(swindler, potf, trooper);
 		scn.MoveCardsToLSHand(nabrun);
 		scn.MoveLocationToTable(dining);
 		scn.MoveLocationToTable(platform);
 		scn.MoveCardsToLocation(dining, han);
-		scn.MoveCardsToLocation(platform, trooper);
 
 		scn.SkipToLSTurn(Phase.CONTROL);
 		assertTrue(PlaySwindlerAfterNabrunToDeployWindow(scn));
 
-		boolean saw = false;
-		for (int j = 0; j < 25; j++) {
-			if (scn.DSHasCardChoiceAvailable(potf) || AtDeployFromHandChoice(scn) || scn.DSDecisionAvailable("deploy")) {
-				if (scn.DSHasCardChoiceAvailable(potf)) {
-					saw = true;
-					scn.DSChooseCard(potf);
-					// May need to confirm target location
-					try {
-						if (scn.DSHasCardChoiceAvailable(platform)) {
-							scn.DSChooseCard(platform);
-						}
-					} catch (RuntimeException ignored) {}
-					SafePassOptionalResponses(scn);
-					assertTrue("POTF should leave hand onto destination",
-							potf.getZone() != Zone.HAND && (potf.getAttachedTo() == platform
-									|| (potf.getAttachedTo() != null && potf.getAttachedTo().getCardId() == platform.getCardId())
-									|| potf.getZone() == Zone.ATTACHED));
-					try { scn.DSPass(); } catch (RuntimeException ex) {
-						try { scn.PassResponses(); } catch (RuntimeException ex2) {}
-					}
-					break;
+		boolean sawDeploy = false;
+		for (int j = 0; j < 20; j++) {
+			if (AtDeployFromHandChoice(scn) || scn.DSDecisionAvailable("deploy") || scn.DSHasCardChoiceAvailable(trooper)) {
+				sawDeploy = true;
+				assertFalse("Presence Of The Force deploys on a location, not to that site",
+						scn.DSHasCardChoiceAvailable(potf));
+				try { scn.DSPass(); } catch (RuntimeException ex) {
+					try { scn.PassResponses(); } catch (RuntimeException ex2) {}
 				}
+				break;
 			}
 			SafePassOptionalResponses(scn);
 			try { scn.PassAllResponses(); } catch (RuntimeException ignored) { break; }
 		}
-		assertTrue("Presence Of The Force should be offered for deploy-to-site", saw);
+		assertTrue("Should reach deploy-from-hand window", sawDeploy);
 	}
 
 	@Test
