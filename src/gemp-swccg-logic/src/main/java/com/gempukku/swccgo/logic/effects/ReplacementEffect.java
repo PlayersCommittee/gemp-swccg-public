@@ -150,7 +150,7 @@ public class ReplacementEffect extends AbstractSubActionEffect {
         }
 
         // Choose card to transfer to squadron (min 0 so Done leaves remaining cards on the starfighters)
-        final boolean[] transferredOne = {false};
+        final boolean[] selectedACardToTransfer = {false};
         subAction.insertEffect(
                 new ChooseCardsOnTableEffect(subAction, playerId, "Choose cards to transfer to " + GameUtils.getCardLink(_card), 0, 1, validToTransfer) {
                     @Override
@@ -158,7 +158,7 @@ public class ReplacementEffect extends AbstractSubActionEffect {
                         if (selectedCards.isEmpty()) {
                             return;
                         }
-                        transferredOne[0] = true;
+                        selectedACardToTransfer[0] = true;
                         final PhysicalCard cardToTransfer = selectedCards.iterator().next();
                         final PhysicalCard transferredFrom = cardToTransfer.getAttachedTo();
 
@@ -204,7 +204,7 @@ public class ReplacementEffect extends AbstractSubActionEffect {
                 new PassthruEffect(subAction) {
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
-                        if (transferredOne[0]) {
+                        if (selectedACardToTransfer[0]) {
                             checkTransferCardsToNewCard(subAction, playerId, game);
                         }
                     }
