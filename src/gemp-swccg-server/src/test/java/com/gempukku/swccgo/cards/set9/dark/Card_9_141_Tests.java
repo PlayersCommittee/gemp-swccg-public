@@ -27,22 +27,22 @@ import static org.junit.Assert.assertTrue;
 public class Card_9_141_Tests {
     protected VirtualTableScenario GetScenario() {
         return new VirtualTableScenario(
-                new HashMap<>() {{
-                    put("luke", "1_19");
-                }},
-                new HashMap<>() {{
-                    put("youngFool", "9_141");
-                    put("throne", "9_147");
-                }},
-                10,
-                10,
-                StartingSetup.DefaultLSGroundLocation,
-                StartingSetup.DefaultDSGroundLocation,
-                StartingSetup.NoLSStartingInterrupts,
-                StartingSetup.NoDSStartingInterrupts,
-                StartingSetup.NoLSShields,
-                StartingSetup.NoDSShields,
-                VirtualTableScenario.Open
+            new HashMap<>() {{
+                put("luke", "1_19");
+            }},
+            new HashMap<>() {{
+                put("youngFool", "9_141");
+                put("throne", "9_147");
+            }},
+            10,
+            10,
+            StartingSetup.DefaultLSGroundLocation,
+            StartingSetup.DefaultDSGroundLocation,
+            StartingSetup.NoLSStartingInterrupts,
+            StartingSetup.NoDSStartingInterrupts,
+            StartingSetup.NoLSShields,
+            StartingSetup.NoDSShields,
+            VirtualTableScenario.Open
         );
     }
 
@@ -140,26 +140,65 @@ public class Card_9_141_Tests {
         var scn = GetScenario();
 
         var luke = scn.GetLSCard("luke");
+
         var youngFool = scn.GetDSCard("youngFool");
         var throne = scn.GetDSCard("throne");
+        var trooper = scn.GetDSFiller(1);
 
         scn.StartGame();
         scn.MoveLocationToTable(throne);
         scn.MoveCardsToDSHand(youngFool);
-        scn.MoveCardsToLocation(throne, luke);
+        scn.MoveCardsToLocation(throne, luke, trooper);
         scn.FreezeCard(luke);
 
         scn.SkipToDSTurn(Phase.CONTROL);
         assertTrue(scn.DSCardPlayAvailable(youngFool));
         scn.DSPlayCardAndPassResponses(youngFool, luke);
-
         assertFalse(luke.isFrozen());
-        assertTrue(scn.game().getModifiersQuerying().mayNotBeBattled(scn.gameState(), luke));
 
-        scn.SkipToDSTurn();
+        scn.SkipToPhase(Phase.BATTLE);
         assertTrue(scn.game().getModifiersQuerying().mayNotBeBattled(scn.gameState(), luke));
+        assertFalse(scn.DSCanInitiateBattle(throne));
+
+        scn.SkipToLSTurn();
+        scn.SkipToDSTurn(Phase.BATTLE);
+        assertTrue(scn.game().getModifiersQuerying().mayNotBeBattled(scn.gameState(), luke));
+        assertFalse(scn.DSCanInitiateBattle(throne));
 
         scn.SkipToLSTurn();
         assertFalse(scn.game().getModifiersQuerying().mayNotBeBattled(scn.gameState(), luke));
+
+        scn.SkipToDSTurn(Phase.BATTLE);
+        assertTrue(scn.DSCanInitiateBattle(throne));
     }
+
+    @Test
+    public void YoungFoolReleasedLukeParticipatesInBattle() {
+        var scn = GetScenario();
+
+        var luke = scn.GetLSCard("luke");
+        var rebelTrooper = scn.GetLSFiller(1);
+
+        var youngFool = scn.GetDSCard("youngFool");
+        var throne = scn.GetDSCard("throne");
+        var trooper = scn.GetDSFiller(1);
+
+        scn.StartGame();
+        scn.MoveLocationToTable(throne);
+        scn.MoveCardsToDSHand(youngFool);
+        scn.MoveCardsToLocation(throne, luke, trooper, rebelTrooper);
+        scn.FreezeCard(luke);
+
+        scn.SkipToDSTurn(Phase.CONTROL);
+        assertTrue(scn.DSCardPlayAvailable(youngFool));
+        scn.DSPlayCardAndPassResponses(youngFool, luke);
+        assertFalse(luke.isFrozen());
+
+        scn.SkipToPhase(Phase.BATTLE);
+        assertTrue(scn.DSCanInitiateBattle(throne)); //cannot battle luke, but can battle the rebel trooper
+        scn.DSInitiateBattle(throne);
+        scn.SkipToDamageSegment();
+        assertEquals(3, scn.GetUnpaidDSBattleDamage()); //luke participated - otherwise would be a tie with no battle damage
+    }
+
 }
