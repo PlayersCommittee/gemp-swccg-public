@@ -4,7 +4,6 @@ import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -21,6 +20,7 @@ public class PersonaReplacementTests {
                     put("farmboy_luke", "1_019");
                     put("hoth_luke", "3_003");
                     put("scout_luke", "10_010");
+                    put("last_jedi", "210_020");
                     put("hoth_site","3_059");
                 }},
                 new HashMap<>()
@@ -107,13 +107,13 @@ public class PersonaReplacementTests {
         assertFalse(scn.LSCardPlayAvailable(hoth_luke)); //may only deploy on hoth
     }
 
-    @Test @Ignore
-    public void PersonaReplacePreventedByNeverDeploysRestrictions() {
-        //demonstrates bug https://github.com/PlayersCommittee/gemp-swccg-public/issues/890
-
+    @Test
+    public void EmperorPalpatineForeseerCannotPersonaReplaceAtSiteOpponentOccupies() {
+        // AR p.49 persona replacement step 3: must obey deployment restrictions on own card
         var scn = GetScenario();
 
         var site = scn.GetLSStartingLocation();
+        var trooper = scn.GetLSFiller(1);
 
         var palp = scn.GetDSCard("palp");
         var palp_forseer = scn.GetDSCard("palp_forseer");
@@ -121,11 +121,47 @@ public class PersonaReplacementTests {
         scn.StartGame();
 
         scn.MoveCardsToDSHand(palp_forseer);
-
-        scn.MoveCardsToLocation(site, palp);
+        scn.MoveCardsToLocation(site, palp, trooper);
 
         scn.SkipToDSTurn(Phase.DEPLOY);
         assertFalse(scn.DSCardPlayAvailable(palp_forseer));
+    }
+
+    @Test
+    public void EmperorPalpatineForeseerCanPersonaReplaceAtUnoccupiedSite() {
+        var scn = GetScenario();
+
+        var site = scn.GetDSStartingLocation();
+
+        var palp = scn.GetDSCard("palp");
+        var palp_forseer = scn.GetDSCard("palp_forseer");
+
+        scn.StartGame();
+
+        scn.MoveCardsToDSHand(palp_forseer);
+        scn.MoveCardsToLocation(site, palp);
+
+        scn.SkipToDSTurn(Phase.DEPLOY);
+        assertTrue(scn.DSCardPlayAvailable(palp_forseer));
+    }
+
+    @Test
+    public void LukeSkywalkerTheLastJediCannotPersonaReplaceAtSiteOpponentOccupies() {
+        var scn = GetScenario();
+
+        var site = scn.GetLSStartingLocation();
+        var stormtrooper = scn.GetDSFiller(1);
+
+        var farmboy_luke = scn.GetLSCard("farmboy_luke");
+        var last_jedi = scn.GetLSCard("last_jedi");
+
+        scn.StartGame();
+
+        scn.MoveCardsToLSHand(last_jedi);
+        scn.MoveCardsToLocation(site, farmboy_luke, stormtrooper);
+
+        scn.SkipToLSTurn(Phase.DEPLOY);
+        assertFalse(scn.LSCardPlayAvailable(last_jedi));
     }
 
     @Test
