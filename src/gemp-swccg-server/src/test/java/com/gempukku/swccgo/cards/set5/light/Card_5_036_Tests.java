@@ -20,6 +20,7 @@ public class Card_5_036_Tests {
                 {{
                     put("fury", "5_36");
                     put("chewie", "2_3");
+                    put("luke", "1_19");
                     put("han", "108_1"); //Han with Heavy Blaster Pistol
                     put("bowcaster", "8_86"); //weapon
                     put("electrobinoculars", "1_35"); //device
@@ -280,6 +281,39 @@ public class Card_5_036_Tests {
         scn.LSChooseCard(chewie);
         scn.PassAllResponses();
         assertTrue(chewie.getZone() == Zone.LOST_PILE || chewie.getZone() == Zone.TOP_OF_LOST_PILE);
+    }
+
+    @Test
+    public void CaptiveFuryCaptiveCannotBeForfeitToIgnorableAttrition() {
+        var scn = GetScenario();
+
+        var fury = scn.GetLSCard("fury");
+        var luke = scn.GetLSCard("luke");
+        scn.MoveCardsToHand(fury);
+
+        var site = scn.GetLSStartingLocation();
+        var vader = scn.GetDSCard("vader");
+
+        scn.StartGame();
+
+        scn.MoveCardsToLocation(site, vader);
+        scn.CaptureCardWith(vader, luke);
+
+        scn.SkipToLSTurn(Phase.BATTLE);
+
+        scn.LSPlayLostInterrupt(fury);
+        scn.LSChooseCard(site);
+        scn.LSChooseCard(luke);
+        scn.PassCardAndForceUseResponses();
+        scn.PrepareLSDestiny(1);
+        scn.PrepareDSDestiny(1);
+        scn.SkipToDamageSegment(true);
+
+        assertTrue(scn.DSWonBattle());
+        assertFalse(luke.isHit());
+        assertEquals(1, scn.GetUnpaidLSAttrition());
+        assertTrue(scn.LSGetDecision() != null);
+        assertFalse("Immune remaining attrition is not a must-forfeit", scn.LSHasCardChoiceAvailable(luke));
     }
 
     @Test

@@ -8,6 +8,7 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.BattleState;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.InitiateBattleAction;
@@ -178,17 +179,17 @@ public class Card5_036 extends AbstractUsedOrLostInterrupt {
                 modifiers.add(new MayNotUseWeaponsModifier(self, Filters.in(chosenCaptives)));
                 modifiers.add(new MayNotUseDevicesModifier(self, Filters.in(chosenCaptives)));
                 // Hit captives may always be forfeited. Non-hit captives may not be forfeited
-                // unless attrition remains and they are the only remaining way to satisfy it (#951).
+                // unless mandatory (non-ignorable) attrition remains and they are the only remaining way to satisfy it (#951).
                 Condition otherForfeitableExists = new InBattleCondition(self, Filters.and(Filters.your(playerId),
                         Filters.mayBeForfeited, Filters.not(Filters.in(chosenCaptives))));
-                Condition attritionRemaining = new Condition() {
+                Condition noMandatoryAttritionRemaining = new Condition() {
                     @Override
                     public boolean isFulfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return GameConditions.isAttritionRemaining(game, playerId);
+                        return !isMandatoryAttritionRemaining(game, playerId, gameState, modifiersQuerying);
                     }
                 };
                 modifiers.add(new MayNotBeForfeitedInBattleModifier(self, Filters.and(Filters.in(chosenCaptives), Filters.not(Filters.hit)),
-                        new OrCondition(otherForfeitableExists, new NotCondition(attritionRemaining))));
+                        new OrCondition(otherForfeitableExists, noMandatoryAttritionRemaining)));
                 modifiers.add(new MayNotMoveAwayFromLocationModifier(self, Filters.in(chosenCaptives), Filters.samePermanentCardId(location)));
 
                 return modifiers;
@@ -196,6 +197,32 @@ public class Card5_036 extends AbstractUsedOrLostInterrupt {
         };
 
         action.appendEffect(new StackActionEffect(action, battleAction));
+    }
+
+    private static boolean isMandatoryAttritionRemaining(SwccgGame game, String playerId, GameState gameState,
+            ModifiersQuerying modifiersQuerying) {
+        if (!GameConditions.isAttritionRemaining(game, playerId)) {
+            return false;
+        }
+        BattleState battleState = gameState.getBattleState();
+        if (battleState == null) {
+            return false;
+        }
+        float totalAttrition = battleState.getAttritionTotal(game, playerId);
+        Collection<PhysicalCard> presentCards = Filters.filter(battleState.getAllCardsParticipating(), game,
+                Filters.and(Filters.owner(playerId), Filters.present(battleState.getBattleLocation())));
+        for (PhysicalCard card : presentCards) {
+            float exactImmunity = modifiersQuerying.getImmunityToAttritionOfExactly(gameState, card);
+            if (exactImmunity > 0) {
+                if (exactImmunity != totalAttrition) {
+                    return true;
+                }
+            }
+            else if (modifiersQuerying.getImmunityToAttritionLessThan(gameState, card) <= totalAttrition) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void releaseOrReattachCaptives(SwccgGame game, PlayInterruptAction action, List<PhysicalCard> selectedCaptives) {
