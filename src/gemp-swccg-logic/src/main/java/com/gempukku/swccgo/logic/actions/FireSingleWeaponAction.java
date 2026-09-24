@@ -111,6 +111,9 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
                     !_weaponToFire.getBlueprint().isFiredByCharacterPresentOrHere() && !Filters.artillery_weapon.accepts(game, _weaponToFire)) {
                 setCardFiringWeapon(_weaponToFire.getAttachedTo());
             }
+            if (getCardFiringWeapon() != null && game.getGameState().getWeaponFiringState() != null) {
+                game.getGameState().getWeaponFiringState().setCardFiringWeapon(getCardFiringWeapon());
+            }
         }
 
         // Add any extra cost to fire the weapon

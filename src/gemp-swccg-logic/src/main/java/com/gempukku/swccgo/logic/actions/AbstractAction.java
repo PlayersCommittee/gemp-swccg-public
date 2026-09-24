@@ -34,6 +34,7 @@ public abstract class AbstractAction implements Action {
     private boolean _virtualCardAction;
     private boolean _allowAbort;
     private boolean _choosingTargetsComplete;
+    private Action _appendEffectForwardTo;
 
     protected int _latestTargetGroupId;
     protected Map<Integer, String> _targetingTextMap = new HashMap<Integer, String>();
@@ -316,6 +317,10 @@ public abstract class AbstractAction implements Action {
      */
     @Override
     public final void insertEffect(StandardEffect... effect) {
+        if (_appendEffectForwardTo != null && _appendEffectForwardTo != this) {
+            _appendEffectForwardTo.insertEffect(effect);
+            return;
+        }
         _choosingTargetsComplete = true;
         _effects.addAll(0, Arrays.asList(effect));
     }
@@ -326,10 +331,34 @@ public abstract class AbstractAction implements Action {
      *
      * @param effect the effect
      */
+    /**
+     * Combined Attack / Precise Attack: send later appendEffect calls to the apply-results
+     * action so nested follow-ups (Bossk With Mortar Gun capture after destiny refresh)
+     * are not left on a finished fire action.
+     */
+    public void setAppendEffectForwardTo(Action forwardTo) {
+        _appendEffectForwardTo = forwardTo;
+    }
+
     @Override
     public final void appendEffect(StandardEffect effect) {
+        if (_appendEffectForwardTo != null && _appendEffectForwardTo != this) {
+            _appendEffectForwardTo.appendEffect(effect);
+            return;
+        }
         _choosingTargetsComplete = true;
         _effects.add(effect);
+    }
+
+    /**
+     * Removes and returns effects queued on this action that have not started yet.
+     * Used so Combined Attack / TC-combined can run a weapon's destinyDraws later and
+     * execute the resulting hit/lost/ionize effects on a different parent action.
+     */
+    public List<StandardEffect> drainPendingEffects() {
+        List<StandardEffect> drained = new ArrayList<StandardEffect>(_effects);
+        _effects.clear();
+        return drained;
     }
 
     /**
@@ -577,7 +606,11 @@ public abstract class AbstractAction implements Action {
      */
     @Override
     public final Collection<PhysicalCard> getPrimaryTargetCards(int targetGroupId) {
-        return _targetGroupMap.get(targetGroupId).keySet();
+        Map<PhysicalCard, Set<TargetingReason>> map = _targetGroupMap.get(targetGroupId);
+        if (map == null) {
+            return Collections.emptyList();
+        }
+        return new ArrayList<PhysicalCard>(map.keySet());
     }
 
     /**

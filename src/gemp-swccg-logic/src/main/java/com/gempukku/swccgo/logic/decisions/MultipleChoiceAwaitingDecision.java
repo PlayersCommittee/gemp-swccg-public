@@ -20,6 +20,19 @@ public abstract class MultipleChoiceAwaitingDecision extends AbstractAwaitingDec
     /**
      * Creates a decision that involves choosing from a choice of string values on the User Interface.
      * @param text the text to show the player making the decision
+     * @param possibleResults the strings to choose from
+     * @param asButtons true to show the choices as buttons instead of a dropdown
+     */
+    public MultipleChoiceAwaitingDecision(String text, String[] possibleResults, boolean asButtons) {
+        this(text, possibleResults, -1);
+        if (asButtons) {
+            setParam("asButtons", "true");
+        }
+    }
+
+    /**
+     * Creates a decision that involves choosing from a choice of string values on the User Interface.
+     * @param text the text to show the player making the decision
      * @param possibleResults the strings to choose from, as ArrayList
      */
     public MultipleChoiceAwaitingDecision(String text, ArrayList<String> possibleResults) {
