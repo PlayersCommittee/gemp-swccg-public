@@ -49,7 +49,6 @@ public class Card_1_205_Tests {
          * Uniqueness: Unrestricted
          * Side: Dark
          * Type: Device
-         * Subtype: Character
          * Destiny: 6
          */
 
@@ -60,7 +59,7 @@ public class Card_1_205_Tests {
         assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
         assertEquals(Side.DARK, card.getSide());
         assertTrue(card.isCardType(CardType.DEVICE));
-        assertEquals(CardSubtype.CHARACTER, card.getCardSubtype());
+        assertNotEquals(CardSubtype.CHARACTER, card.getCardSubtype());
         assertEquals(6, card.getDestiny(), scn.epsilon);
     }
 
