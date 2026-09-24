@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.logic.effects;
 
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
@@ -61,7 +62,7 @@ public class UseOneForceEffect extends AbstractStandardEffect {
             _card = game.getGameState().getTopOfForcePile(_playerId);
             game.getGameState().playerUsesForce(_playerId, _firstUsed, _lastUsed);
             // playerUsesForce skips FA marker; refresh card actually moved to Used Pile
-            if (_card != null && "Frozen Assets".equals(_card.getTitle())) {
+            if (_card != null && Title.Frozen_Assets.equals(_card.getTitle())) {
                 _card = game.getGameState().getTopOfUsedPile(_playerId);
             }
             if (_revealCard) {

@@ -257,6 +257,7 @@ public class GameStats {
                 playerZoneSizes.put(Zone.RESERVE_DECK, game.getGameState().getReserveDeckSize(player));
                 playerZoneSizes.put(Zone.FORCE_PILE, game.getModifiersQuerying().getUsableForcePileSize(game.getGameState(), player));
                 playerZoneSizes.put(Zone.FROZEN_PILE, game.getGameState().getFrozenForceCount(player));
+                playerZoneSizes.put(Zone.TOP_OF_FROZEN_PILE, game.getGameState().hasFrozenAssetsMarker(player) ? 1 : 0);
                 playerZoneSizes.put(Zone.USED_PILE, game.getGameState().getUsedPile(player).size());
                 playerZoneSizes.put(Zone.LOST_PILE, game.getGameState().getLostPile(player).size());
                 playerZoneSizes.put(Zone.OUT_OF_PLAY, game.getGameState().getOutOfPlayPile(player).size());

@@ -2928,13 +2928,24 @@ public class GameState implements Snapshotable<GameState> {
         return getCardPileSize(playerId, Zone.FROZEN_PILE);
     }
 
+    private static boolean isFrozenAssets(PhysicalCard card) {
+        return card != null && Title.Frozen_Assets.equals(card.getTitle());
+    }
+
+    /**
+     * True when Frozen Assets is sitting as the marker at top of FROZEN_PILE.
+     */
+    public boolean hasFrozenAssetsMarker(String playerId) {
+        return isFrozenAssets(getTopOfFrozenPile(playerId));
+    }
+
     /**
      * Frozen Force only — excludes Frozen Assets marker sitting at top of FROZEN_PILE.
      */
     public int getFrozenForceCount(String playerId) {
         int count = 0;
         for (PhysicalCard c : getFrozenPile(playerId)) {
-            if (!"Frozen Assets".equals(c.getTitle()))
+            if (!isFrozenAssets(c))
                 count++;
         }
         return count;
@@ -2945,7 +2956,7 @@ public class GameState implements Snapshotable<GameState> {
      */
     public PhysicalCard getTopFrozenForce(String playerId) {
         for (PhysicalCard c : getFrozenPile(playerId)) {
-            if (!"Frozen Assets".equals(c.getTitle()))
+            if (!isFrozenAssets(c))
                 return c;
         }
         return null;
@@ -2955,11 +2966,11 @@ public class GameState implements Snapshotable<GameState> {
         List<? extends PhysicalCard> cards = getCardPile(playerId, zone);
         if (cards==null || cards.isEmpty())
             return null;
-        // Tikkes: bottom-most UNFROZEN (usable) Force card — skip Frozen Assets marker
+        // Slip Sliding Away can leave Frozen Assets at the bottom of Force Pile after unfreeze.
         if (zone == Zone.FORCE_PILE || zone == Zone.TOP_OF_FORCE_PILE) {
             for (int i = cards.size() - 1; i >= 0; i--) {
                 PhysicalCard c = cards.get(i);
-                if (!"Frozen Assets".equals(c.getTitle()))
+                if (!isFrozenAssets(c))
                     return c;
             }
             return null;
@@ -3119,8 +3130,8 @@ public class GameState implements Snapshotable<GameState> {
         }
         int forcePileLifeForce = 0;
         for (PhysicalCard card : _forcePiles.get(playerId)) {
-            // Frozen Assets Effect is not a unit of life Force (may sit on Force Pile after SSA)
-            if (!"Frozen Assets".equals(card.getTitle())) {
+            // Frozen Assets is not a unit of life Force (may sit on Force Pile after Slip Sliding Away)
+            if (!isFrozenAssets(card)) {
                 forcePileLifeForce++;
             }
         }
@@ -4665,10 +4676,10 @@ public class GameState implements Snapshotable<GameState> {
 
     public void playerUsesForce(String player, boolean firstUsed, boolean lastUsed) {
         List<PhysicalCard> forcePile = _forcePiles.get(player);
-        // Skip Frozen Assets Effect sitting on Force Pile (not usable as Force)
+        // Skip Frozen Assets if it is the only/top Force Pile card after Slip Sliding Away
         PhysicalCard card = null;
         for (PhysicalCard c : forcePile) {
-            if (!"Frozen Assets".equals(c.getTitle())) {
+            if (!isFrozenAssets(c)) {
                 card = c;
                 break;
             }
@@ -4700,7 +4711,7 @@ public class GameState implements Snapshotable<GameState> {
     public void moveFrozenPileToForcePile(String playerId) {
         List<PhysicalCard> frozenPile = new LinkedList<PhysicalCard>(_frozenPiles.get(playerId));
         for (PhysicalCard card : frozenPile) {
-            if ("Frozen Assets".equals(card.getTitle()))
+            if (isFrozenAssets(card))
                 continue;
             removeCardFromZone(card);
             addCardToZone(card, Zone.FORCE_PILE, playerId);
@@ -4713,11 +4724,11 @@ public class GameState implements Snapshotable<GameState> {
             return;
 
         List<PhysicalCard> cardsInPile = getZoneCards(player, zone);
-        // Bith Shuffle / Gergall: shuffle only unfrozen Force (exclude Frozen Assets marker)
+        // Slip Sliding Away can leave Frozen Assets at the bottom of Force Pile; do not shuffle it as Force
         PhysicalCard frozenAssetsMarker = null;
         if (zone == Zone.FORCE_PILE) {
             for (PhysicalCard c : cardsInPile) {
-                if ("Frozen Assets".equals(c.getTitle())) {
+                if (isFrozenAssets(c)) {
                     frozenAssetsMarker = c;
                     break;
                 }

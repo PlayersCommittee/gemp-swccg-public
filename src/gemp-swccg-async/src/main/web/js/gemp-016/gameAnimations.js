@@ -1,9 +1,9 @@
 var GameAnimations = Class.extend({
-    _setForcePileSandwich: function(countSelector, forceStr, frozenStr) {
+    _setForcePileSandwich: function(countSelector, forceStr, frozenStr, faMarker) {
         var force = parseInt(forceStr, 10) || 0;
         var frozen = parseInt(frozenStr, 10) || 0;
         var $count = $(countSelector);
-        if (frozen > 0) {
+        if (frozen > 0 || faMarker) {
             $count.html(
                 "<div class='faSandwichLabel'>" +
                 "<div class='faSandwichRow'><span class='faFrzN'>" + frozen + "</span><span class='faUseN'>" + force + "</span></div>" +
@@ -1186,6 +1186,7 @@ var GameAnimations = Class.extend({
                     var reserve = playerZone.getAttribute("RESERVE_DECK");
                     var force = playerZone.getAttribute("FORCE_PILE");
                     var frozen = playerZone.getAttribute("FROZEN_PILE");
+                    var faMarker = playerZone.getAttribute("TOP_OF_FROZEN_PILE") == "1";
                     var used = playerZone.getAttribute("USED_PILE");
                     var lost = playerZone.getAttribute("LOST_PILE");
                     var outOfPlay = playerZone.getAttribute("OUT_OF_PLAY");
@@ -1217,7 +1218,7 @@ var GameAnimations = Class.extend({
                             $("#politicsTotal" + that.game.getPlayerIndex(playerId)).css({display:"table-cell"});
                         }
                         $(".topDarkReserveDeck").text(reserve);
-                        that._setForcePileSandwich(".topDarkForcePile", force, frozen);
+                        that._setForcePileSandwich(".topDarkForcePile", force, frozen, faMarker);
                         $(".topDarkUsedPile").text(used);
                         $(".topDarkLostPile").text(lost);
                    }
@@ -1238,7 +1239,7 @@ var GameAnimations = Class.extend({
                             $("#politicsTotal" + that.game.getPlayerIndex(playerId)).css({display:"table-cell"});
                         }
                         $(".topLightReserveDeck").text(reserve);
-                        that._setForcePileSandwich(".topLightForcePile", force, frozen);
+                        that._setForcePileSandwich(".topLightForcePile", force, frozen, faMarker);
                         $(".topLightUsedPile").text(used);
                         $(".topLightLostPile").text(lost);
                     }

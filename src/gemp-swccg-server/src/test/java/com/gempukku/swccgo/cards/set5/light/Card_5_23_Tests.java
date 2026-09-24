@@ -438,6 +438,33 @@ public class Card_5_23_Tests {
 		var zones = stats.getZoneSizes().get(scn.DS);
 		assertEquals(2, (int) zones.get(Zone.FORCE_PILE));
 		assertEquals(frozenExpected, (int) zones.get(Zone.FROZEN_PILE)); // excludes FA marker
+		assertEquals(1, (int) zones.get(Zone.TOP_OF_FROZEN_PILE)); // FA marker present
 		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
+	}
+
+	@Test
+	public void ForcePileModeEmptyFrozenStillExposesFaMarkerForSandwichUi() {
+		var scn = GetScenario();
+		var frozenAssets = scn.GetLSCard("frozenAssets");
+
+		scn.StartGame();
+		scn.MoveCardsToLSHand(frozenAssets);
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		while (scn.GetDSForcePileCount() > 0) {
+			scn.DSUseForceCheat(1);
+		}
+		scn.LSPlayCard(frozenAssets, "Force Pile");
+		scn.PassAllResponses();
+		scn.DSActivateForceCheat(2);
+
+		assertEquals(0, scn.gameState().getFrozenForceCount(scn.DS));
+		assertTrue(scn.gameState().hasFrozenAssetsMarker(scn.DS));
+
+		var stats = new com.gempukku.swccgo.logic.timing.GameStats();
+		stats.updateGameStats(scn.game());
+		var zones = stats.getZoneSizes().get(scn.DS);
+		assertEquals(2, (int) zones.get(Zone.FORCE_PILE));
+		assertEquals(0, (int) zones.get(Zone.FROZEN_PILE));
+		assertEquals(1, (int) zones.get(Zone.TOP_OF_FROZEN_PILE));
 	}
 }
