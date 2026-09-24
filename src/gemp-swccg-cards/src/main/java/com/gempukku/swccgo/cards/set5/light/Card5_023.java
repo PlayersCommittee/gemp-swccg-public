@@ -19,9 +19,9 @@ import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
-import com.gempukku.swccgo.logic.effects.LoseCardsFromForcePileEffect;
+import com.gempukku.swccgo.logic.effects.PutCardFromCardPileOnBottomOfCardPileEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
@@ -70,45 +70,65 @@ public class Card5_023 extends AbstractNormalEffect {
         return modifiers;
     }
 
+    /**
+     * Frozen Pile is not in-play, so the usual in-play required-trigger walk never sees this Effect.
+     * Force-pile mode still needs thaw / end-of-turn lose while sitting on Frozen Pile.
+     */
+    @Override
+    public List<TriggerAction> getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self) {
+        List<TriggerAction> actions = super.getRequiredAfterTriggers(game, effectResult, self);
+        // Relocate within Frozen Pile clears playCardOptionId; zone is the force-pile-mode signal.
+        if ((self.getZone() == Zone.FROZEN_PILE || self.getZone() == Zone.TOP_OF_FROZEN_PILE)
+                && !self.getZone().isInPlay()) {
+            List<RequiredGameTextTriggerAction> frozenPileActions = getGameTextRequiredAfterTriggers(game, effectResult, self, self.getCardId());
+            if (frozenPileActions != null && !frozenPileActions.isEmpty()) {
+                List<TriggerAction> combined = new LinkedList<TriggerAction>();
+                if (actions != null) {
+                    combined.addAll(actions);
+                }
+                combined.addAll(frozenPileActions);
+                return combined;
+            }
+        }
+        return actions;
+    }
+
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Force-pile mode (VHD): FA sits Active at TOP of FROZEN_PILE (zoneOwner = Force pile owner).
         // Lost at end of opponent's next turn; unfreeze Frozen Pile when leaving table.
-        if (self.getPlayCardOptionId() == PlayCardOptionId.PLAY_CARD_OPTION_2) {
-            if (TriggerConditions.isAboutToLeaveTable(game, effectResult, self)
-                    || TriggerConditions.justLost(game, effectResult, self)
-                    || TriggerConditions.justCanceled(game, effectResult, self)) {
-                final String forcePileOwner = self.getZoneOwner();
-                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                action.setText("Unfreeze Force Pile");
-                action.appendEffect(
-                        new PassthruEffect(action) {
-                            @Override
-                            protected void doPlayEffect(SwccgGame game) {
-                                game.getGameState().moveFrozenPileToForcePile(forcePileOwner);
-                            }
-                        }
-                );
-                return Collections.singletonList(action);
-            }
-            if (TriggerConditions.isEndOfOpponentsTurn(game, effectResult, self)
-                    && (self.getZone() == Zone.FROZEN_PILE || self.getZone() == Zone.TOP_OF_FROZEN_PILE)) {
-                RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                action.setText("Make Frozen Assets lost");
-                final String forcePileOwner = self.getZoneOwner();
-                action.appendEffect(
-                        new PassthruEffect(action) {
-                            @Override
-                            protected void doPlayEffect(SwccgGame game) {
-                                game.getGameState().moveFrozenPileToForcePile(forcePileOwner);
-                            }
-                        }
-                );
-                action.appendEffect(
-                        new LoseCardFromTableEffect(action, self));
-                return Collections.singletonList(action);
-            }
+        // SSA relocates FA to Frozen Pile bottom: auto-thaw cards now above it.
+        boolean onFrozenPile = self.getZone() == Zone.FROZEN_PILE || self.getZone() == Zone.TOP_OF_FROZEN_PILE;
+        if (!onFrozenPile && !TriggerConditions.isAboutToLeaveTable(game, effectResult, self)) {
+            return null;
         }
-        return null;
+
+        final String forcePileOwner = self.getZoneOwner();
+        boolean notTopOfFrozenPile = onFrozenPile
+                && game.getGameState().getTopOfFrozenPile(forcePileOwner) != self
+                && game.getGameState().getFrozenForceSize(forcePileOwner) > 0;
+        boolean leaving = TriggerConditions.isAboutToLeaveTable(game, effectResult, self);
+        boolean endOfOpponentsTurn = onFrozenPile && TriggerConditions.isEndOfOpponentsTurn(game, effectResult, self);
+
+        if (!notTopOfFrozenPile && !leaving && !endOfOpponentsTurn) {
+            return null;
+        }
+
+        RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+        action.setText(endOfOpponentsTurn ? "Make Frozen Assets lost" : "Unfreeze Force Pile");
+        action.appendEffect(
+                new PassthruEffect(action) {
+                    @Override
+                    protected void doPlayEffect(SwccgGame game) {
+                        game.getGameState().moveFrozenPileToForcePile(forcePileOwner);
+                    }
+                }
+        );
+        if (endOfOpponentsTurn) {
+            // Frozen Pile is not onTable, so LoseCardFromTableEffect would no-op.
+            action.appendEffect(
+                    new PutCardFromCardPileOnBottomOfCardPileEffect(action, self.getOwner(), self, Zone.LOST_PILE, false));
+        }
+        return Collections.singletonList(action);
     }
 }

@@ -2627,6 +2627,20 @@ public class GameState implements Snapshotable<GameState> {
                     return true;
         }
 
+        // Frozen Assets is Active on Frozen Pile (not in _inPlay). Visit it so thaw / end-of-turn lose can fire.
+        if (_darkSidePlayer != null) {
+            for (PhysicalCard frozenCard : getFrozenPile(_darkSidePlayer)) {
+                if (isFrozenAssets(frozenCard) && physicalCardVisitor.visitPhysicalCard(frozenCard))
+                    return true;
+            }
+        }
+        if (_lightSidePlayer != null) {
+            for (PhysicalCard frozenCard : getFrozenPile(_lightSidePlayer)) {
+                if (isFrozenAssets(frozenCard) && physicalCardVisitor.visitPhysicalCard(frozenCard))
+                    return true;
+            }
+        }
+
         return false;
     }
 
@@ -2941,8 +2955,9 @@ public class GameState implements Snapshotable<GameState> {
 
     /**
      * Frozen Force only — excludes Frozen Assets marker sitting at top of FROZEN_PILE.
+     * Same idea as getReserveDeckSize (inserts are not counted).
      */
-    public int getFrozenForceCount(String playerId) {
+    public int getFrozenForceSize(String playerId) {
         int count = 0;
         for (PhysicalCard c : getFrozenPile(playerId)) {
             if (!isFrozenAssets(c))
@@ -3120,7 +3135,7 @@ public class GameState implements Snapshotable<GameState> {
             return 0;
         }
         // Frozen Force counts as life; Frozen Assets marker on FROZEN_PILE does not
-        return getReserveDeckSize(playerId) + _forcePiles.get(playerId).size() + getFrozenForceCount(playerId)
+        return getReserveDeckSize(playerId) + _forcePiles.get(playerId).size() + getFrozenForceSize(playerId)
                 + _usedPiles.get(playerId).size() + _unresolvedDestinyDraws.get(playerId).size()
                 + _sabaccHands.get(playerId).size();
     }

@@ -1,7 +1,6 @@
 package com.gempukku.swccgo.cards.effects.complete;
 
 import com.gempukku.swccgo.common.Filterable;
-import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -25,7 +24,7 @@ public abstract class ChooseExistingCardPileEffect extends AbstractChoosePileEff
     private String _playerId;
     private String _zoneOwner;
     private Filterable _pileFilter;
-    private boolean _includeFrozenAssetsAsForcePileTop;
+    private boolean _includeFrozenPile;
 
     /**
      * Creates an effect that causes the player to choose an existing card pile.
@@ -40,10 +39,10 @@ public abstract class ChooseExistingCardPileEffect extends AbstractChoosePileEff
      * Creates an effect that causes the player to choose an existing card pile.
      * @param action the action performing this effect
      * @param playerId the player to make the choice
-     * @param includeFrozenAssetsAsForcePileTop true if Frozen Assets on Frozen Pile counts as the top of an empty Force Pile
+     * @param includeFrozenPile true if Frozen Pile may be chosen when Force Pile is empty
      */
-    public ChooseExistingCardPileEffect(Action action, String playerId, boolean includeFrozenAssetsAsForcePileTop) {
-        this(action, playerId, null, Filters.or(Zone.RESERVE_DECK, Zone.FORCE_PILE, Zone.USED_PILE, Zone.LOST_PILE), includeFrozenAssetsAsForcePileTop);
+    public ChooseExistingCardPileEffect(Action action, String playerId, boolean includeFrozenPile) {
+        this(action, playerId, null, Filters.or(Zone.RESERVE_DECK, Zone.FORCE_PILE, Zone.USED_PILE, Zone.LOST_PILE), includeFrozenPile);
     }
 
     /**
@@ -78,24 +77,24 @@ public abstract class ChooseExistingCardPileEffect extends AbstractChoosePileEff
         this(action, playerId, zoneOwner, pileFilter, false);
     }
 
-    private ChooseExistingCardPileEffect(Action action, String playerId, String zoneOwner, Filterable pileFilter, boolean includeFrozenAssetsAsForcePileTop) {
+    private ChooseExistingCardPileEffect(Action action, String playerId, String zoneOwner, Filterable pileFilter, boolean includeFrozenPile) {
         super(action);
         _playerId = playerId;
         _zoneOwner = zoneOwner;
-        _pileFilter = pileFilter;
-        _includeFrozenAssetsAsForcePileTop = includeFrozenAssetsAsForcePileTop;
+        _pileFilter = includeFrozenPile ? Filters.or(pileFilter, Zone.FROZEN_PILE) : pileFilter;
+        _includeFrozenPile = includeFrozenPile;
     }
 
     @Override
     protected void doPlayEffect(final SwccgGame game) {
         Collection<PhysicalCard> topOfPiles = new ArrayList<PhysicalCard>(Filters.filter(game.getGameState().getTopCardsOfPiles(_zoneOwner), game, _pileFilter));
-        if (_includeFrozenAssetsAsForcePileTop) {
-            addConceptualFrozenAssetsForcePileTops(game, topOfPiles);
+        if (_includeFrozenPile) {
+            addFrozenPileTopsWhenForcePileEmpty(game, topOfPiles);
         }
         if (!topOfPiles.isEmpty()) {
             if (topOfPiles.size() == 1) {
                 PhysicalCard topCard = topOfPiles.iterator().next();
-                pileChosen(game, topCard.getZoneOwner(), pileZoneForTopCard(topCard));
+                pileChosen(game, topCard.getZoneOwner(), GameUtils.getZoneFromZoneTop(topCard.getZone()));
             }
             else {
                 game.getUserFeedback().sendAwaitingDecision(_playerId,
@@ -104,35 +103,27 @@ public abstract class ChooseExistingCardPileEffect extends AbstractChoosePileEff
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 List<PhysicalCard> topOfPileCardsSelected = getSelectedCardsByResponse(result);
                                 PhysicalCard topCard = topOfPileCardsSelected.get(0);
-                                pileChosen(game, topCard.getZoneOwner(), pileZoneForTopCard(topCard));
+                                pileChosen(game, topCard.getZoneOwner(), GameUtils.getZoneFromZoneTop(topCard.getZone()));
                             }
                         });
             }
         }
     }
 
-    private void addConceptualFrozenAssetsForcePileTops(SwccgGame game, Collection<PhysicalCard> topOfPiles) {
+    private void addFrozenPileTopsWhenForcePileEmpty(SwccgGame game, Collection<PhysicalCard> topOfPiles) {
         GameState gameState = game.getGameState();
         for (String playerId : Arrays.asList(gameState.getDarkPlayer(), gameState.getLightPlayer())) {
             if (_zoneOwner != null && !_zoneOwner.equals(playerId)) {
                 continue;
             }
-            if (!gameState.getForcePile(playerId).isEmpty() || !gameState.hasFrozenAssetsMarker(playerId)) {
+            if (!gameState.getForcePile(playerId).isEmpty()) {
                 continue;
             }
-            PhysicalCard fa = gameState.getTopOfFrozenPile(playerId);
-            if (fa != null && !topOfPiles.contains(fa)) {
-                topOfPiles.add(fa);
+            PhysicalCard frozenTop = gameState.getTopOfFrozenPile(playerId);
+            if (frozenTop != null && !topOfPiles.contains(frozenTop)) {
+                topOfPiles.add(frozenTop);
             }
         }
-    }
-
-    private Zone pileZoneForTopCard(PhysicalCard topCard) {
-        Zone zone = GameUtils.getZoneFromZoneTop(topCard.getZone());
-        if (_includeFrozenAssetsAsForcePileTop && Title.Frozen_Assets.equals(topCard.getTitle()) && zone == Zone.FROZEN_PILE) {
-            return Zone.FORCE_PILE;
-        }
-        return zone;
     }
 
     protected abstract void pileChosen(SwccgGame game, String cardPileOwner, Zone cardPile);

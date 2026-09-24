@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -169,7 +170,7 @@ public class Card_5_23_Tests {
 		assertTrue(frozenAssets.getZone() == Zone.FROZEN_PILE || frozenAssets.getZone() == Zone.TOP_OF_FROZEN_PILE);
 		assertEquals(scn.DS, frozenAssets.getZoneOwner());
 		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
-		assertEquals(priorForce, scn.gameState().getFrozenForceCount(scn.DS));
+		assertEquals(priorForce, scn.gameState().getFrozenForceSize(scn.DS));
 		assertEquals(priorForce + 1, scn.GetDSFrozenPileCount()); // FA + frozen Force
 		assertEquals(0, scn.GetDSForcePileCount());
 		assertEquals(0, scn.game().getModifiersQuerying().getForceAvailableToUse(scn.gameState(), scn.DS));
@@ -192,48 +193,14 @@ public class Card_5_23_Tests {
 		scn.LSPlayCard(frozenAssets, "Force Pile");
 		scn.PassAllResponses();
 
-		assertEquals(frozenExpected, scn.gameState().getFrozenForceCount(scn.DS));
+		assertEquals(frozenExpected, scn.gameState().getFrozenForceSize(scn.DS));
 		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
 		assertEquals(0, scn.GetDSForcePileCount());
 		assertEquals(0, scn.game().getModifiersQuerying().getForceAvailableToUse(scn.gameState(), scn.DS));
 
 		scn.DSUseForceCheat(1);
-		assertEquals(frozenExpected, scn.gameState().getFrozenForceCount(scn.DS));
+		assertEquals(frozenExpected, scn.gameState().getFrozenForceSize(scn.DS));
 		assertEquals(0, scn.GetDSForcePileCount());
-	}
-
-	@Test
-	public void SlipSlidingAwayUnfreezesFrozenBlock() {
-		var scn = GetScenario();
-		var frozenAssets = scn.GetLSCard("frozenAssets");
-		var vader = scn.GetDSCard("vader");
-		var boba = scn.GetDSCard("boba");
-		var luke = scn.GetLSCard("luke");
-
-		scn.StartGame();
-		scn.MoveCardsToLSHand(frozenAssets);
-		scn.MoveCardsToTopOfDSForcePile(vader, boba, luke);
-
-		scn.SkipToLSTurn(Phase.DEPLOY);
-		int frozenExpected = scn.GetDSForcePileCount();
-		scn.LSPlayCard(frozenAssets, "Force Pile");
-		scn.PassAllResponses();
-		assertEquals(frozenExpected, scn.gameState().getFrozenForceCount(scn.DS));
-		assertEquals(0, scn.GetDSForcePileCount());
-		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
-
-		// Slip Sliding Away: Force Pile empty + FA on frozen top → unfreeze; FA stays on Frozen Pile
-		var action = new com.gempukku.swccgo.logic.actions.SystemQueueAction();
-		action.setPerformingPlayer(scn.DS);
-		new com.gempukku.swccgo.logic.effects.PlaceTopCardFromCardPileOnBottomOfCardPileEffect(
-				action, scn.DS, Zone.FORCE_PILE, Zone.FORCE_PILE).playEffect(scn.game());
-
-		assertEquals(0, scn.gameState().getFrozenForceCount(scn.DS));
-		assertEquals(1, scn.GetDSFrozenPileCount());
-		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
-		assertEquals(frozenExpected, scn.GetDSForcePileCount());
-		assertEquals(frozenExpected, scn.game().getModifiersQuerying().getForceAvailableToUse(scn.gameState(), scn.DS));
-		assertTrue(scn.GetDSForcePile().stream().noneMatch(c -> Title.Frozen_Assets.equals(c.getTitle())));
 	}
 
 	@Test
@@ -258,7 +225,7 @@ public class Card_5_23_Tests {
 		assertTrue(frozenAssets.getZone() == Zone.FROZEN_PILE || frozenAssets.getZone() == Zone.TOP_OF_FROZEN_PILE);
 		assertEquals(scn.DS, frozenAssets.getZoneOwner());
 		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
-		assertEquals(0, scn.gameState().getFrozenForceCount(scn.DS));
+		assertEquals(0, scn.gameState().getFrozenForceSize(scn.DS));
 		assertEquals(1, scn.GetDSFrozenPileCount()); // FA only
 		assertEquals(0, scn.GetDSForcePileCount());
 		assertEquals(0, scn.game().getModifiersQuerying().getForceAvailableToUse(scn.gameState(), scn.DS));
@@ -281,18 +248,18 @@ public class Card_5_23_Tests {
 		int frozenExpected = scn.GetDSForcePileCount();
 		scn.LSPlayCard(frozenAssets, "Force Pile");
 		scn.PassAllResponses();
-		assertEquals(frozenExpected, scn.gameState().getFrozenForceCount(scn.DS));
+		assertEquals(frozenExpected, scn.gameState().getFrozenForceSize(scn.DS));
 		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
 		assertEquals(0, scn.game().getModifiersQuerying().getForceAvailableToUse(scn.gameState(), scn.DS));
 
 		// Activate usable Force (Force Pile only â€” FA stays on FROZEN_PILE top)
 		scn.DSActivateForceCheat(2);
 		assertEquals(2, scn.game().getModifiersQuerying().getForceAvailableToUse(scn.gameState(), scn.DS));
-		assertEquals(frozenExpected, scn.gameState().getFrozenForceCount(scn.DS));
+		assertEquals(frozenExpected, scn.gameState().getFrozenForceSize(scn.DS));
 		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
 
-		int frozenBefore = scn.gameState().getFrozenForceCount(scn.DS);
-		int usableBefore = scn.game().getModifiersQuerying().getUsableForcePileSize(scn.gameState(), scn.DS);
+		int frozenBefore = scn.gameState().getFrozenForceSize(scn.DS);
+		int usableBefore = scn.GetDSForcePileCount();
 		var topUsable = scn.gameState().getTopOfForcePile(scn.DS);
 		assertTrue(topUsable != null && !"Frozen Assets".equals(topUsable.getTitle()));
 		var topFrozenForce = scn.gameState().getTopFrozenForce(scn.DS);
@@ -301,7 +268,7 @@ public class Card_5_23_Tests {
 		// Usable empty again â€” frozen Force (beneath FA) becomes loseable life force
 		scn.DSUseForceCheat(usableBefore);
 		assertEquals(0, scn.game().getModifiersQuerying().getForceAvailableToUse(scn.gameState(), scn.DS));
-		assertEquals(frozenBefore, scn.gameState().getFrozenForceCount(scn.DS));
+		assertEquals(frozenBefore, scn.gameState().getFrozenForceSize(scn.DS));
 		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
 		assertEquals(topFrozenForce, scn.gameState().getTopFrozenForce(scn.DS));
 	}
@@ -351,7 +318,7 @@ public class Card_5_23_Tests {
 		scn.PassAllResponses();
 
 		scn.DSActivateForceCheat(3);
-		int frozenForce = scn.gameState().getFrozenForceCount(scn.DS);
+		int frozenForce = scn.gameState().getFrozenForceSize(scn.DS);
 		assertEquals(3, scn.GetDSForcePileCount());
 		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
 
@@ -360,7 +327,7 @@ public class Card_5_23_Tests {
 		// FA never enters Force Pile shuffle/draw paths; stays top of FROZEN_PILE
 		assertTrue(scn.GetDSForcePile().stream().noneMatch(c -> "Frozen Assets".equals(c.getTitle())));
 		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
-		assertEquals(frozenForce, scn.gameState().getFrozenForceCount(scn.DS));
+		assertEquals(frozenForce, scn.gameState().getFrozenForceSize(scn.DS));
 	}
 
 	@Test
@@ -409,11 +376,11 @@ public class Card_5_23_Tests {
 		assertEquals(0, scn.game().getModifiersQuerying().getOpponentsForceAvailableToUse(scn.gameState(), scn.LS));
 
 		scn.DSActivateForceCheat(1);
-		int usable = scn.game().getModifiersQuerying().getUsableForcePileSize(scn.gameState(), scn.DS);
+		int usable = scn.GetDSForcePileCount();
 		assertEquals(1, usable);
 		// VHD: Beggar may use usable Force Pile only — not Frozen Force
 		assertEquals(usable, scn.game().getModifiersQuerying().getOpponentsForceAvailableToUse(scn.gameState(), scn.LS));
-		assertEquals(frozenExpected, scn.gameState().getFrozenForceCount(scn.DS));
+		assertEquals(frozenExpected, scn.gameState().getFrozenForceSize(scn.DS));
 	}
 
 	@Test
@@ -458,7 +425,7 @@ public class Card_5_23_Tests {
 		scn.PassAllResponses();
 		scn.DSActivateForceCheat(2);
 
-		assertEquals(0, scn.gameState().getFrozenForceCount(scn.DS));
+		assertEquals(0, scn.gameState().getFrozenForceSize(scn.DS));
 		assertTrue(scn.gameState().hasFrozenAssetsMarker(scn.DS));
 
 		var stats = new com.gempukku.swccgo.logic.timing.GameStats();
@@ -506,7 +473,7 @@ public class Card_5_23_Tests {
 		scn.LSPlayCard(frozenAssets, "Force Pile");
 		scn.PassAllResponses();
 		assertEquals(0, scn.GetDSForcePileCount());
-		assertEquals(frozenExpected, scn.gameState().getFrozenForceCount(scn.DS));
+		assertEquals(frozenExpected, scn.gameState().getFrozenForceSize(scn.DS));
 
 		scn.SkipToDSTurn(Phase.CONTROL);
 		while (scn.GetDSForcePileCount() > 0) {
@@ -515,15 +482,89 @@ public class Card_5_23_Tests {
 		assertEquals(0, scn.GetDSForcePileCount());
 		assertTrue(scn.DSCardPlayAvailable(slipSliding));
 		scn.DSPlayCard(slipSliding);
-		if (scn.DSHasCardChoiceAvailable(frozenAssets)) {
-			scn.DSChooseCard(frozenAssets);
-		}
+		assertTrue(scn.DSHasCardChoiceAvailable(frozenAssets));
+		scn.DSChooseCard(frozenAssets);
 		scn.PassAllResponses();
 
-		assertEquals(0, scn.gameState().getFrozenForceCount(scn.DS));
+		assertEquals(0, scn.gameState().getFrozenForceSize(scn.DS));
 		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
 		assertEquals(frozenExpected, scn.GetDSForcePileCount());
 		assertEquals(frozenExpected, scn.game().getModifiersQuerying().getForceAvailableToUse(scn.gameState(), scn.DS));
+		assertTrue(scn.GetDSForcePile().stream().noneMatch(c -> Title.Frozen_Assets.equals(c.getTitle())));
+	}
+
+	@Test
+	public void SlipSlidingAwayDoesNotTargetFrozenPileWhenForcePileHasCards() {
+		var scn = new VirtualTableScenario(
+				new HashMap<>() {{
+					put("frozenAssets", "5_23");
+					put("luke", "1_19");
+				}},
+				new HashMap<>() {{
+					put("slipSliding", "5_154");
+					put("vader", "1_168");
+					put("boba", "5_91");
+				}},
+				20,
+				20,
+				StartingSetup.DefaultLSGroundLocation,
+				StartingSetup.DefaultDSGroundLocation,
+				StartingSetup.NoLSStartingInterrupts,
+				StartingSetup.NoDSStartingInterrupts,
+				StartingSetup.NoLSShields,
+				StartingSetup.NoDSShields,
+				VirtualTableScenario.Open
+		);
+		var frozenAssets = scn.GetLSCard("frozenAssets");
+		var slipSliding = scn.GetDSCard("slipSliding");
+		var vader = scn.GetDSCard("vader");
+		var boba = scn.GetDSCard("boba");
+
+		scn.StartGame();
+		scn.MoveCardsToLSHand(frozenAssets);
+		scn.MoveCardsToDSHand(slipSliding);
+		scn.MoveCardsToTopOfDSForcePile(vader, boba);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		scn.LSPlayCard(frozenAssets, "Force Pile");
+		scn.PassAllResponses();
+
+		scn.SkipToDSTurn(Phase.CONTROL);
+		assertTrue(scn.GetDSForcePileCount() > 0);
+		assertTrue(scn.DSCardPlayAvailable(slipSliding));
+		scn.DSPlayCard(slipSliding);
+		assertFalse(scn.DSHasCardChoiceAvailable(frozenAssets));
+		scn.DSChooseCard((com.gempukku.swccgo.game.PhysicalCardImpl) scn.gameState().getTopOfReserveDeck(scn.DS));
+		scn.PassAllResponses();
+
+		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
+		assertTrue(scn.gameState().getFrozenForceSize(scn.DS) > 0);
+	}
+
+	@Test
+	public void FrozenAssetsForcePileModeLostAtEndOfOpponentsNextTurn() {
+		var scn = GetScenario();
+		var frozenAssets = scn.GetLSCard("frozenAssets");
+		var vader = scn.GetDSCard("vader");
+		var boba = scn.GetDSCard("boba");
+
+		scn.StartGame();
+		scn.MoveCardsToLSHand(frozenAssets);
+		scn.MoveCardsToTopOfDSForcePile(vader, boba);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		int frozenExpected = scn.GetDSForcePileCount();
+		scn.LSPlayCard(frozenAssets, "Force Pile");
+		scn.PassAllResponses();
+		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
+		assertEquals(frozenExpected, scn.gameState().getFrozenForceSize(scn.DS));
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+
+		assertTrue(frozenAssets.getZone() == Zone.LOST_PILE || frozenAssets.getZone() == Zone.TOP_OF_LOST_PILE);
+		assertEquals(0, scn.gameState().getFrozenForceSize(scn.DS));
+		assertFalse(scn.gameState().hasFrozenAssetsMarker(scn.DS));
+		assertTrue(scn.GetDSForcePileCount() >= frozenExpected);
 		assertTrue(scn.GetDSForcePile().stream().noneMatch(c -> Title.Frozen_Assets.equals(c.getTitle())));
 	}
 }

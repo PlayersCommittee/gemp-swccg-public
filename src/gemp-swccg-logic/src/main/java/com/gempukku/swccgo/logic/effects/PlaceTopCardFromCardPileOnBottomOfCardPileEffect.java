@@ -36,23 +36,6 @@ public class PlaceTopCardFromCardPileOnBottomOfCardPileEffect extends AbstractSu
     @Override
     protected void doPlayEffect(SwccgGame game) {
         GameState gameState = game.getGameState();
-        // Slip Sliding Away: Frozen Assets is conceptual top of Force Pile when that pile is empty.
-        // Unfreeze by returning frozen Force to Force Pile; Frozen Assets stays on Frozen Pile until end of turn.
-        if (_fromPile == Zone.FORCE_PILE && _toPile == Zone.FORCE_PILE) {
-            PhysicalCard top = gameState.getTopOfCardPile(_cardPileOwner, _fromPile);
-            PhysicalCard topFrozen = gameState.getTopOfFrozenPile(_cardPileOwner);
-            boolean faOnFrozenTop = topFrozen != null && com.gempukku.swccgo.filters.Filters.Frozen_Assets.accepts(game, topFrozen);
-            boolean forcePileEmpty = top == null;
-            if (faOnFrozenTop && forcePileEmpty) {
-                int frozenCount = gameState.getFrozenForceCount(_cardPileOwner);
-                gameState.moveFrozenPileToForcePile(_cardPileOwner);
-                String playerNameForMsg = _action.getPerformingPlayer().equals(_cardPileOwner) ? "" : (_cardPileOwner + "'s ");
-                gameState.sendMessage(_action.getPerformingPlayer() + " relocates Frozen Assets within " + playerNameForMsg
-                        + "Force Pile; " + frozenCount + " frozen Force become usable");
-                return;
-            }
-        }
-
         PhysicalCard card = gameState.getTopOfCardPile(_cardPileOwner, _fromPile);
         if (card == null)
             return;

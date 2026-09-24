@@ -7,34 +7,27 @@ import com.gempukku.swccgo.logic.timing.AbstractStandardEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.results.UseForceResult;
 
-
 public class UseOneForceEffect extends AbstractStandardEffect {
     private String _playerId;
     private boolean _firstUsed;
     private boolean _lastUsed;
     private PhysicalCard _card;
     private boolean _revealCard;
-    private boolean _allowFrozen;
 
     public UseOneForceEffect(Action action, String playerId, boolean revealCard) {
-        this(action, playerId, true, true, revealCard, false);
+        this(action, playerId, true, true, revealCard);
     }
 
     public UseOneForceEffect(Action action, String playerId, boolean firstUsed, boolean lastUsed) {
-        this(action, playerId, firstUsed, lastUsed, false, false);
+        this(action, playerId, firstUsed, lastUsed, false);
     }
 
-    public UseOneForceEffect(Action action, String playerId, boolean firstUsed, boolean lastUsed, boolean allowFrozen) {
-        this(action, playerId, firstUsed, lastUsed, false, allowFrozen);
-    }
-
-    private UseOneForceEffect(Action action, String playerId, boolean firstUsed, boolean lastUsed, boolean revealCard, boolean allowFrozen) {
+    private UseOneForceEffect(Action action, String playerId, boolean firstUsed, boolean lastUsed, boolean revealCard) {
         super(action);
         _playerId = playerId;
         _firstUsed = firstUsed;
         _lastUsed = lastUsed;
         _revealCard = revealCard;
-        _allowFrozen = allowFrozen;
     }
 
     public PhysicalCard getCard() {
@@ -47,12 +40,11 @@ public class UseOneForceEffect extends AbstractStandardEffect {
 
     @Override
     public boolean isPlayableInFull(SwccgGame game) {
-        // VHD: Beggar may NOT use Frozen Force (_allowFrozen kept for call-site compat, ignored)
         return game.getModifiersQuerying().getForceAvailableToUse(game.getGameState(), _playerId)>0;
     }
 
     public boolean canUseForce(SwccgGame game) {
-        return game.getModifiersQuerying().getUsableForcePileSize(game.getGameState(), _playerId) > 0;
+        return !game.getGameState().getForcePile(_playerId).isEmpty();
     }
 
     @Override

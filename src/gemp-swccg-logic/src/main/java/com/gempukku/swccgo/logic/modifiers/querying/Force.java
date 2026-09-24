@@ -185,15 +185,8 @@ public interface Force extends BaseQuery, PrivateQuery, Flags, Icons, Captives, 
      * @param playerId the player
      * @return the amount of Force
      */
-    /**
-     * Force Pile cards usable as Force.
-     */
-    default int getUsableForcePileSize(GameState gameState, String playerId) {
-        return gameState.getForcePile(playerId).size();
-    }
-
     default int getForceAvailableToUse(GameState gameState, String playerId) {
-        int playersForcePileSize = getUsableForcePileSize(gameState, playerId);
+        int playersForcePileSize = gameState.getForcePile(playerId).size();
         int opponentsForceAvailable = getOpponentsForceAvailableToUse(gameState, playerId);
 
         return Math.max(0, playersForcePileSize + opponentsForceAvailable);
@@ -206,9 +199,7 @@ public interface Force extends BaseQuery, PrivateQuery, Flags, Icons, Captives, 
      * @return the amount of Force
      */
     default int getOpponentsForceAvailableToUse(GameState gameState, String playerId) {
-        String opponent = gameState.getOpponent(playerId);
-        // VHD: Beggar may NOT use Frozen Force - only usable Force Pile
-        int opponentsForcePileSize = getUsableForcePileSize(gameState, opponent);
+        int opponentsForcePileSize = gameState.getForcePile(gameState.getOpponent(playerId)).size();
 
         // Determine the maximum number of opponent's Force that can be used
         int opponentsForceAvailable = 0;
@@ -233,8 +224,7 @@ public interface Force extends BaseQuery, PrivateQuery, Flags, Icons, Captives, 
      */
     default int getMaxOpponentsForceToUseViaCard(GameState gameState, String playerId, PhysicalCard card, int opponentsForceAlreadyToBeUsed, int minOpponentForceToUse) {
         String opponent = gameState.getOpponent(playerId);
-        // VHD: Beggar may NOT use Frozen Force
-        int opponentsForcePileSize = Math.max(0, getUsableForcePileSize(gameState, opponent) - opponentsForceAlreadyToBeUsed);
+        int opponentsForcePileSize = Math.max(0, gameState.getForcePile(opponent).size() - opponentsForceAlreadyToBeUsed);
         int minToUse = Math.max(0, minOpponentForceToUse - opponentsForceAlreadyToBeUsed);
 
         // Determine the maximum number of opponent's Force that can be used by the card
