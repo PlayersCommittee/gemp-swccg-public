@@ -162,6 +162,11 @@ public class Card4_063 extends AbstractUsedInterrupt {
     }
 
     private boolean canRelocateIgnoringClosedMouth(SwccgGame game, PhysicalCard starfighter, PhysicalCard destination) {
+        // TIEs cannot exist at Asteroid Cave / Space Slug Belly, so they may not relocate there.
+        if (Filters.TIE.accepts(game, starfighter)
+                && Filters.Big_One_Asteroid_Cave_Or_Space_Slug_Belly.accepts(game, destination)) {
+            return false;
+        }
         if (Filters.canBeRelocatedToLocation(destination, true, false, true, 0, false).accepts(game, starfighter)) {
             return true;
         }

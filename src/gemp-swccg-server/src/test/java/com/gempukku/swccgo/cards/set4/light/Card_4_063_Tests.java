@@ -227,6 +227,24 @@ public class Card_4_063_Tests {
     }
 
     @Test
+    public void ThisIsNoCaveCannotRelocateTieFromBigOneToCave() {
+        var scn = GetScenario();
+        var caveInterrupt = scn.GetLSCard("caveInterrupt");
+        var bigOne = scn.GetLSCard("bigOne");
+        var tie = scn.GetDSCard("tie");
+
+        scn.StartGame();
+        scn.MoveCardsToLSHand(caveInterrupt);
+        putBigOneAndBelly(scn);
+        scn.MoveCardsToLocation(bigOne, tie);
+
+        scn.SkipToPhase(Phase.CONTROL);
+        scn.DSPass();
+
+        assertFalse(scn.LSCardPlayAvailable(caveInterrupt));
+    }
+
+    @Test
     public void ThisIsNoCave_4_063_OpensMouthIfClosed() {
         var scn = GetScenario();
         var caveInterrupt = scn.GetLSCard("caveInterrupt");
