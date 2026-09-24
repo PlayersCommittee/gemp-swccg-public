@@ -300,6 +300,64 @@ public class Card_6_046_Tests {
 	}
 
 	@Test
+	public void YarkoraMaySubtractOnlyOncePerBreakCoverAttempt() {
+		var scn = GetScenario();
+		var yarkora = scn.GetLSCard("yarkora");
+		var garindan = scn.GetDSCard("garindan");
+		var site = scn.GetLSStartingLocation();
+
+		scn.StartGame();
+		scn.MoveCardsToLocation(site, yarkora);
+		MakeGarindanUndercoverAt(scn, site);
+
+		scn.SkipToLSTurn(Phase.CONTROL);
+		scn.PrepareLSDestiny(3);
+		scn.LSUseCardAction(yarkora, "Break a spy's cover");
+		scn.LSChooseCard(garindan);
+
+		scn.PassResponses("COST_TO_DRAW_DESTINY_CARD");
+		scn.PassResponses("ABOUT_TO_DRAW_DESTINY_CARD");
+		boolean tookFirst = false;
+		for (int i = 0; i < 20 && !tookFirst; i++) {
+			if (scn.LSAnyDecisionsAvailable()) {
+				java.util.List<String> actions = scn.LSGetADParamAsList("actionText");
+				if (actions != null && actions.stream().anyMatch(a -> a != null && a.toLowerCase().contains("subtract 1"))) {
+					scn.LSChooseAction("Subtract 1");
+					tookFirst = true;
+					break;
+				}
+			}
+			var decision = scn.GetCurrentDecision();
+			if (decision == null) {
+				break;
+			}
+			String lower = decision.getText() != null ? decision.getText().toLowerCase() : "";
+			if (lower.contains("optional") || lower.contains("destiny_drawn") || lower.contains("about_to_draw") || lower.contains("cost_to_draw")) {
+				String decider = scn.GetDecidingPlayer();
+				if (decider != null) {
+					scn.PlayerPass(decider);
+				} else {
+					break;
+				}
+			} else {
+				break;
+			}
+		}
+		assertTrue("One Yarkora should be able to subtract once", tookFirst);
+		if (scn.LSAnyDecisionsAvailable()) {
+			java.util.List<String> actions = scn.LSGetADParamAsList("actionText");
+			boolean second = actions != null && actions.stream().anyMatch(a -> a != null && a.toLowerCase().contains("subtract 1"));
+			assertFalse("The same Yarkora must not subtract a second time on this attempt", second);
+		}
+		scn.PassResponses("DESTINY_DRAWN");
+		scn.PassResponses("COMPLETE_DESTINY_DRAW");
+		scn.PassResponses("DRAWING_DESTINY_COMPLETE");
+		SafePassOptionalResponses(scn);
+		scn.PassAllResponses();
+		assertTrue("Destiny 3-1=2 is not ability 1, so cover remains", garindan.isUndercover());
+	}
+
+	@Test
 	public void YarkoraCumulativeSubtractAllowsBreakCover() {
 		var scn = GetScenario();
 		var yarkora = scn.GetLSCard("yarkora");
