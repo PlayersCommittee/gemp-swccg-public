@@ -21,6 +21,10 @@ public class MayFireRepeatedlyModifier extends AbstractModifier {
         this(source, source, null, fireRepeatedlyCost);
     }
 
+    public MayFireRepeatedlyModifier(PhysicalCard source, Filterable affectFilter, int fireRepeatedlyCost) {
+        this(source, affectFilter, null, fireRepeatedlyCost);
+    }
+
     /**
      * Creates a modifier that allows cards accepted by the filter to fire repeatedly for a specified cost.
      * @param source the source of the modifier
@@ -28,7 +32,7 @@ public class MayFireRepeatedlyModifier extends AbstractModifier {
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      * @param fireRepeatedlyCost the cost to fire repeatedly
      */
-    private MayFireRepeatedlyModifier(PhysicalCard source, Filterable affectFilter, Condition condition, int fireRepeatedlyCost) {
+    public MayFireRepeatedlyModifier(PhysicalCard source, Filterable affectFilter, Condition condition, int fireRepeatedlyCost) {
         super(source, null, affectFilter, condition, ModifierType.MAY_FIRE_REPEATEDLY_FOR_COST, true);
         _fireRepeatedlyCost = fireRepeatedlyCost;
     }

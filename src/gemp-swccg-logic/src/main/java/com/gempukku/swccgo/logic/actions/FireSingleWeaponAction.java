@@ -34,6 +34,7 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
     private boolean _ignorePerAttackOrBattleLimit;
     private boolean _thrown;
     private boolean _repeatedFiring;
+    private Collection<PhysicalCard> _firedAtTargets = Collections.emptyList();
 
     /**
      * Creates an action for firing a single weapon.
@@ -221,7 +222,9 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
                 // Emit effect result that weapon was fired
                 if (!_emitFiredWeaponResult) {
                     _emitFiredWeaponResult = true;
-                    game.getActionsEnvironment().emitEffectResult(new FiredWeaponResult(game, _permanentWeapon != null ? null : _weaponToFire, _permanentWeapon, getCardFiringWeapon(), _thrown, _repeatedFiring, (game.getGameState().getWeaponFiringState()==null ? Collections.<PhysicalCard>emptyList():game.getGameState().getWeaponFiringState().getTargets())));
+                    Collection<PhysicalCard> firedTargets = (game.getGameState().getWeaponFiringState()==null ? Collections.<PhysicalCard>emptyList():game.getGameState().getWeaponFiringState().getTargets());
+                    _firedAtTargets = new java.util.LinkedList<PhysicalCard>(firedTargets);
+                    game.getActionsEnvironment().emitEffectResult(new FiredWeaponResult(game, _permanentWeapon != null ? null : _weaponToFire, _permanentWeapon, getCardFiringWeapon(), _thrown, _repeatedFiring, firedTargets));
                 }
             }
         }
@@ -259,6 +262,32 @@ public class FireSingleWeaponAction extends AbstractFireWeaponAction {
                                             game.getGameState().sendMessage(playerId + " chooses to not repeatedly fire " + GameUtils.getCardLink(_weaponToFire) + " again");
                                         }
                                     }));
+                }
+            }
+            else if (game.getModifiersQuerying().mayFireWeaponRepeatedlyAtSameTarget(game.getGameState(), _weaponToFire)) {
+                Collection<PhysicalCard> targets = !_firedAtTargets.isEmpty()
+                        ? _firedAtTargets
+                        : ((game.getGameState().getWeaponFiringState() == null)
+                        ? Collections.emptyList()
+                        : game.getGameState().getWeaponFiringState().getTargets());
+                if (!targets.isEmpty()) {
+                    Filter baseFilter = (_fireAtTargetFilter != null) ? _fireAtTargetFilter : Filters.any;
+                    final Filter fireAtSameTargetFilter = Filters.and(baseFilter, Filters.in(targets));
+                    final FireWeaponAction fireWeaponAction = _weaponToFire.getBlueprint().getFireWeaponAction(playerId, game, _weaponToFire, false, 0, _sourceCard, true, _targetedAsCharacter, _defenseValueAsCharacter, fireAtSameTargetFilter, _ignorePerAttackOrBattleLimit);
+                    if (fireWeaponAction != null) {
+                        appendAfterEffect(
+                                new PlayoutDecisionEffect(this, playerId,
+                                        new YesNoDecision("Do you want to repeatedly fire " + GameUtils.getCardLink(_weaponToFire) + " again (at same target)?") {
+                                            @Override
+                                            protected void yes() {
+                                                game.getActionsEnvironment().addActionToStack(fireWeaponAction);
+                                            }
+                                            @Override
+                                            protected void no() {
+                                                game.getGameState().sendMessage(playerId + " chooses to not repeatedly fire " + GameUtils.getCardLink(_weaponToFire) + " again");
+                                            }
+                                        }));
+                    }
                 }
             }
         }

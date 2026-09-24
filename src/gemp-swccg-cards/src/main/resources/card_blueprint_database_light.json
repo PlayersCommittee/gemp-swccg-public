@@ -9060,6 +9060,33 @@
     ]
   },
   {
+    "cardId": "13_13",
+    "title": "Desperate Times",
+    "slug": "desperate-times",
+    "slugWithSetName": "desperate-times-reflections-iii",
+    "side": "LIGHT",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "REFLECTIONS_III",
+    "rarity": "PM",
+    "cardCategory": "INTERRUPT",
+    "cardTypes": [
+      "INTERRUPT"
+    ],
+    "cardSubtype": "LOST",
+    "lore": "Han's best tactic when outnumbered? Shoot first and don't worry about asking questions later.",
+    "gameText": "During a battle where your opponent has more characters participating than you, fire (for free) one blaster that cannot fire repeatedly, even if that blaster was already fired this battle. Add 1 to your total weapon destiny.",
+    "destiny": 4,
+    "icons": [
+      {
+        "icon": "REFLECTIONS_III",
+        "count": 1
+      },
+      {
+        "icon": "INTERRUPT",
+        "count": 1
+      }
+    ]
+  },  {
     "cardId": "13_14",
     "title": "Diversionary Tactics",
     "slug": "diversionary-tactics",
@@ -63747,6 +63774,46 @@
       }
     ],
     "species": "EWOK"
+  },
+  {
+    "cardId": "8_18",
+    "title": "Lieutenant Greeve",
+    "slug": "lieutenant-greeve",
+    "slugWithSetName": "lieutenant-greeve-endor",
+    "side": "LIGHT",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "ENDOR",
+    "rarity": "R",
+    "cardCategory": "CHARACTER",
+    "cardTypes": [
+      "REBEL"
+    ],
+    "lore": "Scout. Famous guide who was recruited for Madine's commando unit from the forests of Kashyyyk. Sharpshooter who uses one of the BlasTech rifles brought by Corporal Janse.",
+    "gameText": "Adds 1 to each of his character weapon destiny draws (characters he 'hits' are forfeit -3). When firing an A280 Sharpshooter Rifle, may fire repeatedly at same target for 2 Force each time.",
+    "deployCost": 2,
+    "destiny": 3,
+    "power": 3,
+    "ability": 2,
+    "forfeit": 4,
+    "landspeed": 1,
+    "politics": 0,
+    "icons": [
+      {
+        "icon": "ENDOR",
+        "count": 1
+      },
+      {
+        "icon": "REBEL",
+        "count": 1
+      },
+      {
+        "icon": "WARRIOR",
+        "count": 1
+      }
+    ],
+    "keywords": [
+      "SCOUT"
+    ]
   },
   {
     "cardId": "8_19",
