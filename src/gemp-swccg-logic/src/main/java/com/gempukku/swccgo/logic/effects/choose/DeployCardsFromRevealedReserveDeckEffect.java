@@ -37,8 +37,10 @@ import java.util.List;
  * <p>
  * Revealed-state lives on GameState (mark at RevealTopCards, clear on shuffle / leave-pile)
  * so any reveal can share it. Deploy is still Bruckman-style from the remaining revealed set.
+ * Named for the reveal/deploy path; leftover handling is {@link LeftoverMode} (lose or leave on top),
+ * not always a lose.
  */
-public class DeployCardsFromReserveDeckAndLoseTheRestEffect extends AbstractSubActionEffect {
+public class DeployCardsFromRevealedReserveDeckEffect extends AbstractSubActionEffect {
 
     /**
      * What to do with revealed cards that remain undeployed (and still in Reserve Deck) at the end.
@@ -60,7 +62,7 @@ public class DeployCardsFromReserveDeckAndLoseTheRestEffect extends AbstractSubA
     /**
      * Deploy matching revealed cards anywhere (for free by default for Panic-family), then lose the rest.
      */
-    public DeployCardsFromReserveDeckAndLoseTheRestEffect(Action action, Collection<PhysicalCard> revealedCards,
+    public DeployCardsFromRevealedReserveDeckEffect(Action action, Collection<PhysicalCard> revealedCards,
                                                           Filterable deployableTypesFilter, boolean forFree) {
         this(action, revealedCards, deployableTypesFilter, null, forFree, LeftoverMode.LOSE);
     }
@@ -68,7 +70,7 @@ public class DeployCardsFromReserveDeckAndLoseTheRestEffect extends AbstractSubA
     /**
      * Deploy matching revealed cards to a location accepted by locationFilter (or anywhere if null), then lose the rest.
      */
-    public DeployCardsFromReserveDeckAndLoseTheRestEffect(Action action, Collection<PhysicalCard> revealedCards,
+    public DeployCardsFromRevealedReserveDeckEffect(Action action, Collection<PhysicalCard> revealedCards,
                                                           Filterable deployableTypesFilter, Filter locationFilter,
                                                           boolean forFree) {
         this(action, revealedCards, deployableTypesFilter, locationFilter, forFree, LeftoverMode.LOSE);
@@ -77,7 +79,7 @@ public class DeployCardsFromReserveDeckAndLoseTheRestEffect extends AbstractSubA
     /**
      * Deploy matching revealed cards anywhere, then handle leftovers per leftoverMode.
      */
-    public DeployCardsFromReserveDeckAndLoseTheRestEffect(Action action, Collection<PhysicalCard> revealedCards,
+    public DeployCardsFromRevealedReserveDeckEffect(Action action, Collection<PhysicalCard> revealedCards,
                                                           Filterable deployableTypesFilter, boolean forFree,
                                                           LeftoverMode leftoverMode) {
         this(action, revealedCards, deployableTypesFilter, null, forFree, leftoverMode);
@@ -90,7 +92,7 @@ public class DeployCardsFromReserveDeckAndLoseTheRestEffect extends AbstractSubA
      * LEAVE_ON_TOP is a no-op for leftovers when cards never left Reserve (proper reveal path):
      * undeployed revealed cards already sit on top in original order.
      */
-    public DeployCardsFromReserveDeckAndLoseTheRestEffect(Action action, Collection<PhysicalCard> revealedCards,
+    public DeployCardsFromRevealedReserveDeckEffect(Action action, Collection<PhysicalCard> revealedCards,
                                                           Filterable deployableTypesFilter, Filter locationFilter,
                                                           boolean forFree, LeftoverMode leftoverMode) {
         super(action);
