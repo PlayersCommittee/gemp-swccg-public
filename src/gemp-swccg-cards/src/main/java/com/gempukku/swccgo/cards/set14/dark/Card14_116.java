@@ -62,7 +62,7 @@ public class Card14_116 extends AbstractStarfighter {
                 && GameConditions.isInBattleAt(game, self, Filters.system)
                 && GameConditions.isInBattleWith(game, self, Filters.and(Filters.other(self), Filters.droid_starfighter))
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
-                && GameConditions.canDrawDestinyAndChoose(game, 2)) {
+                && GameConditions.canDrawDestinyAndChoose(game, 1)) {
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Draw two and choose one");
