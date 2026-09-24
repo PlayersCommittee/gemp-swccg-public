@@ -87,6 +87,44 @@ public class Card_223_006_Tests {
     }
 
     @Test
+    public void TransmissionTerminatedVUsedPreventsUsingTractorBeam() {
+        var scn = GetScenario();
+
+        var ttv = scn.GetLSCard("ttv");
+        var tantive = scn.GetLSCard("tantive");
+
+        var devastator = scn.GetDSCard("devastator");
+        var beam = scn.GetDSCard("beam");
+
+        var system = scn.GetDSStartingLocation();
+
+        scn.StartGame();
+
+        scn.MoveCardsToLSHand(ttv);
+        scn.MoveCardsToLocation(system, devastator, tantive);
+        scn.AttachCardsTo(devastator, beam);
+
+        scn.SkipToPhase(Phase.BATTLE);
+        scn.DSPass();
+
+        scn.LSPlayUsedInterrupt(ttv);
+        assertTrue(scn.LSHasCardChoicesAvailable(devastator, tantive));
+        scn.LSChooseCard(devastator);
+        scn.PassAllResponses();
+
+        scn.DSInitiateBattle(system);
+        scn.SkipToDamageSegment();
+        if (scn.LSAnyDecisionsAvailable()) {
+            scn.LSPayRemainingBattleDamageFromReserveDeck();
+        }
+        scn.PassAllResponses();
+        if (scn.DSAnyDecisionsAvailable()) {
+            assertFalse(scn.DSActionAvailable("Use tractor beam"));
+            assertFalse(scn.DSCardActionAvailable(beam, "Use tractor beam"));
+        }
+    }
+
+    @Test
     public void TransmissionTerminatedVUsedPreventsInRangeUsingTractorBeam() {
         var scn = GetScenario();
 
@@ -118,6 +156,38 @@ public class Card_223_006_Tests {
         scn.PassBattleStartResponses();
 
         assertFalse(scn.DSPlayUsedInterruptAvailable(inRange));
+    }
+
+    @Test
+    public void TransmissionTerminatedVUsedPreventsLennoxUsingTractorBeam() {
+        var scn = GetScenario();
+
+        var ttv = scn.GetLSCard("ttv");
+        var tantive = scn.GetLSCard("tantive");
+
+        var devastator = scn.GetDSCard("devastator");
+        var beam = scn.GetDSCard("beam");
+        var lennox = scn.GetDSCard("lenox");
+
+        var system = scn.GetDSStartingLocation();
+
+        scn.StartGame();
+
+        scn.MoveCardsToLSHand(ttv);
+        scn.MoveCardsToLocation(system, devastator, tantive);
+        scn.AttachCardsTo(devastator, beam);
+        scn.BoardAsPilot(devastator, lennox);
+
+        scn.SkipToPhase(Phase.BATTLE);
+        scn.DSPass();
+
+        scn.LSPlayUsedInterrupt(ttv);
+        scn.LSChooseCard(devastator);
+        scn.PassAllResponses();
+
+        scn.SkipToDSTurn(Phase.CONTROL);
+        assertFalse(scn.DSCardActionAvailable(lennox, "Use tractor beam"));
+        assertFalse(scn.DSActionAvailable("Use tractor beam"));
     }
 
 }
