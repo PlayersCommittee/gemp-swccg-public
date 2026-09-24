@@ -2736,9 +2736,17 @@ public class GameState implements Snapshotable<GameState> {
                 if (physicalCardVisitor.visitPhysicalCard(physicalCard))
                     return true;
             }
-            // Narrow: visit owner's combat-card interrupts while stacked (face up or face down)
-            // so cards like The Ebb Of Battle can offer while-stacked actions. Not a general
-            // MayPlayAsIfFromHand / shared stacked-reveal hierarchy.
+        }
+
+        return false;
+    }
+
+    /**
+     * Visits the player's interrupt combat cards stacked on a character (face up or face down).
+     * Used only for optional after actions (e.g. The Ebb Of Battle cancel Force drain). Not top-level play.
+     */
+    public boolean iterateStackedCombatCardInterrupts(PhysicalCardVisitor physicalCardVisitor, String playerId) {
+        for (PhysicalCard physicalCard : getAllStackedCards()) {
             if ((physicalCard.getZone() == Zone.STACKED || physicalCard.getZone() == Zone.STACKED_FACE_DOWN)
                     && physicalCard.getOwner().equals(playerId)
                     && physicalCard.getBlueprint().getCardCategory() == CardCategory.INTERRUPT
@@ -2747,7 +2755,6 @@ public class GameState implements Snapshotable<GameState> {
                     return true;
             }
         }
-
         return false;
     }
 

@@ -117,8 +117,7 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
             }
         }
 
-        // Include STACKED_FACE_DOWN so combat-card interrupt actions (e.g. The Ebb Of Battle) can fire
-        if (self.getZone() == Zone.STACKED || self.getZone() == Zone.STACKED_FACE_DOWN) {
+        if (self.getZone() == Zone.STACKED) {
             List<PlayInterruptAction> actionList3 = getGameTextTopLevelWhileStackedActions(playerId, game, self);
             if (actionList3 != null) {
                 actions.addAll(actionList3);
@@ -649,7 +648,7 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
 
     /**
      * This method is overridden by individual cards to specify top-level actions that can be performed by the specified
-     * player when the card is stacked (face up or face down) on another card.
+     * player when the card is stacked (face up) on another card.
      * @param playerId the player
      * @param game the game
      * @param self the card
