@@ -17,6 +17,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -103,6 +104,30 @@ class ModifiersLogicSkipSetTests {
         @SuppressWarnings("unchecked")
         Set<Modifier> snapshotSkipSet = (Set<Modifier>) skipSetField.get(snapshot);
         assertTrue(snapshotSkipSet.isEmpty());
+        assertFalse(live.getSkipSetNotEmptyWhenIdleDiagnostics().isEmpty());
+    }
+
+    @Test
+    void leftoverSkipSetWhenIdleIsRecordedAndModifierIsMissing() throws Exception {
+        GameState gameState = mock(GameState.class);
+        PhysicalCard card = mock(PhysicalCard.class);
+        when(card.getPermanentCardId()).thenReturn(1);
+        when(gameState.findCardByPermanentId(any())).thenReturn(null);
+
+        FiresForFreeModifier modifier = new FiresForFreeModifier(null, Filters.any, (gs, mq) -> true);
+        ModifiersLogic modifiersLogic = newModifiersLogic(gameState);
+        modifiersLogic.addAlwaysOnModifier(modifier);
+
+        Field skipSetField = ModifiersLogic.class.getDeclaredField("_skipSet");
+        skipSetField.setAccessible(true);
+        @SuppressWarnings("unchecked")
+        Set<Modifier> skipSet = (Set<Modifier>) skipSetField.get(modifiersLogic);
+        skipSet.add(modifier);
+
+        List<Modifier> duringLeak = modifiersLogic.getModifiersAffectingCard(gameState, ModifierType.FIRES_FOR_FREE, card);
+        assertTrue(duringLeak.isEmpty());
+        assertFalse(modifiersLogic.getSkipSetNotEmptyWhenIdleDiagnostics().isEmpty());
+        assertTrue(modifiersLogic.getSkipSetNotEmptyWhenIdleDiagnostics().get(0).contains("FiresForFreeModifier"));
     }
 
     private static ModifiersLogic newModifiersLogic(GameState gameState) {

@@ -84,6 +84,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
     private Map<String, List<Modifier>> _untilStartOfPlayersNextTurnModifiers = new HashMap<String, List<Modifier>>();
 
     private Set<Modifier> _skipSet = new HashSet<Modifier>();
+    private int _skipSetQueryDepth;
+    private final List<String> _skipSetNotEmptyWhenIdle = new LinkedList<String>();
 
     private Map<Phase, Map<String, LimitCounter>> _endOfPhaseLimitCounters = new HashMap<Phase, Map<String, LimitCounter>>();
     private Map<Phase, Map<String, LimitCounter>> _startOfPhaseLimitCounters = new HashMap<Phase, Map<String, LimitCounter>>();
@@ -249,6 +251,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
         // Recursion guard for in-flight modifier evaluation only. Persisting it
         // in a snapshot (or restoring a mid-evaluation skip) permanently disables
         // those modifiers for the rest of the game (lost-modifier / AOBS).
+        recordSkipSetIfNotEmpty("generateSnapshot");
         snapshot._skipSet.clear();
         for (Phase phase : _endOfPhaseLimitCounters.keySet()) {
             Map<String, LimitCounter> snapshotMap = new HashMap<String, LimitCounter>();
@@ -2822,16 +2825,62 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
     }
 
     private boolean affectsCardWithSkipSet(GameState gameState, PhysicalCard physicalCard, Modifier modifier) {
-        if (!_skipSet.contains(modifier) && physicalCard != null) {
-            _skipSet.add(modifier);
-            try {
-                return modifier.affectsCard(gameState, query(), physicalCard);
-            } finally {
-                _skipSet.remove(modifier);
+        enterSkipSetQuery();
+        try {
+            if (!_skipSet.contains(modifier) && physicalCard != null) {
+                _skipSet.add(modifier);
+                try {
+                    return modifier.affectsCard(gameState, query(), physicalCard);
+                } finally {
+                    _skipSet.remove(modifier);
+                }
+            } else {
+                return false;
             }
-        } else {
-            return false;
+        } finally {
+            leaveSkipSetQuery("after affectsCardWithSkipSet");
         }
+    }
+
+    private void enterSkipSetQuery() {
+        _skipSetQueryDepth++;
+    }
+
+    private void leaveSkipSetQuery(String where) {
+        _skipSetQueryDepth--;
+        if (_skipSetQueryDepth == 0) {
+            recordSkipSetIfNotEmpty(where);
+        }
+    }
+
+    /**
+     * skipSet is a recursion guard and must be empty between queries. A leftover
+     * entry is the lost-modifier symptom (that modifier is treated as absent).
+     */
+    private void recordSkipSetIfNotEmpty(String where) {
+        if (_skipSet.isEmpty()) {
+            return;
+        }
+        StringBuilder sb = new StringBuilder("skipSet not empty ");
+        sb.append(where).append(":");
+        GameState gameState = _swccgGame != null ? _swccgGame.getGameState() : null;
+        for (Modifier modifier : _skipSet) {
+            sb.append(" ").append(modifier.getClass().getSimpleName());
+            PhysicalCard source = modifier.getSource(gameState);
+            if (source != null) {
+                sb.append("(").append(GameUtils.getFullName(source)).append(")");
+            }
+        }
+        String msg = sb.toString();
+        _skipSetNotEmptyWhenIdle.add(msg);
+        System.err.println("lost-modifier diagnostic: " + msg);
+    }
+
+    /**
+     * Times skipSet was not empty when a query was idle. Empty in a healthy game.
+     */
+    public List<String> getSkipSetNotEmptyWhenIdleDiagnostics() {
+        return Collections.unmodifiableList(_skipSetNotEmptyWhenIdle);
     }
 
     /**
@@ -2864,6 +2913,15 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
     }
 
     public List<Modifier> getKeywordModifiersAffectingCard(GameState gameState, ModifierType modifierType, Keyword keyword, PhysicalCard card) {
+        enterSkipSetQuery();
+        try {
+            return getKeywordModifiersAffectingCardWithSkipSet(gameState, modifierType, keyword, card);
+        } finally {
+            leaveSkipSetQuery("after modifier query");
+        }
+    }
+
+    private List<Modifier> getKeywordModifiersAffectingCardWithSkipSet(GameState gameState, ModifierType modifierType, Keyword keyword, PhysicalCard card) {
         // Get always on modifiers
         List<? extends Modifier> alwaysOnModifiers = null;
         if (card != null && _alwaysOnModifiersMap.containsKey(card.getPermanentCardId())) {
