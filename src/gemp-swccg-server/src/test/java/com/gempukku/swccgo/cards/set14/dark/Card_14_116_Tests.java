@@ -24,7 +24,6 @@ import java.util.List;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.logic.decisions.AwaitingDecision;
 import com.gempukku.swccgo.logic.modifiers.DrawsBattleDestinyIfUnableToOtherwiseModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotDrawMoreThanBattleDestinyModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -37,7 +36,8 @@ public class Card_14_116_Tests {
     protected VirtualTableScenario GetScenario() {
         return new VirtualTableScenario(
                 new HashMap<>() {{
-                    put("xwing", "1_146");
+                    put("madakor", "12_1");
+                    put("radiant", "12_92");
                 }},
                 new HashMap<>() {{
                     put("dfs1015", "14_116");
@@ -94,18 +94,20 @@ public class Card_14_116_Tests {
         // draw-2-choose-1 must still be offered (gate on choose-Y, not draw-X).
         var scn = GetScenario();
 
-        var xwing = scn.GetLSCard("xwing");
+        var madakor = scn.GetLSCard("madakor");
+        var radiant = scn.GetLSCard("radiant");
         var dfs1015 = scn.GetDSCard("dfs1015");
         var dfs1308 = scn.GetDSCard("dfs1308");
         var system = scn.GetDSStartingLocation();
 
         scn.StartGame();
 
-        scn.MoveCardsToLocation(system, dfs1015, dfs1308, xwing);
+        scn.MoveCardsToLocation(system, dfs1015, dfs1308, radiant);
+        scn.BoardAsPilot(radiant, madakor);
         scn.PrepareDSDestiny(5);
+        scn.PrepareDSDestiny(4);
 
         scn.ApplyAdHocModifier(new DrawsBattleDestinyIfUnableToOtherwiseModifier(dfs1015, 1));
-        scn.ApplyAdHocModifier(new MayNotDrawMoreThanBattleDestinyModifier(dfs1015, 1, scn.DS));
 
         scn.SkipToPhase(Phase.BATTLE);
         scn.DSInitiateBattle(system);
@@ -145,16 +147,17 @@ public class Card_14_116_Tests {
         // choose-Y > max must not be offered (VHD: draw-10-choose-3 blocked when max is 2, etc.)
         var scn = GetScenario();
 
-        var xwing = scn.GetLSCard("xwing");
+        var madakor = scn.GetLSCard("madakor");
+        var radiant = scn.GetLSCard("radiant");
         var dfs1015 = scn.GetDSCard("dfs1015");
         var dfs1308 = scn.GetDSCard("dfs1308");
         var system = scn.GetDSStartingLocation();
 
         scn.StartGame();
-        scn.MoveCardsToLocation(system, dfs1015, dfs1308, xwing);
+        scn.MoveCardsToLocation(system, dfs1015, dfs1308, radiant);
+        scn.BoardAsPilot(radiant, madakor);
 
         scn.ApplyAdHocModifier(new DrawsBattleDestinyIfUnableToOtherwiseModifier(dfs1015, 1));
-        scn.ApplyAdHocModifier(new MayNotDrawMoreThanBattleDestinyModifier(dfs1015, 1, scn.DS));
 
         // Synthetic draw-X-choose-Y with chooseY=2 (> max 1), gated by canDrawDestinyAndChoose
         scn.ApplyAdHocAction(new AbstractActionProxy() {
