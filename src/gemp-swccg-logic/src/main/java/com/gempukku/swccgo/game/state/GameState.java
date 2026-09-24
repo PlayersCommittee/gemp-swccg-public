@@ -2966,15 +2966,6 @@ public class GameState implements Snapshotable<GameState> {
         List<? extends PhysicalCard> cards = getCardPile(playerId, zone);
         if (cards==null || cards.isEmpty())
             return null;
-        // Slip Sliding Away can leave Frozen Assets at the bottom of Force Pile after unfreeze.
-        if (zone == Zone.FORCE_PILE || zone == Zone.TOP_OF_FORCE_PILE) {
-            for (int i = cards.size() - 1; i >= 0; i--) {
-                PhysicalCard c = cards.get(i);
-                if (!isFrozenAssets(c))
-                    return c;
-            }
-            return null;
-        }
         return cards.get(cards.size() - 1);
     }
 
@@ -3128,16 +3119,10 @@ public class GameState implements Snapshotable<GameState> {
         if (_lightSideLifeForceDepleted && playerId.equals(_lightSidePlayer)) {
             return 0;
         }
-        int forcePileLifeForce = 0;
-        for (PhysicalCard card : _forcePiles.get(playerId)) {
-            // Frozen Assets is not a unit of life Force (may sit on Force Pile after Slip Sliding Away)
-            if (!isFrozenAssets(card)) {
-                forcePileLifeForce++;
-            }
-        }
-        // Frozen Force counts as life; FA marker on FROZEN_PILE does not
-        return getReserveDeckSize(playerId) + forcePileLifeForce + getFrozenForceCount(playerId) + _usedPiles.get(playerId).size()
-                + _unresolvedDestinyDraws.get(playerId).size() + _sabaccHands.get(playerId).size();
+        // Frozen Force counts as life; Frozen Assets marker on FROZEN_PILE does not
+        return getReserveDeckSize(playerId) + _forcePiles.get(playerId).size() + getFrozenForceCount(playerId)
+                + _usedPiles.get(playerId).size() + _unresolvedDestinyDraws.get(playerId).size()
+                + _sabaccHands.get(playerId).size();
     }
 
     public List<PhysicalCard> getCaptivesOfEscort(PhysicalCard card) {
@@ -4676,15 +4661,8 @@ public class GameState implements Snapshotable<GameState> {
 
     public void playerUsesForce(String player, boolean firstUsed, boolean lastUsed) {
         List<PhysicalCard> forcePile = _forcePiles.get(player);
-        // Skip Frozen Assets if it is the only/top Force Pile card after Slip Sliding Away
-        PhysicalCard card = null;
-        for (PhysicalCard c : forcePile) {
-            if (!isFrozenAssets(c)) {
-                card = c;
-                break;
-            }
-        }
-        if (card != null) {
+        if (!forcePile.isEmpty()) {
+            PhysicalCard card = forcePile.get(0);
             removeCardsFromZone(Collections.singleton(card), !firstUsed, !lastUsed);
             addCardToTopOfZone(card, Zone.USED_PILE, player, true, !firstUsed, !lastUsed);
         }
@@ -4724,49 +4702,22 @@ public class GameState implements Snapshotable<GameState> {
             return;
 
         List<PhysicalCard> cardsInPile = getZoneCards(player, zone);
-        // Slip Sliding Away can leave Frozen Assets at the bottom of Force Pile; do not shuffle it as Force
-        PhysicalCard frozenAssetsMarker = null;
-        if (zone == Zone.FORCE_PILE) {
-            for (PhysicalCard c : cardsInPile) {
-                if (isFrozenAssets(c)) {
-                    frozenAssetsMarker = c;
-                    break;
-                }
-            }
-        }
-        List<PhysicalCard> shuffleList = cardsInPile;
-        if (frozenAssetsMarker != null) {
-            shuffleList = new LinkedList<PhysicalCard>();
-            for (PhysicalCard c : cardsInPile) {
-                if (c != frozenAssetsMarker)
-                    shuffleList.add(c);
-            }
-        }
-        if (shuffleList.size() > 1) {
+        if (cardsInPile.size() > 1) {
             // Tell game listener to remove top card before shuffling
             PhysicalCard topCard = cardsInPile.get(0);
             for (GameStateListener listener : getAllGameStateListeners())
                 listener.cardsRemoved(player, Collections.singleton(topCard));
 
-            if (topCard != frozenAssetsMarker)
-                topCard.setZone(zone);
+            topCard.setZone(zone);
             // Keep shuffling until top card in pile is not an "inserted" card,
             // or minimum times to shuffle reached.
-            int minTimesToShuffle = (shuffleList.size() / 30) + 1;
+            int minTimesToShuffle = (cardsInPile.size() / 30) + 1;
             int timesShuffled = 0;
             do {
-                Collections.shuffle(shuffleList);
+                Collections.shuffle(cardsInPile);
                 timesShuffled++;
-                topCard = shuffleList.get(0);
+                topCard = cardsInPile.get(0);
             } while (timesShuffled < minTimesToShuffle || topCard.isInserted());
-
-            // Rebuild Force pile: usable (shuffled) then FA at bottom if present
-            if (frozenAssetsMarker != null) {
-                cardsInPile.clear();
-                cardsInPile.addAll(shuffleList);
-                cardsInPile.add(frozenAssetsMarker);
-                frozenAssetsMarker.setZone(zone);
-            }
 
             Zone topZone = GameUtils.getZoneTopFromZone(zone);
             cardsInPile.get(0).setZone(topZone);

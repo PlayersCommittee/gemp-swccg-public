@@ -186,16 +186,10 @@ public interface Force extends BaseQuery, PrivateQuery, Flags, Icons, Captives, 
      * @return the amount of Force
      */
     /**
-     * Force Pile cards usable as Force (excludes Frozen Assets Effect sitting on the pile).
+     * Force Pile cards usable as Force.
      */
     default int getUsableForcePileSize(GameState gameState, String playerId) {
-        int size = 0;
-        for (PhysicalCard card : gameState.getForcePile(playerId)) {
-            if (!Filters.Frozen_Assets.accepts(gameState.getGame(), card)) {
-                size++;
-            }
-        }
-        return size;
+        return gameState.getForcePile(playerId).size();
     }
 
     default int getForceAvailableToUse(GameState gameState, String playerId) {

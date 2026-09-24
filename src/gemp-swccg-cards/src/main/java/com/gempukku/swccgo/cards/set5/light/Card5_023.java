@@ -92,8 +92,7 @@ public class Card5_023 extends AbstractNormalEffect {
                 return Collections.singletonList(action);
             }
             if (TriggerConditions.isEndOfOpponentsTurn(game, effectResult, self)
-                    && (self.getZone() == Zone.FROZEN_PILE || self.getZone() == Zone.TOP_OF_FROZEN_PILE
-                    || self.getZone() == Zone.FORCE_PILE || self.getZone() == Zone.TOP_OF_FORCE_PILE)) {
+                    && (self.getZone() == Zone.FROZEN_PILE || self.getZone() == Zone.TOP_OF_FROZEN_PILE)) {
                 RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setText("Make Frozen Assets lost");
                 final String forcePileOwner = self.getZoneOwner();
