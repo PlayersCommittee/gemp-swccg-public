@@ -4,6 +4,7 @@ import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -11,6 +12,7 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
+import com.gempukku.swccgo.game.PhysicalCardImpl;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ public class Card_4_61_Tests {
                 new HashMap<>() {{
                     put("crazy", "4_61");
                     put("corvette", "1_140");
+                    put("xwing", "1_146");
+                    put("cannon", "7_162");
                     put("kessel", "1_126");
                     put("asteroid", "4_081");
                 }},
@@ -42,6 +46,56 @@ public class Card_4_61_Tests {
                 StartingSetup.NoDSShields,
                 VirtualTableScenario.Open
         );
+    }
+
+    private boolean AddTwoAvailable(VirtualTableScenario scn, PhysicalCardImpl crazy) {
+        return scn.LSGetDecision() != null && scn.LSCardActionAvailable(crazy, "Add 2");
+    }
+
+    private void PassUntilAddTwoAvailable(VirtualTableScenario scn, PhysicalCardImpl crazy) {
+        for (int i = 0; i < 20; i++) {
+            if (AddTwoAvailable(scn, crazy)) {
+                return;
+            }
+            if (scn.DSGetDecision() != null
+                    && scn.DSGetDecision().getText() != null
+                    && scn.DSGetDecision().getText().toLowerCase().contains("optional response")) {
+                scn.DSPass();
+                continue;
+            }
+            if (scn.LSGetDecision() != null
+                    && scn.LSGetDecision().getText() != null
+                    && scn.LSGetDecision().getText().toLowerCase().contains("optional response")) {
+                scn.LSPass();
+                continue;
+            }
+            return;
+        }
+    }
+
+    private void PlayTheydBeCrazyOnTieDuringDsControl(VirtualTableScenario scn) {
+        var crazy = scn.GetLSCard("crazy");
+        var corvette = scn.GetLSCard("corvette");
+        var kessel = scn.GetLSCard("kessel");
+        var asteroid = scn.GetLSCard("asteroid");
+        var tie = scn.GetDSCard("tie");
+
+        scn.MoveCardsToLSHand(crazy);
+        scn.MoveLocationToTable(kessel);
+        scn.MoveLocationToTable(asteroid);
+        scn.MoveCardsToLocation(asteroid, corvette, tie);
+
+        scn.SkipToLSTurn(Phase.CONTROL);
+        scn.LSPass();
+        scn.SkipToDSTurn(Phase.CONTROL);
+        scn.DSPass();
+
+        assertTrue(scn.LSCardPlayAvailable(crazy));
+        scn.LSPlayCard(crazy);
+        assertTrue(scn.LSHasCardChoiceAvailable(tie));
+        scn.LSChooseCard(tie);
+        scn.PassAllResponses();
+        scn.DSPass();
     }
 
     @Test
@@ -61,16 +115,60 @@ public class Card_4_61_Tests {
             add(Icon.INTERRUPT);
             add(Icon.DAGOBAH);
         }});
+        scn.BlueprintKeywordCheck(card, new ArrayList<Keyword>());
         assertEquals(ExpansionSet.DAGOBAH, card.getExpansionSet());
         assertEquals(Rarity.C, card.getRarity());
     }
 
     @Test
-    public void TheydBeCrazyAddsTwoToAsteroidDestinyAgainstTargetTest() {
+    public void TheydBeCrazyToFollowUsMayAddTwoToAsteroidDestinyAgainstTarget() {
         var scn = GetScenario();
-
         var crazy = scn.GetLSCard("crazy");
-        var corvette = scn.GetLSCard("corvette");
+        var asteroid = scn.GetLSCard("asteroid");
+        var tie = scn.GetDSCard("tie");
+
+        scn.StartGame();
+        PlayTheydBeCrazyOnTieDuringDsControl(scn);
+
+        scn.PrepareLSDestiny(2);
+        assertTrue(scn.LSCardActionAvailable(tie, "asteroid"));
+        scn.LSUseCardAction(tie, "asteroid");
+        PassUntilAddTwoAvailable(scn, crazy);
+        assertTrue(AddTwoAvailable(scn, crazy));
+        scn.LSUseCardAction(crazy, "Add 2");
+        scn.PassAllResponses();
+
+        assertEquals(Zone.TOP_OF_LOST_PILE, tie.getZone());
+        assertFalse(scn.CardsAtLocation(asteroid, tie));
+    }
+
+    @Test
+    public void TheydBeCrazyToFollowUsAsteroidDestinyAddTwoIsOptional() {
+        var scn = GetScenario();
+        var crazy = scn.GetLSCard("crazy");
+        var asteroid = scn.GetLSCard("asteroid");
+        var tie = scn.GetDSCard("tie");
+
+        scn.StartGame();
+        PlayTheydBeCrazyOnTieDuringDsControl(scn);
+
+        scn.PrepareLSDestiny(2);
+        scn.LSUseCardAction(tie, "asteroid");
+        PassUntilAddTwoAvailable(scn, crazy);
+        assertTrue(AddTwoAvailable(scn, crazy));
+        scn.LSPass();
+        scn.PassAllResponses();
+
+        assertTrue(scn.CardsAtLocation(asteroid, tie));
+        assertEquals(0, scn.GetDSLostPileCount());
+    }
+
+    @Test
+    public void TheydBeCrazyToFollowUsMayAddTwoToWeaponDestinyTargetingManeuver() {
+        var scn = GetScenario();
+        var crazy = scn.GetLSCard("crazy");
+        var xwing = scn.GetLSCard("xwing");
+        var cannon = scn.GetLSCard("cannon");
         var kessel = scn.GetLSCard("kessel");
         var asteroid = scn.GetLSCard("asteroid");
         var tie = scn.GetDSCard("tie");
@@ -80,33 +178,39 @@ public class Card_4_61_Tests {
         scn.MoveCardsToLSHand(crazy);
         scn.MoveLocationToTable(kessel);
         scn.MoveLocationToTable(asteroid);
-        scn.MoveCardsToLocation(asteroid, corvette, tie);
+        scn.MoveCardsToLocation(asteroid, xwing, tie);
+        scn.AttachCardsTo(xwing, cannon);
 
-        // Give LS a turn so Force is available, then play during DS control (asteroid destiny timing)
         scn.SkipToLSTurn(Phase.CONTROL);
-        scn.LSPass();
-        scn.SkipToDSTurn(Phase.CONTROL);
-        scn.DSPass();
-
-        assertTrue(scn.CardsAtLocation(asteroid, corvette, tie));
+        scn.LSActivateForceCheat(3);
         assertTrue(scn.LSCardPlayAvailable(crazy));
         scn.LSPlayCard(crazy);
-        assertTrue(scn.LSHasCardChoiceAvailable(tie));
-        assertTrue(scn.LSHasCardChoiceAvailable(corvette));
         scn.LSChooseCard(tie);
         scn.PassAllResponses();
-        scn.DSPass();
+
+        scn.SkipToPhase(Phase.BATTLE);
+        assertTrue(scn.LSCanInitiateBattle());
+        scn.LSInitiateBattle(asteroid);
+        scn.PassBattleStartResponses();
 
         scn.PrepareLSDestiny(2);
-        assertTrue(scn.LSCardActionAvailable(tie, "asteroid"));
-        scn.LSUseCardAction(tie, "asteroid");
+        assertTrue(scn.AwaitingLSWeaponsSegmentActions());
+        assertTrue(scn.LSCardActionAvailable(cannon));
+        scn.LSUseCardAction(cannon);
+        scn.LSChooseCard(tie);
+        if (scn.LSDecisionAvailable("Choose number for X")) {
+            scn.LSDecided(0);
+        }
+        PassUntilAddTwoAvailable(scn, crazy);
+        assertTrue(AddTwoAvailable(scn, crazy));
+        scn.LSUseCardAction(crazy, "Add 2");
         scn.PassAllResponses();
 
-        assertEquals(Zone.TOP_OF_LOST_PILE, tie.getZone());
+        assertTrue(tie.isHit());
     }
 
     @Test
-    public void TheydBeCrazyNotPlayableWithoutAsteroidOrBlownAwayLocationTest() {
+    public void TheydBeCrazyToFollowUsNotPlayableWithoutAsteroidOrBlownAwayLocation() {
         var scn = GetScenario();
 
         var crazy = scn.GetLSCard("crazy");
@@ -131,7 +235,7 @@ public class Card_4_61_Tests {
     }
 
     @Test
-    public void TheydBeCrazyWithoutModifierLowDestinyFailsTest() {
+    public void TheydBeCrazyToFollowUsAsteroidDestinyTwoDoesNotDestroyTieWithoutTheInterrupt() {
         var scn = GetScenario();
 
         var crazy = scn.GetLSCard("crazy");

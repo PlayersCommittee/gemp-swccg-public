@@ -10,18 +10,24 @@ import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
+import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.TriggerConditions;
+import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.actions.TriggerAction;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnActionProxyEffect;
+import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
-import com.gempukku.swccgo.logic.modifiers.TotalAsteroidDestinyModifier;
 import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -59,15 +65,34 @@ public class Card4_061 extends AbstractUsedInterrupt {
                             action.appendCost(
                                     new UseForceEffect(action, playerId, 1));
                             // Allow response(s)
-                            action.allowResponses("Add 2 to destiny totals targeting armor or maneuver of " + GameUtils.getCardLink(targetedCard),
+                            action.allowResponses("Target " + GameUtils.getCardLink(targetedCard) + " so you may add 2 to destiny totals targeting its armor or maneuver",
                                     new RespondablePlayCardEffect(action) {
                                         @Override
                                         protected void performActionResults(Action targetingAction) {
-                                            PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
+                                            final PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
+                                            final int permCardId = self.getPermanentCardId();
+                                            final int targetPermCardId = finalTarget.getPermanentCardId();
+                                            final int gameTextSourceCardId = self.getCardId();
                                             action.appendEffect(
-                                                    new AddUntilEndOfTurnModifierEffect(action,
-                                                            new TotalAsteroidDestinyModifier(self, 2, finalTarget),
-                                                            "Adds 2 to destiny totals targeting armor or maneuver of " + GameUtils.getCardLink(finalTarget)));
+                                                    new AddUntilEndOfTurnActionProxyEffect(action,
+                                                            new AbstractActionProxy() {
+                                                                @Override
+                                                                public List<TriggerAction> getOptionalAfterTriggers(String playerId2, SwccgGame game, EffectResult effectResult) {
+                                                                    List<TriggerAction> actions = new LinkedList<TriggerAction>();
+                                                                    final PhysicalCard self = game.findCardByPermanentId(permCardId);
+                                                                    final PhysicalCard target = game.findCardByPermanentId(targetPermCardId);
+                                                                    if (playerId2.equals(playerId)
+                                                                            && target != null
+                                                                            && TriggerConditions.isDestinyJustDrawnTargetingAbilityManeuverOrDefenseValue(game, effectResult, target)) {
+                                                                        final OptionalGameTextTriggerAction action2 = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId);
+                                                                        action2.setText("Add 2 to destiny total");
+                                                                        action2.appendEffect(
+                                                                                new ModifyDestinyEffect(action2, 2));
+                                                                        actions.add(action2);
+                                                                    }
+                                                                    return actions;
+                                                                }
+                                                            }));
                                         }
                                     }
                             );
