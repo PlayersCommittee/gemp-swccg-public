@@ -13,6 +13,7 @@ import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.PutUndercoverEffect;
+import com.gempukku.swccgo.logic.modifiers.CancelsGameTextModifier;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -341,5 +342,68 @@ public class Card_6_046_Tests {
 		int taken = YarkoraTakeSubtractsAndFinishDestiny(scn, 1);
 		assertTrue("Saelt and/or Yarkora should offer subtract, took " + taken, taken >= 1);
 		assertFalse(garindan.isUndercover());
+	}
+
+	@Test
+	public void YarkoraCanceledCopyStillGetsGrantedSubtract() {
+		// Acting Yarkora grants "each of your Yarkoras on table may subtract 1".
+		// A canceled copy still gets that grant.
+		var scn = GetScenario();
+		var yarkora = scn.GetLSCard("yarkora");
+		var yarkora2 = scn.GetLSCard("yarkora2");
+		var garindan = scn.GetDSCard("garindan");
+		var site = scn.GetLSStartingLocation();
+
+		scn.StartGame();
+		scn.MoveCardsToLocation(site, yarkora, yarkora2);
+		MakeGarindanUndercoverAt(scn, site);
+
+		scn.SkipToLSTurn(Phase.CONTROL);
+		yarkora2.setGameTextCanceled(true);
+		scn.game().getModifiersEnvironment().addUntilEndOfTurnModifier(
+				new CancelsGameTextModifier(yarkora2, yarkora2));
+		assertTrue("Yarkora 2 game text should be canceled",
+				yarkora2.isGameTextCanceled()
+						|| scn.game().getModifiersQuerying().isGameTextCanceled(scn.game().getGameState(), yarkora2));
+		assertTrue(scn.LSCardActionAvailable(yarkora, "Break a spy's cover"));
+		scn.PrepareLSDestiny(3); // 3 -1 -1 = 1
+		scn.LSUseCardAction(yarkora, "Break a spy's cover");
+		scn.LSChooseCard(garindan);
+
+		int taken = YarkoraTakeSubtractsAndFinishDestiny(scn, 2);
+		assertTrue("Canceled copy must still receive the granted subtract; took " + taken, taken >= 2);
+		assertFalse("Two subtracts should break cover", garindan.isUndercover());
+	}
+
+	@Test
+	public void YarkoraSubtractIsNotOfferedOnALaterDestiny() {
+		// Proxy is pinned to this DrawDestinyState, so a later destiny (not the cover-break draw)
+		// must not get Yarkora -1. Nested Sense during that draw uses a different top state.
+		var scn = GetScenario();
+		var yarkora = scn.GetLSCard("yarkora");
+		var garindan = scn.GetDSCard("garindan");
+		var site = scn.GetLSStartingLocation();
+
+		scn.StartGame();
+		scn.MoveCardsToLocation(site, yarkora);
+		MakeGarindanUndercoverAt(scn, site);
+
+		scn.SkipToLSTurn(Phase.CONTROL);
+		scn.PrepareLSDestiny(1);
+		scn.LSUseCardAction(yarkora, "Break a spy's cover");
+		scn.LSChooseCard(garindan);
+		scn.PassDestinyDrawResponses();
+		SafePassOptionalResponses(scn);
+		scn.PassAllResponses();
+		assertFalse(garindan.isUndercover());
+
+		scn.SkipToDSTurn(Phase.BATTLE);
+		scn.DSInitiateBattle(site);
+		scn.SkipToPowerSegment();
+		java.util.List<String> lsActions = scn.LSGetADParamAsList("actionText");
+		boolean hasSubtract = lsActions != null && lsActions.stream().anyMatch(
+				a -> a != null && a.toLowerCase().contains("subtract 1"));
+		assertFalse("Yarkora subtract must not appear on a later battle destiny; actions=" + lsActions,
+				hasSubtract);
 	}
 }

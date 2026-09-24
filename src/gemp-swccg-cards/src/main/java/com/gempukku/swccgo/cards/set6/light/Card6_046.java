@@ -56,33 +56,32 @@ public class Card6_046 extends AbstractAlien {
     }
 
     /**
-     * Active Yarkoras owned by the player that may optionally subtract from this destiny draw.
-     * Excludes inactive (e.g. missing) and supporting cards via Filters.filterActive.
+     * Your Yarkoras on table that may optionally subtract from this destiny draw.
+     * Includes title Yarkora copies whose own game text is canceled: the acting Yarkora grants the option.
      */
     static Collection<PhysicalCard> YarkoraGetActiveOwnedYarkoras(SwccgGame game, String playerId) {
-        return Filters.filterActive(game, null, Filters.and(Filters.owner(playerId), Filters.Yarkora, Filters.not(Filters.title("Yarkora"))));
+        return Filters.filterActive(game, null, Filters.and(Filters.owner(playerId), Filters.Yarkora));
     }
 
     /**
-     * Action proxy granting each active owned Yarkora one optional -1 to this specific destiny draw.
-     * Species-based for non-title-Yarkora (e.g. Saelt-Marae). Title Yarkora uses getGameTextOptionalAfterTriggers.
+     * Action proxy: the acting Yarkora grants each of your Yarkoras on table one optional -1
+     * on this specific destiny draw only (not a nested Sense or later draw).
      */
-    static ActionProxy YarkoraCreateSubtractActionProxy(final String playerId, final DrawDestinyState drawDestinyState) {
+    static ActionProxy YarkoraCreateSubtractActionProxy(final String playerId, final DrawDestinyState drawDestinyState,
+                                                        final PhysicalCard actingYarkora) {
         return new AbstractActionProxy() {
             @Override
             public List<TriggerAction> getOptionalAfterTriggers(String playerId2, SwccgGame game, EffectResult effectResult) {
                 List<TriggerAction> actions = new LinkedList<TriggerAction>();
-                // Proxy only lives for this draw; match any non-canceled destiny drawn while active.
                 if (!playerId2.equals(playerId)
-                        || !TriggerConditions.isDestinyJustDrawn(game, effectResult)) {
+                        || !TriggerConditions.isDestinyJustDrawn(game, effectResult, drawDestinyState)) {
                     return actions;
                 }
                 for (PhysicalCard yarkora : YarkoraGetActiveOwnedYarkoras(game, playerId)) {
                     final OptionalGameTextTriggerAction subtractAction =
-                            new OptionalGameTextTriggerAction(yarkora, playerId, yarkora.getCardId());
+                            new OptionalGameTextTriggerAction(yarkora, playerId, actingYarkora.getCardId());
                     subtractAction.setText("Subtract 1 from destiny (" + GameUtils.getFullName(yarkora) + ")");
                     subtractAction.setActionMsg("Subtract 1 from destiny using " + GameUtils.getCardLink(yarkora));
-                    // cumulative=true so multiple copies titled Yarkora each stack -1
                     subtractAction.appendEffect(
                             new ModifyDestinyEffect(subtractAction, -1, true));
                     actions.add(subtractAction);
@@ -128,7 +127,7 @@ public class Card6_046 extends AbstractAlien {
                                                         @Override
                                                         protected List<ActionProxy> getDrawDestinyActionProxies(SwccgGame game, final DrawDestinyState drawDestinyState) {
                                                             return Collections.singletonList(
-                                                                    YarkoraCreateSubtractActionProxy(playerId, drawDestinyState));
+                                                                    YarkoraCreateSubtractActionProxy(playerId, drawDestinyState, self));
                                                         }
 
                                                         @Override
@@ -160,21 +159,6 @@ public class Card6_046 extends AbstractAlien {
                         }
                     }
             );
-            return Collections.singletonList(action);
-        }
-        return null;
-    }
-
-
-    @Override
-    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        // Each Card6_046 may -1 once per destiny drawn by your Yarkora (The One Rule / once per trigger).
-        if (TriggerConditions.isDestinyJustDrawnFor(game, effectResult, Filters.and(Filters.your(self), Filters.Yarkora))) {
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Subtract 1 from destiny");
-            action.setActionMsg("Subtract 1 from destiny using " + GameUtils.getCardLink(self));
-            action.appendEffect(
-                    new ModifyDestinyEffect(action, -1, true));
             return Collections.singletonList(action);
         }
         return null;
