@@ -2,8 +2,10 @@ package com.gempukku.swccgo.cards.set222.dark;
 
 import com.gempukku.swccgo.cards.AbstractLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
+import com.gempukku.swccgo.cards.conditions.InPlayDataSetCondition;
 import com.gempukku.swccgo.cards.effects.AddBattleDestinyEffect;
 import com.gempukku.swccgo.cards.effects.CancelWeaponTargetingEffect;
+import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
@@ -12,25 +14,28 @@ import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
+import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.TriggerAction;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameActionProxyEffect;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfGameModifierEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardFromLostPileEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromLostPileEffect;
-import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.modifiers.MayDeployToTargetModifier;
 import com.gempukku.swccgo.logic.modifiers.MayUseWeaponModifier;
-import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.Effect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -66,7 +71,9 @@ public class Card222_001 extends AbstractLostInterrupt {
                                     new RespondablePlayCardEffect(action) {
                                         @Override
                                         protected void performActionResults(Action targetingAction) {
-                                            // Perform result(s)
+                                            // Lost Interrupts go VOID then Lost Pile, which clears while-in-play data
+                                            // on this card. Record the grant on the saber, which stays in play.
+                                            final int saberPermCardId = selectedCard.getPermanentCardId();
                                             action.appendEffect(
                                                     new AddUntilEndOfGameModifierEffect(action, new MayDeployToTargetModifier(self, selectedCard, Filters.Grievous), "")
                                             );
@@ -74,29 +81,39 @@ public class Card222_001 extends AbstractLostInterrupt {
                                                     new DeployCardToTargetFromLostPileEffect(action, selectedCard, Filters.Grievous, false, false)
                                             );
                                             action.appendEffect(
-                                                    new AddUntilEndOfGameModifierEffect(action, new MayUseWeaponModifier(self, Filters.Grievous,
-                                                            new Condition() {
-                                                                private boolean _everCarrying;
-                                                                private boolean _ended;
-                                                                @Override
-                                                                public boolean isFulfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                                                    if (_ended) {
-                                                                        return false;
-                                                                    }
-                                                                    boolean carrying = Filters.attachedTo(Filters.Grievous).accepts(gameState, modifiersQuerying, selectedCard);
-                                                                    if (carrying) {
-                                                                        _everCarrying = true;
-                                                                        return true;
-                                                                    }
-                                                                    if (_everCarrying) {
-                                                                        _ended = true;
-                                                                        return false;
-                                                                    }
-                                                                    return true;
-                                                                }
-                                                            },
-                                                            Filters.samePermanentCardId(selectedCard)),
+                                                    new SetWhileInPlayDataEffect(action, selectedCard, new WhileInPlayData())
+                                            );
+                                            action.appendEffect(
+                                                    new AddUntilEndOfGameModifierEffect(action,
+                                                            new MayUseWeaponModifier(self, Filters.Grievous,
+                                                                    new InPlayDataSetCondition(selectedCard),
+                                                                    Filters.and(Filters.samePermanentCardId(selectedCard), Filters.attachedTo(Filters.Grievous))),
                                                             "Grievous may use " + GameUtils.getCardLink(selectedCard) + " until he is no longer carrying it")
+                                            );
+                                            action.appendEffect(
+                                                    new AddUntilEndOfGameActionProxyEffect(action,
+                                                            new AbstractActionProxy() {
+                                                                @Override
+                                                                public List<TriggerAction> getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult) {
+                                                                    List<TriggerAction> actions = new LinkedList<TriggerAction>();
+                                                                    if (!TriggerConditions.isTableChanged(game, effectResult)) {
+                                                                        return actions;
+                                                                    }
+                                                                    PhysicalCard saber = game.findCardByPermanentId(saberPermCardId);
+                                                                    if (saber == null || saber.getWhileInPlayData() == null) {
+                                                                        return actions;
+                                                                    }
+                                                                    if (Filters.attachedTo(Filters.Grievous).accepts(game, saber)) {
+                                                                        return actions;
+                                                                    }
+                                                                    RequiredGameTextTriggerAction clear = new RequiredGameTextTriggerAction(saber, saber.getCardId());
+                                                                    clear.skipInitialMessageAndAnimation();
+                                                                    clear.setText("End Grievous saber grant");
+                                                                    clear.appendEffect(new SetWhileInPlayDataEffect(clear, saber, null));
+                                                                    actions.add(clear);
+                                                                    return actions;
+                                                                }
+                                                            })
                                             );
                                         }
                                     }
