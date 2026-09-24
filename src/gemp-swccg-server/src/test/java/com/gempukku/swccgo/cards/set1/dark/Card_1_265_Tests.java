@@ -124,7 +124,7 @@ public class Card_1_265_Tests {
         scn.MoveCardsToHand(pa);
 
         scn.DSStartBattleAndSkipToWeaponsSegment(site(scn));
-        assertFalse("Precise Attack requires two or more legal character or vehicle weapons", scn.DSCardPlayAvailable(pa));
+        assertFalse("Precise Attack requires two or more of your weapons that can fire at the target", scn.DSCardPlayAvailable(pa));
     }
 
     @Test

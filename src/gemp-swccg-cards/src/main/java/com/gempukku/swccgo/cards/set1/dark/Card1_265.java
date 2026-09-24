@@ -53,7 +53,7 @@ public class Card1_265 extends AbstractLostInterrupt {
                     public boolean accepts(com.gempukku.swccgo.game.state.GameState gameState,
                                           com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying modifiersQuerying,
                                           PhysicalCard physicalCard) {
-                        return Filters.filterActive(game, self, getCharacterOrVehicleWeaponFilter(self, physicalCard)).size() >= 2;
+                        return Filters.filterActive(game, self, getWeaponFilter(self, physicalCard)).size() >= 2;
                     }
                 });
 
@@ -62,14 +62,14 @@ public class Card1_265 extends AbstractLostInterrupt {
         }
 
         final PlayInterruptAction action = new PlayInterruptAction(game, self);
-        action.setText("Combine character and vehicle weapon firings");
+        action.setText("Combine weapon firings");
         // Initiation: target 2+ eligible weapons + one character or vehicle. Interrupt itself has no Force cost;
         // each weapon pays its own fire cost as that shot initiates (Gergall / same structure as Combined Attack).
         action.appendTargeting(
                 new TargetCardOnTableEffect(action, playerId, "Choose opponent's character or vehicle", targetFilter) {
                     @Override
                     protected void cardTargeted(final int targetGroupId, final PhysicalCard targetedCard) {
-                        final Filter weaponFilter = getCharacterOrVehicleWeaponFilter(self, targetedCard);
+                        final Filter weaponFilter = getWeaponFilter(self, targetedCard);
                         action.appendTargeting(
                                 new ChooseCardsOnTableEffect(action, playerId,
                                         "Choose two or more weapons",
@@ -103,26 +103,21 @@ public class Card1_265 extends AbstractLostInterrupt {
     }
 
     /**
-     * Your character and vehicle weapons (including permanent weapons on your characters) that can currently fire at the target.
-     * Starship weapons are not included; Precise Attack is the ground analog of Combined Attack.
+     * Your weapons that can currently fire at the target, including artillery, starship weapons
+     * that are allowed to fire at that target, and permanent weapons.
      */
-    static Filter getCharacterOrVehicleWeaponFilter(final PhysicalCard source, final PhysicalCard target) {
+    static Filter getWeaponFilter(final PhysicalCard source, final PhysicalCard target) {
         final Filter fireAtFilter = Filters.sameCardId(target);
         return Filters.and(
                 Filters.your(source),
                 Filters.or(
-                        Filters.and(
-                                Filters.or(Filters.character_weapon, Filters.vehicle_weapon),
-                                Filters.canBeFiredAt(source, fireAtFilter, 0)),
+                        Filters.canBeFiredAt(source, fireAtFilter, 0),
                         new Filter() {
                             @Override
                             public boolean accepts(com.gempukku.swccgo.game.state.GameState gameState,
                                                   com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying modifiersQuerying,
                                                   PhysicalCard physicalCard) {
-                                // Permanent character weapons live on the character card (not CardCategory.WEAPON).
-                                if (!Filters.character.accepts(gameState, modifiersQuerying, physicalCard)) {
-                                    return false;
-                                }
+                                // Permanent weapons live on the carrier card (not CardCategory.WEAPON).
                                 if (physicalCard.getBlueprint().getPermanentWeapon(physicalCard) == null) {
                                     return false;
                                 }
