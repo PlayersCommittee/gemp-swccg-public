@@ -108,7 +108,7 @@ public class PersonaReplacementTests {
     }
 
     @Test
-    public void PersonaReplacePreventedByNeverDeploysRestrictions() {
+    public void EmperorPalpatineForeseerCannotPersonaReplaceAtSiteOpponentOccupies() {
         // AR p.49 persona replacement step 3: must obey deployment restrictions on own card
         var scn = GetScenario();
 
@@ -128,7 +128,7 @@ public class PersonaReplacementTests {
     }
 
     @Test
-    public void PersonaReplaceSucceedsWhenNeverDeploysSiteUnoccupied() {
+    public void EmperorPalpatineForeseerCanPersonaReplaceAtUnoccupiedSite() {
         var scn = GetScenario();
 
         var site = scn.GetDSStartingLocation();
