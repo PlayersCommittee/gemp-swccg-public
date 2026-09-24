@@ -29,6 +29,7 @@ public class Card_13_88_Tests {
 				new HashMap<>() {{
 					put("ebb", "13_88");
 					put("maul", "11_54"); // Darth Maul (Dark Jedi)
+					put("monnok", "2_135");
 				}},
 				40,
 				40,
@@ -174,6 +175,25 @@ public class Card_13_88_Tests {
 		assertEquals(Zone.TOP_OF_LOST_PILE, ebb.getZone());
 		assertFalse(scn.IsActiveForceDrain());
 		assertEquals(lsLifeBefore, scn.GetLSLifeForceRemaining());
+	}
+
+	@Test
+	public void TheEbbOfBattleDoesNotLetStackedMonnokCombatCardBePlayed() {
+		var scn = GetScenario();
+		var monnok = scn.GetDSCard("monnok");
+		var maul = scn.GetDSCard("maul");
+		var lsSite = scn.GetLSStartingLocation();
+
+		scn.StartGame();
+		scn.MoveCardsToLocation(lsSite, maul);
+		scn.RemoveCardZone(monnok);
+		scn.gameState().stackCard(monnok, maul, true, false, false);
+		monnok.setCombatCard(true);
+		assertEquals(Zone.STACKED_FACE_DOWN, monnok.getZone());
+		assertTrue(monnok.isCombatCard());
+
+		scn.SkipToPhase(Phase.CONTROL);
+		assertFalse(scn.DSCardPlayAvailable(monnok));
 	}
 
 	@Test
