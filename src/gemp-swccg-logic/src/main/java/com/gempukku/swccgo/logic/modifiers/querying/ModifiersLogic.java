@@ -96,7 +96,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
     private Map<String, LimitCounter> _duelLimitCounters = new HashMap<String, LimitCounter>();
     private Map<Integer, Map<String, LimitCounter>> _forceLossLimitCounters = new HashMap<Integer, Map<String, LimitCounter>>();
     private Map<String, LimitCounter> _cardTitlePlayedTurnLimitCounters = new HashMap<String, LimitCounter>();
-    private Map<String, Set<Persona>> _personasPlayedThisTurn = new HashMap<String, Set<Persona>>();
+    private Set<Persona> _personasPlayedThisTurn = new HashSet<Persona>();
     private Map<Integer, Map<String, LimitCounter>> _captivityLimitCounters = new HashMap<Integer, Map<String, LimitCounter>>();
     private Map<Float, Map<String, LimitCounter>> _raceTotalLimitCounters = new HashMap<Float, Map<String, LimitCounter>>();
 
@@ -293,9 +293,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
         for (Map.Entry<String, LimitCounter> entry : _cardTitlePlayedTurnLimitCounters.entrySet()) {
             snapshot._cardTitlePlayedTurnLimitCounters.put(entry.getKey(), snapshotData.getDataForSnapshot(entry.getValue()));
         }
-        for (Map.Entry<String, Set<Persona>> entry : _personasPlayedThisTurn.entrySet()) {
-            snapshot._personasPlayedThisTurn.put(entry.getKey(), new HashSet<Persona>(entry.getValue()));
-        }
+        snapshot._personasPlayedThisTurn.addAll(_personasPlayedThisTurn);
         for (Integer cardId : _captivityLimitCounters.keySet()) {
             Map<String, LimitCounter> snapshotMap = new HashMap<String, LimitCounter>();
             snapshot._captivityLimitCounters.put(cardId, snapshotMap);
@@ -731,19 +729,13 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
     }
 
     @Override
-    public void recordPersonaPlayedThisTurn(String playerId, Persona persona) {
-        Set<Persona> personas = _personasPlayedThisTurn.get(playerId);
-        if (personas == null) {
-            personas = new HashSet<Persona>();
-            _personasPlayedThisTurn.put(playerId, personas);
-        }
-        personas.add(persona);
+    public void recordPersonaPlayedThisTurn(Persona persona) {
+        _personasPlayedThisTurn.add(persona);
     }
 
     @Override
-    public boolean isPersonaPlayedThisTurn(String playerId, Persona persona) {
-        Set<Persona> personas = _personasPlayedThisTurn.get(playerId);
-        return personas != null && personas.contains(persona);
+    public boolean isPersonaPlayedThisTurn(Persona persona) {
+        return _personasPlayedThisTurn.contains(persona);
     }
 
     // Modifiers Environment

@@ -39,12 +39,12 @@ public interface CardTraits extends BaseQuery, Limits, Piloting, Weapons {
             }
         }
 
-        // Per player: once that player has played a unique persona this turn, their other
-        // titles of that persona may not be played this turn. Opponent may still play it.
+        // Personas are unique this turn for both players; once a persona has been played,
+        // other cards of that persona (including different titles) may not be played this turn.
         Set<Persona> personas = new HashSet<Persona>(card.getBlueprint().getPersonas());
         personas.addAll(getPersonas(gameState, card));
         for (Persona persona : personas) {
-            if (isPersonaPlayedThisTurn(card.getOwner(), persona)) {
+            if (isPersonaPlayedThisTurn(persona)) {
                 return true;
             }
         }

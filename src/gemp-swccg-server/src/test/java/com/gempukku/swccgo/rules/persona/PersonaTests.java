@@ -15,10 +15,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Engine persona uniqueness: per player, a unique persona already played this turn
- * may not be deployed again (other titles). Opponent may still play that persona
- * (AR: each player may have the same persona on table; Ice Storm global per-turn
- * uniqueness is same title, both sides).
+ * Engine persona uniqueness this turn is shared for both players: a unique persona
+ * already played this turn may not be deployed again (other titles), by either player.
  */
 public class PersonaTests {
     protected VirtualTableScenario GetScenario() {
@@ -74,10 +72,7 @@ public class PersonaTests {
     }
 
     @Test
-    public void OpponentMayDeploySamePersonaDifferentTitleSameTurn() {
-        // AR: both players may have the same persona on table (different titles).
-        // Ice Storm global per-turn uniqueness is same title. Persona recording is per player,
-        // so LS Tamtel this turn does not block DS Lando (Comlink react during LS battle).
+    public void OpponentMayNotDeploySamePersonaDifferentTitleSameTurn() {
         var scn = GetScenario();
         var tamtel = scn.GetLSCard("tamtel");
         var dsLando = scn.GetDSCard("dsLando");
@@ -91,9 +86,8 @@ public class PersonaTests {
 
         deployAndPass(scn, tamtel, site);
 
-        assertTrue(scn.game().getModifiersQuerying().isPersonaPlayedThisTurn(scn.LS, Persona.LANDO));
-        assertFalse(scn.game().getModifiersQuerying().isPersonaPlayedThisTurn(scn.DS, Persona.LANDO));
-        assertFalse("DS Lando must not be blocked by LS Tamtel this turn",
+        assertTrue(scn.game().getModifiersQuerying().isPersonaPlayedThisTurn(Persona.LANDO));
+        assertTrue("DS Lando is blocked after LS Tamtel this turn",
                 scn.game().getModifiersQuerying().isPlayingCardTitleTurnLimitReached(scn.gameState(), dsLando));
     }
 
