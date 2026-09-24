@@ -12,6 +12,7 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
+import com.gempukku.swccgo.logic.decisions.AwaitingDecision;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -521,6 +522,253 @@ public class Card_1_103_Tests {
     }
 
     @Test
+    public void PanicRevertAfterDeployThenDeclineLosesRemainingRevealed() {
+        // Reveal and deploy one, revert the battle, then decline: remaining revealed
+        // cards (including the one that had been deployed) must be leftover-lost.
+        var scn = GetScenario();
+
+        var panic = scn.GetLSCard("panic");
+        var luke = scn.GetLSCard("luke");
+        var junk = scn.GetLSCard("junk");
+        var trooper = scn.GetLSCard("trooper");
+        var lsCantina = scn.GetLSCard("ls_cantina");
+        var vader = scn.GetDSCard("vader");
+
+        scn.StartGame();
+        scn.MoveCardsToLSHand(panic);
+        scn.MoveLocationToTable(lsCantina);
+        scn.MoveCardsToLocation(lsCantina, trooper, vader);
+
+        scn.SkipToDSTurn(Phase.BATTLE);
+        scn.MoveCardsToTopOfOwnReserveDeck(junk, luke);
+        scn.DSInitiateBattle(lsCantina);
+
+        assertTrue(scn.LSCardPlayAvailable(panic));
+        scn.LSPlayCard(panic);
+        scn.PassAllResponses();
+        scn.LSDecided(2);
+        scn.LSPass();
+        if (scn.DSDecisionAvailable("Top card") || scn.DSDecisionAvailable("Reserve Deck")) {
+            scn.DSPass();
+        }
+
+        assertTrue("Expected deploy choice; got: " + decisionText(scn),
+                scn.LSDecisionAvailable("Choose card to deploy"));
+        {
+            var bp = scn.LSGetBPChoices();
+            var ids = scn.LSGetCardChoices();
+            String lukeBp = luke.getBlueprintId(true);
+            int idx = -1;
+            for (int i = 0; i < bp.size(); i++) {
+                if (normalizeBp(lukeBp).equals(normalizeBp(bp.get(i)))) {
+                    idx = i;
+                    break;
+                }
+            }
+            assertTrue("Luke should appear in deploy choices; bp=" + bp, idx >= 0);
+            scn.LSDecided(ids.get(idx));
+        }
+        resolveUntilWeaponsSegment(scn, 40);
+
+        revertFromFirstEligiblePrompt(scn);
+        panic = scn.GetPostRevertCard(panic);
+        luke = scn.GetPostRevertCard(luke);
+        junk = scn.GetPostRevertCard(junk);
+        trooper = scn.GetPostRevertCard(trooper);
+        lsCantina = scn.GetPostRevertCard(lsCantina);
+        vader = scn.GetPostRevertCard(vader);
+
+        scn.MoveCardsToLSHand(panic);
+        scn.MoveCardsToTopOfOwnReserveDeck(junk, luke);
+        if (scn.DSAnyDecisionsAvailable() && !scn.IsActiveBattle()) {
+            scn.DSInitiateBattle(lsCantina);
+        }
+
+        assertTrue(scn.LSCardPlayAvailable(panic));
+        scn.LSPlayCard(panic);
+        scn.PassAllResponses();
+        scn.LSDecided(2);
+        scn.LSPass();
+        if (scn.DSDecisionAvailable("Top card") || scn.DSDecisionAvailable("Reserve Deck")) {
+            scn.DSPass();
+        }
+
+        assertTrue("Expected deploy choice after revert; got: " + decisionText(scn),
+                scn.LSDecisionAvailable("Choose card to deploy"));
+        scn.LSDecided("");
+        resolveUntilIdle(scn, 20);
+
+        assertTrue("Luke leftover after revert+decline should be lost; zone=" + luke.getZone(),
+                luke.getZone() == Zone.LOST_PILE || luke.getZone() == Zone.TOP_OF_LOST_PILE);
+        assertTrue("Junk leftover after revert+decline should be lost; zone=" + junk.getZone(),
+                junk.getZone() == Zone.LOST_PILE || junk.getZone() == Zone.TOP_OF_LOST_PILE);
+    }
+
+    @Test
+    public void PanicRevealedCardReturnedToReserveIsNotOfferedAgain() {
+        // AR: a revealed card that leaves Reserve is no longer revealed. If it is later
+        // placed back (e.g. destiny then returned), it must not be offered to deploy
+        // and must not be leftover-lost with the remaining revealed set.
+        var scn = GetScenario();
+
+        var panic = scn.GetLSCard("panic");
+        var luke = scn.GetLSCard("luke");
+        var han = scn.GetLSCard("han");
+        var junk = scn.GetLSCard("junk");
+        var trooper = scn.GetLSCard("trooper");
+        var lsCantina = scn.GetLSCard("ls_cantina");
+        var vader = scn.GetDSCard("vader");
+
+        scn.StartGame();
+        scn.MoveCardsToLSHand(panic);
+        scn.MoveLocationToTable(lsCantina);
+        scn.MoveCardsToLocation(lsCantina, trooper, vader);
+
+        scn.SkipToDSTurn(Phase.BATTLE);
+        scn.MoveCardsToTopOfOwnReserveDeck(junk, luke, han);
+        scn.DSInitiateBattle(lsCantina);
+
+        assertTrue(scn.LSCardPlayAvailable(panic));
+        scn.LSPlayCard(panic);
+        scn.PassAllResponses();
+        scn.LSDecided(3);
+        scn.LSPass();
+        if (scn.DSDecisionAvailable("Top card") || scn.DSDecisionAvailable("Reserve Deck")) {
+            scn.DSPass();
+        }
+
+        assertTrue("Expected deploy choice; got: " + decisionText(scn),
+                scn.LSDecisionAvailable("Choose card to deploy"));
+        {
+            var bp = scn.LSGetBPChoices();
+            var ids = scn.LSGetCardChoices();
+            String lukeBp = luke.getBlueprintId(true);
+            int idx = -1;
+            for (int i = 0; i < bp.size(); i++) {
+                if (normalizeBp(lukeBp).equals(normalizeBp(bp.get(i)))) {
+                    idx = i;
+                    break;
+                }
+            }
+            assertTrue("Luke should be deployable; bp=" + bp, idx >= 0);
+            scn.LSDecided(ids.get(idx));
+        }
+
+        boolean returnedToReserve = false;
+        for (int i = 0; i < 50; i++) {
+            if (!returnedToReserve
+                    && (han.getZone() == Zone.RESERVE_DECK || han.getZone() == Zone.TOP_OF_RESERVE_DECK)) {
+                scn.MoveCardsToTopOfOwnUsedPile(han);
+                assertFalse("Leaving Reserve must end Han revealed-state",
+                        scn.game().getGameState().isCardRevealedFromPile(han));
+                scn.MoveCardsToTopOfOwnReserveDeck(han);
+                assertFalse("Returning to Reserve must not re-mark Han revealed",
+                        scn.game().getGameState().isCardRevealedFromPile(han));
+                returnedToReserve = true;
+            }
+            if (panic.getZone() == Zone.USED_PILE || panic.getZone() == Zone.TOP_OF_USED_PILE) {
+                var current = scn.GetCurrentDecision();
+                String cur = current == null || current.getText() == null ? "" : current.getText().toLowerCase();
+                if (cur.contains("weapons segment") || cur.contains("power segment")
+                        || cur.contains("from battle")
+                        || (!scn.DSAnyDecisionsAvailable() && !scn.LSAnyDecisionsAvailable())) {
+                    break;
+                }
+            }
+            if (!scn.DSAnyDecisionsAvailable() && !scn.LSAnyDecisionsAvailable()) {
+                break;
+            }
+            String player = scn.GetDecidingPlayer();
+            var decision = scn.GetAwaitingDecision(player);
+            if (decision == null) {
+                break;
+            }
+            String text = decision.getText() == null ? "" : decision.getText().toLowerCase();
+            if (text.contains("weapons segment") || text.contains("power segment")
+                    || text.contains("from battle") || text.contains("force to lose")) {
+                break;
+            }
+
+            if (player.equals("Light Side Player") && text.contains("choose card to deploy")) {
+                var bp = scn.LSGetBPChoices();
+                String[] selectable = scn.LSGetADParam("selectable");
+                String hanBp = normalizeBp(han.getBlueprintId(true));
+                for (int b = 0; b < bp.size(); b++) {
+                    boolean isSelectable = selectable != null && b < selectable.length && "true".equalsIgnoreCase(selectable[b]);
+                    if (hanBp.equals(normalizeBp(bp.get(b)))) {
+                        assertFalse("Returned Han must not be selectable; bp=" + bp
+                                        + " selectable=" + java.util.Arrays.toString(selectable),
+                                isSelectable);
+                    }
+                }
+                scn.LSDecided("");
+                continue;
+            }
+
+            if (text.contains("optional response")) {
+                scn.PlayerPass(player);
+                continue;
+            }
+            String[] actionIds = scn.GetADParam(player, "actionId");
+            if (actionIds != null && actionIds.length > 0) {
+                String[] actionTexts = scn.GetADParam(player, "actionText");
+                if (actionTexts != null) {
+                    boolean passed = false;
+                    for (int a = 0; a < actionTexts.length; a++) {
+                        if (actionTexts[a] != null && actionTexts[a].toLowerCase().contains("pass")) {
+                            scn.PlayerDecided(player, actionIds[a]);
+                            passed = true;
+                            break;
+                        }
+                    }
+                    if (!passed) {
+                        scn.PlayerPass(player);
+                    }
+                } else {
+                    scn.PlayerPass(player);
+                }
+                continue;
+            }
+            String[] cardIds = scn.GetADParam(player, "cardId");
+            String[] selectable = scn.GetADParam(player, "selectable");
+            if (cardIds != null && cardIds.length > 0) {
+                String pick = null;
+                if (selectable != null && selectable.length == cardIds.length) {
+                    for (int c = 0; c < cardIds.length; c++) {
+                        if ("true".equalsIgnoreCase(selectable[c])) {
+                            pick = cardIds[c];
+                            break;
+                        }
+                    }
+                    scn.PlayerDecided(player, pick == null ? "" : pick);
+                } else {
+                    scn.PlayerDecided(player, cardIds[0]);
+                }
+                continue;
+            }
+            String[] results = scn.GetADParam(player, "results");
+            if (results != null && results.length > 0) {
+                scn.PlayerDecided(player, "0");
+                continue;
+            }
+            String[] max = scn.GetADParam(player, "max");
+            if (max != null && max.length > 0) {
+                scn.PlayerDecided(player, max[0]);
+                continue;
+            }
+            scn.PlayerPass(player);
+        }
+
+        assertTrue("Expected Han to leave Reserve and return during Luke deploy", returnedToReserve);
+        assertTrue("Returned Han must stay in Reserve (not leftover-lost); zone=" + han.getZone(),
+                han.getZone() == Zone.RESERVE_DECK || han.getZone() == Zone.TOP_OF_RESERVE_DECK);
+        assertTrue("Undeployed leftover junk should be lost; zone=" + junk.getZone(),
+                junk.getZone() == Zone.LOST_PILE || junk.getZone() == Zone.TOP_OF_LOST_PILE);
+        assertFalse("Luke should have left Reserve; zone=" + luke.getZone(),
+                luke.getZone() == Zone.RESERVE_DECK || luke.getZone() == Zone.TOP_OF_RESERVE_DECK);
+    }
+
+    @Test
     public void PanicNotAvailableIfNotMoreThanDoublePower() {
         var scn = GetScenario();
 
@@ -544,6 +792,25 @@ public class Card_1_103_Tests {
     }
 
 
+    private static void resolveUntilWeaponsSegment(VirtualTableScenario scn, int maxSteps) {
+        for (int i = 0; i < maxSteps; i++) {
+            if (!scn.DSAnyDecisionsAvailable() && !scn.LSAnyDecisionsAvailable()) {
+                break;
+            }
+            String player = scn.GetDecidingPlayer();
+            var decision = scn.GetAwaitingDecision(player);
+            if (decision == null) {
+                break;
+            }
+            String text = decision.getText() == null ? "" : decision.getText().toLowerCase();
+            if (text.contains("weapons segment") || text.contains("power segment")
+                    || text.contains("from battle") || text.contains("force to lose")) {
+                return;
+            }
+            resolveOneDecision(scn, player, decision, text);
+        }
+    }
+
     private static void resolveUntilIdle(VirtualTableScenario scn, int maxSteps) {
         for (int i = 0; i < maxSteps; i++) {
             if (!scn.DSAnyDecisionsAvailable() && !scn.LSAnyDecisionsAvailable()) {
@@ -555,10 +822,14 @@ public class Card_1_103_Tests {
                 break;
             }
             String text = decision.getText() == null ? "" : decision.getText().toLowerCase();
+            resolveOneDecision(scn, player, decision, text);
+        }
+    }
 
+    private static void resolveOneDecision(VirtualTableScenario scn, String player, AwaitingDecision decision, String text) {
             if (text.contains("optional response")) {
                 scn.PlayerPass(player);
-                continue;
+                return;
             }
 
             String[] cardIds = scn.GetADParam(player, "cardId");
@@ -582,7 +853,7 @@ public class Card_1_103_Tests {
                 } else {
                     scn.PlayerPass(player);
                 }
-                continue;
+                return;
             }
 
             if (cardIds != null && cardIds.length > 0) {
@@ -600,23 +871,22 @@ public class Card_1_103_Tests {
                     // Target selection without selectable flags: pick first cardId
                     scn.PlayerDecided(player, cardIds[0]);
                 }
-                continue;
+                return;
             }
 
             String[] results = scn.GetADParam(player, "results");
             if (results != null && results.length > 0) {
                 scn.PlayerDecided(player, "0");
-                continue;
+                return;
             }
 
             String[] max = scn.GetADParam(player, "max");
             if (max != null && max.length > 0) {
                 scn.PlayerDecided(player, max[0]);
-                continue;
+                return;
             }
 
             scn.PlayerPass(player);
-        }
     }
 
     private static String normalizeBp(String bp) {
@@ -635,5 +905,59 @@ public class Card_1_103_Tests {
 
         var d = scn.GetCurrentDecision();
         return d == null ? "null" : d.getText();
+    }
+
+    private static void revertFromFirstEligiblePrompt(VirtualTableScenario scn) {
+        for (int i = 0; i < 40; i++) {
+            if (hasRevert(scn.LSGetDecision()) || hasRevert(scn.DSGetDecision())) {
+                var decider = scn.GetDecidingPlayer();
+                if (VirtualTableScenario.LS.equals(decider)) {
+                    scn.LSRequestRevert();
+                    var choices = scn.LSGetMultipleChoices();
+                    scn.LSChooseOption(choiceContaining(choices, "battle"));
+                    scn.DSChooseOption("Yes");
+                } else {
+                    scn.DSRequestRevert();
+                    var choices = scn.DSGetMultipleChoices();
+                    scn.DSChooseOption(choiceContaining(choices, "battle"));
+                    scn.LSChooseOption("Yes");
+                }
+                scn.ResetGameState();
+                return;
+            }
+            var decision = scn.GetCurrentDecision();
+            if (decision != null && decision.getText() != null
+                    && decision.getText().toLowerCase().contains("optional")) {
+                scn.PlayerPass(scn.GetDecidingPlayer());
+                continue;
+            }
+            if (decision != null && decision.getText() != null) {
+                String text = decision.getText().toLowerCase();
+                if (text.contains("action") || text.contains("pass")
+                        || text.contains("weapons segment") || text.contains("power segment")) {
+                    scn.PlayerPass(scn.GetDecidingPlayer());
+                    continue;
+                }
+            }
+            break;
+        }
+        throw new AssertionError("No revert-eligible prompt; decision=" + decisionText(scn));
+    }
+
+    private static boolean hasRevert(AwaitingDecision decision) {
+        if (decision == null) {
+            return false;
+        }
+        var revertEligible = decision.getDecisionParameters().get("revertEligible");
+        return revertEligible != null && revertEligible.length > 0 && "true".equals(revertEligible[0]);
+    }
+
+    private static String choiceContaining(java.util.List<String> choices, String needle) {
+        for (var choice : choices) {
+            if (choice != null && choice.toLowerCase().contains(needle)) {
+                return choice;
+            }
+        }
+        return choices.get(0);
     }
 }
