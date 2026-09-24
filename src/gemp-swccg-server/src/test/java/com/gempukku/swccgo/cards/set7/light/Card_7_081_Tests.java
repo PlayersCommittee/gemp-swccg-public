@@ -34,6 +34,8 @@ public class Card_7_081_Tests {
 					put("trooper", "1_28");
 					put("walkway", "5_79");
 					put("mosEisley", "1_133");
+					put("energyWalls", "13_18");
+					put("generatorCore", "13_32");
 				}},
 				new HashMap<>()
 				{{
@@ -250,6 +252,42 @@ public class Card_7_081_Tests {
 		assertTrue("only action should be free: " + grabs, grabs.get(0).toLowerCase().contains("for free"));
 		assertTrue(scn.LSCardActionAvailable(grapplingHook, "for free"));
 		assertFalse(scn.LSCardActionAvailable(grapplingHook, "for 1 Force"));
+	}
+
+	@Test
+	public void WiseAdviceDoesNotDuplicateAlreadyFreeEnergyWalls() {
+		// Energy Walls has no printed Force cost. Wise Advice's "may deploy for free"
+		// must not add a second 0-Force / "for free" copy of the same control-phase deploy.
+		var scn = GetScenario();
+		var energyWalls = scn.GetLSCard("energyWalls");
+		var wiseAdvice = scn.GetLSCard("wiseAdvice");
+		var generatorCore = scn.GetLSCard("generatorCore");
+
+		scn.MoveCardsToLSHand(energyWalls, wiseAdvice);
+		scn.StartGame();
+		scn.MoveLocationToTable(generatorCore);
+		scn.LSActivateForceCheat(8);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		assertTrue(scn.LSDeployAvailable(wiseAdvice) || scn.LSCardPlayAvailable(wiseAdvice));
+		scn.LSDeployCard(wiseAdvice);
+		scn.PassAllResponses();
+		assertEquals(Zone.SIDE_OF_TABLE, wiseAdvice.getZone());
+
+		scn.SkipToLSTurn(Phase.CONTROL);
+		assertTrue("Energy Walls must still be deployable; all=" + scn.GetLSAvailableActions(),
+				scn.LSCardPlayAvailable(energyWalls) || scn.LSCardActionAvailable(energyWalls));
+		int wallsActionCount = 0;
+		String energyWallsId = String.valueOf(energyWalls.getCardId());
+		for (String cardId : scn.GetADParam("Light Side Player", "cardId")) {
+			if (energyWallsId.equals(cardId)) {
+				wallsActionCount++;
+			}
+		}
+		assertEquals("Wise Advice must not duplicate already-free Energy Walls; all=" + scn.GetLSAvailableActions(),
+				1, wallsActionCount);
+		assertFalse("must not add a 0-Force paid copy: " + scn.GetLSAvailableActions(),
+				scn.LSCardActionAvailable(energyWalls, "for 0 Force"));
 	}
 
 }

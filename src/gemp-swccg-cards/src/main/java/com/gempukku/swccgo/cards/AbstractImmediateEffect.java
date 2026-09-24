@@ -59,7 +59,8 @@ public abstract class AbstractImmediateEffect extends AbstractEffect {
 
     private boolean shouldOfferMayDeployForFree(SwccgGame game, PhysicalCard self) {
         return game.getModifiersQuerying().mayDeployForFree(game.getGameState(), self)
-                && !game.getModifiersQuerying().grantedDeployForFree(game.getGameState(), self, null);
+                && !game.getModifiersQuerying().grantedDeployForFree(game.getGameState(), self, null)
+                && !game.getModifiersQuerying().deploysForFree(game.getGameState(), self);
     }
 
     private void appendForFreeLabel(PlayCardAction freeAction) {
