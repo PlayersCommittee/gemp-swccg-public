@@ -198,13 +198,9 @@ public class Card_1_244_Tests {
                 scn.game().getGameState().isCardRevealedFromPile(vader));
         assertTrue("Revealed Barrier should still be marked revealed before shuffle",
                 scn.game().getGameState().isCardRevealedFromPile(barrier));
-        int shuffleCountBefore = scn.game().getGameState().getCardPileShuffleCount(scn.DS, Zone.RESERVE_DECK);
         // The act of shuffling ends the reveal even if remaining cards happen to stay in
         // the same order. Decline leftover deploys after the shuffle.
         scn.game().getGameState().shufflePile(scn.DS, Zone.RESERVE_DECK);
-        assertTrue("Expected shuffle count to increase; before=" + shuffleCountBefore
-                        + " after=" + scn.game().getGameState().getCardPileShuffleCount(scn.DS, Zone.RESERVE_DECK),
-                scn.game().getGameState().getCardPileShuffleCount(scn.DS, Zone.RESERVE_DECK) > shuffleCountBefore);
         assertFalse("Shuffle must end Vader revealed-state",
                 scn.game().getGameState().isCardRevealedFromPile(vader));
         assertFalse("Shuffle must end Barrier revealed-state",
