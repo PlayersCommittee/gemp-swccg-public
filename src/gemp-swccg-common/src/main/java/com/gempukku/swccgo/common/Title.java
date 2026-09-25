@@ -968,6 +968,7 @@ public interface Title {
     String Rennek = "Rennek";
     String Report_To_Lord_Vader = "Report To Lord Vader";
     String Res_Luk_Raauf = "Res Luk Ra'auf";
+    String Rescue_In_The_Clouds = "Rescue In The Clouds";
     String Rescue_The_Princess = "Rescue The Princess";
     String Resistance = "Resistance";
     String Responsibility_Of_Command = "Responsibility Of Command";
