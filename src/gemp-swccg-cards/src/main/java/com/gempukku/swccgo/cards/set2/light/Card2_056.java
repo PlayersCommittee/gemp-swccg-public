@@ -60,14 +60,14 @@ public class Card2_056 extends AbstractUsedInterrupt {
 		List<PlayInterruptAction> actions = new LinkedList<PlayInterruptAction>();
 
 		final Filter yourUndercoverSpy = Filters.and(Filters.your(self), Filters.undercover_spy);
-		final Filter ewdvWithNumericCost = Filters.and(Filters.or(Filters.weapon, Filters.device, Filters.vehicle),
+		final Filter weaponDeviceOrVehicleWithNumericCost = Filters.and(Filters.or(Filters.weapon, Filters.device, Filters.vehicle),
 				new Filter() {
 					@Override
 					public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
 						return hasNumericOnTableDeployCost(game, self, physicalCard);
 					}
 				});
-		Filter targetFilter = Filters.and(ewdvWithNumericCost,
+		Filter targetFilter = Filters.and(weaponDeviceOrVehicleWithNumericCost,
 				Filters.at(Filters.sameSiteAs(self, SpotOverride.INCLUDE_UNDERCOVER, yourUndercoverSpy)));
 		TargetingReason targetingReason = TargetingReason.TO_BE_LOST;
 
@@ -87,9 +87,9 @@ public class Card2_056 extends AbstractUsedInterrupt {
 						}
 						@Override
 						protected void cardSelected(final PhysicalCard chosenSpy) {
-							Filter ewdvAtSpySite = Filters.and(ewdvWithNumericCost, Filters.atSameSite(chosenSpy));
+							Filter targetAtSpySite = Filters.and(weaponDeviceOrVehicleWithNumericCost, Filters.atSameSite(chosenSpy));
 							action.appendTargeting(
-									new TargetCardOnTableEffect(action, playerId, "Target weapon, device or vehicle", targetingReason, ewdvAtSpySite) {
+									new TargetCardOnTableEffect(action, playerId, "Target weapon, device or vehicle", targetingReason, targetAtSpySite) {
 										@Override
 										protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
 											action.addAnimationGroup(targetedCard);
