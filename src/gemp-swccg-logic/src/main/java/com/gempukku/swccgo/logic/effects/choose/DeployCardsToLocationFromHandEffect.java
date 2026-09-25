@@ -12,7 +12,9 @@ import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.StandardEffect;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * An effect that causes the player performing the action to repeatedly choose and deploy cards from hand
@@ -56,6 +58,17 @@ public class DeployCardsToLocationFromHandEffect extends AbstractSubActionEffect
         return true;
     }
 
+    /**
+     * Hand plus stacked cards that may deploy as if from hand (e.g. aliens on Den Of Thieves).
+     */
+    private Collection<PhysicalCard> cardsAvailableToDeploy(SwccgGame game) {
+        List<PhysicalCard> cards = new ArrayList<PhysicalCard>();
+        cards.addAll(game.getGameState().getHand(_playerId));
+        cards.addAll(Filters.filter(game.getGameState().getAllStackedCards(), game,
+                Filters.and(Filters.owner(_playerId), Filters.canDeployAsIfFromHand)));
+        return Filters.filter(cards, game, _cardFilter);
+    }
+
     @Override
     protected SubAction getSubAction(SwccgGame game) {
         final SubAction subAction = new SubAction(_action, _playerId);
@@ -63,8 +76,7 @@ public class DeployCardsToLocationFromHandEffect extends AbstractSubActionEffect
                 new PassthruEffect(subAction) {
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
-                        Collection<PhysicalCard> fromHand = Filters.filter(game.getGameState().getHand(_playerId), game, _cardFilter);
-                        if (!fromHand.isEmpty()) {
+                        if (!cardsAvailableToDeploy(game).isEmpty()) {
                             subAction.insertEffect(getChooseOneCardToDeployEffect(subAction));
                         }
                     }
@@ -76,6 +88,11 @@ public class DeployCardsToLocationFromHandEffect extends AbstractSubActionEffect
     private StandardEffect getChooseOneCardToDeployEffect(final SubAction subAction) {
         // min 0 so the player may pass; each selection deploys one card then re-offers
         return new ChooseCardsFromHandEffect(subAction, _playerId, _playerId, 0, 1, _cardFilter, true, true) {
+            @Override
+            public boolean isPlayableInFull(SwccgGame game) {
+                return true;
+            }
+
             @Override
             public String getChoiceText(int numCardsToChoose) {
                 return "Choose card" + GameUtils.s(numCardsToChoose) + " to deploy to that site (or pass)";
@@ -93,8 +110,7 @@ public class DeployCardsToLocationFromHandEffect extends AbstractSubActionEffect
                         new PassthruEffect(subAction) {
                             @Override
                             protected void doPlayEffect(SwccgGame game) {
-                                Collection<PhysicalCard> remaining = Filters.filter(game.getGameState().getHand(_playerId), game, _cardFilter);
-                                if (!remaining.isEmpty()) {
+                                if (!cardsAvailableToDeploy(game).isEmpty()) {
                                     subAction.insertEffect(getChooseOneCardToDeployEffect(subAction));
                                 }
                             }

@@ -45,6 +45,7 @@ public class Card_5_137_Tests {
 					put("platform", "5_169");
 					put("plaza", "7_270");
 					put("denOfThieves", "6_143");
+					put("ugnaught", "5_105");
 					put("disarmed", "1_214");
 					put("potf", "1_227"); // Presence Of The Force
 					put("blasterRifle", "1_312");
@@ -345,6 +346,48 @@ public class Card_5_137_Tests {
 			try { scn.PassAllResponses(); } catch (RuntimeException ignored) { break; }
 		}
 		assertTrue("Should reach deploy-from-hand window", sawDeploy);
+	}
+
+	@Test
+	public void SwindlerDenOfThievesAlienDeploysAsIfFromHand() {
+		var scn = GetScenario();
+		var swindler = scn.GetDSCard("swindler");
+		var den = scn.GetDSCard("denOfThieves");
+		var ugnaught = scn.GetDSCard("ugnaught");
+		var nabrun = scn.GetLSCard("nabrun");
+		var han = scn.GetLSCard("han");
+		var dining = scn.GetDSCard("dining");
+		var platform = scn.GetDSCard("platform");
+
+		scn.StartGame();
+		scn.MoveCardsToDSHand(swindler);
+		scn.MoveCardsToLSHand(nabrun);
+		scn.MoveLocationToTable(dining);
+		scn.MoveLocationToTable(platform);
+		scn.MoveCardsToLocation(dining, han);
+		scn.MoveCardsToDSSideOfTable(den);
+		scn.StackCardsOn(den, ugnaught);
+
+		scn.SkipToLSTurn(Phase.MOVE);
+		assertTrue("Swindler should resolve after Nabrun", PlaySwindlerAfterNabrunToDeployWindow(scn));
+
+		boolean sawUgnaught = false;
+		for (int j = 0; j < 20; j++) {
+			boolean canUgnaught = false;
+			try { canUgnaught = scn.DSHasCardChoiceAvailable(ugnaught); } catch (RuntimeException ignored) {}
+			if (AtDeployFromHandChoice(scn) || scn.DSDecisionAvailable("deploy") || canUgnaught) {
+				assertTrue("Alien stacked on Den Of Thieves must deploy as if from hand", canUgnaught);
+				scn.DSChooseCard(ugnaught);
+				SafePassOptionalResponses(scn);
+				sawUgnaught = true;
+				break;
+			}
+			SafePassOptionalResponses(scn);
+			try { scn.PassAllResponses(); } catch (RuntimeException ignored) { break; }
+		}
+		assertTrue("Should offer Den Of Thieves alien", sawUgnaught);
+		assertTrue("Ugnaught should leave the stack", ugnaught.getZone() != Zone.STACKED);
+		assertTrue("Ugnaught should be at the destination site", ugnaught.getAtLocation() == platform);
 	}
 
 	@Test
