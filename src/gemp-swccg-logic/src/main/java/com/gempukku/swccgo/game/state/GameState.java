@@ -59,6 +59,7 @@ public class GameState implements Snapshotable<GameState> {
     private boolean _darkSideTopOfReserveDeckTurnedOver;
     private boolean _lightSideTopOfReserveDeckTurnedOver;
     private boolean _tableChangedSinceStatsSent;
+    private Set<PhysicalCard> _cardsRevealedFromPile = new HashSet<PhysicalCard>();
     private boolean _skipListenerUpdateAllowed;
     private boolean _insertFound;
 
@@ -244,6 +245,9 @@ public class GameState implements Snapshotable<GameState> {
         snapshot._lightSideTopOfReserveDeckTurnedOver = _lightSideTopOfReserveDeckTurnedOver;
         snapshot._usedPilesTurnedOver = _usedPilesTurnedOver;
         snapshot._tableChangedSinceStatsSent = _tableChangedSinceStatsSent;
+        for (PhysicalCard card : _cardsRevealedFromPile) {
+            snapshot._cardsRevealedFromPile.add(snapshotData.getDataForSnapshot(card));
+        }
         snapshot._skipListenerUpdateAllowed = _skipListenerUpdateAllowed;
         snapshot._insertFound = _insertFound;
         snapshot._podraceInitiatedByCard = snapshotData.getDataForSnapshot(_podraceInitiatedByCard);
@@ -1346,6 +1350,8 @@ public class GameState implements Snapshotable<GameState> {
 
         // Cards to remove from user interface
         List<PhysicalCard> cardsToRemove = new ArrayList<PhysicalCard>();
+
+        _cardsRevealedFromPile.removeAll(cards);
 
         for (PhysicalCard card : cards) {
             if (card.getZone().isPublic() || card.getZone().isVisibleByOwner()) {
@@ -4607,6 +4613,22 @@ public class GameState implements Snapshotable<GameState> {
         shufflePile(player, Zone.RESERVE_DECK);
     }
 
+    /**
+     * Cards currently being revealed from a deck, pile, or stack (AR: they remain in that pile
+     * until moved, shuffled, etc.). Shuffle and leaving the pile end revealed-state.
+     */
+    public void markCardsRevealedFromPile(Collection<? extends PhysicalCard> cards) {
+        if (cards == null || cards.isEmpty()) {
+            return;
+        }
+        _cardsRevealedFromPile.addAll(cards);
+    }
+
+    public boolean isCardRevealedFromPile(PhysicalCard card) {
+        return card != null && _cardsRevealedFromPile.contains(card);
+    }
+
+
     public void shufflePile(String player, Zone zone) {
         if (zone!=Zone.RESERVE_DECK && zone!=Zone.FORCE_PILE
                 && zone!=Zone.USED_PILE && zone!=Zone.LOST_PILE)
@@ -4633,6 +4655,8 @@ public class GameState implements Snapshotable<GameState> {
             Zone topZone = GameUtils.getZoneTopFromZone(zone);
             cardsInPile.get(0).setZone(topZone);
             _tableChangedSinceStatsSent = true;
+            // AR: the act of shuffling ends revealed-state for every card in the pile.
+            _cardsRevealedFromPile.removeAll(cardsInPile);
 
             // Tell game listener to create top card after shuffling
             for (GameStateListener listener : getAllGameStateListeners())
