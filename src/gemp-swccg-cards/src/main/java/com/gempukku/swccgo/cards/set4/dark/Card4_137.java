@@ -70,17 +70,19 @@ public class Card4_137 extends AbstractUsedInterrupt {
                     @Override
                     protected void cardTargeted(final int targetGroupId, final PhysicalCard targetedImperial) {
                         action.addAnimationGroup(targetedImperial);
-                        // Capture forfeit / battle-damage values before the Imperial leaves table
-                        final float activationCap = ApologyAcceptedGetActivationCap(game, playerId, targetedImperial);
-                        final boolean allowsZero = ApologyAcceptedAllowsZeroActivation(game, playerId, targetedImperial);
-                        // Pay cost(s) - lose the Imperial
-                        action.appendCost(
-                                new LoseCardFromTableEffect(action, targetedImperial));
-                        // Allow response(s)
-                        action.allowResponses("Activate Force using " + GameUtils.getCardLink(targetedImperial),
+                        // Allow response(s). Re-read the target after responses in case I Have A Bad Feeling About This retargets.
+                        action.allowResponses("Make " + GameUtils.getCardLink(targetedImperial) + " lost and activate Force",
                                 new RespondablePlayCardEffect(action) {
                                     @Override
                                     protected void performActionResults(Action targetingAction) {
+                                        final PhysicalCard finalTarget = action.getPrimaryTargetCard(targetGroupId);
+                                        if (finalTarget == null) {
+                                            return;
+                                        }
+                                        final float activationCap = ApologyAcceptedGetActivationCap(game, playerId, finalTarget);
+                                        final boolean allowsZero = ApologyAcceptedAllowsZeroActivation(game, playerId, finalTarget);
+                                        action.appendEffect(
+                                                new LoseCardFromTableEffect(action, finalTarget));
                                         ApologyAcceptedAppendActivateForce(action, game, playerId, activationCap, allowsZero);
                                     }
                                 }

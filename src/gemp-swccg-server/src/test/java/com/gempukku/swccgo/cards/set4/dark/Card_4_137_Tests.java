@@ -36,6 +36,7 @@ public class Card_4_137_Tests {
 					put("luke", "1_19");
 					put("cantina", "1_128");
 					put("obi", "1_11");
+					put("badFeeling", "4_52");
 				}},
 				new HashMap<>() {{
 					put("apology", "4_137");
@@ -253,6 +254,78 @@ public class Card_4_137_Tests {
 		scn.DSChooseCard(trooper);
 		SafePassOptionalResponses(scn);
 		assertEquals(Zone.TOP_OF_USED_PILE, apology.getZone());
+	}
+
+	@Test
+	public void ApologyAcceptedRetargetedImperialIsTheOneLost() {
+		var scn = GetScenario();
+		var luke = scn.GetLSCard("luke");
+		var cantina = scn.GetLSCard("cantina");
+		var badFeeling = scn.GetLSCard("badFeeling");
+		var apology = scn.GetDSCard("apology");
+		var trooper = scn.GetDSCard("trooper");
+		var trooper2 = scn.GetDSCard("trooper2");
+
+		scn.StartGame();
+		scn.MoveCardsToDSHand(apology);
+		scn.MoveCardsToLSHand(badFeeling);
+		scn.MoveLocationToTable(cantina);
+		scn.MoveCardsToLocation(cantina, luke, trooper, trooper2);
+
+		scn.SkipToDSTurn(Phase.BATTLE);
+		assertTrue(scn.DSCanInitiateBattle(cantina));
+		scn.DSInitiateBattle(cantina);
+		scn.PassBattleStartResponses();
+		scn.PassWeaponsSegmentActions();
+		scn.SkipToDamageSegment(false);
+		assertTrue(scn.AwaitingDSBattleDamagePayment());
+		scn.DSPayRemainingBattleDamageFromReserveDeck();
+		scn.PassDamageSegmentActions();
+		SafePassOptionalResponses(scn);
+
+		assertTrue(AdvanceToApologyWindow(scn));
+		scn.DSPlayCard(apology);
+		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
+		scn.DSChooseCard(trooper);
+
+		boolean playedBadFeeling = false;
+		for (int i = 0; i < 20; i++) {
+			try {
+				if (scn.LSCardPlayAvailable(badFeeling)) {
+					scn.LSPlayCard(badFeeling);
+					playedBadFeeling = true;
+					break;
+				}
+			} catch (RuntimeException ignored) {
+			}
+			var decision = scn.GetCurrentDecision();
+			if (decision == null) {
+				break;
+			}
+			String text = decision.getText() != null ? decision.getText().toLowerCase() : "";
+			if (text.contains("optional")) {
+				try { scn.PassResponses("optional"); } catch (RuntimeException ex) { break; }
+			} else {
+				break;
+			}
+		}
+		assertTrue("I Have A Bad Feeling About This should be offered to retarget", playedBadFeeling);
+
+		if (scn.LSHasCardChoiceAvailable(trooper)) {
+			scn.LSChooseCard(trooper);
+		}
+		assertTrue("Must retarget to the other Imperial", scn.LSHasCardChoiceAvailable(trooper2));
+		scn.LSChooseCard(trooper2);
+		SafePassOptionalResponses(scn);
+		if (scn.DSGetDecision() != null && scn.DSDecisionAvailable("Choose amount of Force to activate")) {
+			int amount = Math.min(2, Math.max(1, scn.GetDSReserveDeckCount()));
+			scn.DSDecided(String.valueOf(amount));
+		}
+		SafePassOptionalResponses(scn);
+
+		assertTrue("Original target should remain in play", trooper.getZone().isInPlay());
+		assertTrue("Retargeted Imperial should be lost",
+				trooper2.getZone() == Zone.TOP_OF_LOST_PILE || trooper2.getZone() == Zone.LOST_PILE);
 	}
 
 	@Test
