@@ -762,8 +762,9 @@ public class Card_3_033_Tests {
     }
 
     @Test
-    public void DisarmingCreatureSecondCopyMayAttachToSameCreatureWhenUnrestricted() {
-        // Unrestricted ? second copy may attach; each contributes a subtract-destiny modifier.
+    public void DisarmingCreatureSecondCopyOnSameCreatureDoesNotStackSubtractDestiny() {
+        // Unrestricted copies may share a host. The subtract-destiny modifier is not cumulative,
+        // so ferocity still subtracts one destiny, not two.
         var scn = GetScenario();
         var disarming = scn.GetLSCard("disarming");
         var disarming2 = scn.GetLSCard("disarming2");
@@ -782,12 +783,35 @@ public class Card_3_033_Tests {
         scn.MoveCardsToLocation(cave, wampa);
         playDisarmingOnto(scn, disarming, wampa);
         scn.PassAllResponses();
-        // Unrestricted ? second copy may sit on same host (attach after first proven play)
         scn.AttachCardsTo(wampa, disarming2);
         assertSame(wampa, disarming.getAttachedTo());
         assertSame(wampa, disarming2.getAttachedTo());
-        assertTrue(scn.game().getModifiersQuerying()
-                .getModifiersAffectingCard(scn.gameState(), ModifierType.SUBTRACT_DESTINY_FROM_FEROCITY, wampa).size() >= 1);
+        assertEquals(1, scn.game().getModifiersQuerying()
+                .getModifiersAffectingCard(scn.gameState(), ModifierType.SUBTRACT_DESTINY_FROM_FEROCITY, wampa).size());
+
+        scn.SkipToDSTurn(Phase.BATTLE);
+        scn.DSActivateForceCheat(3);
+        scn.PrepareDSDestiny(2);
+        scn.PrepareLSDestiny(1);
+        scn.carryOutEffectInPhaseActionByPlayer(scn.DS, new InitiateAttackNonCreatureAction(wampa));
+        if (scn.DSGetDecision() != null && scn.DSHasCardChoicesAvailable(luke)) {
+            scn.DSChooseCard(luke);
+        }
+        scn.PassAllResponses();
+        if (scn.DSDecisionAvailable("weapons segment") || scn.LSDecisionAvailable("weapons segment")
+                || scn.DSDecisionAvailable("Choose weapons") || scn.LSDecisionAvailable("Choose weapons")) {
+            scn.PassWeaponsSegmentActions();
+        }
+        scn.PassAllResponses();
+        scn.PassDestinyDrawResponses();
+        scn.PassDestinyDrawResponses();
+        scn.PassAllResponses();
+
+        Float total = scn.gameState().getAttackState().getFerocityDestinyTotal(wampa);
+        assertNotNull(total);
+        float ferocity = scn.game().getModifiersQuerying().getFerocity(scn.gameState(), wampa, total);
+        // One subtract of 1 from printed 3 + ferocity destiny 2 => 4. Two subtracts would floor lower.
+        assertEquals(4f, ferocity, scn.epsilon);
     }
 
 }

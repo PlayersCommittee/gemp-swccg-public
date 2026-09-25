@@ -5,7 +5,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 
 /**
  * A modifier that causes a destiny to be drawn and subtracted from ferocity
- * each time ferocity is calculated for the affected creature (Disarming Creature).
+ * each time ferocity is calculated for the affected creature.
  */
 public class SubtractDestinyFromFerocityModifier extends AbstractModifier {
 
@@ -15,6 +15,6 @@ public class SubtractDestinyFromFerocityModifier extends AbstractModifier {
      * @param affectFilter the filter for cards affected by this modifier
      */
     public SubtractDestinyFromFerocityModifier(PhysicalCard source, Filterable affectFilter) {
-        super(source, "Disarmed (subtract destiny from ferocity)", affectFilter, null, ModifierType.SUBTRACT_DESTINY_FROM_FEROCITY, false);
+        super(source, "Subtracts one destiny from ferocity", affectFilter, null, ModifierType.SUBTRACT_DESTINY_FROM_FEROCITY, false);
     }
 }
