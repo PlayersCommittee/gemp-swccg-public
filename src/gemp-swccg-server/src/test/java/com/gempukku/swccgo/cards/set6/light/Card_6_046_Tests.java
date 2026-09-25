@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set6.light;
 import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -213,6 +214,9 @@ public class Card_6_046_Tests {
 		assertEquals(Species.YARKORA, card.getSpecies());
 		scn.BlueprintCardTypeCheck(card, new ArrayList<>() {{
 			add(CardType.ALIEN);
+		}});
+		scn.BlueprintKeywordCheck(card, new ArrayList<>() {{
+			add(Keyword.SCOUT);
 		}});
 		scn.BlueprintIconCheck(card, new ArrayList<>() {{
 			add(Icon.ALIEN);

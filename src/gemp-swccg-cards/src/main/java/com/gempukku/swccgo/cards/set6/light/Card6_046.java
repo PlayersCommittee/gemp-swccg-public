@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.InactiveReason;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -53,14 +54,7 @@ public class Card6_046 extends AbstractAlien {
         setGameText("If at same site as an Undercover spy during your control phase, may draw destiny. Each of your Yarkoras on table may cumulatively subtract one from that destiny. Spy's 'cover is broken' if destiny = spy's ability.");
         addIcons(Icon.JABBAS_PALACE);
         setSpecies(Species.YARKORA);
-    }
-
-    /**
-     * Your Yarkoras on table that may optionally subtract from this destiny draw.
-     * Includes title Yarkora copies whose own game text is canceled: the acting Yarkora grants the option.
-     */
-    static Collection<PhysicalCard> YarkoraGetActiveOwnedYarkoras(SwccgGame game, String playerId) {
-        return Filters.filterActive(game, null, Filters.and(Filters.owner(playerId), Filters.Yarkora));
+        addKeywords(Keyword.SCOUT);
     }
 
     /**
@@ -77,7 +71,7 @@ public class Card6_046 extends AbstractAlien {
                         || !TriggerConditions.isDestinyJustDrawn(game, effectResult, drawDestinyState)) {
                     return actions;
                 }
-                for (PhysicalCard yarkora : YarkoraGetActiveOwnedYarkoras(game, playerId)) {
+                for (PhysicalCard yarkora : Filters.filterActive(game, actingYarkora, Filters.and(Filters.owner(playerId), Filters.Yarkora))) {
                     final OptionalGameTextTriggerAction subtractAction =
                             new OptionalGameTextTriggerAction(yarkora, playerId, actingYarkora.getCardId());
                     subtractAction.setText("Subtract 1 from destiny (" + GameUtils.getFullName(yarkora) + ")");
