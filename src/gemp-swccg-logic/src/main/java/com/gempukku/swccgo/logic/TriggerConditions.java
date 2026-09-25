@@ -2756,6 +2756,8 @@ public class TriggerConditions {
 
     /**
      * Determines if a card accepted by the filter is about to 'hide' from battle.
+     * Covers in-battle {@code HideFromBattleEffect} and shared hide-until-end-of-turn
+     * (e.g. Impressive, Most Impressive) so Nice Of You Guys To Drop By can cancel either.
      * @param game the game
      * @param effectResult the effect result
      * @param filter the filter
@@ -2765,10 +2767,8 @@ public class TriggerConditions {
         if (effectResult.getType() == EffectResult.Type.ABOUT_TO_HIDE_FROM_BATTLE) {
             AboutToHideFromBattleResult aboutToHideFromBattleResult = (AboutToHideFromBattleResult) effectResult;
             PhysicalCard card = aboutToHideFromBattleResult.getCardToHideFromBattle();
-            BattleState battleState = game.getGameState().getBattleState();
 
-            return battleState != null && battleState.isCardParticipatingInBattle(card)
-                    && !aboutToHideFromBattleResult.getPreventableCardEffect().isEffectOnCardPrevented(card)
+            return !aboutToHideFromBattleResult.getPreventableCardEffect().isEffectOnCardPrevented(card)
                     && Filters.and(filter).accepts(game.getGameState(), game.getModifiersQuerying(), card);
         }
         return false;
