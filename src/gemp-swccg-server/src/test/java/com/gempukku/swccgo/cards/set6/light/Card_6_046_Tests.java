@@ -40,6 +40,7 @@ public class Card_6_046_Tests {
 					put("momaw", "1_20");
 					put("ls_undercover", "2_40");
 					put("trooper", "1_28");
+					put("fives", "203_2");
 				}},
 				new HashMap<>() {{
 					put("garindan", "1_177");
@@ -382,6 +383,89 @@ public class Card_6_046_Tests {
 		int taken = YarkoraTakeSubtractsAndFinishDestiny(scn, 2);
 		assertTrue("Expected two Yarkora subtract optionals, took " + taken, taken >= 2);
 		assertFalse("Two Yarkoras -1 each should make destiny 3 become 1 and break cover",
+				garindan.isUndercover());
+	}
+
+	@Test
+	public void YarkoraSubtractsApplyIndividuallySoFivesCanTakeAFive() {
+		var scn = GetScenario();
+		var yarkora = scn.GetLSCard("yarkora");
+		var yarkora2 = scn.GetLSCard("yarkora2");
+		var fives = scn.GetLSCard("fives");
+		var garindan = scn.GetDSCard("garindan");
+		var site = scn.GetLSStartingLocation();
+
+		scn.StartGame();
+		scn.MoveCardsToLocation(site, yarkora, yarkora2, fives);
+		MakeGarindanUndercoverAt(scn, site);
+
+		scn.SkipToLSTurn(Phase.CONTROL);
+		scn.PrepareLSDestiny(6);
+		var drawnSix = scn.GetTopOfLSReserveDeck();
+		scn.LSUseCardAction(yarkora, "Break a spy's cover");
+		scn.LSChooseCard(garindan);
+
+		scn.PassResponses("COST_TO_DRAW_DESTINY_CARD");
+		scn.PassResponses("ABOUT_TO_DRAW_DESTINY_CARD");
+
+		boolean firstSubtract = false;
+		boolean fivesTook = false;
+		boolean secondSubtract = false;
+		for (int i = 0; i < 50; i++) {
+			if (scn.LSAnyDecisionsAvailable()) {
+				java.util.List<String> actions = scn.LSGetADParamAsList("actionText");
+				if (actions != null) {
+					boolean hasFives = actions.stream().anyMatch(a -> a != null
+							&& a.toLowerCase().contains("take") && a.toLowerCase().contains("destiny"));
+					boolean hasSubtract = actions.stream().anyMatch(a -> a != null
+							&& a.toLowerCase().contains("subtract 1"));
+					if (!firstSubtract && hasSubtract) {
+						scn.LSChooseAction("Subtract 1");
+						firstSubtract = true;
+						continue;
+					}
+					if (firstSubtract && !fivesTook && hasFives) {
+						scn.LSChooseAction("Take destiny");
+						fivesTook = true;
+						continue;
+					}
+					if (firstSubtract && fivesTook && !secondSubtract && hasSubtract) {
+						scn.LSChooseAction("Subtract 1");
+						secondSubtract = true;
+						continue;
+					}
+				}
+			}
+			var decision = scn.GetCurrentDecision();
+			if (decision == null) {
+				break;
+			}
+			String lower = decision.getText() != null ? decision.getText().toLowerCase() : "";
+			if (lower.contains("optional") || lower.contains("destiny_drawn") || lower.contains("about_to_draw")
+					|| lower.contains("cost_to_draw")) {
+				String decider = scn.GetDecidingPlayer();
+				if (decider != null) {
+					scn.PlayerPass(decider);
+				} else {
+					break;
+				}
+			} else {
+				break;
+			}
+		}
+
+		assertTrue("First Yarkora -1 must apply before Fives", firstSubtract);
+		assertTrue("After 6-1, Fives must be able to take the just-drawn 5 into hand", fivesTook);
+		assertTrue("Second Yarkora -1 must still apply after Fives takes the card", secondSubtract);
+		scn.PassResponses("DESTINY_DRAWN");
+		scn.PassResponses("COMPLETE_DESTINY_DRAW");
+		scn.PassResponses("DRAWING_DESTINY_COMPLETE");
+		SafePassOptionalResponses(scn);
+		scn.PassAllResponses();
+
+		assertTrue("Drawn 6 should be in hand after Fives takes the intermediate 5",
+				drawnSix.getZone() == com.gempukku.swccgo.common.Zone.HAND);
+		assertTrue("Final destiny 4 is not Garindan ability 1, so cover remains",
 				garindan.isUndercover());
 	}
 
