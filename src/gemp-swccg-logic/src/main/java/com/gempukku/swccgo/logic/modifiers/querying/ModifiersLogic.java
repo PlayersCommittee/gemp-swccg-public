@@ -11,6 +11,7 @@ import com.gempukku.swccgo.game.state.DrawDestinyState;
 import com.gempukku.swccgo.game.state.EachDrawnDestinyState;
 import com.gempukku.swccgo.game.state.ForceLossState;
 import com.gempukku.swccgo.game.state.ForceRetrievalState;
+import com.gempukku.swccgo.game.state.BattleThisTurnRecord;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.game.state.actions.GameTextActionState;
 import com.gempukku.swccgo.game.state.actions.PlayCardState;
@@ -115,6 +116,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
     private Set<Integer> _attackOnCreatureParticipationSet = new HashSet<Integer>();
     private Set<Integer> _attackOnNonCreatureParticipationSet = new HashSet<Integer>();
     private Map<Integer, Integer> _battleParticipationMap = new HashMap<Integer, Integer>();
+    private List<BattleThisTurnRecord> _battlesThisTurn = new LinkedList<BattleThisTurnRecord>();
     private Map<Integer, List<Integer>> _usedDevicesMap = new HashMap<Integer, List<Integer>>();
     private Map<Integer, List<Integer>> _usedWeaponsMap = new HashMap<Integer, List<Integer>>();
     private Map<String, Integer> _firedInAttackMap = new HashMap<String, Integer>();
@@ -326,6 +328,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
         snapshot._attackOnCreatureParticipationSet.addAll(_attackOnCreatureParticipationSet);
         snapshot._attackOnNonCreatureParticipationSet.addAll(_attackOnNonCreatureParticipationSet);
         snapshot._battleParticipationMap.putAll(_battleParticipationMap);
+        snapshot._battlesThisTurn.addAll(_battlesThisTurn);
         for (Integer cardId : _usedDevicesMap.keySet()) {
             List<Integer> snapshotList = new LinkedList<Integer>(_usedDevicesMap.get(cardId));
             snapshot._usedDevicesMap.put(cardId, snapshotList);
@@ -1183,6 +1186,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
         _locationBattleMap.clear();
         _battleParticipationMap.clear();
         _battleInitiatedByPlayerMap.clear();
+        _battlesThisTurn.clear();
         _usedDevicesMap.clear();
         _usedWeaponsMap.clear();
         _startOfPhaseLimitCounters.clear();
@@ -2135,6 +2139,29 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
         return (locationCardId != null && locationCardId != location.getCardId());
     }
 
+    @Override
+    public void recordBattleThisTurn(BattleThisTurnRecord record) {
+        if (record != null) {
+            _battlesThisTurn.add(record);
+        }
+    }
+
+    @Override
+    public List<BattleThisTurnRecord> getBattlesThisTurn() {
+        return new LinkedList<BattleThisTurnRecord>(_battlesThisTurn);
+    }
+
+    @Override
+    public List<BattleThisTurnRecord> getBattlesLostThisTurn(String playerId) {
+        List<BattleThisTurnRecord> lost = new LinkedList<BattleThisTurnRecord>();
+        for (BattleThisTurnRecord record : _battlesThisTurn) {
+            if (record.wasLostBy(playerId)) {
+                lost.add(record);
+            }
+        }
+        return lost;
+    }
+
     public void deviceUsedBy(PhysicalCard user, PhysicalCard device) {
         if (user==null)
             return;
@@ -3013,3 +3040,4 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
 
 
 }
+
