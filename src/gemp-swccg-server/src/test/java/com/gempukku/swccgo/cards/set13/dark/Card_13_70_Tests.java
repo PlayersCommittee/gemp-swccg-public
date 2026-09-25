@@ -27,6 +27,7 @@ public class Card_13_70_Tests {
 					put("lsCombat5", "1_102"); // Out Of Nowhere destiny 5
 					put("lsCombat5b", "1_110"); // Skywalkers destiny 5
 					put("sense", "1_109");
+					put("strikeBlocked", "13_43");
 				}},
 				new HashMap<>() {{
 					put("forcePush", "13_70");
@@ -186,6 +187,29 @@ public class Card_13_70_Tests {
 		boolean bOnReserve = combatB.getZone() == Zone.TOP_OF_RESERVE_DECK || combatB.getZone() == Zone.RESERVE_DECK;
 		assertTrue(aOnReserve ^ bOnReserve);
 		assertEquals(1, scn.GetStackedCards(obi).size());
+	}
+
+	@Test
+	public void ForcePushDoesNotLetStrikeBlockedCancelTheRevealedCombatCard() {
+		var scn = GetScenario();
+		preparePresentWithCombatCards(scn, true, true, false, false);
+		var forcePush = scn.GetDSCard("forcePush");
+		var strikeBlocked = scn.GetLSCard("strikeBlocked");
+		var obi = scn.GetLSCard("obi");
+
+		scn.MoveCardsToLSHand(strikeBlocked);
+
+		scn.SkipToPhase(Phase.CONTROL);
+		assertTrue(scn.DSCardPlayAvailable(forcePush));
+		scn.DSPlayCard(forcePush);
+		scn.DSChooseCard(obi);
+
+		assertFalse(scn.LSCardPlayAvailable(strikeBlocked, "Cancel attempt to use combat card"));
+		scn.PassAllResponses();
+		assertFalse(scn.LSCardPlayAvailable(strikeBlocked, "Cancel attempt to use combat card"));
+		scn.PassAllResponses();
+
+		assertEquals(Zone.TOP_OF_LOST_PILE, forcePush.getZone());
 	}
 
 	@Test
