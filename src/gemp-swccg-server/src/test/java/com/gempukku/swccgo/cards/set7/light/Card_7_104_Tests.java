@@ -94,8 +94,8 @@ public class Card_7_104_Tests {
         // total weapon destiny once, not +2 after each draw. Destinies 1 and 3 vs a capital:
         // 1 + 3 - 1 = 3. Plus 2 = 5, which does not beat Imperial-Class Star Destroyer
         // armor 6 (hit if total destiny > defense value). Plus 4 would be 7 and would hit.
-        // Always take Stay Sharp +2 when it is offered so a second illegal accept would
-        // make this test fail by hitting.
+        // Take Stay Sharp +2 when it is offered (once, before destinies) so a second
+        // illegal accept would make this test fail by hitting.
         var scn = GetScenario();
         var staySharp = scn.GetLSCard("stay_sharp");
         var htb = scn.GetLSCard("htb");
@@ -112,10 +112,9 @@ public class Card_7_104_Tests {
     }
 
     @Test
-    public void StaySharpPlusTwoStillOfferedOnSecondDrawIfDeclinedOnFirst() {
-        // Declining Stay Sharp on the first Heavy Turbolaser Battery destiny draw must
-        // still offer it on the second draw. Accepting that later offer is still only +2
-        // total, so the Star Destroyer is not hit with the same 1+3-1 destiny math.
+    public void StaySharpDecliningBeforeFirstDrawDoesNotAddPlusTwo() {
+        // Stay Sharp is offered once before destinies. Declining that offer does not
+        // re-offer on a later draw, so the total stays 1+3-1=3 and the Destroyer is not hit.
         var scn = GetScenario();
         var staySharp = scn.GetLSCard("stay_sharp");
         var htb = scn.GetLSCard("htb");
@@ -126,19 +125,19 @@ public class Card_7_104_Tests {
         playStaySharpAndChooseHeavyTurbolaserBattery(scn, staySharp, htb);
         StaySharpFiringResult result = resolveHeavyTurbolaserBatteryFiring(scn, destroyer, false, true, false, true);
 
-        assertEquals("Stay Sharp +2 should be offered on the first draw, then again after a decline", 2, result.staySharpOffered);
+        assertEquals("Stay Sharp +2 should be offered once before destinies", 1, result.staySharpOffered);
+        assertEquals("Declining Stay Sharp should not add +2", 0, result.staySharpAccepted);
         assertTargetWasNotHitByStaySharpPlusFour(scn, destroyer);
     }
 
     @Test
     public void StaySharpPlusTwoSurvivesConcentrateAllFireRedrawAfterAccept() {
-        // Accept Stay Sharp +2 after the first Heavy Turbolaser Battery destiny, then use
-        // Concentrate All Fire to cancel and redraw that destiny. The +2 is a total weapon
-        // destiny modifier until end of weapon firing, so it must still apply after the
-        // redraw and must not be offered again. Final destinies 2 then 4 vs capital:
-        // 2 + 4 - 1 = 5 miss; +2 = 7 hits Imperial-Class Star Destroyer armor 6 (need total
-        // destiny > 6). If the modifier vanished with the canceled draw, the Destroyer
-        // would miss. Stacking to +4 would also hit, so offer-once is asserted separately.
+        // Accept Stay Sharp +2 before destinies, then use Concentrate All Fire to cancel
+        // and redraw a destiny. The +2 is a total weapon destiny modifier until end of
+        // weapon firing, so it must still apply after the redraw and must not be offered
+        // again. Final destinies 2 then 4 vs capital: 2 + 4 - 1 = 5 miss; +2 = 7 hits
+        // Imperial-Class Star Destroyer armor 6. If the modifier vanished with the canceled
+        // draw, the Destroyer would miss.
         var scn = GetScenario();
         var staySharp = scn.GetLSCard("stay_sharp");
         var htb = scn.GetLSCard("htb");
@@ -157,10 +156,9 @@ public class Card_7_104_Tests {
     }
 
     @Test
-    public void StaySharpStillOfferedAfterConcentrateAllFireRedrawIfNotYetAccepted() {
-        // Skip Stay Sharp on the first Heavy Turbolaser Battery destiny by taking Concentrate
-        // All Fire instead. After the redraw, Stay Sharp must still be offered until it is
-        // accepted once. Same 2+4-1 destiny math: miss without +2, hit with +2.
+    public void StaySharpNotReofferedOnRedrawIfDeclinedBeforeFirstDraw() {
+        // Stay Sharp is offered once before destinies. Declining it does not re-offer after
+        // Concentrate All Fire redraws a destiny, so the total stays 2+4-1=5 and misses.
         var scn = GetScenario();
         var staySharp = scn.GetLSCard("stay_sharp");
         var htb = scn.GetLSCard("htb");
@@ -169,15 +167,14 @@ public class Card_7_104_Tests {
         setupStaySharpHeavyTurbolaserBatteryTable(scn, true);
 
         playStaySharpAndChooseHeavyTurbolaserBattery(scn, staySharp, htb);
-        StaySharpFiringResult result = resolveHeavyTurbolaserBatteryFiring(scn, destroyer, true, true, true, false);
+        StaySharpFiringResult result = resolveHeavyTurbolaserBatteryFiring(scn, destroyer, false, true, true, true);
 
-        assertTrue("Stay Sharp +2 should still be offered after Concentrate All Fire redraws a destiny",
-                result.staySharpOfferedAfterConcentrateAllFire >= 1);
-        assertEquals("Stay Sharp +2 should be accepted once", 1, result.staySharpAccepted);
+        assertEquals("Stay Sharp +2 should be offered once before destinies", 1, result.staySharpOffered);
+        assertEquals("Declining Stay Sharp should not add +2", 0, result.staySharpAccepted);
+        assertEquals("Stay Sharp +2 must not be re-offered after Concentrate All Fire redraw",
+                0, result.staySharpOfferedAfterConcentrateAllFire);
         assertEquals("Concentrate All Fire should cancel and redraw one weapon destiny", 1, result.concentrateAllFireTaken);
-        assertTrue("Stay Sharp +2 must not be offered again after it is accepted",
-                result.staySharpOffered <= 2);
-        assertTargetWasHitByStaySharpPlusTwoAfterRedraw(scn, destroyer);
+        assertTargetWasNotHitByStaySharpPlusFour(scn, destroyer);
     }
 
     /**

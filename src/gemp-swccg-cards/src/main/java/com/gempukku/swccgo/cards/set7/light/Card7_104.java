@@ -99,25 +99,25 @@ public class Card7_104 extends AbstractUsedInterrupt {
                                                                 final boolean hanOrGunnerAboard = hanOrGunnerFound;
 
                                                                 ActionProxy actionProxy = new AbstractActionProxy() {
+                                                                    private boolean staySharpBonusOffered;
                                                                     private boolean staySharpBonusAccepted;
 
                                                                     @Override
                                                                     public List<TriggerAction> getOptionalAfterTriggers(String playerId3, SwccgGame game, EffectResult effectResult) {
                                                                         List<TriggerAction> actions = new LinkedList<TriggerAction>();
-                                                                        // Offer after each weapon destiny draw until the player accepts once.
+                                                                        // Offer once, before the first weapon destiny of this firing is drawn.
+                                                                        // Stay Sharp does not say it may affect the result after the draw.
                                                                         // Accepting adds 2 to the TOTAL weapon destiny for the rest of this firing
                                                                         // (until-end-of-weapon-firing), so a cancel/redraw keeps the bonus.
-                                                                        // Declining leaves it available on a later draw of this same firing.
-                                                                        // The same Stay Sharp bonus does not stack if it is somehow accepted twice.
                                                                         if (playerId.equals(playerId3)
                                                                                 && hanOrGunnerAboard
-                                                                                && !staySharpBonusAccepted
-                                                                                && TriggerConditions.isWeaponDestinyJustDrawnBy(game, effectResult, playerId, weapon)) {
+                                                                                && !staySharpBonusOffered
+                                                                                && TriggerConditions.isAboutToDrawWeaponDestiny(game, effectResult, playerId, Filters.sameCardId(weapon))) {
+                                                                            staySharpBonusOffered = true;
 
                                                                             final OptionalGameTextTriggerAction action1 = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
                                                                             action1.setText("Add 2 to total weapon destiny");
                                                                             action1.setPerformingPlayer(playerId);
-                                                                            // Perform result(s)
                                                                             action1.appendEffect(
                                                                                     new PassthruEffect(action1) {
                                                                                         @Override
