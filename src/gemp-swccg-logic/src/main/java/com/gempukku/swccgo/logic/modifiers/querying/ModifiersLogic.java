@@ -2715,6 +2715,23 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
     
     //endregion
 
+    @Override
+    public boolean hasModifiersOfType(ModifierType modifierType, PhysicalCard card) {
+        List<Modifier> modifiers = _modifiers.get(modifierType);
+        if (modifiers != null && !modifiers.isEmpty())
+            return true;
+        if (card != null) {
+            List<Modifier> alwaysOnModifiers = _alwaysOnModifiersMap.get(card.getPermanentCardId());
+            if (alwaysOnModifiers != null) {
+                for (Modifier modifier : alwaysOnModifiers) {
+                    if (modifier.getModifierType() == modifierType)
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public Collection<Modifier> getModifiersAffecting(GameState gameState, PhysicalCard card) {
 
         Set<Modifier> result = new HashSet<Modifier>();
@@ -2896,7 +2913,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersState, Mod
                             if (modifier.getSource(gameState) == null || modifier.isPersistent() || !(isGameTextCanceled(gameState, modifier.getSource(gameState), false, modifier.isEvenIfUnpilotedInPlay()) || modifier.getSource(gameState).isSuspended())) {
                                 if (modifier.getSource(gameState) == null || modifier.isPersistent() || modifier.getLocationSidePlayer() == null || !isLocationGameTextCanceledForPlayer(gameState, modifier.getSource(gameState), modifier.getLocationSidePlayer())) {
                                     // For some modifier types, the affects card checking is faster than the condition checking, so for those check the affects card first
-                                    boolean checkAffectsCardFirst = (modifierType == ModifierType.GIVE_ICON || modifierType == ModifierType.CANCEL_FORCE_ICON || modifierType == ModifierType.CANCEL_FORCE_ICONS || modifierType == ModifierType.CANCEL_ICONS || modifierType == ModifierType.EQUALIZE_FORCE_ICONS || modifierType == ModifierType.MAY_NOT_ADD_ICON);
+                                    boolean checkAffectsCardFirst = (modifierType == ModifierType.GIVE_ICON || modifierType == ModifierType.CANCEL_FORCE_ICON || modifierType == ModifierType.CANCEL_FORCE_ICONS || modifierType == ModifierType.CANCEL_ICONS || modifierType == ModifierType.EQUALIZE_FORCE_ICONS || modifierType == ModifierType.MAY_NOT_ADD_ICON
+                                            || modifierType == ModifierType.SUSPEND_CARD || modifierType == ModifierType.POWER);
                                     if (!checkAffectsCardFirst || card == null || modifier.affectsCard(gameState, query(), card)) {
                                         Condition condition = modifier.getCondition();
                                         Condition additionalCondition = modifier.getAdditionalCondition(gameState, query(), card);
