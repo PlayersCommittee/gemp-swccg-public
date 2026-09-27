@@ -3832,6 +3832,7 @@ const fixedImages = {
 "501_36":"https://res.starwarsccg.org/cards/TheedPalace-Dark/large/halt.gif",
 "501_37":"https://res.starwarsccg.org/cards/Virtual26-Dark/hires/thisdealisgettingworseallthetime.png",
 "501_37_BACK":"https://res.starwarsccg.org/cards/Virtual26-Dark/hires/prayidontalteritanyfurther.png",
+"501_38":"https://res.starwarsccg.org/cards/Virtual15-Dark/hires/emperorsorders.png",
 "501_41": "https://res.starwarsccg.org/cards/Tatooine-Dark/large/iwillfindthemquicklymaster.gif",
 "501_48":"https://res.starwarsccg.org/cards/TheedPalace-Dark/large/theretheyare.gif",
 
