@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.logic.modifiers.querying;
 
 import com.gempukku.swccgo.common.GameTextActionId;
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.logic.modifiers.LimitCounter;
@@ -19,4 +20,15 @@ public interface Limits extends BaseQuery {
     LimitCounter getUntilEndOfForceDrainLimitCounter(String title, GameTextActionId cardAction);
     LimitCounter getUntilEndOfForceLossLimitCounter(PhysicalCard card, String playerId, int gameTextSourceCardId, GameTextActionId gameTextActionId);
     LimitCounter getCardTitlePlayedTurnLimitCounter(String title);
+
+    /**
+     * Records that the specified persona was played this turn.
+     * Shared for both players, like unique title played this turn.
+     */
+    void recordPersonaPlayedThisTurn(Persona persona);
+
+    /**
+     * Determines if the specified persona has already been played this turn.
+     */
+    boolean isPersonaPlayedThisTurn(Persona persona);
 }
