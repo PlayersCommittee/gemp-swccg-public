@@ -1157,6 +1157,7 @@ public interface Title {
     String They_Have_No_Idea_Were_Coming = "They Have No Idea We're Coming";
     String They_Must_Never_Again_Leave_This_City = "They Must Never Again Leave This City";
     String Theyve_Shut_Down_The_Main_Reactor = "They've Shut Down The Main Reactor";
+    String Theyd_Be_Crazy_To_Follow_Us = "They'd Be Crazy To Follow Us";
     String The_Camp = "The Camp";
     String The_Circle_Is_Now_Complete = "The Circle Is Now Complete";
     String The_Falcon_Junkyard_Garbage = "The Falcon, Junkyard Garbage";
