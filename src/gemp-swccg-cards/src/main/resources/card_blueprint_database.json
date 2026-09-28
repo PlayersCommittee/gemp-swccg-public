@@ -90800,7 +90800,35 @@
       "PROTOCOL"
     ]
   },
-  {
+    {
+    "cardId": "3_139",
+    "title": "Turn It Off! Turn It Off!",
+    "slug": "turn-it-off-turn-it-off",
+    "slugWithSetName": "turn-it-off-turn-it-off-hoth",
+    "side": "DARK",
+    "uniqueness": "UNRESTRICTED",
+    "expansionSet": "HOTH",
+    "rarity": "C1",
+    "cardCategory": "INTERRUPT",
+    "cardTypes": [
+      "INTERRUPT"
+    ],
+    "cardSubtype": "USED_OR_LOST",
+    "lore": "'Turn it off! Turn it off! Off! TURN IT OFF!'",
+    "gameText": "USED: Cancel any attempt to place a 'hit' starship, vehicle or droid in the Used Pile rather than the Lost Pile. OR Cancel Han's Toolkit. LOST: Cancel Crash Site Memorial.",
+    "destiny": 5,
+    "icons": [
+      {
+        "icon": "HOTH",
+        "count": 1
+      },
+      {
+        "icon": "INTERRUPT",
+        "count": 1
+      }
+    ]
+  },
+{
     "cardId": "3_140",
     "title": "Walker Barrage",
     "slug": "walker-barrage",

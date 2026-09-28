@@ -1226,6 +1226,7 @@ public interface Title {
     String Trooper_Assault = "Trooper Assault";
     String Trooper_Charge = "Trooper Charge";
     String Tunnel_Vision = "Tunnel Vision";
+    String Turn_It_Off_Turn_It_Off = "Turn It Off! Turn It Off!";
     String Turbolaser_Battery = "Turbolaser Battery";
     String Tuanul_Village = "Jakku: Tuanul Village";
     String Tusken_Breath_Mask = "Tusken Breath Mask";
