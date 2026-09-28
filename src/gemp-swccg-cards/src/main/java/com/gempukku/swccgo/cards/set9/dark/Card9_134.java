@@ -59,8 +59,8 @@ public class Card9_134 extends AbstractNormalEffect {
         if (targetsLeiaInsteadOfLuke) {
             // Check condition(s)
             if (TriggerConditions.isStartOfYourTurn(game, effectResult, self)
-                    && GameConditions.canSpot(game, self, Filters.and(Filters.Vader, Filters.presentAt(Filters.battleground_site)))
-                    && !GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Filters.Leia, Filters.or(Filters.captive, Filters.presentAt(Filters.battleground_site))))
+                    && GameConditions.canSpot(game, self, Filters.personaPresentAt(Filters.Vader, Filters.battleground_site))
+                    && !GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.or(Filters.and(Filters.Leia, Filters.captive), Filters.personaPresentAt(Filters.Leia, Filters.battleground_site)))
                     && !GameConditions.isOutOfPlay(game, Filters.Leia)) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
@@ -75,8 +75,8 @@ public class Card9_134 extends AbstractNormalEffect {
         else if (targetsKananInsteadOfLuke) {
             // Check condition(s)
             if (TriggerConditions.isStartOfYourTurn(game, effectResult, self)
-                    && GameConditions.canSpot(game, self, Filters.and(Filters.Vader, Filters.presentAt(Filters.battleground_site)))
-                    && !GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Filters.Kanan, Filters.or(Filters.captive, Filters.presentAt(Filters.battleground_site))))
+                    && GameConditions.canSpot(game, self, Filters.personaPresentAt(Filters.Vader, Filters.battleground_site))
+                    && !GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.or(Filters.and(Filters.Kanan, Filters.captive), Filters.personaPresentAt(Filters.Kanan, Filters.battleground_site)))
                     && !GameConditions.isOutOfPlay(game, Filters.Kanan)) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
@@ -91,8 +91,8 @@ public class Card9_134 extends AbstractNormalEffect {
         else {
             // Check condition(s)
             if (TriggerConditions.isStartOfYourTurn(game, effectResult, self)
-                    && GameConditions.canSpot(game, self, Filters.and(Filters.Vader, Filters.presentAt(Filters.battleground_site)))
-                    && !GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.and(Filters.Luke, Filters.or(Filters.captive, Filters.presentAt(Filters.battleground_site))))
+                    && GameConditions.canSpot(game, self, Filters.personaPresentAt(Filters.Vader, Filters.battleground_site))
+                    && !GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE, Filters.or(Filters.and(Filters.Luke, Filters.captive), Filters.personaPresentAt(Filters.Luke, Filters.battleground_site)))
                     && !GameConditions.isOutOfPlay(game, Filters.Luke)) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
