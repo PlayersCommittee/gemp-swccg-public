@@ -73,7 +73,7 @@ public class Card208_034 extends AbstractSith {
             action.appendEffect(
                     new UseWeaponEffect(action, self, permanentWeapon));
             action.appendEffect(
-                    new AddToForceDrainEffect(action, 1));
+                    new AddToForceDrainEffect(action, 1, permanentWeapon));
             return Collections.singletonList(action);
         }
         return null;

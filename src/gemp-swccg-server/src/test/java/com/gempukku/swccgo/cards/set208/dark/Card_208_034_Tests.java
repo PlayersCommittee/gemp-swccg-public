@@ -29,6 +29,7 @@ public class Card_208_034_Tests {
         return new VirtualTableScenario(
                 new HashMap<>()
                 {{
+                    put("away", "4_045");
                 }},
                 new HashMap<>()
                 {{
@@ -124,11 +125,9 @@ public class Card_208_034_Tests {
         //assertTrue(scn.DSAwaitingResponse("Force drain initiated at");
         assertTrue(scn.DSCardActionAvailable(maul,"Add")); //Test1: may add to force drain
         scn.DSUseCardAction(maul);
-            /// if coded correctly, should cause this additional response?
-        //scn.LSPass(); //FORCE_DRAIN_ENHANCED_BY_WEAPON - Optional responses
-        //scn.DSPass();
+        scn.LSPass(); //FORCE_DRAIN_ENHANCED_BY_WEAPON - Optional responses
+        scn.DSPass();
         scn.LSPass(); //FORCE_DRAIN_INITIATED - Optional responses
-        //assertTrue(scn.DSAwaitingResponse("Force drain initiated at");
         assertFalse(scn.DSCardActionAvailable(maul,"Add")); //Test2: can only add once to drain
         scn.PassAllResponses();
 
@@ -190,7 +189,45 @@ public class Card_208_034_Tests {
         assertTrue(scn.DSCardActionAvailable(maul, "Add"));
         scn.DSUseCardAction(maul, "Add");
         scn.LSPass();
+        scn.DSPass();
+        scn.LSPass();
         assertFalse("Maul already used his permanent lightsaber this turn", scn.DSCardActionAvailable(saber, "Add"));
+    }
+
+    @Test
+    public void LordMaulWithLightsaberDrainAddDoesNotOfferAwayPutYourWeapon() {
+        var scn = GetScenario();
+        var maul = scn.GetDSCard("maul");
+        var away = scn.GetLSCard("away");
+        var site = scn.GetDSStartingLocation();
+
+        scn.StartGame();
+        scn.MoveCardsToLSHand(away);
+        scn.MoveCardsToLocation(site, maul);
+
+        scn.SkipToPhase(Phase.CONTROL);
+        scn.DSUseCardAction(site);
+        scn.LSPass();
+        assertTrue(scn.DSCardActionAvailable(maul, "Add"));
+        scn.DSUseCardAction(maul);
+        assertFalse("Away Put Your Weapon cannot place a permanent lightsaber in Used Pile",
+                scn.LSCardPlayAvailable(away));
+    }
+
+    @Test
+    public void DarkJediLightsaberDrainAddOffersAwayPutYourWeapon() {
+        var scn = GetScenario();
+        var maul = scn.GetDSCard("maul");
+        var saber = scn.GetDSCard("saber");
+        var away = scn.GetLSCard("away");
+        var site = placeMaulWithSaber(scn, saber);
+        scn.MoveCardsToLSHand(away);
+
+        drainUntilAdd(scn, site, saber);
+        assertTrue(scn.DSCardActionAvailable(saber, "Add"));
+        scn.DSUseCardAction(saber, "Add");
+        assertTrue("Away Put Your Weapon can place a weapon card that just enhanced a Force drain",
+                scn.LSCardPlayAvailable(away));
     }
 
     private PhysicalCardImpl placeMaulWithSaber(VirtualTableScenario scn, PhysicalCardImpl saber) {
