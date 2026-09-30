@@ -17,7 +17,7 @@ import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
-import com.gempukku.swccgo.logic.effects.choose.DeployCardsFromRevealedReserveDeckEffect;
+import com.gempukku.swccgo.logic.effects.choose.DeployRevealedCardsFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
@@ -67,7 +67,7 @@ public class Card1_244 extends AbstractUsedInterrupt {
                                                                     @Override
                                                                     protected void cardsRevealed(List<PhysicalCard> cards) {
                                                                         action.appendEffect(
-                                                                                new DeployCardsFromRevealedReserveDeckEffect(action, cards,
+                                                                                new DeployRevealedCardsFromReserveDeckEffect(action, cards,
                                                                                         Filters.or(Filters.character, Filters.starship, Filters.vehicle, Filters.device, Filters.weapon), true));
                                                                     }
                                                                 }
