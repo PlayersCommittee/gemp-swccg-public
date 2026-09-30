@@ -2667,12 +2667,7 @@ public class TriggerConditions {
         if (!justPlacedOutOfPlayFromOffTable(game, effectResult, filter)) {
             return false;
         }
-        PlacedCardOutOfPlayFromOffTableResult result = (PlacedCardOutOfPlayFromOffTableResult) effectResult;
-        Zone previousZone = result.getPreviousZone();
-        if (previousZone != Zone.LOST_PILE && previousZone != Zone.TOP_OF_LOST_PILE) {
-            return false;
-        }
-        return game.getActionsEnvironment().isJustLostFromTableBeingRespondedTo(result.getCard());
+        return ((PlacedCardOutOfPlayFromOffTableResult) effectResult).isWhileJustLostFromTable();
     }
 
     /**
