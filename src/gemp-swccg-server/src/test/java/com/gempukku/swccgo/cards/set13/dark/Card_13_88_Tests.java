@@ -30,6 +30,7 @@ public class Card_13_88_Tests {
 					put("ebb", "13_88");
 					put("maul", "11_54"); // Darth Maul (Dark Jedi)
 					put("monnok", "2_135");
+					put("barrier", "1_249");
 				}},
 				40,
 				40,
@@ -194,6 +195,35 @@ public class Card_13_88_Tests {
 
 		scn.SkipToPhase(Phase.CONTROL);
 		assertFalse(scn.DSCardPlayAvailable(monnok));
+	}
+
+	@Test
+	public void TheEbbOfBattleDoesNotLetStackedImperialBarrierPlayOnJustDeployed() {
+		var scn = GetScenario();
+		var barrier = scn.GetDSCard("barrier");
+		var maul = scn.GetDSCard("maul");
+		var luke = scn.GetLSCard("luke");
+		var lsSite = scn.GetLSStartingLocation();
+
+		scn.StartGame();
+		scn.MoveCardsToLocation(lsSite, maul);
+		scn.RemoveCardZone(barrier);
+		scn.gameState().stackCard(barrier, maul, true, false, false);
+		barrier.setCombatCard(true);
+		assertEquals(Zone.STACKED_FACE_DOWN, barrier.getZone());
+		assertTrue(barrier.isCombatCard());
+
+		scn.MoveCardsToLSHand(luke);
+		scn.LSActivateForceCheat(6);
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		assertTrue(scn.LSCardPlayAvailable(luke));
+		scn.LSPlayCard(luke);
+		if (scn.LSHasCardChoiceAvailable(lsSite)) {
+			scn.LSChooseCard(lsSite);
+		}
+
+		assertFalse("Imperial Barrier stacked as a combat card cannot play on just deployed",
+				scn.DSCardPlayAvailable(barrier));
 	}
 
 	@Test

@@ -85,6 +85,16 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     }
 
     /**
+     * Combat cards under a character are not in play, so checkPlayRequirements would otherwise allow
+     * playing them as interrupts (Imperial Barrier, Monnok, etc.). Only while-stacked combat-card
+     * game text (The Ebb Of Battle) should fire.
+     */
+    private static boolean isStackedAsCombatCard(PhysicalCard self) {
+        return self.isCombatCard()
+                && (self.getZone() == Zone.STACKED || self.getZone() == Zone.STACKED_FACE_DOWN);
+    }
+
+    /**
      * Determines if this type of card is deployed or played
      * @return true if card is "deployed", false if card is "played"
      */
@@ -104,7 +114,7 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     public final List<Action> getTopLevelActions(String playerId, SwccgGame game, PhysicalCard self) {
         List<Action> actions = super.getTopLevelActions(playerId, game, self);
 
-        if (checkPlayRequirements(playerId, game, self, null, null, null)) {
+        if (!isStackedAsCombatCard(self) && checkPlayRequirements(playerId, game, self, null, null, null)) {
             List<PlayInterruptAction> actionList1 = getGameTextTopLevelActions(playerId, game, self);
             if (actionList1 != null) {
                 actions.addAll(actionList1);
@@ -147,7 +157,7 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     public List<Action> getTopLevelAttackRunActions(String playerId, SwccgGame game, PhysicalCard self) {
         List<Action> actions = super.getTopLevelAttackRunActions(playerId, game, self);
 
-        if (checkPlayRequirements(playerId, game, self, null, null, null)) {
+        if (!isStackedAsCombatCard(self) && checkPlayRequirements(playerId, game, self, null, null, null)) {
             List<PlayInterruptAction> actionList1 = getGameTextTopLevelAttackRunActions(playerId, game, self);
             if (actionList1 != null) {
                 actions.addAll(actionList1);
@@ -203,7 +213,7 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     public final List<Action> getOptionalBeforeActions(String playerId, SwccgGame game, Effect effect, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
-        if (checkPlayRequirements(playerId, game, self, null, null, null)) {
+        if (!isStackedAsCombatCard(self) && checkPlayRequirements(playerId, game, self, null, null, null)) {
             List<PlayInterruptAction> actionList1 = getGameTextOptionalBeforeActions(playerId, game, effect, self);
             if (actionList1 != null) {
                 actions.addAll(actionList1);
@@ -265,7 +275,7 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     public final List<Action> getOptionalAfterActions(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
-        if (checkPlayRequirements(playerId, game, self, null, null, null)) {
+        if (!isStackedAsCombatCard(self) && checkPlayRequirements(playerId, game, self, null, null, null)) {
             List<PlayInterruptAction> actionList1 = getGameTextOptionalAfterActions(playerId, game, effectResult, self);
             if (actionList1 != null) {
                 actions.addAll(actionList1);
