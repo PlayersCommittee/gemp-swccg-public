@@ -9,6 +9,8 @@ import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifierType;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public interface MovementCosts extends BaseQuery, MovementRestrictions {
 
@@ -119,12 +121,21 @@ public interface MovementCosts extends BaseQuery, MovementRestrictions {
             result += modifier.getMoveCostFromLocationToLocationModifier(gameState, query(), card, fromSite, toSite);
         }
 
-        // Extra Force to pass between-sites cards on the path (Access Denied). Each copy is its own slot.
+        // Extra Force to pass between-sites cards on the path (Access Denied).
+        // PassCostModifier is marked cumulative so getModifiersAffectingCard still returns every copy
+        // (an off-path copy must not steal the one kept slot). Same title on this movement applies once.
+        Set<String> appliedPassCostTitles = new HashSet<String>();
         for (PhysicalCard gate : gameState.getBetweenSiteCardsCrossed(fromSite, toSite)) {
             for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.PASS_COST, card)) {
-                if (modifier.getSource(gameState) != null && modifier.getSource(gameState).getCardId() == gate.getCardId()) {
-                    result += modifier.getPassCost(gameState, query(), card);
+                PhysicalCard source = modifier.getSource(gameState);
+                if (source == null || source.getCardId() != gate.getCardId()) {
+                    continue;
                 }
+                String title = source.getTitle();
+                if (title != null && !appliedPassCostTitles.add(title)) {
+                    continue;
+                }
+                result += modifier.getPassCost(gameState, query(), card);
             }
         }
 

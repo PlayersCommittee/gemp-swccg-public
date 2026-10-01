@@ -45,8 +45,9 @@ public abstract class CardActionSelectionDecision extends AbstractAwaitingDecisi
      *
      * @param action
      */
-    public void addAction(Action action) {
+    public int addAction(Action action) {
         _actions.add(action);
+        return _actions.size() - 1;
     }
 
     /**

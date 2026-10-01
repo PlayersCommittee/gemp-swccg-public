@@ -102,9 +102,8 @@ public interface AdHocEffects extends TestBase, Decisions {
      */
     default void carryOutEffectInPhaseActionByPlayer(String playerId, Action action) {
         var awaitingDecision = (CardActionSelectionDecision) userFeedback().getAwaitingDecision(playerId);
-        awaitingDecision.addAction(action);
-
-        PlayerDecided(playerId, "0");
+        int index = awaitingDecision.addAction(action);
+        PlayerDecided(playerId, String.valueOf(index));
     }
 
 

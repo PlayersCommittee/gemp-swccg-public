@@ -18,12 +18,15 @@ import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
 import com.gempukku.swccgo.game.layout.LocationPlacement;
+import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
+import com.gempukku.swccgo.logic.effects.BlowAwayEffect;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.gempukku.swccgo.framework.Assertions.assertInZone;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -51,6 +54,7 @@ public class Card_5_015_Tests {
                     put("corridor", "1_284");
                     put("warRoom", "1_287");
                     put("conference", "2_144");
+                    put("deathStar", "2_143");
                     put("vader", "1_168");
                     put("stormie", "1_194");
                     put("dsLift", "1_308");
@@ -428,7 +432,7 @@ public class Card_5_015_Tests {
     }
 
     @Test
-    public void AccessDeniedTwoCopiesAreCumulativeOnTheSamePath() {
+    public void AccessDeniedTwoCopiesOnTheSamePathAddOneForce() {
         var scn = GetScenario();
         var access = scn.GetLSCard("accessDenied");
         var access2 = scn.GetLSCard("accessDenied2");
@@ -443,10 +447,8 @@ public class Card_5_015_Tests {
         deployBetween(scn, access2, corridor, warRoom);
         scn.MoveCardsToLocation(corridor, vader);
 
-        float ungated = scn.game().getModifiersQuerying().getMoveUsingLandspeedCost(
+        float gatedQuery = scn.game().getModifiersQuerying().getMoveUsingLandspeedCost(
                 scn.gameState(), vader, corridor, warRoom, false, 0);
-        // The two copies are already on the path, so this cost includes +2. Compare against a control below.
-        assertTrue(scn.DSMoveAvailable(vader) || ungated >= 0);
 
         var scnControl = GetScenario();
         var corridorC = scnControl.GetDSCard("corridor");
@@ -459,7 +461,7 @@ public class Card_5_015_Tests {
         float controlCost = scnControl.game().getModifiersQuerying().getMoveUsingLandspeedCost(
                 scnControl.gameState(), vaderC, corridorC, warRoomC, false, 0);
 
-        assertEquals("Two Access Denied copies add +2 Force", controlCost + 2, ungated, 0.01f);
+        assertEquals("Two Access Denied copies add +1 Force once", controlCost + 1, gatedQuery, 0.01f);
 
         scn.SkipToPhase(Phase.MOVE);
         int forceBefore = scn.gameState().getForcePileSize(scn.DS);
@@ -473,8 +475,155 @@ public class Card_5_015_Tests {
         scnControl.DSMoveCard(vaderC, warRoomC);
         scnControl.PassAllResponses();
         int controlPaid = forceBeforeC - scnControl.gameState().getForcePileSize(scnControl.DS);
-        assertEquals(controlPaid + 2, gatedCost);
+        assertEquals(controlPaid + 1, gatedCost);
         assertTrue(scn.CardsAtLocation(warRoom, vader));
+    }
+
+    @Test
+    public void AccessDeniedTwoCopiesOnAThreeSitePathAddOneForce() {
+        var scn = GetScenario();
+        var access = scn.GetLSCard("accessDenied");
+        var access2 = scn.GetLSCard("accessDenied2");
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("warRoom");
+        var conference = scn.GetDSCard("conference");
+        var vader = scn.GetDSCard("vader");
+
+        scn.StartGame();
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        putLocation(scn, conference);
+
+        PhysicalCardImpl first = null;
+        PhysicalCardImpl second = null;
+        PhysicalCardImpl third = null;
+        for (PhysicalCard card : visualRow(scn)) {
+            if (card.getZone() != Zone.LOCATIONS) {
+                continue;
+            }
+            if (card.getCardId() != corridor.getCardId()
+                    && card.getCardId() != warRoom.getCardId()
+                    && card.getCardId() != conference.getCardId()) {
+                continue;
+            }
+            if (first == null) {
+                first = (PhysicalCardImpl) card;
+            } else if (second == null) {
+                second = (PhysicalCardImpl) card;
+            } else {
+                third = (PhysicalCardImpl) card;
+            }
+        }
+        assertNotNull(first);
+        assertNotNull(second);
+        assertNotNull(third);
+        deployBetween(scn, access, first, second);
+        deployBetween(scn, access2, second, third);
+        scn.MoveCardsToLocation(first, vader);
+
+        assertEquals(2, scn.gameState().getBetweenSiteCardsCrossed(first, third).size());
+
+        var scnControl = GetScenario();
+        var corridorC = scnControl.GetDSCard("corridor");
+        var warRoomC = scnControl.GetDSCard("warRoom");
+        var conferenceC = scnControl.GetDSCard("conference");
+        var vaderC = scnControl.GetDSCard("vader");
+        scnControl.StartGame();
+        putLocation(scnControl, corridorC);
+        putLocation(scnControl, warRoomC);
+        putLocation(scnControl, conferenceC);
+        PhysicalCardImpl firstC = null;
+        PhysicalCardImpl thirdC = null;
+        for (PhysicalCard card : visualRow(scnControl)) {
+            if (card.getZone() != Zone.LOCATIONS) {
+                continue;
+            }
+            if (card.getCardId() != corridorC.getCardId()
+                    && card.getCardId() != warRoomC.getCardId()
+                    && card.getCardId() != conferenceC.getCardId()) {
+                continue;
+            }
+            if (firstC == null) {
+                firstC = (PhysicalCardImpl) card;
+            } else {
+                thirdC = (PhysicalCardImpl) card;
+            }
+        }
+        assertNotNull(firstC);
+        assertNotNull(thirdC);
+        scnControl.MoveCardsToLocation(firstC, vaderC);
+        float controlCost = scnControl.game().getModifiersQuerying().getMoveUsingLandspeedCost(
+                scnControl.gameState(), vaderC, firstC, thirdC, false, 0);
+        float gatedCost = scn.game().getModifiersQuerying().getMoveUsingLandspeedCost(
+                scn.gameState(), vader, first, third, false, 0);
+        assertEquals("A-Access Denied-B-Access Denied-C adds +1 Force once",
+                controlCost + 1, gatedCost, 0.01f);
+    }
+
+    @Test
+    public void AccessDeniedLostWhenRelatedSystemIsBlownAway() {
+        var scn = GetScenario();
+        var access = scn.GetLSCard("accessDenied");
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("warRoom");
+        var deathStar = scn.GetDSCard("deathStar");
+
+        scn.StartGame();
+        putLocation(scn, deathStar);
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        deployBetween(scn, access, corridor, warRoom);
+        assertEquals(Zone.BETWEEN_SITES, access.getZone());
+        assertEquals(Zone.LOCATIONS, deathStar.getZone());
+        assertTrue("Death Star interiors are related to the Death Star system",
+                Filters.relatedLocation(deathStar).accepts(scn.game(), corridor));
+
+        scn.SkipToPhase(Phase.CONTROL);
+        String actor = scn.GetDecidingPlayer();
+        scn.ExecuteAdHocEffect(actor, deathStar, new BlowAwayEffect(
+                new TopLevelGameTextAction(deathStar, actor, deathStar.getCardId()), deathStar));
+        for (int i = 0; i < 25; i++) {
+            if (scn.GetLSLostPile().contains(access) && (corridor.getZone() == Zone.LOST_PILE
+                    || corridor.getZone() == Zone.TOP_OF_LOST_PILE)) {
+                break;
+            }
+            String text = scn.GetCurrentDecision().getText().toLowerCase();
+            if (text.contains("action or pass")) {
+                if (scn.GetLSLostPile().contains(access)) {
+                    break;
+                }
+                throw new AssertionError("Back at phase actions before Access Denied left; access="
+                        + access.getZone() + " corridor=" + corridor.getZone()
+                        + " blown=" + deathStar.isBlownAway());
+            }
+            if (scn.AwaitingDSForceLossPayment()) {
+                scn.DSPayRemainingForceLossFromReserveDeck();
+                continue;
+            }
+            if (scn.AwaitingLSForceLossPayment()) {
+                scn.LSPayRemainingForceLossFromReserveDeck();
+                continue;
+            }
+            if (text.contains("put on lost pile") || text.contains("choose card")) {
+                String player = scn.GetDecidingPlayer();
+                List<String> ids = scn.DS.equals(player) ? scn.DSGetCardChoices() : scn.LSGetCardChoices();
+                assertTrue("Lost-pile order has a card choice", ids != null && !ids.isEmpty());
+                scn.PlayerDecided(player, ids.get(0));
+                continue;
+            }
+            try {
+                scn.PassResponses();
+            } catch (RuntimeException e) {
+                throw new AssertionError("Stuck on decision: " + text
+                        + "; blown=" + deathStar.isBlownAway()
+                        + "; corridor=" + corridor.getZone()
+                        + "; access=" + access.getZone(), e);
+            }
+        }
+
+        assertInZone(Zone.LOST_PILE, corridor);
+        assertInZone(Zone.LOST_PILE, access);
+        assertTrue(scn.GetLSLostPile().contains(access));
     }
 
     @Test
