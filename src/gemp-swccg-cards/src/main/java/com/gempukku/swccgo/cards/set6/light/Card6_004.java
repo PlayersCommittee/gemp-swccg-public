@@ -47,7 +47,7 @@ public class Card6_004 extends AbstractAlien {
                 atSiteYouControl, Filters.sameSite(self)));
         modifiers.add(new DeploysFreeToLocationModifier(self, Filters.and(Filters.your(self), Filters.seeker),
                 atSiteYouControl, Filters.sameSite(self)));
-        modifiers.add(new MovesForFreeModifier(self, Filters.and(Filters.your(self), Filters.seeker), atSiteYouControl));
+        modifiers.add(new MovesForFreeModifier(self, Filters.and(Filters.your(self), Filters.seeker)));
         modifiers.add(new SpecialFlagModifier(self, ModifierFlag.SEEKERS_MAY_IGNORE_TARGETS, playerId));
         return modifiers;
     }

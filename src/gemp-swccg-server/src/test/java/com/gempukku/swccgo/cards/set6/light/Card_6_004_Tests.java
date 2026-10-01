@@ -124,21 +124,24 @@ public class Card_6_004_Tests {
     }
 
     @Test
-    public void AttarkAllowsSeekersToMoveForFreeWhenAtControlledSite() {
+    public void AttarkAllowsSeekersToMoveForFreeWhileInPlay() {
         var scn = GetScenario();
 
         var attark = scn.GetLSCard("attark");
         var seeker = scn.GetLSCard("mottiSeeker");
+        var trooper = scn.GetDSCard("trooper");
         var farm = scn.GetLSCard("farm");
-        var site = scn.GetLSStartingLocation();
+        var dsSite = scn.GetDSStartingLocation();
+        var lsSite = scn.GetLSStartingLocation();
 
         scn.StartGame();
         scn.MoveLocationToTable(farm);
-        scn.MoveCardsToLocation(site, attark);
+        // DS controls the site Attark occupies; move-for-free is not tied to that control clause
+        scn.MoveCardsToLocation(dsSite, attark, trooper);
         scn.MoveCardsToLocation(farm, seeker);
 
         float cost = scn.game().getModifiersQuerying().getMoveUsingLandspeedCost(
-                scn.game().getGameState(), seeker, farm, site, false, 0);
+                scn.game().getGameState(), seeker, farm, lsSite, false, 0);
         assertEquals(0f, cost, scn.epsilon);
     }
 
@@ -185,49 +188,86 @@ public class Card_6_004_Tests {
 
 
 
+    private boolean TakeIfAvailable(VirtualTableScenario scn, String player, String needle) {
+        if (!scn.AnyDecisionsAvailable(player)) {
+            return false;
+        }
+        java.util.List<String> actions = scn.GetADParamAsList(player, "actionText");
+        if (actions != null && actions.stream().anyMatch(
+                a -> a != null && a.toLowerCase().contains(needle.toLowerCase()))) {
+            scn.ChooseAction(player, needle);
+            return true;
+        }
+        return false;
+    }
+
+    /** Pass control so START_OF_DEPLOY required responses offer Ignore all, then take it. */
+    private void IgnoreAllViaTableChanged(VirtualTableScenario scn) {
+        boolean taken = false;
+        for (int i = 0; i < 40 && !taken; i++) {
+            if (TakeIfAvailable(scn, scn.LS, "Ignore all")) {
+                taken = true;
+                break;
+            }
+            var decision = scn.GetCurrentDecision();
+            if (decision == null || decision.getText() == null) {
+                break;
+            }
+            String lower = decision.getText().toLowerCase();
+            if (lower.contains("optional")) {
+                scn.PassResponses("optional");
+            } else if (lower.contains("required")) {
+                break;
+            } else if (lower.contains("action")) {
+                String decider = scn.GetDecidingPlayer();
+                if (decider != null) {
+                    scn.PlayerPass(decider);
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+        assertTrue("Ignore all potential targets should have been offered", taken);
+        if (scn.GetCurrentDecision() != null && scn.GetCurrentDecision().getText() != null
+                && scn.GetCurrentDecision().getText().toLowerCase().contains("optional")) {
+            scn.PassResponses("optional");
+        }
+    }
+
     @Test
-    public void AttarkSeekerStopIgnoringClearsWhenIgnoredTargetNotPresent() {
+    public void AttarkSeekerIgnoreAllThenStopIgnoringImmediatelyMakesTargetLost() {
         var scn = GetScenario();
 
         var attark = scn.GetLSCard("attark");
         var seeker = scn.GetLSCard("mottiSeeker");
         var pilot = scn.GetDSCard("pilot");
         var farm = scn.GetLSCard("farm");
-        var site = scn.GetLSStartingLocation();
+        var lsSite = scn.GetLSStartingLocation();
 
         scn.StartGame();
         scn.MoveLocationToTable(farm);
-        scn.MoveCardsToLocation(site, attark, seeker);
+        scn.MoveCardsToLocation(lsSite, attark);
+        scn.MoveCardsToLocation(farm, seeker);
+        scn.SkipToLSTurn(Phase.CONTROL);
         scn.MoveCardsToLocation(farm, pilot);
 
-        java.util.Set<String> ignored = new java.util.HashSet<>();
-        ignored.add(String.valueOf(pilot.getCardId()));
-        seeker.setWhileInPlayData(new com.gempukku.swccgo.game.state.WhileInPlayData(ignored));
-
-        scn.SkipToLSTurn(Phase.CONTROL);
-        assertFalse(scn.LSCardActionAvailable(seeker, "Stop ignoring potential targets"));
-        assertFalse(scn.LSActionAvailable("Stop ignoring potential targets"));
-    }
-
-    @Test
-    public void AttarkSeekerIgnoreListRetainedWhileTargetRemainsPresent() {
-        var scn = GetScenario();
-
-        var attark = scn.GetLSCard("attark");
-        var seeker = scn.GetLSCard("mottiSeeker");
-        var pilot = scn.GetDSCard("pilot");
-        var site = scn.GetLSStartingLocation();
-
-        scn.StartGame();
-        scn.MoveCardsToLocation(site, attark, seeker, pilot);
-
-        java.util.Set<String> ignored = new java.util.HashSet<>();
-        ignored.add(String.valueOf(pilot.getCardId()));
-        seeker.setWhileInPlayData(new com.gempukku.swccgo.game.state.WhileInPlayData(ignored));
-
-        scn.SkipToLSTurn(Phase.CONTROL);
+        IgnoreAllViaTableChanged(scn);
         assertTrue(scn.LSCardActionAvailable(seeker, "Stop ignoring potential targets")
                 || scn.LSActionAvailable("Stop ignoring potential targets"));
+
+        scn.LSUseCardAction(seeker, "Stop ignoring potential targets");
+        assertTrue("Stop ignoring must immediately require choosing a target",
+                scn.LSHasCardChoiceAvailable(pilot)
+                        || (scn.GetCurrentDecision() != null && scn.GetCurrentDecision().getText() != null
+                        && scn.GetCurrentDecision().getText().toLowerCase().contains("make lost")));
+        if (scn.LSHasCardChoiceAvailable(pilot)) {
+            scn.LSChooseCard(pilot);
+        }
+        scn.PassAllResponses();
+        assertInZone(Zone.LOST_PILE, pilot);
+        assertInZone(Zone.LOST_PILE, seeker);
     }
 
     @Test
@@ -238,18 +278,18 @@ public class Card_6_004_Tests {
         var seeker = scn.GetLSCard("mottiSeeker");
         var pilot = scn.GetDSCard("pilot");
         var farm = scn.GetLSCard("farm");
-        var site = scn.GetLSStartingLocation();
+        var lsSite = scn.GetLSStartingLocation();
 
         scn.StartGame();
         scn.MoveLocationToTable(farm);
-        scn.MoveCardsToLocation(site, attark, seeker, pilot);
-
-        java.util.Set<String> ignored = new java.util.HashSet<>();
-        ignored.add(String.valueOf(pilot.getCardId()));
-        seeker.setWhileInPlayData(new com.gempukku.swccgo.game.state.WhileInPlayData(ignored));
-
+        scn.MoveCardsToLocation(lsSite, attark);
         scn.MoveCardsToLocation(farm, seeker);
         scn.SkipToLSTurn(Phase.CONTROL);
+        scn.MoveCardsToLocation(farm, pilot);
+
+        IgnoreAllViaTableChanged(scn);
+        scn.MoveCardsToLocation(lsSite, seeker);
+        scn.SkipToPhase(Phase.MOVE);
         assertFalse(scn.LSCardActionAvailable(seeker, "Stop ignoring potential targets"));
         assertFalse(scn.LSActionAvailable("Stop ignoring potential targets"));
     }
@@ -262,18 +302,55 @@ public class Card_6_004_Tests {
         var seeker = scn.GetLSCard("mottiSeeker");
         var pilot = scn.GetDSCard("pilot");
         var pilot2 = scn.GetDSCard("pilot2");
-        var site = scn.GetLSStartingLocation();
+        var farm = scn.GetLSCard("farm");
+        var lsSite = scn.GetLSStartingLocation();
 
         scn.StartGame();
-        scn.MoveCardsToLocation(site, attark, seeker, pilot);
+        scn.MoveLocationToTable(farm);
+        scn.MoveCardsToLocation(lsSite, attark);
+        scn.MoveCardsToLocation(farm, seeker);
+        scn.SkipToLSTurn(Phase.CONTROL);
+        scn.MoveCardsToLocation(farm, pilot);
 
-        java.util.Set<String> ignored = new java.util.HashSet<>();
-        ignored.add(String.valueOf(pilot.getCardId()));
-        seeker.setWhileInPlayData(new com.gempukku.swccgo.game.state.WhileInPlayData(ignored));
+        IgnoreAllViaTableChanged(scn);
+        scn.MoveCardsToLocation(farm, pilot2);
 
-        scn.MoveCardsToLocation(site, pilot2);
-        assertTrue(seeker.getWhileInPlayData().getTextValues().contains(String.valueOf(pilot.getCardId())));
-        assertFalse(seeker.getWhileInPlayData().getTextValues().contains(String.valueOf(pilot2.getCardId())));
+        boolean sawNewTarget = false;
+        for (int i = 0; i < 40 && !sawNewTarget; i++) {
+            java.util.List<String> actions = scn.AnyDecisionsAvailable(scn.LS)
+                    ? scn.GetADParamAsList(scn.LS, "actionText") : null;
+            if (actions != null && actions.stream().anyMatch(a -> a != null
+                    && (a.toLowerCase().contains("ignore all")
+                    || a.toLowerCase().contains("make a character lost")))) {
+                sawNewTarget = true;
+                break;
+            }
+            if (scn.AnyDecisionsAvailable(scn.LS) && scn.LSHasCardChoiceAvailable(pilot2)) {
+                sawNewTarget = true;
+                break;
+            }
+            var decision = scn.GetCurrentDecision();
+            if (decision == null || decision.getText() == null) {
+                break;
+            }
+            String lower = decision.getText().toLowerCase();
+            if (lower.contains("optional")) {
+                scn.PassResponses("optional");
+            } else if (lower.contains("required")) {
+                break;
+            } else if (lower.contains("action")) {
+                String decider = scn.GetDecidingPlayer();
+                if (decider != null) {
+                    scn.PlayerPass(decider);
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+        assertTrue("A new eligible target must be offered after Ignore all", sawNewTarget);
+        assertAtLocation(farm, pilot);
     }
 
 }

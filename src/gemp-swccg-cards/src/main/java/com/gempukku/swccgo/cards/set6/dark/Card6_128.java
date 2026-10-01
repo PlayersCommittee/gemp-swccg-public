@@ -32,7 +32,7 @@ public class Card6_128 extends AbstractAlien {
         super(Side.DARK, 3, 3, 2, 1, 2, "Velken Tezeri", Uniqueness.UNIQUE, ExpansionSet.JABBAS_PALACE, Rarity.R);
         setLore("Assigned by Jabba to work with Hermi Odle. Former technician for the Empire. Developed a method to remotely control seekers. Plotting to kill Jabba.");
         setGameText("When at a site you control, allows your Seekers to deploy free there. Also allows your Seekers to move for free and to ignore any or all potential target(s) whenever you choose.");
-        addIcons(Icon.JABBAS_PALACE);
+        addIcons(Icon.JABBAS_PALACE, Icon.WARRIOR);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Card6_128 extends AbstractAlien {
                 atSiteYouControl, Filters.sameSite(self)));
         modifiers.add(new DeploysFreeToLocationModifier(self, Filters.and(Filters.your(self), Filters.seeker),
                 atSiteYouControl, Filters.sameSite(self)));
-        modifiers.add(new MovesForFreeModifier(self, Filters.and(Filters.your(self), Filters.seeker), atSiteYouControl));
+        modifiers.add(new MovesForFreeModifier(self, Filters.and(Filters.your(self), Filters.seeker)));
         modifiers.add(new SpecialFlagModifier(self, ModifierFlag.SEEKERS_MAY_IGNORE_TARGETS, playerId));
         return modifiers;
     }

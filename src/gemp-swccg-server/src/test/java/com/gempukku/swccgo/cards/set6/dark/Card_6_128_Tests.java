@@ -72,6 +72,7 @@ public class Card_6_128_Tests {
         scn.BlueprintIconCheck(card, new ArrayList<>() {{
             add(Icon.ALIEN);
             add(Icon.JABBAS_PALACE);
+            add(Icon.WARRIOR);
         }});
         assertEquals(ExpansionSet.JABBAS_PALACE, card.getExpansionSet());
         assertEquals(Rarity.R, card.getRarity());
@@ -100,21 +101,24 @@ public class Card_6_128_Tests {
     }
 
     @Test
-    public void VelkenTezeriAllowsSeekersToMoveForFreeWhenAtControlledSite() {
+    public void VelkenTezeriAllowsSeekersToMoveForFreeWhileInPlay() {
         var scn = GetScenario();
 
         var velken = scn.GetDSCard("velken");
         var seeker = scn.GetDSCard("hanSeeker");
+        var alien = scn.GetLSCard("alien");
         var farm = scn.GetLSCard("farm");
-        var site = scn.GetDSStartingLocation();
+        var lsSite = scn.GetLSStartingLocation();
+        var dsSite = scn.GetDSStartingLocation();
 
         scn.StartGame();
         scn.MoveLocationToTable(farm);
-        scn.MoveCardsToLocation(site, velken);
+        // LS controls the site Velken occupies; move-for-free is not tied to that control clause
+        scn.MoveCardsToLocation(lsSite, velken, alien);
         scn.MoveCardsToLocation(farm, seeker);
 
         float cost = scn.game().getModifiersQuerying().getMoveUsingLandspeedCost(
-                scn.game().getGameState(), seeker, farm, site, false, 0);
+                scn.game().getGameState(), seeker, farm, dsSite, false, 0);
         assertEquals(0f, cost, scn.epsilon);
     }
 
@@ -164,27 +168,86 @@ public class Card_6_128_Tests {
 
 
 
+    private boolean TakeIfAvailable(VirtualTableScenario scn, String player, String needle) {
+        if (!scn.AnyDecisionsAvailable(player)) {
+            return false;
+        }
+        java.util.List<String> actions = scn.GetADParamAsList(player, "actionText");
+        if (actions != null && actions.stream().anyMatch(
+                a -> a != null && a.toLowerCase().contains(needle.toLowerCase()))) {
+            scn.ChooseAction(player, needle);
+            return true;
+        }
+        return false;
+    }
+
+    /** Pass control so START_OF_DEPLOY required responses offer Ignore all, then take it. */
+    private void IgnoreAllViaTableChanged(VirtualTableScenario scn) {
+        boolean taken = false;
+        for (int i = 0; i < 40 && !taken; i++) {
+            if (TakeIfAvailable(scn, scn.DS, "Ignore all")) {
+                taken = true;
+                break;
+            }
+            var decision = scn.GetCurrentDecision();
+            if (decision == null || decision.getText() == null) {
+                break;
+            }
+            String lower = decision.getText().toLowerCase();
+            if (lower.contains("optional")) {
+                scn.PassResponses("optional");
+            } else if (lower.contains("required")) {
+                break;
+            } else if (lower.contains("action")) {
+                String decider = scn.GetDecidingPlayer();
+                if (decider != null) {
+                    scn.PlayerPass(decider);
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+        assertTrue("Ignore all potential targets should have been offered", taken);
+        if (scn.GetCurrentDecision() != null && scn.GetCurrentDecision().getText() != null
+                && scn.GetCurrentDecision().getText().toLowerCase().contains("optional")) {
+            scn.PassResponses("optional");
+        }
+    }
+
     @Test
-    public void VelkenSeekerIgnoreListRetainedWhileTargetRemainsPresent() {
+    public void VelkenSeekerIgnoreAllThenStopIgnoringImmediatelyMakesTargetLost() {
         var scn = GetScenario();
 
         var velken = scn.GetDSCard("velken");
         var seeker = scn.GetDSCard("hanSeeker");
         var alien = scn.GetLSCard("alien");
         var farm = scn.GetLSCard("farm");
+        var dsSite = scn.GetDSStartingLocation();
 
         scn.StartGame();
         scn.MoveLocationToTable(farm);
-        scn.MoveCardsToLocation(scn.GetLSStartingLocation(), velken);
-        scn.MoveCardsToLocation(farm, seeker, alien);
-
-        java.util.Set<String> ignored = new java.util.HashSet<>();
-        ignored.add(String.valueOf(alien.getCardId()));
-        seeker.setWhileInPlayData(new com.gempukku.swccgo.game.state.WhileInPlayData(ignored));
-
+        scn.MoveCardsToLocation(dsSite, velken);
+        scn.MoveCardsToLocation(farm, seeker);
         scn.SkipToDSTurn(Phase.CONTROL);
+        scn.MoveCardsToLocation(farm, alien);
+
+        IgnoreAllViaTableChanged(scn);
         assertTrue(scn.DSCardActionAvailable(seeker, "Stop ignoring potential targets")
                 || scn.DSActionAvailable("Stop ignoring potential targets"));
+
+        scn.DSUseCardAction(seeker, "Stop ignoring potential targets");
+        assertTrue("Stop ignoring must immediately require choosing a target",
+                scn.DSHasCardChoiceAvailable(alien)
+                        || (scn.GetCurrentDecision() != null && scn.GetCurrentDecision().getText() != null
+                        && scn.GetCurrentDecision().getText().toLowerCase().contains("make lost")));
+        if (scn.DSHasCardChoiceAvailable(alien)) {
+            scn.DSChooseCard(alien);
+        }
+        scn.PassAllResponses();
+        assertInZone(Zone.LOST_PILE, alien);
+        assertInZone(Zone.LOST_PILE, seeker);
     }
 
     @Test
@@ -195,18 +258,19 @@ public class Card_6_128_Tests {
         var seeker = scn.GetDSCard("hanSeeker");
         var alien = scn.GetLSCard("alien");
         var farm = scn.GetLSCard("farm");
+        var dsSite = scn.GetDSStartingLocation();
 
         scn.StartGame();
         scn.MoveLocationToTable(farm);
-        scn.MoveCardsToLocation(scn.GetLSStartingLocation(), velken);
-        scn.MoveCardsToLocation(farm, seeker, alien);
-
-        java.util.Set<String> ignored = new java.util.HashSet<>();
-        ignored.add(String.valueOf(alien.getCardId()));
-        seeker.setWhileInPlayData(new com.gempukku.swccgo.game.state.WhileInPlayData(ignored));
-
-        scn.MoveCardsToLocation(scn.GetDSStartingLocation(), seeker);
+        scn.MoveCardsToLocation(dsSite, velken);
+        scn.MoveCardsToLocation(farm, seeker);
         scn.SkipToDSTurn(Phase.CONTROL);
+        scn.MoveCardsToLocation(farm, alien);
+
+        IgnoreAllViaTableChanged(scn);
+        // Han Seeker would target Velken (alien ability < 3) at dsSite; leave seeker at an empty site
+        scn.MoveCardsToLocation(scn.GetLSStartingLocation(), seeker);
+        scn.SkipToPhase(Phase.MOVE);
         assertFalse(scn.DSCardActionAvailable(seeker, "Stop ignoring potential targets"));
         assertFalse(scn.DSActionAvailable("Stop ignoring potential targets"));
     }
@@ -220,19 +284,54 @@ public class Card_6_128_Tests {
         var alien = scn.GetLSCard("alien");
         var alien2 = scn.GetLSCard("alien2");
         var farm = scn.GetLSCard("farm");
+        var dsSite = scn.GetDSStartingLocation();
 
         scn.StartGame();
         scn.MoveLocationToTable(farm);
-        scn.MoveCardsToLocation(scn.GetLSStartingLocation(), velken);
-        scn.MoveCardsToLocation(farm, seeker, alien);
+        scn.MoveCardsToLocation(dsSite, velken);
+        scn.MoveCardsToLocation(farm, seeker);
+        scn.SkipToDSTurn(Phase.CONTROL);
+        scn.MoveCardsToLocation(farm, alien);
 
-        java.util.Set<String> ignored = new java.util.HashSet<>();
-        ignored.add(String.valueOf(alien.getCardId()));
-        seeker.setWhileInPlayData(new com.gempukku.swccgo.game.state.WhileInPlayData(ignored));
-
+        IgnoreAllViaTableChanged(scn);
         scn.MoveCardsToLocation(farm, alien2);
-        assertTrue(seeker.getWhileInPlayData().getTextValues().contains(String.valueOf(alien.getCardId())));
-        assertFalse(seeker.getWhileInPlayData().getTextValues().contains(String.valueOf(alien2.getCardId())));
+
+        boolean sawNewTarget = false;
+        for (int i = 0; i < 40 && !sawNewTarget; i++) {
+            java.util.List<String> actions = scn.AnyDecisionsAvailable(scn.DS)
+                    ? scn.GetADParamAsList(scn.DS, "actionText") : null;
+            if (actions != null && actions.stream().anyMatch(a -> a != null
+                    && (a.toLowerCase().contains("ignore all")
+                    || a.toLowerCase().contains("make a character lost")))) {
+                sawNewTarget = true;
+                break;
+            }
+            if (scn.AnyDecisionsAvailable(scn.DS) && scn.DSHasCardChoiceAvailable(alien2)) {
+                sawNewTarget = true;
+                break;
+            }
+            var decision = scn.GetCurrentDecision();
+            if (decision == null || decision.getText() == null) {
+                break;
+            }
+            String lower = decision.getText().toLowerCase();
+            if (lower.contains("optional")) {
+                scn.PassResponses("optional");
+            } else if (lower.contains("required")) {
+                break;
+            } else if (lower.contains("action")) {
+                String decider = scn.GetDecidingPlayer();
+                if (decider != null) {
+                    scn.PlayerPass(decider);
+                } else {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+        assertTrue("A new eligible target must be offered after Ignore all", sawNewTarget);
+        assertAtLocation(farm, alien);
     }
 
 }

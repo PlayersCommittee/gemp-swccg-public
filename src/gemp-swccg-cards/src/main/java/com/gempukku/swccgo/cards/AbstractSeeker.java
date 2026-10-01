@@ -17,7 +17,6 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.effects.LoseCardsFromTableSimultaneouslyEffect;
@@ -137,80 +136,61 @@ public abstract class AbstractSeeker extends AbstractAutomatedWeapon {
         });
     }
 
-    /**
-     * Optional ignore-all is not redundant with required-after: required only forces make-lost
-     * when a non-ignored eligible target is present; it does not offer ignore-all as an alternative.
-     */
-    @Override
-    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
-        maintainIgnoreList(game, self);
-
-        if (!TriggerConditions.isTableChanged(game, effectResult)
-                || !mayIgnoreTargets(game, self)) {
-            return null;
-        }
-
-        Filter nonIgnored = getNonIgnoredEligibleTargetFilter(game, self);
-        if (!GameConditions.canSpot(game, self, nonIgnored)) {
-            return null;
-        }
-
-        final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_1);
-        action.setSingletonTrigger(true);
-        action.setText("Ignore all potential targets");
-        action.setActionMsg("Ignore all potential targets for " + GameUtils.getCardLink(self));
-        action.appendEffect(
-                new PassthruEffect(action) {
-                    @Override
-                    protected void doPlayEffect(SwccgGame game) {
-                        Collection<PhysicalCard> targets = Filters.filterActive(game, self, getFullEligibleTargetFilter(game, self));
-                        ensureIgnoreList(self);
-                        Set<String> ignoreList = getIgnoreList(self);
-                        for (PhysicalCard target : targets) {
-                            ignoreList.add(String.valueOf(target.getCardId()));
-                        }
-                    }
-                }
-        );
-        return Collections.singletonList(action);
-    }
-
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         maintainIgnoreList(game, self);
 
-        String playerId = self.getOwner();
-        Filter filter;
-        if (mayIgnoreTargets(game, self)) {
-            // Only force a target if at least one eligible target is not ignored
-            filter = getNonIgnoredEligibleTargetFilter(game, self);
-        } else {
-            filter = getFullEligibleTargetFilter(game, self);
+        if (!TriggerConditions.isTableChanged(game, effectResult)) {
+            return null;
         }
 
-        // Check condition(s)
-        if (TriggerConditions.isTableChanged(game, effectResult)
-                && GameConditions.canSpot(game, self, filter)) {
+        String playerId = self.getOwner();
+        List<RequiredGameTextTriggerAction> actions = new LinkedList<RequiredGameTextTriggerAction>();
+        Filter nonIgnored = getNonIgnoredEligibleTargetFilter(game, self);
 
+        // Required after fires before optional after, so Ignore all must be a required alternative
+        // to make-lost. Otherwise the seeker always makes a character lost first.
+        if (mayIgnoreTargets(game, self) && GameConditions.canSpot(game, self, nonIgnored)) {
+            final RequiredGameTextTriggerAction ignoreAction = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_1);
+            ignoreAction.setSingletonTrigger(true);
+            ignoreAction.setText("Ignore all potential targets");
+            ignoreAction.setActionMsg("Ignore all potential targets for " + GameUtils.getCardLink(self));
+            ignoreAction.appendEffect(
+                    new PassthruEffect(ignoreAction) {
+                        @Override
+                        protected void doPlayEffect(SwccgGame game) {
+                            Collection<PhysicalCard> targets = Filters.filterActive(game, self, getFullEligibleTargetFilter(game, self));
+                            ensureIgnoreList(self);
+                            Set<String> ignoreList = getIgnoreList(self);
+                            for (PhysicalCard target : targets) {
+                                ignoreList.add(String.valueOf(target.getCardId()));
+                            }
+                        }
+                    }
+            );
+            actions.add(ignoreAction);
+        }
+
+        Filter loseFilter = mayIgnoreTargets(game, self) ? nonIgnored : getFullEligibleTargetFilter(game, self);
+        if (GameConditions.canSpot(game, self, loseFilter)) {
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setSingletonTrigger(true);
             action.setText("Make a character lost");
-            // Choose target(s)
             action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerId, "Choose character to make lost", filter) {
+                    new ChooseCardOnTableEffect(action, playerId, "Choose character to make lost", loseFilter) {
                         @Override
                         protected void cardSelected(final PhysicalCard character) {
                             action.addAnimationGroup(character);
                             action.setActionMsg("Make " + GameUtils.getCardLink(character) + " lost");
-                            // Perform result(s)
                             action.appendEffect(
                                     new LoseCardsFromTableSimultaneouslyEffect(action, Arrays.asList(character, self), true, true));
                         }
                     }
             );
-            return Collections.singletonList(action);
+            actions.add(action);
         }
-        return null;
+
+        return actions.isEmpty() ? null : actions;
     }
 
     @Override
@@ -221,14 +201,24 @@ public abstract class AbstractSeeker extends AbstractAutomatedWeapon {
             return null;
         }
 
+        Filter filter = getFullEligibleTargetFilter(game, self);
+        if (!GameConditions.canSpot(game, self, filter)) {
+            return null;
+        }
+
         final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, GameTextActionId.OTHER_CARD_ACTION_2);
         action.setText("Stop ignoring potential targets");
         action.setActionMsg("Stop ignoring potential targets for " + GameUtils.getCardLink(self));
-        action.appendEffect(
-                new PassthruEffect(action) {
+        // Targeting runs when the action is taken, so make-lost is immediate (does not wait for table-changed).
+        action.appendTargeting(
+                new ChooseCardOnTableEffect(action, playerId, "Choose character to make lost", filter) {
                     @Override
-                    protected void doPlayEffect(SwccgGame game) {
+                    protected void cardSelected(final PhysicalCard character) {
                         clearIgnoreList(self);
+                        action.addAnimationGroup(character);
+                        action.setActionMsg("Make " + GameUtils.getCardLink(character) + " lost");
+                        action.appendEffect(
+                                new LoseCardsFromTableSimultaneouslyEffect(action, Arrays.asList(character, self), true, true));
                     }
                 }
         );
