@@ -8,6 +8,8 @@ public enum Zone implements Filterable {
     AT_LOCATION("play", true, true, true, false, false, false, false),
     SIDE_OF_TABLE("play", true, true, true, false, false, false, false),
     LOCATIONS("play", true, true, true, false, false, false, false),
+    // Non-location cards that occupy a slot in the location row (Access Denied, Laser Gate).
+    BETWEEN_SITES("play", true, true, true, false, false, false, false),
     ATTACHED("play", true, true, true, false, false, false, false),
 
     // Public knowledge but not in play
