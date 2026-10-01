@@ -1,6 +1,8 @@
 package com.gempukku.swccgo.cards.set13.dark;
 
+import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
@@ -23,11 +25,13 @@ public class Card_13_70_Tests {
 		return new VirtualTableScenario(
 				new HashMap<>() {{
 					put("obi", "11_10"); // Qui-Gon Jinn (Jedi)
+					put("obiwan", "13_33"); // Obi-Wan Kenobi, Jedi Knight
 					put("lsCombat4", "1_105"); // Rebel Barrier destiny 4
 					put("lsCombat5", "1_102"); // Out Of Nowhere destiny 5
 					put("lsCombat5b", "1_110"); // Skywalkers destiny 5
 					put("sense", "1_109");
 					put("strikeBlocked", "13_43");
+					put("ihabfat", "4_052");
 				}},
 				new HashMap<>() {{
 					put("forcePush", "13_70");
@@ -65,10 +69,10 @@ public class Card_13_70_Tests {
 		scn.MoveCardsToDSHand(forcePush);
 
 		if (stackCombatOnJedi) {
-			scn.StackCardsOn(obi, combatA);
+			scn.StackCardsOn(obi, true, combatA);
 			combatA.setCombatCard(true);
 			if (stackSecondCombat) {
-				scn.StackCardsOn(obi, combatB);
+				scn.StackCardsOn(obi, true, combatB);
 				combatB.setCombatCard(true);
 			}
 		}
@@ -81,11 +85,15 @@ public class Card_13_70_Tests {
 		scn.StartGame();
 
 		assertEquals(5f, forcePush.getBlueprint().getDestiny(), 0.001f);
+		scn.BlueprintCardTypeCheck(forcePush.getBlueprint(), new ArrayList<>() {{
+			add(CardType.INTERRUPT);
+		}});
 		scn.BlueprintIconCheck(forcePush.getBlueprint(), new ArrayList<>() {{
 			add(Icon.REFLECTIONS_III);
 			add(Icon.INTERRUPT);
 			add(Icon.EPISODE_I);
 		}});
+		scn.BlueprintKeywordCheck(forcePush.getBlueprint(), new ArrayList<Keyword>());
 	}
 
 	@Test
@@ -210,6 +218,48 @@ public class Card_13_70_Tests {
 		scn.PassAllResponses();
 
 		assertEquals(Zone.TOP_OF_LOST_PILE, forcePush.getZone());
+	}
+
+	@Test
+	public void ForcePushMayBeRetargetedToAnotherJediWithCombatCards() {
+		var scn = GetScenario();
+		var forcePush = scn.GetDSCard("forcePush");
+		var ihabfat = scn.GetLSCard("ihabfat");
+		var quiGon = scn.GetLSCard("obi");
+		var obiwan = scn.GetLSCard("obiwan");
+		var maul = scn.GetDSCard("maul");
+		var quiGonCombat = scn.GetLSCard("lsCombat4");
+		var obiwanCombat = scn.GetLSCard("lsCombat5");
+		var site = scn.GetLSStartingLocation();
+
+		scn.StartGame();
+		scn.MoveCardsToLocation(site, quiGon, obiwan, maul);
+		scn.MoveCardsToDSHand(forcePush);
+		scn.MoveCardsToLSHand(ihabfat);
+		scn.StackCardsOn(quiGon, true, quiGonCombat);
+		quiGonCombat.setCombatCard(true);
+		scn.StackCardsOn(obiwan, true, obiwanCombat);
+		obiwanCombat.setCombatCard(true);
+		scn.LSActivateForceCheat(3);
+
+		scn.SkipToPhase(Phase.CONTROL);
+		assertTrue(scn.DSCardPlayAvailable(forcePush));
+		scn.DSPlayCard(forcePush);
+		scn.DSChooseCard(quiGon);
+
+		assertTrue(scn.LSCardPlayAvailable(ihabfat));
+		scn.LSPlayCard(ihabfat);
+		assertTrue(scn.LSHasCardChoiceAvailable(quiGon));
+		scn.LSChooseCard(quiGon);
+		assertTrue(scn.LSHasCardChoiceAvailable(obiwan));
+		assertFalse(scn.LSHasCardChoiceAvailable(quiGon));
+		scn.LSChooseCard(obiwan);
+		scn.PassAllResponses();
+
+		assertEquals(Zone.TOP_OF_LOST_PILE, forcePush.getZone());
+		assertTrue(scn.GetStackedCards(quiGon).contains(quiGonCombat));
+		assertFalse(scn.GetStackedCards(obiwan).contains(obiwanCombat));
+		assertEquals(Zone.TOP_OF_RESERVE_DECK, obiwanCombat.getZone());
 	}
 
 	@Test
