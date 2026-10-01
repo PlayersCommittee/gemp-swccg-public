@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.logic.effects;
 
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.ActionProxy;
@@ -238,6 +239,7 @@ public class BlowAwayEffect extends AbstractSubActionEffect {
                             Filter allCardsToLoseFilter = Filters.or(relatedLocationsToLoseFilter, Filters.at(relatedLocationsToLoseFilter), Filters.aboardOrAboardCargoOf(Filters.in(starshipsToBlowAway)));
 
                             Collection<PhysicalCard> cardsToMakeLost = Filters.filterAllOnTable(game, allCardsToLoseFilter);
+                            addBetweenSiteCardsBoundingRelatedLocations(game, relatedLocationsToLoseFilter, cardsToMakeLost);
 
                             // The cards are all lost simultaneously and 'blown away' starships placed out of play
                             SubAction placeCardsOutOfPlayAndLoseCardsOnTableAction = new SubAction(subAction);
@@ -270,6 +272,7 @@ public class BlowAwayEffect extends AbstractSubActionEffect {
                             for (PhysicalCard systemToBlowAway : systemsToBlowAway) {
                                 cardsToMakeLost.addAll(Filters.filterStacked(game, Filters.stackedOn(systemToBlowAway)));
                             }
+                            addBetweenSiteCardsBoundingRelatedLocations(game, relatedLocationsToLoseFilter, cardsToMakeLost);
 
                             // The cards are all lost simultaneously
                             SubAction loseCardsOnTableAction = new SubAction(subAction);
@@ -331,6 +334,26 @@ public class BlowAwayEffect extends AbstractSubActionEffect {
         );
 
         return subAction;
+    }
+
+    /**
+     * BETWEEN_SITES slots whose left or right bounding site is a related location being lost
+     * (system or starship blown away) also leave play.
+     */
+    private static void addBetweenSiteCardsBoundingRelatedLocations(SwccgGame game, Filter relatedLocationsToLoseFilter,
+                                                                    Collection<PhysicalCard> cardsToMakeLost) {
+        GameState gameState = game.getGameState();
+        for (PhysicalCard gate : gameState.getVisualRowCardsInOrder()) {
+            if (gate.getZone() != Zone.BETWEEN_SITES) {
+                continue;
+            }
+            PhysicalCard left = gameState.getBetweenSiteLeft(gate);
+            PhysicalCard right = gameState.getBetweenSiteRight(gate);
+            if ((left != null && relatedLocationsToLoseFilter.accepts(game, left))
+                    || (right != null && relatedLocationsToLoseFilter.accepts(game, right))) {
+                cardsToMakeLost.add(gate);
+            }
+        }
     }
 
     @Override

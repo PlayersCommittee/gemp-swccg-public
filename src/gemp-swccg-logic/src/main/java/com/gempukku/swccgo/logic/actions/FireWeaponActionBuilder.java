@@ -289,7 +289,10 @@ public class FireWeaponActionBuilder {
             Filter inAttackFilter = gameState.isDuringAttack() ? Filters.and(Filters.creature, Filters.participatingInAttack) : Filters.any;
 
             // If during battle, only cards participating in battle can be targeted
-            Filter inBattleFilter = gameState.isDuringBattle() ? Filters.participatingInBattle : Filters.any;
+            // (plus cards that may be targeted by weapons as if present, e.g. Laser Gate).
+            Filter inBattleFilter = gameState.isDuringBattle()
+                    ? Filters.or(Filters.participatingInBattle, Filters.canBeTargetedByWeaponAsIfPresent)
+                    : Filters.any;
 
             for (int i = 0; i < _targetFilterList.size(); ++i) {
                 boolean isValid = false;
@@ -619,6 +622,20 @@ public class FireWeaponActionBuilder {
     }
 
     /**
+     * Proximity for weapons that fire at the same site: present cards, stacked "as if present" cards,
+     * and between-sites cards (Laser Gate) that may be targeted as if present from either bounding site.
+     */
+    private Filter getSameSiteWeaponProximityFilter() {
+        Filter presentAt = Filters.presentAt(Filters.wherePresent(_weaponOrCardWithPermanentWeapon));
+        Filter betweenSitesAsIfPresent = Filters.and(
+                Filters.canBeTargetedByWeaponAsIfPresent,
+                Filters.betweenSitesNextToWherePresent(_weaponOrCardWithPermanentWeapon));
+        return Filters.or(presentAt,
+                Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent),
+                betweenSitesAsIfPresent);
+    }
+
+    /**
      * Sets the targeting info when the weapon does not specify a cost.
      * @param targetFilter the target filter
      * @param targetingReason the targeting reason
@@ -645,9 +662,7 @@ public class FireWeaponActionBuilder {
      * @return the builder
      */
     public FireWeaponActionBuilder targetForFree(Filter targetFilter, Set<TargetingReason> targetingReasons) {
-        Filter presentAt = Filters.presentAt(Filters.wherePresent(_weaponOrCardWithPermanentWeapon));
-        _proximityFilterList.add(Filters.or(presentAt,
-                Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent)));
+        _proximityFilterList.add(getSameSiteWeaponProximityFilter());
         _targetFilterList.add(Filters.and(Filters.or(Filters.opponents(_weaponOrCardWithPermanentWeapon), Filters.creature), targetFilter));
         _targetsForFree.add(true);
         _targetingUseForceCostMin.add(0);
@@ -689,9 +704,7 @@ public class FireWeaponActionBuilder {
      */
     public FireWeaponActionBuilder targetUsingForce(int numTargets, Filter targetFilter, int useForceCost, Set<TargetingReason> targetingReasons) {
         _numTargets = numTargets;
-        Filter presentAt = Filters.presentAt(Filters.wherePresent(_weaponOrCardWithPermanentWeapon));
-        _proximityFilterList.add(Filters.or(presentAt,
-                Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent)));
+        _proximityFilterList.add(getSameSiteWeaponProximityFilter());
         _targetFilterList.add(Filters.and(Filters.or(Filters.opponents(_weaponOrCardWithPermanentWeapon), Filters.creature), targetFilter));
         _targetsForFree.add(false);
         _targetingUseForceCostMin.add(useForceCost);
@@ -709,9 +722,7 @@ public class FireWeaponActionBuilder {
      * @return the builder
      */
     public FireWeaponActionBuilder targetUsingForceRange(Filter targetFilter, int useForceCostMin, int useForceCostMax, TargetingReason targetingReason) {
-        Filter presentAt = Filters.presentAt(Filters.wherePresent(_weaponOrCardWithPermanentWeapon));
-        _proximityFilterList.add(Filters.or(presentAt,
-                Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent)));
+        _proximityFilterList.add(getSameSiteWeaponProximityFilter());
         _targetFilterList.add(Filters.and(Filters.or(Filters.opponents(_weaponOrCardWithPermanentWeapon), Filters.creature), targetFilter));
         _targetsForFree.add(false);
         _targetingUseForceCostMin.add(useForceCostMin);

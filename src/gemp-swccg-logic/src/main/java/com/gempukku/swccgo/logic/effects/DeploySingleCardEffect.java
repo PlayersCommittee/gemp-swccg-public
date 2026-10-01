@@ -36,6 +36,7 @@ public class DeploySingleCardEffect extends AbstractSubActionEffect implements P
     private boolean _deployInVehicleSlot;
     private boolean _reshuffle;
     private boolean _cardWasPlayed;
+    private boolean _deployBetweenSites;
 
     /**
      * Creates an effect that plays a card to the specified zone.
@@ -74,6 +75,10 @@ public class DeploySingleCardEffect extends AbstractSubActionEffect implements P
      * @param reshuffle true if pile the card is played from is reshuffled, otherwise false
      */
     public DeploySingleCardEffect(Action action, PhysicalCard cardToPlay, boolean deployInVehicleCapacitySlot, PhysicalCard attachTo, DeployAsCaptiveOption deployAsCaptiveOption, ReactActionOption reactActionOption, PlayCardOptionId playCardOptionId, boolean reshuffle) {
+        this(action, cardToPlay, deployInVehicleCapacitySlot, attachTo, deployAsCaptiveOption, reactActionOption, playCardOptionId, reshuffle, false);
+    }
+
+    public DeploySingleCardEffect(Action action, PhysicalCard cardToPlay, boolean deployInVehicleCapacitySlot, PhysicalCard attachTo, DeployAsCaptiveOption deployAsCaptiveOption, ReactActionOption reactActionOption, PlayCardOptionId playCardOptionId, boolean reshuffle, boolean deployBetweenSites) {
         super(action);
         _performingPlayerId = _action.getPerformingPlayer();
         _cardToPlay = cardToPlay;
@@ -82,13 +87,14 @@ public class DeploySingleCardEffect extends AbstractSubActionEffect implements P
         if (_playedFromZone == Zone.STACKED) {
             _playedFromStackedOn = cardToPlay.getStackedOn();
         }
-        _playedToZone = Zone.ATTACHED;
+        _playedToZone = deployBetweenSites ? Zone.BETWEEN_SITES : Zone.ATTACHED;
         _deployInVehicleSlot = deployInVehicleCapacitySlot;
         _attachTo = attachTo;
         _deployAsCaptiveOption = deployAsCaptiveOption;
         _asReact = reactActionOption != null;
         _playCardOptionId = playCardOptionId;
         _reshuffle = reshuffle;
+        _deployBetweenSites = deployBetweenSites;
     }
 
     /**
@@ -353,8 +359,19 @@ public class DeploySingleCardEffect extends AbstractSubActionEffect implements P
                                                         final StringBuilder playCardText = new StringBuilder();
                                                         PhysicalCard destinationCard = null;
 
+                                                        // Played between two sites in the location row.
+                                                        if (_deployBetweenSites && attachTo != null) {
+                                                            PhysicalCard otherSite = _cardToPlay.getTargetedCard(gameState, TargetId.EFFECT_TARGET_1);
+                                                            if (otherSite == null) {
+                                                                throw new UnsupportedOperationException(GameUtils.getFullName(_cardToPlay) + " did not target a second site");
+                                                            }
+                                                            gameState.addBetweenSiteCardToTable(_cardToPlay, attachTo, otherSite);
+                                                            PhysicalCard left = attachTo.getLocationZoneIndex() <= otherSite.getLocationZoneIndex() ? attachTo : otherSite;
+                                                            PhysicalCard right = left.getCardId() == attachTo.getCardId() ? otherSite : attachTo;
+                                                            playCardText.append(GameUtils.getCardLink(_cardToPlay)).append(asReactText).append(" from ").append(fromText).append(" between ").append(GameUtils.getCardLink(left)).append(" and ").append(GameUtils.getCardLink(right));
+                                                        }
                                                         // Played as attached.
-                                                        if (attachTo != null) {
+                                                        else if (attachTo != null) {
                                                             destinationCard = attachTo;
 
                                                             if (_deployAsCaptiveOption != null && _deployAsCaptiveOption.getCaptureOption() == CaptureOption.SEIZE) {
