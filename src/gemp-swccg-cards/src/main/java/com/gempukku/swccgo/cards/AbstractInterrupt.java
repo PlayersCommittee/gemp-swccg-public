@@ -127,7 +127,7 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
             }
         }
 
-        if (self.getZone() == Zone.STACKED) {
+        if (self.getZone() == Zone.STACKED || self.getZone() == Zone.STACKED_FACE_DOWN) {
             List<PlayInterruptAction> actionList3 = getGameTextTopLevelWhileStackedActions(playerId, game, self);
             if (actionList3 != null) {
                 actions.addAll(actionList3);

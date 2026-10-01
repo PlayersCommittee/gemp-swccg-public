@@ -1,6 +1,8 @@
 package com.gempukku.swccgo.cards.set13.dark;
 
+import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
@@ -51,11 +53,15 @@ public class Card_13_88_Tests {
 		scn.StartGame();
 
 		assertEquals(5f, ebb.getBlueprint().getDestiny(), 0.001f);
+		scn.BlueprintCardTypeCheck(ebb.getBlueprint(), new ArrayList<>() {{
+			add(CardType.INTERRUPT);
+		}});
 		scn.BlueprintIconCheck(ebb.getBlueprint(), new ArrayList<>() {{
 			add(Icon.REFLECTIONS_III);
 			add(Icon.INTERRUPT);
 			add(Icon.EPISODE_I);
 		}});
+		scn.BlueprintKeywordCheck(ebb.getBlueprint(), new ArrayList<Keyword>());
 	}
 
 	@Test
@@ -176,6 +182,23 @@ public class Card_13_88_Tests {
 		assertEquals(Zone.TOP_OF_LOST_PILE, ebb.getZone());
 		assertFalse(scn.IsActiveForceDrain());
 		assertEquals(lsLifeBefore, scn.GetLSLifeForceRemaining());
+	}
+
+	@Test
+	public void TheEbbOfBattleActivateNotAvailableWhenStackedAsCombatCard() {
+		var scn = GetScenario();
+		var ebb = scn.GetDSCard("ebb");
+		var maul = scn.GetDSCard("maul");
+		var lsSite = scn.GetLSStartingLocation();
+
+		scn.StartGame();
+		scn.MoveCardsToLocation(lsSite, maul);
+		scn.RemoveCardZone(ebb);
+		scn.gameState().stackCard(ebb, maul, true, false, false);
+		ebb.setCombatCard(true);
+
+		scn.SkipToPhase(Phase.CONTROL);
+		assertFalse(scn.DSCardPlayAvailable(ebb, "Activate 1 Force"));
 	}
 
 	@Test

@@ -41,6 +41,14 @@ public class Card13_088 extends AbstractUsedInterrupt {
     }
 
     /**
+     * Allow Force drain cancel action to be checked while this card is stacked face down as a combat card.
+     */
+    @Override
+    public boolean visitCardWhenStackedFaceDown() {
+        return true;
+    }
+
+    /**
      * Action 1: Activate 1 Force (from hand). Playable even if activation will fail (0 Reserve).
      */
     @Override

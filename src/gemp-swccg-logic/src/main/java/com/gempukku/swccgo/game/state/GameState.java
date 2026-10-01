@@ -2738,23 +2738,16 @@ public class GameState implements Snapshotable<GameState> {
             }
         }
 
-        return false;
-    }
-
-    /**
-     * Visits the player's interrupt combat cards stacked on a character (face up or face down).
-     * Used only for optional after actions (e.g. The Ebb Of Battle cancel Force drain). Not top-level play.
-     */
-    public boolean iterateStackedCombatCardInterrupts(PhysicalCardVisitor physicalCardVisitor, String playerId) {
+        // Face-down stacked cards are visited only when the blueprint opts in (e.g. The Ebb Of Battle).
         for (PhysicalCard physicalCard : getAllStackedCards()) {
-            if ((physicalCard.getZone() == Zone.STACKED || physicalCard.getZone() == Zone.STACKED_FACE_DOWN)
+            if (physicalCard.getZone() == Zone.STACKED_FACE_DOWN
                     && physicalCard.getOwner().equals(playerId)
-                    && physicalCard.getBlueprint().getCardCategory() == CardCategory.INTERRUPT
-                    && physicalCard.isCombatCard()) {
+                    && physicalCard.getBlueprint().visitCardWhenStackedFaceDown()) {
                 if (physicalCardVisitor.visitPhysicalCard(physicalCard))
                     return true;
             }
         }
+
         return false;
     }
 
