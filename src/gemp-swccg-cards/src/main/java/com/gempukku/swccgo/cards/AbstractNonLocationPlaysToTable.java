@@ -183,7 +183,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
                 PlayCardAction playCardAction = null;
 
                 // If the play option is to play to a location or attach to a card, then get use the filter for where card can be played
-                if (playToZone == Zone.AT_LOCATION || playToZone == Zone.ATTACHED) {
+                if (playToZone == Zone.AT_LOCATION || playToZone == Zone.ATTACHED || playToZone == Zone.BETWEEN_SITES) {
                     Filter completeTargetFilter = Filters.and(deployTargetFilter, getValidDeployTargetFilter(playerId, game, self, sourceCard, playCardOption, forFree, changeInCost, deploymentRestrictionsOption, deployAsCaptiveOption, reactActionOption, false, false));
 
                     // Determine the spot override to use when playing the card using this play card option
@@ -249,7 +249,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
                             playCardAction = new PlayCardAsAttachedAction(sourceCard, self, playCardOption, forFree, changeInCost, reactActionOption, spotOverrides, Filters.in(validDeployOnTargets));
                         }
                     }
-                    else if (playToZone == Zone.ATTACHED) {
+                    else if (playToZone == Zone.ATTACHED || playToZone == Zone.BETWEEN_SITES) {
                         // Check that a valid target to deploy to as attached can be found
                         if (Filters.canSpot(game, self, spotOverrides, TargetingReason.TO_BE_DEPLOYED_ON, completeTargetFilter)) {
                             playCardAction = new PlayCardAsAttachedAction(sourceCard, self, playCardOption, forFree, changeInCost, reactActionOption, spotOverrides, completeTargetFilter);

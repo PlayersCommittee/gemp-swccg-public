@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.rules.layout;
 
+import com.gempukku.swccgo.common.LocationPlacementDirection;
 import com.gempukku.swccgo.common.TargetId;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Title;
@@ -11,6 +12,7 @@ import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
 import com.gempukku.swccgo.game.layout.LocationGroup;
+import com.gempukku.swccgo.game.layout.LocationPlacement;
 import com.gempukku.swccgo.game.layout.RearrangeSites;
 import com.gempukku.swccgo.logic.actions.SystemQueueAction;
 import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
@@ -145,6 +147,31 @@ public class RearrangeSitesTests {
                 assertEquals(i, converted.getLocationZoneIndex());
             }
         }
+    }
+
+    /** Visual location-row columns (sites and between-sites cards). */
+    private List<PhysicalCard> visualRow(VirtualTableScenario scn) {
+        return scn.gameState().getVisualRowCardsInOrder();
+    }
+
+    private void assertIndexesMatchVisualRow(VirtualTableScenario scn) {
+        List<PhysicalCard> row = visualRow(scn);
+        for (int i = 0; i < row.size(); ++i) {
+            assertEquals(i, row.get(i).getLocationZoneIndex());
+        }
+    }
+
+    private LocationPlacement placementRelative(VirtualTableScenario scn, PhysicalCardImpl loc,
+                                                PhysicalCard other, LocationPlacementDirection direction) {
+        for (LocationPlacement cand : scn.gameState().getLocationPlacement(scn.game(), loc, null, null)) {
+            if (cand.getOtherCard() != null && cand.getOtherCard().getCardId() == other.getCardId()
+                    && ((direction.isRightOf() && cand.getDirection().isRightOf())
+                    || (direction.isLeftOf() && cand.getDirection().isLeftOf()))) {
+                return new LocationPlacement(cand.getParentSystem(), cand.getParentStarshipOrVehiclePersona(),
+                        cand.getParentStarshipOrVehicleCard(), cand.getOtherCard(), direction);
+            }
+        }
+        return null;
     }
 
 
@@ -990,5 +1017,184 @@ public class RearrangeSitesTests {
         assertTrue(scn.IsAttachedTo(warRoom, expand));
         assertEquals(newOrder, interiorTops(scn, Title.Death_Star));
         assertIndexesMatchRow(scn);
+    }
+
+    @Test
+    public void RearrangeSitesBetweenSitesSlotSitsInTheVisualRow() {
+        var scn = GetScenario();
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("war-room");
+        var expand = scn.GetDSCard("expand");
+        scn.StartGame();
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
+        assertEquals(2, interiors.size());
+        PhysicalCardImpl left = (PhysicalCardImpl) interiors.get(0);
+        PhysicalCardImpl right = (PhysicalCardImpl) interiors.get(1);
+        scn.PlaceBetweenSites(left, right, expand);
+
+        assertEquals(Zone.BETWEEN_SITES, expand.getZone());
+        assertEquals(left, scn.gameState().getBetweenSiteLeft(expand));
+        assertEquals(right, scn.gameState().getBetweenSiteRight(expand));
+        assertEquals(1, scn.game().getModifiersQuerying().getDistanceBetweenSites(scn.gameState(), left, right).intValue());
+        assertTrue(Filters.adjacentSite(left).accepts(scn.game(), right));
+        List<PhysicalCard> visual = visualRow(scn);
+        int leftIdx = visual.indexOf(left);
+        int gateIdx = visual.indexOf(expand);
+        int rightIdx = visual.indexOf(right);
+        assertTrue(leftIdx >= 0 && gateIdx >= 0 && rightIdx >= 0);
+        assertEquals(leftIdx + 1, gateIdx);
+        assertEquals(gateIdx + 1, rightIdx);
+        assertEquals(Arrays.asList(expand), scn.gameState().getBetweenSiteCardsCrossed(left, right));
+        assertIndexesMatchVisualRow(scn);
+    }
+
+    @Test
+    public void RearrangeSitesNewSiteRightOfLeftKeepsGateOnTheRight() {
+        var scn = GetScenario();
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("war-room");
+        var conference = scn.GetDSCard("conference");
+        var expand = scn.GetDSCard("expand");
+        scn.StartGame();
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
+        PhysicalCardImpl left = (PhysicalCardImpl) interiors.get(0);
+        PhysicalCardImpl right = (PhysicalCardImpl) interiors.get(1);
+        scn.PlaceBetweenSites(left, right, expand);
+
+        LocationPlacement placement = placementRelative(scn, conference, left, LocationPlacementDirection.RIGHT_OF);
+        assertNotNull(placement);
+        scn.MoveLocationToTable(conference, placement);
+
+        List<PhysicalCard> after = interiorTops(scn, Title.Death_Star);
+        assertEquals(Arrays.asList(left, conference, right), after);
+        assertEquals(conference, scn.gameState().getBetweenSiteLeft(expand));
+        assertEquals(right, scn.gameState().getBetweenSiteRight(expand));
+        List<PhysicalCard> visual = visualRow(scn);
+        assertTrue(visual.indexOf(left) < visual.indexOf(conference));
+        assertTrue(visual.indexOf(conference) < visual.indexOf(expand));
+        assertTrue(visual.indexOf(expand) < visual.indexOf(right));
+        assertIndexesMatchVisualRow(scn);
+    }
+
+    @Test
+    public void RearrangeSitesNewSiteLeftOfRightKeepsGateOnTheLeft() {
+        var scn = GetScenario();
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("war-room");
+        var conference = scn.GetDSCard("conference");
+        var expand = scn.GetDSCard("expand");
+        scn.StartGame();
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
+        PhysicalCardImpl left = (PhysicalCardImpl) interiors.get(0);
+        PhysicalCardImpl right = (PhysicalCardImpl) interiors.get(1);
+        scn.PlaceBetweenSites(left, right, expand);
+
+        LocationPlacement placement = placementRelative(scn, conference, right, LocationPlacementDirection.LEFT_OF);
+        assertNotNull(placement);
+        scn.MoveLocationToTable(conference, placement);
+
+        List<PhysicalCard> after = interiorTops(scn, Title.Death_Star);
+        assertEquals(Arrays.asList(left, conference, right), after);
+        assertEquals(left, scn.gameState().getBetweenSiteLeft(expand));
+        assertEquals(conference, scn.gameState().getBetweenSiteRight(expand));
+        List<PhysicalCard> visual = visualRow(scn);
+        assertTrue(visual.indexOf(left) < visual.indexOf(expand));
+        assertTrue(visual.indexOf(expand) < visual.indexOf(conference));
+        assertTrue(visual.indexOf(conference) < visual.indexOf(right));
+        assertIndexesMatchVisualRow(scn);
+    }
+
+    @Test
+    public void RearrangeSitesBetweenSitesSlotStaysBetweenTheSamePair() {
+        var scn = GetScenario();
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("war-room");
+        var conference = scn.GetDSCard("conference");
+        var expand = scn.GetDSCard("expand");
+        scn.StartGame();
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        putLocation(scn, conference);
+        List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
+        assertEquals(3, interiors.size());
+        PhysicalCardImpl left = (PhysicalCardImpl) interiors.get(0);
+        PhysicalCardImpl mid = (PhysicalCardImpl) interiors.get(1);
+        PhysicalCardImpl right = (PhysicalCardImpl) interiors.get(2);
+        scn.PlaceBetweenSites(left, mid, expand);
+
+        List<PhysicalCard> newOrder = reversed(interiors);
+        assertTrue(RearrangeSites.rearrangeInteriorSites(scn.game(), Title.Death_Star, newOrder));
+
+        assertEquals(newOrder, interiorTops(scn, Title.Death_Star));
+        PhysicalCard boundLeft = scn.gameState().getBetweenSiteLeft(expand);
+        PhysicalCard boundRight = scn.gameState().getBetweenSiteRight(expand);
+        assertTrue((boundLeft == left && boundRight == mid) || (boundLeft == mid && boundRight == left));
+        List<PhysicalCard> visual = visualRow(scn);
+        int gateIdx = visual.indexOf(expand);
+        assertTrue(gateIdx > visual.indexOf(boundLeft));
+        assertTrue(gateIdx < visual.indexOf(boundRight));
+        assertEquals(Zone.BETWEEN_SITES, expand.getZone());
+        assertIndexesMatchVisualRow(scn);
+        assertEquals(right, interiors.get(2));
+    }
+
+    @Test
+    public void RearrangeSitesTwoBetweenSitesCardsStackAsSeparateColumns() {
+        var scn = GetScenario();
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("war-room");
+        var expand = scn.GetDSCard("expand");
+        var presence = scn.GetDSCard("presence");
+        scn.StartGame();
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
+        PhysicalCardImpl left = (PhysicalCardImpl) interiors.get(0);
+        PhysicalCardImpl right = (PhysicalCardImpl) interiors.get(1);
+        scn.PlaceBetweenSites(left, right, expand);
+        scn.PlaceBetweenSites(left, right, presence);
+
+        List<PhysicalCard> visual = visualRow(scn);
+        int leftIdx = visual.indexOf(left);
+        int rightIdx = visual.indexOf(right);
+        assertEquals(leftIdx + 3, rightIdx);
+        assertTrue(visual.subList(leftIdx + 1, rightIdx).contains(expand));
+        assertTrue(visual.subList(leftIdx + 1, rightIdx).contains(presence));
+        List<PhysicalCard> crossed = scn.gameState().getBetweenSiteCardsCrossed(left, right);
+        assertEquals(2, crossed.size());
+        assertTrue(crossed.contains(expand));
+        assertTrue(crossed.contains(presence));
+        assertEquals(1, scn.game().getModifiersQuerying().getDistanceBetweenSites(scn.gameState(), left, right).intValue());
+        assertIndexesMatchVisualRow(scn);
+    }
+
+    @Test
+    public void RearrangeSitesBetweenSitesCardsAreCrossedOnALongerPath() {
+        var scn = GetScenario();
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("war-room");
+        var conference = scn.GetDSCard("conference");
+        var expand = scn.GetDSCard("expand");
+        scn.StartGame();
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        putLocation(scn, conference);
+        List<PhysicalCard> interiors = interiorTops(scn, Title.Death_Star);
+        PhysicalCardImpl a = (PhysicalCardImpl) interiors.get(0);
+        PhysicalCardImpl b = (PhysicalCardImpl) interiors.get(1);
+        PhysicalCardImpl c = (PhysicalCardImpl) interiors.get(2);
+        scn.PlaceBetweenSites(a, b, expand);
+
+        assertEquals(Arrays.asList(expand), scn.gameState().getBetweenSiteCardsCrossed(a, c));
+        assertEquals(Arrays.asList(expand), scn.gameState().getBetweenSiteCardsCrossed(c, a));
+        assertTrue(scn.gameState().getBetweenSiteCardsCrossed(b, c).isEmpty());
+        assertEquals(2, scn.game().getModifiersQuerying().getDistanceBetweenSites(scn.gameState(), a, c).intValue());
+        assertIndexesMatchVisualRow(scn);
     }
 }

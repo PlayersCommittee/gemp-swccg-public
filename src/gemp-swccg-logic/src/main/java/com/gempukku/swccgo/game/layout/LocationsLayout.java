@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -479,14 +480,87 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
     }
 
     /**
-     * Updates the location index of each location. This is needed whenever a location is added or removed
-     * from the table, since the index is used to tell the user interface the left to right order of the locations.
+     * Updates the location index of each location and between-sites card. This is
+     * needed whenever a location or between-sites card is added or removed, since
+     * the index is the UI column. Site adjacency uses the tops list, not this index.
      */
     public void refreshLocationIndexes() {
-        List<List<PhysicalCard>> locationsInOrder = getLocationsInOrder();
-        for (int i=0; i<locationsInOrder.size(); i++) {
-            for (PhysicalCard card : locationsInOrder.get(i)) {
+        List<List<PhysicalCard>> columns = getVisualColumnsInOrder();
+        for (int i = 0; i < columns.size(); i++) {
+            for (PhysicalCard card : columns.get(i)) {
                 card.setLocationZoneIndex(i);
+            }
+        }
+    }
+
+    /**
+     * Visual columns left to right: each location stack, then each between-sites
+     * card in the gap to its right as its own column.
+     */
+    public List<List<PhysicalCard>> getVisualColumnsInOrder() {
+        List<List<PhysicalCard>> columns = new LinkedList<List<PhysicalCard>>();
+        if (_holositeLayout instanceof AbstractLocationLayout) {
+            for (LocationGroup group : ((AbstractLocationLayout) _holositeLayout).getExistingGroupsInOrder()) {
+                columns.addAll(group.getVisualColumns());
+            }
+        }
+        else {
+            columns.addAll(_holositeLayout.getLocationsInOrder());
+        }
+        for (LocationLayout layout : _locationLayouts) {
+            if (layout instanceof AbstractLocationLayout) {
+                for (LocationGroup group : ((AbstractLocationLayout) layout).getExistingGroupsInOrder()) {
+                    columns.addAll(group.getVisualColumns());
+                }
+            }
+            else {
+                columns.addAll(layout.getLocationsInOrder());
+            }
+        }
+        return columns;
+    }
+
+    public List<PhysicalCard> getVisualRowCardsInOrder() {
+        List<PhysicalCard> row = new LinkedList<PhysicalCard>();
+        for (List<PhysicalCard> column : getVisualColumnsInOrder()) {
+            if (!column.isEmpty()) {
+                row.add(column.get(0));
+            }
+        }
+        return row;
+    }
+
+    public boolean removeBetweenSiteCard(PhysicalCard card) {
+        LocationGroup group = findGroupContaining(card);
+        if (group == null) {
+            return false;
+        }
+        return group.removeBetweenSiteCard(card);
+    }
+
+    public List<PhysicalCard> collectBetweenSiteCardsNotInGaps() {
+        Set<Integer> inGaps = new HashSet<Integer>();
+        collectGapIds(_holositeLayout, inGaps);
+        for (LocationLayout layout : _locationLayouts) {
+            collectGapIds(layout, inGaps);
+        }
+        List<PhysicalCard> orphans = new LinkedList<PhysicalCard>();
+        for (PhysicalCard card : getVisualRowCardsInOrder()) {
+            if (card.getZone() == Zone.BETWEEN_SITES
+                    && !inGaps.contains(card.getCardId())) {
+                orphans.add(card);
+            }
+        }
+        return orphans;
+    }
+
+    private void collectGapIds(LocationLayout layout, Set<Integer> inGaps) {
+        if (!(layout instanceof AbstractLocationLayout)) {
+            return;
+        }
+        for (LocationGroup group : ((AbstractLocationLayout) layout).getExistingGroupsInOrder()) {
+            for (PhysicalCard card : group.getAllBetweenSiteCards()) {
+                inGaps.add(card.getCardId());
             }
         }
     }
