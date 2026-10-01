@@ -4,22 +4,25 @@ import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.LocationPlacementDirection;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.TargetId;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
+import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
+import com.gempukku.swccgo.game.layout.LocationPlacement;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -28,17 +31,16 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for Access Denied (5_015 / blueprint 5_15).
- * Doc tab t.1xouug9yxxg5 / issue #117.
- *
- * Printed: "two mobile sites" (not interior-only).
- * Bill ruling: Immune to Alter only in insert mode; not Immune when deployed between sites.
  */
 public class Card_5_015_Tests {
+
+    private static final String BETWEEN_SITES_TEXT = "Deploy between two mobile sites";
 
     protected VirtualTableScenario GetScenario() {
         return new VirtualTableScenario(
                 new HashMap<>() {{
                     put("accessDenied", "5_15");
+                    put("accessDenied2", "5_15");
                     put("luke", "1_19");
                     put("anger", "4_16");
                     put("ihabfat", "4_52");
@@ -48,6 +50,7 @@ public class Card_5_015_Tests {
                 new HashMap<>() {{
                     put("corridor", "1_284");
                     put("warRoom", "1_287");
+                    put("conference", "2_144");
                     put("vader", "1_168");
                     put("stormie", "1_194");
                     put("dsLift", "1_308");
@@ -73,19 +76,31 @@ public class Card_5_015_Tests {
         scn.MoveLocationToTable(location);
     }
 
-    private void placeBetweenSites(PhysicalCardImpl effect, PhysicalCardImpl otherSite) {
-        effect.setTargetedCard(TargetId.EFFECT_TARGET_1, null, otherSite, Filters.sameCardId(otherSite));
-    }
-
     private void deployBetween(VirtualTableScenario scn, PhysicalCardImpl effect,
                                PhysicalCardImpl siteA, PhysicalCardImpl siteB) {
-        scn.AttachCardsTo(siteA, effect);
-        placeBetweenSites(effect, siteB);
+        scn.PlaceBetweenSites(siteA, siteB, effect);
         effect.setPlayCardOptionId(PlayCardOptionId.PLAY_CARD_OPTION_1);
     }
 
+    private List<PhysicalCard> visualRow(VirtualTableScenario scn) {
+        return scn.gameState().getVisualRowCardsInOrder();
+    }
+
+    private LocationPlacement placementRelative(VirtualTableScenario scn, PhysicalCardImpl loc,
+                                                PhysicalCard other, LocationPlacementDirection direction) {
+        for (LocationPlacement cand : scn.gameState().getLocationPlacement(scn.game(), loc, null, null)) {
+            if (cand.getOtherCard() != null && cand.getOtherCard().getCardId() == other.getCardId()
+                    && ((direction.isRightOf() && cand.getDirection().isRightOf())
+                    || (direction.isLeftOf() && cand.getDirection().isLeftOf()))) {
+                return new LocationPlacement(cand.getParentSystem(), cand.getParentStarshipOrVehiclePersona(),
+                        cand.getParentStarshipOrVehicleCard(), cand.getOtherCard(), direction);
+            }
+        }
+        return null;
+    }
+
     @Test
-    public void AccessDenied_5_015_StatsAndKeywordsAreCorrect() {
+    public void AccessDeniedStatsAndKeywordsAreCorrect() {
         var scn = GetScenario();
         var card = scn.GetLSCard("accessDenied").getBlueprint();
 
@@ -116,7 +131,7 @@ public class Card_5_015_Tests {
     }
 
     @Test
-    public void AccessDenied_5_015_InsertOptionImmuneToAlterWhileInsertedPlayOption() {
+    public void AccessDeniedInsertOptionImmuneToAlterWhileInsertedPlayOption() {
         var scn = GetScenario();
         var access = scn.GetLSCard("accessDenied");
 
@@ -133,7 +148,7 @@ public class Card_5_015_Tests {
     }
 
     @Test
-    public void AccessDenied_5_015_RevealLosesOpponentInsertsAndReshuffles() {
+    public void AccessDeniedRevealLosesOpponentInsertsAndReshuffles() {
         var scn = GetScenario();
         var access = scn.GetLSCard("accessDenied");
         var disturbance = scn.GetDSCard("disturbance");
@@ -142,7 +157,6 @@ public class Card_5_015_Tests {
         scn.StartGame();
         scn.SkipToLSTurn(Phase.DEPLOY);
 
-        // Mark inserted AFTER zone move (MoveCardsToTop clears the inserted flag).
         scn.MoveCardsToTopOfLSReserveDeck(knowledge, disturbance, access);
         access.setInserted(true);
         disturbance.setInserted(true);
@@ -150,7 +164,6 @@ public class Card_5_015_Tests {
         assertTrue(access.isInserted());
         assertEquals(access, scn.gameState().getReserveDeck(scn.LS, false).get(0));
 
-        // Closest real path: run insert-reveal game text while a phase-action decision is awaiting.
         access.setInsertCardRevealed(true);
         var revealAction = access.getBlueprint().getInsertCardRevealedAction(scn.game(), access);
         assertNotNull(revealAction);
@@ -168,7 +181,7 @@ public class Card_5_015_Tests {
     }
 
     @Test
-    public void AccessDenied_5_015_DeploysBetweenTwoMobileSites() {
+    public void AccessDeniedDeploysBetweenTwoMobileSites() {
         var scn = GetScenario();
         var access = scn.GetLSCard("accessDenied");
         var corridor = scn.GetDSCard("corridor");
@@ -177,16 +190,28 @@ public class Card_5_015_Tests {
         scn.StartGame();
         putLocation(scn, corridor);
         putLocation(scn, warRoom);
-        deployBetween(scn, access, corridor, warRoom);
+        scn.MoveCardsToLSHand(access);
+        scn.SkipToLSTurn(Phase.DEPLOY);
 
-        assertEquals(corridor, access.getAttachedTo());
-        assertEquals(warRoom, access.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+        assertTrue(scn.LSCardPlayAvailable(access, BETWEEN_SITES_TEXT));
+        scn.LSPlayCard(access, BETWEEN_SITES_TEXT);
+        scn.LSChooseCard(corridor);
+        scn.LSChooseCard(warRoom);
+        scn.PassAllResponses();
+
+        assertEquals(Zone.BETWEEN_SITES, access.getZone());
         assertEquals(PlayCardOptionId.PLAY_CARD_OPTION_1, access.getPlayCardOptionId());
-        assertNotNull(access.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+        PhysicalCard left = scn.gameState().getBetweenSiteLeft(access);
+        PhysicalCard right = scn.gameState().getBetweenSiteRight(access);
+        assertTrue((left == corridor && right == warRoom) || (left == warRoom && right == corridor));
+        List<PhysicalCard> visual = visualRow(scn);
+        assertTrue(visual.indexOf(access) > visual.indexOf(left));
+        assertTrue(visual.indexOf(access) < visual.indexOf(right));
+        assertEquals(1, scn.game().getModifiersQuerying().getDistanceBetweenSites(scn.gameState(), corridor, warRoom).intValue());
     }
 
     @Test
-    public void AccessDenied_5_015_NotImmuneToAlterWhenBetweenSites() {
+    public void AccessDeniedNotImmuneToAlterWhenBetweenSites() {
         var scn = GetScenario();
         var access = scn.GetLSCard("accessDenied");
         var corridor = scn.GetDSCard("corridor");
@@ -218,23 +243,21 @@ public class Card_5_015_Tests {
     }
 
     @Test
-    public void AccessDenied_5_015_CannotCompleteBetweenSitesWithSingleMobileSite() {
+    public void AccessDeniedCannotCompleteBetweenSitesWithSingleMobileSite() {
         var scn = GetScenario();
         var access = scn.GetLSCard("accessDenied");
         var corridor = scn.GetDSCard("corridor");
 
         scn.StartGame();
         putLocation(scn, corridor);
-        // Valid between-sites targets require an adjacent eligible mobile site.
+        scn.MoveCardsToLSHand(access);
+        scn.SkipToLSTurn(Phase.DEPLOY);
         assertFalse("No adjacent eligible mobile site exists for between-sites deploy",
-                Filters.canSpot(scn.game(), access, Filters.and(
-                        Filters.adjacentSite(corridor),
-                        Filters.mobile_site,
-                        Filters.not(Filters.or(Filters.Dagobah_location, Filters.AhchTo_location)))));
+                scn.LSCardPlayAvailable(access, BETWEEN_SITES_TEXT));
     }
 
     @Test
-    public void AccessDenied_5_015_DagobahSitesNotEligibleForBetweenSitesDeploy() {
+    public void AccessDeniedDagobahSitesNotEligibleForBetweenSitesDeploy() {
         var scn = GetScenario();
         var access = scn.GetLSCard("accessDenied");
         var jungle = scn.GetLSCard("jungle");
@@ -254,7 +277,7 @@ public class Card_5_015_Tests {
     }
 
     @Test
-    public void AccessDenied_5_015_OpponentCharacterMayPassBetweenSites() {
+    public void AccessDeniedOpponentCharacterMayPassBetweenSites() {
         var scn = GetScenario();
         var access = scn.GetLSCard("accessDenied");
         var corridor = scn.GetDSCard("corridor");
@@ -275,7 +298,7 @@ public class Card_5_015_Tests {
     }
 
     @Test
-    public void AccessDenied_5_015_OwnerCharactersNotGatedMovingPast() {
+    public void AccessDeniedOwnerCharactersNotGatedMovingPast() {
         var scn = GetScenario();
         var access = scn.GetLSCard("accessDenied");
         var luke = scn.GetLSCard("luke");
@@ -297,7 +320,7 @@ public class Card_5_015_Tests {
     }
 
     @Test
-    public void AccessDenied_5_015_LiftTubePassengerMayPass() {
+    public void AccessDeniedLiftTubePassengerMayPass() {
         var scn = GetScenario();
         var access = scn.GetLSCard("accessDenied");
         var corridor = scn.GetDSCard("corridor");
@@ -321,7 +344,7 @@ public class Card_5_015_Tests {
     }
 
     @Test
-    public void AccessDenied_5_015_SurpriseCannotRelocateBetweenSitesEffect() {
+    public void AccessDeniedSurpriseCannotRelocateBetweenSitesEffect() {
         var scn = GetScenario();
         var access = scn.GetLSCard("accessDenied");
         var revolution = scn.GetLSCard("revolution");
@@ -337,30 +360,17 @@ public class Card_5_015_Tests {
         scn.AttachCardsTo(starting, revolution);
         scn.MoveCardsToDSHand(surprise);
 
-        assertNotNull(access.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
-        var relocateFilter = Filters.and(
-                Filters.Effect,
-                Filters.except(Filters.immune_to_Alter),
-                Filters.attachedTo(Filters.location),
-                new com.gempukku.swccgo.filters.Filter() {
-                    @Override
-                    public boolean accepts(com.gempukku.swccgo.game.state.GameState gs,
-                                          com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying mq,
-                                          com.gempukku.swccgo.game.PhysicalCard c) {
-                        return c.getTargetedCard(gs, TargetId.EFFECT_TARGET_1) == null;
-                    }
-                }
-        );
-        assertFalse("Access Denied (between sites) is not a Surprise relocate target",
-                relocateFilter.accepts(scn.game(), access));
+        assertEquals(Zone.BETWEEN_SITES, access.getZone());
+        assertFalse("Between-sites Access Denied is not attached to a location",
+                Filters.attachedTo(Filters.location).accepts(scn.game(), access));
         assertTrue("On-location Effect remains a relocate candidate",
-                relocateFilter.accepts(scn.game(), revolution));
+                Filters.and(Filters.Effect, Filters.except(Filters.immune_to_Alter), Filters.attachedTo(Filters.location))
+                        .accepts(scn.game(), revolution));
         assertNotNull(surprise);
     }
 
-
     @Test
-    public void AccessDenied_5_015_IHaveABadFeelingCannotRelocateBetweenSitesEffect() {
+    public void AccessDeniedIHaveABadFeelingCannotRelocateBetweenSitesEffect() {
         var scn = GetScenario();
         var access = scn.GetLSCard("accessDenied");
         var ihabfat = scn.GetLSCard("ihabfat");
@@ -373,27 +383,14 @@ public class Card_5_015_Tests {
         deployBetween(scn, access, corridor, warRoom);
         scn.MoveCardsToLSHand(ihabfat);
 
-        var relocateFilter = Filters.and(
-                Filters.Effect,
-                Filters.except(Filters.immune_to_Alter),
-                Filters.attachedTo(Filters.location),
-                new com.gempukku.swccgo.filters.Filter() {
-                    @Override
-                    public boolean accepts(com.gempukku.swccgo.game.state.GameState gs,
-                                          com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying mq,
-                                          com.gempukku.swccgo.game.PhysicalCard c) {
-                        return c.getTargetedCard(gs, TargetId.EFFECT_TARGET_1) == null;
-                    }
-                }
-        );
+        assertEquals(Zone.BETWEEN_SITES, access.getZone());
         assertFalse("Access Denied is not an I Have A Bad Feeling About This relocate target",
-                relocateFilter.accepts(scn.game(), access));
+                Filters.attachedTo(Filters.location).accepts(scn.game(), access));
         assertNotNull(ihabfat);
     }
 
-
     @Test
-    public void AccessDenied_5_015_OpponentPaysForcePilePlusOneDeltaToPass() {
+    public void AccessDeniedOpponentPaysForcePilePlusOneDeltaToPass() {
         var scnControl = GetScenario();
         var corridorC = scnControl.GetDSCard("corridor");
         var warRoomC = scnControl.GetDSCard("warRoom");
@@ -428,5 +425,118 @@ public class Card_5_015_Tests {
 
         assertTrue(scn.CardsAtLocation(warRoom, vader));
         assertEquals("Access Denied adds exactly +1 Force vs ungated move", controlCost + 1, gatedCost);
+    }
+
+    @Test
+    public void AccessDeniedTwoCopiesAreCumulativeOnTheSamePath() {
+        var scn = GetScenario();
+        var access = scn.GetLSCard("accessDenied");
+        var access2 = scn.GetLSCard("accessDenied2");
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("warRoom");
+        var vader = scn.GetDSCard("vader");
+
+        scn.StartGame();
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        deployBetween(scn, access, corridor, warRoom);
+        deployBetween(scn, access2, corridor, warRoom);
+        scn.MoveCardsToLocation(corridor, vader);
+
+        float ungated = scn.game().getModifiersQuerying().getMoveUsingLandspeedCost(
+                scn.gameState(), vader, corridor, warRoom, false, 0);
+        // The two copies are already on the path, so this cost includes +2. Compare against a control below.
+        assertTrue(scn.DSMoveAvailable(vader) || ungated >= 0);
+
+        var scnControl = GetScenario();
+        var corridorC = scnControl.GetDSCard("corridor");
+        var warRoomC = scnControl.GetDSCard("warRoom");
+        var vaderC = scnControl.GetDSCard("vader");
+        scnControl.StartGame();
+        putLocation(scnControl, corridorC);
+        putLocation(scnControl, warRoomC);
+        scnControl.MoveCardsToLocation(corridorC, vaderC);
+        float controlCost = scnControl.game().getModifiersQuerying().getMoveUsingLandspeedCost(
+                scnControl.gameState(), vaderC, corridorC, warRoomC, false, 0);
+
+        assertEquals("Two Access Denied copies add +2 Force", controlCost + 2, ungated, 0.01f);
+
+        scn.SkipToPhase(Phase.MOVE);
+        int forceBefore = scn.gameState().getForcePileSize(scn.DS);
+        assertTrue(scn.DSMoveAvailable(vader));
+        scn.DSMoveCard(vader, warRoom);
+        scn.PassAllResponses();
+        int gatedCost = forceBefore - scn.gameState().getForcePileSize(scn.DS);
+
+        scnControl.SkipToPhase(Phase.MOVE);
+        int forceBeforeC = scnControl.gameState().getForcePileSize(scnControl.DS);
+        scnControl.DSMoveCard(vaderC, warRoomC);
+        scnControl.PassAllResponses();
+        int controlPaid = forceBeforeC - scnControl.gameState().getForcePileSize(scnControl.DS);
+        assertEquals(controlPaid + 2, gatedCost);
+        assertTrue(scn.CardsAtLocation(warRoom, vader));
+    }
+
+    @Test
+    public void AccessDeniedPassCostAppliesOnATwoSitePath() {
+        var scn = GetScenario();
+        var access = scn.GetLSCard("accessDenied");
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("warRoom");
+        var conference = scn.GetDSCard("conference");
+        var vader = scn.GetDSCard("vader");
+
+        scn.StartGame();
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        putLocation(scn, conference);
+        deployBetween(scn, access, corridor, warRoom);
+        scn.MoveCardsToLocation(corridor, vader);
+
+        assertEquals(java.util.Arrays.asList(access), scn.gameState().getBetweenSiteCardsCrossed(corridor, conference));
+        var scnControl = GetScenario();
+        var corridorC = scnControl.GetDSCard("corridor");
+        var conferenceC = scnControl.GetDSCard("conference");
+        var warRoomC = scnControl.GetDSCard("warRoom");
+        var vaderC = scnControl.GetDSCard("vader");
+        scnControl.StartGame();
+        putLocation(scnControl, corridorC);
+        putLocation(scnControl, warRoomC);
+        putLocation(scnControl, conferenceC);
+        scnControl.MoveCardsToLocation(corridorC, vaderC);
+        float controlCost = scnControl.game().getModifiersQuerying().getMoveUsingLandspeedCost(
+                scnControl.gameState(), vaderC, corridorC, conferenceC, false, 0);
+        float gatedCost = scn.game().getModifiersQuerying().getMoveUsingLandspeedCost(
+                scn.gameState(), vader, corridor, conference, false, 0);
+        assertEquals("Pass cost applies on a longer landspeed path, not only the adjacent pair",
+                controlCost + 1, gatedCost, 0.01f);
+    }
+
+    @Test
+    public void AccessDeniedNewSiteLeftOfRightKeepsSlotOnTheLeft() {
+        var scn = GetScenario();
+        var access = scn.GetLSCard("accessDenied");
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("warRoom");
+        var conference = scn.GetDSCard("conference");
+
+        scn.StartGame();
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        deployBetween(scn, access, corridor, warRoom);
+
+        PhysicalCard left = scn.gameState().getBetweenSiteLeft(access);
+        PhysicalCard right = scn.gameState().getBetweenSiteRight(access);
+        LocationPlacement placement = placementRelative(scn, conference, (PhysicalCardImpl) right, LocationPlacementDirection.LEFT_OF);
+        assertNotNull(placement);
+        scn.MoveLocationToTable(conference, placement);
+
+        assertEquals(left, scn.gameState().getBetweenSiteLeft(access));
+        assertEquals(conference, scn.gameState().getBetweenSiteRight(access));
+        List<PhysicalCard> visual = visualRow(scn);
+        assertTrue(visual.indexOf(left) < visual.indexOf(access));
+        assertTrue(visual.indexOf(access) < visual.indexOf(conference));
+        assertTrue(visual.indexOf(conference) < visual.indexOf(right));
+        assertEquals(Zone.BETWEEN_SITES, access.getZone());
     }
 }

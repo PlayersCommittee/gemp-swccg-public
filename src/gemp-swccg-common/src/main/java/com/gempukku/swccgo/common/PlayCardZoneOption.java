@@ -5,6 +5,7 @@ package com.gempukku.swccgo.common;
  */
 public enum PlayCardZoneOption {
     ATTACHED(Zone.ATTACHED, null, 0, false, false, false),
+    BETWEEN_SITES(Zone.BETWEEN_SITES, null, 0, false, false, false),
 
     YOUR_SIDE_OF_LOCATION(Zone.AT_LOCATION, null, 0, true, false, false),
     OPPONENTS_SIDE_OF_LOCATION(Zone.AT_LOCATION, null, 0, false, true, false),

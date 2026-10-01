@@ -121,6 +121,17 @@ public interface MovementRestrictions extends BaseQuery, Locations {
                 }
             }
 
+            // Between-sites cards on this hop (Laser Gate) block passing independently of adjacency pair filters.
+            for (PhysicalCard gate : gameState.getBetweenSiteCardsCrossed(curFromSite, curToSite)) {
+                for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_PASS, card)) {
+                    if (modifier.getSource(gameState) != null
+                            && modifier.getSource(gameState).getCardId() == gate.getCardId()
+                            && modifier.prohibitedFromPassing(gameState, query(), card)) {
+                        return true;
+                    }
+                }
+            }
+
             // Check if may not move away from location
             for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_MOVE_AWAY_FROM_LOCATION, card)) {
                 if (modifier.prohibitedFromMovingAwayFromLocation(gameState, query(), curFromSite, curToSite)) {
@@ -476,7 +487,7 @@ public interface MovementRestrictions extends BaseQuery, Locations {
         // Check if TIE, which can only land at docking bay (or starship site that may be landed at instead of embarking on related starship).
         if (Filters.TIE.accepts(gameState, query(), card)
                 && !Filters.docking_bay.accepts(gameState, query(), toLocation)
-                && !Filters.starshipSiteToShuttleTransferLandAndTakeOffAtForFreeInsteadOfRelatedStarship(card.getOwner()).accepts(gameState, query(), card)
+                && !Filters.starshipSiteToShuttleTransferLandAndTakeOffAtForFreeInsteadOfRelatedStarship(card.getOwner()).accepts(gameState, query(), toLocation)
                 && !tieAllowedToLand(gameState, card, toLocation)) {
             return true;
         }

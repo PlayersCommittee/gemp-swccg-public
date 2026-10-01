@@ -5,6 +5,7 @@ import com.gempukku.swccgo.communication.GameStateListener;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.*;
+import com.gempukku.swccgo.game.layout.LocationGroup;
 import com.gempukku.swccgo.game.layout.LocationPlacement;
 import com.gempukku.swccgo.game.layout.LocationsLayout;
 import com.gempukku.swccgo.game.state.actions.GameTextActionState;
@@ -382,6 +383,183 @@ public class GameState implements Snapshotable<GameState> {
         _locationsLayout = locationsLayout;
     }
 
+    public LocationsLayout getLocationsLayout() {
+        return _locationsLayout;
+    }
+
+    /**
+     * Reorders sites that already sit in the same LocationGroup so the given
+     * top locations appear left-to-right in newTopOrder. Converted stacks stay
+     * together. Cards at those sites are not moved. An empty order does nothing.
+     * @param newTopOrder requested left-to-right order of top location cards
+     * @return true if applied or already matched; false if invalid
+     */
+    public boolean reorderTopLocationsInGroup(List<? extends PhysicalCard> newTopOrder) {
+        return reorderTopLocationsInGroup((Filter) null, newTopOrder);
+    }
+
+    /**
+     * Reorders sites matching filter that already sit in the same LocationGroup.
+     * @param filter location filter for the cards being rearranged, or null
+     * @param newTopOrder requested left-to-right order of top location cards
+     * @return true if applied or already matched; false if invalid
+     */
+    public boolean reorderTopLocationsInGroup(Filter filter, List<? extends PhysicalCard> newTopOrder) {
+        if (newTopOrder == null || newTopOrder.isEmpty()) {
+            return true;
+        }
+        LocationGroup group = _locationsLayout.findGroupContaining(newTopOrder.get(0));
+        boolean result = _locationsLayout.reorderTopLocationsInGroup(_game, filter, newTopOrder);
+        if (result) {
+            notifyLocationsReordered(group);
+        }
+        return result;
+    }
+
+    /**
+     * Reorders sites in the LocationGroup for systemName whose top cards match siteFilter.
+     * @param systemName the system title
+     * @param siteFilter filter for the row to rearrange
+     * @param newTopOrder requested left-to-right order of matching top locations
+     * @return true if applied or already matched; false if invalid
+     */
+    public boolean reorderTopLocationsInGroup(String systemName, Filter siteFilter, List<? extends PhysicalCard> newTopOrder) {
+        if (newTopOrder == null || newTopOrder.isEmpty()) {
+            return true;
+        }
+        LocationGroup group = _locationsLayout.findGroupForSystemMatching(_game, systemName, siteFilter);
+        boolean result = _locationsLayout.reorderTopLocationsInGroup(_game, group, newTopOrder);
+        if (result) {
+            notifyLocationsReordered(group);
+        }
+        return result;
+    }
+
+    /**
+     * Reorders every stack in the matching LocationGroup by a permutation of current indexes.
+     * An empty permutation does nothing. The same order is allowed.
+     * @param systemName the system title
+     * @param siteFilter filter for the row to rearrange
+     * @param permutation new left-to-right stack indexes
+     * @return true if applied or already matched; false if invalid
+     */
+    public boolean reorderTopLocationsInGroupByPermutation(String systemName, Filter siteFilter, List<Integer> permutation) {
+        if (permutation == null || permutation.isEmpty()) {
+            return true;
+        }
+        LocationGroup group = _locationsLayout.findGroupForSystemMatching(_game, systemName, siteFilter);
+        boolean result = _locationsLayout.reorderStacksInGroup(group, permutation);
+        if (result) {
+            notifyLocationsReordered(group);
+        }
+        return result;
+    }
+
+    private void notifyLocationsReordered(LocationGroup group) {
+        _locationsLayout.refreshLocationIndexes();
+        keepBetweenSiteCardsBetweenSites(group);
+        _tableChangedSinceStatsSent = true;
+        if (group == null) {
+            return;
+        }
+        for (List<PhysicalCard> stack : group.getCardsInGroup()) {
+            for (PhysicalCard card : stack) {
+                for (GameStateListener listener : getAllGameStateListeners()) {
+                    listener.cardMoved(card, this);
+                }
+            }
+        }
+        for (PhysicalCard gate : group.getAllBetweenSiteCards()) {
+            for (GameStateListener listener : getAllGameStateListeners()) {
+                listener.cardMoved(gate, this);
+            }
+        }
+    }
+
+    /**
+     * Cards that sit between two sites in this group (attached to one site and
+     * targeting the other) stay between those same two sites after a reorder.
+     * They are reattached to whichever of the pair is currently left-er so they
+     * are not left hanging at an end of the row. No leave/move/deploy events.
+     */
+    private void keepBetweenSiteCardsBetweenSites(LocationGroup group) {
+        if (group == null) {
+            return;
+        }
+        Set<Integer> groupIds = new HashSet<Integer>();
+        for (List<PhysicalCard> stack : group.getCardsInGroup()) {
+            for (PhysicalCard loc : stack) {
+                groupIds.add(loc.getCardId());
+            }
+        }
+
+        List<PhysicalCard> betweenCards = new ArrayList<PhysicalCard>();
+        for (List<PhysicalCard> stack : group.getCardsInGroup()) {
+            for (PhysicalCard loc : stack) {
+                for (PhysicalCard attached : getAttachedCards(loc, false)) {
+                    if (otherGroupLocationTarget(attached, groupIds) != null) {
+                        betweenCards.add(attached);
+                    }
+                }
+            }
+        }
+
+        for (PhysicalCard card : betweenCards) {
+            PhysicalCard formerAttached = card.getAttachedTo();
+            PhysicalCard other = otherGroupLocationTarget(card, groupIds);
+            if (formerAttached == null || other == null) {
+                continue;
+            }
+            PhysicalCard left = leftSite(formerAttached, other);
+            PhysicalCard right = (left.getCardId() == formerAttached.getCardId()) ? other : formerAttached;
+            if (left.getCardId() == formerAttached.getCardId()) {
+                continue;
+            }
+            card.attachTo(left, card.isPilotOf(), card.isPassengerOf(), card.isInCargoHoldAsVehicle(),
+                    card.isInCargoHoldAsStarfighterOrTIE(), card.isInCargoHoldAsCapitalStarship());
+            Map<TargetId, PhysicalCard> targets = card.getTargetedCards(this);
+            if (targets == null) {
+                continue;
+            }
+            for (Map.Entry<TargetId, PhysicalCard> entry : targets.entrySet()) {
+                if (entry.getKey() == TargetId.DEPLOY_TARGET) {
+                    continue;
+                }
+                PhysicalCard target = entry.getValue();
+                if (target != null && target.getCardId() == left.getCardId()) {
+                    card.setTargetedCard(entry.getKey(), card.getTargetGroupId(entry.getKey()), right, Filters.sameCardId(right));
+                }
+            }
+        }
+    }
+
+    private PhysicalCard otherGroupLocationTarget(PhysicalCard card, Set<Integer> groupIds) {
+        PhysicalCard attachedTo = card.getAttachedTo();
+        if (attachedTo == null) {
+            return null;
+        }
+        Map<TargetId, PhysicalCard> targets = card.getTargetedCards(this);
+        if (targets == null) {
+            return null;
+        }
+        for (Map.Entry<TargetId, PhysicalCard> entry : targets.entrySet()) {
+            if (entry.getKey() == TargetId.DEPLOY_TARGET) {
+                continue;
+            }
+            PhysicalCard target = entry.getValue();
+            if (target != null && groupIds.contains(target.getCardId()) && target.getCardId() != attachedTo.getCardId()) {
+                return target;
+            }
+        }
+        return null;
+    }
+
+    private PhysicalCard leftSite(PhysicalCard a, PhysicalCard b) {
+        if (a.getLocationZoneIndex() <= b.getLocationZoneIndex()) {
+            return a;
+        }
+        return b;
+    }
     private void addPlayerCards(String playerId, List<String> cards, List<String> outsideOfDeckCards, SwccgCardBlueprintLibrary library) {
         for (String blueprintId : outsideOfDeckCards) {
             PhysicalCard physicalCard = createPhysicalCard(playerId, library, blueprintId);
@@ -513,9 +691,9 @@ public class GameState implements Snapshotable<GameState> {
             Set<PhysicalCard> cardsLeftToSent = new LinkedHashSet<PhysicalCard>(_inPlay);
             Set<PhysicalCard> sentCardsFromPlay = new HashSet<PhysicalCard>();
 
-            // Send locations in order
-            List<PhysicalCard> topLocations = getLocationsInOrder();
-            for (PhysicalCard location : topLocations)
+            // Send location-row columns in visual order (sites and between-sites cards)
+            List<PhysicalCard> visualRow = getVisualRowCardsInOrder();
+            for (PhysicalCard location : visualRow)
                 listener.cardCreated(location, this, restoreSnapshot);
 
             // Send remaining cards in play
@@ -525,7 +703,7 @@ public class GameState implements Snapshotable<GameState> {
                 Iterator<PhysicalCard> cardIterator = cardsLeftToSent.iterator();
                 while (cardIterator.hasNext()) {
                     PhysicalCard physicalCard = cardIterator.next();
-                    if (physicalCard.getZone()!=Zone.LOCATIONS) {
+                    if (physicalCard.getZone()!=Zone.LOCATIONS && physicalCard.getZone()!=Zone.BETWEEN_SITES) {
                         PhysicalCard attachedTo = physicalCard.getAttachedTo();
                         if (attachedTo == null || attachedTo.getZone()==Zone.LOCATIONS || sentCardsFromPlay.contains(attachedTo)) {
                             listener.cardCreated(physicalCard, this, restoreSnapshot);
@@ -1391,6 +1569,11 @@ public class GameState implements Snapshotable<GameState> {
             else if (zone == Zone.CONVERTED_LOCATIONS) {
                 _locationsLayout.removeLocationFromLayout(_game, _game.getModifiersQuerying(), card, false);
             }
+            else if (zone == Zone.BETWEEN_SITES) {
+                _locationsLayout.removeBetweenSiteCard(card);
+                locationIndexesToRemove.add(card.getLocationZoneIndex());
+                needToRefreshLocationIndexes = true;
+            }
 
             // Special case for "top of pile" card
             if (!zoneCards.isEmpty() &&
@@ -1413,6 +1596,22 @@ public class GameState implements Snapshotable<GameState> {
         }
 
         if (needToRefreshLocationIndexes) {
+            List<PhysicalCard> orphans = new ArrayList<PhysicalCard>();
+            for (PhysicalCard inPlay : new ArrayList<PhysicalCard>(_inPlay)) {
+                if (inPlay.getZone() == Zone.BETWEEN_SITES) {
+                    LocationGroup containing = _locationsLayout.findGroupContaining(inPlay);
+                    if (containing == null || !containing.containsBetweenSiteCard(inPlay)) {
+                        orphans.add(inPlay);
+                    }
+                }
+            }
+            for (PhysicalCard orphan : orphans) {
+                stopAffecting(orphan);
+                getZoneCards(orphan.getZoneOwner(), Zone.BETWEEN_SITES).remove(orphan);
+                cardsToRemove.add(orphan);
+                locationIndexesToRemove.add(orphan.getLocationZoneIndex());
+                clearCardStats(orphan);
+            }
             _locationsLayout.refreshLocationIndexes();
         }
         removeLocationIndexesFromTable(locationIndexesToRemove);
@@ -1820,6 +2019,76 @@ public class GameState implements Snapshotable<GameState> {
             }
         }
         return null;
+    }
+
+    public List<PhysicalCard> getVisualRowCardsInOrder() {
+        return _locationsLayout.getVisualRowCardsInOrder();
+    }
+
+    public PhysicalCard getBetweenSiteLeft(PhysicalCard card) {
+        LocationGroup group = _locationsLayout.findGroupContaining(card);
+        if (group == null) {
+            return null;
+        }
+        return group.getLeftSiteOfBetweenCard(card);
+    }
+
+    public PhysicalCard getBetweenSiteRight(PhysicalCard card) {
+        LocationGroup group = _locationsLayout.findGroupContaining(card);
+        if (group == null) {
+            return null;
+        }
+        return group.getRightSiteOfBetweenCard(card);
+    }
+
+    /**
+     * Between-sites cards in visual columns strictly between fromSite and toSite.
+     */
+    public List<PhysicalCard> getBetweenSiteCardsCrossed(PhysicalCard fromSite, PhysicalCard toSite) {
+        List<PhysicalCard> crossed = new ArrayList<PhysicalCard>();
+        if (fromSite == null || toSite == null) {
+            return crossed;
+        }
+        List<PhysicalCard> visual = getVisualRowCardsInOrder();
+        int i1 = -1;
+        int i2 = -1;
+        for (int i = 0; i < visual.size(); i++) {
+            if (visual.get(i).getCardId() == fromSite.getCardId()) {
+                i1 = i;
+            }
+            if (visual.get(i).getCardId() == toSite.getCardId()) {
+                i2 = i;
+            }
+        }
+        if (i1 < 0 || i2 < 0) {
+            return crossed;
+        }
+        int lo = Math.min(i1, i2);
+        int hi = Math.max(i1, i2);
+        for (int i = lo + 1; i < hi; i++) {
+            PhysicalCard card = visual.get(i);
+            if (card.getZone() == Zone.BETWEEN_SITES) {
+                crossed.add(card);
+            }
+        }
+        return crossed;
+    }
+
+    /**
+     * Places a non-location card in the location row between two adjacent sites.
+     */
+    public void addBetweenSiteCardToTable(PhysicalCard card, PhysicalCard site1, PhysicalCard site2) {
+        LocationGroup group = _locationsLayout.findGroupContaining(site1);
+        if (group == null || _locationsLayout.findGroupContaining(site2) != group) {
+            throw new UnsupportedOperationException(GameUtils.getFullName(card) + " needs two sites in the same location group");
+        }
+        PhysicalCard left = leftSite(site1, site2);
+        PhysicalCard right = (left.getCardId() == site1.getCardId()) ? site2 : site1;
+        if (!group.addBetweenSiteCard(left, right, card)) {
+            throw new UnsupportedOperationException(GameUtils.getFullName(card) + " sites are not adjacent");
+        }
+        _locationsLayout.refreshLocationIndexes();
+        addCardToZone(card, Zone.BETWEEN_SITES, card.getOwner());
     }
 
     /**
@@ -3161,6 +3430,10 @@ public class GameState implements Snapshotable<GameState> {
         if (modifiersQuerying.getPilotCapacity(this, card)==Integer.MAX_VALUE || blueprint.getPilotOrPassengerCapacity()==Integer.MAX_VALUE)
             return Integer.MAX_VALUE;
 
+        if(cardToCheckFor != null && cardToCheckFor.getBlueprint().isMovesLikeCharacter()) {
+            return 0; // Cards that only "move like characters" are never pilots
+        }
+
         List<PhysicalCard> pilots = getPilotCardsAboard(modifiersQuerying, card, false);
         List<PhysicalCard> passengers = getPassengerCardsAboard(card);
         int astromechOnly = modifiersQuerying.getAstromechCapacity(this, card);
@@ -3265,9 +3538,12 @@ public class GameState implements Snapshotable<GameState> {
             return Integer.MAX_VALUE;
         }
 
-        // If moves like a character, then card does not require an open passenger slot
+        // If moves like a character, then card does not require an open passenger slot (but does require capacity to exist)
         if (cardToCheckFor != null && cardToCheckFor.getBlueprint().isMovesLikeCharacter()) {
-            return 1;
+            if (blueprint.getPassengerCapacity() > 0 || blueprint.getPilotOrPassengerCapacity() > 0) {
+                return 1;
+            }
+            else return 0;
         }
 
         List<PhysicalCard> pilots = getPilotCardsAboard(modifiersQuerying, card, false);
@@ -3398,11 +3674,6 @@ public class GameState implements Snapshotable<GameState> {
                     return 0;
                 }
             }
-        }
-
-        // If moves like a character, then card does not require an open passenger slot
-        if (cardToCheckFor != null && cardToCheckFor.getBlueprint().isMovesLikeCharacter()) {
-            return 1;
         }
 
         if (blueprint.getPilotOrPassengerCapacity() > 0) {

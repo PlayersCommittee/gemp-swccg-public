@@ -119,6 +119,15 @@ public interface MovementCosts extends BaseQuery, MovementRestrictions {
             result += modifier.getMoveCostFromLocationToLocationModifier(gameState, query(), card, fromSite, toSite);
         }
 
+        // Extra Force to pass between-sites cards on the path (Access Denied). Each copy is its own slot.
+        for (PhysicalCard gate : gameState.getBetweenSiteCardsCrossed(fromSite, toSite)) {
+            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.PASS_COST, card)) {
+                if (modifier.getSource(gameState) != null && modifier.getSource(gameState).getCardId() == gate.getCardId()) {
+                    result += modifier.getPassCost(gameState, query(), card);
+                }
+            }
+        }
+
         // Moving to collapsed site requires 1 additional Force
         if (toSite.isCollapsed()) {
             result += 1;
@@ -426,6 +435,10 @@ public interface MovementCosts extends BaseQuery, MovementRestrictions {
         if (Filters.docking_bay.accepts(gameState, query(), toLocation))
             return 0;
 
+        // Check if landing to launch bay (treated as if it were a docking bay)
+        if (Filters.launch_bay.accepts(gameState, query(), toLocation))
+            return 0;
+
         // Check if moves for free
         if (!getModifiersAffectingCard(gameState, ModifierType.MOVES_FREE, card).isEmpty())
             return 0;
@@ -548,6 +561,10 @@ public interface MovementCosts extends BaseQuery, MovementRestrictions {
 
         // Check if taking off from docking bay, which is free
         if (Filters.docking_bay.accepts(gameState, query(), fromLocation))
+            return 0;
+
+        // Check if taking off from launch bay (treated as if it were a docking bay)
+        if (Filters.launch_bay.accepts(gameState, query(), fromLocation))
             return 0;
 
         // Check if moves for free

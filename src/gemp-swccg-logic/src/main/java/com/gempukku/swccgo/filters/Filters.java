@@ -4051,12 +4051,58 @@ public class Filters {
     //
 
     /**
+     * Filter that accepts between-sites cards whose current left or right site is the specified site.
+     */
+    public static Filter betweenSitesIncluding(final PhysicalCard site) {
+        final Integer permCardId = site.getPermanentCardId();
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (physicalCard.getZone() != Zone.BETWEEN_SITES) {
+                    return false;
+                }
+                PhysicalCard target = gameState.findCardByPermanentId(permCardId);
+                PhysicalCard left = gameState.getBetweenSiteLeft(physicalCard);
+                PhysicalCard right = gameState.getBetweenSiteRight(physicalCard);
+                return (left != null && left.getCardId() == target.getCardId())
+                        || (right != null && right.getCardId() == target.getCardId());
+            }
+        };
+    }
+
+    /**
+     * Filter that accepts between-sites cards whose left or right site is where the specified card is present.
+     * Used so character weapons at either bounding site can target Laser Gate.
+     */
+    public static Filter betweenSitesNextToWherePresent(PhysicalCard card) {
+        final Integer permCardId = card.getPermanentCardId();
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (physicalCard.getZone() != Zone.BETWEEN_SITES) {
+                    return false;
+                }
+                PhysicalCard source = gameState.findCardByPermanentId(permCardId);
+                PhysicalCard location = modifiersQuerying.getLocationThatCardIsPresentAt(gameState, source);
+                if (location == null) {
+                    return false;
+                }
+                PhysicalCard left = gameState.getBetweenSiteLeft(physicalCard);
+                PhysicalCard right = gameState.getBetweenSiteRight(physicalCard);
+                return (left != null && left.getCardId() == location.getCardId())
+                        || (right != null && right.getCardId() == location.getCardId());
+            }
+        };
+    }
+
+    /**
      * Filter that accepts cards that are either adjacent sites to the specified card, or adjacent sites to the
      * site the specified card is "at".
      *
      * @param card a card
      * @return Filter
      */
+
     public static Filter adjacentSite(PhysicalCard card) {
         final Integer permCardId = card.getPermanentCardId();
         return new Filter() {
@@ -6779,10 +6825,10 @@ public class Filters {
                     List<PhysicalCard> sectorsBetween = modifiersQuerying.getSectorsBetween(gameState, currentAtLocation, physicalCard);
                     validDestination = (sectorsBetween != null && sectorsBetween.isEmpty());
                 }
-                // Check if card to move is at a system and there is a starship docking bay related to a starship that is at that system
+                // Check if card to move is at a system and there is a starship docking bay or launch bay related to a starship that is at that system
                 else if (currentAtLocation.getBlueprint().getCardSubtype() == CardSubtype.SYSTEM
                         && Filters.or(Filters.starfighter, Filters.movesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)
-                        && Filters.and(Filters.starship_site, Filters.docking_bay, Filters.relatedSiteTo(null, Filters.and(Filters.starship, Filters.present(currentAtLocation)))).accepts(gameState, modifiersQuerying, physicalCard)) {
+                        && Filters.and(Filters.starship_site, Filters.or(Filters.docking_bay, Filters.launch_bay), Filters.relatedSiteTo(null, Filters.and(Filters.starship, Filters.present(currentAtLocation)))).accepts(gameState, modifiersQuerying, physicalCard)) {
                     validDestination = true;
                 }
                 // Check if card to move is at a Big One and the location to move to is the related site.
@@ -6875,10 +6921,10 @@ public class Filters {
                     // Check if no sectors in between
                     validDestination = modifiersQuerying.getSectorsBetween(gameState, currentAtLocation, physicalCard).isEmpty();
                 }
-                // Check if the location is a system and card to move is at a starship docking bay related to a starship at that system
+                // Check if the location is a system and card to move is at a starship docking bay or launch bay related to a starship at that system
                 else if (physicalCard.getBlueprint().getCardSubtype() == CardSubtype.SYSTEM
                         && Filters.or(Filters.starfighter, Filters.movesLikeStarfighter, Filters.squadron).accepts(gameState, modifiersQuerying, cardToMove)
-                        && Filters.and(Filters.starship_site, Filters.docking_bay, Filters.relatedSiteTo(null, Filters.and(Filters.starship, Filters.present(physicalCard)))).accepts(gameState, modifiersQuerying, currentAtLocation)) {
+                        && Filters.and(Filters.starship_site, Filters.or(Filters.docking_bay, Filters.launch_bay), Filters.relatedSiteTo(null, Filters.and(Filters.starship, Filters.present(physicalCard)))).accepts(gameState, modifiersQuerying, currentAtLocation)) {
                     validDestination = true;
                 }
                 // Check if card to move is at a Big One site and the location to move to is the related Big One.
@@ -7148,6 +7194,7 @@ public class Filters {
                 PhysicalCard attachedTo = cardToMove.getAttachedTo();
                 if ((atLocation == null && attachedTo == null)
                         || (cardToMove.getBlueprint().getCardCategory() != CardCategory.CHARACTER
+                        && !Filters.movesLikeCharacter().accepts(gameState, modifiersQuerying, physicalCard)
                         && cardToMove.getBlueprint().getCardCategory() != CardCategory.VEHICLE)) {
                     return false;
                 }
@@ -7278,8 +7325,13 @@ public class Filters {
 
                 // Check if shuttle vehicle is physically at an exterior site
                 PhysicalCard atLocation = shuttleVehicle.getAtLocation();
-                if (atLocation == null || !Filters.exterior_site.accepts(gameState, modifiersQuerying, atLocation)
-                        || physicalCard.getBlueprint().getCardCategory() != CardCategory.CHARACTER) {
+                if (atLocation == null || !Filters.exterior_site.accepts(gameState, modifiersQuerying, atLocation)) {
+                    return false;
+                }
+
+                // Check if card to shuttled is a character (or moves like one)
+                if (physicalCard.getBlueprint().getCardCategory() != CardCategory.CHARACTER
+                    && !Filters.movesLikeCharacter().accepts(gameState, modifiersQuerying, physicalCard) ) {
                     return false;
                 }
 
@@ -7342,8 +7394,13 @@ public class Filters {
                 // Check if shuttle vehicle is physically at an exterior site
                 PhysicalCard atLocation = shuttleVehicle.getAtLocation();
                 if (atLocation == null || !Filters.exterior_site.accepts(gameState, modifiersQuerying, atLocation)
-                        || physicalCard.getBlueprint().getCardCategory() != CardCategory.CHARACTER
                         || !physicalCard.getOwner().equals(shuttleVehicle.getOwner())) {
+                    return false;
+                }
+
+                // Check if card to be shuttled is a character (or moves like one)
+                if (physicalCard.getBlueprint().getCardCategory() != CardCategory.CHARACTER
+                    && !Filters.movesLikeCharacter().accepts(gameState, modifiersQuerying, physicalCard) ) {
                     return false;
                 }
 
@@ -8587,12 +8644,14 @@ public class Filters {
                 if (card.isUndercover())
                     return false;
 
-                if (card.getBlueprint().getCardCategory() != CardCategory.CHARACTER)
-                    return false;
+                if (card.getBlueprint().getCardCategory() != CardCategory.CHARACTER &&
+                    !card.getBlueprint().isMovesLikeCharacter())
+                        return false;
 
                 if(physicalCard.getBlueprint().getCardCategory() == CardCategory.VEHICLE
                         || physicalCard.getBlueprint().getCardCategory() == CardCategory.STARSHIP){
-                    if (!physicalCard.getBlueprint().getValidPassengerFilter(physicalCard.getOwner(), gameState.getGame(), physicalCard, !card.getZone().isInPlay()).accepts(gameState, modifiersQuerying, card))
+                    if (!physicalCard.getBlueprint().getValidPassengerFilter(physicalCard.getOwner(), gameState.getGame(), physicalCard, !card.getZone().isInPlay()).accepts(gameState, modifiersQuerying, card) &&
+                        !card.getBlueprint().isMovesLikeCharacter())
                         return false;
                 }
 
@@ -19309,7 +19368,7 @@ public class Filters {
     public static final Filter Starship_Graveyard = Filters.title(Title.Starship_Graveyard);
     public static final Filter Strike_Planning = Filters.title(Title.Strike_Planning);
     public static final Filter Super_class_Star_Destroyer = Filters.modelType(ModelType.SUPER_CLASS_STAR_DESTROYER);
-    
+
     /**
      * Wrapper method to allow other static filters to access the wrapped filter.
      */
