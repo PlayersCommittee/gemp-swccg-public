@@ -66,8 +66,11 @@ public class PlayCardAsAttachedAction extends AbstractPlayCardAction {
             _text = _text + " as a 'react'";
         }
 
+        String chooseWhere = playCardOption.getZone() == com.gempukku.swccgo.common.Zone.BETWEEN_SITES
+                ? "Choose a site to " + _text.toLowerCase() + " " + GameUtils.getCardLink(_cardToPlay) + " between"
+                : "Choose where to " + _text.toLowerCase() + " " + GameUtils.getCardLink(_cardToPlay) + " as attached";
         appendTargeting(
-                new TargetCardOnTableEffect(_that, getPerformingPlayer(), "Choose where to " + _text.toLowerCase() + " " + GameUtils.getCardLink(_cardToPlay) + " as attached", spotOverrides, TargetingReason.TO_BE_DEPLOYED_ON, deployTargetFilter) {
+                new TargetCardOnTableEffect(_that, getPerformingPlayer(), chooseWhere, spotOverrides, TargetingReason.TO_BE_DEPLOYED_ON, deployTargetFilter) {
                     @Override
                     protected void cardTargeted(int targetGroupId, PhysicalCard target) {
                         _target = target;
@@ -134,7 +137,8 @@ public class PlayCardAsAttachedAction extends AbstractPlayCardAction {
             if (!_cardPlayed) {
                 _cardPlayed = true;
 
-                _playCardEffect = new DeploySingleCardEffect(_that, _cardToPlay, false, _target, null, _reactActionOption, _playCardOption.getId(), _reshuffle);
+                boolean betweenSites = _playCardOption.getZone() == com.gempukku.swccgo.common.Zone.BETWEEN_SITES;
+                _playCardEffect = new DeploySingleCardEffect(_that, _cardToPlay, false, _target, null, _reactActionOption, _playCardOption.getId(), _reshuffle, betweenSites);
                 return _playCardEffect;
             }
         }

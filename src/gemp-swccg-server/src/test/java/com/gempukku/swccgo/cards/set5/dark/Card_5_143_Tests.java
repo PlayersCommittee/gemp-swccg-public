@@ -58,6 +58,7 @@ public class Card_5_143_Tests {
             put("weather-vane", "5_127"); // Weather Vane
             put("bewil", "5_92"); // Captain Bewil
             put("ds-corridor", "1_284"); // Death Star: Detention Block Corridor
+            put("expand", "1_215"); // Expand The Empire (BETWEEN_SITES dummy)
         }};
     }
 
@@ -355,5 +356,37 @@ public class Card_5_143_Tests {
         assertTrue(Filters.Heart_Of_The_Chasm.accepts(scn.game(), heart));
         assertTrue(Filters.or(Filters.Laser_Gate, Filters.Heart_Of_The_Chasm, Filters.Rite_Of_Passage)
                 .accepts(scn.game(), heart));
+    }
+
+    @Test
+    public void HeartOfTheChasmKeepsBetweenSitesSlotInTheVisualRow() {
+        var scn = GetScenarioNoCloudCityStart();
+        var heart = scn.GetDSCard("heart");
+        var chamber = scn.GetDSCard("chamber");
+        var dining = scn.GetDSCard("dining");
+        var expand = scn.GetDSCard("expand");
+
+        scn.StartGame();
+        putLocation(scn, chamber);
+        putLocation(scn, dining);
+        List<PhysicalCard> interiors = interiorTops(scn);
+        assertEquals(2, interiors.size());
+        PhysicalCardImpl a = (PhysicalCardImpl) interiors.get(0);
+        PhysicalCardImpl b = (PhysicalCardImpl) interiors.get(1);
+        scn.PlaceBetweenSites(a, b, expand);
+        assertEquals(Zone.BETWEEN_SITES, expand.getZone());
+
+        prepareDeployWithForce(scn, heart);
+        playRearrangeAndChooseOrder(scn, heart, b, a);
+
+        assertEquals(Zone.BETWEEN_SITES, expand.getZone());
+        PhysicalCard left = scn.gameState().getBetweenSiteLeft(expand);
+        PhysicalCard right = scn.gameState().getBetweenSiteRight(expand);
+        assertTrue((left == a && right == b) || (left == b && right == a));
+        List<PhysicalCard> visual = scn.gameState().getVisualRowCardsInOrder();
+        int gateIdx = visual.indexOf(expand);
+        assertTrue(gateIdx > visual.indexOf(left));
+        assertTrue(gateIdx < visual.indexOf(right));
+        assertInLostPile(heart);
     }
 }
