@@ -49,7 +49,7 @@ import java.util.Map;
  */
 public class Card6_046 extends AbstractAlien {
     public Card6_046() {
-        super(Side.LIGHT, 3, 2, 1, 1, 2, "Yarkora", Uniqueness.UNRESTRICTED, ExpansionSet.JABBAS_PALACE, Rarity.C);
+        super(Side.LIGHT, 3, 2, 1, 1, 2, "Yarkora", Uniqueness.RESTRICTED_3, ExpansionSet.JABBAS_PALACE, Rarity.C);
         setLore("Mysterious, secretive aliens. Tend to be found as couriers, scouts and t'bac farmers. Some have helped the Alliance's efforts at counter-espionage.");
         setGameText("If at same site as an Undercover spy during your control phase, may draw destiny. Each of your Yarkoras on table may cumulatively subtract one from that destiny. Spy's 'cover is broken' if destiny = spy's ability.");
         addIcons(Icon.JABBAS_PALACE);
@@ -87,7 +87,7 @@ public class Card6_046 extends AbstractAlien {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        Filter targetFilter = Filters.and(Filters.opponents(self), Filters.undercover_spy, Filters.atSameSite(self));
+        Filter targetFilter = Filters.and(Filters.undercover_spy, Filters.atSameSite(self));
         Map<InactiveReason, Boolean> spotOverride = SpotOverride.INCLUDE_UNDERCOVER;
 
         // Check condition(s)

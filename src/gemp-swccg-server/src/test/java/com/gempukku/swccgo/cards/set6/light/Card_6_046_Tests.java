@@ -41,10 +41,12 @@ public class Card_6_046_Tests {
 					put("ls_undercover", "2_40");
 					put("trooper", "1_28");
 					put("fives", "203_2");
+					put("luke", "1_19");
 				}},
 				new HashMap<>() {{
 					put("garindan", "1_177");
 					put("undercover", "2_129");
+					put("vader", "1_168");
 				}},
 				20,
 				20,
@@ -163,8 +165,8 @@ public class Card_6_046_Tests {
 	}
 
 	/**
-	 * Put LS spy Momaw undercover via LS Undercover (2_40). Spy crosses to DS side but remains LS-owned,
-	 * so Yarkora's opponents(self) filter must not offer break-cover.
+	 * Put LS spy Momaw undercover via LS Undercover (2_40). Printed text targets an Undercover spy
+	 * at same site, so a Light Side spy is a legal cover-break target.
 	 */
 	private void MakeMomawUndercoverAt(VirtualTableScenario scn, PhysicalCardImpl site) {
 		var momaw = scn.GetLSCard("momaw");
@@ -205,7 +207,7 @@ public class Card_6_046_Tests {
 		var scn = GetScenario();
 		var card = scn.GetLSCard("yarkora").getBlueprint();
 		assertEquals("Yarkora", card.getTitle());
-		assertEquals(Uniqueness.UNRESTRICTED, card.getUniqueness());
+		assertEquals(Uniqueness.RESTRICTED_3, card.getUniqueness());
 		assertEquals(Side.LIGHT, card.getSide());
 		assertEquals(3, card.getDestiny(), scn.epsilon);
 		assertEquals(2, card.getDeployCost(), scn.epsilon);
@@ -243,7 +245,7 @@ public class Card_6_046_Tests {
 	}
 
 	@Test
-	public void YarkoraCannotTargetOwnUndercoverSpy() {
+	public void YarkoraBreaksCoverOfLightSideUndercoverSpy() {
 		var scn = GetScenario();
 		var yarkora = scn.GetLSCard("yarkora");
 		var momaw = scn.GetLSCard("momaw");
@@ -255,8 +257,18 @@ public class Card_6_046_Tests {
 		assertTrue(momaw.isUndercover());
 
 		scn.SkipToLSTurn(Phase.CONTROL);
-		assertFalse("Yarkora must not break cover of own (LS-owned) undercover spy",
+		assertTrue("Printed text targets an Undercover spy, including a Light Side spy",
 				scn.LSCardActionAvailable(yarkora, "Break a spy's cover"));
+
+		scn.PrepareLSDestiny(3); // Momaw ability 3
+		scn.LSUseCardAction(yarkora, "Break a spy's cover");
+		scn.LSChooseCard(momaw);
+		scn.PassDestinyDrawResponses();
+		SafePassOptionalResponses(scn);
+		scn.PassAllResponses();
+
+		assertFalse("Cover should be broken when destiny equals the Light Side spy's ability",
+				momaw.isUndercover());
 	}
 
 	@Test
@@ -587,15 +599,17 @@ public class Card_6_046_Tests {
 
 	@Test
 	public void YarkoraSubtractIsNotOfferedOnALaterDestiny() {
-		// Proxy is pinned to this DrawDestinyState, so a later destiny (not the cover-break draw)
-		// must not get Yarkora -1. Nested Sense during that draw uses a different top state.
+		// Proxy is pinned to the cover-break DrawDestinyState. After that draw, a later battle
+		// destiny (both sides have ability 4+) must not offer Yarkora -1.
 		var scn = GetScenario();
 		var yarkora = scn.GetLSCard("yarkora");
+		var luke = scn.GetLSCard("luke");
 		var garindan = scn.GetDSCard("garindan");
+		var vader = scn.GetDSCard("vader");
 		var site = scn.GetLSStartingLocation();
 
 		scn.StartGame();
-		scn.MoveCardsToLocation(site, yarkora);
+		scn.MoveCardsToLocation(site, yarkora, luke, vader);
 		MakeGarindanUndercoverAt(scn, site);
 
 		scn.SkipToLSTurn(Phase.CONTROL);
@@ -610,9 +624,56 @@ public class Card_6_046_Tests {
 		scn.SkipToDSTurn(Phase.BATTLE);
 		scn.DSInitiateBattle(site);
 		scn.SkipToPowerSegment();
-		java.util.List<String> lsActions = scn.LSGetADParamAsList("actionText");
-		boolean hasSubtract = lsActions != null && lsActions.stream().anyMatch(
-				a -> a != null && a.toLowerCase().contains("subtract 1"));
+		assertTrue("LS must be able to draw battle destiny so the subtract check is meaningful",
+				scn.GetLSBattleDestinyCount() >= 1);
+		assertTrue("DS must be able to draw battle destiny so the subtract check is meaningful",
+				scn.GetDSBattleDestinyCount() >= 1);
+
+		if (scn.DecisionAvailable(scn.DS, "battle destiny?")) {
+			scn.PlayerChooseYes(scn.DS);
+			scn.PassDestinyDrawResponses();
+		}
+		scn.PassResponses("BATTLE_DESTINY_DRAWS_COMPLETE_FOR_PLAYER");
+
+		assertTrue("LS should be asked to draw battle destiny",
+				scn.DecisionAvailable(scn.LS, "battle destiny?"));
+		scn.PlayerChooseYes(scn.LS);
+		scn.PassResponses("COST_TO_DRAW_DESTINY_CARD");
+		scn.PassResponses("ABOUT_TO_DRAW_DESTINY_CARD");
+
+		boolean sawDestinyDrawn = false;
+		boolean hasSubtract = false;
+		java.util.List<String> lsActions = null;
+		for (int i = 0; i < 20; i++) {
+			if (scn.LSAnyDecisionsAvailable()) {
+				lsActions = scn.LSGetADParamAsList("actionText");
+				if (lsActions != null && lsActions.stream().anyMatch(
+						a -> a != null && a.toLowerCase().contains("subtract 1"))) {
+					hasSubtract = true;
+					break;
+				}
+			}
+			var decision = scn.GetCurrentDecision();
+			if (decision == null) {
+				break;
+			}
+			String lower = decision.getText() != null ? decision.getText().toLowerCase() : "";
+			if (lower.contains("destiny_drawn") || lower.contains("optional")
+					|| lower.contains("complete_destiny") || lower.contains("drawing_destiny")) {
+				if (lower.contains("destiny_drawn")) {
+					sawDestinyDrawn = true;
+				}
+				String decider = scn.GetDecidingPlayer();
+				if (decider != null) {
+					scn.PlayerPass(decider);
+				} else {
+					break;
+				}
+			} else {
+				break;
+			}
+		}
+		assertTrue("Must reach the after-destiny window of a real battle destiny draw", sawDestinyDrawn);
 		assertFalse("Yarkora subtract must not appear on a later battle destiny; actions=" + lsActions,
 				hasSubtract);
 	}

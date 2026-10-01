@@ -110416,6 +110416,43 @@
     ]
   },
   {
+    "cardId": "6_46",
+    "title": "Yarkora",
+    "slug": "yarkora",
+    "slugWithSetName": "yarkora-jabbas-palace",
+    "side": "LIGHT",
+    "uniqueness": "RESTRICTED_3",
+    "expansionSet": "JABBAS_PALACE",
+    "rarity": "C",
+    "cardCategory": "CHARACTER",
+    "cardTypes": [
+      "ALIEN"
+    ],
+    "lore": "Mysterious, secretive aliens. Tend to be found as couriers, scouts and t'bac farmers. Some have helped the Alliance's efforts at counter-espionage.",
+    "gameText": "If at same site as an Undercover spy during your control phase, may draw destiny. Each of your Yarkoras on table may cumulatively subtract one from that destiny. Spy's \"cover is broken\" if destiny = spy's ability.",
+    "deployCost": 2,
+    "destiny": 3,
+    "power": 1,
+    "ability": 1,
+    "forfeit": 2,
+    "landspeed": 1,
+    "politics": 0,
+    "icons": [
+      {
+        "icon": "JABBAS_PALACE",
+        "count": 1
+      },
+      {
+        "icon": "ALIEN",
+        "count": 1
+      }
+    ],
+    "keywords": [
+      "SCOUT"
+    ],
+    "species": "YARKORA"
+  },
+  {
     "cardId": "6_47",
     "title": "Yoxgit",
     "slug": "yoxgit",
