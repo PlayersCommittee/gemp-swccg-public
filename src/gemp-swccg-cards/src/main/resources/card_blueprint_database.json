@@ -17727,6 +17727,38 @@
     ]
   },
   {
+    "cardId": "13_10",
+    "title": "Clinging To The Edge",
+    "slug": "clinging-to-the-edge",
+    "slugWithSetName": "clinging-to-the-edge-reflections-iii",
+    "side": "LIGHT",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "REFLECTIONS_III",
+    "rarity": "PM",
+    "cardCategory": "INTERRUPT",
+    "cardTypes": [
+      "INTERRUPT"
+    ],
+    "cardSubtype": "LOST",
+    "lore": "There are some times, more than others, when you should not look down.",
+    "gameText": "If opponent's Dark Jedi with at least one combat card just initiated lightsaber combat against your Jedi with none, draw 3 destiny and choose 2 to use for lightsaber combat destiny. You may take other card into hand, or return it to top of Reserve Deck.",
+    "destiny": 5,
+    "icons": [
+      {
+        "icon": "REFLECTIONS_III",
+        "count": 1
+      },
+      {
+        "icon": "INTERRUPT",
+        "count": 1
+      },
+      {
+        "icon": "EPISODE_I",
+        "count": 1
+      }
+    ]
+  },
+  {
     "cardId": "13_100",
     "title": "You've Never Won A Race?",
     "slug": "youve-never-won-a-race",
