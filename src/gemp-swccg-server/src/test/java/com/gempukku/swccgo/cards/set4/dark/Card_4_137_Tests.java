@@ -23,6 +23,7 @@ import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Tests for 4_137 Apology Accepted.
@@ -37,6 +38,7 @@ public class Card_4_137_Tests {
 					put("cantina", "1_128");
 					put("obi", "1_11");
 					put("badFeeling", "4_52");
+					put("sense", "1_109");
 				}},
 				new HashMap<>() {{
 					put("apology", "4_137");
@@ -257,7 +259,7 @@ public class Card_4_137_Tests {
 	}
 
 	@Test
-	public void ApologyAcceptedRetargetedImperialIsTheOneLost() {
+	public void ApologyAcceptedIHaveABadFeelingDoesNotUnpayLoseCost() {
 		var scn = GetScenario();
 		var luke = scn.GetLSCard("luke");
 		var cantina = scn.GetLSCard("cantina");
@@ -309,13 +311,14 @@ public class Card_4_137_Tests {
 				break;
 			}
 		}
-		assertTrue("I Have A Bad Feeling About This should be offered to retarget", playedBadFeeling);
+		assertTrue("I Have A Bad Feeling About This should still be offered on the play window", playedBadFeeling);
 
 		if (scn.LSHasCardChoiceAvailable(trooper)) {
 			scn.LSChooseCard(trooper);
 		}
-		assertTrue("Must retarget to the other Imperial", scn.LSHasCardChoiceAvailable(trooper2));
-		scn.LSChooseCard(trooper2);
+		if (scn.LSHasCardChoiceAvailable(trooper2)) {
+			scn.LSChooseCard(trooper2);
+		}
 		SafePassOptionalResponses(scn);
 		if (scn.DSGetDecision() != null && scn.DSDecisionAvailable("Choose amount of Force to activate")) {
 			int amount = Math.min(2, Math.max(1, scn.GetDSReserveDeckCount()));
@@ -323,9 +326,77 @@ public class Card_4_137_Tests {
 		}
 		SafePassOptionalResponses(scn);
 
-		assertTrue("Original target should remain in play", trooper.getZone().isInPlay());
-		assertTrue("Retargeted Imperial should be lost",
-				trooper2.getZone() == Zone.TOP_OF_LOST_PILE || trooper2.getZone() == Zone.LOST_PILE);
+		assertTrue("Lose is a cost, so the chosen Imperial is lost even after I Have A Bad Feeling About This",
+				trooper.getZone() == Zone.TOP_OF_LOST_PILE || trooper.getZone() == Zone.LOST_PILE);
+		assertTrue("Retarget does not unpay the lose cost or lose the other Imperial", trooper2.getZone().isInPlay());
+	}
+
+	@Test
+	public void ApologyAcceptedSenseCancelStillLosesImperial() {
+		var scn = GetScenario();
+		var luke = scn.GetLSCard("luke");
+		var sense = scn.GetLSCard("sense");
+		var apology = scn.GetDSCard("apology");
+		var trooper = scn.GetDSCard("trooper");
+
+		SetupLostBattleWithSurvivingTrooper(scn);
+		scn.MoveCardsToLSHand(sense);
+		scn.PrepareLSDestiny(1);
+		assertTrue(AdvanceToApologyWindow(scn));
+
+		int reserveBefore = scn.GetDSReserveDeckCount();
+		scn.DSPlayCard(apology);
+		assertTrue(scn.DSHasCardChoiceAvailable(trooper));
+		scn.DSChooseCard(trooper);
+
+		boolean playedSense = false;
+		for (int i = 0; i < 30; i++) {
+			try {
+				if (scn.LSCardPlayAvailable(sense)) {
+					scn.LSPlayCard(sense);
+					playedSense = true;
+					break;
+				}
+			} catch (RuntimeException ignored) {
+			}
+			var decision = scn.GetCurrentDecision();
+			if (decision == null) {
+				break;
+			}
+			String text = decision.getText() != null ? decision.getText().toLowerCase() : "";
+			if (text.contains("optional")) {
+				try { scn.PassResponses("optional"); } catch (RuntimeException ex) { break; }
+			} else if (text.contains("choose") && scn.LSHasCardChoiceAvailable(luke)) {
+				scn.LSChooseCard(luke);
+			} else {
+				break;
+			}
+		}
+		assertTrue("Sense should be offered against Apology Accepted", playedSense);
+		if (scn.LSHasCardChoiceAvailable(luke)) {
+			scn.LSChooseCard(luke);
+		}
+		for (int i = 0; i < 30; i++) {
+			var decision = scn.GetCurrentDecision();
+			if (decision == null) {
+				break;
+			}
+			String text = decision.getText() != null ? decision.getText().toLowerCase() : "";
+			if (text.contains("optional") || text.contains("destiny") || text.contains("about_to_draw")
+					|| text.contains("cost_to_draw")) {
+				try { scn.PassResponses(); } catch (RuntimeException ex) { break; }
+			} else if (scn.DSGetDecision() != null && scn.DSDecisionAvailable("Choose amount of Force to activate")) {
+				fail("Sense canceled the play; activation result should not be offered");
+			} else {
+				break;
+			}
+		}
+
+		assertTrue("Lose is a cost, so the Imperial is lost even if Sense cancels",
+				trooper.getZone() == Zone.TOP_OF_LOST_PILE || trooper.getZone() == Zone.LOST_PILE);
+		assertTrue("Canceled Apology Accepted does not go to Used Pile as a successful play",
+				apology.getZone() != Zone.TOP_OF_USED_PILE && apology.getZone() != Zone.USED_PILE);
+		assertEquals("Sense cancel skips the Activate Force result", reserveBefore, scn.GetDSReserveDeckCount());
 	}
 
 	@Test
