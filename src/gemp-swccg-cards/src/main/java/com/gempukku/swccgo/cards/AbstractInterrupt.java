@@ -85,11 +85,13 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     }
 
     /**
-     * Face-down stacked cards are not played as normal interrupts. While-stacked game text is
-     * gathered only when the blueprint opts in via visitCardWhenStackedFaceDown().
+     * Face-down stacked cards skip normal interrupt play unless they may play as if from hand
+     * (e.g. Cyborg Construct). While-stacked game text is gathered only when the blueprint
+     * opts in via visitCardWhenStackedFaceDown().
      */
-    private static boolean isStackedFaceDown(PhysicalCard self) {
-        return self.getZone() == Zone.STACKED_FACE_DOWN;
+    private static boolean skipNormalPlayWhileStackedFaceDown(SwccgGame game, PhysicalCard self) {
+        return self.getZone() == Zone.STACKED_FACE_DOWN
+                && !game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self);
     }
 
     private static boolean visitWhileStacked(PhysicalCard self) {
@@ -117,7 +119,7 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     public final List<Action> getTopLevelActions(String playerId, SwccgGame game, PhysicalCard self) {
         List<Action> actions = super.getTopLevelActions(playerId, game, self);
 
-        if (!isStackedFaceDown(self) && checkPlayRequirements(playerId, game, self, null, null, null)) {
+        if (!skipNormalPlayWhileStackedFaceDown(game, self) && checkPlayRequirements(playerId, game, self, null, null, null)) {
             List<PlayInterruptAction> actionList1 = getGameTextTopLevelActions(playerId, game, self);
             if (actionList1 != null) {
                 actions.addAll(actionList1);
@@ -160,7 +162,7 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     public List<Action> getTopLevelAttackRunActions(String playerId, SwccgGame game, PhysicalCard self) {
         List<Action> actions = super.getTopLevelAttackRunActions(playerId, game, self);
 
-        if (!isStackedFaceDown(self) && checkPlayRequirements(playerId, game, self, null, null, null)) {
+        if (!skipNormalPlayWhileStackedFaceDown(game, self) && checkPlayRequirements(playerId, game, self, null, null, null)) {
             List<PlayInterruptAction> actionList1 = getGameTextTopLevelAttackRunActions(playerId, game, self);
             if (actionList1 != null) {
                 actions.addAll(actionList1);
@@ -216,7 +218,7 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     public final List<Action> getOptionalBeforeActions(String playerId, SwccgGame game, Effect effect, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
-        if (!isStackedFaceDown(self) && checkPlayRequirements(playerId, game, self, null, null, null)) {
+        if (!skipNormalPlayWhileStackedFaceDown(game, self) && checkPlayRequirements(playerId, game, self, null, null, null)) {
             List<PlayInterruptAction> actionList1 = getGameTextOptionalBeforeActions(playerId, game, effect, self);
             if (actionList1 != null) {
                 actions.addAll(actionList1);
@@ -278,7 +280,7 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     public final List<Action> getOptionalAfterActions(String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
-        if (!isStackedFaceDown(self) && checkPlayRequirements(playerId, game, self, null, null, null)) {
+        if (!skipNormalPlayWhileStackedFaceDown(game, self) && checkPlayRequirements(playerId, game, self, null, null, null)) {
             List<PlayInterruptAction> actionList1 = getGameTextOptionalAfterActions(playerId, game, effectResult, self);
             if (actionList1 != null) {
                 actions.addAll(actionList1);
