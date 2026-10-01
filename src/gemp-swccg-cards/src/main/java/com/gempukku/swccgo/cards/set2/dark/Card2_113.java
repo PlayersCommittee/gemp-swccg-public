@@ -24,7 +24,7 @@ import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDefenseValueModifier
 import com.gempukku.swccgo.logic.conditions.TrueCondition;
 import com.gempukku.swccgo.logic.modifiers.MayBeTargetedByWeaponsAsIfPresentModifier;
 import com.gempukku.swccgo.logic.modifiers.MayBeTargetedByWeaponsModifier;
-import com.gempukku.swccgo.logic.modifiers.MayNotMoveFromLocationToLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotPassModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -41,7 +41,7 @@ import java.util.List;
  */
 public class Card2_113 extends AbstractDevice {
     public Card2_113() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Laser_Gate, Uniqueness.RESTRICTED_2, ExpansionSet.A_NEW_HOPE, Rarity.U2);
+        super(Side.DARK, 4, PlayCardZoneOption.BETWEEN_SITES, Title.Laser_Gate, Uniqueness.RESTRICTED_2, ExpansionSet.A_NEW_HOPE, Rarity.U2);
         setLore("Security corridors are guarded by a grid of laser emplacements which can be activated upon demand to seal off sensitive areas from intrusion.");
         setGameText("Deploy between any two interior mobile sites. To pass, a character must have (power + ability) > 4 or use a Lift Tube (all other vehicles are blocked). Laser Gate defense value = 3; may be targeted (as if a character) by a character weapon from either site.");
         addIcons(Icon.A_NEW_HOPE);
@@ -62,7 +62,6 @@ public class Card2_113 extends AbstractDevice {
 
     @Override
     protected Filter getGameTextValidDeployTargetFilter(final SwccgGame game, final PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        // Attach to an eligible interior mobile site that has an adjacent eligible interior mobile site.
         final Filter eligible = eligibleInteriorMobileSite();
         return Filters.and(eligible, new Filter() {
             @Override
@@ -74,11 +73,6 @@ public class Card2_113 extends AbstractDevice {
 
     @Override
     protected Filter getGameTextValidToUseDeviceFilter(final SwccgGame game, final PhysicalCard self) {
-        return eligibleInteriorMobileSite();
-    }
-
-    @Override
-    protected Filter getGameTextValidTargetFilterToRemainAttachedTo(final SwccgGame game, final PhysicalCard self) {
         return eligibleInteriorMobileSite();
     }
 
@@ -119,16 +113,9 @@ public class Card2_113 extends AbstractDevice {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
-        Filter siteA = Filters.hasAttached(self);
-        Filter siteB = Filters.targetedByCardOnTableAsTargetId(self, TargetId.EFFECT_TARGET_1);
-        Filter blockedFromPassing = Filters.not(cardsThatMayPass());
-
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        // Block movement both directions between the two bounding sites for cards that cannot pass.
-        modifiers.add(new MayNotMoveFromLocationToLocationModifier(self, blockedFromPassing, siteA, siteB));
-        modifiers.add(new MayNotMoveFromLocationToLocationModifier(self, blockedFromPassing, siteB, siteA));
+        modifiers.add(new MayNotPassModifier(self, Filters.not(cardsThatMayPass())));
         modifiers.add(new DefinedByGameTextDefenseValueModifier(self, 3));
-        // Character weapons may target this device (as if a character) from either bounding site.
         modifiers.add(new MayBeTargetedByWeaponsModifier(self, Filters.character_weapon));
         modifiers.add(new MayBeTargetedByWeaponsAsIfPresentModifier(self, self, new TrueCondition()));
         return modifiers;

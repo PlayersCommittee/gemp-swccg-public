@@ -116,7 +116,7 @@ public class LoseCardsFromTableSimultaneouslyEffect extends AbstractSubActionEff
                     protected void doPlayEffect(SwccgGame game) {
                         _lostFromPlay.addAll(Filters.filter(_originalCardsToLose, game, Filters.and(Filters.or(Filters.onTable, Filters.stacked), Filters.not(Filters.in(_preventedCards)))));
                         CardsLeavePlayUtils.cardsToLeavePlay(game, _lostFromPlay, true, _attachedCardsToLeaveTable, new ArrayList<PhysicalCard>());
-                        Collection<PhysicalCard> attachedCardsAboutToLeaveTable = Filters.filter(_attachedCardsToLeaveTable, game, Zone.ATTACHED);
+                        Collection<PhysicalCard> attachedCardsAboutToLeaveTable = Filters.filter(_attachedCardsToLeaveTable, game, Filters.or(Zone.ATTACHED, Zone.BETWEEN_SITES));
                         if (_attachedCardsGoToZone == Zone.LOST_PILE) {
                             for (PhysicalCard attachedCardAboutToBeLost : attachedCardsAboutToLeaveTable) {
                                 game.getActionsEnvironment().emitEffectResult(new AboutToLoseCardFromTableResult(subAction, attachedCardAboutToBeLost, _that, true, attachedCardsAboutToLeaveTable));

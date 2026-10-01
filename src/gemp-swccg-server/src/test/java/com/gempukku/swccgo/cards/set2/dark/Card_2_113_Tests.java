@@ -4,20 +4,24 @@ import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.LocationPlacementDirection;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.TargetId;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
+import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
+import com.gempukku.swccgo.game.layout.LocationPlacement;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -26,8 +30,6 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for Laser Gate (2_113).
- * Doc checklist: deploy between interior mobile sites; movement pass rules;
- * defense value 3; either-site character-weapon targeting; Lift Tube pass.
  */
 public class Card_2_113_Tests {
 
@@ -41,6 +43,7 @@ public class Card_2_113_Tests {
                 }},
                 new HashMap<>() {{
                     put("laserGate", "2_113");
+                    put("laserGate2", "2_113");
                     put("corridor", "1_284");
                     put("warRoom", "1_287");
                     put("conference", "2_144");
@@ -67,18 +70,30 @@ public class Card_2_113_Tests {
         scn.MoveLocationToTable(location);
     }
 
-    private void placeBetweenSites(PhysicalCardImpl gate, PhysicalCardImpl otherSite) {
-        gate.setTargetedCard(TargetId.EFFECT_TARGET_1, null, otherSite, Filters.sameCardId(otherSite));
-    }
-
     private void deployGateBetween(VirtualTableScenario scn, PhysicalCardImpl gate,
                                    PhysicalCardImpl siteA, PhysicalCardImpl siteB) {
-        scn.AttachCardsTo(siteA, gate);
-        placeBetweenSites(gate, siteB);
+        scn.PlaceBetweenSites(siteA, siteB, gate);
+    }
+
+    private List<PhysicalCard> visualRow(VirtualTableScenario scn) {
+        return scn.gameState().getVisualRowCardsInOrder();
+    }
+
+    private LocationPlacement placementRelative(VirtualTableScenario scn, PhysicalCardImpl loc,
+                                                PhysicalCard other, LocationPlacementDirection direction) {
+        for (LocationPlacement cand : scn.gameState().getLocationPlacement(scn.game(), loc, null, null)) {
+            if (cand.getOtherCard() != null && cand.getOtherCard().getCardId() == other.getCardId()
+                    && ((direction.isRightOf() && cand.getDirection().isRightOf())
+                    || (direction.isLeftOf() && cand.getDirection().isLeftOf()))) {
+                return new LocationPlacement(cand.getParentSystem(), cand.getParentStarshipOrVehiclePersona(),
+                        cand.getParentStarshipOrVehicleCard(), cand.getOtherCard(), direction);
+            }
+        }
+        return null;
     }
 
     @Test
-    public void LaserGate_2_113_StatsAndKeywordsAreCorrect() {
+    public void LaserGateStatsAndKeywordsAreCorrect() {
         var scn = GetScenario();
         var card = scn.GetDSCard("laserGate").getBlueprint();
 
@@ -104,7 +119,7 @@ public class Card_2_113_Tests {
     }
 
     @Test
-    public void LaserGate_2_113_DeploysBetweenTwoInteriorMobileSites() {
+    public void LaserGateDeploysBetweenTwoInteriorMobileSites() {
         var scn = GetScenario();
         var gate = scn.GetDSCard("laserGate");
         var corridor = scn.GetDSCard("corridor");
@@ -123,12 +138,19 @@ public class Card_2_113_Tests {
         scn.DSChooseCard(warRoom);
         scn.PassAllResponses();
 
-        assertEquals(corridor, gate.getAttachedTo());
-        assertEquals(warRoom, gate.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+        assertEquals(Zone.BETWEEN_SITES, gate.getZone());
+        PhysicalCard left = scn.gameState().getBetweenSiteLeft(gate);
+        PhysicalCard right = scn.gameState().getBetweenSiteRight(gate);
+        assertTrue((left == corridor && right == warRoom) || (left == warRoom && right == corridor));
+        List<PhysicalCard> visual = visualRow(scn);
+        int gateIdx = visual.indexOf(gate);
+        assertTrue(gateIdx > visual.indexOf(left));
+        assertTrue(gateIdx < visual.indexOf(right));
+        assertEquals(1, scn.game().getModifiersQuerying().getDistanceBetweenSites(scn.gameState(), corridor, warRoom).intValue());
     }
 
     @Test
-    public void LaserGate_2_113_CannotDeployWithoutAdjacentInteriorMobilePair() {
+    public void LaserGateCannotDeployWithoutAdjacentInteriorMobilePair() {
         var scn = GetScenario();
         var gate = scn.GetDSCard("laserGate");
         var corridor = scn.GetDSCard("corridor");
@@ -144,7 +166,7 @@ public class Card_2_113_Tests {
     }
 
     @Test
-    public void LaserGate_2_113_BlocksWeakCharactersAndNonLiftTubeVehicles() {
+    public void LaserGateBlocksWeakCharactersAndNonLiftTubeVehicles() {
         var scn = GetScenario();
         var gate = scn.GetDSCard("laserGate");
         var corridor = scn.GetDSCard("corridor");
@@ -171,7 +193,7 @@ public class Card_2_113_Tests {
     }
 
     @Test
-    public void LaserGate_2_113_AllowsStrongCharacters() {
+    public void LaserGateAllowsStrongCharacters() {
         var scn = GetScenario();
         var gate = scn.GetDSCard("laserGate");
         var corridor = scn.GetDSCard("corridor");
@@ -193,7 +215,7 @@ public class Card_2_113_Tests {
     }
 
     @Test
-    public void LaserGate_2_113_LiftTubeMayPassToFarSite() {
+    public void LaserGateLiftTubeMayPassToFarSite() {
         var scn = GetScenario();
         var gate = scn.GetDSCard("laserGate");
         var corridor = scn.GetDSCard("corridor");
@@ -205,7 +227,6 @@ public class Card_2_113_Tests {
         putLocation(scn, corridor);
         putLocation(scn, warRoom);
         deployGateBetween(scn, gate, corridor, warRoom);
-        // Weak Stormtrooper alone is blocked; aboard Lift Tube may pass.
         scn.MoveCardsToLocation(corridor, dsLift, stormie);
         scn.BoardAsPassenger(dsLift, stormie);
 
@@ -220,7 +241,31 @@ public class Card_2_113_Tests {
     }
 
     @Test
-    public void LaserGate_2_113_DefenseValueIs3() {
+    public void LaserGateBlocksVehicleUsingLandspeedAcrossTwoSites() {
+        var scn = GetScenario();
+        var gate = scn.GetDSCard("laserGate");
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("warRoom");
+        var conference = scn.GetDSCard("conference");
+        var speeder = scn.GetDSCard("speeder");
+
+        scn.StartGame();
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        putLocation(scn, conference);
+        deployGateBetween(scn, gate, corridor, warRoom);
+        scn.MoveCardsToLocation(corridor, speeder);
+
+        scn.SkipToPhase(Phase.MOVE);
+
+        assertFalse("Landspeed past Laser Gate is still blocked for other vehicles",
+                scn.DSMoveAvailable(speeder));
+        assertTrue(scn.CardsAtLocation(corridor, speeder));
+        assertEquals(java.util.Arrays.asList(gate), scn.gameState().getBetweenSiteCardsCrossed(corridor, conference));
+    }
+
+    @Test
+    public void LaserGateDefenseValueIs3() {
         var scn = GetScenario();
         var gate = scn.GetDSCard("laserGate");
         var corridor = scn.GetDSCard("corridor");
@@ -235,11 +280,11 @@ public class Card_2_113_Tests {
     }
 
     @Test
-    public void LaserGate_2_113_CharacterWeaponMayTargetFromAttachedBoundingSite() {
+    public void LaserGateCharacterWeaponMayTargetFromAttachedBoundingSite() {
         var scn = GetScenario();
         var gate = scn.GetDSCard("laserGate");
-        var corridor = scn.GetDSCard("corridor"); // site A
-        var warRoom = scn.GetDSCard("warRoom");   // site B
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("warRoom");
         var luke = scn.GetLSCard("luke");
         var blaster = scn.GetLSCard("blaster");
         var vader = scn.GetDSCard("vader");
@@ -263,7 +308,7 @@ public class Card_2_113_Tests {
                 scn.game().getModifiersQuerying().canBeTargetedByWeaponsAsIfPresent(scn.gameState(), gate));
 
         scn.LSUseCardAction(blaster);
-        assertTrue("Battle at attached site A: Laser Gate must be a legal weapon target",
+        assertTrue("Battle at site A: Laser Gate must be a legal weapon target",
                 scn.LSHasCardChoiceAvailable(gate));
         scn.LSChooseCard(gate);
         scn.PassWeaponFireWithDestinyDraw();
@@ -271,12 +316,12 @@ public class Card_2_113_Tests {
     }
 
     @Test
-    public void LaserGate_2_113_CharacterWeaponMayTargetFromFarBoundingSite() {
+    public void LaserGateCharacterWeaponMayTargetFromFarBoundingSite() {
         var scn = GetScenario();
         var gate = scn.GetDSCard("laserGate");
-        var corridor = scn.GetDSCard("corridor"); // site A (attach)
-        var warRoom = scn.GetDSCard("warRoom");   // site B (EFFECT_TARGET_1)
-        var conference = scn.GetDSCard("conference"); // site C
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("warRoom");
+        var conference = scn.GetDSCard("conference");
         var luke = scn.GetLSCard("luke");
         var blaster = scn.GetLSCard("blaster");
         var stormie = scn.GetDSCard("stormie");
@@ -287,7 +332,6 @@ public class Card_2_113_Tests {
         putLocation(scn, conference);
         deployGateBetween(scn, gate, corridor, warRoom);
 
-        // Battle at far bounding site B — gate is attached to A, not present at B
         scn.MoveCardsToLocation(warRoom, luke, stormie);
         scn.AttachCardsTo(luke, blaster);
         scn.SkipToLSTurn(Phase.BATTLE);
@@ -301,18 +345,78 @@ public class Card_2_113_Tests {
         assertTrue("As-if-present grant for either-site targeting",
                 scn.game().getModifiersQuerying().canBeTargetedByWeaponsAsIfPresent(scn.gameState(), gate));
         assertTrue("Between-sites filter includes far bounding site",
-                Filters.deployedBetweenSitesIncluding(Filters.sameCardId(warRoom)).accepts(scn.game(), gate));
+                Filters.betweenSitesIncluding(warRoom).accepts(scn.game(), gate));
 
         scn.LSUseCardAction(blaster);
         assertTrue("Battle at far site B: Laser Gate must be a legal weapon target",
                 scn.LSHasCardChoiceAvailable(gate));
         assertNotNull(conference);
-        assertEquals(corridor, gate.getAttachedTo());
-        assertEquals(warRoom, gate.getTargetedCard(scn.gameState(), TargetId.EFFECT_TARGET_1));
+        assertEquals(Zone.BETWEEN_SITES, gate.getZone());
     }
 
     @Test
-    public void LaserGate_2_113_MatchesLaserGateFilter() {
+    public void LaserGateTwoCopiesSitAsSeparateColumnsAndBothBlock() {
+        var scn = GetScenario();
+        var gate = scn.GetDSCard("laserGate");
+        var gate2 = scn.GetDSCard("laserGate2");
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("warRoom");
+        var stormie = scn.GetDSCard("stormie");
+
+        scn.StartGame();
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        deployGateBetween(scn, gate, corridor, warRoom);
+        deployGateBetween(scn, gate2, corridor, warRoom);
+
+        List<PhysicalCard> visual = visualRow(scn);
+        int leftIdx = visual.indexOf(corridor);
+        int rightIdx = visual.indexOf(warRoom);
+        if (leftIdx > rightIdx) {
+            int tmp = leftIdx;
+            leftIdx = rightIdx;
+            rightIdx = tmp;
+        }
+        assertEquals(leftIdx + 3, rightIdx);
+        assertTrue(visual.subList(leftIdx + 1, rightIdx).contains(gate));
+        assertTrue(visual.subList(leftIdx + 1, rightIdx).contains(gate2));
+        assertEquals(1, scn.game().getModifiersQuerying().getDistanceBetweenSites(scn.gameState(), corridor, warRoom).intValue());
+
+        scn.MoveCardsToLocation(corridor, stormie);
+        scn.SkipToPhase(Phase.MOVE);
+        assertFalse(scn.DSMoveAvailable(stormie));
+    }
+
+    @Test
+    public void LaserGateNewSiteRightOfLeftKeepsGateOnTheRight() {
+        var scn = GetScenario();
+        var gate = scn.GetDSCard("laserGate");
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("warRoom");
+        var conference = scn.GetDSCard("conference");
+
+        scn.StartGame();
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        deployGateBetween(scn, gate, corridor, warRoom);
+
+        PhysicalCard left = scn.gameState().getBetweenSiteLeft(gate);
+        PhysicalCard right = scn.gameState().getBetweenSiteRight(gate);
+        LocationPlacement placement = placementRelative(scn, conference, (PhysicalCardImpl) left, LocationPlacementDirection.RIGHT_OF);
+        assertNotNull(placement);
+        scn.MoveLocationToTable(conference, placement);
+
+        assertEquals(conference, scn.gameState().getBetweenSiteLeft(gate));
+        assertEquals(right, scn.gameState().getBetweenSiteRight(gate));
+        List<PhysicalCard> visual = visualRow(scn);
+        assertTrue(visual.indexOf(left) < visual.indexOf(conference));
+        assertTrue(visual.indexOf(conference) < visual.indexOf(gate));
+        assertTrue(visual.indexOf(gate) < visual.indexOf(right));
+        assertEquals(Zone.BETWEEN_SITES, gate.getZone());
+    }
+
+    @Test
+    public void LaserGateMatchesLaserGateFilter() {
         var scn = GetScenario();
         var gate = scn.GetDSCard("laserGate");
         assertTrue(Filters.Laser_Gate.accepts(scn.game(), gate));

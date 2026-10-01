@@ -289,6 +289,7 @@ public class FireWeaponActionBuilder {
             Filter inAttackFilter = gameState.isDuringAttack() ? Filters.and(Filters.creature, Filters.participatingInAttack) : Filters.any;
 
             // If during battle, only cards participating in battle can be targeted
+            // (plus cards that may be targeted by weapons as if present, e.g. Laser Gate).
             Filter inBattleFilter = gameState.isDuringBattle()
                     ? Filters.or(Filters.participatingInBattle, Filters.canBeTargetedByWeaponAsIfPresent)
                     : Filters.any;
@@ -620,16 +621,15 @@ public class FireWeaponActionBuilder {
         return this;
     }
 
-
     /**
      * Proximity for weapons that fire at the same site: present cards, stacked "as if present" cards,
-     * and between-sites cards (e.g. Laser Gate) that may be targeted as if present from either bounding site.
+     * and between-sites cards (Laser Gate) that may be targeted as if present from either bounding site.
      */
     private Filter getSameSiteWeaponProximityFilter() {
         Filter presentAt = Filters.presentAt(Filters.wherePresent(_weaponOrCardWithPermanentWeapon));
         Filter betweenSitesAsIfPresent = Filters.and(
                 Filters.canBeTargetedByWeaponAsIfPresent,
-                Filters.deployedBetweenSitesIncluding(Filters.wherePresent(_weaponOrCardWithPermanentWeapon)));
+                Filters.betweenSitesNextToWherePresent(_weaponOrCardWithPermanentWeapon));
         return Filters.or(presentAt,
                 Filters.and(Filters.stackedOn(_weaponOrCardWithPermanentWeapon, presentAt), Filters.canBeTargetedByWeaponAsIfPresent),
                 betweenSitesAsIfPresent);

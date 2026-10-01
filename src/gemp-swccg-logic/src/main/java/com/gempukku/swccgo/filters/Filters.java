@@ -4051,12 +4051,58 @@ public class Filters {
     //
 
     /**
+     * Filter that accepts between-sites cards whose current left or right site is the specified site.
+     */
+    public static Filter betweenSitesIncluding(final PhysicalCard site) {
+        final Integer permCardId = site.getPermanentCardId();
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (physicalCard.getZone() != Zone.BETWEEN_SITES) {
+                    return false;
+                }
+                PhysicalCard target = gameState.findCardByPermanentId(permCardId);
+                PhysicalCard left = gameState.getBetweenSiteLeft(physicalCard);
+                PhysicalCard right = gameState.getBetweenSiteRight(physicalCard);
+                return (left != null && left.getCardId() == target.getCardId())
+                        || (right != null && right.getCardId() == target.getCardId());
+            }
+        };
+    }
+
+    /**
+     * Filter that accepts between-sites cards whose left or right site is where the specified card is present.
+     * Used so character weapons at either bounding site can target Laser Gate.
+     */
+    public static Filter betweenSitesNextToWherePresent(PhysicalCard card) {
+        final Integer permCardId = card.getPermanentCardId();
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (physicalCard.getZone() != Zone.BETWEEN_SITES) {
+                    return false;
+                }
+                PhysicalCard source = gameState.findCardByPermanentId(permCardId);
+                PhysicalCard location = modifiersQuerying.getLocationThatCardIsPresentAt(gameState, source);
+                if (location == null) {
+                    return false;
+                }
+                PhysicalCard left = gameState.getBetweenSiteLeft(physicalCard);
+                PhysicalCard right = gameState.getBetweenSiteRight(physicalCard);
+                return (left != null && left.getCardId() == location.getCardId())
+                        || (right != null && right.getCardId() == location.getCardId());
+            }
+        };
+    }
+
+    /**
      * Filter that accepts cards that are either adjacent sites to the specified card, or adjacent sites to the
      * site the specified card is "at".
      *
      * @param card a card
      * @return Filter
      */
+
     public static Filter adjacentSite(PhysicalCard card) {
         final Integer permCardId = card.getPermanentCardId();
         return new Filter() {
@@ -12659,30 +12705,6 @@ public class Filters {
 
                 PhysicalCard targetedCard = card.getTargetedCard(gameState, targetId);
                 return targetedCard != null && Filters.samePermanentCardId(physicalCard).accepts(gameState, modifiersQuerying, targetedCard);
-            }
-        };
-    }
-
-    /**
-     * Filter that accepts cards deployed "between" two sites (attached to one site and targeting the other via
-     * TargetId.EFFECT_TARGET_1) where either bounding site is accepted by the site filter.
-     * Used so between-sites devices (e.g. Laser Gate) can be weapon-targeted from either bounding site.
-     *
-     * @param siteFilter filter for one of the bounding sites
-     * @return Filter
-     */
-    public static Filter deployedBetweenSitesIncluding(final Filterable siteFilter) {
-        final Filter filterToCheck = Filters.and(siteFilter);
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                PhysicalCard attachedTo = physicalCard.getAttachedTo();
-                PhysicalCard otherSite = physicalCard.getTargetedCard(gameState, TargetId.EFFECT_TARGET_1);
-                if (attachedTo == null || otherSite == null) {
-                    return false;
-                }
-                return filterToCheck.accepts(gameState, modifiersQuerying, attachedTo)
-                        || filterToCheck.accepts(gameState, modifiersQuerying, otherSite);
             }
         };
     }
