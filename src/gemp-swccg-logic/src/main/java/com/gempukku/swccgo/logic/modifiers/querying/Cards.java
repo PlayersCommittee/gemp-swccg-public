@@ -64,7 +64,8 @@ public interface Cards extends BaseQuery, Captives, Battle {
                     && !physicalCard.getBlueprint().getValidToUseWeaponFilter(physicalCard.getOwner(), gameState.getGame(), physicalCard).accepts(gameState, query(), physicalCard.getAttachedTo()))
                 return CardState.INACTIVE;
 
-            if (cardCategory == CardCategory.DEVICE && cardSubtype == CardSubtype.CHARACTER && physicalCard.getAttachedTo() != null
+            if (cardCategory == CardCategory.DEVICE && physicalCard.getAttachedTo() != null
+                    && physicalCard.getAttachedTo().getBlueprint().getCardCategory() == CardCategory.CHARACTER
                     && !physicalCard.getBlueprint().getValidToUseDeviceFilter(physicalCard.getOwner(), gameState.getGame(), physicalCard).accepts(gameState, query(), physicalCard.getAttachedTo()))
                 return CardState.INACTIVE;
         }
