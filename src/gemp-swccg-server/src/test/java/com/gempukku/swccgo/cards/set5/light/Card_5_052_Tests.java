@@ -221,6 +221,10 @@ public class Card_5_052_Tests {
 		assertTrue("Luke should be hidden (may not participate in battle) for remainder of turn",
 				scn.game().getModifiersQuerying().isProhibitedFromParticipatingInBattle(
 						scn.gameState(), luke, scn.DS));
+		// "effect canceled" is the freeze attempt. Carbon-Freezing is an on-table Effect
+		// (immune to Alter) that stays on the Chamber and can freeze again later.
+		assertTrue(carbonFreezing.getZone().isInPlay());
+		assertEquals(chamber, carbonFreezing.getAttachedTo());
 	}
 
 	@Test
