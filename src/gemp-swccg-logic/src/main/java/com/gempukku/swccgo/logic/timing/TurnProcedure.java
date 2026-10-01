@@ -125,10 +125,6 @@ public class TurnProcedure implements Snapshotable<TurnProcedure> {
                 }
             }
 
-            // If any game stats changed, send the game stats to the User Interface.
-            if (_gameStats.updateGameStats(_game))
-                _game.getGameState().sendGameStats(_gameStats);
-
             // Check if a winner of the game can be declared.
             _game.checkLifeForceDepleted();
 
@@ -144,6 +140,26 @@ public class TurnProcedure implements Snapshotable<TurnProcedure> {
                 throw new UnsupportedOperationException("There's been " + numSinceDecision + " actions/effects since last user decision. Game is probably looping, so ending game.");
             }
         }
+
+        // If any game stats changed, send the game stats to the User Interface.
+        //
+        // This is computed once here, on the way out of the loop, instead of once per loop
+        // iteration. The loop only ever exits in three ways -- a player decision is pending, the
+        // game has a winner, or a snapshot restore is pending -- and all three pass through this
+        // point, so every stats value the loop used to send is still computed and sent before
+        // control returns to the caller. It is deliberately unconditional: when the loop body
+        // never runs (a decision raised synchronously while answering the previous one) the state
+        // changed outside the loop and still needs a refresh.
+        //
+        // Nothing in the rules reads GameStats; it is display-only (status bar Force generation,
+        // battle power, and the per-location power numbers). Recomputing it per iteration meant a
+        // full modifier-system sweep of both players' cards after every single effect, which
+        // measured as 96-98% of the wall time of a Force activation on a mid-game board. Players
+        // cannot observe the intermediate values in any case: the game's write lock is held for
+        // the whole loop, so a polling client cannot consume any of the events the loop produces
+        // until the loop has exited and this call has run.
+        if (_gameStats.updateGameStats(_game))
+            _game.getGameState().sendGameStats(_gameStats);
     }
 
     /**
