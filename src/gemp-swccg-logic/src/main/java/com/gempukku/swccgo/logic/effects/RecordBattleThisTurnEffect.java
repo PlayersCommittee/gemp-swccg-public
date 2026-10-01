@@ -59,12 +59,24 @@ public class RecordBattleThisTurnEffect extends AbstractSuccessfulEffect {
             }
         }
 
+        String winner = battleState.isWinner(dark) ? dark : (battleState.isWinner(light) ? light : null);
+        String loser = battleState.isLoser(dark) ? dark : (battleState.isLoser(light) ? light : null);
         BattleThisTurnRecord record = new BattleThisTurnRecord(
                 location.getCardId(),
-                battleState.isWinner(dark) ? dark : (battleState.isWinner(light) ? light : null),
-                battleState.isLoser(dark) ? dark : (battleState.isLoser(light) ? light : null),
+                winner,
+                loser,
                 battleDamageByPlayer,
                 participantIds);
         game.getModifiersQuerying().recordBattleThisTurn(record);
+
+        // A lost battle's base battle damage is the power difference. 0 on the
+        // loser (except takes-no-battle-damage) means the record is wrong.
+        if (loser != null
+                && record.getBattleDamageFor(loser) == 0f
+                && !game.getModifiersQuerying().isTakesNoBattleDamage(game.getGameState(), loser)) {
+            game.getGameState().sendMessage("Lost-battle record at "
+                    + location.getTitle() + " has 0 battle damage for " + loser
+                    + ". Please report this error.");
+        }
     }
 }

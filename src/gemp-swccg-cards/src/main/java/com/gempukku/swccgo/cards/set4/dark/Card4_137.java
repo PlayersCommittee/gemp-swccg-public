@@ -138,19 +138,12 @@ public class Card4_137 extends AbstractUsedInterrupt {
     }
 
     /**
-     * True if forfeit is 0 or any survived lost-battle's battle damage is 0 (either side of "either").
+     * True when the activation cap can be 0: forfeit 0. A lost battle has
+     * base battle damage equal to the power difference (AR Winner And Loser),
+     * so 0 damage on a lost-battle record is not a second empty-Reserve path.
      */
     static boolean ApologyAcceptedAllowsZeroActivation(SwccgGame game, String playerId, PhysicalCard imperial) {
-        float forfeit = game.getModifiersQuerying().getForfeit(game.getGameState(), imperial);
-        if (forfeit == 0f) {
-            return true;
-        }
-        for (BattleThisTurnRecord record : game.getModifiersQuerying().getBattlesLostThisTurn(playerId)) {
-            if (record.wasParticipant(imperial.getCardId()) && record.getBattleDamageFor(playerId) == 0f) {
-                return true;
-            }
-        }
-        return false;
+        return game.getModifiersQuerying().getForfeit(game.getGameState(), imperial) == 0f;
     }
 
     static boolean ApologyAcceptedIsPlayableGivenForce(SwccgGame game, String playerId, Filter eligibleImperialFilter) {
