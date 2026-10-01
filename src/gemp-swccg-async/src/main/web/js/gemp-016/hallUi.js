@@ -950,14 +950,14 @@ var GempSwccgHallUI = Class.extend({
                             if (participantId != null)
                                 participantIdAppend = "&participantId=" + participantId;
 
-                            lastField.append("<a href='game.html?gameId=" + gameId + participantIdAppend + "'>Play the game</a>");
+                            lastField.append("<a href='game.html?gameId=" + gameId + participantIdAppend + "' target='_blank' rel='noopener noreferrer'>Play the game</a>");
                         } else if (watchable == "true") {
                             var participantId = getUrlParam("participantId");
                             var participantIdAppend = "";
                             if (participantId != null)
                                 participantIdAppend = "&participantId=" + participantId;
 
-                            lastField.append("<a href='game.html?gameId=" + gameId + participantIdAppend + "'>Watch game</a>");
+                            lastField.append("<a href='game.html?gameId=" + gameId + participantIdAppend + "' target='_blank' rel='noopener noreferrer'>Watch game</a>");
                         }
                     } else if (status == "FINISHED") {
                         if (winner != null) {
