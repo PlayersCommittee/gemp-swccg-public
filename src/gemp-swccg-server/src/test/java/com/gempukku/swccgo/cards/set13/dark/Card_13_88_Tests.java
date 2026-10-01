@@ -85,26 +85,21 @@ public class Card_13_88_Tests {
 	}
 
 	@Test
-	public void TheEbbOfBattleActivateOneForcePlayableWithEmptyReserveActivationFails() {
+	public void TheEbbOfBattleActivateOneForceNotPlayableWithEmptyReserve() {
 		var scn = GetScenario();
 		var ebb = scn.GetDSCard("ebb");
 		scn.StartGame();
 		scn.MoveCardsToDSHand(ebb);
 
-		// Reach Control with a normal Activate first; then empty Reserve so ActivateForce will fail
 		scn.SkipToPhase(Phase.CONTROL);
-		while (scn.GetDSReserveDeckCount() > 0) {
-			scn.MoveCardsToTopOfDSLostPile(scn.GetTopOfDSReserveDeck());
+		int reserve = scn.GetDSReserveDeckCount();
+		if (reserve > 0) {
+			scn.DSActivateForceCheat(reserve);
 		}
 		assertEquals(0, scn.GetDSReserveDeckCount());
-		int forceBefore = scn.GetDSForcePileCount();
-
-		assertTrue(scn.DSCardPlayAvailable(ebb));
-		scn.DSPlayCard(ebb);
-		scn.PassAllResponses();
-
-		assertEquals(Zone.TOP_OF_USED_PILE, ebb.getZone());
-		assertEquals(forceBefore, scn.GetDSForcePileCount());
+		scn.SkipToPhase(Phase.DEPLOY);
+		assertFalse(scn.DSCardPlayAvailable(ebb, "Activate 1 Force"));
+		assertFalse(scn.DSCardPlayAvailable(ebb));
 	}
 
 	@Test
@@ -142,7 +137,7 @@ public class Card_13_88_Tests {
 		scn.LSForceDrainAt(dsSite);
 
 		// Cancel-from-combat-card action must not be available from hand
-		assertFalse(scn.DSCardPlayAvailable(ebb, "Reveal combat card"));
+		assertFalse(scn.DSCardPlayAvailable(ebb, "Reveal and lose combat card"));
 		assertFalse(scn.DSCardPlayAvailable(ebb, "Cancel Force drain"));
 		scn.PassForceDrainStartResponses();
 		scn.PassForceDrainEndResponses();
@@ -175,8 +170,8 @@ public class Card_13_88_Tests {
 		assertTrue(scn.LSForceDrainAvailable(dsSite));
 		scn.LSForceDrainAt(dsSite);
 
-		assertTrue(scn.DSCardPlayAvailable(ebb, "Reveal combat card"));
-		scn.DSPlayCard(ebb, "Reveal combat card");
+		assertTrue(scn.DSCardPlayAvailable(ebb, "Reveal and lose combat card"));
+		scn.DSPlayCard(ebb, "Reveal and lose combat card");
 		scn.PassAllResponses();
 
 		assertEquals(Zone.TOP_OF_LOST_PILE, ebb.getZone());
@@ -270,7 +265,7 @@ public class Card_13_88_Tests {
 		assertTrue(scn.LSForceDrainAvailable(dsSite));
 		scn.LSForceDrainAt(dsSite);
 
-		assertFalse(scn.DSCardPlayAvailable(ebb, "Reveal combat card"));
+		assertFalse(scn.DSCardPlayAvailable(ebb, "Reveal and lose combat card"));
 		scn.PassForceDrainStartResponses();
 		scn.PassForceDrainEndResponses();
 	}
@@ -298,7 +293,7 @@ public class Card_13_88_Tests {
 		scn.LSForceDrainAt(dsSite);
 
 		// Not under Dark Jedi — Action3 must not be available to either player
-		assertFalse(scn.DSCardPlayAvailable(ebb, "Reveal combat card"));
+		assertFalse(scn.DSCardPlayAvailable(ebb, "Reveal and lose combat card"));
 		// LS may not hold the current decision here; DS Action3 gate is the VHD check
 		if (scn.IsActiveForceDrain()) {
 			scn.PassForceDrainStartResponses();

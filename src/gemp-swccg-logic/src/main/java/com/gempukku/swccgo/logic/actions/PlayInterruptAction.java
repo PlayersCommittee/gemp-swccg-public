@@ -330,17 +330,22 @@ public class PlayInterruptAction extends AbstractPlayCardAction implements GameT
             if (!_removedFromZone) {
                 _removedFromZone = true;
 
-                // Put interrupt in void while it is being played
-                gameState.removeCardsFromZone(Collections.singleton(_cardToPlay));
-                gameState.addCardToZone(_cardToPlay, Zone.VOID, _cardToPlay.getOwner());
+                Zone currentZone = _cardToPlay.getZone();
+                boolean placedInLostPileAsCost = currentZone != _playedFromZone
+                        && (currentZone == Zone.LOST_PILE || currentZone == Zone.TOP_OF_LOST_PILE);
+                if (!placedInLostPileAsCost) {
+                    // Put interrupt in void while it is being played
+                    gameState.removeCardsFromZone(Collections.singleton(_cardToPlay));
+                    gameState.addCardToZone(_cardToPlay, Zone.VOID, _cardToPlay.getOwner());
 
-                // Shuffle card pile
-                if (_playedFromZone.isCardPile() && _playedAsSubtype != CardSubtype.STARTING) {
-                    if (_reshuffle) {
-                        return new ShufflePileEffect(this, null, getPerformingPlayer(), _playedFromZoneOwner, _playedFromZone, true);
-                    }
-                    else {
-                        return new TriggeringResultEffect(this, new RemovedFromCardPileResult(this));
+                    // Shuffle card pile
+                    if (_playedFromZone.isCardPile() && _playedAsSubtype != CardSubtype.STARTING) {
+                        if (_reshuffle) {
+                            return new ShufflePileEffect(this, null, getPerformingPlayer(), _playedFromZoneOwner, _playedFromZone, true);
+                        }
+                        else {
+                            return new TriggeringResultEffect(this, new RemovedFromCardPileResult(this));
+                        }
                     }
                 }
             }

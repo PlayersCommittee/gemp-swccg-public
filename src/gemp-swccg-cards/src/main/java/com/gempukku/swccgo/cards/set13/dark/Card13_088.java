@@ -3,7 +3,6 @@ package com.gempukku.swccgo.cards.set13.dark;
 import com.gempukku.swccgo.cards.AbstractUsedInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.CancelForceDrainEffect;
-import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
@@ -18,6 +17,7 @@ import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.ActivateForceEffect;
 import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
+import com.gempukku.swccgo.logic.effects.PutStackedCardInLostPileEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.ShowCardOnScreenEffect;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -49,12 +49,14 @@ public class Card13_088 extends AbstractUsedInterrupt {
     }
 
     /**
-     * Action 1: Activate 1 Force (from hand). Playable even if activation will fail (0 Reserve).
+     * Action 1: Activate 1 Force. Not playable while stacked face down (combat-card visit opt-in).
      */
     @Override
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
-        // Hand-only; combat-card mode is while-stacked only
-        if (self.getZone() != Zone.HAND) {
+        if (self.getZone() == Zone.STACKED_FACE_DOWN) {
+            return null;
+        }
+        if (!GameConditions.canActivateForce(game, playerId)) {
             return null;
         }
 
@@ -75,11 +77,11 @@ public class Card13_088 extends AbstractUsedInterrupt {
     }
 
     /**
-     * Action 2: Add 1 to your just-drawn duel destiny (from hand).
+     * Action 2: Add 1 to your just-drawn duel destiny. Not playable while stacked face down.
      */
     @Override
     protected List<PlayInterruptAction> getGameTextOptionalAfterActions(final String playerId, SwccgGame game, final EffectResult effectResult, final PhysicalCard self) {
-        if (self.getZone() != Zone.HAND) {
+        if (self.getZone() == Zone.STACKED_FACE_DOWN) {
             return null;
         }
 
@@ -124,14 +126,13 @@ public class Card13_088 extends AbstractUsedInterrupt {
         if (TriggerConditions.forceDrainInitiatedBy(game, effectResult, opponent)
                 && GameConditions.canCancelForceDrain(game, self)) {
 
-            // Play as Lost so this Used Interrupt is placed in Lost Pile per gametext
-            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
+            final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setImmuneTo(Title.Sense);
-            action.setText("Reveal combat card to cancel Force drain");
-            // Reveal to opponent, then cancel (placement in Lost Pile via Lost subtype play)
+            action.setText("Reveal and lose combat card to cancel Force drain");
             action.appendCost(
                     new ShowCardOnScreenEffect(action, self));
-            // Allow response(s)
+            action.appendCost(
+                    new PutStackedCardInLostPileEffect(action, playerId, self, false));
             action.allowResponses("Cancel Force drain",
                     new RespondablePlayCardEffect(action) {
                         @Override
@@ -141,8 +142,6 @@ public class Card13_088 extends AbstractUsedInterrupt {
                         }
                     }
             );
-            // setText/allowResponses reset subtype from blueprint for pure USED cards — re-apply last
-            action.setPlayedAsSubtype(CardSubtype.LOST);
             return Collections.singletonList(action);
         }
         return null;
