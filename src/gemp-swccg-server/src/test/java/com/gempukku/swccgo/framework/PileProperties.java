@@ -98,6 +98,12 @@ public interface PileProperties extends TestBase{
         return gameState().getForcePile(player);
     }
 
+    default int GetDSFrozenPileCount() { return GetFrozenPile(DS).size(); }
+    default int GetLSFrozenPileCount() { return GetFrozenPile(LS).size(); }
+    default List<? extends PhysicalCard> GetFrozenPile(String player) {
+        return gameState().getFrozenPile(player);
+    }
+
     /**
      * @return Gets the top card of the Dark Side player's Force Pile.
      */
