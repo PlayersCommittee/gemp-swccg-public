@@ -69,6 +69,14 @@ public interface ZoneManipulation extends TestBase{
     }
 
     /**
+     * Places a location using an explicit layout placement (left/right of a given site).
+     */
+    default void MoveLocationToTable(PhysicalCardImpl card, LocationPlacement placement) {
+        RemoveCardZone(card);
+        gameState().addLocationToTable(game(), card, placement);
+    }
+
+    /**
      * Moves one or more cards to a given location, on their owner's side of that location.  This is equivalent to
      * deploying to a location, except that no costs, requirements, or other rules will be respected.
      * This is unrelated to transporting a card during the Move phase.
@@ -498,6 +506,14 @@ public interface ZoneManipulation extends TestBase{
             RemoveCardZone(card);
             gameState().attachCard(card, bearer);
         });
+    }
+
+    /**
+     * Places a non-location card in the location row between two adjacent sites.
+     */
+    default void PlaceBetweenSites(PhysicalCardImpl leftSite, PhysicalCardImpl rightSite, PhysicalCardImpl card) {
+        RemoveCardZone(card);
+        gameState().addBetweenSiteCardToTable(card, leftSite, rightSite);
     }
 
     /**
