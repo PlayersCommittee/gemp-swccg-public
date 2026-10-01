@@ -444,13 +444,16 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
     protected Filter getValidDeployTargetFilter(String playerId, final SwccgGame game, final PhysicalCard self, PhysicalCard sourceCard, PlayCardOption playCardOption, boolean forFree, float changeInCost, DeploymentRestrictionsOption deploymentRestrictionsOption, DeployAsCaptiveOption deployAsCaptiveOption, ReactActionOption reactActionOption, boolean isSimDeployAttached, boolean ignorePresenceOrForceIcons) {
         Zone playToZone = playCardOption != null ? playCardOption.getZone() : null;
 
-        if (playToZone != null && playToZone != Zone.ATTACHED && playToZone != Zone.AT_LOCATION)
+        if (playToZone != null && playToZone != Zone.ATTACHED && playToZone != Zone.AT_LOCATION && playToZone != Zone.BETWEEN_SITES)
             return Filters.none;
 
         // Filter cards that this card is not prohibited from being at or deploying to
         Filter filter = Filters.and(Filters.not(Filters.holosite), Filters.notProhibitedFromTarget(self), Filters.notProhibitedFromDeployingTo(self, deploymentRestrictionsOption));
         if (playToZone == Zone.ATTACHED) {
             filter = Filters.and(filter, Filters.notProhibitedFromCarrying(self), Filters.canBeTargetedBy(self));
+        }
+        if (playToZone == Zone.BETWEEN_SITES) {
+            filter = Filters.and(filter, Filters.canBeTargetedBy(self));
         }
 
         // Filter locations to deploy as 'react' to
