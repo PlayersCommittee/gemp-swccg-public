@@ -455,16 +455,31 @@ public abstract class AbstractLocationLayout implements LocationLayout {
                 for (int j = 0; j < cardsInGroup.size(); ++j) {
                     if (Filters.sameCardId(cardsInGroup.get(j)).accepts(game, locationPlacement.getOtherCard())) {
                         if (locationPlacement.getDirection().isLeftOf()) {
-                            group.addLocation(j, cardToDeploy);
+                            group.addLocation(j, cardToDeploy, false);
                             return;
                         }
                         else if (locationPlacement.getDirection().isRightOf()) {
-                            group.addLocation(j + 1, cardToDeploy);
+                            group.addLocation(j + 1, cardToDeploy, true);
                             return;
                         }
                         else {
                             group.convertOrRebuildLocation(cardToDeploy, locationPlacement.getOtherCard());
                             return;
+                        }
+                    }
+                }
+                // Deploy next to a between-sites card in this group: treat the whole gap as the slot.
+                for (int g = 0; g < group.getBetweenGaps().size(); g++) {
+                    for (PhysicalCard gate : group.getBetweenGaps().get(g)) {
+                        if (Filters.sameCardId(gate).accepts(game, locationPlacement.getOtherCard())) {
+                            if (locationPlacement.getDirection().isLeftOf()) {
+                                group.addLocation(g + 1, cardToDeploy, true);
+                                return;
+                            }
+                            if (locationPlacement.getDirection().isRightOf()) {
+                                group.addLocation(g + 1, cardToDeploy, false);
+                                return;
+                            }
                         }
                     }
                 }
@@ -628,6 +643,9 @@ public abstract class AbstractLocationLayout implements LocationLayout {
                         return group;
                     }
                 }
+            }
+            if (group.containsBetweenSiteCard(card)) {
+                return group;
             }
         }
         return null;

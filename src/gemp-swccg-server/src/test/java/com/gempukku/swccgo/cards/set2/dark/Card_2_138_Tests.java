@@ -53,6 +53,7 @@ public class Card_2_138_Tests {
                     put("war-room", "1_287"); // Death Star: War Room
                     put("conference", "2_144"); // Death Star: Conference Room
                     put("ds-system", "2_143"); // Death Star system
+                    put("expand", "1_215"); // Expand The Empire (BETWEEN_SITES dummy)
                 }},
                 10,
                 10,
@@ -286,5 +287,39 @@ public class Card_2_138_Tests {
         assertTrue(Filters.Retract_The_Bridge.accepts(scn.game(), retract));
         assertTrue(Filters.title("On The Edge").accepts(scn.game(), onTheEdge));
         assertEquals(CardSubtype.LOST, retract.getBlueprint().getCardSubtype());
+    }
+
+    @Test
+    public void RetractTheBridgeKeepsBetweenSitesSlotInTheVisualRow() {
+        var scn = GetScenario();
+        var retract = scn.GetDSCard("retract");
+        var corridor = scn.GetDSCard("corridor");
+        var warRoom = scn.GetDSCard("war-room");
+        var expand = scn.GetDSCard("expand");
+
+        scn.StartGame();
+        putLocation(scn, corridor);
+        putLocation(scn, warRoom);
+        scn.PlaceBetweenSites(corridor, warRoom, expand);
+
+        assertEquals(Zone.BETWEEN_SITES, expand.getZone());
+        prepareDeployWithForce(scn, retract);
+
+        List<PhysicalCard> interiors = interiorTops(scn);
+        assertEquals(2, interiors.size());
+        PhysicalCardImpl a = (PhysicalCardImpl) interiors.get(0);
+        PhysicalCardImpl b = (PhysicalCardImpl) interiors.get(1);
+        playRearrangeAndChooseOrder(scn, retract, b, a);
+
+        assertEquals(Arrays.asList(b, a), interiorTops(scn));
+        assertEquals(Zone.BETWEEN_SITES, expand.getZone());
+        PhysicalCard left = scn.gameState().getBetweenSiteLeft(expand);
+        PhysicalCard right = scn.gameState().getBetweenSiteRight(expand);
+        assertTrue((left == a && right == b) || (left == b && right == a));
+        List<PhysicalCard> visual = scn.gameState().getVisualRowCardsInOrder();
+        int gateIdx = visual.indexOf(expand);
+        assertTrue(gateIdx > visual.indexOf(left));
+        assertTrue(gateIdx < visual.indexOf(right));
+        assertInLostPile(retract);
     }
 }

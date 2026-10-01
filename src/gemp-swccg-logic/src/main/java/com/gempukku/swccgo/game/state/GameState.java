@@ -469,6 +469,11 @@ public class GameState implements Snapshotable<GameState> {
                 }
             }
         }
+        for (PhysicalCard gate : group.getAllBetweenSiteCards()) {
+            for (GameStateListener listener : getAllGameStateListeners()) {
+                listener.cardMoved(gate, this);
+            }
+        }
     }
 
     /**
@@ -686,9 +691,9 @@ public class GameState implements Snapshotable<GameState> {
             Set<PhysicalCard> cardsLeftToSent = new LinkedHashSet<PhysicalCard>(_inPlay);
             Set<PhysicalCard> sentCardsFromPlay = new HashSet<PhysicalCard>();
 
-            // Send locations in order
-            List<PhysicalCard> topLocations = getLocationsInOrder();
-            for (PhysicalCard location : topLocations)
+            // Send location-row columns in visual order (sites and between-sites cards)
+            List<PhysicalCard> visualRow = getVisualRowCardsInOrder();
+            for (PhysicalCard location : visualRow)
                 listener.cardCreated(location, this, restoreSnapshot);
 
             // Send remaining cards in play
@@ -698,7 +703,7 @@ public class GameState implements Snapshotable<GameState> {
                 Iterator<PhysicalCard> cardIterator = cardsLeftToSent.iterator();
                 while (cardIterator.hasNext()) {
                     PhysicalCard physicalCard = cardIterator.next();
-                    if (physicalCard.getZone()!=Zone.LOCATIONS) {
+                    if (physicalCard.getZone()!=Zone.LOCATIONS && physicalCard.getZone()!=Zone.BETWEEN_SITES) {
                         PhysicalCard attachedTo = physicalCard.getAttachedTo();
                         if (attachedTo == null || attachedTo.getZone()==Zone.LOCATIONS || sentCardsFromPlay.contains(attachedTo)) {
                             listener.cardCreated(physicalCard, this, restoreSnapshot);
@@ -1564,6 +1569,11 @@ public class GameState implements Snapshotable<GameState> {
             else if (zone == Zone.CONVERTED_LOCATIONS) {
                 _locationsLayout.removeLocationFromLayout(_game, _game.getModifiersQuerying(), card, false);
             }
+            else if (zone == Zone.BETWEEN_SITES) {
+                _locationsLayout.removeBetweenSiteCard(card);
+                locationIndexesToRemove.add(card.getLocationZoneIndex());
+                needToRefreshLocationIndexes = true;
+            }
 
             // Special case for "top of pile" card
             if (!zoneCards.isEmpty() &&
@@ -1586,6 +1596,22 @@ public class GameState implements Snapshotable<GameState> {
         }
 
         if (needToRefreshLocationIndexes) {
+            List<PhysicalCard> orphans = new ArrayList<PhysicalCard>();
+            for (PhysicalCard inPlay : new ArrayList<PhysicalCard>(_inPlay)) {
+                if (inPlay.getZone() == Zone.BETWEEN_SITES) {
+                    LocationGroup containing = _locationsLayout.findGroupContaining(inPlay);
+                    if (containing == null || !containing.containsBetweenSiteCard(inPlay)) {
+                        orphans.add(inPlay);
+                    }
+                }
+            }
+            for (PhysicalCard orphan : orphans) {
+                stopAffecting(orphan);
+                getZoneCards(orphan.getZoneOwner(), Zone.BETWEEN_SITES).remove(orphan);
+                cardsToRemove.add(orphan);
+                locationIndexesToRemove.add(orphan.getLocationZoneIndex());
+                clearCardStats(orphan);
+            }
             _locationsLayout.refreshLocationIndexes();
         }
         removeLocationIndexesFromTable(locationIndexesToRemove);
@@ -1993,6 +2019,76 @@ public class GameState implements Snapshotable<GameState> {
             }
         }
         return null;
+    }
+
+    public List<PhysicalCard> getVisualRowCardsInOrder() {
+        return _locationsLayout.getVisualRowCardsInOrder();
+    }
+
+    public PhysicalCard getBetweenSiteLeft(PhysicalCard card) {
+        LocationGroup group = _locationsLayout.findGroupContaining(card);
+        if (group == null) {
+            return null;
+        }
+        return group.getLeftSiteOfBetweenCard(card);
+    }
+
+    public PhysicalCard getBetweenSiteRight(PhysicalCard card) {
+        LocationGroup group = _locationsLayout.findGroupContaining(card);
+        if (group == null) {
+            return null;
+        }
+        return group.getRightSiteOfBetweenCard(card);
+    }
+
+    /**
+     * Between-sites cards in visual columns strictly between fromSite and toSite.
+     */
+    public List<PhysicalCard> getBetweenSiteCardsCrossed(PhysicalCard fromSite, PhysicalCard toSite) {
+        List<PhysicalCard> crossed = new ArrayList<PhysicalCard>();
+        if (fromSite == null || toSite == null) {
+            return crossed;
+        }
+        List<PhysicalCard> visual = getVisualRowCardsInOrder();
+        int i1 = -1;
+        int i2 = -1;
+        for (int i = 0; i < visual.size(); i++) {
+            if (visual.get(i).getCardId() == fromSite.getCardId()) {
+                i1 = i;
+            }
+            if (visual.get(i).getCardId() == toSite.getCardId()) {
+                i2 = i;
+            }
+        }
+        if (i1 < 0 || i2 < 0) {
+            return crossed;
+        }
+        int lo = Math.min(i1, i2);
+        int hi = Math.max(i1, i2);
+        for (int i = lo + 1; i < hi; i++) {
+            PhysicalCard card = visual.get(i);
+            if (card.getZone() == Zone.BETWEEN_SITES) {
+                crossed.add(card);
+            }
+        }
+        return crossed;
+    }
+
+    /**
+     * Places a non-location card in the location row between two adjacent sites.
+     */
+    public void addBetweenSiteCardToTable(PhysicalCard card, PhysicalCard site1, PhysicalCard site2) {
+        LocationGroup group = _locationsLayout.findGroupContaining(site1);
+        if (group == null || _locationsLayout.findGroupContaining(site2) != group) {
+            throw new UnsupportedOperationException(GameUtils.getFullName(card) + " needs two sites in the same location group");
+        }
+        PhysicalCard left = leftSite(site1, site2);
+        PhysicalCard right = (left.getCardId() == site1.getCardId()) ? site2 : site1;
+        if (!group.addBetweenSiteCard(left, right, card)) {
+            throw new UnsupportedOperationException(GameUtils.getFullName(card) + " sites are not adjacent");
+        }
+        _locationsLayout.refreshLocationIndexes();
+        addCardToZone(card, Zone.BETWEEN_SITES, card.getOwner());
     }
 
     /**

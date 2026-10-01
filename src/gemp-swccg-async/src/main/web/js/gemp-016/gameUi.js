@@ -3309,7 +3309,7 @@ var GempSwccgGameUI = Class.extend({
         this.opponentInDuelOrLightsaberCombatGroups.splice(index, 0, newGrp3);
 
         var newGrp4 = new TableCardGroup($("#main"), function (card) {
-            return (card.zone == "LOCATIONS" && card.locationIndex == this.locationIndex);
+            return ((card.zone == "LOCATIONS" || card.zone == "BETWEEN_SITES") && card.locationIndex == this.locationIndex);
         }, false, index, this.bottomPlayerId);
         this.locationCardGroups.splice(index, 0, newGrp4);
 
