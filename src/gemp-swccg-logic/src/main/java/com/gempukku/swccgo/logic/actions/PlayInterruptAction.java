@@ -61,6 +61,18 @@ public class PlayInterruptAction extends AbstractPlayCardAction implements GameT
      * Creates an action that plays an Interrupt.
      * @param game the game
      * @param card the Interrupt card
+     * @param removedFromZoneBecauseMovedToPileAsCost true if the card is moved to a pile as part of its cost
+     *        (to prevent being relocated to the void during play)
+     */
+    public PlayInterruptAction(SwccgGame game, PhysicalCard card, boolean removedFromZoneBecauseMovedToPileAsCost) {
+        this(game, card);
+        setRemovedFromZone(removedFromZoneBecauseMovedToPileAsCost);
+    }
+
+    /**
+     * Creates an action that plays an Interrupt.
+     * @param game the game
+     * @param card the Interrupt card
      * @param gameTextActionId the identifier for the card's specific action to check the limit of
      */
     public PlayInterruptAction(SwccgGame game, PhysicalCard card, GameTextActionId gameTextActionId) {
@@ -121,6 +133,16 @@ public class PlayInterruptAction extends AbstractPlayCardAction implements GameT
      */
     public CardSubtype getPlayedAsSubtype() {
         return _playedAsSubtype;
+    }
+
+    /**
+     * Marks that this Interrupt was already moved to a pile as part of paying costs
+     * (for example place in Lost Pile). When true, play resolution must not relocate
+     * the card through VOID.
+     * @param removedFromZone true if the card was already removed from its play zone as a cost
+     */
+    public void setRemovedFromZone(boolean removedFromZone) {
+        _removedFromZone = removedFromZone;
     }
 
     /**
@@ -330,22 +352,17 @@ public class PlayInterruptAction extends AbstractPlayCardAction implements GameT
             if (!_removedFromZone) {
                 _removedFromZone = true;
 
-                Zone currentZone = _cardToPlay.getZone();
-                boolean placedInLostPileAsCost = currentZone != _playedFromZone
-                        && (currentZone == Zone.LOST_PILE || currentZone == Zone.TOP_OF_LOST_PILE);
-                if (!placedInLostPileAsCost) {
-                    // Put interrupt in void while it is being played
-                    gameState.removeCardsFromZone(Collections.singleton(_cardToPlay));
-                    gameState.addCardToZone(_cardToPlay, Zone.VOID, _cardToPlay.getOwner());
+                // Put interrupt in void while it is being played
+                gameState.removeCardsFromZone(Collections.singleton(_cardToPlay));
+                gameState.addCardToZone(_cardToPlay, Zone.VOID, _cardToPlay.getOwner());
 
-                    // Shuffle card pile
-                    if (_playedFromZone.isCardPile() && _playedAsSubtype != CardSubtype.STARTING) {
-                        if (_reshuffle) {
-                            return new ShufflePileEffect(this, null, getPerformingPlayer(), _playedFromZoneOwner, _playedFromZone, true);
-                        }
-                        else {
-                            return new TriggeringResultEffect(this, new RemovedFromCardPileResult(this));
-                        }
+                // Shuffle card pile
+                if (_playedFromZone.isCardPile() && _playedAsSubtype != CardSubtype.STARTING) {
+                    if (_reshuffle) {
+                        return new ShufflePileEffect(this, null, getPerformingPlayer(), _playedFromZoneOwner, _playedFromZone, true);
+                    }
+                    else {
+                        return new TriggeringResultEffect(this, new RemovedFromCardPileResult(this));
                     }
                 }
             }

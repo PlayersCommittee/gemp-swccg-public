@@ -129,6 +129,8 @@ public class Card13_088 extends AbstractUsedInterrupt {
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setImmuneTo(Title.Sense);
             action.setText("Reveal and lose combat card to cancel Force drain");
+            // Cost moves this card to Lost Pile; skip VOID relocation during play resolution
+            action.setRemovedFromZone(true);
             action.appendCost(
                     new ShowCardOnScreenEffect(action, self));
             action.appendCost(
