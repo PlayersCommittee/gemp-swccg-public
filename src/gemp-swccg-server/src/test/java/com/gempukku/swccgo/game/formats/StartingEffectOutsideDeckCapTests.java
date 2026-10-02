@@ -58,7 +58,7 @@ public class StartingEffectOutsideDeckCapTests {
             openFormat.validateDeck(deck);
             fail("Expected DeckInvalidException for original SE with 11 shields");
         } catch (DeckInvalidException e) {
-            assertTrue(e.getMessage().contains("More Defensive Shields in outside of deck area than what Starting Effect Allows"));
+            assertTrue(e.getMessage().contains("More defensive shields in outside of deck area than what starting effect allows"));
         }
     }
 
@@ -69,7 +69,7 @@ public class StartingEffectOutsideDeckCapTests {
             openFormat.validateDeck(deck);
             fail("Expected DeckInvalidException for original SE with 11 shields");
         } catch (DeckInvalidException e) {
-            assertTrue(e.getMessage().contains("More Defensive Shields in outside of deck area than what Starting Effect Allows"));
+            assertTrue(e.getMessage().contains("More defensive shields in outside of deck area than what starting effect allows"));
         }
     }
 
@@ -100,7 +100,7 @@ public class StartingEffectOutsideDeckCapTests {
             legacyFormat.validateDeck(deck);
             fail("Expected DeckInvalidException for Legacy SE with 16 shields");
         } catch (DeckInvalidException e) {
-            assertTrue(e.getMessage().contains("More Defensive Shields in outside of deck area than what Starting Effect Allows"));
+            assertTrue(e.getMessage().contains("More defensive shields in outside of deck area than what starting effect allows"));
         }
     }
 
@@ -116,7 +116,7 @@ public class StartingEffectOutsideDeckCapTests {
             legacyFormat.validateDeck(deck);
             fail("Expected DeckInvalidException for Legacy SE with 16 shields");
         } catch (DeckInvalidException e) {
-            assertTrue(e.getMessage().contains("More Defensive Shields in outside of deck area than what Starting Effect Allows"));
+            assertTrue(e.getMessage().contains("More defensive shields in outside of deck area than what starting effect allows"));
         }
     }
 
