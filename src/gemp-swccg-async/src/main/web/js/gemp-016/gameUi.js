@@ -2941,6 +2941,52 @@ var GempSwccgGameUI = Class.extend({
         }
     },
 
+    createExamineContextMenu: function (event, card) {
+        var that = this;
+
+        // Remove context menus that may be showing
+        $(".contextMenu").remove();
+
+        var div = $("<ul class='contextMenu'></ul>");
+        div.append("<li><a href='#examine'>Examine</a></li>");
+
+        $("#main").append(div);
+
+        var contextMenuWidth = 250;
+        var x = event.pageX;
+        var y = event.pageY;
+        if ((x + contextMenuWidth) > this.windowWidth) {
+            x = event.pageX - contextMenuWidth;
+        }
+        $(div).css({ left: x, top: y }).fadeIn(150);
+
+        $(div).find('A').mouseover(
+            function () {
+                $(div).find('LI.hover').removeClass('hover');
+                $(this).parent().addClass('hover');
+            }).mouseout(function () {
+                $(div).find('LI.hover').removeClass('hover');
+            });
+
+        var getRidOfContextMenu = function () {
+            $(div).remove();
+            $(document).unbind("click", getRidOfContextMenu);
+            return false;
+        };
+
+        $(div).find('A').unbind('click');
+        $(div).find('LI:not(.disabled) A').click(function () {
+            $(document).unbind('click', getRidOfContextMenu);
+            $(".contextMenu").remove();
+            that.displayCardInfo(card);
+            return false;
+        });
+
+        setTimeout(function () { // Delay for Mozilla
+            $(document).click(getRidOfContextMenu);
+        }, 0);
+    },
+
     createActionChoiceContextMenu: function (actions, event, selectActionFunction, card) {
         var that = this;
 
