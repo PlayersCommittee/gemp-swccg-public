@@ -1767,6 +1767,7 @@ public class GameConditions {
         if (battleState == null)
             return false;
 
+        // Includes destinies that were later canceled or canceled just-drawn (AR / #970).
         return battleState.getNumBattleDestinyDrawn(playerId) > number;
     }
 
@@ -5069,7 +5070,8 @@ public class GameConditions {
         if (battleState == null)
             return false;
 
-        if (battleState.getNumBattleDestinyDrawn(game.getOpponent(playerId)) == 0)
+        // Attrition exists only when opponent still has uncanceled battle destiny (AR).
+        if (battleState.getNumUncanceledBattleDestinyDrawn(game.getOpponent(playerId)) == 0)
             return false;
 
         if (battleState.isReachedDamageSegment())
