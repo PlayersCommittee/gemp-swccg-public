@@ -19,7 +19,7 @@ public interface ModifiersQuerying extends BaseQuery, Ability, Armor, Attacks, A
         Cards, CardTraits, Defense, Deploy, Destiny, Duels, EpicEvents, Flags, Force, ForceDrains, Forfeit, GameText,
         Hyperspeed, Icons, JediTests, Keywords, Landspeed, Limits, Locations, Maneuver, MovementCosts, MovementRestrictions,
         Piles, Piloting, Podracing, Politics, Power, Presence, Prohibited, Reacts, Sabacc, Ferocity, LocationControl,
-        Targeting, Values, Weapons,
+        Targeting, Values, Weapons, MayDeploy,
         ModifiersState {
 
 }
