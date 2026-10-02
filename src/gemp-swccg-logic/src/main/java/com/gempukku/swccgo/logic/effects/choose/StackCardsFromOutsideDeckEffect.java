@@ -150,9 +150,7 @@ public class StackCardsFromOutsideDeckEffect extends AbstractSubActionEffect {
                         new PassthruEffect(subAction) {
                             @Override
                             protected void doPlayEffect(SwccgGame game) {
-                                gameState.sendMessage("Illegal deck: " + _playerId + " has more than "
-                                        + _max + " matching cards outside of deck for "
-                                        + GameUtils.getCardLink(_stackOn) + "; cards were not stacked.");
+                                gameState.sendMessage("Invalid deck.  More Defensive Shields in outside of deck area than what Starting Effect Allows.");
                             }
                         }
                 );

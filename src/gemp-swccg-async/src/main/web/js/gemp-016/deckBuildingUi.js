@@ -732,7 +732,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
                 alert("Deck was saved");
             }, {
                 "400":function () {
-                    alert("Invalid deck (check Starting Effect outside-deck Defensive Shield cap / deck format).");
+                    alert("Invalid deck.  More Defensive Shields in outside of deck area than what Starting Effect Allows.");
                 }
             });
     },

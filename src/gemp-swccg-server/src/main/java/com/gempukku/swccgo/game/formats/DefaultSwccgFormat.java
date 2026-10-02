@@ -279,10 +279,7 @@ public class DefaultSwccgFormat implements SwccgFormat {
                 defensiveShieldCount++;
         }
         if (defensiveShieldCount > ORIGINAL_STARTING_EFFECT_MAX_OUTSIDE_DECK_SHIELDS) {
-            throw new DeckInvalidException("Starting Effect allows up to "
-                    + ORIGINAL_STARTING_EFFECT_MAX_OUTSIDE_DECK_SHIELDS
-                    + " Defensive Shields from outside your deck; deck has "
-                    + defensiveShieldCount);
+            throw new DeckInvalidException("Invalid deck.  More Defensive Shields in outside of deck area than what Starting Effect Allows.");
         }
     }
 

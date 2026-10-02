@@ -50,8 +50,7 @@ public class StartingEffectOutsideDeckCapTests {
             openFormat.validateDeck(deck);
             fail("Expected DeckInvalidException for original SE with 11 shields");
         } catch (DeckInvalidException e) {
-            assertTrue(e.getMessage().contains("up to 10 Defensive Shields"));
-            assertTrue(e.getMessage().contains("11"));
+            assertTrue(e.getMessage().contains("More Defensive Shields in outside of deck area than what Starting Effect Allows"));
         }
     }
 
@@ -62,7 +61,7 @@ public class StartingEffectOutsideDeckCapTests {
             openFormat.validateDeck(deck);
             fail("Expected DeckInvalidException for original SE with 11 shields");
         } catch (DeckInvalidException e) {
-            assertTrue(e.getMessage().contains("up to 10 Defensive Shields"));
+            assertTrue(e.getMessage().contains("More Defensive Shields in outside of deck area than what Starting Effect Allows"));
         }
     }
 
