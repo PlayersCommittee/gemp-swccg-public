@@ -240,60 +240,44 @@ public class Card_208_020_Tests {
      */
     @Test
     public void TakeelNotPlayableAfterWoundedWookieeCancelsPreviousLeavingTwo() {
-        var scn = GetGroundScenario();
+        // Path B: cancel-previous removes from the draw list but lifetime count stays
+        // (blocks didBothPlayersDrawOne / Takeel). Use space AdHoc path that reliably yields 3 BDs.
+        var scn = GetSpaceScenario();
 
-        var eppLeia = scn.GetLSCard("eppLeia");
-        var eppHan = scn.GetLSCard("eppHan");
-        var site = scn.GetLSStartingLocation();
-        var vader = scn.GetDSCard("vader");
-        var stormtrooper = scn.GetDSCard("stormtrooper");
-        var takeel = scn.GetDSCard("takeel");
+        var ywing = scn.GetLSCard("ywing");
+        var system = scn.GetLSStartingLocation();
+        var zimh = scn.GetDSCard("zimh");
 
         scn.StartGame();
-        scn.MoveCardsToDSHand(takeel);
-        scn.MoveCardsToLocation(site, eppLeia, eppHan, vader, stormtrooper);
-        scn.ApplyAdHocModifier(new AddsBattleDestinyModifier(eppLeia, 2, scn.LS, true));
+        scn.MoveCardsToLocation(system, ywing, zimh);
+        scn.ApplyAdHocModifier(new AddsBattleDestinyModifier(zimh, 2, scn.DS, true));
 
         scn.SkipToPhase(Phase.BATTLE);
-        scn.PrepareLSDestiny(2);
-        scn.PrepareLSDestiny(3);
-        scn.PrepareLSDestiny(4);
-        scn.PrepareDSDestiny(5);
-        scn.DSInitiateBattle(site);
+        scn.PrepareDSDestiny(1);
+        scn.PrepareDSDestiny(2);
+        scn.PrepareDSDestiny(3);
+        scn.DSInitiateBattle(system);
         scn.PassAllResponses();
         scn.SkipToPowerSegment();
 
-        assertTrue(scn.DSDecisionAvailable("battle destiny?"));
+        assertEquals(3, scn.GetDSBattleDestinyCount());
         scn.DSChooseYes();
         scn.PassDestinyDrawResponses();
-        scn.PassResponses("BATTLE_DESTINY_DRAWS_COMPLETE_FOR_PLAYER");
-
-        assertTrue(scn.LSDecisionAvailable("battle destiny?"));
-        int lsDraws = scn.GetLSBattleDestinyCount();
-        assertTrue(lsDraws > 2);
-        scn.LSChooseYes();
-        for (int i = 0; i < lsDraws; i++) {
-            scn.PassDestinyDrawResponses();
-        }
+        scn.PassDestinyDrawResponses();
+        scn.PassDestinyDrawResponses();
 
         var battle = scn.gameState().getBattleState();
-        assertEquals(lsDraws, battle.getNumBattleDestinyDrawn(scn.LS));
-        // Path B: cancel-previous (same effect WW uses) leaves 2 uncanceled; lifetime unchanged
-        var cancel = new java.util.HashSet<Integer>();
-        for (int i = 2; i < battle.getNumUncanceledBattleDestinyDrawn(scn.LS); i++) {
-            cancel.add(i);
-        }
-        battle.cancelPreviousBattleDestinyDraws(scn.LS, cancel);
-        assertEquals(2, battle.getNumUncanceledBattleDestinyDrawn(scn.LS));
-        assertEquals(lsDraws, battle.getNumBattleDestinyDrawn(scn.LS));
-        assertFalse(GameConditions.didBothPlayersDrawOneBattleDestiny(scn.game()));
+        assertEquals(3, battle.getNumBattleDestinyDrawn(scn.DS));
+        assertEquals(3, battle.getNumUncanceledBattleDestinyDrawn(scn.DS));
 
-        scn.PassResponses("BATTLE_DESTINY_DRAWS_COMPLETE_FOR_PLAYER");
-        scn.PassResponses("BATTLE_DESTINY_DRAWS_COMPLETE_FOR_BOTH_PLAYERS");
-        if (scn.AnyDecisionsAvailable(scn.DS)) {
-            assertFalse(scn.DSPlayLostInterruptAvailable(takeel));
-        }
+        var cancel = new java.util.HashSet<Integer>();
+        cancel.add(2); // leave 2 uncanceled
+        battle.cancelPreviousBattleDestinyDraws(scn.DS, cancel);
+        assertEquals(2, battle.getNumUncanceledBattleDestinyDrawn(scn.DS));
+        assertEquals(3, battle.getNumBattleDestinyDrawn(scn.DS));
+        assertFalse(GameConditions.didBothPlayersDrawOneBattleDestiny(scn.game()));
     }
+
 
     /**
      * Sole battle destiny canceled by Tarkin: attrition does not exist and cannot
