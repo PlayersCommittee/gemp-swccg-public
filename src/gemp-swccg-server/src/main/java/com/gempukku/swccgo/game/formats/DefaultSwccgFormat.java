@@ -242,6 +242,73 @@ public class DefaultSwccgFormat implements SwccgFormat {
         return false;
     }
 
+
+    /**
+     * Outside-of-deck Defensive Shield caps by Starting Effect class:
+     * <ul>
+     *   <li>Originals An Unusual Amount Of Fear / Fear Is My Ally (13_5 / 13_69): max 10</li>
+     *   <li>Legacy Virtual Anger, Fear, Aggression (V) / Knowledge And Defense (V)
+     *       (601_39 / 601_1, or those titles when Legacy / set 601): max 15</li>
+     *   <li>Modern Virtual Anger, Fear, Aggression (V) / Knowledge And Defense (V)
+     *       (200_35 / 200_110): uncapped (any number)</li>
+     * </ul>
+     * Enforced on validate and on table create/join so the in-game pick-subset UI cannot be
+     * used to switch shield subsets tournament-to-tournament.
+     */
+    public static final int ORIGINAL_STARTING_EFFECT_MAX_OUTSIDE_DECK_SHIELDS = 10;
+    public static final int LEGACY_STARTING_EFFECT_MAX_OUTSIDE_DECK_SHIELDS = 15;
+
+    /**
+     * Fails if the deck uses a capped Starting Effect with more OOD Defensive Shields than
+     * that Starting Effect allows (originals 10, Legacy Virtual 15). Modern Virtual any-number
+     * SEs (200_35 / 200_110) are intentionally uncapped.
+     */
+    public static void validateOriginalStartingEffectOutsideDeckShieldCap(SwccgCardBlueprintLibrary library, SwccgDeck deck) throws DeckInvalidException {
+        int maxOutsideDeckShields = -1; // -1 = uncapped
+        for (String blueprintId : deck.getCards()) {
+            SwccgCardBlueprint card = library.getSwccgoCardBlueprint(blueprintId);
+            if (card == null)
+                continue;
+            if (card.getCardCategory() == CardCategory.EFFECT && card.getCardSubtype() == CardSubtype.STARTING) {
+                String title = card.getTitle();
+                // Normalize deck blueprint ids (strip * / path suffixes) for Legacy set-prefix checks
+                String baseBlueprintId = blueprintId;
+                int slash = baseBlueprintId.indexOf('/');
+                if (slash >= 0)
+                    baseBlueprintId = baseBlueprintId.substring(0, slash);
+                int star = baseBlueprintId.indexOf('*');
+                if (star >= 0)
+                    baseBlueprintId = baseBlueprintId.substring(0, star);
+
+                boolean legacyById = baseBlueprintId.startsWith("601_")
+                        || "601_39".equals(baseBlueprintId) || "601_1".equals(baseBlueprintId);
+                boolean legacyByMeta = card.isLegacy() || card.getExpansionSet() == ExpansionSet.LEGACY;
+                boolean isLegacyVirtualSE = (legacyById || legacyByMeta)
+                        && (Title.Anger_Fear_Aggression.equals(title) || "Knowledge And Defense".equals(title));
+
+                if (Title.An_Unusual_Amount_Of_Fear.equals(title) || Title.Fear_Is_My_Ally.equals(title)) {
+                    maxOutsideDeckShields = Math.max(maxOutsideDeckShields, ORIGINAL_STARTING_EFFECT_MAX_OUTSIDE_DECK_SHIELDS);
+                }
+                else if (isLegacyVirtualSE) {
+                    maxOutsideDeckShields = Math.max(maxOutsideDeckShields, LEGACY_STARTING_EFFECT_MAX_OUTSIDE_DECK_SHIELDS);
+                }
+                // modern Virtual 200_35 / 200_110: leave uncapped
+            }
+        }
+        if (maxOutsideDeckShields < 0)
+            return;
+
+        int defensiveShieldCount = 0;
+        for (String blueprintId : deck.getCardsOutsideDeck()) {
+            SwccgCardBlueprint card = library.getSwccgoCardBlueprint(blueprintId);
+            if (card != null && card.getCardCategory() == CardCategory.DEFENSIVE_SHIELD)
+                defensiveShieldCount++;
+        }
+        if (defensiveShieldCount > maxOutsideDeckShields) {
+            throw new DeckInvalidException("Invalid deck.  More defensive shields in outside of deck area than what starting effect allows.");
+        }
+    }
+
     @Override
     public void validateDeck(SwccgDeck deck) throws DeckInvalidException {
         try {
@@ -319,6 +386,8 @@ public class DefaultSwccgFormat implements SwccgFormat {
 
             if (deck.getCardsOutsideDeck().size() > 50)
                 throw new DeckInvalidException("Deck specifies more than 50 cards as 'outside of deck'");
+
+            validateOriginalStartingEffectOutsideDeckShieldCap(_library, deck);
 
             // Verify that all cards are valid
             for (String card : deck.getCards())
