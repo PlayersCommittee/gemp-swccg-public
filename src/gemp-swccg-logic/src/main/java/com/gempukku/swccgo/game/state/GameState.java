@@ -2738,6 +2738,19 @@ public class GameState implements Snapshotable<GameState> {
             }
         }
 
+        // Thin hook: face-down stacked cards (and stacked Interrupts) that may play/deploy as if from hand
+        // (Cyborg Construct / same MayDeployAsIfFromHandModifier flag). Owner only; opponent does not see titles.
+        for (PhysicalCard physicalCard : getAllStackedCards()) {
+            if (physicalCard.getOwner().equals(playerId)
+                    && _game.getModifiersQuerying().mayDeployAsIfFromHand(this, physicalCard)
+                    && (physicalCard.getZone() == Zone.STACKED_FACE_DOWN
+                        || (physicalCard.getZone() == Zone.STACKED
+                            && physicalCard.getBlueprint().getCardCategory() == CardCategory.INTERRUPT))) {
+                if (physicalCardVisitor.visitPhysicalCard(physicalCard))
+                    return true;
+            }
+        }
+
         return false;
     }
 
