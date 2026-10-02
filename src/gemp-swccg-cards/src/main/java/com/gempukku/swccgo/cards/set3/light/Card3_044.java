@@ -22,7 +22,7 @@ import com.gempukku.swccgo.logic.effects.AddUntilEndOfPlayersNextTurnModifierEff
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.ReturnCardsToHandFromTableSimultaneouslyEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
-import com.gempukku.swccgo.logic.modifiers.DeploysFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployFreeModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.PlayCardResult;
@@ -79,7 +79,7 @@ public class Card3_044 extends AbstractLostInterrupt {
                             for (PhysicalCard cardReturned : cardsToReturn) {
                                 action.appendEffect(
                                         new AddUntilEndOfPlayersNextTurnModifierEffect(action, opponent,
-                                                new DeploysFreeModifier(self, Filters.sameTitle(cardReturned),
+                                                new MayDeployFreeModifier(self, Filters.sameTitle(cardReturned),
                                                         new AndCondition(new PlayersNextTurnCondition(opponent, game), new CardTitleNotPlayedThisTurnCondition(cardReturned))), null));
                             }
                         }
