@@ -5,6 +5,7 @@ import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgCardBlueprint;
+import com.gempukku.swccgo.game.state.GameState;
 
 import java.util.*;
 
@@ -323,5 +324,54 @@ public class GameUtils {
             zone = Zone.UNRESOLVED_DESTINY_DRAW;
 
         return zone;
+    }
+
+    /**
+     * Per AR "Looking At A Deck, Pile, Or Stack": if YOUR card is stacked face-down on (or under)
+     * another of YOUR cards (or any location), you may examine it unless a card/rule prohibits.
+     * Hatred cards: AR special exception — owners may examine their face-down Hatred cards at any time.
+     * Not a game action; does not reveal identity to opponent/spectators.
+     *
+     * @param gameState the game state (reserved for future prohibition checks; may be null)
+     * @param viewerId the player who would examine the card
+     * @param card the stacked card
+     * @return true if viewerId may examine the face-down stacked card
+     */
+    public static boolean canExamineFaceDownStackedCard(GameState gameState, String viewerId, PhysicalCard card) {
+        if (viewerId == null || card == null) {
+            return false;
+        }
+        if (card.getZone() != Zone.STACKED_FACE_DOWN) {
+            return false;
+        }
+        if (!viewerId.equals(card.getOwner())) {
+            return false;
+        }
+
+        PhysicalCard stackedOn = card.getStackedOn();
+        if (stackedOn == null) {
+            return false;
+        }
+
+        // AR Hatred exception: owner may peek at their face-down Hatred cards at any time
+        if (card.isHatredCard()) {
+            return true;
+        }
+
+        // Known AR prohibitions (stacked under these Effects even when ownership would otherwise allow)
+        String stackedOnTitle = stackedOn.getTitle();
+        if (Title.Insignificant_Rebellion.equals(stackedOnTitle)
+                || Title.I_Feel_The_Conflict.equals(stackedOnTitle)) {
+            return false;
+        }
+
+        // Stacked on any location
+        if (stackedOn.getBlueprint() != null
+                && stackedOn.getBlueprint().getCardCategory() == CardCategory.LOCATION) {
+            return true;
+        }
+
+        // Stacked on (or under) another of the viewer's cards
+        return viewerId.equals(stackedOn.getOwner());
     }
 }

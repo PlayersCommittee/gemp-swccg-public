@@ -319,6 +319,10 @@ public class SwccgGameMediator {
 
             boolean visible = cardZone.isPublic()
                     || (player.getName().equals(card.getOwner()) && cardZone.isVisibleByOwner());
+            // Face-down stacked: only examinable owners get card-info content (AR); do not leak identity to others
+            if (cardZone == Zone.STACKED_FACE_DOWN) {
+                visible = GameUtils.canExamineFaceDownStackedCard(gameState, player.getName(), card);
+            }
             if (!visible) {
                 return sb.toString();
             }

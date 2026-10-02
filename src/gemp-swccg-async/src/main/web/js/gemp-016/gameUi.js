@@ -1292,7 +1292,15 @@ var GempSwccgGameUI = Class.extend({
         if (tar.hasClass("actionArea")) {
             var selectedCardElem = tar.closest(".card");
             if (!this.successfulDrag) {
-                if (event.shiftKey || event.which > 1) {
+                if (event.which > 1) {
+                    var rcCard = selectedCardElem.data("card");
+                    // Right-click Examine for face-down stacks the owner may examine (client-only; no server action/log)
+                    if (rcCard && rcCard.canExamineFaceDown && rcCard.canExamineFaceDown()) {
+                        this.createExamineContextMenu(event, rcCard);
+                    } else {
+                        this.displayCardInfo(rcCard);
+                    }
+                } else if (event.shiftKey) {
                     this.displayCardInfo(selectedCardElem.data("card"));
                 } else if ((selectedCardElem.hasClass("selectableCard") || selectedCardElem.hasClass("actionableCard") || selectedCardElem.hasClass("actionableCardSilent")) && !this.replayMode)
                     this.selectionFunction(selectedCardElem.data("card").cardId, event);
@@ -2457,7 +2465,10 @@ var GempSwccgGameUI = Class.extend({
     },
 
     createCardDiv: function (card, text) {
-        var cardDiv = Card.CreateCardDiv(card.imageUrl, card.testingText, text, card.isFoil(), false, false, card.incomplete);
+        // Face-down stacked: table shows card back; owner may still have real front blueprintId for hover/Examine
+        var tableImage = (card.getTableImageUrl) ? card.getTableImageUrl() : card.imageUrl;
+        var tableTestingText = (card.canExamineFaceDown && card.canExamineFaceDown()) ? null : card.testingText;
+        var cardDiv = Card.CreateCardDiv(tableImage, tableTestingText, text, card.isFoil(), false, false, card.incomplete);
 
         cardDiv.data("card", card);
 
