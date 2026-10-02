@@ -12,35 +12,43 @@ import static org.junit.Assert.fail;
 
 /**
  * Original Starting Effects (An Unusual Amount Of Fear / Fear Is My Ally) may include
- * at most 10 Defensive Shields outside the deck. Virtual "any number" Starting Effects
- * are uncapped by this rule.
+ * at most 10 Defensive Shields outside the deck. Modern Virtual and Legacy Virtual
+ * "any number" Starting Effects are uncapped by this rule.
  */
 public class StartingEffectOutsideDeckCapTests {
     private static SwccgCardBlueprintLibrary library;
     private static SwccgFormat openFormat;
+    private static SwccgFormat legacyFormat;
 
     // Light: An Unusual Amount Of Fear; Dark: Fear Is My Ally
     private static final String LS_ORIGINAL_SE = "13_5";
     private static final String DS_ORIGINAL_SE = "13_69";
-    // Light: Anger, Fear, Aggression (V); Dark: Knowledge And Defense (V)
+    // Modern Virtual — Light: Anger, Fear, Aggression (V); Dark: Knowledge And Defense (V)
     private static final String LS_VIRTUAL_SE = "200_35";
     private static final String DS_VIRTUAL_SE = "200_110";
+    // Legacy Virtual — Light: Anger, Fear, Aggression (V); Dark: Knowledge And Defense (V)
+    private static final String LS_LEGACY_VIRTUAL_SE = "601_39";
+    private static final String DS_LEGACY_VIRTUAL_SE = "601_1";
 
     private static final String[] LS_SHIELDS = {
             "13_1", "13_3", "13_4", "13_6", "13_8",
             "13_15", "13_16", "13_22", "13_30", "13_35",
-            "13_37", "13_38", "13_44", "13_47", "13_49"
+            "13_37", "13_38", "13_44", "13_47", "13_49",
+            "13_50"
     };
     private static final String[] DS_SHIELDS = {
             "13_51", "13_52", "13_54", "13_61", "13_63",
             "13_66", "13_68", "13_72", "13_78", "13_81",
-            "13_84", "13_86", "13_90", "200_95", "200_99"
+            "13_84", "13_86", "13_90", "13_95", "13_96",
+            "13_98"
     };
 
     @BeforeClass
     public static void setUpClass() {
         library = new SwccgCardBlueprintLibrary();
-        openFormat = new SwccgoFormatLibrary(library).getFormat("open");
+        SwccgoFormatLibrary formats = new SwccgoFormatLibrary(library);
+        openFormat = formats.getFormat("open");
+        legacyFormat = formats.getFormat("legacy");
     }
 
     @Test
@@ -78,6 +86,26 @@ public class StartingEffectOutsideDeckCapTests {
     @Test
     public void KnowledgeAndDefenseVirtualAllowsElevenOutsideDeckShields() throws DeckInvalidException {
         openFormat.validateDeck(darkDeckWithStartingEffect(DS_VIRTUAL_SE, 11));
+    }
+
+    @Test
+    public void AngerFearAggressionLegacyVirtualAllowsElevenOutsideDeckShields() throws DeckInvalidException {
+        legacyFormat.validateDeck(lightDeckWithStartingEffect(LS_LEGACY_VIRTUAL_SE, 11));
+    }
+
+    @Test
+    public void AngerFearAggressionLegacyVirtualAllowsSixteenOutsideDeckShields() throws DeckInvalidException {
+        legacyFormat.validateDeck(lightDeckWithStartingEffect(LS_LEGACY_VIRTUAL_SE, 16));
+    }
+
+    @Test
+    public void KnowledgeAndDefenseLegacyVirtualAllowsElevenOutsideDeckShields() throws DeckInvalidException {
+        legacyFormat.validateDeck(darkDeckWithStartingEffect(DS_LEGACY_VIRTUAL_SE, 11));
+    }
+
+    @Test
+    public void KnowledgeAndDefenseLegacyVirtualAllowsSixteenOutsideDeckShields() throws DeckInvalidException {
+        legacyFormat.validateDeck(darkDeckWithStartingEffect(DS_LEGACY_VIRTUAL_SE, 16));
     }
 
     @Test

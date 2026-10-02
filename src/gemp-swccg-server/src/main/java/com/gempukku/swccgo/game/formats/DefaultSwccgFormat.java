@@ -245,15 +245,19 @@ public class DefaultSwccgFormat implements SwccgFormat {
 
     /**
      * Original Starting Effects (An Unusual Amount Of Fear / Fear Is My Ally) may bring
-     * up to 10 Defensive Shields from outside the deck. Virtual "any number" Starting Effects
-     * are uncapped by this rule. Enforced on validate and on table create/join so the in-game
-     * pick-subset UI cannot be used to switch shield subsets tournament-to-tournament.
+     * up to 10 Defensive Shields from outside the deck. Cap is by original titles only
+     * (blueprints 13_5 / 13_69). Uncapped any-number class (not capped here): modern Virtual
+     * Anger, Fear, Aggression (V) 200_35 and Knowledge And Defense (V) 200_110, plus Legacy
+     * Virtual Anger, Fear, Aggression (V) 601_39 and Knowledge And Defense (V) 601_1.
+     * Enforced on validate and on table create/join so the in-game pick-subset UI cannot be
+     * used to switch shield subsets tournament-to-tournament.
      */
     public static final int ORIGINAL_STARTING_EFFECT_MAX_OUTSIDE_DECK_SHIELDS = 10;
 
     /**
      * Fails if the deck uses an original (up-to-10) Starting Effect with more than 10
-     * Defensive Shields in the outside-of-deck zone.
+     * Defensive Shields in the outside-of-deck zone. Titles only — Legacy/modern Virtual
+     * any-number SEs (601_39, 601_1, 200_35, 200_110) are intentionally uncapped.
      */
     public static void validateOriginalStartingEffectOutsideDeckShieldCap(SwccgCardBlueprintLibrary library, SwccgDeck deck) throws DeckInvalidException {
         boolean hasOriginalCappedStartingEffect = false;
@@ -263,6 +267,7 @@ public class DefaultSwccgFormat implements SwccgFormat {
                 continue;
             if (card.getCardCategory() == CardCategory.EFFECT && card.getCardSubtype() == CardSubtype.STARTING) {
                 String title = card.getTitle();
+                // Cap originals only; do not cap Legacy 601_39/601_1 or modern Virtual 200_35/200_110
                 if (Title.An_Unusual_Amount_Of_Fear.equals(title) || Title.Fear_Is_My_Ally.equals(title)) {
                     hasOriginalCappedStartingEffect = true;
                     break;

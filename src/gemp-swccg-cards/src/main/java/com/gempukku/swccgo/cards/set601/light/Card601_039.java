@@ -41,7 +41,7 @@ public class Card601_039 extends AbstractStartingEffect {
         super(Side.LIGHT, 4, Title.Anger_Fear_Aggression, ExpansionSet.LEGACY, Rarity.V);
         setVirtualSuffix(true);
         setLore("'The dark side of the Force are they. Easily they flow, quick to join you in a fight.'");
-        setGameText("Deploy on table with up to 15 cards from outside your deck face-down under here. Four times per game, may play a card from here (as if from hand). Unless canceling your Interrupt, opponent may not play Recoil In Fear until the end of your first turn.");
+        setGameText("Deploy on table with any number of Defensive Shields from outside your deck face-down under here. Four times per game, may play a card from here (as if from hand). Unless canceling your Interrupt, opponent may not play Recoil In Fear until the end of your first turn.");
         addIcons(Icon.DAGOBAH, Icon.LEGACY_BLOCK_4);
         setAsLegacy(true);
     }
@@ -67,7 +67,7 @@ public class Card601_039 extends AbstractStartingEffect {
             action.skipInitialMessageAndAnimation();
             // Perform result(s)
             action.appendEffect(
-                    new StackCardsFromOutsideDeckEffect(action, playerId, 1, 15, self, Filters.Defensive_Shield));
+                    new StackCardsFromOutsideDeckEffect(action, playerId, 1, Integer.MAX_VALUE, self, Filters.Defensive_Shield));
             return Collections.singletonList(action);
         }
         return null;
