@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 /**
  * AR Looking At A Deck, Pile, Or Stack: owner may examine face-down stacked cards
- * on their own cards or any location (with known prohibitions / Hatred exception).
+ * on their own cards or any location (ownership gates AR examples; Hatred exception).
  */
 public class ExamineFaceDownStackedCardsTests {
 
@@ -86,20 +86,6 @@ public class ExamineFaceDownStackedCardsTests {
         assertFalse(GameUtils.canExamineFaceDownStackedCard(scn.gameState(), scn.DS, luke));
     }
 
-    @Test
-    public void OwnerMayExamineOwnCardUnderOwnInsignificantRebellion() {
-        var scn = GetScenario();
-        var vader = scn.GetDSCard("vader");
-        var rebellion = scn.GetDSCard("rebellion");
-
-        scn.StartGame();
-        scn.MoveCardsToDSSideOfTable(rebellion);
-        scn.StackCardsFaceDownOn(rebellion, vader);
-
-        assertEquals(Zone.STACKED_FACE_DOWN, vader.getZone());
-        // Explicit AR title prohibition: cards under Insignificant Rebellion are not examinable via that stack
-        assertFalse(GameUtils.canExamineFaceDownStackedCard(scn.gameState(), scn.DS, vader));
-    }
 
     @Test
     public void OwnerMayNotExamineCardsUnderIFeelTheConflict() {

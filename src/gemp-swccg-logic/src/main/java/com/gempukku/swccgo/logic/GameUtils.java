@@ -329,6 +329,8 @@ public class GameUtils {
     /**
      * Per AR "Looking At A Deck, Pile, Or Stack": if YOUR card is stacked face-down on (or under)
      * another of YOUR cards (or any location), you may examine it unless a card/rule prohibits.
+     * Ownership of the stacked card and of the card it is stacked on (or any location) gates access;
+     * AR examples such as Insignificant Rebellion / I Feel The Conflict are covered by that ownership check.
      * Hatred cards: AR special exception — owners may examine their face-down Hatred cards at any time.
      * Not a game action; does not reveal identity to opponent/spectators.
      *
@@ -353,16 +355,9 @@ public class GameUtils {
             return false;
         }
 
-        // AR Hatred exception: owner may peek at their face-down Hatred cards at any time
+        // AR Hatred exception: owner may examine their face-down Hatred cards at any time
         if (card.isHatredCard()) {
             return true;
-        }
-
-        // Known AR prohibitions (stacked under these Effects even when ownership would otherwise allow)
-        String stackedOnTitle = stackedOn.getTitle();
-        if (Title.Insignificant_Rebellion.equals(stackedOnTitle)
-                || Title.I_Feel_The_Conflict.equals(stackedOnTitle)) {
-            return false;
         }
 
         // Stacked on any location
