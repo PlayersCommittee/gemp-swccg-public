@@ -1,5 +1,7 @@
 package com.gempukku.swccgo.logic.effects.choose;
 
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.Filterable;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -135,6 +137,22 @@ public class StackCardsFromOutsideDeckEffect extends AbstractSubActionEffect {
                                     _cardsStacked.add(card);
                                 }
                                 gameState.sendMessage(_playerId + " stacks " + _cardsStacked.size() + " card" + GameUtils.s(_cardsStacked.size()) + " from outside of deck " + (_faceDown ? " face down" : "") + " under " + GameUtils.getCardLink(_stackOn));
+                            }
+                        }
+                );
+            }
+            else if (_stackOn.getBlueprint().getCardCategory() == CardCategory.EFFECT
+                    && _stackOn.getBlueprint().getCardSubtype() == CardSubtype.STARTING
+                    && outsideOfDeck.size() > _max) {
+                // Original Starting Effects are capped at deck-validation time; never offer a
+                // pick-subset UI that would let a player switch among a larger shield pool.
+                subAction.appendEffect(
+                        new PassthruEffect(subAction) {
+                            @Override
+                            protected void doPlayEffect(SwccgGame game) {
+                                gameState.sendMessage("Illegal deck: " + _playerId + " has more than "
+                                        + _max + " matching cards outside of deck for "
+                                        + GameUtils.getCardLink(_stackOn) + "; cards were not stacked.");
                             }
                         }
                 );

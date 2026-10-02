@@ -242,6 +242,50 @@ public class DefaultSwccgFormat implements SwccgFormat {
         return false;
     }
 
+
+    /**
+     * Original Starting Effects (An Unusual Amount Of Fear / Fear Is My Ally) may bring
+     * up to 10 Defensive Shields from outside the deck. Virtual "any number" Starting Effects
+     * are uncapped by this rule. Enforced on validate and on table create/join so the in-game
+     * pick-subset UI cannot be used to switch shield subsets tournament-to-tournament.
+     */
+    public static final int ORIGINAL_STARTING_EFFECT_MAX_OUTSIDE_DECK_SHIELDS = 10;
+
+    /**
+     * Fails if the deck uses an original (up-to-10) Starting Effect with more than 10
+     * Defensive Shields in the outside-of-deck zone.
+     */
+    public static void validateOriginalStartingEffectOutsideDeckShieldCap(SwccgCardBlueprintLibrary library, SwccgDeck deck) throws DeckInvalidException {
+        boolean hasOriginalCappedStartingEffect = false;
+        for (String blueprintId : deck.getCards()) {
+            SwccgCardBlueprint card = library.getSwccgoCardBlueprint(blueprintId);
+            if (card == null)
+                continue;
+            if (card.getCardCategory() == CardCategory.EFFECT && card.getCardSubtype() == CardSubtype.STARTING) {
+                String title = card.getTitle();
+                if (Title.An_Unusual_Amount_Of_Fear.equals(title) || Title.Fear_Is_My_Ally.equals(title)) {
+                    hasOriginalCappedStartingEffect = true;
+                    break;
+                }
+            }
+        }
+        if (!hasOriginalCappedStartingEffect)
+            return;
+
+        int defensiveShieldCount = 0;
+        for (String blueprintId : deck.getCardsOutsideDeck()) {
+            SwccgCardBlueprint card = library.getSwccgoCardBlueprint(blueprintId);
+            if (card != null && card.getCardCategory() == CardCategory.DEFENSIVE_SHIELD)
+                defensiveShieldCount++;
+        }
+        if (defensiveShieldCount > ORIGINAL_STARTING_EFFECT_MAX_OUTSIDE_DECK_SHIELDS) {
+            throw new DeckInvalidException("Starting Effect allows up to "
+                    + ORIGINAL_STARTING_EFFECT_MAX_OUTSIDE_DECK_SHIELDS
+                    + " Defensive Shields from outside your deck; deck has "
+                    + defensiveShieldCount);
+        }
+    }
+
     @Override
     public void validateDeck(SwccgDeck deck) throws DeckInvalidException {
         try {
@@ -319,6 +363,8 @@ public class DefaultSwccgFormat implements SwccgFormat {
 
             if (deck.getCardsOutsideDeck().size() > 50)
                 throw new DeckInvalidException("Deck specifies more than 50 cards as 'outside of deck'");
+
+            validateOriginalStartingEffectOutsideDeckShieldCap(_library, deck);
 
             // Verify that all cards are valid
             for (String card : deck.getCards())
