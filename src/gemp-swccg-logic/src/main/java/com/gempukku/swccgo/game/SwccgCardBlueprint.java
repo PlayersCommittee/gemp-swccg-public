@@ -591,6 +591,13 @@ public interface SwccgCardBlueprint {
      */
     List<Modifier> getWhileStackedModifiers(SwccgGame game, PhysicalCard self);
 
+    /**
+     * Determines if the card should be visited to check for actions when stacked face down.
+     * Override when a card has actions available while stacked face down.
+     * @return true if card should be visited when stacked face down, otherwise false
+     */
+    boolean visitCardWhenStackedFaceDown();
+
 
     /**
      * Checks if card is playable as a starting interrupt
