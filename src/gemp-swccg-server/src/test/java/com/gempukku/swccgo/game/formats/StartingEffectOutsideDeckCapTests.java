@@ -11,9 +11,9 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
- * Original Starting Effects (An Unusual Amount Of Fear / Fear Is My Ally) may include
- * at most 10 Defensive Shields outside the deck. Modern Virtual and Legacy Virtual
- * "any number" Starting Effects are uncapped by this rule.
+ * Outside-of-deck Defensive Shield caps by Starting Effect:
+ * originals (13_5 / 13_69) max 10; Legacy Virtual (601_39 / 601_1) max 15;
+ * modern Virtual (200_35 / 200_110) uncapped.
  */
 public class StartingEffectOutsideDeckCapTests {
     private static SwccgCardBlueprintLibrary library;
@@ -89,23 +89,35 @@ public class StartingEffectOutsideDeckCapTests {
     }
 
     @Test
-    public void AngerFearAggressionLegacyVirtualAllowsElevenOutsideDeckShields() throws DeckInvalidException {
-        legacyFormat.validateDeck(lightDeckWithStartingEffect(LS_LEGACY_VIRTUAL_SE, 11));
+    public void AngerFearAggressionLegacyVirtualAllowsFifteenOutsideDeckShields() throws DeckInvalidException {
+        legacyFormat.validateDeck(lightDeckWithStartingEffect(LS_LEGACY_VIRTUAL_SE, 15));
     }
 
     @Test
-    public void AngerFearAggressionLegacyVirtualAllowsSixteenOutsideDeckShields() throws DeckInvalidException {
-        legacyFormat.validateDeck(lightDeckWithStartingEffect(LS_LEGACY_VIRTUAL_SE, 16));
+    public void AngerFearAggressionLegacyVirtualRejectsSixteenOutsideDeckShields() {
+        SwccgDeck deck = lightDeckWithStartingEffect(LS_LEGACY_VIRTUAL_SE, 16);
+        try {
+            legacyFormat.validateDeck(deck);
+            fail("Expected DeckInvalidException for Legacy SE with 16 shields");
+        } catch (DeckInvalidException e) {
+            assertTrue(e.getMessage().contains("More Defensive Shields in outside of deck area than what Starting Effect Allows"));
+        }
     }
 
     @Test
-    public void KnowledgeAndDefenseLegacyVirtualAllowsElevenOutsideDeckShields() throws DeckInvalidException {
-        legacyFormat.validateDeck(darkDeckWithStartingEffect(DS_LEGACY_VIRTUAL_SE, 11));
+    public void KnowledgeAndDefenseLegacyVirtualAllowsFifteenOutsideDeckShields() throws DeckInvalidException {
+        legacyFormat.validateDeck(darkDeckWithStartingEffect(DS_LEGACY_VIRTUAL_SE, 15));
     }
 
     @Test
-    public void KnowledgeAndDefenseLegacyVirtualAllowsSixteenOutsideDeckShields() throws DeckInvalidException {
-        legacyFormat.validateDeck(darkDeckWithStartingEffect(DS_LEGACY_VIRTUAL_SE, 16));
+    public void KnowledgeAndDefenseLegacyVirtualRejectsSixteenOutsideDeckShields() {
+        SwccgDeck deck = darkDeckWithStartingEffect(DS_LEGACY_VIRTUAL_SE, 16);
+        try {
+            legacyFormat.validateDeck(deck);
+            fail("Expected DeckInvalidException for Legacy SE with 16 shields");
+        } catch (DeckInvalidException e) {
+            assertTrue(e.getMessage().contains("More Defensive Shields in outside of deck area than what Starting Effect Allows"));
+        }
     }
 
     @Test
