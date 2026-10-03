@@ -200,6 +200,20 @@ class Card {
     }
 
     /**
+     * Orientation for hover/right-click preview. Hidden face-down cards (generic back)
+     * always preview as a regular vertical card back so a site vs Effect is not leaked.
+     */
+    previewAsHorizontal() {
+        if (this.bareBlueprint == "-1_1" || this.bareBlueprint == "-1_2") {
+            return false;
+        }
+        if (this.zone == "STACKED_FACE_DOWN" && !this.canExamineFaceDown()) {
+            return false;
+        }
+        return this.blueprintHorizontal;
+    }
+
+    /**
      * Image for the table token. Face-down stacks keep showing the card back even when the owner
      * received the real front blueprintId for hover/Examine.
      */

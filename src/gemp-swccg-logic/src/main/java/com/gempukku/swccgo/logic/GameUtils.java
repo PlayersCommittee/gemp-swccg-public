@@ -369,4 +369,28 @@ public class GameUtils {
         // Stacked on (or under) another of the viewer's cards
         return viewerId.equals(stackedOn.getOwner());
     }
+
+    /**
+     * Full right-click card info (destiny, ability, owner, etc.) is shown for in-play,
+     * hand, and stacked cards. Face-down stacked content is still gated by
+     * {@link #canExamineFaceDownStackedCard} in produceCardInfo.
+     */
+    public static boolean includeDetailedCardInfo(Zone zone) {
+        return zone != null && (zone.isInPlay() || zone == Zone.HAND
+                || zone == Zone.STACKED || zone == Zone.STACKED_FACE_DOWN);
+    }
+
+    /**
+     * Hidden face-down cards serialize as vertical so observers cannot tell a site
+     * (or other horizontal card) from an Effect by the right-click preview.
+     */
+    public static boolean serializeAsHorizontal(PhysicalCard card, boolean alwaysShowCardFront) {
+        if (card == null || card.getBlueprint() == null) {
+            return false;
+        }
+        if (!alwaysShowCardFront && card.getZone() != null && card.getZone().isFaceDown()) {
+            return false;
+        }
+        return card.getBlueprint().isHorizontal();
+    }
 }

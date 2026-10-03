@@ -3,6 +3,7 @@ package com.gempukku.swccgo.game.state;
 import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.decisions.AwaitingDecision;
 import com.gempukku.swccgo.logic.timing.GameStats;
 
@@ -216,7 +217,7 @@ public class GameEvent {
         GameEvent gameEvent = cardId(physicalCard.getCardId()).blueprintId(physicalCard.getBlueprintId(gameState, alwaysShowCardFront));
         gameEvent = gameEvent.testingText(physicalCard.getTestingText(gameState, alwaysShowCardFront, false));
         gameEvent = gameEvent.backSideTestingText(physicalCard.getTestingText(gameState, alwaysShowCardFront, true));
-        gameEvent = gameEvent.horizontal(physicalCard.getBlueprint().isHorizontal());
+        gameEvent = gameEvent.horizontal(GameUtils.serializeAsHorizontal(physicalCard, alwaysShowCardFront));
         gameEvent = gameEvent.participantId(physicalCard.getOwner()).zone(physicalCard.getZone()).zoneOwnerId(physicalCard.getZoneOwner());
         gameEvent = gameEvent.locationIndex(physicalCard.getLocationZoneIndex()).inverted(physicalCard.isInverted()).sideways(physicalCard.isSideways());
         gameEvent = gameEvent.frozen(physicalCard.isFrozen()).suspendedOrTurnedOff(physicalCard.isSuspended() || physicalCard.isBinaryOff() || physicalCard.isMissing());

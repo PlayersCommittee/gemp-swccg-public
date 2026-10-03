@@ -3,6 +3,7 @@ package com.gempukku.swccgo.rules.state;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
+import com.gempukku.swccgo.game.state.GameEvent;
 import com.gempukku.swccgo.logic.GameUtils;
 import org.junit.Test;
 
@@ -26,6 +27,7 @@ public class ExamineFaceDownStackedCardsTests {
                     put("vader", "1_168");
                     put("trooper", "1_194"); // Imperial Trooper
                     put("rebellion", "9_127"); // Insignificant Rebellion
+                    put("desert", "6_169"); // Tatooine: Desert site (horizontal)
                 }},
                 10,
                 10,
@@ -150,5 +152,63 @@ public class ExamineFaceDownStackedCardsTests {
         assertNotEquals(front, hiddenFromOpponent);
         // Owner examine path uses alwaysShowCardFront=true
         assertEquals(front, vader.getBlueprintId(scn.gameState(), true));
+    }
+
+    @Test
+    public void DetailedCardInfoIncludesStackedZones() {
+        assertTrue(GameUtils.includeDetailedCardInfo(Zone.STACKED_FACE_DOWN));
+        assertTrue(GameUtils.includeDetailedCardInfo(Zone.STACKED));
+        assertTrue(GameUtils.includeDetailedCardInfo(Zone.HAND));
+        assertTrue(GameUtils.includeDetailedCardInfo(Zone.AT_LOCATION));
+        assertFalse(GameUtils.includeDetailedCardInfo(Zone.RESERVE_DECK));
+    }
+
+    @Test
+    public void HiddenFaceDownLocationSerializesAsVerticalCardBack() {
+        var scn = GetScenario();
+        var vader = scn.GetDSCard("vader");
+        var site = scn.GetDSStartingLocation();
+        var desert = scn.GetDSCard("desert");
+
+        scn.StartGame();
+        scn.MoveCardsToLocation(site, vader);
+        scn.StackCardsFaceDownOn(vader, desert);
+
+        assertEquals(Zone.STACKED_FACE_DOWN, desert.getZone());
+        assertTrue(desert.getBlueprint().isHorizontal());
+        assertFalse(GameUtils.serializeAsHorizontal(desert, false));
+        assertTrue(GameUtils.serializeAsHorizontal(desert, true));
+
+        var hidden = new GameEvent(GameEvent.Type.PCIP).card(desert, scn.gameState(), false);
+        assertFalse(hidden.getHorizontal());
+        var shown = new GameEvent(GameEvent.Type.PCIP).card(desert, scn.gameState(), true);
+        assertTrue(shown.getHorizontal());
+    }
+
+    @Test
+    public void HiddenFaceDownCharacterSerializesAsVerticalCardBack() {
+        var scn = GetScenario();
+        var vader = scn.GetDSCard("vader");
+        var site = scn.GetDSStartingLocation();
+
+        scn.StartGame();
+        scn.StackCardsFaceDownOn(site, vader);
+
+        assertEquals(Zone.STACKED_FACE_DOWN, vader.getZone());
+        assertFalse(vader.getBlueprint().isHorizontal());
+        assertFalse(GameUtils.serializeAsHorizontal(vader, false));
+        assertFalse(GameUtils.serializeAsHorizontal(vader, true));
+    }
+
+    @Test
+    public void InPlayLocationStillSerializesAsHorizontalWhenFrontHiddenFlagFalse() {
+        var scn = GetScenario();
+        scn.StartGame();
+        var site = scn.GetDSStartingLocation();
+
+        assertTrue(site.getBlueprint().isHorizontal());
+        assertTrue(GameUtils.serializeAsHorizontal(site, false));
+        var event = new GameEvent(GameEvent.Type.PCIP).card(site, scn.gameState(), false);
+        assertTrue(event.getHorizontal());
     }
 }

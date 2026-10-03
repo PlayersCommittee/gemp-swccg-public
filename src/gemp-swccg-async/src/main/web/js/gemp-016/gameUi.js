@@ -1433,7 +1433,8 @@ var GempSwccgGameUI = Class.extend({
         var showModifiers = false;
         var cardId = card.cardId;
         var that = this;
-        if (!this.replayMode && cardId != "hint" && (cardId.length < 4 || cardId.substring(0, 4) != "temp"))
+        var hiddenFaceDown = card.zone == "STACKED_FACE_DOWN" && !(card.canExamineFaceDown && card.canExamineFaceDown());
+        if (!this.replayMode && cardId != "hint" && (cardId.length < 4 || cardId.substring(0, 4) != "temp") && !hiddenFaceDown)
             showModifiers = true;
 
         this.cardInfoDialog.showCard(card, showModifiers ? "<div>Retrieving data...</div>" : null);

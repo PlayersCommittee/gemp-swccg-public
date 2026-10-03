@@ -130,8 +130,9 @@ class CardDisplay {
 		
 		
 
+		var horizontal = (card.previewAsHorizontal) ? card.previewAsHorizontal() : card.blueprintHorizontal;
 		this.reload(maxWidth, maxHeight, card.imageUrl, 
-			card.blueprintHorizontal, card.foil, noborder, card.testingText);
+			horizontal, card.foil, noborder, card.testingText);
 	}
 
 	reload(maxWidth, maxHeight, image, horizontal, foil, noborder, testingText) {
