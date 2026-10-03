@@ -27,6 +27,7 @@ class PlaceCardsOutOfPlayFromOffTableSimultaneouslyEffect extends AbstractSubAct
     private Set<PhysicalCard> _preventedCards = new HashSet<PhysicalCard>();
     private PlaceCardsOutOfPlayFromOffTableSimultaneouslyEffect _that;
     private Collection<PhysicalCard> _placedOutOfPlay = new ArrayList<PhysicalCard>();
+    private boolean _whileJustLostFromTable;
 
     /**
      * Creates an effect that causes one more cards not on table (e.g. in a card pile, in hand, etc.) to be placed out of
@@ -35,11 +36,22 @@ class PlaceCardsOutOfPlayFromOffTableSimultaneouslyEffect extends AbstractSubAct
      * @param cardsToPlaceOutOfPlay the cards to place out of play
      */
     public PlaceCardsOutOfPlayFromOffTableSimultaneouslyEffect(Action action, Collection<PhysicalCard> cardsToPlaceOutOfPlay) {
+        this(action, cardsToPlaceOutOfPlay, false);
+    }
+
+    /**
+     * Creates an effect that causes one more cards not on table to be placed out of play simultaneously.
+     * @param action the action performing this effect
+     * @param cardsToPlaceOutOfPlay the cards to place out of play
+     * @param whileJustLostFromTable true if this is re-routing a card that was just lost, forfeited, or canceled from table
+     */
+    public PlaceCardsOutOfPlayFromOffTableSimultaneouslyEffect(Action action, Collection<PhysicalCard> cardsToPlaceOutOfPlay, boolean whileJustLostFromTable) {
         super(action);
         _originalCardsToPlaceOutOfPlay = Collections.unmodifiableCollection(cardsToPlaceOutOfPlay);
         for(PhysicalCard card:_originalCardsToPlaceOutOfPlay) {
             _originalZoneMap.put(card, card.getZone());
         }
+        _whileJustLostFromTable = whileJustLostFromTable;
 
         _that = this;
     }
@@ -100,7 +112,7 @@ class PlaceCardsOutOfPlayFromOffTableSimultaneouslyEffect extends AbstractSubAct
 
                             for (PhysicalCard card : _placedOutOfPlay) {
                                 game.getActionsEnvironment().emitEffectResult(
-                                        new PlacedCardOutOfPlayFromOffTableResult(subAction, card, _originalZoneMap.get(card)));
+                                        new PlacedCardOutOfPlayFromOffTableResult(subAction, card, _originalZoneMap.get(card), _whileJustLostFromTable));
                             }
                         }
                     }
