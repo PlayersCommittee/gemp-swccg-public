@@ -2969,22 +2969,26 @@ var GempSwccgGameUI = Class.extend({
                 $(div).find('LI.hover').removeClass('hover');
             });
 
-        var getRidOfContextMenu = function () {
+        // Capture-phase mousedown so a left-click on a card (which stops bubble) still dismisses.
+        var getRidOfContextMenu = function (e) {
+            if (e && $(e.target).closest(div).length) {
+                return;
+            }
             $(div).remove();
-            $(document).unbind("click", getRidOfContextMenu);
+            document.removeEventListener("mousedown", getRidOfContextMenu, true);
             return false;
         };
 
         $(div).find('A').unbind('click');
         $(div).find('LI:not(.disabled) A').click(function () {
-            $(document).unbind('click', getRidOfContextMenu);
+            document.removeEventListener("mousedown", getRidOfContextMenu, true);
             $(".contextMenu").remove();
             that.displayCardInfo(card);
             return false;
         });
 
-        setTimeout(function () { // Delay for Mozilla
-            $(document).click(getRidOfContextMenu);
+        setTimeout(function () {
+            document.addEventListener("mousedown", getRidOfContextMenu, true);
         }, 0);
     },
 
