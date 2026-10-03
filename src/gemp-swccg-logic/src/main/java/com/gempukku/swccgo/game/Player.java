@@ -98,10 +98,29 @@ public class Player {
     }
 
     /**
+     * Default hall bots that playtesters can sit against in playtesting formats.
+     */
+    public static boolean isDefaultHallBot(String name) {
+        return "~OzzelBot".equals(name) || "~YodaBot".equals(name) || "~Rando_Cal".equals(name);
+    }
+
+    public boolean isDefaultHallBot() {
+        return isDefaultHallBot(_name);
+    }
+
+    /**
      * Determines if the player has the specified type.
+     * Default hall bots always count as playtesters so a playtester can play
+     * a playtesting format against them without granting the DB flag.
      * @return true or false
      */
     public boolean hasType(Type type) {
+        if (type == Type.PLAYTESTER && isDefaultHallBot()) {
+            return true;
+        }
+        if (_type == null) {
+            return false;
+        }
         return Type.getTypes(_type).contains(type);
     }
 
