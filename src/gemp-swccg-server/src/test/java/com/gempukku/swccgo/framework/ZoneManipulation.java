@@ -514,6 +514,16 @@ public interface ZoneManipulation extends TestBase{
     }
 
     /**
+     * Directly stacks one or more cards face-down on a target card.
+     */
+    default void StackCardsFaceDownOn(PhysicalCardImpl on, PhysicalCardImpl...cards) {
+        Arrays.stream(cards).forEach(card -> {
+            RemoveCardZone(card);
+            gameState().stackCard(card, on, true, false, false);
+        });
+    }
+
+    /**
      * Takes the card from the top of a player's Reserve Deck and puts it in their hand.  This is for cheating and maybe
      * isn't a relevant SWCCG concept...?
      * @param player The player to draw
