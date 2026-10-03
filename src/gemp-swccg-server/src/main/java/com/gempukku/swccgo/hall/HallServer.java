@@ -320,13 +320,17 @@ public class HallServer extends AbstractServer {
                 aiSkill = normalizeAiSkill(aiSkill);
 
                 Player aiDeckOwner = aiDeckSample ? librarian : player;
+                // Playtesting access is the human creating the table. Sample AI decks
+                // belong to Librarian, who is not a playtester. Default hall bots
+                // always count as playtesters via Player.hasType.
                 aiDeck = validateUserAndDeck(
                         format,
                         aiDeckOwner,
                         aiDeckName,
                         collectionType,
                         aiDeckSample,
-                        librarian);
+                        librarian,
+                        player);
 
                 Side aiSide = aiDeck.getSide(_library);
 
@@ -880,13 +884,20 @@ public class HallServer extends AbstractServer {
 
     private SwccgDeck validateUserAndDeck(SwccgFormat format, Player player, String deckName,
             CollectionType collectionType, boolean sampleDeck, Player librarian) throws HallException {
+        return validateUserAndDeck(format, player, deckName, collectionType, sampleDeck, librarian, player);
+    }
+
+    private SwccgDeck validateUserAndDeck(SwccgFormat format, Player player, String deckName,
+            CollectionType collectionType, boolean sampleDeck, Player librarian, Player playtestingAccessPlayer)
+            throws HallException {
 
         /*
          * Only show playtesting formats if player is a playtester or admin.
+         * Default hall bots always count as playtesters.
          */
         if (format.isPlaytesting()
-                && !(player.hasType(Player.Type.ADMIN)
-                        || player.hasType(Player.Type.PLAYTESTER))) {
+                && !(playtestingAccessPlayer.hasType(Player.Type.ADMIN)
+                        || playtestingAccessPlayer.hasType(Player.Type.PLAYTESTER))) {
             throw new HallException("You are not allowed to participate in a playtesting format");
         }
 
