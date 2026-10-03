@@ -381,14 +381,26 @@ public class GameUtils {
     }
 
     /**
+     * Generic Light/Dark card backs sent when the viewer is not entitled to the front.
+     */
+    public static boolean isGenericCardBack(String blueprintId) {
+        return "-1_1".equals(blueprintId) || "-1_2".equals(blueprintId);
+    }
+
+    /**
      * Hidden face-down cards serialize as vertical so observers cannot tell a site
      * (or other horizontal card) from an Effect by the right-click preview.
+     * Uses the blueprint id that will actually be sent: a generic back is always vertical.
      */
     public static boolean serializeAsHorizontal(PhysicalCard card, boolean alwaysShowCardFront) {
+        return serializeAsHorizontal(card, null, alwaysShowCardFront);
+    }
+
+    public static boolean serializeAsHorizontal(PhysicalCard card, GameState gameState, boolean alwaysShowCardFront) {
         if (card == null || card.getBlueprint() == null) {
             return false;
         }
-        if (!alwaysShowCardFront && card.getZone() != null && card.getZone().isFaceDown()) {
+        if (isGenericCardBack(card.getBlueprintId(gameState, alwaysShowCardFront))) {
             return false;
         }
         return card.getBlueprint().isHorizontal();

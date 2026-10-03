@@ -3,10 +3,14 @@ package com.gempukku.swccgo.rules.state;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
+import com.gempukku.swccgo.game.state.EventSerializer;
 import com.gempukku.swccgo.game.state.GameEvent;
 import com.gempukku.swccgo.logic.GameUtils;
 import org.junit.Test;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
@@ -210,5 +214,81 @@ public class ExamineFaceDownStackedCardsTests {
         assertTrue(GameUtils.serializeAsHorizontal(site, false));
         var event = new GameEvent(GameEvent.Type.PCIP).card(site, scn.gameState(), false);
         assertTrue(event.getHorizontal());
+    }
+
+    @Test
+    public void HiddenFaceDownLocationEventDoesNotLeakIdentityToObserver() throws Exception {
+        var scn = GetScenario();
+        var vader = scn.GetDSCard("vader");
+        var site = scn.GetDSStartingLocation();
+        var desert = scn.GetDSCard("desert");
+
+        scn.StartGame();
+        scn.MoveCardsToLocation(site, vader);
+        scn.StackCardsFaceDownOn(vader, desert);
+
+        String frontId = desert.getBlueprintId(true);
+        var hidden = new GameEvent(GameEvent.Type.PCIP).card(desert, scn.gameState(), false);
+
+        assertTrue("-1_1".equals(hidden.getBlueprintId()) || "-1_2".equals(hidden.getBlueprintId()));
+        assertNotEquals(frontId, hidden.getBlueprintId());
+        assertFalse(hidden.getHorizontal());
+        assertNull(hidden.getSystemName());
+        assertNull(hidden.getTestingText());
+        assertNull(hidden.getBackSideTestingText());
+
+        Element xml = serialize(hidden);
+        assertTrue("-1_1".equals(xml.getAttribute("blueprintId")) || "-1_2".equals(xml.getAttribute("blueprintId")));
+        assertEquals("false", xml.getAttribute("horizontal"));
+        assertFalse(xml.hasAttribute("systemName"));
+        assertFalse(xml.hasAttribute("testingText"));
+        assertFalse(xml.hasAttribute("backSideTestingText"));
+        assertFalse(frontId.equals(xml.getAttribute("blueprintId")));
+    }
+
+    @Test
+    public void HiddenFaceDownCharacterEventDoesNotLeakIdentityToObserver() throws Exception {
+        var scn = GetScenario();
+        var vader = scn.GetDSCard("vader");
+        var site = scn.GetDSStartingLocation();
+
+        scn.StartGame();
+        scn.StackCardsFaceDownOn(site, vader);
+
+        String frontId = vader.getBlueprintId(true);
+        var hidden = new GameEvent(GameEvent.Type.PCIP).card(vader, scn.gameState(), false);
+
+        assertTrue("-1_1".equals(hidden.getBlueprintId()) || "-1_2".equals(hidden.getBlueprintId()));
+        assertNotEquals(frontId, hidden.getBlueprintId());
+        assertNull(hidden.getSystemName());
+        assertNull(hidden.getTestingText());
+        assertNull(hidden.getBackSideTestingText());
+
+        Element xml = serialize(hidden);
+        assertFalse(frontId.equals(xml.getAttribute("blueprintId")));
+        assertFalse(xml.hasAttribute("systemName"));
+        assertFalse(xml.hasAttribute("testingText"));
+    }
+
+    @Test
+    public void OwnerExamineEventIncludesRealCardIdentity() {
+        var scn = GetScenario();
+        var vader = scn.GetDSCard("vader");
+        var site = scn.GetDSStartingLocation();
+        var desert = scn.GetDSCard("desert");
+
+        scn.StartGame();
+        scn.MoveCardsToLocation(site, vader);
+        scn.StackCardsFaceDownOn(vader, desert);
+
+        var shown = new GameEvent(GameEvent.Type.PCIP).card(desert, scn.gameState(), true);
+        assertEquals(desert.getBlueprintId(true), shown.getBlueprintId());
+        assertTrue(shown.getHorizontal());
+        assertNotNull(shown.getSystemName());
+    }
+
+    private static Element serialize(GameEvent event) throws Exception {
+        Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+        return (Element) new EventSerializer().serializeEvent(doc, event);
     }
 }
