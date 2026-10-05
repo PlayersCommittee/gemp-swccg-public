@@ -29,6 +29,7 @@ abstract class PlaceCardsOutOfPlayFromPileEffect extends AbstractSubActionEffect
     private Zone _zone;
     private String _cardPileOwner;
     private boolean _reshuffle;
+    private boolean _whileJustLostFromTable;
     private int _numPlacedOutOfPlay;
     private PlaceCardsOutOfPlayFromPileEffect _that;
 
@@ -108,7 +109,7 @@ abstract class PlaceCardsOutOfPlayFromPileEffect extends AbstractSubActionEffect
                 if (!cards.isEmpty()) {
                     _numPlacedOutOfPlay = cards.size();
                     subAction.insertEffect(
-                            new PlaceCardsOutOfPlayFromOffTableEffect(subAction, cards),
+                            new PlaceCardsOutOfPlayFromOffTableEffect(subAction, cards, _whileJustLostFromTable),
                             new PassthruEffect(subAction) {
                                 @Override
                                 protected void doPlayEffect(SwccgGame game) {
@@ -141,6 +142,14 @@ abstract class PlaceCardsOutOfPlayFromPileEffect extends AbstractSubActionEffect
     @Override
     protected boolean wasActionCarriedOut() {
         return _numPlacedOutOfPlay >= _minimum;
+    }
+
+    /**
+     * Marks this as re-routing a card that was just lost, forfeited, or canceled from table.
+     * The resulting off-table out-of-play result can then be responded to without inspecting the action stack.
+     */
+    protected void setWhileJustLostFromTable(boolean whileJustLostFromTable) {
+        _whileJustLostFromTable = whileJustLostFromTable;
     }
 
     /**
