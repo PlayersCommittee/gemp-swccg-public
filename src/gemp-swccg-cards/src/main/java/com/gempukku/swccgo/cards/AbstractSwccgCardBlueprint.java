@@ -2816,6 +2816,16 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
     }
 
     /**
+     * Determines if the card should be visited to check for actions when stacked face down.
+     * Override when a card has actions available while stacked face down.
+     * @return true if card should be visited when stacked face down, otherwise false
+     */
+    @Override
+    public boolean visitCardWhenStackedFaceDown() {
+        return false;
+    }
+
+    /**
      * Gets modifiers to the card itself that are always in effect.
      * @param game the game
      * @param self the card
