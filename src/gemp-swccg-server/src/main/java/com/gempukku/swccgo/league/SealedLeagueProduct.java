@@ -36,7 +36,9 @@ public class SealedLeagueProduct {
 
         MutableCardCollection firstWeek = new DefaultCardCollection();
         firstWeek.addItem(ProductName.JEDI_PACK, 1);
-        firstWeek.addItem(ProductName.OFFICIAL_TOURNAMENT_SEALED_DECK, 2);
+        firstWeek.addItem(ProductName.OFFICIAL_TOURNAMENT_SEALED_DECK, 1);
+        firstWeek.addItem(ProductName.PREMIERE_BOOSTER_PACK, 4);
+        firstWeek.addItem(ProductName.A_NEW_HOPE_BOOSTER_PACK, 1);
         firstWeek.addItem("101_1", 1);
         firstWeek.addItem("101_2", 1);
         firstWeek.addItem("101_3", 1);
@@ -64,7 +66,8 @@ public class SealedLeagueProduct {
         List<CardCollection> jpSealed = new ArrayList<CardCollection>();
 
         MutableCardCollection firstWeek = new DefaultCardCollection();
-        firstWeek.addItem(ProductName.JABBAS_PALACE_SEALED_DECK, 2);
+        firstWeek.addItem(ProductName.JABBAS_PALACE_SEALED_DECK, 1);
+        firstWeek.addItem(ProductName.JABBAS_PALACE_BOOSTER_PACK, 6);
         jpSealed.add(firstWeek);
 
         MutableCardCollection secondWeek = new DefaultCardCollection();
