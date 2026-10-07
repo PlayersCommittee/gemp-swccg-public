@@ -75,8 +75,13 @@ public class Card1_046 extends AbstractUtinniEffect {
 
         // Check condition(s)
         if (!GameConditions.isUtinniEffectReached(game, self)) {
+            PhysicalCard plansLocation = game.getModifiersQuerying().getLocationThatCardIsAt(gameState, self);
+            PhysicalCard targetLocation = target == null ? null : game.getModifiersQuerying().getLocationThatCardIsAt(gameState, target);
             if (TriggerConditions.isTableChanged(game, effectResult)
-                    && GameConditions.isAtLocation(game, self, Filters.sameLocation(target))) {
+                    && target != null
+                    && plansLocation != null
+                    && targetLocation != null
+                    && plansLocation.getCardId() == targetLocation.getCardId()) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setSingletonTrigger(true);
@@ -92,6 +97,14 @@ public class Card1_046 extends AbstractUtinniEffect {
                         }
                 );
                 // Perform result(s)
+                action.appendEffect(
+                        new com.gempukku.swccgo.logic.timing.PassthruEffect(action) {
+                            @Override
+                            protected void doPlayEffect(SwccgGame game) {
+                                com.gempukku.swccgo.logic.modifiers.MouseDroidUtinniCarry.markMouseDeliveryFromTargetRelocation(self,
+                                        game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), target));
+                            }
+                        });
                 action.appendEffect(
                         new AttachCardFromTableEffect(action, self, target));
                 return Collections.singletonList(action);

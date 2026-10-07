@@ -35,6 +35,7 @@ import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
 import com.gempukku.swccgo.logic.modifiers.KeywordModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
+import com.gempukku.swccgo.logic.modifiers.MouseDroidUtinniCarry;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
@@ -109,6 +110,10 @@ public class Card1_059 extends AbstractEffect {
 
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(final SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        // Elom turns this into a normal Effect disguise: no hunt / reach / relocate-to-target.
+        if (GameConditions.hasGameTextModification(game, self, ModifyGameTextType.PLASTOID_ARMOR__CHANGE_DEPLOYMENT))
+            return null;
+
         final GameState gameState = game.getGameState();
         PhysicalCard target = self.getTargetedCard(gameState, TargetId.UTINNI_EFFECT_TARGET_1);
 
@@ -132,6 +137,7 @@ public class Card1_059 extends AbstractEffect {
                     }
             );
             // Perform result(s)
+            MouseDroidUtinniCarry.markMouseDeliveryFromTargetRelocation(self, game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self.getAttachedTo()));
             action.appendEffect(
                     new AttachCardFromTableEffect(action, self, target));
             return Collections.singletonList(action);

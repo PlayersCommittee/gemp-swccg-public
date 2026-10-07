@@ -69,7 +69,8 @@ public class Card3_109 extends AbstractUtinniEffect {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         String opponent = game.getOpponent(self.getOwner());
-        Filter locationFilter = Filters.sameLocationAs(self, Filters.targetedByCardOnTableAsTargetId(self, TargetId.UTINNI_EFFECT_TARGET_1));
+        PhysicalCard target = self.getTargetedCard(game.getGameState(), TargetId.UTINNI_EFFECT_TARGET_1);
+        Filter locationFilter = target == null ? Filters.none : Filters.sameLocation(target);
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new MayNotForceDrainAtLocationModifier(self, locationFilter, opponent));

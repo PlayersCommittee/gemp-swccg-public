@@ -32,6 +32,7 @@ import com.gempukku.swccgo.logic.effects.RecordUtinniEffectCompletedEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.evaluators.Evaluator;
 import com.gempukku.swccgo.logic.modifiers.ModifyGameTextType;
+import com.gempukku.swccgo.logic.modifiers.MouseDroidUtinniCarry;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -94,7 +95,11 @@ public class Card4_036 extends AbstractUtinniEffect {
         if (TriggerConditions.isTableChanged(game, effectResult)
                 && GameConditions.isAtLocation(game, self, Filters.sameLocation(target))) {
             if (!GameConditions.isUtinniEffectReached(game, self)) {
-                PhysicalCard planetSystem = Filters.findFirstFromTopLocationsOnTable(game, Filters.and(Filters.planet_system, Filters.relatedSystem(self)));
+                PhysicalCard relationSource = MouseDroidUtinniCarry.getEffectSubjectHost(game.getGameState(), self);
+                if (relationSource == null) {
+                    relationSource = self;
+                }
+                PhysicalCard planetSystem = Filters.findFirstFromTopLocationsOnTable(game, Filters.and(Filters.planet_system, Filters.relatedSystem(relationSource)));
                 if (planetSystem != null) {
 
                     final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
@@ -110,6 +115,10 @@ public class Card4_036 extends AbstractUtinniEffect {
                                 }
                             }
                     );
+                    // If Mouse is carrying Rycar's Run, its own reached relocation delivers the package.
+                    // Mark the carrier return before detaching the Utinni from Mouse.
+                    MouseDroidUtinniCarry.markMouseDeliveryFromTargetRelocation(self, game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self.getAttachedTo()));
+
                     // Perform result(s)
                     action.appendEffect(
                             new AttachCardFromTableEffect(action, self, planetSystem));

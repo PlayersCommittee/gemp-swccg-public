@@ -23,6 +23,7 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.ForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.MouseDroidUtinniCarry;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -99,10 +100,16 @@ public class Card4_034 extends AbstractUtinniEffect {
         String playerId = self.getOwner();
         final GameState gameState = game.getGameState();
         final PhysicalCard target = self.getTargetedCard(gameState, TargetId.UTINNI_EFFECT_TARGET_1);
+        // A Mouse Droid may carry Report away from Vader. The printed resolution
+        // condition is target reaches Vader, not target reaches the current carrier.
+        final PhysicalCard reportHost = MouseDroidUtinniCarry.getEffectSubjectHost(gameState, self);
 
         // Check condition(s)
         if (TriggerConditions.isTableChanged(game, effectResult)
-                && GameConditions.isAtLocation(game, self, Filters.sameLocation(target))) {
+                && target != null
+                && reportHost != null
+                && GameConditions.isAtLocation(game, reportHost, Filters.sameLocation(target))
+                && GameConditions.canBeCanceled(game, self)) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Make lost");
