@@ -55,9 +55,13 @@ public class Card102_008 extends AbstractLostInterrupt {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
 
-            final float highestAbilityPiloting = game.getModifiersQuerying().getHighestAbilityPiloting(game.getGameState(), starship, false, false);
-            float highestAbilityCharacterPiloting = game.getModifiersQuerying().getHighestAbilityPiloting(game.getGameState(), starship, false, true);
-            float highestAbilityPermanentPilotPiloting = game.getModifiersQuerying().getHighestAbilityPiloting(game.getGameState(), starship, true, false);
+            final GameState gameStateForAbility = game.getGameState();
+            float highestAbilityPermanentPilotPiloting = game.getModifiersQuerying().getHighestAbilityPiloting(gameStateForAbility, starship, true, false);
+            float highestAbilityCharacterPiloting = 0;
+            for (PhysicalCard spottedPilot : Filters.filterActive(game, self, Filters.piloting(starship))) {
+                highestAbilityCharacterPiloting = Math.max(highestAbilityCharacterPiloting, game.getModifiersQuerying().getAbility(gameStateForAbility, spottedPilot));
+            }
+            final float highestAbilityPiloting = Math.max(highestAbilityCharacterPiloting, highestAbilityPermanentPilotPiloting);
 
             Filter targetFilter;
             String text;
