@@ -336,9 +336,10 @@ public abstract class AbstractVehicle extends AbstractDeployable {
                 if (!game.getModifiersQuerying().hasPermanentPilot(game.getGameState(), self)
                         && (reactActionOption != null
                         || Filters.deploysLikeStarfighterAtCloudSectors.accepts(game, self))) {
-                    Filter extraTargetFilter = reactActionOption != null ? Filters.any : Filters.cloud_sector;
+                    // Simultaneous pilot/driver only for destinations that require a pilot (cloud sectors). #968 / AR React-Deploy:
+                    Filter extraTargetFilter = Filters.cloud_sector;
 
-                    deployWithSeparatePilotTargetFilter = Filters.and(deployWithoutSeparatePilotTargetFilter);
+                    deployWithSeparatePilotTargetFilter = Filters.none;
 
                     // Check any pilots in hand (or that may be deployed as if from hand) that can be deployed simultaneously with vehicle.
                     List<PhysicalCard> cardsFromHand = new ArrayList<PhysicalCard>();
@@ -353,7 +354,7 @@ public abstract class AbstractVehicle extends AbstractDeployable {
 
                             // If they can be deployed simultaneously with vehicle, then include that filter.
                             validPilotsFromHand.add(cardFromHand);
-                            deployWithSeparatePilotTargetFilter = Filters.or(deployWithSeparatePilotTargetFilter, getValidDeployTargetWithPilotOrPassengerFilter(playerId, game, self, sourceCard, forFree, changeInCost, cardFromHand, cardToDeployWithForFree, cardToDeployWithChangeInCost, deploymentRestrictionsOption, reactActionOption));
+                            deployWithSeparatePilotTargetFilter = Filters.or(deployWithSeparatePilotTargetFilter, Filters.and(extraTargetFilter, getValidDeployTargetWithPilotOrPassengerFilter(playerId, game, self, sourceCard, forFree, changeInCost, cardFromHand, cardToDeployWithForFree, cardToDeployWithChangeInCost, deploymentRestrictionsOption, reactActionOption)));
                         }
                     }
                     deployWithSeparatePilotTargetFilter = Filters.and(deployWithSeparatePilotTargetFilter, deployTargetFilter);
