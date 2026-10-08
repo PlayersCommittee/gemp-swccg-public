@@ -53,6 +53,7 @@ public enum Species implements Filterable {
     GUNGAN("Gungan", true),
     HARCH("Harch", true),
     HNEMTHE("H'nemthe", true),
+    HOOVER("Hoover", true),
     HUTT("Hutt", true),
     HYLOBON("Hylobon", true),
     IMROOSIAN("Imroosian", true),

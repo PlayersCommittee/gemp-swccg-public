@@ -107348,6 +107348,43 @@
     "species": "NIKTO"
   },
   {
+    "cardId": "6_128",
+    "title": "Velken Tezeri",
+    "slug": "velken-tezeri",
+    "slugWithSetName": "velken-tezeri-jabbas-palace",
+    "side": "DARK",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "JABBAS_PALACE",
+    "rarity": "R",
+    "cardCategory": "CHARACTER",
+    "cardTypes": [
+      "ALIEN"
+    ],
+    "lore": "Assigned by Jabba to work with Hermi Odle. Former technician for the Empire. Developed a method to remotely control seekers. Plotting to kill Jabba.",
+    "gameText": "When at a site you control, allows your Seekers to deploy free there. Also allows your Seekers to move for free and to ignore any or all potential target(s) whenever you choose.",
+    "deployCost": 3,
+    "destiny": 3,
+    "power": 2,
+    "ability": 1,
+    "forfeit": 2,
+    "landspeed": 1,
+    "politics": 0,
+    "icons": [
+      {
+        "icon": "JABBAS_PALACE",
+        "count": 1
+      },
+      {
+        "icon": "ALIEN",
+        "count": 1
+      },
+      {
+        "icon": "WARRIOR",
+        "count": 1
+      }
+    ]
+  },
+  {
     "cardId": "6_129",
     "title": "Vizam",
     "slug": "vizam",
@@ -109823,6 +109860,40 @@
     "modelTypes": [
       "ASTROMECH"
     ]
+  },
+  {
+    "cardId": "6_4",
+    "title": "Attark",
+    "slug": "attark",
+    "slugWithSetName": "attark-jabbas-palace",
+    "side": "LIGHT",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "JABBAS_PALACE",
+    "rarity": "R",
+    "cardCategory": "CHARACTER",
+    "cardTypes": [
+      "ALIEN"
+    ],
+    "lore": "From a mysterious species known only as Hoovers. Possesses tremendous technical abilities. Small size allows him to easy manipulate detailed electronic equipment.",
+    "gameText": "When at a site you control, allows your Seekers to deploy free there. Attark also allows your Seekers to move for free and to ignore any or all potential target(s) whenever you choose.",
+    "deployCost": 3,
+    "destiny": 3,
+    "power": 2,
+    "ability": 2,
+    "forfeit": 2,
+    "landspeed": 1,
+    "politics": 0,
+    "icons": [
+      {
+        "icon": "JABBAS_PALACE",
+        "count": 1
+      },
+      {
+        "icon": "ALIEN",
+        "count": 1
+      }
+    ],
+    "species": "HOOVER"
   },
   {
     "cardId": "6_30",
