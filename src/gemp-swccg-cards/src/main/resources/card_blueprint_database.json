@@ -103469,6 +103469,34 @@
     ]
   },
   {
+    "cardId": "5_23",
+    "title": "Frozen Assets",
+    "slug": "frozen-assets",
+    "slugWithSetName": "frozen-assets-cloud-city",
+    "side": "LIGHT",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "CLOUD_CITY",
+    "rarity": "R",
+    "cardCategory": "EFFECT",
+    "cardTypes": [
+      "EFFECT"
+    ],
+    "cardSubtype": "NORMAL",
+    "lore": "Molten carbonite is released into the chamber and then flash frozen, releasing a blast of air. The subject is instantly covered in the newly solidified material.",
+    "gameText": "Deploy on your side of table. At every site where there is a 'frozen' captive, your Rebels deploy -2 and are power +2 in battle. OR Deploy on top of opponent's Force Pile. Force below this card may not be drawn or used. Effect lost at end of opponent's next turn.",
+    "destiny": 5,
+    "icons": [
+      {
+        "icon": "CLOUD_CITY",
+        "count": 1
+      },
+      {
+        "icon": "EFFECT",
+        "count": 1
+      }
+    ]
+  },
+  {
     "cardId": "5_24",
     "title": "Haven",
     "slug": "haven",

@@ -492,6 +492,13 @@ public class LoseForceEffect extends AbstractSubActionEffect {
                             if (topOfForcePile != null && (_fromForcePile || allowForceLossFromAnywhereAvailable))
                                 selectableCards.add(topOfForcePile);
 
+                            // Bill/Gergall: frozen may be lost only when usable Force pile is empty
+                            // Skip FA marker at top of FROZEN_PILE — lose frozen Force beneath
+                            PhysicalCard topOfFrozenPile = game.getGameState().getTopFrozenForce(_playerToLoseForce);
+                            if (topOfFrozenPile != null && topOfForcePile == null
+                                    && (_fromForcePile || allowForceLossFromAnywhereAvailable))
+                                selectableCards.add(topOfFrozenPile);
+
                             PhysicalCard topOfUsedPile = game.getGameState().getTopOfUsedPile(_playerToLoseForce);
                             if (topOfUsedPile != null && (_fromUsedPile || allowForceLossFromAnywhereAvailable))
                                 selectableCards.add(topOfUsedPile);

@@ -432,6 +432,17 @@ public class DeploySingleCardEffect extends AbstractSubActionEffect implements P
                                                             gameState.shufflePile(playedToZoneOwner, _playedToZone);
                                                             playCardText.append(GameUtils.getCardLink(_cardToPlay)).append(" from ").append(fromText).append(" into ").append(playedToZoneOwner).append("'s ").append(_playedToZone.getHumanReadable()).append(" and shuffles ").append(playedToZoneOwner).append("'s ").append(_playedToZone.getHumanReadable());
                                                         }
+                                                        // Frozen Assets (VHD): freeze Force into FROZEN_PILE; FA sits Active at TOP of
+                                                        // FROZEN_PILE so it stays out of Force Pile shuffle/draw/use paths.
+                                                        else if (_playedToZone == Zone.FORCE_PILE
+                                                                && Filters.Frozen_Assets.accepts(game, _cardToPlay)) {
+                                                            gameState.moveForcePileToFrozenPile(playedToZoneOwner);
+                                                            gameState.addCardToTopOfZone(_cardToPlay, Zone.FROZEN_PILE, playedToZoneOwner);
+                                                            // FROZEN_PILE is not in-play; startAffecting so FA stays Active / Alter-targetable
+                                                            _cardToPlay.startAffectingGame(game);
+                                                            playCardText.append(GameUtils.getCardLink(_cardToPlay)).append(" from ").append(fromText)
+                                                                    .append(" on top of ").append(playedToZoneOwner).append("'s Frozen Pile (freezing Force below)");
+                                                        }
                                                         // Played to other zone.
                                                         else {
                                                             gameState.addCardToZone(_cardToPlay, _playedToZone, playedToZoneOwner);
