@@ -22,7 +22,7 @@ import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
 import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.CaptureCharacterFromLostInSpaceOrWeatherVaneEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
-import com.gempukku.swccgo.logic.effects.LoseCardsFromOffTableSimultaneouslyEffect;
+import com.gempukku.swccgo.logic.effects.LoseCardsFromTableSimultaneouslyEffect;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
@@ -61,7 +61,7 @@ public class Card5_030 extends AbstractNormalEffect {
                 action.setActionMsg("Make " + GameUtils.getAppendedNames(charactersToLose) + " lost");
                 // Perform result(s)
                 action.appendEffect(
-                        new LoseCardsFromOffTableSimultaneouslyEffect(action, charactersToLose, false));
+                        new LoseCardsFromTableSimultaneouslyEffect(action, charactersToLose, false, true));
                 return Collections.singletonList(action);
             }
         }
