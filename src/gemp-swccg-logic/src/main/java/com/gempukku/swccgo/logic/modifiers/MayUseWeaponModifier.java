@@ -40,7 +40,7 @@ public class MayUseWeaponModifier extends AbstractModifier {
      * @param condition the condition that must be fulfilled for the modifier to be in effect
      * @param weaponFilter the weapon filter
      */
-    private MayUseWeaponModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Filterable weaponFilter) {
+    public MayUseWeaponModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Filterable weaponFilter) {
         super(source, null, affectFilter, condition, ModifierType.MAY_USE_WEAPON, true);
         _weaponFilter = Filters.and(Filters.weapon, weaponFilter);
     }
