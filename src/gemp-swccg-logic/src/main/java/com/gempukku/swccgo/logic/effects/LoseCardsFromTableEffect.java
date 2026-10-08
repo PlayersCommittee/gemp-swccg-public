@@ -117,7 +117,9 @@ public class LoseCardsFromTableEffect extends AbstractSubActionEffect {
          * @param remainingCards the remaining cards to place in the card pile
          */
         public ChooseNextCardToLose(SubAction subAction, SwccgGame game, Collection<PhysicalCard> remainingCards) {
-            super(subAction, subAction.getPerformingPlayer(), "Choose card to be lost", 1, 1, remainingCards);
+            // AR p.11: placing each card in a pile is a competing automatic action; the player
+            // whose turn it is chooses the order unless the card text names a player.
+            super(subAction, game.getGameState().getCurrentPlayerId(), "Choose card to be lost", 1, 1, remainingCards);
             _subAction = subAction;
             _game = game;
             _remainingCards = remainingCards;
