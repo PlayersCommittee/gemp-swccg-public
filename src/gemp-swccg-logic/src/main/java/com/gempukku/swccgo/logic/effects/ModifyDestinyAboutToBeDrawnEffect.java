@@ -1,12 +1,17 @@
 package com.gempukku.swccgo.logic.effects;
 
+import com.gempukku.swccgo.common.DestinyType;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.EachDrawnDestinyState;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.evaluators.ConstantEvaluator;
+import com.gempukku.swccgo.logic.modifiers.DestinyWhenDrawnForBattleDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.DestinyWhenDrawnForDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.DestinyWhenDrawnForWeaponDestinyModifier;
+import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -35,9 +40,18 @@ public class ModifyDestinyAboutToBeDrawnEffect extends AbstractSuccessfulEffect 
             DrawDestinyEffect drawDestinyEffect = eachDrawnDestinyState.getDrawDestinyEffect();
             if (drawDestinyEffect.getSubstituteDestiny() == null) {
                 PhysicalCard source = _action.getActionSource();
-
-                game.getModifiersEnvironment().addUntilEndOfEachDrawnDestinyModifier(
-                        new DestinyWhenDrawnForDestinyModifier(source, Filters.any, _modifierAmount));
+                DestinyType destinyType = drawDestinyEffect.getDestinyType();
+                Modifier modifier;
+                if (destinyType == DestinyType.WEAPON_DESTINY) {
+                    modifier = new DestinyWhenDrawnForWeaponDestinyModifier(source, Filters.any, new ConstantEvaluator(_modifierAmount));
+                }
+                else if (destinyType == DestinyType.BATTLE_DESTINY) {
+                    modifier = new DestinyWhenDrawnForBattleDestinyModifier(source, Filters.any, new ConstantEvaluator(_modifierAmount));
+                }
+                else {
+                    modifier = new DestinyWhenDrawnForDestinyModifier(source, Filters.any, _modifierAmount);
+                }
+                game.getModifiersEnvironment().addUntilEndOfEachDrawnDestinyModifier(modifier);
                 if (_modifierAmount > 0) {
                     gameState.sendMessage(GameUtils.getCardLink(source) + " adds " + GuiUtils.formatAsString(_modifierAmount) + " to about to be drawn " + drawDestinyEffect.getDestinyType().getHumanReadable());
                 }
