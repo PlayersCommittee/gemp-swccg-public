@@ -380,6 +380,7 @@ public class TriggerConditions {
                 || effectResult.getType() == EffectResult.Type.RELOCATED_TO_WEATHER_VANE
                 || effectResult.getType() == EffectResult.Type.RELOCATED_FROM_LOST_IN_SPACE_OR_WEATHER_VANE_TO_LOCATION
                 || effectResult.getType() == EffectResult.Type.STOLEN
+                || effectResult.getType() == EffectResult.Type.FOR_EACH_PURCHASED
                 || effectResult.getType() == EffectResult.Type.TRANSFERRED_CAPTIVE_TO_NEW_ESCORT
                 || effectResult.getType() == EffectResult.Type.ROTATE_CARD
                 || effectResult.getType() == EffectResult.Type.TRANSFERRED_DEVICE_OR_WEAPON
