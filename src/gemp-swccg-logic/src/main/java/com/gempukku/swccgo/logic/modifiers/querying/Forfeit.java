@@ -15,6 +15,10 @@ public interface Forfeit extends BaseQuery, Attributes, Destiny, Flags, Keywords
         return !getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_SATISFY_ATTRITION, card).isEmpty();
     }
 
+    default boolean cannotSatisfyBattleDamage(GameState gameState, PhysicalCard card) {
+        return !getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_SATISFY_BATTLE_DAMAGE, card).isEmpty();
+    }
+
     /**
      * Determines if a card satisfies all battle damage when forfeited.
      * @param gameState the game state

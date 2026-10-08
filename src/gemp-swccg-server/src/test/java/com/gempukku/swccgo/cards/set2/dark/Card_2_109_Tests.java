@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.framework.StartingSetup;
+import com.gempukku.swccgo.logic.modifiers.MayNotHaveForfeitValueReducedModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -21,6 +22,7 @@ public class Card_2_109_Tests {
                     put("septoid", "2_109");
                     put("servitude", "106_014");
                     put("vader", "7_175");
+                    put("chokk", "12_099");
                 }},
                 10,
                 10,
@@ -147,5 +149,39 @@ public class Card_2_109_Tests {
 
         scn.DSPayBattleDamageFromCardInHand(septoid);
         assertEquals(3, scn.GetUnpaidDSBattleDamage());
+    }
+
+    @Test
+    public void SeptoidDoesNotSatisfyBattleDamageWhenChokkPreventsForfeitReduction() {
+        var scn = GetScenario();
+
+        var luke = scn.GetLSCard("luke");
+        var site = scn.GetLSStartingLocation();
+        var septoid = scn.GetDSCard("septoid");
+        var stormtrooper1 = scn.GetDSFiller(1);
+        var stormtrooper2 = scn.GetDSFiller(2);
+
+        scn.StartGame();
+        scn.MoveCardsToLocation(site, luke, septoid, stormtrooper1, stormtrooper2);
+        scn.game().getModifiersEnvironment().addUntilEndOfGameModifier(
+                new MayNotHaveForfeitValueReducedModifier(septoid, septoid));
+        scn.SkipToPhase(Phase.BATTLE);
+        scn.DSInitiateBattle(site);
+        scn.DSPass();
+        scn.PrepareLSDestiny(3);
+        scn.PrepareLSDestiny(2);
+        scn.LSUseCardAction(luke);
+        scn.LSChooseCard(stormtrooper2);
+        scn.PassAllResponses();
+        scn.DSPass();
+        scn.LSPass();
+        scn.PrepareDSDestiny(1);
+        scn.PrepareLSDestiny(7);
+        scn.SkipToDamageSegment(true);
+
+        int unpaid = scn.GetUnpaidDSBattleDamage();
+        assertTrue(unpaid > 0);
+        scn.DSPayBattleDamageFromCardInPlay(septoid);
+        assertEquals(unpaid, scn.GetUnpaidDSBattleDamage());
     }
 }

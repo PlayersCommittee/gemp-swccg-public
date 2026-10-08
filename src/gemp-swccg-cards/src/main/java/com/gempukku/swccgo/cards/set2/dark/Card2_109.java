@@ -9,13 +9,18 @@ import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
+import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextForfeitModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeUsedToSatisfyAttritionModifier;
+import com.gempukku.swccgo.logic.modifiers.MayNotBeUsedToSatisfyBattleDamageModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.RemainsInPlayWhenForfeitedFromPlayModifier;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -48,6 +53,14 @@ public class Card2_109 extends AbstractDroid {
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new RemainsInPlayWhenForfeitedFromPlayModifier(self));
+        Condition forfeitMayNotBeReduced = new Condition() {
+            @Override
+            public boolean isFulfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                return modifiersQuerying.isProhibitedFromHavingForfeitReduced(gameState, self);
+            }
+        };
+        modifiers.add(new MayNotBeUsedToSatisfyAttritionModifier(self, self, forfeitMayNotBeReduced));
+        modifiers.add(new MayNotBeUsedToSatisfyBattleDamageModifier(self, self, forfeitMayNotBeReduced));
         return modifiers;
     }
 
