@@ -10,6 +10,7 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.game.state.MoveAsReactState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.AbstractGameTextAction;
+import com.gempukku.swccgo.logic.effects.InitiateMoveAsReactEffect;
 import com.gempukku.swccgo.logic.effects.StackActionEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -138,6 +139,15 @@ public class MoveAsReactAction extends AbstractGameTextAction {
 
             if (!_addedReactSteps) {
                 _addedReactSteps = true;
+
+                // Open the cancel/'react' response window before embarking. AR Appendix C: other cards
+                // embark just before the reacting card leaves, which is after the react can be canceled.
+                PhysicalCard fromLocation = game.getModifiersQuerying().getLocationThatCardIsAt(gameState, _cardToReact);
+                InitiateMoveAsReactEffect initiateEffect = new InitiateMoveAsReactEffect(_that, _cardToReact, fromLocation, _locationToMoveTo, _movementType);
+                if (gameState.getMoveAsReactState() != null) {
+                    gameState.getMoveAsReactState().setMovingAsReactEffect(initiateEffect);
+                }
+                appendEffect(initiateEffect);
 
                 // Step 1: Other cards may embark on the reacting card
                 // and the reacting card itself may disembark from other cards

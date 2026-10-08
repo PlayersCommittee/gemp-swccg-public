@@ -93,7 +93,8 @@ public class MoveUsingLandspeedEffect extends AbstractSubActionEffect implements
 
     @Override
     public Effect.Type getType() {
-        return _asReact ? Type.MOVING_AS_REACT_USING_LANDSPEED : null;
+        // React cancel window is opened by InitiateMoveAsReactEffect before embarking.
+        return null;
     }
 
     @Override
