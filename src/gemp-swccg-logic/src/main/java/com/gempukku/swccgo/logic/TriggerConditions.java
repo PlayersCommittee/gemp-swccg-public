@@ -818,6 +818,17 @@ public class TriggerConditions {
     }
 
     /**
+     * True while the new persona is on table and the old one has not yet been placed in Lost Pile.
+     */
+    public static boolean aboutToPersonaReplaceCharacter(SwccgGame game, EffectResult effectResult, Filterable newCharacterFilter) {
+        if (effectResult.getType() == EffectResult.Type.ABOUT_TO_PERSONA_REPLACE_CHARACTER) {
+            AboutToPersonaReplaceCharacterResult result = (AboutToPersonaReplaceCharacterResult) effectResult;
+            return Filters.and(Filters.in_play, newCharacterFilter).accepts(game.getGameState(), game.getModifiersQuerying(), result.getNewCharacter());
+        }
+        return false;
+    }
+
+    /**
      * Determines a card accepted by the deployed card filter was just deployed to the specified system.
      * @param game the game
      * @param effectResult the effect result
