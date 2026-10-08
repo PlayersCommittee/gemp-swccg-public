@@ -30,8 +30,11 @@ public class RequiredGameTextTriggerAction extends AbstractGameTextAction implem
      */
     public RequiredGameTextTriggerAction(PhysicalCard physicalCard, int gameTextSourceCardId, GameTextActionId gameTextActionId) {
         super(physicalCard, null, gameTextSourceCardId, gameTextActionId);
-        _triggerIdentifierUsingCardId = physicalCard.getCardId()+"||"+gameTextSourceCardId+"|"+ gameTextActionId;
-        _triggerIdentifierUsingBlueprintId = physicalCard.getBlueprintId(true)+"||"+gameTextSourceCardId+"|"+ gameTextActionId;
+        // Zone changes assign a new cardId; permanentCardId keeps "already responded" across taking a destiny into hand.
+        int stableCardId = physicalCard.getPermanentCardId();
+        int stableSourceId = (gameTextSourceCardId == physicalCard.getCardId()) ? stableCardId : gameTextSourceCardId;
+        _triggerIdentifierUsingCardId = stableCardId+"||"+stableSourceId+"|"+ gameTextActionId;
+        _triggerIdentifierUsingBlueprintId = physicalCard.getBlueprintId(true)+"||"+stableSourceId+"|"+ gameTextActionId;
         _text = "Required response from " + GameUtils.getCardLink(physicalCard);
         _initiationMessage = GameUtils.getCardLink(physicalCard) + " required response is initiated";
     }
