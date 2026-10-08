@@ -36,8 +36,12 @@ public class TransferDeviceOrWeaponEffect extends AbstractSuccessfulEffect {
         GameState gameState = game.getGameState();
         String performingPlayerId = _action.getPerformingPlayer();
 
-        gameState.sendMessage(performingPlayerId + " transfers " + GameUtils.getCardLink(_deviceOrWeapon) + " from " + GameUtils.getCardLink(_deviceOrWeapon.getAttachedTo()) + " to " + GameUtils.getCardLink(_transferTo));
-        var transferFrom = _deviceOrWeapon.getAttachedTo();
+        PhysicalCard transferFrom = _deviceOrWeapon.getAttachedTo();
+        if (transferFrom == null) {
+            transferFrom = _deviceOrWeapon.getStackedOn();
+        }
+        String fromText = transferFrom != null ? GameUtils.getCardLink(transferFrom) : "table";
+        gameState.sendMessage(performingPlayerId + " transfers " + GameUtils.getCardLink(_deviceOrWeapon) + " from " + fromText + " to " + GameUtils.getCardLink(_transferTo));
         gameState.moveCardToAttached(_deviceOrWeapon, _transferTo);
         _deviceOrWeapon.setPlayCardOptionId(_playCardOptionId);
 
