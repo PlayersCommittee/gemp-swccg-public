@@ -23,8 +23,10 @@ import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Set: Cloud City
@@ -68,16 +70,22 @@ public class Card5_031 extends AbstractLostInterrupt {
                         new ChooseCardOnTableEffect(action, playerId, "Choose site", validSites) {
                             @Override
                             protected void cardSelected(PhysicalCard site) {
-                                final Collection<PhysicalCard> cards = Filters.filterActive(game, self, Filters.and(Filters.opponents(self), Filters.or(Filters.character, Filters.vehicle, Filters.starship), Filters.at(site)));
-                                action.addAnimationGroup(cards);
+                                final Collection<PhysicalCard> hosts = Filters.filterActive(game, self, Filters.and(Filters.opponents(self), Filters.or(Filters.character, Filters.vehicle, Filters.starship), Filters.at(site)));
+                                // "cards on them": attached weapons/devices/effects/creatures, not only the hosts.
+                                final Set<PhysicalCard> cards = new LinkedHashSet<PhysicalCard>();
+                                for (PhysicalCard host : hosts) {
+                                    cards.add(host);
+                                    cards.addAll(game.getGameState().getAllAttachedRecursively(host));
+                                }
+                                action.addAnimationGroup(hosts);
                                 // Allow response(s)
-                                action.allowResponses("Place  " + GameUtils.getAppendedNames(cards) + " in Used Pile",
+                                action.allowResponses("Place  " + GameUtils.getAppendedNames(hosts) + " in Used Pile",
                                         new RespondablePlayCardEffect(action) {
                                             @Override
                                             protected void performActionResults(Action targetingAction) {
                                                 // Perform result(s)
                                                 action.appendEffect(
-                                                        new PlaceCardsInUsedPileFromTableEffect(action, cards, false, Zone.USED_PILE));
+                                                        new PlaceCardsInUsedPileFromTableEffect(action, cards, false, Zone.USED_PILE, true));
                                             }
                                         }
                                 );
