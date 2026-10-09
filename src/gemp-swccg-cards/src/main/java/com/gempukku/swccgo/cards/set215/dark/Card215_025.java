@@ -43,13 +43,13 @@ import java.util.List;
 public class Card215_025 extends AbstractEpicEventDeployable {
     public Card215_025() {
         super(Side.DARK, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Emperors_Orders, Uniqueness.UNIQUE, ExpansionSet.SET_15, Rarity.V);
-        setGameText("If you did not deploy an Objective, deploy on table. We're Not Going To Attack?: Once per turn, may [download] a battleground system. You may not deploy non-Imperial starships. Unless you occupy a battleground site, Dreaded Imperial Starfleet is suspended. The Alliance Will Die...: Flagship Operations does not require any Executor sites on table to deploy, and does not target squadrons. ...As Will Your Friends: At battleground systems where you have a piloted capital starship / TIE pair, Force drains = 2. During battle at a site related to a system you occupy, may add one destiny to total power and/or re-circulate.");
+        setGameText("If you did not deploy an Objective or Epic Event, deploy on table. We're Not Going To Attack?: Once per turn, may [download] a battleground system. You may not deploy non-Imperial starships. Unless you occupy a battleground site, Dreaded Imperial Starfleet is suspended. The Alliance Will Die...: Flagship Operations does not require any Executor sites on table to deploy, and does not target squadrons. ...As Will Your Friends: At battleground systems where you have a piloted capital starship / TIE pair, Force drains = 2. During battle at a site related to a system you occupy, may add one destiny to total power and/or re-circulate.");
         addIcons(Icon.VIRTUAL_SET_15);
     }
 
     @Override
     protected boolean checkGameTextDeployRequirements(String playerId, SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
-        return GameConditions.didNotDeployAnObjective(game, playerId);
+        return GameConditions.didNotDeployAnObjective(game, playerId) && !Filters.canSpot(game, self, Filters.and(Filters.your(self), Filters.Epic_Event));
     }
 
     @Override
@@ -70,56 +70,56 @@ public class Card215_025 extends AbstractEpicEventDeployable {
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<TopLevelGameTextAction>();
-        
+
         Filter sitesRelatedToSystemsYouOccupy = Filters.relatedSiteTo(self, Filters.and(Filters.system, Filters.occupies(playerId)));
 
         GameTextActionId gameTextActionId = GameTextActionId.EMPERORS_ORDERS__DOWNLOAD_SYSTEM;
 
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
+            && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Deploy battleground system from Reserve Deck");
             // Update usage limit(s)
             action.appendUsage(
-                    new OncePerTurnEffect(action));
+                new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.system, Filters.battleground, true));
+                new DeployCardFromReserveDeckEffect(action, Filters.system, Filters.battleground, true));
             actions.add(action);
         }
 
         gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
         // Check condition(s)
         if (GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.isDuringBattleAt(game, sitesRelatedToSystemsYouOccupy)
-                && GameConditions.canAddDestinyDrawsToPower(game, playerId)) {
+            && GameConditions.isDuringBattleAt(game, sitesRelatedToSystemsYouOccupy)
+            && GameConditions.canAddDestinyDrawsToPower(game, playerId)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Add one destiny to total power");
             // Update usage limit(s)
             action.appendUsage(
-                    new OncePerBattleEffect(action));
+                new OncePerBattleEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new AddDestinyToTotalPowerEffect(action, 1));
+                new AddDestinyToTotalPowerEffect(action, 1));
             actions.add(action);
         }
 
         gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2;
         // Check condition(s)
         if (GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.isDuringBattleAt(game, sitesRelatedToSystemsYouOccupy)) {
+            && GameConditions.isDuringBattleAt(game, sitesRelatedToSystemsYouOccupy)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Re-circulate");
             // Update usage limit(s)
             action.appendUsage(
-                    new OncePerBattleEffect(action));
+                new OncePerBattleEffect(action));
             // Perform result(s)
             action.appendEffect(
-                    new RecirculateEffect(action, playerId));
+                new RecirculateEffect(action, playerId));
             actions.add(action);
         }
         return actions;
