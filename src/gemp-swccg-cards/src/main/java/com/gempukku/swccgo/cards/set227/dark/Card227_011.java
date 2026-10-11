@@ -10,8 +10,6 @@ import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Title;
-import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -40,7 +38,7 @@ public class Card227_011 extends AbstractObjective {
     public Card227_011() {
         super(Side.DARK, 0, "More Systems Will Rally To Our Cause", ExpansionSet.SET_27, Rarity.V);
         setFrontOfDoubleSidedCard(true);
-        setGameText("Deploy [Separatist] Geonosis system, a Geonosis site, a [Clone Army] system, and Droid Racks. Stack six (••• •••) cards from outside your deck on here. For remainder of game, you may not deploy cards with ability except [episode I] cards. If your [Episode I] system was just converted, raise it to the top. Your (••• •••) cards stacked on Droid Racks may deploy as if from hand. Once per turn, may [download] Invisible Hand: Bridge or a [Separatist] location. Flip this card at the end of turn if your [Clone Army] systems not on table.");
+        setGameText("Deploy [Separatist] Geonosis system, a Geonosis site, a [Clone Army] system, and Droid Racks. Stack six (••• •••) cards from outside your deck on here. For remainder of game, you may not deploy cards with ability except [Episode I] cards. If your [Episode I] system was just converted, raise it to the top. Your (••• •••) cards stacked on Droid Racks may deploy as if from hand. Once per turn, may [download] Invisible Hand: Bridge or a [Separatist] location. Flip this card at the end of turn if your [Clone Army] systems not on table.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_27);
     }
 
@@ -83,40 +81,31 @@ public class Card227_011 extends AbstractObjective {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.not(Icon.EPISODE_I), Filters.or(Filters.character, Filters.starship, Filters.vehicle)), self.getOwner()));
+        modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Icon.EPISODE_I)), self.getOwner()));
         modifiers.add(new MayDeployAsIfFromHandModifier(self, Filters.and(Filters.restricted_6, Filters.stackedOn(self, Filters.Droid_Racks))));
         return modifiers;
     }
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        GameTextActionId gameTextActionId = GameTextActionId.MORE_SYSTEMS_WILL_RALLY_TO_OUR_CAUSE__DEPLOY_BATTLEGROUND_SITE;
+        GameTextActionId gameTextActionId = GameTextActionId.MORE_SYSTEMS_WILL_RALLY_TO_OUR_CAUSE__DEPLOY_LOCATION;
 
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
             && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
-            Filter systemFilter = Filters.and(Filters.your(self), Filters.or(Icon.CLONE_ARMY, Icon.SEPARATIST), Filters.system);
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+            action.setText("Deploy location from Reserve Deck");
+            action.setActionMsg("Deploy Invisible Hand: Bridge or a [Separatist] location from Reserve Deck");
 
-            if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Title.Separatist_Command_Center)
-                || GameConditions.canSpotLocation(game, systemFilter)) {
-                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-                action.setText("Deploy a site from Reserve Deck");
-                action.setActionMsg("Deploy Invisible Hand: Bridge, Separatist Command Center, or a battleground site related to your [Separatist] or [Clone Army] system from Reserve Deck");
-
-                Filter siteFilter = Filters.none;
-                for(PhysicalCard system: Filters.filterTopLocationsOnTable(game, systemFilter)) {
-                    siteFilter = Filters.or(siteFilter, Filters.relatedLocationEvenWhenNotInPlay(system));
-                }
-
-                // Update usage limit(s)
-                action.appendUsage(
-                    new OncePerTurnEffect(action));
-                // Perform result(s)
-                action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.Invisible_Hand_Bridge, Filters.Separatist_Command_Center, Filters.and(Filters.site, siteFilter)), Filters.or(Filters.Invisible_Hand_Bridge, Filters.Separatist_Command_Center, Filters.battleground), true));
-                return Collections.singletonList(action);
-            }
+            // Update usage limit(s)
+            action.appendUsage(
+                new OncePerTurnEffect(action));
+            // Perform result(s)
+            action.appendEffect(
+                new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.Invisible_Hand_Bridge, Icon.SEPARATIST), true));
+            return Collections.singletonList(action);
+        
         }
         return null;
     }

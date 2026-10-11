@@ -11,8 +11,6 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
-import com.gempukku.swccgo.common.Title;
-import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -55,7 +53,7 @@ public class Card227_011_BACK extends AbstractObjective {
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<>();
-        modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.not(Icon.EPISODE_I), Filters.or(Filters.character, Filters.starship, Filters.vehicle)), self.getOwner()));
+        modifiers.add(new MayNotDeployModifier(self, Filters.and(Filters.hasAbilityOrHasPermanentPilotWithAbility, Filters.not(Icon.EPISODE_I)), self.getOwner()));
         modifiers.add(new MayDeployAsIfFromHandModifier(self, Filters.and(Filters.restricted_6, Filters.stackedOn(self, Filters.Droid_Racks))));
         return modifiers;
     }
@@ -64,7 +62,7 @@ public class Card227_011_BACK extends AbstractObjective {
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
 
         // List of action IDs
-        // MORE_SYSTEMS_WILL_RALLY_TO_OUR_CAUSE__DEPLOY_BATTLEGROUND_SITE - Deploy site from Reserve Deck (from 0-side)
+        // MORE_SYSTEMS_WILL_RALLY_TO_OUR_CAUSE__DEPLOY_LOCATION - Deploy location from Reserve Deck (from 0-side)
         // THE_GALAXY_TORN_APART__UPLOAD_UNIQUE_CHARACTER - Upload unique character
         // OTHER_CARD_ACTION_1 - Retrieve if you just flipped
         // OTHER_CARD_ACTION_2 - Control phase damage (used twice: top-level and required response)
@@ -77,32 +75,23 @@ public class Card227_011_BACK extends AbstractObjective {
 
         List<TopLevelGameTextAction> actions = new LinkedList<>();
 
-        GameTextActionId gameTextActionId = GameTextActionId.MORE_SYSTEMS_WILL_RALLY_TO_OUR_CAUSE__DEPLOY_BATTLEGROUND_SITE;
+        GameTextActionId gameTextActionId = GameTextActionId.MORE_SYSTEMS_WILL_RALLY_TO_OUR_CAUSE__DEPLOY_LOCATION;
         // Check condition(s)
         if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
             && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
 
-            Filter systemFilter = Filters.and(Filters.your(self), Filters.or(Icon.CLONE_ARMY, Icon.SEPARATIST), Filters.system);
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+            action.setText("Deploy location from Reserve Deck");
+            action.setActionMsg("Deploy Invisible Hand: Bridge or a [Separatist] location from Reserve Deck");
 
-            if (GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId, Title.Separatist_Command_Center)
-                || GameConditions.canSpotLocation(game, systemFilter)) {
-                final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-                action.setText("Deploy a site from Reserve Deck");
-                action.setActionMsg("Deploy Invisible Hand: Bridge, Separatist Command Center, or a battleground site related to your [Separatist] or [Clone Army] system from Reserve Deck");
-
-                Filter siteFilter = Filters.none;
-                for(PhysicalCard system: Filters.filterTopLocationsOnTable(game, systemFilter)) {
-                    siteFilter = Filters.or(siteFilter, Filters.relatedLocationEvenWhenNotInPlay(system));
-                }
-
-                // Update usage limit(s)
-                action.appendUsage(
-                    new OncePerTurnEffect(action));
-                // Perform result(s)
-                action.appendEffect(
-                    new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.Invisible_Hand_Bridge, Filters.Separatist_Command_Center, Filters.and(Filters.site, siteFilter)), Filters.or(Filters.Invisible_Hand_Bridge, Filters.Separatist_Command_Center, Filters.battleground), true));
-                actions.add(action);
-            }
+            // Update usage limit(s)
+            action.appendUsage(
+                new OncePerTurnEffect(action));
+            // Perform result(s)
+            action.appendEffect(
+                new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.Invisible_Hand_Bridge, Icon.SEPARATIST), true));
+            actions.add(action);
+        
         }
 
         gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_2; //Control phase damage (used twice: top-level and required response)

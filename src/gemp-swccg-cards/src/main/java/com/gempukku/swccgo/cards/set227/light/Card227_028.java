@@ -6,6 +6,7 @@ import com.gempukku.swccgo.cards.conditions.WithCondition;
 import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -39,7 +40,7 @@ public class Card227_028 extends AbstractJediMaster {
         setLore("Female Jedi Council member.");
         setGameText("Battle destiny draws may not be canceled where you have a Jedi. While with a Dark Jedi Master, all immunity to attrition here is canceled. Once per turn, if you just drew an [Episode I] Jedi for destiny, may take that card into hand. Immune to attrition < 6.");
         addIcons(Icon.EPISODE_I, Icon.VIRTUAL_SET_27);
-        setVirtualSuffix(true);
+        addKeywords(Keyword.FEMALE, Keyword.JEDI_COUNCIL_MEMBER);
     }
 
     @Override
