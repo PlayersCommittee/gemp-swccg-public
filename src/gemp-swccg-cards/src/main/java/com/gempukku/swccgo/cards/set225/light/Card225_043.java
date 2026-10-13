@@ -8,6 +8,7 @@ import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.ModelType;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -17,6 +18,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.effects.UseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostForSimultaneouslyDeployingPilotModifier;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToTargetModifier;
 import com.gempukku.swccgo.logic.modifiers.ImmuneToAttritionLessThanModifier;
@@ -38,9 +40,10 @@ public class Card225_043 extends AbstractStarfighter {
         super(Side.LIGHT, 3, 3, 3, null, 5, 3, 5, "Din Djarin's Modified N-1", Uniqueness.UNIQUE, ExpansionSet.SET_25, Rarity.V);
         setLore("");
         setGameText("May add 1 pilot and Grogu as a passenger. " +
-                "Din Djarin deploys -1 aboard. While Din piloting, immune to attrition < 5 " +
-                "and once per game may use 3 Force to cancel a battle just initiated here.");
-        addIcons(Icon.NAV_COMPUTER, Icon.INDEPENDENT, Icon.VIRTUAL_SET_24);
+                "Din deploys -1 aboard. While Din piloting, immune to attrition < 5 " +
+                "and, once per game, may use 3 Force to cancel a battle just initiated here.");
+        addIcons(Icon.NAV_COMPUTER, Icon.INDEPENDENT, Icon.VIRTUAL_SET_25);
+        addModelType(ModelType.MODIFIED_N_1_STARFIGHTER);
         setPilotCapacity(1);
         setPassengerCapacity(1);
         setMatchingPilotFilter(Filters.Din);
@@ -82,10 +85,16 @@ public class Card225_043 extends AbstractStarfighter {
             OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Use 3 force to cancel battle");
             action.setActionMsg("Use 3 force to cancel battle");
+            // Update usage limit(s)
             action.appendUsage(
-                    new OncePerGameEffect(action)
+                new OncePerGameEffect(action)
             );
+            // Append Cost
             action.appendCost(
+                new UseForceEffect(action, playerId, 3)
+            );
+            // Perform result(s)
+            action.appendEffect(
                     new CancelBattleEffect(action)
             );
             return Collections.singletonList(action);
