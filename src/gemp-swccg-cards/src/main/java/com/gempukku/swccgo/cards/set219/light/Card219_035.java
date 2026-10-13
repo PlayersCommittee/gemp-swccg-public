@@ -25,6 +25,7 @@ import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.effects.ReturnCardToHandFromTableEffect;
 import com.gempukku.swccgo.logic.effects.SendMessageEffect;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.TotalPowerModifier;
@@ -66,7 +67,8 @@ public class Card219_035 extends AbstractAlienRebel {
         // Check condition(s)
         if (TriggerConditions.battleEndingAt(game, effectResult, Filters.here(self))
                 && GameConditions.isOncePerGame(game, self, gameTextActionId)
-                && GameConditions.canActivateForce(game, playerId)) {
+                && GameConditions.canActivateForce(game, playerId)
+                && GameConditions.numCardsInReserveDeck(game, playerId) >= 2) {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Activate 2 Force");
             action.setActionMsg("Return to hand to activate 2 Force.");
@@ -74,22 +76,28 @@ public class Card219_035 extends AbstractAlienRebel {
                 new OncePerGameEffect(action));
             action.appendCost(
                     new ReturnCardToHandFromTableEffect(action, self));
-            action.appendEffect(
-                    new ActivateForceEffect(action, playerId, 2));
-            if (GameConditions.cardHasWhileInPlayDataEquals(self, true)
-                    && (GameConditions.numCardsInReserveDeck(game, playerId) >= 2)) {
-                action.appendEffect(new PlayoutDecisionEffect(action, playerId, new YesNoDecision("Retrieve 1 Force?") {
+            final ActivateForceEffect activateEffect = new ActivateForceEffect(action, playerId, 2);
+            action.appendEffect(activateEffect);
+            if (GameConditions.cardHasWhileInPlayDataEquals(self, true)) {
+                action.appendEffect(new PassthruEffect(action) {
                     @Override
-                    protected void yes() {
-                        action.appendEffect(
-                                new RetrieveForceEffect(action, playerId, 1));
+                    protected void doPlayEffect(SwccgGame game) {
+                        if (activateEffect.wasCarriedOut()) {
+                            action.appendEffect(new PlayoutDecisionEffect(action, playerId, new YesNoDecision("Retrieve 1 Force?") {
+                                @Override
+                                protected void yes() {
+                                    action.appendEffect(
+                                            new RetrieveForceEffect(action, playerId, 1));
+                                }
+                                @Override
+                                protected void no() {
+                                    action.appendEffect(
+                                            new SendMessageEffect(action, playerId + " chooses not to retrieve 1 Force"));
+                                }
+                            }));
+                        }
                     }
-                    @Override
-                    protected void no() {
-                        action.appendEffect(
-                                new SendMessageEffect(action, playerId + " chooses not to retrieve 1 Force"));
-                    }
-                }));
+                });
             }
             return Collections.singletonList(action);
         }
