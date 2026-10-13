@@ -47,6 +47,9 @@ public class Card5_161 extends AbstractUsedOrLostInterrupt {
         // Check condition(s)
         if (TriggerConditions.forceDrainEnhancedByWeapon(game, effectResult, Filters.lightsaber)) {
             final PhysicalCard weapon = ((EnhanceForceDrainResult) effectResult).getWeapon();
+            if (weapon == null) {
+                return null;
+            }
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.USED);
             action.setText("Place " + GameUtils.getFullName(weapon) + " in Used Pile");
