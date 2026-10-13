@@ -59,6 +59,11 @@ public class GameStats {
      * @return true if any of the stats changed, otherwise false
      */
     public boolean updateGameStats(SwccgGame game) {
+        // Only reads the game state: one query scope for all the stats (they query the same cards and modifiers).
+        return game.getModifiersQuerying().withQueryCache(() -> updateGameStatsImpl(game));
+    }
+
+    private boolean updateGameStatsImpl(SwccgGame game) {
         _game = game;
         String darkPlayer = game.getDarkPlayer();
         String lightPlayer = game.getLightPlayer();
