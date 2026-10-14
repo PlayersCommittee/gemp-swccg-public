@@ -18227,6 +18227,7 @@ public class Filters {
     public static final Filter Deploys_at_Yavin_4 = Filters.or(Filters.placeToBePresentOnPlanet(Title.Yavin_4), Filters.locationAndCardsAtLocation(Filters.title(Title.Yavin_4)));
     public static final Filter Deploys_on_Yavin_4 = Filters.placeToBePresentOnPlanet(Title.Yavin_4);
     public static final Filter Derlin = Filters.title(Title.Derlin);
+    public static final Filter Descent_Into_The_Dark = Filters.title(Title.Descent_Into_The_Dark);
     public static final Filter desert = Filters.keyword(Keyword.DESERT);
     public static final Filter Desert_Heart = Filters.title(Title.Desert_Heart);
     public static final Filter Desert_Landing_Site = Filters.title(Title.Desert_Landing_Site);
