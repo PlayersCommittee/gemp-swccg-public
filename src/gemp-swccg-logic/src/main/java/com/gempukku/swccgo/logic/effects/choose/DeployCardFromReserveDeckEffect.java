@@ -3,6 +3,7 @@ package com.gempukku.swccgo.logic.effects.choose;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
+import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.logic.timing.Action;
 
 /**
@@ -133,5 +134,17 @@ public class DeployCardFromReserveDeckEffect extends DeployCardFromPileEffect {
 
     public DeployCardFromReserveDeckEffect(Action action, Filter cardFilter, Filter targetFilter, float changeInCost, boolean reshuffle) {
         super(action, action.getPerformingPlayer(), Zone.RESERVE_DECK, cardFilter, targetFilter, null, null, false, changeInCost, null, null, null, false, reshuffle);
+    }
+
+    /**
+     * Creates an effect that causes the player performing the action to deploy a specific card from Reserve Deck
+     * (anywhere legal for that card).
+     * @param action the action performing this effect
+     * @param card the card to deploy
+     * @param forFree true if deploying for free, otherwise false
+     * @param reshuffle true if pile is reshuffled, otherwise false
+     */
+    public DeployCardFromReserveDeckEffect(Action action, PhysicalCard card, boolean forFree, boolean reshuffle) {
+        super(action, Zone.RESERVE_DECK, card, null, forFree, 0, false, reshuffle);
     }
 }

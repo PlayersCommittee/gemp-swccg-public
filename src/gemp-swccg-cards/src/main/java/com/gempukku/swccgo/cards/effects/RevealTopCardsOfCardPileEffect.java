@@ -50,6 +50,8 @@ public class RevealTopCardsOfCardPileEffect extends AbstractSuccessfulEffect {
         int count = Math.min(deck.size(), _count);
         final List<PhysicalCard> topCards = new LinkedList<PhysicalCard>(deck.subList(0, count));
         if (!topCards.isEmpty()) {
+            // AR: identified cards are revealed and stay in the pile until moved/shuffled/etc.
+            gameState.markCardsRevealedFromPile(topCards);
 
             if (topCards.size() == 1)
                 gameState.sendMessage(_playerId + " reveals the top card of " + cardPileText);
