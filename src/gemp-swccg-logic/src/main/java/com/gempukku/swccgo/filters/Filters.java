@@ -18247,6 +18247,7 @@ public class Filters {
     public static final Filter Din = Filters.persona(Persona.DIN);
     public static final Filter Dining_Room = Filters.title(Title.Dining_Room);
     public static final Filter Diplomatic_Mission_To_Alderaan = Filters.title(Title.Diplomatic_Mission_To_Alderaan);
+    public static final Filter Disarming_Creature = Filters.title(Title.Disarming_Creature);
     public static final Filter disarmed_character = Filters.and(CardCategory.CHARACTER, Filters.Disarmed());
     public static final Filter disarming_card = Filters.keyword(Keyword.DISARMING_CARD);
     public static final Filter DJ = Filters.persona(Persona.DJ);
