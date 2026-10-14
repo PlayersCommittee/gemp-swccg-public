@@ -223,18 +223,25 @@ public class GameEvent {
         gameEvent = gameEvent.collapsed(physicalCard.isCollapsed()).phase(gameState.getCurrentPhase().toString());
 
         // Get the system name (or starship/vehicle persona or card id) related to this location
-        if (physicalCard.getBlueprint().getCardCategory() == CardCategory.LOCATION) {
-            if (physicalCard.getPartOfSystem() != null) {
-                gameEvent = gameEvent.systemName(physicalCard.getPartOfSystem());
-            } else if (physicalCard.getSystemOrbited() != null) {
-                gameEvent = gameEvent.systemName(physicalCard.getSystemOrbited());
-            } else if (physicalCard.getBlueprint().getRelatedStarshipOrVehiclePersona() != null) {
-                gameEvent = gameEvent.systemName(physicalCard.getBlueprint().getRelatedStarshipOrVehiclePersona().name());
-            } else if (physicalCard.getRelatedStarshipOrVehicle() != null) {
-                if (!physicalCard.getRelatedStarshipOrVehicle().getBlueprint().getPersonas().isEmpty())
-                    gameEvent = gameEvent.systemName(physicalCard.getRelatedStarshipOrVehicle().getBlueprint().getPersonas().iterator().next().name());
+        PhysicalCard systemSource = physicalCard;
+        if (physicalCard.getZone() == Zone.BETWEEN_SITES) {
+            PhysicalCard left = gameState.getBetweenSiteLeft(physicalCard);
+            if (left != null) {
+                systemSource = left;
+            }
+        }
+        if (systemSource.getBlueprint().getCardCategory() == CardCategory.LOCATION) {
+            if (systemSource.getPartOfSystem() != null) {
+                gameEvent = gameEvent.systemName(systemSource.getPartOfSystem());
+            } else if (systemSource.getSystemOrbited() != null) {
+                gameEvent = gameEvent.systemName(systemSource.getSystemOrbited());
+            } else if (systemSource.getBlueprint().getRelatedStarshipOrVehiclePersona() != null) {
+                gameEvent = gameEvent.systemName(systemSource.getBlueprint().getRelatedStarshipOrVehiclePersona().name());
+            } else if (systemSource.getRelatedStarshipOrVehicle() != null) {
+                if (!systemSource.getRelatedStarshipOrVehicle().getBlueprint().getPersonas().isEmpty())
+                    gameEvent = gameEvent.systemName(systemSource.getRelatedStarshipOrVehicle().getBlueprint().getPersonas().iterator().next().name());
                 else
-                    gameEvent = gameEvent.systemName(String.valueOf(physicalCard.getRelatedStarshipOrVehicle().getCardId()));
+                    gameEvent = gameEvent.systemName(String.valueOf(systemSource.getRelatedStarshipOrVehicle().getCardId()));
             }
         }
 

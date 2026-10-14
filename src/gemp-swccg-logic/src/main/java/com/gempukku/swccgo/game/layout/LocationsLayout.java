@@ -7,6 +7,7 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Uniqueness;
+import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -479,16 +480,217 @@ public class LocationsLayout implements Snapshotable<LocationsLayout> {
     }
 
     /**
-     * Updates the location index of each location. This is needed whenever a location is added or removed
-     * from the table, since the index is used to tell the user interface the left to right order of the locations.
+     * Updates the location index of each location and between-sites card. This is
+     * needed whenever a location or between-sites card is added or removed, since
+     * the index is the UI column. Site adjacency uses the tops list, not this index.
      */
     public void refreshLocationIndexes() {
-        List<List<PhysicalCard>> locationsInOrder = getLocationsInOrder();
-        for (int i=0; i<locationsInOrder.size(); i++) {
-            for (PhysicalCard card : locationsInOrder.get(i)) {
+        List<List<PhysicalCard>> columns = getVisualColumnsInOrder();
+        for (int i = 0; i < columns.size(); i++) {
+            for (PhysicalCard card : columns.get(i)) {
                 card.setLocationZoneIndex(i);
             }
         }
+    }
+
+    /**
+     * Visual columns left to right: each location stack, then each between-sites
+     * card in the gap to its right as its own column.
+     */
+    public List<List<PhysicalCard>> getVisualColumnsInOrder() {
+        List<List<PhysicalCard>> columns = new LinkedList<List<PhysicalCard>>();
+        if (_holositeLayout instanceof AbstractLocationLayout) {
+            for (LocationGroup group : ((AbstractLocationLayout) _holositeLayout).getExistingGroupsInOrder()) {
+                columns.addAll(group.getVisualColumns());
+            }
+        }
+        else {
+            columns.addAll(_holositeLayout.getLocationsInOrder());
+        }
+        for (LocationLayout layout : _locationLayouts) {
+            if (layout instanceof AbstractLocationLayout) {
+                for (LocationGroup group : ((AbstractLocationLayout) layout).getExistingGroupsInOrder()) {
+                    columns.addAll(group.getVisualColumns());
+                }
+            }
+            else {
+                columns.addAll(layout.getLocationsInOrder());
+            }
+        }
+        return columns;
+    }
+
+    public List<PhysicalCard> getVisualRowCardsInOrder() {
+        List<PhysicalCard> row = new LinkedList<PhysicalCard>();
+        for (List<PhysicalCard> column : getVisualColumnsInOrder()) {
+            if (!column.isEmpty()) {
+                row.add(column.get(0));
+            }
+        }
+        return row;
+    }
+
+    public boolean removeBetweenSiteCard(PhysicalCard card) {
+        LocationGroup group = findGroupContaining(card);
+        if (group == null) {
+            return false;
+        }
+        return group.removeBetweenSiteCard(card);
+    }
+
+    public List<PhysicalCard> collectBetweenSiteCardsNotInGaps() {
+        Set<Integer> inGaps = new HashSet<Integer>();
+        collectGapIds(_holositeLayout, inGaps);
+        for (LocationLayout layout : _locationLayouts) {
+            collectGapIds(layout, inGaps);
+        }
+        List<PhysicalCard> orphans = new LinkedList<PhysicalCard>();
+        for (PhysicalCard card : getVisualRowCardsInOrder()) {
+            if (card.getZone() == Zone.BETWEEN_SITES
+                    && !inGaps.contains(card.getCardId())) {
+                orphans.add(card);
+            }
+        }
+        return orphans;
+    }
+
+    private void collectGapIds(LocationLayout layout, Set<Integer> inGaps) {
+        if (!(layout instanceof AbstractLocationLayout)) {
+            return;
+        }
+        for (LocationGroup group : ((AbstractLocationLayout) layout).getExistingGroupsInOrder()) {
+            for (PhysicalCard card : group.getAllBetweenSiteCards()) {
+                inGaps.add(card.getCardId());
+            }
+        }
+    }
+
+    /**
+     * Finds the LocationGroup that currently contains the given location (top or converted).
+     * @param card a location on the table
+     * @return the group, or null if not found
+     */
+    public LocationGroup findGroupContaining(PhysicalCard card) {
+        if (card == null) {
+            return null;
+        }
+        if (_holositeLayout instanceof AbstractLocationLayout) {
+            LocationGroup group = ((AbstractLocationLayout) _holositeLayout).findGroupContaining(card);
+            if (group != null) {
+                return group;
+            }
+        }
+        for (LocationLayout layout : _locationLayouts) {
+            if (layout instanceof AbstractLocationLayout) {
+                LocationGroup group = ((AbstractLocationLayout) layout).findGroupContaining(card);
+                if (group != null) {
+                    return group;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Finds the on-table LocationGroup for a system whose current top sites all match siteFilter.
+     * Used so Death Star and Bespin can share the same interior-row rearrange helper.
+     * @param game the game
+     * @param systemName the system title
+     * @param siteFilter filter for the row, typically interior-only sites of that system
+     * @return the matching group, or null if none is on the table
+     */
+    public LocationGroup findGroupForSystemMatching(SwccgGame game, String systemName, Filter siteFilter) {
+        if (game == null || systemName == null || siteFilter == null) {
+            return null;
+        }
+        for (LocationLayout layout : _locationLayouts) {
+            if (systemName.equals(layout.getParentSystemTitle()) && layout instanceof AbstractLocationLayout) {
+                for (LocationGroup group : ((AbstractLocationLayout) layout).getExistingGroupsInOrder()) {
+                    List<PhysicalCard> tops = group.getTopCardsInGroup();
+                    if (tops.isEmpty()) {
+                        continue;
+                    }
+                    boolean allMatch = true;
+                    for (PhysicalCard top : tops) {
+                        if (!siteFilter.accepts(game, top)) {
+                            allMatch = false;
+                            break;
+                        }
+                    }
+                    if (allMatch) {
+                        return group;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Reorders top locations that already sit in the same LocationGroup so they
+     * appear left-to-right in newTopOrder. Converted cards stay in the same
+     * stack under the same top. An empty order does nothing.
+     * @param game the game, or null if filter checks are not needed
+     * @param filter location filter for the cards being rearranged, or null
+     * @param newTopOrder requested left-to-right order of top location cards
+     * @return true if applied or already matched; false if invalid
+     */
+    public boolean reorderTopLocationsInGroup(SwccgGame game, Filter filter, List<? extends PhysicalCard> newTopOrder) {
+        if (newTopOrder == null || newTopOrder.isEmpty()) {
+            return true;
+        }
+        LocationGroup group = findGroupContaining(newTopOrder.get(0));
+        if (group == null) {
+            return false;
+        }
+        for (PhysicalCard card : newTopOrder) {
+            if (findGroupContaining(card) != group) {
+                return false;
+            }
+            if (filter != null && game != null && !filter.accepts(game, card)) {
+                return false;
+            }
+        }
+        return group.reorderTopLocations(newTopOrder);
+    }
+
+    /**
+     * Reorders top locations inside the given group. newTopOrder cards must already be tops in that group.
+     * @param game the game, or null if extra checks are not needed
+     * @param group the group to reorder
+     * @param newTopOrder requested left-to-right order of top location cards
+     * @return true if applied or already matched; false if invalid
+     */
+    public boolean reorderTopLocationsInGroup(SwccgGame game, LocationGroup group, List<? extends PhysicalCard> newTopOrder) {
+        if (newTopOrder == null || newTopOrder.isEmpty()) {
+            return true;
+        }
+        if (group == null) {
+            return false;
+        }
+        for (PhysicalCard card : newTopOrder) {
+            if (findGroupContaining(card) != group) {
+                return false;
+            }
+        }
+        return group.reorderTopLocations(newTopOrder);
+    }
+
+    /**
+     * Reorders every stack in the group by a permutation of 0..size-1.
+     * An empty permutation does nothing. Same order is allowed.
+     * @param group the group to reorder
+     * @param permutation new left-to-right stack indexes
+     * @return true if applied or already matched; false if invalid
+     */
+    public boolean reorderStacksInGroup(LocationGroup group, List<Integer> permutation) {
+        if (permutation == null || permutation.isEmpty()) {
+            return true;
+        }
+        if (group == null) {
+            return false;
+        }
+        return group.reorderStacks(permutation);
     }
 
     /**
