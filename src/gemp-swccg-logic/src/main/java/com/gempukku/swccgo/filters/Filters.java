@@ -19131,6 +19131,7 @@ public class Filters {
     public static final Filter Republic_character = Filters.and(Filters.icon(Icon.REPUBLIC), CardCategory.CHARACTER);
     public static final Filter Republic_starship = Filters.and(Filters.icon(Icon.REPUBLIC), CardCategory.STARSHIP);
     public static final Filter Res_Luk_Raauf = Filters.title(Title.Res_Luk_Raauf);
+    public static final Filter Rescue_In_The_Clouds = Filters.title(Title.Rescue_In_The_Clouds);
     public static final Filter Rescue_The_Princess = Filters.title(Title.Rescue_The_Princess);
     public static final Filter Resistance = Filters.title(Title.Resistance);
     public static final Filter resistance = Filters.icon(Icon.RESISTANCE);
