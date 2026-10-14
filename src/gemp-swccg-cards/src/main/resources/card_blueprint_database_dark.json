@@ -55560,6 +55560,43 @@
     "species": "JAWA"
   },
   {
+    "cardId": "7_181",
+    "title": "IM4-099 (Eyeemmfour)",
+    "slug": "im4-099-eyeemmfour",
+    "slugWithSetName": "im4-099-eyeemmfour-special-edition",
+    "side": "DARK",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "SPECIAL_EDITION",
+    "rarity": "F",
+    "cardCategory": "CHARACTER",
+    "cardTypes": [
+      "DROID"
+    ],
+    "lore": "Imperial Mark IV Patrol Droid. Identifies criminal activity and transmits information to local authorities. Monitors random comm signals for illegal activity.",
+    "gameText": "Whenever opponent Force drains at same or adjacent site, may deploy up to four troopers there as a 'react'. When IM4 is present with your trooper, Rebels are deploy +2 to same site and opponent may not 'react' to or from same site.",
+    "deployCost": 1,
+    "destiny": 4,
+    "power": 0,
+    "ability": 0,
+    "forfeit": 3,
+    "maneuver": 4,
+    "landspeed": 1,
+    "politics": 0,
+    "icons": [
+      {
+        "icon": "SPECIAL_EDITION",
+        "count": 1
+      },
+      {
+        "icon": "DROID",
+        "count": 1
+      }
+    ],
+    "modelTypes": [
+      "PATROL"
+    ]
+  },
+  {
     "cardId": "7_182",
     "title": "Jabba",
     "slug": "jabba",
