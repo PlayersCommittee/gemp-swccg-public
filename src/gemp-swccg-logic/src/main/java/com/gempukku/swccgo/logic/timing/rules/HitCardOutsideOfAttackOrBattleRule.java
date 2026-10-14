@@ -11,6 +11,7 @@ import com.gempukku.swccgo.logic.actions.RequiredRuleTriggerAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.effects.LoseCardsFromTableSimultaneouslyEffect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.results.HitResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -38,27 +39,35 @@ public class HitCardOutsideOfAttackOrBattleRule implements Rule {
                     @Override
                     public List<TriggerAction> getRequiredAfterTriggers(SwccgGame game, EffectResult effectResult) {
 
-                        if (effectResult.getType() == EffectResult.Type.ATTACK_CANCELED
+                        Filter hitOutsideBattleOrAttack = Filters.and(Filters.hit, Filters.not(Filters.or(Filters.participatingInAttack, Filters.participatingInBattle)));
+                        List<PhysicalCard> hitAndNotInAttackOrBattle = new LinkedList<PhysicalCard>();
+
+                        // A nested hit (Baze firing while already about to be lost from Sniper) must lose only the
+                        // newly hit card. Re-losing every hit card on table re-emits about-to-be-lost on the original
+                        // card and lets "if about to be lost" fire again.
+                        if (TriggerConditions.justHit(game, effectResult, Filters.any)) {
+                            PhysicalCard hitCard = ((HitResult) effectResult).getCardHit();
+                            if (hitCard != null && hitOutsideBattleOrAttack.accepts(game, hitCard)) {
+                                hitAndNotInAttackOrBattle.add(hitCard);
+                            }
+                        } else if (effectResult.getType() == EffectResult.Type.ATTACK_CANCELED
                                 || effectResult.getType() == EffectResult.Type.ATTACK_ENDED
                                 || TriggerConditions.battleCanceled(game, effectResult)
                                 || TriggerConditions.battleEnded(game, effectResult)
                                 || TriggerConditions.justExcludedFromBattle(game, effectResult, Filters.any)
-                                || TriggerConditions.justHit(game, effectResult, Filters.any)
                                 || TriggerConditions.moved(game, effectResult, Filters.any)
                                 || TriggerConditions.captured(game, effectResult, Filters.any)) {
 
-                            // Check if any cards outside the attack or battle are 'hit', if any, those are immediately lost.
-                            Filter filter = Filters.and(Filters.hit, Filters.not(Filters.or(Filters.participatingInAttack, Filters.participatingInBattle)));
-                            List<PhysicalCard> hitAndNotInAttackOrBattle = new LinkedList<PhysicalCard>(Filters.filterAllOnTable(game, filter));
-                            hitAndNotInAttackOrBattle.addAll(Filters.filterStacked(game, filter));
-                            if (!hitAndNotInAttackOrBattle.isEmpty()) {
+                            hitAndNotInAttackOrBattle.addAll(Filters.filterAllOnTable(game, hitOutsideBattleOrAttack));
+                            hitAndNotInAttackOrBattle.addAll(Filters.filterStacked(game, hitOutsideBattleOrAttack));
+                        }
 
-                                RequiredRuleTriggerAction action = new RequiredRuleTriggerAction(_that);
-                                action.setSingletonTrigger(true);
-                                action.appendEffect(
-                                        new LoseCardsFromTableSimultaneouslyEffect(action, hitAndNotInAttackOrBattle, false, true));
-                                return Collections.singletonList((TriggerAction) action);
-                            }
+                        if (!hitAndNotInAttackOrBattle.isEmpty()) {
+                            RequiredRuleTriggerAction action = new RequiredRuleTriggerAction(_that);
+                            action.setSingletonTrigger(true);
+                            action.appendEffect(
+                                    new LoseCardsFromTableSimultaneouslyEffect(action, hitAndNotInAttackOrBattle, false, true));
+                            return Collections.singletonList((TriggerAction) action);
                         }
 
                         return null;
