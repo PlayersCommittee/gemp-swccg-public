@@ -2,7 +2,6 @@ package com.gempukku.swccgo.cards.set222.light;
 
 import com.gempukku.swccgo.cards.AbstractUsedOrLostInterrupt;
 import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.conditions.FiredWeaponsInBattleCondition;
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
@@ -15,7 +14,9 @@ import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
@@ -28,12 +29,15 @@ import com.gempukku.swccgo.logic.effects.choose.DeployCardToLocationFromReserveD
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromHandEffect;
 import com.gempukku.swccgo.logic.effects.choose.DeployCardToTargetFromReserveDeckEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeFiredModifier;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -95,15 +99,14 @@ public class Card222_023 extends AbstractUsedOrLostInterrupt {
                     protected void performActionResults(Action targetingAction) {
                         Filter siteFilter = Filters.or(Filters.Cantina, Filters.and(Filters.site, Filters.icon(Icon.REFLECTIONS_II)));
                         // Perform result(s)
+                        // "One weapon" is a weapon identity: that weapon may still fire repeatedly.
                         action1.appendEffect(
                                 new AddUntilEndOfTurnModifierEffect(action1,
-                                        new MayNotBeFiredModifier(self, Filters.and(Filters.your(playerId), Filters.at(siteFilter)),
-                                                new FiredWeaponsInBattleCondition(playerId, 1, Filters.any)),
+                                        new MayNotBeFiredModifier(self, additionalWeaponsAfterOneFiredAtSite(game, playerId, siteFilter)),
                                         "You may not fire more than one weapon"));
                         action1.appendEffect(
                                 new AddUntilEndOfTurnModifierEffect(action1,
-                                        new MayNotBeFiredModifier(self, Filters.and(Filters.opponents(playerId), Filters.at(siteFilter)),
-                                                new FiredWeaponsInBattleCondition(opponent, 1, Filters.any)),
+                                        new MayNotBeFiredModifier(self, additionalWeaponsAfterOneFiredAtSite(game, opponent, siteFilter)),
                                         "Opponent may not fire more than one weapon"));
                     }
                 }
@@ -164,5 +167,81 @@ public class Card222_023 extends AbstractUsedOrLostInterrupt {
         }
 
         return actions;
+    }
+
+    /**
+     * Weapons at the site after this player has already fired a different weapon there (since this interrupt resolved).
+     * The first weapon fired may still fire repeatedly; other weapons may not.
+     */
+    static Filter additionalWeaponsAfterOneFiredAtSite(SwccgGame game, final String playerId, final Filter siteFilter) {
+        final Set<Integer> alreadyFiredCardIds = new HashSet<Integer>();
+        final Set<String> alreadyFiredPermIds = new HashSet<String>();
+        for (PhysicalCard fired : game.getModifiersQuerying().getWeaponsFiredInBattleByPlayer(playerId, true)) {
+            alreadyFiredCardIds.add(fired.getCardId());
+        }
+        for (SwccgBuiltInCardBlueprint perm : game.getModifiersQuerying().getPermanentWeaponsFiredInBattleByPlayer(playerId, true)) {
+            PhysicalCard permCard = perm.getPhysicalCard(game);
+            if (permCard != null) {
+                alreadyFiredPermIds.add(permCard.getCardId() + "_" + perm.getBuiltInId());
+            }
+        }
+
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (!Filters.and(Filters.your(playerId), Filters.at(siteFilter)).accepts(gameState, modifiersQuerying, physicalCard)) {
+                    return false;
+                }
+                String allowedId = allowedWeaponIdAtSameSite(gameState, modifiersQuerying, playerId, physicalCard, alreadyFiredCardIds, alreadyFiredPermIds);
+                return allowedId != null && !String.valueOf(physicalCard.getCardId()).equals(allowedId);
+            }
+
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, SwccgBuiltInCardBlueprint builtIn) {
+                PhysicalCard permCard = builtIn.getPhysicalCard(gameState.getGame());
+                if (permCard == null) {
+                    return false;
+                }
+                if (!Filters.and(Filters.your(playerId), Filters.at(siteFilter)).accepts(gameState, modifiersQuerying, permCard)
+                        && !Filters.and(Filters.your(playerId), Filters.at(siteFilter)).accepts(gameState, modifiersQuerying, builtIn)) {
+                    return false;
+                }
+                String allowedId = allowedWeaponIdAtSameSite(gameState, modifiersQuerying, playerId, permCard, alreadyFiredCardIds, alreadyFiredPermIds);
+                String thisId = permCard.getCardId() + "_" + builtIn.getBuiltInId();
+                return allowedId != null && !thisId.equals(allowedId);
+            }
+        };
+    }
+
+    private static String allowedWeaponIdAtSameSite(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId,
+                                                    PhysicalCard candidate, Set<Integer> alreadyFiredCardIds, Set<String> alreadyFiredPermIds) {
+        PhysicalCard location = modifiersQuerying.getLocationThatCardIsAt(gameState, candidate);
+        if (location == null) {
+            return null;
+        }
+        for (PhysicalCard fired : modifiersQuerying.getWeaponsFiredInBattleByPlayer(playerId, true)) {
+            if (alreadyFiredCardIds.contains(fired.getCardId())) {
+                continue;
+            }
+            PhysicalCard firedAt = modifiersQuerying.getLocationThatCardIsAt(gameState, fired);
+            if (firedAt != null && firedAt.getCardId() == location.getCardId()) {
+                return String.valueOf(fired.getCardId());
+            }
+        }
+        for (SwccgBuiltInCardBlueprint perm : modifiersQuerying.getPermanentWeaponsFiredInBattleByPlayer(playerId, true)) {
+            PhysicalCard permCard = perm.getPhysicalCard(gameState.getGame());
+            if (permCard == null) {
+                continue;
+            }
+            String permId = permCard.getCardId() + "_" + perm.getBuiltInId();
+            if (alreadyFiredPermIds.contains(permId)) {
+                continue;
+            }
+            PhysicalCard firedAt = modifiersQuerying.getLocationThatCardIsAt(gameState, permCard);
+            if (firedAt != null && firedAt.getCardId() == location.getCardId()) {
+                return permId;
+            }
+        }
+        return null;
     }
 }
