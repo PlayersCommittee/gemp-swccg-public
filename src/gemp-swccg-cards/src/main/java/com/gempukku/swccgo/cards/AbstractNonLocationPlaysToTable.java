@@ -730,7 +730,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
 
         // Play card
         if (canPlayCardDuringCurrentPhase(playerId, game, self)
-                && (self.getZone() != Zone.STACKED || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self))) {
+                && ((self.getZone() != Zone.STACKED && self.getZone() != Zone.STACKED_FACE_DOWN) || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self))) {
             boolean forFree = isCardTypeAlwaysPlayedForFree() || game.getGameState().getCurrentPhase() == Phase.PLAY_STARTING_CARDS;
             List<PlayCardAction> playCardActions = getPlayCardActions(playerId, game, self, self, forFree, 0, null, null, null, null, null, false, 0, Filters.any, null);
             if (playCardActions != null) {
@@ -1000,7 +1000,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
         List<Action> actions = new LinkedList<Action>();
 
         // Actions from game text
-        if (self.getZone() != Zone.STACKED || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self)) {
+        if ((self.getZone() != Zone.STACKED && self.getZone() != Zone.STACKED_FACE_DOWN) || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self)) {
             List<PlayCardAction> gameTextActions = getGameTextOptionalBeforeActions(playerId, game, effect, self, self.getCardId());
             if (gameTextActions != null)
                 actions.addAll(gameTextActions);
@@ -1274,7 +1274,7 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
         List<Action> actions = new LinkedList<Action>();
 
         // Actions from game text
-        if (self.getZone() != Zone.STACKED || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self)) {
+        if ((self.getZone() != Zone.STACKED && self.getZone() != Zone.STACKED_FACE_DOWN) || game.getModifiersQuerying().mayDeployAsIfFromHand(game.getGameState(), self)) {
             List<PlayCardAction> gameTextActions = getGameTextOptionalAfterActions(playerId, game, effectResult, self, self.getCardId());
             if (gameTextActions != null)
                 actions.addAll(gameTextActions);
