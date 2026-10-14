@@ -25129,6 +25129,54 @@
       "BATTLE"
     ]
   },
+    {
+    "cardId": "14_71",
+    "title": "3B3-21",
+    "slug": "3b3-21",
+    "slugWithSetName": "3b3-21-theed-palace",
+    "side": "DARK",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "THEED_PALACE",
+    "rarity": "U",
+    "cardCategory": "CHARACTER",
+    "cardTypes": [
+      "DROID"
+    ],
+    "lore": "Infantry battle droid equipped with command programs to call reinforcements into his patrol zone when needed. Assigned to escort Amidala soon after her capture.",
+    "gameText": "If opponent just initiated a battle at same site, may use X Force to reveal the top X cards of your Reserve Deck. (maximum 4). Any battle droids revealed this way may deploy for free; all other cards are lost.",
+    "deployCost": 3,
+    "destiny": 2,
+    "power": 3,
+    "ability": 0,
+    "forfeit": 3,
+    "armor": 4,
+    "landspeed": 1,
+    "politics": 0,
+    "icons": [
+      {
+        "icon": "THEED_PALACE",
+        "count": 1
+      },
+      {
+        "icon": "DROID",
+        "count": 1
+      },
+      {
+        "icon": "PRESENCE",
+        "count": 1
+      },
+      {
+        "icon": "EPISODE_I",
+        "count": 1
+      }
+    ],
+    "keywords": [
+      "INFANTRY_BATTLE_DROID"
+    ],
+    "modelTypes": [
+      "BATTLE"
+    ]
+  },
   {
     "cardId": "14_72",
     "title": "3B3-888",
