@@ -11,7 +11,6 @@ import com.gempukku.swccgo.common.Species;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -182,14 +181,14 @@ public class Card_6_117_Tests {
         assertFalse(scn.DSCardPlayAvailable(nysad)); //test1 (no react to JP available)
     }
 
-    @Test @Ignore
+    @Test
     public void NysadDeployAsReactToVehicleAtTat() {
         //shows bug described in https://github.com/PlayersCommittee/gemp-swccg-public/issues/315
 
         //test coverage:
         // test1: can deploy as react to enclosed vehicle at non-JP site
         // test2: can deploy as react to non-enclosed vehicle at non-JP site
-        // test3: (CURRENTLY FAILS) cannot deploy as a react to tatooine site with a vehicle present
+        // test3: cannot deploy as a react to bare non-JP Tatooine site (must deploy aboard the vehicle)
         var scn = GetScenario();
 
         var rebeltrooper = scn.GetLSCard("rebeltrooper");
@@ -214,7 +213,7 @@ public class Card_6_117_Tests {
         scn.PassAllResponses();
         assertTrue(scn.DSHasCardChoicesAvailable(walker)); //test1 (react deploy to enclosed vehicle)
         assertTrue(scn.DSHasCardChoicesAvailable(bantha)); //test2 (react deploy to non-enclosed vehicle)
-        assertFalse(scn.DSHasCardChoicesAvailable(tat_site)); //test3 (CURRENTLY FAILS) (cannot react deploy to site)
+        assertFalse(scn.DSHasCardChoicesAvailable(tat_site)); //test3 (cannot react deploy to site)
         scn.DSChooseCards(walker); //(passenger)
         scn.PassAllResponses();
         assertFalse(scn.CardsAtLocation(tat_site,nysad));
