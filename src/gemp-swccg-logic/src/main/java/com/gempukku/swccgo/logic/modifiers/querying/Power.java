@@ -47,7 +47,7 @@ public interface Power extends BaseQuery, Attributes, Destiny, Piloting, Politic
                 return 0;
 
             if ((physicalCard.getBlueprint().getCardCategory() == CardCategory.STARSHIP || physicalCard.getBlueprint().getCardCategory() == CardCategory.VEHICLE)
-                    && !isPiloted(gameState, physicalCard, false))
+                    && !isPilotedOrMayPilotWithAstromech(gameState, physicalCard, false))
                 return 0;
 
             result = physicalCard.getBlueprint().getPower();
