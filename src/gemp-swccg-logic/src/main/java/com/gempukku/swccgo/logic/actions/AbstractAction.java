@@ -333,6 +333,17 @@ public abstract class AbstractAction implements Action {
     }
 
     /**
+     * Removes and returns effects queued on this action that have not started yet.
+     * Used so Combined Attack / TC-combined can run a weapon's destinyDraws later and
+     * execute the resulting hit/lost/ionize effects on a different parent action.
+     */
+    public List<StandardEffect> drainPendingEffects() {
+        List<StandardEffect> drained = new ArrayList<StandardEffect>(_effects);
+        _effects.clear();
+        return drained;
+    }
+
+    /**
      * Inserts the specified effects as the next after effects to be executed.  It will be executed after all the other
      * effects currently in the queue. These effects do not need to be successful for the action to be considered carried out.
      *
@@ -577,7 +588,11 @@ public abstract class AbstractAction implements Action {
      */
     @Override
     public final Collection<PhysicalCard> getPrimaryTargetCards(int targetGroupId) {
-        return _targetGroupMap.get(targetGroupId).keySet();
+        Map<PhysicalCard, Set<TargetingReason>> map = _targetGroupMap.get(targetGroupId);
+        if (map == null) {
+            return Collections.emptyList();
+        }
+        return new ArrayList<PhysicalCard>(map.keySet());
     }
 
     /**
