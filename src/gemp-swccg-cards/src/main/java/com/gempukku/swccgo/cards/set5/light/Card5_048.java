@@ -73,7 +73,7 @@ public class Card5_048 extends AbstractLostInterrupt {
                                                         if (playerId2.equals(playerId)
                                                                 && TriggerConditions.isAboutToDrawBattleDestiny(game, effectResult, playerId)
                                                                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
-                                                                && GameConditions.canDrawDestinyAndChoose(game, 2)) {
+                                                                && GameConditions.canDrawDestinyAndChoose(game, 1)) {
 
                                                             final OptionalGameTextTriggerAction action2 = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId);
                                                             action2.setText("Draw two and choose one");
@@ -120,7 +120,7 @@ public class Card5_048 extends AbstractLostInterrupt {
                                                         if (playerId2.equals(playerId)
                                                                 && TriggerConditions.isAboutToDrawBattleDestiny(game, effectResult, playerId)
                                                                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId)
-                                                                && GameConditions.canDrawDestinyAndChoose(game, 3)) {
+                                                                && GameConditions.canDrawDestinyAndChoose(game, 2)) {
 
                                                             final OptionalGameTextTriggerAction action2 = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId);
                                                             action2.setText("Draw three and choose two");
