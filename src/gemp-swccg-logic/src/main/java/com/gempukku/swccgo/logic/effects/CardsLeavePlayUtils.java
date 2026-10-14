@@ -92,6 +92,24 @@ public class CardsLeavePlayUtils {
                     additionalToLeavePlay.add(convertedLocation);
                 }
             }
+
+            for (PhysicalCard gate : gameState.getVisualRowCardsInOrder()) {
+                if (gate.getZone() != Zone.BETWEEN_SITES) {
+                    continue;
+                }
+                PhysicalCard left = gameState.getBetweenSiteLeft(gate);
+                PhysicalCard right = gameState.getBetweenSiteRight(gate);
+                if ((left == null || left.getCardId() != card.getCardId())
+                        && (right == null || right.getCardId() != card.getCardId())) {
+                    continue;
+                }
+                if (!cardsLeavingPlay.contains(gate)
+                        && !additionalToLeavePlay.contains(gate)
+                        && !releasedCaptives.contains(gate)) {
+                    additionalToLeavePlay.add(gate);
+                    cardsToLeavePlay(game, cardsLeavingPlay, gate, false, additionalToLeavePlay, releasedCaptives);
+                }
+            }
         }
 
         // If card is a Space Slug, check for cards at a related Space Slug Belly

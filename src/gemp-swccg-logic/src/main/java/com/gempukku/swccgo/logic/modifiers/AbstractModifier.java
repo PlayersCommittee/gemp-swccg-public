@@ -761,6 +761,16 @@ public abstract class AbstractModifier implements Modifier {
         return 0;
     }
 
+    @Override
+    public float getPassCost(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return 0;
+    }
+
+    @Override
+    public boolean prohibitedFromPassing(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+        return false;
+    }
+
     /**
      * Gets the amount that the move cost is modified by when moving to location.
      * @param gameState the game state
