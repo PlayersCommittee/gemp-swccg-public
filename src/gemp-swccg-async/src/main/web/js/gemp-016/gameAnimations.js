@@ -1,4 +1,8 @@
 var GameAnimations = Class.extend({
+    // Frozen Pile cards are not drawn on the table; the Force Pile sandwich shows the Frozen Pile counts.
+    _isFrozenPileZone: function(zone) {
+        return zone == "FROZEN_PILE" || zone == "TOP_OF_FROZEN_PILE";
+    },
     _setForcePileSandwich: function(countSelector, forceStr, frozenStr, faMarker) {
         var force = parseInt(forceStr, 10) || 0;
         var frozen = parseInt(frozenStr, 10) || 0;
@@ -362,6 +366,10 @@ var GameAnimations = Class.extend({
                     $("#main").append(cardDiv);
                 }
 
+                if (that._isFrozenPileZone(zone)) {
+                    cardDiv.hide();
+                }
+
                 if (targetCardId != null) {
                     var targetCardData = $(".card:cardId(" + targetCardId + ")").data("card");
                     targetCardData.attachedCards.push(cardDiv);
@@ -379,7 +387,8 @@ var GameAnimations = Class.extend({
         if (animate
             && zone != "OUT_OF_PLAY" && zone != "LOST_PILE" && zone != "TOP_OF_LOST_PILE" && zone != "USED_PILE" && zone != "TOP_OF_USED_PILE"
             && zone != "FORCE_PILE" && zone != "TOP_OF_FORCE_PILE" && zone != "RESERVE_DECK" && zone != "TOP_OF_RESERVE_DECK" && zone != "HAND"
-            && zone != "SABACC_HAND" && zone != "REVEALED_SABACC_HAND") {
+            && zone != "SABACC_HAND" && zone != "REVEALED_SABACC_HAND"
+            && !that._isFrozenPileZone(zone)) {
             var oldValues = {};
             var putCardIntoPlayDuration = (phase == "PLAY_STARTING_CARDS") ? that.putCardIntoPlayDurationFast : that.putCardIntoPlayDurationSlow;
 
@@ -657,6 +666,7 @@ var GameAnimations = Class.extend({
                 var cardData = card.data("card");
                 // move to new zone and location index
                 cardData.zone = zone;
+                card.toggle(!that._isFrozenPileZone(zone));
                 cardData.owner = participantId;
                 cardData.locationIndex = locationIndex;
 
