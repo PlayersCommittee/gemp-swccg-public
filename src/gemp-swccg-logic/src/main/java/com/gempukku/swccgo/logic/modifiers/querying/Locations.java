@@ -216,8 +216,11 @@ public interface Locations extends BaseQuery, Flags, Icons, Presence, Podracing 
             return null;
         }
 
-        int site1Index = site1.getLocationZoneIndex();
-        int site2Index = site2.getLocationZoneIndex();
+        int site1Index = indexInLocationsInOrder(gameState, site1);
+        int site2Index = indexInLocationsInOrder(gameState, site2);
+        if (site1Index < 0 || site2Index < 0) {
+            return null;
+        }
 
         return Math.abs(site1Index - site2Index);
     }
@@ -241,15 +244,19 @@ public interface Locations extends BaseQuery, Flags, Icons, Presence, Podracing 
             return null;
         }
 
-        int location1Index = site1.getLocationZoneIndex();
-        int location2Index = site2.getLocationZoneIndex();
+        List<PhysicalCard> locationsInOrder = gameState.getLocationsInOrder();
+        int location1Index = indexInLocationsInOrder(gameState, site1);
+        int location2Index = indexInLocationsInOrder(gameState, site2);
+        if (location1Index < 0 || location2Index < 0) {
+            return null;
+        }
         boolean leftToRight = location1Index < location2Index;
 
         List<PhysicalCard> sites = new ArrayList<PhysicalCard>();
 
-        // Add sites in between (in correct order)
-        List<PhysicalCard> locationsInOrder = gameState.getLocationsInOrder();
-        for (int i=location1Index; i!=location2Index;) {
+        // Add sites in between (in correct order). Indexes are positions in the
+        // tops list, so between-sites columns do not count as hops.
+        for (int i = location1Index; i != location2Index;) {
             if (i != location1Index
                     && locationsInOrder.get(i).getBlueprint().getCardSubtype() == CardSubtype.SITE) {
                 sites.add(locationsInOrder.get(i));
@@ -262,6 +269,16 @@ public interface Locations extends BaseQuery, Flags, Icons, Presence, Podracing 
         }
 
         return sites;
+    }
+
+    default int indexInLocationsInOrder(GameState gameState, PhysicalCard site) {
+        List<PhysicalCard> locationsInOrder = gameState.getLocationsInOrder();
+        for (int i = 0; i < locationsInOrder.size(); i++) {
+            if (locationsInOrder.get(i).getCardId() == site.getCardId()) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 

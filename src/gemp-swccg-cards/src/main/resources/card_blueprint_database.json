@@ -102123,6 +102123,37 @@
     ]
   },
   {
+    "cardId": "5_15",
+    "title": "Access Denied",
+    "slug": "access-denied",
+    "slugWithSetName": "access-denied-cloud-city",
+    "side": "LIGHT",
+    "uniqueness": "UNRESTRICTED",
+    "expansionSet": "CLOUD_CITY",
+    "rarity": "C",
+    "cardCategory": "EFFECT",
+    "cardTypes": [
+      "EFFECT"
+    ],
+    "cardSubtype": "NORMAL",
+    "lore": "The doors on Cloud City use a special computer controlled locking system, making them difficult to bypass without altering the security codes.",
+    "gameText": "Insert face up in your Reserve Deck. When Effect reaches top it is lost, along with all opponent's 'insert' cards there. Reshuffle. (Immune to Alter.) OR Deploy between two mobile sites. Opponent's characters may pass only if aboard a Lift Tube or opponent uses +1 Force each.",
+    "destiny": 4,
+    "icons": [
+      {
+        "icon": "CLOUD_CITY",
+        "count": 1
+      },
+      {
+        "icon": "EFFECT",
+        "count": 1
+      }
+    ],
+    "keywords": [
+      "DEPLOYS_ON_SITE"
+    ]
+  },
+  {
     "cardId": "5_150",
     "title": "Release Your Anger",
     "slug": "release-your-anger",

@@ -4051,12 +4051,58 @@ public class Filters {
     //
 
     /**
+     * Filter that accepts between-sites cards whose current left or right site is the specified site.
+     */
+    public static Filter betweenSitesIncluding(final PhysicalCard site) {
+        final Integer permCardId = site.getPermanentCardId();
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (physicalCard.getZone() != Zone.BETWEEN_SITES) {
+                    return false;
+                }
+                PhysicalCard target = gameState.findCardByPermanentId(permCardId);
+                PhysicalCard left = gameState.getBetweenSiteLeft(physicalCard);
+                PhysicalCard right = gameState.getBetweenSiteRight(physicalCard);
+                return (left != null && left.getCardId() == target.getCardId())
+                        || (right != null && right.getCardId() == target.getCardId());
+            }
+        };
+    }
+
+    /**
+     * Filter that accepts between-sites cards whose left or right site is where the specified card is present.
+     * Used so character weapons at either bounding site can target Laser Gate.
+     */
+    public static Filter betweenSitesNextToWherePresent(PhysicalCard card) {
+        final Integer permCardId = card.getPermanentCardId();
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (physicalCard.getZone() != Zone.BETWEEN_SITES) {
+                    return false;
+                }
+                PhysicalCard source = gameState.findCardByPermanentId(permCardId);
+                PhysicalCard location = modifiersQuerying.getLocationThatCardIsPresentAt(gameState, source);
+                if (location == null) {
+                    return false;
+                }
+                PhysicalCard left = gameState.getBetweenSiteLeft(physicalCard);
+                PhysicalCard right = gameState.getBetweenSiteRight(physicalCard);
+                return (left != null && left.getCardId() == location.getCardId())
+                        || (right != null && right.getCardId() == location.getCardId());
+            }
+        };
+    }
+
+    /**
      * Filter that accepts cards that are either adjacent sites to the specified card, or adjacent sites to the
      * site the specified card is "at".
      *
      * @param card a card
      * @return Filter
      */
+
     public static Filter adjacentSite(PhysicalCard card) {
         final Integer permCardId = card.getPermanentCardId();
         return new Filter() {
@@ -17806,6 +17852,7 @@ public class Filters {
     public static final Filter AAT = Filters.modelType(ModelType.AAT);
     public static final Filter AAT_Laser_Cannon = Filters.title(Title.AAT_Laser_Cannon);
     public static final Filter accountant = Filters.keyword(Keyword.ACCOUNTANT);
+    public static final Filter Access_Denied = Filters.title(Title.Access_Denied);
     public static final Filter Ackbar = Filters.persona(Persona.ACKBAR);
     public static final Filter AhchTo_Jedi_Village = Filters.title(Title.AhchTo_Jedi_Village);
     public static final Filter AhchTo_Saddle = Filters.title(Title.Saddle);

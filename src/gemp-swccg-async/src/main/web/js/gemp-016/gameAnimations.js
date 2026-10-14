@@ -292,7 +292,7 @@ var GameAnimations = Class.extend({
                 var horizontal = element.getAttribute("horizontal");
 
                 // Only add location div if this is not a replacement (conversion) of a location
-                if (zone == "LOCATIONS" && eventType != "RCIP") {
+                if ((zone == "LOCATIONS" || zone == "BETWEEN_SITES") && eventType != "RCIP") {
                     that.game.addLocationDiv(locationIndex, systemName);
                 }
 
