@@ -18575,6 +18575,7 @@ public class Filters {
     public static final Filter Imperial_Arrest_Order = Filters.title(Title.Imperial_Arrest_Order);
     public static final Filter Imperial_Artillery = Filters.title(Title.Imperial_Artillery);
     public static final Filter Imperial_Atrocity = Filters.title(Title.Imperial_Atrocity);
+    public static final Filter Impressive_Most_Impressive = Filters.title(Title.Impressive_Most_Impressive);
     public static final Filter Imperial_Barrier = Filters.title(Title.Imperial_Barrier);
     public static final Filter Imperial_City = Filters.title(Title.Imperial_City);
     public static final Filter Imperial_class_Star_Destroyer = Filters.modelType(ModelType.IMPERIAL_CLASS_STAR_DESTROYER);
