@@ -492,6 +492,15 @@ public interface Modifier {
     boolean isMoveFreeToLocation(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard location);
 
     /**
+     * Determines if this modifier causes the affected card to move as an unlimited move to the location.
+     * @param gameState the game state
+     * @param modifiersQuerying the modifiers querying
+     * @param location the location
+     * @return true or false
+     */
+    boolean isUnlimitedMoveToLocation(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard location);
+
+    /**
      * Determines if this modifier allows shuttle from the specified location to another specified location.
      * @param gameState the game state
      * @param modifiersQuerying the modifiers querying

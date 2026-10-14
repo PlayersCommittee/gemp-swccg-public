@@ -1337,6 +1337,11 @@ public abstract class AbstractModifier implements Modifier {
         return false;
     }
 
+    @Override
+    public boolean isUnlimitedMoveToLocation(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard location) {
+        return false;
+    }
+
     /**
      * Determines if this modifier allows shuttle from the specified location to another specified location.
      * @param gameState the game state
