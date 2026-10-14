@@ -538,6 +538,16 @@ public interface Modifier {
     float getMoveCostFromLocationToLocationModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard fromLocation, PhysicalCard toLocation);
 
     /**
+     * Extra Force to pass a between-sites card (Access Denied).
+     */
+    float getPassCost(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
+
+    /**
+     * True when this modifier blocks the card from passing a between-sites card (Laser Gate).
+     */
+    boolean prohibitedFromPassing(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
+
+    /**
      * Gets the amount that the move cost is modified by when moving to location.
      * @param gameState the game state
      * @param modifiersQuerying the modifiers querying

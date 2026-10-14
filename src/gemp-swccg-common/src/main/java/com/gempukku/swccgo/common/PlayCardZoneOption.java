@@ -5,6 +5,7 @@ package com.gempukku.swccgo.common;
  */
 public enum PlayCardZoneOption {
     ATTACHED(Zone.ATTACHED, null, 0, false, false, false),
+    BETWEEN_SITES(Zone.BETWEEN_SITES, null, 0, false, false, false),
 
     YOUR_SIDE_OF_LOCATION(Zone.AT_LOCATION, null, 0, true, false, false),
     OPPONENTS_SIDE_OF_LOCATION(Zone.AT_LOCATION, null, 0, false, true, false),
@@ -16,6 +17,7 @@ public enum PlayCardZoneOption {
 
     NEXT_TO_EITHER_LOST_PILE(Zone.SIDE_OF_TABLE, Zone.LOST_PILE, 1, true, true, false),
     OPPONENTS_RESERVE_DECK(Zone.RESERVE_DECK, Zone.RESERVE_DECK, 2, false, true, true),
+    YOUR_RESERVE_DECK(Zone.RESERVE_DECK, Zone.RESERVE_DECK, 2, true, false, true),
     OPPONENTS_FORCE_PILE(Zone.FORCE_PILE, Zone.FORCE_PILE, 1, false, true, false);
 
 
