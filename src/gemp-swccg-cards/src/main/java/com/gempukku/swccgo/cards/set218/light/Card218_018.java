@@ -55,8 +55,10 @@ public class Card218_018 extends AbstractSite {
                         @Override
                         protected void performActionResults(Action targetingAction) {
                             PhysicalCard toBeLost = action.getPrimaryTargetCard(targetGroupId);
+                            // Printed "cannot be prevented": all-cards-situation loss is the engine
+                            // encoding that blocks prevention/replacement (K'lor'slug delay).
                             action.appendEffect(
-                                    new LoseCardFromTableEffect(action, toBeLost));
+                                    new LoseCardFromTableEffect(action, toBeLost, true));
                         }
                     });
                 }
@@ -84,7 +86,7 @@ public class Card218_018 extends AbstractSite {
                         protected void performActionResults(Action targetingAction) {
                             PhysicalCard toBeLost = action.getPrimaryTargetCard(targetGroupId);
                             action.appendEffect(
-                                    new LoseCardFromTableEffect(action, toBeLost));
+                                    new LoseCardFromTableEffect(action, toBeLost, true));
                         }
                     });
                 }
