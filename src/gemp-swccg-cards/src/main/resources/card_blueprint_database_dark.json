@@ -10053,6 +10053,38 @@
     ]
   },
   {
+    "cardId": "13_88",
+    "title": "The Ebb Of Battle",
+    "slug": "the-ebb-of-battle",
+    "slugWithSetName": "the-ebb-of-battle-reflections-iii",
+    "side": "DARK",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "REFLECTIONS_III",
+    "rarity": "PM",
+    "cardCategory": "INTERRUPT",
+    "cardTypes": [
+      "INTERRUPT"
+    ],
+    "cardSubtype": "USED",
+    "lore": "Lightsaber confrontations are a complex dance of feints, strikes, parries and footwork. Mistakes are rarely forgiven.",
+    "gameText": "Activate 1 Force. OR Add 1 to your just-drawn duel destiny. OR If under your Dark Jedi as one of that character's combat cards, reveal to opponent and place in your Lost Pile to cancel an opponent's Force drain. (Immune to Sense.)",
+    "destiny": 5,
+    "icons": [
+      {
+        "icon": "REFLECTIONS_III",
+        "count": 1
+      },
+      {
+        "icon": "INTERRUPT",
+        "count": 1
+      },
+      {
+        "icon": "EPISODE_I",
+        "count": 1
+      }
+    ]
+  },
+  {
     "cardId": "13_89",
     "title": "The Hutts Are Gangsters",
     "slug": "the-hutts-are-gangsters",
