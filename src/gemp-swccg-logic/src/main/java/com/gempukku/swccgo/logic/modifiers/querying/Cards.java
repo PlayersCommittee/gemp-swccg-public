@@ -4,6 +4,7 @@ import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.common.CardState;
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.Keyword;
+import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -67,6 +68,20 @@ public interface Cards extends BaseQuery, Captives, Battle {
             if (cardCategory == CardCategory.DEVICE && cardSubtype == CardSubtype.CHARACTER && physicalCard.getAttachedTo() != null
                     && !physicalCard.getBlueprint().getValidToUseDeviceFilter(physicalCard.getOwner(), gameState.getGame(), physicalCard).accepts(gameState, query(), physicalCard.getAttachedTo()))
                 return CardState.INACTIVE;
+        }
+
+        if (gameState.isDuringBesiegedBattle() && gameState.getBattleState() != null
+                && gameState.getBattleState().isCardParticipatingInBattle(physicalCard)
+                && zone.isInPlay() && !physicalCard.getBlueprint().isInactiveInsteadOfActive(gameState.getGame(), physicalCard)) {
+            return CardState.ACTIVE;
+        }
+
+        if (physicalCard.getAttachedTo() != null
+                && Title.Besieged.equals(physicalCard.getBlueprint().getTitle())
+                && physicalCard.getAttachedTo().isCapturedStarship()
+                && zone.isInPlay()
+                && !physicalCard.getBlueprint().isInactiveInsteadOfActive(gameState.getGame(), physicalCard)) {
+            return CardState.ACTIVE;
         }
 
         if (physicalCard.getAttachedTo() != null) {

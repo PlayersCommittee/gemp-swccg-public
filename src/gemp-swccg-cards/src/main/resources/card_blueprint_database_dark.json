@@ -40756,6 +40756,34 @@
     ]
   },
   {
+    "cardId": "2_117",
+    "title": "Besieged",
+    "slug": "besieged",
+    "slugWithSetName": "besieged-a-new-hope",
+    "side": "DARK",
+    "uniqueness": "UNRESTRICTED",
+    "expansionSet": "A_NEW_HOPE",
+    "rarity": "R2",
+    "cardCategory": "EFFECT",
+    "cardTypes": [
+      "EFFECT"
+    ],
+    "cardSubtype": "NORMAL",
+    "lore": "Stormtroopers blasted through the main airlock of the Tantive IV. The Rebel soldiers' attempt to defend the intrusion was no match for the Empire's superior firepower.",
+    "gameText": "Deploy on a captured starship. Your characters present with captured starship may battle opponent's characters aboard it (as if present together at a site). Effect canceled if starship escapes or is stolen.",
+    "destiny": 5,
+    "icons": [
+      {
+        "icon": "A_NEW_HOPE",
+        "count": 1
+      },
+      {
+        "icon": "EFFECT",
+        "count": 1
+      }
+    ]
+  },
+  {
     "cardId": "2_118",
     "title": "Come With Me",
     "slug": "come-with-me",

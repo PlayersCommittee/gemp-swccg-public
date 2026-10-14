@@ -27,6 +27,8 @@ public class BattleEffect extends AbstractSubActionEffect {
     private PhysicalCard _location;
     private boolean _isLocalTrouble;
     private Collection<PhysicalCard> _localTroubleParticipants;
+    private boolean _isBesieged;
+    private Collection<PhysicalCard> _besiegedParticipants;
     private Collection<Modifier> _extraModifiers;
 
     /**
@@ -37,11 +39,17 @@ public class BattleEffect extends AbstractSubActionEffect {
      * @param localTroubleParticipants the Local Trouble battle participants, or null if not a Local Trouble battle
      */
     public BattleEffect(Action action, PhysicalCard location, boolean isLocalTrouble, final Collection<PhysicalCard> localTroubleParticipants, Collection<Modifier> extraModifiers) {
+        this(action, location, isLocalTrouble, localTroubleParticipants, false, null, extraModifiers);
+    }
+
+    public BattleEffect(Action action, PhysicalCard location, boolean isLocalTrouble, final Collection<PhysicalCard> localTroubleParticipants, boolean isBesieged, Collection<PhysicalCard> besiegedParticipants, Collection<Modifier> extraModifiers) {
         super(action);
         _performingPlayerId = action.getPerformingPlayer();
         _location = location;
         _isLocalTrouble = isLocalTrouble;
         _localTroubleParticipants = localTroubleParticipants;
+        _isBesieged = isBesieged;
+        _besiegedParticipants = besiegedParticipants;
         _extraModifiers = extraModifiers;
     }
 
@@ -56,7 +64,7 @@ public class BattleEffect extends AbstractSubActionEffect {
 
         // 1) Record that battle is initiated (and cards involved)
         subAction.appendEffect(
-                new RecordBattleInitiatedEffect(subAction, _location, _isLocalTrouble, _localTroubleParticipants, _extraModifiers));
+                new RecordBattleInitiatedEffect(subAction, _location, _isLocalTrouble, _localTroubleParticipants, _isBesieged, _besiegedParticipants, _extraModifiers));
 
         // 2) Battle just initiated
         subAction.appendEffect(
@@ -163,7 +171,7 @@ public class BattleEffect extends AbstractSubActionEffect {
                     protected void doPlayEffect(SwccgGame game) {
                         GameState gameState = game.getGameState();
                         if (gameState.getBattleState() != null && !gameState.getBattleState().isCanceled()) {
-                            String msgText = (_isLocalTrouble ? "Local Trouble battle" : "Battle") + " at " + GameUtils.getCardLink(_location) + " ends";
+                            String msgText = (_isBesieged ? "Besieged battle" : (_isLocalTrouble ? "Local Trouble battle" : "Battle")) + " at " + GameUtils.getCardLink(_location) + " ends";
                             game.getGameState().sendMessage(msgText);
                             SubAction subAction = (SubAction) getAction();
                             game.getActionsEnvironment().emitEffectResult(new BattleEndedResult(subAction, _location, gameState.getBattleState()));
