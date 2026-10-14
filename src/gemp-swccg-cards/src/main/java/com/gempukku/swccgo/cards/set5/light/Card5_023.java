@@ -17,11 +17,12 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.conditions.Condition;
-import com.gempukku.swccgo.logic.effects.PutCardFromCardPileOnBottomOfCardPileEffect;
 import com.gempukku.swccgo.logic.modifiers.DeployCostToLocationModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
@@ -94,7 +95,7 @@ public class Card5_023 extends AbstractNormalEffect {
     }
 
     @Override
-    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Force-pile mode (VHD): FA sits Active at TOP of FROZEN_PILE (zoneOwner = Force pile owner).
         // Lost at end of opponent's next turn; unfreeze Frozen Pile when leaving table.
         // SSA relocates FA to Frozen Pile bottom: auto-thaw cards now above it.
@@ -125,9 +126,18 @@ public class Card5_023 extends AbstractNormalEffect {
                 }
         );
         if (endOfOpponentsTurn) {
-            // Frozen Pile is not onTable, so LoseCardFromTableEffect would no-op.
+            // Frozen Pile is not onTable, so LoseCardFromTableEffect would no-op. Lost cards go on top of Lost Pile.
             action.appendEffect(
-                    new PutCardFromCardPileOnBottomOfCardPileEffect(action, self.getOwner(), self, Zone.LOST_PILE, false));
+                    new PassthruEffect(action) {
+                        @Override
+                        protected void doPlayEffect(SwccgGame game) {
+                            GameState gameState = game.getGameState();
+                            gameState.sendMessage(GameUtils.getCardLink(self) + " is lost");
+                            gameState.removeCardsFromZone(Collections.singleton(self));
+                            gameState.addCardToTopOfZone(self, Zone.LOST_PILE, self.getOwner());
+                        }
+                    }
+            );
         }
         return Collections.singletonList(action);
     }

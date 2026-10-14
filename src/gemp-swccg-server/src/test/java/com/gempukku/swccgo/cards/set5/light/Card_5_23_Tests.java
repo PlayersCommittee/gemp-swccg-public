@@ -17,6 +17,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.gempukku.swccgo.framework.Assertions.assertInZone;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -566,5 +567,30 @@ public class Card_5_23_Tests {
 		assertFalse(scn.gameState().hasFrozenAssetsMarker(scn.DS));
 		assertTrue(scn.GetDSForcePileCount() >= frozenExpected);
 		assertTrue(scn.GetDSForcePile().stream().noneMatch(c -> Title.Frozen_Assets.equals(c.getTitle())));
+	}
+
+	@Test
+	public void FrozenAssetsForcePileModeLostGoesOnTopOfLostPile() {
+		var scn = GetScenario();
+		var frozenAssets = scn.GetLSCard("frozenAssets");
+		var leia = scn.GetLSCard("leia");
+		var vader = scn.GetDSCard("vader");
+		var boba = scn.GetDSCard("boba");
+
+		scn.StartGame();
+		scn.MoveCardsToLSHand(frozenAssets);
+		scn.MoveCardsToTopOfDSForcePile(vader, boba);
+		scn.MoveCardsToTopOfOwnLostPile(leia);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		scn.LSPlayCard(frozenAssets, "Force Pile");
+		scn.PassAllResponses();
+		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+
+		assertInZone(Zone.LOST_PILE, frozenAssets);
+		assertEquals(frozenAssets, scn.GetTopOfLSLostPile());
+		assertTrue(scn.GetLSLostPile().contains(leia));
 	}
 }
