@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -589,5 +590,61 @@ public interface ZoneManipulation extends TestBase{
 
 
 
+
+
+    /**
+     * Moves cards from the Light Side Reserve Deck onto the Force Pile until it has at least min cards.
+     * Leaves at least 2 cards in Reserve so destiny stubs remain. Fails if the pile cannot reach min.
+     * @param min Minimum Force Pile size to ensure.
+     */
+    default void EnsureLSForcePile(int min) { EnsureForcePile(LS, min); }
+
+    /**
+     * Moves cards from the Dark Side Reserve Deck onto the Force Pile until it has at least min cards.
+     * Leaves at least 2 cards in Reserve so destiny stubs remain. Fails if the pile cannot reach min.
+     * @param min Minimum Force Pile size to ensure.
+     */
+    default void EnsureDSForcePile(int min) { EnsureForcePile(DS, min); }
+
+    /**
+     * Moves cards from the given player's Reserve Deck onto their Force Pile until it has at least min cards.
+     * Leaves at least 2 cards in Reserve so destiny stubs remain. Fails if the pile cannot reach min.
+     * @param player The player whose Force Pile to fill.
+     * @param min Minimum Force Pile size to ensure.
+     */
+    default void EnsureForcePile(String player, int min) {
+        while (gameState().getForcePile(player).size() < min && gameState().getReserveDeck(player).size() > 2) {
+            MoveCardsToTopOfForcePile(player, (PhysicalCardImpl) gameState().getReserveDeck(player).getFirst());
+        }
+        assertTrue("Unable to ensure " + player + " Force Pile has at least " + min
+                + " cards (have " + gameState().getForcePile(player).size() + ")",
+                gameState().getForcePile(player).size() >= min);
+    }
+
+    /**
+     * Moves cards from the Light Side Force Pile into hand until exactly remaining cards are left in the pile.
+     * @param remaining Target Force Pile count.
+     */
+    default void DrainLSForcePileTo(int remaining) { DrainForcePileTo(LS, remaining); }
+
+    /**
+     * Moves cards from the Dark Side Force Pile into hand until exactly remaining cards are left in the pile.
+     * @param remaining Target Force Pile count.
+     */
+    default void DrainDSForcePileTo(int remaining) { DrainForcePileTo(DS, remaining); }
+
+    /**
+     * Moves cards from the given player's Force Pile into hand until exactly remaining cards are left in the pile.
+     * @param player The player whose Force Pile to drain.
+     * @param remaining Target Force Pile count.
+     */
+    default void DrainForcePileTo(String player, int remaining) {
+        while (gameState().getForcePile(player).size() > remaining) {
+            MoveCardsToHand((PhysicalCardImpl) gameState().getForcePile(player).getFirst());
+        }
+        assertTrue(player + " Force Pile should be drained to " + remaining
+                + " (have " + gameState().getForcePile(player).size() + ")",
+                gameState().getForcePile(player).size() == remaining);
+    }
 
 }
