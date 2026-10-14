@@ -18,6 +18,7 @@ import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
+import com.gempukku.swccgo.logic.actions.GameTextAction;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collection;
@@ -35,6 +36,11 @@ public abstract class AbstractModifier implements Modifier {
     private boolean _fromPermanentPilot;
     private boolean _fromPermanentAstromech;
     private boolean _cumulative;
+    /**
+     * Which portion of the source card's game text produced this modifier.
+     * Null is the default clause for this title and modifier type.
+     */
+    private String _clauseIdentity;
     private boolean _persistent;
     private boolean _skipSettingNotRemovedOnRestoreToNormal;
     private boolean _notRemovedOnRestoreToNormal;
@@ -125,6 +131,39 @@ public abstract class AbstractModifier implements Modifier {
     @Override
     public boolean isCumulative() {
         return _cumulative;
+    }
+
+    @Override
+    public void setCumulative(boolean value) {
+        _cumulative = value;
+    }
+
+    @Override
+    public String getClauseIdentity() {
+        return _clauseIdentity;
+    }
+
+    @Override
+    public void setClauseIdentity(String clauseIdentity) {
+        _clauseIdentity = clauseIdentity;
+    }
+
+    @Override
+    public void setClauseIdentity(GameTextActionId gameTextActionId) {
+        _clauseIdentity = gameTextActionId != null ? gameTextActionId.name() : null;
+    }
+
+    @Override
+    public void applyClauseIdentityFromAction(Action action) {
+        if (_clauseIdentity != null) {
+            return;
+        }
+        if (action instanceof GameTextAction) {
+            GameTextActionId gameTextActionId = ((GameTextAction) action).getGameTextActionId();
+            if (gameTextActionId != null) {
+                _clauseIdentity = gameTextActionId.name();
+            }
+        }
     }
 
     @Override
