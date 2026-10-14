@@ -312,14 +312,7 @@ var GempSwccgGameUI = Class.extend({
         });
 
         this.topOfForcePilePlayer = new CardPileGroup($("#main"), function (card) {
-            if (card.zone == "TOP_OF_FORCE_PILE" && card.owner == that.bottomPlayerId) {
-                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + playerSide + "ForcePile");
-                return true;
-            }
-            else {
-                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + playerSide + "ForcePile");
-                return false;
-            }
+            return that.forcePileGroupBelongs(card, card.owner == that.bottomPlayerId, "top" + playerSide + "ForcePile");
         });
 
         this.topOfUsedPilePlayer = new CardPileGroup($("#main"), function (card) {
@@ -367,14 +360,7 @@ var GempSwccgGameUI = Class.extend({
         });
 
         this.topOfForcePileOpponent = new CardPileGroup($("#main"), function (card) {
-            if (card.zone == "TOP_OF_FORCE_PILE" && card.owner != that.bottomPlayerId) {
-                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + opponentSide + "ForcePile");
-                return true;
-            }
-            else {
-                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + opponentSide + "ForcePile");
-                return false;
-            }
+            return that.forcePileGroupBelongs(card, card.owner != that.bottomPlayerId, "top" + opponentSide + "ForcePile");
         });
 
         this.topOfUsedPileOpponent = new CardPileGroup($("#main"), function (card) {
@@ -701,6 +687,46 @@ var GempSwccgGameUI = Class.extend({
         }
 
         return null;
+    },
+
+    /**
+     * Force Pile slot. With Frozen Assets on the Force Pile, the top Frozen Pile card stands in for the
+     * Force Pile when no usable Force is left, so the Frozen / usable / total counts stay visible.
+     * Otherwise Frozen Pile cards stay hidden.
+     */
+    forcePileGroupBelongs: function (card, isThisSide, countClass) {
+        var cardDiv = $(".card:cardId(" + card.cardId + ")");
+        var countDiv = cardDiv.children("div.cardPileCount");
+        var isFrozenTop = (card.zone == "TOP_OF_FROZEN_PILE" && isThisSide);
+        var standIn = isFrozenTop && !this.hasTopOfForcePile(card.owner);
+        if ((card.zone == "TOP_OF_FORCE_PILE" && isThisSide) || standIn) {
+            countDiv.addClass(countClass);
+            if (standIn) {
+                cardDiv.show();
+            }
+            return true;
+        }
+        countDiv.removeClass(countClass);
+        if (isFrozenTop) {
+            cardDiv.hide();
+        }
+        if (card.zone != "TOP_OF_FORCE_PILE" && card.zone != "TOP_OF_FROZEN_PILE") {
+            cardDiv.removeClass("faSandwichActive");
+            cardDiv.children(".faFrzSliver").remove();
+        }
+        return false;
+    },
+
+    hasTopOfForcePile: function (owner) {
+        var found = false;
+        $(".card").each(function () {
+            var cardData = $(this).data("card");
+            if (cardData != null && cardData.zone == "TOP_OF_FORCE_PILE" && cardData.owner == owner) {
+                found = true;
+                return false;
+            }
+        });
+        return found;
     },
 
     layoutGroupWithCard: function (cardId) {
