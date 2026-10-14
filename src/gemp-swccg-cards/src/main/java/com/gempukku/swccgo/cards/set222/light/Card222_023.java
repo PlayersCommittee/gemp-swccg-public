@@ -114,9 +114,9 @@ public class Card222_023 extends AbstractUsedOrLostInterrupt {
             final Filter mara = Filters.and(Filters.your(playerId), Filters.character, Filters.Mara_Jade);
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
-            action.setText("Deploy Mara with Anakin's Lightsaber");
+            action.setText("Deploy Mara and a lightsaber");
             // Allow response(s)
-            action.allowResponses("Deploy Mara with Anakin's Lightsaber",
+            action.allowResponses("Deploy Mara and a lightsaber",
                     new RespondablePlayCardEffect(action) {
                         @Override
                         protected void performActionResults(Action targetingAction) {
@@ -129,8 +129,11 @@ public class Card222_023 extends AbstractUsedOrLostInterrupt {
                                                     new PassthruEffect(action) {
                                                         @Override
                                                         protected void doPlayEffect(SwccgGame game) {
+                                                            Filter lightsaber = Filters.and(Filters.lightsaber,
+                                                                    Filters.or(Filters.non_unique, Filters.matchingWeaponForCharacter(firstCardToDeploy),
+                                                                            Filters.title(Title.Anakins_Lightsaber)));
                                                             action.appendEffect(
-                                                                    new ChooseCardFromHandOrReserveDeckEffect(action, playerId, Filters.title(Title.Anakins_Lightsaber), true, false) {
+                                                                    new ChooseCardFromHandOrReserveDeckEffect(action, playerId, lightsaber, true, false) {
                                                                         @Override
                                                                         protected void cardSelected(SwccgGame game, PhysicalCard secondCardToDeploy) {
                                                                             if (GameUtils.getZoneFromZoneTop(firstCardToDeploy.getZone()) == Zone.RESERVE_DECK) {
