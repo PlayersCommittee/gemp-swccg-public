@@ -5,7 +5,6 @@ import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
@@ -64,10 +63,9 @@ public class Card2_018 extends AbstractRebel {
                         Filters.present(self), Filters.movableAsRegularMoveUsingLandspeed(playerId, movingResult.isReact(), movingResult.isMoveAway(), true, 0, null, Filters.sameCardId(toLocation))));
                 if (movingResult.isReact()) {
                     otherTroopers = Filters.filter(otherTroopers, game, Filters.isCardEligibleToJoinMoveAsReact);
-                } else if (!GameConditions.isPhaseForPlayer(game, Phase.MOVE, playerId)) {
-                    // it's not a react and not during your move phase so the other troopers are not able to make a regular move with him
-                    otherTroopers.clear();
                 }
+                // Do not require MOVE phase. Shawn Valdez (#946) moves troopers as a regular
+                // move when a battle is initiated; the squad may still join that move.
                 if (otherTroopers.size() >= 3) {
 
                     final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
