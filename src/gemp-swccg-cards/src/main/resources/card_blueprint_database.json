@@ -84226,6 +84226,36 @@
     ]
   },
   {
+    "cardId": "2_113",
+    "title": "Laser Gate",
+    "slug": "laser-gate",
+    "slugWithSetName": "laser-gate-a-new-hope",
+    "side": "DARK",
+    "uniqueness": "RESTRICTED_2",
+    "expansionSet": "A_NEW_HOPE",
+    "rarity": "U2",
+    "cardCategory": "DEVICE",
+    "cardTypes": [
+      "DEVICE"
+    ],
+    "lore": "Security corridors are guarded by a grid of laser emplacements which can be activated upon demand to seal off sensitive areas from intrusion.",
+    "gameText": "Deploy between any two interior mobile sites. To pass, a character must have (power + ability) > 4 or use a Lift Tube (all other vehicles are blocked). Laser Gate defense value = 3; may be targeted (as if a character) by a character weapon from either site.",
+    "destiny": 4,
+    "icons": [
+      {
+        "icon": "A_NEW_HOPE",
+        "count": 1
+      },
+      {
+        "icon": "DEVICE",
+        "count": 1
+      }
+    ],
+    "keywords": [
+      "DEPLOYS_ON_SITE"
+    ]
+  },
+  {
     "cardId": "2_114",
     "title": "Magnetic Suction Tube",
     "slug": "magnetic-suction-tube",

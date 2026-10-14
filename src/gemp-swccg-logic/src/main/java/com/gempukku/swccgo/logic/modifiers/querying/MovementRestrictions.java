@@ -121,6 +121,17 @@ public interface MovementRestrictions extends BaseQuery, Locations {
                 }
             }
 
+            // Between-sites cards on this hop (Laser Gate) block passing independently of adjacency pair filters.
+            for (PhysicalCard gate : gameState.getBetweenSiteCardsCrossed(curFromSite, curToSite)) {
+                for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_PASS, card)) {
+                    if (modifier.getSource(gameState) != null
+                            && modifier.getSource(gameState).getCardId() == gate.getCardId()
+                            && modifier.prohibitedFromPassing(gameState, query(), card)) {
+                        return true;
+                    }
+                }
+            }
+
             // Check if may not move away from location
             for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.MAY_NOT_MOVE_AWAY_FROM_LOCATION, card)) {
                 if (modifier.prohibitedFromMovingAwayFromLocation(gameState, query(), curFromSite, curToSite)) {

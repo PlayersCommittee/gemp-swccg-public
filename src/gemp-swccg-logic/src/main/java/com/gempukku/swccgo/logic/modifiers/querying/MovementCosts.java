@@ -119,6 +119,15 @@ public interface MovementCosts extends BaseQuery, MovementRestrictions {
             result += modifier.getMoveCostFromLocationToLocationModifier(gameState, query(), card, fromSite, toSite);
         }
 
+        // Extra Force to pass between-sites cards on the path (Access Denied). Each copy is its own slot.
+        for (PhysicalCard gate : gameState.getBetweenSiteCardsCrossed(fromSite, toSite)) {
+            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierType.PASS_COST, card)) {
+                if (modifier.getSource(gameState) != null && modifier.getSource(gameState).getCardId() == gate.getCardId()) {
+                    result += modifier.getPassCost(gameState, query(), card);
+                }
+            }
+        }
+
         // Moving to collapsed site requires 1 additional Force
         if (toSite.isCollapsed()) {
             result += 1;
