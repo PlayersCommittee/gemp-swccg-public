@@ -14,7 +14,7 @@ import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
-import com.gempukku.swccgo.logic.modifiers.DeploysFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.LostInterruptModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PlaceInUsedPileWhenCanceledModifier;
@@ -45,7 +45,7 @@ public class Card10_052 extends AbstractNormalEffect {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new LostInterruptModifier(self, Filters.or(Filters.Sense, Filters.Alter)));
-        modifiers.add(new DeploysFreeModifier(self, Filters.and(Filters.your(playerId), Filters.Immediate_Effect)));
+        modifiers.add(new MayDeployFreeModifier(self, Filters.and(Filters.your(playerId), Filters.Immediate_Effect)));
         modifiers.add(new PlaceInUsedPileWhenCanceledModifier(self, Filters.your(playerId), opponent, Filters.or(Filters.Sense, Filters.Alter)));
         return modifiers;
     }
