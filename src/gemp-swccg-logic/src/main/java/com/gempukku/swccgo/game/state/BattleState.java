@@ -52,6 +52,10 @@ public class BattleState implements Snapshotable<BattleState> {
     private Map<String, List<PhysicalCard>> _battleDestinyDraws = new HashMap<String, List<PhysicalCard>>();
     private Map<String, List<Float>> _battleDestinyDrawValues = new HashMap<String, List<Float>>();
     private Map<String, List<Boolean>> _battleDestinyDrawsCancelableByOpponent = new HashMap<String, List<Boolean>>();
+    // Lifetime count of battle destinies actually drawn/attempted (includes just-drawn cancels
+    // and cancel-previous). Used for "just drew more than N" / "drew exactly one" checks.
+    // Remaining uncanceled draws stay in _battleDestinyDraws for attrition existence.
+    private Map<String, Integer> _numBattleDestinyDrawn = new HashMap<String, Integer>();
     private Map<String, Boolean> _drewDestinyToAttrition = new HashMap<String, Boolean>();
     private Map<String, Integer> _destinyDrawsToPowerMade = new HashMap<String, Integer>();
     private Map<String, Integer> _destinyDrawsToAttritionMade = new HashMap<String, Integer>();
@@ -115,6 +119,7 @@ public class BattleState implements Snapshotable<BattleState> {
         snapshot._totalBattleDestinyDiffFromDraws.putAll(_totalBattleDestinyDiffFromDraws);
         snapshot._totalBattleDestiny.putAll(_totalBattleDestiny);
         snapshot._totalBattleDestinyOverridden.putAll(_totalBattleDestinyOverridden);
+        snapshot._numBattleDestinyDrawn.putAll(_numBattleDestinyDrawn);
         for (String playerId : _battleDestinyDraws.keySet()) {
             List<PhysicalCard> snapshotList = new ArrayList<PhysicalCard>();
             snapshot._battleDestinyDraws.put(playerId, snapshotList);
@@ -433,6 +438,7 @@ public class BattleState implements Snapshotable<BattleState> {
             _battleDestinyDraws.put(player, previousDraws);
         }
         previousDraws.addAll(destinyCardDraws);
+        incrementNumBattleDestinyDrawn(player, destinyCardDraws.size());
 
         List<Boolean> previousDrawsCancelableByOpponent = _battleDestinyDrawsCancelableByOpponent.get(player);
         if (previousDrawsCancelableByOpponent == null) {
@@ -503,8 +509,33 @@ public class BattleState implements Snapshotable<BattleState> {
         return value;
     }
 
+    /**
+     * Lifetime battle destinies drawn/attempted this battle, including canceled draws
+     * (just-drawn CancelDestinyEffect and cancel-previous).
+     */
     public int getNumBattleDestinyDrawn(String player) {
+        Integer drawn = _numBattleDestinyDrawn.get(player);
+        return drawn != null ? drawn : 0;
+    }
+
+    /**
+     * Remaining uncanceled battle destiny draws that contribute to total battle destiny /
+     * attrition existence.
+     */
+    public int getNumUncanceledBattleDestinyDrawn(String player) {
         return _battleDestinyDraws.get(player) != null ? _battleDestinyDraws.get(player).size() : 0;
+    }
+
+    public void incrementNumBattleDestinyDrawn(String player) {
+        incrementNumBattleDestinyDrawn(player, 1);
+    }
+
+    public void incrementNumBattleDestinyDrawn(String player, int amount) {
+        if (amount <= 0) {
+            return;
+        }
+        Integer previousDrawn = _numBattleDestinyDrawn.get(player);
+        _numBattleDestinyDrawn.put(player, (previousDrawn == null ? 0 : previousDrawn) + amount);
     }
 
     public int getNumBattleDestinyDrawnCancelableByOpponent(String player) {

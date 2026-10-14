@@ -49,7 +49,7 @@ public class AddToAttritionEffect extends AbstractSuccessfulEffect {
 
         if (_amount > 0 && battleState != null) {
             String opponent = game.getOpponent(_playerId);
-            if (battleState.getNumBattleDestinyDrawn(opponent) > 0) {
+            if (battleState.getNumUncanceledBattleDestinyDrawn(opponent) > 0) {
                 gameState.sendMessage("Attrition against " + _playerId + " is increased by " + GuiUtils.formatAsString(_amount));
                 modifiersEnvironment.addUntilEndOfBattleModifier(
                         new AttritionModifier(_action.getActionSource(), _amount, _playerId, _cumulative));
