@@ -288,6 +288,46 @@ public class Card_222_001_Tests {
 
         assertFalse(scn.DSCardActionAvailable(vader_saber)); //no eligible target to transfer to
     }
+    @Test
+    public void AFineAdditionToMyCollectionAction3MayStillUseSaberAfterGrievousIsMissingThenFound() {
+        // Grievous is still carrying the saber while missing, so the grant stays when he is found.
+        var scn = GetScenario();
+
+        var site = scn.GetLSStartingLocation();
+
+        var grievous = scn.GetDSCard("grievous");
+        var collection = scn.GetDSCard("collection");
+        var vader_saber = scn.GetDSCard("vader_saber");
+
+        scn.StartGame();
+
+        scn.MoveCardsToLocation(site, grievous);
+        scn.MoveCardsToDSHand(collection);
+        scn.MoveCardsToTopOfDSLostPile(vader_saber);
+
+        scn.SkipToPhase(Phase.DEPLOY);
+        scn.DSPlayCard(collection);
+        scn.PassAllResponses();
+        scn.DSChooseCard(vader_saber);
+        scn.PassAllResponses();
+
+        assertTrue(scn.AwaitingLSDeployPhaseActions());
+        assertTrue(scn.IsAttachedTo(grievous, vader_saber));
+        assertTrue(scn.IsCardActive(vader_saber));
+
+        scn.MakeCardGoMissing(grievous);
+        scn.LSPass();
+        assertTrue(scn.AwaitingDSDeployPhaseActions());
+        assertTrue(scn.IsAttachedTo(grievous, vader_saber));
+        assertFalse(scn.IsCardActive(vader_saber));
+
+        scn.gameState().findMissingCharacter(scn.game(), grievous);
+        scn.DSPass();
+
+        assertTrue(scn.IsAttachedTo(grievous, vader_saber));
+        assertTrue(scn.IsCardActive(vader_saber));
+    }
+
     //add tests:
     //AFineAdditionToMyCollectionAction1AddsOneBattleDestiny
     //AFineAdditionToMyCollectionAction2CancelsLightsaberTargeting
