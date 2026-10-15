@@ -25,8 +25,8 @@ public abstract class AbstractCharacterDevice extends AbstractDevice {
      * @param title the card title
      * @param uniqueness the uniqueness
      * @param expansionSet the expansionSet
-￼    * @param rarity the rarity
-￼    */
+     * @param rarity the rarity
+     */
     public AbstractCharacterDevice(Side side, float destiny, String title, Uniqueness uniqueness, ExpansionSet expansionSet, Rarity rarity) {
         super(side, destiny, PlayCardZoneOption.ATTACHED, title, uniqueness, expansionSet, rarity);
         addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
