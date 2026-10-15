@@ -12,6 +12,7 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
+import com.gempukku.swccgo.game.state.GameCommunicationChannel;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -684,5 +685,32 @@ public class Card_5_23_Tests {
 
 		assertEquals(frozenAssets, scn.gameState().getTopOfFrozenPile(scn.DS));
 		assertEquals(frozenExpected, scn.gameState().getFrozenForceSize(scn.DS));
+	}
+
+	@Test
+	public void FrozenAssetsIsResentWithFullGameState() {
+		// Revert and reconnect rebuild the client from the full game state.
+		var scn = GetScenario();
+		var frozenAssets = scn.GetLSCard("frozenAssets");
+		var vader = scn.GetDSCard("vader");
+		var boba = scn.GetDSCard("boba");
+
+		scn.StartGame();
+		scn.MoveCardsToLSHand(frozenAssets);
+		scn.MoveCardsToTopOfDSForcePile(vader, boba);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		scn.LSPlayCard(frozenAssets, "Force Pile");
+		scn.PassAllResponses();
+
+		for (String player : new String[] {scn.LS, scn.DS}) {
+			var channel = new GameCommunicationChannel(player, 1);
+			scn.gameState().sendStateToPlayer(player, channel, scn.game().getGameStats(), true);
+			boolean sent = channel.consumeGameEvents().stream().anyMatch(e ->
+					Integer.valueOf(frozenAssets.getCardId()).equals(e.getCardId())
+							&& "5_23".equals(e.getBlueprintId())
+							&& e.getZone() == Zone.TOP_OF_FROZEN_PILE);
+			assertTrue(player + " should get Frozen Assets face up on the Frozen Pile", sent);
+		}
 	}
 }

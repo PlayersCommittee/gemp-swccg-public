@@ -561,6 +561,11 @@ public class GameState implements Snapshotable<GameState> {
             for (PhysicalCard physicalCard : getTopCardsOfPiles())
                 listener.cardCreated(physicalCard, this, restoreSnapshot);
 
+            // Send top of Frozen Piles (Frozen Assets sits there), so revert and reconnect still show it
+            for (List<PhysicalCard> frozenPile : _frozenPiles.values())
+                if (!frozenPile.isEmpty())
+                    listener.cardCreated(frozenPile.get(0), this, restoreSnapshot);
+
             // Send out of play piles
             for (List<PhysicalCard> physicalCards : _outOfPlayPiles.values())
                 for (PhysicalCard physicalCard : physicalCards)

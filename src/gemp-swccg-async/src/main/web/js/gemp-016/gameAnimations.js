@@ -4,23 +4,48 @@ var GameAnimations = Class.extend({
         return zone == "FROZEN_PILE" || zone == "TOP_OF_FROZEN_PILE";
     },
     _setForcePileSandwich: function(countSelector, forceStr, frozenStr, faMarker) {
-        var force = parseInt(forceStr, 10) || 0;
-        var frozen = parseInt(frozenStr, 10) || 0;
-        var $count = $(countSelector);
-        if (frozen > 0 || faMarker) {
-            $count.html(
-                "<div class='faSandwichLabel'>" +
-                "<div class='faSandwichRow'><span class='faFrzN'>" + frozen + "</span><span class='faUseN'>" + force + "</span></div>" +
-                "<div class='faSandwichTotal'>(" + (force + frozen) + ")</div>" +
-                "</div>"
-            );
-            // The face-up Frozen Assets card itself is laid out beside this card (see GameUI.layoutFrozenAssetsBeside).
-            $count.closest(".card").addClass("faSandwichActive");
-        } else {
-            $count.text(forceStr);
-            var $card2 = $count.closest(".card");
-            $card2.removeClass("faSandwichActive");
-            $card2.find(".faFrzSliver").remove();
+        var side = (countSelector.indexOf("Dark") >= 0) ? "Dark" : "Light";
+        if (this._frozenAssetsCounts == null) {
+            this._frozenAssetsCounts = {};
+        }
+        this._frozenAssetsCounts[side] = {forceStr: forceStr, force: parseInt(forceStr, 10) || 0, frozen: parseInt(frozenStr, 10) || 0};
+        this.updateFrozenAssetsLabels();
+    },
+
+    /**
+     * With Frozen Assets beside a Force Pile: frozen count under Frozen Assets, usable count under the Force Pile,
+     * and the total centered under both. Otherwise the Force Pile shows its usual count.
+     */
+    updateFrozenAssetsLabels: function() {
+        var counts = this._frozenAssetsCounts;
+        if (counts == null || this.game == null) {
+            return;
+        }
+        var sides = ["Dark", "Light"];
+        for (var i = 0; i < sides.length; i++) {
+            var side = sides[i];
+            var c = counts[side];
+            if (c == null) {
+                continue;
+            }
+            var $forceCount = $(".top" + side + "ForcePile");
+            var $faCount = $(".frozenAssets" + side);
+            var $faCard = $faCount.closest(".card");
+            if ($faCount.length == 0 || $faCard.length == 0) {
+                $forceCount.text(c.forceStr);
+                continue;
+            }
+            var faData = $faCard.data("card");
+            var forceGroup = this.game.frozenAssetsPlayer.cardBelongs(faData) ? this.game.topOfForcePilePlayer : this.game.topOfForcePileOpponent;
+            var faLeft = $faCard.position().left;
+            var faWidth = $faCard.width();
+            var cellWidth = Math.max(faWidth, Math.round((forceGroup.x + forceGroup.width / 2) - (faLeft + faWidth / 2)));
+            $forceCount.text("");
+            $faCount.html(
+                "<div class='faPileCounts'><span>" + c.frozen + "</span><span>" + c.force + "</span></div>" +
+                "<div class='faPileTotal'>(" + (c.force + c.frozen) + ")</div>");
+            $faCount.css({width: 2 * cellWidth, marginLeft: Math.round(faWidth / 2 - cellWidth / 2)});
+            $faCount.find(".faPileCounts > span").css({width: cellWidth});
         }
     },
     game:null,

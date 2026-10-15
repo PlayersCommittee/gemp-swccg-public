@@ -557,54 +557,24 @@ ul.ui-tabs-nav {
     width: fit-content;
     margin: 0 auto;
 }
-/* Frozen Assets Force-pile sandwich (Bill mock): left Frz sliver + right usable, counts under */
-.card.faSandwichActive {
-    overflow: visible;
-}
-.card.faSandwichActive .faFrzSliver {
-    position: absolute;
-    left: -28%;
-    top: 0;
-    width: 42%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 0;
-    pointer-events: auto;
-    border-radius: 2px;
-    box-shadow: 1px 0 2px rgba(0,0,0,0.55);
-}
-.card.faSandwichActive .faFrzSliver img {
-    height: 100%;
-    width: auto;
-    max-width: none;
+/* Frozen Assets beside the Force Pile: frozen count under Frozen Assets, usable count under the Force Pile, total below */
+.frozenAssetsDark,
+.frozenAssetsLight {
     display: block;
-}
-.card.faSandwichActive > img {
-    position: relative;
-    z-index: 1;
-}
-.cardPileCount .faSandwichLabel {
-    display: block;
-    width: 78px;
-    margin-left: -10px;
-    line-height: 1.05;
-    text-align: center;
     color: #ffffff;
+    text-align: center;
+    vertical-align: top;
     font-size: 75%;
+    line-height: 1.1;
 }
-.cardPileCount .faSandwichRow {
+.cardPileCount .faPileCounts {
     display: flex;
-    justify-content: space-between;
-    padding: 0 6px;
 }
-.cardPileCount .faFrzN,
-.cardPileCount .faUseN {
+.cardPileCount .faPileCounts > span {
     display: inline-block;
-    min-width: 1.2em;
     text-align: center;
 }
-.cardPileCount .faSandwichTotal {
+.cardPileCount .faPileTotal {
     display: block;
     text-align: center;
-    opacity: 0.95;
 }
