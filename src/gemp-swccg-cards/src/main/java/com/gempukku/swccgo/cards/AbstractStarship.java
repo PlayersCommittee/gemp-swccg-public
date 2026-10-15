@@ -21,8 +21,6 @@ import com.gempukku.swccgo.game.ReactActionOption;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.actions.PlayCardAction;
-import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.ModifierType;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
 import java.util.ArrayList;
@@ -572,30 +570,42 @@ public abstract class AbstractStarship extends AbstractDeployable {
         Filter pilotTargetFilter = Filters.any;
         boolean spyPilot = Filters.spy.accepts(game, character);
 
-
-        // By default, no 'deploymentRestrictionOption's are passed in. However, we want to honor the ability
-        // to deploy without presence or force icons on some starships. For those cases, build a DeploymentRestrictionOption
-        // on the fly (or update the one that was passed in (if any))
-        DeploymentRestrictionsOption updatedDeployementRestrictionOption = deploymentRestrictionsOption;
-        for (Modifier modifier: game.getModifiersQuerying().getModifiersAffecting(game.getGameState(), self)) {
-            if (modifier.getModifierType() == ModifierType.MAY_DEPLOY_WITHOUT_PRESENCE_OR_FORCE_ICONS) {
-                if (updatedDeployementRestrictionOption == null) {
-                    updatedDeployementRestrictionOption = DeploymentRestrictionsOption.evenWithoutPresenceOrForceIcons();
-                } else {
-                    updatedDeployementRestrictionOption.setEvenWithoutPresenceOrForceIcons(true);
-                }
-            }
-        }
-
+        // Do not promote location-scoped MAY_DEPLOY_WITHOUT_PRESENCE_OR_FORCE_ICONS modifiers
+        // (e.g. Trash Compactor) into a blanket DeploymentRestrictionsOption. Those are honored
+        // per-target via Filters.sufficientPresenceOrForceIconsToDeployTo / isAffectedTarget.
+        // Same root as issue #47 / #736.
 
         // Check if pilot can deploy to this card (regardless of its location), if not then need to check for locations that pilot is allowed to deploy to
         if (!character.getBlueprint().getValidSimultaneouslyDeployingStarshipOrVehicleToAnyLocationFilter(playerId, game, character).accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
-            pilotTargetFilter = Filters.locationAndCardsAtLocation(character.getBlueprint().getValidLocationForSimultaneouslyDeployingAsPilotOrPassengerFilter(playerId, game, character, sourceCard, updatedDeployementRestrictionOption, reactActionOption));
+            pilotTargetFilter = Filters.locationAndCardsAtLocation(character.getBlueprint().getValidLocationForSimultaneouslyDeployingAsPilotOrPassengerFilter(playerId, game, character, sourceCard, deploymentRestrictionsOption, reactActionOption));
+        }
+
+        // Even when the pilot may board this ship regardless of location (e.g. Captain Han
+        // "deploys only on Falcon"), still honor per-target Dagobah / Ahch-To prohibitions (#760).
+        // Same grantedToDeployToDagobahTarget check used by isProhibitedFromDeployingTo.
+        if (deploymentRestrictionsOption == null || !deploymentRestrictionsOption.isIgnoreLocationDeploymentRestrictions()) {
+            final PhysicalCard pilot = character;
+            pilotTargetFilter = Filters.and(pilotTargetFilter, new Filter() {
+                @Override
+                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                    PhysicalCard location = modifiersQuerying.getLocationHere(gameState, physicalCard);
+                    if (location == null) {
+                        return true;
+                    }
+                    if (Filters.Dagobah_location.accepts(gameState, modifiersQuerying, location)) {
+                        return modifiersQuerying.grantedToDeployToDagobahTarget(gameState, pilot, physicalCard);
+                    }
+                    if (Filters.AhchTo_location.accepts(gameState, modifiersQuerying, location)) {
+                        return modifiersQuerying.grantedToDeployToAhchToTarget(gameState, pilot, physicalCard);
+                    }
+                    return true;
+                }
+            });
         }
 
         pilotTargetFilter = Filters.and(pilotTargetFilter, Filters.canUseForceToDeploySimultaneouslyToTarget(sourceCard, self, forFree, changeInCost, character, characterForFree, characterChangeInCost, reactActionOption));
 
-        return Filters.and(getValidDeployTargetFilter(playerId, game, self, sourceCard, null, forFree, changeInCost, updatedDeployementRestrictionOption, null, reactActionOption, true, spyPilot), pilotTargetFilter);
+        return Filters.and(getValidDeployTargetFilter(playerId, game, self, sourceCard, null, forFree, changeInCost, deploymentRestrictionsOption, null, reactActionOption, true, spyPilot), pilotTargetFilter);
     }
 
     /**
