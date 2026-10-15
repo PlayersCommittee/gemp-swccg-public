@@ -336,8 +336,10 @@ public abstract class AbstractVehicle extends AbstractDeployable {
                 if (!game.getModifiersQuerying().hasPermanentPilot(game.getGameState(), self)
                         && (reactActionOption != null
                         || Filters.deploysLikeStarfighterAtCloudSectors.accepts(game, self))) {
-                    // Simultaneous pilot/driver only for destinations that require a pilot (cloud sectors). #968 / AR React-Deploy:
-                    Filter extraTargetFilter = Filters.cloud_sector;
+                    // Simultaneous pilot/driver only for destinations that require a pilot (cloud sectors), per AR React-Deploy,
+                    // unless the react itself allows deploying with a pilot or driver (e.g. Racing Skiff).
+                    boolean reactAllowsDriver = reactActionOption != null && reactActionOption.getDeployWithPilotOrDriverFilter() != null;
+                    Filter extraTargetFilter = reactAllowsDriver ? Filters.any : Filters.cloud_sector;
 
                     deployWithSeparatePilotTargetFilter = Filters.none;
 
