@@ -124,9 +124,9 @@ public class Card224_009 extends AbstractUsedOrLostInterrupt {
                     new TargetCardOnTableEffect(action, playerId, "Choose starship", yourStarshipInBattle) {
                         @Override
                         protected void cardTargeted(final int starshipTargetGroupId, PhysicalCard starship) {
-                            final float highestAbilityPiloting = game.getModifiersQuerying().getHighestAbilityPiloting(game.getGameState(), starship, false, false);
-                            float highestAbilityCharacterPiloting = game.getModifiersQuerying().getHighestAbilityPiloting(game.getGameState(), starship, false, true);
-                            float highestAbilityPermanentPilotPiloting = game.getModifiersQuerying().getHighestAbilityPiloting(game.getGameState(), starship, true, false);
+                            final float highestAbilityPiloting = game.getModifiersQuerying().getHighestAbilityPiloting(game.getGameState(), self, starship, false, false);
+                            float highestAbilityCharacterPiloting = game.getModifiersQuerying().getHighestAbilityPiloting(game.getGameState(), self, starship, false, true);
+                            float highestAbilityPermanentPilotPiloting = game.getModifiersQuerying().getHighestAbilityPiloting(game.getGameState(), self, starship, true, false);
 
                             Filter targetFilter;
                             String text;
@@ -156,7 +156,7 @@ public class Card224_009 extends AbstractUsedOrLostInterrupt {
                                                             // Get the targeted card(s) from the action using the targetGroupId.
                                                             // This needs to be done in case the target(s) were changed during the responses.
                                                             final PhysicalCard finalTarget = action.getPrimaryTargetCard(starshipTargetGroupId);
-                                                            final float finalAbility = game.getModifiersQuerying().getHighestAbilityPiloting(game.getGameState(), finalTarget, false, false);
+                                                            final float finalAbility = game.getModifiersQuerying().getHighestAbilityPiloting(game.getGameState(), self, finalTarget, false, false);
 
                                                             // Perform result(s)
                                                             action.appendEffect(

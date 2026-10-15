@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.cards.set102.dark;
 
+import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.CardSubtype;
 import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.ExpansionSet;
@@ -12,7 +13,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.game.PhysicalCard;
-import com.gempukku.swccgo.logic.modifiers.MayNotParticipateInBattleModifier;
+import com.gempukku.swccgo.logic.modifiers.ExcludedFromBattleModifier;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class Card_102_008_Tests {
                     put("shadow", "102_8");
                     put("tie", "1_304");
                     put("kessel", "1_288");
+                    put("tallon", "1_270");
                 }},
                 10,
                 10,
@@ -98,10 +100,12 @@ public class Card_102_008_Tests {
         scn.MoveCardsToLocation(kessel, falcon, tie);
         scn.BoardAsPilot(falcon, luke, han);
         scn.game().getModifiersEnvironment().addUntilEndOfGameModifier(
-                new MayNotParticipateInBattleModifier(shadow, luke));
+                new ExcludedFromBattleModifier(shadow, luke));
 
-        scn.StartBattleAndSkipToWeaponsSegment(kessel);
-        scn.PassAllResponses();
+        scn.SkipToDSTurn(Phase.BATTLE);
+        scn.DSInitiateBattle(kessel);
+        scn.PassBattleStartResponses();
+        assertTrue(scn.gameState().isDuringBattle());
 
         Collection<PhysicalCard> spottedPilots = Filters.filterActive(scn.game(), shadow, Filters.piloting(falcon));
         assertFalse(spottedPilots.contains(luke));
@@ -114,5 +118,43 @@ public class Card_102_008_Tests {
         assertEquals(scn.game().getModifiersQuerying().getAbility(scn.gameState(), han), spottedHighest, scn.epsilon);
         assertTrue(scn.game().getModifiersQuerying().getAbility(scn.gameState(), luke)
                 > scn.game().getModifiersQuerying().getAbility(scn.gameState(), han));
+    }
+
+    @Test
+    public void GravityShadowHighestAbilityPilotingSkipsExcludedPilot() {
+        // AR, Inactive: an inactive (excluded) card is not on table, so its ability is not the highest piloting.
+        var scn = GetScenario();
+
+        var luke = scn.GetLSCard("luke");
+        var han = scn.GetLSCard("han");
+        var falcon = scn.GetLSCard("falcon");
+        var kessel = scn.GetDSCard("kessel");
+        var shadow = scn.GetDSCard("shadow");
+        var tallon = scn.GetDSCard("tallon");
+        var tie = scn.GetDSCard("tie");
+
+        scn.StartGame();
+        scn.MoveLocationToTable(kessel);
+        scn.MoveCardsToLocation(kessel, falcon, tie);
+        scn.BoardAsPilot(falcon, luke, han);
+        scn.MoveCardsToDSHand(shadow, tallon);
+        scn.game().getModifiersEnvironment().addUntilEndOfGameModifier(
+                new ExcludedFromBattleModifier(shadow, luke));
+
+        scn.SkipToDSTurn(Phase.BATTLE);
+        scn.DSInitiateBattle(kessel);
+        scn.PassBattleStartResponses();
+        assertTrue(scn.gameState().isDuringBattle());
+
+        var query = scn.game().getModifiersQuerying();
+        float hanAbility = query.getAbility(scn.gameState(), han);
+        float lukeAbility = query.getAbility(scn.gameState(), luke);
+        assertTrue(lukeAbility > hanAbility);
+
+        // Cards asking (Gravity Shadow, Tallon Roll) only see Han.
+        assertEquals(hanAbility, query.getHighestAbilityPiloting(scn.gameState(), shadow, falcon, false, false), scn.epsilon);
+        assertEquals(hanAbility, query.getHighestAbilityPiloting(scn.gameState(), tallon, falcon, false, false), scn.epsilon);
+        // A rule check (no card asking) still counts every pilot aboard.
+        assertEquals(lukeAbility, query.getHighestAbilityPiloting(scn.gameState(), null, falcon, false, false), scn.epsilon);
     }
 }
