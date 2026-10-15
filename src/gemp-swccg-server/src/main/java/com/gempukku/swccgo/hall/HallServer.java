@@ -41,9 +41,9 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class HallServer extends AbstractServer {
-    private static final String AI_BEGINNER_ID = "~OzzelBot";
-    private static final String AI_ADVANCED_ID = "~YodaBot";
-    private static final String AI_ELITE_ID = "~Rando_Cal";
+    private static final String AI_BEGINNER_ID = Player.AI_BEGINNER_ID;
+    private static final String AI_ADVANCED_ID = Player.AI_ADVANCED_ID;
+    private static final String AI_ELITE_ID = Player.AI_ELITE_ID;
 
     private final int _playerInactivityPeriod = 1000 * 60; // 60 seconds
     private final long _scheduledTournamentLoadTime = 1000 * 60 * 60 * 24 * 7; // Week

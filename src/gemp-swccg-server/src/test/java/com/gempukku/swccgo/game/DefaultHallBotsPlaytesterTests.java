@@ -47,4 +47,13 @@ public class DefaultHallBotsPlaytesterTests {
         Player human = player("bill", "t");
         assertTrue(human.hasType(Player.Type.PLAYTESTER));
     }
+
+    @Test
+    public void DefaultHallBotsAreBotsAndHumansAreNot() {
+        assertTrue(Player.isBot(Player.AI_BEGINNER_ID));
+        assertTrue(Player.isBot(Player.AI_ADVANCED_ID));
+        assertTrue(Player.isBot(Player.AI_ELITE_ID));
+        assertFalse(Player.isBot("bill"));
+        assertFalse(Player.isBot(null));
+    }
 }
