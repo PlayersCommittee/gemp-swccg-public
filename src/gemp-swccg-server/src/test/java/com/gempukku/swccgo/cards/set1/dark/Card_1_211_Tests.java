@@ -145,8 +145,8 @@ public class Card_1_211_Tests {
         assertTrue(scn.IsAttachedTo(gideon, saber));
         assertTrue(scn.AwaitingDSDeployPhaseActions());
 
-        assertTrue(scn.DSCardActionAvailable(rack, "Transfer character weapon"));
-        scn.DSUseCardAction(rack, "Transfer character weapon");
+        assertTrue(scn.DSCardActionAvailable(rack, "Transfer weapon to Blaster Rack"));
+        scn.DSUseCardAction(rack, "Transfer weapon to Blaster Rack");
         chooseStackedOrTargetIfOffered(scn, saber);
         scn.PassAllResponses();
         if (scn.LSDecisionAvailable("Choose Deploy action or Pass")) {
@@ -192,8 +192,37 @@ public class Card_1_211_Tests {
         assertEquals(forceBefore - 2, scn.GetDSForcePileCount());
     }
 
+    @Test
+    public void BlasterRackMayNotTransferStackedWeaponWithoutFullDeployCost() {
+        // Blaster Rifle deploys for 2. With only 1 Force, it may not be chosen and nothing is paid.
+        var scn = GetScenario();
+
+        var rack = scn.GetDSCard("rack");
+        var rifle = scn.GetDSCard("rifle");
+        var trooper = scn.GetDSFiller(1);
+        var site = scn.GetDSStartingLocation();
+
+        scn.StartGame();
+
+        scn.MoveCardsToDSSideOfTable(rack);
+        scn.MoveCardsToLocation(site, trooper);
+        scn.StackCardsOn(rack, rifle);
+
+        scn.SkipToPhase(Phase.CONTROL);
+        // Leave exactly 1 Force in the Force Pile before the deploy phase starts.
+        var extraForce = scn.GetDSForcePile().stream().skip(1).map(c -> (PhysicalCardImpl) c).toArray(PhysicalCardImpl[]::new);
+        scn.MoveCardsToBottomOfDSReserveDeck(extraForce);
+        scn.SkipToPhase(Phase.DEPLOY);
+        int forceBefore = scn.GetDSForcePileCount();
+        assertEquals(1, forceBefore);
+
+        assertFalse(scn.DSCardActionAvailable(rack, "Transfer stacked weapon"));
+        assertEquals(forceBefore, scn.GetDSForcePileCount());
+        assertTrue(scn.IsStackedOn(rack, rifle));
+    }
+
     private void chooseStackedOrTargetIfOffered(VirtualTableScenario scn, PhysicalCardImpl card) {
-        if (scn.DSHasCardChoiceAvailable(card)) {
+        if (scn.DSGetDecision() != null && scn.DSHasCardChoiceAvailable(card)) {
             scn.DSChooseCard(card);
         }
     }

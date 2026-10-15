@@ -47,7 +47,7 @@ public class Card1_211 extends AbstractNormalEffect {
         if (GameConditions.canSpot(game, self, filter)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-            action.setText("Transfer character weapon");
+            action.setText("Transfer weapon to Blaster Rack");
             // Choose target(s)
             action.appendTargeting(
                     new ChooseCardOnTableEffect(action, playerId, "Choose character weapon", filter) {
