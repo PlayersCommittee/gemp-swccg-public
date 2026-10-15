@@ -2507,11 +2507,16 @@ public class GameState implements Snapshotable<GameState> {
             }
 
             // Special rule:
-            // If a character weapon or a device is being targeted "to be stolen", include it even if the holder cannot use it
+            // If a character weapon, or a device that may deploy on (or be carried by) a character, is being targeted
+            // "to be stolen", include it even if the holder cannot use it. Other devices may not be stolen (AR, Stealing).
             boolean includeWeaponsAndDevicesForStealingForThisCard = false;
             CardCategory spottedCategory = physicalCard.getBlueprint().getCardCategory();
+            PhysicalCard spottedAttachedTo = physicalCard.getAttachedTo();
+            boolean characterDevice = spottedCategory == CardCategory.DEVICE
+                    && (physicalCard.getBlueprint().hasKeyword(Keyword.DEPLOYS_ON_CHARACTERS)
+                    || (spottedAttachedTo != null && spottedAttachedTo.getBlueprint().getCardCategory() == CardCategory.CHARACTER));
             if (((spottedCategory == CardCategory.WEAPON && physicalCard.getBlueprint().getCardSubtype() == CardSubtype.CHARACTER)
-                    || spottedCategory == CardCategory.DEVICE)
+                    || characterDevice)
                     && targetFiltersMap != null && (targetFiltersMap.get(TargetingReason.TO_BE_STOLEN) != null && Filters.and(targetFiltersMap.get(TargetingReason.TO_BE_STOLEN)).accepts(this, modifiersQuerying, physicalCard))) {
                 includeWeaponsAndDevicesForStealingForThisCard = true;
             }
