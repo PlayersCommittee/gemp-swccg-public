@@ -98,10 +98,44 @@ public class Player {
     }
 
     /**
+     * Bot player names start with this prefix. Registered names cannot contain it, so it marks a bot.
+     */
+    public static final String BOT_NAME_PREFIX = "~";
+    public static final String AI_BEGINNER_ID = "~OzzelBot";
+    public static final String AI_ADVANCED_ID = "~YodaBot";
+    public static final String AI_ELITE_ID = "~Rando_Cal";
+
+    /**
+     * Determines if the player name is a bot (not a human).
+     */
+    public static boolean isBot(String name) {
+        return name != null && name.startsWith(BOT_NAME_PREFIX);
+    }
+
+    /**
+     * Default hall bots that playtesters can sit against in playtesting formats.
+     */
+    public static boolean isDefaultHallBot(String name) {
+        return AI_BEGINNER_ID.equals(name) || AI_ADVANCED_ID.equals(name) || AI_ELITE_ID.equals(name);
+    }
+
+    public boolean isDefaultHallBot() {
+        return isDefaultHallBot(_name);
+    }
+
+    /**
      * Determines if the player has the specified type.
+     * Default hall bots always count as playtesters so a playtester can play
+     * a playtesting format against them without granting the DB flag.
      * @return true or false
      */
     public boolean hasType(Type type) {
+        if (type == Type.PLAYTESTER && isDefaultHallBot()) {
+            return true;
+        }
+        if (_type == null) {
+            return false;
+        }
         return Type.getTypes(_type).contains(type);
     }
 
