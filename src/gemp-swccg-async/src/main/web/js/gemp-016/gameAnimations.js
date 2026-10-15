@@ -1,4 +1,54 @@
 var GameAnimations = Class.extend({
+    // Frozen Pile cards are not drawn on the table; the Force Pile sandwich shows the Frozen Pile counts.
+    _isFrozenPileZone: function(zone) {
+        return zone == "FROZEN_PILE" || zone == "TOP_OF_FROZEN_PILE";
+    },
+    _setForcePileSandwich: function(countSelector, forceStr, frozenStr, faMarker) {
+        var side = (countSelector.indexOf("Dark") >= 0) ? "Dark" : "Light";
+        if (this._frozenAssetsCounts == null) {
+            this._frozenAssetsCounts = {};
+        }
+        this._frozenAssetsCounts[side] = {forceStr: forceStr, force: parseInt(forceStr, 10) || 0, frozen: parseInt(frozenStr, 10) || 0};
+        this.updateFrozenAssetsLabels();
+    },
+
+    /**
+     * With Frozen Assets beside a Force Pile: frozen count under Frozen Assets, usable count under the Force Pile,
+     * and the total centered under both. Otherwise the Force Pile shows its usual count.
+     */
+    updateFrozenAssetsLabels: function() {
+        var counts = this._frozenAssetsCounts;
+        if (counts == null || this.game == null) {
+            return;
+        }
+        var sides = ["Dark", "Light"];
+        for (var i = 0; i < sides.length; i++) {
+            var side = sides[i];
+            var c = counts[side];
+            if (c == null) {
+                continue;
+            }
+            var $forceCount = $(".top" + side + "ForcePile");
+            var $faCount = $(".frozenAssets" + side);
+            var $faCard = $faCount.closest(".card");
+            if ($faCount.length == 0 || $faCard.length == 0) {
+                $forceCount.text(c.forceStr);
+                continue;
+            }
+            var faData = $faCard.data("card");
+            var forceGroup = this.game.frozenAssetsPlayer.cardBelongs(faData) ? this.game.topOfForcePilePlayer : this.game.topOfForcePileOpponent;
+            var faLeft = $faCard.position().left;
+            var faWidth = $faCard.width();
+            // Numbers sit under the centers of Frozen Assets and the Force Pile card, which overlap.
+            var cellWidth = Math.max(16, Math.round((forceGroup.x + forceGroup.width / 2) - (faLeft + faWidth / 2)));
+            $forceCount.text("");
+            $faCount.html(
+                "<div class='faPileCounts'><span>" + c.frozen + "</span><span>" + c.force + "</span></div>" +
+                "<div class='faPileTotal'>(" + (c.force + c.frozen) + ")</div>");
+            $faCount.css({width: 2 * cellWidth, marginLeft: Math.round(faWidth / 2 - cellWidth / 2)});
+            $faCount.find(".faPileCounts > span").css({width: cellWidth});
+        }
+    },
     game:null,
     replaySpeed:1,
     playEventDuration:1000,
@@ -337,6 +387,10 @@ var GameAnimations = Class.extend({
                     $("#main").append(cardDiv);
                 }
 
+                if (that._isFrozenPileZone(zone)) {
+                    cardDiv.hide();
+                }
+
                 if (targetCardId != null) {
                     var targetCardData = $(".card:cardId(" + targetCardId + ")").data("card");
                     targetCardData.attachedCards.push(cardDiv);
@@ -354,7 +408,8 @@ var GameAnimations = Class.extend({
         if (animate
             && zone != "OUT_OF_PLAY" && zone != "LOST_PILE" && zone != "TOP_OF_LOST_PILE" && zone != "USED_PILE" && zone != "TOP_OF_USED_PILE"
             && zone != "FORCE_PILE" && zone != "TOP_OF_FORCE_PILE" && zone != "RESERVE_DECK" && zone != "TOP_OF_RESERVE_DECK" && zone != "HAND"
-            && zone != "SABACC_HAND" && zone != "REVEALED_SABACC_HAND") {
+            && zone != "SABACC_HAND" && zone != "REVEALED_SABACC_HAND"
+            && !that._isFrozenPileZone(zone)) {
             var oldValues = {};
             var putCardIntoPlayDuration = (phase == "PLAY_STARTING_CARDS") ? that.putCardIntoPlayDurationFast : that.putCardIntoPlayDurationSlow;
 
@@ -632,6 +687,7 @@ var GameAnimations = Class.extend({
                 var cardData = card.data("card");
                 // move to new zone and location index
                 cardData.zone = zone;
+                card.toggle(!that._isFrozenPileZone(zone));
                 cardData.owner = participantId;
                 cardData.locationIndex = locationIndex;
 
@@ -1160,6 +1216,8 @@ var GameAnimations = Class.extend({
                     var sabaccHand = playerZone.getAttribute("SABACC_HAND");
                     var reserve = playerZone.getAttribute("RESERVE_DECK");
                     var force = playerZone.getAttribute("FORCE_PILE");
+                    var frozen = playerZone.getAttribute("FROZEN_PILE");
+                    var faMarker = playerZone.getAttribute("TOP_OF_FROZEN_PILE") == "1";
                     var used = playerZone.getAttribute("USED_PILE");
                     var lost = playerZone.getAttribute("LOST_PILE");
                     var outOfPlay = playerZone.getAttribute("OUT_OF_PLAY");
@@ -1191,7 +1249,7 @@ var GameAnimations = Class.extend({
                             $("#politicsTotal" + that.game.getPlayerIndex(playerId)).css({display:"table-cell"});
                         }
                         $(".topDarkReserveDeck").text(reserve);
-                        $(".topDarkForcePile").text(force);
+                        that._setForcePileSandwich(".topDarkForcePile", force, frozen, faMarker);
                         $(".topDarkUsedPile").text(used);
                         $(".topDarkLostPile").text(lost);
                    }
@@ -1212,7 +1270,7 @@ var GameAnimations = Class.extend({
                             $("#politicsTotal" + that.game.getPlayerIndex(playerId)).css({display:"table-cell"});
                         }
                         $(".topLightReserveDeck").text(reserve);
-                        $(".topLightForcePile").text(force);
+                        that._setForcePileSandwich(".topLightForcePile", force, frozen, faMarker);
                         $(".topLightUsedPile").text(used);
                         $(".topLightLostPile").text(lost);
                     }

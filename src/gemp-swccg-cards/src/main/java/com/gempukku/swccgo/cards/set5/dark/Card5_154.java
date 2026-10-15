@@ -53,7 +53,7 @@ public class Card5_154 extends AbstractUsedInterrupt {
         action1.setText("Relocate card to bottom of Deck or Pile");
         // Choose target(s)
         action1.appendCost(
-                new ChooseExistingCardPileEffect(action1, playerId) {
+                new ChooseExistingCardPileEffect(action1, playerId, true) {
                     @Override
                     protected void pileChosen(SwccgGame game, final String cardPileOwner, final Zone cardPile) {
                         // Allow response(s)

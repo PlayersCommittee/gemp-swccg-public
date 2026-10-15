@@ -45,6 +45,9 @@ var GempSwccgGameUI = Class.extend({
     topOfDrawnDestinyPlayer: null,
     topOfReserveDeckOpponent: null,
     topOfForcePileOpponent: null,
+    frozenAssetsPlayer: null,
+    frozenAssetsOpponent: null,
+    lastFrozenAssetsLayoutState: null,
     topOfUsedPileOpponent: null,
     topOfLostPileOpponent: null,
     topOfDrawnDestinyOpponent: null,
@@ -312,14 +315,11 @@ var GempSwccgGameUI = Class.extend({
         });
 
         this.topOfForcePilePlayer = new CardPileGroup($("#main"), function (card) {
-            if (card.zone == "TOP_OF_FORCE_PILE" && card.owner == that.bottomPlayerId) {
-                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + playerSide + "ForcePile");
-                return true;
-            }
-            else {
-                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + playerSide + "ForcePile");
-                return false;
-            }
+            return that.forcePileGroupBelongs(card, card.owner == that.bottomPlayerId, "top" + playerSide + "ForcePile");
+        });
+
+        this.frozenAssetsPlayer = new CardPileGroup($("#main"), function (card) {
+            return that.frozenAssetsGroupBelongs(card, card.owner == that.bottomPlayerId, "frozenAssets" + playerSide);
         });
 
         this.topOfUsedPilePlayer = new CardPileGroup($("#main"), function (card) {
@@ -367,14 +367,11 @@ var GempSwccgGameUI = Class.extend({
         });
 
         this.topOfForcePileOpponent = new CardPileGroup($("#main"), function (card) {
-            if (card.zone == "TOP_OF_FORCE_PILE" && card.owner != that.bottomPlayerId) {
-                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").addClass("top" + opponentSide + "ForcePile");
-                return true;
-            }
-            else {
-                $(".card:cardId(" + card.cardId + ") > div.cardPileCount").removeClass("top" + opponentSide + "ForcePile");
-                return false;
-            }
+            return that.forcePileGroupBelongs(card, card.owner != that.bottomPlayerId, "top" + opponentSide + "ForcePile");
+        });
+
+        this.frozenAssetsOpponent = new CardPileGroup($("#main"), function (card) {
+            return that.frozenAssetsGroupBelongs(card, card.owner != that.bottomPlayerId, "frozenAssets" + opponentSide);
         });
 
         this.topOfUsedPileOpponent = new CardPileGroup($("#main"), function (card) {
@@ -703,7 +700,127 @@ var GempSwccgGameUI = Class.extend({
         return null;
     },
 
+    /**
+     * Force Pile slot membership. Frozen Pile cards are never in it: Frozen Assets has its own pile group
+     * beside the Force Pile, and frozen Force stays hidden.
+     */
+    forcePileGroupBelongs: function (card, isThisSide, countClass) {
+        var countDiv = $(".card:cardId(" + card.cardId + ")").children("div.cardPileCount");
+        if (card.zone == "TOP_OF_FORCE_PILE" && isThisSide) {
+            countDiv.addClass(countClass);
+            return true;
+        }
+        countDiv.removeClass(countClass);
+        return false;
+    },
+
+    frozenAssetsGroupBelongs: function (card, isThisSide, countClass) {
+        var cardDiv = $(".card:cardId(" + card.cardId + ")");
+        var countDiv = cardDiv.children("div.cardPileCount");
+        if (card.zone == "TOP_OF_FROZEN_PILE" && isThisSide && this.isFaceUpFrozenAssets(card)) {
+            countDiv.addClass(countClass);
+            cardDiv.show();
+            return true;
+        }
+        countDiv.removeClass(countClass);
+        return false;
+    },
+
+    hasFrozenAssets: function (owner) {
+        var that = this;
+        var found = false;
+        $(".card").each(function () {
+            var cardData = $(this).data("card");
+            if (cardData != null && cardData.zone == "TOP_OF_FROZEN_PILE" && cardData.owner == owner && that.isFaceUpFrozenAssets(cardData)) {
+                found = true;
+                return false;
+            }
+        });
+        return found;
+    },
+
+    frozenAssetsLayoutState: function () {
+        var opponentId = null;
+        for (var i = 0; i < this.allPlayerIds.length; i++) {
+            if (this.allPlayerIds[i] != this.bottomPlayerId) {
+                opponentId = this.allPlayerIds[i];
+            }
+        }
+        return (this.hasFrozenAssets(this.bottomPlayerId) ? "P" : "") + (this.hasFrozenAssets(opponentId) ? "O" : "");
+    },
+
+    hasTopOfForcePile: function (owner) {
+        var found = false;
+        $(".card").each(function () {
+            var cardData = $(this).data("card");
+            if (cardData != null && cardData.zone == "TOP_OF_FORCE_PILE" && cardData.owner == owner) {
+                found = true;
+                return false;
+            }
+        });
+        return found;
+    },
+
+    isFaceUpFrozenAssets: function (card) {
+        return card != null && card.bareBlueprint == "5_23";
+    },
+
+    findTopOfForcePileDiv: function (owner) {
+        var found = null;
+        $(".card").each(function () {
+            var cardData = $(this).data("card");
+            if (cardData != null && cardData.zone == "TOP_OF_FORCE_PILE" && cardData.owner == owner) {
+                found = $(this);
+                return false;
+            }
+        });
+        return found;
+    },
+
+    /**
+     * Frozen Assets has its own slot left of the Force Pile. When it comes or goes, the Force Pile column widens or
+     * narrows, so the whole UI is laid out again.
+     */
+    layoutFrozenAssetsBeside: function () {
+        if (this.frozenAssetsPlayer == null) {
+            return;
+        }
+        if (this.frozenAssetsLayoutState() != this.lastFrozenAssetsLayoutState) {
+            this.layoutUI(false);
+            return;
+        }
+        this.frozenAssetsPlayer.layoutCards();
+        this.frozenAssetsOpponent.layoutCards();
+        this.stackFrozenAssetsUnderForcePile();
+        this.animations.updateFrozenAssetsLabels();
+    },
+
+    stackFrozenAssetsUnderForcePile: function () {
+        var that = this;
+        $(".card").each(function () {
+            var cardData = $(this).data("card");
+            if (cardData == null || cardData.zone != "TOP_OF_FROZEN_PILE" || !that.isFaceUpFrozenAssets(cardData)) {
+                return;
+            }
+            var topDiv = that.findTopOfForcePileDiv(cardData.owner);
+            if (topDiv == null) {
+                return;
+            }
+            var zIndex = parseInt(topDiv.css("zIndex"), 10) || 0;
+            if (zIndex < 1) {
+                zIndex = 1;
+                topDiv.css({zIndex: zIndex});
+            }
+            $(this).css({zIndex: zIndex - 1});
+        });
+    },
+
     layoutGroupWithCard: function (cardId) {
+        this.layoutGroupWithCardOnly(cardId);
+        this.layoutFrozenAssetsBeside();
+    },
+
+    layoutGroupWithCardOnly: function (cardId) {
         var cardData = $(".card:cardId(" + cardId + ")").data("card");
 
         for (var i = 0; i < this.locationCardGroups.length; i++) {
@@ -1528,6 +1645,13 @@ var GempSwccgGameUI = Class.extend({
         var CARD_PILE_WIDTH_2 = CARD_PILE_WIDTH_1;
         var CARD_PILE_LEFT_3 = CARD_PILE_LEFT_2 + CARD_PILE_WIDTH_2 + BORDER_PADDING - 1;
         var CARD_PILE_WIDTH_3 = CARD_PILE_AND_ACTION_AREA_WIDTH - CARD_PILE_WIDTH_1 - CARD_PILE_WIDTH_2;
+        // Frozen Assets on a Force Pile: that player's Force Pile column is a little wider. Frozen Assets sits
+        // underneath, shifted left, and the Force Pile card sits on top of it, shifted right.
+        var frozenAssetsState = (this.gameUiInitialized && this.frozenAssetsPlayer != null) ? this.frozenAssetsLayoutState() : "";
+        this.lastFrozenAssetsLayoutState = frozenAssetsState;
+        var FROZEN_ASSETS_EXTRA_WIDTH = Math.round(CARD_PILE_WIDTH_3 * 0.6);
+        var OPPONENT_FROZEN_ASSETS_EXTRA = (frozenAssetsState.indexOf("O") >= 0) ? FROZEN_ASSETS_EXTRA_WIDTH : 0;
+        var PLAYER_FROZEN_ASSETS_EXTRA = (frozenAssetsState.indexOf("P") >= 0) ? FROZEN_ASSETS_EXTRA_WIDTH : 0;
         var LARGE_STAT_BOX_SIZE = 25;
         var SMALL_STAT_BOX_SIZE = 20;
         var STAT_BOX_PADDING = 2;
@@ -1579,13 +1703,14 @@ var GempSwccgGameUI = Class.extend({
             this.gameStateElem.css({ position: "absolute", left: LEFT_SIDE, top: OPPONENT_AREA_TOP, width: GAME_STATE_AND_CHAT_WIDTH, height: OPPONENT_AREA_HEIGHT });
             this.topOfLostPileOpponent.setBounds(CARD_PILE_LEFT_1, OPPONENT_CARD_PILE_TOP_1, CARD_PILE_WIDTH_1, OPPONENT_CARD_PILE_HEIGHT_1);
             this.topOfReserveDeckOpponent.setBounds(CARD_PILE_LEFT_2, OPPONENT_CARD_PILE_TOP_1, CARD_PILE_WIDTH_2, OPPONENT_CARD_PILE_HEIGHT_1);
-            this.topOfForcePileOpponent.setBounds(CARD_PILE_LEFT_3, OPPONENT_CARD_PILE_TOP_1, CARD_PILE_WIDTH_3, OPPONENT_CARD_PILE_HEIGHT_1);
+            this.frozenAssetsOpponent.setBounds(CARD_PILE_LEFT_3, OPPONENT_CARD_PILE_TOP_1, CARD_PILE_WIDTH_3, OPPONENT_CARD_PILE_HEIGHT_1);
+            this.topOfForcePileOpponent.setBounds(CARD_PILE_LEFT_3 + OPPONENT_FROZEN_ASSETS_EXTRA, OPPONENT_CARD_PILE_TOP_1, CARD_PILE_WIDTH_3, OPPONENT_CARD_PILE_HEIGHT_1);
             this.extraActionsGroupOpponent.setBounds(CARD_PILE_LEFT_1, OPPONENT_CARD_PILE_TOP_2, CARD_PILE_WIDTH_1, OPPONENT_CARD_PILE_HEIGHT_2);
             this.topOfUsedPileOpponent.setBounds(CARD_PILE_LEFT_2, OPPONENT_CARD_PILE_TOP_2, CARD_PILE_WIDTH_2, OPPONENT_CARD_PILE_HEIGHT_2);
             this.topOfDrawnDestinyOpponent.setBounds(CARD_PILE_LEFT_3, OPPONENT_CARD_PILE_TOP_2, CARD_PILE_WIDTH_3, OPPONENT_CARD_PILE_HEIGHT_2);
 
             if (this.showRevealedSabaccHands) {
-                this.revealedSabaccHandOpponent.setBounds(SABACC_HAND_LEFT, OPPONENT_AREA_TOP, SABACC_HAND_WIDTH, OPPONENT_AREA_HEIGHT);
+                this.revealedSabaccHandOpponent.setBounds(SABACC_HAND_LEFT + OPPONENT_FROZEN_ASSETS_EXTRA, OPPONENT_AREA_TOP, SABACC_HAND_WIDTH - OPPONENT_FROZEN_ASSETS_EXTRA, OPPONENT_AREA_HEIGHT);
                 this.revealedSabaccHandOpponent.layoutCards();
 
                 if (this.bottomPlayerIndex == 0) {
@@ -1604,7 +1729,7 @@ var GempSwccgGameUI = Class.extend({
                 this.revealedSabaccHandOpponent.hide();
                 this.darkRevealedSabaccHandTotal.hide();
                 this.lightRevealedSabaccHandTotal.hide();
-                this.sideOfTableOpponent.setBounds(SIDE_OF_TABLE_LEFT, OPPONENT_AREA_TOP, SIDE_OF_TABLE_WIDTH, OPPONENT_AREA_HEIGHT);
+                this.sideOfTableOpponent.setBounds(SIDE_OF_TABLE_LEFT + OPPONENT_FROZEN_ASSETS_EXTRA, OPPONENT_AREA_TOP, SIDE_OF_TABLE_WIDTH - OPPONENT_FROZEN_ASSETS_EXTRA, OPPONENT_AREA_HEIGHT);
                 this.sideOfTableOpponent.layoutCards();
             }
 
@@ -1890,10 +2015,11 @@ var GempSwccgGameUI = Class.extend({
             this.topOfDrawnDestinyPlayer.setBounds(CARD_PILE_LEFT_3, PLAYER_CARD_PILE_TOP_1, CARD_PILE_WIDTH_3, PLAYER_CARD_PILE_HEIGHT_1);
             this.topOfLostPilePlayer.setBounds(CARD_PILE_LEFT_1, PLAYER_CARD_PILE_TOP_2, CARD_PILE_WIDTH_1, PLAYER_CARD_PILE_HEIGHT_2);
             this.topOfReserveDeckPlayer.setBounds(CARD_PILE_LEFT_2, PLAYER_CARD_PILE_TOP_2, CARD_PILE_WIDTH_2, PLAYER_CARD_PILE_HEIGHT_2);
-            this.topOfForcePilePlayer.setBounds(CARD_PILE_LEFT_3, PLAYER_CARD_PILE_TOP_2, CARD_PILE_WIDTH_3, PLAYER_CARD_PILE_HEIGHT_2);
+            this.frozenAssetsPlayer.setBounds(CARD_PILE_LEFT_3, PLAYER_CARD_PILE_TOP_2, CARD_PILE_WIDTH_3, PLAYER_CARD_PILE_HEIGHT_2);
+            this.topOfForcePilePlayer.setBounds(CARD_PILE_LEFT_3 + PLAYER_FROZEN_ASSETS_EXTRA, PLAYER_CARD_PILE_TOP_2, CARD_PILE_WIDTH_3, PLAYER_CARD_PILE_HEIGHT_2);
 
             if (this.showRevealedSabaccHands) {
-                this.revealedSabaccHandPlayer.setBounds(SABACC_HAND_LEFT, PLAYER_AREA_TOP, SABACC_HAND_WIDTH, PLAYER_CARD_PILES_AND_SIDE_OF_TABLE_HEIGHT);
+                this.revealedSabaccHandPlayer.setBounds(SABACC_HAND_LEFT + PLAYER_FROZEN_ASSETS_EXTRA, PLAYER_AREA_TOP, SABACC_HAND_WIDTH - PLAYER_FROZEN_ASSETS_EXTRA, PLAYER_CARD_PILES_AND_SIDE_OF_TABLE_HEIGHT);
                 this.revealedSabaccHandPlayer.layoutCards();
 
                 if (this.bottomPlayerIndex == 0) {
@@ -1910,7 +2036,7 @@ var GempSwccgGameUI = Class.extend({
             }
             else {
                 this.revealedSabaccHandPlayer.hide();
-                this.sideOfTablePlayer.setBounds(SIDE_OF_TABLE_LEFT, PLAYER_AREA_TOP, SIDE_OF_TABLE_WIDTH, PLAYER_CARD_PILES_AND_SIDE_OF_TABLE_HEIGHT);
+                this.sideOfTablePlayer.setBounds(SIDE_OF_TABLE_LEFT + PLAYER_FROZEN_ASSETS_EXTRA, PLAYER_AREA_TOP, SIDE_OF_TABLE_WIDTH - PLAYER_FROZEN_ASSETS_EXTRA, PLAYER_CARD_PILES_AND_SIDE_OF_TABLE_HEIGHT);
                 this.sideOfTablePlayer.layoutCards();
             }
 
@@ -1948,6 +2074,11 @@ var GempSwccgGameUI = Class.extend({
         for (var playerId in this.outOfPlayPileGroups)
             if (this.outOfPlayPileGroups.hasOwnProperty(playerId))
                 this.outOfPlayPileGroups[playerId].layoutCards();
+
+        this.stackFrozenAssetsUnderForcePile();
+        if (this.animations != null && this.animations.updateFrozenAssetsLabels != null) {
+            this.animations.updateFrozenAssetsLabels();
+        }
     },
 
     startReplaySession: function (replayId) {
