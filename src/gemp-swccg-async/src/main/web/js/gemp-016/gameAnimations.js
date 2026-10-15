@@ -14,13 +14,8 @@ var GameAnimations = Class.extend({
                 "<div class='faSandwichTotal'>(" + (force + frozen) + ")</div>" +
                 "</div>"
             );
+            // The face-up Frozen Assets card itself is laid out beside this card (see GameUI.layoutFrozenAssetsBeside).
             $count.closest(".card").addClass("faSandwichActive");
-            var $card = $count.closest(".card");
-            if ($card.length && $card.find(".faFrzSliver").length === 0) {
-                var faUrl = (typeof Card !== "undefined" && Card.getImageUrl) ? Card.getImageUrl("5_23") : null;
-                if (!faUrl) faUrl = "https://res.starwarsccg.org/cardlists/images/starwars/Light--CloudCity/t_frozenassets.gif";
-                $card.prepend("<div class='faFrzSliver' title='Frozen Assets (Frz)'><img src='" + faUrl + "' alt='Frz'/></div>");
-            }
         } else {
             $count.text(forceStr);
             var $card2 = $count.closest(".card");

@@ -306,6 +306,14 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
         return _backBlueprint != null;
     }
 
+    /**
+     * Frozen Assets sits face up and Active on a Frozen Pile; the frozen Force under it stays face down.
+     */
+    private boolean isActiveOnFrozenPile() {
+        return (_zone == Zone.FROZEN_PILE || _zone == Zone.TOP_OF_FROZEN_PILE)
+                && Title.Frozen_Assets.equals(getTitle());
+    }
+
     @Override
     public String getBlueprintId(boolean alwaysShowCardFront) {
         return getBlueprintId(null, alwaysShowCardFront);
@@ -324,7 +332,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
 
         if (_isBlownAway
                 || (_zone != null
-                && ((_zone.isFaceDown() && !_isInserted && (_zone != Zone.TOP_OF_USED_PILE || (gameState != null && !gameState.isUsedPilesTurnedOver())))
+                && ((_zone.isFaceDown() && !_isInserted && !isActiveOnFrozenPile() && (_zone != Zone.TOP_OF_USED_PILE || (gameState != null && !gameState.isUsedPilesTurnedOver())))
                 || (gameState != null && _zone == Zone.TOP_OF_LOST_PILE && gameState.isLostPileTurnedOver(getZoneOwner()))))) {
             return _backBlueprintId;
         }
@@ -350,7 +358,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
 
         if (_isBlownAway
                 || (_zone != null
-                && ((_zone.isFaceDown() && !_isInserted && (_zone != Zone.TOP_OF_USED_PILE || (gameState != null && !gameState.isUsedPilesTurnedOver())))
+                && ((_zone.isFaceDown() && !_isInserted && !isActiveOnFrozenPile() && (_zone != Zone.TOP_OF_USED_PILE || (gameState != null && !gameState.isUsedPilesTurnedOver())))
                 || (gameState != null && _zone == Zone.TOP_OF_LOST_PILE && gameState.isLostPileTurnedOver(getZoneOwner()))))) {
             if (showOtherSide)
                 return null;

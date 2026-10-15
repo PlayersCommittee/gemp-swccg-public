@@ -28,6 +28,7 @@ import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PowerModifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.results.AboutToCancelCardOnTableResult;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -94,6 +95,17 @@ public class Card5_023 extends AbstractNormalEffect {
         return actions;
     }
 
+    /**
+     * Canceled while on Frozen Pile (e.g. by Alter): thaw the Force below before it goes to Lost Pile.
+     */
+    private boolean isAboutToBeCanceled(EffectResult effectResult, PhysicalCard self) {
+        if (effectResult.getType() != EffectResult.Type.ABOUT_TO_BE_CANCELED_ON_TABLE)
+            return false;
+        AboutToCancelCardOnTableResult result = (AboutToCancelCardOnTableResult) effectResult;
+        return result.getCardToBeCanceled() == self
+                && !result.getPreventableCardEffect().isEffectOnCardPrevented(self);
+    }
+
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         // Force-pile mode (VHD): FA sits Active at TOP of FROZEN_PILE (zoneOwner = Force pile owner).
@@ -108,7 +120,8 @@ public class Card5_023 extends AbstractNormalEffect {
         boolean notTopOfFrozenPile = onFrozenPile
                 && game.getGameState().getTopOfFrozenPile(forcePileOwner) != self
                 && game.getGameState().getFrozenForceSize(forcePileOwner) > 0;
-        boolean leaving = TriggerConditions.isAboutToLeaveTable(game, effectResult, self);
+        boolean leaving = TriggerConditions.isAboutToLeaveTable(game, effectResult, self)
+                || (onFrozenPile && isAboutToBeCanceled(effectResult, self));
         boolean endOfOpponentsTurn = onFrozenPile && TriggerConditions.isEndOfOpponentsTurn(game, effectResult, self);
 
         if (!notTopOfFrozenPile && !leaving && !endOfOpponentsTurn) {

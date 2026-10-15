@@ -707,7 +707,7 @@ var GempSwccgGameUI = Class.extend({
             return true;
         }
         countDiv.removeClass(countClass);
-        if (isFrozenTop) {
+        if (isFrozenTop && !this.isFaceUpFrozenAssets(card)) {
             cardDiv.hide();
         }
         if (card.zone != "TOP_OF_FORCE_PILE" && card.zone != "TOP_OF_FROZEN_PILE") {
@@ -729,7 +729,57 @@ var GempSwccgGameUI = Class.extend({
         return found;
     },
 
+    isFaceUpFrozenAssets: function (card) {
+        return card != null && card.bareBlueprint == "5_23";
+    },
+
+    findTopOfForcePileDiv: function (owner) {
+        var found = null;
+        $(".card").each(function () {
+            var cardData = $(this).data("card");
+            if (cardData != null && cardData.zone == "TOP_OF_FORCE_PILE" && cardData.owner == owner) {
+                found = $(this);
+                return false;
+            }
+        });
+        return found;
+    },
+
+    /**
+     * Frozen Assets on a Frozen Pile under a usable Force Pile: show the real card shifted left beneath the top
+     * Force Pile card, so it can be hovered and read. (With no usable Force it stands in for the Force Pile instead.)
+     */
+    layoutFrozenAssetsBeside: function () {
+        var that = this;
+        $(".card").each(function () {
+            var cardData = $(this).data("card");
+            if (cardData == null || cardData.zone != "TOP_OF_FROZEN_PILE" || !that.isFaceUpFrozenAssets(cardData)) {
+                return;
+            }
+            var topDiv = that.findTopOfForcePileDiv(cardData.owner);
+            if (topDiv == null) {
+                return;
+            }
+            var pos = topDiv.position();
+            var width = topDiv.width();
+            var height = topDiv.height();
+            var zIndex = parseInt(topDiv.css("zIndex"), 10) || 0;
+            if (zIndex < 1) {
+                zIndex = 1;
+                topDiv.css({zIndex: zIndex});
+            }
+            $(this).show();
+            // Just under the top Force Pile card, so that card stays in front.
+            layoutCardElem($(this), pos.left - Math.floor(width * 0.45), pos.top, width, height, zIndex - 1);
+        });
+    },
+
     layoutGroupWithCard: function (cardId) {
+        this.layoutGroupWithCardOnly(cardId);
+        this.layoutFrozenAssetsBeside();
+    },
+
+    layoutGroupWithCardOnly: function (cardId) {
         var cardData = $(".card:cardId(" + cardId + ")").data("card");
 
         for (var i = 0; i < this.locationCardGroups.length; i++) {
@@ -1974,6 +2024,8 @@ var GempSwccgGameUI = Class.extend({
         for (var playerId in this.outOfPlayPileGroups)
             if (this.outOfPlayPileGroups.hasOwnProperty(playerId))
                 this.outOfPlayPileGroups[playerId].layoutCards();
+
+        this.layoutFrozenAssetsBeside();
     },
 
     startReplaySession: function (replayId) {

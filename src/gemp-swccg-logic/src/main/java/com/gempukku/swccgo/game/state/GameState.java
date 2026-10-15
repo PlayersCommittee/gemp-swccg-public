@@ -2541,6 +2541,18 @@ public class GameState implements Snapshotable<GameState> {
 
         }
 
+        // Frozen Assets on a Frozen Pile is Active like an Effect on table (it may be targeted, e.g. by Alter).
+        for (String playerId : new String[] {_darkSidePlayer, _lightSidePlayer}) {
+            List<PhysicalCard> frozenPile = playerId != null ? _frozenPiles.get(playerId) : null;
+            if (frozenPile != null) {
+                for (PhysicalCard frozenCard : new ArrayList<PhysicalCard>(frozenPile)) {
+                    if (isFrozenAssets(frozenCard) && physicalCardVisitor.visitPhysicalCard(frozenCard)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
         return false;
     }
 
