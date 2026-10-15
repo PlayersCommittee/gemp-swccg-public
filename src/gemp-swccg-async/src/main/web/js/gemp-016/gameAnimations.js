@@ -39,7 +39,8 @@ var GameAnimations = Class.extend({
             var forceGroup = this.game.frozenAssetsPlayer.cardBelongs(faData) ? this.game.topOfForcePilePlayer : this.game.topOfForcePileOpponent;
             var faLeft = $faCard.position().left;
             var faWidth = $faCard.width();
-            var cellWidth = Math.max(faWidth, Math.round((forceGroup.x + forceGroup.width / 2) - (faLeft + faWidth / 2)));
+            // Numbers sit under the centers of Frozen Assets and the Force Pile card, which overlap.
+            var cellWidth = Math.max(16, Math.round((forceGroup.x + forceGroup.width / 2) - (faLeft + faWidth / 2)));
             $forceCount.text("");
             $faCount.html(
                 "<div class='faPileCounts'><span>" + c.frozen + "</span><span>" + c.force + "</span></div>" +

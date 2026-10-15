@@ -791,7 +791,28 @@ var GempSwccgGameUI = Class.extend({
         }
         this.frozenAssetsPlayer.layoutCards();
         this.frozenAssetsOpponent.layoutCards();
+        this.stackFrozenAssetsUnderForcePile();
         this.animations.updateFrozenAssetsLabels();
+    },
+
+    stackFrozenAssetsUnderForcePile: function () {
+        var that = this;
+        $(".card").each(function () {
+            var cardData = $(this).data("card");
+            if (cardData == null || cardData.zone != "TOP_OF_FROZEN_PILE" || !that.isFaceUpFrozenAssets(cardData)) {
+                return;
+            }
+            var topDiv = that.findTopOfForcePileDiv(cardData.owner);
+            if (topDiv == null) {
+                return;
+            }
+            var zIndex = parseInt(topDiv.css("zIndex"), 10) || 0;
+            if (zIndex < 1) {
+                zIndex = 1;
+                topDiv.css({zIndex: zIndex});
+            }
+            $(this).css({zIndex: zIndex - 1});
+        });
     },
 
     layoutGroupWithCard: function (cardId) {
@@ -1624,13 +1645,13 @@ var GempSwccgGameUI = Class.extend({
         var CARD_PILE_WIDTH_2 = CARD_PILE_WIDTH_1;
         var CARD_PILE_LEFT_3 = CARD_PILE_LEFT_2 + CARD_PILE_WIDTH_2 + BORDER_PADDING - 1;
         var CARD_PILE_WIDTH_3 = CARD_PILE_AND_ACTION_AREA_WIDTH - CARD_PILE_WIDTH_1 - CARD_PILE_WIDTH_2;
-        // Frozen Assets on a Force Pile: widen the Force Pile column by one slot (Frozen Assets left, usable Force right)
+        // Frozen Assets on a Force Pile: that player's Force Pile column is a little wider. Frozen Assets sits
+        // underneath, shifted left, and the Force Pile card sits on top of it, shifted right.
         var frozenAssetsState = (this.gameUiInitialized && this.frozenAssetsPlayer != null) ? this.frozenAssetsLayoutState() : "";
         this.lastFrozenAssetsLayoutState = frozenAssetsState;
-        var FROZEN_ASSETS_SLOT_WIDTH = (frozenAssetsState != "") ? CARD_PILE_WIDTH_3 : 0;
-        CARD_PILE_WIDTH_3 += FROZEN_ASSETS_SLOT_WIDTH;
-        var opponentForcePileLeft = CARD_PILE_LEFT_3 + (frozenAssetsState.indexOf("O") >= 0 ? FROZEN_ASSETS_SLOT_WIDTH : 0);
-        var playerForcePileLeft = CARD_PILE_LEFT_3 + (frozenAssetsState.indexOf("P") >= 0 ? FROZEN_ASSETS_SLOT_WIDTH : 0);
+        var FROZEN_ASSETS_EXTRA_WIDTH = Math.round(CARD_PILE_WIDTH_3 * 0.6);
+        var OPPONENT_FROZEN_ASSETS_EXTRA = (frozenAssetsState.indexOf("O") >= 0) ? FROZEN_ASSETS_EXTRA_WIDTH : 0;
+        var PLAYER_FROZEN_ASSETS_EXTRA = (frozenAssetsState.indexOf("P") >= 0) ? FROZEN_ASSETS_EXTRA_WIDTH : 0;
         var LARGE_STAT_BOX_SIZE = 25;
         var SMALL_STAT_BOX_SIZE = 20;
         var STAT_BOX_PADDING = 2;
@@ -1682,14 +1703,14 @@ var GempSwccgGameUI = Class.extend({
             this.gameStateElem.css({ position: "absolute", left: LEFT_SIDE, top: OPPONENT_AREA_TOP, width: GAME_STATE_AND_CHAT_WIDTH, height: OPPONENT_AREA_HEIGHT });
             this.topOfLostPileOpponent.setBounds(CARD_PILE_LEFT_1, OPPONENT_CARD_PILE_TOP_1, CARD_PILE_WIDTH_1, OPPONENT_CARD_PILE_HEIGHT_1);
             this.topOfReserveDeckOpponent.setBounds(CARD_PILE_LEFT_2, OPPONENT_CARD_PILE_TOP_1, CARD_PILE_WIDTH_2, OPPONENT_CARD_PILE_HEIGHT_1);
-            this.frozenAssetsOpponent.setBounds(CARD_PILE_LEFT_3, OPPONENT_CARD_PILE_TOP_1, opponentForcePileLeft - CARD_PILE_LEFT_3, OPPONENT_CARD_PILE_HEIGHT_1);
-            this.topOfForcePileOpponent.setBounds(opponentForcePileLeft, OPPONENT_CARD_PILE_TOP_1, CARD_PILE_LEFT_3 + CARD_PILE_WIDTH_3 - opponentForcePileLeft, OPPONENT_CARD_PILE_HEIGHT_1);
+            this.frozenAssetsOpponent.setBounds(CARD_PILE_LEFT_3, OPPONENT_CARD_PILE_TOP_1, CARD_PILE_WIDTH_3, OPPONENT_CARD_PILE_HEIGHT_1);
+            this.topOfForcePileOpponent.setBounds(CARD_PILE_LEFT_3 + OPPONENT_FROZEN_ASSETS_EXTRA, OPPONENT_CARD_PILE_TOP_1, CARD_PILE_WIDTH_3, OPPONENT_CARD_PILE_HEIGHT_1);
             this.extraActionsGroupOpponent.setBounds(CARD_PILE_LEFT_1, OPPONENT_CARD_PILE_TOP_2, CARD_PILE_WIDTH_1, OPPONENT_CARD_PILE_HEIGHT_2);
             this.topOfUsedPileOpponent.setBounds(CARD_PILE_LEFT_2, OPPONENT_CARD_PILE_TOP_2, CARD_PILE_WIDTH_2, OPPONENT_CARD_PILE_HEIGHT_2);
             this.topOfDrawnDestinyOpponent.setBounds(CARD_PILE_LEFT_3, OPPONENT_CARD_PILE_TOP_2, CARD_PILE_WIDTH_3, OPPONENT_CARD_PILE_HEIGHT_2);
 
             if (this.showRevealedSabaccHands) {
-                this.revealedSabaccHandOpponent.setBounds(SABACC_HAND_LEFT, OPPONENT_AREA_TOP, SABACC_HAND_WIDTH, OPPONENT_AREA_HEIGHT);
+                this.revealedSabaccHandOpponent.setBounds(SABACC_HAND_LEFT + OPPONENT_FROZEN_ASSETS_EXTRA, OPPONENT_AREA_TOP, SABACC_HAND_WIDTH - OPPONENT_FROZEN_ASSETS_EXTRA, OPPONENT_AREA_HEIGHT);
                 this.revealedSabaccHandOpponent.layoutCards();
 
                 if (this.bottomPlayerIndex == 0) {
@@ -1708,7 +1729,7 @@ var GempSwccgGameUI = Class.extend({
                 this.revealedSabaccHandOpponent.hide();
                 this.darkRevealedSabaccHandTotal.hide();
                 this.lightRevealedSabaccHandTotal.hide();
-                this.sideOfTableOpponent.setBounds(SIDE_OF_TABLE_LEFT, OPPONENT_AREA_TOP, SIDE_OF_TABLE_WIDTH, OPPONENT_AREA_HEIGHT);
+                this.sideOfTableOpponent.setBounds(SIDE_OF_TABLE_LEFT + OPPONENT_FROZEN_ASSETS_EXTRA, OPPONENT_AREA_TOP, SIDE_OF_TABLE_WIDTH - OPPONENT_FROZEN_ASSETS_EXTRA, OPPONENT_AREA_HEIGHT);
                 this.sideOfTableOpponent.layoutCards();
             }
 
@@ -1994,11 +2015,11 @@ var GempSwccgGameUI = Class.extend({
             this.topOfDrawnDestinyPlayer.setBounds(CARD_PILE_LEFT_3, PLAYER_CARD_PILE_TOP_1, CARD_PILE_WIDTH_3, PLAYER_CARD_PILE_HEIGHT_1);
             this.topOfLostPilePlayer.setBounds(CARD_PILE_LEFT_1, PLAYER_CARD_PILE_TOP_2, CARD_PILE_WIDTH_1, PLAYER_CARD_PILE_HEIGHT_2);
             this.topOfReserveDeckPlayer.setBounds(CARD_PILE_LEFT_2, PLAYER_CARD_PILE_TOP_2, CARD_PILE_WIDTH_2, PLAYER_CARD_PILE_HEIGHT_2);
-            this.frozenAssetsPlayer.setBounds(CARD_PILE_LEFT_3, PLAYER_CARD_PILE_TOP_2, playerForcePileLeft - CARD_PILE_LEFT_3, PLAYER_CARD_PILE_HEIGHT_2);
-            this.topOfForcePilePlayer.setBounds(playerForcePileLeft, PLAYER_CARD_PILE_TOP_2, CARD_PILE_LEFT_3 + CARD_PILE_WIDTH_3 - playerForcePileLeft, PLAYER_CARD_PILE_HEIGHT_2);
+            this.frozenAssetsPlayer.setBounds(CARD_PILE_LEFT_3, PLAYER_CARD_PILE_TOP_2, CARD_PILE_WIDTH_3, PLAYER_CARD_PILE_HEIGHT_2);
+            this.topOfForcePilePlayer.setBounds(CARD_PILE_LEFT_3 + PLAYER_FROZEN_ASSETS_EXTRA, PLAYER_CARD_PILE_TOP_2, CARD_PILE_WIDTH_3, PLAYER_CARD_PILE_HEIGHT_2);
 
             if (this.showRevealedSabaccHands) {
-                this.revealedSabaccHandPlayer.setBounds(SABACC_HAND_LEFT, PLAYER_AREA_TOP, SABACC_HAND_WIDTH, PLAYER_CARD_PILES_AND_SIDE_OF_TABLE_HEIGHT);
+                this.revealedSabaccHandPlayer.setBounds(SABACC_HAND_LEFT + PLAYER_FROZEN_ASSETS_EXTRA, PLAYER_AREA_TOP, SABACC_HAND_WIDTH - PLAYER_FROZEN_ASSETS_EXTRA, PLAYER_CARD_PILES_AND_SIDE_OF_TABLE_HEIGHT);
                 this.revealedSabaccHandPlayer.layoutCards();
 
                 if (this.bottomPlayerIndex == 0) {
@@ -2015,7 +2036,7 @@ var GempSwccgGameUI = Class.extend({
             }
             else {
                 this.revealedSabaccHandPlayer.hide();
-                this.sideOfTablePlayer.setBounds(SIDE_OF_TABLE_LEFT, PLAYER_AREA_TOP, SIDE_OF_TABLE_WIDTH, PLAYER_CARD_PILES_AND_SIDE_OF_TABLE_HEIGHT);
+                this.sideOfTablePlayer.setBounds(SIDE_OF_TABLE_LEFT + PLAYER_FROZEN_ASSETS_EXTRA, PLAYER_AREA_TOP, SIDE_OF_TABLE_WIDTH - PLAYER_FROZEN_ASSETS_EXTRA, PLAYER_CARD_PILES_AND_SIDE_OF_TABLE_HEIGHT);
                 this.sideOfTablePlayer.layoutCards();
             }
 
@@ -2054,6 +2075,7 @@ var GempSwccgGameUI = Class.extend({
             if (this.outOfPlayPileGroups.hasOwnProperty(playerId))
                 this.outOfPlayPileGroups[playerId].layoutCards();
 
+        this.stackFrozenAssetsUnderForcePile();
         if (this.animations != null && this.animations.updateFrozenAssetsLabels != null) {
             this.animations.updateFrozenAssetsLabels();
         }
