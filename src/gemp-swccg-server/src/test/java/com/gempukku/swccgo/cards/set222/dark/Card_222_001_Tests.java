@@ -9,13 +9,11 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.gempukku.swccgo.framework.Assertions.assertAtLocation;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -191,12 +189,9 @@ public class Card_222_001_Tests {
         assertTrue(scn.AwaitingLSControlPhaseActions());
     }
 
-    //shows https://github.com/PlayersCommittee/gemp-swccg-public/issues/889
-    //parallel test to above, but with persona restricted saber
-    //fails because persona restricted saber deploys but is inactive
-    @Test @Ignore
+    @Test
     public void AFineAdditionToMyCollectionAction3MayUseDeployedVadersSaber() {
-        //test1:
+        //shows fixed: https://github.com/PlayersCommittee/gemp-swccg-public/issues/889
         var scn = GetScenario();
 
         var site = scn.GetLSStartingLocation();
@@ -221,7 +216,7 @@ public class Card_222_001_Tests {
 
         assertTrue(scn.AwaitingLSDeployPhaseActions());
         assertTrue(scn.IsAttachedTo(grievous, vader_saber));
-        assertTrue(scn.IsCardActive(vader_saber)); /// FAILS HERE
+        assertTrue(scn.IsCardActive(vader_saber));
 
         scn.SkipToLSTurn();
         scn.SkipToDSTurn(Phase.CONTROL);
