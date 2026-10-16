@@ -151,7 +151,7 @@ class Card {
                 };
             }
         }
-        $(".card:cardId(" + this.cardId + ") > img").attr('src', this.imageUrl);
+        $(".card:cardId(" + this.cardId + ") > img").attr('src', this.getTableImageUrl());
     }
 
     turnCardOver(tempBlueprintId) {
@@ -178,7 +178,7 @@ class Card {
                 };
             }
         }
-        $(".card:cardId(" + this.cardId + ") > img").attr('src', this.imageUrl);
+        $(".card:cardId(" + this.cardId + ") > img").attr('src', this.getTableImageUrl());
     }
 
     isFoil() {
@@ -188,6 +188,42 @@ class Card {
     isPack() {
         return packBlueprints[this.blueprintId] != null;
     }
+
+    /**
+     * True when this client knows the real front of a face-down stacked card (server sent front blueprintId).
+     * Used for hover preview and Examine; table still shows the back via getTableImageUrl().
+     */
+    canExamineFaceDown() {
+        return this.zone == "STACKED_FACE_DOWN"
+            && this.bareBlueprint != "-1_1"
+            && this.bareBlueprint != "-1_2";
+    }
+
+    /**
+     * Orientation for hover/right-click preview. Hidden face-down cards (generic back)
+     * always preview as a regular vertical card back so a site vs Effect is not leaked.
+     */
+    previewAsHorizontal() {
+        if (this.bareBlueprint == "-1_1" || this.bareBlueprint == "-1_2") {
+            return false;
+        }
+        if (this.zone == "STACKED_FACE_DOWN" && !this.canExamineFaceDown()) {
+            return false;
+        }
+        return this.blueprintHorizontal;
+    }
+
+    /**
+     * Image for the table token. Face-down stacks keep showing the card back even when the owner
+     * received the real front blueprintId for hover/Examine.
+     */
+    getTableImageUrl() {
+        if (this.canExamineFaceDown() && this.backSideImageUrl) {
+            return this.backSideImageUrl;
+        }
+        return this.imageUrl;
+    }
+
 
     isHorizontalVirtualAiImage() {
         return this.bareBlueprint == "204_47ai"

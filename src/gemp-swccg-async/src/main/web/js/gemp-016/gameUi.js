@@ -1292,7 +1292,15 @@ var GempSwccgGameUI = Class.extend({
         if (tar.hasClass("actionArea")) {
             var selectedCardElem = tar.closest(".card");
             if (!this.successfulDrag) {
-                if (event.shiftKey || event.which > 1) {
+                if (event.which > 1) {
+                    var rcCard = selectedCardElem.data("card");
+                    // Right-click Examine for face-down stacks the owner may examine (client-only; no server action/log)
+                    if (rcCard && rcCard.canExamineFaceDown && rcCard.canExamineFaceDown()) {
+                        this.createExamineContextMenu(event, rcCard);
+                    } else {
+                        this.displayCardInfo(rcCard);
+                    }
+                } else if (event.shiftKey) {
                     this.displayCardInfo(selectedCardElem.data("card"));
                 } else if ((selectedCardElem.hasClass("selectableCard") || selectedCardElem.hasClass("actionableCard") || selectedCardElem.hasClass("actionableCardSilent")) && !this.replayMode)
                     this.selectionFunction(selectedCardElem.data("card").cardId, event);
@@ -1425,7 +1433,8 @@ var GempSwccgGameUI = Class.extend({
         var showModifiers = false;
         var cardId = card.cardId;
         var that = this;
-        if (!this.replayMode && cardId != "hint" && (cardId.length < 4 || cardId.substring(0, 4) != "temp"))
+        var hiddenFaceDown = card.zone == "STACKED_FACE_DOWN" && !(card.canExamineFaceDown && card.canExamineFaceDown());
+        if (!this.replayMode && cardId != "hint" && (cardId.length < 4 || cardId.substring(0, 4) != "temp") && !hiddenFaceDown)
             showModifiers = true;
 
         this.cardInfoDialog.showCard(card, showModifiers ? "<div>Retrieving data...</div>" : null);
@@ -2457,7 +2466,10 @@ var GempSwccgGameUI = Class.extend({
     },
 
     createCardDiv: function (card, text) {
-        var cardDiv = Card.CreateCardDiv(card.imageUrl, card.testingText, text, card.isFoil(), false, false, card.incomplete);
+        // Face-down stacked: table shows card back; owner may still have real front blueprintId for hover/Examine
+        var tableImage = (card.getTableImageUrl) ? card.getTableImageUrl() : card.imageUrl;
+        var tableTestingText = (card.canExamineFaceDown && card.canExamineFaceDown()) ? null : card.testingText;
+        var cardDiv = Card.CreateCardDiv(tableImage, tableTestingText, text, card.isFoil(), false, false, card.incomplete);
 
         cardDiv.data("card", card);
 
@@ -2928,6 +2940,56 @@ var GempSwccgGameUI = Class.extend({
         {
             myAudio.play();
         }
+    },
+
+    createExamineContextMenu: function (event, card) {
+        var that = this;
+
+        // Remove context menus that may be showing
+        $(".contextMenu").remove();
+
+        var div = $("<ul class='contextMenu'></ul>");
+        div.append("<li><a href='#examine'>Examine</a></li>");
+
+        $("#main").append(div);
+
+        var contextMenuWidth = 250;
+        var x = event.pageX;
+        var y = event.pageY;
+        if ((x + contextMenuWidth) > this.windowWidth) {
+            x = event.pageX - contextMenuWidth;
+        }
+        $(div).css({ left: x, top: y }).fadeIn(150);
+
+        $(div).find('A').mouseover(
+            function () {
+                $(div).find('LI.hover').removeClass('hover');
+                $(this).parent().addClass('hover');
+            }).mouseout(function () {
+                $(div).find('LI.hover').removeClass('hover');
+            });
+
+        // Capture-phase mousedown so a left-click on a card (which stops bubble) still dismisses.
+        var getRidOfContextMenu = function (e) {
+            if (e && $(e.target).closest(div).length) {
+                return;
+            }
+            $(div).remove();
+            document.removeEventListener("mousedown", getRidOfContextMenu, true);
+            return false;
+        };
+
+        $(div).find('A').unbind('click');
+        $(div).find('LI:not(.disabled) A').click(function () {
+            document.removeEventListener("mousedown", getRidOfContextMenu, true);
+            $(".contextMenu").remove();
+            that.displayCardInfo(card);
+            return false;
+        });
+
+        setTimeout(function () {
+            document.addEventListener("mousedown", getRidOfContextMenu, true);
+        }, 0);
     },
 
     createActionChoiceContextMenu: function (actions, event, selectActionFunction, card) {
