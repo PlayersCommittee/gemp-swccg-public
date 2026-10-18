@@ -139,7 +139,7 @@ public class Card217_020 extends AbstractEpicEventDeployable {
         String opponent = game.getOpponent(self.getOwner());
 
         // Check condition(s)
-        if (TriggerConditions.justLostFromLocation(game, effectResult, Filters.Jedi, Filters.sameSiteAs(self, Filters.Dark_Jedi))) {
+        if (TriggerConditions.justLostFromLocation(game, effectResult, Filters.Jedi, Filters.sameLocationAs(self, Filters.Dark_Jedi))) {
 
             final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
             action.setText("Make opponent lose 1 Force");
