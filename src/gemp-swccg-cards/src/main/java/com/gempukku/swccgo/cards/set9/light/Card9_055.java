@@ -149,84 +149,7 @@ public class Card9_055 extends AbstractJediTest {
             if (apprentice != null) {
                 final PhysicalCard vader = Filters.findFirstActive(game, self, Filters.and(Filters.Vader, Filters.with(apprentice), Filters.canBeTargetedBy(self, TargetingReason.TO_BE_DUELED)));
                 if (vader != null) {
-
-                    final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
-                    action.setText("Attempt Jedi Test #6");
-                    // Update usage limit(s)
-                    action.appendUsage(
-                            new PassthruEffect(action) {
-                                @Override
-                                protected void doPlayEffect(SwccgGame game) {
-                                    modifiersQuerying.attemptedJediTest(self, apprentice);
-                                }
-                            });
-                    action.addAnimationGroup(apprentice, vader);
-                    // Update usage limit(s)
-                    action.appendUsage(
-                            new OncePerPhaseEffect(action));
-                    // Perform result(s)
-                    action.appendEffect(
-                            new DuelEffect(action, vader, apprentice, new DuelDirections() {
-                                @Override
-                                public boolean isEpicDuel() {
-                                    return false;
-                                }
-
-                                @Override
-                                public boolean isCrossOverToDarkSideAttempt() {
-                                    return false;
-                                }
-
-                                @Override
-                                public Evaluator getBaseDuelTotal(final String playerId, final DuelState duelState) {
-                                    return new AbilityEvaluator(duelState.getCharacter(playerId));
-                                }
-
-                                @Override
-                                public int getBaseNumDuelDestinyDraws(String playerId, DuelState duelState) {
-                                    return 1;
-                                }
-
-                                @Override
-                                public void performDuelDirections(final Action duelAction, SwccgGame game, final DuelState duelState) {
-                                    duelAction.appendEffect(
-                                            new DrawDestinyEffect(duelAction, game.getDarkPlayer(), game.getModifiersQuerying().getNumDuelDestinyDraws(game.getGameState(), game.getDarkPlayer()), DestinyType.DUEL_DESTINY) {
-                                                @Override
-                                                protected void destinyDraws(SwccgGame game, final List<PhysicalCard> darkDestinyCardDraws, List<Float> darkDestinyDrawValues, final Float darkTotalDestiny) {
-                                                    if (darkTotalDestiny != null) {
-                                                        duelState.increaseTotalDuelDestinyFromDraws(game.getDarkPlayer(), darkTotalDestiny, darkDestinyCardDraws.size());
-                                                    }
-                                                    duelAction.appendEffect(
-                                                            new DrawDestinyEffect(duelAction, game.getLightPlayer(), game.getModifiersQuerying().getNumDuelDestinyDraws(game.getGameState(), game.getLightPlayer()), DestinyType.DUEL_DESTINY) {
-                                                                @Override
-                                                                protected void destinyDraws(SwccgGame game, List<PhysicalCard> lightDestinyCardDraws, List<Float> lightDestinyDrawValues, Float lightTotalDestiny) {
-                                                                    if (lightTotalDestiny != null) {
-                                                                        duelState.increaseTotalDuelDestinyFromDraws(game.getLightPlayer(), lightTotalDestiny, lightDestinyCardDraws.size());
-                                                                    }
-                                                                }
-                                                            }
-                                                    );
-                                                }
-                                            }
-                                    );
-                                }
-
-                                @Override
-                                public void performDuelResults(Action duelAction, SwccgGame game, DuelState duelState) {
-                                    PhysicalCard winningCharacter = duelState.getWinningCharacter();
-                                    if (winningCharacter == null) {
-                                        return;
-                                    }
-
-                                    // If apprentice wins, test completed.
-                                    if (Filters.apprenticeTargetedByJediTest(self).accepts(game, winningCharacter)) {
-                                        action.appendEffect(
-                                                new CompleteJediTestEffect(action, self));
-                                    }
-                                }
-                            })
-                    );
-                    return Collections.singletonList(action);
+                    return Collections.singletonList(getTopLevelAttemptJediTestAction(self, modifiersQuerying, gameTextSourceCardId, apprentice, vader));
                 }
             }
         }
@@ -249,88 +172,194 @@ public class Card9_055 extends AbstractJediTest {
             if (apprentice != null) {
                 final PhysicalCard vader = Filters.findFirstActive(game, self, Filters.and(Filters.Vader, Filters.with(apprentice), Filters.canBeTargetedBy(self, TargetingReason.TO_BE_DUELED)));
                 if (vader != null) {
-
-                    final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-                    action.setText("Attempt Jedi Test #6");
-                    // Update usage limit(s)
-                    action.appendUsage(
-                            new PassthruEffect(action) {
-                                @Override
-                                protected void doPlayEffect(SwccgGame game) {
-                                    modifiersQuerying.attemptedJediTest(self, apprentice);
-                                }
-                            });
-                    action.addAnimationGroup(apprentice, vader);
-                    // Update usage limit(s)
-                    action.appendUsage(
-                            new OncePerPhaseEffect(action));
-                    // Perform result(s)
-                    action.appendEffect(
-                            new DuelEffect(action, vader, apprentice, new DuelDirections() {
-                                @Override
-                                public boolean isEpicDuel() {
-                                    return false;
-                                }
-
-                                @Override
-                                public boolean isCrossOverToDarkSideAttempt() {
-                                    return false;
-                                }
-
-                                @Override
-                                public Evaluator getBaseDuelTotal(final String playerId, final DuelState duelState) {
-                                    return new AbilityEvaluator(duelState.getCharacter(playerId));
-                                }
-
-                                @Override
-                                public int getBaseNumDuelDestinyDraws(String playerId, DuelState duelState) {
-                                    return 1;
-                                }
-
-                                @Override
-                                public void performDuelDirections(final Action duelAction, SwccgGame game, final DuelState duelState) {
-                                    duelAction.appendEffect(
-                                            new DrawDestinyEffect(duelAction, game.getDarkPlayer(), game.getModifiersQuerying().getNumDuelDestinyDraws(game.getGameState(), game.getDarkPlayer()), DestinyType.DUEL_DESTINY) {
-                                                @Override
-                                                protected void destinyDraws(SwccgGame game, final List<PhysicalCard> darkDestinyCardDraws, List<Float> darkDestinyDrawValues, final Float darkTotalDestiny) {
-                                                    if (darkTotalDestiny != null) {
-                                                        duelState.increaseTotalDuelDestinyFromDraws(game.getDarkPlayer(), darkTotalDestiny, darkDestinyCardDraws.size());
-                                                    }
-                                                    duelAction.appendEffect(
-                                                            new DrawDestinyEffect(duelAction, game.getLightPlayer(), game.getModifiersQuerying().getNumDuelDestinyDraws(game.getGameState(), game.getLightPlayer()), DestinyType.DUEL_DESTINY) {
-                                                                @Override
-                                                                protected void destinyDraws(SwccgGame game, List<PhysicalCard> lightDestinyCardDraws, List<Float> lightDestinyDrawValues, Float lightTotalDestiny) {
-                                                                    if (lightTotalDestiny != null) {
-                                                                        duelState.increaseTotalDuelDestinyFromDraws(game.getLightPlayer(), lightTotalDestiny, lightDestinyCardDraws.size());
-                                                                    }
-                                                                }
-                                                            }
-                                                    );
-                                                }
-                                            }
-                                    );
-                                }
-
-                                @Override
-                                public void performDuelResults(Action duelAction, SwccgGame game, DuelState duelState) {
-                                    PhysicalCard winningCharacter = duelState.getWinningCharacter();
-                                    if (winningCharacter == null) {
-                                        return;
-                                    }
-
-                                    // If apprentice wins, test completed.
-                                    if (Filters.apprenticeTargetedByJediTest(self).accepts(game, winningCharacter)) {
-                                        action.appendEffect(
-                                                new CompleteJediTestEffect(action, self));
-                                    }
-                                }
-                            })
-                    );
-                    return Collections.singletonList(action);
+                    return Collections.singletonList(getOptionalAttemptJediTestAction(self, modifiersQuerying, gameTextSourceCardId, apprentice, vader));
                 }
             }
         }
 
         return null;
+    }
+
+    // MWYHL / inactive apprentice suspends this card (making it inactive) but attempt should still be offered
+    // so handle with inactive mirrors of TopLevelActions and OptionalAfterTriggers above
+    @Override
+    protected List<TopLevelGameTextAction> getGameTextTopLevelActionsWhenInactiveInPlay(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
+        if (!GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE,
+                Filters.and(Filters.apprenticeTargetedByJediTest(self), Filters.captive, Filters.not(Filters.frozenCaptive)))) {
+                return null;
+        }
+        return getGameTextTopLevelActions(playerId, game, self, gameTextSourceCardId);
+    }
+
+    @Override
+    protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggersWhenInactiveInPlay(final String playerId, final SwccgGame game, EffectResult effectResult, final PhysicalCard self, final int gameTextSourceCardId) {
+        if (!GameConditions.canSpot(game, self, SpotOverride.INCLUDE_CAPTIVE,
+                Filters.and(Filters.apprenticeTargetedByJediTest(self), Filters.captive, Filters.not(Filters.frozenCaptive)))) {
+                return null;
+        }
+        return getGameTextOptionalAfterTriggers(playerId, game, effectResult, self, gameTextSourceCardId);
+    }
+
+
+    protected TopLevelGameTextAction getTopLevelAttemptJediTestAction(PhysicalCard self, ModifiersQuerying modifiersQuerying, int gameTextSourceCardId, PhysicalCard apprentice, PhysicalCard vader)
+    {
+        final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId);
+        action.setText("Attempt Jedi Test #6");
+        // Update usage limit(s)
+        action.appendUsage(
+                new PassthruEffect(action) {
+                    @Override
+                    protected void doPlayEffect(SwccgGame game) {
+                        modifiersQuerying.attemptedJediTest(self, apprentice);
+                    }
+                });
+        action.addAnimationGroup(apprentice, vader);
+        // Update usage limit(s)
+        action.appendUsage(
+                new OncePerPhaseEffect(action));
+        // Perform result(s)
+        action.appendEffect(
+                new DuelEffect(action, vader, apprentice, new DuelDirections() {
+                    @Override
+                    public boolean isEpicDuel() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean isCrossOverToDarkSideAttempt() {
+                        return false;
+                    }
+
+                    @Override
+                    public Evaluator getBaseDuelTotal(final String playerId, final DuelState duelState) {
+                        return new AbilityEvaluator(duelState.getCharacter(playerId));
+                    }
+
+                    @Override
+                    public int getBaseNumDuelDestinyDraws(String playerId, DuelState duelState) {
+                        return 1;
+                    }
+
+                    @Override
+                    public void performDuelDirections(final Action duelAction, SwccgGame game, final DuelState duelState) {
+                        duelAction.appendEffect(
+                                new DrawDestinyEffect(duelAction, game.getDarkPlayer(), game.getModifiersQuerying().getNumDuelDestinyDraws(game.getGameState(), game.getDarkPlayer()), DestinyType.DUEL_DESTINY) {
+                                    @Override
+                                    protected void destinyDraws(SwccgGame game, final List<PhysicalCard> darkDestinyCardDraws, List<Float> darkDestinyDrawValues, final Float darkTotalDestiny) {
+                                        if (darkTotalDestiny != null) {
+                                            duelState.increaseTotalDuelDestinyFromDraws(game.getDarkPlayer(), darkTotalDestiny, darkDestinyCardDraws.size());
+                                        }
+                                        duelAction.appendEffect(
+                                                new DrawDestinyEffect(duelAction, game.getLightPlayer(), game.getModifiersQuerying().getNumDuelDestinyDraws(game.getGameState(), game.getLightPlayer()), DestinyType.DUEL_DESTINY) {
+                                                    @Override
+                                                    protected void destinyDraws(SwccgGame game, List<PhysicalCard> lightDestinyCardDraws, List<Float> lightDestinyDrawValues, Float lightTotalDestiny) {
+                                                        if (lightTotalDestiny != null) {
+                                                            duelState.increaseTotalDuelDestinyFromDraws(game.getLightPlayer(), lightTotalDestiny, lightDestinyCardDraws.size());
+                                                        }
+                                                    }
+                                                }
+                                        );
+                                    }
+                                }
+                        );
+                    }
+
+                    @Override
+                    public void performDuelResults(Action duelAction, SwccgGame game, DuelState duelState) {
+                        PhysicalCard winningCharacter = duelState.getWinningCharacter();
+                        if (winningCharacter == null) {
+                            return;
+                        }
+
+                        // If apprentice wins, test completed.
+                        if (Filters.apprenticeTargetedByJediTest(self).accepts(game, winningCharacter)) {
+                            action.appendEffect(
+                                    new CompleteJediTestEffect(action, self));
+                        }
+                    }
+                })
+        );
+        return action;
+    }
+
+    protected OptionalGameTextTriggerAction getOptionalAttemptJediTestAction(PhysicalCard self, ModifiersQuerying modifiersQuerying, int gameTextSourceCardId, PhysicalCard apprentice, PhysicalCard vader)
+    {
+        final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
+        action.setText("Attempt Jedi Test #6");
+        // Update usage limit(s)
+        action.appendUsage(
+                new PassthruEffect(action) {
+                    @Override
+                    protected void doPlayEffect(SwccgGame game) {
+                        modifiersQuerying.attemptedJediTest(self, apprentice);
+                    }
+                });
+        action.addAnimationGroup(apprentice, vader);
+        // Update usage limit(s)
+        action.appendUsage(
+                new OncePerPhaseEffect(action));
+        // Perform result(s)
+        action.appendEffect(
+                new DuelEffect(action, vader, apprentice, new DuelDirections() {
+                    @Override
+                    public boolean isEpicDuel() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean isCrossOverToDarkSideAttempt() {
+                        return false;
+                    }
+
+                    @Override
+                    public Evaluator getBaseDuelTotal(final String playerId, final DuelState duelState) {
+                        return new AbilityEvaluator(duelState.getCharacter(playerId));
+                    }
+
+                    @Override
+                    public int getBaseNumDuelDestinyDraws(String playerId, DuelState duelState) {
+                        return 1;
+                    }
+
+                    @Override
+                    public void performDuelDirections(final Action duelAction, SwccgGame game, final DuelState duelState) {
+                        duelAction.appendEffect(
+                                new DrawDestinyEffect(duelAction, game.getDarkPlayer(), game.getModifiersQuerying().getNumDuelDestinyDraws(game.getGameState(), game.getDarkPlayer()), DestinyType.DUEL_DESTINY) {
+                                    @Override
+                                    protected void destinyDraws(SwccgGame game, final List<PhysicalCard> darkDestinyCardDraws, List<Float> darkDestinyDrawValues, final Float darkTotalDestiny) {
+                                        if (darkTotalDestiny != null) {
+                                            duelState.increaseTotalDuelDestinyFromDraws(game.getDarkPlayer(), darkTotalDestiny, darkDestinyCardDraws.size());
+                                        }
+                                        duelAction.appendEffect(
+                                                new DrawDestinyEffect(duelAction, game.getLightPlayer(), game.getModifiersQuerying().getNumDuelDestinyDraws(game.getGameState(), game.getLightPlayer()), DestinyType.DUEL_DESTINY) {
+                                                    @Override
+                                                    protected void destinyDraws(SwccgGame game, List<PhysicalCard> lightDestinyCardDraws, List<Float> lightDestinyDrawValues, Float lightTotalDestiny) {
+                                                        if (lightTotalDestiny != null) {
+                                                            duelState.increaseTotalDuelDestinyFromDraws(game.getLightPlayer(), lightTotalDestiny, lightDestinyCardDraws.size());
+                                                        }
+                                                    }
+                                                }
+                                        );
+                                    }
+                                }
+                        );
+                    }
+
+                    @Override
+                    public void performDuelResults(Action duelAction, SwccgGame game, DuelState duelState) {
+                        PhysicalCard winningCharacter = duelState.getWinningCharacter();
+                        if (winningCharacter == null) {
+                            return;
+                        }
+
+                        // If apprentice wins, test completed.
+                        if (Filters.apprenticeTargetedByJediTest(self).accepts(game, winningCharacter)) {
+                            action.appendEffect(
+                                    new CompleteJediTestEffect(action, self));
+                        }
+                    }
+                })
+        );
+        return action;
     }
 }
