@@ -103,7 +103,7 @@ public class Card227_011 extends AbstractObjective {
                 new OncePerTurnEffect(action));
             // Perform result(s)
             action.appendEffect(
-                new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.Invisible_Hand_Bridge, Icon.SEPARATIST), true));
+                new DeployCardFromReserveDeckEffect(action, Filters.or(Filters.Invisible_Hand_Bridge, Filters.and(Icon.SEPARATIST, Filters.location)), true));
             return Collections.singletonList(action);
         
         }
