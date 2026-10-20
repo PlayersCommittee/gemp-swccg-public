@@ -14,11 +14,15 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.TotalWeaponDestinyModifier;
+import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -57,9 +61,22 @@ public class Card7_159 extends AbstractStarshipWeapon {
 
             // Build action using common utility
             FireWeaponAction action = actionBuilder.buildFireWeaponWithHitAction(1, Statistic.DEFENSE_VALUE);
-            action.appendAfterEffect(
-                    new PlaceCardInUsedPileFromTableEffect(action, self));
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
 
+    @Override
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, final EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
+        // Check condition(s)
+        if (TriggerConditions.weaponJustFired(game, effectResult, self)) {
+
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+            action.setText("Place in Used Pile");
+            action.setActionMsg("Place " + GameUtils.getCardLink(self) + " in Used Pile");
+            // Perform result(s)
+            action.appendEffect(
+                new PlaceCardInUsedPileFromTableEffect(action, self));
             return Collections.singletonList(action);
         }
         return null;
