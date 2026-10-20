@@ -8,6 +8,7 @@ import com.gempukku.swccgo.cards.AbstractCharacterWeapon;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.AddDestinyToAttritionEffect;
 import com.gempukku.swccgo.cards.effects.AddDestinyToTotalPowerEffect;
+import com.gempukku.swccgo.cards.effects.SetWhileInPlayDataEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerBattleEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
@@ -22,10 +23,12 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.WhileInPlayData;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.FireWeaponAction;
 import com.gempukku.swccgo.logic.actions.FireWeaponActionBuilder;
 import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
+import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.modifiers.MayFireRepeatedlyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -78,6 +81,15 @@ public class Card225_021 extends AbstractCharacterWeapon {
     }
 
     @Override
+    protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
+        if (TriggerConditions.weaponJustFiredRepeatedly(game, effectResult, self)) {
+            //reset the 'once per repeat firing' destiny add (to allow power OR attrition add, but not both)
+            self.setWhileInPlayData(null);
+        }
+        return null;
+    }
+
+    @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         final List<OptionalGameTextTriggerAction> actions = new LinkedList<>();
 
@@ -90,12 +102,16 @@ public class Card225_021 extends AbstractCharacterWeapon {
 
             // Check more condition(s)
             if (GameConditions.canAddDestinyDrawsToPower(game, playerId)
+                    && !GameConditions.cardHasWhileInPlayDataSet(self)
                     && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionIdPower)) {
                 final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionIdPower);
                 action.setText("Add one destiny to total power");
                 // Update usage limit(s)
                 action.appendUsage(
                         new OncePerBattleEffect(action));
+                // for 'once per repeat firing' usage limit on adding destiny adds:
+                action.appendEffect(
+                        new SetWhileInPlayDataEffect(action, self, new WhileInPlayData()));
                 // Perform result(s)
                 action.appendEffect(
                         new AddDestinyToTotalPowerEffect(action, 1));
@@ -103,12 +119,16 @@ public class Card225_021 extends AbstractCharacterWeapon {
             }
             // Check more condition(s)
             if (GameConditions.canAddDestinyDrawsToAttrition(game, playerId)
+                    && !GameConditions.cardHasWhileInPlayDataSet(self)
                     && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionIdAttrition)) {
                 final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId, gameTextActionIdAttrition);
                 action.setText("Add one destiny to attrition");
                 // Update usage limit(s)
                 action.appendUsage(
                         new OncePerBattleEffect(action));
+                // for 'once per repeat firing' usage limit on adding destiny adds:
+                action.appendEffect(
+                        new SetWhileInPlayDataEffect(action, self, new WhileInPlayData()));
                 // Perform result(s)
                 action.appendEffect(
                         new AddDestinyToAttritionEffect(action, 1));
