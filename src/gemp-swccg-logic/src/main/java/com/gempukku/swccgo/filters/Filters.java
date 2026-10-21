@@ -10148,6 +10148,23 @@ public class Filters {
         return mayFireRepeatedly;
     }
 
+    /**
+     * Filter that accepts weapons that may fire repeatedly at the same target (e.g. granted by Lieutenant Greeve).
+     * Distinct from {@link #mayFireRepeatedly}; uses ModifierType.MAY_FIRE_REPEATEDLY_AT_SAME_TARGET_FOR_COST.
+     */
+    public static final Filter mayFireRepeatedlyAtSameTarget = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return modifiersQuerying.mayFireWeaponRepeatedlyAtSameTarget(gameState, physicalCard);
+        }
+    };
+    /**
+     * Wrapper method to allow other static filters to access the wrapped filter.
+     */
+    private static Filter mayFireRepeatedlyAtSameTarget() {
+        return mayFireRepeatedlyAtSameTarget;
+    }
+
 
     //
     //
