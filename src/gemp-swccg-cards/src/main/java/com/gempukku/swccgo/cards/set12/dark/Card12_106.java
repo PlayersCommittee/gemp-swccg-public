@@ -69,6 +69,10 @@ public class Card12_106 extends AbstractAlien {
                     new DrawDestinyEffect(action, opponent) {
                         @Override
                         protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
+                            if (totalDestiny == null) {
+                                game.getGameState().sendMessage("Result: Failed due to failed destiny draw");
+                                return;
+                            }
                             if (totalDestiny > 2) {
                                 action.appendEffect(
                                         new RetrieveForceEffect(action, playerId, 1)
