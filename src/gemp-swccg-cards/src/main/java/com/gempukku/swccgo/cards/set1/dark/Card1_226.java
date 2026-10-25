@@ -19,6 +19,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
+import com.gempukku.swccgo.logic.modifiers.MouseDroidUtinniCarry;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.SubAction;
@@ -92,6 +93,7 @@ public class Card1_226 extends AbstractUtinniEffect {
                     }
             );
             // Perform result(s)
+            MouseDroidUtinniCarry.markMouseDeliveryFromTargetRelocation(self, game.getModifiersQuerying().getLocationThatCardIsAt(game.getGameState(), self.getAttachedTo()));
             action.appendEffect(
                     new AttachCardFromTableEffect(action, self, target));
             actions.add(action);

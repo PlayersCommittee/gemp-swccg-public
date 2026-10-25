@@ -4,6 +4,7 @@ import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.logic.modifiers.MouseDroidUtinniCarry;
 
 public interface Presence extends BaseQuery, Keywords {
     default PhysicalCard getCardIsPresentAt(GameState gameState, PhysicalCard physicalCard) {
@@ -145,6 +146,13 @@ public interface Presence extends BaseQuery, Keywords {
         // An Effect or Epic Event is "at" a location if:
         // (1) Its "atLocation" or "attachedTo" is that location
         // (2) It is attached to a card that is at that location
+        if (MouseDroidUtinniCarry.isCarriedByMouseDroid(card)) {
+            // A carried Utinni is at the Mouse's location, including when the Mouse is aboard a ship/vehicle.
+            // Resolve the carrier explicitly so reached/delivery text sees the same location as the Mouse.
+            PhysicalCard mouse = card.getAttachedTo();
+            return mouse == null ? null : getLocationThatCardIsAt(gameState, mouse);
+        }
+
         if (card.getBlueprint().getCardCategory()==CardCategory.DEFENSIVE_SHIELD
                 || card.getBlueprint().getCardCategory()==CardCategory.EFFECT
                 || card.getBlueprint().getCardCategory()==CardCategory.EPIC_EVENT
