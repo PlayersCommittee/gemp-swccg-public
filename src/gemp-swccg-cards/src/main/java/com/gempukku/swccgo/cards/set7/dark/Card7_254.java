@@ -45,14 +45,15 @@ public class Card7_254 extends AbstractUsedInterrupt {
     @Override
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
         // Check condition(s)
+        Filter usableTractorBeam = Filters.and(Filters.tractor_beam, Filters.weaponOrDeviceMayBeUsed);
         if (GameConditions.isDuringBattleWithParticipant(game,
-                Filters.and(Filters.your(playerId), Filters.Star_Destroyer, Filters.hasAttached(Filters.tractor_beam)))
+                Filters.and(Filters.your(playerId), Filters.Star_Destroyer, Filters.hasAttached(usableTractorBeam)))
         ) {
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText("Use tractor beam");
             // Allow response(s)
-            Filter tractorBeamFilter = Filters.and(Filters.tractor_beam, Filters.attachedTo(Filters.and(Filters.participatingInBattle, Filters.your(playerId), Filters.Star_Destroyer)));
+            Filter tractorBeamFilter = Filters.and(usableTractorBeam, Filters.attachedTo(Filters.and(Filters.participatingInBattle, Filters.your(playerId), Filters.Star_Destroyer)));
             TargetingReason targetingReason = TargetingReason.OTHER;
             action.appendTargeting(
                     new TargetCardOnTableEffect(action, playerId, "Choose tractor beam to use", targetingReason, tractorBeamFilter) {

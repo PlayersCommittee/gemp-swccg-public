@@ -14407,6 +14407,16 @@ public class Filters {
     }
 
     /**
+     * Filter that accepts weapons and devices that are not prohibited from being used.
+     */
+    public static final Filter weaponOrDeviceMayBeUsed = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return !modifiersQuerying.mayNotBeUsed(gameState, physicalCard);
+        }
+    };
+
+    /**
      * Filter that accepts devices and weapons cards that can be deployed on a character.
      */
     public static final Filter deviceOrWeaponThatCanBeDeployedOnCharacters = new Filter() {
