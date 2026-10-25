@@ -64,7 +64,7 @@ public class Card9_015 extends AbstractRebel {
                 && TriggerConditions.isAboutToDrawWeaponDestiny(game, effectResult, playerId, Filters.ion_cannon)
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isDuringWeaponFiringAtTarget(game, Filters.weaponBeingFiredBy(starshipPiloting), Filters.any)
-                && GameConditions.canDrawDestinyAndChoose(game, 2)
+                && GameConditions.canDrawDestinyAndChoose(game, 1)
                 ) {
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
             action.setText("Draw two and choose one");
