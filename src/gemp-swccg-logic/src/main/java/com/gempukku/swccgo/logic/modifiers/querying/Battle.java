@@ -305,10 +305,19 @@ public interface Battle extends BaseQuery, Ability, Attributes, CardTraits, Flag
             return null;
 
         String playerInitiatedBattle = gameState.getBattleState().getPlayerInitiatedBattle();
-        String opponent = gameState.getOpponent(playerInitiatedBattle);
-
-        if (hasFlagActive(gameState, ModifierFlag.TAKES_FIRST_BATTLE_WEAPONS_SEGMENT_ACTION, opponent)) {
-            return opponent;
+        String lastPlayerToTakeFirst = null;
+        for (Modifier modifier : getModifiers(gameState, ModifierType.SPECIAL_FLAG)) {
+            String forPlayer = modifier.getForPlayer();
+            if (forPlayer == null) {
+                continue;
+            }
+            if (modifier.hasFlagActive(gameState, query(), ModifierFlag.TAKES_FIRST_BATTLE_WEAPONS_SEGMENT_ACTION, forPlayer)
+                    || modifier.hasFlagActive(gameState, query(), ModifierFlag.TAKES_FIRST_TWO_BATTLE_WEAPONS_SEGMENT_ACTIONS, forPlayer)) {
+                lastPlayerToTakeFirst = forPlayer;
+            }
+        }
+        if (lastPlayerToTakeFirst != null) {
+            return lastPlayerToTakeFirst;
         }
 
         return playerInitiatedBattle;
