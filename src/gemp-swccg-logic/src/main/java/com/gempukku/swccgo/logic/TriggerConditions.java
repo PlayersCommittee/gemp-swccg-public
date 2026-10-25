@@ -2656,6 +2656,21 @@ public class TriggerConditions {
     }
 
     /**
+     * Determines if a card accepted by the filter was just placed out of play from table, or from Lost Pile while that
+     * card is still being responded to as just lost/forfeited/canceled from table.
+     * Generic Lost Pile out of play (the card was not just lost from table) returns false.
+     */
+    public static boolean justPlacedOutOfPlayFromTableOrWhileJustLostFromTable(SwccgGame game, EffectResult effectResult, Filterable filter) {
+        if (justPlacedOutOfPlayFromTable(game, effectResult, filter)) {
+            return true;
+        }
+        if (!justPlacedOutOfPlayFromOffTable(game, effectResult, filter)) {
+            return false;
+        }
+        return ((PlacedCardOutOfPlayFromOffTableResult) effectResult).isWhileJustLostFromTable();
+    }
+
+    /**
      * Determines if a card accepted by the filter is being canceled from table by the specified player.
      * @param game the game
      * @param effectResult the effect result
