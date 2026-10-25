@@ -19645,6 +19645,38 @@
     ]
   },
   {
+    "cardId": "13_7",
+    "title": "Armament Dismantled",
+    "slug": "armament-dismantled",
+    "slugWithSetName": "armament-dismantled-reflections-iii",
+    "side": "LIGHT",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "REFLECTIONS_III",
+    "rarity": "PM",
+    "cardCategory": "EFFECT",
+    "cardTypes": [
+      "EFFECT"
+    ],
+    "cardSubtype": "NORMAL",
+    "lore": "Divide and conquer.",
+    "gameText": "Use 4 Force (or 1 Force if Obi-Wan is armed with a lightsaber) to deploy on table if Maul present with Obi-Wan. (Obi-Wan may not move that turn.) Maul's lightsaber may add only 1 to Force drains, and may be 'swung' only once per battle. (Immune to Alter.)",
+    "destiny": 6,
+    "icons": [
+      {
+        "icon": "REFLECTIONS_III",
+        "count": 1
+      },
+      {
+        "icon": "EFFECT",
+        "count": 1
+      },
+      {
+        "icon": "EPISODE_I",
+        "count": 1
+      }
+    ]
+  },
+  {
     "cardId": "13_60",
     "title": "Colo Claw Fish",
     "slug": "colo-claw-fish",
