@@ -411,7 +411,11 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
             return null;
         }
 
+        // FLAG(Chief): attack-react support for R2 Sensor Array (3_31) � use attack location when battle/FD absent and react from other card
         PhysicalCard battleOrForceDrainLocation = game.getGameState().getBattleOrForceDrainLocation();
+        if (battleOrForceDrainLocation == null && reactActionFromOtherCard != null) {
+            battleOrForceDrainLocation = game.getGameState().getAttackLocation();
+        }
         if (battleOrForceDrainLocation == null) {
             return null;
         }
