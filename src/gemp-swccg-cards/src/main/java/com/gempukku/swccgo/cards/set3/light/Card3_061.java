@@ -13,7 +13,7 @@ import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.effects.AddToBlownAwayForceLossEffect;
+import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.modifiers.IsPoweredModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.UnderHothEnergyShieldModifier;
@@ -43,12 +43,11 @@ public class Card3_061 extends AbstractSite {
     protected List<RequiredGameTextTriggerAction> getGameTextDarkSideRequiredAfterTriggers(String playerOnDarkSideOfLocation, SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         // Check condition(s)
         if (TriggerConditions.isBlownAwayCalculateForceLossStep(game, effectResult, self)) {
-
             RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-            action.skipInitialMessageAndAnimation();
-            // Perform result(s)
+            action.setPerformingPlayer(playerOnDarkSideOfLocation);
+            action.setText("Make Light Side lose 8 Force");
             action.appendEffect(
-                    new AddToBlownAwayForceLossEffect(action, game.getLightPlayer(), 8));
+                    new LoseForceEffect(action, game.getLightPlayer(), 8));
             return Collections.singletonList(action);
         }
         return null;
