@@ -73,7 +73,7 @@ public abstract class AbstractMobileSystem extends AbstractSystem {
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
 
         if (playerId.equals(game.getDarkPlayer())
-                && GameConditions.isPhaseForPlayer(game, Phase.MOVE, playerId)
+                && (skipPhaseCheck || GameConditions.isPhaseForPlayer(game, Phase.MOVE, playerId))
                 && !modifiersQuerying.hasPerformedRegularMoveThisTurn(self)
                 && !modifiersQuerying.mayNotMoveUsingHyperspeed(game.getGameState(), self)
                 && modifiersQuerying.getHyperspeed(game.getGameState(), self) >= 1
