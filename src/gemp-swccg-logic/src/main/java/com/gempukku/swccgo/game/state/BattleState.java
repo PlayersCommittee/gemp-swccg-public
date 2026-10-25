@@ -1,5 +1,7 @@
 package com.gempukku.swccgo.game.state;
 
+import com.gempukku.swccgo.common.CardCategory;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -200,6 +202,44 @@ public class BattleState implements Snapshotable<BattleState> {
 
     public void setLocalTroubleParticipants(Collection<PhysicalCard> cards) {
         _localTroubleParticipants.addAll(cards);
+    }
+
+    public boolean isLocalTroubleParticipant(PhysicalCard card) {
+        for (PhysicalCard ltCard : _localTroubleParticipants) {
+            if (ltCard.getCardId() == card.getCardId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Local Trouble bystanders at the battle location are inactive by rule (not excluded).
+     * Exception: an open vehicle with a participating character aboard stays active.
+     */
+    public boolean isInactiveAsLocalTroubleNonParticipant(PhysicalCard card) {
+        if (!_isLocalTrouble) {
+            return false;
+        }
+        CardCategory category = card.getBlueprint().getCardCategory();
+        if (category != CardCategory.CHARACTER && category != CardCategory.VEHICLE && category != CardCategory.STARSHIP) {
+            return false;
+        }
+        if (isLocalTroubleParticipant(card)) {
+            return false;
+        }
+        PhysicalCard cardLocation = _game.getModifiersQuerying().getLocationThatCardIsAt(_game.getGameState(), card);
+        if (cardLocation == null || _location == null || cardLocation.getCardId() != _location.getCardId()) {
+            return false;
+        }
+        if (category == CardCategory.VEHICLE && !card.getBlueprint().hasKeyword(Keyword.ENCLOSED)) {
+            for (PhysicalCard aboard : _game.getGameState().getAboardCards(card, false)) {
+                if (aboard.getBlueprint().getCardCategory() == CardCategory.CHARACTER && isLocalTroubleParticipant(aboard)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public void addParticipant(GameState gameState, PhysicalCard card) {
