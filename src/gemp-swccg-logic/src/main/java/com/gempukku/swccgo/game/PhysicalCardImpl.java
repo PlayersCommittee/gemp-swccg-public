@@ -32,6 +32,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
     private String _zoneOwner;
     private int _locationZoneIndex;
     private boolean _isInserted;
+    private boolean _isFaceUpInReserveDeck;
     private boolean _isInsertCardRevealed;
     private PhysicalCard _attachedTo;
     private PhysicalCard _stackedOn;
@@ -147,6 +148,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
         snapshot._zoneOwner = _zoneOwner;
         snapshot._locationZoneIndex = _locationZoneIndex;
         snapshot._isInserted = _isInserted;
+        snapshot._isFaceUpInReserveDeck = _isFaceUpInReserveDeck;
         snapshot._isInsertCardRevealed = _isInsertCardRevealed;
         snapshot._attachedTo = snapshotData.getDataForSnapshot(_attachedTo);
         snapshot._stackedOn = snapshotData.getDataForSnapshot(_stackedOn);
@@ -324,7 +326,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
 
         if (_isBlownAway
                 || (_zone != null
-                && ((_zone.isFaceDown() && !_isInserted && (_zone != Zone.TOP_OF_USED_PILE || (gameState != null && !gameState.isUsedPilesTurnedOver())))
+                && ((_zone.isFaceDown() && !_isInserted && !_isFaceUpInReserveDeck && (_zone != Zone.TOP_OF_USED_PILE || (gameState != null && !gameState.isUsedPilesTurnedOver())))
                 || (gameState != null && _zone == Zone.TOP_OF_LOST_PILE && gameState.isLostPileTurnedOver(getZoneOwner()))))) {
             return _backBlueprintId;
         }
@@ -350,7 +352,7 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
 
         if (_isBlownAway
                 || (_zone != null
-                && ((_zone.isFaceDown() && !_isInserted && (_zone != Zone.TOP_OF_USED_PILE || (gameState != null && !gameState.isUsedPilesTurnedOver())))
+                && ((_zone.isFaceDown() && !_isInserted && !_isFaceUpInReserveDeck && (_zone != Zone.TOP_OF_USED_PILE || (gameState != null && !gameState.isUsedPilesTurnedOver())))
                 || (gameState != null && _zone == Zone.TOP_OF_LOST_PILE && gameState.isLostPileTurnedOver(getZoneOwner()))))) {
             if (showOtherSide)
                 return null;
@@ -1164,6 +1166,16 @@ public class PhysicalCardImpl implements PhysicalCard, Cloneable {
     @Override
     public boolean isInserted() {
         return _isInserted;
+    }
+
+    @Override
+    public void setFaceUpInReserveDeck(boolean faceUpInReserveDeck) {
+        _isFaceUpInReserveDeck = faceUpInReserveDeck;
+    }
+
+    @Override
+    public boolean isFaceUpInReserveDeck() {
+        return _isFaceUpInReserveDeck;
     }
 
     @Override
