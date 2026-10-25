@@ -57705,7 +57705,7 @@
     ],
     "cardSubtype": "USED",
     "lore": "'Ha haaaaaa!'",
-    "gameText": "During your control phase, fire one of your starship weapons (for free). If Han or any gunner is aboard that starship, may add 2 to destiny draw. 'Hit' target is lost. OR If you just fired a weapon in battle, add that weapon's destiny number to your total power.",
+    "gameText": "During your control phase, fire one of your starship weapons (for free). If Han or any gunner is aboard that starship, may add 2 to the total weapon destiny. 'Hit' target is lost. OR If you just fired a weapon in battle, add that weapon's destiny number to your total power.",
     "destiny": 4,
     "icons": [
       {
