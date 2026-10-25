@@ -8558,6 +8558,10 @@ public class Filters {
                 if (card.getBlueprint().getCardCategory() != CardCategory.CHARACTER)
                     return false;
 
+                // Fit / exist-at check: no pilot capacity if card may not exist at this target
+                if (modifiersQuerying.isProhibitedFromTarget(gameState, card, physicalCard))
+                    return false;
+
                 if (!physicalCard.getBlueprint().getValidPilotFilter(physicalCard.getOwner(), gameState.getGame(), physicalCard, false).accepts(gameState, modifiersQuerying, card))
                     return false;
 
@@ -8601,6 +8605,11 @@ public class Filters {
                 if (card.getBlueprint().getCardCategory() != CardCategory.CHARACTER &&
                     !card.getBlueprint().isMovesLikeCharacter())
                         return false;
+
+                // Fit / exist-at check: no passenger capacity if card may not exist at this target
+                // (covers DEVICE paths and moves-like-character escapes that skip validPassengerFilter)
+                if (modifiersQuerying.isProhibitedFromTarget(gameState, card, physicalCard))
+                    return false;
 
                 if(physicalCard.getBlueprint().getCardCategory() == CardCategory.VEHICLE
                         || physicalCard.getBlueprint().getCardCategory() == CardCategory.STARSHIP){
