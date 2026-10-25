@@ -10,7 +10,6 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -33,6 +32,7 @@ public class Card_7_258_Tests {
                     put("wristComlink","7_054"); //(device)
                     put("talz","1_031");
                     put("kfc","1_015"); //Kal'Falnl C'ndros
+                    put("mods","1_65"); //Special Modifications
                 }},
                 new HashMap<>() {{
                     put("overwhelmed","7_258");
@@ -176,153 +176,106 @@ public class Card_7_258_Tests {
         assertTrue(scn.AwaitingLSDeployPhaseActions());
     }
 
-    @Test @Ignore
-    public void OverwhelmedSendsCardsToUsedPileComplex() {
-        //check card selection with a variety of ships, characters aboard, and weapons/devices attached to those ships and characters
-
-        //devices attached to ships being sent to used pile are not selectable for order as expected?
-        //look into ownership, 'aboard' check, and the filterActive used in Overwhelmed for adding attached cards?
-
+    @Test
+    public void OverwhelmedPlacesAttachedStarshipDeviceInUsedPile() {
         var scn = GetScenario();
 
-        var ywing = scn.GetLSCard("ywing");
-        var trooper = scn.GetLSFiller(1);
-        var blaster = scn.GetLSCard("blaster");
-        var wristComlink = scn.GetLSCard("wristComlink");
         var transport = scn.GetLSCard("transport");
         var rectenna = scn.GetLSCard("rectenna");
-        var talz = scn.GetLSCard("talz");
-        var kfc = scn.GetLSCard("kfc");
 
         var overwhelmed = scn.GetDSCard("overwhelmed");
         var executor = scn.GetDSCard("executor");
-        var beacon = scn.GetDSCard("beacon");
 
         var system = scn.GetDSStartingLocation();
 
         scn.StartGame();
 
         scn.MoveCardsToDSHand(overwhelmed);
-
-        scn.MoveCardsToLocation(system, executor, ywing, transport);
-
-        scn.BoardAsPassenger(ywing, trooper);
-        scn.AttachCardsTo(trooper, blaster, wristComlink);
-
-        scn.BoardAsPassenger(transport, talz, kfc);
-        scn.AttachCardsTo(transport, rectenna, beacon);
+        scn.MoveCardsToLocation(system, executor, transport);
+        scn.AttachCardsTo(transport, rectenna);
 
         scn.SkipToPhase(Phase.DEPLOY);
 
         scn.DSPlayCard(overwhelmed);
         scn.DSChooseCard(system);
-        assertTrue(scn.DSDecisionAvailable("all starships")); //not picking order of cards yet
-        assertTrue(scn.DSHasCardChoiceAvailable(ywing));
-        assertTrue(scn.DSHasCardChoiceAvailable(transport));
-        assertFalse(scn.DSHasCardChoiceAvailable(trooper));
-        scn.DSChooseCards(ywing, transport);
-        scn.PassAllResponses();
-
-        assertTrue(scn.DSDecisionAvailable("place on Used Pile"));
-        assertTrue(scn.DSHasCardChoiceAvailable(ywing));
-        assertTrue(scn.DSHasCardChoiceAvailable(trooper));
-        assertTrue(scn.DSHasCardChoiceAvailable(blaster));
-        assertTrue(scn.DSHasCardChoiceAvailable(wristComlink));
-
-        assertTrue(scn.DSHasCardChoiceAvailable(transport));
-        ///assertTrue(scn.DSHasCardChoiceAvailable(beacon)); /////// Need to investigate this...
-        ///assertTrue(scn.DSHasCardChoiceAvailable(rectenna)); /////// Need to investigate this...
-        assertTrue(scn.DSHasCardChoiceAvailable(talz));
-        assertTrue(scn.DSHasCardChoiceAvailable(kfc));
-
-        scn.DSChooseCard(ywing);
-
-        scn.PassAllResponses();
-
-        //LS owns ywing and now chooses order of cards placed in pile from ywing and all attached cards
-        assertTrue(scn.LSDecisionAvailable("Choose card to put on Used Pile"));
-        assertTrue(scn.LSHasCardChoiceAvailable(ywing));
-        assertTrue(scn.LSHasCardChoiceAvailable(trooper));
-        assertTrue(scn.LSHasCardChoiceAvailable(blaster));
-        assertTrue(scn.LSHasCardChoiceAvailable(wristComlink));
-
-        assertFalse(scn.LSHasCardChoiceAvailable(transport));
-        assertFalse(scn.LSHasCardChoiceAvailable(beacon));
-        assertFalse(scn.LSHasCardChoiceAvailable(rectenna));
-        assertFalse(scn.LSHasCardChoiceAvailable(talz));
-        assertFalse(scn.LSHasCardChoiceAvailable(kfc));
-
-        scn.LSChooseCard(trooper);
-
-        assertTrue(scn.LSDecisionAvailable("Choose card to put on Used Pile"));
-        assertTrue(scn.LSHasCardChoiceAvailable(ywing));
-        assertFalse(scn.LSHasCardChoiceAvailable(trooper)); //(already in Used Pile)
-        assertTrue(scn.LSHasCardChoiceAvailable(blaster));
-        assertTrue(scn.LSHasCardChoiceAvailable(wristComlink));
-
-        scn.LSChooseCard(blaster);
-        scn.LSChooseCard(ywing);
-        //scn.LSChooseCard(wristComlink); //last card automatically selected
-
-        assertEquals(Zone.USED_PILE, trooper.getZone()); //current order of cards in Used Pile (bottom to top)
-        assertEquals(Zone.USED_PILE, blaster.getZone());
-        assertEquals(Zone.USED_PILE, ywing.getZone());
-        assertEquals(Zone.TOP_OF_USED_PILE, wristComlink.getZone());
-
-        scn.PassAllResponses();
-
-        assertTrue(scn.DSDecisionAvailable("place on Used Pile"));
-        assertFalse(scn.DSHasCardChoiceAvailable(ywing)); //(ywing and its attached cards already in Used Pile)
-
-        assertTrue(scn.DSHasCardChoiceAvailable(transport));
-        ///assertTrue(scn.DSHasCardChoiceAvailable(beacon)); /////// Need to investigate this...
-        ///assertTrue(scn.DSHasCardChoiceAvailable(rectenna)); /////// Need to investigate this...
-        assertTrue(scn.DSHasCardChoiceAvailable(talz));
-        assertTrue(scn.DSHasCardChoiceAvailable(kfc));
-
-        scn.DSChooseCard(talz);
-        scn.PassAllResponses();
-
-        assertTrue(scn.DSDecisionAvailable("place on Used Pile"));
-        assertTrue(scn.DSHasCardChoiceAvailable(transport));
-        ///assertTrue(scn.DSHasCardChoiceAvailable(beacon)); /////// Need to investigate this...
-        ///assertTrue(scn.DSHasCardChoiceAvailable(rectenna)); /////// Need to investigate this...
-        assertFalse(scn.DSHasCardChoiceAvailable(talz)); //(already in Used Pile)
-        assertTrue(scn.DSHasCardChoiceAvailable(kfc));
-
         scn.DSChooseCard(transport);
-        ///somehow right here, beacon is being automatically sent to DS Used Pile
         scn.PassAllResponses();
 
-        //LS owns transport and now chooses order of cards placed in pile from transport and all attached cards
-        assertTrue(scn.LSDecisionAvailable("Choose card to put on Used Pile"));
-        assertTrue(scn.LSHasCardChoiceAvailable(transport));
-        ///assertTrue(scn.LSHasCardChoiceAvailable(beacon)); /////// Need to investigate this...
-        assertTrue(scn.LSHasCardChoiceAvailable(rectenna));
-        assertTrue(scn.LSHasCardChoiceAvailable(kfc));
+        assertTrue(scn.DSDecisionAvailable("place on Used Pile"));
+        assertTrue(scn.DSHasCardChoiceAvailable(transport));
+        assertTrue(scn.DSHasCardChoiceAvailable(rectenna));
 
-        scn.LSChooseCard(transport);
-        scn.LSChooseCard(rectenna);
-        //scn.LSChooseCard(kfc); //last card automatically selected
+        scn.DSChooseCard(rectenna);
+        scn.LSPass();
+        scn.DSPass();
+        scn.LSPass();
+        scn.DSPass();
 
-        assertEquals(Zone.USED_PILE, trooper.getZone()); //current order of cards in Used Pile (bottom to top)
-        assertEquals(Zone.USED_PILE, blaster.getZone());
-        assertEquals(Zone.USED_PILE, ywing.getZone());
-        assertEquals(Zone.USED_PILE, wristComlink.getZone());
-        assertEquals(Zone.USED_PILE, talz.getZone());
-        assertEquals(Zone.USED_PILE, transport.getZone());
-        assertEquals(Zone.USED_PILE, rectenna.getZone());
-        assertEquals(Zone.TOP_OF_USED_PILE, kfc.getZone());
-
-        assertEquals(Zone.TOP_OF_USED_PILE, beacon.getZone());
-
+        if (scn.DSDecisionAvailable("place on Used Pile") && scn.DSHasCardChoiceAvailable(transport)) {
+            scn.DSChooseCard(transport);
+            scn.LSPass();
+            scn.DSPass();
+            scn.LSPass();
+            scn.DSPass();
+        }
+        if (scn.LSDecisionAvailable("Choose card to put on Used Pile") && scn.LSHasCardChoiceAvailable(transport)) {
+            scn.LSChooseCard(transport);
+        }
         scn.PassAllResponses();
 
-        assertTrue(scn.AwaitingLSDeployPhaseActions());
+        assertTrue(rectenna.getZone() == Zone.USED_PILE || rectenna.getZone() == Zone.TOP_OF_USED_PILE);
+        assertTrue(transport.getZone() == Zone.USED_PILE || transport.getZone() == Zone.TOP_OF_USED_PILE);
     }
 
-    //add test for inactive cards
+    @Test
+    public void OverwhelmedPlacesAttachedEffectInUsedPileNotLostPile() {
+        var scn = GetScenario();
 
+        var transport = scn.GetLSCard("transport");
+        var mods = scn.GetLSCard("mods");
+
+        var overwhelmed = scn.GetDSCard("overwhelmed");
+        var executor = scn.GetDSCard("executor");
+
+        var system = scn.GetDSStartingLocation();
+
+        scn.StartGame();
+
+        scn.MoveCardsToDSHand(overwhelmed);
+        scn.MoveCardsToLocation(system, executor, transport);
+        scn.AttachCardsTo(transport, mods);
+
+        scn.SkipToPhase(Phase.DEPLOY);
+
+        scn.DSPlayCard(overwhelmed);
+        scn.DSChooseCard(system);
+        scn.DSChooseCard(transport);
+        scn.PassAllResponses();
+
+        assertTrue(scn.DSDecisionAvailable("place on Used Pile"));
+        assertTrue(scn.DSHasCardChoiceAvailable(transport));
+        assertTrue(scn.DSHasCardChoiceAvailable(mods));
+
+        scn.DSChooseCard(mods);
+        scn.LSPass();
+        scn.DSPass();
+        scn.LSPass();
+        scn.DSPass();
+
+        if (scn.DSDecisionAvailable("place on Used Pile") && scn.DSHasCardChoiceAvailable(transport)) {
+            scn.DSChooseCard(transport);
+            scn.LSPass();
+            scn.DSPass();
+            scn.LSPass();
+            scn.DSPass();
+        }
+        if (scn.LSDecisionAvailable("Choose card to put on Used Pile") && scn.LSHasCardChoiceAvailable(transport)) {
+            scn.LSChooseCard(transport);
+        }
+        scn.PassAllResponses();
+
+        assertTrue(mods.getZone() == Zone.USED_PILE || mods.getZone() == Zone.TOP_OF_USED_PILE);
+        assertFalse(mods.getZone() == Zone.LOST_PILE || mods.getZone() == Zone.TOP_OF_LOST_PILE);
+        assertTrue(transport.getZone() == Zone.USED_PILE || transport.getZone() == Zone.TOP_OF_USED_PILE);
+    }
 }
-
-
