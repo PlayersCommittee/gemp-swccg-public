@@ -16,6 +16,7 @@ import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
+import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.ModifierFlag;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersEnvironment;
@@ -78,6 +79,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
     private List<Float> _drawXValuesToChooseFrom = new ArrayList<Float>();
     private int _chooseY;
     private boolean _takeOtherIntoHand;
+    private boolean _mayTakeOtherIntoHandOrReturnToTopOfReserve;
     private Map<String, Float> _modifierSourceTitleMap = new HashMap<>();
 
     /**
@@ -425,6 +427,15 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
      * @param drawX the X value
      * @return true or false
      */
+
+    /**
+     * Sets whether unchosen destinies from draw X / choose Y may be taken into hand or returned to top of Reserve Deck.
+     * @param value true if the player chooses hand or top of Reserve Deck for each unchosen destiny
+     */
+    public void setMayTakeOtherIntoHandOrReturnToTopOfReserve(boolean value) {
+        _mayTakeOtherIntoHandOrReturnToTopOfReserve = value;
+    }
+
     public boolean canDrawAndChoose(SwccgGame game, int drawX) {
         if (isDrawAndChoose())
             return false;
@@ -1344,7 +1355,36 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                                                             }
                                                         }
 
-                                                        if (_takeOtherIntoHand) {
+                                                        if (_mayTakeOtherIntoHandOrReturnToTopOfReserve) {
+                                                            for (final PhysicalCard destinyCard : _drawXCardsToChooseFrom) {
+                                                                if (destinyCard != null && !selectedCards.contains(destinyCard)
+                                                                        && GameUtils.getZoneFromZoneTop(destinyCard.getZone()) == Zone.UNRESOLVED_DESTINY_DRAW) {
+                                                                    subAction.appendEffect(
+                                                                            new PlayoutDecisionEffect(subAction, _performingPlayerId,
+                                                                                    new MultipleChoiceAwaitingDecision("Choose destination for " + GameUtils.getCardLink(destinyCard),
+                                                                                            new String[]{"Take into hand", "Return to top of Reserve Deck"}) {
+                                                                                        @Override
+                                                                                        protected void validDecisionMade(int index, String result) {
+                                                                                            if (GameUtils.getZoneFromZoneTop(destinyCard.getZone()) != Zone.UNRESOLVED_DESTINY_DRAW) {
+                                                                                                return;
+                                                                                            }
+                                                                                            gameState.removeCardsFromZone(Collections.singleton(destinyCard));
+                                                                                            if (index == 0) {
+                                                                                                gameState.addCardToZone(destinyCard, Zone.HAND, _performingPlayerId);
+                                                                                                gameState.sendMessage(_performingPlayerId + " takes " + GameUtils.getCardLink(destinyCard) + " into hand");
+                                                                                            }
+                                                                                            else {
+                                                                                                gameState.addCardToTopOfZone(destinyCard, Zone.RESERVE_DECK, _performingPlayerId);
+                                                                                                gameState.sendMessage(_performingPlayerId + " returns " + GameUtils.getCardLink(destinyCard) + " to top of Reserve Deck");
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                            )
+                                                                    );
+                                                                }
+                                                            }
+                                                        }
+                                                        else if (_takeOtherIntoHand) {
                                                             subAction.appendEffect(
                                                                     new PassthruEffect(subAction) {
                                                                         @Override
