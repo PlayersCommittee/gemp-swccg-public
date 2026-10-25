@@ -49,9 +49,7 @@ public class Card13_071 extends AbstractAlien {
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.CONTROL)
-                && GameConditions.isAtLocation(game, self, Filters.Podrace_Arena)
-                && GameConditions.canDrawDestiny(game, playerId)
-                && GameConditions.canDrawDestiny(game, game.getOpponent(playerId))) {
+                && GameConditions.isAtLocation(game, self, Filters.Podrace_Arena)) {
             final String opponent = game.getOpponent(playerId);
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
             action.setActionMsg("Wager");
@@ -72,20 +70,20 @@ public class Card13_071 extends AbstractAlien {
                                             Float playersTotalDestiny = playersDestiny;
                                             Float opponentsTotalDestiny = opponentsDestiny;
 
-                                            if (GameConditions.hasWonPodrace(game, playerId)) {
-                                                playersTotalDestiny = playersTotalDestiny + 2;
+                                            if (GameConditions.hasWonPodrace(game, playerId) && playersTotalDestiny != null) {
+                                                playersTotalDestiny += 2;
                                             }
 
-                                            if (GameConditions.hasWonPodrace(game, opponent)) {
-                                                opponentsTotalDestiny = opponentsDestiny + 2;
+                                            if (GameConditions.hasWonPodrace(game, opponent) && opponentsTotalDestiny != null) {
+                                                opponentsTotalDestiny += 2;
                                             }
 
                                             gameState.sendMessage(playerId + "'s 'Wager' destiny: " + (playersTotalDestiny != null ? GuiUtils.formatAsString(playersTotalDestiny) : "Failed destiny draw"));
                                             gameState.sendMessage(opponent + "'s 'Wager' destiny: " + (opponentsTotalDestiny != null ? GuiUtils.formatAsString(opponentsTotalDestiny) : "Failed destiny draw"));
 
 
-                                            final String loser = (playersTotalDestiny != null && (opponentsTotalDestiny == null || playersTotalDestiny < opponentsTotalDestiny)) ? playerId :
-                                                    ((opponentsTotalDestiny != null && (playersTotalDestiny == null || opponentsTotalDestiny < playersTotalDestiny)) ? opponent : null);
+                                            final String loser = (opponentsTotalDestiny != null && (playersTotalDestiny == null || playersTotalDestiny < opponentsTotalDestiny)) ? playerId :
+                                                    ((playersTotalDestiny != null && (opponentsTotalDestiny == null || opponentsTotalDestiny < playersTotalDestiny)) ? opponent : null);
 
                                             if (loser != null) {
                                                 action.appendEffect(
