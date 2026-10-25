@@ -49,6 +49,7 @@ public class ReleaseCaptivesWithLightSideEscortRule implements Rule {
                                 if (!captives.isEmpty()) {
 
                                     RequiredRuleTriggerAction action = new RequiredRuleTriggerAction(_that, lightSideEscort);
+                                    action.setPerformingPlayer(game.getLightPlayer());
                                     action.setSingletonTrigger(true);
                                     action.setText("Release escorted captives");
                                     action.setMessage("Release escorted captives of " + GameUtils.getCardLink(lightSideEscort));
