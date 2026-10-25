@@ -94,7 +94,10 @@ public class Card3_129 extends AbstractUsedInterrupt {
         // Check condition(s)
         if (TriggerConditions.forceDrainEnhancedByWeapon(game, effectResult, Filters.and(Filters.lightsaber, Filters.attachedTo(Filters.and(Filters.character, Filters.abilityLessThan(4)))))) {
             PhysicalCard lightsaber = ((EnhanceForceDrainResult) effectResult).getWeapon();
-            PhysicalCard character = ((EnhanceForceDrainResult) effectResult).getWeapon().getAttachedTo();
+            if (lightsaber == null) {
+                return null;
+            }
+            PhysicalCard character = lightsaber.getAttachedTo();
             if (GameConditions.canTarget(game, self, TargetingReason.TO_BE_LOST, character)) {
 
                 PlayInterruptAction action = getTargetCharacterUsingLightsaber(playerId, game, self, character, lightsaber);
