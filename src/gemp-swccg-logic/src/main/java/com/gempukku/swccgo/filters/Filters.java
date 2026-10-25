@@ -7148,7 +7148,7 @@ public class Filters {
                 PhysicalCard attachedTo = cardToMove.getAttachedTo();
                 if ((atLocation == null && attachedTo == null)
                         || (cardToMove.getBlueprint().getCardCategory() != CardCategory.CHARACTER
-                        && !Filters.movesLikeCharacter().accepts(gameState, modifiersQuerying, physicalCard)
+                        && !cardToMove.getBlueprint().isMovesLikeCharacter()
                         && cardToMove.getBlueprint().getCardCategory() != CardCategory.VEHICLE)) {
                     return false;
                 }
