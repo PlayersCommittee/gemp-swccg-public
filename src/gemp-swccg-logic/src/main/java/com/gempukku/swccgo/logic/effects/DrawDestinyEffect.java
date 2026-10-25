@@ -935,7 +935,9 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                                             }
 
                                             // End state for modifiers with duration of single destiny draw
-                                            gameState.endEachDrawnDestiny();
+                                            if (gameState.getTopEachDrawnDestinyState() != null) {
+                                                gameState.endEachDrawnDestiny();
+                                            }
 
                                             if (isDestinyCanceled()) {
                                                 if (isDrawAndChoose()) {
@@ -1225,6 +1227,12 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
                                                 msgText += (" (draw " + _drawX + " and choose " + _chooseY + ")");
                                             }
                                             gameState.sendMessage(msgText);
+
+                                            // Expire each-drawn-destiny modifiers before "just drawn" responses so a
+                                            // nested destiny (e.g. Sense vs Close Call) does not inherit them.
+                                            if (gameState.getTopEachDrawnDestinyState() != null) {
+                                                gameState.endEachDrawnDestiny();
+                                            }
                                         }
                                     }
                             );
