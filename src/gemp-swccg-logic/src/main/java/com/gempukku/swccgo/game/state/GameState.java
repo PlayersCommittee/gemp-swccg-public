@@ -2738,6 +2738,16 @@ public class GameState implements Snapshotable<GameState> {
             }
         }
 
+        // Face-down stacked cards are visited only when the blueprint opts in (e.g. The Ebb Of Battle).
+        for (PhysicalCard physicalCard : getAllStackedCards()) {
+            if (physicalCard.getZone() == Zone.STACKED_FACE_DOWN
+                    && physicalCard.getOwner().equals(playerId)
+                    && physicalCard.getBlueprint().visitCardWhenStackedFaceDown()) {
+                if (physicalCardVisitor.visitPhysicalCard(physicalCard))
+                    return true;
+            }
+        }
+
         return false;
     }
 
