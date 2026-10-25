@@ -1242,6 +1242,18 @@ public class Filters {
     /**
      * Filter that accepts cards that are considered "on table".
      */
+    /**
+     * Filter that accepts Frozen Assets sitting Active on a Frozen Pile. It is not on table, but it is Active
+     * like an Effect on table, so it may be targeted and canceled.
+     */
+    public static final Filter activeOnFrozenPile = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return (physicalCard.getZone() == Zone.FROZEN_PILE || physicalCard.getZone() == Zone.TOP_OF_FROZEN_PILE)
+                    && Title.Frozen_Assets.equals(physicalCard.getTitle());
+        }
+    };
+
     public static final Filter onTable = new Filter() {
         @Override
         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

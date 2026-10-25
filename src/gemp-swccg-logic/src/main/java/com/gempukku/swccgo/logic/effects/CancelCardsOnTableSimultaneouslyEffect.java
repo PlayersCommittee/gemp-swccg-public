@@ -86,7 +86,7 @@ class CancelCardsOnTableSimultaneouslyEffect extends AbstractSubActionEffect imp
                 new PassthruEffect(subAction) {
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
-                        _canceled.addAll(Filters.filter(_originalCardsToCancel, game, Filters.and(Filters.or(Filters.onTable, Filters.stacked), Filters.not(Filters.in(_preventedCards)))));
+                        _canceled.addAll(Filters.filter(_originalCardsToCancel, game, Filters.and(Filters.or(Filters.onTable, Filters.activeOnFrozenPile, Filters.stacked), Filters.not(Filters.in(_preventedCards)))));
                         CardsLeavePlayUtils.cardsToLeavePlay(game, _canceled, true, _attachedCardsToLeaveTable, new ArrayList<PhysicalCard>());
                         Collection<PhysicalCard> attachedCardsAboutToLeaveTable = Filters.filter(_attachedCardsToLeaveTable, game, Zone.ATTACHED);
                         if (_attachedCardsGoToZone == Zone.LOST_PILE) {
