@@ -156,7 +156,12 @@ public class BattleEffect extends AbstractSubActionEffect {
                 }
         );
 
-        // 9) Battle ends
+        // 9) Record this battle (turn memory; same idea as RecordCardsBeingPlayedEffect)
+        subAction.appendEffect(
+                new RecordBattleThisTurnEffect(subAction)
+        );
+
+        // 10) Battle ends
         subAction.appendEffect(
                 new PassthruEffect(subAction) {
                     @Override
