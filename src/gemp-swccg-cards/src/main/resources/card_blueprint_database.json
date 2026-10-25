@@ -97824,7 +97824,37 @@
       }
     ]
   },
-  {
+    {
+    "cardId": "4_178",
+    "title": "IG-88's Pulse Cannon",
+    "slug": "ig88s-pulse-cannon",
+    "slugWithSetName": "ig88s-pulse-cannon-dagobah",
+    "side": "DARK",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "DAGOBAH",
+    "rarity": "R",
+    "cardCategory": "WEAPON",
+    "cardTypes": [
+      "WEAPON"
+    ],
+    "cardSubtype": "CHARACTER",
+    "lore": "IG-88's personal favorite for mass destruction. Rapid-fire fusion plasma bursts are extremely effective against multiple targets. Not widely used due to incidental damage.",
+    "gameText": "Use 1 Force to deploy on IG-88, 4 on your other warrior. Adds 2 to power. May target X non-droid characters or creatures using X Force. Draw destiny for each. If destiny = 0, character is power -1 and forfeit -1 until end of turn. If destiny -1 > defense value, target hit.",
+    "destiny": 1,
+    "icons": [
+      {
+        "icon": "DAGOBAH",
+        "count": 1
+      },
+      {
+        "icon": "WEAPON",
+        "count": 1
+      }
+    ],
+    "keywords": [
+      "CANNON"
+    ]
+  },{
     "cardId": "4_179",
     "title": "Proton Bombs",
     "slug": "proton-bombs",
