@@ -16,6 +16,7 @@ public class MayMoveOtherCardsAsReactToLocationModifier extends AbstractModifier
     private Filter _cardFilter;
     private Filter _locationFilter;
     private float _changeInCost;
+    private boolean _includeUndercoverSpies;
 
     /**
      * Creates a modifier which causes the source card to allow other cards accepted by the card filter to move as a 'react'
@@ -70,12 +71,28 @@ public class MayMoveOtherCardsAsReactToLocationModifier extends AbstractModifier
      * @param changeInCost change in amount of Force (can be positive or negative) required
      */
     public MayMoveOtherCardsAsReactToLocationModifier(PhysicalCard source, String actionText, Condition condition, String playerId, Filterable cardFilter, Filterable locationFilter, float changeInCost) {
+        this(source, actionText, condition, playerId, cardFilter, locationFilter, changeInCost, false);
+    }
+
+    /**
+     * @param includeUndercoverSpies true if owner's undercover spies may use this location movement text as a 'react'
+     */
+    public MayMoveOtherCardsAsReactToLocationModifier(PhysicalCard source, String actionText, String playerId, Filterable cardFilter, Filterable locationFilter, float changeInCost, boolean includeUndercoverSpies) {
+        this(source, actionText, null, playerId, cardFilter, locationFilter, changeInCost, includeUndercoverSpies);
+    }
+
+    public MayMoveOtherCardsAsReactToLocationModifier(PhysicalCard source, String actionText, Condition condition, String playerId, Filterable cardFilter, Filterable locationFilter, float changeInCost, boolean includeUndercoverSpies) {
         super(source, null, source, condition, ModifierType.MAY_MOVE_OTHER_CARD_AS_REACT_TO_LOCATION, true);
         _actionText = actionText;
         _playerId = playerId;
         _cardFilter = Filters.and(cardFilter, Filters.in_play, Filters.or(Filters.character, Filters.starship, Filters.vehicle));
         _locationFilter = Filters.and(Filters.location, locationFilter);
         _changeInCost = changeInCost;
+        _includeUndercoverSpies = includeUndercoverSpies;
+    }
+
+    public boolean includesUndercoverSpies() {
+        return _includeUndercoverSpies;
     }
 
     @Override
