@@ -160,14 +160,25 @@ public class ChooseCardsToLoseFromTableEffect extends AbstractSubActionEffect {
         protected void cardsSelected(Collection<PhysicalCard> selectedCards) {
             for (PhysicalCard selectedCard : selectedCards) {
 
+                // Pull captives that are also scheduled to be lost into this simultaneous lose so they
+                // leave without Escape/Rally; other captives release via releaseCaptives=true.
+                Collection<PhysicalCard> cardsToLoseNow = new ArrayList<PhysicalCard>(selectedCards);
+                for (PhysicalCard card : selectedCards) {
+                    for (PhysicalCard attached : _game.getGameState().getAttachedCards(card, true)) {
+                        if (attached.isCaptive() && _remainingCards.contains(attached) && !cardsToLoseNow.contains(attached)) {
+                            cardsToLoseNow.add(attached);
+                        }
+                    }
+                }
+
                 // SubAction to carry out losing card from table
                 SubAction loseCardsSubAction = new SubAction(_subAction);
                 loseCardsSubAction.appendEffect(
-                        new LoseCardsFromTableSimultaneouslyEffect(loseCardsSubAction, selectedCards, false, _allCardsSituation, true));
+                        new LoseCardsFromTableSimultaneouslyEffect(loseCardsSubAction, cardsToLoseNow, false, _allCardsSituation, true));
                 // Stack sub-action
                 _subAction.stackSubAction(loseCardsSubAction);
 
-                _remainingCards.remove(selectedCard);
+                _remainingCards.removeAll(cardsToLoseNow);
                 if (!_remainingCards.isEmpty()) {
 
                     _subAction.appendEffect(
