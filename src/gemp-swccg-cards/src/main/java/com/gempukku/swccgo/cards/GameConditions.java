@@ -73,6 +73,31 @@ import java.util.Set;
 public class GameConditions {
 
     // Checks if player has X Force available to be used.
+    /**
+     * Checks when action can be performed "X times per Force drain".
+     *
+     * @param game                 the game
+     * @param self                 the source card of the action
+     * @param count                the value for X
+     * @param gameTextSourceCardId the card id of the game text for this action comes from (when copied from another card)
+     * @param gameTextActionId     the identifier for the card's specific action to check the limit of
+     * @return true if condition is satisfied, otherwise false
+     */
+    public static boolean isNumTimesPerForceDrain(SwccgGame game, PhysicalCard self, int count, int gameTextSourceCardId, GameTextActionId gameTextActionId) {
+        if (!gameTextActionId.isPerForceDrain())
+            throw new UnsupportedOperationException(gameTextActionId + " is not a per Force drain action");
+        if (!game.getGameState().isDuringForceDrain())
+            return false;
+
+        for (String title : self.getTitles()) {
+            if (game.getModifiersQuerying().getUntilEndOfForceDrainLimitCounter(title, gameTextActionId).getUsedLimit() >= count) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 
     /**
      * Determines if player can use at least the specified amount of Force.
