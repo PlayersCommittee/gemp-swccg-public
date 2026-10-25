@@ -264,8 +264,8 @@ public interface Forfeit extends BaseQuery, Attributes, Destiny, Flags, Keywords
             return battleState.getAttritionTotal(gameState.getGame(), playerId);
         }
 
-        // If opponent did not draw any battle destiny, attrition is 0
-        if (battleState.getNumBattleDestinyDrawn(gameState.getOpponent(playerId)) == 0)
+        // If opponent has no remaining uncanceled battle destiny, attrition does not exist
+        if (battleState.getNumUncanceledBattleDestinyDrawn(gameState.getOpponent(playerId)) == 0)
             return 0;
 
         PhysicalCard location = battleState.getBattleLocation();
