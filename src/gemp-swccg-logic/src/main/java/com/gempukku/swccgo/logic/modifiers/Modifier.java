@@ -44,6 +44,33 @@ public interface Modifier {
     void setFromPermanentAstromech(boolean value);
     boolean isFromPermanentAstromech();
     boolean isCumulative();
+    void setCumulative(boolean value);
+
+    /**
+     * Identifies which portion of a card's game text produced this modifier.
+     * Null means the default unspecified clause for this card title and modifier type.
+     * Same title + type + clause may not stack unless the modifier is marked Cumulatively.
+     */
+    String getClauseIdentity();
+
+    /**
+     * Sets the game-text clause this modifier came from. Use this when two portions of
+     * the same title produce the same modifier type and should both be allowed to apply.
+     */
+    void setClauseIdentity(String clauseIdentity);
+
+    /**
+     * Sets the game-text clause from a GameTextActionId. Action-created modifiers often
+     * share this id so a second application of the same text (for example Concentrate All Fire)
+     * is recognized as the same clause.
+     */
+    void setClauseIdentity(GameTextActionId gameTextActionId);
+
+    /**
+     * If this modifier has no clause yet, copy the GameTextActionId off the action that created it.
+     */
+    void applyClauseIdentityFromAction(Action action);
+
     String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self);
     ModifierType getModifierType();
     Condition getCondition();

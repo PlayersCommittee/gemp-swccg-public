@@ -84,8 +84,9 @@ public class ModifyPowerUntilEndOfTurnEffect extends AbstractSuccessfulEffect {
         // Filter for same card while it is in play
         Filter cardFilter = Filters.and(Filters.sameCardId(_cardToModify), Filters.in_play);
 
-        modifiersEnvironment.addUntilEndOfTurnModifier(
-                new PowerModifier(source, cardFilter, _modifierAmount, _cumulatively));
+        PowerModifier powerModifier = new PowerModifier(source, cardFilter, _modifierAmount, _cumulatively);
+        powerModifier.applyClauseIdentityFromAction(_action);
+        modifiersEnvironment.addUntilEndOfTurnModifier(powerModifier);
 
         actionsEnvironment.emitEffectResult(new ResetOrModifyCardAttributeResult(performingPlayerId, _cardToModify));
     }

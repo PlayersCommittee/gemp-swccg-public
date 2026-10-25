@@ -4,7 +4,6 @@ import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.logic.modifiers.querying.Battle;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -331,7 +330,6 @@ public class Card_4_014_Tests {
         assertEquals(8, scn.GetManeuver(falcon));
     }
 
-    @Ignore("RFS cumulative violation; see the block comment in ModifiersLogic.foundCumulativeConflict()")
     @Test
     public void RebelFlightSuitManeuverBonusDoesNotStackCumulativelyFromMultiplePilotsWithSameTitle() {
         var scn = GetScenario();
