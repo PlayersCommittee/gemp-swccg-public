@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.logic.effects;
 
+import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
@@ -7,6 +8,8 @@ import com.gempukku.swccgo.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This effect records the specified card(s) as being played for the purposes of the game keeping track of which cards
@@ -36,6 +39,13 @@ public class RecordCardsBeingPlayedEffect extends AbstractSuccessfulEffect {
             // Increment card title played per turn
             for (String title : cardPlayed.getTitles()) {
                 modifiersQuerying.getCardTitlePlayedTurnLimitCounter(title).incrementToLimit(Integer.MAX_VALUE, 1);
+            }
+
+            // Record personas played this turn (including permanent personas aboard)
+            Set<Persona> personas = new HashSet<Persona>(cardPlayed.getBlueprint().getPersonas());
+            personas.addAll(modifiersQuerying.getPersonas(game.getGameState(), cardPlayed));
+            for (Persona persona : personas) {
+                modifiersQuerying.recordPersonaPlayedThisTurn(persona);
             }
         }
     }
