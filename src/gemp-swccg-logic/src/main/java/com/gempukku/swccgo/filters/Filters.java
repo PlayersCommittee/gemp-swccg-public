@@ -9866,9 +9866,6 @@ public class Filters {
             if (physicalCard.getBlueprint().getCardCategory()!=CardCategory.LOCATION)
                 return false;
 
-            if (physicalCard.getBlueprint().isFrontOfDoubleSidedCard())
-                return false;
-
             if (!deployable(physicalCard, null, false, 0).accepts(gameState, modifiersQuerying, physicalCard))
                 return false;
 
