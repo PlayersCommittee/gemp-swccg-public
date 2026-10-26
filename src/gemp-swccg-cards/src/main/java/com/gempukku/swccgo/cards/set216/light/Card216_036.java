@@ -50,9 +50,8 @@ public class Card216_036 extends AbstractRebel {
     public List<TopLevelGameTextAction> getGameTextTopLevelWhileStackedActions(String playerId, SwccgGame game, PhysicalCard self, int gameTextSourceCardId) {
         List<TopLevelGameTextAction> actions = new LinkedList<>();
 
-        GameTextActionId gameTextActionId = GameTextActionId.MASTER_KENOBI__DEPLOY_BATTLEGROUND;
-
         if (game.getModifiersQuerying().isCommuning(game.getGameState(), self)) {
+            GameTextActionId gameTextActionId = GameTextActionId.MASTER_KENOBI__DEPLOY_BATTLEGROUND;
             if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                     && GameConditions.canDeployCardFromReserveDeck(game, playerId, self, gameTextActionId)) {
                 TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
@@ -72,25 +71,25 @@ public class Card216_036 extends AbstractRebel {
 
                 actions.add(action);
             }
-        }
 
-        gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
-        if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
-                && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.Rebel))
-                && GameConditions.canUseForce(game, playerId, 1)) {
+            gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+            if (GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId, gameTextActionId)
+                    && GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.Rebel))
+                    && GameConditions.canUseForce(game, playerId, 1)) {
 
-            int toAdd = 3;
-            if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.Rebel, Filters.Luke)))
-                toAdd = 5;
+                int toAdd = 3;
+                if (GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.your(self), Filters.Rebel, Filters.Luke)))
+                    toAdd = 5;
 
-            TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
-            action.setText("Add " + toAdd + " to total power");
-            action.appendCost(
-                    new UseForceEffect(action, playerId, 1));
-            action.appendEffect(
-                    new ModifyTotalPowerUntilEndOfBattleEffect(action, toAdd, playerId, "Add " + toAdd + " to total power"));
+                TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
+                action.setText("Add " + toAdd + " to total power");
+                action.appendCost(
+                        new UseForceEffect(action, playerId, 1));
+                action.appendEffect(
+                        new ModifyTotalPowerUntilEndOfBattleEffect(action, toAdd, playerId, "Add " + toAdd + " to total power"));
 
-            actions.add(action);
+                actions.add(action);
+            }
         }
 
         return actions;
