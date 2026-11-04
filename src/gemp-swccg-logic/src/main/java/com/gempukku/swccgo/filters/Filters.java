@@ -8598,6 +8598,10 @@ public class Filters {
                 if (card.isUndercover())
                     return false;
 
+                // Cards that deploy and move like an undercover spy (e.g. Seekers) may never be aboard a starship or vehicle
+                if (modifiersQuerying.isDeploysAndMovesLikeUndercoverSpy(gameState, card))
+                    return false;
+
                 if (card.getBlueprint().getCardCategory() != CardCategory.CHARACTER &&
                     !card.getBlueprint().isMovesLikeCharacter())
                         return false;

@@ -35,6 +35,8 @@ public class Card_1_069_Tests {
 					put("corvette","1_140"); //Corellian Corvette (capital, passenger capacity)
 					put("tatooine","1_127"); //Tatooine system
 					put("urchins","5_017"); //All My Urchins
+					put("lightmaker","209_030"); //Lightmaker (capital, permanent pilot, no passenger capacity)
+					put("seeker","1_160"); //Tagge Seeker (deploys and moves like an undercover spy)
 				}},
 				new HashMap<>() {{
 					put("landing","11_092"); //Tatooine: Desert Landing Site
@@ -529,6 +531,198 @@ public class Card_1_069_Tests {
 
 		assertTrue(scn.IsAttachedTo(ywing, yerka));
 		assertTrue(scn.IsAboardAsPassenger(ywing, yerka));
+	}
+
+	@Test
+	public void YerkaMigCannotDeployAboardStarshipWithNoPassengerCapacity() {
+		//Lightmaker has a permanent pilot and no passenger capacity, so there is nowhere for Yerka to ride
+		var scn = GetScenario();
+
+		var yerka = scn.GetLSCard("yerka");
+		var corvette = scn.GetLSCard("corvette");
+		var lightmaker = scn.GetLSCard("lightmaker");
+		var system = scn.GetLSStartingLocation();
+
+		var trooper = scn.GetDSFiller(1);
+		var site = scn.GetDSStartingLocation();
+
+		scn.StartGame();
+
+		scn.MoveCardsToLSHand(yerka);
+		scn.MoveCardsToLocation(site, trooper);
+		scn.MoveCardsToLocation(system, corvette, lightmaker);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		scn.LSDeployCard(yerka);
+		assertTrue(scn.LSHasCardChoiceAvailable(corvette));
+		assertFalse(scn.LSHasCardChoiceAvailable(lightmaker));
+	}
+
+	@Test
+	public void YerkaMigCannotShuttleToStarshipWithNoPassengerCapacity() {
+		var scn = GetScenario();
+
+		var yerka = scn.GetLSCard("yerka");
+		var lightmaker = scn.GetLSCard("lightmaker");
+		var tatooine = scn.GetLSCard("tatooine");
+		var site = scn.GetDSStartingLocation(); // Tatooine: Marketplace (exterior)
+
+		var trooper = scn.GetDSFiller(1);
+
+		scn.StartGame();
+
+		scn.MoveCardsToLSHand(yerka);
+		scn.MoveLocationToTable(tatooine);
+		var landing = scn.GetDSCard("landing");
+		scn.MoveLocationToTable(landing);
+		scn.MoveCardsToLocation(landing, trooper);
+		scn.MoveCardsToLocation(tatooine, lightmaker);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		scn.LSDeployCard(yerka);
+		scn.LSChooseCard(site);
+		scn.LSChooseCard(trooper);
+		scn.PassAllResponses();
+		assertTrue(scn.CardsAtLocation(site, yerka));
+
+		scn.SkipToPhase(Phase.MOVE);
+		assertTrue(scn.AwaitingLSMovePhaseActions());
+		assertFalse(scn.LSCardActionAvailable(yerka, "Shuttle"));
+	}
+
+	@Test
+	public void AllMyUrchinsCannotShuttleToStarshipWithNoPassengerCapacity() {
+		var scn = GetScenario();
+
+		var urchins = scn.GetLSCard("urchins");
+		var lightmaker = scn.GetLSCard("lightmaker");
+		var tatooine = scn.GetLSCard("tatooine");
+		var site = scn.GetDSStartingLocation();
+		var rebel = scn.GetLSFiller(1);
+
+		var trooper = scn.GetDSFiller(1);
+
+		scn.StartGame();
+
+		scn.MoveCardsToLSHand(urchins);
+		scn.MoveLocationToTable(tatooine);
+		scn.MoveCardsToLocation(site, rebel, trooper);
+		scn.MoveCardsToLocation(tatooine, lightmaker);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		scn.LSDeployCard(urchins);
+		scn.LSChooseCard(site);
+		scn.PassAllResponses();
+		assertTrue(scn.CardsAtLocation(site, urchins));
+
+		scn.SkipToPhase(Phase.MOVE);
+		assertTrue(scn.AwaitingLSMovePhaseActions());
+		assertFalse(scn.LSCardActionAvailable(urchins, "Shuttle"));
+	}
+
+	@Test
+	public void YerkaMigCannotTransferToDockedStarshipWithNoPassengerCapacity() {
+		var scn = GetScenario();
+
+		var yerka = scn.GetLSCard("yerka");
+		var corvette = scn.GetLSCard("corvette");
+		var lightmaker = scn.GetLSCard("lightmaker");
+		var system = scn.GetLSStartingLocation();
+
+		var trooper = scn.GetDSFiller(1);
+
+		scn.StartGame();
+
+		scn.MoveCardsToLSHand(yerka);
+		var landing = scn.GetDSCard("landing");
+		scn.MoveLocationToTable(landing);
+		scn.MoveCardsToLocation(landing, trooper);
+		scn.MoveCardsToLocation(system, corvette, lightmaker);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		scn.LSDeployCard(yerka);
+		scn.LSChooseCard(corvette);
+		scn.LSChooseCard(trooper);
+		scn.PassAllResponses();
+		assertTrue(scn.IsAboardAsPassenger(corvette, yerka));
+
+		scn.SkipToPhase(Phase.MOVE);
+		assertTrue(scn.LSCardActionAvailable(corvette, "dock"));
+		scn.LSUseCardAction(corvette, "dock");
+		scn.LSChooseCard(lightmaker);
+		scn.PassAllResponses();
+		scn.DSPass();
+
+		assertTrue(scn.AwaitingLSMovePhaseActions());
+		assertFalse(scn.LSCardActionAvailable(yerka, "Transfer"));
+		assertTrue(scn.IsAboardAsPassenger(corvette, yerka));
+	}
+
+	@Test
+	public void SeekerCannotDeployAboardStarshipOrVehicle() {
+		//AR Weapons - Seekers: Seekers follow the deployment and movement rules of undercover spies.
+		//AR Undercover Spy Rules - Deploy: never aboard a vehicle or starship card.
+		var scn = GetScenario();
+
+		var seeker = scn.GetLSCard("seeker");
+		var corvette = scn.GetLSCard("corvette");
+		var skiff = scn.GetLSCard("skiff");
+		var tatooine = scn.GetLSCard("tatooine");
+		var landing = scn.GetDSCard("landing");
+
+		scn.StartGame();
+
+		scn.MoveCardsToLSHand(seeker);
+		scn.MoveLocationToTable(tatooine);
+		scn.MoveLocationToTable(landing);
+		scn.MoveCardsToLocation(tatooine, corvette);
+		scn.MoveCardsToLocation(landing, skiff);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		assertTrue(scn.LSDeployAvailable(seeker));
+		scn.LSDeployCard(seeker);
+		assertTrue(scn.LSHasCardChoiceAvailable(landing));
+		assertFalse(scn.LSHasCardChoiceAvailable(corvette));
+		assertFalse(scn.LSHasCardChoiceAvailable(skiff));
+	}
+
+	@Test
+	public void SeekerCannotShuttleOrEmbarkOntoStarshipOrVehicle() {
+		//AR Undercover Spy Rules - Movement: may not move onto starship or vehicle cards.
+		//Undercover movement happens during the opponent's move phase, so check both move phases.
+		var scn = GetScenario();
+
+		var seeker = scn.GetLSCard("seeker");
+		var corvette = scn.GetLSCard("corvette");
+		var skiff = scn.GetLSCard("skiff");
+		var tatooine = scn.GetLSCard("tatooine");
+		var landing = scn.GetDSCard("landing");
+
+		scn.StartGame();
+
+		scn.MoveCardsToLSHand(seeker);
+		scn.MoveLocationToTable(tatooine);
+		scn.MoveLocationToTable(landing);
+		scn.MoveCardsToLocation(tatooine, corvette);
+		scn.MoveCardsToLocation(landing, skiff);
+
+		scn.SkipToLSTurn(Phase.DEPLOY);
+		scn.LSDeployCard(seeker);
+		scn.LSChooseCard(landing);
+		scn.PassAllResponses();
+		assertTrue(scn.CardsAtLocation(landing, seeker));
+
+		scn.SkipToPhase(Phase.MOVE);
+		assertTrue(scn.AwaitingLSMovePhaseActions());
+		assertFalse(scn.LSCardActionAvailable(seeker, "Shuttle"));
+		assertFalse(scn.LSCardActionAvailable(seeker, "Embark"));
+
+		scn.SkipToDSTurn(Phase.MOVE);
+		scn.DSPass();
+		assertTrue(scn.AwaitingLSMovePhaseActions());
+		assertFalse(scn.LSCardActionAvailable(seeker, "Shuttle"));
+		assertFalse(scn.LSCardActionAvailable(seeker, "Embark"));
+		assertTrue(scn.CardsAtLocation(landing, seeker));
 	}
 
     //add tests for:
