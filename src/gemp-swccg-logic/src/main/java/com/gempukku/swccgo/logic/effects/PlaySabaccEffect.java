@@ -366,7 +366,7 @@ public class PlaySabaccEffect extends AbstractSubActionEffect {
 
                                             final SubAction playerChooseCardValuesAction = new SubAction(chooseCardValuesAction);
                                             playerChooseCardValuesAction.appendEffect(
-                                                    new ChooseSabaccValuesEffect(playerChooseCardValuesAction, _playerId, playersCardsWithVariableValue, false));
+                                                    new ChooseSabaccValuesEffect(playerChooseCardValuesAction, _playerId, playersCardsWithVariableValue));
                                             chooseCardValuesAction.stackSubAction(playerChooseCardValuesAction);
                                         }
                                     }
@@ -394,7 +394,7 @@ public class PlaySabaccEffect extends AbstractSubActionEffect {
 
                                             final SubAction opponentChooseCardValuesAction = new SubAction(chooseCardValuesAction);
                                             opponentChooseCardValuesAction.appendEffect(
-                                                    new ChooseSabaccValuesEffect(opponentChooseCardValuesAction, _opponent, opponentsCardsWithVariableValue, false));
+                                                    new ChooseSabaccValuesEffect(opponentChooseCardValuesAction, _opponent, opponentsCardsWithVariableValue));
                                             chooseCardValuesAction.stackSubAction(opponentChooseCardValuesAction);
                                         }
                                     }
@@ -621,8 +621,10 @@ public class PlaySabaccEffect extends AbstractSubActionEffect {
          * @param playerId the sabacc hand owner
          * @param cardsWithVariableValue the sabacc cards with variable values
          */
-        public ChooseSabaccValuesEffect(SubAction subAction, String playerId, Collection<PhysicalCard> cardsWithVariableValue, boolean consideredComplete) {
-            super(subAction, playerId, playerId, consideredComplete ? 0 : 1, 1, false, Filters.in(cardsWithVariableValue));
+        public ChooseSabaccValuesEffect(SubAction subAction, String playerId, Collection<PhysicalCard> cardsWithVariableValue) {
+            // Only prompt for cards that still need a value. Once a value is set, do not re-offer that card
+            // (avoids Done-button confusion and bot infinite reassignment loops).
+            super(subAction, playerId, playerId, 1, 1, false, Filters.in(cardsStillNeedingSabaccValue(cardsWithVariableValue)));
             _subAction = subAction;
             _currentPlayerId = playerId;
             _cardsWithVariableValue = cardsWithVariableValue;
@@ -660,8 +662,7 @@ public class PlaySabaccEffect extends AbstractSubActionEffect {
                                                                     selectedCard.setSabaccValue(result);
 
                                                                     // Choose next card
-                                                                    _subAction.appendEffect(
-                                                                            new ChooseSabaccValuesEffect(_subAction, _currentPlayerId, _cardsWithVariableValue, isAllCardsHaveSabaccValueSet()));
+                                                                    appendChooseNextSabaccValueIfNeeded(_subAction, _currentPlayerId, _cardsWithVariableValue);
                                                                 }
                                                             }
                                                     ));
@@ -676,8 +677,7 @@ public class PlaySabaccEffect extends AbstractSubActionEffect {
                                                             selectedCard.setSabaccValue(game.getModifiersQuerying().getDestiny(game.getGameState(), selectedCard));
 
                                                             // Choose next card
-                                                            _subAction.appendEffect(
-                                                                    new ChooseSabaccValuesEffect(_subAction, _currentPlayerId, _cardsWithVariableValue, isAllCardsHaveSabaccValueSet()));
+                                                            appendChooseNextSabaccValueIfNeeded(_subAction, _currentPlayerId, _cardsWithVariableValue);
 
                                                         }
                                                     }
@@ -698,8 +698,7 @@ public class PlaySabaccEffect extends AbstractSubActionEffect {
                                             selectedCard.setSabaccValue(result);
 
                                             // Choose next card
-                                            _subAction.appendEffect(
-                                                    new ChooseSabaccValuesEffect(_subAction, _currentPlayerId, _cardsWithVariableValue, isAllCardsHaveSabaccValueSet()));
+                                            appendChooseNextSabaccValueIfNeeded(_subAction, _currentPlayerId, _cardsWithVariableValue);
                                         }
                                     }
                             ));
@@ -717,8 +716,7 @@ public class PlaySabaccEffect extends AbstractSubActionEffect {
                                                 selectedCard.setSabaccValue(optionalCloneValue);
 
                                                 // Choose next card
-                                                _subAction.appendEffect(
-                                                        new ChooseSabaccValuesEffect(_subAction, _currentPlayerId, _cardsWithVariableValue, isAllCardsHaveSabaccValueSet()));
+                                                appendChooseNextSabaccValueIfNeeded(_subAction, _currentPlayerId, _cardsWithVariableValue);
                                             }
                                             @Override
                                             protected void no() {
@@ -733,8 +731,7 @@ public class PlaySabaccEffect extends AbstractSubActionEffect {
                                                                 selectedCard.setSabaccCardCloned(selectedNonClone);
 
                                                                 // Choose next card
-                                                                _subAction.appendEffect(
-                                                                        new ChooseSabaccValuesEffect(_subAction, _currentPlayerId, _cardsWithVariableValue, isAllCardsHaveSabaccValueSet()));
+                                                                appendChooseNextSabaccValueIfNeeded(_subAction, _currentPlayerId, _cardsWithVariableValue);
                                                             }
                                                             @Override
                                                             public String getChoiceText(int numCardsToChoose) {
@@ -758,8 +755,7 @@ public class PlaySabaccEffect extends AbstractSubActionEffect {
                                         selectedCard.setSabaccCardCloned(selectedNonClone);
 
                                         // Choose next card
-                                        _subAction.appendEffect(
-                                                new ChooseSabaccValuesEffect(_subAction, _currentPlayerId, _cardsWithVariableValue, isAllCardsHaveSabaccValueSet()));
+                                        appendChooseNextSabaccValueIfNeeded(_subAction, _currentPlayerId, _cardsWithVariableValue);
                                     }
                                     @Override
                                     public String getChoiceText(int numCardsToChoose) {
@@ -778,8 +774,7 @@ public class PlaySabaccEffect extends AbstractSubActionEffect {
                                     selectedCard.setSabaccValue(game.getModifiersQuerying().getDestiny(game.getGameState(), selectedCard));
 
                                     // Choose next card
-                                    _subAction.appendEffect(
-                                            new ChooseSabaccValuesEffect(_subAction, _currentPlayerId, _cardsWithVariableValue, isAllCardsHaveSabaccValueSet()));
+                                    appendChooseNextSabaccValueIfNeeded(_subAction, _currentPlayerId, _cardsWithVariableValue);
 
                                 }
                             }
@@ -790,16 +785,29 @@ public class PlaySabaccEffect extends AbstractSubActionEffect {
         }
 
         /**
-         * Determines if all cards have a sabacc value set.
-         * @return true or false
+         * Continues prompting only while clone/wild (variable) cards still need a sabacc value.
+         * When every card has a value, play continues automatically — no Done click required.
          */
-        private boolean isAllCardsHaveSabaccValueSet() {
-            for (PhysicalCard card : _cardsWithVariableValue) {
-                if (card.getSabaccValue() == -1)
-                    return false;
+        private void appendChooseNextSabaccValueIfNeeded(SubAction subAction, String playerId, Collection<PhysicalCard> cardsWithVariableValue) {
+            if (!cardsStillNeedingSabaccValue(cardsWithVariableValue).isEmpty()) {
+                subAction.appendEffect(
+                        new ChooseSabaccValuesEffect(subAction, playerId, cardsWithVariableValue));
             }
-            return true;
         }
+
+        /**
+         * Cards among the variable sabacc cards that still need a value assigned.
+         */
+        private static java.util.List<PhysicalCard> cardsStillNeedingSabaccValue(Collection<PhysicalCard> cardsWithVariableValue) {
+            java.util.List<PhysicalCard> unset = new java.util.ArrayList<PhysicalCard>();
+            for (PhysicalCard card : cardsWithVariableValue) {
+                if (card.getSabaccValue() == -1) {
+                    unset.add(card);
+                }
+            }
+            return unset;
+        }
+
     }
 
     /**
