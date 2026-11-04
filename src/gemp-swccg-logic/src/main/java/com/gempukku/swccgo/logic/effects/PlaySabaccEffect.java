@@ -632,11 +632,7 @@ public class PlaySabaccEffect extends AbstractSubActionEffect {
 
         @Override
         public String getChoiceText(int numCardsToChoose) {
-            int remaining = cardsStillNeedingSabaccValue(_cardsWithVariableValue).size();
-            if (remaining <= 1) {
-                return "Choose clone/wild card to set sabacc value (continues automatically after assignment)";
-            }
-            return "Choose clone/wild card to set sabacc value (" + remaining + " remaining)";
+            return "Choose card to set sabacc value";
         }
 
         @Override
