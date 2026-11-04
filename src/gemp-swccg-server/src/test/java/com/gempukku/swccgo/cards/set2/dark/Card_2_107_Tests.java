@@ -28,14 +28,14 @@ public class Card_2_107_Tests {
                 {{
                     put("qam", "210_024"); // Quite A Mercenary (V)
                     put("luke", "1_019");
-                    put("caller", "1_34");
-                    put("bolt", "1_38");
+                    put("caller", "1_034");
+                    put("bolt", "1_038");
                 }},
                 new HashMap<>()
                 {{
                     put("u3po", "2_107"); // U-3PO (Yoo-Threepio)
                     put("ohSwitchOff", "3_130"); // Oh, Switch Off
-                    put("mouse", "1_188");
+                    put("eg6", "1_175"); // EG-6 (Eegee-Six)
                 }},
                 10,
                 10,
@@ -74,42 +74,6 @@ public class Card_2_107_Tests {
         scn.PassAllResponses();
 
         assertFalse(u3po.isUndercover());
-    }
-
-    /**
-     * After LS chooses to steal, advance until Oh, Switch Off can respond (ABOUT_TO_BE_STOLEN).
-     */
-    private void advanceToOhSwitchOffResponse(VirtualTableScenario scn, com.gempukku.swccgo.game.PhysicalCardImpl ohSwitchOff) {
-        for (int i = 0; i < 20; i++) {
-            var ds = scn.DSGetDecision();
-            if (ds != null && scn.DSCardPlayAvailable(ohSwitchOff)) {
-                return;
-            }
-            var ls = scn.LSGetDecision();
-            if (ls != null) {
-                String lower = ls.getText() == null ? "" : ls.getText().toLowerCase();
-                if (scn.LSDecisionAvailable("steal") || lower.contains("do you want to")) {
-                    scn.LSChooseYes();
-                    continue;
-                }
-                if (lower.contains("optional") || lower.contains("about") || lower.contains("cover") || lower.contains("response")) {
-                    scn.LSPass();
-                    continue;
-                }
-            }
-            if (ds != null) {
-                String lower = ds.getText() == null ? "" : ds.getText().toLowerCase();
-                if (lower.contains("optional") || lower.contains("about") || lower.contains("cover") || lower.contains("response")) {
-                    // Do not pass the Oh Switch Off window
-                    if (scn.DSCardPlayAvailable(ohSwitchOff)) {
-                        return;
-                    }
-                    scn.DSPass();
-                    continue;
-                }
-            }
-            break;
-        }
     }
 
     @Test
@@ -166,8 +130,8 @@ public class Card_2_107_Tests {
 
     @Test
     public void OhSwitchOffCanCancelStealOfU3POAfterCoverBroken() {
-        // Repro (#50): LS breaks U-3PO cover (Quite A Mercenary (V)), chooses steal;
-        // Oh, Switch Off should light up and keep U-3PO as a DS droid.
+        // Repro (#50): LS breaks U-3PO cover (Quite A Mercenary (V)), chooses to steal;
+        // U-3PO is targeted to be stolen, so Oh, Switch Off can cancel and keep U-3PO as a DS droid.
         var scn = GetScenario();
         var u3po = scn.GetDSCard("u3po");
         var ohSwitchOff = scn.GetDSCard("ohSwitchOff");
@@ -178,8 +142,8 @@ public class Card_2_107_Tests {
 
         assertTrue(scn.LSDecisionAvailable("steal"));
         scn.LSChooseYes();
-        advanceToOhSwitchOffResponse(scn, ohSwitchOff);
 
+        assertTrue(scn.DSDecisionAvailable("Optional responses"));
         assertTrue("Oh, Switch Off should be playable to cancel the steal", scn.DSCardPlayAvailable(ohSwitchOff));
         scn.DSPlayCard(ohSwitchOff);
         scn.PassAllResponses();
@@ -200,9 +164,8 @@ public class Card_2_107_Tests {
 
         assertTrue(scn.LSDecisionAvailable("steal"));
         scn.LSChooseYes();
-        advanceToOhSwitchOffResponse(scn, ohSwitchOff);
 
-        assertTrue("Oh, Switch Off should still be available before DS declines", scn.DSCardPlayAvailable(ohSwitchOff));
+        assertTrue("Oh, Switch Off should be available before DS declines", scn.DSCardPlayAvailable(ohSwitchOff));
         scn.PassAllResponses();
 
         assertEquals(scn.LS, u3po.getOwner());
@@ -216,14 +179,14 @@ public class Card_2_107_Tests {
         var luke = scn.GetLSCard("luke");
         var caller = scn.GetLSCard("caller");
         var bolt = scn.GetLSCard("bolt");
-        var mouse = scn.GetDSCard("mouse");
+        var eg6 = scn.GetDSCard("eg6");
         var ohSwitchOff = scn.GetDSCard("ohSwitchOff");
         var site = scn.GetLSStartingLocation();
 
         scn.StartGame();
-        scn.MoveCardsToLocation(site, luke, mouse);
+        scn.MoveCardsToLocation(site, luke, eg6);
         scn.AttachCardsTo(luke, caller);
-        scn.AttachCardsTo(mouse, bolt);
+        scn.AttachCardsTo(eg6, bolt);
         scn.MoveCardsToDSHand(ohSwitchOff);
 
         scn.SkipToLSTurn(Phase.CONTROL);
@@ -236,8 +199,8 @@ public class Card_2_107_Tests {
         }
         assertTrue(scn.LSCardActionAvailable(caller, "Steal"));
         scn.LSUseCardAction(caller, "Steal");
-        if (scn.LSHasCardChoiceAvailable(mouse)) {
-            scn.LSChooseCard(mouse);
+        if (scn.LSHasCardChoiceAvailable(eg6)) {
+            scn.LSChooseCard(eg6);
         }
         // Caller steal is a targeting Effect (before-action). Do not PassAllResponses —
         // that skips the Oh, Switch Off window.
@@ -253,7 +216,8 @@ public class Card_2_107_Tests {
         scn.DSPlayCard(ohSwitchOff);
         scn.PassAllResponses();
 
-        assertEquals(scn.DS, mouse.getOwner());
-        assertTrue(scn.CardsAtLocation(site, mouse));
+        assertEquals(scn.DS, eg6.getOwner());
+        assertTrue(scn.CardsAtLocation(site, eg6));
     }
+
 }

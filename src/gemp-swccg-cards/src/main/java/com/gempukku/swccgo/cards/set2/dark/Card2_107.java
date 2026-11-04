@@ -11,6 +11,7 @@ import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.ModelType;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -21,9 +22,12 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
 import com.gempukku.swccgo.logic.decisions.YesNoDecision;
 import com.gempukku.swccgo.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.StealCardToLocationEffect;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.TotalPowerModifier;
+import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -66,25 +70,46 @@ public class Card2_107 extends AbstractDroid {
             if (!lightPlayer.equals(self.getOwner())) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
-                // Light Side performs the steal so ABOUT_TO_BE_STOLEN / Oh, Switch Off can respond
+                // Light Side is the player attempting to steal U-3PO
                 action.setPerformingPlayer(lightPlayer);
                 action.setText("Choose whether to 'steal'");
-                action.setActionMsg("Have " + lightPlayer + " choose whether to 'steal' " + GameUtils.getCardLink(self));
-                // Yes/No then steal; Oh, Switch Off cancels via ABOUT_TO_BE_STOLEN (and TO_BE_STOLEN targeting if present)
-                action.appendEffect(
+                // Choose target(s)
+                action.appendTargeting(
                         new PlayoutDecisionEffect(action, lightPlayer,
                                 new YesNoDecision("Do you want to 'steal' " + GameUtils.getCardLink(self) + "?") {
                                     @Override
                                     protected void yes() {
                                         game.getGameState().sendMessage(lightPlayer + " chooses to 'steal' " + GameUtils.getCardLink(self));
-                                        action.appendEffect(
-                                                new StealCardToLocationEffect(action, lightPlayer, self));
+                                        action.appendTargeting(
+                                                new TargetCardOnTableEffect(action, lightPlayer, "Target " + GameUtils.getCardLink(self) + " to be stolen", TargetingReason.TO_BE_STOLEN, self) {
+                                                    @Override
+                                                    protected void cardTargeted(final int targetGroupId, PhysicalCard targetedCard) {
+                                                        action.addAnimationGroup(targetedCard);
+                                                        // Allow response(s)
+                                                        action.allowResponses("Steal " + GameUtils.getCardLink(targetedCard),
+                                                                new RespondableEffect(action) {
+                                                                    @Override
+                                                                    protected void performActionResults(Action targetingAction) {
+                                                                        // Get the targeted card(s) from the action using the targetGroupId.
+                                                                        // This needs to be done in case the target(s) were changed during the responses.
+                                                                        final PhysicalCard cardToSteal = action.getPrimaryTargetCard(targetGroupId);
+
+                                                                        // Perform result(s)
+                                                                        action.appendEffect(
+                                                                                new StealCardToLocationEffect(action, lightPlayer, cardToSteal));
+                                                                    }
+                                                                }
+                                                        );
+                                                    }
+                                                }
+                                        );
                                     }
 
                                     @Override
                                     protected void no() {
                                         game.getGameState().sendMessage(lightPlayer + " chooses not to 'steal' " + GameUtils.getCardLink(self));
                                     }
+
                                 }
                         )
                 );

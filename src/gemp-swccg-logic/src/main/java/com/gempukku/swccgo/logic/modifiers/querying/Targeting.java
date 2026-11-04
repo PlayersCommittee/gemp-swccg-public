@@ -140,7 +140,9 @@ public interface Targeting extends BaseQuery, Weapons, Captives, CardTraits, Pil
             }
 
             if (cardDoingTargeting != null) {
-                if (cardToTarget.getOwner().equals(cardDoingTargeting.getOwner()))
+                // A card may target itself (e.g. U-3PO lets the opponent steal him)
+                if (cardToTarget.getOwner().equals(cardDoingTargeting.getOwner())
+                        && cardToTarget.getCardId() != cardDoingTargeting.getCardId())
                     return false;
 
                 if ((targetingReasons.contains(TargetingReason.TO_BE_STOLEN)
