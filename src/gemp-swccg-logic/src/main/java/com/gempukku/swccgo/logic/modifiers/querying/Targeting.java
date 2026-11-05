@@ -235,7 +235,9 @@ public interface Targeting extends BaseQuery, Weapons, Captives, CardTraits, Pil
             if (location != null) {
                 String systemName = location.getPartOfSystem() != null ? location.getPartOfSystem() : location.getSystemOrbited();
                 if (systemName != null) {
+                    // Exclude the card itself so movement within the same system is not blocked by its own presence
                     if (Filters.canSpotFromAllOnTable(gameState.getGame(), uniqueness.getValue(), Filters.and(Filters.sameTitleAs(card),
+                            Filters.not(Filters.sameCardId(card)),
                             Filters.locationAndCardsAtLocation(Filters.or(Filters.partOfSystem(systemName),
                                     Filters.and(Filters.not(Filters.system), Filters.isOrbiting(systemName))))))) {
                         return true;
