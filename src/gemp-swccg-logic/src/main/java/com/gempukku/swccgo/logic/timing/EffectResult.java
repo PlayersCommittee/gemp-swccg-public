@@ -30,6 +30,7 @@ public abstract class EffectResult implements Snapshotable<EffectResult> {
         PLACE_IN_PLAY,
 
         // Character persona replaced
+        ABOUT_TO_PERSONA_REPLACE_CHARACTER,
         PERSONA_REPLACED_CHARACTER,
 
         // Character converted

@@ -14,12 +14,12 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.gempukku.swccgo.framework.Assertions.assertInZone;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -110,11 +110,9 @@ public class Card_110_003_Tests {
         assertEquals(Rarity.PM,card.getRarity());
     }
 
-    //this test demonstrates bug https://github.com/PlayersCommittee/gemp-swccg-public/issues/894
-    @Test @Ignore
+    @Test
     public void SeeThreepioRetrieves3Force() {
-        //Test1: persona replace C-3P0 and verify retrieval works
-        //Test2: retrieval occurs before persona replacement (CURRENTLY FAILS)
+        // Retrieval is "when replacing," so the replaced C-3PO is not in Lost Pile yet.
         var scn = GetScenario();
 
         var seethree = scn.GetLSCard("seethree");
@@ -147,7 +145,7 @@ public class Card_110_003_Tests {
         assertFalse(scn.CardsAtLocation(jp_ac,c3p0));
         assertEquals(3,scn.GetLSUsedPileCount()); //Test1: successfully retrieved 3
         assertEquals(2,scn.GetLSLostPileCount()); //4 - 3 + c3p0
-        assertTrue(c3p0.getZone() == Zone.LOST_PILE); //Test2: placed in lost pile after retrieval happened
+        assertInZone(Zone.LOST_PILE, c3p0);
     }
 
     @Test
