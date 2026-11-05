@@ -4,6 +4,7 @@ import com.gempukku.polling.LongPollableResource;
 import com.gempukku.polling.WaitingRequest;
 import com.gempukku.swccgo.communication.GameStateListener;
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.decisions.AwaitingDecision;
 import com.gempukku.swccgo.logic.timing.GameStats;
 
@@ -60,6 +61,11 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
         }
     }
 
+
+    private boolean alwaysShowCardFront(PhysicalCard card, GameState gameState) {
+        return GameUtils.canExamineFaceDownStackedCard(gameState, _self, card);
+    }
+
     private int[] getCardIds(Collection<PhysicalCard> cards) {
         int[] result = new int[cards.size()];
         int index = 0;
@@ -78,13 +84,13 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
     @Override
     public void cardCreated(PhysicalCard card, GameState gameState, boolean restoreSnapshot) {
         if (!card.isNotShownOnUserInterface() && (card.getZone().isPublic() || (card.getZone().isVisibleByOwner() && card.getOwner().equals(_self))))
-            appendEvent(new GameEvent(restoreSnapshot ? PCIPAR : PCIP).card(card, gameState, false));
+            appendEvent(new GameEvent(restoreSnapshot ? PCIPAR : PCIP).card(card, gameState, alwaysShowCardFront(card, gameState)));
     }
 
     @Override
     public void cardReplaced(PhysicalCard card, GameState gameState) {
         if (!card.isNotShownOnUserInterface() && (card.getZone().isPublic() || (card.getZone().isVisibleByOwner() && card.getOwner().equals(_self))))
-            appendEvent(new GameEvent(RCIP).card(card, gameState, false));
+            appendEvent(new GameEvent(RCIP).card(card, gameState, alwaysShowCardFront(card, gameState)));
     }
 
     @Override
@@ -94,22 +100,22 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
 
     @Override
     public void cardMoved(PhysicalCard card, GameState gameState) {
-        appendEvent(new GameEvent(MCIP).card(card, gameState, false));
+        appendEvent(new GameEvent(MCIP).card(card, gameState, alwaysShowCardFront(card, gameState)));
     }
 
     @Override
     public void cardRotated(PhysicalCard card, GameState gameState) {
-        appendEvent(new GameEvent(ROCIP).card(card, gameState, false));
+        appendEvent(new GameEvent(ROCIP).card(card, gameState, alwaysShowCardFront(card, gameState)));
     }
 
     @Override
     public void cardFlipped(PhysicalCard card, GameState gameState) {
-        appendEvent(new GameEvent(FCIP).card(card, gameState, false));
+        appendEvent(new GameEvent(FCIP).card(card, gameState, alwaysShowCardFront(card, gameState)));
     }
 
     @Override
     public void cardTurnedOver(PhysicalCard card, GameState gameState) {
-        appendEvent(new GameEvent(TCO).card(card, gameState, false));
+        appendEvent(new GameEvent(TCO).card(card, gameState, alwaysShowCardFront(card, gameState)));
     }
 
     @Override
@@ -131,12 +137,12 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
 
     @Override
     public void addToBattle(PhysicalCard card, GameState gameState) {
-        appendEvent(new GameEvent(ATB).card(card, gameState, false));
+        appendEvent(new GameEvent(ATB).card(card, gameState, alwaysShowCardFront(card, gameState)));
     }
 
     @Override
     public void removeFromBattle(PhysicalCard card, GameState gameState) {
-        appendEvent(new GameEvent(RFB).card(card, gameState, false));
+        appendEvent(new GameEvent(RFB).card(card, gameState, alwaysShowCardFront(card, gameState)));
     }
 
     @Override
@@ -220,12 +226,12 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
 
     @Override
     public void destinyDrawn(PhysicalCard card, GameState gameState, String destinyText) {
-        appendEvent(new GameEvent(DD).card(card, gameState, false).destinyText(destinyText));
+        appendEvent(new GameEvent(DD).card(card, gameState, alwaysShowCardFront(card, gameState)).destinyText(destinyText));
     }
 
     @Override
     public void cardActivated(String playerPerforming, PhysicalCard card, GameState gameState) {
-        appendEvent(new GameEvent(CA).card(card, gameState, false).participantId(playerPerforming));
+        appendEvent(new GameEvent(CA).card(card, gameState, alwaysShowCardFront(card, gameState)).participantId(playerPerforming));
     }
 
     @Override

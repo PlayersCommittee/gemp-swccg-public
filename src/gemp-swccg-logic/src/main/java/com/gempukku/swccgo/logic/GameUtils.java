@@ -5,6 +5,7 @@ import com.gempukku.swccgo.common.Title;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgCardBlueprint;
+import com.gempukku.swccgo.game.state.GameState;
 
 import java.util.*;
 
@@ -323,5 +324,85 @@ public class GameUtils {
             zone = Zone.UNRESOLVED_DESTINY_DRAW;
 
         return zone;
+    }
+
+    /**
+     * Per AR "Looking At A Deck, Pile, Or Stack": if YOUR card is stacked face-down on (or under)
+     * another of YOUR cards (or any location), you may examine it unless a card/rule prohibits.
+     * Ownership of the stacked card and of the card it is stacked on (or any location) gates access;
+     * AR examples such as Insignificant Rebellion / I Feel The Conflict are covered by that ownership check.
+     * Hatred cards: AR special exception — owners may examine their face-down Hatred cards at any time.
+     * Not a game action; does not reveal identity to opponent/spectators.
+     *
+     * @param gameState the game state (reserved for future prohibition checks; may be null)
+     * @param viewerId the player who would examine the card
+     * @param card the stacked card
+     * @return true if viewerId may examine the face-down stacked card
+     */
+    public static boolean canExamineFaceDownStackedCard(GameState gameState, String viewerId, PhysicalCard card) {
+        if (viewerId == null || card == null) {
+            return false;
+        }
+        if (card.getZone() != Zone.STACKED_FACE_DOWN) {
+            return false;
+        }
+        if (!viewerId.equals(card.getOwner())) {
+            return false;
+        }
+
+        PhysicalCard stackedOn = card.getStackedOn();
+        if (stackedOn == null) {
+            return false;
+        }
+
+        // AR Hatred exception: owner may examine their face-down Hatred cards at any time
+        if (card.isHatredCard()) {
+            return true;
+        }
+
+        // Stacked on any location
+        if (stackedOn.getBlueprint() != null
+                && stackedOn.getBlueprint().getCardCategory() == CardCategory.LOCATION) {
+            return true;
+        }
+
+        // Stacked on (or under) another of the viewer's cards
+        return viewerId.equals(stackedOn.getOwner());
+    }
+
+    /**
+     * Full right-click card info (destiny, ability, owner, etc.) is shown for in-play,
+     * hand, and stacked cards. Face-down stacked content is still gated by
+     * {@link #canExamineFaceDownStackedCard} in produceCardInfo.
+     */
+    public static boolean includeDetailedCardInfo(Zone zone) {
+        return zone != null && (zone.isInPlay() || zone == Zone.HAND
+                || zone == Zone.STACKED || zone == Zone.STACKED_FACE_DOWN);
+    }
+
+    /**
+     * Generic Light/Dark card backs sent when the viewer is not entitled to the front.
+     */
+    public static boolean isGenericCardBack(String blueprintId) {
+        return "-1_1".equals(blueprintId) || "-1_2".equals(blueprintId);
+    }
+
+    /**
+     * Hidden face-down cards serialize as vertical so observers cannot tell a site
+     * (or other horizontal card) from an Effect by the right-click preview.
+     * Uses the blueprint id that will actually be sent: a generic back is always vertical.
+     */
+    public static boolean serializeAsHorizontal(PhysicalCard card, boolean alwaysShowCardFront) {
+        return serializeAsHorizontal(card, null, alwaysShowCardFront);
+    }
+
+    public static boolean serializeAsHorizontal(PhysicalCard card, GameState gameState, boolean alwaysShowCardFront) {
+        if (card == null || card.getBlueprint() == null) {
+            return false;
+        }
+        if (isGenericCardBack(card.getBlueprintId(gameState, alwaysShowCardFront))) {
+            return false;
+        }
+        return card.getBlueprint().isHorizontal();
     }
 }
