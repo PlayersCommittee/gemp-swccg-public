@@ -13,7 +13,6 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -151,7 +150,7 @@ public class Card_2_003_Tests {
         assertEquals(Zone.TOP_OF_USED_PILE, c3p0.getZone());
     }
 
-    @Test @Ignore
+    @Test
     public void ChewbaccaSendsDroidHitAndLostInBattleToUsedPile() {
         var scn = GetScenario();
 
@@ -234,7 +233,7 @@ public class Card_2_003_Tests {
         assertEquals(Zone.TOP_OF_USED_PILE, c3p0.getZone());
     }
 
-    @Test @Ignore
+    @Test
     public void ChewbaccaSendsDroidHitAndExcludedInBattleToUsedPile() {
         var scn = GetScenario();
 
@@ -280,10 +279,7 @@ public class Card_2_003_Tests {
         scn.LSPass();
 
         assertTrue(c3p0.isHit());
-        assertTrue(scn.DSDecisionAvailable("ABOUT_TO_BE_LOST_FROM_TABLE"));
-        scn.DSPass(); //ABOUT_TO_BE_LOST_FROM_TABLE - Optional responses
-
-            //automatic send to used pile action should be carried out here
+        // Chewie required Used-instead-of-Lost resolves during about-to-be-lost
         scn.PassAllResponses();
 
         assertTrue(scn.AwaitingLSWeaponsSegmentActions());

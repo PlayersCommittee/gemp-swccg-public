@@ -21,7 +21,7 @@ import com.gempukku.swccgo.logic.effects.PlaceCardInUsedPileFromTableEffect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.AboutToForfeitCardFromTableResult;
-import com.gempukku.swccgo.logic.timing.results.AboutToLoseCardFromTableResult;
+import com.gempukku.swccgo.logic.timing.results.AboutToLeaveTableResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -47,56 +47,31 @@ public class Card3_024 extends AbstractDroid {
                 Filters.or(Filters.atSameOrAdjacentSite(self), Filters.at(Filters.or(Filters.relatedSystem(self), Filters.relatedCloudSector(self)))));
         Filter exteriorPlanetSiteOrDockingBay = Filters.or(Filters.exterior_planet_site, Filters.docking_bay);
 
-        // Check condition(s)
-        if (TriggerConditions.isAboutToBeLost(game, effectResult, starshipOrVehicleFilter)
+        if ((TriggerConditions.isAboutToBeLost(game, effectResult, starshipOrVehicleFilter)
+                || TriggerConditions.isAboutToBeForfeitedToLostPile(game, effectResult, starshipOrVehicleFilter))
                 && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)
                 && GameConditions.isAtLocation(game, self, exteriorPlanetSiteOrDockingBay)) {
-            final AboutToLoseCardFromTableResult result = (AboutToLoseCardFromTableResult) effectResult;
-            final PhysicalCard cardToBeLost = result.getCardToBeLost();
+            final AboutToLeaveTableResult leaveResult = (AboutToLeaveTableResult) effectResult;
+            final PhysicalCard cardLeaving = leaveResult.getCardAboutToLeaveTable();
 
             final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Place " + GameUtils.getFullName(cardToBeLost) + " in Used Pile");
-            action.setActionMsg("Place " + GameUtils.getCardLink(cardToBeLost) + " in Used Pile");
-            // Update usage limit(s)
+            action.setText("Place " + GameUtils.getFullName(cardLeaving) + " in Used Pile");
+            action.setActionMsg("Place " + GameUtils.getCardLink(cardLeaving) + " in Used Pile");
             action.appendUsage(
                     new OncePerTurnEffect(action));
-            // Pay cost(s)
             action.appendCost(
                     new LoseForceEffect(action, playerId, 1, true));
-            // Perform result(s)
             action.appendEffect(
                     new PassthruEffect(action) {
                         @Override
                         protected void doPlayEffect(SwccgGame game) {
-                            result.getPreventableCardEffect().preventEffectOnCard(cardToBeLost);
-                            action.appendEffect(
-                                    new PlaceCardInUsedPileFromTableEffect(action, result.getCardToBeLost()));
-                        }
-                    });
-            return Collections.singletonList(action);
-        }
-        // Check condition(s)
-        if (TriggerConditions.isAboutToBeForfeitedToLostPile(game, effectResult, starshipOrVehicleFilter)
-                && GameConditions.isOncePerTurn(game, self, playerId, gameTextSourceCardId)
-                && GameConditions.isAtLocation(game, self, exteriorPlanetSiteOrDockingBay)) {
-            final AboutToForfeitCardFromTableResult result = (AboutToForfeitCardFromTableResult) effectResult;
-            final PhysicalCard cardToBeForfeited = result.getCardToBeForfeited();
-
-            final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
-            action.setText("Place " + GameUtils.getFullName(cardToBeForfeited) + " in Used Pile");
-            action.setActionMsg("Place " + GameUtils.getCardLink(cardToBeForfeited) + " in Used Pile when forfeited");
-            // Update usage limit(s)
-            action.appendUsage(
-                    new OncePerTurnEffect(action));
-            // Pay cost(s)
-            action.appendCost(
-                    new LoseForceEffect(action, playerId, 1, true));
-            // Perform result(s)
-            action.appendEffect(
-                    new PassthruEffect(action) {
-                        @Override
-                        protected void doPlayEffect(SwccgGame game) {
-                            result.getForfeitCardEffect().setForfeitToUsedPile();
+                            if (effectResult instanceof AboutToForfeitCardFromTableResult) {
+                                ((AboutToForfeitCardFromTableResult) effectResult).getForfeitCardEffect().setForfeitToUsedPile();
+                            } else {
+                                leaveResult.getPreventableCardEffect().preventEffectOnCard(cardLeaving);
+                                action.appendEffect(
+                                        new PlaceCardInUsedPileFromTableEffect(action, cardLeaving));
+                            }
                         }
                     });
             return Collections.singletonList(action);
