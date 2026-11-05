@@ -39,6 +39,7 @@ public class GameState implements Snapshotable<GameState> {
     private Map<String, List<PhysicalCard>> _hands = new HashMap<String, List<PhysicalCard>>();
     private Map<String, List<PhysicalCard>> _sabaccHands = new HashMap<String, List<PhysicalCard>>();
     private Map<String, List<PhysicalCard>> _forcePiles = new HashMap<String, List<PhysicalCard>>();
+    private Map<String, List<PhysicalCard>> _frozenPiles = new HashMap<String, List<PhysicalCard>>();
     private Map<String, List<PhysicalCard>> _usedPiles = new HashMap<String, List<PhysicalCard>>();
     private Map<String, List<PhysicalCard>> _lostPiles = new HashMap<String, List<PhysicalCard>>();
     private Map<String, List<PhysicalCard>> _unresolvedDestinyDraws = new HashMap<String, List<PhysicalCard>>();
@@ -181,6 +182,13 @@ public class GameState implements Snapshotable<GameState> {
             List<PhysicalCard> snapshotList = new LinkedList<PhysicalCard>();
             snapshot._forcePiles.put(playerId, snapshotList);
             for (PhysicalCard card : _forcePiles.get(playerId)) {
+                snapshotList.add(snapshotData.getDataForSnapshot(card));
+            }
+        }
+        for (String playerId : _frozenPiles.keySet()) {
+            List<PhysicalCard> snapshotList = new LinkedList<PhysicalCard>();
+            snapshot._frozenPiles.put(playerId, snapshotList);
+            for (PhysicalCard card : _frozenPiles.get(playerId)) {
                 snapshotList.add(snapshotData.getDataForSnapshot(card));
             }
         }
@@ -367,6 +375,7 @@ public class GameState implements Snapshotable<GameState> {
             _unresolvedDestinyDraws.put(playerId, new LinkedList<PhysicalCard>());
             _voids.put(playerId, new LinkedList<PhysicalCard>());
             _forcePiles.put(playerId, new LinkedList<PhysicalCard>());
+            _frozenPiles.put(playerId, new LinkedList<PhysicalCard>());
             _usedPiles.put(playerId, new LinkedList<PhysicalCard>());
             _lostPiles.put(playerId, new LinkedList<PhysicalCard>());
             _outOfPlayPiles.put(playerId, new LinkedList<PhysicalCard>());
@@ -551,6 +560,11 @@ public class GameState implements Snapshotable<GameState> {
             // Send top of card piles (reserve decks, force piles, used piles, lost piles, unresolved destiny draw)
             for (PhysicalCard physicalCard : getTopCardsOfPiles())
                 listener.cardCreated(physicalCard, this, restoreSnapshot);
+
+            // Send top of Frozen Piles (Frozen Assets sits there), so revert and reconnect still show it
+            for (List<PhysicalCard> frozenPile : _frozenPiles.values())
+                if (!frozenPile.isEmpty())
+                    listener.cardCreated(frozenPile.get(0), this, restoreSnapshot);
 
             // Send out of play piles
             for (List<PhysicalCard> physicalCards : _outOfPlayPiles.values())
@@ -1160,6 +1174,8 @@ public class GameState implements Snapshotable<GameState> {
             return _reserveDecks.get(playerId);
         else if (zone == Zone.FORCE_PILE || zone == Zone.TOP_OF_FORCE_PILE)
             return _forcePiles.get(playerId);
+        else if (zone == Zone.FROZEN_PILE || zone == Zone.TOP_OF_FROZEN_PILE)
+            return _frozenPiles.get(playerId);
         else if (zone == Zone.USED_PILE || zone == Zone.TOP_OF_USED_PILE)
             return _usedPiles.get(playerId);
         else if (zone == Zone.LOST_PILE || zone == Zone.TOP_OF_LOST_PILE)
@@ -1394,7 +1410,7 @@ public class GameState implements Snapshotable<GameState> {
 
             // Special case for "top of pile" card
             if (!zoneCards.isEmpty() &&
-                (zone == Zone.TOP_OF_RESERVE_DECK || zone == Zone.TOP_OF_FORCE_PILE || zone == Zone.TOP_OF_USED_PILE || zone == Zone.TOP_OF_LOST_PILE || zone == Zone.TOP_OF_UNRESOLVED_DESTINY_DRAW))
+                (zone == Zone.TOP_OF_RESERVE_DECK || zone == Zone.TOP_OF_FORCE_PILE || zone == Zone.TOP_OF_FROZEN_PILE || zone == Zone.TOP_OF_USED_PILE || zone == Zone.TOP_OF_LOST_PILE || zone == Zone.TOP_OF_UNRESOLVED_DESTINY_DRAW))
             {
                 // set zone of new "top of pile" card
                 zoneCards.get(0).setZone(zone);
@@ -2530,6 +2546,18 @@ public class GameState implements Snapshotable<GameState> {
 
         }
 
+        // Frozen Assets on a Frozen Pile is Active like an Effect on table (it may be targeted, e.g. by Alter).
+        for (String playerId : new String[] {_darkSidePlayer, _lightSidePlayer}) {
+            List<PhysicalCard> frozenPile = playerId != null ? _frozenPiles.get(playerId) : null;
+            if (frozenPile != null) {
+                for (PhysicalCard frozenCard : new ArrayList<PhysicalCard>(frozenPile)) {
+                    if (isFrozenAssets(frozenCard) && physicalCardVisitor.visitPhysicalCard(frozenCard)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
         return false;
     }
 
@@ -2614,6 +2642,20 @@ public class GameState implements Snapshotable<GameState> {
             if (topOfReserveDeck.isInserted())
                 if (physicalCardVisitor.visitPhysicalCard(topOfReserveDeck))
                     return true;
+        }
+
+        // Frozen Assets is Active on Frozen Pile (not in _inPlay). Visit it so thaw / end-of-turn lose can fire.
+        if (_darkSidePlayer != null) {
+            for (PhysicalCard frozenCard : getFrozenPile(_darkSidePlayer)) {
+                if (isFrozenAssets(frozenCard) && physicalCardVisitor.visitPhysicalCard(frozenCard))
+                    return true;
+            }
+        }
+        if (_lightSidePlayer != null) {
+            for (PhysicalCard frozenCard : getFrozenPile(_lightSidePlayer)) {
+                if (isFrozenAssets(frozenCard) && physicalCardVisitor.visitPhysicalCard(frozenCard))
+                    return true;
+            }
         }
 
         return false;
@@ -2786,6 +2828,8 @@ public class GameState implements Snapshotable<GameState> {
             return getReserveDeck(playerId, skipInsertedCards);
         if (zone == Zone.FORCE_PILE)
             return getForcePile(playerId);
+        if (zone == Zone.FROZEN_PILE)
+            return getFrozenPile(playerId);
         if (zone == Zone.USED_PILE)
             return getUsedPile(playerId);
         if (zone == Zone.LOST_PILE)
@@ -2864,6 +2908,10 @@ public class GameState implements Snapshotable<GameState> {
         return Collections.unmodifiableList(_forcePiles.get(playerId));
     }
 
+    public List<PhysicalCard> getFrozenPile(String playerId) {
+        return Collections.unmodifiableList(_frozenPiles.get(playerId));
+    }
+
     public List<PhysicalCard> getUsedPile(String playerId) {
         return Collections.unmodifiableList(_usedPiles.get(playerId));
     }
@@ -2878,6 +2926,8 @@ public class GameState implements Snapshotable<GameState> {
             return getReserveDeckSize(playerId);
         if (zone == Zone.FORCE_PILE)
             return getForcePile(playerId).size();
+        if (zone == Zone.FROZEN_PILE)
+            return getFrozenPile(playerId).size();
         if (zone == Zone.USED_PILE)
             return getUsedPile(playerId).size();
         if (zone == Zone.LOST_PILE)
@@ -2905,6 +2955,45 @@ public class GameState implements Snapshotable<GameState> {
         return getCardPileSize(playerId, Zone.FORCE_PILE);
     }
 
+    public int getFrozenPileSize(String playerId) {
+        return getCardPileSize(playerId, Zone.FROZEN_PILE);
+    }
+
+    private static boolean isFrozenAssets(PhysicalCard card) {
+        return card != null && Title.Frozen_Assets.equals(card.getTitle());
+    }
+
+    /**
+     * True when Frozen Assets is sitting as the marker at top of FROZEN_PILE.
+     */
+    public boolean hasFrozenAssetsMarker(String playerId) {
+        return isFrozenAssets(getTopOfFrozenPile(playerId));
+    }
+
+    /**
+     * Frozen Force only — excludes Frozen Assets marker sitting at top of FROZEN_PILE.
+     * Same idea as getReserveDeckSize (inserts are not counted).
+     */
+    public int getFrozenForceSize(String playerId) {
+        int count = 0;
+        for (PhysicalCard c : getFrozenPile(playerId)) {
+            if (!isFrozenAssets(c))
+                count++;
+        }
+        return count;
+    }
+
+    /**
+     * Topmost frozen Force card (skips Frozen Assets marker at top of FROZEN_PILE).
+     */
+    public PhysicalCard getTopFrozenForce(String playerId) {
+        for (PhysicalCard c : getFrozenPile(playerId)) {
+            if (!isFrozenAssets(c))
+                return c;
+        }
+        return null;
+    }
+
     public PhysicalCard getBottomOfCardPile(String playerId, Zone zone) {
         List<? extends PhysicalCard> cards = getCardPile(playerId, zone);
         if (cards==null || cards.isEmpty())
@@ -2929,6 +3018,12 @@ public class GameState implements Snapshotable<GameState> {
         if (_forcePiles.get(playerId).isEmpty())
             return null;
         return _forcePiles.get(playerId).get(0);
+    }
+
+    public PhysicalCard getTopOfFrozenPile(String playerId) {
+        if (_frozenPiles.get(playerId).isEmpty())
+            return null;
+        return _frozenPiles.get(playerId).get(0);
     }
 
     public PhysicalCard getTopOfUsedPile(String playerId) {
@@ -3056,8 +3151,10 @@ public class GameState implements Snapshotable<GameState> {
         if (_lightSideLifeForceDepleted && playerId.equals(_lightSidePlayer)) {
             return 0;
         }
-        return getReserveDeckSize(playerId) + _forcePiles.get(playerId).size() + _usedPiles.get(playerId).size()
-                + _unresolvedDestinyDraws.get(playerId).size() + _sabaccHands.get(playerId).size();
+        // Frozen Force counts as life; Frozen Assets marker on FROZEN_PILE does not
+        return getReserveDeckSize(playerId) + _forcePiles.get(playerId).size() + getFrozenForceSize(playerId)
+                + _usedPiles.get(playerId).size() + _unresolvedDestinyDraws.get(playerId).size()
+                + _sabaccHands.get(playerId).size();
     }
 
     public List<PhysicalCard> getCaptivesOfEscort(PhysicalCard card) {
@@ -4616,6 +4713,30 @@ public class GameState implements Snapshotable<GameState> {
         shufflePile(player, Zone.RESERVE_DECK);
     }
 
+    /**
+     * Moves all cards from Force Pile into Frozen Pile (order preserved). Used by Frozen Assets.
+     */
+    public void moveForcePileToFrozenPile(String playerId) {
+        List<PhysicalCard> forcePile = new LinkedList<PhysicalCard>(_forcePiles.get(playerId));
+        for (PhysicalCard card : forcePile) {
+            removeCardFromZone(card);
+            addCardToZone(card, Zone.FROZEN_PILE, playerId);
+        }
+    }
+
+    /**
+     * Moves frozen Force from Frozen Pile onto Force Pile (order preserved). Skips Frozen Assets marker.
+     */
+    public void moveFrozenPileToForcePile(String playerId) {
+        List<PhysicalCard> frozenPile = new LinkedList<PhysicalCard>(_frozenPiles.get(playerId));
+        for (PhysicalCard card : frozenPile) {
+            if (isFrozenAssets(card))
+                continue;
+            removeCardFromZone(card);
+            addCardToZone(card, Zone.FORCE_PILE, playerId);
+        }
+    }
+
     public void shufflePile(String player, Zone zone) {
         if (zone!=Zone.RESERVE_DECK && zone!=Zone.FORCE_PILE
                 && zone!=Zone.USED_PILE && zone!=Zone.LOST_PILE)
@@ -4645,10 +4766,9 @@ public class GameState implements Snapshotable<GameState> {
 
             // Tell game listener to create top card after shuffling
             for (GameStateListener listener : getAllGameStateListeners())
-                listener.cardCreated(topCard, this, false);
+                listener.cardCreated(cardsInPile.get(0), this, false);
         }
     }
-
     public void shuffleCardsIntoPile(Collection<? extends PhysicalCard> cards, String zoneOwner, Zone zone) {
         if (zone!=Zone.RESERVE_DECK && zone!=Zone.FORCE_PILE
                 && zone!=Zone.USED_PILE && zone!=Zone.LOST_PILE)

@@ -11,6 +11,7 @@ import com.gempukku.swccgo.logic.timing.PassthruEffect;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * An effect that causes the specified cards on table to be canceled.
@@ -38,6 +39,12 @@ public class CancelCardsOnTableEffect extends AbstractSubActionEffect {
     @Override
     protected SubAction getSubAction(SwccgGame game) {
         SubAction subAction = new SubAction(_action, _performingPlayerId != null ? _performingPlayerId : game.getGameState().getCurrentPlayerId());
+
+        // Frozen Assets Active on a Frozen Pile is not on table, so it is canceled directly instead of chosen on table
+        for (PhysicalCard cardOnFrozenPile : Filters.filter(_cards, game, Filters.activeOnFrozenPile)) {
+            subAction.appendEffect(
+                    new CancelCardsOnTableSimultaneouslyEffect(subAction, Collections.singleton(cardOnFrozenPile)));
+        }
 
         // Filter for cards that are still on the table
         _cards = Filters.filter(_cards, game, Filters.onTable);

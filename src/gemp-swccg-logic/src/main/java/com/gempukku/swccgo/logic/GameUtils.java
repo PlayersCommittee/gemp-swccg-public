@@ -293,6 +293,8 @@ public class GameUtils {
             zoneTop = Zone.TOP_OF_RESERVE_DECK;
         else if (zone == Zone.FORCE_PILE)
             zoneTop = Zone.TOP_OF_FORCE_PILE;
+        else if (zone == Zone.FROZEN_PILE)
+            zoneTop = Zone.TOP_OF_FROZEN_PILE;
         else if (zone == Zone.USED_PILE)
             zoneTop = Zone.TOP_OF_USED_PILE;
         else if (zone == Zone.LOST_PILE)
@@ -315,6 +317,8 @@ public class GameUtils {
             zone = Zone.RESERVE_DECK;
         else if (zoneTop == Zone.TOP_OF_FORCE_PILE)
             zone = Zone.FORCE_PILE;
+        else if (zoneTop == Zone.TOP_OF_FROZEN_PILE)
+            zone = Zone.FROZEN_PILE;
         else if (zoneTop == Zone.TOP_OF_USED_PILE)
             zone = Zone.USED_PILE;
         else if (zoneTop == Zone.TOP_OF_LOST_PILE)
