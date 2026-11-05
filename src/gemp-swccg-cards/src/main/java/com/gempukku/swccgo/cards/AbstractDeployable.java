@@ -48,6 +48,7 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.ReactActionOption;
@@ -2187,7 +2188,8 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
         if (self.getBlueprint().isOnlyDeploysAsUndercoverSpy(game, self) && !Filters.at(Filters.site).accepts(game, characterToReplace)) {
             return null;
         }
-        if (!Filters.and(Filters.notProhibitedFromTarget(self), getValidDeployTargetFilterByCheckingGameText(game, self, null, null)).accepts(gameState, modifiersQuerying, target)) {
+        if (!Filters.and(Filters.notProhibitedFromTarget(self), Filters.notProhibitedFromDeployingTo(self, (DeploymentRestrictionsOption) null),
+                getValidDeployTargetFilterByCheckingGameText(game, self, null, null)).accepts(gameState, modifiersQuerying, target)) {
             return null;
         }
 
