@@ -99254,6 +99254,34 @@
     ]
   },
   {
+    "cardId": "4_65",
+    "title": "Tight Squeeze",
+    "slug": "tight-squeeze",
+    "slugWithSetName": "tight-squeeze-dagobah",
+    "side": "LIGHT",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "DAGOBAH",
+    "rarity": "R",
+    "cardCategory": "INTERRUPT",
+    "cardTypes": [
+      "INTERRUPT"
+    ],
+    "cardSubtype": "LOST",
+    "lore": "Rebel pilots often join the Rebellion from Outer Rim worlds. Bush pilots fly by the seat of their pants, giving them a huge advantage in close quarters.",
+    "gameText": "If you have a lone vehicle or starfighter in a battle or Attack Run at Beggar's Canyon, Cloud City, Death Star: Trench or an asteroid sector, use 1 Force. At the end of that battle or Attack Run, opponent must forfeit two participating vehicles or starfighters.",
+    "destiny": 3,
+    "icons": [
+      {
+        "icon": "DAGOBAH",
+        "count": 1
+      },
+      {
+        "icon": "INTERRUPT",
+        "count": 1
+      }
+    ]
+  },
+  {
     "cardId": "4_66",
     "title": "Transmission Terminated",
     "slug": "transmission-terminated",
