@@ -78,4 +78,12 @@ public class DefinedByGameTextDeployCostToTargetModifier extends AbstractModifie
     public float getDefinedDeployCostToTarget(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target) {
         return _evaluator.evaluateExpression(gameState, modifiersQuerying, target);
     }
+
+    /**
+     * True when the printed deploy-to-target cost is a formula (X), not a constant number.
+     * Frustration treats formula costs as undefined until the moment of deployment.
+     */
+    public boolean isVariableCostDefinedByGameText() {
+        return !(_evaluator instanceof ConstantEvaluator);
+    }
 }
