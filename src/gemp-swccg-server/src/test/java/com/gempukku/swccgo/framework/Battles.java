@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.framework;
 
+import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.game.PhysicalCardImpl;
 
@@ -61,6 +62,59 @@ public interface Battles extends Decisions, GameProcedures, PileProperties {
         PassBattleStartResponses();
     }
 
+
+    /**
+     * Skips to the Light Side Battle phase, initiates battle at the Light Side starting location, and arrives at
+     * LS weapons segment actions.
+     */
+    default void StartBattleAndSkipToWeaponsSegment() {
+        StartBattleAndSkipToWeaponsSegment(LS, GetLSStartingLocation());
+    }
+
+    /**
+     * Skips to the Light Side Battle phase, initiates battle at the given location, and arrives at LS weapons segment actions.
+     * @param location The location to start battle at.
+     */
+    default void StartBattleAndSkipToWeaponsSegment(PhysicalCardImpl location) {
+        StartBattleAndSkipToWeaponsSegment(LS, location);
+    }
+
+    /**
+     * Skips to the given player's Battle phase, has that player initiate battle at the given location, and arrives at
+     * that player's weapons segment actions.
+     * @param player The player who should initiate.
+     * @param location The location to start battle at.
+     */
+    default void StartBattleAndSkipToWeaponsSegment(String player, PhysicalCardImpl location) {
+        if(player.equals(LS)) {
+            SkipToLSTurn(Phase.BATTLE);
+            LSInitiateBattle(location);
+            PassAllResponses();
+            assertTrue("Expected LS weapons segment actions after initiating battle", AwaitingLSWeaponsSegmentActions());
+        }
+        else {
+            SkipToDSTurn(Phase.BATTLE);
+            DSInitiateBattle(location);
+            PassAllResponses();
+            assertTrue("Expected DS weapons segment actions after initiating battle", AwaitingDSWeaponsSegmentActions());
+        }
+    }
+
+    /**
+     * Skips to the Light Side Battle phase, initiates battle at the given location, and arrives at LS weapons segment actions.
+     * @param location The location to start battle at.
+     */
+    default void LSStartBattleAndSkipToWeaponsSegment(PhysicalCardImpl location) {
+        StartBattleAndSkipToWeaponsSegment(LS, location);
+    }
+
+    /**
+     * Skips to the Dark Side Battle phase, initiates battle at the given location, and arrives at DS weapons segment actions.
+     * @param location The location to start battle at.
+     */
+    default void DSStartBattleAndSkipToWeaponsSegment(PhysicalCardImpl location) {
+        StartBattleAndSkipToWeaponsSegment(DS, location);
+    }
 
     /**
      * Right after battle has been initiated, skips to the start of the Power Segment right before the first player is

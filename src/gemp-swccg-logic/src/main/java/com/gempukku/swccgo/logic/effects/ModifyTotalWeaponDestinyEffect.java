@@ -50,7 +50,7 @@ public class ModifyTotalWeaponDestinyEffect extends AbstractSuccessfulEffect {
                 else if (_modifierAmount < 0) {
                     gameState.sendMessage(_action.getPerformingPlayer() + " subtracts " + GuiUtils.formatAsString(-_modifierAmount) + " from total weapon destiny");
                 }
-                game.getGameState().sendMessage(drawDestinyEffect.getPlayerDrawingDestiny() + "'s total weapon destiny is " + GuiUtils.formatAsString(drawDestinyEffect.getTotalDestiny(game)));
+                game.getGameState().sendMessage(drawDestinyEffect.getPlayerDrawingDestiny() + "'s total weapon destiny is " + GuiUtils.formatAsString(drawDestinyEffect.getTotalDestiny(game, true)));
             }
         }
     }
