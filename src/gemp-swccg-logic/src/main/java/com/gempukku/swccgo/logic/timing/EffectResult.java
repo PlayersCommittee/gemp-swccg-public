@@ -183,6 +183,7 @@ public abstract class EffectResult implements Snapshotable<EffectResult> {
         STACKED_FROM_CARD_PILE,
         STACKED_FROM_HAND,
         LOOKED_AT_CARDS_IN_CARD_PILE,
+        PEEKED_AT_OPPONENTS_HAND,
         RECIRCULATED,
 
         // Canceling/restoring game text
