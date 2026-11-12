@@ -61,6 +61,18 @@ public class PlayInterruptAction extends AbstractPlayCardAction implements GameT
      * Creates an action that plays an Interrupt.
      * @param game the game
      * @param card the Interrupt card
+     * @param removedFromZoneBecauseMovedToPileAsCost true if the card is moved to a pile as part of its cost
+     *        (to prevent being relocated to the void during play)
+     */
+    public PlayInterruptAction(SwccgGame game, PhysicalCard card, boolean removedFromZoneBecauseMovedToPileAsCost) {
+        this(game, card);
+        setRemovedFromZone(removedFromZoneBecauseMovedToPileAsCost);
+    }
+
+    /**
+     * Creates an action that plays an Interrupt.
+     * @param game the game
+     * @param card the Interrupt card
      * @param gameTextActionId the identifier for the card's specific action to check the limit of
      */
     public PlayInterruptAction(SwccgGame game, PhysicalCard card, GameTextActionId gameTextActionId) {
@@ -121,6 +133,16 @@ public class PlayInterruptAction extends AbstractPlayCardAction implements GameT
      */
     public CardSubtype getPlayedAsSubtype() {
         return _playedAsSubtype;
+    }
+
+    /**
+     * Marks that this Interrupt was already moved to a pile as part of paying costs
+     * (for example place in Lost Pile). When true, play resolution must not relocate
+     * the card through VOID.
+     * @param removedFromZone true if the card was already removed from its play zone as a cost
+     */
+    public void setRemovedFromZone(boolean removedFromZone) {
+        _removedFromZone = removedFromZone;
     }
 
     /**
