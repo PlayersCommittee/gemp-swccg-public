@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.cards.set14.dark;
 
 import com.gempukku.swccgo.cards.AbstractPermanentWeapon;
+import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.AbstractSith;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
@@ -43,8 +44,12 @@ public class Card14_077 extends AbstractSith {
         AbstractPermanentWeapon permanentWeapon = new AbstractPermanentWeapon(Persona.MAULS_DOUBLE_BLADED_LIGHTSABER, "Maul's Double-Bladed Lightsaber") {
             @Override
             public List<FireWeaponAction> getGameTextFireWeaponActions(String playerId, SwccgGame game, PhysicalCard self, boolean forFree, int extraForceRequired, PhysicalCard sourceCard, boolean repeatedFiring, Filter targetedAsCharacter, Float defenseValueAsCharacter, Filter fireAtTargetFilter, boolean ignorePerAttackOrBattleLimit) {
-                FireWeaponActionBuilder actionBuilder = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, this, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit)
-                        .twicePerBattle().targetForFree(Filters.or(Filters.character, targetedAsCharacter), TargetingReason.TO_BE_HIT).finishBuildPrep();
+                // Armament Dismantled: Maul's lightsaber may be swung only once per battle
+                FireWeaponActionBuilder prep = FireWeaponActionBuilder.startBuildPrep(playerId, game, sourceCard, self, this, forFree, extraForceRequired, repeatedFiring, targetedAsCharacter, defenseValueAsCharacter, fireAtTargetFilter, ignorePerAttackOrBattleLimit);
+                if (!GameConditions.canSpot(game, self, Filters.Armament_Dismantled)) {
+                    prep.twicePerBattle();
+                }
+                FireWeaponActionBuilder actionBuilder = prep.targetForFree(Filters.or(Filters.character, targetedAsCharacter), TargetingReason.TO_BE_HIT).finishBuildPrep();
                 if (actionBuilder != null) {
 
                     // Build action using common utility
