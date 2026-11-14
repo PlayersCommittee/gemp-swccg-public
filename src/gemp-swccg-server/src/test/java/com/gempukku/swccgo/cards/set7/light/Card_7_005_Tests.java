@@ -4,7 +4,6 @@ import com.gempukku.swccgo.common.CardType;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
-import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -13,7 +12,6 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -136,9 +134,10 @@ public class Card_7_005_Tests {
         assertTrue(scn.IsAttachedTo(ds_site,plans));
     }
 
-    //demonstrates 'bug 1' from: https://github.com/PlayersCommittee/gemp-swccg-public/issues/770
-    @Test @Ignore
+    @Test
     public void BothanSpyMakesDeathStarPlansTargetingSelfImmuneToAlter() {
+        //shows fixed: https://github.com/PlayersCommittee/gemp-swccg-public/issues/770
+        //tests immunity both during initial play and after plans is deployed (active on table)
         var scn = GetScenario();
 
         var spy = scn.GetLSCard("spy");
@@ -168,7 +167,7 @@ public class Card_7_005_Tests {
 
         assertTrue(scn.DSDecisionAvailable("Deploying")); //Deploying Death Star Plans - Optional responses
 
-        assertFalse(scn.DSCardPlayAvailable(alter)); /// FAILS HERE - have not met the condition of being targeted yet?
+        assertFalse(scn.DSCardPlayAvailable(alter));
         scn.PassAllResponses();
 
         assertTrue(scn.AwaitingDSDeployPhaseActions());
@@ -178,6 +177,7 @@ public class Card_7_005_Tests {
 
     @Test
     public void BothanSpyDoesNotMakeDeathStarPlansTargetingNonSelfImmuneToAlter() {
+        //tests immunity both during initial play and after plans is deployed (active on table)
         var scn = GetScenario();
 
         var spy = scn.GetLSCard("spy");
@@ -206,7 +206,7 @@ public class Card_7_005_Tests {
         scn.LSChooseCard(ds_site);
         scn.LSChooseCard(droid);
 
-        assertTrue(scn.DSDecisionAvailable("Deploying")); //Deploying •Death Star Plans - Optional responses
+        assertTrue(scn.DSDecisionAvailable("Deploying")); //Deploying Death Star Plans - Optional responses
         assertTrue(scn.DSCardPlayAvailable(alter));
         scn.PassAllResponses();
 
@@ -234,9 +234,6 @@ public class Card_7_005_Tests {
         scn.MoveCardsToLocation(yavin_db,spy);
 
         scn.SkipToLSTurn(Phase.CONTROL);
-
-            /// should not allow attempting to play Nabrun here?
-//        assertFalse(scn.LSCardPlayAvailable(nabrun));
 
         scn.LSPlayCard(nabrun);
         scn.LSChooseCard(yavin_db);

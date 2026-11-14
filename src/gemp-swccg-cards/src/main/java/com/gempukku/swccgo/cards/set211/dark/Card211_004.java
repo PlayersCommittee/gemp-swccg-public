@@ -81,6 +81,10 @@ public class Card211_004 extends AbstractFirstOrder {
                                                         new DrawDestinyEffect(action, playerId) {
                                                             @Override
                                                             protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
+                                                                if (totalDestiny == null) {
+                                                                    game.getGameState().sendMessage("Result: Failed due to failed destiny draw");
+                                                                    return;
+                                                                }
                                                                 final Collection<PhysicalCard> pilotsAboard = Filters.filterActive(game, self, Filters.and(Filters.pilot, Filters.aboardOrAboardCargoOf(opponentsCapital)));
                                                                 if (totalDestiny > 2 && !pilotsAboard.isEmpty()) {
                                                                     action.appendEffect(

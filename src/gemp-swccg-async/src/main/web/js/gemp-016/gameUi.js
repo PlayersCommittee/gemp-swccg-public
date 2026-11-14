@@ -877,6 +877,7 @@ var GempSwccgGameUI = Class.extend({
         var darkGraySelected="";
         var GraySelected="";
         var lightGraySelected="";
+        var systemsSelected="";
 
         /*
          * If the game background cookie was not previously set, use the default darkHive.
@@ -893,6 +894,7 @@ var GempSwccgGameUI = Class.extend({
         if (gameBackgroundSettingCookie == "darkGray")       { darkGraySelected="selected"; }
         if (gameBackgroundSettingCookie == "gray")           { GraySelected="selected"; }
         if (gameBackgroundSettingCookie == "lightGray")      { lightGraySelected="selected"; }
+        if (gameBackgroundSettingCookie == "systems")        { systemsSelected="selected"; }
 
         var backgroundSettingsToAppend = "";
         backgroundSettingsToAppend = backgroundSettingsToAppend + "<br /><label for='gameBackgroundSetting'>Background: </label><select name='gameBackgroundSetting' id='gameBackgroundSetting' onchange='gameBackgroundSettingChange();'>";
@@ -903,6 +905,7 @@ var GempSwccgGameUI = Class.extend({
         backgroundSettingsToAppend = backgroundSettingsToAppend + "<option value='darkGray' "+darkGraySelected+">Dark Gray</option>";
         backgroundSettingsToAppend = backgroundSettingsToAppend + "<option value='Gray' "+GraySelected+">Gray</option>";
         backgroundSettingsToAppend = backgroundSettingsToAppend + "<option value='lightGray' "+lightGraySelected+">Light Gray</option>";
+        backgroundSettingsToAppend = backgroundSettingsToAppend + "<option value='systems' "+systemsSelected+">Systems</option>";
         backgroundSettingsToAppend = backgroundSettingsToAppend + "</select><br /><br />";
         $("#settingsBox").append(backgroundSettingsToAppend);
         gameBackgroundSettingChange();

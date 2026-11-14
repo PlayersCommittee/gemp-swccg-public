@@ -788,6 +788,10 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     }
 
     private void removeDueToMayNotBePlayedUnlessImmuneToSpecificTitleModifier(SwccgGame game, PhysicalCard self, List<Action> actions) {
+        // Nothing to remove, or no modifier of this type anywhere: the full getModifiersAffecting scan below
+        // (which evaluates every modifier's conditions) could not find a title, so skip it.
+        if (actions.isEmpty() || !game.getModifiersQuerying().hasModifiersOfType(ModifierType.MAY_NOT_BE_PLAYED_UNLESS_IMMUNE_TO_SPECIFIC_TITLE, self))
+            return;
         List<String> titles = new LinkedList<>();
         for(Modifier m:game.getModifiersQuerying().getModifiersAffecting(game.getGameState(), self)) {
             if (m.getModifierType() == ModifierType.MAY_NOT_BE_PLAYED_UNLESS_IMMUNE_TO_SPECIFIC_TITLE) {
@@ -823,6 +827,10 @@ public abstract class AbstractInterrupt extends AbstractSwccgCardBlueprint {
     }
 
     private void removeDueToMayNotBePlayedUnlessImmuneToSpecificTitleModifierPlayCardAction(SwccgGame game, PhysicalCard self, List<PlayCardAction> actions) {
+        // Nothing to remove, or no modifier of this type anywhere: the full getModifiersAffecting scan below
+        // (which evaluates every modifier's conditions) could not find a title, so skip it.
+        if (actions.isEmpty() || !game.getModifiersQuerying().hasModifiersOfType(ModifierType.MAY_NOT_BE_PLAYED_UNLESS_IMMUNE_TO_SPECIFIC_TITLE, self))
+            return;
         List<String> titles = new LinkedList<>();
         for(Modifier m:game.getModifiersQuerying().getModifiersAffecting(game.getGameState(), self)) {
             if (m.getModifierType() == ModifierType.MAY_NOT_BE_PLAYED_UNLESS_IMMUNE_TO_SPECIFIC_TITLE) {

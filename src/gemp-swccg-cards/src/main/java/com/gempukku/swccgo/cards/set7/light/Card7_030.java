@@ -9,7 +9,6 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.WeaponFiringState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
@@ -18,6 +17,7 @@ import com.gempukku.swccgo.logic.modifiers.AddsPowerToPilotedBySelfModifier;
 import com.gempukku.swccgo.logic.modifiers.DeployCostAboardModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.EffectResult;
+import com.gempukku.swccgo.logic.timing.results.FiredWeaponResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -55,13 +55,14 @@ public class Card7_030 extends AbstractRebel {
     @Override
     protected List<RequiredGameTextTriggerAction> getGameTextRequiredAfterTriggers(SwccgGame game, EffectResult effectResult, PhysicalCard self, int gameTextSourceCardId) {
         if (TriggerConditions.weaponJustFiredBy(game, effectResult, Filters.starship_weapon, Filters.and(Filters.starfighter, Filters.hasPiloting(self)))) {
-            WeaponFiringState weaponFiringState = game.getGameState().getWeaponFiringState();
-            final Collection<PhysicalCard> characters = Filters.filterActive(game, self, Filters.and(Filters.character, Filters.aboardOrAboardCargoOf(Filters.in(weaponFiringState.getTargets())), Filters.canBeTargetedBy(self)));
+            // Targets as recorded when the weapon was fired; the weapon firing state may already be cleared here.
+            final Collection<PhysicalCard> targets = ((FiredWeaponResult) effectResult).getTargets();
+            final Collection<PhysicalCard> characters = Filters.filterActive(game, self, Filters.and(Filters.character, Filters.aboardOrAboardCargoOf(Filters.in(targets)), Filters.canBeTargetedBy(self)));
             if (!characters.isEmpty()) {
 
                 final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                 action.setText("Reset forfeit of characters to 0");
-                action.setActionMsg("Reset forfeit of characters aboard " + GameUtils.getAppendedNames(weaponFiringState.getTargets()) + " to 0");
+                action.setActionMsg("Reset forfeit of characters aboard " + GameUtils.getAppendedNames(targets) + " to 0");
                 // Perform result(s)
                 action.appendEffect(
                         new ResetForfeitUntilEndOfTurnEffect(action, characters, 0));

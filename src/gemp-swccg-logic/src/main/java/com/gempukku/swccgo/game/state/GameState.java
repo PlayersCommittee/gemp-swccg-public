@@ -3853,6 +3853,11 @@ public class GameState implements Snapshotable<GameState> {
             _game.getModifiersEnvironment().removeEndOfDuel();
             _game.getActionsEnvironment().removeEndOfDuelActionProxies();
 
+            // The stats object is only recomputed when the engine stops for a decision, so refresh
+            // it before resending it here; the duel that just ended may have changed the battle.
+            if (isDuringBattle())
+                getGame().getGameStats().updateGameStats(getGame());
+
             for (GameStateListener listener : getAllGameStateListeners()) {
                 listener.finishDuel();
 
@@ -4240,6 +4245,10 @@ public class GameState implements Snapshotable<GameState> {
 
             for (GameStateListener listener : getAllGameStateListeners())
                 listener.cardsRemoved(_lightSidePlayer, lightSabaccHand);
+
+            // The stats object is only recomputed when the engine stops for a decision, so refresh
+            // it before resending it here, otherwise the totals just revealed could be stale.
+            getGame().getGameStats().updateGameStats(getGame());
 
             // Tell user interface to hide sabacc hands area and show revealed sabacc hands area
             for (GameStateListener listener : getAllGameStateListeners()) {

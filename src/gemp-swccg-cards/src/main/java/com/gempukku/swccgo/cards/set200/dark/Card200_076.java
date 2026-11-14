@@ -10,6 +10,7 @@ import com.gempukku.swccgo.cards.evaluators.HereEvaluator;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
+import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Persona;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -41,8 +42,9 @@ import java.util.List;
 public class Card200_076 extends AbstractDarkJediMaster {
     public Card200_076() {
         super(Side.DARK, 1, 6, 5, 7, 8, "Count Dooku", Uniqueness.UNIQUE, ExpansionSet.SET_0, Rarity.V);
-        setLore("Serennoian leader. Trade Federation.");
+        setLore("Serennian leader. Trade Federation.");
         setGameText("Deploys -1 if Sidious (or Insidious Prisoner) on table. Power +1 for each Jedi here. May be targeted by Force Lightning. Once per game, if opponent just initiated battle here, may [upload] Force Lightning or Force Push. Immune to attrition < 6 (<8 if with a Jedi).");
+        addKeywords(Keyword.LEADER);
         addPersona(Persona.DOOKU);
         addIcons(Icon.EPISODE_I, Icon.PILOT, Icon.WARRIOR, Icon.SEPARATIST, Icon.VIRTUAL_SET_0);
     }
