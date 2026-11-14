@@ -68,7 +68,9 @@ class ForfeitCardsFromOffTableSimultaneouslyEffect extends AbstractSubActionEffe
                             for (PhysicalCard cardToForfeit : _originalCardsToForfeit) {
 
                                 float forfeitValue = modifiersQuerying.getForfeitWhenForfeiting(gameState, cardToForfeit);
-                                _totalBattleDamageToSatisfyMap.put(cardToForfeit, forfeitValue);
+                                if (!modifiersQuerying.cannotSatisfyBattleDamage(gameState, cardToForfeit)) {
+                                    _totalBattleDamageToSatisfyMap.put(cardToForfeit, forfeitValue);
+                                }
 
                                 if (!modifiersQuerying.cannotSatisfyAttrition(gameState, cardToForfeit)) {
                                     _totalAttritionToSatisfyMap.put(cardToForfeit, forfeitValue);
