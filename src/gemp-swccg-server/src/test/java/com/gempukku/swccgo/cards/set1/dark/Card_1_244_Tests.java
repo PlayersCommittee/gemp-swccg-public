@@ -37,6 +37,8 @@ public class Card_1_244_Tests {
                     put("st1", "1_194");
                     put("vader", "1_168");
                     put("barrier", "1_249");
+                    put("chall", "106_011");
+                    put("jawa", "1_182");
                 }},
                 10,
                 10,
@@ -229,6 +231,69 @@ public class Card_1_244_Tests {
                 emergency.getZone() == Zone.TOP_OF_USED_PILE || emergency.getZone() == Zone.USED_PILE);
     }
 
+
+    private void challShuffleEndsReveal(boolean successfulSearch) {
+        var scn = GetScenario();
+        var emergency = scn.GetDSCard("emergency");
+        var chall = scn.GetDSCard("chall");
+        var vader = scn.GetDSCard("vader");
+        var barrier = scn.GetDSCard("barrier");
+        var jawa = scn.GetDSCard("jawa");
+        var site = scn.GetLSCard("ls_cantina");
+        scn.StartGame();
+        scn.MoveCardsToDSHand(emergency, jawa);
+        scn.MoveLocationToTable(site);
+        scn.MoveCardsToLocation(site, scn.GetLSCard("luke"), scn.GetLSCard("han"), scn.GetDSCard("st1"));
+        scn.SkipToLSTurn(Phase.BATTLE);
+        if (successfulSearch) scn.MoveCardsToBottomOfOwnReserveDeck(jawa);
+        scn.MoveCardsToTopOfDSReserveDeck(barrier, vader, chall);
+        scn.LSInitiateBattle(site);
+        scn.DSPlayCard(emergency);
+        scn.PassAllResponses();
+        scn.DSDecided(3);
+        scn.DSPass();
+        scn.LSPass();
+        assertTrue(scn.DSDecisionAvailable("Choose card to deploy"));
+        scn.DSChooseCard(chall);
+        for (int j = 0; j < 20 && !(scn.DSGetDecision() != null && scn.DSCardActionAvailable(chall, "Take card into hand")); j++) {
+            if (scn.DSGetDecision() != null && scn.DSHasCardChoiceAvailable(scn.GetDSStartingLocation())) scn.DSChooseCard(scn.GetDSStartingLocation());
+            else scn.PlayerPass(scn.GetDecidingPlayer());
+        }
+        assertTrue(scn.DSCardActionAvailable(chall, "Take card into hand"));
+        scn.DSUseCardAction(chall, "Take card into hand");
+        scn.PassAllResponses();
+        if (successfulSearch) scn.DSChooseCard(jawa); else scn.DSDecided("");
+        for (int j = 0; j < 25; j++) {
+            if (scn.DSDecisionAvailable("optional response")) scn.DSPass();
+            else if (scn.LSDecisionAvailable("optional response")) scn.LSPass();
+            else if (scn.LSDecisionAvailable("Verify")) scn.LSPass();
+            else if (scn.DSDecisionAvailable("Verify")) scn.DSPass();
+            else break;
+        }
+        assertFalse(scn.gameState().isCardRevealedFromPile(vader));
+        assertFalse(scn.gameState().isCardRevealedFromPile(barrier));
+        assertTrue(vader.getZone() == Zone.RESERVE_DECK || vader.getZone() == Zone.TOP_OF_RESERVE_DECK);
+        assertTrue(barrier.getZone() == Zone.RESERVE_DECK || barrier.getZone() == Zone.TOP_OF_RESERVE_DECK);
+        assertTrue(emergency.getZone() == Zone.USED_PILE || emergency.getZone() == Zone.TOP_OF_USED_PILE);
+        if (successfulSearch) assertEquals(Zone.HAND, jawa.getZone());
+    }
+
+    @Test public void EmergencyDeploymentChallSuccessfulSearchEndsRevealedDeployments() { challShuffleEndsReveal(true); }
+    @Test public void EmergencyDeploymentChallFailedSearchStillEndsRevealedDeployments() { challShuffleEndsReveal(false); }
+
+    @Test
+    public void EmergencyDeploymentNestedRevealCleanupPreservesContainingReveal() {
+        var scn = GetScenario();
+        scn.StartGame();
+        var vader = scn.GetDSCard("vader");
+        scn.MoveCardsToTopOfDSReserveDeck(vader);
+        int outer = scn.gameState().markCardsRevealedFromPile(java.util.List.of(vader));
+        int inner = scn.gameState().markCardsRevealedFromPile(java.util.List.of(vader));
+        scn.gameState().endPileReveal(inner);
+        assertTrue(scn.gameState().isCardRevealedFromPile(vader));
+        scn.gameState().endPileReveal(outer);
+        assertFalse(scn.gameState().isCardRevealedFromPile(vader));
+    }
 
     private static void resolveUntilIdle(VirtualTableScenario scn, int maxSteps) {
         for (int i = 0; i < maxSteps; i++) {

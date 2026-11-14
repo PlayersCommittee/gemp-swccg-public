@@ -115,20 +115,7 @@ public class DeployRevealedCardsFromReserveDeckEffect extends AbstractSubActionE
      * the same order.
      */
     private void dropCardsNoLongerRevealed(SwccgGame game) {
-        GameState gameState = game.getGameState();
-        List<PhysicalCard> pile = gameState.getCardPile(_playerId, Zone.RESERVE_DECK);
-        if (pile == null) {
-            _remainingCards.clear();
-            return;
-        }
-        List<PhysicalCard> stillRevealed = new LinkedList<PhysicalCard>();
-        for (PhysicalCard card : _remainingCards) {
-            if (pile.contains(card) && gameState.isCardRevealedFromPile(card)) {
-                stillRevealed.add(card);
-            }
-        }
-        _remainingCards.clear();
-        _remainingCards.addAll(stillRevealed);
+        _remainingCards.removeIf(card -> !game.getGameState().isCardRevealedFromPile(card));
     }
 
     private Filter currentlyDeployableFilter(SwccgGame game) {
