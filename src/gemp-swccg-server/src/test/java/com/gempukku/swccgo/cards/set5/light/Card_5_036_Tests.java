@@ -317,6 +317,42 @@ public class Card_5_036_Tests {
     }
 
     @Test
+    public void CaptiveFuryCaptiveMustForfeitAtImmunityThreshold() {
+        var scn = GetScenario();
+
+        var fury = scn.GetLSCard("fury");
+        var luke = scn.GetLSCard("luke");
+        scn.MoveCardsToHand(fury);
+
+        var site = scn.GetLSStartingLocation();
+        var vader = scn.GetDSCard("vader");
+
+        scn.StartGame();
+
+        scn.MoveCardsToLocation(site, vader);
+        scn.CaptureCardWith(vader, luke);
+
+        scn.SkipToLSTurn(Phase.BATTLE);
+
+        scn.LSPlayLostInterrupt(fury);
+        scn.LSChooseCard(site);
+        scn.LSChooseCard(luke);
+        scn.PassCardAndForceUseResponses();
+        scn.PrepareLSDestiny(1);
+        scn.PrepareDSDestiny(3);
+        scn.SkipToDamageSegment(true);
+
+        assertTrue(scn.DSWonBattle());
+        assertFalse(luke.isHit());
+        assertEquals(3, scn.GetUnpaidLSAttrition());
+        assertTrue(scn.LSGetDecision() != null);
+        assertTrue(scn.LSHasCardChoiceAvailable(luke));
+        scn.LSChooseCard(luke);
+        scn.PassAllResponses();
+        assertInZone(Zone.LOST_PILE, luke);
+    }
+
+    @Test
     public void CaptiveFuryCaptiveCannotBeVoluntarilyForfeitWhileAnotherCardCanPay() {
         var scn = GetScenario();
 

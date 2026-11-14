@@ -185,7 +185,9 @@ public class Card5_036 extends AbstractUsedOrLostInterrupt {
                 Condition noMandatoryAttritionRemaining = new Condition() {
                     @Override
                     public boolean isFulfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return !isMandatoryAttritionRemaining(game, playerId, gameState, modifiersQuerying);
+                        BattleState battleState = gameState.getBattleState();
+                        return !GameConditions.isAttritionRemaining(game, playerId)
+                                || battleState == null || battleState.isAttritionIgnorable(game, playerId);
                     }
                 };
                 modifiers.add(new MayNotBeForfeitedInBattleModifier(self, Filters.and(Filters.in(chosenCaptives), Filters.not(Filters.hit)),
@@ -197,32 +199,6 @@ public class Card5_036 extends AbstractUsedOrLostInterrupt {
         };
 
         action.appendEffect(new StackActionEffect(action, battleAction));
-    }
-
-    private static boolean isMandatoryAttritionRemaining(SwccgGame game, String playerId, GameState gameState,
-            ModifiersQuerying modifiersQuerying) {
-        if (!GameConditions.isAttritionRemaining(game, playerId)) {
-            return false;
-        }
-        BattleState battleState = gameState.getBattleState();
-        if (battleState == null) {
-            return false;
-        }
-        float totalAttrition = battleState.getAttritionTotal(game, playerId);
-        Collection<PhysicalCard> presentCards = Filters.filter(battleState.getAllCardsParticipating(), game,
-                Filters.and(Filters.owner(playerId), Filters.present(battleState.getBattleLocation())));
-        for (PhysicalCard card : presentCards) {
-            float exactImmunity = modifiersQuerying.getImmunityToAttritionOfExactly(gameState, card);
-            if (exactImmunity > 0) {
-                if (exactImmunity != totalAttrition) {
-                    return true;
-                }
-            }
-            else if (modifiersQuerying.getImmunityToAttritionLessThan(gameState, card) <= totalAttrition) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private static void releaseOrReattachCaptives(SwccgGame game, PlayInterruptAction action, List<PhysicalCard> selectedCaptives) {
