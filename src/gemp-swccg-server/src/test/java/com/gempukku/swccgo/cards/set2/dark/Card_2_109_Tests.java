@@ -3,12 +3,12 @@ package com.gempukku.swccgo.cards.set2.dark;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import com.gempukku.swccgo.framework.StartingSetup;
-import com.gempukku.swccgo.logic.modifiers.MayNotHaveForfeitValueReducedModifier;
 import org.junit.Test;
 
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
+import static com.gempukku.swccgo.framework.Assertions.*;
 
 public class Card_2_109_Tests {
     protected VirtualTableScenario GetScenario() {
@@ -152,36 +152,48 @@ public class Card_2_109_Tests {
     }
 
     @Test
+    public void SeptoidDoesNotSatisfyAttritionWhenChokkPreventsForfeitReduction() {
+        var scn = GetScenario();
+        var site = scn.GetLSStartingLocation();
+        var luke = scn.GetLSCard("luke");
+        var chokk = scn.GetDSCard("chokk");
+        var septoid = scn.GetDSCard("septoid");
+        var trooper = scn.GetDSFiller(1);
+        scn.StartGame();
+        scn.MoveCardsToLocation(site, luke, chokk, septoid, trooper);
+        scn.SkipToDSTurn(Phase.BATTLE);
+        scn.DSInitiateBattle(site);
+        scn.PrepareLSDestiny(1);
+        scn.SkipToDamageSegment(true);
+        assertEquals(0, scn.GetUnpaidDSBattleDamage());
+        assertEquals(1, scn.GetUnpaidDSAttrition());
+        assertTrue(scn.DSHasCardChoiceAvailable(septoid));
+        scn.DSChooseCard(septoid);
+        scn.PassCardLeavingTable();
+        assertInZone(Zone.LOST_PILE, septoid);
+        assertTrue("Unpaid attrition must keep the battle active", scn.IsActiveBattle());
+        assertEquals(1, scn.GetUnpaidDSAttrition());
+    }
+
+    @Test
     public void SeptoidDoesNotSatisfyBattleDamageWhenChokkPreventsForfeitReduction() {
         var scn = GetScenario();
-
-        var luke = scn.GetLSCard("luke");
         var site = scn.GetLSStartingLocation();
+        var luke = scn.GetLSCard("luke");
+        var rebel = scn.GetLSFiller(1);
+        var chokk = scn.GetDSCard("chokk");
         var septoid = scn.GetDSCard("septoid");
-        var stormtrooper1 = scn.GetDSFiller(1);
-        var stormtrooper2 = scn.GetDSFiller(2);
-
         scn.StartGame();
-        scn.MoveCardsToLocation(site, luke, septoid, stormtrooper1, stormtrooper2);
-        scn.game().getModifiersEnvironment().addUntilEndOfGameModifier(
-                new MayNotHaveForfeitValueReducedModifier(septoid, septoid));
-        scn.SkipToPhase(Phase.BATTLE);
+        scn.MoveCardsToLocation(site, luke, rebel, chokk, septoid);
+        scn.SkipToDSTurn(Phase.BATTLE);
         scn.DSInitiateBattle(site);
-        scn.DSPass();
-        scn.PrepareLSDestiny(3);
-        scn.PrepareLSDestiny(2);
-        scn.LSUseCardAction(luke);
-        scn.LSChooseCard(stormtrooper2);
-        scn.PassAllResponses();
-        scn.DSPass();
-        scn.LSPass();
-        scn.PrepareDSDestiny(1);
-        scn.PrepareLSDestiny(7);
-        scn.SkipToDamageSegment(true);
-
-        int unpaid = scn.GetUnpaidDSBattleDamage();
-        assertTrue(unpaid > 0);
+        scn.SkipToDamageSegment(false);
+        assertEquals(1, scn.GetUnpaidDSBattleDamage());
+        assertEquals(0, scn.GetUnpaidDSAttrition());
         scn.DSPayBattleDamageFromCardInPlay(septoid);
-        assertEquals(unpaid, scn.GetUnpaidDSBattleDamage());
+        scn.PassCardLeavingTable();
+        assertInZone(Zone.LOST_PILE, septoid);
+        assertTrue("Unpaid battle damage must keep the battle active", scn.IsActiveBattle());
+        assertEquals(1, scn.GetUnpaidDSBattleDamage());
     }
 }
