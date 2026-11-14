@@ -2,6 +2,8 @@ package com.gempukku.swccgo.logic.timing.results;
 
 import com.gempukku.swccgo.common.DestinyType;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.PhysicalCard;
+import java.util.Collection;
 import com.gempukku.swccgo.logic.effects.DrawDestinyEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -28,6 +30,11 @@ public class AboutToCompleteDrawingDestinyResult extends EffectResult {
      */
     public DestinyType getDestinyType() {
         return _drawDestinyEffect.getDestinyType();
+    }
+
+    /** Gets the cards whose ability, maneuver, or defense value this total targets. */
+    public Collection<PhysicalCard> getAbilityManeuverOrDefenseValueTargeted() {
+        return _drawDestinyEffect.getAbilityManeuverOrDefenseValueTargeted();
     }
 
     /**

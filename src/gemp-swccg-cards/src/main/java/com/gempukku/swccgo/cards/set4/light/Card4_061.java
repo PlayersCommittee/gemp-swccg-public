@@ -19,7 +19,7 @@ import com.gempukku.swccgo.logic.actions.OptionalGameTextTriggerAction;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.actions.TriggerAction;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnActionProxyEffect;
-import com.gempukku.swccgo.logic.effects.ModifyDestinyEffect;
+import com.gempukku.swccgo.logic.effects.ModifyTotalDestinyEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.UseForceEffect;
@@ -83,13 +83,11 @@ public class Card4_061 extends AbstractUsedInterrupt {
                                                                     final PhysicalCard target = game.findCardByPermanentId(targetPermCardId);
                                                                     if (playerId2.equals(playerId)
                                                                             && target != null
-                                                                            && game.getGameState().getTopDrawDestinyState() != null
-                                                                            && game.getGameState().getTopDrawDestinyState().getDrawDestinyEffect().getNumDestinyDrawsRemaining() == 0
-                                                                            && TriggerConditions.isDestinyJustDrawnTargetingAbilityManeuverOrDefenseValue(game, effectResult, target)) {
+                                                                            && TriggerConditions.isAboutToCompleteDestinyDrawTargetingAbilityManeuverOrDefenseValue(game, effectResult, target)) {
                                                                         final OptionalGameTextTriggerAction action2 = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId);
                                                                         action2.setText("Add 2 to destiny total");
                                                                         action2.appendEffect(
-                                                                                new ModifyDestinyEffect(action2, 2));
+                                                                                new ModifyTotalDestinyEffect(action2, 2));
                                                                         actions.add(action2);
                                                                     }
                                                                     return actions;
