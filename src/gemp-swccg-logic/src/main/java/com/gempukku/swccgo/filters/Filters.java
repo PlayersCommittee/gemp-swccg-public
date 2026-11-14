@@ -13460,7 +13460,7 @@ public class Filters {
 
                 Collection<PhysicalCard> cardsToStealCard = Filters.filterActive(gameState.getGame(), source, filters);
                 for (PhysicalCard cardToStealCard : cardsToStealCard) {
-                    if (modifiersQuerying.canBeTargetedBy(gameState, physicalCard, cardToStealCard, targetingReasons)
+                    if (modifiersQuerying.canBeTargetedBy(gameState, physicalCard, cardToStealCard, null, targetingReasons, cardToStealCard.getOwner())
                             && !modifiersQuerying.prohibitedFromCarrying(gameState, cardToStealCard, physicalCard)) {
                         return true;
                     }
@@ -13483,7 +13483,7 @@ public class Filters {
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 PhysicalCard cardToSteal = gameState.findCardByPermanentId(permCardToStealCardId);
 
-                return (modifiersQuerying.canBeTargetedBy(gameState, cardToSteal, physicalCard, targetingReasons)
+                return (modifiersQuerying.canBeTargetedBy(gameState, cardToSteal, physicalCard, null, targetingReasons, physicalCard.getOwner())
                         && !modifiersQuerying.prohibitedFromCarrying(gameState, physicalCard, cardToSteal));
             }
         };

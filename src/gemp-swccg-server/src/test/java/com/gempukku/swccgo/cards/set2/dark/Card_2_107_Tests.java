@@ -13,6 +13,7 @@ import com.gempukku.swccgo.common.TargetingReason;
 import java.util.Collections;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.framework.StartingSetup;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import org.junit.Test;
 
@@ -90,6 +91,21 @@ public class Card_2_107_Tests {
         assertFalse(scn.game().getModifiersQuerying().canBeTargetedBy(scn.gameState(), target, source, null, reasons, scn.DS));
         assertTrue(scn.game().getModifiersQuerying().canBeTargetedBy(scn.gameState(), source, source, null, reasons, scn.LS));
         assertFalse(scn.game().getModifiersQuerying().canBeTargetedBy(scn.gameState(), source, source, null, reasons, scn.DS));
+    }
+
+    @Test
+    public void U3POStealingHelpersRejectOwnDeviceBeforeOfferingAction() {
+        var scn = GetScenario();
+        var luke = scn.GetLSCard("luke");
+        var caller = scn.GetLSCard("caller");
+        var u3po = scn.GetDSCard("u3po");
+        scn.StartGame();
+        scn.MoveCardsToLocation(scn.GetLSStartingLocation(), luke, u3po);
+        scn.AttachCardsTo(luke, caller);
+        assertFalse(Filters.canStealAndCarry(caller).accepts(scn.game(), luke));
+        assertTrue(Filters.canStealAndCarry(caller).accepts(scn.game(), u3po));
+        assertFalse(Filters.canBeStolenBy(luke, Filters.sameCardId(luke)).accepts(scn.game(), caller));
+        assertTrue(Filters.canBeStolenBy(u3po, Filters.sameCardId(u3po)).accepts(scn.game(), caller));
     }
 
     @Test
