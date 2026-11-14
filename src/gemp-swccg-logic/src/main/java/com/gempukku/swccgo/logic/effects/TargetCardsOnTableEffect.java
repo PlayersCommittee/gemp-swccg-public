@@ -271,7 +271,7 @@ public abstract class TargetCardsOnTableEffect extends AbstractTargetCardsEffect
             Filterable updatedTargetFilters = targetFilters;
             if (targetingReason != TargetingReason.NONE) {
                 // Use getActionAttachedToCard so card being played is used
-                updatedTargetFilters = Filters.and(updatedTargetFilters, Filters.canBeTargetedBy(action.getActionAttachedToCard(), action.getActionAttachedToCardBuiltIn(), targetingReason));
+                updatedTargetFilters = Filters.and(updatedTargetFilters, Filters.canBeTargetedBy(action.getActionAttachedToCard(), action.getActionAttachedToCardBuiltIn(), targetingReason, action.getPerformingPlayer()));
             }
             _targetFiltersMap.put(targetingReason, updatedTargetFilters);
         }
@@ -324,7 +324,7 @@ public abstract class TargetCardsOnTableEffect extends AbstractTargetCardsEffect
             Filterable updatedTargetFilters = targetFiltersMap.get(targetingReason);
             if (targetingReason != TargetingReason.NONE) {
                 // Use getActionAttachedToCard so card being played is used
-                updatedTargetFilters = Filters.and(updatedTargetFilters, Filters.canBeTargetedBy(action.getActionAttachedToCard(), action.getActionAttachedToCardBuiltIn(), targetingReason));
+                updatedTargetFilters = Filters.and(updatedTargetFilters, Filters.canBeTargetedBy(action.getActionAttachedToCard(), action.getActionAttachedToCardBuiltIn(), targetingReason, action.getPerformingPlayer()));
             }
             _targetFiltersMap.put(targetingReason, updatedTargetFilters);
         }

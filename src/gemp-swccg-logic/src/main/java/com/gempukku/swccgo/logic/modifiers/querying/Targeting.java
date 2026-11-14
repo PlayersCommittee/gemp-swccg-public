@@ -34,6 +34,12 @@ public interface Targeting extends BaseQuery, Weapons, Captives, CardTraits, Pil
     }
 
     private boolean canBeTargetedBy(GameState gameState, PhysicalCard cardToTarget, PhysicalCard cardDoingTargeting, SwccgBuiltInCardBlueprint permanentWeaponDoingTargeting, Set<TargetingReason> targetingReasons) {
+        return canBeTargetedBy(gameState, cardToTarget, cardDoingTargeting, permanentWeaponDoingTargeting, targetingReasons, null);
+    }
+
+    /** Checks targeting with the actual acting player, when known by the action. */
+    default boolean canBeTargetedBy(GameState gameState, PhysicalCard cardToTarget, PhysicalCard cardDoingTargeting,
+            SwccgBuiltInCardBlueprint permanentWeaponDoingTargeting, Set<TargetingReason> targetingReasons, String targetingPlayerId) {
         if (cardDoingTargeting != null) {
             for (String title : cardDoingTargeting.getTitles()) {
                 if (cardToTarget.getBlueprint().isImmuneToCardTitle(title))
@@ -139,10 +145,11 @@ public interface Targeting extends BaseQuery, Weapons, Captives, CardTraits, Pil
                 return false;
             }
 
-            if (cardDoingTargeting != null) {
-                if (cardToTarget.getOwner().equals(cardDoingTargeting.getOwner()))
-                    return false;
+            // A source card can instruct its opponent to steal; its owner does not identify the acting player.
+            if (targetingPlayerId != null && cardToTarget.getOwner().equals(targetingPlayerId))
+                return false;
 
+            if (cardDoingTargeting != null) {
                 if ((targetingReasons.contains(TargetingReason.TO_BE_STOLEN)
                         || targetingReasons.contains(TargetingReason.TO_BE_STOLEN_EVEN_IF_CARDS_ABOARD))
                         && cannotSteal(gameState, cardDoingTargeting))
