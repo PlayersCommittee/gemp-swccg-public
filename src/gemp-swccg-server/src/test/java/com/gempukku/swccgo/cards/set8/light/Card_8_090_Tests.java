@@ -3,11 +3,11 @@ package com.gempukku.swccgo.cards.set8.light;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.LoseCardsFromTableEffect;
+
+
 import org.junit.Test;
 
-import java.util.Arrays;
+
 import java.util.HashMap;
 
 import static org.junit.Assert.assertTrue;
@@ -53,16 +53,21 @@ public class Card_8_090_Tests {
         scn.AttachCardsTo(site, charge);
 
         scn.SkipToDSTurn(Phase.BATTLE);
+        scn.PrepareLSDestiny(0);
+        scn.PrepareDSDestiny(0);
         assertTrue(scn.DSCanInitiateBattle(site));
         scn.DSInitiateBattle(site);
         scn.SkipToEndOfPowerSegment(false);
-        // DS turn, LS-owned Charge is the action source (same as the printed explode).
-        var action = new TopLevelGameTextAction(charge, VirtualTableScenario.LS, charge.getCardId());
-        action.appendEffect(new LoseCardsFromTableEffect(action, Arrays.asList(luke, vader, trooper)));
-        scn.carryOutEffectInPhaseActionByPlayer(VirtualTableScenario.LS, action);
-
-        assertTrue("AR p.11: current player (DS) chooses Lost Pile order. Decision="
-                        + (scn.GetCurrentDecision() != null ? scn.GetCurrentDecision().getText() : "none"),
-                scn.DSDecisionAvailable("Choose card to be lost"));
+        scn.PrepareLSDestiny(5);
+        for (int i = 0; i < 20 && !(scn.LSGetDecision() != null && scn.LSCardActionAvailable(charge, "Draw destiny")); i++) {
+            if (scn.AwaitingLSBattleDamagePayment()) scn.LSPayRemainingBattleDamageFromReserveDeck();
+            else scn.PlayerPass(scn.GetDecidingPlayer());
+        }
+        assertTrue(scn.LSCardActionAvailable(charge, "Draw destiny"));
+        scn.LSUseCardAction(charge, "Draw destiny");
+        scn.PassAllResponses();
+        assertTrue(scn.DSDecisionAvailable("Choose card to be lost"));
+        assertTrue(scn.DSHasCardChoiceAvailable(vader));
+        assertTrue(scn.DSHasCardChoiceAvailable(trooper));
     }
 }
