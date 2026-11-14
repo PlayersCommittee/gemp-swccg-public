@@ -8,13 +8,19 @@ import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
+import com.gempukku.swccgo.game.state.BattleState;
 import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.InitiateBattleAction;
 import com.gempukku.swccgo.logic.actions.PlayInterruptAction;
 import com.gempukku.swccgo.logic.effects.*;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
+import com.gempukku.swccgo.logic.conditions.Condition;
+import com.gempukku.swccgo.logic.conditions.InBattleCondition;
+import com.gempukku.swccgo.logic.conditions.NotCondition;
+import com.gempukku.swccgo.logic.conditions.OrCondition;
 import com.gempukku.swccgo.logic.modifiers.*;
+import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
@@ -172,7 +178,20 @@ public class Card5_036 extends AbstractUsedOrLostInterrupt {
                 modifiers.add(new CaptiveMayParticipateInBattleModifier(self, Filters.in(chosenCaptives)));
                 modifiers.add(new MayNotUseWeaponsModifier(self, Filters.in(chosenCaptives)));
                 modifiers.add(new MayNotUseDevicesModifier(self, Filters.in(chosenCaptives)));
-                modifiers.add(new MayNotBeForfeitedInBattleModifier(self, Filters.and(Filters.in(chosenCaptives),Filters.not(Filters.hit))));
+                // Hit captives may always be forfeited. Non-hit captives may not be forfeited
+                // unless mandatory (non-ignorable) attrition remains and they are the only remaining way to satisfy it (#951).
+                Condition otherForfeitableExists = new InBattleCondition(self, Filters.and(Filters.your(playerId),
+                        Filters.mayBeForfeited, Filters.not(Filters.in(chosenCaptives))));
+                Condition noMandatoryAttritionRemaining = new Condition() {
+                    @Override
+                    public boolean isFulfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                        BattleState battleState = gameState.getBattleState();
+                        return !GameConditions.isAttritionRemaining(game, playerId)
+                                || battleState == null || battleState.isAttritionIgnorable(game, playerId);
+                    }
+                };
+                modifiers.add(new MayNotBeForfeitedInBattleModifier(self, Filters.and(Filters.in(chosenCaptives), Filters.not(Filters.hit)),
+                        new OrCondition(otherForfeitableExists, noMandatoryAttritionRemaining)));
                 modifiers.add(new MayNotMoveAwayFromLocationModifier(self, Filters.in(chosenCaptives), Filters.samePermanentCardId(location)));
 
                 return modifiers;
