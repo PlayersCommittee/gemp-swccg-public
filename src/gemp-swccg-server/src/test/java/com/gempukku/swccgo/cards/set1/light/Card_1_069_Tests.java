@@ -8,6 +8,7 @@ import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 import org.junit.Test;
@@ -36,6 +37,8 @@ public class Card_1_069_Tests {
 					put("tatooine","1_127"); //Tatooine system
 					put("urchins","5_017"); //All My Urchins
 					put("lightmaker","209_030"); //Lightmaker (capital, permanent pilot, no passenger capacity)
+					put("tk422", "7_048");
+                    put("webb", "3_011");
 					put("seeker","1_160"); //Tagge Seeker (deploys and moves like an undercover spy)
 				}},
 				new HashMap<>() {{
@@ -711,6 +714,10 @@ public class Card_1_069_Tests {
 		scn.LSChooseCard(landing);
 		scn.PassAllResponses();
 		assertTrue(scn.CardsAtLocation(landing, seeker));
+        assertTrue(scn.game().getModifiersQuerying().isProhibitedFromTarget(scn.gameState(), seeker, corvette));
+        assertTrue(scn.game().getModifiersQuerying().isProhibitedFromTarget(scn.gameState(), seeker, skiff));
+        assertFalse(scn.game().getModifiersQuerying().isProhibitedFromTarget(scn.gameState(), seeker, landing));
+
 
 		scn.SkipToPhase(Phase.MOVE);
 		assertTrue(scn.AwaitingLSMovePhaseActions());
@@ -724,6 +731,28 @@ public class Card_1_069_Tests {
 		assertFalse(scn.LSCardActionAvailable(seeker, "Embark"));
 		assertTrue(scn.CardsAtLocation(landing, seeker));
 	}
+
+    @Test
+    public void YerkaMigCapacityChecksDistinguishOrdinarySpyFromUndercoverPilot() {
+        var scn = GetScenario();
+        var spy = scn.GetLSCard("tk422");
+        var ordinarySpy = scn.GetLSCard("webb");
+        var ship = scn.GetLSCard("corvette");
+        var site = scn.GetDSStartingLocation();
+        scn.StartGame();
+        scn.MoveCardsToLocation(site, scn.GetDSFiller(1));
+        scn.MoveCardsToLSHand(spy);
+        scn.LSActivateForceCheat(6);
+        scn.SkipToLSTurn(Phase.DEPLOY);
+        scn.LSDeployCard(spy);
+        scn.LSChooseCard(site);
+        scn.PassAllResponses();
+        assertTrue(spy.isUndercover());
+        assertFalse(Filters.hasAvailablePilotCapacity(spy).accepts(scn.game(), ship));
+        assertFalse(Filters.hasAvailablePassengerCapacity(spy).accepts(scn.game(), ship));
+        assertTrue(Filters.hasAvailablePilotCapacity(ordinarySpy).accepts(scn.game(), ship));
+        assertTrue(Filters.hasAvailablePassengerCapacity(ordinarySpy).accepts(scn.game(), ship));
+    }
 
     //add tests for:
 	// requires targetable opponent's character to play
