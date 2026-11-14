@@ -317,6 +317,40 @@ public class Card_5_036_Tests {
     }
 
     @Test
+    public void CaptiveFuryAttachedDeviceDoesNotPreventIgnoringAttrition() {
+        var scn = GetScenario();
+
+        var fury = scn.GetLSCard("fury");
+        var luke = scn.GetLSCard("luke");
+        scn.MoveCardsToHand(fury);
+
+        var site = scn.GetLSStartingLocation();
+        var vader = scn.GetDSCard("vader");
+
+        scn.StartGame();
+
+        scn.MoveCardsToLocation(site, vader);
+        scn.AttachCardsTo(luke, scn.GetLSCard("electrobinoculars"));
+        scn.CaptureCardWith(vader, luke);
+
+        scn.SkipToLSTurn(Phase.BATTLE);
+
+        scn.LSPlayLostInterrupt(fury);
+        scn.LSChooseCard(site);
+        scn.LSChooseCard(luke);
+        scn.PassCardAndForceUseResponses();
+        scn.PrepareLSDestiny(1);
+        scn.PrepareDSDestiny(1);
+        scn.SkipToDamageSegment(true);
+
+        assertTrue(scn.DSWonBattle());
+        assertFalse(luke.isHit());
+        assertEquals(1, scn.GetUnpaidLSAttrition());
+        assertTrue(scn.LSGetDecision() != null);
+        assertFalse("Immune remaining attrition is not a must-forfeit", scn.LSHasCardChoiceAvailable(luke));
+    }
+
+    @Test
     public void CaptiveFuryCaptiveMustForfeitAtImmunityThreshold() {
         var scn = GetScenario();
 

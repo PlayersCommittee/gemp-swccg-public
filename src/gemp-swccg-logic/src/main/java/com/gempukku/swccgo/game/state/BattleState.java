@@ -67,7 +67,7 @@ public class BattleState implements Snapshotable<BattleState> {
     private BattleDamageSegmentAction.ChooseCardToLoseOrForfeitEffect _currentLostOrForfeitEffect;
 
     /**
-     * Determines whether every card present in this battle is immune to the total attrition.
+     * Determines whether every forfeitable card present in this battle is immune to the total attrition.
      * This does not inspect forfeit eligibility, which may itself depend on this result.
      */
     public boolean isAttritionIgnorable(SwccgGame game, String player) {
@@ -80,6 +80,11 @@ public class BattleState implements Snapshotable<BattleState> {
         Collection<PhysicalCard> cardsInBattle = Filters.filterActive(game, null,
                 Filters.and(Filters.owner(player), Filters.participatingInBattle));
         for (PhysicalCard card : cardsInBattle) {
+            // Avoid evaluating Captive Fury's restriction when the card has a forfeit attribute.
+            if (!modifiersQuerying.hasForfeitAttribute(gameState, card)
+                    && !modifiersQuerying.mayNotBeForfeitedInBattle(gameState, card)) {
+                continue;
+            }
             if (Filters.wherePresent(card).accepts(gameState, modifiersQuerying, getBattleLocation())) {
                 float exactImmunity = modifiersQuerying.getImmunityToAttritionOfExactly(gameState, card);
                 if (exactImmunity > 0) {
