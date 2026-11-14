@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 public class Card_13_10_Tests {
 	/**
 	 * DS starts with Let Them Make The First Move objective (+ required deploy targets).
-	 * Do not also give DS a starting-location — that conflicts at StartGame.
+	 * Do not also give DS a starting-location â€” that conflicts at StartGame.
 	 */
 	private static final StartingSetup LetThemMakeTheFirstMove = new StartingSetup() {
 		@Override
@@ -60,7 +60,9 @@ public class Card_13_10_Tests {
 		}
 	};
 
-	protected VirtualTableScenario GetScenario() {
+	protected VirtualTableScenario GetScenario() { return GetScenario(false); }
+
+    private VirtualTableScenario GetScenario(boolean tyranus) {
 		return new VirtualTableScenario(
 				new HashMap<>() {{
 					put("clinging", "13_10");
@@ -72,7 +74,7 @@ public class Card_13_10_Tests {
 					put("lsCombat2", "1_4");
 				}},
 				new HashMap<>() {{
-					put("maul", "11_54"); // Darth Maul
+					put("maul", tyranus ? "213_003" : "11_54"); // Darth Tyranus or Darth Maul
 					put("sycdb", "219_018"); // Surely You Can Do Better
 					put("dsCombat1", "1_174");
 					put("dsCombat2", "1_175");
@@ -433,4 +435,69 @@ public class Card_13_10_Tests {
 		initiateLightsaberCombat(scn);
 		assertTrue(walkUntilUseCombatCard(scn, inner));
 	}
+    private void replaceReserveWith(VirtualTableScenario scn, PhysicalCardImpl... cards) {
+        for (var card : new ArrayList<>(scn.gameState().getCardPile(scn.LS, Zone.RESERVE_DECK))) {
+            scn.MoveCardsToTopOfLSForcePile((PhysicalCardImpl) card);
+        }
+        scn.MoveCardsToTopOfLSReserveDeck(cards);
+    }
+
+    private void clingingWithShortReserve(int available) {
+        var scn = GetScenario();
+        prepareCombatants(scn, true, false);
+        skipToMoveReady(scn);
+        var first = scn.GetLSDestiny(3);
+        var second = scn.GetLSDestiny(4);
+        replaceReserveWith(scn, available == 2 ? new PhysicalCardImpl[]{second, first}
+                : available == 1 ? new PhysicalCardImpl[]{first} : new PhysicalCardImpl[]{});
+        initiateLightsaberCombat(scn);
+        assertTrue(scn.LSCardPlayAvailable(scn.GetLSCard("clinging")));
+        scn.LSPlayCard(scn.GetLSCard("clinging"));
+        scn.PassAllResponses();
+        if (available > 0) {
+            assertTrue(scn.LSDecisionAvailable("Choose " + available + " destiny"));
+            scn.LSChooseCards(available == 2 ? new PhysicalCardImpl[]{first, second} : new PhysicalCardImpl[]{first});
+            scn.PassAllResponses();
+        }
+        var state = scn.gameState().getLightsaberCombatState();
+        assertTrue(state != null);
+        assertEquals(available, state.getNumLightsaberCombatDestinyDrawn(scn.LS));
+        assertEquals(available == 2 ? 7f : available == 1 ? 3f : 0f,
+                state.getTotalLightsaberCombatDestinyFromDraws(scn.LS), scn.epsilon);
+        assertEquals(0, scn.game().getModifiersQuerying().getNumLightsaberCombatDestinyDraws(scn.gameState(), scn.LS));
+    }
+
+    @Test public void ClingingToTheEdgeResolvesWithTwoCardsInReserve() { clingingWithShortReserve(2); }
+    @Test public void ClingingToTheEdgeResolvesWithOneCardInReserve() { clingingWithShortReserve(1); }
+    @Test public void ClingingToTheEdgeEmptyReserveProducesNoSuccessfulDestiny() { clingingWithShortReserve(0); }
+
+    @Test
+    public void ClingingToTheEdgeTyranusCanCancelDestinyAndExhaustReserveMidResolution() {
+        var scn = GetScenario(true);
+        prepareCombatants(scn, true, false);
+        skipToMoveReady(scn);
+        var canceled = scn.GetLSDestiny(3);
+        var replacement = scn.GetLSDestiny(4);
+        var last = scn.GetLSDestiny(5);
+        replaceReserveWith(scn, last, replacement, canceled);
+        initiateLightsaberCombat(scn);
+        scn.LSPlayCard(scn.GetLSCard("clinging"));
+        scn.PassCardPlayResponses();
+        for (int i = 0; i < 20 && !actionAvailableSafe(scn, scn.DS, scn.GetDSCard("maul"), "Cancel and re-draw destiny"); i++) {
+            passOneOptional(scn);
+        }
+        assertTrue(scn.DSCardActionAvailable(scn.GetDSCard("maul"), "Cancel and re-draw destiny"));
+        scn.DSUseCardAction(scn.GetDSCard("maul"), "Cancel and re-draw destiny");
+        scn.PassAllResponses();
+        assertTrue(scn.LSDecisionAvailable("Choose 2 destiny"));
+        assertFalse(scn.LSHasCardChoiceAvailable(canceled));
+        scn.LSChooseCards(replacement, last);
+        scn.PassAllResponses();
+        assertInZone(Zone.USED_PILE, canceled);
+        var state = scn.gameState().getLightsaberCombatState();
+        assertEquals(2, state.getNumLightsaberCombatDestinyDrawn(scn.LS));
+        assertEquals(9f, state.getTotalLightsaberCombatDestinyFromDraws(scn.LS), scn.epsilon);
+        assertEquals(0, scn.game().getModifiersQuerying().getNumLightsaberCombatDestinyDraws(scn.gameState(), scn.LS));
+    }
+
 }
