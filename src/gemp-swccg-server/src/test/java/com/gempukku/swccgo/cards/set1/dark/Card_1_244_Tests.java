@@ -255,7 +255,7 @@ public class Card_1_244_Tests {
         scn.LSPass();
         assertTrue(scn.DSDecisionAvailable("Choose card to deploy"));
         scn.DSChooseCard(chall);
-        for (int j = 0; j < 20 && !(scn.DSGetDecision() != null && scn.DSCardActionAvailable(chall, "Take card into hand")); j++) {
+        for (int j = 0; j < 20 && !(scn.DSGetDecision() != null && scn.GetADParam(scn.DS, "actionId") != null && scn.DSCardActionAvailable(chall, "Take card into hand")); j++) {
             if (scn.DSGetDecision() != null && scn.DSHasCardChoiceAvailable(scn.GetDSStartingLocation())) scn.DSChooseCard(scn.GetDSStartingLocation());
             else scn.PlayerPass(scn.GetDecidingPlayer());
         }
