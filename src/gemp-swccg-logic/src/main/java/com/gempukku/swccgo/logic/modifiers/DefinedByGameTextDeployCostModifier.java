@@ -77,4 +77,9 @@ public class DefinedByGameTextDeployCostModifier extends AbstractModifier {
     public float getPrintedValueDefinedByGameText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
         return _evaluator.evaluateExpression(gameState, modifiersQuerying, card);
     }
+    @Override
+    public Float getFixedDeployCost() {
+        return _evaluator instanceof ConstantEvaluator ? _evaluator.evaluateExpression(null, null, null) : null;
+    }
+
 }
