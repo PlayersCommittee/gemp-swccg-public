@@ -368,7 +368,7 @@ public class Card_2_056_Tests {
         assertEquals(2f, Card2_056.getOnTableDeployCost(scn.game(), sabotage, pondaBlaster), scn.epsilon);
 		assertTrue(scn.LSCardPlayAvailable(sabotage));
 
-		
+
 		scn.SkipToLSTurn(Phase.CONTROL);
 		assertTrue(Card2_056.hasNumericOnTableDeployCost(scn.game(), sabotage, pondaBlaster));
 		assertEquals(2f, Card2_056.getOnTableDeployCost(scn.game(), sabotage, pondaBlaster), scn.epsilon);
@@ -681,7 +681,7 @@ public class Card_2_056_Tests {
 		float onVader = Card2_056.getOnTableDeployCost(scn.game(), sabotage, disruptor);
 		assertEquals(1f, onVader, scn.epsilon);
 
-		
+
 		float onTrooper = Card2_056.getOnTableDeployCost(scn.game(), sabotage, disruptor);
 		assertEquals(1f, onTrooper, scn.epsilon);
 
