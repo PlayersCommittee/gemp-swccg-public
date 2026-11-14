@@ -83,6 +83,8 @@ public class Card4_061 extends AbstractUsedInterrupt {
                                                                     final PhysicalCard target = game.findCardByPermanentId(targetPermCardId);
                                                                     if (playerId2.equals(playerId)
                                                                             && target != null
+                                                                            && game.getGameState().getTopDrawDestinyState() != null
+                                                                            && game.getGameState().getTopDrawDestinyState().getDrawDestinyEffect().getNumDestinyDrawsRemaining() == 0
                                                                             && TriggerConditions.isDestinyJustDrawnTargetingAbilityManeuverOrDefenseValue(game, effectResult, target)) {
                                                                         final OptionalGameTextTriggerAction action2 = new OptionalGameTextTriggerAction(self, playerId, gameTextSourceCardId);
                                                                         action2.setText("Add 2 to destiny total");

@@ -35,6 +35,9 @@ public class Card_4_61_Tests {
                 }},
                 new HashMap<>() {{
                     put("tie", "1_304");
+                    put("maneuvers", "1_241");
+                    put("destroyer", "1_302");
+                    put("battery", "1_323");
                 }},
                 10,
                 10,
@@ -207,6 +210,100 @@ public class Card_4_61_Tests {
         scn.PassAllResponses();
 
         assertTrue(tie.isHit());
+    }
+
+    @Test
+    public void TheydBeCrazyToFollowUsCannotAddAgainAfterDarkManeuvers() {
+        var scn = GetScenario();
+        var crazy = scn.GetLSCard("crazy");
+        var xwing = scn.GetLSCard("xwing");
+        var cannon = scn.GetLSCard("cannon");
+        var kessel = scn.GetLSCard("kessel");
+        var asteroid = scn.GetLSCard("asteroid");
+        var tie = scn.GetDSCard("tie");
+
+        scn.StartGame();
+        scn.MoveCardsToDSHand(scn.GetDSCard("maneuvers"));
+
+        scn.MoveCardsToLSHand(crazy);
+        scn.MoveLocationToTable(kessel);
+        scn.MoveLocationToTable(asteroid);
+        scn.MoveCardsToLocation(asteroid, xwing, tie);
+        scn.AttachCardsTo(xwing, cannon);
+
+        scn.SkipToLSTurn(Phase.CONTROL);
+        scn.LSActivateForceCheat(3);
+        assertTrue(scn.LSCardPlayAvailable(crazy));
+        scn.LSPlayCard(crazy);
+        scn.LSChooseCard(tie);
+        scn.PassAllResponses();
+
+        scn.SkipToPhase(Phase.BATTLE);
+        assertTrue(scn.LSCanInitiateBattle());
+        scn.LSInitiateBattle(asteroid);
+        scn.PassBattleStartResponses();
+
+        scn.PrepareLSDestiny(2);
+        assertTrue(scn.AwaitingLSWeaponsSegmentActions());
+        assertTrue(scn.LSCardActionAvailable(cannon));
+        scn.LSUseCardAction(cannon);
+        scn.LSChooseCard(tie);
+        if (scn.LSDecisionAvailable("Choose number for X")) {
+            scn.LSDecided(0);
+        }
+        PassUntilAddTwoAvailable(scn, crazy);
+        assertTrue(AddTwoAvailable(scn, crazy));
+        scn.LSUseCardAction(crazy, "Add 2");
+        for (int i = 0; i < 20 && !(scn.DSGetDecision() != null && scn.DSCardPlayAvailable(scn.GetDSCard("maneuvers"))); i++) {
+            if (scn.LSGetDecision() != null) { assertFalse(AddTwoAvailable(scn, crazy)); scn.LSPass(); }
+            else scn.DSPass();
+        }
+        assertTrue(scn.DSCardPlayAvailable(scn.GetDSCard("maneuvers")));
+        scn.DSPlayCard(scn.GetDSCard("maneuvers"));
+        scn.DSChooseCard(tie);
+        for (int i = 0; i < 20; i++) {
+            assertFalse(AddTwoAvailable(scn, crazy));
+            boolean optional = (scn.LSGetDecision() != null && scn.LSGetDecision().getText().toLowerCase().contains("optional"))
+                    || (scn.DSGetDecision() != null && scn.DSGetDecision().getText().toLowerCase().contains("optional"));
+            if (!optional) break;
+            if (scn.LSGetDecision() != null) scn.LSPass(); else scn.DSPass();
+        }
+        assertFalse(tie.isHit());
+    }
+
+    @Test
+    public void TheydBeCrazyToFollowUsAddsOnceAfterBothWeaponDestinies() {
+        var scn = GetScenario();
+        var crazy = scn.GetLSCard("crazy");
+        var xwing = scn.GetLSCard("xwing");
+        var destroyer = scn.GetDSCard("destroyer");
+        var battery = scn.GetDSCard("battery");
+        var asteroid = scn.GetLSCard("asteroid");
+        scn.StartGame();
+        scn.MoveLocationToTable(scn.GetLSCard("kessel"));
+        scn.MoveLocationToTable(asteroid);
+        scn.MoveCardsToLocation(asteroid, xwing, destroyer);
+        scn.AttachCardsTo(destroyer, battery);
+        scn.MoveCardsToLSHand(crazy);
+        scn.SkipToDSTurn(Phase.CONTROL);
+        scn.DSPass();
+        scn.LSActivateForceCheat(1);
+        scn.MoveCardsToTopOfDSForcePile(scn.GetDSDestiny(0), scn.GetDSDestiny(1), scn.GetDSDestiny(2));
+        scn.LSPlayCard(crazy);
+        scn.LSChooseCard(xwing);
+        scn.PassAllResponses();
+        scn.SkipToPhase(Phase.BATTLE);
+        scn.DSInitiateBattle(asteroid);
+        scn.PassBattleStartResponses();
+        scn.MoveCardsToTopOfDSReserveDeck(scn.GetDSDestiny(5), scn.GetDSDestiny(6));
+        scn.DSUseCardAction(battery);
+        scn.DSChooseCard(xwing);
+        PassUntilAddTwoAvailable(scn, crazy);
+        assertTrue(AddTwoAvailable(scn, crazy));
+        assertEquals(0, scn.gameState().getTopDrawDestinyState().getDrawDestinyEffect().getNumDestinyDrawsRemaining());
+        scn.LSUseCardAction(crazy, "Add 2");
+        scn.PassAllResponses();
+        assertTrue(xwing.isHit());
     }
 
     @Test
