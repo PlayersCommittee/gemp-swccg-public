@@ -10290,6 +10290,21 @@ public class Filters {
             return canBeTargetedBy(card, targetingReason);
     }
 
+    /** Filters targeting using the player performing the action rather than the source card's owner. */
+    public static Filter canBeTargetedBy(PhysicalCard card, final SwccgBuiltInCardBlueprint permanentWeapon,
+            final TargetingReason targetingReason, final String targetingPlayerId) {
+        final Integer permCardId = card != null ? card.getPermanentCardId() : null;
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target) {
+                PhysicalCard source = permanentWeapon != null
+                        ? permanentWeapon.getPhysicalCard(gameState.getGame()) : gameState.findCardByPermanentId(permCardId);
+                return modifiersQuerying.canBeTargetedBy(gameState, target, source, permanentWeapon,
+                        Collections.singleton(targetingReason), targetingPlayerId);
+            }
+        };
+    }
+
     /**
      * Filter that accepts cards that can be targeted by weapons as if present.
      */
