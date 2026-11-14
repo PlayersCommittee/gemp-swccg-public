@@ -112,7 +112,8 @@ public class DeploySingleCardEffect extends AbstractSubActionEffect implements P
         }
         _playedToZone = Zone.ATTACHED;
         _attachTo = attachTo;
-        if (cardToPlay.getBlueprint().getCardCategory() != CardCategory.CHARACTER) {
+        if (cardToPlay.getBlueprint().getCardCategory() != CardCategory.CHARACTER
+                && !cardToPlay.getBlueprint().isMovesLikeCharacter()) {
             throw new UnsupportedOperationException(GameUtils.getFullName(cardToPlay) + " should not specify if being played as pilot");
         }
         _attachAsPilot = attachAsPilot;

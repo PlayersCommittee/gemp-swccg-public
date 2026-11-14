@@ -7148,7 +7148,7 @@ public class Filters {
                 PhysicalCard attachedTo = cardToMove.getAttachedTo();
                 if ((atLocation == null && attachedTo == null)
                         || (cardToMove.getBlueprint().getCardCategory() != CardCategory.CHARACTER
-                        && !Filters.movesLikeCharacter().accepts(gameState, modifiersQuerying, physicalCard)
+                        && !cardToMove.getBlueprint().isMovesLikeCharacter()
                         && cardToMove.getBlueprint().getCardCategory() != CardCategory.VEHICLE)) {
                     return false;
                 }
@@ -8552,7 +8552,7 @@ public class Filters {
 
                 PhysicalCard card = gameState.findCardByPermanentId(permCardId);
 
-                if (card.isUndercover())
+                if (modifiersQuerying.isDeploysAndMovesLikeUndercoverSpy(gameState, card))
                     return false;
 
                 if (card.getBlueprint().getCardCategory() != CardCategory.CHARACTER)
@@ -8595,7 +8595,7 @@ public class Filters {
                     return false;
 
                 PhysicalCard card = gameState.findCardByPermanentId(permCardId);
-                if (card.isUndercover())
+                if (modifiersQuerying.isDeploysAndMovesLikeUndercoverSpy(gameState, card))
                     return false;
 
                 if (card.getBlueprint().getCardCategory() != CardCategory.CHARACTER &&

@@ -224,8 +224,8 @@ public interface Targeting extends BaseQuery, Weapons, Captives, CardTraits, Pil
             if (modifier.isProhibitedFromExistingAt(gameState, query(), target))
                 return true;
 
-        // Undercover spies may only exist physically at sites
-        if (card.isUndercover() && target.getBlueprint().getCardSubtype() != CardSubtype.SITE)
+        // Undercover deployment and movement, including seekers, is restricted to sites.
+        if (isDeploysAndMovesLikeUndercoverSpy(gameState, card) && target.getBlueprint().getCardSubtype() != CardSubtype.SITE)
             return true;
 
         // If card has "per system" uniqueness, then it cannot exist at same system as another card of same title (per uniqueness limit)

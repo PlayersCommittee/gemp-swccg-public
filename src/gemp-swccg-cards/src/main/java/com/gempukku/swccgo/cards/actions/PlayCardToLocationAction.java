@@ -1,7 +1,10 @@
 package com.gempukku.swccgo.cards.actions;
 
 import com.gempukku.swccgo.cards.effects.PayDeployCostEffect;
+import com.gempukku.swccgo.common.TargetId;
+import com.gempukku.swccgo.common.TargetingReason;
 import com.gempukku.swccgo.filters.Filter;
+import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.ReactActionOption;
@@ -11,6 +14,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.AbstractPlayCardAction;
 import com.gempukku.swccgo.logic.effects.DeploySingleCardEffect;
 import com.gempukku.swccgo.logic.effects.PayExtraCostToDeployCardEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChoosePlayerEffect;
 import com.gempukku.swccgo.logic.timing.Effect;
@@ -65,14 +69,29 @@ public class PlayCardToLocationAction extends AbstractPlayCardAction {
             _text = _text + " as a 'react'";
         }
 
-        appendTargeting(
-                new ChooseCardOnTableEffect(_that, getPerformingPlayer(), "Choose location where to " + _text.toLowerCase() + " " + GameUtils.getCardLink(cardToDeploy), deployTargetFilter) {
-                    @Override
-                    protected void cardSelected(PhysicalCard target) {
-                        _target = target;
+        // Moves-like-a-character cards (e.g. Yerka Mig) can deploy to sites or aboard ships/vehicles.
+        // When attaching, DeploySingleCardEffect requires TO_BE_DEPLOYED_ON targeting (Effects are cancelable).
+        if (cardToDeploy.getBlueprint().isMovesLikeCharacter()) {
+            appendTargeting(
+                    new TargetCardOnTableEffect(_that, getPerformingPlayer(), "Choose where to " + _text.toLowerCase() + " " + GameUtils.getCardLink(cardToDeploy), TargetingReason.TO_BE_DEPLOYED_ON, deployTargetFilter) {
+                        @Override
+                        protected void cardTargeted(int targetGroupId, PhysicalCard target) {
+                            _target = target;
+                            _cardToPlay.setTargetedCard(TargetId.DEPLOY_TARGET, targetGroupId, target, deployTargetFilter);
+                        }
                     }
-                }
-        );
+            );
+        }
+        else {
+            appendTargeting(
+                    new ChooseCardOnTableEffect(_that, getPerformingPlayer(), "Choose location where to " + _text.toLowerCase() + " " + GameUtils.getCardLink(cardToDeploy), deployTargetFilter) {
+                        @Override
+                        protected void cardSelected(PhysicalCard target) {
+                            _target = target;
+                        }
+                    }
+            );
+        }
     }
 
     @Override
@@ -151,7 +170,16 @@ public class PlayCardToLocationAction extends AbstractPlayCardAction {
             if (!_cardPlayed) {
                 _cardPlayed = true;
 
-                _playCardEffect = new DeploySingleCardEffect(_that, _cardToPlay, _target, !_cardToPlay.getOwner().equals(_playedToZoneOwner), null, _reactActionOption, _playCardOption.getId(), _reshuffle);
+                // Cards that deploy/move like a character (e.g. Yerka Mig) may target starships/vehicles
+                // for passenger capacity while still using a location play-card option. Attach as
+                // passenger instead of placing at the location (which left them in the void).
+                if (_cardToPlay.getBlueprint().isMovesLikeCharacter()
+                        && Filters.or(Filters.starship, Filters.vehicle).accepts(game, _target)) {
+                    _playCardEffect = new DeploySingleCardEffect(_that, _cardToPlay, _target, false, _reactActionOption, _playCardOption.getId(), _reshuffle);
+                }
+                else {
+                    _playCardEffect = new DeploySingleCardEffect(_that, _cardToPlay, _target, !_cardToPlay.getOwner().equals(_playedToZoneOwner), null, _reactActionOption, _playCardOption.getId(), _reshuffle);
+                }
                 return _playCardEffect;
             }
         }
