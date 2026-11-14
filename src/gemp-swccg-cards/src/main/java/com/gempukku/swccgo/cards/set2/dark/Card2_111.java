@@ -1,12 +1,11 @@
 package com.gempukku.swccgo.cards.set2.dark;
 
-import com.gempukku.swccgo.cards.AbstractDevice;
+import com.gempukku.swccgo.cards.AbstractLocationDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
-import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Statistic;
@@ -33,9 +32,9 @@ import java.util.List;
  * Type: Device
  * Title: Death Star Tractor Beam
  */
-public class Card2_111 extends AbstractDevice {
+public class Card2_111 extends AbstractLocationDevice {
     public Card2_111() {
-        super(Side.DARK, 3, PlayCardZoneOption.ATTACHED, Title.Death_Star_Tractor_Beam, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.R2);
+        super(Side.DARK, 3, Title.Death_Star_Tractor_Beam, Uniqueness.UNRESTRICTED, ExpansionSet.A_NEW_HOPE, Rarity.R2);
         setLore("'Why are we moving towards it?'");
         setGameText("Use 2 Force to deploy on Docking Bay 327. At the end of a battle at Death Star system, may target an opponent's starship present (except a Mon Calamari star cruiser) using 2 Force. Draw two destiny. Target captured if total destiny > defense value.");
         addKeywords(Keyword.TRACTOR_BEAM, Keyword.DEPLOYS_ON_SITE);

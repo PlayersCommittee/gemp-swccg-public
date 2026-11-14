@@ -102,10 +102,11 @@ public class ShuttleAction extends AbstractTopLevelRuleAction {
                                 _shuttleEffect = new ShuttleEffect(_that, _cardToMove, _destination, _moveAsPilot, false);
                             }
                         } else if (_cardToMove.getBlueprint().isMovesLikeCharacter()) {
-                            _capacitySlotChosen = true;
-
-                            // If both capacity slots were not available, move character to available slot.
-                            _shuttleEffect = new ShuttleEffect(_that, _cardToMove, _destination, false, false);
+                            boolean canBePassenger = Filters.hasAvailablePassengerCapacity(_cardToMove).accepts(gameState, modifiersQuerying, _destination);
+                            if(canBePassenger) {
+                                _capacitySlotChosen = true;
+                                _shuttleEffect = new ShuttleEffect(_that, _cardToMove, _destination, false, false);
+                            }
                         } else {
                             // Need to determine capacity slot for starship/vehicle
                             boolean canGoInVehicleSlot = Filters.hasAvailableVehicleCapacity(_cardToMove).accepts(gameState, modifiersQuerying, _destination);

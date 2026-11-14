@@ -35,7 +35,7 @@ public class Card226_006 extends AbstractNormalEffect {
     public Card226_006() {
         super(Side.DARK, 5, PlayCardZoneOption.YOUR_SIDE_OF_TABLE, Title.Im_Sorry, Uniqueness.UNIQUE, ExpansionSet.SET_26, Rarity.V);
         setLore("'I'm sorry, too.'");
-        setGameText("If your [Cloud City] objective on table, deploy on table. Elis Helrot, Stunning Leader, and Surreptitious Glance may not be played. Once per turn, may [download] an interior Cloud City site. Your unique (•) characters with printed forfeit < 5 are forfeit +2 (limit +2). [Immune to Alter.]");
+        setGameText("If your [Cloud City] objective on table, deploy on table. Elis Helrot, Stunning Leader, and Surreptitious Glance may not be played. Once per turn, may [download] an interior Cloud City site. Your unique (•) characters with printed forfeit < 5 are forfeit +2 (to a maximum of +2). [Immune to Alter.]");
         addIcons(Icon.TATOOINE, Icon.CLOUD_CITY, Icon.VIRTUAL_SET_26);
         addImmuneToCardTitle(Title.Alter);
         setVirtualSuffix(true);

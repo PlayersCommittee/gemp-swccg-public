@@ -73,7 +73,10 @@ public class TransferBetweenDockedStarshipsAction extends AbstractTopLevelRuleAc
             }
         }
         else if (_cardToTransfer.getBlueprint().isMovesLikeCharacter()) {
-            _possibleDestinations.add(_otherStarship);
+            boolean canBePassenger = Filters.hasAvailablePassengerCapacity(_cardToTransfer).accepts(gameState, modifiersQuerying, _otherStarship);
+            if(canBePassenger) {
+                _possibleDestinations.add(_otherStarship);
+            }
         }
         else {
             boolean canGoInVehicleSlot = Filters.hasAvailableVehicleCapacity(_cardToTransfer).accepts(gameState, modifiersQuerying, _otherStarship);
@@ -123,10 +126,11 @@ public class TransferBetweenDockedStarshipsAction extends AbstractTopLevelRuleAc
                 }
             }
             else if (_cardToTransfer.getBlueprint().isMovesLikeCharacter()) {
-                _capacitySlotChosen = true;
-
-                // If both capacity slots were not available, transfer character to available slot.
-                _transferBetweenStarshipsEffect = new TransferBetweenStarshipsEffect(_that, _cardToTransfer, _otherStarship, false, false);
+                boolean canBePassenger = Filters.hasAvailablePassengerCapacity(_cardToTransfer).accepts(gameState, modifiersQuerying, _otherStarship);
+                if(canBePassenger) {
+                    _capacitySlotChosen = true;
+                    _transferBetweenStarshipsEffect = new TransferBetweenStarshipsEffect(_that, _cardToTransfer, _otherStarship, false, false);
+                }
             }
             else {
                 // Need to determine capacity slot for starship/vehicle
@@ -199,10 +203,11 @@ public class TransferBetweenDockedStarshipsAction extends AbstractTopLevelRuleAc
                                 }
                             }
                             else if (_cardToTransfer.getBlueprint().isMovesLikeCharacter()) {
-                                _capacitySlotChosen = true;
-
-                                // If both capacity slots were not available, transfer character to available slot.
-                                _transferBetweenStarshipsEffect = new TransferBetweenStarshipsEffect(_that, _cardToTransfer, _otherStarship, false, false);
+                                boolean canBePassenger = Filters.hasAvailablePassengerCapacity(_cardToTransfer).accepts(gameState, modifiersQuerying, _otherStarship);
+                                if(canBePassenger) {
+                                    _capacitySlotChosen = true;
+                                    _transferBetweenStarshipsEffect = new TransferBetweenStarshipsEffect(_that, _cardToTransfer, _otherStarship, false, false);
+                                }
                             }
                             else {
                                 // Need to determine capacity slot for starship/vehicle

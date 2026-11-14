@@ -10,16 +10,16 @@ import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
 
 /**
- * A destiny increase limit modifier.
+ * A destiny increase (above printed destiny) limit modifier.
  */
 public class DestinyIncreaseLimitModifier extends AbstractModifier {
     private Evaluator _evaluator;
 
     /**
-     * Creates a destiny increase limit modifier.
+     * Creates a destiny increase (above printed destiny) limit modifier.
      *
      * @param source         the source of the modifier
-     * @param affectFilter   the filter for cards whose forfeit value is modified
+     * @param affectFilter   the filter for cards whose destiny value is limited
      * @param modifierAmount the amount of the modifier
      */
     public DestinyIncreaseLimitModifier(PhysicalCard source, Filterable affectFilter, float modifierAmount) {
@@ -27,22 +27,22 @@ public class DestinyIncreaseLimitModifier extends AbstractModifier {
     }
 
     /**
-     * Creates a destiny increase limit modifier.
+     * Creates a destiny increase (above printed destiny) limit modifier.
      *
      * @param source       the source of the modifier
-     * @param affectFilter the filter for cards whose forfeit value is modified
+     * @param affectFilter the filter for cards whose destiny value is limited
      * @param condition    the condition that must be fulfilled for the modifier to be in effect
      * @param evaluator    the evaluator that calculates the amount of the modifier
      * @param cumulative   true if the modifier is cumulative, otherwise false
      */
     public DestinyIncreaseLimitModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator, boolean cumulative) {
-        super(source, null, affectFilter, condition, ModifierType.DESTINY_INCREASE_MODIFIER_LIMIT, cumulative);
+        super(source, null, affectFilter, condition, ModifierType.DESTINY_INCREASE_LIMITED_TO, cumulative);
         _evaluator = evaluator;
     }
 
     @Override
     public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        final float value = getDestinyModifierLimit(gameState, modifiersQuerying, self);
+        final float value = getDestinyIncreaseLimit(gameState, modifiersQuerying, self);
         if (value > 0)
             return "Destiny may not be increased by more than " + GuiUtils.formatAsString(value);
         else
@@ -50,7 +50,7 @@ public class DestinyIncreaseLimitModifier extends AbstractModifier {
     }
 
     @Override
-    public float getDestinyModifierLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+    public float getDestinyIncreaseLimit(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
         return _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
     }
 }

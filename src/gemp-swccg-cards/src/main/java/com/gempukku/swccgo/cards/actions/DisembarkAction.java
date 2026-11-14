@@ -96,8 +96,11 @@ public class DisembarkAction extends AbstractTopLevelRuleAction {
                                     _disembarkEffect = new DisembarkEffect(_that, _cardToMove, _destination, _moveAsPilot, false);
                                 }
                             } else if (_cardToMove.getBlueprint().isMovesLikeCharacter()) {
-                                _capacitySlotChosen = true;
-                                _disembarkEffect = new DisembarkEffect(_that, _cardToMove, _destination, false, false);
+                                boolean canBePassenger = Filters.hasAvailablePassengerCapacity(_cardToMove).accepts(gameState, modifiersQuerying, _destination);
+                                if(canBePassenger) {
+                                    _capacitySlotChosen = true;
+                                    _disembarkEffect = new DisembarkEffect(_that, _cardToMove, _destination, false, false);
+                                }
                             } else {
                                 // Check if goes in capital starship capacity slot
                                 boolean canGoInCapitalStarshipSlot = Filters.hasAvailableCapitalStarshipCapacity(_cardToMove).accepts(gameState, modifiersQuerying, _destination);

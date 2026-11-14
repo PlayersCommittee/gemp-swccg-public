@@ -37,7 +37,7 @@ public class Card223_017 extends AbstractStarfighter {
         setLore("Maul's Sith Infiltrator.");
         setGameText("May add 1 pilot. Permanent pilot is •Maul, who provides ability of 6. Once per battle, may lose 1 Force to 'cloak' (either add one destiny to total power or make this starship immune to attrition < 6).");
         addPersona(Persona.MAULS_SITH_INFILTRATOR);
-        addIcons(Icon.TRADE_FEDERATION, Icon.SCOMP_LINK, Icon.NAV_COMPUTER, Icon.PILOT, Icon.VIRTUAL_SET_23);
+        addIcons(Icon.EPISODE_I, Icon.TRADE_FEDERATION, Icon.SCOMP_LINK, Icon.NAV_COMPUTER, Icon.PILOT, Icon.VIRTUAL_SET_23);
         addModelType(ModelType.SITH_INFILTRATOR);
         setPilotCapacity(1);
     }

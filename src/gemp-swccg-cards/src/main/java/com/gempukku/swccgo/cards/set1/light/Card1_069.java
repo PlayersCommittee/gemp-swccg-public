@@ -10,6 +10,8 @@ import com.gempukku.swccgo.common.TargetId;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
+import com.gempukku.swccgo.game.DeployAsCaptiveOption;
+import com.gempukku.swccgo.game.DeploymentRestrictionsOption;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
@@ -40,6 +42,18 @@ public class Card1_069 extends AbstractUtinniEffect {
     @Override
     public boolean isMovesLikeCharacter() {
         return true;
+    }
+
+    @Override
+    protected Filter getValidDeployTargetFilterForCardType(String playerId, final SwccgGame game, final PhysicalCard self, boolean isSimDeployAttached, boolean ignorePresenceOrForceIcons, DeploymentRestrictionsOption deploymentRestrictionsOption, DeployAsCaptiveOption deployAsCaptiveOption) {
+        //see AR Appendix B ruling for Yerka Mig
+        Filter deploysLikeACharacter = Filters.or(Filters.site, Filters.and(Filters.owner(playerId), Filters.or(Filters.hasAvailablePilotCapacity(self), Filters.hasAvailablePassengerCapacity(self))));
+        if (!isDagobahAllowed()) {
+            deploysLikeACharacter = Filters.and(deploysLikeACharacter, Filters.not(Filters.locationAndCardsAtLocation(Filters.Dagobah_location)));
+        }
+        return deploysLikeACharacter;
+
+        //TODO when deploying aboard, need to attach to ship/vehicle - possibly using attachCardInPassengerCapacitySlot?
     }
 
     @Override

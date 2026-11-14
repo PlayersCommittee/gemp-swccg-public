@@ -6,7 +6,6 @@ import com.gempukku.swccgo.cards.effects.usage.OncePerGameEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -34,7 +33,6 @@ public class Card221_004 extends AbstractCharacterDevice {
     public Card221_004() {
         super(Side.LIGHT, 5, "Han's Medal", Uniqueness.UNIQUE, ExpansionSet.SET_21, Rarity.V);
         setGameText("Deploy on Han or a Wookiee. Once per game, when deployed, may take any one card into hand from Force Pile; reshuffle. If on Chewie, may place this device in Used Pile to cancel a just drawn destiny targeting the ability or defense value of a Wookiee here.");
-        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
         addIcons(Icon.EPISODE_VII, Icon.VIRTUAL_SET_21);
     }
 

@@ -46,7 +46,12 @@ public class CancelForceDrainEffect extends AbstractStandardEffect {
      */
     private boolean canPerformingPlayerCancelForceDrain(SwccgGame game) {
         ForceDrainState forceDrainState = game.getGameState().getForceDrainState();
+        // Required game text triggers have no performing player; the card's owner is then the one canceling, so a
+        // "may not cancel" restriction on that player still applies.
+        String playerCanceling = _action.getPerformingPlayer();
+        if (playerCanceling == null && _action.getActionSource() != null)
+            playerCanceling = _action.getActionSource().getOwner();
         return forceDrainState != null && forceDrainState.canContinue()
-                && !game.getModifiersQuerying().cantCancelForceDrainAtLocation(game.getGameState(), forceDrainState.getLocation(), _action.getActionSource(), _action.getPerformingPlayer(), forceDrainState.getPlayerId());
+                && !game.getModifiersQuerying().cantCancelForceDrainAtLocation(game.getGameState(), forceDrainState.getLocation(), _action.getActionSource(), playerCanceling, forceDrainState.getPlayerId());
     }
 }

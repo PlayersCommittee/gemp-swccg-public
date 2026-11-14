@@ -426,6 +426,10 @@ public interface MovementCosts extends BaseQuery, MovementRestrictions {
         if (Filters.docking_bay.accepts(gameState, query(), toLocation))
             return 0;
 
+        // Check if landing to launch bay (treated as if it were a docking bay)
+        if (Filters.launch_bay.accepts(gameState, query(), toLocation))
+            return 0;
+
         // Check if moves for free
         if (!getModifiersAffectingCard(gameState, ModifierType.MOVES_FREE, card).isEmpty())
             return 0;
@@ -548,6 +552,10 @@ public interface MovementCosts extends BaseQuery, MovementRestrictions {
 
         // Check if taking off from docking bay, which is free
         if (Filters.docking_bay.accepts(gameState, query(), fromLocation))
+            return 0;
+
+        // Check if taking off from launch bay (treated as if it were a docking bay)
+        if (Filters.launch_bay.accepts(gameState, query(), fromLocation))
             return 0;
 
         // Check if moves for free

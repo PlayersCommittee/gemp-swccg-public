@@ -48,6 +48,10 @@ public class Card213_050 extends AbstractUsedInterrupt {
                             action.appendEffect(new DrawDestinyEffect(action, playerId) {
                                 @Override
                                 protected void destinyDraws(final SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, final Float totalDestiny) {
+                                    if (totalDestiny == null) {
+                                        game.getGameState().sendMessage("Result: Failed due to failed destiny draw");
+                                        return;
+                                    }
                                     if (totalDestiny >= 0 && totalDestiny <= 2) {
                                         //(1-2) subtract destiny draw from opponent's total battle destiny
                                         action.appendEffect(

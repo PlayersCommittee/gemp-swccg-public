@@ -25,6 +25,19 @@ public class MayFireOneWeaponTwicePerBattleModifier extends AbstractModifier {
         _weaponFilter = Filters.and(weaponFilter);
     }
 
+    /**
+     * Creates a modifier that allows cards accepted by the affect filter to fire one weapon (accepted by the weapon
+     * filter) twice per battle. Use this when the source of the modifier is not itself the card that fires the weapon.
+     * @param source the source of the modifier
+     * @param affectFilter the filter for cards that are allowed to fire a weapon twice
+     * @param condition the condition that must be fulfilled for the modifier to be in effect
+     * @param weaponFilter the weapon filter
+     */
+    public MayFireOneWeaponTwicePerBattleModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Filterable weaponFilter) {
+        super(source, null, affectFilter, condition, ModifierType.MAY_FIRE_A_WEAPON_TWICE_PER_BATTLE, true);
+        _weaponFilter = Filters.and(weaponFilter);
+    }
+
     @Override
     public boolean isAffectedTarget(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target) {
         return Filters.and(_weaponFilter).accepts(gameState, modifiersQuerying, target);

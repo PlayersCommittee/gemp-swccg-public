@@ -22,4 +22,14 @@ public interface ModifiersQuerying extends BaseQuery, Ability, Armor, Attacks, A
         Targeting, Values, Weapons,
         ModifiersState {
 
+    /**
+     * Performs a computation that only reads the game state (it must not change it) and returns its result. While it
+     * runs, repeated queries of card states and of modifiers affecting cards are answered once and then reused, instead
+     * of being re-derived for every card and modifier that depends on them. The results are the same as without it.
+     * @param readOnlyComputation the computation, which must not change the game state
+     * @return the result of the computation
+     */
+    default <T> T withQueryCache(java.util.function.Supplier<T> readOnlyComputation) {
+        return readOnlyComputation.get();
+    }
 }

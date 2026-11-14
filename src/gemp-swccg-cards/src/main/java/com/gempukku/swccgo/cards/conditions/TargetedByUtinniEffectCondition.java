@@ -6,6 +6,7 @@ import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.game.state.GameState;
+import com.gempukku.swccgo.game.state.actions.PlayCardState;
 import com.gempukku.swccgo.logic.conditions.Condition;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
 
@@ -39,6 +40,15 @@ public class TargetedByUtinniEffectCondition implements Condition {
 
             // Check if explicitly targeting this card
             if (utinniEffect.getTargetedCards(gameState).values().contains(card)) {
+                return true;
+            }
+        }
+
+        // Check if currently being played (targeting is already chosen before the play-response window,
+        // but the Utinni Effect is not active on table yet)
+        for (PlayCardState playCardState : gameState.getPlayCardStates()) {
+            PhysicalCard played = playCardState.getPlayCardAction().getPlayedCard();
+            if (played != null && _filters.accepts(game, played) && played.getTargetedCards(gameState).values().contains(card)) {
                 return true;
             }
         }

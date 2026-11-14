@@ -53,8 +53,7 @@ public class Card12_106 extends AbstractAlien {
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActions(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
         final String opponent = game.getOpponent(playerId);
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, Phase.CONTROL)
-                && GameConditions.canDrawDestiny(game, opponent)) {
+        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, Phase.CONTROL)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId);
             action.setActionMsg("Make opponent draw destiny");
@@ -69,7 +68,12 @@ public class Card12_106 extends AbstractAlien {
                     new DrawDestinyEffect(action, opponent) {
                         @Override
                         protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, List<Float> destinyDrawValues, Float totalDestiny) {
-                            if (totalDestiny > 2) {
+                            if (totalDestiny == null) {
+                                game.getGameState().sendMessage("Result: Retrieve due to opponent's failed destiny draw");
+                                action.appendEffect(
+                                        new RetrieveForceEffect(action, playerId, 1)
+                                );
+                            } else if (totalDestiny > 2) {
                                 action.appendEffect(
                                         new RetrieveForceEffect(action, playerId, 1)
                                 );

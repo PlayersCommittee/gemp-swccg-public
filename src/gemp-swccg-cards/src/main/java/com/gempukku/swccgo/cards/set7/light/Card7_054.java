@@ -3,7 +3,6 @@ package com.gempukku.swccgo.cards.set7.light;
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -30,7 +29,6 @@ public class Card7_054 extends AbstractCharacterDevice {
         setLore("Favored by scouts and troopers over the hand-held model. Easy to operate in difficult environments.");
         setGameText("Use 1 Force to deploy on your Rebel. Your characters and vehicles at related sites may move as a 'react' to same or adjacent site.");
         addIcons(Icon.SPECIAL_EDITION);
-        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

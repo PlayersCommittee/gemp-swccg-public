@@ -3,7 +3,6 @@ package com.gempukku.swccgo.cards.set5.dark;
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -33,7 +32,6 @@ public class Card5_109 extends AbstractCharacterDevice {
         setLore("Contains wrist lasers, rocket dart launchers, a flame projector, a projected grappling hook, a concussion grenade launcher, four kinds of sensors and a broad band antenna.");
         setGameText("Use 3 Force to deploy on any Imperial or alien (except Vader or Boba Fett). Character is power +2, has armor = 5 and is immune to attrition < 3.");
         addIcons(Icon.CLOUD_CITY);
-        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

@@ -1,13 +1,12 @@
 package com.gempukku.swccgo.cards.set1.light;
 
-import com.gempukku.swccgo.cards.AbstractDevice;
+import com.gempukku.swccgo.cards.AbstractLocationDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.PlayCardOptionId;
-import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
@@ -37,9 +36,9 @@ import java.util.List;
  * Type: Device
  * Title: Hydroponics Station
  */
-public class Card1_037 extends AbstractDevice {
+public class Card1_037 extends AbstractLocationDevice {
     public Card1_037() {
-        super(Side.LIGHT, 4, PlayCardZoneOption.ATTACHED, Title.Hydroponics_Station, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U2);
+        super(Side.LIGHT, 4, Title.Hydroponics_Station, Uniqueness.UNRESTRICTED, ExpansionSet.PREMIERE, Rarity.U2);
         setLore("Grows fruits and vegetables. Very efficient water use. Often underground. Feeds moisture farm families, but excess vegetables are often sold at markets.");
         setGameText("Use 1 Force to deploy on any exterior Tatooine site. Cannot be moved. The first Force you activate during your activate phase may be drawn into hand instead. If a Vaporator on table, the second Force you activate may also be drawn into hand.");
         addKeywords(Keyword.DEPLOYS_ON_SITE);

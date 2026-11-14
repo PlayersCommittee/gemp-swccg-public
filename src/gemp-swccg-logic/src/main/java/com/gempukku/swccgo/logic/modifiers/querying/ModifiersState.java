@@ -546,6 +546,16 @@ public interface ModifiersState {
     Collection<Modifier> getModifiersAffecting(GameState gameState, PhysicalCard card);
 
     /**
+     * Cheap structural pre-check that evaluates no conditions: whether any modifier of the specified type exists in
+     * the game, or among the specified card's always-on modifiers. If this returns false, getModifiersAffecting cannot
+     * return a modifier of that type for the card.
+     * @param modifierType the modifier type
+     * @param card the card, or null to check only the game-wide modifiers
+     * @return true if a modifier of that type may affect the card
+     */
+    boolean hasModifiersOfType(ModifierType modifierType, PhysicalCard card);
+
+    /**
      * Records that a 'bluff card' was stacked.
      */
     void bluffCardStacked();

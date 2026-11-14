@@ -258,6 +258,11 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     @Override
     public List<TriggerAction> getRequiredBeforeTriggers(Effect effect) {
+        // Gathering actions only reads the game state: one query scope for all the cards asked (see withQueryCache).
+        return _swccgGame.getModifiersQuerying().withQueryCache(() -> getRequiredBeforeTriggersImpl(effect));
+    }
+
+    private List<TriggerAction> getRequiredBeforeTriggersImpl(Effect effect) {
         List<TriggerAction> actionList = new LinkedList<TriggerAction>();
 
         GatherRequiredBeforeTriggers gatherActions = new GatherRequiredBeforeTriggers(effect);
@@ -298,6 +303,11 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     @Override
     public List<TriggerAction> getOptionalBeforeTriggers(String playerId, Effect effect) {
+        // Gathering actions only reads the game state: one query scope for all the cards asked (see withQueryCache).
+        return _swccgGame.getModifiersQuerying().withQueryCache(() -> getOptionalBeforeTriggersImpl(playerId, effect));
+    }
+
+    private List<TriggerAction> getOptionalBeforeTriggersImpl(String playerId, Effect effect) {
         List<TriggerAction> actionList = new LinkedList<TriggerAction>();
 
         // Gather actions from owners cards and locations
@@ -315,6 +325,11 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     @Override
     public List<Action> getOptionalBeforeActions(String playerId, Effect effect) {
+        // Gathering actions only reads the game state: one query scope for all the cards asked (see withQueryCache).
+        return _swccgGame.getModifiersQuerying().withQueryCache(() -> getOptionalBeforeActionsImpl(playerId, effect));
+    }
+
+    private List<Action> getOptionalBeforeActionsImpl(String playerId, Effect effect) {
         List<Action> allActions = new LinkedList<Action>();
 
         GatherOptionalBeforeActions gatherActions = new GatherOptionalBeforeActions(playerId, effect);
@@ -327,6 +342,11 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     @Override
     public Map<TriggerAction, EffectResult> getRequiredAfterTriggers(Collection<? extends EffectResult> effectResults) {
+        // Gathering actions only reads the game state: one query scope for all the cards asked (see withQueryCache).
+        return _swccgGame.getModifiersQuerying().withQueryCache(() -> getRequiredAfterTriggersImpl(effectResults));
+    }
+
+    private Map<TriggerAction, EffectResult> getRequiredAfterTriggersImpl(Collection<? extends EffectResult> effectResults) {
         Map<TriggerAction, EffectResult> allActions = new HashMap<TriggerAction, EffectResult>();
 
         GatherRequiredAfterTriggers gatherActions = new GatherRequiredAfterTriggers(effectResults);
@@ -413,6 +433,11 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     @Override
     public Map<TriggerAction, EffectResult> getOptionalAfterTriggers(String playerId, Collection<? extends EffectResult> effectResults) {
+        // Gathering actions only reads the game state: one query scope for all the cards asked (see withQueryCache).
+        return _swccgGame.getModifiersQuerying().withQueryCache(() -> getOptionalAfterTriggersImpl(playerId, effectResults));
+    }
+
+    private Map<TriggerAction, EffectResult> getOptionalAfterTriggersImpl(String playerId, Collection<? extends EffectResult> effectResults) {
 
         // Gather actions from owners cards and locations
         GatherOptionalAfterTriggers gatherActions = new GatherOptionalAfterTriggers(playerId, effectResults);
@@ -549,6 +574,11 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     @Override
     public List<Action> getOptionalAfterActions(String playerId, Collection<? extends EffectResult> effectResults) {
+        // Gathering actions only reads the game state: one query scope for all the cards asked (see withQueryCache).
+        return _swccgGame.getModifiersQuerying().withQueryCache(() -> getOptionalAfterActionsImpl(playerId, effectResults));
+    }
+
+    private List<Action> getOptionalAfterActionsImpl(String playerId, Collection<? extends EffectResult> effectResults) {
         GatherOptionalAfterActions gatherAfterActions = new GatherOptionalAfterActions(playerId, effectResults);
         _swccgGame.getGameState().iterateCardsWithOptionalActions(gatherAfterActions, playerId, true);
 
@@ -564,6 +594,11 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     @Override
     public List<Action> getTopLevelActions(String playerId) {
+        // Gathering actions only reads the game state: one query scope for all the cards asked (see withQueryCache).
+        return _swccgGame.getModifiersQuerying().withQueryCache(() -> getTopLevelActionsImpl(playerId));
+    }
+
+    private List<Action> getTopLevelActionsImpl(String playerId) {
         List<Action> allActions = new LinkedList<Action>();
 
         // Gather actions from owner's cards and locations

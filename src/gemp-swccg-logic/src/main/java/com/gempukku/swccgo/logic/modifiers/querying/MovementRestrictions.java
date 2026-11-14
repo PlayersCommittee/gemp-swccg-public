@@ -476,7 +476,7 @@ public interface MovementRestrictions extends BaseQuery, Locations {
         // Check if TIE, which can only land at docking bay (or starship site that may be landed at instead of embarking on related starship).
         if (Filters.TIE.accepts(gameState, query(), card)
                 && !Filters.docking_bay.accepts(gameState, query(), toLocation)
-                && !Filters.starshipSiteToShuttleTransferLandAndTakeOffAtForFreeInsteadOfRelatedStarship(card.getOwner()).accepts(gameState, query(), card)
+                && !Filters.starshipSiteToShuttleTransferLandAndTakeOffAtForFreeInsteadOfRelatedStarship(card.getOwner()).accepts(gameState, query(), toLocation)
                 && !tieAllowedToLand(gameState, card, toLocation)) {
             return true;
         }
