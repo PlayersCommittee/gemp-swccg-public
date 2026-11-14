@@ -64,6 +64,8 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
     private PhysicalCard _drawnDestinyCard;
     private Float _drawnDestinyValue;
     private float _drawnDestinyValueModification;
+    private float _totalDestinyValueModification;
+    private Map<String, Float> _totalModifierSourceTitleMap = new HashMap<>();
     private boolean _reset;
     private boolean _canceled;
     private boolean _redrawn;
@@ -294,46 +296,37 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
      * @param cumulative true if modifier is cumulative, false otherwise
      */
     public void modifyDestiny(List<String> sourceTitles, GameTextActionId gameTextActionId, float amount, boolean cumulative) {
-        if (sourceTitles == null) {
-            _drawnDestinyValueModification += amount;
-            return;
-        }
+        _drawnDestinyValueModification += modifierDelta(_modifierSourceTitleMap, sourceTitles, gameTextActionId, amount, cumulative);
+    }
 
+    /** Modifies this draw process's total without changing any individual destiny. */
+    public void modifyTotalDestiny(List<String> sourceTitles, GameTextActionId gameTextActionId, float amount, boolean cumulative) {
+        _totalDestinyValueModification += modifierDelta(_totalModifierSourceTitleMap, sourceTitles, gameTextActionId, amount, cumulative);
+    }
+
+    private float modifierDelta(Map<String, Float> sourceMap, List<String> sourceTitles, GameTextActionId gameTextActionId, float amount, boolean cumulative) {
+        if (sourceTitles == null) return amount;
         float previousAmount = 0;
-
-        String gameTextActionIdString = (gameTextActionId==null?"":gameTextActionId.name());
-        for (String title: sourceTitles) {
-            if (_modifierSourceTitleMap.containsKey(title+gameTextActionIdString)) {
-                float temp = _modifierSourceTitleMap.get(title+gameTextActionIdString);
-                if (previousAmount == 0)
-                    previousAmount = temp;
-                else if (temp < 0 && previousAmount < 0 && temp < previousAmount)
-                    previousAmount = temp;
-                else if (temp > 0 && previousAmount > 0 && temp > previousAmount)
-                    previousAmount = temp;
+        String actionId = gameTextActionId == null ? "" : gameTextActionId.name();
+        for (String title : sourceTitles) {
+            Float previous = sourceMap.get(title + actionId);
+            if (previous != null && (previousAmount == 0
+                    || previous < 0 && previousAmount < 0 && previous < previousAmount
+                    || previous > 0 && previousAmount > 0 && previous > previousAmount)) {
+                previousAmount = previous;
             }
         }
-
         if (cumulative) {
-            _drawnDestinyValueModification += amount;
-            for (String title:sourceTitles)
-                _modifierSourceTitleMap.put(title+gameTextActionIdString, previousAmount + amount);
-        } else if (previousAmount == 0) {
-            _drawnDestinyValueModification += amount;
-            for (String title:sourceTitles)
-                _modifierSourceTitleMap.put(title+gameTextActionIdString, amount);
-        } else if (amount < 0 && previousAmount < 0 && amount < previousAmount) {
-            //subtract a larger amount
-            _drawnDestinyValueModification += amount - previousAmount;
-            for (String title:sourceTitles)
-                _modifierSourceTitleMap.put(title+gameTextActionIdString, amount);
-        } else if (amount > 0 && previousAmount > 0 && amount > previousAmount) {
-            //add a larger amount
-            _drawnDestinyValueModification += amount - previousAmount;
-            for (String title:sourceTitles)
-                _modifierSourceTitleMap.put(title+gameTextActionIdString, amount);
+            for (String title : sourceTitles) sourceMap.put(title + actionId, previousAmount + amount);
+            return amount;
         }
-        //this doesn't handle a +X and -Y from the same title
+        if (previousAmount == 0
+                || amount < 0 && previousAmount < 0 && amount < previousAmount
+                || amount > 0 && previousAmount > 0 && amount > previousAmount) {
+            for (String title : sourceTitles) sourceMap.put(title + actionId, amount);
+            return amount - previousAmount;
+        }
+        return 0;
     }
 
     /**
@@ -497,7 +490,7 @@ public abstract class DrawDestinyEffect extends AbstractSubActionEffect {
 
         final GameState gameState = game.getGameState();
 
-        Float totalDestiny = (float) 0;
+        Float totalDestiny = _totalDestinyValueModification;
         for (Float value : _destinyDrawValues)
             totalDestiny += value;
 

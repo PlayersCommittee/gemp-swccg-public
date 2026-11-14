@@ -3631,6 +3631,15 @@ public class TriggerConditions {
         return false;
     }
 
+    /** Checks the completed total, after all individual draw responses. */
+    public static boolean isAboutToCompleteDestinyDrawTargetingAbilityManeuverOrDefenseValue(SwccgGame game, EffectResult effectResult, Filterable targetCardFilter) {
+        if (effectResult.getType() != EffectResult.Type.DRAWING_DESTINY_COMPLETE) return false;
+        AboutToCompleteDrawingDestinyResult result = (AboutToCompleteDrawingDestinyResult) effectResult;
+        Collection<PhysicalCard> targets = result.getAbilityManeuverOrDefenseValueTargeted();
+        return result.getTotalDestiny(game) != null && targets != null
+                && !Filters.filterCount(targets, game, 1, targetCardFilter).isEmpty();
+    }
+
     /**
      * Determines if a destiny draw was just completed for the specified destiny draw state.
      * @param game the game
