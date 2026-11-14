@@ -10,6 +10,7 @@ import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
 import com.gempukku.swccgo.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.swccgo.logic.timing.Action;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInCardPileResult;
 
 import java.util.Collections;
@@ -50,6 +51,13 @@ public class RevealTopCardsOfCardPileEffect extends AbstractSuccessfulEffect {
         int count = Math.min(deck.size(), _count);
         final List<PhysicalCard> topCards = new LinkedList<PhysicalCard>(deck.subList(0, count));
         if (!topCards.isEmpty()) {
+            // AR: identified cards are revealed and stay in the pile until moved/shuffled/etc.
+            final int revealId = gameState.markCardsRevealedFromPile(topCards);
+            _action.appendAfterEffect(new PassthruEffect(_action) {
+                @Override protected void doPlayEffect(SwccgGame game) {
+                    game.getGameState().endPileReveal(revealId);
+                }
+            });
 
             if (topCards.size() == 1)
                 gameState.sendMessage(_playerId + " reveals the top card of " + cardPileText);
