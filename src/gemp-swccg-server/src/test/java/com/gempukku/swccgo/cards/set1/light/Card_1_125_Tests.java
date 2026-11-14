@@ -27,6 +27,12 @@ public class Card_1_125_Tests {
                     put("captainHan", "5_001"); // Captain Han Solo
                     put("falcon", "1_143"); // Millennium Falcon
                     put("xwing", "1_146"); // X-wing
+                    put("rogueOne", "206_007");
+                    put("tydirium", "8_079");
+                    put("tantive", "2_073");
+                    put("spy", "3_011"); // Jeroen Webb, a spy and pilot
+                    put("dagobah", "4_084");
+                    put("bog", "4_085");
                     put("ccDockingBay", "5_083"); // Cloud City: Platform 327 (Docking Bay)
                 }},
                 new HashMap<>() {{
@@ -62,7 +68,7 @@ public class Card_1_125_Tests {
     }
 
     /**
-     * Drive the real UI: Deploy Falcon → Yes to simultaneous pilot → choose pilot.
+     * Drive the real UI: Deploy Falcon Ã¢â€ â€™ Yes to simultaneous pilot Ã¢â€ â€™ choose pilot.
      * Fails if the action was empty-ship only (the stale-action / not-enough-Force path).
      */
     private void beginFalconSimultaneousDeployWithPilot(VirtualTableScenario scn, PhysicalCardImpl falcon, PhysicalCardImpl pilot) {
@@ -191,4 +197,91 @@ public class Card_1_125_Tests {
         assertTrue(scn.CardsAtLocation(ccDockingBay, falcon));
         assertTrue(scn.IsAboardAsPilot(falcon, captainHan));
     }
+    private void prepareShipAndPilot(VirtualTableScenario scn, String shipKey, String pilotKey) {
+        scn.StartGame();
+        scn.MoveLocationToTable(scn.GetDSCard("deathStar"));
+        scn.MoveLocationToTable(scn.GetLSCard("trashCompactor"));
+        scn.MoveLocationToTable(scn.GetLSCard("dagobah"));
+        scn.MoveLocationToTable(scn.GetLSCard("bog"));
+        scn.MoveCardsToLSHand(scn.GetLSCard(shipKey), scn.GetLSCard(pilotKey));
+        scn.LSActivateForceCheat(15);
+        scn.SkipToLSTurn(Phase.DEPLOY);
+    }
+
+    private void beginShipAndPilot(VirtualTableScenario scn, String shipKey, String pilotKey) {
+        var ship = scn.GetLSCard(shipKey);
+        var pilot = scn.GetLSCard(pilotKey);
+        assertTrue(scn.LSDeployAvailable(ship));
+        scn.LSDeployCard(ship);
+        if (scn.LSDecisionAvailable("simultaneously deploy a pilot")) scn.LSChooseYes();
+        assertTrue(scn.LSHasCardChoiceAvailable(pilot));
+        scn.LSChooseCard(pilot);
+    }
+
+    private void completePilotDeploymentAtDeathStar(String shipKey, String pilotKey) {
+        var scn = GetScenario();
+        prepareShipAndPilot(scn, shipKey, pilotKey);
+        beginShipAndPilot(scn, shipKey, pilotKey);
+        assertTrue(scn.LSHasCardChoiceAvailable(scn.GetDSCard("deathStar")));
+        assertFalse(scn.LSHasCardChoiceAvailable(scn.GetLSCard("dagobah")));
+        scn.LSChooseCard(scn.GetDSCard("deathStar"));
+        scn.PassAllResponses();
+        assertTrue(scn.CardsAtLocation(scn.GetDSCard("deathStar"), scn.GetLSCard(shipKey)));
+        assertTrue(scn.IsAboardAsPilot(scn.GetLSCard(shipKey), scn.GetLSCard(pilotKey)));
+    }
+
+    @Test
+    public void TrashCompactorPreservesRogueOneAndNormalPilotDeploymentException() {
+        completePilotDeploymentAtDeathStar("rogueOne", "han");
+    }
+
+    @Test
+    public void TrashCompactorPreservesRogueOneAndSpyPilotDeploymentException() {
+        completePilotDeploymentAtDeathStar("rogueOne", "spy");
+    }
+
+    @Test
+    public void TrashCompactorPreservesTydiriumAndSpyPilotDeploymentException() {
+        completePilotDeploymentAtDeathStar("tydirium", "spy");
+    }
+
+    @Test
+    public void TrashCompactorDoesNotLetRestrictedCaptainHanBoardRogueOne() {
+        var scn = GetScenario();
+        scn.MoveCardsToLSHand(scn.GetLSCard("captainHan"));
+        prepareShipAndPilot(scn, "rogueOne", "han");
+        scn.LSDeployCard(scn.GetLSCard("rogueOne"));
+        if (scn.LSDecisionAvailable("simultaneously deploy a pilot")) scn.LSChooseYes();
+        assertTrue(scn.LSHasCardChoiceAvailable(scn.GetLSCard("han")));
+        assertFalse(scn.LSHasCardChoiceAvailable(scn.GetLSCard("captainHan")));
+    }
+
+    @Test
+    public void TrashCompactorPreservesTantiveIVButNotDagobahSystemDeployment() {
+        var scn = GetScenario();
+        prepareShipAndPilot(scn, "tantive", "han");
+        scn.LSDeployCard(scn.GetLSCard("tantive"));
+        // A permanent pilot permits deploying the ship without adding another pilot.
+        if (scn.LSDecisionAvailable("simultaneously deploy a pilot")) scn.LSChooseNo();
+        assertTrue(scn.LSHasCardChoiceAvailable(scn.GetDSCard("deathStar")));
+        assertFalse(scn.LSHasCardChoiceAvailable(scn.GetLSCard("dagobah")));
+        scn.LSChooseCard(scn.GetDSCard("deathStar"));
+        scn.PassAllResponses();
+        assertTrue(scn.CardsAtLocation(scn.GetDSCard("deathStar"), scn.GetLSCard("tantive")));
+    }
+
+    @Test
+    public void TrashCompactorPreservesBogClearingStarfighterDeploymentException() {
+        var scn = GetScenario();
+        prepareShipAndPilot(scn, "tydirium", "han");
+        scn.LSDeployCard(scn.GetLSCard("tydirium"));
+        if (scn.LSDecisionAvailable("simultaneously deploy aboard")) scn.LSChooseCards();
+        if (scn.LSDecisionAvailable("simultaneously deploy a pilot")) scn.LSChooseNo();
+        assertTrue(scn.LSHasCardChoiceAvailable(scn.GetLSCard("bog")));
+        assertFalse(scn.LSHasCardChoiceAvailable(scn.GetLSCard("dagobah")));
+        scn.LSChooseCard(scn.GetLSCard("bog"));
+        scn.PassAllResponses();
+        assertTrue(scn.CardsAtLocation(scn.GetLSCard("bog"), scn.GetLSCard("tydirium")));
+    }
+
 }
