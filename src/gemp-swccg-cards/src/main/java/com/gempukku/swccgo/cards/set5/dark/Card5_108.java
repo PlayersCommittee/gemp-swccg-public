@@ -1,6 +1,6 @@
 package com.gempukku.swccgo.cards.set5.dark;
 
-import com.gempukku.swccgo.cards.AbstractDevice;
+import com.gempukku.swccgo.cards.AbstractLocationDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
@@ -9,7 +9,6 @@ import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.PlayCardOptionId;
-import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.SpotOverride;
@@ -37,9 +36,9 @@ import java.util.List;
  * Type: Device
  * Title: Interrogation Array
  */
-public class Card5_108 extends AbstractDevice {
+public class Card5_108 extends AbstractLocationDevice {
     public Card5_108() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Interrogation_Array, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
+        super(Side.DARK, 4, Title.Interrogation_Array, Uniqueness.UNIQUE, ExpansionSet.CLOUD_CITY, Rarity.R);
         setLore("Torture rack so visually frightening it sometimes yields the desired results without even being switched on.");
         setGameText("Deploy on a prison. During your control phase, opponent loses 1 Force for each captive of ability > 2 here. Also, during your control phase, may use 1 Force to search your Reserve Deck, take one Torture or Aiiii! Aaa! Agggggggggg! into hand and reshuffle.");
         addIcons(Icon.CLOUD_CITY);

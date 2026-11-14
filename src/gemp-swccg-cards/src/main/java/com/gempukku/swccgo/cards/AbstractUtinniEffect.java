@@ -71,7 +71,7 @@ public abstract class AbstractUtinniEffect extends AbstractEffect {
      * @return the deploy to target filter based on the card type, subtype, etc.
      */
     @Override
-    protected final Filter getValidDeployTargetFilterForCardType(String playerId, final SwccgGame game, final PhysicalCard self, boolean isSimDeployAttached, boolean ignorePresenceOrForceIcons, DeploymentRestrictionsOption deploymentRestrictionsOption, DeployAsCaptiveOption deployAsCaptiveOption) {
+    protected Filter getValidDeployTargetFilterForCardType(String playerId, final SwccgGame game, final PhysicalCard self, boolean isSimDeployAttached, boolean ignorePresenceOrForceIcons, DeploymentRestrictionsOption deploymentRestrictionsOption, DeployAsCaptiveOption deployAsCaptiveOption) {
         Filter filter = super.getValidDeployTargetFilterForCardType(playerId, game, self, isSimDeployAttached, ignorePresenceOrForceIcons, deploymentRestrictionsOption, deployAsCaptiveOption);
         if (!isDagobahAllowed()) {
             filter = Filters.and(filter, Filters.not(Filters.locationAndCardsAtLocation(Filters.Dagobah_location)));

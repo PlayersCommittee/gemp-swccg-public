@@ -79,12 +79,17 @@ public class SwccgoServer extends AbstractServer {
                     break;
                 }
             }
-
-            for (SwccgGameMediator swccgGameMediator : _runningGames.values())
-                swccgGameMediator.cleanup();
         } finally {
             _lock.writeLock().unlock();
         }
+
+        // Per-game cleanup is done outside the server-wide lock. Each mediator's cleanup()
+        // needs that game's own write lock, which is held for the whole duration of a player
+        // action. Holding the server-wide write lock while waiting for a busy game blocked
+        // every getGameById() reader (all game long-polls and decision submits on the server)
+        // for as long as that one action took.
+        for (SwccgGameMediator swccgGameMediator : new ArrayList<SwccgGameMediator>(_runningGames.values()))
+            swccgGameMediator.cleanup();
     }
 
     private String getChatRoomName(String gameId) {

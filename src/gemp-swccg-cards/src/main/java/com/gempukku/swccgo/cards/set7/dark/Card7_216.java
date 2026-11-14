@@ -1,6 +1,6 @@
 package com.gempukku.swccgo.cards.set7.dark;
 
-import com.gempukku.swccgo.cards.AbstractDevice;
+import com.gempukku.swccgo.cards.AbstractLocationDevice;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.cards.conditions.InPlayDataEqualsCondition;
 import com.gempukku.swccgo.cards.effects.RevealCardFromOwnHandEffect;
@@ -11,7 +11,6 @@ import com.gempukku.swccgo.common.GameTextActionId;
 import com.gempukku.swccgo.common.Icon;
 import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
-import com.gempukku.swccgo.common.PlayCardZoneOption;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Title;
@@ -46,9 +45,9 @@ import java.util.List;
  * Type: Device
  * Title: Floating Refinery
  */
-public class Card7_216 extends AbstractDevice {
+public class Card7_216 extends AbstractLocationDevice {
     public Card7_216() {
-        super(Side.DARK, 4, PlayCardZoneOption.ATTACHED, Title.Floating_Refinery, Uniqueness.RESTRICTED_2, ExpansionSet.SPECIAL_EDITION, Rarity.C);
+        super(Side.DARK, 4, Title.Floating_Refinery, Uniqueness.RESTRICTED_2, ExpansionSet.SPECIAL_EDITION, Rarity.C);
         setLore("Refines Tibanna gas at mines like those at Cloud City. Also used for moisture collection on dry planets.");
         setGameText("Deploy on a cloud sector (limit one per sector). Force you activate may be drawn into hand (one per turn for each of your Floating Refineries on table). Each cloud sector or gas miner drawn in this way may be revealed to retrieve 1 Force.");
         addIcons(Icon.SPECIAL_EDITION);

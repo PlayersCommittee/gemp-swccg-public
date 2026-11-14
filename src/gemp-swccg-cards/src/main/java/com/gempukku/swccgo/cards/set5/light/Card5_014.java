@@ -4,7 +4,6 @@ import com.gempukku.swccgo.cards.AbstractCharacterDevice;
 import com.gempukku.swccgo.cards.conditions.AtCondition;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
 import com.gempukku.swccgo.common.Side;
@@ -32,7 +31,6 @@ public class Card5_014 extends AbstractCharacterDevice {
         setLore("Easily concealed device used by Lando to remain in contact with his subordinates. Directly connected to Cloud City's central computer.");
         setGameText("Deploy on a character. When at a Cloud City site, Lobot and your Cloud City troopers may deploy or move here as a 'react.'");
         addIcons(Icon.CLOUD_CITY);
-        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

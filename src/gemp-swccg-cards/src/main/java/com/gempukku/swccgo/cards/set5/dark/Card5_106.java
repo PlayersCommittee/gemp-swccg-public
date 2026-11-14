@@ -1,25 +1,18 @@
 package com.gempukku.swccgo.cards.set5.dark;
 
 import com.gempukku.swccgo.cards.AbstractCharacterDevice;
-import com.gempukku.swccgo.cards.AbstractDevice;
-import com.gempukku.swccgo.cards.GameConditions;
-import com.gempukku.swccgo.cards.effects.usage.OncePerTurnEffect;
 import com.gempukku.swccgo.common.*;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
-import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
-import com.gempukku.swccgo.logic.actions.TopLevelGameTextAction;
-import com.gempukku.swccgo.logic.effects.*;
-import com.gempukku.swccgo.logic.effects.choose.TakeCardIntoHandFromReserveDeckEffect;
-import com.gempukku.swccgo.logic.modifiers.CancelForceDrainBonusesFromCardModifier;
+import com.gempukku.swccgo.logic.effects.ReleaseCaptivesEffect;
+import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
+import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
 import com.gempukku.swccgo.logic.modifiers.MayEscortAnyNumberOfCaptivesModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
-import com.gempukku.swccgo.logic.modifiers.TotalCarbonFreezingDestinyModifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.StolenResult;
@@ -41,7 +34,6 @@ public class Card5_106 extends AbstractCharacterDevice {
         setLore("Because standard binders are durable but not easily adaptable, bounty hunters often carry special binders which automatically tighten around a captive's appendages.");
         setGameText("Deploy on one of your warriors or bounty hunters. May now escort any number of captives. If device removed from your character, select one captive escorted by that character to remain and release all others.");
         addIcons(Icon.CLOUD_CITY);
-        addKeywords(Keyword.DEPLOYS_ON_SITE);
     }
 
     @Override

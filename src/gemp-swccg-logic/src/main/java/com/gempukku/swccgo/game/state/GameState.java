@@ -3161,6 +3161,10 @@ public class GameState implements Snapshotable<GameState> {
         if (modifiersQuerying.getPilotCapacity(this, card)==Integer.MAX_VALUE || blueprint.getPilotOrPassengerCapacity()==Integer.MAX_VALUE)
             return Integer.MAX_VALUE;
 
+        if(cardToCheckFor != null && cardToCheckFor.getBlueprint().isMovesLikeCharacter()) {
+            return 0; // Cards that only "move like characters" are never pilots
+        }
+
         List<PhysicalCard> pilots = getPilotCardsAboard(modifiersQuerying, card, false);
         List<PhysicalCard> passengers = getPassengerCardsAboard(card);
         int astromechOnly = modifiersQuerying.getAstromechCapacity(this, card);
@@ -3265,9 +3269,12 @@ public class GameState implements Snapshotable<GameState> {
             return Integer.MAX_VALUE;
         }
 
-        // If moves like a character, then card does not require an open passenger slot
+        // If moves like a character, then card does not require an open passenger slot (but does require capacity to exist)
         if (cardToCheckFor != null && cardToCheckFor.getBlueprint().isMovesLikeCharacter()) {
-            return 1;
+            if (blueprint.getPassengerCapacity() > 0 || blueprint.getPilotOrPassengerCapacity() > 0) {
+                return 1;
+            }
+            else return 0;
         }
 
         List<PhysicalCard> pilots = getPilotCardsAboard(modifiersQuerying, card, false);
@@ -3398,11 +3405,6 @@ public class GameState implements Snapshotable<GameState> {
                     return 0;
                 }
             }
-        }
-
-        // If moves like a character, then card does not require an open passenger slot
-        if (cardToCheckFor != null && cardToCheckFor.getBlueprint().isMovesLikeCharacter()) {
-            return 1;
         }
 
         if (blueprint.getPilotOrPassengerCapacity() > 0) {
@@ -3851,6 +3853,11 @@ public class GameState implements Snapshotable<GameState> {
             _game.getModifiersEnvironment().removeEndOfDuel();
             _game.getActionsEnvironment().removeEndOfDuelActionProxies();
 
+            // The stats object is only recomputed when the engine stops for a decision, so refresh
+            // it before resending it here; the duel that just ended may have changed the battle.
+            if (isDuringBattle())
+                getGame().getGameStats().updateGameStats(getGame());
+
             for (GameStateListener listener : getAllGameStateListeners()) {
                 listener.finishDuel();
 
@@ -4238,6 +4245,10 @@ public class GameState implements Snapshotable<GameState> {
 
             for (GameStateListener listener : getAllGameStateListeners())
                 listener.cardsRemoved(_lightSidePlayer, lightSabaccHand);
+
+            // The stats object is only recomputed when the engine stops for a decision, so refresh
+            // it before resending it here, otherwise the totals just revealed could be stale.
+            getGame().getGameStats().updateGameStats(getGame());
 
             // Tell user interface to hide sabacc hands area and show revealed sabacc hands area
             for (GameStateListener listener : getAllGameStateListeners()) {

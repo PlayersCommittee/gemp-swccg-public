@@ -4,7 +4,6 @@ import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -140,8 +139,7 @@ public class ForfeitModifierTests {
         assertEquals(3,scn.GetForfeit(zuck));
     }
 
-    //demonstrates: https://github.com/PlayersCommittee/gemp-swccg-public/issues/989
-    @Test @Ignore
+    @Test
     public void ForfeitIncreaseLimitX() {
         //Zuckuss at Cantina with I'm Sorry (V)
         //Printed forfeit: 3
@@ -163,7 +161,6 @@ public class ForfeitModifierTests {
         scn.MoveCardsToLocation(cantina, zuck);
         scn.MoveCardsToDSSideOfTable(sorry);
 
-            ///FAILS HERE - actual: 6
         assertEquals(5,scn.GetForfeit(zuck));
     }
 

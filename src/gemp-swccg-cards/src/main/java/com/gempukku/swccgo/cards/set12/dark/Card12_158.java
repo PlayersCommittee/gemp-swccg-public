@@ -60,7 +60,7 @@ public class Card12_158 extends AbstractUsedOrLostInterrupt {
                         protected void performActionResults(Action targetingAction) {
                             // Perform result(s)
                             action.appendEffect(
-                                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.and(Filters.unique, Filters.unpiloted, Filters.starfighter), true));
+                                    new TakeCardIntoHandFromReserveDeckEffect(action, playerId, Filters.and(Filters.unique, Filters.unpiloted, Filters.starfighter, Filters.canBeTargetedBy(self)), true));
                         }
                     }
             );

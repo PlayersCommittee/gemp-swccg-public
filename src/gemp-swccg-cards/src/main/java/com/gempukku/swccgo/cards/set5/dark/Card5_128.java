@@ -90,19 +90,16 @@ public class Card5_128 extends AbstractUtinniEffect {
 
     @Override
     protected List<TopLevelGameTextAction> getGameTextTopLevelActionsWhenInactiveInPlay(final String playerId, SwccgGame game, final PhysicalCard self, int gameTextSourceCardId) {
-        // Check inactive condition
-        if (!GameConditions.isOnlyCaptured(game, self))
-            return null;
 
         String opponent = game.getOpponent(playerId);
-
         GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
         // Check condition(s)
-        if (GameConditions.isOnceDuringYourPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DRAW)) {
+        if (GameConditions.isOnceDuringOpponentsPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DRAW)
+            && GameConditions.isOnlyCaptured(game, self) ) {
             int amountOfForce = Filters.frozenCaptive.accepts(game, self.getAttachedTo()) ? 3 : 2;
 
-            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
+            final TopLevelGameTextAction action = new TopLevelGameTextAction(self, playerId, gameTextSourceCardId, gameTextActionId);
             action.setText("Make " + opponent + " lose " + amountOfForce + " Force");
             // Update usage limit(s)
             action.appendUsage(
@@ -141,25 +138,23 @@ public class Card5_128 extends AbstractUtinniEffect {
             actions.add(action);
         }
 
-        // Check inactive condition
-        if (GameConditions.isOnlyCaptured(game, self)) {
+        GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
 
-            GameTextActionId gameTextActionId = GameTextActionId.OTHER_CARD_ACTION_1;
+        // Check condition(s)
+        // Check if reached end of opponent's draw phase and action was not performed yet.
+        if (TriggerConditions.isEndOfOpponentsPhase(game, self, effectResult, Phase.DRAW)
+                && GameConditions.isOnceDuringOpponentsPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DRAW)
+                && GameConditions.isOnlyCaptured(game, self) ) {
+            int amountOfForce = Filters.frozenCaptive.accepts(game, self.getAttachedTo()) ? 3 : 2;
 
-            // Check condition(s)
-            // Check if reached end of control phase and action was not performed yet.
-            if (TriggerConditions.isEndOfOpponentsPhase(game, self, effectResult, Phase.DRAW)
-                    && GameConditions.isOnceDuringOpponentsPhase(game, self, playerId, gameTextSourceCardId, gameTextActionId, Phase.DRAW)) {
-                int amountOfForce = Filters.frozenCaptive.accepts(game, self.getAttachedTo()) ? 3 : 2;
-
-                final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
-                action.setText("Make " + opponent + " lose " + amountOfForce + " Force");
-                // Perform result(s)
-                action.appendEffect(
-                        new LoseForceEffect(action, opponent, amountOfForce));
-                actions.add(action);
-            }
+            final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId, gameTextActionId);
+            action.setText("Make " + opponent + " lose " + amountOfForce + " Force");
+            // Perform result(s)
+            action.appendEffect(
+                    new LoseForceEffect(action, opponent, amountOfForce));
+            actions.add(action);
         }
+
         return actions;
     }
 }

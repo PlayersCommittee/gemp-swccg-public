@@ -7,7 +7,6 @@ import com.gempukku.swccgo.cards.effects.UseDeviceEffect;
 import com.gempukku.swccgo.cards.effects.usage.OncePerPhaseEffect;
 import com.gempukku.swccgo.common.ExpansionSet;
 import com.gempukku.swccgo.common.Icon;
-import com.gempukku.swccgo.common.Keyword;
 import com.gempukku.swccgo.common.Phase;
 import com.gempukku.swccgo.common.PlayCardOptionId;
 import com.gempukku.swccgo.common.Rarity;
@@ -38,7 +37,6 @@ public class Card3_097 extends AbstractCharacterDevice {
         setLore("A probe droid encodes and scrambles messages before using its telescoping antennae to transmit information through hyperspace.");
         setGameText("Deploy on your Probe Droid. Adds 2 to X for that droid. OR Use 1 Force to deploy on one of your other droids. When at a site you control, once during each of your control phases, you may peek at one card randomly selected from opponent's hand.");
         addIcons(Icon.HOTH);
-        addKeywords(Keyword.DEPLOYS_ON_CHARACTERS);
     }
 
     @Override

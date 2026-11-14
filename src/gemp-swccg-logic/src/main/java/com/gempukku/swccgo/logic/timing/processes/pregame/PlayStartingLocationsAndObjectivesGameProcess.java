@@ -1,10 +1,8 @@
 package com.gempukku.swccgo.logic.timing.processes.pregame;
 
-import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.game.state.GameState;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.actions.SystemQueueAction;
 import com.gempukku.swccgo.logic.decisions.ArbitraryCardsSelectionDecision;
@@ -96,17 +94,9 @@ public class PlayStartingLocationsAndObjectivesGameProcess implements GameProces
             action.appendEffect(
                     new TriggeringResultEffect(action, new StartingLocationsAndObjectivesStepCompleteResult()));
 
-            // Place any cards that are not allowed in Reserve Deck that are still in Reserve Deck out of play
-            action.appendEffect(
-                    new PassthruEffect(action) {
-                        @Override
-                        protected void doPlayEffect(SwccgGame game) {
-                            // Check if any cards still in Reserve Deck that are not allowed in Reserve Deck during the game
-                            checkForCardsNotAllowedInReserveDeck(game, _darkPlayerId);
-                            checkForCardsNotAllowedInReserveDeck(game, _lightPlayerId);
-                        }
-                    }
-            );
+            // Note: cards not allowed in Reserve Deck are swept to out of play later, after starting interrupts,
+            // in PlayersShuffleAndDrawStartingHandGameProcess (so a card deployable at game start by a starting
+            // interrupt from Reserve Deck survives long enough to be deployed).
 
             game.getActionsEnvironment().addActionToStack(action);
 
@@ -364,24 +354,6 @@ public class PlayStartingLocationsAndObjectivesGameProcess implements GameProces
                         }
                     }
         };
-    }
-
-    /**
-     * Check if any cards still in player's Reserve Deck that are not allowed in Reserve Deck during the game. If any are
-     * found, place them out of play.
-     * @param game the game
-     * @param playerId the player
-     */
-    private void checkForCardsNotAllowedInReserveDeck(SwccgGame game, String playerId) {
-        GameState gameState = game.getGameState();
-        Collection<PhysicalCard> invalidCards = Filters.filter(gameState.getReserveDeck(playerId), game, Filters.mayNotBePlacedInReserveDeck);
-        if (!invalidCards.isEmpty()) {
-            gameState.sendMessage(GameUtils.getAppendedNames(invalidCards) + " " + GameUtils.be(invalidCards) + " placed out of play due to not being allowed to be placed in Reserve Deck");
-            gameState.removeCardsFromZone(invalidCards);
-            for (PhysicalCard card : invalidCards) {
-                gameState.addCardToZone(card, Zone.OUT_OF_PLAY, card.getOwner());
-            }
-        }
     }
 
     @Override

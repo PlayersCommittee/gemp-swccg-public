@@ -77,9 +77,8 @@ public class Card1_044 extends AbstractNormalEffect {
             final UseForceEffect useForceEffect = (UseForceEffect) effect;
             final int maxForceToUseViaCard = game.getModifiersQuerying().getMaxOpponentsForceToUseViaCard(game.getGameState(), playerId, self, useForceEffect.getAmountForOpponentToUse(), 0);
             if (maxForceToUseViaCard > 0) {
-                final int maxForceToUse = Math.min(maxForceToUseViaCard, useForceEffect.getTotalAmountOfForceToUse());
+                final int maxForceToUse = Math.min(maxForceToUseViaCard, useForceEffect.getTotalAmountOfForceToUse() - useForceEffect.getAmountForOpponentToUse());
                 if (maxForceToUse > 0) {
-
                     final OptionalGameTextTriggerAction action = new OptionalGameTextTriggerAction(self, gameTextSourceCardId);
                     action.setRepeatableTrigger(true);
                     action.setText("Use opponent's Force");
@@ -116,10 +115,11 @@ public class Card1_044 extends AbstractNormalEffect {
         if (TriggerConditions.isUsingForce(game, effect, playerId)) {
             final UseForceEffect useForceEffect = (UseForceEffect) effect;
             int minOpponentForceToUse = Math.max(0, useForceEffect.getTotalAmountOfForceToUse() - game.getGameState().getForcePile(playerId).size());
-            if (minOpponentForceToUse > 0) {
+            if ((minOpponentForceToUse > 0) && (minOpponentForceToUse > useForceEffect.getAmountForOpponentToUse())) {
                 final int maxForceToUseViaCard = game.getModifiersQuerying().getMaxOpponentsForceToUseViaCard(game.getGameState(), playerId, self, useForceEffect.getAmountForOpponentToUse(), minOpponentForceToUse);
                 if (maxForceToUseViaCard > 0) {
                     final int maxForceToUse = Math.min(maxForceToUseViaCard, useForceEffect.getTotalAmountOfForceToUse());
+                    final int maxAdditionalForceToUse = maxForceToUse - useForceEffect.getAmountForOpponentToUse();
 
                     final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
                     action.setRepeatableTrigger(true);
@@ -127,7 +127,7 @@ public class Card1_044 extends AbstractNormalEffect {
                     // Perform result(s)
                     action.appendEffect(
                             new PlayoutDecisionEffect(action, playerId,
-                                    new IntegerAwaitingDecision("Choose amount of opponent's Force to use", 1, maxForceToUse, maxForceToUse) {
+                                    new IntegerAwaitingDecision("Choose amount of opponent's Force to use", minOpponentForceToUse, maxAdditionalForceToUse, maxAdditionalForceToUse) {
                                         @Override
                                         public void decisionMade(int result) throws DecisionResultInvalidException {
                                             final int validatedResult = Math.min(maxForceToUse, result);
