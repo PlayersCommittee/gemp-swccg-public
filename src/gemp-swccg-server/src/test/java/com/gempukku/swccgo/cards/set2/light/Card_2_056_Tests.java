@@ -663,10 +663,10 @@ public class Card_2_056_Tests {
 	}
 
 	@Test
-	public void SabotageUsesLowestAlternateCostOnNonUniqueBearer() {
+	public void SabotageUsesLowestAlternateCostOnUniqueBearer() {
 		// Disruptor Pistol (7_319): Use 2 on warrior, 1 on non-unique warrior.
-		// On-table cost uses the current holder (1 on Stormtrooper non-unique warrior, 2 on Vader). No choose-cost prompt.
-		// No AR / rules-post cite found that a multi-cost card uses only the current-holder cost.
+		// The lowest defined numeric cost is 1, including while the weapon is on Vader.
+		// No bearer-dependent deployment cost is reconstructed for this comparison.
 		var scn = GetScenario();
 		var sabotage = scn.GetLSCard("sabotage");
 		var disruptor = scn.GetDSCard("disruptor");

@@ -116,7 +116,7 @@ public class Card2_056 extends AbstractUsedInterrupt {
 																			if (totalDestiny > deployCost) {
 																				gameState.sendMessage("Result: Succeeded");
 																				// Steal attaches to the Undercover spy chosen before destiny (not findFirstActive).
-																				PhysicalCard thiefSpy = Filters.and(Filters.undercover_spy, Filters.thief).accepts(game, chosenSpy)
+																				PhysicalCard thiefSpy = Filters.thief.accepts(game, chosenSpy)
 																						? chosenSpy : null;
 																				boolean stealInstead = canStealInsteadOfLose(game, self, thiefSpy, finalTarget);
 																				if (stealInstead) {
@@ -195,7 +195,7 @@ public class Card2_056 extends AbstractUsedInterrupt {
 	 * Occupied vehicles cannot be stolen (AR Stealing Vehicles); permanent pilots are not characters.
 	 */
 	static boolean canStealInsteadOfLose(SwccgGame game, PhysicalCard self, PhysicalCard thiefSpy, PhysicalCard target) {
-		if (thiefSpy == null) {
+		if (thiefSpy == null || target.getOwner().equals(thiefSpy.getOwner())) {
 			return false;
 		}
 		if (Filters.vehicle.accepts(game, target)) {
@@ -205,37 +205,25 @@ public class Card2_056 extends AbstractUsedInterrupt {
 		return Filters.canStealAndCarry(target).accepts(game, thiefSpy);
 	}
 
-	static PhysicalCard onTableCostTarget(PhysicalCard target) {
-		PhysicalCard attachedTo = target.getAttachedTo();
-		return attachedTo != null ? attachedTo : target.getAtLocation();
-	}
 
-	static boolean hasNumericOnTableDeployCost(SwccgGame game, PhysicalCard self, PhysicalCard target) {
-		PhysicalCard costTarget = onTableCostTarget(target);
-		GameState gameState = game.getGameState();
-		ModifiersQuerying mq = game.getModifiersQuerying();
-		if (mq.grantedDeployForFree(gameState, target, costTarget)) {
-			return false;
-		}
-		if (target.getBlueprint().getDeployCost() != null) {
-			return true;
-		}
-		for (Modifier modifier : mq.getModifiersAffectingCard(gameState, ModifierType.PRINTED_DEPLOY_COST, target)) {
-			return true;
-		}
-		if (costTarget != null) {
-			for (Modifier modifier : mq.getModifiersAffectingCard(gameState, ModifierType.PRINTED_DEPLOY_COST_TO_TARGET, target)) {
-				if (modifier.isDefinedDeployCostToTarget(gameState, mq, costTarget)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+    static Float numericDeployCost(SwccgGame game, PhysicalCard target) {
+        Float cost = target.getBlueprint().getDeployCost();
+        for (ModifierType type : new ModifierType[]{ModifierType.PRINTED_DEPLOY_COST, ModifierType.PRINTED_DEPLOY_COST_TO_TARGET}) {
+            for (Modifier modifier : game.getModifiersQuerying().getModifiersAffectingCard(game.getGameState(), type, target)) {
+                Float fixed = modifier.getFixedDeployCost();
+                // A deployment-time variable cannot be reconstructed from the current bearer.
+                if (fixed == null) return null;
+                cost = cost == null ? fixed : Math.min(cost, fixed);
+            }
+        }
+        return cost;
+    }
 
-	static float getOnTableDeployCost(SwccgGame game, PhysicalCard self, PhysicalCard target) {
-		PhysicalCard costTarget = onTableCostTarget(target);
-		return game.getModifiersQuerying().getDeployCost(game.getGameState(), self, target, costTarget,
-				false, null, false, 0, null, false);
-	}
+    static boolean hasNumericOnTableDeployCost(SwccgGame game, PhysicalCard self, PhysicalCard target) {
+        return numericDeployCost(game, target) != null;
+    }
+
+    static float getOnTableDeployCost(SwccgGame game, PhysicalCard self, PhysicalCard target) {
+        return game.getModifiersQuerying().getDeployCostForComparison(game.getGameState(), self, target, numericDeployCost(game, target));
+    }
 }

@@ -130,6 +130,17 @@ public interface Deploy extends BaseQuery, Attributes, CardTraits, Destiny, Loca
     // If targetCard is null, then it is the deploy cost not specific to deploying to a specific target
     // Optionally can skip free check since other local methods may have already checked that
     private float getDeployCost(GameState gameState, PhysicalCard sourceCard, PhysicalCard cardToDeploy, PhysicalCard targetCard, boolean skipFreeCheck, boolean isDejarikRules, PlayCardOption playCardOption, boolean forFree, float changeInCost, ReactActionOption reactActionOption, PhysicalCard withPilot, boolean includeExtraCost, ModifierCollector modifierCollector) {
+        return getDeployCost(gameState, sourceCard, cardToDeploy, targetCard, skipFreeCheck, isDejarikRules,
+                playCardOption, forFree, changeInCost, reactActionOption, withPilot, includeExtraCost, modifierCollector, null);
+    }
+
+    /** Applies ordinary cost modifiers to an already selected numeric deploy cost, outside deployment. */
+    default float getDeployCostForComparison(GameState gameState, PhysicalCard source, PhysicalCard card, float numericCost) {
+        return getDeployCost(gameState, source, card, card.getAttachedTo() != null ? card.getAttachedTo() : card.getAtLocation(), true, false, null, false, 0, null, null, false,
+                new ModifierCollectorImpl(), numericCost);
+    }
+
+    private float getDeployCost(GameState gameState, PhysicalCard sourceCard, PhysicalCard cardToDeploy, PhysicalCard targetCard, boolean skipFreeCheck, boolean isDejarikRules, PlayCardOption playCardOption, boolean forFree, float changeInCost, ReactActionOption reactActionOption, PhysicalCard withPilot, boolean includeExtraCost, ModifierCollector modifierCollector, Float numericCost) {
         if (!forFree && reactActionOption != null) {
             forFree = reactActionOption.isForFree();
             if (!forFree) {
@@ -182,7 +193,7 @@ public interface Deploy extends BaseQuery, Attributes, CardTraits, Destiny, Loca
 
         // Check if deploy cost is determined by a calculation, instead of normally
         Float deployCostViaCalculation = getDeployCostFromCalculation(gameState, cardToDeploy, modifierCollector);
-        if (deployCostViaCalculation != null) {
+        if (numericCost == null && deployCostViaCalculation != null) {
             return deployCostViaCalculation + extraCost;
         }
 
@@ -205,6 +216,8 @@ public interface Deploy extends BaseQuery, Attributes, CardTraits, Destiny, Loca
                 }
             }
         }
+
+        if (numericCost != null) result = numericCost;
 
         // If value if undefined, then return 0
         if (result == null)

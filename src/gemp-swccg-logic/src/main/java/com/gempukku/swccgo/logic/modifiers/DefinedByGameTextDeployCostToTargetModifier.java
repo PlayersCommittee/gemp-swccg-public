@@ -78,4 +78,9 @@ public class DefinedByGameTextDeployCostToTargetModifier extends AbstractModifie
     public float getDefinedDeployCostToTarget(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target) {
         return _evaluator.evaluateExpression(gameState, modifiersQuerying, target);
     }
+    @Override
+    public Float getFixedDeployCost() {
+        return _evaluator instanceof ConstantEvaluator ? _evaluator.evaluateExpression(null, null, null) : null;
+    }
+
 }
