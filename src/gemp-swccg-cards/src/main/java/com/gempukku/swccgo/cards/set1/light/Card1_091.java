@@ -44,7 +44,7 @@ public class Card1_091 extends AbstractUsedInterrupt {
         // Check condition(s)
         if (TriggerConditions.battleInitiatedAt(game, effectResult, playerId, Filters.canTargetCard(self))
                 && GameConditions.hasLessPowerInBattleThanOpponent(game, playerId)) {
-            final int damageMultiplier = GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.Han, Filters.presentInBattle, Filters.canBeTargetedBy(self))) ? 3 : 2;
+            final int damageMultiplier = GameConditions.isDuringBattleWithParticipant(game, Filters.and(Filters.personaPresentInBattle(Filters.Han), Filters.canBeTargetedBy(self))) ? 3 : 2;
 
             final PlayInterruptAction action = new PlayInterruptAction(game, self);
             action.setText(damageMultiplier == 2 ? "Double opponent's battle damage" : "Triple opponent's battle damage");
@@ -60,7 +60,7 @@ public class Card1_091 extends AbstractUsedInterrupt {
                             action.addAnimationGroup(targetedBattleLocation);
                             if (damageMultiplier == 3) {
                                 action.appendTargeting(
-                                        new TargetCardOnTableEffect(action, playerId, "Choose Han", Filters.and(Filters.Han, Filters.presentInBattle)) {
+                                        new TargetCardOnTableEffect(action, playerId, "Choose Han", Filters.personaPresentInBattle(Filters.Han)) {
                                             @Override
                                             protected boolean getUseShortcut() {
                                                 return true;

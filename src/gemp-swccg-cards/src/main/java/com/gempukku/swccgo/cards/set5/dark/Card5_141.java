@@ -43,7 +43,7 @@ public class Card5_141 extends AbstractLostInterrupt {
 
     @Override
     protected List<PlayInterruptAction> getGameTextTopLevelActions(final String playerId, final SwccgGame game, final PhysicalCard self) {
-        Filter filter = Filters.and(Filters.Vader, Filters.hasAnyImmunityToAttrition, Filters.presentInBattle);
+        Filter filter = Filters.and(Filters.personaPresentInBattle(Filters.Vader), Filters.hasAnyImmunityToAttrition);
 
         // Check condition(s)
         if (GameConditions.isDuringBattleAt(game, Filters.site)

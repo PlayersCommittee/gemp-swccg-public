@@ -40,8 +40,10 @@ public class Card4_121 extends AbstractNormalEffect {
     @Override
     protected Filter getGameTextValidDeployTargetFilter(SwccgGame game, PhysicalCard self, PlayCardOptionId playCardOptionId, boolean asReact) {
         return Filters.and(Filters.Imperial, Filters.abilityLessThan(5),
-                Filters.presentWith(self, Filters.or(Filters.Vader, Filters.Emperor,
-                        Filters.and(Filters.your(self), Filters.or(Filters.admiral, Filters.general, Filters.moff)))));
+                Filters.or(
+                        Filters.at(Filters.sameLocationAs(self, Filters.personaPresentAt(Filters.Vader, Filters.location))),
+                        Filters.presentWith(self, Filters.or(Filters.Emperor,
+                                Filters.and(Filters.your(self), Filters.or(Filters.admiral, Filters.general, Filters.moff))))));
     }
 
     @Override
