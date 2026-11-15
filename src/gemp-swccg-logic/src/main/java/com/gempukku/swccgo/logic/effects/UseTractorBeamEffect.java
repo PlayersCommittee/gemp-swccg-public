@@ -61,13 +61,16 @@ public class UseTractorBeamEffect extends AbstractSubActionEffect {
 
     @Override
     public boolean isPlayableInFull(SwccgGame game) {
-        return true;
+        return !game.getModifiersQuerying().mayNotBeUsed(game.getGameState(), _tractorBeam);
     }
 
 
     @Override
     protected SubAction getSubAction(final SwccgGame game) {
         final SubAction subAction = new SubAction(_action);
+        if (game.getModifiersQuerying().mayNotBeUsed(game.getGameState(), _tractorBeam)) {
+            return subAction;
+        }
 
         final String playerId = subAction.getPerformingPlayer();
         final TractorBeamAction tractorBeamAction = _tractorBeam.getBlueprint().getTractorBeamAction(game, _tractorBeam);
