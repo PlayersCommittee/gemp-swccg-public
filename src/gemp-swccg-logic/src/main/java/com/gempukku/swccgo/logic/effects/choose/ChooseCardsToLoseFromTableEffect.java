@@ -91,7 +91,10 @@ public class ChooseCardsToLoseFromTableEffect extends AbstractSubActionEffect {
 
     @Override
     protected SubAction getSubAction(final SwccgGame game) {
-        final SubAction subAction = new SubAction(_action, _performingPlayerId);
+        // Keep the parent action's performing player (the card's owner). Opponent-choice
+        // only selects which card is lost; it does not make the chooser the player attempting
+        // to target that card (Oh, Switch Off "attempt by opponent").
+        final SubAction subAction = new SubAction(_action);
         subAction.appendTargeting(
 
                 new TargetCardsOnTableEffect(subAction, _performingPlayerId, "Choose card" + GameUtils.s(_maximum) + " to be lost", _minimum, _maximum, _spotOverrides, _targetingReasons, _cardFilter) {
@@ -150,7 +153,7 @@ public class ChooseCardsToLoseFromTableEffect extends AbstractSubActionEffect {
          * @param remainingCards the remaining cards to place in the card pile
          */
         public ChooseNextCardToLose(SubAction subAction, SwccgGame game, Collection<PhysicalCard> remainingCards) {
-            super(subAction, subAction.getPerformingPlayer(), "Choose card to be lost", 1, 1, remainingCards);
+            super(subAction, _performingPlayerId, "Choose card to be lost", 1, 1, remainingCards);
             _subAction = subAction;
             _game = game;
             _remainingCards = remainingCards;

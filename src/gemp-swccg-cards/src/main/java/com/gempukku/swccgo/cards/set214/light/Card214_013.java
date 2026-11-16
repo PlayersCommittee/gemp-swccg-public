@@ -27,7 +27,6 @@ import com.gempukku.swccgo.logic.effects.RespondablePlayCardEffect;
 import com.gempukku.swccgo.logic.effects.RespondablePlayingCardEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardBeingPlayedForCancelingEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
-import com.gempukku.swccgo.logic.effects.TargetCardsAtSameLocationEffect;
 import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
 import com.gempukku.swccgo.logic.effects.choose.ChooseCardToLoseFromTableEffect;
 import com.gempukku.swccgo.logic.modifiers.querying.ModifiersQuerying;
@@ -160,78 +159,54 @@ public class Card214_013 extends AbstractUsedOrLostInterrupt {
         final String opponent = game.getOpponent(playerId);
 
         // Check condition(s)
-        if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.and(Filters.site, Filters.canBeTargetedBy(self)))) {
-            TargetingReason targetingReason = TargetingReason.TO_BE_LOST;
-            Filter characterFilter = Filters.and(Filters.opponents(self), Filters.character, Filters.at(Filters.battleLocation));
-            if (GameConditions.canTarget(game, self, 4, targetingReason, characterFilter)) {
+        Filter characterFilter = Filters.and(Filters.opponents(self), Filters.character, Filters.at(Filters.battleLocation));
+        if (TriggerConditions.battleInitiatedAt(game, effectResult, Filters.and(Filters.site, Filters.canBeTargetedBy(self)))
+                && GameConditions.canSpot(game, self, 4, characterFilter)) {
 
-                final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
-                action.setActionMsg("Make opponent lose a character");
-                // Choose target(s)
-                action.appendTargeting(
-                        new TargetCardsAtSameLocationEffect(action, playerId, "Choose characters", 4, Integer.MAX_VALUE, targetingReason, Filters.and(Filters.opponents(self), Filters.character, Filters.at(Filters.battleLocation))) {
-                            @Override
-                            protected boolean getUseShortcut() {
-                                return true;
-                            }
+            final PlayInterruptAction action = new PlayInterruptAction(game, self, CardSubtype.LOST);
+            action.setActionMsg("Make opponent lose a character");
+            // Count-set is specified at initiation but is not targeted to be lost.
+            // Oh, Switch Off answers targeting to be lost when one character is chosen after destiny.
+            action.allowResponses(
+                    new RespondablePlayCardEffect(action) {
+                        @Override
+                        protected void performActionResults(Action targetingAction) {
+                            action.appendEffect(
+                                    new DrawDestinyEffect(action, playerId) {
+                                        @Override
+                                        protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, final List<Float> destinyDrawValues, Float totalDestiny) {
+                                            final GameState gameState = game.getGameState();
+                                            final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
+                                            if (totalDestiny == null) {
+                                                gameState.sendMessage("Result: No result due to failed destiny draw");
+                                                return;
+                                            }
 
-                            @Override
-                            protected boolean isTargetAll() {
-                                return true;
-                            }
+                                            gameState.sendMessage("Destiny: " + GuiUtils.formatAsString(totalDestiny));
+                                            Collection<PhysicalCard> characters = Filters.filterActive(game, self, characterFilter);
+                                            int numberOfCharacters = characters.size();
+                                            gameState.sendMessage("Number of characters: " + numberOfCharacters);
 
-                            @Override
-                            protected void cardsTargeted(final int targetGroupId1, Collection<PhysicalCard> targetedCharacters) {
-                                action.addAnimationGroup(targetedCharacters);
-                                // Set secondary target filter(s)
-                                action.addSecondaryTargetFilter(Filters.battleLocation);
-                                // Allow response(s)
-                                action.allowResponses("Make opponent lose one of the following characters: " + GameUtils.getAppendedNames(targetedCharacters),
-                                        new RespondablePlayCardEffect(action) {
-                                            @Override
-                                            protected void performActionResults(Action targetingAction) {
-                                                // Get the final targeted card(s)
-                                                final Collection<PhysicalCard> finalCharacters = action.getPrimaryTargetCards(targetGroupId1);
-                                                // Perform result(s)
+                                            if (totalDestiny < numberOfCharacters) {
+                                                gameState.sendMessage("Result: Succeeded");
+                                                String playerToChoose = modifiersQuerying.getPlayerToChooseCardTargetAtLocation(gameState, self, gameState.getBattleLocation(), opponent);
                                                 action.appendEffect(
-                                                        new DrawDestinyEffect(action, playerId) {
-                                                            @Override
-                                                            protected void destinyDraws(SwccgGame game, List<PhysicalCard> destinyCardDraws, final List<Float> destinyDrawValues, Float totalDestiny) {
-                                                                final GameState gameState = game.getGameState();
-                                                                final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-                                                                if (totalDestiny == null) {
-                                                                    gameState.sendMessage("Result: No result due to failed destiny draw");
-                                                                    return;
-                                                                }
-
-                                                                gameState.sendMessage("Destiny: " + GuiUtils.formatAsString(totalDestiny));
-                                                                int numberOfCharacters = finalCharacters.size();
-                                                                gameState.sendMessage("Number of characters: " + numberOfCharacters);
-
-                                                                if (totalDestiny < numberOfCharacters) {
-                                                                    gameState.sendMessage("Result: Succeeded");
-                                                                    String playerToChoose = modifiersQuerying.getPlayerToChooseCardTargetAtLocation(gameState, self, gameState.getBattleLocation(), opponent);
-                                                                    action.appendEffect(
-                                                                            new AddUntilEndOfCardPlayedModifierEffect(action, self,
-                                                                                    new NoForceLossFromCardModifier(self, Filters.There_Is_No_Try, playerId), null));
-                                                                    action.appendEffect(
-                                                                            new TriggeringResultEffect(action,
-                                                                                    new SenseAlterDestinySuccessfulResult(playerId)));
-                                                                    action.appendEffect(
-                                                                            new ChooseCardToLoseFromTableEffect(action, playerToChoose, Filters.in(finalCharacters)));
-                                                                } else {
-                                                                    gameState.sendMessage("Result: Failed");
-                                                                }
-                                                            }
-                                                        });
+                                                        new AddUntilEndOfCardPlayedModifierEffect(action, self,
+                                                                new NoForceLossFromCardModifier(self, Filters.There_Is_No_Try, playerId), null));
+                                                action.appendEffect(
+                                                        new TriggeringResultEffect(action,
+                                                                new SenseAlterDestinySuccessfulResult(playerId)));
+                                                action.appendEffect(
+                                                        new ChooseCardToLoseFromTableEffect(action, playerToChoose, Filters.in(characters)));
+                                            } else {
+                                                gameState.sendMessage("Result: Failed");
                                             }
                                         }
-                                );
-                            }
+                                    });
                         }
-                );
-                return Collections.singletonList(action);
-            }
+                    }
+            );
+            return Collections.singletonList(action);
         }
         return null;
     }
