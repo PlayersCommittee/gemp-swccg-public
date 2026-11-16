@@ -248,7 +248,17 @@ public interface Ability extends BaseQuery, Destiny, Icons, JediTests, Piloting,
 
 
 
-    default float getHighestAbilityPiloting(GameState gameState, PhysicalCard physicalCard, boolean onlyPermanentPilots, boolean excludePermPilots) {
+    /**
+     * Gets the highest ability piloting the starship or vehicle.
+     * @param gameState the game state
+     * @param cardPerformingQuery the card checking the ability, or null for a rule check. When not null, only character
+     *                            pilots that card can spot are counted (an excluded or otherwise inactive pilot is not).
+     * @param physicalCard the starship or vehicle
+     * @param onlyPermanentPilots true to only count permanent pilots
+     * @param excludePermPilots true to not count permanent pilots
+     * @return the highest ability
+     */
+    default float getHighestAbilityPiloting(GameState gameState, PhysicalCard cardPerformingQuery, PhysicalCard physicalCard, boolean onlyPermanentPilots, boolean excludePermPilots) {
         SwccgCardBlueprint blueprint = physicalCard.getBlueprint();
         if (blueprint.getCardCategory()!=CardCategory.STARSHIP && blueprint.getCardCategory()!=CardCategory.VEHICLE)
             return 0;
@@ -270,7 +280,10 @@ public interface Ability extends BaseQuery, Destiny, Icons, JediTests, Piloting,
         }
 
         if (!onlyPermanentPilots) {
-            List<PhysicalCard> pilots = gameState.getPilotCardsAboard(query(),  physicalCard, true);
+            Collection<PhysicalCard> pilots = gameState.getPilotCardsAboard(query(),  physicalCard, true);
+            if (cardPerformingQuery != null) {
+                pilots = Filters.filterActive(gameState.getGame(), cardPerformingQuery, Filters.in(pilots));
+            }
             for (PhysicalCard pilot : pilots) {
                 float pilotAbility = getAbility(gameState, pilot);
                 if (pilotAbility > result) {

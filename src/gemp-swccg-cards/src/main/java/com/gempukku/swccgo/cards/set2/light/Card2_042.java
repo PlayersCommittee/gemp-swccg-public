@@ -122,7 +122,7 @@ public class Card2_042 extends AbstractEpicEventDeployable {
                                                                                         if (Filters.hasAttached(Filters.Targeting_Computer).accepts(game, leadStarfighter))
                                                                                             valueForX = 3;
                                                                                         else
-                                                                                            valueForX = modifiersQuerying.getVariableValue(gameState, self, Variable.X, modifiersQuerying.getHighestAbilityPiloting(gameState, leadStarfighter, false, false));
+                                                                                            valueForX = modifiersQuerying.getVariableValue(gameState, self, Variable.X, modifiersQuerying.getHighestAbilityPiloting(gameState, self, leadStarfighter, false, false));
 
                                                                                         int hothSites = Filters.countTopLocationsOnTable(game, Filters.and(Filters.Hoth_site, Filters.notIgnoredDuringEpicEventCalculation(true)));
                                                                                         int yavin4Sites = Filters.countTopLocationsOnTable(game, Filters.and(Filters.Yavin_4_site, Filters.notIgnoredDuringEpicEventCalculation(true)));
@@ -130,7 +130,7 @@ public class Card2_042 extends AbstractEpicEventDeployable {
 
                                                                                         float highestAbility = 0;
                                                                                         for (PhysicalCard tieInTrench : Filters.filterActive(game, self, Filters.and(Filters.TIE, Filters.at(Filters.Death_Star_Trench)))) {
-                                                                                            highestAbility = Math.max(highestAbility, modifiersQuerying.getHighestAbilityPiloting(gameState, tieInTrench, false, false));
+                                                                                            highestAbility = Math.max(highestAbility, modifiersQuerying.getHighestAbilityPiloting(gameState, self, tieInTrench, false, false));
                                                                                         }
                                                                                         final float valueForZ = modifiersQuerying.getVariableValue(gameState, self, Variable.Z, highestAbility);
 

@@ -129,7 +129,7 @@ public class Card3_115 extends AbstractEpicEventPlayable {
                                                                                     if (Filters.character.accepts(game, pilot))
                                                                                         valueForX = modifiersQuerying.getVariableValue(gameState, self, Variable.X, modifiersQuerying.getAbility(gameState, pilot));
                                                                                     else
-                                                                                        valueForX = modifiersQuerying.getVariableValue(gameState, self, Variable.X, modifiersQuerying.getHighestAbilityPiloting(gameState, pilot, true, false));
+                                                                                        valueForX = modifiersQuerying.getVariableValue(gameState, self, Variable.X, modifiersQuerying.getHighestAbilityPiloting(gameState, self, pilot, true, false));
 
                                                                                     boolean modifyX = modifiersQuerying.hasGameTextModification(gameState, self, ModifyGameTextType.TARGET_THE_MAIN_GENERATOR__MODIFY_X);
 
