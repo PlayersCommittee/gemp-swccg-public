@@ -19,7 +19,7 @@ import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.TriggerConditions;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.conditions.AndCondition;
-import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.swccgo.logic.effects.AddUntilEndOfEffectResultModifierEffect;
 import com.gempukku.swccgo.logic.effects.ModifyForfeitEffect;
 import com.gempukku.swccgo.logic.effects.ModifyPowerEffect;
 import com.gempukku.swccgo.logic.modifiers.AddsBattleDestinyModifier;
@@ -68,8 +68,9 @@ public class Card215_024 extends AbstractAlien {
                 final PhysicalCard lostCard = ((LostFromTableResult) effectResult).getCard();
                 if (lostCard != null) {
                     final RequiredGameTextTriggerAction action = new RequiredGameTextTriggerAction(self, gameTextSourceCardId);
+                    action.setText("Prevent removing " + GameUtils.getFullName(lostCard) + " from Lost Pile");
                     action.appendEffect(
-                            new AddUntilEndOfTurnModifierEffect(action, new MayNotRemoveJustLostCardsFromLostPileModifier(self, Filters.sameCardId(lostCard)),
+                            new AddUntilEndOfEffectResultModifierEffect(action, effectResult, new MayNotRemoveJustLostCardsFromLostPileModifier(self, Filters.sameCardId(lostCard)),
                                     GameUtils.getCardLink(lostCard) + " may not be removed from Lost Pile")
                     );
                     actions.add(action);
