@@ -221,9 +221,12 @@ public interface Deploy extends BaseQuery, Attributes, CardTraits, Destiny, Loca
         // Check for change in cost
         if (!deployCostMayNotBeModified) {
             boolean modifiedByOwner = sourceCard == null || sourceCard.getOwner().equals(owner);
+            boolean immuneToChangeInCost = sourceCard != null && targetCard != null
+                    && isImmuneToDeployCostToTargetModifierFromCard(gameState, cardToDeploy, targetCard, sourceCard);
 
-            if ((modifiedByOwner && !deployCostMayNotBeModifiedByOwner)
-                    || (!modifiedByOwner && !deployCostMayNotBeModifiedByOpponent)) {
+            if (!immuneToChangeInCost
+                    && ((modifiedByOwner && !deployCostMayNotBeModifiedByOwner)
+                    || (!modifiedByOwner && !deployCostMayNotBeModifiedByOpponent))) {
                 if (reactActionOption != null) {
                     if (reactActionOption.getChangeInCost() < 0
                             || (modifiedByOwner && !deployCostMayNotBeIncreasedByOwner)
@@ -437,7 +440,11 @@ public interface Deploy extends BaseQuery, Attributes, CardTraits, Destiny, Loca
             if (!pilotDeployCostMayNotBeModified) {
 
                 // Check for change in cost
-                if (pilotChangeInCost < 0 || !pilotDeployCostMayNotBeIncreasedByOwner) {
+                boolean immuneToPilotChangeInCost = sourceCard != null
+                        && ((targetCard != null && isImmuneToDeployCostToTargetModifierFromCard(gameState, pilot, targetCard, sourceCard))
+                        || isImmuneToDeployCostToTargetModifierFromCard(gameState, pilot, starship, sourceCard));
+                if (!immuneToPilotChangeInCost
+                        && (pilotChangeInCost < 0 || !pilotDeployCostMayNotBeIncreasedByOwner)) {
                     result += pilotChangeInCost;
                     if (pilotChangeInCost < 0) {
                         pilotTotalReduceCostModifiers -= pilotChangeInCost;
