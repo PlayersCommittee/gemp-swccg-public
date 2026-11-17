@@ -18,6 +18,7 @@ public class ReactActionOption {
     private Filter _targetFilter;
     private Filter _deployWithPilotOrDriverFilter;
     private boolean _grantDeployToTarget;
+    private boolean _includeUndercoverSpies;
 
     /**
      * Creates a 'react' option.
@@ -41,6 +42,14 @@ public class ReactActionOption {
         _targetFilter = targetFilter;
         _deployWithPilotOrDriverFilter = deployWithPilotOrDriverFilter;
         _grantDeployToTarget = grantDeployToTarget;
+    }
+
+    public void setIncludeUndercoverSpies(boolean includeUndercoverSpies) {
+        _includeUndercoverSpies = includeUndercoverSpies;
+    }
+
+    public boolean includesUndercoverSpies() {
+        return _includeUndercoverSpies;
     }
 
     /**

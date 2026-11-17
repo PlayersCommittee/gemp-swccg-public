@@ -2631,7 +2631,9 @@ public abstract class AbstractSwccgCardBlueprint implements SwccgCardBlueprint {
             }
             // Choose target(s)
             action.appendTargeting(
-                    new ChooseCardOnTableEffect(action, playerId, "Choose card to move as a 'react'", reactActionOption.getCardToReactFilter()) {
+                    new ChooseCardOnTableEffect(action, playerId, "Choose card to move as a 'react'",
+                            reactActionOption.includesUndercoverSpies() ? com.gempukku.swccgo.common.SpotOverride.INCLUDE_UNDERCOVER : null,
+                            reactActionOption.getCardToReactFilter()) {
                         @Override
                         protected void cardSelected(PhysicalCard selectedCard) {
                             // Perform result(s)
