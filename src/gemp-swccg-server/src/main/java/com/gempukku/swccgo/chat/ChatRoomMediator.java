@@ -120,6 +120,15 @@ public class ChatRoomMediator {
     }
 
     public void cleanup() {
+        cleanup(playerId -> false);
+    }
+
+    /**
+     * Drops idle listeners, except players matching {@code keepInRoom}.
+     * Game Hall uses this so Unity clients that stop polling while in a table
+     * still appear in the lobby, matching the classic two-window client.
+     */
+    public void cleanup(java.util.function.Predicate<String> keepInRoom) {
         _lock.writeLock().lock();
         try {
             long currentTime = System.currentTimeMillis();
@@ -128,6 +137,9 @@ public class ChatRoomMediator {
                 String playerId = playerListener.getKey();
                 ChatCommunicationChannel listener = playerListener.getValue();
                 if (currentTime > (listener.getLastAccessed() + _channelInactivityTimeoutPeriod)) {
+                    if (keepInRoom != null && keepInRoom.test(playerId)) {
+                        continue;
+                    }
                     _chatRoom.partChatRoom(playerId);
                     _listeners.remove(playerId);
                 }

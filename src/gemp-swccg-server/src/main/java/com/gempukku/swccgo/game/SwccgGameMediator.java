@@ -212,6 +212,19 @@ public class SwccgGameMediator {
         return false;
     }
 
+    /**
+     * True while this player still has a game client polling.
+     * Channels are dropped after {@code _playerDecisionTimeoutPeriod} (5 minutes by default)
+     * of no poll, including when action timers are paused. Rejoin creates a new channel.
+     */
+    public boolean hasLiveClientConnection(String playerId) {
+        GameCommunicationChannel channel = _communicationChannels.get(playerId);
+        if (channel == null) {
+            return false;
+        }
+        return System.currentTimeMillis() <= channel.getLastAccessed() + _playerDecisionTimeoutPeriod;
+    }
+
     private boolean isBotGame() {
         for (SwccgGameParticipant participant : _playersPlaying) {
             if (AiRegistry.isAi(_gameId, participant.getPlayerId())) {
