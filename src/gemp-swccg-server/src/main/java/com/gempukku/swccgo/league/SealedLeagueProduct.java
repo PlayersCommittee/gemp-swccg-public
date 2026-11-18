@@ -131,25 +131,18 @@ public class SealedLeagueProduct {
         darkSitePool.add("8_161"); //Endor: Dark Forest
         darkSitePool.add("8_162"); //Endor: Dense Forest
         darkSitePool.add("112_12"); //Jabba's Palace: Lower Passages
-        darkSitePool.add("12_172"); //Naboo: Theed Palace Courtyard
-        darkSitePool.add("12_174"); //Naboo: Theed Palace Throne Room
         darkSitePool.add("1_295"); //Tatooine: Mos Eisley
-        darkSitePool.add("11_93"); //Tatooine: Mos Espa
-        darkSitePool.add("12_178"); //Tatooine: Watto's Junkyard
         darkSystemPool.add("4_154"); //Anoat
         darkSystemPool.add("5_164"); //Bespin
         darkSystemPool.add("8_156"); //Carida
         darkSystemPool.add("106_12"); //Corulag
-        darkSystemPool.add("12_165"); //Coruscant
         darkSystemPool.add("7_283"); //Fondor
         darkSystemPool.add("3_143"); //Hoth
-        darkSystemPool.add("12_168"); //Malastare
         darkSystemPool.add("9_149"); //Mon Calamari
         darkSystemPool.add("6_168"); //Nal Hutta
         darkSystemPool.add("4_164"); //Raithal
         darkSystemPool.add("7_287"); //Rendili
         darkSystemPool.add("1_289"); //Tatooine
-        darkSystemPool.add("12_175"); //Tatooine
         darkSystemPool.add("1_296"); //Yavin 4
         lightSitePool.add("7_111"); //Cloud City: Casino
         lightSitePool.add("5_80"); //Cloud City: Guest Quarters
@@ -160,28 +153,22 @@ public class SealedLeagueProduct {
         lightSitePool.add("8_77"); //Endor: Rebel Landing Site (Forest)
         lightSitePool.add("112_2"); //Jabba's Palace: Antechamber
         lightSitePool.add("6_81"); //Jabba's Palace: Audience Chamber
-        lightSitePool.add("12_81"); //Naboo: Theed Palace Courtyard
-        lightSitePool.add("12_83"); //Naboo: Theed Palace Throne Room
         lightSitePool.add("112_9"); //Tatooine: Hutt Trade Route (Desert)
         lightSitePool.add("7_131"); //Tatooine: Jabba's Palace
         lightSitePool.add("1_132"); //Tatooine: Lars' Moisture Farm
         lightSitePool.add("1_133"); //Tatooine: Mos Eisley
-        lightSitePool.add("11_43"); //Tatooine: Mos Espa
         lightSystemPool.add("4_80"); //Anoat
         lightSystemPool.add("5_76"); //Bespin
         lightSystemPool.add("7_110"); //Bothawui
         lightSystemPool.add("8_67"); //Chandrila
         lightSystemPool.add("106_2"); //Corulag
-        lightSystemPool.add("12_73"); //Coruscant
         lightSystemPool.add("8_68"); //Endor
         lightSystemPool.add("3_55"); //Hoth
         lightSystemPool.add("2_64"); //Kashyyyk
-        lightSystemPool.add("12_77"); //Malastare
         lightSystemPool.add("9_59"); //Mon Calamari
         lightSystemPool.add("4_90"); //Raithal
         lightSystemPool.add("9_60"); //Sullust
         lightSystemPool.add("1_127"); //Tatooine
-        lightSystemPool.add("12_84"); //Tatooine
         lightSystemPool.add("1_135"); //Yavin 4
 
 
