@@ -16,6 +16,7 @@ import com.gempukku.swccgo.logic.timing.AbstractSubActionEffect;
 import com.gempukku.swccgo.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.PassthruEffect;
+import com.gempukku.swccgo.logic.timing.StandardEffect;
 import com.gempukku.swccgo.logic.timing.results.BattleDestinyDrawsCompleteForBothPlayersResult;
 import com.gempukku.swccgo.logic.timing.results.BattleDestinyDrawsCompleteForPlayerResult;
 import com.gempukku.swccgo.logic.timing.results.BeforeBattleDestinyDrawsResult;
@@ -46,38 +47,51 @@ public class BattlePowerSegmentAction extends SystemQueueAction {
                         String playerId = battleState.getPlayerInitiatedBattle();
                         String opponent = game.getOpponent(playerId);
 
-                        // Draw destinies to power only
-                        appendEffect(
-                                new DrawDestinyToPowerOnlyEffect(_action, playerId));
-                        appendEffect(
-                                new DrawDestinyToPowerOnlyEffect(_action, opponent));
+                        // Draw destinies to power only (gated: battle may end mid-power-segment)
+                        appendEffect(new ContinuePowerSegmentEffect(_action, new DrawDestinyToPowerOnlyEffect(_action, playerId)));
+                        appendEffect(new ContinuePowerSegmentEffect(_action, new DrawDestinyToPowerOnlyEffect(_action, opponent)));
 
-                        // Draw battle destinies
-                        appendEffect(
-                                new TriggeringResultEffect(_action, new BeforeBattleDestinyDrawsResult(playerId)));
-                        appendEffect(
-                                new CheckToDrawBattleDestinyEffect(_action, playerId));
-                        appendEffect(
-                                new TriggeringResultEffect(_action, new BattleDestinyDrawsCompleteForPlayerResult(playerId)));
-                        appendEffect(
-                                new CheckToDrawBattleDestinyEffect(_action, opponent));
-                        appendEffect(
-                                new TriggeringResultEffect(_action, new BattleDestinyDrawsCompleteForPlayerResult(opponent)));
-                        appendEffect(
-                                new TriggeringResultEffect(_action, new BattleDestinyDrawsCompleteForBothPlayersResult(playerId)));
+                        // Draw battle destinies (gated like weapons-segment canContinue checks)
+                        appendEffect(new ContinuePowerSegmentEffect(_action, new TriggeringResultEffect(_action, new BeforeBattleDestinyDrawsResult(playerId))));
+                        appendEffect(new ContinuePowerSegmentEffect(_action, new CheckToDrawBattleDestinyEffect(_action, playerId)));
+                        appendEffect(new ContinuePowerSegmentEffect(_action, new TriggeringResultEffect(_action, new BattleDestinyDrawsCompleteForPlayerResult(playerId))));
+                        appendEffect(new ContinuePowerSegmentEffect(_action, new CheckToDrawBattleDestinyEffect(_action, opponent)));
+                        appendEffect(new ContinuePowerSegmentEffect(_action, new TriggeringResultEffect(_action, new BattleDestinyDrawsCompleteForPlayerResult(opponent))));
+                        appendEffect(new ContinuePowerSegmentEffect(_action, new TriggeringResultEffect(_action, new BattleDestinyDrawsCompleteForBothPlayersResult(playerId))));
 
                         // Draw destinies to attrition only
-                        appendEffect(
-                                new DrawDestinyToAttritionOnlyEffect(_action, playerId));
-                        appendEffect(
-                                new DrawDestinyToAttritionOnlyEffect(_action, opponent));
+                        appendEffect(new ContinuePowerSegmentEffect(_action, new DrawDestinyToAttritionOnlyEffect(_action, playerId)));
+                        appendEffect(new ContinuePowerSegmentEffect(_action, new DrawDestinyToAttritionOnlyEffect(_action, opponent)));
 
                         // Calculate initial attrition
-                        appendEffect(
-                                new CalculateInitialAttritionEffect(_action));
+                        appendEffect(new ContinuePowerSegmentEffect(_action, new CalculateInitialAttritionEffect(_action)));
                     }
                 }
         );
+    }
+
+
+    /**
+     * Runs a queued power-segment step only if the battle can still continue
+     * (mirrors BattleCheckIfWeaponsSegmentFinishedEffect canContinue gating).
+     * Presence can be removed mid-segment (e.g. Program Trap exploding after a destiny draw).
+     */
+    private class ContinuePowerSegmentEffect extends PassthruEffect {
+        private final StandardEffect _effect;
+
+        private ContinuePowerSegmentEffect(Action action, StandardEffect effect) {
+            super(action);
+            _effect = effect;
+        }
+
+        @Override
+        protected void doPlayEffect(SwccgGame game) {
+            BattleState battleState = game.getGameState().getBattleState();
+            if (battleState != null && battleState.canContinue(game)) {
+                // Re-queue the gated effect to run next (before remaining queued power-segment steps)
+                _action.insertEffect(_effect);
+            }
+        }
     }
 
     /**
