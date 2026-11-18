@@ -63,3 +63,4 @@ public class RuleSet {
         new TurnOverCardPilesRule(_actionsEnvironment).applyRule();
     }
 }
+
