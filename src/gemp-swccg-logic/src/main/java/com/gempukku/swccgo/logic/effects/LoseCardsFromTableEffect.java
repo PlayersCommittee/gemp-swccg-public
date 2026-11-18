@@ -127,10 +127,24 @@ public class LoseCardsFromTableEffect extends AbstractSubActionEffect {
         protected void cardsSelected(Collection<PhysicalCard> selectedCards) {
             for (PhysicalCard selectedCard : selectedCards) {
 
+                // Always release captives that are not themselves being lost. Previously all-cards situations
+                // passed releaseCaptives=false, which left escorts' captives hanging when the captive was not
+                // in the lost set (Cantina Brawl / Concussion Grenade vs escort only). Captives that are also
+                // in the remaining lose set are pulled into this simultaneous lose so they leave without Escape/Rally
+                // (Explosive Charge, Program Trap, Binders multi-captive partial hit).
+                Collection<PhysicalCard> cardsToLoseNow = new ArrayList<PhysicalCard>(selectedCards);
+                for (PhysicalCard card : selectedCards) {
+                    for (PhysicalCard attached : _game.getGameState().getAttachedCards(card, true)) {
+                        if (attached.isCaptive() && _remainingCards.contains(attached) && !cardsToLoseNow.contains(attached)) {
+                            cardsToLoseNow.add(attached);
+                        }
+                    }
+                }
+
                 // SubAction to carry out losing card from table
                 SubAction loseCardsSubAction = new SubAction(_subAction);
                 loseCardsSubAction.appendEffect(
-                        new LoseCardsFromTableSimultaneouslyEffect(loseCardsSubAction, selectedCards, _toBottomOfPile, _allCardsSituation, !_allCardsSituation) {
+                        new LoseCardsFromTableSimultaneouslyEffect(loseCardsSubAction, cardsToLoseNow, _toBottomOfPile, _allCardsSituation, true) {
                             @Override
                             protected boolean asEaten() {
                                 return _that.asEaten();
@@ -139,7 +153,7 @@ public class LoseCardsFromTableEffect extends AbstractSubActionEffect {
                 // Stack sub-action
                 _subAction.stackSubAction(loseCardsSubAction);
 
-                _remainingCards.remove(selectedCard);
+                _remainingCards.removeAll(cardsToLoseNow);
                 if (!_remainingCards.isEmpty()) {
 
                     _subAction.appendEffect(
