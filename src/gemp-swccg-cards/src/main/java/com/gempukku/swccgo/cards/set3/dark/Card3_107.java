@@ -21,6 +21,7 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.CancelCardOnTableEffect;
 import com.gempukku.swccgo.logic.modifiers.DefinedByGameTextDeployCostModifier;
 import com.gempukku.swccgo.logic.modifiers.MayNotMoveAwayFromLocationModifier;
+import com.gempukku.swccgo.logic.modifiers.MouseDroidUtinniCarry;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
@@ -75,6 +76,9 @@ public class Card3_107 extends AbstractUtinniEffect {
 
     @Override
     protected List<Modifier> getGameTextWhileActiveInPlayModifiers(SwccgGame game, final PhysicalCard self) {
+        if (MouseDroidUtinniCarry.isCarriedByMouseDroid(self)) {
+            return Collections.emptyList();
+        }
         Filter targetFilter = Filters.targetedByCardOnTableAsTargetId(self, TargetId.UTINNI_EFFECT_TARGET_1);
         Filter filter = Filters.and(Filters.or(targetFilter, Filters.hasAttachedWithRecursiveChecking(targetFilter)), Filters.atSameOrRelatedLocation(self));
 
