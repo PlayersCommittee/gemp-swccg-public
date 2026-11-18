@@ -78,6 +78,12 @@ public class MoveAsReactAction extends AbstractGameTextAction {
         if (_movementType == Effect.Type.TAKING_OFF_AS_REACT) {
             return "Take off " + awayText + "as a 'react'";
         }
+        if (_movementType == Effect.Type.ENTERING_STARSHIP_VEHICLE_SITE_AS_REACT) {
+            return "Enter starship or vehicle site as a 'react'";
+        }
+        if (_movementType == Effect.Type.EXITING_STARSHIP_VEHICLE_SITE_AS_REACT) {
+            return "Exit starship or vehicle site as a 'react'";
+        }
         return "Move as a 'react";
     }
 
@@ -131,6 +137,14 @@ public class MoveAsReactAction extends AbstractGameTextAction {
                     }
                     if (_movementType == Effect.Type.TAKING_OFF_AS_REACT) {
                         appendCost(new PayTakeOffCostEffect(_that, getPerformingPlayer(), _cardToReact, _locationToMoveTo, true, changeInCost));
+                        return getNextCost();
+                    }
+                    if (_movementType == Effect.Type.ENTERING_STARSHIP_VEHICLE_SITE_AS_REACT) {
+                        appendCost(new PayEnterStarshipOrVehicleSiteCostEffect(_that, getPerformingPlayer(), _cardToReact, _locationToMoveTo, true, changeInCost));
+                        return getNextCost();
+                    }
+                    if (_movementType == Effect.Type.EXITING_STARSHIP_VEHICLE_SITE_AS_REACT) {
+                        appendCost(new PayExitStarshipOrVehicleSiteCostEffect(_that, getPerformingPlayer(), _cardToReact, _locationToMoveTo, true, changeInCost));
                         return getNextCost();
                     }
                 }
@@ -238,6 +252,12 @@ public class MoveAsReactAction extends AbstractGameTextAction {
         }
         if (_movementType == Effect.Type.TAKING_OFF_AS_REACT) {
             return _cardToReact.getBlueprint().getTakeOffAction(playerId, game, _cardToReact, true, true, true, false, false, moveTargetFilter);
+        }
+        if (_movementType == Effect.Type.ENTERING_STARSHIP_VEHICLE_SITE_AS_REACT) {
+            return _cardToReact.getBlueprint().getEnterStarshipOrVehicleSiteAction(playerId, game, _cardToReact, true, true, true, false, moveTargetFilter);
+        }
+        if (_movementType == Effect.Type.EXITING_STARSHIP_VEHICLE_SITE_AS_REACT) {
+            return _cardToReact.getBlueprint().getExitStarshipOrVehicleSiteAction(playerId, game, _cardToReact, true, true, true, false, moveTargetFilter);
         }
         return null;
     }
