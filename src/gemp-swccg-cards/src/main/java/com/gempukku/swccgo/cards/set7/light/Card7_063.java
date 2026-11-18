@@ -25,7 +25,7 @@ import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.CancelCardOnTableEffect;
 import com.gempukku.swccgo.logic.effects.RetrieveForceEffect;
 import com.gempukku.swccgo.logic.effects.SendMessageEffect;
-import com.gempukku.swccgo.logic.effects.choose.PlaceCardOutOfPlayFromLostPileEffect;
+import com.gempukku.swccgo.logic.effects.choose.PlaceJustLostCardOutOfPlayFromLostPileEffect;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.results.LostFromTableResult;
 
@@ -92,7 +92,7 @@ public class Card7_063 extends AbstractImmediateEffect {
             action.setActionMsg("Place " + GameUtils.getCardLink(rebel) + " out of play and retrieve " + forceToRetrieve + " Force");
             // Perform result(s)
             action.appendEffect(
-                    new PlaceCardOutOfPlayFromLostPileEffect(action, playerId, playerId, rebel, false));
+                    new PlaceJustLostCardOutOfPlayFromLostPileEffect(action, playerId, playerId, rebel, false));
             if (!Filters.playersCardsAtLocationMayContributeToForceRetrieval(playerId).accepts(game, location)) {
                 action.appendEffect(
                         new SendMessageEffect(action, "Force retrieval not allowed due to including cards not allowed to contribute to Force retrieval"));

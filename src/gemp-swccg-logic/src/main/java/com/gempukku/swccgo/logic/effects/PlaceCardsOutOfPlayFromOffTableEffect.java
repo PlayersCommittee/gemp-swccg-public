@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class PlaceCardsOutOfPlayFromOffTableEffect extends AbstractSubActionEffect {
     private List<PhysicalCard> _cards = new ArrayList<PhysicalCard>();
+    private boolean _whileJustLostFromTable;
 
     /**
      * Creates an effect that causes the specified cards not on table (e.g. in a card pile, in hand, etc.) to be placed
@@ -24,8 +25,19 @@ public class PlaceCardsOutOfPlayFromOffTableEffect extends AbstractSubActionEffe
      * @param cards the cards
      */
     public PlaceCardsOutOfPlayFromOffTableEffect(Action action, Collection<PhysicalCard> cards) {
+        this(action, cards, false);
+    }
+
+    /**
+     * Creates an effect that causes the specified cards not on table to be placed out of play.
+     * @param action the action performing this effect
+     * @param cards the cards
+     * @param whileJustLostFromTable true if this is re-routing a card that was just lost, forfeited, or canceled from table
+     */
+    public PlaceCardsOutOfPlayFromOffTableEffect(Action action, Collection<PhysicalCard> cards, boolean whileJustLostFromTable) {
         super(action);
         _cards.addAll(cards);
+        _whileJustLostFromTable = whileJustLostFromTable;
     }
 
     @Override
@@ -39,7 +51,7 @@ public class PlaceCardsOutOfPlayFromOffTableEffect extends AbstractSubActionEffe
 
         if (!_cards.isEmpty()) {
             subAction.appendEffect(
-                    new PlaceCardsOutOfPlayFromOffTableSimultaneouslyEffect(subAction, _cards));
+                    new PlaceCardsOutOfPlayFromOffTableSimultaneouslyEffect(subAction, _cards, _whileJustLostFromTable));
             subAction.appendEffect(
                     new PassthruEffect(subAction) {
                         @Override
