@@ -15,6 +15,7 @@ import com.gempukku.swccgo.logic.modifiers.CantSearchCardPileModifier;
 import com.gempukku.swccgo.logic.timing.AbstractStandardEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.TargetingEffect;
+import com.gempukku.swccgo.logic.effects.TriggeringResultEffect;
 import com.gempukku.swccgo.logic.timing.results.LookedAtCardsInCardPileResult;
 import com.gempukku.swccgo.logic.timing.results.VerifiedCardPileResult;
 
@@ -193,10 +194,11 @@ public abstract class ChooseCardsFromPileEffect extends AbstractStandardEffect i
                     new VerifiedCardPileResult(game.getOpponent(_playerId), _zoneOwner, _zone));
         }
 
-        // Check if player looked at cards in own card pile
+        // "Just looked" fires after this action finishes (including shuffle/replace),
+        // so responses such as Major Taslin Brance peek at the restored pile.
         if (!isSkipTriggerPlayerLookedAtCardsInPile()) {
-            game.getActionsEnvironment().emitEffectResult(
-                    new LookedAtCardsInCardPileResult(_playerId, _zoneOwner, _zone, _action.getActionSource()));
+            _action.appendAfterEffect(new TriggeringResultEffect(_action,
+                    new LookedAtCardsInCardPileResult(_playerId, _zoneOwner, _zone, _action.getActionSource())));
         }
 
         return new FullEffectResult(success);
