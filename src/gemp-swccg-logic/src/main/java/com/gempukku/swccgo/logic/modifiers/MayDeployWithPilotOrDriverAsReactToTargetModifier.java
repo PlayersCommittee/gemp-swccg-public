@@ -66,6 +66,11 @@ public class MayDeployWithPilotOrDriverAsReactToTargetModifier extends AbstractM
     }
 
     @Override
+    public Filter getTargetFilter() {
+        return _targetFilter;
+    }
+
+    @Override
     public float getChangeInCost() {
         return _changeInCost;
     }
