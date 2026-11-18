@@ -10,7 +10,6 @@ import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.framework.StartingSetup;
 import com.gempukku.swccgo.framework.VirtualTableScenario;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -122,9 +121,9 @@ public class Card_6_061_Tests {
         scn.PassAllResponses();
     }
 
-    @Test @Ignore
+    @Test
     public void BlasterDeflectionLostRetargetsNonFreeBlaster() {
-        //demonstrates bug https://github.com/PlayersCommittee/gemp-swccg-public/issues/859
+        // Regression coverage for https://github.com/PlayersCommittee/gemp-swccg-public/issues/859 (Imperial Blaster / non-free path)
 
         var scn = GetScenario();
 
@@ -155,7 +154,6 @@ public class Card_6_061_Tests {
         scn.LSPass(); //Use 1 Force - Optional responses
         scn.DSPass();
         assertTrue(scn.GetLSForcePileCount() >= 3);
-            ///FAILS HERE
         assertTrue(scn.LSPlayLostInterruptAvailable(deflection));
         scn.LSPlayLostInterrupt(deflection);
         assertTrue(scn.LSDecisionAvailable("Choose character to re-target from"));
@@ -218,7 +216,7 @@ public class Card_6_061_Tests {
         scn.PassAllResponses();
     }
 
-    @Test @Ignore
+    @Test
     public void BlasterDeflectionLostRetargetsRepeatedBlaster() {
 
         var scn = GetScenario();
@@ -247,17 +245,16 @@ public class Card_6_061_Tests {
         assertTrue(scn.DSCardActionAvailable(bobasBlaster));
         scn.DSUseCardAction(bobasBlaster);
         scn.DSChooseCard(luke);
-        //assertTrue(scn.GetLSForcePileCount() >= 3);
-            ///FAILS HERE on initial firing (because not free, but covered in other test)
-        //assertTrue(scn.LSPlayLostInterruptAvailable(deflection));
+        // Initial non-free firing LOST coverage is in BlasterDeflectionLostRetargetsNonFreeBlaster
         scn.PassAllResponses();
 
         assertTrue(scn.DSDecisionAvailable("repeatedly fire"));
         scn.DSChooseYes();
         scn.DSChooseCard(luke);
+        scn.LSPass(); // Use 1 Force (repeated fire) - Optional responses
+        scn.DSPass();
 
         assertTrue(scn.GetLSForcePileCount() >= 3);
-            ///FAILS HERE on repeated firing
         assertTrue(scn.LSPlayLostInterruptAvailable(deflection));
         scn.LSPlayLostInterrupt(deflection);
         assertTrue(scn.LSDecisionAvailable("Choose character to re-target from"));
