@@ -18,6 +18,8 @@ class RecordBattleInitiatedEffect extends AbstractSuccessfulEffect {
     private PhysicalCard _location;
     private boolean _isLocalTrouble;
     private Collection<PhysicalCard> _localTroubleParticipants;
+    private boolean _isBesieged;
+    private Collection<PhysicalCard> _besiegedParticipants;
     private Collection<Modifier> _extraModifiers;
 
     /**
@@ -29,11 +31,17 @@ class RecordBattleInitiatedEffect extends AbstractSuccessfulEffect {
      * @param localTroubleParticipants the Local Trouble battle participants, or null if not a Local Trouble battle
      */
     public RecordBattleInitiatedEffect(Action action, PhysicalCard location, boolean isLocalTrouble, Collection<PhysicalCard> localTroubleParticipants, Collection<Modifier> extraModifiers) {
+        this(action, location, isLocalTrouble, localTroubleParticipants, false, null, extraModifiers);
+    }
+
+    public RecordBattleInitiatedEffect(Action action, PhysicalCard location, boolean isLocalTrouble, Collection<PhysicalCard> localTroubleParticipants, boolean isBesieged, Collection<PhysicalCard> besiegedParticipants, Collection<Modifier> extraModifiers) {
         super(action);
         _performingPlayerId = action.getPerformingPlayer();
         _location = location;
         _isLocalTrouble = isLocalTrouble;
         _localTroubleParticipants = localTroubleParticipants;
+        _isBesieged = isBesieged;
+        _besiegedParticipants = besiegedParticipants;
         _extraModifiers = extraModifiers;
     }
 
@@ -42,8 +50,9 @@ class RecordBattleInitiatedEffect extends AbstractSuccessfulEffect {
         GameState gameState = game.getGameState();
 
         // Begin battle
-        String msgText = _performingPlayerId + " initiates " + (_isLocalTrouble ? "Local Trouble " : "") + "battle at " + GameUtils.getCardLink(_location);
+        String battleType = _isBesieged ? "Besieged " : (_isLocalTrouble ? "Local Trouble " : "");
+        String msgText = _performingPlayerId + " initiates " + battleType + "battle at " + GameUtils.getCardLink(_location);
         gameState.sendMessage(msgText);
-        gameState.beginBattle(_performingPlayerId, _location, _isLocalTrouble, _localTroubleParticipants, _extraModifiers);
+        gameState.beginBattle(_performingPlayerId, _location, _isLocalTrouble, _localTroubleParticipants, _isBesieged, _besiegedParticipants, _extraModifiers);
     }
 }

@@ -209,6 +209,14 @@ public interface Targeting extends BaseQuery, Weapons, Captives, CardTraits, Pil
             }
         }
 
+        // Besieged may deploy on a captured starship. Limit this to that card,
+        // TO_BE_DEPLOYED_ON, and captured starships.
+        if (targetingReasons.contains(TargetingReason.TO_BE_DEPLOYED_ON)
+                && cardToTarget.isCapturedStarship()
+                && cardDoingTargeting != null
+                && Title.Besieged.equals(cardDoingTargeting.getBlueprint().getTitle())) {
+            return true;
+        }
         return true;
     }
 
