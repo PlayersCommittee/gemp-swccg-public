@@ -473,6 +473,7 @@ public interface Title {
     String Ghost = "Ghost";
     String Gift_Of_The_Mentor = "Gift Of The Mentor";
     String Glancing_Blow = "Glancing Blow";
+    String Go_For_Help = "Go For Help!";
     String Gold_2 = "Gold 2";
     String Gold_3 = "Gold 3";
     String Gold_4 = "Gold 4";
