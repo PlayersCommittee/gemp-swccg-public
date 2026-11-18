@@ -88,6 +88,9 @@ public class Card1_268 extends AbstractLostInterrupt {
                                                             gameState.sendMessage("Ability: " + GuiUtils.formatAsString(ability));
                                                             if (totalDestiny > ability) {
                                                                 gameState.sendMessage("Result: Succeeded");
+                                                                // Deployed-on cards go to hand. Stacked cards are not deployed on
+                                                                // the character, so they follow Leaves Table (Lost Pile) unless
+                                                                // host game text redirects them first (e.g. Joh Yowza jam).
                                                                 action.appendEffect(
                                                                         new ReturnCardToHandFromTableEffect(action, finalTarget, Zone.HAND));
                                                             }

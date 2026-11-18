@@ -1,6 +1,7 @@
 package com.gempukku.swccgo.logic.effects;
 
 import com.gempukku.swccgo.common.Zone;
+import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -93,8 +94,13 @@ public class ReturnCardsToHandFromTableSimultaneouslyEffect extends AbstractSubA
                     protected void doPlayEffect(SwccgGame game) {
                         _returnedToHand.addAll(Filters.filter(_originalCardsToReturnToHand, game, Filters.and(Filters.or(Filters.onTable, Filters.stacked), Filters.not(Filters.in(_preventedCards)))));
                         CardsLeavePlayUtils.cardsToLeavePlay(game, _returnedToHand, true, _attachedCardsToLeaveTable, new ArrayList<PhysicalCard>());
+                        // Stacked cards are not "deployed on" the host. They follow Leaves Table (Lost)
+                        // unless host game text already redirected them (e.g. Joh Yowza jam to Used).
+                        Filter deployedOnHost = Filters.not(Filters.stacked);
                         if (_playersAttachedCardsGoToZone == Zone.HAND) {
-                            Collection<PhysicalCard> cardsToReturnToHand = playerId != null ? Filters.filter(_attachedCardsToLeaveTable, game, Filters.your(playerId)) : _attachedCardsToLeaveTable;
+                            Collection<PhysicalCard> cardsToReturnToHand = playerId != null
+                                    ? Filters.filter(_attachedCardsToLeaveTable, game, Filters.and(Filters.your(playerId), deployedOnHost))
+                                    : Filters.filter(_attachedCardsToLeaveTable, game, deployedOnHost);
                             _returnedToHand.addAll(cardsToReturnToHand);
                             for (PhysicalCard cardToReturnToHand : cardsToReturnToHand) {
                                 game.getActionsEnvironment().emitEffectResult(new AboutToReturnCardToHandFromTableResult(subAction, cardToReturnToHand, _that));
@@ -102,7 +108,9 @@ public class ReturnCardsToHandFromTableSimultaneouslyEffect extends AbstractSubA
                             _attachedCardsToLeaveTable.removeAll(cardsToReturnToHand);
                         }
                         if (_opponentsAttachedCardsGoToZone == Zone.HAND) {
-                            Collection<PhysicalCard> cardsToReturnToHand = playerId != null ? Filters.filter(_attachedCardsToLeaveTable, game, Filters.opponents(playerId)) : _attachedCardsToLeaveTable;
+                            Collection<PhysicalCard> cardsToReturnToHand = playerId != null
+                                    ? Filters.filter(_attachedCardsToLeaveTable, game, Filters.and(Filters.opponents(playerId), deployedOnHost))
+                                    : Filters.filter(_attachedCardsToLeaveTable, game, deployedOnHost);
                             _returnedToHand.addAll(cardsToReturnToHand);
                             for (PhysicalCard cardToReturnToHand : cardsToReturnToHand) {
                                 game.getActionsEnvironment().emitEffectResult(new AboutToReturnCardToHandFromTableResult(subAction, cardToReturnToHand, _that));
@@ -214,7 +222,7 @@ public class ReturnCardsToHandFromTableSimultaneouslyEffect extends AbstractSubA
 
                                 if (!_attachedCardsToLeaveTable.isEmpty()) {
                                     String destinationText = "lost";
-                                    if (_playersAttachedCardsGoToZone != Zone.LOST_PILE) {
+                                    if (_playersAttachedCardsGoToZone != Zone.LOST_PILE && _playersAttachedCardsGoToZone != Zone.HAND) {
                                         destinationText = "placed in " + _playersAttachedCardsGoToZone.getHumanReadable();
                                     }
 
@@ -235,10 +243,10 @@ public class ReturnCardsToHandFromTableSimultaneouslyEffect extends AbstractSubA
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
                         if (!_attachedCardsToLeaveTable.isEmpty()) {
-
+                            Zone leftoverPile = (_playersAttachedCardsGoToZone == Zone.HAND) ? Zone.LOST_PILE : _playersAttachedCardsGoToZone;
                             SubAction putInCardPileSubAction = new SubAction(subAction);
                             putInCardPileSubAction.appendEffect(
-                                    new PutCardsInCardPileEffect(subAction, game, _attachedCardsToLeaveTable, _playersAttachedCardsGoToZone));
+                                    new PutCardsInCardPileEffect(subAction, game, _attachedCardsToLeaveTable, leftoverPile));
                             // Stack sub-action
                             subAction.stackSubAction(putInCardPileSubAction);
                         }
