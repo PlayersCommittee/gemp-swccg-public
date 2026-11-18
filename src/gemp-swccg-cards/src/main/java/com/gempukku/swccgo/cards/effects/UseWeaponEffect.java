@@ -3,6 +3,7 @@ package com.gempukku.swccgo.cards.effects;
 import com.gempukku.swccgo.cards.GameConditions;
 import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.timing.AbstractStandardEffect;
 import com.gempukku.swccgo.logic.timing.Action;
@@ -12,6 +13,7 @@ import com.gempukku.swccgo.logic.timing.UsageEffect;
 public class UseWeaponEffect extends AbstractStandardEffect implements UsageEffect {
     private PhysicalCard _user;
     private PhysicalCard _weapon;
+    private SwccgBuiltInCardBlueprint _permanentWeapon;
 
     public UseWeaponEffect(Action action, PhysicalCard weapon) {
         this(action, (weapon.getAttachedTo() != null && weapon.getOwner().equals(weapon.getAttachedTo().getOwner())) ? weapon.getAttachedTo() : weapon, weapon);
@@ -23,8 +25,22 @@ public class UseWeaponEffect extends AbstractStandardEffect implements UsageEffe
         _weapon = weapon;
     }
 
+    /**
+     * Marks a permanent weapon as used by its host this turn.
+     * Recorded against the host card id, matching fire and InsteadOfFiringWeaponEffect.
+     */
+    public UseWeaponEffect(Action action, PhysicalCard user, SwccgBuiltInCardBlueprint permanentWeapon) {
+        super(action);
+        _user = user;
+        _weapon = user;
+        _permanentWeapon = permanentWeapon;
+    }
+
     @Override
     public boolean isPlayableInFull(SwccgGame game) {
+        if (_permanentWeapon != null) {
+            return GameConditions.canUseWeapon(game, _user, _permanentWeapon);
+        }
         return _weapon.getBlueprint().getCardCategory()== CardCategory.WEAPON
                 && GameConditions.canUseWeapon(game, _user, _weapon);
     }

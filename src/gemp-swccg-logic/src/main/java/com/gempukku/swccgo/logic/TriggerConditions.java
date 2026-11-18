@@ -2076,7 +2076,13 @@ public class TriggerConditions {
                 return false;
 
             EnhanceForceDrainResult result = (EnhanceForceDrainResult) effectResult;
-            return Filters.and(weaponFilter).accepts(game.getGameState(), game.getModifiersQuerying(), result.getWeapon());
+            if (result.getWeapon() != null) {
+                return Filters.and(weaponFilter).accepts(game.getGameState(), game.getModifiersQuerying(), result.getWeapon());
+            }
+            if (result.getPermanentWeapon() != null) {
+                return Filters.and(weaponFilter).accepts(game.getGameState(), game.getModifiersQuerying(), result.getPermanentWeapon());
+            }
+            return false;
         }
         return false;
     }
