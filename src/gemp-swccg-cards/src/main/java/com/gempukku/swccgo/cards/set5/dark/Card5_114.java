@@ -31,7 +31,7 @@ import com.gempukku.swccgo.logic.effects.FreezeCharacterEffect;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.LoseForceEffect;
 import com.gempukku.swccgo.logic.effects.TargetCardOnTableEffect;
-import com.gempukku.swccgo.logic.effects.UnrespondableEffect;
+import com.gempukku.swccgo.logic.effects.RespondableEffect;
 import com.gempukku.swccgo.logic.timing.Action;
 import com.gempukku.swccgo.logic.timing.EffectResult;
 import com.gempukku.swccgo.logic.timing.GuiUtils;
@@ -82,7 +82,7 @@ public class Card5_114 extends AbstractNormalEffect {
                             action.addAnimationGroup(captive);
                             // Allow response(s)
                             action.allowResponses("Perform Carbon-Freezing on " + GameUtils.getCardLink(captive),
-                                    new UnrespondableEffect(action) {
+                                    new RespondableEffect(action) {
                                         @Override
                                         protected void performActionResults(Action targetingAction) {
                                             // Perform result(s)
