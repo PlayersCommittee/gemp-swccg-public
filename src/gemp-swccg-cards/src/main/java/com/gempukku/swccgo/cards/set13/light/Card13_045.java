@@ -22,7 +22,8 @@ import com.gempukku.swccgo.logic.actions.PlayCardAction;
 import com.gempukku.swccgo.logic.actions.RequiredGameTextTriggerAction;
 import com.gempukku.swccgo.logic.effects.LoseCardFromTableEffect;
 import com.gempukku.swccgo.logic.effects.PlaceCardInPlayEffect;
-import com.gempukku.swccgo.logic.effects.choose.StealCardAndAttachFromTableEffect;
+import com.gempukku.swccgo.logic.effects.TransferDeviceOrWeaponEffect;
+import com.gempukku.swccgo.logic.timing.PassthruEffect;
 import com.gempukku.swccgo.logic.modifiers.MayNotBeStolenModifier;
 import com.gempukku.swccgo.logic.modifiers.MayUseWeaponModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
@@ -111,8 +112,25 @@ public class Card13_045 extends AbstractImmediateEffect {
             action.setText("Relocate " + GameUtils.getFullName(lightsaber) + " to " + GameUtils.getFullName(character));
             action.setActionMsg("Relocate " + GameUtils.getCardLink(lightsaber) + " to " + GameUtils.getCardLink(character));
             if (Filters.in_play.accepts(game, lightsaber)) {
+                // Printed relocate, not steal: restore owner and transfer without StolenResult
+                // (a second steal would leave the saber unusable this battle).
                 action.appendEffect(
-                        new StealCardAndAttachFromTableEffect(action, lightsaber, character));
+                        new PassthruEffect(action) {
+                            @Override
+                            protected void doPlayEffect(SwccgGame game) {
+                                lightsaber.setOwner(self.getOwner());
+                                lightsaber.setZoneOwner(self.getOwner());
+                            }
+                        });
+                action.appendEffect(
+                        new TransferDeviceOrWeaponEffect(action, lightsaber, character, null));
+                action.appendEffect(
+                        new PassthruEffect(action) {
+                            @Override
+                            protected void doPlayEffect(SwccgGame game) {
+                                game.getGameState().reapplyAffectingForCard(game, lightsaber);
+                            }
+                        });
             }
             else {
                 action.appendEffect(
@@ -126,7 +144,10 @@ public class Card13_045 extends AbstractImmediateEffect {
     @Override
     public boolean isInactiveInsteadOfActive(final SwccgGame game, final PhysicalCard self) {
         PhysicalCard lightsaber = self.getWhileInPlayData() != null ? self.getWhileInPlayData().getPhysicalCard() : null;
-        return lightsaber != null && Filters.in_play.accepts(game, lightsaber) && !game.getGameState().isCardInPlayActive(lightsaber);
+        PhysicalCard character = self.getAttachedTo();
+        // Inactive only while the saber is still on someone else (not yet relocated here).
+        return lightsaber != null && character != null && Filters.in_play.accepts(game, lightsaber)
+                && lightsaber.getAttachedTo() != character;
     }
 
     @Override
