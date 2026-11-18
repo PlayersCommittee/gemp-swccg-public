@@ -51,7 +51,7 @@ public interface LocationControl extends BaseQuery, Ability, Battle, Ferocity, F
         Collection<PhysicalCard> cardsPresentAt = Filters.filterActive(gameState.getGame(), null, spotOverrides, cardsPresentFilter);
         for (PhysicalCard presentCard : cardsPresentAt) {
             // If this is for battle, skip cards that cannot participate in battle (or already have)
-            if (forBattle && (isProhibitedFromParticipatingInBattle(gameState, presentCard, playerInitiatingBattle) || hasParticipatedInBattleAtOtherLocation(presentCard, physicalCard)))
+            if (forBattle && ((isProhibitedFromParticipatingInBattle(gameState, presentCard, playerInitiatingBattle) && !mayNotBeExcludedFromBattle(gameState, presentCard)) || hasParticipatedInBattleAtOtherLocation(presentCard, physicalCard)))
                 continue;
 
             // If card is a character or vehicle, add ability of the character or vehicle,
@@ -86,7 +86,7 @@ public interface LocationControl extends BaseQuery, Ability, Battle, Ferocity, F
                 Collection<PhysicalCard> cardsPresentAboard = Filters.filterActive(gameState.getGame(), null, spotOverrides, cardsPresentAboardFilter);
                 for (PhysicalCard presentCardAboard : cardsPresentAboard) {
                     // If this is for battle, skip cards that cannot participate in battle
-                    if (forBattle && (isProhibitedFromParticipatingInBattle(gameState, presentCardAboard, playerInitiatingBattle) || hasParticipatedInBattleAtOtherLocation(presentCardAboard, physicalCard)))
+                    if (forBattle && ((isProhibitedFromParticipatingInBattle(gameState, presentCardAboard, playerInitiatingBattle) && !mayNotBeExcludedFromBattle(gameState, presentCardAboard)) || hasParticipatedInBattleAtOtherLocation(presentCardAboard, physicalCard)))
                         continue;
 
                     // If only counting ability piloting, only include pilots (if piloted)
