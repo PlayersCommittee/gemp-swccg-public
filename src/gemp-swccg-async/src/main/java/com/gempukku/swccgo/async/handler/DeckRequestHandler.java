@@ -4,6 +4,7 @@ import com.gempukku.swccgo.async.HttpProcessingException;
 import com.gempukku.swccgo.async.ResponseWriter;
 import com.gempukku.swccgo.common.Side;
 import com.gempukku.swccgo.game.*;
+import com.gempukku.swccgo.game.formats.DefaultSwccgFormat;
 import com.gempukku.swccgo.game.formats.SwccgoFormatLibrary;
 import com.gempukku.swccgo.logic.GameUtils;
 import com.gempukku.swccgo.logic.vo.SwccgDeck;
@@ -219,6 +220,12 @@ public class DeckRequestHandler extends SwccgoServerRequestHandler implements Ur
             SwccgDeck swccgDeck = _swccgoServer.createDeckWithValidate(deckName, contents);
             if (swccgDeck == null)
                 throw new HttpProcessingException(400);
+
+            try {
+                DefaultSwccgFormat.validateOriginalStartingEffectOutsideDeckShieldCap(_library, swccgDeck);
+            } catch (DeckInvalidException exp) {
+                throw new HttpProcessingException(400);
+            }
 
             _deckDao.saveDeckForPlayer(resourceOwner, deckName, swccgDeck);
 

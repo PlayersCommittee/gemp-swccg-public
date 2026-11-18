@@ -54,6 +54,7 @@ public interface Title {
     String Ambush = "Ambush";
     String An_Entire_Legion_Of_My_Best_Troops = "An Entire Legion Of My Best Troops";
     String An_Inkling_Of_Its_Destructive_Potential = "An Inkling Of Its Destructive Potential";
+    String An_Unusual_Amount_Of_Fear = "An Unusual Amount Of Fear";
     String Anakin_Skywalker = "Anakin Skywalker";
     String Anakins_Funeral_Pyre = "Endor: Anakin's Funeral Pyre";
     String Anakins_Lightsaber = "Anakin's Lightsaber";
@@ -422,6 +423,7 @@ public interface Title {
     String Falleens_Fist = "Falleen's Fist";
     String Fallen_Order = "Fallen Order";
     String Fallen_Portal = "Fallen Portal";
+    String Fear_Is_My_Ally = "Fear Is My Ally";
     String Fear_Will_Keep_Them_In_Line = "Fear Will Keep Them In Line";
     String Fearless_And_Inventive = "Fearless And Inventive";
     String Fel = "Baron Soontir Fel";

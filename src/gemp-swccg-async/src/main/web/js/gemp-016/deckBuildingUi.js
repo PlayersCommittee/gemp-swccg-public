@@ -732,7 +732,7 @@ var GempSwccgDeckBuildingUI = Class.extend({
                 alert("Deck was saved");
             }, {
                 "400":function () {
-                    alert("Invalid deck format.");
+                    alert("Invalid deck.  More defensive shields in outside of deck area than what starting effect allows.");
                 }
             });
     },
