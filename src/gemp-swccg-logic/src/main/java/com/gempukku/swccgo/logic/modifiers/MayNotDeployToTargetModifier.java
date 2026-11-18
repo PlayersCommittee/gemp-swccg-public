@@ -41,7 +41,9 @@ public class MayNotDeployToTargetModifier extends AbstractModifier {
      * @param targetFilter the filter for targets that affected cards may not deploy to
      */
     public MayNotDeployToTargetModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Filterable targetFilter) {
-        super(source, null, Filters.and(Filters.not(Filters.in_play), affectFilter), condition, ModifierType.MAY_NOT_DEPLOY_TO_TARGET, true);
+        // Include in-play cards so Effect relocate/transfer uses the same deploy-to-target restrictions
+        // as initial deploy (Appendix B / Surprise primary target must be a legal deploy target).
+        super(source, null, affectFilter, condition, ModifierType.MAY_NOT_DEPLOY_TO_TARGET, true);
         _targetFilter = Filters.and(targetFilter);
     }
 
