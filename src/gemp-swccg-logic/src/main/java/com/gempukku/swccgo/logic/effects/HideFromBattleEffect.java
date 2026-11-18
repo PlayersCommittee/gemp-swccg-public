@@ -36,7 +36,7 @@ public class HideFromBattleEffect extends AbstractSubActionEffect implements Pre
 
     @Override
     public boolean isPlayableInFull(SwccgGame game) {
-        return true;
+        return !game.getModifiersQuerying().mayNotHideFromBattle(game.getGameState());
     }
 
     @Override
@@ -56,6 +56,9 @@ public class HideFromBattleEffect extends AbstractSubActionEffect implements Pre
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
                         if (_cardToHide.equals(_preventedCard))
+                            return;
+
+                        if (game.getModifiersQuerying().mayNotHideFromBattle(gameState))
                             return;
 
                         BattleState battleState = gameState.getBattleState();

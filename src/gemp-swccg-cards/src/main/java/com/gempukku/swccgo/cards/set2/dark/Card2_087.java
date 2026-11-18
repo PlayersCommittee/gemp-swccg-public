@@ -51,6 +51,7 @@ public class Card2_087 extends AbstractAlien {
         if (GameConditions.isInBattle(game, self)
                 && GameConditions.isOncePerBattle(game, self, playerId, gameTextSourceCardId, gameTextActionId)
                 && GameConditions.isUnderNighttimeConditions(game, self)
+                && !GameConditions.mayNotHideFromBattle(game)
                 && GameConditions.canUseForce(game, playerId, 1)) {
 
             final TopLevelGameTextAction action = new TopLevelGameTextAction(self, gameTextSourceCardId, gameTextActionId);
