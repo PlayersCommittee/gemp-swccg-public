@@ -63,20 +63,19 @@ public class Card4_014 extends AbstractCharacterDevice {
                 )
         );
 
-        modifiers.add(
-                new ManeuverModifier(
+        ManeuverModifier matchingPilotManeuver = new ManeuverModifier(
                         //The pilot is marked as the source of the +2 maneuver so that it gets limited alongside any
                         // other maneuver bonus that they provide due to the "limit +2" clause.
                         self.getAttachedTo(),
                         Filters.hasPiloting(self, Filters.hasAttached(self)),
                         new OnTableCondition(self, AttachedPilotMatchesShip(self)),
                         2,
-                        //Although this is not a true cumulative modifier, because we are pretending that this is
-                        // "from" the pilot and not the flight suit, we do not want to run awry of the cumulative
-                        // rule stomping out one of the maneuver bonuses due to being "from" the same source.
-                        true
-                )
-        );
+                        false
+                );
+        // Distinct from the pilot's own printed maneuver bonus so both may apply, then the limit +2 caps them.
+        // Two copies of Rebel Flight Suit on two pilots of the same title still share this clause and do not stack.
+        matchingPilotManeuver.setClauseIdentity("REBEL_FLIGHT_SUIT_MATCHING_PILOT_MANEUVER");
+        modifiers.add(matchingPilotManeuver);
 
         modifiers.add(
                 new ManeuverLimitFromPilotModifier(

@@ -23,6 +23,9 @@ abstract class AddModifierWithDurationEffect extends AbstractSuccessfulEffect {
         super(action);
         _modifier = modifier;
         _actionMsg = actionMsg;
+        if (_modifier != null) {
+            _modifier.applyClauseIdentityFromAction(action);
+        }
     }
 
     protected String getMsgText(SwccgGame game) {
