@@ -54,8 +54,11 @@ public class OptionalGameTextTriggerAction extends AbstractGameTextAction implem
      */
     public OptionalGameTextTriggerAction(PhysicalCard physicalCard, String performingPlayer, int gameTextSourceCardId, GameTextActionId gameTextActionId) {
         super(physicalCard, performingPlayer, gameTextSourceCardId, gameTextActionId);
-        _triggerIdentifierUsingCardId = physicalCard.getCardId()+"|"+performingPlayer+"|"+gameTextSourceCardId+"|"+ gameTextActionId;
-        _triggerIdentifierUsingBlueprintId = physicalCard.getBlueprintId(true)+"|"+performingPlayer+"|"+gameTextSourceCardId+"|"+ gameTextActionId;
+        // Zone changes assign a new cardId; permanentCardId keeps "already responded" across taking a destiny into hand.
+        int stableCardId = physicalCard.getPermanentCardId();
+        int stableSourceId = (gameTextSourceCardId == physicalCard.getCardId()) ? stableCardId : gameTextSourceCardId;
+        _triggerIdentifierUsingCardId = stableCardId+"|"+performingPlayer+"|"+stableSourceId+"|"+ gameTextActionId;
+        _triggerIdentifierUsingBlueprintId = physicalCard.getBlueprintId(true)+"|"+performingPlayer+"|"+stableSourceId+"|"+ gameTextActionId;
         _text = "Optional response from " + GameUtils.getCardLink(physicalCard);
         _initiationMessage = performingPlayer + " initiates " + GameUtils.getCardLink(physicalCard) + " optional response";
     }
