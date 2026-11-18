@@ -962,7 +962,8 @@ public interface Deploy extends BaseQuery, Attributes, CardTraits, Destiny, Loca
     }
 
     default boolean mayDeployAsIfFromHand(GameState gameState, PhysicalCard card) {
-        if (card.getZone() != Zone.STACKED)
+        // Face-down stacks (e.g. Cyborg Construct) also deploy/play as if from hand when flagged
+        if (card.getZone() != Zone.STACKED && card.getZone() != Zone.STACKED_FACE_DOWN)
             return false;
 
         return (!getModifiersAffectingCard(gameState, ModifierType.MAY_DEPLOY_AS_IF_FROM_HAND, card).isEmpty());
