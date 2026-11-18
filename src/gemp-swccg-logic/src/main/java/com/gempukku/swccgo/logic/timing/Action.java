@@ -309,6 +309,14 @@ public interface Action extends Snapshotable<Action> {
     void appendTargeting(TargetingEffect cost);
 
     /**
+     * Appends a cost that runs before targeting. Used when a choice (for example Jodo/Sabine May) must apply
+     * before fire-weapon targeting computes the Use Force cost.
+     *
+     * @param cost the cost
+     */
+    void appendPreTargetingCost(StandardEffect cost);
+
+    /**
      * Appends the specified cost to the list of the costs. It will be executed after the other costs currently in
      * the queue, but before any added from appendCost().
      *
