@@ -81,7 +81,8 @@ public class Card224_001 extends AbstractNormalEffect {
     @Override
     protected List<OptionalGameTextTriggerAction> getGameTextOptionalAfterTriggers(final String playerId, SwccgGame game, EffectResult effectResult, final PhysicalCard self, int gameTextSourceCardId) {
         TargetingReason targetingReason = TargetingReason.TO_BE_CAPTURED;
-        Filter opponentsCharacterFilter = Filters.and(Filters.opponents(self), Filters.character, Filters.canBeTargetedBy(self, targetingReason),
+        Filter opponentsCharacterFilter = Filters.and(Filters.opponents(self), Filters.character, Filters.not(Filters.captive),
+                Filters.canBeTargetedBy(self, targetingReason),
                 Filters.at(Filters.wherePresent(self, Filters.and(Filters.your(self), Filters.bounty_hunter))));
 
         // Check condition(s)
