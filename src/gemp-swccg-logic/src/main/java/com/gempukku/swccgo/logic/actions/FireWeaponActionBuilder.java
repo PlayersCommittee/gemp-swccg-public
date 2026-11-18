@@ -20,6 +20,7 @@ import com.gempukku.swccgo.logic.conditions.FalseCondition;
 import com.gempukku.swccgo.logic.conditions.TrueCondition;
 import com.gempukku.swccgo.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.swccgo.logic.decisions.IntegerAwaitingDecision;
+import com.gempukku.swccgo.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfBattleModifierEffect;
 import com.gempukku.swccgo.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.swccgo.logic.effects.CancelGameTextEffect;
@@ -3735,9 +3736,58 @@ public class FireWeaponActionBuilder {
     private void chooseAmountOfForceToUseAndSetX(final FireSingleWeaponAction action, PhysicalCard cardTargeted) {
         int forceToUseMin = getUseForceCostRangeMin(cardTargeted);
         int getExtraForceCost = _game.getModifiersQuerying().getExtraForceRequiredToFireWeapon(_game.getGameState(), _weaponOrCardWithPermanentWeapon);
-        int forceToUseMax = Math.min(getUseForceCostRangeMax(cardTargeted), _game.getModifiersQuerying().getForceAvailableToUse(_game.getGameState(), _playerId)-getExtraForceCost);
+        int forceAvailable = _game.getModifiersQuerying().getForceAvailableToUse(_game.getGameState(), _playerId) - getExtraForceCost;
+        int forceToUseMax = Math.min(getUseForceCostRangeMax(cardTargeted), forceAvailable);
 
-        if (forceToUseMax > forceToUseMin) {
+        final int specialForceCost;
+        final String specialSource;
+        PhysicalCard weaponUser = action.getCardFiringWeapon();
+        if (weaponUser != null && _weaponOrCardWithPermanentWeapon != null
+                && Filters.Red_Squadron_4.accepts(_game, weaponUser)
+                && Filters.X_wing_Laser_Cannon.accepts(_game, _weaponOrCardWithPermanentWeapon)) {
+            specialForceCost = 2;
+            specialSource = "Red Squadron 4";
+        }
+        else if (weaponUser != null && _weaponOrCardWithPermanentWeapon != null
+                && Filters.Saber_1.accepts(_game, weaponUser)
+                && Filters.SFS_Lx93_Laser_Cannons.accepts(_game, _weaponOrCardWithPermanentWeapon)) {
+            specialForceCost = 1;
+            specialSource = "Saber 1";
+        }
+        else {
+            specialForceCost = 0;
+            specialSource = null;
+        }
+        final boolean canUseSpecial = specialSource != null && forceAvailable >= specialForceCost;
+
+        if (canUseSpecial) {
+            final List<String> choices = new ArrayList<String>();
+            for (int x = forceToUseMin; x <= forceToUseMax; x++) {
+                choices.add("X=" + x + " (use " + x + " Force)");
+            }
+            choices.add("X=3 using " + specialSource + " (use " + specialForceCost + " Force)");
+            action.appendCost(
+                    new PlayoutDecisionEffect(action, _playerId,
+                            new MultipleChoiceAwaitingDecision("Choose X for this firing", choices.toArray(new String[0])) {
+                                @Override
+                                protected void validDecisionMade(int index, String result) {
+                                    if (result.contains("using")) {
+                                        action.appendCost(
+                                                new UseForceEffect(action, _playerId, specialForceCost));
+                                        action.appendCost(
+                                                new SetInitialWeaponFiringCalculationVariableEffect(action, _weaponOrCardWithPermanentWeapon, 3));
+                                    }
+                                    else {
+                                        int x = Integer.parseInt(result.substring(2, result.indexOf(' ')));
+                                        action.appendCost(
+                                                new UseForceEffect(action, _playerId, x));
+                                        action.appendCost(
+                                                new SetInitialWeaponFiringCalculationVariableEffect(action, _weaponOrCardWithPermanentWeapon, x));
+                                    }
+                                }
+                            }));
+        }
+        else if (forceToUseMax > forceToUseMin) {
             action.appendCost(
                     new PlayoutDecisionEffect(action, _playerId,
                             new IntegerAwaitingDecision("Choose number for X and Force to use", forceToUseMin, forceToUseMax, forceToUseMin) {
