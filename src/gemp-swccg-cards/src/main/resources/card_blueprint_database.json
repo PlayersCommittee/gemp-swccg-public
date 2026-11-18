@@ -127336,6 +127336,46 @@
     ]
   },
   {
+    "cardId": "8_18",
+    "title": "Lieutenant Greeve",
+    "slug": "lieutenant-greeve",
+    "slugWithSetName": "lieutenant-greeve-endor",
+    "side": "LIGHT",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "ENDOR",
+    "rarity": "R",
+    "cardCategory": "CHARACTER",
+    "cardTypes": [
+      "REBEL"
+    ],
+    "lore": "Scout. Famous guide who was recruited for Madine's commando unit from the forests of Kashyyyk. Sharpshooter who uses one of the BlasTech rifles brought by Corporal Janse.",
+    "gameText": "Adds 1 to each of his character weapon destiny draws (characters he 'hits' are forfeit -3). When firing an A280 Sharpshooter Rifle, may fire repeatedly at same target for 2 Force each time.",
+    "deployCost": 2,
+    "destiny": 3,
+    "power": 3,
+    "ability": 2,
+    "forfeit": 4,
+    "landspeed": 1,
+    "politics": 0,
+    "icons": [
+      {
+        "icon": "ENDOR",
+        "count": 1
+      },
+      {
+        "icon": "REBEL",
+        "count": 1
+      },
+      {
+        "icon": "WARRIOR",
+        "count": 1
+      }
+    ],
+    "keywords": [
+      "SCOUT"
+    ]
+  },
+  {
     "cardId": "8_19",
     "title": "Lieutenant Page",
     "slug": "lieutenant-page",

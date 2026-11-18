@@ -1989,8 +1989,9 @@ public abstract class AbstractDeployable extends AbstractNonLocationPlaysToTable
             if (modifiersQuerying.mayNotBeFired(gameState, permWeapon))
                 return false;
 
-            // Check if weapon is allowed to fire repeatedly
-            if (repeatedFiring && !modifiersQuerying.mayFireWeaponRepeatedly(gameState, self))
+            // Check if weapon is allowed to fire repeatedly (any target or same-target-only)
+            if (repeatedFiring && !modifiersQuerying.mayFireWeaponRepeatedly(gameState, self)
+                    && !modifiersQuerying.mayFireWeaponRepeatedlyAtSameTarget(gameState, self))
                 return false;
 
             // Check that weapon is present at the location
