@@ -11,7 +11,7 @@ import com.gempukku.swccgo.common.Uniqueness;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
-import com.gempukku.swccgo.logic.modifiers.DeploysFreeModifier;
+import com.gempukku.swccgo.logic.modifiers.MayDeployFreeModifier;
 import com.gempukku.swccgo.logic.modifiers.EachTrainingDestinyModifier;
 import com.gempukku.swccgo.logic.modifiers.Modifier;
 import com.gempukku.swccgo.logic.modifiers.PlaceInUsedPileWhenCanceledModifier;
@@ -40,7 +40,7 @@ public class Card7_081 extends AbstractNormalEffect {
 
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new EachTrainingDestinyModifier(self, Filters.your(self), 1));
-        modifiers.add(new DeploysFreeModifier(self, Filters.and(Filters.your(self), Filters.Immediate_Effect)));
+        modifiers.add(new MayDeployFreeModifier(self, Filters.and(Filters.your(self), Filters.Immediate_Effect)));
         modifiers.add(new PlaceInUsedPileWhenCanceledModifier(self, Filters.your(self), opponent, Filters.or(Filters.Sense, Filters.Alter)));
         return modifiers;
     }
