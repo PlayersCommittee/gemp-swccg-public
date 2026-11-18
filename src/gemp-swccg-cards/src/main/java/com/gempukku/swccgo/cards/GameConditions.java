@@ -31,6 +31,7 @@ import com.gempukku.swccgo.common.Zone;
 import com.gempukku.swccgo.filters.Filter;
 import com.gempukku.swccgo.filters.Filters;
 import com.gempukku.swccgo.game.PhysicalCard;
+import com.gempukku.swccgo.game.Player;
 import com.gempukku.swccgo.game.PlayCardOption;
 import com.gempukku.swccgo.game.SwccgBuiltInCardBlueprint;
 import com.gempukku.swccgo.game.SwccgGame;
@@ -5634,7 +5635,7 @@ public class GameConditions {
         return self.getZone() == Zone.TOP_OF_RESERVE_DECK && self.getZoneOwner().equals(playerId)
                 && hasReserveDeck(game, playerId)
                 && game.getFormat().isPlaytesting()
-                && !playerId.startsWith("~"); // Only bots can start with ~ and they shouldn't use this action.
+                && !Player.isBot(playerId); // Bots may not use this action.
     }
 
     /**
