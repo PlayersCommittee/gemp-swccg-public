@@ -24,6 +24,7 @@ public enum GameTextActionId {
     OTHER_CARD_ACTION_REACT_MOVE_OTHER_CARDS,
     // Used for card action that causes other cards to move away as a 'react'
     OTHER_CARD_ACTION_REACT_MOVE_AWAY_OTHER_CARDS,
+    OTHER_CARD_ACTION_REACT_MOVE_AWAY_FROM_ATTACK_OTHER_CARDS,
 
     // Search card pile
     _4_LOM__SEARCH_USED_PILE(true),

@@ -1217,6 +1217,27 @@ public abstract class AbstractNonLocationPlaysToTable extends AbstractSwccgCardB
         } 
         // End of checking for 'react' actions
 
+        // FLAG(Chief): creature-attack react window for R2 Sensor Array (3_31) � parallel to battle/Force drain reacts
+        if (TriggerConditions.attackInitiatedByCreature(game, effectResult)) {
+            if (self.getZone().isInPlay()) {
+                boolean inPlayActiveForAttackReact = game.getGameState().isCardInPlayActive(self, false, true, false, false, false, false, false, false);
+                if (!game.getModifiersQuerying().isGameTextCanceled(game.getGameState(), self)) {
+                    if (inPlayActiveForAttackReact) {
+                        if (self.getBlueprint().getCardCategory() != CardCategory.DEVICE
+                                || !game.getModifiersQuerying().mayNotBeUsed(game.getGameState(), self)
+                                || self.getAttachedTo() == null
+                                || Filters.canUseDevice(self).accepts(game, self.getOwner().equals(self.getAttachedTo().getOwner()) ? self.getAttachedTo() : self)) {
+                            TriggerAction moveOtherCardsAsReactFromAttackAction = getMoveOtherCardsAsReactFromAttackAction(playerId, game, self);
+                            if (moveOtherCardsAsReactFromAttackAction != null) {
+                                actions.add(moveOtherCardsAsReactFromAttackAction);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // End of checking for creature-attack react actions
+
         return actions;
     }
 
