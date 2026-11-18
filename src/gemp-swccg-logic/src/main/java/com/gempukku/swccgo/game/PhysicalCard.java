@@ -320,6 +320,8 @@ public interface PhysicalCard extends Filterable, Snapshotable<PhysicalCard> {
 
     void setInserted(boolean inserted);
     boolean isInserted();
+    void setFaceUpInReserveDeck(boolean faceUpInReserveDeck);
+    boolean isFaceUpInReserveDeck();
     void setInsertCardRevealed(boolean revealed);
     boolean isInsertCardRevealed();
 

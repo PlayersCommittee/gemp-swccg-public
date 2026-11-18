@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.logic.timing.rules;
 
+import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.game.AbstractActionProxy;
 import com.gempukku.swccgo.game.ActionsEnvironment;
 import com.gempukku.swccgo.game.PhysicalCard;
@@ -39,7 +40,12 @@ public class InsertCardRevealedRule implements Rule {
 
                         List<PhysicalCard> topCards = game.getGameState().getTopCardsOfPiles();
                         for (PhysicalCard topCard : topCards) {
-                            if (topCard.isInserted() && !topCard.isInsertCardRevealed()) {
+                            boolean faceUpNeedsInsertReveal = false;
+                            if (topCard.isFaceUpInReserveDeck()
+                                    && topCard.getBlueprint().getCardCategory() == CardCategory.EFFECT) {
+                                faceUpNeedsInsertReveal = topCard.getBlueprint().getInsertCardRevealedAction(game, topCard) != null;
+                            }
+                            if ((topCard.isInserted() || faceUpNeedsInsertReveal) && !topCard.isInsertCardRevealed()) {
 
                                 RequiredRuleTriggerAction action = new RequiredRuleTriggerAction(_that, topCard);
                                 action.setText("Reveal " + GameUtils.getCardLink(topCard));

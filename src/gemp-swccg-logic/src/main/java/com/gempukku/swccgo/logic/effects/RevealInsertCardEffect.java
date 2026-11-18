@@ -1,5 +1,6 @@
 package com.gempukku.swccgo.logic.effects;
 
+import com.gempukku.swccgo.common.CardCategory;
 import com.gempukku.swccgo.game.PhysicalCard;
 import com.gempukku.swccgo.game.SwccgGame;
 import com.gempukku.swccgo.logic.GameUtils;
@@ -39,7 +40,12 @@ public class RevealInsertCardEffect extends AbstractSubActionEffect {
                 new PassthruEffect(subAction) {
                     @Override
                     protected void doPlayEffect(SwccgGame game) {
-                        if (_card.isInserted() && !_card.isInsertCardRevealed()) {
+                        boolean faceUpNeedsInsertReveal = false;
+                        if (_card.isFaceUpInReserveDeck()
+                                && _card.getBlueprint().getCardCategory() == CardCategory.EFFECT) {
+                            faceUpNeedsInsertReveal = _card.getBlueprint().getInsertCardRevealedAction(game, _card) != null;
+                        }
+                        if ((_card.isInserted() || faceUpNeedsInsertReveal) && !_card.isInsertCardRevealed()) {
                             _card.setInsertCardRevealed(true);
                             game.getGameState().sendMessage("'Insert' card " + GameUtils.getCardLink(_card) + " is revealed");
                             game.getGameState().activatedCard(null, _card);

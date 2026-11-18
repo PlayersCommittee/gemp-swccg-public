@@ -50852,6 +50852,34 @@
     ]
   },
   {
+    "cardId": "4_64",
+    "title": "Through The Force Things You Will See",
+    "slug": "through-the-force-things-you-will-see",
+    "slugWithSetName": "through-the-force-things-you-will-see-dagobah",
+    "side": "LIGHT",
+    "uniqueness": "UNRESTRICTED",
+    "expansionSet": "DAGOBAH",
+    "rarity": "R",
+    "cardCategory": "INTERRUPT",
+    "cardTypes": [
+      "INTERRUPT"
+    ],
+    "cardSubtype": "LOST",
+    "lore": "One training exercise for a Jedi's apprentice is to invert one's view to see things from a different perspective. 'The future, the past. Old friends long gone.'",
+    "gameText": "At the end of any player's draw phase, cause that player to place Used Pile face up on top of Reserve Deck. Shuffle, cut, and replace. When face-up cards are removed from Reserve Deck, they are treated as normal (no longer remain face up).",
+    "destiny": 3,
+    "icons": [
+      {
+        "icon": "DAGOBAH",
+        "count": 1
+      },
+      {
+        "icon": "INTERRUPT",
+        "count": 1
+      }
+    ]
+  },
+  {
     "cardId": "4_66",
     "title": "Transmission Terminated",
     "slug": "transmission-terminated",
@@ -51941,6 +51969,36 @@
     ],
     "keywords": [
       "DEPLOYS_ON_CHARACTERS"
+    ]
+  },
+  {
+    "cardId": "5_15",
+    "title": "Access Denied",
+    "slug": "access-denied",
+    "slugWithSetName": "access-denied-cloud-city",
+    "side": "LIGHT",
+    "uniqueness": "UNRESTRICTED",
+    "expansionSet": "CLOUD_CITY",
+    "rarity": "C",
+    "cardCategory": "EFFECT",
+    "cardTypes": [
+      "EFFECT"
+    ],
+    "lore": "The doors on Cloud City use a special computer controlled locking system, making them difficult to bypass without altering the security codes.",
+    "gameText": "Insert face up in your Reserve Deck. When Effect reaches top it is lost, along with all opponent's 'insert' cards there. Reshuffle. (Immune to Alter.) OR Deploy between two mobile sites. Opponent's characters may pass only if aboard a Lift Tube or opponent uses +1 Force each.",
+    "destiny": 4,
+    "icons": [
+      {
+        "icon": "CLOUD_CITY",
+        "count": 1
+      },
+      {
+        "icon": "EFFECT",
+        "count": 1
+      }
+    ],
+    "keywords": [
+      "DEPLOYS_ON_SITE"
     ]
   },
   {
