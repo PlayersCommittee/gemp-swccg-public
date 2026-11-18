@@ -53479,6 +53479,34 @@
     ]
   },
   {
+    "cardId": "5_67",
+    "title": "Rescue In The Clouds",
+    "slug": "rescue-in-the-clouds",
+    "slugWithSetName": "rescue-in-the-clouds-cloud-city",
+    "side": "LIGHT",
+    "uniqueness": "UNIQUE",
+    "expansionSet": "CLOUD_CITY",
+    "rarity": "C",
+    "cardCategory": "INTERRUPT",
+    "cardTypes": [
+      "INTERRUPT"
+    ],
+    "cardSubtype": "USED_OR_LOST",
+    "lore": "'I know where Luke is.'",
+    "gameText": "USED: If you have a character on Weather Vane, place that character on your Used Pile. LOST: Deploy one or more vehicles, starfighters and pilots (at normal use of the Force) as a 'react' to a cloud sector.",
+    "destiny": 5,
+    "icons": [
+      {
+        "icon": "CLOUD_CITY",
+        "count": 1
+      },
+      {
+        "icon": "INTERRUPT",
+        "count": 1
+      }
+    ]
+  },
+  {
     "cardId": "5_68",
     "title": "Shocking Information",
     "slug": "shocking-information",

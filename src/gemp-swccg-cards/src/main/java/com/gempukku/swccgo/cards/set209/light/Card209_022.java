@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card209_022 extends AbstractUsedOrLostInterrupt {
     public Card209_022() {
-        super(Side.LIGHT, 5, "Rescue In The Clouds", Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
+        super(Side.LIGHT, 5, Title.Rescue_In_The_Clouds, Uniqueness.UNIQUE, ExpansionSet.SET_9, Rarity.V);
         setVirtualSuffix(true);
         setLore("'I know where Luke is.'");
         setGameText("USED: At a system or Bespin location, choose: Cancel a just drawn destiny targeting the ability or defense value of your non-Undercover character of ability < 5. OR During battle, draw one battle destiny if unable to otherwise. LOST: Cancel Close Call.");
